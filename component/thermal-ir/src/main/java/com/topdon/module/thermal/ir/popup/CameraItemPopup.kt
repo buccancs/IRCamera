@@ -18,7 +18,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
 /**
- * [CN_TEXT] Photo/Video Menu.
+ * data Photo/Video Menu.
  *
  * Created by LCG on 2025/1/3.
  */
@@ -26,7 +26,7 @@ import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]SelectedState
+     * dataSelectedState
      */
     var isShutterSelect: Boolean
         get() = binding.ivShutter.isSelected
@@ -34,7 +34,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
             binding.ivShutter.isSelected = value
         }
     /**
-     * [CN_TEXT]SelectedState
+     * dataSelectedState
      */
     var isAudioSelect: Boolean
         get() = binding.ivAudio.isSelected
@@ -45,19 +45,19 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
 
 
     /**
-     * [CN_TEXT]，[CN_TEXT]
+     * data，data
      */
     var onDelayClickListener: (() -> Boolean)? = null
     /**
-     * [CN_TEXT].
+     * data.
      */
     var onAutoCLickListener: ((isOpen: Boolean) -> Unit)? = null
     /**
-     * [CN_TEXT].
+     * data.
      */
     var onShutterClickListener: (() -> Unit)? = null
     /**
-     * [CN_TEXT].
+     * data.
      */
     var onAudioCLickListener: (() -> Unit)? = null
 
@@ -104,7 +104,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                 }
                 binding.ivDelay.setImageLevel(saveSetBean.delayCaptureSecond)
             }
-            binding.clAuto -> {//[CN_TEXT]
+            binding.clAuto -> {// Implementation
                 saveSetBean.isAutoShutter = !saveSetBean.isAutoShutter
                 binding.ivAuto.isSelected = saveSetBean.isAutoShutter
                 if (SharedManager.isTipShutter && !saveSetBean.isAutoShutter) {

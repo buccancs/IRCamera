@@ -36,11 +36,11 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * [CN_TEXT]
+ * fragment
  */
 class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
-    /** [CN_TEXT]Mode：[CN_TEXT]+[CN_TEXT] */
+    /** fragmentMode：fragment+fragment */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
@@ -52,7 +52,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     override fun initContentView() = R.layout.fragment_ir_monitor_thermal
 
-    private var rotateAngle = 270 //[CN_TEXT]Angle270
+    private var rotateAngle = 270 // Fragment logicAngle270
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -91,7 +91,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -115,17 +115,17 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
         setViewLay()
-        // [CN_TEXT]sensor
+        // fragmentsensor
         if (Usbcontorl.isload) {
-            Usbcontorl.usb3803_mode_setting(1) //[CN_TEXT]5V
-            Log.w("123", "[CN_TEXT]5V")
+            Usbcontorl.usb3803_mode_setting(1) // Fragment logic5V
+            Log.w("123", "fragment5V")
         }
         temperatureView.clear()
         temperatureView.temperatureRegionMode = REGION_MODE_CLEAN
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun startISP() {
 
@@ -140,7 +140,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
             imageThread!!.setRotate(true)
             imageThread!!.start()
         }catch (e : Exception){
-            Log.e("[CN_TEXT]",e.message.toString())
+            Log.e("fragment",e.message.toString())
         }
     }
 
@@ -161,7 +161,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                             "ConnectCallback->onIRCMDCreate"
                         )
                         this@IRCorrectionFragment.ircmd = ircmd
-                        // [CN_TEXT]IRCMD[CN_TEXT]
+                        // fragmentIRCMDfragment
 //                        ircmd.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                            PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
                     }
@@ -201,7 +201,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         super.onStart()
         Log.w(TAG, "onStart")
         if (!isrun) {
-            //[CN_TEXT],Pseudo-colorIron red
+            // Fragment logic,Pseudo-colorIron red
             temperatureView.postDelayed({
                 pseudocolorMode = 3
                 startUSB(false)
@@ -209,7 +209,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 temperatureView.start()
                 cameraView?.start()
                 isrun = true
-                //[CN_TEXT]
+                // Fragment logic
                 configParam()
             },1500)
         }
@@ -259,7 +259,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 params.height = params.width * imageHeight / imageWidth
                 thermalLay.layoutParams = params
             } else {
-                // [CN_TEXT]
+                // fragment
                 val params = thermalLay.layoutParams
                 params.height = thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
@@ -272,11 +272,11 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 showLoadingDialog()
             }
             101 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 lifecycleScope.launch {
                     delay(500)
                     isConfigWait = false
@@ -289,7 +289,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     private var isConfigWait = true
 
-    //[CN_TEXT]
+    // Fragment logic
     private fun configParam() {
         lifecycleScope.launch {
             isConfigWait = true
@@ -297,23 +297,23 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 delay(100)
             }
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() //[CN_TEXT]([CN_TEXT])
-            val emsChar = (config.radiation * 128).toInt() //[CN_TEXT]
+            val disChar = (config.distance * 128).toInt() // Fragment logic(fragment)
+            val emsChar = (config.radiation * 128).toInt() // Fragment logic
             XLog.w("SettingsTPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             val timeMillis = 250L
             delay(timeMillis)
-            //[CN_TEXT]
+            // Fragment logic
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString())
             )
             delay(timeMillis)
-            //[CN_TEXT]
+            // Fragment logic
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString())
             )
-            // [CN_TEXT]
+            // fragment
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -335,7 +335,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 CommonParams.ZoomScaleStep.ZOOM_STEP2
             )
             iruvc?.let {
-                // [CN_TEXT]，[CN_TEXT]
+                // fragment，fragment
                 withContext(Dispatchers.IO){
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd?.setPropAutoShutterParameter(
@@ -350,7 +350,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                     }
                 }
             }
-            //[CN_TEXT]、[CN_TEXT]
+            // Fragment logic、fragment
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -372,47 +372,47 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     suspend fun autoStart() {
         withContext(Dispatchers.IO){
-            //            ToastUtils.showShort("[CN_TEXT]")
-            // [CN_TEXT]
-            // 1 [CN_TEXT]
-            // 2 [CN_TEXT]
+            //            ToastUtils.showShort("fragment")
+            // fragment
+            // 1 fragment
+            // 2 fragment
             CalibrationTools.autoShutter(irCmd = ircmd, false)
-            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
+            XLog.w("fragment："+"fragment")
             // Normal temperature
-            // 3 [CN_TEXT]
+            // 3 fragment
 //            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
-//            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
-            // 4 [CN_TEXT]
+//            XLog.w("fragment："+"fragment")
+            // 4 fragment
             delay(2000)
-            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
+            XLog.w("fragment："+"fragment")
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
-            // 5 [CN_TEXT]
+            // 5 fragment
             CalibrationTools.pot(irCmd = ircmd!!, 1)
-            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
-            // 6 [CN_TEXT]
+            XLog.w("fragment："+"fragment")
+            // 6 fragment
             delay(5000)
-            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
+            XLog.w("fragment："+"fragment")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             delay(20000)
-            XLog.w("[CN_TEXT]："+"20000")
+            XLog.w("fragment："+"20000")
             // High temperature
-            // 11 [CN_TEXT]
+            // 11 fragment
 //            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
-//            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
-            // 12 [CN_TEXT]
+//            XLog.w("fragment："+"fragment")
+            // 12 fragment
             delay(2000)
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
-            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
-            // 13 [CN_TEXT]
+            XLog.w("fragment："+"fragment")
+            // 13 fragment
             CalibrationTools.pot(irCmd = ircmd!!, 1)
-            // 14 [CN_TEXT]
+            // 14 fragment
             delay(5000)
-            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
+            XLog.w("fragment："+"fragment")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
-            // 17 [CN_TEXT]
+            // 17 fragment
             CalibrationTools.autoShutter(irCmd = ircmd, true)
-            // [CN_TEXT]
-            XLog.w("[CN_TEXT]："+"[CN_TEXT]")
+            // fragment
+            XLog.w("fragment："+"fragment")
         }
     }
 

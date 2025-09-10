@@ -27,10 +27,10 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 /**
- * [CN_TEXT].
+ * activity.
  *
- * [CN_TEXT]
- * - [CN_TEXT]All[CN_TEXT] [ExtraKeyConfig.REPORT_BEAN]
+ * activity
+ * - activityAllactivity [ExtraKeyConfig.REPORT_BEAN]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportDetailActivity: BaseActivity() {
@@ -43,12 +43,12 @@ class ReportDetailActivity: BaseActivity() {
     private lateinit var watermarkView: WatermarkView
 
     /**
-     * [CN_TEXT]，[CN_TEXT]All[CN_TEXT].
+     * activity，activityAllactivity.
      */
     private var reportBean: ReportBean? = null
 
     /**
-     * Current[CN_TEXT] PDF [CN_TEXT]
+     * Currentactivity PDF activity
      */
     private var pdfFilePath: String? = null
 
@@ -136,8 +136,8 @@ class ReportDetailActivity: BaseActivity() {
     }
 
     /**
-     * [CN_TEXT] PDF [CN_TEXT]All View [CN_TEXT].
-     * Note：[CN_TEXT] View [CN_TEXT]，[CN_TEXT].
+     * activity PDF activityAll View activity.
+     * Note：activity View activity，activity.
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()

@@ -13,19 +13,19 @@ object WriteTools {
 
     fun delete(file: File): Int {
         val uri: Uri = FileTools.getUri(file)
-        XLog.w("Delete[CN_TEXT] uri:${uri}")
+        XLog.w("Deleteutility uri:${uri}")
         val mediaId = queryId(uri)// MediaStore.Audio.Media._ID of item to update.
         val resolver = Utils.getApp().applicationContext.contentResolver
         val selection = "${MediaStore.Images.Media._ID} = ?"
         // By using selection + args we protect against improper escaping of // values.
         val selectionArgs = arrayOf(mediaId.toString())
         val result = resolver.delete(uri, selection, selectionArgs)
-        XLog.w("Delete[CN_TEXT]: $result")
+        XLog.w("Deleteutility: $result")
         return result
     }
 
     /**
-     * [CN_TEXT]MediaStore.Images.Media._ID
+     * utilityMediaStore.Images.Media._ID
      */
     private fun queryId(uri: Uri): Long {
         val fileName = uri.path!!.substring(uri.path!!.lastIndexOf("/") + 1)
@@ -47,7 +47,7 @@ object WriteTools {
                 }
             }
         } catch (e: Exception) {
-            XLog.e("[CN_TEXT]: ${e.message}")
+            XLog.e("utility: ${e.message}")
         } finally {
             cursor?.close()
         }

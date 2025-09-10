@@ -26,7 +26,7 @@ import com.topdon.lms.sdk.utils.LanguageUtil
 import java.util.Date
 
 /**
- * [CN_TEXT]
+ * utility
  */
 object InitUtil {
     fun initLog() {
@@ -34,8 +34,8 @@ object InitUtil {
         val fileDir = BaseApplication.instance.getExternalFilesDir("log")!!.absolutePath
         val tag = "MPDC4GSR_LOG"
         val pattern = "{d}, {L}, {t}, {m}"
-        val backupStrategy = FileSizeBackupStrategy2(5 * 1024 * 1024L, 10) // [CN_TEXT]
-        val cleanStrategy = FileLastModifiedCleanStrategy(30 * 24 * 60 * 60) // Settings[CN_TEXT]Clear[CN_TEXT]
+        val backupStrategy = FileSizeBackupStrategy2(5 * 1024 * 1024L, 10) // utility
+        val cleanStrategy = FileLastModifiedCleanStrategy(30 * 24 * 60 * 60) // SettingsutilityClearutility
 
         val config =
             LogConfiguration.Builder()
@@ -44,27 +44,27 @@ object InitUtil {
                 .build()
         val androidPrinter = AndroidPrinter(true)
         val filePrinter =
-            FilePrinter.Builder(fileDir) // Specified[CN_TEXT]
-                .fileNameGenerator(ChangelessFileNameGenerator(fileName)) // Specified[CN_TEXT]
-                .backupStrategy(backupStrategy) // Specified[CN_TEXT]
-                .cleanStrategy(cleanStrategy) // Specified[CN_TEXT]Clear[CN_TEXT]
-                .flattener(PatternFlattener(pattern)) // [CN_TEXT]
+            FilePrinter.Builder(fileDir) // Specifiedutility
+                .fileNameGenerator(ChangelessFileNameGenerator(fileName)) // Specifiedutility
+                .backupStrategy(backupStrategy) // Specifiedutility
+                .cleanStrategy(cleanStrategy) // SpecifiedutilityClearutility
+                .flattener(PatternFlattener(pattern)) // utility
                 .build()
         if (BuildConfig.DEBUG) {
             XLog.init(config, androidPrinter, filePrinter)
         } else {
-            // release[CN_TEXT]logcat
+            // releaseutilitylogcat
             XLog.init(config, filePrinter)
         }
     }
 
     fun initLms() {
-        // [CN_TEXT]
+        // utility
         val privacyPolicyUrl =
             "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
                 "language=${LanguageUtil.getLanguageId(Utils.getApp())}&type=22"
-        // [CN_TEXT]
+        // utility
         val servicesAgreementUrl =
             "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
@@ -81,10 +81,10 @@ object InitUtil {
                 if (!BaseApplication.instance.isDomestic()) {
                     initXutils()
                 } else {
-                    // [CN_TEXT]
+                    // utility
                     setWxAppId("wx588cb319449b72dd")
                     setBuglyAppId("0b375add84")
-                    // [CN_TEXT]
+                    // utility
 //                    setUMengAppKey("65780ed9a7208a5af184643c", channel, "")
                 }
                 setAppKey(BuildConfig.APP_KEY)
@@ -95,11 +95,11 @@ object InitUtil {
 
     fun initUM() {
 //        if (BaseApplication.instance.isDomestic()){
-        // [CN_TEXT]
+        // utility
 //            UMConfigure.setLogEnabled(BuildConfig.DEBUG)
-//            //[CN_TEXT]
+//            // Utility function
 //            UMConfigure.preInit(BaseApplication.instance, "659384b895b14f599d0d9247", "Um-eng")
-//            //[CN_TEXT]，uminit[CN_TEXT]1[CN_TEXT]，[CN_TEXT]umsdk
+//            // Utility function，uminitutility1utility，utilityumsdk
 //            UMConfigure.init(
 //                BaseApplication.instance,
 //                "659384b895b14f599d0d9247",
@@ -114,7 +114,7 @@ object InitUtil {
     fun initJPush() {
         var registrationID = ""
 //        if (BaseApplication.instance.isDomestic()){
-//            //[CN_TEXT]
+//            // Utility function
 //            JPushInterface.setDebugMode(BuildConfig.DEBUG)
 //            JPushInterface.init(BaseApplication.instance)
 //            registrationID = JPushInterface.getRegistrationID(BaseApplication.instance)
@@ -129,13 +129,13 @@ object InitUtil {
             BaseApplication.instance.unregisterReceiver(BaseApplication.usbObserver)
         } catch (e: Exception) {
         }
-        // [CN_TEXT],[CN_TEXT]usbState
+        // utility,utilityusbState
         val filter = IntentFilter()
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED)
-        filter.addAction(DeviceBroadcastReceiver.ACTION_USB_PERMISSION) // [CN_TEXT]USB[CN_TEXT]
+        filter.addAction(DeviceBroadcastReceiver.ACTION_USB_PERMISSION) // utilityUSButility
         if (Build.VERSION.SDK_INT < 33) {
             BaseApplication.instance.registerReceiver(BaseApplication.usbObserver, filter)
         } else {

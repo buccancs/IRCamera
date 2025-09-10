@@ -15,8 +15,8 @@ class FenceView : View {
     var listener: CallBack? = null
 
     private val mPaint by lazy { Paint() }
-    private val rect: Rect = Rect(0, 0, 0, 0) // [CN_TEXT]
-    private val strokeWidth by lazy { SizeUtils.dp2px(2f).toFloat() } // [CN_TEXT]
+    private val rect: Rect = Rect(0, 0, 0, 0) // view
+    private val strokeWidth by lazy { SizeUtils.dp2px(2f).toFloat() } // view
 
     constructor (context: Context) : super(context)
 
@@ -38,10 +38,10 @@ class FenceView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-//        //Settings[CN_TEXT]
+//        //Settingsview
 //        canvas.drawARGB(50, 255, 227, 0)
 //        mPaint.color = Color.GREEN
-//        // [CN_TEXT]
+//        // view
 //        canvas.drawRect(100f, 200f, 400f, 200f + 400, mPaint)
 //        mPaint.color = Color.RED
         canvas.drawRect(rect, mPaint)
@@ -120,7 +120,7 @@ class FenceView : View {
     private fun result() {
         val point1 = intArrayOf(startPoint[0], startPoint[1])
         val point2 = intArrayOf(endPoint[0], endPoint[1])
-        // [CN_TEXT]
+        // view
         for (i in 0..1) {
             if (startPoint[i] > endPoint[i]) {
                 point1[i] = endPoint[i]
@@ -129,9 +129,9 @@ class FenceView : View {
         }
         Log.i(
             "123",
-            "[CN_TEXT] start:${startPoint.contentToString()}, end:${endPoint.contentToString()}",
+            "view start:${startPoint.contentToString()}, end:${endPoint.contentToString()}",
         )
-        Log.w("123", "[CN_TEXT] start:${point1.contentToString()}, end:${point2.contentToString()}")
+        Log.w("123", "view start:${point1.contentToString()}, end:${point2.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, point2, intArrayOf(width, height))
         }
@@ -150,8 +150,8 @@ class FenceView : View {
 
     interface CallBack {
         /**
-         * startPoint: [CN_TEXT]
-         * endPoint: [CN_TEXT]
+         * startPoint: view
+         * endPoint: view
          */
         fun callback(
             startPoint: IntArray,

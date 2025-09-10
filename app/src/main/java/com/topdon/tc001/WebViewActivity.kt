@@ -13,10 +13,10 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseBindingActivity
 
 /**
- * [CN_TEXT] WebView [CN_TEXT] Activity.
+ * activity WebView activity Activity.
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.URL] [CN_TEXT]
+ * activity：
+ * - [ExtraKeyConfig.URL] activity
  *
  * Created by LCG on 2024/12/18.
  */
@@ -44,9 +44,9 @@ class WebViewActivity : BaseBindingActivity<ActivityWebViewBinding>() {
         }
 
         val webSettings: WebSettings = binding.webView.settings
-        webSettings.setSupportZoom(false) // Settings[CN_TEXT]
+        webSettings.setSupportZoom(false) // Settingsactivity
         webSettings.useWideViewPort = true
-        webSettings.javaScriptCanOpenWindowsAutomatically = true // [CN_TEXT]js[CN_TEXT]
+        webSettings.javaScriptCanOpenWindowsAutomatically = true // activityjsactivity
         webSettings.defaultTextEncodingName = "UTF-8"
         webSettings.javaScriptEnabled = true
         webSettings.allowFileAccess = true

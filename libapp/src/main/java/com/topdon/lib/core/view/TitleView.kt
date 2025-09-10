@@ -16,64 +16,64 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.R
 
 /**
- * [CN_TEXT] View.
+ * view View.
  *
- * [CN_TEXT]：
- * - [CN_TEXT] View [tvLeft]，[CN_TEXT]
- * - [CN_TEXT] View 1 [tvRight1]
- * - [CN_TEXT] View 2 [tvRight2]，[CN_TEXT]
- * - [CN_TEXT] View 3 [tvRight3]，[CN_TEXT]
- * - [CN_TEXT] [tvTitle]，[CN_TEXT]，[CN_TEXT]
+ * view：
+ * - view View [tvLeft]，view
+ * - view View 1 [tvRight1]
+ * - view View 2 [tvRight2]，view
+ * - view View 3 [tvRight3]，view
+ * - view [tvTitle]，view，view
  *
- * [CN_TEXT] 16sp， #ffffff，[CN_TEXT] padding 0dp，[CN_TEXT] padding 12dp；
- * [CN_TEXT] 24dp，[CN_TEXT]；
+ * view 16sp， #ffffff，view padding 0dp，view padding 12dp；
+ * view 24dp，view；
  *
- * [CN_TEXT] ?attr/actionBarSize.
+ * view ?attr/actionBarSize.
  *
  * Created by LCG on 2023/10/19.
  */
 open class TitleView : ViewGroup {
     companion object {
         /**
-         * [CN_TEXT]，[CN_TEXT] 48dp，Current View [CN_TEXT] 48dp.
+         * view，view 48dp，Current View view 48dp.
          */
         private const val ICON_SIZE = 48f
     }
 
     /**
-     * [CN_TEXT].
+     * view.
      *
-     * true-[CN_TEXT] false-[CN_TEXT]
+     * true-view false-view
      */
     private val isTitleCenter: Boolean
 
     /**
-     * Current[CN_TEXT] actionBarSize，[CN_TEXT] measure [CN_TEXT].
+     * Currentview actionBarSize，view measure view.
      */
     private val actionBarSize: Int
 
     /**
-     * [CN_TEXT] View.
+     * view View.
      */
     protected var tvLeft: MyTextView? = null
 
     /**
-     * [CN_TEXT] View 1.
+     * view View 1.
      */
     protected var tvRight1: MyTextView? = null
 
     /**
-     * [CN_TEXT] View 2.
+     * view View 2.
      */
     protected var tvRight2: MyTextView? = null
 
     /**
-     * [CN_TEXT] View 3.
+     * view View 3.
      */
     protected var tvRight3: MyTextView? = null
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     protected var tvTitle: MyTextView? = null
 
@@ -127,7 +127,7 @@ open class TitleView : ViewGroup {
             tvRight1?.setTextColor(rightColor)
         }
 
-        // [CN_TEXT] 2、3 View [CN_TEXT]，[CN_TEXT]Settings[CN_TEXT]
+        // view 2、3 View view，viewSettingsview
         tvRight2?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right2Drawable))
         tvRight2?.isVisible = tvRight2!!.hasAnyDrawable()
         tvRight3?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right3Drawable))
@@ -148,7 +148,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * [CN_TEXT] TextView [CN_TEXT]Current View [CN_TEXT].
+     * view TextView viewCurrent View view.
      */
     fun addTextView(
         context: Context,
@@ -174,7 +174,7 @@ open class TitleView : ViewGroup {
         widthMeasureSpec: Int,
         heightMeasureSpec: Int,
     ) {
-        // [CN_TEXT]
+        // view
         var maxHeight = actionBarSize.coerceAtLeast(SizeUtils.dp2px(ICON_SIZE))
         for (i in 0 until childCount) {
             val childView: View = getChildAt(i)
@@ -184,10 +184,10 @@ open class TitleView : ViewGroup {
             }
         }
 
-        // [CN_TEXT] UNSPECIFIED [CN_TEXT]，[CN_TEXT]
+        // view UNSPECIFIED view，view
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), maxHeight)
 
-        // [CN_TEXT] View
+        // view View
         for (i in 0 until childCount) {
             val childView: View = getChildAt(i)
             if (childView != tvTitle && childView.visibility != View.GONE) {
@@ -196,8 +196,8 @@ open class TitleView : ViewGroup {
             }
         }
 
-        // [CN_TEXT]
-        if (isTitleCenter) { // [CN_TEXT]
+        // view
+        if (isTitleCenter) { // view
             val leftSize = if (tvLeft!!.isVisible) tvLeft?.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
             var rightSize = 0
             if (tvRight1!!.isVisible) {
@@ -209,13 +209,13 @@ open class TitleView : ViewGroup {
             if (tvRight3!!.isVisible) {
                 rightSize += tvRight3!!.measuredWidth
             }
-            if (rightSize == 0) { // [CN_TEXT]，[CN_TEXT] ICON_SIZE [CN_TEXT] margin
+            if (rightSize == 0) { // view，view ICON_SIZE view margin
                 rightSize = SizeUtils.dp2px(ICON_SIZE)
             }
             val titleWidth = measuredWidth - leftSize!!.coerceAtLeast(rightSize) * 2
             val widthSpec = MeasureSpec.makeMeasureSpec(titleWidth.coerceAtLeast(0), MeasureSpec.EXACTLY)
             tvTitle?.measure(widthSpec, MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.EXACTLY))
-        } else { // [CN_TEXT]
+        } else { // view
             var titleWidth = measuredWidth
             titleWidth -= if (tvLeft!!.isVisible) tvLeft!!.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
             titleWidth -= if (tvRight1!!.isVisible) tvRight1!!.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
@@ -268,7 +268,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings[CN_TEXT].
+     * Settingsview.
      */
     fun setTitleText(
         @StringRes resId: Int,
@@ -278,7 +278,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings[CN_TEXT].
+     * Settingsview.
      */
     fun setTitleText(title: CharSequence?) {
         tvTitle?.text = title
@@ -286,8 +286,8 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings[CN_TEXT] View [CN_TEXT].
-     * Note[CN_TEXT]Settings[CN_TEXT]Settings[CN_TEXT] Gone，[CN_TEXT]。
+     * Settingsview View view.
+     * NoteviewSettingsviewSettingsview Gone，view。
      */
     var isLeftVisible: Boolean
         get() = tvLeft!!.isVisible
@@ -299,7 +299,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View viewSettingsviewSpecifiedview.
      */
     fun setLeftDrawable(
         @DrawableRes resId: Int,
@@ -310,7 +310,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View viewSettingsviewSpecifiedview.
      */
     fun setLeftText(
         @StringRes resId: Int,
@@ -321,7 +321,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View viewSettingsviewSpecifiedview.
      */
     fun setLeftText(text: CharSequence?) {
         tvLeft?.text = text
@@ -330,15 +330,15 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings[CN_TEXT] View [CN_TEXT].
+     * Settingsview View view.
      */
     fun setLeftClickListener(leftClickListener: OnClickListener?) {
         tvLeft?.setOnClickListener(leftClickListener)
     }
 
     /**
-     * Settings[CN_TEXT] View [CN_TEXT].
-     * Note[CN_TEXT]Settings[CN_TEXT]Settings[CN_TEXT] Gone，[CN_TEXT]。
+     * Settingsview View view.
+     * NoteviewSettingsviewSettingsview Gone，view。
      */
     var isRightVisible: Boolean
         get() = tvRight1!!.isVisible
@@ -350,7 +350,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View viewSettingsviewSpecifiedview.
      */
     fun setRightDrawable(
         @DrawableRes resId: Int,
@@ -361,7 +361,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View viewSettingsviewSpecifiedview.
      */
     fun setRightText(
         @StringRes resId: Int,
@@ -372,7 +372,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View viewSettingsviewSpecifiedview.
      */
     fun setRightText(text: CharSequence?) {
         tvRight1?.text = text
@@ -381,14 +381,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings[CN_TEXT] View [CN_TEXT].
+     * Settingsview View view.
      */
     fun setRightClickListener(rightClickListener: OnClickListener?) {
         tvRight1?.setOnClickListener(rightClickListener)
     }
 
     /**
-     * [CN_TEXT] View 2 [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View 2 viewSettingsviewSpecifiedview.
      */
     fun setRight2Drawable(
         @DrawableRes resId: Int,
@@ -399,14 +399,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings[CN_TEXT] View 2 [CN_TEXT].
+     * Settingsview View 2 view.
      */
     fun setRight2ClickListener(right2ClickListener: OnClickListener?) {
         tvRight2?.setOnClickListener(right2ClickListener)
     }
 
     /**
-     * [CN_TEXT] View 3 [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * view View 3 viewSettingsviewSpecifiedview.
      */
     fun setRight3Drawable(
         @DrawableRes resId: Int,
@@ -417,7 +417,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Settings[CN_TEXT] View 3 [CN_TEXT].
+     * Settingsview View 3 view.
      */
     fun setRight3ClickListener(right3ClickListener: OnClickListener?) {
         tvRight3?.setOnClickListener(right3ClickListener)

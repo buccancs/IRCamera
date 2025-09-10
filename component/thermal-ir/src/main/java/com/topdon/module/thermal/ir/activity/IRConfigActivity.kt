@@ -39,17 +39,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * [CN_TEXT]（[CN_TEXT]Settings[CN_TEXT]、Temperature measurement[CN_TEXT]、[CN_TEXT]）
+ * activity（activitySettingsactivity、Temperature measurementactivity、activity）
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
+ * activity：
+ * - [ExtraKeyConfig.IS_TC007] - Currentactivity TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
 
@@ -120,7 +120,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         recyclerView.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
 
         viewModel.configLiveData.observe(this) {
-            //[CN_TEXT]，[CN_TEXT]
+            // Activity logic，activity
             tvDefaultTempValue.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
             tvDefaultDisValue.text = NumberTools.to02(it.defaultModel.distance)
             tvDefaultEmValue.text = NumberTools.to02(it.defaultModel.radiation)
@@ -142,13 +142,13 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT].
+     * activity.
      */
     private fun showGuideDialog(modelBean: ModelBean) {
         val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
         val llRoot = findViewById<android.widget.LinearLayout>(R.id.ll_root)
         
-        if (SharedManager.configGuideStep == 0) {//[CN_TEXT]
+        if (SharedManager.configGuideStep == 0) {// Activity logic
             ivDefaultSelector.isSelected = modelBean.defaultModel.use
             adapter.refresh(modelBean.myselfModel)
             return
@@ -167,7 +167,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //[CN_TEXT]，[CN_TEXT]100[CN_TEXT]
+                // Activity logic，activity100activity
                 delay(100)
                 guideDialog.blurBg(llRoot)
             }
@@ -182,10 +182,10 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
         
         when (v) {
-            ivDefaultSelector -> {//[CN_TEXT]Mode-Selected
+            ivDefaultSelector -> {// Activity logicMode-Selected
                 viewModel.checkConfig(isTC007, 0)
             }
-            viewDefaultTempBg -> {//[CN_TEXT]Mode-[CN_TEXT]
+            viewDefaultTempBg -> {// Activity logicMode-activity
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
                     .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
                     .setConfirmListener {
@@ -193,7 +193,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            viewDefaultDisBg -> {//[CN_TEXT]Mode-Temperature measurement[CN_TEXT]
+            viewDefaultDisBg -> {// Activity logicMode-Temperature measurementactivity
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
                     .setConfirmListener {
@@ -201,7 +201,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            tvDefaultEmValue -> {//[CN_TEXT]Mode-[CN_TEXT]
+            tvDefaultEmValue -> {// Activity logicMode-activity
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
                     .setConfirmListener {
@@ -216,20 +216,20 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         private val dataList: ArrayList<DataBean> = ArrayList()
 
         /**
-         * item（[CN_TEXT]）Selected[CN_TEXT].
+         * item（activity）Selectedactivity.
          */
         var onSelectListener: ((id: Int) -> Unit)? = null
         /**
-         * item（[CN_TEXT]）Delete[CN_TEXT].
+         * item（activity）Deleteactivity.
          */
         var onDeleteListener: ((bean: DataBean) -> Unit)? = null
         /**
-         * item（[CN_TEXT]）[CN_TEXT].
+         * item（activity）activity.
          */
         var onUpdateListener: ((bean: DataBean) -> Unit)? = null
 
         /**
-         * [CN_TEXT].
+         * activity.
          */
         var onAddListener: View.OnClickListener? = null
 

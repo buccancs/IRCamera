@@ -11,14 +11,14 @@ import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.db.entity.ItemReport
 
 /**
- * [CN_TEXT]-[CN_TEXT] DAO。
+ * data-data DAO。
  *
  * Created by LCG on 2024/8/19.
  */
 @Dao
 abstract class HouseReportDao {
     /**
-     * [CN_TEXT]Specified[CN_TEXT].
+     * dataSpecifieddata.
      */
     @Transaction
     open fun insert(houseReport: HouseReport): Long {

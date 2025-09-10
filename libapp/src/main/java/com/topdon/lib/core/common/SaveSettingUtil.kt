@@ -10,15 +10,15 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]，[CN_TEXT].
+ * utilitySettingsutility，utility，utility.
  *
- * Current[CN_TEXT]“[CN_TEXT]Settings[CN_TEXT]”[CN_TEXT]，
+ * Currentutility“utilitySettingsutility”utility，
  *
- * [SharedManager] [CN_TEXT]“[CN_TEXT]Settings[CN_TEXT]”[CN_TEXT].
+ * [SharedManager] utility“utilitySettingsutility”utility.
  */
 object SaveSettingUtil {
     /**
-     * [CN_TEXT]Settings[CN_TEXT] SharedPreferences [CN_TEXT].
+     * utilitySettingsutility SharedPreferences utility.
      */
     private const val SP_NAME = "SaveSettingUtil"
 
@@ -33,29 +33,29 @@ object SaveSettingUtil {
     const val FusionTypeMeanFusion = 2
 
     /**
-     * [CN_TEXT]Infrared
+     * utilityInfrared
      */
-    const val FusionTypeIROnly = 1 // [CN_TEXT]Infrared
+    const val FusionTypeIROnly = 1 // utilityInfrared
 
     /**
-     * [CN_TEXT]Visible light
+     * utilityVisible light
      */
-    const val FusionTypeVLOnly = 0 // [CN_TEXT]Visible light
+    const val FusionTypeVLOnly = 0 // utilityVisible light
 
     /**
      * Picture in picture
      */
-    const val FusionTypeTC007Fusion = 7 // tc007[CN_TEXT]Picture in picture
+    const val FusionTypeTC007Fusion = 7 // tc007utilityPicture in picture
 
     const val FusionTypeHSLFusion = 3
     const val FusionTypeScreenFusion = 5
     const val FusionTypeIROnlyNoFusion = 6
 
     /**
-     * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]All[CN_TEXT].
+     * utilitySettingsutility，utilityAllutility.
      */
     fun reset() {
-        // [CN_TEXT]Temperature measurementObservationMode[CN_TEXT]
+        // utilityTemperature measurementObservationModeutility
         isMeasureTempMode = true
         isVideoMode = false
         isAutoShutter = true
@@ -66,7 +66,7 @@ object SaveSettingUtil {
         pseudoColorMode = 3
         rotateAngle = DeviceConfig.S_ROTATE_ANGLE
 
-        // Temperature measurementMode[CN_TEXT]
+        // Temperature measurementModeutility
         isOpenPseudoBar = true
         isOpenTwoLight = false
         twoLightAlpha = 50
@@ -75,7 +75,7 @@ object SaveSettingUtil {
         temperatureMode = CameraItemBean.TYPE_TMP_C
         alarmBean = AlarmBean()
 
-        // ObservationMode[CN_TEXT]
+        // ObservationModeutility
         isOpenCompass = false
         isOpenHighPoint = false
         isOpenLowPoint = false
@@ -93,7 +93,7 @@ object SaveSettingUtil {
     }
 
     /**
-     * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT].
+     * utilitySettingsutility，utility.
      */
     var isSaveSetting: Boolean
         get() = SPUtils.getInstance(SP_NAME).getBoolean("isSaveSetting", true)
@@ -102,7 +102,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]Temperature measurementMode，[CN_TEXT]Temperature measurementMode true-Temperature measurement false-Observation
+     * utilityTemperature measurementMode，utilityTemperature measurementMode true-Temperature measurement false-Observation
      */
     var isMeasureTempMode: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isMeasureTempMode", true) else true
@@ -113,7 +113,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     var isOpenAmplify: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenAmplify", false) else false
@@ -122,7 +122,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]VideoMode，[CN_TEXT]Photo true-Video false-Photo
+     * utilityVideoMode，utilityPhoto true-Video false-Photo
      */
     var isVideoMode: Boolean
         get() =
@@ -139,7 +139,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility，utility true-utility false-utility
      */
     var isAutoShutter: Boolean
         get() =
@@ -156,7 +156,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]Video[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utilityVideoutility，utility true-utility false-utility
      */
     var isRecordAudio: Boolean
         get() =
@@ -173,7 +173,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]Photo[CN_TEXT]，[CN_TEXT]，[CN_TEXT]0[CN_TEXT].
+     * utilityPhotoutility，utility，utility0utility.
      */
     var delayCaptureSecond: Int
         get() =
@@ -196,7 +196,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]Dual light，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility-Temperature measurementMode-utilityDual light，utility true-utility false-utility
      */
     var isOpenTwoLight: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenTwoLight", false) else false
@@ -207,7 +207,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-Temperature measurementMode-Dual light[CN_TEXT]Fusion degree，[CN_TEXT]`[0,100]`，0[CN_TEXT]，100[CN_TEXT]，[CN_TEXT] 50%
+     * utility-Temperature measurementMode-Dual lightutilityFusion degree，utility`[0,100]`，0utility，100utility，utility 50%
      */
     var twoLightAlpha: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("twoLightAlpha", 50) else 50
@@ -218,7 +218,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]Pseudo-colorMode，[CN_TEXT]Pseudo-color[CN_TEXT]，[CN_TEXT]Iron red
+     * utilityPseudo-colorMode，utilityPseudo-colorutility，utilityIron red
      */
     var pseudoColorMode: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("pseudoColorMode", 3) else 3
@@ -229,7 +229,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]Pseudo-color[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility-Temperature measurementMode-utilityPseudo-colorutility，utility true-utility false-utility
      */
     var isOpenPseudoBar: Boolean
         get() =
@@ -246,7 +246,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]`[0,255]`，[CN_TEXT] 128
+     * utility，utility`[0,255]`，utility 128
      */
     var contrastValue: Int
         get() =
@@ -263,7 +263,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]([CN_TEXT])，[CN_TEXT]`[0,4]`，[CN_TEXT] 2
+     * utility-Temperature measurementMode-utility(utility)，utility`[0,4]`，utility 2
      */
     var ddeConfig: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("ddeConfig", 2) else 2
@@ -274,7 +274,7 @@ object SaveSettingUtil {
         }
 
     /**
-     *[CN_TEXT]-Temperature measurementMode-[CN_TEXT]Settings[CN_TEXT].
+     *utility-Temperature measurementMode-utilitySettingsutility.
      */
     var alarmBean: AlarmBean
         get() =
@@ -291,7 +291,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]RotateAngle，[CN_TEXT] 0、90、180、270，[CN_TEXT] [DeviceConfig.S_ROTATE_ANGLE]
+     * utilityRotateAngle，utility 0、90、180、270，utility [DeviceConfig.S_ROTATE_ANGLE]
      */
     var rotateAngle: Int
         get() =
@@ -308,7 +308,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility，utility true-utility false-utility
      */
     var isOpenMirror: Boolean
         get() =
@@ -325,7 +325,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility-ObservationMode-utility，utility true-utility false-utility
      */
     var isOpenCompass: Boolean
         get() =
@@ -342,7 +342,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]，[CN_TEXT].
+     * utility-Temperature measurementMode-utility，utility.
      */
     var tempTextColor: Int
         get() =
@@ -359,7 +359,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-Temperature measurementMode-[CN_TEXT]，[CN_TEXT]14sp.
+     * utility-Temperature measurementMode-utility，utility14sp.
      */
     var tempTextSize: Int
         get() =
@@ -376,13 +376,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-Temperature measurementMode-Temperature level，[CN_TEXT]Normal temperature，[CN_TEXT]
+     * utility-Temperature measurementMode-Temperature level，utilityNormal temperature，utility
      *
      * Normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）
      *
      * High temperature ([CameraItemBean.TYPE_TMP_H] = 0)
      *
-     * [CN_TEXT] ([CameraItemBean.TYPE_TMP_ZD] = -1)
+     * utility ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
     var temperatureMode: Int
         get() =
@@ -399,7 +399,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-[CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility-ObservationMode-utilityHigh temperatureutility，utility true-utility false-utility
      */
     var isOpenHighPoint: Boolean
         get() =
@@ -416,7 +416,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-[CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility-ObservationMode-utilityLow temperatureutility，utility true-utility false-utility
      */
     var isOpenLowPoint: Boolean
         get() =
@@ -433,15 +433,15 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-SelectedAI[CN_TEXT]Type，[CN_TEXT]Selected，[CN_TEXT]
+     * utility-ObservationMode-SelectedAIutilityType，utilitySelected，utility
      *
-     * [CN_TEXT]Selected ([ObserveBean.TYPE_NONE] = -1)
+     * utilitySelected ([ObserveBean.TYPE_NONE] = -1)
      *
      * Dynamic recognition ([ObserveBean.TYPE_DYN_R] = 0)
      *
-     * High temperature[CN_TEXT] ([ObserveBean.TYPE_TMP_H_S] = 1)
+     * High temperatureutility ([ObserveBean.TYPE_TMP_H_S] = 1)
      *
-     * Low temperature[CN_TEXT] ([ObserveBean.TYPE_TMP_L_S] = 2)
+     * Low temperatureutility ([ObserveBean.TYPE_TMP_L_S] = 2)
      */
     var aiTraceType: Int
         get() =
@@ -458,7 +458,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-Target-[CN_TEXT]Target，[CN_TEXT] true-[CN_TEXT] false-[CN_TEXT]
+     * utility-ObservationMode-Target-utilityTarget，utility true-utility false-utility
      */
     var isOpenTarget: Boolean
         get() =
@@ -475,7 +475,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-Target-Target[CN_TEXT]Mode，[CN_TEXT]Person，[CN_TEXT]
+     * utility-ObservationMode-Target-TargetutilityMode，utilityPerson，utility
      *
      * Person ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
      *
@@ -502,13 +502,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-Target-TargetType，[CN_TEXT]，[CN_TEXT]
+     * utility-ObservationMode-Target-TargetType，utility，utility
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
+     * utility ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
+     * utility ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
+     * utility ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
      */
     var targetType: Int
         get() =
@@ -527,17 +527,17 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-Target-Target[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+     * utility-ObservationMode-Target-Targetutility，utility，utility
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
+     * utility ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
+     * utility ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
+     * utility ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
+     * utility ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
      *
-     * [CN_TEXT] ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
+     * utility ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
      */
     var targetColorType: Int
         get() =
@@ -556,7 +556,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT] App [CN_TEXT].
+     * utility-utility，utility App utility.
      */
     var reportAuthorName: String
         get() =
@@ -573,7 +573,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT] App [CN_TEXT].
+     * utility-utility，utility App utility.
      */
     var reportWatermarkText: String
         get() =
@@ -590,7 +590,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT]500，[CN_TEXT]`[0, 1000]`
+     * utility-utility，utility500，utility`[0, 1000]`
      */
     var reportHumidity: Int
         get() =

@@ -48,7 +48,7 @@ import java.io.File
 class IRGalleryFragment : BaseFragment() {
 
     /**
-     * [CN_TEXT]，[CN_TEXT]Gallery[CN_TEXT]Type
+     * fragment，fragmentGalleryfragmentType
      */
     private var currentDirType = DirType.LINE
 
@@ -67,7 +67,7 @@ class IRGalleryFragment : BaseFragment() {
     private lateinit var irGalleryRecycler: RecyclerView
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT].
+     * fragment，Currentfragment.
      */
     private var isVideo = false
 
@@ -188,7 +188,7 @@ class IRGalleryFragment : BaseFragment() {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(requireActivity(), spanCount)
-        //[CN_TEXT]Settingsspan
+        // Fragment logicSettingsspan
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
@@ -319,7 +319,7 @@ class IRGalleryFragment : BaseFragment() {
                         }
                     }
                 }
-                if (successCount == downloadMap.size) {//[CN_TEXT]
+                if (successCount == downloadMap.size) {// Fragment logic
                     dismissLoadingDialog()
                     if (isShare) {
                         shareImage(downloadList)

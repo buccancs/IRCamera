@@ -44,7 +44,7 @@ object GalleryRepository {
             if (!targetDir.exists()) {
                 targetDir.mkdirs()
             }
-            // [CN_TEXT]
+            // repository
             fileList?.forEach {
                 val path = sourceDir.absolutePath + File.separator + it.name
                 copyPictureFile(path, targetDir.absolutePath + File.separator + it.name)
@@ -76,7 +76,7 @@ object GalleryRepository {
     }
 
     /**
-     * [CN_TEXT]GallerySpecified[CN_TEXT]Type[CN_TEXT]
+     * repositoryGallerySpecifiedrepositoryTyperepository
      */
     fun readLatest(dirType: DirType): String {
         var firstPath = ""
@@ -85,7 +85,7 @@ object GalleryRepository {
             val dirFile = File(path)
             if (dirFile.isDirectory) {
                 val files = dirFile.listFiles()!!
-                // [CN_TEXT]
+                // repository
                 files.sortByDescending {
                     it.lastModified()
                 }
@@ -95,16 +95,16 @@ object GalleryRepository {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            XLog.e("[CN_TEXT]Gallery[CN_TEXT]: ${e.message}")
+            XLog.e("repositoryGalleryrepository: ${e.message}")
             return ""
         }
         return firstPath
     }
 
     /**
-     * [CN_TEXT]
-     * @param pageNum [CN_TEXT]，[CN_TEXT]1[CN_TEXT]
-     * @param pageCount [CN_TEXT]
+     * repository
+     * @param pageNum repository，repository1repository
+     * @param pageCount repository
      */
     suspend fun loadByPage(
         isVideo: Boolean,
@@ -136,7 +136,7 @@ object GalleryRepository {
                         }
                     }
                 } catch (e: Exception) {
-                    XLog.e("[CN_TEXT]Gallery[CN_TEXT]: ${e.message}")
+                    XLog.e("repositoryGalleryrepository: ${e.message}")
                 }
             }
 
@@ -145,7 +145,7 @@ object GalleryRepository {
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]AllSpecified[CN_TEXT]Type[CN_TEXT].
+     * repository，repositoryAllSpecifiedrepositoryTyperepository.
      */
     suspend fun loadAllReportImg(dirType: DirType): ArrayList<GalleryBean> =
         withContext(Dispatchers.IO) {
@@ -161,13 +161,13 @@ object GalleryRepository {
                     }
                 }
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]Gallery[CN_TEXT]: ${e.message}")
+                XLog.e("repositoryGalleryrepository: ${e.message}")
             }
             return@withContext resultList
         }
 
     /**
-     * [CN_TEXT]AllSpecifiedType[CN_TEXT].
+     * repositoryAllSpecifiedTyperepository.
      */
     private fun loadAllLocale(
         isVideo: Boolean,
@@ -200,7 +200,7 @@ object GalleryRepository {
                 resultList.add(it)
             }
         }
-        // [CN_TEXT]
+        // repository
         resultList.sortByDescending {
             it.lastModified()
         }
@@ -208,16 +208,16 @@ object GalleryRepository {
     }
 
     /**
-     * [CN_TEXT] MediaStore API [CN_TEXT] File [CN_TEXT]AllSpecifiedType[CN_TEXT].
+     * repository MediaStore API repository File repositoryAllSpecifiedTyperepository.
      */
     private fun loadAllLocaleByMediaStore(dirType: DirType): Array<out File> {
         val tc001Files: MutableList<File> = ArrayList()
-        // [CN_TEXT]
+        // repository
         val projection =
             arrayOf(
                 MediaStore.Images.Media.DATA,
             )
-        // [CN_TEXT]，Specified[CN_TEXT]
+        // repository，Specifiedrepository
         val selection = MediaStore.Images.Media.DATA + " LIKE ?"
         val path =
             when (dirType) {
@@ -226,9 +226,9 @@ object GalleryRepository {
                 else -> "%DCIM/TS004%"
             }
         val selectionArgs = arrayOf(path)
-        // [CN_TEXT]MediaStore ContentResolver
+        // repositoryMediaStore ContentResolver
         val contentResolver: ContentResolver = Utils.getApp().contentResolver
-        // [CN_TEXT]
+        // repository
         val queryUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val cursor =
             contentResolver.query(

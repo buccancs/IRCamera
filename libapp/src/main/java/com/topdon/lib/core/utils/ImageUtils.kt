@@ -11,7 +11,7 @@ import java.io.*
 
 object ImageUtils {
     /**
-     * [CN_TEXT].
+     * utility.
      */
     fun saveToCache(
         context: Context,
@@ -24,14 +24,14 @@ object ImageUtils {
     }
 
     /**
-     * [CN_TEXT] Gallery/APP[CN_TEXT] [CN_TEXT]，[CN_TEXT] APP[CN_TEXT]_[CN_TEXT].jpg
-     * [CN_TEXT]Photo [CN_TEXT] 2D[CN_TEXT] [CN_TEXT].
+     * utility Gallery/APPutility utility，utility APPutility_utility.jpg
+     * utilityPhoto utility 2Dutility utility.
      */
     fun save(
         bitmap: Bitmap,
         isTC007: Boolean = false,
     ): String {
-        // [CN_TEXT]，[CN_TEXT]
+        // utility，utility
         val dicName = if (isTC007) "TC007" else CommUtils.getAppName()
         val fileName = "${dicName}_${System.currentTimeMillis()}.jpg"
         val saveFile = ImageUtils.save2Album(bitmap, dicName, Bitmap.CompressFormat.JPEG)
@@ -44,7 +44,7 @@ object ImageUtils {
     }
 
     /**
-     * [CN_TEXT]Photo[CN_TEXT]，[CN_TEXT]Visible light，[CN_TEXT]Visible light[CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+     * utilityPhotoutility，utilityVisible light，utilityVisible lightutility，utility，utility，utility
      */
     fun saveImageToApp(bitmap: Bitmap): String {
         val saveFile = File(Utils.getApp().cacheDir, "PinP_${System.currentTimeMillis()}.jpg")
@@ -52,7 +52,7 @@ object ImageUtils {
         return saveFile.absolutePath
     }
 
-    // [CN_TEXT]lite[CN_TEXT]
+    // utilityliteutility
     fun saveLiteFrame(
         bs: ByteArray,
         capital: ByteArray,
@@ -65,13 +65,13 @@ object ImageUtils {
             val fileName = "$name.ir"
             val file = File(galleryPath, fileName)
             file.writeBytes(capital.plus(bs))
-            Log.w("[CN_TEXT]:", file.absolutePath)
+            Log.w("utility:", file.absolutePath)
         } catch (e: Exception) {
-            XLog.e("[CN_TEXT]: ${e.message}")
+            XLog.e("utility: ${e.message}")
         }
     }
 
-    // [CN_TEXT]
+    // utility
     fun saveFrame(
         bs: ByteArray,
         capital: ByteArray,
@@ -83,14 +83,14 @@ object ImageUtils {
             val fileName = "$name.ir"
             val file = File(galleryPath, fileName)
             file.writeBytes(capital.plus(bs))
-            Log.w("[CN_TEXT]:", file.absolutePath)
+            Log.w("utility:", file.absolutePath)
         } catch (e: Exception) {
-            XLog.e("[CN_TEXT]: ${e.message}")
+            XLog.e("utility: ${e.message}")
         }
     }
 
     /**
-     * [CN_TEXT]argb[CN_TEXT]
+     * utilityargbutility
      */
     fun saveOneFrameAGRB(
         bs: ByteArray,
@@ -103,7 +103,7 @@ object ImageUtils {
             val file = File(galleryPath, fileName)
             file.writeBytes(bs)
         } catch (e: Exception) {
-            XLog.e("[CN_TEXT]: ${e.message}")
+            XLog.e("utility: ${e.message}")
         }
     }
 }

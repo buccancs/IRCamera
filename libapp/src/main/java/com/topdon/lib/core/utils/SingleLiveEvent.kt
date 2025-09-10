@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * [CN_TEXT]LiveData[CN_TEXT]
+ * eventLiveDataevent
  * Created by jzh on 2020-12-28.
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {

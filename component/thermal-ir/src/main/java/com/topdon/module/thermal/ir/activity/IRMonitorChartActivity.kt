@@ -59,19 +59,19 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * [CN_TEXT]
+ * activity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
 
-    /** [CN_TEXT]Mode：[CN_TEXT]+[CN_TEXT] */
+    /** activityMode：activity+activity */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var gainStatus = CommonParams.GainStatus.HIGH_GAIN
     private var isTS001 = false
 
     /**
-     * [CN_TEXT]，CurrentSelected[CN_TEXT] [CN_TEXT]/[CN_TEXT]/[CN_TEXT] [CN_TEXT].
+     * activity，CurrentSelectedactivity activity/activity/activity activity.
      */
     private var selectBean: SelectPositionBean = SelectPositionBean()
 
@@ -145,9 +145,9 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                 if (isFirstRead) {
                     if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                         errorReadCount++
-                        XLog.w("[CN_TEXT] $errorReadCount [CN_TEXT]，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                        XLog.w("activity $errorReadCount activity，max = ${result.maxTemperature} min = ${result.minTemperature}")
                         if (errorReadCount > 10) {
-                            XLog.i("[CN_TEXT]10[CN_TEXT]，[CN_TEXT]")
+                            XLog.i("activity10activity，activity")
                             isFirstRead = false
                         }
                         continue
@@ -165,7 +165,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                     bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                     bean.createTime = System.currentTimeMillis()
-                    canUpdate = true//[CN_TEXT]
+                    canUpdate = true// Activity logic
                 }
             }
         }
@@ -177,7 +177,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         if (!isrun) {
             configParam()
             temperatureView.postDelayed({
-                //[CN_TEXT],Pseudo-colorIron red
+                // Activity logic,Pseudo-colorIron red
                 try {
                     if (!isStop){
                         pseudoColorMode = 3
@@ -187,11 +187,11 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                         cameraView.start()
                         isrun = true
                         if (!isRecord){
-                            recordThermal()//[CN_TEXT]
+                            recordThermal()// Activity logic
                         }
                     }
                 }catch (e:Exception){
-                    Log.e("[CN_TEXT]","//"+e.message)
+                    Log.e("activity","//"+e.message)
                 }
             }, 1500)
         }
@@ -200,7 +200,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        mpChartView.highlightValue(null) //[CN_TEXT]Marker
+        mpChartView.highlightValue(null) // Activity logicMarker
     }
 
     override fun onPause() {
@@ -239,12 +239,12 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     }
 
     private var isRecord = false
-    private var timeMillis = 1000L //[CN_TEXT]1s
+    private var timeMillis = 1000L // Activity logic1s
     private var canUpdate = false
 
     private var recordJob: Job? = null
     /**
-     * [CN_TEXT]1[CN_TEXT].
+     * activity1activity.
      */
     private fun recordThermal() {
         recordJob = lifecycleScope.launch(Dispatchers.IO) {
@@ -283,13 +283,13 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     }
                 }
             }
-            XLog.w("[CN_TEXT], [CN_TEXT]:$time")
+            XLog.w("activity, activity:$time")
         }
     }
 
 
     private var imageThread: ImageThreadTC? = null
-    private var bitmap: Bitmap? = null //[CN_TEXT]，[CN_TEXT]
+    private var bitmap: Bitmap? = null // Activity logic，activity
     private var iruvc: IRUVCTC? = null
     private val cameraWidth = 256
     private val cameraHeight = 384
@@ -312,10 +312,10 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     private var rotateAngle = 270
 
     /**
-     * [CN_TEXT]
+     * activity
      *
-     * [CN_TEXT]
-     * [CN_TEXT]cameraView
+     * activity
+     * activitycameraView
      * syncimage.valid = true
      */
     private fun initDataIR() {
@@ -335,10 +335,10 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         temperatureView.setSyncimage(syncimage)
         temperatureView.setTemperature(temperatureBytes)
         setViewLay()
-        // [CN_TEXT]sensor
+        // activitysensor
         if (Usbcontorl.isload) {
-            Usbcontorl.usb3803_mode_setting(1) //[CN_TEXT]5V
-            Log.w("123", "[CN_TEXT]5V")
+            Usbcontorl.usb3803_mode_setting(1) // Activity logic5V
+            Log.w("123", "activity5V")
         }
     }
 
@@ -356,7 +356,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     }
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun startISP() {
         try {
@@ -369,13 +369,13 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
             imageThread!!.setRotate(rotateAngle)
             imageThread!!.start()
         }catch (e : Exception){
-            Log.e("[CN_TEXT]",e.message.toString())
+            Log.e("activity",e.message.toString())
         }
     }
 
 
     /**
-     * @param isRestart [CN_TEXT]
+     * @param isRestart activity
      */
     private fun startUSB(isRestart: Boolean) {
         iruvc = IRUVCTC(cameraWidth, cameraHeight, this@IRMonitorChartActivity, syncimage,
@@ -390,7 +390,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                         "ConnectCallback->onIRCMDCreate"
                     )
                     this@IRMonitorChartActivity.ircmd = ircmd
-                    // [CN_TEXT]IRCMD[CN_TEXT]
+                    // activityIRCMDactivity
 //                    ircmd.setPseudoColor(
 //                        CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                        PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode))
@@ -405,11 +405,11 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     ircmd!!.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
                     Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                     gainStatus = if (value[0] == 1) {
-                        // CurrentCore[CN_TEXT]High gain
+                        // CurrentCoreactivityHigh gain
                         CommonParams.GainStatus.HIGH_GAIN
-                        // [CN_TEXT]
+                        // activity
                     } else {
-                        // CurrentCore[CN_TEXT]Low gain
+                        // CurrentCoreactivityLow gain
                         CommonParams.GainStatus.LOW_GAIN
                     }
                 }
@@ -447,7 +447,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     }
 
     private var isConfigWait = false
-    //[CN_TEXT]
+    // Activity logic
     private fun configParam() {
         lifecycleScope.launch {
             isConfigWait = true
@@ -455,23 +455,23 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                 delay(100)
             }
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() //[CN_TEXT]([CN_TEXT])
-            val emsChar = (config.radiation * 128).toInt() //[CN_TEXT]
+            val disChar = (config.distance * 128).toInt() // Activity logic(activity)
+            val emsChar = (config.radiation * 128).toInt() // Activity logic
             XLog.w("SettingsTPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             val timeMillis = 250L
             delay(timeMillis)
-            //[CN_TEXT]
+            // Activity logic
             ircmd!!.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString())
             )
             delay(timeMillis)
-            //[CN_TEXT]
+            // Activity logic
             ircmd!!.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString())
             )
-            // [CN_TEXT]
+            // activity
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -493,7 +493,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                 CommonParams.ZoomScaleStep.ZOOM_STEP2
             )
             iruvc?.let {
-                // [CN_TEXT]，[CN_TEXT]
+                // activity，activity
                 withContext(Dispatchers.IO){
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd!!.setPropAutoShutterParameter(
@@ -508,7 +508,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                     }
                 }
             }
-            //[CN_TEXT]、[CN_TEXT]
+            // Activity logic、activity
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -528,18 +528,18 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     }
 
     /**
-     * [CN_TEXT]Point/Line/Area
+     * activityPoint/Line/Area
      */
     private fun addTempLine() {
         temperatureView.visibility = View.VISIBLE
         when (selectBean.type) {
             1 -> {
-                //[CN_TEXT]
+                // Activity logic
                 temperatureView.addScalePoint(selectBean.startPosition)
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
             }
             2 -> {
-                //[CN_TEXT]
+                // Activity logic
                 temperatureView.addScaleLine(
                     Line(
                         selectBean.startPosition,
@@ -549,7 +549,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
             }
             3 -> {
-                //[CN_TEXT]
+                // Activity logic
                 temperatureView.addScaleRectangle(
                     Rect(
                         selectBean.startPosition!!.x,
@@ -587,14 +587,14 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
         try {
             tmp = tempCorrect(temp!!, gainStatus, 0)
         } catch (e: Exception) {
-            XLog.i("[CN_TEXT]: ${e.message}")
+            XLog.i("activity: ${e.message}")
         }
         return tmp!!
     }
 
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun tempCorrect(
         temp: Float,
@@ -602,7 +602,7 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     ): Float {
 
         if (!isTS001) {
-            //[CN_TEXT]ts001[CN_TEXT]
+            // Activity logicts001activity
             return temp
         }
         if (ts_data_H == null || ts_data_L == null) {
@@ -642,11 +642,11 @@ class IRMonitorChartActivity : BaseActivity(),ITsTempListener {
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                //[CN_TEXT]
+                // Activity logic
                 showCameraLoading()
             }
             101 -> {
-                //[CN_TEXT]
+                // Activity logic
                 dismissCameraLoading()
                 addTempLine()
             }

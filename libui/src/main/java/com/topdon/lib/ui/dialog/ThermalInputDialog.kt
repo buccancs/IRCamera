@@ -34,11 +34,11 @@ import java.math.BigDecimal
 import com.topdon.lib.ui.R as UiR
 
 /**
- * [CN_TEXT]
+ * dialog
  * create by fylder on 2018/6/15
  **/
 class ThermalInputDialog : Dialog {
-    private var action = 100 // 100:[CN_TEXT]     201: [CN_TEXT]   301: [CN_TEXT]
+    private var action = 100 // 100:dialog     201: dialog   301: dialog
 
     constructor(context: Context) : super(context)
 
@@ -63,9 +63,9 @@ class ThermalInputDialog : Dialog {
         private var cancelEvent: (() -> Unit)? = null
         private var canceled = false
         private var saturation = 0
-        private var upColor = Color.parseColor("#FFF3812F") // [CN_TEXT]
-        private var downColor = Color.parseColor("#FF28C445") // [CN_TEXT]
-        private var selectColor = 0 // [CN_TEXT]
+        private var upColor = Color.parseColor("#FFF3812F") // dialog
+        private var downColor = Color.parseColor("#FF28C445") // dialog
+        private var selectColor = 0 // dialog
         private var max = 0f
         private var min = 0f
         private var maxColor = 0
@@ -127,7 +127,7 @@ class ThermalInputDialog : Dialog {
                 this.max = max
                 this.min = min
             } else {
-                // [CN_TEXT]Fahrenheit
+                // dialogFahrenheit
                 this.max = UnitTools.toF(max)
                 this.min = UnitTools.toF(min)
             }
@@ -223,7 +223,7 @@ class ThermalInputDialog : Dialog {
             binding.colorPickerViewLay.visibility = View.GONE
             binding.dialogInputLay.visibility = View.VISIBLE
             
-            // [CN_TEXT]
+            // dialog
             if (isIconEdit) {
                 binding.dialogUpColor.visibility = View.GONE
                 binding.dialogDownColor.visibility = View.GONE
@@ -232,7 +232,7 @@ class ThermalInputDialog : Dialog {
                 binding.dialogDownColor.visibility = View.VISIBLE
             }
             messageText.text = message
-            // [CN_TEXT]
+            // dialog
             if (maxColor != 0) upColor = maxColor
             if (minColor != 0) downColor = minColor
             upUnit.text = UnitTools.showUnit()
@@ -255,19 +255,19 @@ class ThermalInputDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // [CN_TEXT]
+                    // dialog
                     0.85
                 } else {
-                    // [CN_TEXT]
+                    // dialog
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[CN_TEXT]
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settingsdialog
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
             successBtn.setOnClickListener {
                 if (binding.colorPickerViewLay.isVisible) {
-                    // [CN_TEXT],[CN_TEXT]
+                    // dialog,dialog
                     binding.colorPickerViewLay.visibility = View.GONE
                     binding.dialogInputLay.visibility = View.VISIBLE
                     messageText.text = message
@@ -330,7 +330,7 @@ class ThermalInputDialog : Dialog {
                     } else
                     {
                         if (SharedManager.getTemperature() == 1) {
-                            // Celsius[CN_TEXT]
+                            // Celsiusdialog
                             positiveEvent?.invoke(
                                 if (upValue.isBlank()) -273f else upValue.toFloat(),
                                 if (downValue.isBlank()) -273f else downValue.toFloat(),
@@ -350,7 +350,7 @@ class ThermalInputDialog : Dialog {
             }
             cancelBtn.setOnClickListener {
                 if (binding.colorPickerViewLay.isVisible) {
-                    // [CN_TEXT]
+                    // dialog
                     binding.colorPickerViewLay.visibility = View.GONE
                     binding.dialogInputLay.visibility = View.VISIBLE
                     messageText.text = message
@@ -381,15 +381,15 @@ class ThermalInputDialog : Dialog {
                         fromUser: Boolean,
                     ) {
                         if ("#${envelope.hexCode}" != "#FFFFFFFF") {
-                            // [CN_TEXT],[CN_TEXT]
+                            // dialog,dialog
                             adapter.selected(-1)
                             selectColor = 0
                         }
                         if (dialog!!.action == 201) {
-                            // [CN_TEXT]
+                            // dialog
                             upColor = Color.parseColor("#${envelope.hexCode}")
                         } else if (dialog!!.action == 301) {
-                            // [CN_TEXT]
+                            // dialog
                             downColor = Color.parseColor("#${envelope.hexCode}")
                         }
                     }

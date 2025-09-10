@@ -11,13 +11,13 @@ import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 
 /**
- * [CN_TEXT] SeekBar [CN_TEXT] PopupWindow.
+ * data SeekBar data PopupWindow.
  *
- * [CN_TEXT] Fusion degree([CN_TEXT])、[CN_TEXT]([CN_TEXT])、[CN_TEXT]([CN_TEXT]) Settings
+ * data Fusion degree(data)、data(data)、data(data) Settings
  *
  * Created by LCG on 2024/12/3.
  *
- * @param hasTitle [CN_TEXT]
+ * @param hasTitle data
  */
 @SuppressLint("SetTextI18n")
 class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() {
@@ -35,14 +35,14 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
         }
 
     /**
-     * [CN_TEXT].
+     * data.
      *
-     * true-[CN_TEXT]  false-[CN_TEXT](stop)[CN_TEXT]
+     * true-data  false-data(stop)data
      */
     var isRealTimeTrigger = false
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     var onValuePickListener: ((progress: Int) -> Unit)? = null
 
@@ -78,7 +78,7 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
     }
 
     /**
-     * @param isDropDown true-[CN_TEXT]anchor[CN_TEXT] false-[CN_TEXT]anchor[CN_TEXT]
+     * @param isDropDown true-dataanchordata false-dataanchordata
      */
     fun show(anchor: View, isDropDown: Boolean) {
         if (isDropDown) {

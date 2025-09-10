@@ -78,11 +78,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 
 
 /**
- * [CN_TEXT]
+ * data
  * bitmap -> mp4
  *
- * avcodec.AV_CODEC_ID_MPEG4 //[CN_TEXT]
- * avcodec.AV_CODEC_ID_H264 //[CN_TEXT]
+ * avcodec.AV_CODEC_ID_MPEG4 // Implementation
+ * avcodec.AV_CODEC_ID_H264 // Implementation
  */
 @SuppressLint("MissingPermission")
 class VideoRecordFFmpeg(
@@ -92,7 +92,7 @@ class VideoRecordFFmpeg(
     private val isRecordTemp: Boolean,
     private val thermalPseudoBarView: BitmapConstraintLayout?,
     private val tempBg: TempLayout?,
-    private val compassView: LinearCompassView? = null, //[CN_TEXT]
+    private val compassView: LinearCompassView? = null, // Implementation
     private val dualView: DualViewWithExternalCameraCommonApi? = null,  // Dual light
     private val isTC007 : Boolean = false,
     private val carView : View ?= null
@@ -110,7 +110,7 @@ class VideoRecordFFmpeg(
 
 
         /**
-         * [CN_TEXT]
+         * data
          */
         fun canStartVideoRecord(context: Context, videoFile: File? = null): Boolean {
             val canStart = (SDCardUtils.getExternalAvailableSize() - (videoFile?.length()
@@ -160,7 +160,7 @@ class VideoRecordFFmpeg(
     val recordExecutor = Executors.newScheduledThreadPool(1)
     val audioExecutor = Executors.newScheduledThreadPool(1)
     val paint = TextPaint(Paint.ANTI_ALIAS_FLAG)
-    private var rectText = Rect() //[CN_TEXT]text[CN_TEXT]， [CN_TEXT]：[CN_TEXT]
+    private var rectText = Rect() // Implementationtextdata， data：data
     private val pix20 = SizeUtils.dp2px(20f)
     private val pix10 = SizeUtils.dp2px(10f)
     private val pix6 = SizeUtils.dp2px(6f)
@@ -223,35 +223,35 @@ class VideoRecordFFmpeg(
 
     /**
      *
-     * avcodec.AV_CODEC_ID_MPEG4 [CN_TEXT]
-     * avcodec.AV_CODEC_ID_H264 [CN_TEXT]
+     * avcodec.AV_CODEC_ID_MPEG4 data
+     * avcodec.AV_CODEC_ID_H264 data
      *
-     * [CN_TEXT]H264[CN_TEXT],[CN_TEXT]AV_CODEC_ID_MPEG4
+     * dataH264data,dataAV_CODEC_ID_MPEG4
      */
     private fun getVideoCodec(): Int {
         return if (Build.BRAND == "motorola" && Build.MODEL == "XT2201-2") {
-            XLog.i("[CN_TEXT]AV_CODEC_ID_H264")
+            XLog.i("dataAV_CODEC_ID_H264")
             avcodec.AV_CODEC_ID_H264
         } else {
-            //[CN_TEXT]Type
-            XLog.i("[CN_TEXT]AV_CODEC_ID_MPEG4")
+            // ImplementationType
+            XLog.i("dataAV_CODEC_ID_MPEG4")
             avcodec.AV_CODEC_ID_MPEG4
         }
     }
 
     init {
         if ((cameraView.parent as ViewGroup).height > (cameraView.parent as ViewGroup).width) {
-            // [CN_TEXT]
+            // data
             width = 480
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         } else {
-            // [CN_TEXT]
+            // data
             width = 640
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         }
-        //[CN_TEXT]
+        // Implementation
         if (height % 2 == 1) {
             height -= 1
         }
@@ -264,11 +264,11 @@ class VideoRecordFFmpeg(
             MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
             AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize
         )
-        paint.color = Color.WHITE //[CN_TEXT]
+        paint.color = Color.WHITE // Implementation
         paint.textSize = SizeUtils.sp2px(6f).toFloat()
         paint.isDither = true
         paint.isFilterBitmap = true
-        paint.getTextBounds("[CN_TEXT]", 0, "[CN_TEXT]".length, rectText)
+        paint.getTextBounds("data", 0, "data".length, rectText)
     }
 
 
@@ -330,7 +330,7 @@ class VideoRecordFFmpeg(
                             setBitmap(it)
                         }
                     }, Consumer {
-                        Log.e("[CN_TEXT]", "${it.message}")
+                        Log.e("data", "${it.message}")
                     }
                 )
             if (audioRecord == null) {
@@ -355,18 +355,18 @@ class VideoRecordFFmpeg(
                         recorder!!.record(frame)
                         frame.close()
                         if (System.currentTimeMillis() - queTime > 60 * 1000) {
-                            //[CN_TEXT]1[CN_TEXT]，[CN_TEXT]
+                            // Implementation1data，data
                             if (!canStartVideoRecord(cameraView.context, exportedFile)) {
                                 exportDisposable?.dispose()
                                 stopVideoRecordListener?.invoke(false)
-                                //[CN_TEXT]
+                                // Implementation
                                 return@Consumer
                             }
                             queTime = System.currentTimeMillis()
                         }
                         recorder?.timestamp?.let {
                             if (it / 1000 > 60 * 60 * 1000) {
-                                //[CN_TEXT]Video[CN_TEXT]60[CN_TEXT]
+                                // ImplementationVideodata60data
                                 exportDisposable?.dispose()
                                 stopVideoRecordListener?.invoke(true)
                                 return@Consumer
@@ -394,7 +394,7 @@ class VideoRecordFFmpeg(
                             for (i in 0 until tmpAudioData!!.capacity()) {
                                 tmpAudioData!!.put(i, 1.toShort())
                             }
-                            // [CN_TEXT]Current[CN_TEXT]
+                            // dataCurrentdata
                             if (currentTimestamp > (recorder?.timestamp ?: 0)) {
                                 recorder!!.timestamp = currentTimestamp
                             }
@@ -404,22 +404,22 @@ class VideoRecordFFmpeg(
                             )
                         }
 //                        Log.w(
-//                            "[CN_TEXT]",
+//                            "data",
 //                            "${System.currentTimeMillis() - time}======${frame.image.size}//${bufferSize}//${(recorder?.timestamp!! / 1000000L)}"
 //                        )
 
                     } catch (e: Exception) {
-                        Log.e("[CN_TEXT]", "Caught an exception: " + e.message);
+                        Log.e("data", "Caught an exception: " + e.message);
                     }
                 }, Consumer {
-                    Log.e("[CN_TEXT]", "${it.message}")
+                    Log.e("data", "${it.message}")
                 })
 
         } catch (e: Exception) {
 //            stopRecord()
             exportDisposable?.dispose()
             stopVideoRecordListener?.invoke(false)
-            XLog.e("[CN_TEXT]")
+            XLog.e("data")
             e.printStackTrace()
         }
     }
@@ -453,7 +453,7 @@ class VideoRecordFFmpeg(
         }
 
         fun filter(image: IplImage?, image2: IplImage?): IplImage? {
-            // [CN_TEXT]
+            // data
             return null
         }
     }
@@ -477,17 +477,17 @@ class VideoRecordFFmpeg(
                 )
             }
         } catch (e: Exception) {
-            Log.e("[CN_TEXT]", "${e.message}")
+            Log.e("data", "${e.message}")
         }
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun canStartVideoRecord(videoFile: File?): Boolean {
         val canStart = (SDCardUtils.getExternalAvailableSize() - (videoFile?.length()
             ?: 0)) > (500L * 1000 * 1000)
-//        Log.w("[CN_TEXT]","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
+//        Log.w("data","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
         if (!canStart) {
             ThreadUtils.runOnUiThread {
                 TipDialog.Builder(cameraView.context)
@@ -542,7 +542,7 @@ class VideoRecordFFmpeg(
                     delay(300)
                     refreshAlbum()
                 } catch (e: Exception) {
-                    XLog.e("[CN_TEXT]" + e.message)
+                    XLog.e("data" + e.message)
                 }
             }
             isRunning = false
@@ -583,8 +583,8 @@ class VideoRecordFFmpeg(
 
 
     /**
-     * cameraViewBitmap[CN_TEXT]
-     * dstBitmap[CN_TEXT]
+     * cameraViewBitmapdata
+     * dstBitmapdata
      */
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap: Bitmap
@@ -617,11 +617,11 @@ class VideoRecordFFmpeg(
             }
         }
 
-        //Pseudo-color[CN_TEXT]
+        //Pseudo-colordata
         if (thermalPseudoBarView?.visibility == VISIBLE) {
             try {
                 thermalPseudoBarView?.viewBitmap?.let {
-//                    Log.w("[CN_TEXT]-[CN_TEXT]",it.byteCount.toString())
+//                    Log.w("data-data",it.byteCount.toString())
                     cameraViewBitmap = BitmapUtils.mergeBitmap(
                         cameraViewBitmap,
                         it,
@@ -629,9 +629,9 @@ class VideoRecordFFmpeg(
                         (cameraViewBitmap!!.height - it.height) / 2
                     )
                 }
-//                Log.w("[CN_TEXT]-[CN_TEXT]",""+(System.currentTimeMillis() - startTime))
+//                Log.w("data-data",""+(System.currentTimeMillis() - startTime))
             } catch (e: Exception) {
-//                Log.e("[CN_TEXT]-[CN_TEXT]",""+(System.currentTimeMillis() - startTime))
+//                Log.e("data-data",""+(System.currentTimeMillis() - startTime))
             }
         }
         if (true == tempBg?.isVisible) {
@@ -651,7 +651,7 @@ class VideoRecordFFmpeg(
                 cameraViewBitmap,
                 carView?.drawToBitmap(), 0, 0)
         }
-        //[CN_TEXT]
+        // Implementation
         compassView?.let {
             if (it.isVisible) {
                 try {
@@ -663,9 +663,9 @@ class VideoRecordFFmpeg(
                         SizeUtils.dp2px(20f)
                     )
                 } catch (e: Exception) {
-                    Log.e(TAG, "[CN_TEXT] exception:${e.message}")
+                    Log.e(TAG, "data exception:${e.message}")
                 }
-//                Log.w("[CN_TEXT]-[CN_TEXT]", "${System.currentTimeMillis() - startTime}")
+//                Log.w("data-data", "${System.currentTimeMillis() - startTime}")
             }
         }
 
@@ -689,7 +689,7 @@ class VideoRecordFFmpeg(
             Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         }
 
-        //[CN_TEXT]
+        // Implementation
         val watermarkBean = if (isTC007){SharedManager.wifiWatermarkBean} else {SharedManager.watermarkBean}
         if (watermarkBean.isOpen) {
             dstBitmap = drawCenterLable(
@@ -707,15 +707,15 @@ class VideoRecordFFmpeg(
 
 
     fun drawCenterLable(bmp: Bitmap, title: String, address: String, time: String?): Bitmap {
-        //[CN_TEXT]
+        // Implementation
         val newBmp = Bitmap.createBitmap(bmp.width, bmp.height, Bitmap.Config.ARGB_8888)
-        //[CN_TEXT]
+        // Implementation
         val canvas = Canvas(newBmp)
-        canvas.drawBitmap(bmp, 0f, 0f, null) //[CN_TEXT]
+        canvas.drawBitmap(bmp, 0f, 0f, null) // Implementation
         canvas.save()
-        val beginX = pix10.toDouble() //45[CN_TEXT]Angle[CN_TEXT]1.414
+        val beginX = pix10.toDouble() //45dataAngledata1.414
         var beginY = (bmp.height - pix10).toDouble()
-        paint.getTextBounds("[CN_TEXT]", 0, "[CN_TEXT]".length, rectText)
+        paint.getTextBounds("data", 0, "data".length, rectText)
         if (!TextUtils.isEmpty(time)) {
             beginY = beginY - (rectText.bottom - rectText.top)
             canvas.drawText(time!!, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
@@ -725,7 +725,7 @@ class VideoRecordFFmpeg(
             val textHeight = (rectText.bottom - rectText.top)
             paint.getTextBounds(address, 0, address.length, rectText)
             if (rectText.width() > bmp.width - pix20) {
-                //[CN_TEXT]，[CN_TEXT]
+                // Implementation，data
                 val staticLayout = StaticLayout(
                     address,
                     paint, bmp.width - pix20,
@@ -746,7 +746,7 @@ class VideoRecordFFmpeg(
             val textHeight = rectText.bottom - rectText.top
             paint.getTextBounds(title, 0, title.length, rectText)
             if (rectText.width() > bmp.width - pix20) {
-                //[CN_TEXT]，[CN_TEXT]
+                // Implementation，data
                 val staticLayout = StaticLayout(
                     title,
                     paint, bmp.width - pix20,

@@ -8,42 +8,42 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.topdon.lib.core.R
 
 /**
- * [CN_TEXT] TextView.
+ * view TextView.
  *
- * [CN_TEXT] TextView [CN_TEXT] drawable [CN_TEXT]Settings，[CN_TEXT] TextView [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT].
+ * view TextView view drawable viewSettings，view TextView viewSettingsview，view.
  *
- * [CN_TEXT] wrap_content [CN_TEXT]，[CN_TEXT]Settings[CN_TEXT] textSize（[CN_TEXT]），Specified[CN_TEXT]>0[CN_TEXT]Specified[CN_TEXT].
+ * view wrap_content view，viewSettingsview textSize（view），Specifiedview>0viewSpecifiedview.
  *
  * Created by chenggeng.lin on 2023/11/21.
  */
 class MyTextView : AppCompatTextView {
     /**
-     * drawableTop [CN_TEXT]，[CN_TEXT] **px**
+     * drawableTop view，view **px**
      */
     private var topHeight = 0
 
     /**
-     * drawableBottom [CN_TEXT]，[CN_TEXT] **px**
+     * drawableBottom view，view **px**
      */
     private var bottomHeight = 0
 
     /**
-     * drawableStart [CN_TEXT]，[CN_TEXT] **px**
+     * drawableStart view，view **px**
      */
     private var startHeight = 0
 
     /**
-     * drawableEnd [CN_TEXT]，[CN_TEXT] **px**
+     * drawableEnd view，view **px**
      */
     private var endHeight = 0
 
     /**
-     * drawableLeft [CN_TEXT]，[CN_TEXT] **px**
+     * drawableLeft view，view **px**
      */
     private var leftHeight = 0
 
     /**
-     * drawableRight [CN_TEXT]，[CN_TEXT] **px**
+     * drawableRight view，view **px**
      */
     private var rightHeight = 0
 
@@ -62,7 +62,7 @@ class MyTextView : AppCompatTextView {
         rightHeight = typedArray.getDimensionPixelSize(R.styleable.MyTextView_right_height, drawableHeight)
         typedArray.recycle()
 
-        // [CN_TEXT]Settings[CN_TEXT]Drawable
+        // viewSettingsviewDrawable
         val drawables = compoundDrawables
         val relativeDrawables = compoundDrawablesRelative
         val left = drawables[0]
@@ -124,7 +124,7 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * [CN_TEXT]Settings[CN_TEXT] TextView All compound drawable [CN_TEXT]，[CN_TEXT]**px**.
+     * viewSettingsview TextView All compound drawable view，view**px**.
      */
     fun setDrawableHeightPx(pxHeight: Int) {
         topHeight = pxHeight
@@ -137,14 +137,14 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * Settings drawableStart [CN_TEXT] drawableXX [CN_TEXT] null.
+     * Settings drawableStart view drawableXX view null.
      */
     fun setOnlyDrawableStart(drawable: Drawable?) {
         setCompoundDrawablesRelative(drawable, null, null, null)
     }
 
     /**
-     * Settings drawableStart [CN_TEXT] drawableXX [CN_TEXT] null.
+     * Settings drawableStart view drawableXX view null.
      */
     fun setOnlyDrawableStart(
         @DrawableRes start: Int,
@@ -153,8 +153,8 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * [CN_TEXT]Settings[CN_TEXT] drawable.
-     * true-[CN_TEXT] drawable false-[CN_TEXT]
+     * viewSettingsview drawable.
+     * true-view drawable false-view
      */
     fun hasAnyDrawable(): Boolean {
         for (drawable in compoundDrawables) {
@@ -171,7 +171,7 @@ class MyTextView : AppCompatTextView {
     }
 
     /**
-     * [CN_TEXT]Specified drawable SettingsSpecified[CN_TEXT]，[CN_TEXT] bounds.
+     * viewSpecified drawable SettingsSpecifiedview，view bounds.
      */
     private fun setDrawableBounds(
         drawable: Drawable?,

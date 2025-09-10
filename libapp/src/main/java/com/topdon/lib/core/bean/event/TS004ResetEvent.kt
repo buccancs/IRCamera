@@ -1,7 +1,7 @@
 package com.topdon.lib.core.bean.event
 
 /**
- * TS004 [CN_TEXT]Settings[CN_TEXT].
+ * TS004 eventSettingsevent.
  *
  * Created by LCG on 2024/4/23.
  */

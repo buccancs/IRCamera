@@ -4,7 +4,7 @@ import com.topdon.lib.core.ktbase.BaseViewModel
 
 class ThermalViewModel : BaseViewModel() {
     /**
-     * [CN_TEXT]yuv[CN_TEXT]
+     * viewyuvview
      * white:82 FF
      * black:82 00
      */

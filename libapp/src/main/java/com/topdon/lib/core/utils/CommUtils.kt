@@ -23,7 +23,7 @@ object CommUtils {
         try {
             msg = appInfo.metaData.getString("app_name")?.toString() ?: ""
         } catch (e: Exception) {
-            XLog.w("[CN_TEXT]app[CN_TEXT]： ${e.message}")
+            XLog.w("utilityapputility： ${e.message}")
         }
         return msg
     }

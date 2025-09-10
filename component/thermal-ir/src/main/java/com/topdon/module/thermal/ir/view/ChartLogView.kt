@@ -57,52 +57,52 @@ class ChartLogView : LineChart {
             this.setTouchEnabled(true)
             this.isDragEnabled = true
             this.setDrawGridBackground(false)
-            this.description = null//[CN_TEXT]
+            this.description = null// View rendering
             this.setBackgroundResource(LibcoreR.color.chart_bg)
-            this.setScaleEnabled(false)//[CN_TEXT]
-            this.setPinchZoom(false)//[CN_TEXT]，[CN_TEXT]x[CN_TEXT]y[CN_TEXT]
-            this.isDoubleTapToZoomEnabled = false//[CN_TEXT]
-            this.isScaleYEnabled = false//[CN_TEXT]Y[CN_TEXT]
-            this.isScaleXEnabled = true//[CN_TEXT]X[CN_TEXT]
+            this.setScaleEnabled(false)// View rendering
+            this.setPinchZoom(false)// View rendering，viewxviewyview
+            this.isDoubleTapToZoomEnabled = false// View rendering
+            this.isScaleYEnabled = false// View renderingYview
+            this.isScaleXEnabled = true// View renderingXview
             this.setExtraOffsets(
                 0f,
                 0f,
                 SizeUtils.dp2px(8f).toFloat(),
                 SizeUtils.dp2px(4f).toFloat()
-            )//[CN_TEXT]
+            )// View rendering
             setNoDataText(context.getString(ThermalR.string.lms_http_code998))
             setNoDataTextColor(ContextCompat.getColor(context, LibcoreR.color.chart_text))
             val mv = MyMarkerView(context, R.layout.marker_lay)
             mv.chartView = this
-            marker = mv//Settings[CN_TEXT]
+            marker = mv//Settingsview
             val data = LineData()
             data.setValueTextColor(textColor)
             this.data = data
             val l = this.legend
             l.form = Legend.LegendForm.CIRCLE
             l.textColor = textColor
-            l.isEnabled = false//[CN_TEXT]
-            //x[CN_TEXT]
+            l.isEnabled = false// View rendering
+            //xview
             val xAxis = this.xAxis
             xAxis.textColor = textColor
-            xAxis.setDrawGridLines(false)//[CN_TEXT]
-            xAxis.gridColor = axisChartColors //x[CN_TEXT]
-            xAxis.axisLineColor = 0x00000000 //x[CN_TEXT]
+            xAxis.setDrawGridLines(false)// View rendering
+            xAxis.gridColor = axisChartColors //xview
+            xAxis.axisLineColor = 0x00000000 //xview
             xAxis.setAvoidFirstLastClipping(true)
             xAxis.isEnabled = true
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1f
-            xAxis.isGranularityEnabled = true//[CN_TEXT]
+            xAxis.isGranularityEnabled = true// View rendering
             xAxis.textSize = 8f
-            //y[CN_TEXT]
+            //yview
             val leftAxis = this.axisLeft
-            leftAxis.textColor = textColor //y[CN_TEXT]
-            leftAxis.axisLineColor = 0x00000000 //y[CN_TEXT]
-            leftAxis.setDrawGridLines(true)//[CN_TEXT]
-            leftAxis.gridColor = axisChartColors //y[CN_TEXT]
+            leftAxis.textColor = textColor //yview
+            leftAxis.axisLineColor = 0x00000000 //yview
+            leftAxis.setDrawGridLines(true)// View rendering
+            leftAxis.gridColor = axisChartColors //yview
             leftAxis.gridLineWidth = 1.5f
             leftAxis.setLabelCount(6, true)
-            leftAxis.valueFormatter = YValueFormatter()//Settings[CN_TEXT]
+            leftAxis.valueFormatter = YValueFormatter()//Settingsview
             leftAxis.textSize = 8f
 
             this.axisRight.isEnabled = false
@@ -125,18 +125,18 @@ class ChartLogView : LineChart {
                 Log.w("chart", "update chart start")
                 val lineData: LineData = this@ChartLogView.data
                 if (lineData != null) {
-                    val startTime = data[0].createTime / 1000 * 1000  //[CN_TEXT] ([CN_TEXT],[CN_TEXT]x[CN_TEXT])
+                    val startTime = data[0].createTime / 1000 * 1000  // View rendering (view,viewxview)
                     xAxis.valueFormatter = IRMyValueFormatter(startTime = startTime, type = type)
                     XLog.w("chart init startTime:$startTime")
 //                    data[0].type = "default"
                     when (data[0].type) {
                         "point" -> {
-                            var set = lineData.getDataSetByIndex(0)//[CN_TEXT]x[CN_TEXT]0[CN_TEXT]
+                            var set = lineData.getDataSetByIndex(0)// View renderingxview0view
                             if (set == null) {
                                 set = createSet(0, "point temp")
                                 lineData.addDataSet(set)
                             }
-                            Log.w("123", "[CN_TEXT]")
+                            Log.w("123", "view")
                             data.forEach {
                                 val x = ChartTools.getChartX(
                                     x = it.createTime,
@@ -150,18 +150,18 @@ class ChartLogView : LineChart {
                             XLog.w("DataSet:${set.entryCount}")
                         }
                         "line" -> {
-                            var maxDataSet = lineData.getDataSetByIndex(0)//[CN_TEXT]x[CN_TEXT]0[CN_TEXT]
+                            var maxDataSet = lineData.getDataSetByIndex(0)// View renderingxview0view
                             if (maxDataSet == null) {
                                 maxDataSet = createSet(0, "line max temp")
 
                             }
 
-                            var minDataSet = lineData.getDataSetByIndex(1)//[CN_TEXT]x[CN_TEXT]0[CN_TEXT]
+                            var minDataSet = lineData.getDataSetByIndex(1)// View renderingxview0view
                             if (minDataSet == null) {
                                 minDataSet = createSet(1, "line min temp")
 
                             }
-                            Log.w("123", "[CN_TEXT]")
+                            Log.w("123", "view")
                             data.forEach {
                                 val x = ChartTools.getChartX(
                                     x = it.createTime,
@@ -184,18 +184,18 @@ class ChartLogView : LineChart {
                         }
                         else -> {
                             //max
-                            var maxTempDataSet = lineData.getDataSetByIndex(0)//[CN_TEXT]x[CN_TEXT]0[CN_TEXT]
+                            var maxTempDataSet = lineData.getDataSetByIndex(0)// View renderingxview0view
                             if (maxTempDataSet == null) {
                                 maxTempDataSet = createSet(0, "fence max temp")
                                 lineData.addDataSet(maxTempDataSet)
                             }
                             //center
-                            var centerTempDataSet = lineData.getDataSetByIndex(1)//[CN_TEXT]x[CN_TEXT]0[CN_TEXT]
+                            var centerTempDataSet = lineData.getDataSetByIndex(1)// View renderingxview0view
                             if (centerTempDataSet == null) {
                                 centerTempDataSet = createSet(1, "fence min temp")
                                 lineData.addDataSet(centerTempDataSet)
                             }
-                            Log.w("123", "[CN_TEXT]")
+                            Log.w("123", "view")
                             data.forEach {
                                 val x = ChartTools.getChartX(
                                     x = it.createTime,
@@ -217,9 +217,9 @@ class ChartLogView : LineChart {
                     lineData.notifyDataChanged()
                     notifyDataSetChanged()
                     moveViewToX(xChartMin)
-                    setVisibleXRangeMinimum(ChartTools.getMinimum(type = type) / 2)//Settings[CN_TEXT]X[CN_TEXT]
-                    setVisibleXRangeMaximum(ChartTools.getMaximum(type = type))//Settings[CN_TEXT]X[CN_TEXT]
-                    zoom(1f, 1f, xChartMin, 0f)//[CN_TEXT]，[CN_TEXT]
+                    setVisibleXRangeMinimum(ChartTools.getMinimum(type = type) / 2)//SettingsviewXview
+                    setVisibleXRangeMaximum(ChartTools.getMaximum(type = type))//SettingsviewXview
+                    zoom(1f, 1f, xChartMin, 0f)// View rendering，view
                     ChartTools.setX(this@ChartLogView, type)
 //                    ChartTools.setY(this@ChartTempView)
                 }
@@ -246,30 +246,30 @@ class ChartLogView : LineChart {
     )
 
     /**
-     * [CN_TEXT]
+     * view
      */
     private fun createSet(index: Int, label: String): LineDataSet {
         val set = LineDataSet(null, label)
         set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index])//Settings[CN_TEXT]
+        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index])//Settingsview
         set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(context, lineChartColors[index])//[CN_TEXT]
-        set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index])//[CN_TEXT]
-        set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index]))//[CN_TEXT]
+        set.color = ContextCompat.getColor(context, lineChartColors[index])// View rendering
+        set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index])// View rendering
+        set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index]))// View rendering
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
-        set.circleRadius = 1f//[CN_TEXT]
+        set.circleRadius = 1f// View rendering
         set.fillAlpha = 200
         set.valueTextSize = 10f
-        set.setDrawValues(false)//Settings[CN_TEXT]
+        set.setDrawValues(false)//Settingsview
         return set
     }
 
     private fun clearEntity(isEmpty: Boolean) {
         initChart()
         if (isEmpty) {
-            clear() //[CN_TEXT]
+            clear() // View rendering
         } else {
             clearValues()
         }

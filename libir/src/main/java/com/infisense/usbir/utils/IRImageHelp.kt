@@ -11,14 +11,14 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 /**
- * [CN_TEXT]，[CN_TEXT]
+ * utility，utility
  * @author: CaiSongL
  * @date: 2024/1/17 9:54
  */
 class IRImageHelp {
 
 
-    //[CN_TEXT]
+    // Utility function
     @Volatile
     private var colorList: IntArray ?= null
 
@@ -36,7 +36,7 @@ class IRImageHelp {
     }
 
     /**
-     * Settings[CN_TEXT]Pseudo-color[CN_TEXT]
+     * SettingsutilityPseudo-colorutility
      * @author: CaiSongL
      * @date: 2024/1/17 10:07
      */
@@ -70,22 +70,22 @@ class IRImageHelp {
 
 
     /**
-     * [CN_TEXT]Pseudo-color[CN_TEXT]，[CN_TEXT]，[CN_TEXT]Pseudo-color[CN_TEXT] [CN_TEXT]setColorList[CN_TEXT]Settings
-     * @param imageDst ByteArray ： [CN_TEXT]，argb[CN_TEXT]
-     * @param temperatureSrc ByteArray ： [CN_TEXT]
+     * utilityPseudo-colorutility，utility，utilityPseudo-colorutility utilitysetColorListutilitySettings
+     * @param imageDst ByteArray ： utility，argbutility
+     * @param temperatureSrc ByteArray ： utility
      * @param imageWidth Int ：
      * @param imageHeight Int
-     * @return ByteArray ： [CN_TEXT]，argb[CN_TEXT]
+     * @return ByteArray ： utility，argbutility
      */
     fun customPseudoColor(imageDst: ByteArray, temperatureSrc:ByteArray, imageWidth : Int, imageHeight : Int) : ByteArray{
         try {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
                 val imageDstLength: Int = imageWidth * imageHeight * 4
-                // [CN_TEXT]，[CN_TEXT]
+                // utility，utility
                 var index = 0
                 while (index < imageDstLength) {
-                    // [CN_TEXT]
+                    // utility
                     var temperature0: Float =
                         ((temperatureSrc.get(j).toInt() and 0xff) + (temperatureSrc.get(j + 1)
                             .toInt() and 0xff) * 256).toFloat()
@@ -131,10 +131,10 @@ class IRImageHelp {
                     index += 4
                     j += 2
                 }
-//                                        Log.w("[CN_TEXT]-[CN_TEXT]", System.currentTimeMillis() - startTimeAll + "//");
+//                                        Log.w("utility-utility", System.currentTimeMillis() - startTimeAll + "//");
             }
         } catch (exception: Exception) {
-            Log.e("[CN_TEXT]", exception.message!!)
+            Log.e("utility", exception.message!!)
         }finally {
             return imageDst
         }
@@ -143,7 +143,7 @@ class IRImageHelp {
 
 
     /**
-     * [CN_TEXT],[CN_TEXT]Pseudo-color[CN_TEXT]
+     * utility,utilityPseudo-colorutility
      */
     fun setPseudoColorMaxMin(imageDst: ByteArray?, temperatureSrc:ByteArray?,max : Float,
                        min : Float,imageWidth : Int,imageHeight : Int){
@@ -151,13 +151,13 @@ class IRImageHelp {
             var j = 0
             val imageDstLength: Int = imageWidth * imageHeight * 4
             val biaochiMax: Float = max
-            val biaochiMin: Float = min // [CN_TEXT]
+            val biaochiMin: Float = min // utility
             val startTimeAll = System.currentTimeMillis()
-            // [CN_TEXT]，[CN_TEXT]
+            // utility，utility
             var index = 0
             while (index < imageDstLength) {
 
-                // [CN_TEXT]
+                // utility
                 var temperature0: Float =
                     ((temperatureSrc[j].toInt() and 0xff) + (temperatureSrc[j + 1]
                         .toInt() and 0xff) * 256).toFloat()
@@ -167,7 +167,7 @@ class IRImageHelp {
                     val r: Int = imageDst!![index].toInt() and 0xff
                     val g: Int = imageDst!![index + 1].toInt() and 0xff
                     val b: Int = imageDst!![index + 2].toInt() and 0xff
-                    //[CN_TEXT]
+                    // Utility function
                     val grey = (r * 0.3f + g * 0.59f + b * 0.11f).toInt()
                     imageDst!![index] = grey.toByte()
                     imageDst!![index + 1] = grey.toByte()
@@ -180,7 +180,7 @@ class IRImageHelp {
         }
     }
     /**
-     * contourDetection [CN_TEXT]
+     * contourDetection utility
      */
     fun contourDetection(alarmBean : AlarmBean?,imageDst : ByteArray?,temperatureSrc : ByteArray?,
                          imageWidth : Int,imageHeight : Int) : ByteArray?{

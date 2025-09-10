@@ -11,14 +11,14 @@ import com.topdon.lib.core.db.entity.HouseDetect
 import com.topdon.lib.core.db.entity.ItemDetect
 
 /**
- * [CN_TEXT]-[CN_TEXT] DAO。
+ * data-data DAO。
  *
  * Created by LCG on 2024/8/19.
  */
 @Dao
 abstract class HouseDetectDao {
     /**
-     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT].
+     * dataSpecifieddata，data.
      */
     @Transaction
     open fun insert(houseDetect: HouseDetect): Long {
@@ -35,7 +35,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT].
+     * dataSpecifieddata.
      */
     @Transaction
     open fun insertDefaultDirs(houseDetect: HouseDetect) {
@@ -69,7 +69,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * [CN_TEXT]Specified id [CN_TEXT]，Note[CN_TEXT].
+     * dataSpecified id data，Notedata.
      */
     open fun queryDir(dirId: Long): DirDetect? {
         val dir: DirDetect = queryDirById(dirId) ?: return null
@@ -82,14 +82,14 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT].
+     * dataSpecifieddata，data.
      */
     open fun refreshDetect(houseDetect: HouseDetect) {
         val oldDirList: ArrayList<DirDetect> = ArrayList(queryDirList(houseDetect.id))
         for (i in houseDetect.dirList.indices) {
             val dir = houseDetect.dirList[i]
             dir.position = i
-            if (dir.id == 0L) { // [CN_TEXT]
+            if (dir.id == 0L) { // data
                 dir.id = insertDir(dir)
                 for (item in dir.itemList) {
                     item.parentId = dir.id
@@ -107,18 +107,18 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT].
+     * dataSpecifieddata，data.
      */
     open fun refreshDir(dirDetect: DirDetect) {
-        if (dirDetect.itemList.isEmpty()) { // All[CN_TEXT]，[CN_TEXT]
+        if (dirDetect.itemList.isEmpty()) { // Alldata，data
             deleteDir(dirDetect)
         } else {
-            updateDir(dirDetect) // [CN_TEXT]
+            updateDir(dirDetect) // data
             val oldItemList: ArrayList<ItemDetect> = ArrayList(queryItemList(dirDetect.id))
             for (i in dirDetect.itemList.indices) {
                 val item = dirDetect.itemList[i]
                 item.position = i
-                if (item.id == 0L) { // [CN_TEXT]
+                if (item.id == 0L) { // data
                     item.id = insertItem(item)
                 } else {
                     updateItem(item)
@@ -132,7 +132,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * [CN_TEXT]，Note[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+     * data，Notedata，data，data
      */
     @Transaction
     open fun copyDetect(oldDetect: HouseDetect): HouseDetect {
@@ -154,26 +154,26 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * [CN_TEXT]Specified position [CN_TEXT]
+     * dataSpecified position data
      */
     @Transaction
     open fun copyDir(
         dirList: ArrayList<DirDetect>,
         position: Int,
     ): DirDetect {
-        // [CN_TEXT]All[CN_TEXT] position [CN_TEXT]
+        // dataAlldata position data
         for (i in position + 1 until dirList.size) {
             val dir: DirDetect = dirList[i]
             dir.position += 1
             updateDir(dir)
         }
 
-        // [CN_TEXT]
+        // data
         val oldDir = dirList[position]
         val newDir = oldDir.copyOne()
         newDir.id = insertDir(newDir)
 
-        // [CN_TEXT]
+        // data
         for (item in newDir.itemList) {
             item.parentId = newDir.id
             item.id = insertItem(item)
@@ -183,26 +183,26 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * [CN_TEXT]Specified position [CN_TEXT]
+     * dataSpecified position data
      */
     @Transaction
     open fun copyItem(
         itemList: ArrayList<ItemDetect>,
         position: Int,
     ): ItemDetect {
-        // [CN_TEXT]All[CN_TEXT] position [CN_TEXT]
+        // dataAlldata position data
         for (i in position + 1 until itemList.size) {
             val item: ItemDetect = itemList[i]
             item.position += 1
             updateItem(item)
         }
 
-        // [CN_TEXT]
+        // data
         val oldItem = itemList[position]
         val newItem = oldItem.copyOne(position = oldItem.position + 1, itemName = oldItem.copyName())
         newItem.id = insertItem(newItem)
 
-        // [CN_TEXT]3[CN_TEXT]
+        // data3data
         if (newItem.state > 0) {
             val dir = newItem.dirDetect
             when (newItem.state) {
@@ -243,7 +243,7 @@ abstract class HouseDetectDao {
     abstract fun updateItem(vararg itemDetect: ItemDetect)
 
     /**
-     * [CN_TEXT]All[CN_TEXT]，Note[CN_TEXT].
+     * dataAlldata，Notedata.
      */
     @Query("SELECT * FROM HouseDetect ORDER BY createTime DESC")
     abstract fun queryAll(): List<HouseDetect>

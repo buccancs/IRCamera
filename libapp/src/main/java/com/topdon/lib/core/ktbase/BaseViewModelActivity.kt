@@ -23,16 +23,16 @@ abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
         }
     }
 
-    // viewModel[CN_TEXT]
+    // viewModelactivity
     abstract fun providerVMClass(): Class<VM>
 
-    // [CN_TEXT]，[CN_TEXT]
+    // activity，activity
     protected fun requestError(it: Exception?) {
-        // [CN_TEXT]
+        // activity
         it?.run {
             when (it) {
                 is TimeoutCancellationException -> httpErrorTip(getString(R.string.http_time_out), "")
-                is CancellationException -> Log.d("$TAG--->[CN_TEXT]", it.message.toString())
+                is CancellationException -> Log.d("$TAG--->activity", it.message.toString())
                 else -> httpErrorTip(getString(R.string.http_code_z5004), "")
             }
         }

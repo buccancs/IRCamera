@@ -16,28 +16,28 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.module.thermal.ir.R
 
 /**
- * 3D [CN_TEXT]，[CN_TEXT] SeekBar [CN_TEXT].
+ * 3D view，view SeekBar view.
  */
 class TargetBarPickView : View {
 
     companion object {
         /**
-         * [CN_TEXT].
+         * view.
          */
         @ColorInt
         private const val DEFAULT_BG_COLOR = 0x7F000000.toInt()
         /**
-         * [CN_TEXT].
+         * view.
          */
         @ColorInt
         private const val DEFAULT_PROGRESS_COLOR = 0xffffffff.toInt()
 
         /**
-         * Thumb [CN_TEXT]，[CN_TEXT] dp.
+         * Thumb view，view dp.
          */
         private const val THUMB_CORNERS = 4f
         /**
-         * Thumb [CN_TEXT]，[CN_TEXT] dp.
+         * Thumb view，view dp.
          */
         private const val THUMB_STROKE_WIDTH = 1.5f
     }
@@ -49,14 +49,14 @@ class TargetBarPickView : View {
     var onStopTrackingTouch: ((progress: Int, max: Int) -> Unit)? = null
 
     /**
-     * [CN_TEXT] View [CN_TEXT].
+     * view View view.
      */
     var valueFormatListener: ((progress: Int) -> String) = {
         it.toString()
     }
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     var max: Int = 100
         set(value) {
@@ -77,7 +77,7 @@ class TargetBarPickView : View {
 
 
     /**
-     * [CN_TEXT]Current[CN_TEXT].
+     * viewCurrentview.
      */
     private var progress: Int = 0
         set(value) {
@@ -93,15 +93,15 @@ class TargetBarPickView : View {
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT] px（[CN_TEXT]，[CN_TEXT]）
+     * view，view px（view，view）
      */
     private val barSize: Int
     /**
-     * [CN_TEXT]RotateAngle，[CN_TEXT] 0、90、180、270.
+     * viewRotateAngle，view 0、90、180、270.
      */
     private val rotate: Int
     /**
-     * [CN_TEXT].
+     * view.
      */
     private val labelText: String
 
@@ -164,7 +164,7 @@ class TargetBarPickView : View {
     }
 
     /**
-     * [CN_TEXT] Thumb [CN_TEXT]，[CN_TEXT] px.
+     * view Thumb view，view px.
      */
     private fun computeThumbWidth(): Int {
         val minTextWidth = paint.measureText(valueFormatListener.invoke(min)).toInt()

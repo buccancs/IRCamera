@@ -24,9 +24,9 @@ class GuideInterface {
     private val IR_HEIGHT = 192
     private val HEAD_SIZE = 64
     private val IR_SIZE = IR_WIDTH * IR_HEIGHT //49152
-    private val YUV_SIZE = IR_SIZE * 2 //98304 2byte = 1[CN_TEXT]
+    private val YUV_SIZE = IR_SIZE * 2 //98304 2byte = 1data
     private val PARAM_SIZE = 512
-    private val TEMP_MATRIX_SIZE = IR_SIZE * 4 //196608 4byte = 1[CN_TEXT]
+    private val TEMP_MATRIX_SIZE = IR_SIZE * 4 //196608 4byte = 1data
     private val FRAME_SIZE = HEAD_SIZE + YUV_SIZE + PARAM_SIZE + TEMP_MATRIX_SIZE //295488
     private val MAX_BULK_TRANSFER_SIZE = 16384
     private var mGuideUsbManager: GuideUsbManager? = null
@@ -35,13 +35,13 @@ class GuideInterface {
     private val mUsbReadbuffer = ByteArray(MAX_BULK_TRANSFER_SIZE)
     private val mFrame = ByteArray(FRAME_SIZE)
 
-    //[CN_TEXT]：YUV422(UYVY)
+    // Implementation：YUV422(UYVY)
     private val mYuv = ByteArray(YUV_SIZE)
 
-    //[CN_TEXT]
+    // Implementation
     private val mParam = ByteArray(PARAM_SIZE)
 
-    //[CN_TEXT]：
+    // Implementation：
     private val mTempMatrixByte = ByteArray(TEMP_MATRIX_SIZE)
     private val mTempMatrixFloat = FloatArray(IR_SIZE)
     private var mIrDataCallback: IrDataCallback? = null
@@ -60,14 +60,14 @@ class GuideInterface {
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     private fun startUsbBufferWriteThread() {
         mWriteThreadFlag = true
         mUsbBufferWriteThread = Thread {
             d(TAG, "write thread start")
             while (mWriteThreadFlag) {
-                val length: Int = mGuideUsbManager!!.read(mUsbReadbuffer) //[CN_TEXT]Infrared[CN_TEXT]
+                val length: Int = mGuideUsbManager!!.read(mUsbReadbuffer) // ImplementationInfrareddata
                 if (length > 0) {
                     mUsbBuffer!!.write(mUsbReadbuffer, 0, length)
                 } else {
@@ -87,7 +87,7 @@ class GuideInterface {
     var startTime = 0L
 
     /**
-     * [CN_TEXT],[CN_TEXT]
+     * data,data
      */
     private fun startUsbBufferReadThread() {
         mReadThreadFlag = true
@@ -113,7 +113,7 @@ class GuideInterface {
                             mTempMatrixByte.size
                         )
                     }
-                    mNativeGuideCore!!.toFloatTempMatrix(mTempMatrixFloat, mTempMatrixByte) //[CN_TEXT]
+                    mNativeGuideCore!!.toFloatTempMatrix(mTempMatrixFloat, mTempMatrixByte) // Implementation
 //                    if (startTime == 0L) {
 //                        startTime = System.currentTimeMillis()
 //                    }
@@ -127,7 +127,7 @@ class GuideInterface {
 //                        )
 //                    }
                     if (mIrDataCallback != null) {
-                        mIrDataCallback!!.processIrData(mYuv, mTempMatrixFloat) //[CN_TEXT]
+                        mIrDataCallback!!.processIrData(mYuv, mTempMatrixFloat) // Implementation
                     }
                 } else {
 //                        Logger.d(TAG, "read Frame failed");
@@ -244,7 +244,7 @@ class GuideInterface {
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdata
      */
     fun setBright(bright: Int) {
         if (mGuideUsbManager == null) {
@@ -265,7 +265,7 @@ class GuideInterface {
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdata
      */
     fun setContrast(contrast: Int) {
         if (mGuideUsbManager == null) {

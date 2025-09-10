@@ -22,8 +22,8 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     var MONITOR_ACTION = STATS_START
 
-    private var selectType = 1 // [CN_TEXT]Type([CN_TEXT] [CN_TEXT] [CN_TEXT])
-    private var selectIndex: ArrayList<Int> = arrayListOf() // [CN_TEXT]
+    private var selectType = 1 // activityType(activity activity activity)
+    private var selectIndex: ArrayList<Int> = arrayListOf() // activity
 
     override fun initContentView() = R.layout.activity_monitor
 
@@ -96,7 +96,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         motionBtn.visibility = View.GONE
     }
 
-    // [CN_TEXT]
+    // activity
     fun updateTime(time: Long) {
         val ss = time % 60
         val mm = time / 60 % 60

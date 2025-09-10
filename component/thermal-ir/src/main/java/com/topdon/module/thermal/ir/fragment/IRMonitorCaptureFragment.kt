@@ -17,16 +17,16 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 
 /**
- * [CN_TEXT]-[CN_TEXT]（[CN_TEXT]）.
+ * fragment-fragment（fragment）.
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
+ * fragment：
+ * - [ExtraKeyConfig.IS_TC007] - Currentfragment TC007
  */
 class IRMonitorCaptureFragment : BaseFragment() {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * fragment，Currentfragment TC007 fragmentType.
+     * true-TC007 false-fragment
      */
     private var isTC007 = false
     
@@ -82,7 +82,7 @@ class IRMonitorCaptureFragment : BaseFragment() {
     }
 
     /**
-     * [CN_TEXT]State
+     * fragmentState
      */
     private fun refreshUI(isConnect: Boolean) {
         animationView.isVisible = !isConnect

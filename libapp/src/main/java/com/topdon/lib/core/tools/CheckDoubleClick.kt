@@ -8,7 +8,7 @@ object CheckDoubleClick {
             records.clear()
         }
 
-        // [CN_TEXT]
+        // data
         val ste = Throwable().stackTrace[1]
         val key = ste.fileName + ste.lineNumber
         var lastClickTime = records[key]

@@ -10,22 +10,22 @@ import android.view.animation.ScaleAnimation
  */
 public object AnimaUtils{
     /**
-     * [CN_TEXT]
+     * utility
      */
     const val DEFAULT_ANIMATION_DURATION: Long = 400
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT]
+     * utilityRotateutility
      *
-     * @param fromDegrees       [CN_TEXT]Angle
-     * @param toDegrees         [CN_TEXT]Angle
-     * @param pivotXType        Rotate[CN_TEXT]X[CN_TEXT]Type
-     * @param pivotXValue       Rotate[CN_TEXT]X[CN_TEXT]
-     * @param pivotYType        Rotate[CN_TEXT]Y[CN_TEXT]Type
-     * @param pivotYValue       Rotate[CN_TEXT]Y[CN_TEXT]
-     * @param durationMillis    [CN_TEXT]
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]Rotate[CN_TEXT]
+     * @param fromDegrees       utilityAngle
+     * @param toDegrees         utilityAngle
+     * @param pivotXType        RotateutilityXutilityType
+     * @param pivotXValue       RotateutilityXutility
+     * @param pivotYType        RotateutilityYutilityType
+     * @param pivotYValue       RotateutilityYutility
+     * @param durationMillis    utility
+     * @param animationListener utility
+     * @return utilityRotateutility
      */
     fun getRotateAnimation(
         fromDegrees: Float,
@@ -49,11 +49,11 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT]
+     * utilityRotateutility
      *
-     * @param durationMillis    [CN_TEXT]
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]Rotate[CN_TEXT]
+     * @param durationMillis    utility
+     * @param animationListener utility
+     * @return utilityRotateutility
      */
     fun getRotateAnimationByCenter(
         durationMillis: Long,
@@ -67,20 +67,20 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT]
+     * utilityRotateutility
      *
-     * @param duration [CN_TEXT]
-     * @return [CN_TEXT]Rotate[CN_TEXT]
+     * @param duration utility
+     * @return utilityRotateutility
      */
     fun getRotateAnimationByCenter(duration: Long): RotateAnimation {
         return getRotateAnimationByCenter(duration, null)
     }
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT]
+     * utilityRotateutility
      *
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]Rotate[CN_TEXT]
+     * @param animationListener utility
+     * @return utilityRotateutility
      */
     fun getRotateAnimationByCenter(animationListener: Animation.AnimationListener?): RotateAnimation {
         return getRotateAnimationByCenter(
@@ -90,21 +90,21 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT]
+     * utilityRotateutility
      *
-     * @return [CN_TEXT]Rotate[CN_TEXT]，[CN_TEXT]DEFAULT_ANIMATION_DURATION
+     * @return utilityRotateutility，utilityDEFAULT_ANIMATION_DURATION
      */
     val rotateAnimationByCenter: RotateAnimation
         get() = getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION, null)
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param fromAlpha         [CN_TEXT]
-     * @param toAlpha           [CN_TEXT]
-     * @param durationMillis    [CN_TEXT]
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param fromAlpha         utility
+     * @param toAlpha           utility
+     * @param durationMillis    utility
+     * @param animationListener utility
+     * @return utility
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -121,12 +121,12 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param fromAlpha      [CN_TEXT]
-     * @param toAlpha        [CN_TEXT]
-     * @param durationMillis [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param fromAlpha      utility
+     * @param toAlpha        utility
+     * @param durationMillis utility
+     * @return utility
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -137,12 +137,12 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param fromAlpha         [CN_TEXT]
-     * @param toAlpha           [CN_TEXT]
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]，[CN_TEXT]DEFAULT_ANIMATION_DURATION
+     * @param fromAlpha         utility
+     * @param toAlpha           utility
+     * @param animationListener utility
+     * @return utility，utilityDEFAULT_ANIMATION_DURATION
      */
     fun getAlphaAnimation(
         fromAlpha: Float,
@@ -156,11 +156,11 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param fromAlpha [CN_TEXT]
-     * @param toAlpha   [CN_TEXT]
-     * @return [CN_TEXT]，[CN_TEXT]DEFAULT_ANIMATION_DURATION
+     * @param fromAlpha utility
+     * @param toAlpha   utility
+     * @return utility，utilityDEFAULT_ANIMATION_DURATION
      */
     fun getAlphaAnimation(fromAlpha: Float, toAlpha: Float): AlphaAnimation {
         return getAlphaAnimation(
@@ -170,11 +170,11 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param durationMillis    [CN_TEXT]
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param durationMillis    utility
+     * @param animationListener utility
+     * @return utility
      */
     fun getHiddenAlphaAnimation(
         durationMillis: Long,
@@ -184,20 +184,20 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param durationMillis [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param durationMillis utility
+     * @return utility
      */
     fun getHiddenAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getHiddenAlphaAnimation(durationMillis, null)
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]，[CN_TEXT]DEFAULT_ANIMATION_DURATION
+     * @param animationListener utility
+     * @return utility，utilityDEFAULT_ANIMATION_DURATION
      */
     fun getHiddenAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getHiddenAlphaAnimation(
@@ -207,19 +207,19 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @return [CN_TEXT]，[CN_TEXT]DEFAULT_ANIMATION_DURATION
+     * @return utility，utilityDEFAULT_ANIMATION_DURATION
      */
     val hiddenAlphaAnimation: AlphaAnimation
         get() = getHiddenAlphaAnimation(DEFAULT_ANIMATION_DURATION, null)
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param durationMillis    [CN_TEXT]
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param durationMillis    utility
+     * @param animationListener utility
+     * @return utility
      */
     fun getShowAlphaAnimation(
         durationMillis: Long,
@@ -229,20 +229,20 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param durationMillis [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param durationMillis utility
+     * @return utility
      */
     fun getShowAlphaAnimation(durationMillis: Long): AlphaAnimation {
         return getAlphaAnimation(0.0f, 1.0f, durationMillis, null)
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param animationListener [CN_TEXT]
-     * @return [CN_TEXT]，[CN_TEXT]DEFAULT_ANIMATION_DURATION
+     * @param animationListener utility
+     * @return utility，utilityDEFAULT_ANIMATION_DURATION
      */
     fun getShowAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
         return getAlphaAnimation(
@@ -252,19 +252,19 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @return [CN_TEXT]，[CN_TEXT]DEFAULT_ANIMATION_DURATION
+     * @return utility，utilityDEFAULT_ANIMATION_DURATION
      */
     val showAlphaAnimation: AlphaAnimation
         get() = getAlphaAnimation(0.0f, 1.0f, DEFAULT_ANIMATION_DURATION, null)
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param durationMillis   [CN_TEXT]
-     * @param animationListener  [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param durationMillis   utility
+     * @param animationListener  utility
+     * @return utility
      */
     fun getLessenScaleAnimation(
         durationMillis: Long,
@@ -281,20 +281,20 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param durationMillis [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param durationMillis utility
+     * @return utility
      */
     fun getLessenScaleAnimation(durationMillis: Long): ScaleAnimation {
         return getLessenScaleAnimation(durationMillis, null)
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param animationListener  [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param animationListener  utility
+     * @return utility
      */
     fun getLessenScaleAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getLessenScaleAnimation(
@@ -304,11 +304,11 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
-     * @param durationMillis   [CN_TEXT]
-     * @param animationListener  [CN_TEXT]
+     * utility
+     * @param durationMillis   utility
+     * @param animationListener  utility
      *
-     * @return [CN_TEXT]
+     * @return utility
      */
     fun getAmplificationAnimation(
         durationMillis: Long,
@@ -325,21 +325,21 @@ public object AnimaUtils{
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param durationMillis   [CN_TEXT]
+     * @param durationMillis   utility
      *
-     * @return [CN_TEXT]
+     * @return utility
      */
     fun getAmplificationAnimation(durationMillis: Long): ScaleAnimation {
         return getAmplificationAnimation(durationMillis, null)
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param animationListener  [CN_TEXT]
-     * @return [CN_TEXT]
+     * @param animationListener  utility
+     * @return utility
      */
     fun getAmplificationAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
         return getAmplificationAnimation(

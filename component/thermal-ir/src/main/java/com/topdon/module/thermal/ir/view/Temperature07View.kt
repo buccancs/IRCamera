@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 
 /**
- * TC007 [CN_TEXT]，[CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT] View.
+ * TC007 view，view，viewPoint/Line/Areaview View.
  *
  * Created by LCG on 2024/5/7.
  */
@@ -30,7 +30,7 @@ class Temperature07View : TemperatureBaseView {
             Mode.LINE -> operateLine?.let { drawLine(canvas, it) }
             Mode.RECT -> operateRect?.let { drawRect(canvas, it) }
             Mode.TREND -> {
-                //[CN_TEXT] TC007 [CN_TEXT]，[CN_TEXT] TC007 [CN_TEXT]
+                // View rendering TC007 view，view TC007 view
             }
             else -> {
 
@@ -43,7 +43,7 @@ class Temperature07View : TemperatureBaseView {
     /* **************************************** Touch **************************************** */
 
     /**
-     * Current[CN_TEXT]State，TC007 [CN_TEXT].
+     * CurrentviewState，TC007 view.
      */
     private var isTouching = false
 

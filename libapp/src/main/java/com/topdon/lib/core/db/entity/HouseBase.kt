@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.TimeUtils
 
 /**
- * [CN_TEXT] - [CN_TEXT].
+ * data - data.
  *
  * Created by LCG on 2024/1/15.
  */
@@ -16,73 +16,73 @@ open class HouseBase {
     var id: Long = 0
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @ColumnInfo
     var name: String = ""
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @ColumnInfo
     var inspectorName: String = ""
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @ColumnInfo
     var address: String = ""
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @ColumnInfo
     var imagePath: String = ""
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @ColumnInfo
     var year: Int? = null
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @ColumnInfo
     var houseSpace: String = ""
 
     /**
-     * [CN_TEXT] 0-[CN_TEXT] 1-[CN_TEXT] 2-[CN_TEXT]
+     * data 0-data 1-data 2-data
      */
     @ColumnInfo
     var houseSpaceUnit: Int = 0
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @ColumnInfo
     var cost: String = ""
 
     /**
-     * [CN_TEXT]，0-[CN_TEXT]USD 1-[CN_TEXT]EUR 2-[CN_TEXT]GBP 3-[CN_TEXT]AUD 4-[CN_TEXT]JPY 5-[CN_TEXT]CAD 6-[CN_TEXT]NZD 7-Person[CN_TEXT]RMB 8-[CN_TEXT]HKD
+     * data，0-dataUSD 1-dataEUR 2-dataGBP 3-dataAUD 4-dataJPY 5-dataCAD 6-dataNZD 7-PersondataRMB 8-dataHKD
      */
     @ColumnInfo
     var costUnit: Int = 0
 
     /**
-     * [CN_TEXT]“[CN_TEXT]”[CN_TEXT]，[CN_TEXT]
+     * data“data”data，data
      */
     @ColumnInfo
     var detectTime: Long = 0
 
     /**
-     * [CN_TEXT]，[CN_TEXT]
+     * data，data
      */
     @ColumnInfo
     var createTime: Long = 0
 
     /**
-     * [CN_TEXT]，[CN_TEXT]
+     * data，data
      */
     @ColumnInfo
     var updateTime: Long = 0
@@ -92,7 +92,7 @@ open class HouseBase {
     override fun hashCode(): Int = id.toInt()
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     fun getSpaceUnitStr(): String =
         when (houseSpaceUnit) {
@@ -102,40 +102,40 @@ open class HouseBase {
         }
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     fun getCostUnitStr(): String =
         when (costUnit) {
-            1 -> "EUR" // [CN_TEXT]EUR
-            2 -> "GBP" // [CN_TEXT]GBP
-            3 -> "AUD" // [CN_TEXT]AUD
-            4 -> "JPY" // [CN_TEXT]JPY
-            5 -> "CAD" // [CN_TEXT]CAD
-            6 -> "NZD" // [CN_TEXT]NZD
-            7 -> "RMB" // Person[CN_TEXT]RMB
-            8 -> "HKD" // [CN_TEXT]HKD
-            else -> "USD" // [CN_TEXT]USD
+            1 -> "EUR" // dataEUR
+            2 -> "GBP" // dataGBP
+            3 -> "AUD" // dataAUD
+            4 -> "JPY" // dataJPY
+            5 -> "CAD" // dataCAD
+            6 -> "NZD" // dataNZD
+            7 -> "RMB" // PersondataRMB
+            8 -> "HKD" // dataHKD
+            else -> "USD" // dataUSD
         }
 
     /**
-     * [CN_TEXT] PDF [CN_TEXT]
+     * data PDF data
      */
     fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
 
 /**
- * [CN_TEXT] - [CN_TEXT].
+ * data - data.
  */
 @Entity
 class HouseDetect : HouseBase() {
     /**
-     * [CN_TEXT]
+     * data
      */
     @Ignore
     var dirList: ArrayList<DirDetect> = ArrayList()
 
     /**
-     * [CN_TEXT] id [CN_TEXT] 0，[CN_TEXT] (1)，[CN_TEXT].
+     * data id data 0，data (1)，data.
      */
     fun copyOne(): HouseDetect {
         val newDetect = HouseDetect()
@@ -186,36 +186,36 @@ class HouseDetect : HouseBase() {
 }
 
 /**
- * [CN_TEXT] - [CN_TEXT].
+ * data - data.
  */
 @Entity
 class HouseReport : HouseBase() {
     /**
-     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
+     * data（data）data
      */
     @ColumnInfo
     var inspectorWhitePath: String = ""
 
     /**
-     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
+     * data（data）data
      */
     @ColumnInfo
     var inspectorBlackPath: String = ""
 
     /**
-     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
+     * data（data）data
      */
     @ColumnInfo
     var houseOwnerWhitePath: String = ""
 
     /**
-     * [CN_TEXT]（[CN_TEXT]）[CN_TEXT]
+     * data（data）data
      */
     @ColumnInfo
     var houseOwnerBlackPath: String = ""
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @Ignore
     var dirList: ArrayList<DirReport> = ArrayList()

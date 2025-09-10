@@ -36,7 +36,7 @@ object NetWorkUtils {
         val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         @Suppress("DEPRECATION")
         val wifiInfo = wifiManager.connectionInfo
-        val ssid = wifiInfo.ssid.replace("\"", "") // [CN_TEXT]
+        val ssid = wifiInfo.ssid.replace("\"", "") // utility
         for (prefix in prefixes) {
             if (ssid.startsWith(prefix)) {
                 return true
@@ -51,16 +51,16 @@ object NetWorkUtils {
         listener: ((network: Network?) -> Unit)? = null,
     ) {
         netWorkListener = listener
-        if (Build.VERSION.SDK_INT < 29) { // [CN_TEXT] Android10
+        if (Build.VERSION.SDK_INT < 29) { // utility Android10
             val request =
                 NetworkRequest.Builder()
                     .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // [CN_TEXT] internet
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // utility internet
                     .build()
             val callback =
                 object : ConnectivityManager.NetworkCallback() {
                     override fun onAvailable(network: Network) {
-                        XLog.e("[CN_TEXT]", "onAvailable")
+                        XLog.e("utility", "onAvailable")
                         if (WifiUtil.getCurrentWifiSSID(BaseApplication.instance) == ssid) {
                             connectivityManager.unregisterNetworkCallback(this)
                             listener?.invoke(network)
@@ -68,7 +68,7 @@ object NetWorkUtils {
                     }
 
                     override fun onUnavailable() {
-                        XLog.e("[CN_TEXT]", "onUnavailable")
+                        XLog.e("utility", "onUnavailable")
                         connectivityManager.unregisterNetworkCallback(this)
                         listener?.invoke(null)
                     }
@@ -77,7 +77,7 @@ object NetWorkUtils {
                         network: Network,
                         networkCapabilities: NetworkCapabilities,
                     ) {
-                        XLog.e("[CN_TEXT]", "onCapabilitiesChanged")
+                        XLog.e("utility", "onCapabilitiesChanged")
                         super.onCapabilitiesChanged(network, networkCapabilities)
                     }
 
@@ -86,7 +86,7 @@ object NetWorkUtils {
                         blocked: Boolean,
                     ) {
                         super.onBlockedStatusChanged(network, blocked)
-                        XLog.e("[CN_TEXT]", "onBlockedStatusChanged")
+                        XLog.e("utility", "onBlockedStatusChanged")
                     }
 
                     override fun onLinkPropertiesChanged(
@@ -94,7 +94,7 @@ object NetWorkUtils {
                         linkProperties: LinkProperties,
                     ) {
                         super.onLinkPropertiesChanged(network, linkProperties)
-                        XLog.e("[CN_TEXT]", "onLinkPropertiesChanged")
+                        XLog.e("utility", "onLinkPropertiesChanged")
                     }
 
                     override fun onLosing(
@@ -102,7 +102,7 @@ object NetWorkUtils {
                         maxMsToLive: Int,
                     ) {
                         super.onLosing(network, maxMsToLive)
-                        XLog.e("[CN_TEXT]", "onLosing")
+                        XLog.e("utility", "onLosing")
                     }
                 }
             connectivityManager.registerNetworkCallback(request, callback)
@@ -168,7 +168,7 @@ object NetWorkUtils {
         isWifi: Boolean,
         listener: ((network: Network?) -> Unit)? = null,
     ) {
-        if (Build.VERSION.SDK_INT < 29) { // [CN_TEXT] Android10
+        if (Build.VERSION.SDK_INT < 29) { // utility Android10
             return
         }
         if (isWifi)
@@ -177,7 +177,7 @@ object NetWorkUtils {
                 if (networkCapabilities != null &&
                     networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
                 ) {
-                    XLog.i("[CN_TEXT]wifi,[CN_TEXT]")
+                    XLog.i("utilitywifi,utility")
                     return
                 }
             }
@@ -190,7 +190,7 @@ object NetWorkUtils {
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)
-                    XLog.i("Switch[CN_TEXT] ${if (isWifi) "WIFI" else "[CN_TEXT]"} onAvailable()")
+                    XLog.i("Switchutility ${if (isWifi) "WIFI" else "utility"} onAvailable()")
                     if (isWifi) {
                         TS004Repository.netWork = network
                     }
@@ -202,7 +202,7 @@ object NetWorkUtils {
                 override fun onUnavailable() {
                     super.onUnavailable()
                     connectivityManager.unregisterNetworkCallback(this)
-                    XLog.w("Switch[CN_TEXT] ${if (isWifi) "WIFI" else "[CN_TEXT]"} onUnavailable()")
+                    XLog.w("Switchutility ${if (isWifi) "WIFI" else "utility"} onUnavailable()")
                     listener?.invoke(null)
                 }
             },

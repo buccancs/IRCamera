@@ -5,19 +5,19 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ReportTempBean(
-    val max_temperature: String?, //[CN_TEXT]High temperature，[CN_TEXT]
-    val is_max_temperature: Int,  //[CN_TEXT]High temperature
-    val min_temperature: String?, //[CN_TEXT]Low temperature，[CN_TEXT]
-    val is_min_temperature: Int,  //[CN_TEXT]Low temperature
+    val max_temperature: String?, // Data fieldHigh temperature，data
+    val is_max_temperature: Int,  // Data fieldHigh temperature
+    val min_temperature: String?, // Data fieldLow temperature，data
+    val is_min_temperature: Int,  // Data fieldLow temperature
 
-    val comment: String?,//[CN_TEXT]
-    val is_comment: Int, //[CN_TEXT]
+    val comment: String?,// Data field
+    val is_comment: Int, // Data field
 
-    val mean_temperature: String? = null,//[CN_TEXT]，[CN_TEXT]
-    val is_mean_temperature: Int = 0,    //[CN_TEXT]
+    val mean_temperature: String? = null,// Data field，data
+    val is_mean_temperature: Int = 0,    // Data field
 
-    val temperature: String? = null,//[CN_TEXT]，[CN_TEXT]
-    val is_temperature: Int = 0,    //[CN_TEXT]
+    val temperature: String? = null,// Data field，data
+    val is_temperature: Int = 0,    // Data field
 ): Parcelable {
 
     constructor(temperature: String?, is_temperature: Int, comment: String?, is_comment: Int): this(

@@ -16,7 +16,7 @@ import com.topdon.module.thermal.viewmodel.GalleryViewModel
 import java.io.File
 
 /**
- * [CN_TEXT]
+ * fragment
  */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -47,8 +47,8 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                     index: Int,
                     path: String,
                 ) {
-                    TipDialog.Builder(requireContext()).setMessage("[CN_TEXT]")
-                        .setPositiveListener("[CN_TEXT]") {
+                    TipDialog.Builder(requireContext()).setMessage("fragment")
+                        .setPositiveListener("fragment") {
                             share(path)
                         }
                         .create().show()
@@ -65,13 +65,13 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     fun share(path: String) {
         val file = File(path)
         var intent = Intent()
-        intent.action = Intent.ACTION_SEND // Settings[CN_TEXT]
-        intent.type = "image/*" // Settings[CN_TEXT]Type
+        intent.action = Intent.ACTION_SEND // Settingsfragment
+        intent.type = "image/*" // SettingsfragmentType
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "${requireContext().packageName}.fileprovider"
@@ -80,7 +80,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                 Uri.fromFile(file)
             }
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent = Intent.createChooser(intent, "[CN_TEXT]")
+        intent = Intent.createChooser(intent, "fragment")
         startActivity(intent)
     }
 
@@ -88,9 +88,9 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         val imageEngine = GlideImageEngine()
         // Note: MNImageBrowser API requires proper library configuration and integration
         /*
-        MNImageBrowser.with(requireContext()) //Current[CN_TEXT]
-            .setCurrentPosition(0) //[CN_TEXT]
-            .setImageEngine(imageEngine) //[CN_TEXT]
+        MNImageBrowser.with(requireContext()) //Currentfragment
+            .setCurrentPosition(0) // Fragment logic
+            .setImageEngine(imageEngine) // Fragment logic
             .setImageUrl(path)
             .show()
          */

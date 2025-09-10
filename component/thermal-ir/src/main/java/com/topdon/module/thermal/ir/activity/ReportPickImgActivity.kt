@@ -35,20 +35,20 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * [CN_TEXT].
+ * activity.
  *
- * [CN_TEXT]：
- * - [CN_TEXT] TC007: [ExtraKeyConfig.IS_TC007] [CN_TEXT]
- * - [ExtraKeyConfig.REPORT_INFO] - [CN_TEXT]
- * - [ExtraKeyConfig.REPORT_CONDITION] - [CN_TEXT]
- * - [ExtraKeyConfig.REPORT_IR_LIST] - Current[CN_TEXT]
+ * activity：
+ * - activity TC007: [ExtraKeyConfig.IS_TC007] activity
+ * - [ExtraKeyConfig.REPORT_INFO] - activity
+ * - [ExtraKeyConfig.REPORT_CONDITION] - activity
+ * - [ExtraKeyConfig.REPORT_IR_LIST] - Currentactivity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
 
@@ -157,7 +157,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(this, spanCount)
-        //[CN_TEXT]Settingsspan
+        // Activity logicSettingsspan
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
@@ -167,7 +167,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.onLongEditListener = {
-            // adapter [CN_TEXT]Switch[CN_TEXT]，[CN_TEXT]
+            // adapter activitySwitchactivity，activity
             groupBottom.isVisible = true
             titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
             titleView.setLeftDrawable(0)  // Note: Add appropriate drawable for cancel/back action

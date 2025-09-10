@@ -19,19 +19,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * [CN_TEXT].
+ * dialog.
  *
  * Created by LCG on 2024/4/8.
  */
 class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, R.style.TransparentDialog) {
 
     /**
-     * [CN_TEXT]，step：Current[CN_TEXT]`[1,3]`，[CN_TEXT]
+     * dialog，step：Currentdialog`[1,3]`，dialog
      */
     var onNextClickListener: ((step: Int) -> Unit)? = null
 
     /**
-     * [CN_TEXT].
+     * dialog.
      */
     var onSkinClickListener: (() -> Unit)? = null
 

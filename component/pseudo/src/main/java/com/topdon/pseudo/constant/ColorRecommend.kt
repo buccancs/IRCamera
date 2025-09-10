@@ -41,7 +41,7 @@ object ColorRecommend {
 
     /**
      *
-     * @param index 0-Iron red 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT] 4-[CN_TEXT]
+     * @param index 0-Iron red 1-data 2-data 3-data 4-data
      */
     fun getColorByIndex(isTC007: Boolean, index: Int): IntArray = when (index) {
         0 -> colorList1

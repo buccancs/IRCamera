@@ -134,10 +134,10 @@ class MenuSecondView : FrameLayout {
             settingObAdapter.onSettingListener = value
         }
     /**
-     * Temperature measurementMode-Menu6-[CN_TEXT]Low temperature[CN_TEXT] [CN_TEXT].
+     * Temperature measurement mode - Menu 6 - High/Low temperature gain control.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
-     * - [CN_TEXT]Switch：-1
+     * Historical legacy (already saved in SharedPreferences), corresponding code values
+     * - Default switch: -1
      * - High temperature(Low gain)：0
      * - Normal temperature(High gain)：1
      */
@@ -149,13 +149,13 @@ class MenuSecondView : FrameLayout {
 
 
     /**
-     * ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT] [CN_TEXT].
+     * Observation mode - Menu 2 - High/Low temperature source selection.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
+     * Historical legacy (already saved in SharedPreferences), corresponding code values
      * - Nothing isSelected：-1
      * - Dynamic recognition：0
-     * - High temperature[CN_TEXT]：1
-     * - Low temperature[CN_TEXT]：2
+     * - High temperature mode: 1
+     * - Low temperature mode: 2
      */
     var onTempSourceListener: ((code: Int) -> Unit)?
         get() = tempSourceAdapter.onTempSourceListener
@@ -163,7 +163,7 @@ class MenuSecondView : FrameLayout {
             tempSourceAdapter.onTempSourceListener = value
         }
     /**
-     * ObservationMode-Menu4-Target [CN_TEXT].
+     * Observation mode - Menu 4 - Target detection configuration.
      */
     var onTargetListener: ((targetType: TargetType) -> Unit)?
         get() = targetAdapter.onTargetListener
@@ -171,7 +171,7 @@ class MenuSecondView : FrameLayout {
             targetAdapter.onTargetListener = value
         }
     /**
-     * ObservationMode-Menu5-High/Low temperature points [CN_TEXT].
+     * Observation mode - Menu 5 - High/Low temperature point analysis.
      */
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)?
         get() = tempPointAdapter.onTempPointListener
@@ -184,41 +184,41 @@ class MenuSecondView : FrameLayout {
 
 
     /**
-     * Temperature measurementMode-Menu2-Point/Line/Area [CN_TEXT] Adapter.
+     * Temperature measurement mode - Menu 2 - Point/Line/Area measurement adapter.
      */
     private val fenceAdapter: FenceAdapter
     /**
-     * Temperature measurement mode - Menu 3 - Dual light [CN_TEXT] Adapter.
+     * Temperature measurement mode - Menu 3 - Dual light fusion adapter.
      */
     private val twoLightAdapter: TwoLightAdapter
     /**
-     * Temperature measurementMode-Menu4-Pseudo-color or ObservationMode-Menu3-Pseudo-color [CN_TEXT] Adapter.
+     * Temperature measurement mode - Menu 4 - Pseudo-color palette or Observation mode - Menu 3 - Pseudo-color palette adapter.
      */
     private val colorAdapter = ColorAdapter()
     /**
-     * Temperature measurementMode-Menu5-Settings [CN_TEXT] Adapter.
+     * Temperature measurement mode - Menu 5 - Settings configuration adapter.
      */
     private val settingTeAdapter: SettingAdapter
     /**
-     * Temperature measurementMode-Menu6-[CN_TEXT]Low temperature[CN_TEXT] [CN_TEXT] Adapter.
+     * Temperature measurement mode - Menu 6 - High/Low temperature gain control adapter.
      */
     private val tempLevelAdapter: TempLevelAdapter
 
 
     /**
-     * ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT] [CN_TEXT] Adapter.
+     * Observation mode - Menu 2 - High/Low temperature source selection adapter.
      */
     private val tempSourceAdapter = TempSourceAdapter()
     /**
-     * ObservationMode-Menu4-Target [CN_TEXT] Adapter.
+     * Observation mode - Menu 4 - Target detection configuration adapter.
      */
     private val targetAdapter = TargetAdapter()
     /**
-     * ObservationMode-Menu5-High/Low temperature points [CN_TEXT] Adapter.
+     * Observation mode - Menu 5 - High/Low temperature point analysis adapter.
      */
     private val tempPointAdapter = TempPointAdapter()
     /**
-     * ObservationMode-Menu6-Settings [CN_TEXT] Adapter.
+     * Observation mode - Menu 6 - Settings configuration adapter.
      */
     private val settingObAdapter = SettingAdapter(isObserver = true)
 
@@ -257,45 +257,45 @@ class MenuSecondView : FrameLayout {
 
             refreshImg(GalleryRepository.DirType.LINE)
 
-            //[CN_TEXT] Temperature measurementMode-Menu2-Point/Line/Area Menu
+            // Initialize Temperature measurement mode - Menu 2 - Point/Line/Area Menu
             fenceAdapter = FenceAdapter(menuType)
             binding.recyclerFence.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerFence.adapter = fenceAdapter
 
-            //[CN_TEXT] Temperature measurement mode - Menu 3 - Dual light Menu
+            // Initialize Temperature measurement mode - Menu 3 - Dual light Menu
             twoLightAdapter = TwoLightAdapter(menuType)
             binding.recyclerTwoLight.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerTwoLight.adapter = twoLightAdapter
 
-            //[CN_TEXT] Temperature measurementMode-Menu4-Pseudo-color or ObservationMode-Menu3-Pseudo-color Menu
+            // Initialize Temperature measurement mode - Menu 4 - Pseudo-color or Observation mode - Menu 3 - Pseudo-color Menu
             binding.recyclerColor.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerColor.adapter = colorAdapter
 
-            //[CN_TEXT] Temperature measurementMode-Menu5-Settings Menu
+            // Initialize Temperature measurement mode - Menu 5 - Settings Menu
             settingTeAdapter = SettingAdapter(menuType)
             binding.recyclerSettingTe.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerSettingTe.adapter = settingTeAdapter
 
-            //[CN_TEXT] Temperature measurementMode-Menu6-[CN_TEXT]Low temperature[CN_TEXT] Menu
+            // Initialize Temperature measurement mode - Menu 6 - High/Low temperature gain control Menu
             tempLevelAdapter = TempLevelAdapter(menuType)
             binding.recyclerTempLevel.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerTempLevel.adapter = tempLevelAdapter
 
 
 
-            //[CN_TEXT] ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT] Menu
+            // Initialize Observation mode - Menu 2 - High/Low temperature source selection Menu
             binding.recyclerTempSource.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerTempSource.adapter = tempSourceAdapter
 
-            //[CN_TEXT] ObservationMode-Menu4-Target Menu
+            // Initialize Observation mode - Menu 4 - Target Menu
             binding.recyclerTarget.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerTarget.adapter = targetAdapter
 
-            //[CN_TEXT] ObservationMode-Menu5-High/Low temperature points Menu
+            // Initialize Observation mode - Menu 5 - High/Low temperature points Menu
             binding.recyclerTempPoint.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerTempPoint.adapter = tempPointAdapter
 
-            //[CN_TEXT] ObservationMode-Menu6-Settings Menu
+            // Initialize Observation mode - Menu 6 - Settings Menu
             binding.recyclerSettingOb.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerSettingOb.adapter = settingObAdapter
         }
@@ -304,7 +304,7 @@ class MenuSecondView : FrameLayout {
 
     /* *********************************************  Menu1-PhotoVideo  ********************************************* */
     /**
-     * Current[CN_TEXT]VideoMode.
+     * Current video recording mode.
      *
      * true-VideoMode false-PhotoMode
      */
@@ -315,7 +315,7 @@ class MenuSecondView : FrameLayout {
         }
 
     /**
-     * [CN_TEXT] TS001，Temperature measurement/Observation Switch[CN_TEXT]，[CN_TEXT]Photo、[CN_TEXT]Photo、Video[CN_TEXT]，[CN_TEXT]PhotoState.
+     * For TS001, temperature measurement/observation mode switch, including photo capture, video recording states, and photo capture state management.
      */
     fun switchToCamera() {
         binding.cameraMenuView.canSwitchMode = true
@@ -324,8 +324,8 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]State[CN_TEXT]Photo、[CN_TEXT]VideoState，[CN_TEXT] Photo/Video Switch.
-     * [CN_TEXT] Activity [CN_TEXT] start()，[CN_TEXT]Current View [CN_TEXT]
+     * When switching modes, manage state transitions between photo capture and video recording states, including photo/video mode switching.
+     * When Activity calls start(), initialize current view state
      */
     fun updateCameraModel() {
         binding.cameraMenuView.canSwitchMode = true
@@ -333,7 +333,7 @@ class MenuSecondView : FrameLayout {
     }
 
     fun refreshImg(type: GalleryRepository.DirType = GalleryRepository.DirType.LINE) {
-        updateCameraModel()//[CN_TEXT]State
+        updateCameraModel() // Update camera state
         CoroutineScope(Dispatchers.IO).launch {
             val path = GalleryRepository.readLatest(type)
             launch(Dispatchers.Main) {
@@ -343,7 +343,7 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * [CN_TEXT] Photo/Video [CN_TEXT]Settings[CN_TEXT] Photo[CN_TEXT]-[CN_TEXT]/Photo[CN_TEXT]-[CN_TEXT]/Video[CN_TEXT]
+     * Configure photo/video capture settings including photo mode selection, photo quality settings, and video recording options
      */
     fun setToRecord(isDelay: Boolean) {
         binding.cameraMenuView.canSwitchMode = false
@@ -351,7 +351,7 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * [CN_TEXT] Photo/Video [CN_TEXT]Settings[CN_TEXT] Photo[CN_TEXT]-[CN_TEXT] State
+     * Configure photo/video capture settings for photo mode state management
      */
     fun setToCamera() {
         binding.cameraMenuView.setToRecord(false)
@@ -360,7 +360,7 @@ class MenuSecondView : FrameLayout {
 
     /* *****************************************  Temperature measurementMode-Menu2-Point/Line/Area  ***************************************** */
     /**
-     * Temperature measurementMode-Menu2-Point/Line/Area CurrentSelected[CN_TEXT]MenuType，[CN_TEXT] null [CN_TEXT]All[CN_TEXT]Selected.
+     * Temperature measurement mode - Menu 2 - Point/Line/Area currently selected menu type, returns null if all options are selected.
      */
     var fenceSelectType: FenceType?
         get() = fenceAdapter.selectType
@@ -384,7 +384,7 @@ class MenuSecondView : FrameLayout {
         }
 
     /**
-     * SettingsDual light[CN_TEXT]State
+     * Settings dual light fusion state
      * - Single light:  Picture in picture、Fusion degree
      * - Lite： Picture in picture、Fusion degree
      * - Dual light：  Registration、Picture in picture、Fusion degree
@@ -397,7 +397,7 @@ class MenuSecondView : FrameLayout {
 
     /* **********************************  Temperature measurementMode-Menu4-Pseudo-color/ObservationMode-Menu3-Pseudo-color  ********************************** */
     /**
-     * [CN_TEXT]Specified[CN_TEXT]Pseudo-color[CN_TEXT]，SelectedPseudo-colorMenu[CN_TEXT]SpecifiedPseudo-color，[CN_TEXT] code [CN_TEXT] code，[CN_TEXT]Selected[CN_TEXT]。
+     * dataSpecifieddataPseudo-colordata，SelectedPseudo-colorMenudataSpecifiedPseudo-color，data code data code，dataSelecteddata。
      * @param code 1-White hot 3-Iron red 4-Rainbow1 5-Rainbow2 6-Rainbow3 7-Red hot 8-Hot iron 9-Rainbow4 10-Rainbow5 11-Black hot
      */
     fun setPseudoColor(code: Int) {
@@ -407,7 +407,7 @@ class MenuSecondView : FrameLayout {
 
     /* **********************************  Temperature measurementMode-Menu5-Settings or ObservationMode-Menu6-Settings  ********************************** */
     /**
-     * SettingsSettingsMenu[CN_TEXT]SpecifiedOption[CN_TEXT]SelectedState
+     * SettingsSettingsMenudataSpecifiedOptiondataSelectedState
      */
     fun setSettingSelected(settingType: SettingType, isSelected: Boolean) {
         settingTeAdapter.setSelected(settingType, isSelected)
@@ -415,8 +415,8 @@ class MenuSecondView : FrameLayout {
     }
 
     /**
-     * SettingsSettingsMenu[CN_TEXT]RotateOption[CN_TEXT]Angle
-     * @param rotateAngle Note！[CN_TEXT]Core[CN_TEXT]RotateAngle，[CN_TEXT] UI RotateAngle
+     * SettingsSettingsMenudataRotateOptiondataAngle
+     * @param rotateAngle Note！dataCoredataRotateAngle，data UI RotateAngle
      */
     fun setSettingRotate(rotateAngle: Int) {
         settingTeAdapter.rotateAngle = rotateAngle
@@ -424,9 +424,9 @@ class MenuSecondView : FrameLayout {
     }
 
 
-    /* *****************************************  Temperature measurementMode-Menu6-[CN_TEXT]Low temperature[CN_TEXT]  ***************************************** */
+    /* *****************************************  Temperature measurementMode-Menu6-dataLow temperaturedata  ***************************************** */
     /**
-     * Temperature level[CN_TEXT]Fahrenheit[CN_TEXT]
+     * Temperature leveldataFahrenheitdata
      *
      * true-Fahrenheit false-Celsius
      */
@@ -436,10 +436,10 @@ class MenuSecondView : FrameLayout {
             tempLevelAdapter.isUnitF = value
         }
     /**
-     * Settings Temperature measurementMode-Menu6-[CN_TEXT]Low temperature[CN_TEXT] Temperature level.
+     * Settings Temperature measurementMode-Menu6-dataLow temperaturedata Temperature level.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
-     * - [CN_TEXT]Switch：-1
+     * Historical legacy (already saved in SharedPreferences), corresponding code values
+     * - Default switch: -1
      * - High temperature(Low gain)：0
      * - Normal temperature(High gain)：1
      */
@@ -452,15 +452,15 @@ class MenuSecondView : FrameLayout {
 
 
 
-    /* *****************************************  ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT]  ***************************************** */
+    /* *****************************************  ObservationMode-Menu2-dataLow temperaturedata  ***************************************** */
     /**
-     * Settings ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT] Selected.
+     * Settings ObservationMode-Menu2-dataLow temperaturedata Selected.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
+     * Historical legacy (already saved in SharedPreferences), corresponding code values
      * - Nothing isSelected：-1
      * - Dynamic recognition：0
-     * - High temperature[CN_TEXT]：1
-     * - Low temperature[CN_TEXT]：2
+     * - High temperature mode: 1
+     * - Low temperature mode: 2
      */
     fun setTempSource(code: Int) {
         tempSourceAdapter.selectCode = code
@@ -469,15 +469,15 @@ class MenuSecondView : FrameLayout {
 
     /* *****************************************  ObservationMode-Menu4-Target  ***************************************** */
     /**
-     * Settings ObservationMode-Menu4-Target SpecifiedOption[CN_TEXT]SelectedState
+     * Settings ObservationMode-Menu4-Target SpecifiedOptiondataSelectedState
      */
     fun setTargetSelected(targetType: TargetType, isSelected: Boolean) {
         targetAdapter.setSelected(targetType, isSelected)
     }
     /**
-     * Settings ObservationMode-Menu4-Target-[CN_TEXT]Mode [CN_TEXT]Type.
+     * Settings ObservationMode-Menu4-Target-dataMode dataType.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
+     * Historical legacy (already saved in SharedPreferences), corresponding code values
      * - Person：10
      * - Sheep：11
      * - Dog：12
@@ -490,14 +490,14 @@ class MenuSecondView : FrameLayout {
     
     /* *****************************************  ObservationMode-Menu5-High/Low temperature points  ***************************************** */
     /**
-     * Settings ObservationMode-Menu5-High/Low temperature points Menu[CN_TEXT]，High temperature[CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT]SelectedState。
+     * Settings ObservationMode-Menu5-High/Low temperature points Menudata，High temperaturedata data data dataSelectedState。
      */
     fun setTempPointSelect(tempPointType: TempPointType, isSelected: Boolean) {
         tempPointAdapter.setSelected(tempPointType, isSelected)
     }
     /**
-     * Clear ObservationMode-Menu5-High/Low temperature points Menu[CN_TEXT]AllSelectedState。
-     * [CN_TEXT]Maintain original logic，Consider in the futureWhether to directlySelectedDeletedone。
+     * Clear ObservationMode-Menu5-High/Low temperature points MenudataAllSelectedState。
+     * dataMaintain original logic，Consider in the futureWhether to directlySelectedDeletedone。
      */
     fun clearTempPointSelect() {
         tempPointAdapter.clearAllSelect()

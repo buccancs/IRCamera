@@ -15,7 +15,7 @@ import retrofit2.http.Url
  */
 interface TS004Service {
     /**
-     * SettingsPseudo-color[CN_TEXT]
+     * SettingsPseudo-colordata
      */
     @POST("/api/v1/system/setPseudoColor")
     suspend fun setPseudoColor(
@@ -23,13 +23,13 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]Pseudo-color[CN_TEXT]
+     * dataPseudo-colordata
      */
     @POST("/api/v1/system/getPseudoColor")
     suspend fun getPseudoColor(): TS004Response<PseudoColorBean>
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdata
      */
     @POST("/api/v1/system/setRangeFind")
     suspend fun setRangeFind(
@@ -37,13 +37,13 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getRangeFind")
     suspend fun getRangeFind(): TS004Response<RangeBean>
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdata
      */
     @POST("/api/v1/system/setPanelParam")
     suspend fun setPanelParam(
@@ -51,7 +51,7 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getPanelParam")
     suspend fun getPanelParam(): TS004Response<BrightnessBean>
@@ -65,13 +65,13 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]Picture in pictureState
+     * dataPicture in pictureState
      */
     @POST("/api/v1/system/getPip")
     suspend fun getPip(): TS004Response<PipBean>
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdata
      */
     @POST("/api/v1/system/setZoom")
     suspend fun setZoom(
@@ -79,7 +79,7 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getZoom")
     suspend fun getZoom(): TS004Response<ZoomBean>
@@ -99,13 +99,13 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]VideoState
+     * dataVideoState
      */
     @POST("/api/v1/system/getRecordStatus")
     suspend fun getVRecord(): TS004Response<RecordStatusBean>
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @GET
     @Streaming
@@ -114,7 +114,7 @@ interface TS004Service {
     ): ResponseBody
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @POST("/api/v1/system/setDateTime")
     suspend fun syncTime(
@@ -122,7 +122,7 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @POST("/api/v1/system/setTimeZone")
     suspend fun syncTimeZone(
@@ -130,19 +130,19 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getVersion")
     suspend fun getVersion(): TS004Response<VersionBean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getDeviceInfo")
     suspend fun getDeviceInfo(): TS004Response<DeviceInfo>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getFileCount")
     suspend fun getFileCount(
@@ -150,7 +150,7 @@ interface TS004Service {
     ): TS004Response<FileCountBean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getFileList")
     suspend fun getFileList(
@@ -158,7 +158,7 @@ interface TS004Service {
     ): TS004Response<FilePageBean>
 
     /**
-     * DeleteSpecified id [CN_TEXT]
+     * DeleteSpecified id data
      */
     @POST("/api/v1/system/deleteFile")
     suspend fun deleteFile(
@@ -166,13 +166,13 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/remoteUpgrade")
     suspend fun firmwareUpdateStart(): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]-[CN_TEXT]
+     * data-data
      */
     @POST("/api/v1/system/sendUpgradeFileStart")
     suspend fun sendUpgradeFileStart(
@@ -180,7 +180,7 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]-[CN_TEXT]
+     * data-data
      */
     @Headers("Content-type: application/octet-stream")
     @POST("/api/v1/system/sendUpgradeFileData")
@@ -189,7 +189,7 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]-[CN_TEXT]
+     * data-data
      */
     @POST("/api/v1/system/sendUpgradeFileEnd")
     suspend fun sendUpgradeFileEnd(
@@ -197,31 +197,31 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]State.
+     * dataState.
      */
     @POST("/api/v1/system/getUpgradeStatus")
     suspend fun getUpgradeStatus(): TS004Response<UpgradeStatus>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getFreeSpace")
     suspend fun freeSpace(): TS004Response<FreeSpaceBean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/formatStorage")
     suspend fun formatStorage(): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]Settings
+     * dataSettings
      */
     @POST("/api/v1/system/resetAll")
     suspend fun resetAll(): TS004Response<Boolean>
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdata
      */
     @POST("/api/v1/system/setTISR")
     suspend fun setTISR(
@@ -229,7 +229,7 @@ interface TS004Service {
     ): TS004Response<Boolean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @POST("/api/v1/system/getTISR")
     suspend fun getTISR(): TS004Response<TISRBean>

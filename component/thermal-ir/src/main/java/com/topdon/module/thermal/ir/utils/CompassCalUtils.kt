@@ -5,7 +5,7 @@ import android.graphics.Rect
 import kotlin.math.roundToLong
 
 
-//[CN_TEXT]x[CN_TEXT]
+// Utility functionxutility
 fun realX(str: String, x: Float,paint: Paint) = x - textWidth(str,paint) / 2f
 
 fun realY(str: String, y: Float,paint: Paint) = y - textHeight(str,paint) / 4f

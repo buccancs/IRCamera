@@ -19,14 +19,14 @@ import com.topdon.pseudo.R
 import kotlin.math.abs
 
 /**
- * [CN_TEXT]Pseudo-colorSettings[CN_TEXT]，[CN_TEXT] 7 [CN_TEXT] View.
+ * viewPseudo-colorSettingsview，view 7 view View.
  *
- * [CN_TEXT]：
- * - [reset] [CN_TEXT]CurrentState[CN_TEXT]Specified[CN_TEXT]
- * - [refreshColor] [CN_TEXT]CurrentSelected[CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT]
- * - [add] [CN_TEXT]
- * - [del] DeleteCurrentSelected[CN_TEXT]
- * - [isCurrentOnlyLimit] [CN_TEXT]CurrentSelected[CN_TEXT]：([CN_TEXT] || [CN_TEXT]) && [CN_TEXT]
+ * view：
+ * - [reset] viewCurrentStateviewSpecifiedview
+ * - [refreshColor] viewCurrentSelectedviewSettingsviewSpecifiedview
+ * - [add] view
+ * - [del] DeleteCurrentSelectedview
+ * - [isCurrentOnlyLimit] viewCurrentSelectedview：(view || view) && view
  *
  * Created by LCG on 2024/10/15.
  */
@@ -65,50 +65,50 @@ class PseudoPickView : View {
     }
 
     /**
-     * [CN_TEXT] Paint.
+     * view Paint.
      */
     private val barPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     /**
-     * [CN_TEXT] Pint.
+     * view Pint.
      */
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     /**
-     * [CN_TEXT]Selected[CN_TEXT] Drawable.
+     * viewSelectedview Drawable.
      */
     private val selectYesDrawable: Drawable
     /**
-     * [CN_TEXT]Selected[CN_TEXT] Drawable.
+     * viewSelectedview Drawable.
      */
     private val selectNotDrawable: Drawable
 
 
     /**
-     * Selected[CN_TEXT].
+     * Selectedview.
      */
     var onSelectChangeListener: ((selectIndex: Int) -> Unit)? = null
 
 
     /**
-     * CurrentSelected[CN_TEXT] index.
+     * CurrentSelectedview index.
      */
     var selectIndex = 0
     /**
-     * [CN_TEXT]，[CN_TEXT]，[CN_TEXT].
-     * [CN_TEXT] place [CN_TEXT]，[CN_TEXT] place [CN_TEXT] zAltitude [CN_TEXT].
-     * size [CN_TEXT] [actualColors]、[zAltitudes]、[places] [CN_TEXT]。
+     * view，view，view.
+     * view place view，view place view zAltitude view.
+     * size view [actualColors]、[zAltitudes]、[places] view。
      */
     var sourceColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
     /**
-     * [CN_TEXT]，[CN_TEXT]，[CN_TEXT].
+     * view，view，view.
      */
     var actualColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
     /**
-     * [CN_TEXT] z [CN_TEXT]，[CN_TEXT]。
+     * view z view，view。
      */
     var zAltitudes: IntArray = intArrayOf(0, 0, 0)
     /**
-     * [CN_TEXT].
+     * view.
      */
     var places: FloatArray = floatArrayOf(0f, 0.5f, 1f)
 
@@ -127,11 +127,11 @@ class PseudoPickView : View {
     }
 
     /**
-     * [CN_TEXT]CurrentState[CN_TEXT]Specified[CN_TEXT].
-     * @param selectIndex CurrentSelected[CN_TEXT] index
-     * @param colors [CN_TEXT]
-     * @param zAltitudes [CN_TEXT] z [CN_TEXT]
-     * @param places [CN_TEXT]
+     * viewCurrentStateviewSpecifiedview.
+     * @param selectIndex CurrentSelectedview index
+     * @param colors view
+     * @param zAltitudes view z view
+     * @param places view
      */
     fun reset(selectIndex: Int, colors: IntArray, zAltitudes: IntArray, places: FloatArray) {
         this.selectIndex = selectIndex
@@ -145,7 +145,7 @@ class PseudoPickView : View {
     }
 
     /**
-     * [CN_TEXT]CurrentSelected[CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT]
+     * viewCurrentSelectedviewSettingsviewSpecifiedview
      */
     fun refreshColor(@ColorInt color: Int) {
         sourceColors[selectIndex] = color
@@ -156,14 +156,14 @@ class PseudoPickView : View {
     }
 
     /**
-     * [CN_TEXT] [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT] [CN_TEXT]，[CN_TEXT].
+     * view view、view、view、view view，view.
      */
     private var addCount = 0
     /**
-     * [CN_TEXT]
+     * view
      */
     fun add() {
-        if (sourceColors.size >= 7) {//[CN_TEXT]7[CN_TEXT]
+        if (sourceColors.size >= 7) {// View rendering7view
             return
         }
         addCount++
@@ -200,13 +200,13 @@ class PseudoPickView : View {
     }
 
     /**
-     * DeleteCurrentSelected[CN_TEXT].
+     * DeleteCurrentSelectedview.
      */
     fun del() {
         if (sourceColors.size <= 3) {
             return
         }
-        if (isCurrentOnlyLimit()) {//[CN_TEXT]Delete
+        if (isCurrentOnlyLimit()) {// View renderingDelete
             return
         }
 
@@ -226,11 +226,11 @@ class PseudoPickView : View {
     }
 
     /**
-     * [CN_TEXT]CurrentSelected[CN_TEXT]：([CN_TEXT] || [CN_TEXT]) && [CN_TEXT]
+     * viewCurrentSelectedview：(view || view) && view
      */
     fun isCurrentOnlyLimit(): Boolean {
         val place: Float = places[selectIndex]
-        if (place == 0f || place == 1f) {//[CN_TEXT]，[CN_TEXT]
+        if (place == 0f || place == 1f) {// View rendering，view
             for (i in places.indices) {
                 if (i != selectIndex && places[i] == place) {
                     return false
@@ -242,7 +242,7 @@ class PseudoPickView : View {
     }
 
     /**
-     * [CN_TEXT]、[CN_TEXT]、z [CN_TEXT]，[CN_TEXT].
+     * view、view、z view，view.
      */
     private fun refreshActualColors() {
         if (actualColors.size != sourceColors.size) {
@@ -257,7 +257,7 @@ class PseudoPickView : View {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT] place [CN_TEXT] ZAltitude.
+     * viewSpecifiedview place view ZAltitude.
      */
     private fun calculateZAltitude(place: Float): Int {
         var result = 0
@@ -274,11 +274,11 @@ class PseudoPickView : View {
 
 
     /**
-     * [CN_TEXT] Rect.
+     * view Rect.
      */
     private val barRect = RectF()
     /**
-     * [CN_TEXT]Selected[CN_TEXT]，[CN_TEXT] px.
+     * viewSelectedview，view px.
      */
     private val selectRadius: Int = SizeUtils.dp2px(12f)
 
@@ -288,16 +288,16 @@ class PseudoPickView : View {
         barRect.set(selectRadius.toFloat(), 0f, (widthSize - selectRadius).toFloat(), ((widthSize - selectRadius * 2) * 30 / 311f).toInt().toFloat())
         barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
 
-        // 2dp [CN_TEXT]
+        // 2dp view
         val wantHeight: Int = barRect.height().toInt() + SizeUtils.dp2px(2f) + selectNotDrawable.bounds.height() + selectRadius * 2
 
-        //[CN_TEXT] UNSPECIFIED [CN_TEXT]，[CN_TEXT]；[CN_TEXT] wrap_content [CN_TEXT]，[CN_TEXT]
+        // View rendering UNSPECIFIED view，view；view wrap_content view，view
         setMeasuredDimension(widthSize, wantHeight)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        //[CN_TEXT]Pseudo-color[CN_TEXT]
+        // View renderingPseudo-colorview
         val barRadius = SizeUtils.dp2px(4f).toFloat()
         canvas.drawRoundRect(barRect.left, 0f, barRect.right, barRect.bottom, barRadius, barRadius, barPaint)
 
@@ -337,15 +337,15 @@ class PseudoPickView : View {
 
 
     /**
-     * Touch Down [CN_TEXT] x [CN_TEXT]，[CN_TEXT]，[CN_TEXT]。
+     * Touch Down view x view，view，view。
      */
     private var downX = 0
     /**
-     * [CN_TEXT] Touch [CN_TEXT].
+     * view Touch view.
      */
     private var handleTouch = false
     /**
-     * CurrentSelected[CN_TEXT]，[CN_TEXT]。
+     * CurrentSelectedview，view。
      */
     private var canDrag = false
     @SuppressLint("ClickableViewAccessibility")
@@ -359,11 +359,11 @@ class PseudoPickView : View {
                 canDrag = false
                 downX = event.x.toInt()
 
-                //[CN_TEXT] index
+                // View rendering index
                 var targetIndex = -1
                 for (i in places.indices) {
                     val centerX: Int = (barRect.left + barRect.width() * places[i]).toInt()
-                    if (downX >= centerX - selectRadius && downX <= centerX + selectRadius) {//[CN_TEXT]
+                    if (downX >= centerX - selectRadius && downX <= centerX + selectRadius) {// View rendering
                         if (targetIndex == -1) {
                             targetIndex = i
                             continue
@@ -388,13 +388,13 @@ class PseudoPickView : View {
                     parent.requestDisallowInterceptTouchEvent(true)
                     val oldPlace: Float = places[selectIndex]
                     val newPlace: Float = (x - barRect.left) / barRect.width()
-                    if (newPlace == oldPlace) {//[CN_TEXT]，[CN_TEXT]
+                    if (newPlace == oldPlace) {// View rendering，view
                         return handleTouch
                     }
                     val currentColor: Int = sourceColors[selectIndex]
                     val oldIndex: Int = selectIndex
                     var newIndex: Int = selectIndex
-                    if (oldPlace < newPlace) {//[CN_TEXT]
+                    if (oldPlace < newPlace) {// View rendering
                         for (i in places.indices) {
                             if (places[i] <= newPlace) {
                                 newIndex = i
@@ -402,7 +402,7 @@ class PseudoPickView : View {
                                 break
                             }
                         }
-                    } else {//[CN_TEXT]
+                    } else {// View rendering
                         for (i in places.size - 1 downTo 0) {
                             val place = places[i]
                             if (place > newPlace) {

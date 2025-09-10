@@ -11,7 +11,7 @@ object ConfigRepository {
     fun read(isTC007: Boolean): ModelBean = try {
         Gson().fromJson(if (isTC007) SharedManager.irConfigJsonTC007 else SharedManager.getIRConfig(), ModelBean::class.java)
     } catch (_: Exception) {
-        //[CN_TEXT]SP[CN_TEXT]，[CN_TEXT]
+        // Repository dataSPrepository，repository
         ModelBean(DataBean(id = 0, use = true))
     }
 
@@ -24,7 +24,7 @@ object ConfigRepository {
     }
 
     /**
-     * [CN_TEXT]Selected[CN_TEXT]
+     * repositorySelectedrepository
      */
     fun readConfig(isTC007: Boolean): DataBean {
         val config = read(isTC007)

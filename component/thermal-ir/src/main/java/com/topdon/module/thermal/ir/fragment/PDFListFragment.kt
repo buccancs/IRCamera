@@ -56,8 +56,8 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     private val fragmentPdfRecycler: RecyclerView by lazy { requireView().findViewById(R.id.fragment_pdf_recycler) }
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * fragment，Currentfragment TC007 fragmentType.
+     * true-TC007 false-fragment
      */
     private var isTC007 = false
 
@@ -65,7 +65,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     private var reportAdapter = PDFAdapter(R.layout.item_pdf)
 
     /**
-     * LMS [CN_TEXT].
+     * LMS fragment.
      */
     private val loginBroadcastReceiver = LoginBroadcastReceiver()
 
@@ -102,7 +102,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) R.string.request_fail else R.string.tip_no_more_data)
 
                 if (page == 1) {
-                    //[CN_TEXT]
+                    // Fragment logic
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
                         fragmentPdfRecyclerLay.finishRefresh()
@@ -140,7 +140,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private var hasLoadData = false
 
@@ -190,7 +190,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("Delete[CN_TEXT]",response.toString())
+                                    Log.w("Deletefragment",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {
@@ -238,14 +238,14 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            //[CN_TEXT]
+            // Fragment logic
             viewModel.getReportData(isTC007, ++page)
         }
 
         fragmentPdfRecycler.adapter = reportAdapter
         fragmentPdfRecycler.layoutManager = LinearLayoutManager(requireContext())
         fragmentPdfRecyclerLay.setOnRefreshListener {
-            //[CN_TEXT]
+            // Fragment logic
             page = 1
             viewModel.getReportData(isTC007, page)
         }

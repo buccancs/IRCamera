@@ -18,10 +18,10 @@ class IRGalleryEditViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val file = File(path)
             if (!file.exists()) {
-                XLog.w("IR[CN_TEXT]: ${file.absolutePath}")
+                XLog.w("IRview: ${file.absolutePath}")
                 return@launch
             }
-            XLog.w("IR[CN_TEXT]: ${file.absolutePath}")
+            XLog.w("IRview: ${file.absolutePath}")
             val bytes = file.readBytes()
             val headLenBytes = ByteArray(2)
             System.arraycopy(bytes, 0, headLenBytes, 0, 2)
@@ -30,13 +30,13 @@ class IRGalleryEditViewModel : BaseViewModel() {
             val frameDataBytes = ByteArray(bytes.size - headLen)
             System.arraycopy(bytes, 0, headDataBytes, 0, headDataBytes.size)
             System.arraycopy(bytes, headLen, frameDataBytes, 0, frameDataBytes.size)
-            XLog.w("[CN_TEXT]: ${frameDataBytes.size}")
+            XLog.w("view: ${frameDataBytes.size}")
             resultLiveData.postValue(FrameBean(headDataBytes, frameDataBytes))
         }
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
 
     fun getTailData(bytes: ByteArray){

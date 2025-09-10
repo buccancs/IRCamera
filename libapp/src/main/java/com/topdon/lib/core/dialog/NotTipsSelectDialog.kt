@@ -10,7 +10,7 @@ import com.topdon.lib.core.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * [CN_TEXT] TipDialog [CN_TEXT]，[CN_TEXT] “[CN_TEXT]” Selected[CN_TEXT].
+ * dialog TipDialog dialog，dialog “dialog” Selecteddialog.
  *
  * Created by LCG on 2024/10/26.
  */
@@ -29,7 +29,7 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * [CN_TEXT] “[CN_TEXT]” [CN_TEXT].
+     * dialog “dialog” dialog.
      */
     fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
         onConfirmListener = l

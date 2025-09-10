@@ -36,7 +36,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 
 /**
- * [CN_TEXT] Fragment.
+ * fragment Fragment.
  *
  * Created by LCG on 2024/4/18.
  */
@@ -129,7 +129,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    // [CN_TEXT]Current[CN_TEXT] TS004、TC007，[CN_TEXT]，[CN_TEXT]
+                    // fragmentCurrentfragment TS004、TC007，fragment，fragment
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(true)
                     }
@@ -190,7 +190,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.tvConnectDevice, binding.ivAdd -> { // [CN_TEXT]
+            binding.tvConnectDevice, binding.ivAdd -> { // fragment
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
 //                NavigationManager.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
 //                    .navigation()
@@ -201,8 +201,8 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
-        if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) { // [CN_TEXT]
-            if (!adapter.hasConnectTC007) { // Current[CN_TEXT] TC007
+        if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) { // fragment
+            if (!adapter.hasConnectTC007) { // Currentfragment TC007
                 return
             }
             try {
@@ -215,7 +215,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-         * [CN_TEXT]Current[CN_TEXT].
+         * fragmentCurrentfragment.
          */
         var hasConnectLine: Boolean = false
             set(value) {
@@ -224,7 +224,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TS004 Current[CN_TEXT].
+         * TS004 Currentfragment.
          */
         var hasConnectTS004: Boolean = false
             set(value) {
@@ -233,7 +233,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TC007 Current[CN_TEXT].
+         * TC007 Currentfragment.
          */
         var hasConnectTC007: Boolean = false
             set(value) {
@@ -242,7 +242,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TC007 [CN_TEXT].
+         * TC007 fragment.
          */
         var tc007Battery: BatteryInfo? = null
             set(value) {
@@ -319,7 +319,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
                 ivBg.setOnLongClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        // [CN_TEXT]Delete
+                        // fragmentDelete
                         val deviceType = getConnectType(position)
                         when (deviceType) {
                             ConnectType.LINE -> {

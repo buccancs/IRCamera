@@ -24,26 +24,26 @@ import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R as LibCoreR
 
 /**
- * Gallery Tab [CN_TEXT]，[CN_TEXT].
+ * Gallery Tab fragment，fragment.
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.HAS_BACK_ICON] - Gallery[CN_TEXT]，[CN_TEXT] false
- * - [ExtraKeyConfig.CAN_SWITCH_DIR] - Gallery[CN_TEXT]Switch [CN_TEXT]、TS004、TC007 [CN_TEXT]，[CN_TEXT] true
- * - [ExtraKeyConfig.DIR_TYPE] - [CN_TEXT]Gallery[CN_TEXT]Type [CN_TEXT] [DirType] [CN_TEXT]
+ * fragment：
+ * - [ExtraKeyConfig.HAS_BACK_ICON] - Galleryfragment，fragment false
+ * - [ExtraKeyConfig.CAN_SWITCH_DIR] - GalleryfragmentSwitch fragment、TS004、TC007 fragment，fragment true
+ * - [ExtraKeyConfig.DIR_TYPE] - fragmentGalleryfragmentType fragment [DirType] fragment
  *
  * Created by chenggeng.lin on 2023/11/14.
  */
 class IRGalleryTabFragment : BaseFragment() {
     /**
-     * [CN_TEXT]，Gallery[CN_TEXT]
+     * fragment，Galleryfragment
      */
     private var hasBackIcon = false
     /**
-     * [CN_TEXT]，Gallery[CN_TEXT]Switch [CN_TEXT]、TS004、TC007 [CN_TEXT]
+     * fragment，GalleryfragmentSwitch fragment、TS004、TC007 fragment
      */
     private var canSwitchDir = true
     /**
-     * [CN_TEXT]，[CN_TEXT]Gallery[CN_TEXT]Type
+     * fragment，fragmentGalleryfragmentType
      */
     private var currentDirType = DirType.LINE
 
@@ -99,9 +99,9 @@ class IRGalleryTabFragment : BaseFragment() {
         titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
         titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
         titleView.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) {//Current[CN_TEXT]State，[CN_TEXT]
+            if (viewModel.isEditModeLD.value == true) {//CurrentfragmentState，fragment
                 viewModel.isEditModeLD.value = false
-            } else {//Current[CN_TEXT]State，[CN_TEXT]
+            } else {//CurrentfragmentState，fragment
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
@@ -109,9 +109,9 @@ class IRGalleryTabFragment : BaseFragment() {
         }
         titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
         titleView.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) {//Current[CN_TEXT]State，[CN_TEXT]
+            if (viewModel.isEditModeLD.value == true) {//CurrentfragmentState，fragment
                 viewModel.selectAllIndex.value = viewPager2.currentItem
-            } else {//Current[CN_TEXT]State，[CN_TEXT]
+            } else {//CurrentfragmentState，fragment
                 viewModel.isEditModeLD.value = true
             }
         }

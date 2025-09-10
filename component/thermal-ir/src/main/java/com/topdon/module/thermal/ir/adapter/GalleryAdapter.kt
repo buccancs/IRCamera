@@ -15,7 +15,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 
 /**
- * [CN_TEXT]
+ * item
  */
 @SuppressLint("NotifyDataSetChanged")
 class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -26,17 +26,17 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     /**
-     * Current[CN_TEXT]，[CN_TEXT] item.
+     * Currentitem，item item.
      */
     val dataList: ArrayList<GalleryBean> = ArrayList()
 
     /**
-     * [CN_TEXT]Mode[CN_TEXT]，CurrentSelected[CN_TEXT] position [CN_TEXT].
+     * itemModeitem，CurrentSelecteditem position item.
      */
     val selectList: ArrayList<Int> = ArrayList()
 
     /**
-     * [CN_TEXT] TS004 [CN_TEXT]Mode，[CN_TEXT]Mode[CN_TEXT].
+     * item TS004 itemMode，itemModeitem.
      */
     var isTS004Remote = false
         set(value) {
@@ -47,7 +47,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-     * Current[CN_TEXT]Mode.
+     * CurrentitemMode.
      */
     var isEditMode = false
         set(value) {
@@ -63,16 +63,16 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     /**
-     * [CN_TEXT]Mode[CN_TEXT] item [CN_TEXT]Mode[CN_TEXT].
+     * itemModeitem item itemModeitem.
      */
     var onLongEditListener: (() -> Unit)? = null
     /**
-     * Selected[CN_TEXT].
-     * data CurrentSelected[CN_TEXT] item position [CN_TEXT]
+     * Selecteditem.
+     * data CurrentSelecteditem item position item
      */
     var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
     /**
-     * [CN_TEXT]Mode[CN_TEXT]，item [CN_TEXT].
+     * itemModeitem，item item.
      */
     var itemClickCallback: ((position: Int) -> Unit)? = null
 

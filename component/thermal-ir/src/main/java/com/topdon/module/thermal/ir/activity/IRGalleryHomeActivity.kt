@@ -15,8 +15,8 @@ import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 /**
  * Gallery.
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.DIR_TYPE] - [CN_TEXT]Type [CN_TEXT] [DirType] [CN_TEXT]
+ * activity：
+ * - [ExtraKeyConfig.DIR_TYPE] - activityType activity [DirType] activity
  *
  * Created by LCG on 2024/2/22.
  */

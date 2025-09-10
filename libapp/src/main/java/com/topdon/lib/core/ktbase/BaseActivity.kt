@@ -96,7 +96,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * [CN_TEXT] USB [CN_TEXT]State
+     * activity USB activityState
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getConnectState(event: DeviceConnectEvent) {
@@ -130,12 +130,12 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * [CN_TEXT] LMS [CN_TEXT].
+     * activity LMS activity.
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * [CN_TEXT]，[CN_TEXT] 3 [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT].
+     * activity，activity 3 activity，activity，activity，activity.
      */
     fun showLoadingDialog(
         @StringRes resId: Int = R.string.tip_loading,
@@ -152,7 +152,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT] 3 [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT].
+     * activity，activity 3 activity，activity，activity，activity.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
@@ -175,8 +175,8 @@ abstract class BaseActivity : AppCompatActivity() {
                 cameraDialog?.show()
             }
         } catch (e: Exception) {
-            // [CN_TEXT]，[CN_TEXT]
-            Log.e("[CN_TEXT]", e.message.toString())
+            // activity，activity
+            Log.e("activity", e.message.toString())
         }
     }
 
@@ -186,7 +186,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    // [CN_TEXT]
+    // activity
     private fun synLogin() {
         if (this::class.java.simpleName == "MainActivity") {
             LMS.getInstance().syncUserInfo()
@@ -209,7 +209,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         } else {
             if (UserInfoManager.getInstance().isLogin()) {
-                // [CN_TEXT],[CN_TEXT]State,[CN_TEXT]
+                // activity,activityState,activity
                 UserInfoManager.getInstance().logout()
             }
         }

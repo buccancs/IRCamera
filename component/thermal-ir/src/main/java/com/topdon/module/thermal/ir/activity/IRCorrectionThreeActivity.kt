@@ -10,7 +10,7 @@ import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 
 /**
  *
- * [CN_TEXT]
+ * activity
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */

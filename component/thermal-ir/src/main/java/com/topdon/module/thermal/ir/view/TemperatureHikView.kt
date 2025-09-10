@@ -20,29 +20,29 @@ import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
 import com.infisense.usbir.utils.TempUtil
 
 /**
- * [CN_TEXT]Point/Line/Area[CN_TEXT] View.
+ * viewPoint/Line/Areaview View.
  *
  * Created by LCG on 2024/12/19.
  */
 class TemperatureHikView : TemperatureBaseView {
     /**
-     * [CN_TEXT]
+     * view
      */
     @Volatile
     private var tempInfo = TempInfo()
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     private var libIRTemp = LibIRTemp()
     /**
-     * [CN_TEXT].
+     * view.
      */
     private var calculateThread: CalculateThread? = null
 
 
     /**
-     * [CN_TEXT]RotateAngle，[CN_TEXT] 0、90、180、270，[CN_TEXT] 270
+     * viewRotateAngle，view 0、90、180、270，view 270
      */
     @Volatile
     var rotateAngle: Int = 270
@@ -53,41 +53,41 @@ class TemperatureHikView : TemperatureBaseView {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT] **Celsius**
+     * view，view **Celsius**
      */
     @Volatile
     var onTempChangeListener: ((min: Float, max: Float) -> Unit)? = null
 
     /**
-     * [CN_TEXT]，[CN_TEXT]Celsius.
+     * view，viewCelsius.
      */
     var onTrendChangeListener: ((tempList: List<Float>) -> Unit)? = null
 
     /**
-     * Temperature measurement[CN_TEXT]，[CN_TEXT]Celsius.
+     * Temperature measurementview，viewCelsius.
      */
     var onTempResultListener: ((tempInfo: TempInfo) -> Unit)? = null
 
 
     /**
-     * [CN_TEXT] onMeasure [CN_TEXT]，[CN_TEXT] [CN_TEXT] [CN_TEXT]，[CN_TEXT] onMeasure [CN_TEXT]。
+     * view onMeasure view，view view view，view onMeasure view。
      */
     private var wantAddPoint: Point? = null
     /**
-     * [CN_TEXT] onMeasure [CN_TEXT]，[CN_TEXT] [CN_TEXT] [CN_TEXT]，[CN_TEXT] onMeasure [CN_TEXT]。
+     * view onMeasure view，view view view，view onMeasure view。
      */
     private var wantAddLine: Line? = null
     /**
-     * [CN_TEXT] onMeasure [CN_TEXT]，[CN_TEXT] [CN_TEXT] [CN_TEXT]，[CN_TEXT] onMeasure [CN_TEXT]。
+     * view onMeasure view，view view view，view onMeasure view。
      */
     private var wantAddRect: Rect? = null
     /**
-     * [CN_TEXT] [CN_TEXT] [CN_TEXT]
+     * view view view
      */
     fun addSourcePoint(point: Point) {
         if (xScale > 0 && yScale > 0) {
             synchronized(this) {
-                if (pointList.size == maxCount) {//[CN_TEXT]
+                if (pointList.size == maxCount) {// View rendering
                     pointList.removeAt(0)
                 }
                 pointList.add(Point((point.x * xScale).toInt(), (point.y * yScale).toInt()))
@@ -98,14 +98,14 @@ class TemperatureHikView : TemperatureBaseView {
         }
     }
     /**
-     * [CN_TEXT] [CN_TEXT] [CN_TEXT]
+     * view view view
      */
     fun addSourceLine(line: Line) {
         if (xScale > 0 && yScale > 0) {
             val start = Point((line.start.x * xScale).toInt(), (line.start.y * yScale).toInt())
             val end = Point((line.end.x * xScale).toInt(), (line.end.y * yScale).toInt())
             synchronized(this) {
-                if (lineList.size == maxCount) {//[CN_TEXT]
+                if (lineList.size == maxCount) {// View rendering
                     lineList.removeAt(0)
                 }
                 lineList.add(Line(start, end))
@@ -116,7 +116,7 @@ class TemperatureHikView : TemperatureBaseView {
         }
     }
     /**
-     * [CN_TEXT] [CN_TEXT] [CN_TEXT]
+     * view view view
      */
     fun addSourceRect(rect: Rect) {
         if (xScale > 0 && yScale > 0) {
@@ -125,7 +125,7 @@ class TemperatureHikView : TemperatureBaseView {
             val top = (rect.top * yScale).toInt()
             val bottom = (rect.bottom * yScale).toInt()
             synchronized(this) {
-                if (rectList.size == maxCount) {//[CN_TEXT]
+                if (rectList.size == maxCount) {// View rendering
                     rectList.removeAt(0)
                 }
                 rectList.add(Rect(left, top, right, bottom))
@@ -138,26 +138,26 @@ class TemperatureHikView : TemperatureBaseView {
 
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT].
+     * viewRotateview.
      */
     private val imageRes = LibIRProcess.ImageRes_t()
 
     /**
-     * [CN_TEXT]，[CN_TEXT] 1 [CN_TEXT] 1 [CN_TEXT].
+     * view，view 1 view 1 view.
      */
     private var beforeTime: Long = 0
 
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT].
+     * viewRotateview.
      */
     private val sourceTempArray = ByteArray(256 * 192 * 2)
     /**
-     * Rotate[CN_TEXT]，[CN_TEXT]，[CN_TEXT] [libIRTemp] [CN_TEXT]，[CN_TEXT]
+     * Rotateview，view，view [libIRTemp] view，view
      */
     private val rotateTempArray = ByteArray(256 * 192 * 2)
     /**
-     * [CN_TEXT]
+     * view
      */
     fun refreshTemp(newData: ByteArray) {
         val currentTime: Long = System.currentTimeMillis()
@@ -218,10 +218,10 @@ class TemperatureHikView : TemperatureBaseView {
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
-        //[CN_TEXT]Historical legacy，2D[CN_TEXT]
-        //2D[CN_TEXT]Settings，[CN_TEXT]，[CN_TEXT]；[CN_TEXT]、[CN_TEXT]、[CN_TEXT]
-        //[CN_TEXT]，[CN_TEXT]
-        //[CN_TEXT]
+        // View renderingHistorical legacy，2Dview
+        //2DviewSettings，view，view；view、view、view
+        // View rendering，view
+        // View rendering
         if (isShowFull || pointList.isNotEmpty() || lineList.isNotEmpty() || rectList.isNotEmpty()) {
             drawPoint(canvas, Point(width / 2, height / 2))
             tempInfo.center?.let {
@@ -229,7 +229,7 @@ class TemperatureHikView : TemperatureBaseView {
             }
         }
 
-        //[CN_TEXT]、[CN_TEXT]High temperature
+        // View rendering、viewHigh temperature
         if (isShowFull) {
             tempInfo.full?.let {
                 val minX: Int = (it.minTemperaturePixel.x * xScale).toInt()
@@ -244,7 +244,7 @@ class TemperatureHikView : TemperatureBaseView {
             }
         }
 
-        //[CN_TEXT]
+        // View rendering
         for (i in pointList.indices) {
             val point: Point = pointList[i]
             drawPoint(canvas, point)
@@ -255,7 +255,7 @@ class TemperatureHikView : TemperatureBaseView {
         }
         operatePoint?.let { drawPoint(canvas, it) }
 
-        //[CN_TEXT]
+        // View rendering
         for (i in lineList.indices) {
             drawLine(canvas, lineList[i])
             if (i < tempInfo.lineResults.size) {
@@ -272,7 +272,7 @@ class TemperatureHikView : TemperatureBaseView {
         }
         operateLine?.let { drawLine(canvas, it) }
 
-        //[CN_TEXT]
+        // View rendering
         for (i in rectList.indices) {
             drawRect(canvas, rectList[i])
             if (i < tempInfo.rectResults.size) {
@@ -289,7 +289,7 @@ class TemperatureHikView : TemperatureBaseView {
         }
         operateRect?.let { drawRect(canvas, it) }
 
-        //[CN_TEXT]
+        // View rendering
         trendLine?.let {
             drawLine(canvas, it)
             drawTrendText(canvas, it)
@@ -310,7 +310,7 @@ class TemperatureHikView : TemperatureBaseView {
     }
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     private inner class CalculateThread : HandlerThread("Calculate Thread") {
         private val mainHandler = Handler(Looper.getMainLooper())
@@ -351,8 +351,8 @@ class TemperatureHikView : TemperatureBaseView {
                     try {
                         trendResult = libIRTemp.getTemperatureOfLine(Line(startPoint, endPoint))
                     } catch (_: IllegalArgumentException) {
-                        //[CN_TEXT] View [CN_TEXT] xScale、yScale [CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT]
-                        //[CN_TEXT] [CN_TEXT] scale [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+                        // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+                        // View rendering view scale view，view，view
                     }
 
                     val tempList: List<Float> = TempUtil.getLineTemps(startPoint, endPoint, rotateTempArray, imageWidth)
@@ -368,8 +368,8 @@ class TemperatureHikView : TemperatureBaseView {
                     try {
                         pointResultList.add(libIRTemp.getTemperatureOfPoint(sourcePoint))
                     } catch (_: IllegalArgumentException) {
-                        //[CN_TEXT] View [CN_TEXT] xScale、yScale [CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT]
-                        //[CN_TEXT] [CN_TEXT] scale [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+                        // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+                        // View rendering view scale view，view，view
                     }
                 }
 
@@ -383,8 +383,8 @@ class TemperatureHikView : TemperatureBaseView {
                     try {
                         lineResultList.add(libIRTemp.getTemperatureOfLine(sourceLine))
                     } catch (_: IllegalArgumentException) {
-                        //[CN_TEXT] View [CN_TEXT] xScale、yScale [CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT]
-                        //[CN_TEXT] [CN_TEXT] scale [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+                        // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+                        // View rendering view scale view，view，view
                     }
                 }
 
@@ -400,8 +400,8 @@ class TemperatureHikView : TemperatureBaseView {
                     try {
                         rectResultList.add(libIRTemp.getTemperatureOfRect(sourceRect))
                     } catch (_: IllegalArgumentException) {
-                        //[CN_TEXT] View [CN_TEXT] xScale、yScale [CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT]
-                        //[CN_TEXT] [CN_TEXT] scale [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+                        // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+                        // View rendering view scale view，view，view
                     }
                 }
 
@@ -427,7 +427,7 @@ class TemperatureHikView : TemperatureBaseView {
     }
 
     /**
-     * Point/Line/Area[CN_TEXT]，[CN_TEXT] View [CN_TEXT]，[CN_TEXT]Celsius
+     * Point/Line/Areaview，view View view，viewCelsius
      */
     data class TempInfo(
         val center: TemperatureSampleResult? = null,

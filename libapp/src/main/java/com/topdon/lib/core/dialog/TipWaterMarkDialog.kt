@@ -30,7 +30,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import java.util.*
 
 /**
- * 2D-[CN_TEXT] [CN_TEXT]
+ * 2D-dialog dialog
  */
 class TipWaterMarkDialog : Dialog {
     constructor(context: Context) : super(context)
@@ -109,13 +109,13 @@ class TipWaterMarkDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // [CN_TEXT]
+                    // dialog
                     0.85
                 } else {
-                    // [CN_TEXT]
+                    // dialog
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // Settings[CN_TEXT]
+            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // Settingsdialog
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -165,7 +165,7 @@ class TipWaterMarkDialog : Dialog {
         }
 
         private fun initLocationPermission() {
-            // [CN_TEXT]
+            // dialog
             XXPermissions.with(context)
                 .permission(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -197,7 +197,7 @@ class TipWaterMarkDialog : Dialog {
                             never: Boolean,
                         ) {
                             if (never) {
-                                // [CN_TEXT]Settings[CN_TEXT]
+                                // dialogSettingsdialog
                                 if (BaseApplication.instance.isDomestic())
                                     {
                                         ToastUtils.showShort(R.string.app_location_content)
@@ -244,17 +244,17 @@ class TipWaterMarkDialog : Dialog {
 
         @SuppressLint("MissingPermission")
         private fun getLocation(): String? {
-            // 1.[CN_TEXT]
+            // 1.dialog
             locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-            // 2.[CN_TEXT]，GPS[CN_TEXT]NetWork
+            // 2.dialog，GPSdialogNetWork
             val providers = locationManager?.getProviders(true)
             locationProvider =
                 if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-                    // [CN_TEXT]GPS
+                    // dialogGPS
                     LocationManager.GPS_PROVIDER
                 } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-                    // [CN_TEXT]Network
+                    // dialogNetwork
                     LocationManager.NETWORK_PROVIDER
                 } else {
                     return null
@@ -273,7 +273,7 @@ class TipWaterMarkDialog : Dialog {
                 }
         }
 
-        // [CN_TEXT]:[CN_TEXT]、[CN_TEXT]
+        // dialog:dialog、dialog
         private fun getAddress(location: Location?): String {
             var result: List<Address?>? = null
             try {
@@ -285,7 +285,7 @@ class TipWaterMarkDialog : Dialog {
                             location.latitude,
                             location.longitude, 1,
                         )
-                    Log.v("TAG", "[CN_TEXT]：$result")
+                    Log.v("TAG", "dialog：$result")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -26,12 +26,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     protected lateinit var binding: ActivityImagePickIrPlushBinding
 
     /**
-     * String Type - [CN_TEXT].
+     * String Type - activity.
      */
     val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
 
     /**
-     * Current[CN_TEXT].
+     * Currentactivity.
      */
     private var hasTakePhoto = false
 
@@ -50,7 +50,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityImagePickIrPlushBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // [CN_TEXT]Selected[CN_TEXT]
+        // activitySelectedactivity
         binding.ivEditCircle.isSelected = true
         binding.imageEditView.type = ImageEditView.Type.CIRCLE
         binding.viewColor.setBackgroundColor(binding.imageEditView.color)
@@ -91,12 +91,12 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
             MeasureSpec.makeMeasureSpec(heightPixels, MeasureSpec.AT_MOST),
         )
 
-        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // Photo[CN_TEXT]，60dp+[CN_TEXT]20dp margin
+        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // Photoactivity，60dp+activity20dp margin
         val menuHeight = (widthPixels * 75f / 384).toInt()
         val bottomHeight = ivPickHeight.coerceAtLeast(menuHeight)
         val canUseHeight = heightPixels - binding.titleView.measuredHeight - bottomHeight
         val wantHeight = (widthPixels * 256f / 192).toInt()
-        if (wantHeight <= canUseHeight) { // [CN_TEXT]
+        if (wantHeight <= canUseHeight) { // activity
             binding.fragmentContainerView.layoutParams =
                 binding.fragmentContainerView.layoutParams.apply {
                     this.width = widthPixels
@@ -177,7 +177,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * Switch [CN_TEXT]PhotoMode/[CN_TEXT]PhotoMode.
+     * Switch activityPhotoMode/activityPhotoMode.
      */
     private fun switchPhotoState(hasTakePhoto: Boolean) {
         this.hasTakePhoto = hasTakePhoto
@@ -189,8 +189,8 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]
-     * @param listener [CN_TEXT]
+     * activity
+     * @param listener activity
      */
     private fun showExitTipsDialog(listener: (() -> Unit)) {
         TipDialog.Builder(this)

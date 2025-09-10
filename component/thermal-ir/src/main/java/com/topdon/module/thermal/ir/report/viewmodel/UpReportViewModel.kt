@@ -52,12 +52,12 @@ class UpReportViewModel : BaseViewModel() {
                             reportIrBean.picture_id = jsonObject.getString("fileSecret")
                             reportIrBean.picture_url = jsonObject.getString("url")
                         }
-                        XLog.i("[CN_TEXT]")
+                        XLog.i("view")
                         downLatch.countDown()
                     }
                 }
                 downLatch.await()
-                XLog.i("${irList.size} [CN_TEXT]")
+                XLog.i("${irList.size} view")
             }
         }
     }

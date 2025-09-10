@@ -10,7 +10,7 @@ import com.topdon.libcom.navigation.NavigationManager
  **/
 object ARouterUtil {
     /**
-     * [CN_TEXT]InfraredPhoto[CN_TEXT]
+     * utilityInfraredPhotoutility
      * @param activity Activity
      * @param isTC007 Boolean
      */

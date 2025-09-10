@@ -10,9 +10,9 @@ import com.blankj.utilcode.util.ScreenUtils
 
 class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
 
-    private var mHolder: SurfaceHolder? = null // [CN_TEXT]SurfaceView
-    private var mCanvas: Canvas? = null // [CN_TEXT]
-    private val p: Paint by lazy { Paint() } // [CN_TEXT]
+    private var mHolder: SurfaceHolder? = null // viewSurfaceView
+    private var mCanvas: Canvas? = null // view
+    private val p: Paint by lazy { Paint() } // view
     private val mMatrix: Matrix by lazy { Matrix() }
     private var openLut = false
 
@@ -41,8 +41,8 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     private fun init() {
-        mHolder = holder // [CN_TEXT]SurfaceHolder[CN_TEXT]
-        mHolder?.addCallback(this) // [CN_TEXT]SurfaceView[CN_TEXT]State[CN_TEXT]
+        mHolder = holder // viewSurfaceHolderview
+        mHolder?.addCallback(this) // viewSurfaceViewviewStateview
         mHolder?.setFormat(PixelFormat.TRANSPARENT)
         p.alpha = 0xff
         mMatrix.setScale(1.0f, 1.0f)
@@ -82,7 +82,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 mMatrix.postScale(sca, sca)
             }
             270f -> {
-                //[CN_TEXT]
+                // View rendering
                 val sca = ScreenUtils.getScreenWidth() / h
                 mMatrix.setRotate(rotate, 0f, 0f)
                 mMatrix.postTranslate(0f, w)
@@ -96,7 +96,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun doDraw(bitmap: Bitmap?, shutterFlag: Int) {
 
@@ -105,16 +105,16 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 return@doDraw
             }
 
-            mCanvas = mHolder?.lockCanvas() // [CN_TEXT]，[CN_TEXT]
+            mCanvas = mHolder?.lockCanvas() // view，view
 
             try {
                 mCanvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 //                mCanvas?.drawBitmap(bitmap, mMatrix, p)
                 if (openLut) {
-                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f)//[CN_TEXT]
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance)//[CN_TEXT]
+                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f)// View rendering
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance)// View rendering
                 } else {
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix)//[CN_TEXT]
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix)// View rendering
                 }
                 mCanvas?.drawBitmap(bitmap, mMatrix, p)
             } catch (e: Exception) {
@@ -123,7 +123,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 val surface = mHolder!!.surface
                 if (mCanvas != null && mHolder != null && surface != null && surface.isValid) {
                     try {
-                        mHolder?.unlockCanvasAndPost(mCanvas) // [CN_TEXT]，[CN_TEXT]
+                        mHolder?.unlockCanvasAndPost(mCanvas) // view，view
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -133,7 +133,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         }
     }
 
-    // [CN_TEXT]
+    // view
     private var mColorMatrix = ColorMatrix(
         floatArrayOf(
             1f, 0f, 0f, 0f, 0f,
@@ -143,7 +143,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         )
     )
 
-    // [CN_TEXT]
+    // view
     private var mColorMatrixLut = ColorMatrix(
         floatArrayOf(
             1f, 0f, 0f, 0f, 0f,
@@ -154,7 +154,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     )
     private val n = 1f
 
-    // [CN_TEXT]
+    // view
     private var mColorMatrixEnhance = ColorMatrix(
 //        floatArrayOf(
 //            n, 0f, 0f, 0f, 128 * (1 - n),
@@ -170,7 +170,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         )
     )
 
-    private var saturation = 0 //[CN_TEXT] 0~100
+    private var saturation = 0 // View rendering 0~100
 
     fun setOpenLut() {
 //        openLut = !openLut
@@ -178,7 +178,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsview
      * @param saturation 0 ~ 100
      */
     fun setSaturationValue(saturation: Int) {
@@ -196,7 +196,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * [CN_TEXT]SurfaceView[CN_TEXT]，[CN_TEXT]
+     * viewSurfaceViewview，view
      */
     override fun surfaceCreated(holder: SurfaceHolder) {
         isPrepare = true
@@ -206,14 +206,14 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * [CN_TEXT]SurfaceView[CN_TEXT]，[CN_TEXT]
+     * viewSurfaceViewview，view
      */
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         Logger.d(TAG, "holder surfaceChanged")
     }
 
     /**
-     * [CN_TEXT]SurfaceView[CN_TEXT]，[CN_TEXT]
+     * viewSurfaceViewview，view
      */
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         synchronized(this) {

@@ -139,7 +139,7 @@ class FencePointView : View {
             // bottom
             point1[1] = height - destH / 2
         }
-        Log.w("123", "[CN_TEXT] point:${point1.contentToString()}")
+        Log.w("123", "view point:${point1.contentToString()}")
         if (listener != null) {
             listener!!.callback(point1, intArrayOf(width, height))
         }
@@ -153,8 +153,8 @@ class FencePointView : View {
 
     interface CallBack {
         /**
-         * startPoint: [CN_TEXT]
-         * endPoint: [CN_TEXT]
+         * startPoint: view
+         * endPoint: view
          */
         fun callback(
             startPoint: IntArray,

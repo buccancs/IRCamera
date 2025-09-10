@@ -7,9 +7,9 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.topdon.module.thermal.ir.R
 
 /**
- * [CN_TEXT] StandardGSYVideoPlayer.
+ * data StandardGSYVideoPlayer.
  *
- * [CN_TEXT]，[CN_TEXT].
+ * data，data.
  *
  * Created by chenggeng.lin on 2023/12/8.
  */

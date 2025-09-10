@@ -1,7 +1,7 @@
 package com.example.open3d
 
 /**
- * [CN_TEXT]c++[CN_TEXT]
+ * utilityc++utility
  * @author: CaiSongL
  * @date: 2023/10/23 17:57
  */
@@ -62,7 +62,7 @@ object JNITool {
     ): ByteArray
 
     /**
-     * [CN_TEXT]
+     * utility
      * @param image ByteArray
      * @param temperature ByteArray
      * @param image_h Int
@@ -71,7 +71,7 @@ object JNITool {
      * @param low_t Float
      * @param color_h Int
      * @param color_l Int
-     * @param type Int ： [CN_TEXT]，1：[CN_TEXT]，2、[CN_TEXT]
+     * @param type Int ： utility，1：utility，2、utility
      * @return ByteArray
      */
     external fun draw_edge_from_temp_reigon_bitmap_argb_psd(

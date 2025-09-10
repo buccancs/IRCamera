@@ -19,10 +19,10 @@ import com.topdon.module.thermal.ir.report.bean.ImageTempBean
 class ReportIRInputView: LinearLayout {
 
     companion object {
-        private const val TYPE_FULL = 0 //[CN_TEXT]
-        private const val TYPE_POINT = 1//[CN_TEXT]
-        private const val TYPE_LINE = 2 //[CN_TEXT]
-        private const val TYPE_RECT = 3 //[CN_TEXT]
+        private const val TYPE_FULL = 0 // Full temperature view
+        private const val TYPE_POINT = 1// Point temperature view
+        private const val TYPE_LINE = 2 // Line temperature view
+        private const val TYPE_RECT = 3 // Rectangle temperature view
     }
 
     // View references - migrated from synthetic views

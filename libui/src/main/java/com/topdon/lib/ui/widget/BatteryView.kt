@@ -8,13 +8,13 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
 /**
- * TC007 [CN_TEXT].
+ * TC007 view.
  *
  * Created by LCG on 2024/5/22.
  */
 class BatteryView : AppCompatImageView {
     /**
-     * Current[CN_TEXT]
+     * Currentview
      */
     var battery = -1
         set(value) {
@@ -23,7 +23,7 @@ class BatteryView : AppCompatImageView {
         }
 
     /**
-     * Current[CN_TEXT]
+     * Currentview
      */
     var isCharging = false
         set(value) {
@@ -64,19 +64,19 @@ class BatteryView : AppCompatImageView {
                     MeasureSpec.EXACTLY -> setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt().coerceAtMost(heightSize))
                     MeasureSpec.AT_MOST -> {
                         if (widthSize < 58) {
-                            if (heightSize < 30) { // [CN_TEXT]✘ [CN_TEXT]✘
+                            if (heightSize < 30) { // view✘ view✘
                                 if ((widthSize * 30 / 58f).toInt() <= heightSize) {
                                     setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt())
                                 } else {
                                     setMeasuredDimension((heightSize * 58 / 30f).toInt(), heightSize)
                                 }
-                            } else { // [CN_TEXT]✘ [CN_TEXT]✔
+                            } else { // view✘ view✔
                                 setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt())
                             }
                         } else {
-                            if (heightSize < 30) { // [CN_TEXT]✔ [CN_TEXT]✘
+                            if (heightSize < 30) { // view✔ view✘
                                 setMeasuredDimension((heightSize * 58 / 30f).toInt(), heightSize)
-                            } else { // [CN_TEXT]✔ [CN_TEXT]✔
+                            } else { // view✔ view✔
                                 setMeasuredDimension(58, 30)
                             }
                         }
@@ -122,7 +122,7 @@ class BatteryView : AppCompatImageView {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // [CN_TEXT]
+        // view
         val lineSize = drawWidth * 2 / 58f
         val roundSize = drawWidth * 6 / 58f
         val batteryWidth = drawWidth * 50 / 58f
@@ -139,7 +139,7 @@ class BatteryView : AppCompatImageView {
             paint,
         )
 
-        // [CN_TEXT]
+        // view
         val anodeWidth = drawWidth * 3 / 58f
         val anodeHeight = drawHeight * 8 / 30f - lineSize
         val anodeX = drawWidth - anodeWidth / 2
@@ -149,7 +149,7 @@ class BatteryView : AppCompatImageView {
         paint.strokeWidth = anodeWidth
         canvas.drawLine(anodeX, anodeStartY, anodeX, anodeStartY + anodeHeight, paint)
 
-        // [CN_TEXT]
+        // view
         if (battery <= 0) {
             return
         }

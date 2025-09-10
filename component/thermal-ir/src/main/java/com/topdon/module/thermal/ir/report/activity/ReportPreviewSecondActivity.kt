@@ -42,28 +42,28 @@ import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 /**
- * [CN_TEXT]2[CN_TEXT].
+ * activity2activity.
  *
- * [CN_TEXT]
- * - [CN_TEXT] TC007: [ExtraKeyConfig.IS_TC007]
- * - [CN_TEXT]All[CN_TEXT] [ExtraKeyConfig.REPORT_BEAN]
+ * activity
+ * - activity TC007: [ExtraKeyConfig.IS_TC007]
+ * - activityAllactivity [ExtraKeyConfig.REPORT_BEAN]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
 
     /**
-     * [CN_TEXT]，[CN_TEXT]All[CN_TEXT].
+     * activity，activityAllactivity.
      */
     private var reportBean: ReportBean? = null
 
     /**
-     * Current[CN_TEXT] PDF [CN_TEXT]
+     * Currentactivity PDF activity
      */
     private var pdfFilePath: String? = null
 
@@ -137,7 +137,7 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
         tvComplete.setOnClickListener(this)
         lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // [CN_TEXT]Current[CN_TEXT] TS004、TC007，[CN_TEXT]，[CN_TEXT]
+                // activityCurrentactivity TS004、TC007，activity，activity
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
                 }
@@ -166,10 +166,10 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
 
     override fun onClick(v: View?) {
         when (v) {
-            tvToPdf -> {//[CN_TEXT]PDF
+            tvToPdf -> {// Activity logicPDF
                 saveWithPDF()
             }
-            tvComplete -> {//[CN_TEXT]
+            tvComplete -> {// Activity logic
 
                 if (LMS.getInstance().isLogin) {
                     if (!NetworkUtils.isConnected()) {
@@ -223,8 +223,8 @@ class ReportPreviewSecondActivity: BaseViewModelActivity<UpReportViewModel>(), V
     }
 
     /**
-     * [CN_TEXT] PDF [CN_TEXT]All View [CN_TEXT].
-     * Note：[CN_TEXT] View [CN_TEXT]，[CN_TEXT].
+     * activity PDF activityAll View activity.
+     * Note：activity View activity，activity.
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()

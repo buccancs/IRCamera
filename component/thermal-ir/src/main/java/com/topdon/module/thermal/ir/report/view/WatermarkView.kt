@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.SizeUtils
 class WatermarkView: View {
 
     /**
-     * [CN_TEXT].
+     * Add watermark.
      */
     var watermarkText: String? = null
         set(value) {

@@ -40,7 +40,7 @@ class ThermalEntity {
     @ColumnInfo(name = "create_time")
     var createTime: Long = 0
 
-    // [CN_TEXT]ms
+    // datams
     @ColumnInfo(name = "update_time")
     var updateTime: Long = 0
 

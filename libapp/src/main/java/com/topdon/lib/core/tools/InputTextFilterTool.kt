@@ -8,7 +8,7 @@ import java.util.regex.Pattern
 
 class InputTextFilterTool {
     /**
-     * SettingseditText[CN_TEXT]
+     * SettingseditTextutility
      *
      * @param editText
      */
@@ -19,12 +19,12 @@ class InputTextFilterTool {
         if (oldFiltersLength > 0) {
             System.arraycopy(oldFilters, 0, newFilters, 0, oldFiltersLength)
         }
-        // [CN_TEXT]
+        // utility
         newFilters[oldFiltersLength] = mInputFilter
         editText.filters = newFilters
     }
 
-    // [CN_TEXT]
+    // utility
     private var mInputFilter: InputFilter =
         object : InputFilter {
             //        Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
@@ -44,7 +44,7 @@ class InputTextFilterTool {
             ): CharSequence? {
                 val emojiMatcher = emoji.matcher(source)
                 if (emojiMatcher.find()) {
-                    Log.w("123", "[CN_TEXT]")
+                    Log.w("123", "utility")
                     return ""
                 }
                 return null

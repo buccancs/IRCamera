@@ -39,7 +39,7 @@ import java.util.*
 
 
 /**
- * [CN_TEXT]Settings
+ * activitySettings
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
@@ -71,7 +71,7 @@ class IRCameraSettingActivity : BaseActivity() {
     override fun initView() {
         productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
         if (isTC007()){
-            watermarkBean = SharedManager.wifiWatermarkBean//TC007[CN_TEXT]
+            watermarkBean = SharedManager.wifiWatermarkBean//TC007activity
             continuousBean = SharedManager.continuousBean
         }else{
             watermarkBean = SharedManager.watermarkBean
@@ -192,7 +192,7 @@ class IRCameraSettingActivity : BaseActivity() {
                 checkStoragePermission()
             }
         })
-        //TC007[CN_TEXT]Photo
+        //TC007activityPhoto
         lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
@@ -202,16 +202,16 @@ class IRCameraSettingActivity : BaseActivity() {
     }
     @SuppressLint("MissingPermission")
     private fun getLocation() : String? {
-        //1.[CN_TEXT]
+        //1.activity
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        //2.[CN_TEXT]，GPS[CN_TEXT]NetWork
+        //2.activity，GPSactivityNetWork
         val providers = locationManager?.getProviders(true)
         locationProvider = if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-            //[CN_TEXT]GPS
+            // Activity logicGPS
             LocationManager.GPS_PROVIDER
         } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            //[CN_TEXT]Network
+            // Activity logicNetwork
             LocationManager.NETWORK_PROVIDER
         } else {
             return null
@@ -229,32 +229,32 @@ class IRCameraSettingActivity : BaseActivity() {
     }
 
     var locationListener: LocationListener = object : LocationListener {
-        // Provider[CN_TEXT]State[CN_TEXT]、[CN_TEXT]State[CN_TEXT]Switch[CN_TEXT]
+        // ProvideractivityStateactivity、activityStateactivitySwitchactivity
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
             Toast.makeText(
                 this@IRCameraSettingActivity, provider, Toast.LENGTH_SHORT
             ).show()
         }
 
-        // Provider[CN_TEXT]enable[CN_TEXT]，[CN_TEXT]GPS[CN_TEXT]
+        // Provideractivityenableactivity，activityGPSactivity
         override fun onProviderEnabled(provider: String) {
             Toast.makeText(
-                this@IRCameraSettingActivity, "GPS[CN_TEXT]", Toast.LENGTH_SHORT
+                this@IRCameraSettingActivity, "GPSactivity", Toast.LENGTH_SHORT
             ).show()
             getLocation()
         }
 
-        // Provider[CN_TEXT]disable[CN_TEXT]，[CN_TEXT]GPS[CN_TEXT]
+        // Provideractivitydisableactivity，activityGPSactivity
         override fun onProviderDisabled(provider: String) {
             Toast.makeText(
-                this@IRCameraSettingActivity, "GPS[CN_TEXT]", Toast.LENGTH_SHORT
+                this@IRCameraSettingActivity, "GPSactivity", Toast.LENGTH_SHORT
             ).show()
         }
 
-        //[CN_TEXT]，[CN_TEXT]Provider[CN_TEXT]，[CN_TEXT]
+        // Activity logic，activityProvideractivity，activity
         override fun onLocationChanged(location: Location) {
             if (location != null) {
-                //[CN_TEXT]，[CN_TEXT]
+                // Activity logic，activity
                 Toast.makeText(
                     this@IRCameraSettingActivity, location.longitude.toString() + " " +
                             location.latitude + "", Toast.LENGTH_SHORT
@@ -277,7 +277,7 @@ class IRCameraSettingActivity : BaseActivity() {
         return bestLocation
     }
 
-    //[CN_TEXT]:[CN_TEXT]、[CN_TEXT]
+    // Activity logic:activity、activity
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -287,7 +287,7 @@ class IRCameraSettingActivity : BaseActivity() {
                     location.latitude,
                     location.longitude, 1
                 )
-                Log.v("TAG", "[CN_TEXT]：$result")
+                Log.v("TAG", "activity：$result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -367,7 +367,7 @@ class IRCameraSettingActivity : BaseActivity() {
                 }
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                     if (never) {
-                        // [CN_TEXT]Settings[CN_TEXT]
+                        // activitySettingsactivity
                         if (BaseApplication.instance.isDomestic()){
                             ToastUtils.showShort(getString(LibR.string.app_location_content))
                         }else{

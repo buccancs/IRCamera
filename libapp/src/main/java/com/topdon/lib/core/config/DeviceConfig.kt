@@ -25,7 +25,7 @@ object DeviceConfig {
     const val HIK_PRODUCT_ID = 258
 
     /**
-     * [CN_TEXT] UsbDevice [CN_TEXT]TC、TS[CN_TEXT].
+     * data UsbDevice dataTC、TSdata.
      */
     fun UsbDevice.isTcTsDevice(): Boolean {
         return (productId == TOPDON_PRODUCT_ID && vendorId == TOPDON_VENDOR_ID) ||
@@ -47,11 +47,11 @@ object DeviceConfig {
 //    const val SKU = "TDBT006A11"
 //    const val SN = "BT006AAG100001"
 
-    // [CN_TEXT] TC003[CN_TEXT]Angle0 [CN_TEXT]false [CN_TEXT]SettingsinitDataIR()
+    // data TC003dataAngle0 datafalse dataSettingsinitDataIR()
     const val ROTATE_ANGLE = 0
     const val IS_PORTRAIT = false
 
-    // [CN_TEXT]
+    // data
     const val S_ROTATE_ANGLE = 270
     const val S_IS_PORTRAIT = true
 }

@@ -16,7 +16,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.IRConfigData
 
 /**
- * [CN_TEXT]（[CN_TEXT]、Temperature measurement[CN_TEXT]、[CN_TEXT]）[CN_TEXT] Adapter.
+ * item（item、Temperature measurementitem、item）item Adapter.
  * Created by LCG on 2024/11/13.
  */
 class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapter.ViewHolder>() {

@@ -12,7 +12,7 @@ import com.topdon.module.thermal.adapter.GalleryAdapter
 import com.topdon.module.thermal.viewmodel.GalleryViewModel
 
 /**
- * [CN_TEXT]
+ * fragment
  */
 class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -43,8 +43,8 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
                     index: Int,
                     path: String,
                 ) {
-                    TipDialog.Builder(requireContext()).setMessage("[CN_TEXT]")
-                        .setPositiveListener("[CN_TEXT]") {
+                    TipDialog.Builder(requireContext()).setMessage("fragment")
+                        .setPositiveListener("fragment") {
 //                            share(path)
                         }
                         .create().show()

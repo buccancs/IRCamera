@@ -12,14 +12,14 @@ object Constants {
     const val SETTING_DISCONNECTION = 1
     const val IR_TEMPERATURE_MODE = 1
     const val IR_OBSERVE_MODE = 2
-    const val IR_EDIT_MODE = 4 // [CN_TEXT]Mode
-    const val IR_TCPLUS_MODE = 5 // Dual light[CN_TEXT]
-    const val IR_TC007_MODE = 6 // TC007[CN_TEXT]
-    const val IR_TEMPERATURE_LITE = 7 // lite[CN_TEXT]
+    const val IR_EDIT_MODE = 4 // dataMode
+    const val IR_TCPLUS_MODE = 5 // Dual lightdata
+    const val IR_TC007_MODE = 6 // TC007data
+    const val IR_TEMPERATURE_LITE = 7 // litedata
 
     /**
-     * [CN_TEXT]，[CN_TEXT]1[CN_TEXT].
-     * true-[CN_TEXT]1[CN_TEXT] false-[CN_TEXT]
+     * data，data1data.
+     * true-data1data false-data
      */
     const val IS_REPORT_FIRST = "IS_REPORT_FIRST"
 }

@@ -16,27 +16,27 @@ import androidx.core.content.ContextCompat
 import com.topdon.lib.ui.R as UiR
 
 class CountDownView : View {
-    // [CN_TEXT]
+    // view
     private var mRingColor = 0
 
-    // [CN_TEXT]
+    // view
     private var mRingWidth = 0
 
-    // [CN_TEXT]
+    // view
     private var mRingProgressTextSize = 0
 
-    // [CN_TEXT]
+    // view
     private var mWidth = 0
 
-    // [CN_TEXT]
+    // view
     private var mHeight = 0
 
-    // [CN_TEXT]
+    // view
     private var mRingText: String? = null
     private lateinit var mPaint: Paint
     private lateinit var mTextPaint: Paint
 
-    // [CN_TEXT]
+    // view
     private var mRectF: RectF? = null
 
     //
@@ -47,7 +47,7 @@ class CountDownView : View {
     private var valueAnimator: ValueAnimator? = null
 
     /**
-     * [CN_TEXT]
+     * view
      */
     private var mListener: OnCountDownListener? = null
 
@@ -126,7 +126,7 @@ class CountDownView : View {
     }
 
     /**
-     * Settings[CN_TEXT] [CN_TEXT]
+     * Settingsview view
      */
     fun setCountdownTime(mCountdownTime: Int) {
         this.mCountdownTime = mCountdownTime
@@ -135,7 +135,7 @@ class CountDownView : View {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     private fun getValueAnimator(countdownTime: Long): ValueAnimator? {
         val valueAnimator = ValueAnimator.ofFloat(0f, 100f)
@@ -147,23 +147,23 @@ class CountDownView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // [CN_TEXT]
+        // view
         mPaint.color = mRingColor
         mPaint.style = Paint.Style.FILL
         mPaint.strokeWidth = mRingWidth.toFloat()
         canvas.drawArc(mRectF!!, -90f, mCurrentProgress - 360, false, mPaint)
         val font = Typeface.DEFAULT_BOLD
-        // [CN_TEXT]
+        // view
         mTextPaint.isAntiAlias = true
         mTextPaint.textAlign = Paint.Align.CENTER
         mTextPaint.typeface = font
-        // [CN_TEXT](5 4 3 2 1)
+        // view(5 4 3 2 1)
         // val text: String = (mCountdownTime - (mCurrentProgress / 360f * mCountdownTime)).toInt().toString()
 
         mTextPaint.textSize = mRingProgressTextSize.toFloat()
         mTextPaint.color = mProgressTextColor
 
-        // [CN_TEXT]
+        // view
         val fontMetrics = mTextPaint.fontMetricsInt
         val baseline =
             ((mRectF!!.bottom + mRectF!!.top - fontMetrics.bottom - fontMetrics.top) / 2).toInt()
@@ -171,7 +171,7 @@ class CountDownView : View {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun startCountDown() {
         valueAnimator = getValueAnimator((mCountdownTime * 1000).toLong())
@@ -185,7 +185,7 @@ class CountDownView : View {
             object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
-                    // [CN_TEXT]
+                    // view
                     if (mListener != null) {
                         mListener!!.countDownFinished()
                     }
@@ -195,7 +195,7 @@ class CountDownView : View {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun stopCountDown() {
         if (valueAnimator!!.isRunning) {

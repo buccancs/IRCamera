@@ -47,7 +47,7 @@ import java.io.File
 import java.math.BigDecimal
 
 /**
- * [CN_TEXT]
+ * fragment
  */
 class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private val viewModel: ThermalViewModel by viewModels()
@@ -59,7 +59,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     override fun initContentView() = R.layout.fragment_thermal
 
-    // Settings[CN_TEXT]
+    // Settingsfragment
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -76,7 +76,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         val y1 = y * ph / rawHeight
         val maxX = x1 - imageView.width / 2
         val maxY = y1 - imageView.height / 2
-//        Log.w("123", "[CN_TEXT] maxX:$maxX, maxY:$maxY")
+//        Log.w("123", "fragment maxX:$maxX, maxY:$maxY")
         imageView.x = maxX.toFloat()
         imageView.y = maxY.toFloat()
     }
@@ -85,7 +85,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        rotateType = 3 // [CN_TEXT]Rotate270[CN_TEXT]
+        rotateType = 3 // fragmentRotate270fragment
         mCenterTextView = requireView().findViewById(R.id.temp_display)
         mMaxTextView = requireView().findViewById(R.id.max_temp_display)
         mMinTextView = requireView().findViewById(R.id.min_temp_display)
@@ -149,9 +149,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             cameraLayoutParams!!.height = irSurfaceViewHeight
             mFenceLayout!!.layoutParams = cameraLayoutParams
         }
-        // [CN_TEXT]
+        // fragment
         initFence()
-        // [CN_TEXT]
+        // fragment
         onIrVideoStart()
         mIrSurfaceView!!.post {
             Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
@@ -164,9 +164,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         mCenterTextView!!.visibility = View.VISIBLE
                         mMaxTextView!!.visibility = View.VISIBLE
                         mMinTextView!!.visibility = View.VISIBLE
-                        mCenterTextView!!.text = "[CN_TEXT] $mCenter"
-                        mMaxTextView!!.text = "[CN_TEXT]High temperature $mMaxTemp"
-                        mMinTextView!!.text = "[CN_TEXT]Low temperature $mMinTemp"
+                        mCenterTextView!!.text = "fragment $mCenter"
+                        mMaxTextView!!.text = "fragmentHigh temperature $mMaxTemp"
+                        mMinTextView!!.text = "fragmentLow temperature $mMinTemp"
                         maxImg!!.visibility = View.GONE
                         minImg!!.visibility = View.GONE
                     }
@@ -174,7 +174,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         mCenterTextView!!.visibility = View.VISIBLE
                         mMaxTextView!!.visibility = View.GONE
                         mMinTextView!!.visibility = View.GONE
-                        mCenterTextView!!.text = "[CN_TEXT] $mMaxTemp"
+                        mCenterTextView!!.text = "fragment $mMaxTemp"
                         maxImg!!.visibility = View.GONE
                         minImg!!.visibility = View.GONE
                     }
@@ -182,9 +182,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         mCenterTextView!!.visibility = View.VISIBLE
                         mMaxTextView!!.visibility = View.VISIBLE
                         mMinTextView!!.visibility = View.VISIBLE
-                        mCenterTextView!!.text = "[CN_TEXT] $mCenter"
-                        mMaxTextView!!.text = "[CN_TEXT]High temperature $mMaxTemp"
-                        mMinTextView!!.text = "[CN_TEXT]Low temperature $mMinTemp"
+                        mCenterTextView!!.text = "fragment $mCenter"
+                        mMaxTextView!!.text = "fragmentHigh temperature $mMaxTemp"
+                        mMinTextView!!.text = "fragmentLow temperature $mMinTemp"
                         maxImg!!.visibility = View.VISIBLE
                         minImg!!.visibility = View.VISIBLE
                         maxImg?.let { setViewPosition(it, maxIndex) }
@@ -205,12 +205,12 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     fun onIrVideoStart() {
         mIsIrVideoStart =
             if (mIsIrVideoStart) {
-                ToastTools.showShort("[CN_TEXT]")
+                ToastTools.showShort("fragment")
                 return
             } else {
                 true
@@ -224,14 +224,14 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         yuv: ByteArray,
                         temp: FloatArray,
                     ) {
-                        // [CN_TEXT]
+                        // fragment
                         if (mIrBitmap == null) {
                             mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
                         }
                         if (upValue > downValue) {
                             viewModel.yuvArea(yuv, temp, upValue, downValue)
                         }
-                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // [CN_TEXT]yuv
+                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // fragmentyuv
 //                mIrBitmap = mIrBitmap?.let { rotateBitmap(it, 90f) }
                         try {
                             mIrSurfaceView!!.doDraw(mIrBitmap, mGuideInterface!!.getImageStatus())
@@ -247,15 +247,15 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         }
                         val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
                         try {
-                            // [CN_TEXT]
-                            // [CN_TEXT]Specified[CN_TEXT]
+                            // fragment
+                            // fragmentSpecifiedfragment
                             val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                             val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
                             maxIndex = maxTempIndex
                             minIndex = minTempIndex
-                            // Rotate[CN_TEXT]
+                            // Rotatefragment
                             val rotateData = ArrayUtils.matrixRotate(srcData = temp, rotateType)
-                            // [CN_TEXT]
+                            // fragment
                             val bigDecimal = BigDecimal.valueOf(rotateData[centerIndex].toDouble())
                             val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
                             val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
@@ -264,16 +264,16 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                             mMinTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            Log.e(TAG, "[CN_TEXT]:${e.message}")
+                            Log.e(TAG, "fragment:${e.message}")
                         }
                     }
                 },
             )
 
         if (ret == 5) {
-            Log.w("123", "[CN_TEXT]")
+            Log.w("123", "fragment")
         } else {
-            ToastTools.showShort("[CN_TEXT]")
+            ToastTools.showShort("fragment")
         }
     }
 
@@ -302,45 +302,45 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     fun onIrVideoStop() {
         mIsIrVideoStart =
             if (!mIsIrVideoStart) {
-                ToastTools.showShort("[CN_TEXT]")
+                ToastTools.showShort("fragment")
                 return
             } else {
                 false
             }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        ToastTools.showShort("[CN_TEXT]")
+        ToastTools.showShort("fragment")
     }
 
     fun onLowRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastTools.showShort("[CN_TEXT]")
+            ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.setRange(1)
-        ToastTools.showShort("Switch[CN_TEXT]Normal temperature[CN_TEXT]")
+        ToastTools.showShort("SwitchfragmentNormal temperaturefragment")
     }
 
     fun onHighRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastTools.showShort("[CN_TEXT]")
+            ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.setRange(2)
-        ToastTools.showShort("Switch[CN_TEXT]High temperature[CN_TEXT]")
+        ToastTools.showShort("SwitchfragmentHigh temperaturefragment")
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     fun onTempBtnClick() {
         if (mGuideInterface == null) {
-            ToastTools.showShort("[CN_TEXT]")
+            ToastTools.showShort("fragment")
             return
         }
         isDispLayTemp = !isDispLayTemp
@@ -367,9 +367,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun addLimit() {
         ThermalInputDialog.Builder(requireContext())
-            .setMessage("[CN_TEXT]Settings[CN_TEXT]")
+            .setMessage("fragmentSettingsfragment")
             .setPositiveListener(LibUiR.string.app_confirm) { up, down, _, _ ->
-                ToastTools.showShort("Settings[CN_TEXT]:$up, [CN_TEXT]:$down")
+                ToastTools.showShort("Settingsfragment:$up, fragment:$down")
                 upValue = up
                 downValue = down
             }
@@ -377,10 +377,10 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             .create().show()
     }
 
-    // ***************************************[CN_TEXT]Mode**********************************************
+    // ***************************************fragmentMode**********************************************
 
     /**
-     * [CN_TEXT]Mode
+     * fragmentMode
      */
     fun onExpertModeClick(view: View?) {
         System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
@@ -397,7 +397,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     fun onNucShutterClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastTools.showShort("[CN_TEXT]")
+            ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.nuc()
@@ -432,32 +432,32 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                 picture()
             }
             1002 -> {
-                // [CN_TEXT]
-                ToastTools.showShort("[CN_TEXT]")
+                // fragment
+                ToastTools.showShort("fragment")
                 video()
             }
             2001 -> {
-                // [CN_TEXT]
+                // fragment
                 clearFenceUI()
                 addPoint()
             }
             2002 -> {
-                // [CN_TEXT]
+                // fragment
                 clearFenceUI()
                 addLine()
             }
             2003 -> {
-                // [CN_TEXT]
+                // fragment
                 clearFenceUI()
                 addFence()
             }
             2004 -> {
-                // [CN_TEXT]
+                // fragment
 //                onTempBtnClick()
                 addLimit()
             }
             2006 -> {
-                // Clear[CN_TEXT]
+                // Clearfragment
                 clearFence()
             }
             in 3000..3010 -> {
@@ -470,24 +470,24 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                 clearFence()
             }
             4002 -> {
-                // [CN_TEXT]
+                // fragment
                 enhance()
             }
             4003 -> {
-                // [CN_TEXT]
+                // fragment
                 camera()
             }
             in 5000..5010 -> {
-                // [CN_TEXT]
-                ToastTools.showShort("[CN_TEXT]")
+                // fragment
+                ToastTools.showShort("fragment")
             }
         }
     }
 
-    // [CN_TEXT]
+    // fragment
     private fun clearFence() {
         clearFenceUI()
-        // [CN_TEXT]
+        // fragment
         upValue = 0f
         downValue = 0f
         selectType = 0
@@ -510,15 +510,15 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         if (type < 0 || type > 10) {
             type = 0
         }
-        updatePalette(type) // [CN_TEXT]2
+        updatePalette(type) // fragment2
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun updatePalette(index: Int) {
         if (mGuideInterface == null) {
-            ToastTools.showShort("[CN_TEXT]")
+            ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.changePalette(index)
@@ -538,7 +538,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         showFence(3)
     }
 
-    // [CN_TEXT]Point/Line/Area[CN_TEXT]
+    // fragmentPoint/Line/Areafragment
     private fun showFence(index: Int) {
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) // Settings001 or 010 or 100
@@ -562,7 +562,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                     startPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-                    // [CN_TEXT]
+                    // fragment
                     selectType = 1
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType).getPointIndex(startPoint)
@@ -575,7 +575,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-                    // [CN_TEXT]
+                    // fragment
                     selectType = 2
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
@@ -589,7 +589,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-                    // [CN_TEXT]
+                    // fragment
                     selectType = 3
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
@@ -608,7 +608,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun video() {
         if (isVideoRunning) {
-            Log.w("123", "[CN_TEXT]")
+            Log.w("123", "fragment")
             return
         }
         // Note: FileConfig.galleryPath requires integration with file configuration module
@@ -622,10 +622,10 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun rotate() {
         rotateType = if (rotateType >= 3) 0 else rotateType + 1
         mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
-        ToastTools.showShort("Rotate:${ThermalTool.getRotate(rotateType)}[CN_TEXT]")
+        ToastTools.showShort("Rotate:${ThermalTool.getRotate(rotateType)}fragment")
     }
 
-    // [CN_TEXT]
+    // fragment
     private fun enhance() {
         mIrSurfaceView!!.setOpenLut()
         val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
@@ -635,11 +635,11 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             .setMessage(LibUiR.string.thermal_enhance)
             .setSaturation(saturation)
             .setPositiveListener(LibUiR.string.app_confirm) { value: Int ->
-                mIrSurfaceView?.setSaturationValue(value)//Settings[CN_TEXT]
+                mIrSurfaceView?.setSaturationValue(value)//Settingsfragment
             }
             .setListener { value: Int ->
-                //[CN_TEXT]
-//                mIrSurfaceView?.setSaturationValue(value)//Settings[CN_TEXT]
+                // Fragment logic
+//                mIrSurfaceView?.setSaturationValue(value)//Settingsfragment
             }.create().show()
          */
     }
@@ -673,11 +673,11 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         // RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
         //     .subscribe { granted: Boolean ->
         if (isRunCamera) {
-            // [CN_TEXT]
+            // fragment
             requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.GONE
             isRunCamera = false
         } else {
-            // [CN_TEXT]
+            // fragment
             requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.VISIBLE
             val tempCameraView = requireView().findViewById<com.topdon.lib.ui.camera.CameraView>(R.id.temp_camera_view)
             tempCameraView.post {

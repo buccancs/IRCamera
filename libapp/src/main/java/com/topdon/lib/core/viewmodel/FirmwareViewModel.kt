@@ -33,37 +33,37 @@ import java.util.TimeZone
 import java.util.concurrent.CountDownLatch
 
 /**
- * [CN_TEXT]
+ * view
  */
 class FirmwareViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         /**
-         * TS004 [CN_TEXT] [CN_TEXT].
+         * TS004 view view.
          */
         private const val TS004_SOFT_CODE = "TS004_FirmwareSW_Scope"
 
         /**
-         * TC007 [CN_TEXT] [CN_TEXT].
+         * TC007 view view.
          */
         private const val TC007_SOFT_CODE = "TC007_FirmwareSW_Wireless"
 
         /**
-         * TS004 apk [CN_TEXT].
+         * TS004 apk view.
          */
         private const val TS004_FIRMWARE_VERSION = "V1.70"
 
         /**
-         * TS004 apk [CN_TEXT].
+         * TS004 apk view.
          */
         private const val TS004_FIRMWARE_NAME = "TS004V1.70.zip"
 
         /**
-         * TC007 apk [CN_TEXT].
+         * TC007 apk view.
          */
         private const val TC007_FIRMWARE_VERSION = "V4.06"
 
         /**
-         * TC007 apk [CN_TEXT].
+         * TC007 apk view.
          */
         private const val TC007_FIRMWARE_NAME = "TC007V4.06.zip"
 
@@ -75,29 +75,29 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT]State，[CN_TEXT].
+     * viewState，view.
      */
     @Volatile
     private var isRequest = false
 
     /**
-     * [CN_TEXT] LiveData.
-     * null[CN_TEXT]
+     * view LiveData.
+     * nullview
      */
     val firmwareDataLD: MutableLiveData<FirmwareData?> = MutableLiveData()
 
     /**
-     * [CN_TEXT] LiveData.
-     * true-[CN_TEXT] false-[CN_TEXT]
+     * view LiveData.
+     * true-view false-view
      */
     val failLD: MutableLiveData<Boolean> = MutableLiveData()
 
     /**
-     * [CN_TEXT].
-     * @param version [CN_TEXT]，V1.00[CN_TEXT]
-     * @param updateStr [CN_TEXT]
-     * @param downUrl [CN_TEXT] URL
-     * @param size [CN_TEXT]，[CN_TEXT] byte
+     * view.
+     * @param version view，V1.00view
+     * @param updateStr view
+     * @param downUrl view URL
+     * @param size view，view byte
      */
     data class FirmwareData(
         val version: String,
@@ -107,33 +107,33 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     )
 
     /**
-     * [CN_TEXT]，[CN_TEXT]：
-     * - [firmwareDataLD] ([CN_TEXT])
-     * - [failLD] ([CN_TEXT])
+     * view，view：
+     * - [firmwareDataLD] (view)
+     * - [failLD] (view)
      * @param isTS004 true-TS004 false-TC007
      */
     fun queryFirmware(isTS004: Boolean) {
-        if (isRequest) { // [CN_TEXT]，[CN_TEXT]
+        if (isRequest) { // view，view
             return
         }
         isRequest = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            // [CN_TEXT]，V3.30[CN_TEXT] apk [CN_TEXT]，[CN_TEXT]
+            // view，V3.30view apk view，view
             /*if (isTS004) {
-                //[CN_TEXT] TS004 [CN_TEXT] SN、[CN_TEXT]
+                // View rendering TS004 view SN、view
                 val deviceInfo: DeviceInfo? = TS004Repository.getDeviceInfo()?.data
                 if (deviceInfo == null) {
-                    XLog.w("TS004 [CN_TEXT] - [CN_TEXT] SN、[CN_TEXT] [CN_TEXT]!")
+                    XLog.w("TS004 view - view SN、view view!")
                     failLD.postValue(false)
                     isRequest = false
                     return@launch
                 }
 
-                //[CN_TEXT] TS004 [CN_TEXT]
+                // View rendering TS004 view
                 val firmware: String? = TS004Repository.getVersion()?.data?.firmware
                 if (firmware == null) {
-                    XLog.w("TS004 [CN_TEXT] - [CN_TEXT] [CN_TEXT] [CN_TEXT]!")
+                    XLog.w("TS004 view - view view view!")
                     failLD.postValue(false)
                     isRequest = false
                     return@launch
@@ -143,10 +143,10 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
                 val randomNum: String = if (USE_DEBUG_SN) TS004_DEBUG_RANDOM_NUM else deviceInfo.code
                 getInfoFromNetwork(true, sn, randomNum, firmware)
             } else {
-                //[CN_TEXT] TC007 [CN_TEXT] SN、[CN_TEXT]
+                // View rendering TC007 view SN、view
                 val productInfo: ProductBean? = TC007Repository.getProductInfo()
                 if (productInfo == null) {
-                    XLog.w("TC007 [CN_TEXT] - [CN_TEXT] SN、[CN_TEXT] [CN_TEXT]!")
+                    XLog.w("TC007 view - view SN、view view!")
                     failLD.postValue(false)
                     isRequest = false
                     return@launch
@@ -158,12 +158,12 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
                 getInfoFromNetwork(false, sn, randomNum, firmware)
             }*/
 
-            // [CN_TEXT]，V3.30[CN_TEXT] apk [CN_TEXT]，[CN_TEXT]
+            // view，V3.30view apk view，view
             if (isTS004) {
-                // [CN_TEXT] TS004 [CN_TEXT]
+                // view TS004 view
                 val firmware: String? = TS004Repository.getVersion()?.data?.firmware
                 if (firmware == null) {
-                    XLog.w("TS004 [CN_TEXT] - [CN_TEXT] [CN_TEXT] [CN_TEXT]!")
+                    XLog.w("TS004 view - view view view!")
                     failLD.postValue(false)
                     isRequest = false
                     return@launch
@@ -171,10 +171,10 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
 
                 getInfoFromAssets(true, firmware)
             } else {
-                // [CN_TEXT] TC007 [CN_TEXT]
+                // view TC007 view
                 val productInfo: ProductBean? = TC007Repository.getProductInfo()
                 if (productInfo == null) {
-                    XLog.w("TC007 [CN_TEXT] - [CN_TEXT] SN、[CN_TEXT] [CN_TEXT]!")
+                    XLog.w("TC007 view - view SN、view view!")
                     failLD.postValue(false)
                     isRequest = false
                     return@launch
@@ -186,7 +186,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT] assets [CN_TEXT]，[CN_TEXT] post [CN_TEXT] LiveData
+     * view assets view，view post view LiveData
      */
     private fun getInfoFromAssets(
         isTS004: Boolean,
@@ -197,8 +197,8 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
 
         val newVersion: Double = getVersionFromStr(apkVersionStr)
         val currentVersion: Double = getVersionFromStr(firmware)
-        XLog.d("${if (isTS004) "TS004" else "TC007"} [CN_TEXT] - Current[CN_TEXT]：$currentVersion apk[CN_TEXT]：$newVersion")
-        if (newVersion <= currentVersion) { // Current[CN_TEXT]
+        XLog.d("${if (isTS004) "TS004" else "TC007"} view - Currentview：$currentVersion apkview：$newVersion")
+        if (newVersion <= currentVersion) { // Currentview
             firmwareDataLD.postValue(null)
             isRequest = false
             return
@@ -217,14 +217,14 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
             inputStream.close()
             outputStream.close()
         } catch (e: IOException) {
-            XLog.e("${if (isTS004) "TS004" else "TC007"} [CN_TEXT] - [CN_TEXT]! ${e.message}")
+            XLog.e("${if (isTS004) "TS004" else "TC007"} view - view! ${e.message}")
             FileUtils.delete(firmwareFile)
             firmwareDataLD.postValue(null)
             isRequest = false
             return
         }
 
-        // [CN_TEXT]，[CN_TEXT]。
+        // view，view。
         val tipsStr = getApplication<Application>().getString(R.string.fireware_update_tips)
 
         firmwareDataLD.postValue(FirmwareData(apkVersionStr, tipsStr, apkFirmwareName, firmwareFile.length()))
@@ -232,7 +232,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     private suspend fun getInfoFromNetwork(
         isTS004: Boolean,
@@ -240,19 +240,19 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         randomNum: String,
         firmware: String,
     ) {
-        // [CN_TEXT]
+        // view
         val bindCode = bindDevice(sn, randomNum)
         if (bindCode != LMS.SUCCESS && bindCode != 15109) {
-            XLog.w("${if (isTS004) "TS004" else "TC007"} [CN_TEXT] - [CN_TEXT]! sn: $sn")
+            XLog.w("${if (isTS004) "TS004" else "TC007"} view - view! sn: $sn")
             failLD.postValue(bindCode == 15162)
             isRequest = false
             return
         }
 
-        // [CN_TEXT]
+        // view
         val packageData: PackageData? = querySoftPackage(sn, if (isTS004) TS004_SOFT_CODE else TC007_SOFT_CODE)
         if (packageData == null) {
-            XLog.w("${if (isTS004) "TS004" else "TC007"} [CN_TEXT] - [CN_TEXT]!")
+            XLog.w("${if (isTS004) "TS004" else "TC007"} view - view!")
             failLD.postValue(false)
             isRequest = false
             return
@@ -260,8 +260,8 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
 
         val record: PackageData.Record? = packageData.getFirstRecord()
         val newVersionStr: String? = record?.maxUpdateVersion
-        if (record == null || newVersionStr == null) { // [CN_TEXT]，[CN_TEXT]Current[CN_TEXT]
-            XLog.d("${if (isTS004) "TS004" else "TC007"} [CN_TEXT] - [CN_TEXT]，[CN_TEXT]Current[CN_TEXT]")
+        if (record == null || newVersionStr == null) { // view，viewCurrentview
+            XLog.d("${if (isTS004) "TS004" else "TC007"} view - view，viewCurrentview")
             firmwareDataLD.postValue(null)
             isRequest = false
             return
@@ -269,14 +269,14 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
 
         val newVersion: Double = getVersionFromStr(newVersionStr)
         val currentVersion: Double = getVersionFromStr(firmware)
-        XLog.d("${if (isTS004) "TS004" else "TC007"} [CN_TEXT] - Current[CN_TEXT]：$currentVersion [CN_TEXT]：$newVersion")
-        if (newVersion <= currentVersion) { // Current[CN_TEXT]
+        XLog.d("${if (isTS004) "TS004" else "TC007"} view - Currentview：$currentVersion view：$newVersion")
+        if (newVersion <= currentVersion) { // Currentview
             firmwareDataLD.postValue(null)
             isRequest = false
             return
         }
 
-        // [CN_TEXT]
+        // view
         val downloadData = queryDownloadUrl(sn, record.maxUpdateVersionSoftId)
         if (downloadData?.responseCode == LMS.SUCCESS) {
             firmwareDataLD.postValue(
@@ -288,14 +288,14 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
                 ),
             )
         } else {
-            XLog.w("${if (isTS004) "TS004" else "TC007"} [CN_TEXT] - [CN_TEXT]!")
+            XLog.w("${if (isTS004) "TS004" else "TC007"} view - view!")
             failLD.postValue(downloadData?.responseCode == 60312)
         }
         isRequest = false
     }
 
     /**
-     * [CN_TEXT] SN、[CN_TEXT]Current[CN_TEXT].
+     * view SN、viewCurrentview.
      */
     private suspend fun bindDevice(
         sn: String,
@@ -314,7 +314,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT]Specified SN [CN_TEXT]
+     * viewSpecified SN view
      */
     private suspend fun querySoftPackage(
         sn: String,
@@ -329,7 +329,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
             params.addBodyParameter("sn", sn)
             params.addBodyParameter("softCode", softCode)
             params.addBodyParameter("downloadLanguageId", LanguageUtil.getLanguageId(Utils.getApp()))
-            params.addBodyParameter("downloadPlatformId", 2) // 1-IOS 2-APP 3-[CN_TEXT] 4-PC 5-[CN_TEXT] 6-[CN_TEXT]
+            params.addBodyParameter("downloadPlatformId", 2) // 1-IOS 2-APP 3-view 4-PC 5-view 6-view
             params.addBodyParameter(
                 "queryTime",
                 DateUtils.format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT")),
@@ -358,7 +358,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         }
 
     /**
-     * [CN_TEXT]Specified SN Specified[CN_TEXT].
+     * viewSpecified SN Specifiedview.
      */
     private suspend fun queryDownloadUrl(
         sn: String,
@@ -371,9 +371,9 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
             val params = RequestParams()
             params.addBodyParameter("sn", sn)
             params.addBodyParameter("businessId", businessId)
-            params.addBodyParameter("businessType", 20) // [CN_TEXT]Type，20-[CN_TEXT]
-            params.addBodyParameter("productType", 20) // 0-[CN_TEXT] 10-[CN_TEXT] 20-[CN_TEXT]
-            params.addBodyParameter("isCheckPoint", 0) // 0-[CN_TEXT] 1-[CN_TEXT]（[CN_TEXT]，[CN_TEXT]）
+            params.addBodyParameter("businessType", 20) // viewType，20-view
+            params.addBodyParameter("productType", 20) // 0-view 10-view 20-view
+            params.addBodyParameter("isCheckPoint", 0) // 0-view 1-view（view，view）
             HttpProxy.instant.post(
                 url,
                 params,
@@ -413,7 +413,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         }
 
     /**
-     * [CN_TEXT] [CN_TEXT] [CN_TEXT].
+     * view view view.
      */
     private class PackageData {
         var records: List<Record>? = null
@@ -421,8 +421,8 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         fun getFirstRecord(): Record? = if (records?.isNotEmpty() == true) records?.get(0) else null
 
         data class Record(
-            var maxUpdateVersion: String?, // [CN_TEXT]，[CN_TEXT]"V1.32"
-            var maxUpdateVersionSoftId: Int, // [CN_TEXT]URL
+            var maxUpdateVersion: String?, // view，view"V1.32"
+            var maxUpdateVersionSoftId: Int, // viewURL
             var maxVersionDetailResVO: MaxVersionDetailResVO?,
         ) {
             fun getUpdateStr(): String {
@@ -443,13 +443,13 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         )
 
         data class OtherExplain(
-            val valueType: Int, // 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT] 4-Note[CN_TEXT]
+            val valueType: Int, // 1-view 2-view 3-view 4-Noteview
             val textDescription: String?,
         )
     }
 
     /**
-     * [CN_TEXT] [CN_TEXT] [CN_TEXT].
+     * view view view.
      */
     private data class DownloadData(
         val downUrl: String?,

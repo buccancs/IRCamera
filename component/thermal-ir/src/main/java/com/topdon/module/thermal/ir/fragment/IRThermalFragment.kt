@@ -30,8 +30,8 @@ import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * fragment，Currentfragment TC007 fragmentType.
+     * true-TC007 false-fragment
      */
     private var isTC007 = false
 
@@ -80,7 +80,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         }
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // [CN_TEXT]Current[CN_TEXT] TS004、TC007，[CN_TEXT]，[CN_TEXT]
+                // fragmentCurrentfragment TS004、TC007，fragment，fragment
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(true)
                 }else{
@@ -131,14 +131,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun checkConnect() {
         if (DeviceTools.isConnect(isAutoRequest = false)) {
             connected()
         } else {
             disConnected()
-            if (DeviceTools.findUsbDevice() != null) {//[CN_TEXT],[CN_TEXT]
+            if (DeviceTools.findUsbDevice() != null) {// Fragment logic,fragment
                 showConnectTip()
             }
         }
@@ -163,7 +163,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             }
             tvMainEnter -> {
                 if (!DeviceTools.isConnect()) {
-                    //[CN_TEXT]，[CN_TEXT]
+                    // Fragment logic，fragment
                     if (DeviceTools.findUsbDevice() == null) {
                         activity?.let {
                             TipDialog.Builder(it)
@@ -185,7 +185,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
                                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                                     if (doNotAskAgain) {
-                                        //[CN_TEXT]
+                                        // Fragment logic
                                         context?.let {
                                             TipDialog.Builder(it)
                                                 .setTitleMessage(getString(R.string.app_tip))
@@ -204,12 +204,12 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     }
                 }
             }
-            cl07ConnectTips -> {//TC007 [CN_TEXT]
+            cl07ConnectTips -> {//TC007 fragment
                 NavigationManager.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
                     .navigation(requireContext())
             }
-            tv07Connect -> {//TC007 [CN_TEXT]
+            tv07Connect -> {//TC007 fragment
                 NavigationManager.getInstance()
                     .build(RouterConfig.IR_DEVICE_ADD)
                     .withBoolean("isTS004", false)
@@ -221,9 +221,9 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     private var tipConnectDialog: TipDialog? = null
 
     private var isCancelUpdateVersion = false
-    // [CN_TEXT]android10 usb[CN_TEXT],[CN_TEXT]android 27[CN_TEXT]
+    // fragmentandroid10 usbfragment,fragmentandroid 27fragment
     private fun showConnectTip() {
-        // targetSdk[CN_TEXT]27[CN_TEXT]android os[CN_TEXT]10
+        // targetSdkfragment27fragmentandroid osfragment10
         if (requireContext().applicationInfo.targetSdkVersion >= Build.VERSION_CODES.P &&
             Build.VERSION.SDK_INT == Build.VERSION_CODES.Q
         ) {
@@ -286,7 +286,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun initStoragePermission(permissionList: List<String>) {
 

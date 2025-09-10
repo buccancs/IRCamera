@@ -64,8 +64,8 @@ import java.io.InputStream
 
 
 /**
- * Dual light[CN_TEXT]
- * Dual light[CN_TEXT]
+ * Dual lightfragment
+ * Dual lightfragment
  */
 abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTempListener,
     IIRFrameCallback {
@@ -73,32 +73,32 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     val INIT_ALIGN_DATA = floatArrayOf(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
 
     /**
-     * [CN_TEXT] DualUVCCamera [CN_TEXT]、[CN_TEXT].
+     * fragment DualUVCCamera fragment、fragment.
      *
-     * Note：[CN_TEXT]，[CN_TEXT] View，[CN_TEXT] View!
+     * Note：fragment，fragment View，fragment View!
      */
     protected var dualView: DualViewWithExternalCameraCommonApi? = null
 
     /**
-     * Pseudo-color[CN_TEXT]Mode，[CN_TEXT] IRONBOW_MODE(Iron red)
+     * Pseudo-colorfragmentMode，fragment IRONBOW_MODE(Iron red)
      */
     protected var pseudoColorModeDual = CommonParams.PseudoColorUsbDualType.IRONBOW_MODE
 
 
 
     /**
-     * [CN_TEXT]Visible light[CN_TEXT]Infrared[CN_TEXT].
-     * true-[CN_TEXT]，[CN_TEXT]
-     * false-[CN_TEXT].
-     * [CN_TEXT] dualStart [CN_TEXT].
+     * fragmentVisible lightfragmentInfraredfragment.
+     * true-fragment，fragment
+     * false-fragment.
+     * fragment dualStart fragment.
      */
     private var hasStartPreview = false
     protected var ircmd: IRCMD? = null
 
-    //[CN_TEXT]sn,[CN_TEXT]id，[CN_TEXT]sn[CN_TEXT]，[CN_TEXT]
+    // Fragment logicsn,fragmentid，fragmentsnfragment，fragment
     protected var snStr = ""
 
-    /** [CN_TEXT]Mode：[CN_TEXT]+[CN_TEXT] */
+    /** fragmentMode：fragment+fragment */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
     /**
      * ir camera
@@ -107,15 +107,15 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
      */
     private var irPid = 0x5830
     private var irFps = 25
-    private var irCameraWidth // [CN_TEXT]
+    private var irCameraWidth // fragment
             = 0
-    private var irCameraHeight // [CN_TEXT]
+    private var irCameraHeight // fragment
             = 0
-    private var irTempHeight // [CN_TEXT]
+    private var irTempHeight // fragment
             = 0
-    private var imageWidth // [CN_TEXT]Rotate[CN_TEXT]
+    private var imageWidth // fragmentRotatefragment
             = 0
-    private var imageHeight // [CN_TEXT]Rotate[CN_TEXT]
+    private var imageHeight // fragmentRotatefragment
             = 0
     protected var temperatureSrc: ByteArray ?= null
 
@@ -131,11 +131,11 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
      * 8833
      */
     private var vlPid = 12337
-    private var vlFps = 30 // [CN_TEXT]
+    private var vlFps = 30 // fragment
 
     protected var vlCameraWidth = 1280
     protected var vlCameraHeight = 720
-    private var vlData = ByteArray(vlCameraWidth * vlCameraHeight * 3) // [CN_TEXT]Visible light[CN_TEXT]
+    private var vlData = ByteArray(vlCameraWidth * vlCameraHeight * 3) // fragmentVisible lightfragment
 
     /**
      * dual camera
@@ -145,7 +145,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
 
     protected var isrun = false
 
-    // [CN_TEXT]IRISP[CN_TEXT]
+    // fragmentIRISPfragment
     protected val isUseIRISP = false
 
     protected var fullScreenlayoutParams: FrameLayout.LayoutParams? = null
@@ -157,23 +157,23 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     protected var dualDisp = 30
 
     /**
-     * camera [CN_TEXT]
+     * camera fragment
      */
     private var vlUVCCamera: IRUVCDual? = null
 
 
     /**
-     * [CN_TEXT]，[CN_TEXT] SurfaceView
+     * fragment，fragment SurfaceView
      */
     abstract fun getSurfaceView(): SurfaceView
 
     /**
-     * [CN_TEXT]，[CN_TEXT] TemperatureDualView
+     * fragment，fragment TemperatureDualView
      */
     abstract fun getTemperatureDualView(): TemperatureView
 
     /**
-     * [CN_TEXT]，[CN_TEXT] USBMonitor [CN_TEXT] onConnect [CN_TEXT]，[CN_TEXT] DualView [CN_TEXT].
+     * fragment，fragment USBMonitor fragment onConnect fragment，fragment DualView fragment.
      */
     abstract suspend fun onDualViewCreate(dualView: DualViewWithExternalCameraCommonApi?)
 
@@ -189,10 +189,10 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
         when (dataFlowMode) {
             CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT -> {
                 /**
-                 * [CN_TEXT]+[CN_TEXT]
+                 * fragment+fragment
                  */
-                irCameraWidth = 256 // [CN_TEXT]
-                irCameraHeight = 384 // [CN_TEXT]
+                irCameraWidth = 256 // fragment
+                irCameraHeight = 384 // fragment
                 irTempHeight = 192
                 imageWidth = irCameraHeight - irTempHeight
                 imageHeight = irCameraWidth
@@ -200,10 +200,10 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             }
             CommonParams.DataFlowMode.IMAGE_OUTPUT -> {
                 /**
-                 * [CN_TEXT]
+                 * fragment
                  */
-                irCameraWidth = 256 // [CN_TEXT]
-                irCameraHeight = 192 // [CN_TEXT]
+                irCameraWidth = 256 // fragment
+                irCameraHeight = 192 // fragment
                 irTempHeight = 0
                 imageWidth = irCameraHeight - irTempHeight
                 imageHeight = irCameraWidth
@@ -211,18 +211,18 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             }
             CommonParams.DataFlowMode.TEMP_OUTPUT -> {
                 /**
-                 * [CN_TEXT]
+                 * fragment
                  */
-                irCameraWidth = 256 // [CN_TEXT]
-                irCameraHeight = 192 // [CN_TEXT]
+                irCameraWidth = 256 // fragment
+                irCameraHeight = 192 // fragment
                 irTempHeight = 0
                 imageWidth = irCameraHeight - irTempHeight
                 imageHeight = irCameraWidth
                 temperatureSrc = ByteArray(imageWidth * imageHeight * 2)
             }
             else -> {
-                irCameraWidth = 256 // [CN_TEXT]
-                irCameraHeight = 192 // [CN_TEXT]
+                irCameraWidth = 256 // fragment
+                irCameraHeight = 192 // fragment
                 irTempHeight = 0
                 imageWidth = irCameraHeight - irTempHeight
                 imageHeight = irCameraWidth
@@ -245,7 +245,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     }
 
     /**
-     * [CN_TEXT]Dual light[CN_TEXT]
+     * fragmentDual lightfragment
      */
     abstract fun isDualIR() : Boolean
 
@@ -261,7 +261,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     }
 
     private fun initIrDualdata() {
-        // [CN_TEXT]，[CN_TEXT]
+        // fragment，fragment
         var width = 0
         var height = 0
         val screenWidth: Int = ScreenUtils.getScreenWidth(context)
@@ -294,7 +294,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
         val am = requireContext().assets
         var `is`: InputStream? = null
         try {
-            //[CN_TEXT]Pseudo-color，[CN_TEXT]Pseudo-color，[CN_TEXT]sdk[CN_TEXT]
+            // Fragment logicPseudo-color，fragmentPseudo-color，fragmentsdkfragment
             psedocolor = Array(11) { ByteArray(0) }
             `is` = am.open("pseudocolor/White_Hot.bin")
             var lenth = `is`.available()
@@ -310,7 +310,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                 CommonParams.PseudoColorUsbDualType.WHITE_HOT_MODE,
                 psedocolor!![0]
             )
-            // [CN_TEXT]Settings[CN_TEXT]Mode
+            // fragmentSettingsfragmentMode
             setFusion(mCurrentFusionType)
             `is`.close()
         } catch (e: IOException) {
@@ -338,7 +338,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     val SAVE_DUAL_BIN = "dual_calibration_parameters2.bin"
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     open fun initDefIntegralArgsDISP_VALUE(typeLoadParameters: DualCameraParams.TypeLoadParameters) {
         if (!isDualIR()){
@@ -349,7 +349,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             val data = dualView?.dualUVCCamera?.loadParameters(parameters, typeLoadParameters)
             dualDisp = IRCmdTool.dispNumber
             setDispViewData(dualDisp)
-            // [CN_TEXT]
+            // fragment
             dualView?.dualUVCCamera?.setDisp(dualDisp)
             dualView?.startPreview()
         }
@@ -380,11 +380,11 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             "dualStart"
         )
         /**
-         * [CN_TEXT]Infrared[CN_TEXT]
-         * [CN_TEXT]pid[CN_TEXT]
+         * fragmentInfraredfragment
+         * fragmentpidfragment
          */
         USBMonitorManager.getInstance().registerUSB()
-        //[CN_TEXT]USBMonitorManager onConnect[CN_TEXT]Visible light[CN_TEXT]
+        // Fragment logicUSBMonitorManager onConnectfragmentVisible lightfragment
         //
 //        getTemperatureDualView().setTemperatureRegionMode(View.FOCUSABLES_TOUCH_MODE)
         getTemperatureDualView().setUseIRISP(isUseIRISP)
@@ -404,7 +404,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             super.handleMessage(msg)
             Log.d(
                 TAG,
-                "USBMonitorManager [CN_TEXT]${msg.what}"
+                "USBMonitorManager fragment${msg.what}"
             )
             if (!isDualIR()){
                 return
@@ -420,15 +420,15 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
                     TAG,
                     "USBMonitorManager HANDLE_CONNECT"
                 )
-                // [CN_TEXT]，[CN_TEXT]
+                // fragment，fragment
                 /**
-                 * [CN_TEXT]Visible light[CN_TEXT]
-                 * [CN_TEXT]pid[CN_TEXT]
+                 * fragmentVisible lightfragment
+                 * fragmentpidfragment
                  */
                 lifecycleScope.launch(Dispatchers.Main){
                     startVLCamera(vlPid, vlFps, vlCameraWidth, vlCameraHeight)
                     initDualCamera()
-                    // [CN_TEXT]
+                    // fragment
                     initDefIntegralArgsDISP_VALUE(DualCameraParams.TypeLoadParameters.ROTATE_270)
                 }
             } else if (msg.what == Const.HANDLE_REGISTER) {
@@ -477,18 +477,18 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
         //
         getTemperatureDualView().setDualUVCCamera(dualView!!.getDualUVCCamera())
         initPseudocolor()
-        // [CN_TEXT]Settings[CN_TEXT]Mode
+        // fragmentSettingsfragmentMode
 //        setFusion(mCurrentFusionType)
 //        dualView!!.startPreview()
         dualView?.setHandler(mIrHandler)
         isrun = true
     }
     /**
-     * Visible light[CN_TEXT]
+     * Visible lightfragment
      *
-     * @param pid          [CN_TEXT]pid
-     * @param cameraWidth  [CN_TEXT]
-     * @param cameraHeight [CN_TEXT]
+     * @param pid          fragmentpid
+     * @param cameraWidth  fragment
+     * @param cameraHeight fragment
      */
     open fun startVLCamera(pid: Int, fps: Int, cameraWidth: Int, cameraHeight: Int) {
         if (!isDualIR()){
@@ -547,7 +547,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
 //        popupImage.setIrcmd(ircmd)
 //        popupOthers.setIrcmd(ircmd)
 //        getTemperatureDualView().setIrcmd(ircmd)
-//        // [CN_TEXT]RotateSettings
+//        // fragmentRotateSettings
 //        popupCalibration.setRotate(true)
 //        popupImage.setRotate(true)
     }
@@ -556,7 +556,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
         super.onStart()
         if (!isrun) {
             isrun = true
-            //[CN_TEXT]
+            // Fragment logic
             configParam()
         }
     }
@@ -564,7 +564,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     private var isFirst = true
     private var configJob: Job? = null
     private val timeMillis = 150L
-    //[CN_TEXT]
+    // Fragment logic
     private fun configParam() {
         configJob = lifecycleScope.launch{
             while (isConfigWait && isActive) {
@@ -572,45 +572,45 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             }
             delay(500)
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() //[CN_TEXT]([CN_TEXT])
-            val emsChar = (config.radiation * 128).toInt() //[CN_TEXT]
+            val disChar = (config.distance * 128).toInt() // Fragment logic(fragment)
+            val emsChar = (config.radiation * 128).toInt() // Fragment logic
             XLog.w("SettingsTPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             delay(timeMillis)
-            //[CN_TEXT]
+            // Fragment logic
             /// Emissivity property. unit:1/128, range:1-128(0.01-1)
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString())
             )
             delay(timeMillis)
-            //[CN_TEXT]
+            // Fragment logic
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString())
             )
-            // [CN_TEXT]
+            // fragment
             delay(timeMillis)
             XLog.w("SettingsTPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
             if (isFirst && isrun) {
-                //[CN_TEXT]
+                // Fragment logic
                 ircmd?.setMirror(false)
-                // [CN_TEXT]
+                // fragment
                 delay(timeMillis)
                 withContext(Dispatchers.IO) {
-                    // [CN_TEXT]，[CN_TEXT]
+                    // fragment，fragment
                     ircmd?.setAutoShutter(true)
                     isFirst = false
                 }
-                //[CN_TEXT]（[CN_TEXT]）
+                // Fragment logic（fragment）
                 ircmd?.setPropDdeLevel(2)
-                //[CN_TEXT]
+                // Fragment logic
                 ircmd?.setContrast(128)
             }
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_ONOFF_AGC,
                 CommonParams.PropImageParamsValue.StatusSwith.ON
             )
-            //[CN_TEXT]
+            // Fragment logic
             if (syncimage.type == 1) {
                 ircmd?.tc1bShutterManual()
             } else {
@@ -653,7 +653,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
             dualView = null
             Log.d(
                 TAG,
-                "[CN_TEXT] dualStop"
+                "fragment dualStop"
             )
         }
     }
@@ -682,7 +682,7 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     override fun onConnect(device: UsbDevice?, ctrlBlock: USBMonitor.UsbControlBlock?, createNew: Boolean) {
         Log.d(
             TAG,
-            "USBMonitorManager onConnect[CN_TEXT]"
+            "USBMonitorManager onConnectfragment"
         )
         mIrHandler.sendEmptyMessage(Const.HANDLE_CONNECT)
     }
@@ -711,14 +711,14 @@ abstract class BaseIRPlushFragment : BaseFragment(), OnUSBConnectListener,ITsTem
     override fun onSetPreviewSizeFail() {
         mIrHandler.sendEmptyMessage(Const.SHOW_RESTART_MESSAGE)
     }
-    //[CN_TEXT]InfraredARGB[CN_TEXT] 192 * 256 * 4
+    // Fragment logicInfraredARGBfragment 192 * 256 * 4
     protected val preIrARGBData = ByteArray(256*192*4)
     protected val preIrData = ByteArray(256*192*2)
     protected val preTempData = ByteArray(256*192*2)
 
     override fun onIrFrame(irFrame: ByteArray?): ByteArray {
         /**
-         * @param irFrame [CN_TEXT]InfraredYUV422[CN_TEXT] + [CN_TEXT] [CN_TEXT] irWidth * irHeight * 2 + irWidth * irHeight * 2
+         * @param irFrame fragmentInfraredYUV422fragment + fragment fragment irWidth * irHeight * 2 + irWidth * irHeight * 2
          * @return
          */
         System.arraycopy(irFrame, 0, preIrData, 0, preIrData.size);

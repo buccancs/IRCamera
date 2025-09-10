@@ -2,7 +2,7 @@ package com.topdon.module.thermal.utils
 
 object ArrayUtils {
     /**
-     * [CN_TEXT]([CN_TEXT])-Rotate[CN_TEXT]
+     * utility(utility)-Rotateutility
      * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
      */
     fun getMaxIndex(
@@ -19,7 +19,7 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]([CN_TEXT])-Rotate[CN_TEXT]
+     * utility(utility)-Rotateutility
      * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
      */
     fun getMinIndex(
@@ -36,7 +36,7 @@ object ArrayUtils {
     }
 
     /**
-     * Rotate[CN_TEXT]
+     * Rotateutility
      * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
      */
     fun matrixRotate(
@@ -52,14 +52,14 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]([CN_TEXT])-[CN_TEXT]
+     * utility(utility)-utility
      */
     private fun getMaxIndex(
         data: FloatArray,
         selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
-            // [CN_TEXT]Specified[CN_TEXT]
+            // utilitySpecifiedutility
             var maxIndex = 0
             for (i in 1 until data.size - 1) {
                 if (data[i] > data[maxIndex]) {
@@ -83,7 +83,7 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]([CN_TEXT])-[CN_TEXT]
+     * utility(utility)-utility
      */
     private fun getMinIndex(
         data: FloatArray,
@@ -119,7 +119,7 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]([CN_TEXT])-Rotate[CN_TEXT]
+     * utility(utility)-Rotateutility
      * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
      */
     private fun getRotateMaxIndex(
@@ -153,7 +153,7 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]([CN_TEXT])-Rotate[CN_TEXT]
+     * utility(utility)-Rotateutility
      * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
      */
     private fun getRotateMinIndex(
@@ -193,7 +193,7 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]Rotate90°
+     * utilityRotate90°
      */
     private fun matrixRotate90(srcData: FloatArray): FloatArray {
         val row = 192
@@ -207,7 +207,7 @@ object ArrayUtils {
         val destMatrix = Array(column) { FloatArray(row) }
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[row - 1 - y][x] // [CN_TEXT]Rotate90[CN_TEXT]
+                destMatrix[x][y] = srcMatrix[row - 1 - y][x] // utilityRotate90utility
             }
         }
         val data = FloatArray(srcData.size)
@@ -220,7 +220,7 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]Rotate180°
+     * utilityRotate180°
      */
     private fun matrixRotate180(srcData: FloatArray): FloatArray {
         val row = 192
@@ -234,7 +234,7 @@ object ArrayUtils {
         val destMatrix = Array(row) { FloatArray(column) }
         for (x in 0 until row) {
             for (y in 0 until column) {
-                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y] // [CN_TEXT]Rotate180[CN_TEXT]
+                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y] // utilityRotate180utility
             }
         }
         val data = FloatArray(srcData.size)
@@ -247,22 +247,22 @@ object ArrayUtils {
     }
 
     /**
-     * [CN_TEXT]Rotate270°
-     * [CN_TEXT]Rotate[CN_TEXT]
+     * utilityRotate270°
+     * utilityRotateutility
      */
     private fun matrixRotate270(srcData: FloatArray): FloatArray {
         val row = 192
         val column = 256
-        val srcMatrix = Array(row) { FloatArray(column) } // [CN_TEXT]
+        val srcMatrix = Array(row) { FloatArray(column) } // utility
         for (i in 0 until row) {
             for (j in 0 until column) {
                 srcMatrix[i][j] = srcData[i * column + j]
             }
         }
-        val destMatrix = Array(column) { FloatArray(row) } // [CN_TEXT]
+        val destMatrix = Array(column) { FloatArray(row) } // utility
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[y][column - 1 - x] // [CN_TEXT]Rotate270[CN_TEXT]
+                destMatrix[x][y] = srcMatrix[y][column - 1 - x] // utilityRotate270utility
             }
         }
         val data = FloatArray(srcData.size)

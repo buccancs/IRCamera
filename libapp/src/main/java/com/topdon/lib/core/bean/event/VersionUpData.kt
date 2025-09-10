@@ -1,9 +1,9 @@
 package com.topdon.lib.core.bean.event
 
 /**
- * @param isForcedUpgrade [CN_TEXT]
- * @param description [CN_TEXT]
- * @param downPageUrl [CN_TEXT] Url
+ * @param isForcedUpgrade data
+ * @param description data
+ * @param downPageUrl data Url
  */
 data class VersionUpData(
     val versionNo: String,

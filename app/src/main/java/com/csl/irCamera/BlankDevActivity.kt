@@ -13,7 +13,7 @@ import com.topdon.module.thermal.ir.activity.IRMainActivity
 import com.topdon.tc001.app.App
 
 /**
- * des:usb[CN_TEXT]，All[CN_TEXT]
+ * des:usbactivity，Allactivity
  * author: CaiSongL
  * date: 2024/3/25 16:50
  **/

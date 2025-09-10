@@ -30,7 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * [CN_TEXT].
+ * dialog.
  *
  * Created by LCG on 2024/11/13.
  */

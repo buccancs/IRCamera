@@ -123,7 +123,7 @@ class WebSocketProxy {
     }
 
     /**
-     * TC007 Socket [CN_TEXT]，[CN_TEXT]，[CN_TEXT]。
+     * TC007 Socket data，data，data。
      */
     private var onFrameListener: ((frame: SocketFrameBean) -> Unit)? = null
 
@@ -152,12 +152,12 @@ class WebSocketProxy {
     ) {
         if (ssid == currentSSID) {
             if (mWsManager != null) {
-                XLog.tag("WebSocket").w("$ssid startWebSocket() [CN_TEXT]")
+                XLog.tag("WebSocket").w("$ssid startWebSocket() data")
                 return
             }
             this.network = network
         } else {
-            XLog.tag("WebSocket").d("[CN_TEXT] $currentSSID Switch[CN_TEXT] $ssid，[CN_TEXT]")
+            XLog.tag("WebSocket").d("data $currentSSID Switchdata $ssid，data")
             if (reconnectHandler.isReconnecting) {
                 EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
             }
@@ -185,7 +185,7 @@ class WebSocketProxy {
     }
 
     /**
-     * [CN_TEXT] Socket [CN_TEXT].
+     * data Socket data.
      */
     fun stopWebSocket() {
         XLog.tag("WebSocket").d("stopWebSocket()")
@@ -233,10 +233,10 @@ class WebSocketProxy {
         val onFrameListener: (frame: SocketFrameBean) -> Unit,
     ) : WsManager.IWebSocketListener() {
         /**
-         * onFailure [CN_TEXT]。
-         * [CN_TEXT]，[CN_TEXT]、[CN_TEXT]，[CN_TEXT]。
-         * [CN_TEXT] onFailure [CN_TEXT]。
-         * [CN_TEXT]，[CN_TEXT] onFailure [CN_TEXT]，[CN_TEXT]。
+         * onFailure data。
+         * data，data、data，data。
+         * data onFailure data。
+         * data，data onFailure data，data。
          */
         var isNeedReconnect = true
 
@@ -244,7 +244,7 @@ class WebSocketProxy {
             webSocket: WebSocket,
             response: Response,
         ) {
-            XLog.tag("WebSocket").d("$ssid Socket [CN_TEXT]")
+            XLog.tag("WebSocket").d("$ssid Socket data")
             isNeedReconnect = true
             handler.reset()
             EventBus.getDefault().post(SocketStateEvent(true, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
@@ -255,15 +255,15 @@ class WebSocketProxy {
             text: String,
         ) {
             if (SocketCmdUtil.getCmdResponse(text) == WsCmdConstants.APP_EVENT_HEART_BEATS) {
-                Log.v("WebSocket", "<-- [CN_TEXT] ${text.replace("\n", "").replace(" ", "")}")
+                Log.v("WebSocket", "<-- data ${text.replace("\n", "").replace(" ", "")}")
             } else {
-                XLog.tag("WebSocket").d("$ssid [CN_TEXT]TEXT[CN_TEXT]:$text")
+                XLog.tag("WebSocket").d("$ssid dataTEXTdata:$text")
             }
             onMessageListener?.invoke(text)
         }
 
         /**
-         * TC007 [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+         * TC007 data，data，data
          */
         private var needPrint = false
 
@@ -276,11 +276,11 @@ class WebSocketProxy {
                 onFrameListener.invoke(frameBean)
                 needPrint = !needPrint
                 if (needPrint) {
-                    Log.v("WebSocket", "--------- $ssid [CN_TEXT] ---------")
+                    Log.v("WebSocket", "--------- $ssid data ---------")
                     Log.v("WebSocket", frameBean.toString())
                 }
             } else {
-                XLog.tag("WebSocket").w("$ssid [CN_TEXT] bytes [CN_TEXT]，[CN_TEXT] ${bytes.size}")
+                XLog.tag("WebSocket").w("$ssid data bytes data，data ${bytes.size}")
             }
         }
 
@@ -289,7 +289,7 @@ class WebSocketProxy {
             code: Int,
             reason: String,
         ) {
-            XLog.tag("WebSocket").d("$ssid [CN_TEXT]，[CN_TEXT]：$reason")
+            XLog.tag("WebSocket").d("$ssid data，data：$reason")
         }
 
         override fun onClosed(
@@ -298,9 +298,9 @@ class WebSocketProxy {
             reason: String,
         ) {
             if (handler.isReconnecting) {
-                XLog.tag("WebSocket").d("$ssid [CN_TEXT]，[CN_TEXT]，[CN_TEXT]：$reason")
+                XLog.tag("WebSocket").d("$ssid data，data，data：$reason")
             } else {
-                XLog.tag("WebSocket").d("$ssid [CN_TEXT]，[CN_TEXT]：$reason")
+                XLog.tag("WebSocket").d("$ssid data，data：$reason")
                 handler.reset()
                 EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
             }
@@ -312,15 +312,15 @@ class WebSocketProxy {
             t: Throwable,
             response: Response?,
         ) {
-            XLog.tag("WebSocket").d("$ssid [CN_TEXT]，response: ${response?.message}")
-            XLog.tag("WebSocket").d("$ssid [CN_TEXT]，[CN_TEXT]: ${t.message}")
+            XLog.tag("WebSocket").d("$ssid data，response: ${response?.message}")
+            XLog.tag("WebSocket").d("$ssid data，data: ${t.message}")
             if (checkNeedReconnect()) {
                 handler.handleFail(ssid)
                 if (!handler.isReconnecting) {
                     EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
                 }
             } else {
-                XLog.tag("WebSocket").w("[CN_TEXT]")
+                XLog.tag("WebSocket").w("data")
                 handler.reset()
                 getInstance().stopWebSocket()
                 EventBus.getDefault().post(SocketStateEvent(false, ssid.startsWith(DeviceConfig.TS004_NAME_START)))
@@ -331,12 +331,12 @@ class WebSocketProxy {
         override fun onHeartBeat(): String? = SocketCmdUtil.getSocketCmd(WsCmdConstants.APP_EVENT_HEART_BEATS)
 
         override fun onHeartBeatTimeout() {
-            XLog.tag("WebSocket").w("[CN_TEXT]")
+            XLog.tag("WebSocket").w("data")
             handler.handleFail(ssid)
         }
 
         /**
-         * [CN_TEXT]Current[CN_TEXT]
+         * dataCurrentdata
          */
         private fun checkNeedReconnect(): Boolean {
             if (!isNeedReconnect) {
@@ -346,7 +346,7 @@ class WebSocketProxy {
                 return true
             }
             val wifiName: String = WifiUtil.getCurrentWifiSSID(Utils.getApp()) ?: return true
-            XLog.tag("WebSocket").i("[CN_TEXT]，Current[CN_TEXT] WIFI：$wifiName")
+            XLog.tag("WebSocket").i("data，Currentdata WIFI：$wifiName")
             return wifiName == ssid
         }
     }
@@ -354,12 +354,12 @@ class WebSocketProxy {
     private class ReconnectHandler : Handler(Looper.getMainLooper()) {
         companion object {
             /**
-             * [CN_TEXT].
+             * data.
              */
             private const val MAX_RECONNECT_COUNT = 3
 
             /**
-             * [CN_TEXT]，[CN_TEXT].
+             * data，data.
              */
             private const val RECONNECT_MILLIS = 3000L
         }
@@ -383,13 +383,13 @@ class WebSocketProxy {
 
         fun handleFail(currentSSID: String) {
             if (this.currentSSID != currentSSID) {
-                XLog.tag("WebSocket").w("[CN_TEXT]Switch[CN_TEXT] ${this.currentSSID} [CN_TEXT]，[CN_TEXT] $currentSSID fail [CN_TEXT]")
+                XLog.tag("WebSocket").w("dataSwitchdata ${this.currentSSID} data，data $currentSSID fail data")
                 return
             }
             if (isReconnecting) {
                 reconnectCount++
                 if (reconnectCount < MAX_RECONNECT_COUNT) {
-                    XLog.tag("WebSocket").w("[CN_TEXT] $reconnectCount [CN_TEXT]")
+                    XLog.tag("WebSocket").w("data $reconnectCount data")
 
                     getInstance().stopWebSocket()
                     removeCallbacksAndMessages(null)
@@ -397,14 +397,14 @@ class WebSocketProxy {
                         getInstance().startWebSocket(currentSSID)
                     }
                 } else {
-                    XLog.tag("WebSocket").w("[CN_TEXT]，[CN_TEXT] [CN_TEXT] [CN_TEXT]")
+                    XLog.tag("WebSocket").w("data，data data data")
                     reconnectCount = 0
                     isReconnecting = false
                     removeCallbacksAndMessages(null)
                     getInstance().stopWebSocket()
                 }
             } else {
-                XLog.tag("WebSocket").d("[CN_TEXT]，[CN_TEXT]")
+                XLog.tag("WebSocket").d("data，data")
                 reconnectCount = 0
                 isReconnecting = true
 

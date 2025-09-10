@@ -49,19 +49,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * [CN_TEXT]1[CN_TEXT]（[CN_TEXT]2[CN_TEXT]）.
+ * activity1activity（activity2activity）.
  *
- * [CN_TEXT]
- * - [CN_TEXT] TC007: [ExtraKeyConfig.IS_TC007] （[CN_TEXT]、[CN_TEXT]）
- * - Current[CN_TEXT]: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （[CN_TEXT]，[CN_TEXT]）
- * - Current[CN_TEXT]Point/Line/Area[CN_TEXT]: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （[CN_TEXT]，[CN_TEXT]）
+ * activity
+ * - activity TC007: [ExtraKeyConfig.IS_TC007] （activity、activity）
+ * - Currentactivity: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （activity，activity）
+ * - CurrentactivityPoint/Line/Areaactivity: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （activity，activity）
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
     private var locationManager: LocationManager? = null
@@ -164,9 +164,9 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun readConfig() {
-        var environment = 30f //[CN_TEXT]
-        var distance = 0.25f  //[CN_TEXT]
-        var radiation = 0.95f //[CN_TEXT]
+        var environment = 30f // Activity logic
+        var distance = 0.25f  // Activity logic
+        var radiation = 0.95f // Activity logic
         val config = ConfigRepository.readConfig(isTC007)
         distance = config.distance
         radiation = config.radiation
@@ -186,10 +186,10 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv_report_date -> {//[CN_TEXT]
+            R.id.tv_report_date -> {// Activity logic
                 selectTime()
             }
-            R.id.tv_preview -> {//[CN_TEXT]
+            R.id.tv_preview -> {// Activity logic
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
@@ -197,7 +197,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
             }
-            R.id.tv_next -> {//[CN_TEXT]
+            R.id.tv_next -> {// Activity logic
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
@@ -220,16 +220,16 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
     @SuppressLint("MissingPermission")
     private fun getLocation() : String? {
-        //1.[CN_TEXT]
+        //1.activity
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        //2.[CN_TEXT]，GPS[CN_TEXT]NetWork
+        //2.activity，GPSactivityNetWork
         val providers = locationManager?.getProviders(true)
         locationProvider = if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-            //[CN_TEXT]GPS
+            // Activity logicGPS
             LocationManager.GPS_PROVIDER
         } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            //[CN_TEXT]Network
+            // Activity logicNetwork
             LocationManager.NETWORK_PROVIDER
         } else {
             return null
@@ -246,7 +246,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
         }
     }
 
-    //[CN_TEXT]:[CN_TEXT]、[CN_TEXT]
+    // Activity logic:activity、activity
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -256,7 +256,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                     location.latitude,
                     location.longitude, 1
                 )
-                Log.v("TAG", "[CN_TEXT]：$result")
+                Log.v("TAG", "activity：$result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -320,11 +320,11 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
 
     /**
-     * CurrentSettings[CN_TEXT].
+     * CurrentSettingsactivity.
      */
     private var startTime = 0L
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun selectTime() {
         val picker = DatimePicker(this)
@@ -343,10 +343,10 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
 
         val endTimeEntity = DatimeEntity.yearOnFuture(10)
         if (startTime == 0L) {
-            //SettingsCurrent[CN_TEXT]
+            //SettingsCurrentactivity
             picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
         } else {
-            //Settings[CN_TEXT]Selected[CN_TEXT]
+            //SettingsactivitySelectedactivity
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = startTime
             val year = calendar.get(Calendar.YEAR)
@@ -382,7 +382,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     }
 
     private fun initLocationPermission() {
-        //[CN_TEXT]
+        // Activity logic
         XXPermissions.with(this@ReportCreateFirstActivity)
             .permission(
                 permissionList
@@ -412,7 +412,7 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
                 }
                 override fun onDenied(permissions: MutableList<String>, never: Boolean) {
                     if (never) {
-                        // [CN_TEXT]Settings[CN_TEXT]
+                        // activitySettingsactivity
                         if (BaseApplication.instance.isDomestic()){
                             ToastUtils.showShort(getString(R.string.app_location_content))
                             return

@@ -17,34 +17,34 @@ import java.io.File
 class IRGalleryViewModel : BaseViewModel() {
     companion object {
         /**
-         * [CN_TEXT] 1 [CN_TEXT]
+         * view 1 view
          */
         const val PAGE_COUNT = 20
     }
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     val sourceListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
     /**
-     * [CN_TEXT].
+     * view.
      */
     val showListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
 
     /**
-     * [CN_TEXT]，[CN_TEXT]All[CN_TEXT].
+     * view，viewAllview.
      */
     fun queryAllReportImg(dirType: GalleryRepository.DirType) {
         viewModelScope.launch(Dispatchers.IO) {
             val sourceList: ArrayList<GalleryBean> = GalleryRepository.loadAllReportImg(dirType)
             sourceListLD.postValue(sourceList)
 
-            //[CN_TEXT] item
+            // View rendering item
             val showList: ArrayList<GalleryBean> = ArrayList(sourceList.size)
             var beforeTime = 0L
             for (galleryBean in sourceList) {
                 val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                if (beforeTime != currentTime) {//[CN_TEXT]
+                if (beforeTime != currentTime) {// View rendering
                     showList.add(GalleryTitle(galleryBean.timeMillis))
                     beforeTime = currentTime
                 }
@@ -55,12 +55,12 @@ class IRGalleryViewModel : BaseViewModel() {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     var hasLoadPage = 0
     /**
-     * [CN_TEXT].
-     * null-[CN_TEXT]
+     * view.
+     * null-view
      */
     val pageListLD: MutableLiveData<ArrayList<GalleryBean>?> = MutableLiveData()
 
@@ -76,11 +76,11 @@ class IRGalleryViewModel : BaseViewModel() {
                     hasLoadPage++
                 }
 
-                //[CN_TEXT] item
+                // View rendering item
                 var beforeTime = if (sourceList.isEmpty()) 0 else TimeTool.timeToMinute(sourceList.last().timeMillis, 4)
                 for (galleryBean in pageList) {
                     val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                    if (beforeTime != currentTime) {//[CN_TEXT]
+                    if (beforeTime != currentTime) {// View rendering
                         showList.add(GalleryTitle(galleryBean.timeMillis))
                         beforeTime = currentTime
                     }
@@ -99,7 +99,7 @@ class IRGalleryViewModel : BaseViewModel() {
 
 
     /**
-     * [CN_TEXT]Delete[CN_TEXT].
+     * viewDeleteview.
      */
     val deleteResultLD: MutableLiveData<Boolean> = MutableLiveData()
 

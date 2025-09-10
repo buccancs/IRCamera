@@ -11,7 +11,7 @@ import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 
 /**
- * [CN_TEXT] - [CN_TEXT] View.
+ * Report information display view.
  */
 class ReportInfoView: LinearLayout {
 
@@ -66,7 +66,7 @@ class ReportInfoView: LinearLayout {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT] View.
+     * Show specified data view.
      */
     fun refreshInfo(reportInfoBean: ReportInfoBean?) {
         tvReportName.text = reportInfoBean?.report_name
@@ -82,7 +82,7 @@ class ReportInfoView: LinearLayout {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT] View.
+     * Show specified data view.
      */
     fun refreshCondition(conditionBean: ReportConditionBean?) {
         clReportCondition.isVisible = conditionBean?.is_ambient_humidity == 1
@@ -108,7 +108,7 @@ class ReportInfoView: LinearLayout {
     }
 
     /**
-     * [CN_TEXT] PDF [CN_TEXT]All View [CN_TEXT].
+     * Generate PDF with all view data included.
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()

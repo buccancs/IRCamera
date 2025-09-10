@@ -25,39 +25,39 @@
 //        Log.e(TAG, "[onNotifyMessageOpened] $message")
 //        setZeroBadgeNumber()
 //        try {
-//            //[CN_TEXT]Activity
+//            // ImplementationActivity
 //        } catch (throwable: Throwable) {
 //        }
 //    }
 //
 //    override fun onInAppMessageClick(context: Context?, notificationMessage: NotificationMessage?) {
 //        super.onInAppMessageClick(context, notificationMessage)
-//        Log.e(TAG, "[onInAppMessageClick] [CN_TEXT]")
+//        Log.e(TAG, "[onInAppMessageClick] data")
 //    }
 //
 //    override fun onMultiActionClicked(context: Context?, intent: Intent) {
-//        Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
+//        Log.e(TAG, "[onMultiActionClicked] data")
 //        setZeroBadgeNumber()
 //        val nActionExtra = intent.extras!!.getString(JPushInterface.EXTRA_NOTIFICATION_ACTION_EXTRA)
 //
-//        //[CN_TEXT] Action [CN_TEXT] extra [CN_TEXT]。
+//        // Implementation Action data extra data。
 //        if (nActionExtra == null) {
 //            Log.d(TAG, "ACTION_NOTIFICATION_CLICK_ACTION nActionExtra is null")
 //            return
 //        }
 //        if (nActionExtra == "my_extra1") {
-//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
+//            Log.e(TAG, "[onMultiActionClicked] data")
 //        } else if (nActionExtra == "my_extra2") {
-//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
+//            Log.e(TAG, "[onMultiActionClicked] data")
 //        } else if (nActionExtra == "my_extra3") {
-//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
+//            Log.e(TAG, "[onMultiActionClicked] data")
 //        } else {
-//            Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
+//            Log.e(TAG, "[onMultiActionClicked] data")
 //        }
 //    }
 //
 //    private fun setZeroBadgeNumber() {
-//        Log.e(TAG, "[onMultiActionClicked] [CN_TEXT]")
+//        Log.e(TAG, "[onMultiActionClicked] data")
 //        JPushInterface.setBadgeNumber(BaseApplication.instance, 0)
 //    }
 //

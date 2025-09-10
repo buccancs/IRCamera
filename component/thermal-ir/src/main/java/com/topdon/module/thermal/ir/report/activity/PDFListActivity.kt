@@ -37,8 +37,8 @@ import java.io.File
 
 
 /**
- * [CN_TEXT]
- * - [CN_TEXT] TC007: [ExtraKeyConfig.IS_TC007]
+ * activity
+ * - activity TC007: [ExtraKeyConfig.IS_TC007]
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
  */
@@ -51,8 +51,8 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private val fragmentPdfRecycler: RecyclerView by lazy { findViewById(R.id.fragment_pdf_recycler) }
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
 
@@ -81,7 +81,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             }
             it?.let {data->
                 if (page == 1) {
-                    //[CN_TEXT]
+                    // Activity logic
                     if (data.code == LMS.SUCCESS){
                         reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
                         fragmentPdfRecyclerLay.finishRefresh()
@@ -118,7 +118,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private fun initRecycler() {
         fragmentPdfRecycler.layoutManager = LinearLayoutManager(this)
         fragmentPdfRecyclerLay.setOnRefreshListener {
-            //[CN_TEXT]
+            // Activity logic
             page = 1
             viewModel.getReportData(isTC007, page)
         }
@@ -126,7 +126,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            //[CN_TEXT]
+            // Activity logic
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = {item, position ->
@@ -160,7 +160,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                                     if (file.exists()) {
                                         file.delete()
                                     }
-                                    Log.w("Delete[CN_TEXT]",response.toString())
+                                    Log.w("Deleteactivity",response.toString())
                                 }
 
                                 override fun onFail(exception: Exception?) {

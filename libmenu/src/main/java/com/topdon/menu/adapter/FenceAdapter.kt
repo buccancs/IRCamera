@@ -33,7 +33,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
             when (value) {
                 FenceType.FULL -> isFullSelect = true
                 FenceType.DEL -> isFullSelect = false
-                else -> {//[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT]State
+                else -> {// Adapter item、item、item、item，itemState
 
                 }
             }
@@ -41,12 +41,12 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
             notifyDataSetChanged()
         }
     /**
-     * [CN_TEXT]Selected.
+     * itemSelected.
      */
     private var isFullSelect: Boolean = false
 
     /**
-     * Menu[CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT] IOS [CN_TEXT]“[CN_TEXT]”[CN_TEXT]。
+     * Menuitem，item，item，item IOS item“item”item。
      */
     var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)? = null
 
@@ -59,7 +59,7 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
         dataList.add(Data(R.string.thermal_line, MenuR.drawable.selector_menu2_fence_line, FenceType.LINE))
         dataList.add(Data(R.string.thermal_rect, MenuR.drawable.selector_menu2_fence_rect, FenceType.RECT))
         dataList.add(Data(R.string.thermal_full_rect, MenuR.drawable.selector_menu2_fence_full, FenceType.FULL))
-        if (menuType != MenuType.GALLERY_EDIT) {//2D[CN_TEXT]Menu[CN_TEXT]
+        if (menuType != MenuType.GALLERY_EDIT) {//2DitemMenuitem
             dataList.add(Data(R.string.thermal_trend, MenuR.drawable.selector_menu2_fence_trend, FenceType.TREND))
         }
         dataList.add(Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, FenceType.DEL))

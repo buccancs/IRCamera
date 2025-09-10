@@ -3,7 +3,7 @@ package com.topdon.lib.core.bean.json
 data class CheckVersionJson(
     val downloadPackageUrl: String,
     val downloadPageUrl: String,
-    val forcedUpgradeFlag: String?, // 1: [CN_TEXT]    0: [CN_TEXT]
+    val forcedUpgradeFlag: String?, // 1: data    0: data
     val googleVerCode: Int,
     val softConfigOtherTypeVOList: List<SoftConfigOtherTypeVO>,
     val versionCode: Int,

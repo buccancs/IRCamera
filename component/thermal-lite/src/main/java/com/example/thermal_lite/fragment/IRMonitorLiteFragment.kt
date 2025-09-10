@@ -78,9 +78,9 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
 
     private var configJob: Job ?= null
     protected var isConfigWait = true
-    protected var temperatureBytes = ByteArray(192 * 256 * 2) //[CN_TEXT]
+    protected var temperatureBytes = ByteArray(192 * 256 * 2) // Fragment logic
     var rotateAngle = 270
-    private val imageRes = LibIRProcess.ImageRes_t() //[CN_TEXT]
+    private val imageRes = LibIRProcess.ImageRes_t() // Fragment logic
     val dstTempBytes = ByteArray(192*256*2)
     private var mProgressDialog: ProgressDialog? = null
     private var temperaturerun = false
@@ -148,20 +148,20 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 }
                 CameraPreviewManager.getInstance().setColorList(null,null, false,0f,0f)
                 CameraPreviewManager.getInstance().alarmBean = null
-                //[CN_TEXT]
+                // Fragment logic
                 IRTool.setAutoShutter(true)
-                //[CN_TEXT]
+                // Fragment logic
                 IRTool.basicGlobalContrastLevelSet((50).toInt())
-                //[CN_TEXT]
+                // Fragment logic
                 IRTool.basicMirrorAndFlipStatusSet(false)
-                //[CN_TEXT]
+                // Fragment logic
                 IRTool.basicImageDetailEnhanceLevelSet(50)
                 CameraPreviewManager.getInstance()?.setLimit(
                     Float.MAX_VALUE, Float.MIN_VALUE,
                     0, 0
-                ) //[CN_TEXT]
+                ) // Fragment logic
                 shutterHandler = Handler(Looper.getMainLooper())
-                // [CN_TEXT]
+                // fragment
                 fun takePicture() {
                     shutterCount++
                     try {
@@ -169,19 +169,19 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                     }catch (e : RuntimeException){
                     }
                 }
-                // [CN_TEXT] Runnable，[CN_TEXT]5[CN_TEXT]
+                // fragment Runnable，fragment5fragment
                 shutterRunnable = object : Runnable {
                     override fun run() {
-                        if (shutterCount < 4) { // [CN_TEXT]40[CN_TEXT]（8[CN_TEXT]）
-                            shutterHandler?.postDelayed(this, 5000L) // [CN_TEXT]5[CN_TEXT]
+                        if (shutterCount < 4) { // fragment40fragment（8fragment）
+                            shutterHandler?.postDelayed(this, 5000L) // fragment5fragment
                             takePicture()
                         }
                     }
                 }
-                // [CN_TEXT]
+                // fragment
                 shutterHandler?.postDelayed(shutterRunnable!!,300)
-                //[CN_TEXT]Mode[CN_TEXT]
-                delay(2000)//sdk[CN_TEXT]Low gain[CN_TEXT]2[CN_TEXT]Settings[CN_TEXT]
+                // Fragment logicModefragment
+                delay(2000)//sdkfragmentLow gainfragment2fragmentSettingsfragment
                 withContext(Dispatchers.IO){
                     IRTool.basicGainSet(SaveSettingUtil.temperatureMode)
                 }
@@ -190,7 +190,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     suspend fun autoStart() : Boolean{
         return IRTool.autoStart()
@@ -204,19 +204,19 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
         Log.w("123", "event:${event.action}")
         when (event.action) {
             2001 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
                 readPosition(1)
             }
             2002 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
                 readPosition(2)
             }
             2003 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
                 readPosition(3)
@@ -242,7 +242,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
         showTask?.cancel()
     }
 
-    //[CN_TEXT]
+    // Fragment logic
     private fun updateTemp(type: Int) {
         var result: SelectPositionBean? = null
         val contentRectF = RectF(0f,0f,192f,256f)
@@ -327,7 +327,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
 
 
     /**
-     * [CN_TEXT]USB[CN_TEXT]
+     * fragmentUSBfragment
      */
     private fun initUSBMonitorManager() {
         USBMonitorManager.getInstance().init()
@@ -348,7 +348,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 createNew: Boolean
             ) {
                 this@IRMonitorLiteFragment.ctrlBlock = ctrlBlock
-                //USB[CN_TEXT]
+                //USBfragment
                 DeviceControlManager.getInstance().handleStartPreview(ctrlBlock)
             }
 
@@ -367,7 +367,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
             .addOnUSBConnectListener(IRMonitorLiteFragment::class.java.name, mOnUSBConnectListener)
     }
     private fun initPreviewManager() {
-        // [CN_TEXT]
+        // fragment
         config = ConfigRepository.readConfig(false)
         CameraPreviewManager.getInstance().init(cameraView, mLiteHandler)
         CameraPreviewManager.getInstance().imageRotate = RotateDegree.DEGREE_270
@@ -399,19 +399,19 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     private fun initCameraSize() {
         temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
         temperatureView.setSyncimage(syncimage)
-        // [CN_TEXT]，[CN_TEXT]
+        // fragment，fragment
         temperatureView.setTemperature(dstTempBytes)
         temperatureView.setUseIRISP(false)
-        //[CN_TEXT]Temperature measurement
+        // Fragment logicTemperature measurement
         temperatureView.post {
             lifecycleScope.launch {
                 if (!temperaturerun) {
                     temperaturerun = true
-                    //[CN_TEXT]
+                    // Fragment logic
                     temperatureView.visibility = View.VISIBLE
                     delay(1000)
                     temperatureView.setImageSize(mPreviewHeight, mPreviewWidth, this@IRMonitorLiteFragment)
-                    temperatureView.temperatureRegionMode = TemperatureView.REGION_MODE_CLEAN//[CN_TEXT]Temperature measurement
+                    temperatureView.temperatureRegionMode = TemperatureView.REGION_MODE_CLEAN// Fragment logicTemperature measurement
                 }
             }
         }
@@ -424,19 +424,19 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-     * [CN_TEXT]Point/Line/Area
+     * fragmentPoint/Line/Area
      */
     fun addTempLine(selectBean: SelectPositionBean) {
         temperatureView.visibility = View.VISIBLE
         temperatureView.isEnabled = false
         when (selectBean.type) {
             1 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.addScalePoint(selectBean.startPosition)
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
             }
             2 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.addScaleLine(
                     Line(
                         selectBean.startPosition,
@@ -446,7 +446,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
             }
             3 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.addScaleRectangle(
                     Rect(
                         selectBean.startPosition!!.x,
@@ -504,7 +504,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
             DeviceControlManager.getInstance().release()
             CameraPreviewManager.getInstance().releaseSource()
         }catch (e : Exception){
-            XLog.e("$TAG:lite[CN_TEXT]--${e.message}")
+            XLog.e("$TAG:litefragment--${e.message}")
         }
     }
 
@@ -526,7 +526,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 CameraPreviewManager.getInstance().releaseSource()
             }
         }catch (e : Exception){
-            XLog.e("$TAG:lite[CN_TEXT]--${e.message}")
+            XLog.e("$TAG:litefragment--${e.message}")
         }
     }
 
@@ -551,13 +551,13 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 return temp!!
             }
 
-            //[CN_TEXT]State PASS
+            // Fragment logicState PASS
             if (System.currentTimeMillis() - basicGainGetTime > 5000L){
                 try {
                     val basicGainGet: IrcmdError? = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                         ?.basicGainGet(basicGainGetValue)
                 }catch (e : Exception){
-                    XLog.e("[CN_TEXT]")
+                    XLog.e("fragment")
                 }
                 basicGainGetTime = System.currentTimeMillis()
             }
@@ -584,7 +584,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                         "distance = " + params_array[4] + " hum = " + params_array[5] +" basicGain = "+basicGainGetValue[0]
             )
         }catch (e : Exception){
-            XLog.e("$TAG--[CN_TEXT]：${e.message}")
+            XLog.e("$TAG--fragment：${e.message}")
         }finally {
             return tempNew ?: 0f
         }

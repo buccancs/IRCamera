@@ -16,7 +16,7 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
 
     companion object {
         /**
-         * [CN_TEXT] [DeviceTools] [CN_TEXT] Usb [CN_TEXT].
+         * data [DeviceTools] data Usb data.
          */
         const val ACTION_USB_PERMISSION = "com.topdon.topInfrared.USB_PERMISSION"
     }
@@ -36,7 +36,7 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
         }
 
         if (intent.action == ACTION_USB_PERMISSION) {
-            DeviceTools.isConnect(isSendConnectEvent = true, isAutoRequest = false) // [CN_TEXT]usb[CN_TEXT]
+            DeviceTools.isConnect(isSendConnectEvent = true, isAutoRequest = false) // datausbdata
         } else {
             handleUsbEvent(intent)
         }
@@ -58,10 +58,10 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
         }
         XLog.v("$TAG usbDevice PRODUCT_ID = ${usbDevice.productId}, VENDOR_ID = ${usbDevice.vendorId}")
         if (usbDevice.isTcTsDevice()) {
-            if (UsbManager.ACTION_USB_DEVICE_ATTACHED == intent.action) { // [CN_TEXT]
+            if (UsbManager.ACTION_USB_DEVICE_ATTACHED == intent.action) { // data
                 DeviceTools.isConnect(isSendConnectEvent = true, isAutoRequest = true)
             }
-            if (UsbManager.ACTION_USB_DEVICE_DETACHED == intent.action) { // [CN_TEXT]
+            if (UsbManager.ACTION_USB_DEVICE_DETACHED == intent.action) { // data
                 EventBus.getDefault().post(DeviceConnectEvent(false, null))
             }
         }

@@ -14,7 +14,7 @@ import com.topdon.lms.sdk.weiget.TToast
 
 object PermissionTool {
     /**
-     * [CN_TEXT] RECORD_AUDIO [CN_TEXT].
+     * utility RECORD_AUDIO utility.
      */
     fun requestRecordAudio(
         context: Context,
@@ -22,7 +22,7 @@ object PermissionTool {
     ) = request(context, Type.RECORD_AUDIO, callback)
 
     /**
-     * [CN_TEXT] CAMERA [CN_TEXT].
+     * utility CAMERA utility.
      */
     fun requestCamera(
         context: Context,
@@ -30,7 +30,7 @@ object PermissionTool {
     ) = request(context, Type.CAMERA, callback)
 
     /**
-     * [CN_TEXT] ACCESS_FINE_LOCATION [CN_TEXT].
+     * utility ACCESS_FINE_LOCATION utility.
      */
     fun requestLocation(
         context: Context,
@@ -38,7 +38,7 @@ object PermissionTool {
     ) = request(context, Type.LOCATION, callback)
 
     /**
-     * [CN_TEXT] [CN_TEXT] [CN_TEXT].
+     * utility utility utility.
      */
     fun requestImageRead(
         context: Context,
@@ -46,11 +46,11 @@ object PermissionTool {
     ) = request(context, Type.IMAGE, callback)
 
     /**
-     * Android 10 [CN_TEXT]：[CN_TEXT]、[CN_TEXT]
+     * Android 10 utility：utility、utility
      *
-     * Android 11、Android 12、Android 12L：[CN_TEXT]
+     * Android 11、Android 12、Android 12L：utility
      *
-     * Android 13 [CN_TEXT]：[CN_TEXT]-[CN_TEXT]、[CN_TEXT]-[CN_TEXT]
+     * Android 13 utility：utility-utility、utility-utility
      */
     fun requestFile(
         context: Context,
@@ -74,11 +74,11 @@ object PermissionTool {
                         if (context.applicationInfo.targetSdkVersion < 33) Permission.READ_EXTERNAL_STORAGE else Permission.READ_MEDIA_IMAGES,
                     )
                 Type.FILE ->
-                    if (context.applicationInfo.targetSdkVersion < 30) { // Android 10[CN_TEXT]
+                    if (context.applicationInfo.targetSdkVersion < 30) { // Android 10utility
                         listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-                    } else if (context.applicationInfo.targetSdkVersion < 33) { // Android 13[CN_TEXT]
+                    } else if (context.applicationInfo.targetSdkVersion < 33) { // Android 13utility
                         listOf(Permission.READ_EXTERNAL_STORAGE)
-                    } else { // Android 13[CN_TEXT]
+                    } else { // Android 13utility
                         listOf(Permission.READ_MEDIA_VIDEO, Permission.READ_MEDIA_IMAGES)
                     }
             }
@@ -111,7 +111,7 @@ object PermissionTool {
                                     Type.IMAGE -> R.string.app_album_content
                                     Type.FILE -> R.string.app_storage_content
                                 }
-                            if (BaseApplication.instance.isDomestic()) { // [CN_TEXT]
+                            if (BaseApplication.instance.isDomestic()) { // utility
                                 TToast.shortToast(context, tipsResId)
                             } else {
                                 TipDialog.Builder(context)
@@ -134,11 +134,11 @@ object PermissionTool {
     }
 
     /**
-     * [CN_TEXT] ACCESS_FINE_LOCATION、BLUETOOTH_SCAN、BLUETOOTH_CONNECT [CN_TEXT]。
-     * [CN_TEXT] Android12 [CN_TEXT]。
+     * utility ACCESS_FINE_LOCATION、BLUETOOTH_SCAN、BLUETOOTH_CONNECT utility。
+     * utility Android12 utility。
      */
     fun hasBtPermission(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT < 31) { // [CN_TEXT] Android12
+        return if (Build.VERSION.SDK_INT < 31) { // utility Android12
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION)
         } else {
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION, Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
@@ -146,8 +146,8 @@ object PermissionTool {
     }
 
     /**
-     * [CN_TEXT] Android12 [CN_TEXT]，[CN_TEXT] BLUETOOTH_SCAN、BLUETOOTH_CONNECT [CN_TEXT]
-     * @param isBtFirst true-[CN_TEXT] false-[CN_TEXT]
+     * utility Android12 utility，utility BLUETOOTH_SCAN、BLUETOOTH_CONNECT utility
+     * @param isBtFirst true-utility false-utility
      */
     fun requestBluetooth(
         context: Context,
@@ -155,7 +155,7 @@ object PermissionTool {
         callback: Callback,
     ) {
         val permissionList: List<String> =
-            if (Build.VERSION.SDK_INT < 31) { // [CN_TEXT] Android12
+            if (Build.VERSION.SDK_INT < 31) { // utility Android12
                 arrayListOf(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)
             } else {
                 arrayListOf(
@@ -194,7 +194,7 @@ object PermissionTool {
                                     isLocationNever = true
                                 }
                             }
-                            // [CN_TEXT]Settings[CN_TEXT]
+                            // utilitySettingsutility
                             TipDialog.Builder(context)
                                 .setTitleMessage(context.getString(R.string.app_tip))
                                 .setMessage(
@@ -219,12 +219,12 @@ object PermissionTool {
 
     interface Callback {
         /**
-         * [CN_TEXT]，[CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT].
+         * utility，utility utility utility utility.
          */
         fun onResult(allGranted: Boolean)
 
         /**
-         * [CN_TEXT]，[CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT].
+         * utility，utility utility utility utility utility.
          */
         fun onNever(isJump: Boolean)
     }

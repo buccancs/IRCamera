@@ -23,8 +23,8 @@ import java.util.Locale
  */
 object LocationUtil {
     /**
-     * [CN_TEXT]，[CN_TEXT] [CN_TEXT].
-     * @return [CN_TEXT]-[CN_TEXT]-[CN_TEXT]，[CN_TEXT] null
+     * utility，utility utility.
+     * @return utility-utility-utility，utility null
      */
     @RequiresPermission(Permission.ACCESS_FINE_LOCATION)
     suspend fun getLastLocationStr(context: Context): String? =
@@ -44,7 +44,7 @@ object LocationUtil {
                     return@withContext null
                 }
                 val address = resultList[0]
-                return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "") // [CN_TEXT]-[CN_TEXT]-[CN_TEXT]
+                return@withContext (address.adminArea ?: "") + (address.locality ?: "") + (address.subLocality ?: "") // utility-utility-utility
             } catch (e: Exception) {
                 e.printStackTrace()
                 return@withContext null
@@ -52,13 +52,13 @@ object LocationUtil {
         }
 
     /**
-     * [CN_TEXT] activity [CN_TEXT] [CN_TEXT] [CN_TEXT]State[CN_TEXT].
+     * utility activity utility utility utilityStateutility.
      */
     fun addBtStateListener(
         activity: ComponentActivity,
         listener: ((isEnable: Boolean) -> Unit),
     ) {
-        if (Build.VERSION.SDK_INT >= 28) { // Android 9[CN_TEXT]
+        if (Build.VERSION.SDK_INT >= 28) { // Android 9utility
             activity.lifecycle.addObserver(ModeChangeObserver(activity, listener))
         }
     }

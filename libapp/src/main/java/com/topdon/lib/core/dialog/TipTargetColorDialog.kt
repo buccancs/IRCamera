@@ -15,7 +15,7 @@ import com.topdon.lib.core.databinding.DialogTipTargetColorBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Observation-Target[CN_TEXT]
+ * Observation-Targetdialog
  */
 class TipTargetColorDialog : Dialog {
     constructor(context: Context) : super(context)
@@ -84,13 +84,13 @@ class TipTargetColorDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // [CN_TEXT]
+                    // dialog
                     0.90
                 } else {
-                    // [CN_TEXT]
+                    // dialog
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[CN_TEXT]
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settingsdialog
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

@@ -127,11 +127,11 @@ class IRMonitorHistoryFragment : Fragment() {
             BaseViewHolder>(R.layout.item_monitory_history, dataList), LoadMoreModule {
 
         /**
-         * item [CN_TEXT].
+         * item fragment.
          */
         var onItemClickListener: ((position: Int) -> Unit)? = null
         /**
-         * item [CN_TEXT].
+         * item fragment.
          */
         var onItemLongClickListener: ((position: Int) -> Unit)? = null
 

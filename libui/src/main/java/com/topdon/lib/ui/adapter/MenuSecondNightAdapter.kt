@@ -14,7 +14,7 @@ import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("[CN_TEXT]High/Low temperature pointsMenu，[CN_TEXT]")
+@Deprecated("itemHigh/Low temperature pointsMenu，item")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
 
@@ -72,7 +72,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     private fun multipleChoice(position: Int) {
-        // 1.[CN_TEXT]curMultipleArray
+        // 1.itemcurMultipleArray
         if (position == secondBean.size - 1) {
             curMultipleArray.clear()
             curMultipleArray[position] = secondBean[position].code
@@ -86,9 +86,9 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
                 curMultipleArray.remove(secondBean.size - 1)
             }
         }
-        // 2.[CN_TEXT]listener
+        // 2.itemlistener
         multipleListener?.invoke(secondBean[position].code, curMultipleArray.contains(position))
-        // 3.[CN_TEXT]
+        // 3.item
         notifyDataSetChanged()
     }
 

@@ -15,57 +15,57 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
- * [CN_TEXT] [CN_TEXT]、[CN_TEXT]、[CN_TEXT] View.
+ * view view、view、view View.
  *
  * Created by LCG on 2024/1/27.
  */
 class ImageEditView : View {
     companion object {
         /**
-         * [CN_TEXT]，[CN_TEXT] px.
+         * view，view px.
          */
         private const val PAINT_WIDTH = 6
 
         /**
-         * [CN_TEXT]，[CN_TEXT]px.
+         * view，viewpx.
          */
         private const val HALF_PAINT_WIDTH = 3
 
         /**
-         * [CN_TEXT]，[CN_TEXT]，[CN_TEXT]3，[CN_TEXT]16，[CN_TEXT]5[CN_TEXT].
+         * view，view，view3，view16，view5view.
          */
         private const val ARROW_WIDTH = 30
 
         /**
-         * [CN_TEXT].
+         * view.
          */
         private const val PAINT_COLOR = 0xffe22400.toInt()
     }
 
     enum class Type {
         /**
-         * [CN_TEXT]
+         * view
          */
         CIRCLE,
 
         /**
-         * [CN_TEXT]
+         * view
          */
         RECT,
 
         /**
-         * [CN_TEXT]
+         * view
          */
         ARROW,
     }
 
     /**
-     * Current[CN_TEXT]Type，[CN_TEXT].
+     * CurrentviewType，view.
      */
     var type: Type = Type.CIRCLE
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     var color: Int
         get() = paint.color
@@ -75,11 +75,11 @@ class ImageEditView : View {
         }
 
     /**
-     * [CN_TEXT] bitmap [CN_TEXT]、[CN_TEXT]、[CN_TEXT].
+     * view bitmap view、view、view.
      */
     var sourceBitmap: Bitmap? = null
         set(value) {
-            if (value == null) { // [CN_TEXT]，[CN_TEXT] return
+            if (value == null) { // view，view return
                 return
             }
             if (width == 0 || height == 0) {
@@ -92,17 +92,17 @@ class ImageEditView : View {
         }
 
     /**
-     * Current[CN_TEXT].
+     * Currentview.
      */
     private var hasEditData = false
 
     /**
-     * [CN_TEXT] Bitmap.
+     * view Bitmap.
      */
     private var bgBitmap: Bitmap? = null
 
     /**
-     * [CN_TEXT]Current[CN_TEXT] Bitmap.
+     * viewCurrentview Bitmap.
      */
     private var editBitmap: Bitmap? = null
 
@@ -111,7 +111,7 @@ class ImageEditView : View {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     private val path = Path()
 
@@ -220,8 +220,8 @@ class ImageEditView : View {
                 paint.style = Paint.Style.FILL
                 path.reset()
 
-                if (downX == currentX) { // [CN_TEXT]X[CN_TEXT]
-                    // [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+                if (downX == currentX) { // viewXview
+                    // view，view，view
                     val endY = if (downY > currentY) currentY + PAINT_WIDTH else (currentY - PAINT_WIDTH)
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), currentX.toFloat(), endY.toFloat(), paint)
 
@@ -236,8 +236,8 @@ class ImageEditView : View {
                     path.lineTo(x2, y)
                     path.close()
                     canvas?.drawPath(path, paint)
-                } else if (downY == currentY) { // [CN_TEXT]Y[CN_TEXT]
-                    // [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+                } else if (downY == currentY) { // viewYview
+                    // view，view，view
                     val endX = if (downX > currentX) currentX + PAINT_WIDTH else (currentX - PAINT_WIDTH)
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX.toFloat(), currentY.toFloat(), paint)
 
@@ -253,49 +253,49 @@ class ImageEditView : View {
                     path.close()
                     canvas?.drawPath(path, paint)
                 } else {
-                    // [CN_TEXT]：
-                    // y = k1 * x + b1 [CN_TEXT]，[CN_TEXT]1
-                    // y = k2 * x + b2 [CN_TEXT]1[CN_TEXT]，[CN_TEXT]2
+                    // view：
+                    // y = k1 * x + b1 view，view1
+                    // y = k2 * x + b2 view1view，view2
                     val k1: Float = (downY - currentY).toFloat() / (downX - currentX).toFloat()
                     val b1: Float = downY - k1 * downX
                     val a1: Float = -b1 / k1
 
-                    // [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+                    // view，view，view
                     val backWidth = PAINT_WIDTH
                     val endY: Float =
                         if (k1 > 0) {
-                            val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) // [CN_TEXT]
-                            if (currentX > downX) { // [CN_TEXT]
+                            val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) // view
+                            if (currentX > downX) { // view
                                 currentY * (hypotenuse - backWidth) / hypotenuse
-                            } else { // [CN_TEXT]
+                            } else { // view
                                 currentY * (hypotenuse + backWidth) / hypotenuse
                             }
                         } else {
-                            val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) // [CN_TEXT]
-                            if (currentX > downX) { // [CN_TEXT]
+                            val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) // view
+                            if (currentX > downX) { // view
                                 currentY * (hypotenuse + backWidth) / hypotenuse
-                            } else { // [CN_TEXT]
+                            } else { // view
                                 currentY * (hypotenuse - backWidth) / hypotenuse
                             }
                         }
                     val endX = (endY - b1) / k1
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX, endY, paint)
 
-                    // [CN_TEXT] x,y
+                    // view x,y
                     val triangleH: Float = (ARROW_WIDTH / 2) * sqrt(3f)
                     val y: Float =
                         if (k1 > 0) {
-                            val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) // [CN_TEXT]
-                            if (currentX > downX) { // [CN_TEXT]
+                            val hypotenuse: Float = sqrt((currentX - a1).pow(2) + currentY.toFloat().pow(2)) // view
+                            if (currentX > downX) { // view
                                 currentY * (hypotenuse - triangleH) / hypotenuse
-                            } else { // [CN_TEXT]
+                            } else { // view
                                 currentY * (hypotenuse + triangleH) / hypotenuse
                             }
                         } else {
-                            val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) // [CN_TEXT]
-                            if (currentX > downX) { // [CN_TEXT]
+                            val hypotenuse: Float = sqrt((a1 - currentX).pow(2) + currentY.toFloat().pow(2)) // view
+                            if (currentX > downX) { // view
                                 currentY * (hypotenuse + triangleH) / hypotenuse
-                            } else { // [CN_TEXT]
+                            } else { // view
                                 currentY * (hypotenuse - triangleH) / hypotenuse
                             }
                         }
@@ -305,7 +305,7 @@ class ImageEditView : View {
                     val b2: Float = y - k2 * x
                     val a2: Float = -b2 / k2
 
-                    val hypotenuse2: Float = sqrt((if (k2 > 0) x - a2 else (a2 - x)).pow(2) + y.pow(2)) // [CN_TEXT]
+                    val hypotenuse2: Float = sqrt((if (k2 > 0) x - a2 else (a2 - x)).pow(2) + y.pow(2)) // view
                     val yLeft = y * (hypotenuse2 - ARROW_WIDTH / 2) / hypotenuse2
                     val yRight = y * (hypotenuse2 + ARROW_WIDTH / 2) / hypotenuse2
                     val xLeft = (yLeft - b2) / k2

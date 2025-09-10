@@ -46,16 +46,16 @@ class DistanceMeasureView : View {
         linePaint!!.color = Color.GREEN
         linePaint!!.strokeWidth = 4f
         linePaint!!.style = Paint.Style.STROKE
-        // Settings[CN_TEXT]
+        // Settingsview
         val intervals = floatArrayOf(10f, 10f)
         linePaint!!.pathEffect = DashPathEffect(intervals, 0f)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        // [CN_TEXT]，[CN_TEXT]，[CN_TEXT]20dp
+        // view，view，view20dp
         val screenHeight = measuredHeight
-        val lineHeight = 50 // [CN_TEXT]dimens.xml[CN_TEXT]line_height
+        val lineHeight = 50 // viewdimens.xmlviewline_height
         margin = ((screenHeight - lineHeight) / 2).toFloat()
         line1Y = margin
         line2Y = margin + lineHeight
@@ -64,7 +64,7 @@ class DistanceMeasureView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // [CN_TEXT]
+        // view
         canvas.drawLine(50f, line1Y, (width - 50).toFloat(), line1Y, linePaint!!)
         canvas.drawLine(50f, line2Y, (width - 50).toFloat(), line2Y, linePaint!!)
     }
@@ -74,14 +74,14 @@ class DistanceMeasureView : View {
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
                 var newY = event.y
 
-                // [CN_TEXT]，[CN_TEXT]
+                // view，view
                 if (newY < 0) {
                     newY = 0f
                 } else if (newY > height) {
                     newY = height.toFloat()
                 }
 
-                // [CN_TEXT]
+                // view
                 if (Math.abs(newY - line1Y) < Math.abs(newY - line2Y)) {
                     val abs =  line1Y - newY
                     line1Y = newY
@@ -91,7 +91,7 @@ class DistanceMeasureView : View {
                     line2Y = newY
                     line1Y -= abs
                 }
-                // [CN_TEXT]
+                // view
                 distance = Math.abs(line2Y - line1Y)
                 invalidate()
                 moveListener?.invoke(distance)

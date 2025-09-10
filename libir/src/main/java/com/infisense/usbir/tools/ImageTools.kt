@@ -16,7 +16,7 @@ object ImageTools {
         }
         val selectBean = getTempIndex(tempBytes, max, min)
 //        Log.w("123", "max size: ${selectBean.maxIndex.size}, min size: ${selectBean.minIndex.size}")
-        bitmapFromRgbaGrey(bytes = imageBytes, bean = selectBean)//[CN_TEXT]
+        bitmapFromRgbaGrey(bytes = imageBytes, bean = selectBean)// Utility function
     }
 
     fun readFrame(
@@ -36,10 +36,10 @@ object ImageTools {
             bean = selectBean,
             maxColor = maxColor,
             minColor = minColor
-        )//[CN_TEXT]
+        )// Utility function
     }
 
-    // [CN_TEXT]
+    // utility
     private fun bitmapFromRgba(
         bytes: ByteArray,
         bean: SelectIndexBean,
@@ -84,7 +84,7 @@ object ImageTools {
         }
     }
 
-    // [CN_TEXT]
+    // utility
     private fun bitmapFromRgbaGrey(bytes: ByteArray, bean: SelectIndexBean) {
         val len = bytes.size / 4
         val selectIndex = bean.maxIndex.plus(bean.minIndex)
@@ -102,7 +102,7 @@ object ImageTools {
                 r = bytes[i * 4].toInt() and 0xff
                 g = bytes[i * 4 + 1].toInt() and 0xff
                 b = bytes[i * 4 + 2].toInt() and 0xff
-                //[CN_TEXT]
+                // Utility function
                 grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
                 bytes[i * 4] = grey.toByte()
                 bytes[i * 4 + 1] = grey.toByte()
@@ -114,9 +114,9 @@ object ImageTools {
 
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param bytes [CN_TEXT]
+     * @param bytes utility
      */
     private fun getTempIndex(bytes: ByteArray, max: Float, min: Float): SelectIndexBean {
         var data: ByteArray
@@ -144,13 +144,13 @@ object ImageTools {
         return (tempInt.toDouble() / scale.toDouble() - 273.15).toFloat()
     }
 
-//    // RGBA [CN_TEXT] bitmap
+//    // RGBA utility bitmap
 //    fun bitmapFromRgba(bytes: ByteArray, width: Int, height: Int): Bitmap {
 //        val len = bytes.size / 4
 //        val pixels = IntArray(len)
 //        for (i in pixels.indices) {
 //            if (i > len / 4 * 3 && i < len) {
-//                //Specified[CN_TEXT]
+//                //Specifiedutility
 //                val r = 255
 //                val g = 215
 //                val b = 0
@@ -163,7 +163,7 @@ object ImageTools {
 //                val b: Int = (bytes[i * 4 + 2] and 0xff.toByte()).toUByte().toInt()
 //                val a: Int = (bytes[i * 4 + 3] and 0xff.toByte()).toUByte().toInt()
 //
-//                //[CN_TEXT]
+//                // Utility function
 //                val grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
 //                val pixel = (a shl 24) or (grey shl 16) or (grey shl 8) or grey
 //                pixels[i] = pixel
@@ -182,10 +182,10 @@ object ImageTools {
 //    }
 
     /**
-     * @param imageBytes    [CN_TEXT]
-     * @param tempBytes     [CN_TEXT]
-     * @param max           [CN_TEXT]
-     * @param min           [CN_TEXT]
+     * @param imageBytes    utility
+     * @param tempBytes     utility
+     * @param max           utility
+     * @param min           utility
      */
     fun dualReadFrame(
         imageBytes: ByteArray,
@@ -202,7 +202,7 @@ object ImageTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     @JvmStatic
     private fun dualReplaceColor(
@@ -230,7 +230,7 @@ object ImageTools {
                         r = imageBytes[i * 4].toInt() and 0xff
                         g = imageBytes[i * 4 + 1].toInt() and 0xff
                         b = imageBytes[i * 4 + 2].toInt() and 0xff
-                        //[CN_TEXT]
+                        // Utility function
                         grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
                         imageBytes[i * 4] = grey.toByte()
                         imageBytes[i * 4 + 1] = grey.toByte()
@@ -269,7 +269,7 @@ object ImageTools {
                 }
             }
         } catch (e: Exception) {
-            XLog.w("[CN_TEXT]: ${e.message}")
+            XLog.w("utility: ${e.message}")
         }
     }
 }

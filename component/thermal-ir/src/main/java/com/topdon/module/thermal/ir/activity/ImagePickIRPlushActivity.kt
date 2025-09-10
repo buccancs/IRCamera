@@ -9,7 +9,7 @@ import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 import com.topdon.module.thermal.ir.fragment.IRPlushFragment
 
 /**
- * des:Dual light[CN_TEXT]InfraredPhoto
+ * des:Dual lightactivityInfraredPhoto
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/

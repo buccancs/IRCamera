@@ -12,16 +12,16 @@ import com.topdon.lib.ui.databinding.UiItemMenuSecondViewBinding
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("[CN_TEXT]Low temperature[CN_TEXT]Menu，[CN_TEXT]")
+@Deprecated("itemLow temperatureitemMenu，item")
 class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<MenuAIAdapter.ItemView>() {
     /**
-     * CurrentSelected[CN_TEXT]Option code.
+     * CurrentSelecteditemOption code.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
+     * itemHistorical legacy（Already saveditem SharedPreferences item），item code item
      * - Nothing isSelected：-1
      * - Dynamic recognition：0
-     * - High temperature[CN_TEXT]：1
-     * - Low temperature[CN_TEXT]：2
+     * - High temperatureitem：1
+     * - Low temperatureitem：2
      */
     var selectCode: Int = -1
         set(value) {
@@ -32,7 +32,7 @@ class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<MenuAIAdapter.I
         }
 
     /**
-     * ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT] [CN_TEXT]，[CN_TEXT]。
+     * ObservationMode-Menu2-itemLow temperatureitem item，item。
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 

@@ -1,7 +1,7 @@
 package com.topdon.lib.core.listener
 
 /**
- * [CN_TEXT]VIEW[CN_TEXT]
+ * viewVIEWview
  * @author: CaiSongL
  * @date: 2023/4/10 19:08
  */

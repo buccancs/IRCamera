@@ -21,7 +21,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun getSinglePoint(start: IntArray): ArrayList<IntArray> {
         val startPoint: IntArray = start
@@ -35,7 +35,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun getPointIndex(start: IntArray): ArrayList<Int> {
         val lineList = getSinglePoint(start)
@@ -43,7 +43,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun getLinePoint(
         start: IntArray,
@@ -78,7 +78,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun getLineIndex(
         start: IntArray,
@@ -89,7 +89,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun getAreaPoint(
         start: IntArray,
@@ -109,7 +109,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun getAreaIndex(
         start: IntArray,

@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * [CN_TEXT] [CN_TEXT] [CN_TEXT].
+ * data data data.
  *
  * Created by LCG on 2024/8/19.
  */
@@ -18,37 +18,37 @@ open class DirBase {
     var id: Long = 0
 
     /**
-     * [CN_TEXT] Id
+     * data Id
      */
     @ColumnInfo(index = true)
     open var parentId: Long = 0
 
     /**
-     * [CN_TEXT] index.
+     * data index.
      */
     @ColumnInfo
     var position: Int = 0
 
     /**
-     * [CN_TEXT]，[CN_TEXT]“[CN_TEXT]”
+     * data，data“data”
      */
     @ColumnInfo
     var dirName: String = ""
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @ColumnInfo
     var goodCount: Int = 0
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @ColumnInfo
     var warnCount: Int = 0
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @ColumnInfo
     var dangerCount: Int = 0
@@ -65,7 +65,7 @@ open class DirBase {
 }
 
 /**
- * [CN_TEXT].
+ * data.
  */
 @Entity(
     foreignKeys = [
@@ -87,37 +87,37 @@ class DirDetect() : DirBase() {
     }
 
     /**
-     * [CN_TEXT] Id
+     * data Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
     /**
-     * [CN_TEXT]Selected，[CN_TEXT].
+     * dataSelected，data.
      */
     @Ignore
     var hasSelect = false
 
     /**
-     * [CN_TEXT]State
+     * dataState
      */
     @Ignore
     var isExpand: Boolean = false
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @Ignore
     var houseDetect = HouseDetect()
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @Ignore
     var itemList: ArrayList<ItemDetect> = ArrayList()
 
     /**
-     * [CN_TEXT] id [CN_TEXT] 0，[CN_TEXT] (1)，position + 1，itemList [CN_TEXT]，[CN_TEXT].
+     * data id data 0，data (1)，position + 1，itemList data，data.
      */
     fun copyOne(): DirDetect {
         val newDirDetect = DirDetect()
@@ -140,7 +140,7 @@ class DirDetect() : DirBase() {
     }
 
     /**
-     * [CN_TEXT]Current[CN_TEXT]，Note id、parent [CN_TEXT] 0，[CN_TEXT].
+     * dataCurrentdata，Note id、parent data 0，data.
      */
     fun toDirReport(): DirReport {
         val dirReport = DirReport()
@@ -164,7 +164,7 @@ class DirDetect() : DirBase() {
 
     companion object {
         /**
-         * [CN_TEXT].
+         * data.
          */
         fun buildDefaultDirList(parentId: Long): ArrayList<DirDetect> =
             arrayListOf(
@@ -184,7 +184,7 @@ class DirDetect() : DirBase() {
 }
 
 /**
- * [CN_TEXT].
+ * data.
  */
 @Entity(
     foreignKeys = [
@@ -199,13 +199,13 @@ class DirDetect() : DirBase() {
 )
 class DirReport : DirBase() {
     /**
-     * [CN_TEXT] Id
+     * data Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @Ignore
     var itemList: ArrayList<ItemReport> = ArrayList()

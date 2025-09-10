@@ -1,23 +1,23 @@
 package com.topdon.lib.ui.config
 
 /**
- * [CN_TEXT]
+ * utility
  * @author: CaiSongL
  * @date: 2023/4/4 9:57
  */
 object CameraHelp {
     /**
-     * Pseudo-color[CN_TEXT]
+     * Pseudo-colorutility
      */
     val TYPE_SET_PSEUDOCOLOR = 4
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     val TYPE_SET_ParamLevelContrast = 3
 
     /**
-     * [CN_TEXT]（[CN_TEXT]）
+     * utility（utility）
      */
     val TYPE_SET_ParamLevelDde = 2
 
@@ -39,28 +39,28 @@ object CameraHelp {
     /**
      * Mirror
      */
-    val TYPE_SET_MIRROR = 14 // [CN_TEXT]
+    val TYPE_SET_MIRROR = 14 // utility
 
     /**
-     * [CN_TEXT] 2D [CN_TEXT]：[CN_TEXT]
+     * utility 2D utility：utility
      */
-    val TYPE_SET_WATERMARK = 15 // [CN_TEXT]
+    val TYPE_SET_WATERMARK = 15 // utility
 
     /**
-     * [CN_TEXT] TS001-Observation：[CN_TEXT]
+     * utility TS001-Observation：utility
      */
-    val TYPE_SET_COMPASS = 23 // [CN_TEXT]
+    val TYPE_SET_COMPASS = 23 // utility
 
-    // TS001 -- [CN_TEXT]Mode
-    val TYPE_SET_HIGHTEMP = 20 // [CN_TEXT]High temperature
-    val TYPE_SET_LOWTEMP = 21 // [CN_TEXT]Low temperature
+    // TS001 -- utilityMode
+    val TYPE_SET_HIGHTEMP = 20 // utilityHigh temperature
+    val TYPE_SET_LOWTEMP = 21 // utilityLow temperature
     val TYPE_SET_DETELE = 22 // Delete
 
     // TS001 -- TargetMenu
     val TYPE_SET_TARGET_MODE = 30 // Target
-    val TYPE_SET_TARGET_ZOOM = 31 // [CN_TEXT]
-    val TYPE_SET_MEASURE_MODE = 32 // [CN_TEXT]Mode
-    val TYPE_SET_TARGET_COLOR = 33 // Target[CN_TEXT]
+    val TYPE_SET_TARGET_ZOOM = 31 // utility
+    val TYPE_SET_MEASURE_MODE = 32 // utilityMode
+    val TYPE_SET_TARGET_COLOR = 33 // Targetutility
     val TYPE_SET_TARGET_DELETE = 34 // Delete
-    val TYPE_SET_TARGET_HELP = 35 // [CN_TEXT]
+    val TYPE_SET_TARGET_HELP = 35 // utility
 }

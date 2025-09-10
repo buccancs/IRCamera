@@ -25,7 +25,7 @@ import java.util.*
 import com.topdon.lib.core.R as LibCoreR
 
 /**
- * [CN_TEXT]
+ * activity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
@@ -52,7 +52,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             confirmInitApp()
         }
         binding.clauseDisagreeBtn.setOnClickListener {
-            // [CN_TEXT]
+            // activity
             TipDialog.Builder(this)
                 .setMessage(getString(R.string.privacy_tips))
                 .setPositiveListener(R.string.privacy_confirm) {
@@ -69,7 +69,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                // [CN_TEXT]
+                // activity
                 NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
@@ -81,7 +81,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                // [CN_TEXT]
+                // activity
                 NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
@@ -90,7 +90,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             }
         }
         binding.clauseItem3.setOnClickListener {
-            // [CN_TEXT]
+            // activity
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
@@ -115,10 +115,10 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
     private fun confirmInitApp() {
         lifecycleScope.launch {
             showLoading()
-            // [CN_TEXT]
+            // activity
             App.delayInit()
             async(Dispatchers.IO) {
-                // [CN_TEXT]1000ms [CN_TEXT]
+                // activity1000ms activity
                 delay(1000)
                 return@async
             }.await().let {

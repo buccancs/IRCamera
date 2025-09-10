@@ -24,9 +24,9 @@ import kotlin.math.pow
 object IRImageUtil {
 
     /**
-     * [CN_TEXT]
-     * @param contrast      [CN_TEXT] 1: [CN_TEXT]  0: [CN_TEXT]   2: [CN_TEXT]
-     * @param brightness    [CN_TEXT]
+     * utility
+     * @param contrast      utility 1: utility  0: utility   2: utility
+     * @param brightness    utility
      */
     fun showContrast(
         imageView: ImageView,
@@ -48,10 +48,10 @@ object IRImageUtil {
             lookUpTable.put(0, 0, lookUpTableData)
             val srcMat = Utils.loadResource(com.blankj.utilcode.util.Utils.getApp(), UiR.drawable.ic_main_menu_battery) //BGR
             val dstMat = Mat()
-            Core.LUT(srcMat, lookUpTable, dstMat) //[CN_TEXT]
-            Core.add(dstMat, Scalar(brightness, brightness, brightness), dstMat) //[CN_TEXT]
+            Core.LUT(srcMat, lookUpTable, dstMat) // Utility function
+            Core.add(dstMat, Scalar(brightness, brightness, brightness), dstMat) // Utility function
             val resultMat = Mat()
-            Imgproc.cvtColor(dstMat, resultMat, Imgproc.COLOR_BGR2RGBA) //android[CN_TEXT]
+            Imgproc.cvtColor(dstMat, resultMat, Imgproc.COLOR_BGR2RGBA) //androidutility
             val bitmap = Bitmap.createBitmap(resultMat.size().width.toInt(), resultMat.size().height.toInt(), Bitmap.Config.ARGB_8888)
             Utils.matToBitmap(resultMat, bitmap)
             imageView.setImageBitmap(bitmap)
@@ -64,10 +64,10 @@ object IRImageUtil {
 
 
     /**
-     * [CN_TEXT]
+     * utility
      * https://www.cnblogs.com/AlgrithmsRookie/p/13212369.html
-     * @param a     [0 ~ 1][CN_TEXT]
-     * @param gamma [CN_TEXT]
+     * @param a     [0 ~ 1]utility
+     * @param gamma utility
      */
     private fun lutGamma(@FloatRange(from = 0.0, to = 1.0) x: Double, a: Double = 0.5, gamma: Double): Double {
         val y = if (x <= a) {
@@ -79,32 +79,32 @@ object IRImageUtil {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      * @param sharpen [1,3,5]
      *
-     * kernel_size  [CN_TEXT],Settings[CN_TEXT]
+     * kernel_size  utility,Settingsutility
      */
     private fun showSharpen(imageView: ImageView, @FloatRange(from = 0.0, to = 2.55) sharpen: Double) {
         Log.i("123", "show sharpen: $sharpen")
         val scale = 1.0
         val delta = 0.0
-        val kernelSize = 3 //[CN_TEXT]
+        val kernelSize = 3 // Utility function
 
         val srcMat = Utils.loadResource(com.blankj.utilcode.util.Utils.getApp(), UiR.drawable.ic_main_menu_battery) //BGR
         val dstMat = Mat(srcMat.rows(), srcMat.cols(), srcMat.type())
         val preGray = Mat()
         val absDst = Mat()
         Log.i("123", "start kernel_size: $kernelSize")
-        Imgproc.GaussianBlur(srcMat, srcMat, Size(3.0, 3.0), 0.0, 0.0, BORDER_DEFAULT) //[CN_TEXT]
+        Imgproc.GaussianBlur(srcMat, srcMat, Size(3.0, 3.0), 0.0, 0.0, BORDER_DEFAULT) // Utility function
         Imgproc.cvtColor(srcMat, preGray, Imgproc.COLOR_BGR2GRAY)
         Log.w("123", "cvtColor preGray: $preGray")
-        Imgproc.Laplacian(srcMat, dstMat, CV_16S, kernelSize, scale, delta, BORDER_DEFAULT) //[CN_TEXT]
+        Imgproc.Laplacian(srcMat, dstMat, CV_16S, kernelSize, scale, delta, BORDER_DEFAULT) // Utility function
         Log.w("123", "Laplacian dstMat: $dstMat")
         Core.convertScaleAbs(dstMat, absDst)
         Log.w("123", "convertScaleAbs absDst: $absDst")
         val preMat = Mat()
-        Core.addWeighted(srcMat, 1.0, absDst, sharpen, 0.0, preMat) //[CN_TEXT]
-        Imgproc.cvtColor(preMat, dstMat, Imgproc.COLOR_BGR2RGBA) //android[CN_TEXT]
+        Core.addWeighted(srcMat, 1.0, absDst, sharpen, 0.0, preMat) // Utility function
+        Imgproc.cvtColor(preMat, dstMat, Imgproc.COLOR_BGR2RGBA) //androidutility
         val bitmap = Bitmap.createBitmap(dstMat.size().width.toInt(), dstMat.size().height.toInt(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(dstMat, bitmap)
         imageView.setImageBitmap(bitmap)

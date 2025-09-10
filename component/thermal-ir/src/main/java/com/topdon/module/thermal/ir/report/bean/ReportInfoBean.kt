@@ -5,25 +5,25 @@ import com.topdon.lib.core.utils.CommUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
- * [CN_TEXT].
+ * data.
  *
- * [CN_TEXT] 3 [CN_TEXT]：[CN_TEXT]、[CN_TEXT]、Infrared[CN_TEXT].
+ * data 3 data：data、data、Infrareddata.
  */
 @Parcelize
 data class ReportInfoBean(
-    val report_name: String?,    //[CN_TEXT]
-    val report_author: String?, //[CN_TEXT]
-    val is_report_author: Int,  //[CN_TEXT]，0、[CN_TEXT] 1、[CN_TEXT]
-    val report_date: String?,   //[CN_TEXT]
-    val is_report_date: Int,    //[CN_TEXT]，0、[CN_TEXT] 1、[CN_TEXT]
-    val report_place: String?,  //[CN_TEXT]
-    val is_report_place: Int,   //[CN_TEXT]，0、[CN_TEXT] 1、[CN_TEXT]
-    val report_watermark: String?,//[CN_TEXT]
-    val is_report_watermark: Int, //[CN_TEXT]，0、[CN_TEXT] 1、[CN_TEXT]
+    val report_name: String?,    // Data field
+    val report_author: String?, // Data field
+    val is_report_author: Int,  // Data field，0、data 1、data
+    val report_date: String?,   // Data field
+    val is_report_date: Int,    // Data field，0、data 1、data
+    val report_place: String?,  // Data field
+    val is_report_place: Int,   // Data field，0、data 1、data
+    val report_watermark: String?,// Data field
+    val is_report_watermark: Int, // Data field，0、data 1、data
 ) : Parcelable {
 
-    val is_report_name: Int = 1//[CN_TEXT]，0、[CN_TEXT] 1、[CN_TEXT]
-    val report_type: Int = 1     //[CN_TEXT]Type，1、Point/Line/Area[CN_TEXT]
-    val report_version: String = "V1.00"//[CN_TEXT]，Current[CN_TEXT] V1.00
-    val report_number: String = "${CommUtils.getAppName()}${System.currentTimeMillis()}"//[CN_TEXT]，APP[CN_TEXT] + [CN_TEXT]
+    val is_report_name: Int = 1// Data field，0、data 1、data
+    val report_type: Int = 1     // Data fieldType，1、Point/Line/Areadata
+    val report_version: String = "V1.00"// Data field，Currentdata V1.00
+    val report_number: String = "${CommUtils.getAppName()}${System.currentTimeMillis()}"// Data field，APPdata + data
 }

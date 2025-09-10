@@ -39,9 +39,9 @@ class VideoActivity : BaseActivity() {
     }
 
     private fun previewVideo(path: String) {
-        Log.w("123", "[CN_TEXT]:$path")
+        Log.w("123", "activity:$path")
         val file = File(path.replace("//", "/"))
-        Log.i("123", "[CN_TEXT]file:$file")
+        Log.i("123", "activityfile:$file")
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "$packageName.fileprovider"
@@ -49,7 +49,7 @@ class VideoActivity : BaseActivity() {
             } else {
                 Uri.fromFile(file)
             }
-        Log.w("123", "[CN_TEXT]uri:$uri")
+        Log.w("123", "activityuri:$uri")
         val videoView = findViewById<VideoView>(R.id.video_play)
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))

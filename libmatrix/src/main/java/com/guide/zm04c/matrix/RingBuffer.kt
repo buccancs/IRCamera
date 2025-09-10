@@ -4,10 +4,10 @@ class RingBuffer {
 
     private lateinit var byteArray: ByteArray
 
-    //[CN_TEXT]byte[CN_TEXT]
+    // Implementationbytedata
     private var mReadPositon = 0
 
-    //[CN_TEXT]
+    // Implementation
     private var mUnReadLength = 0
 
     /**
@@ -114,7 +114,7 @@ class RingBuffer {
     }
 
 
-    //[CN_TEXT]length[CN_TEXT]
+    // Implementationlengthdata
     fun moveForward(length: Int): Int {
         synchronized(this) {
             mReadPositon = (mReadPositon + length) % byteArray.size
@@ -123,7 +123,7 @@ class RingBuffer {
         return length
     }
 
-    //[CN_TEXT]length[CN_TEXT]
+    // Implementationlengthdata
     fun moveBack(length: Int): Int {
         synchronized(this) {
             if (mReadPositon > length) {

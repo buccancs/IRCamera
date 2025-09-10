@@ -48,7 +48,7 @@ class App : BaseApplication() {
         lateinit var instance: App
 
         /**
-         * [CN_TEXT]
+         * data
          */
         fun delayInit() {
             initReceiver()
@@ -68,7 +68,7 @@ class App : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        // [CN_TEXT]app[CN_TEXT]，[CN_TEXT]Settingslms[CN_TEXT]Settings[CN_TEXT]true
+        // dataappdata，dataSettingslmsdataSettingsdatatrue
         SPUtils.getInstance(this).put(Config.KEY_PRIVACY_AGREEMENT, true)
 
         if (SharedManager.getHasShowClause() || !isDomestic()) {
@@ -77,13 +77,13 @@ class App : BaseApplication() {
 
         RxJavaPlugins.setErrorHandler {
             if (SharedManager.getHasShowClause()) {
-                XLog.w("[CN_TEXT]： ${it.message}")
+                XLog.w("data： ${it.message}")
             }
         }
         if (!isDomestic()) {
             // Production version - force production URL and disable URL switching
             UrlConstant.setBaseUrl("${HttpConfig.HOST}/", false)
-            SharedManager.setBaseHost(UrlConstant.BASE_URL) // [CN_TEXT]app[CN_TEXT]
+            SharedManager.setBaseHost(UrlConstant.BASE_URL) // dataappdata
         }
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -130,7 +130,7 @@ class App : BaseApplication() {
     }
 
     /**
-     * [CN_TEXT]ZOHO - commented out as dependency not available
+     * dataZOHO - commented out as dependency not available
      */
     private fun initZoho() {
         // ZohoSalesIQ initialization commented out - dependency not available in build
@@ -143,12 +143,12 @@ class App : BaseApplication() {
             object : InitListener {
                 override fun onInitSuccess() {
 //                    ZohoSalesIQ.Launcher.show(ZohoSalesIQ.Launcher.VisibilityMode.ALWAYS)
-                    XLog.e("bcf", "ZohoSalesIQ[CN_TEXT]")
+                    XLog.e("bcf", "ZohoSalesIQdata")
                 }
 
                 override fun onInitError(errorCode: Int, errorMessage: String?) {
                     //your code
-                    XLog.e("bcf", "ZohoSalesIQ[CN_TEXT]")
+                    XLog.e("bcf", "ZohoSalesIQdata")
                 }
             })
          */

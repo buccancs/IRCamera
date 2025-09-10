@@ -32,7 +32,7 @@ abstract class BaseWifiActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= 29) {
-            // Android10 [CN_TEXT]
+            // Android10 activity
             NetWorkUtils.switchNetwork(true)
         }
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ abstract class BaseWifiActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.SDK_INT >= 29) { // Android10 [CN_TEXT]
+        if (Build.VERSION.SDK_INT >= 29) { // Android10 activity
             NetWorkUtils.switchNetwork(true)
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

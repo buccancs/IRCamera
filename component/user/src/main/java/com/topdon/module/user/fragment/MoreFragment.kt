@@ -40,21 +40,21 @@ import java.io.File
 import java.text.DecimalFormat
 
 /**
- * [CN_TEXT] “[CN_TEXT]” [CN_TEXT]
+ * fragment “fragment” fragment
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
+ * fragment：
+ * - [ExtraKeyConfig.IS_TC007] - Currentfragment TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreFragment : BaseFragment(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * fragment，Currentfragment TC007 fragmentType.
+     * true-TC007 false-fragment
      */
     private var isTC007 = false
     /**
-     * TC007 [CN_TEXT] ViewModel.
+     * TC007 fragment ViewModel.
      */
     private val firmwareViewModel: FirmwareViewModel by viewModels()
     
@@ -89,15 +89,15 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         itemSettingBottomText = requireView().findViewById(R.id.item_setting_bottom_text)
         tvRightText = requireView().findViewById(R.id.tv_right_text)
 
-        settingItemModel.setOnClickListener(this)//[CN_TEXT]
-        settingItemCorrection.setOnClickListener(this)//[CN_TEXT]
-        settingItemDual.setOnClickListener(this)//Dual light[CN_TEXT]
-        settingItemUnit.setOnClickListener(this)//[CN_TEXT]
-        settingVersion.setOnClickListener(this) //TC007[CN_TEXT]
-        settingDeviceInformation.setOnClickListener(this)//TC007[CN_TEXT]
-        settingReset.setOnClickListener(this)//TC007[CN_TEXT]Settings
+        settingItemModel.setOnClickListener(this)// Fragment logic
+        settingItemCorrection.setOnClickListener(this)// Fragment logic
+        settingItemDual.setOnClickListener(this)//Dual lightfragment
+        settingItemUnit.setOnClickListener(this)// Fragment logic
+        settingVersion.setOnClickListener(this) //TC007fragment
+        settingDeviceInformation.setOnClickListener(this)//TC007fragment
+        settingReset.setOnClickListener(this)//TC007fragmentSettings
 
-        //[CN_TEXT] 2024/5/23 [CN_TEXT]，TC007[CN_TEXT]，[CN_TEXT]
+        // Fragment logic 2024/5/23 fragment，TC007fragment，fragment
         settingReset.isVisible = false
 
         settingVersion.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
@@ -149,7 +149,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissLoadingDialog()
-            if (it == null) {//[CN_TEXT]，[CN_TEXT]
+            if (it == null) {// Fragment logic，fragment
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -187,26 +187,26 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
        when(v){
-           settingItemModel -> {//[CN_TEXT]
+           settingItemModel -> {// Fragment logic
                NavigationManager.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
            settingItemDual->{
                NavigationManager.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
            }
-           settingItemUnit -> {//[CN_TEXT]
+           settingItemUnit -> {// Fragment logic
                NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
            }
-           settingItemCorrection->{//[CN_TEXT]
+           settingItemCorrection->{// Fragment logic
                NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
            }
-           settingVersion -> {//TC007[CN_TEXT]
-               //[CN_TEXT]，V3.30[CN_TEXT] apk [CN_TEXT]，[CN_TEXT]
+           settingVersion -> {//TC007fragment
+               // Fragment logic，V3.30fragment apk fragment，fragment
 //               if (LMS.getInstance().isLogin) {
                    val firmwareData = firmwareViewModel.firmwareDataLD.value
                    if (firmwareData != null) {
                        showFirmwareUpDialog(firmwareData)
                    } else {
-                       XLog.i("TC007 [CN_TEXT] - [CN_TEXT]")
+                       XLog.i("TC007 fragment - fragment")
                        showLoadingDialog()
                        firmwareViewModel.queryFirmware(false)
                    }
@@ -214,7 +214,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 //                   LMS.getInstance().activityLogin()
 //               }
            }
-           settingDeviceInformation -> {//TC007[CN_TEXT]
+           settingDeviceInformation -> {//TC007fragment
                if (WebSocketProxy.getInstance().isTC007Connect()) {
                    NavigationManager.getInstance()
                        .build(RouterConfig.DEVICE_INFORMATION)
@@ -222,7 +222,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                        .navigation(requireContext())
                }
            }
-           settingReset -> {//TC007[CN_TEXT]Settings
+           settingReset -> {//TC007fragmentSettings
                if (WebSocketProxy.getInstance().isTC007Connect()) {
                    restoreFactory()
                }
@@ -232,7 +232,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
 
     /**
-     * [CN_TEXT] TC007 [CN_TEXT]，[CN_TEXT]State.
+     * fragment TC007 fragment，fragmentState.
      */
     private fun refresh07Connect(isConnect: Boolean) {
         settingDeviceInformation.isRightArrowVisible = isConnect
@@ -257,7 +257,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
 
     /**
-     * [CN_TEXT].
+     * fragment.
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(requireContext())
@@ -266,7 +266,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-            //[CN_TEXT]，V3.30[CN_TEXT] apk [CN_TEXT]，[CN_TEXT]
+            // Fragment logic，V3.30fragment apk fragment，fragment
             //downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
@@ -284,7 +284,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT]
+     * fragmentSpecifiedfragment
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {
@@ -306,14 +306,14 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     private fun installFirmware(file: File) {
         lifecycleScope.launch {
-            XLog.d("TC007 [CN_TEXT] - [CN_TEXT]")
+            XLog.d("TC007 fragment - fragment")
             val installDialog = FirmwareInstallDialog(requireContext())
             installDialog.show()
 
             val isSuccess = TC007Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TC007 [CN_TEXT] - [CN_TEXT] TC007 [CN_TEXT]，[CN_TEXT]")
+                XLog.d("TC007 fragment - fragment TC007 fragment，fragment")
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 TipDialog.Builder(requireContext())
                     .setTitleMessage(getString(RCore.string.app_tip))
@@ -327,7 +327,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                     }
                     .create().show()
             } else {
-                XLog.w("TC007 [CN_TEXT] - [CN_TEXT] TC007 [CN_TEXT]!")
+                XLog.w("TC007 fragment - fragment TC007 fragment!")
                 showReInstallDialog(file)
             }
         }
@@ -377,7 +377,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         lifecycleScope.launch {
             val isSuccess = TC007Repository.resetToFactory()
             if (isSuccess) {
-                XLog.d("TC007 [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]")
+                XLog.d("TC007 fragmentSettingsfragment，fragment")
                 TToast.shortToast(requireContext(), RCore.string.ts004_reset_tip4)
                 (requireActivity().application as BaseApplication).disconnectWebSocket()
                 EventBus.getDefault().post(TS004ResetEvent())

@@ -16,7 +16,7 @@ import com.topdon.module.thermal.ir.R
 import java.lang.NumberFormatException
 
 /**
- * [CN_TEXT] [CN_TEXT]、Temperature measurement[CN_TEXT]、[CN_TEXT] [CN_TEXT].
+ * dialog dialog、Temperature measurementdialog、dialog dialog.
  *
  * Created by LCG on 2024/10/24.
  */
@@ -26,14 +26,14 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdialog
      */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
         return this
     }
     /**
-     * Settings[CN_TEXT].
+     * Settingsdialog.
      */
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
@@ -108,17 +108,17 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
 
     enum class Type {
         /**
-         * [CN_TEXT]
+         * dialog
          */
         TEMP,
 
         /**
-         * Temperature measurement[CN_TEXT]
+         * Temperature measurementdialog
          */
         DIS,
 
         /**
-         * [CN_TEXT]
+         * dialog
          */
         EM,
     }

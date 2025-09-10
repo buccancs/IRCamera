@@ -44,10 +44,10 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 /**
- * [CN_TEXT] [CN_TEXT] TC007 [CN_TEXT].
+ * activity activity TC007 activity.
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
+ * activity：
+ * - [ExtraKeyConfig.IS_TC007] - Currentactivity TC007
  *
  * Created by LCG on 2024/4/18.
  */
@@ -57,8 +57,8 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityIrMainBinding
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
 
@@ -150,16 +150,16 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.clIconMonitor -> {//[CN_TEXT]
+            binding.clIconMonitor -> {// Activity logic
                 binding.viewPage.setCurrentItem(0, false)
             }
             binding.clIconGallery -> {//Gallery
                 checkStoragePermission()
             }
-            // view_main_thermal -> {//[CN_TEXT] - Commented out as not in view declarations
+            // view_main_thermal -> {// Activity logic - Commented out as not in view declarations
             //     binding.viewPage.setCurrentItem(2, false)  
             // }
-            binding.clIconReport -> {//[CN_TEXT]
+            binding.clIconReport -> {// Activity logic
                 if (LMS.getInstance().isLogin) {
                     binding.viewPage.setCurrentItem(3, false)
                 } else {
@@ -171,15 +171,15 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
-            binding.clIconMine -> {//[CN_TEXT]
+            binding.clIconMine -> {// Activity logic
                 binding.viewPage.setCurrentItem(4, false)
             }
         }
     }
 
     /**
-     * [CN_TEXT] 5 [CN_TEXT] tab [CN_TEXT]SelectedState
-     * @param index CurrentSelected[CN_TEXT] tab，`[0, 4]`
+     * activity 5 activity tab activitySelectedState
+     * @param index CurrentSelectedactivity tab，`[0, 4]`
      */
     private fun refreshTabSelect(index: Int) {
         binding.ivIconMonitor.isSelected = false
@@ -211,10 +211,10 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT].
+     * activity.
      */
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) {//[CN_TEXT]
+        if (SharedManager.homeGuideStep == 0) {// Activity logic
             return
         }
 
@@ -266,8 +266,8 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //[CN_TEXT]Switch[CN_TEXT]，[CN_TEXT]1000[CN_TEXT]
-                //[CN_TEXT]1000[CN_TEXT]，[CN_TEXT]1000[CN_TEXT]，[CN_TEXT]
+                // Activity logicSwitchactivity，activity1000activity
+                // Activity logic1000activity，activity1000activity，activity
                 delay(100)
                 guideDialog.blurBg(binding.clRoot)
             }
@@ -317,7 +317,7 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser()){
@@ -335,7 +335,7 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
 
                 override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
                     if (doNotAskAgain) {
-                        //[CN_TEXT]
+                        // Activity logic
                         TipDialog.Builder(this@IRMainActivity)
                             .setTitleMessage(getString(LibR.string.app_tip))
                             .setMessage(getString(LibR.string.app_album_content))

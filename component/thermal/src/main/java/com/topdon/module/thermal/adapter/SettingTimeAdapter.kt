@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
 
 /**
- * Settings[CN_TEXT]
+ * Settingsitem
  */
 class SettingTimeAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var datas = arrayOf("[CN_TEXT]", "[CN_TEXT]", "[CN_TEXT]", "[CN_TEXT]")
+    private var datas = arrayOf("item", "item", "item", "item")
     private var dataTimes = arrayOf(1, 2, 3, 4)
 
     var listener: OnItemClickListener? = null

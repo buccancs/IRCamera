@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 /**
- * [CN_TEXT]
+ * data
  */
 class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     private var motionStartId = 0
@@ -26,10 +26,10 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     )
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun startTransition() {
-//        Log.w("123", "[CN_TEXT]")
+//        Log.w("123", "data")
         if (!isAdd) {
             addTransitionListener(this)
             isAdd = true
@@ -38,7 +38,7 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     }
 
     /**
-     * [CN_TEXT]State
+     * dataState
      */
     fun cancelTransition() {
         removeTransitionListener(this)

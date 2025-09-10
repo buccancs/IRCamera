@@ -113,7 +113,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tvFormatStorage -> {//[CN_TEXT]
+            tvFormatStorage -> {// Activity logic
                 TipDialog.Builder(this@StorageSpaceActivity)
                     .setTitleMessage(getString(RCore.string.more_storage_reset))
                     .setMessage(getString(RCore.string.more_storage_reset1))
@@ -123,7 +123,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                         lifecycleScope.launch {
                             val isSuccess = TS004Repository.getFormatStorage()
                             if (isSuccess) {
-                                XLog.d("TS004 [CN_TEXT]，[CN_TEXT]")
+                                XLog.d("TS004 activity，activity")
                                 (application as BaseApplication).disconnectWebSocket()
                                 NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
                                 finish()

@@ -11,33 +11,33 @@ import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 
 /**
- * [CN_TEXT] [CN_TEXT]，[CN_TEXT].
+ * view view，view.
  *
  * Created by LCG on 2024/10/14.
  */
 class EmissivityView : View {
     companion object {
         /**
-         * [CN_TEXT]，[CN_TEXT] dp.
+         * view，view dp.
          */
         private const val DEFAULT_STROKE_WIDTH: Float = 0.5f
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     var isAlignTop = false
     /**
-     * [CN_TEXT]
+     * view
      */
     var drawTopLine = false
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     private val textList: ArrayList<CharSequence> = ArrayList(3)
     /**
-     * [CN_TEXT] Layout [CN_TEXT].
+     * view Layout view.
      */
     private val layoutList: ArrayList<StaticLayout> = ArrayList(3)
 
@@ -70,17 +70,17 @@ class EmissivityView : View {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthSize: Int = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
-        val firstWidth: Int = (widthSize * 135 / 335f).toInt()// 3 [CN_TEXT] 135:100:100
+        val firstWidth: Int = (widthSize * 135 / 335f).toInt()// 3 view 135:100:100
         val elseWidth: Int = (widthSize - firstWidth) / 2
         val contentWidth: Int = firstWidth + elseWidth * 2
 
-        //[CN_TEXT] layoutList
+        // View rendering layoutList
         layoutList.clear()
         for (i in textList.indices) {
             val textWidth: Int = if (textList.size == 1) {
-                contentWidth - SizeUtils.dp2px(24f)//[CN_TEXT] 12dp padding
+                contentWidth - SizeUtils.dp2px(24f)// View rendering 12dp padding
             } else {
-                (if (i == 0) firstWidth else elseWidth) - SizeUtils.dp2px(24f)//[CN_TEXT] 12dp padding
+                (if (i == 0) firstWidth else elseWidth) - SizeUtils.dp2px(24f)// View rendering 12dp padding
             }
             layoutList.add(
                 StaticLayout.Builder.obtain(textList[i], 0, textList[i].length, textPaint, textWidth)
@@ -89,17 +89,17 @@ class EmissivityView : View {
             )
         }
 
-        //[CN_TEXT]
+        // View rendering
         var maxHeight = 0
         for (layout in layoutList) {
             maxHeight = maxHeight.coerceAtLeast(layout.height)
         }
-        if (maxHeight == 0) {//[CN_TEXT]Settings[CN_TEXT]，[CN_TEXT]
+        if (maxHeight == 0) {// View renderingSettingsview，view
             maxHeight = textPaint.fontMetricsInt.bottom - textPaint.fontMetricsInt.top
         }
-        maxHeight += SizeUtils.dp2px(12f)//[CN_TEXT] 6dp padding
+        maxHeight += SizeUtils.dp2px(12f)// View rendering 6dp padding
 
-        //[CN_TEXT] UNSPECIFIED [CN_TEXT]，[CN_TEXT]
+        // View rendering UNSPECIFIED view，view
         setMeasuredDimension(contentWidth + paddingStart + paddingEnd, maxHeight)
     }
 

@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * X[CN_TEXT]
+ * Xdata
  */
 class IRMyValueFormatter(private val startTime: Long, private val type: Int = 1) :
     IndexAxisValueFormatter() {
@@ -27,7 +27,7 @@ class IRMyValueFormatter(private val startTime: Long, private val type: Int = 1)
         } else {
             value.toLong()
         }
-        val realTime = startTime + time * ChartTools.scale(type)//[CN_TEXT]
+        val realTime = startTime + time * ChartTools.scale(type)// Implementation
         return showDateSecond(realTime)
     }
 

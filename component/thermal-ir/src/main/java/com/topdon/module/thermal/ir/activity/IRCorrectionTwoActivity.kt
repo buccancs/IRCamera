@@ -16,19 +16,19 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
- * [CN_TEXT]
+ * activity
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
+ * activity：
+ * - [ExtraKeyConfig.IS_TC007] - Currentactivity TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionTwoActivity : BaseActivity() {
 
     /**
-     * From[CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * Fromactivity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
     

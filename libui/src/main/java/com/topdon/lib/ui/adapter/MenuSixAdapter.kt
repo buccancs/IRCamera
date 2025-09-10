@@ -14,14 +14,14 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("[CN_TEXT] 2D [CN_TEXT]Menu，[CN_TEXT]")
+@Deprecated("item 2D itemMenu，item")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
-    private var colorEnable = false // Pseudo-color[CN_TEXT]
-    private var contrastEnable = false // [CN_TEXT]
-    private var ddeEnable = false // [CN_TEXT]
+    private var colorEnable = false // Pseudo-coloritem
+    private var contrastEnable = false // List item data
+    private var ddeEnable = false // List item data
 
     fun selected(index: Int) {
         selected = index
@@ -91,7 +91,7 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    // State[CN_TEXT]
+    // Stateitem
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

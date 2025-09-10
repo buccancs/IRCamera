@@ -36,8 +36,8 @@ internal class TempPointAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * ClearAllMenu[CN_TEXT]SelectedState。
-     * [CN_TEXT]Maintain original logic，Consider in the futureWhether to directlySelectedDeletedone。
+     * ClearAllMenuitemSelectedState。
+     * itemMaintain original logic，Consider in the futureWhether to directlySelectedDeletedone。
      */
     fun clearAllSelect() {
         for (data in dataArray) {
@@ -61,7 +61,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
             if (data.tempPointType == TempPointType.DELETE) {
-                if (!data.isSelected) {//Selected[CN_TEXT]Delete[CN_TEXT]，[CN_TEXT]Selected[CN_TEXT]
+                if (!data.isSelected) {//SelecteditemDeleteitem，itemSelecteditem
                     for (temp in dataArray) {
                         temp.isSelected = temp.tempPointType == TempPointType.DELETE
                     }
@@ -72,7 +72,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
-                if (data.isSelected) {//SelectedHigh temperature[CN_TEXT]、Low temperature[CN_TEXT]“Delete”[CN_TEXT]Selected；[CN_TEXT]Selected[CN_TEXT]Delete
+                if (data.isSelected) {//SelectedHigh temperatureitem、Low temperatureitem“Delete”itemSelected；itemSelecteditemDelete
                     for (i in dataArray.indices) {
                         if (dataArray[i].tempPointType == TempPointType.DELETE && dataArray[i].isSelected) {
                             dataArray[i].isSelected = false

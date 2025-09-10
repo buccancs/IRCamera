@@ -66,7 +66,7 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
         val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
 //        init {
-//            val canSeeCount = itemCount.toFloat() //[CN_TEXT] item [CN_TEXT]，[CN_TEXT]
+//            val canSeeCount = itemCount.toFloat() // Adapter item item item，item
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams((with * 0.95).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 29 / 375f).toInt()

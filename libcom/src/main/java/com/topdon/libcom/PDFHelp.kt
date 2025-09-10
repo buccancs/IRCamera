@@ -29,7 +29,7 @@ import java.io.FileOutputStream
 object PDFHelp {
 
     fun savePdfFileByListView(name: String, view: ScrollView, viewList: MutableList<View>, watermarkView: View): String {
-        val onePageHeight: Int = (view.width * 297f / 210f).toInt() // A4[CN_TEXT]210:297
+        val onePageHeight: Int = (view.width * 297f / 210f).toInt() // A4utility210:297
 
         var onePageContentHeight = 0f
 
@@ -42,7 +42,7 @@ object PDFHelp {
 
         for (index in 0 until viewList.size) {
             val contentHeight = viewList[index].measuredHeight
-            if (onePageContentHeight + contentHeight > onePageHeight) {//[CN_TEXT]，[CN_TEXT]
+            if (onePageContentHeight + contentHeight > onePageHeight) {// Utility function，utility
                 onePageContentHeight = 0f
                 pdfDocument.finishPage(page)
                 page = null
@@ -104,7 +104,7 @@ object PDFHelp {
                     bos.flush()
                     bos.close()
                 }
-                Log.w("[CN_TEXT]", UriUtils.uri2File(uri).absolutePath)
+                Log.w("utility", UriUtils.uri2File(uri).absolutePath)
                 UriUtils.uri2File(uri).absolutePath
             } else {
                 ""

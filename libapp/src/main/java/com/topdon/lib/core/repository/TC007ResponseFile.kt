@@ -4,12 +4,12 @@ import android.graphics.Point
 import android.graphics.Rect
 import java.lang.NumberFormatException
 
-// [CN_TEXT] TC007 [CN_TEXT] JSON [CN_TEXT]
+// data TC007 data JSON data
 
 /**
- * TC007 All[CN_TEXT].
- * @param Detail [CN_TEXT]，[CN_TEXT]
- * @param Data [CN_TEXT]，[CN_TEXT]
+ * TC007 Alldata.
+ * @param Detail data，data
+ * @param Data data，data
  */
 data class TC007Response<T>(
     val Code: Int,
@@ -19,17 +19,17 @@ data class TC007Response<T>(
     val Data: T?,
 ) {
     /**
-     * [CN_TEXT].
+     * data.
      */
     fun isSuccess(): Boolean = Code == 200
 }
 
 /**
- * TC007 [CN_TEXT]：[CN_TEXT]
- * @param ProductName [CN_TEXT]
+ * TC007 data：data
+ * @param ProductName data
  * @param ProductPN PN
  * @param ProductSN SN
- * @param Code [CN_TEXT]
+ * @param Code data
  */
 data class ProductBean(
     val ProductName: String,
@@ -48,9 +48,9 @@ data class Version07Bean(
 )
 
 /**
- * TC007 [CN_TEXT]：[CN_TEXT]
- * @param Status Charging-[CN_TEXT] Discharging-[CN_TEXT]
- * @param Remaining [CN_TEXT]
+ * TC007 data：data
+ * @param Status Charging-data Discharging-data
+ * @param Remaining data
  */
 data class BatteryInfo(
     val Status: String?,
@@ -67,10 +67,10 @@ data class BatteryInfo(
 }
 
 /**
- * TC007 [CN_TEXT]：[CN_TEXT]State
- * @param Status Current[CN_TEXT]State 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT] 4-[CN_TEXT]
- * @param Percent Current[CN_TEXT]
- * @param Code [CN_TEXT]
+ * TC007 data：dataState
+ * @param Status CurrentdataState 1-data 2-data 3-data 4-data
+ * @param Percent Currentdata
+ * @param Code data
  */
 data class TC07UpgradeStatus(
     val Status: Int,
@@ -79,12 +79,12 @@ data class TC07UpgradeStatus(
 )
 
 /**
- * TC007 [CN_TEXT]：Temperature measurement[CN_TEXT]
- * @param Fps Temperature measurement[CN_TEXT][0,[CN_TEXT]]，[CN_TEXT]12，[CN_TEXT]12
- * @param Level Temperature measurement[CN_TEXT] 0-High gain 1-Low gain 3-[CN_TEXT]Switch
- * @param OsdMode Temperature measurement[CN_TEXT] 0-[CN_TEXT] 1-[CN_TEXT]([CN_TEXT]) 2-[CN_TEXT]
- * @param TempUnit [CN_TEXT] 0-Celsius 1-[CN_TEXT] 2-Fahrenheit
- * @param DistanceUnit [CN_TEXT] 0-[CN_TEXT] 1-[CN_TEXT]
+ * TC007 data：Temperature measurementdata
+ * @param Fps Temperature measurementdata[0,data]，data12，data12
+ * @param Level Temperature measurementdata 0-High gain 1-Low gain 3-dataSwitch
+ * @param OsdMode Temperature measurementdata 0-data 1-data(data) 2-data
+ * @param TempUnit data 0-Celsius 1-data 2-Fahrenheit
+ * @param DistanceUnit data 0-data 1-data
  */
 data class EnvAttr(
     val Fps: Int,
@@ -188,8 +188,8 @@ internal data class TempRectParam(
 }
 
 /**
- * @param DCFile Visible light[CN_TEXT]
- * @param IRFile Infrared[CN_TEXT]
+ * @param DCFile Visible lightdata
+ * @param IRFile Infrareddata
  */
 data class PhotoBean(
     val DCFile: String?,
@@ -204,7 +204,7 @@ data class AttributeBean(
 )
 
 /**
- * [CN_TEXT]TC007[CN_TEXT]All[CN_TEXT]
+ * dataTC007dataAlldata
  */
 data class WifiAttributeBean(
     var Ratio: Int? = null,
@@ -239,11 +239,11 @@ data class CustomColor(
 )
 
 data class Param(
-    var brightness: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
-    var contrast: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
-    var saturation: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
-    var sharpness: Int = 50, // [CN_TEXT], 0-100, [CN_TEXT]50
-    var flipMode: Int = 0, // [CN_TEXT], 0:[CN_TEXT], 1:[CN_TEXT] 2:[CN_TEXT] 3:180[CN_TEXT]
+    var brightness: Int = 50, // data, 0-100, data50
+    var contrast: Int = 50, // data, 0-100, data50
+    var saturation: Int = 50, // data, 0-100, data50
+    var sharpness: Int = 50, // data, 0-100, data50
+    var flipMode: Int = 0, // data, 0:data, 1:data 2:data 3:180data
 )
 
 data class Isotherm(
@@ -258,7 +258,7 @@ data class IsothermColor(
 )
 
 data class IsothermC(
-    val mode: Int, // 0：[CN_TEXT]，1：[CN_TEXT]，2：[CN_TEXT]，3：[CN_TEXT]
+    val mode: Int, // 0：data，1：data，2：data，3：data
     val highThreshold: Int,
     val lowThreshold: Int,
     var greaterThreshold: Int = 0,

@@ -12,7 +12,7 @@ import com.topdon.lib.core.databinding.DialogFirmwareUpBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * [CN_TEXT].
+ * dialog.
  * Created by LCG on 2024/3/4.
  */
 class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
@@ -20,7 +20,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
     private val binding get() = _binding!!
 
     /**
-     * [CN_TEXT]，[CN_TEXT] "[CN_TEXT] V3.50"
+     * dialog，dialog "dialog V3.50"
      */
     var titleStr: CharSequence?
         get() = binding.tvTitle.text
@@ -29,7 +29,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT] "[CN_TEXT]: 239.6MB"
+     * dialog，dialog "dialog: 239.6MB"
      */
     var sizeStr: CharSequence?
         get() = binding.tvSize.text
@@ -38,7 +38,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]
+     * dialog，dialog
      */
     var contentStr: CharSequence?
         get() = binding.tvContent.text
@@ -47,7 +47,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]，[CN_TEXT](Gone).
+     * dialog，dialog，dialog(Gone).
      */
     var isShowRestartTips: Boolean
         get() = binding.tvRestartTips.isVisible
@@ -56,7 +56,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT].
+     * dialog，dialog.
      */
     var isShowCancel: Boolean
         get() = binding.tvCancel.isVisible
@@ -65,12 +65,12 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * [CN_TEXT].
+     * dialog.
      */
     var onCancelClickListener: (() -> Unit)? = null
 
     /**
-     * [CN_TEXT].
+     * dialog.
      */
     var onConfirmClickListener: (() -> Unit)? = null
 
@@ -94,11 +94,11 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.tvCancel -> { // [CN_TEXT]
+            binding.tvCancel -> { // dialog
                 dismiss()
                 onCancelClickListener?.invoke()
             }
-            binding.tvConfirm -> { // [CN_TEXT]
+            binding.tvConfirm -> { // dialog
                 dismiss()
                 onConfirmClickListener?.invoke()
             }

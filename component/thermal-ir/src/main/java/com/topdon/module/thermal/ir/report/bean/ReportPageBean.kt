@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * [CN_TEXT]，[CN_TEXT].
+ * Report data structure for IR thermal analysis.
  */
 @Parcelize
 data class ReportPageBean(

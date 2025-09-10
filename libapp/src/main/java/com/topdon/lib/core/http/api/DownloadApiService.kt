@@ -11,7 +11,7 @@ import retrofit2.http.Url
  */
 interface DownloadApiService {
     /**
-     * [CN_TEXT].
+     * data.
      */
     @GET
     @Streaming

@@ -8,23 +8,23 @@ import kotlinx.android.parcel.Parcelize
 import java.nio.ByteBuffer
 
 /**
- * [CN_TEXT].
+ * data.
  */
 @Parcelize
 data class CustomPseudoBean (
-    var selectIndex: Int = 0,                       //CurrentSelected[CN_TEXT] index
-    var colors: IntArray? = null,                   //7 [CN_TEXT]
-    var zAltitudes: IntArray? = null,               //7 [CN_TEXT]
-    var places: FloatArray? = null,                 //7 [CN_TEXT]
-    var isUseCustomPseudo: Boolean = false,         //true-[CN_TEXT] false-[CN_TEXT]
-    var maxTemp: Float = 50f,                       //[CN_TEXT]High temperature，[CN_TEXT]Celsius，[CN_TEXT]50Celsius
-    var minTemp: Float = 0f,                        //[CN_TEXT]Low temperature，[CN_TEXT]Celsius，[CN_TEXT]0Celsius
-    var isColorCustom: Boolean = true,              //true-[CN_TEXT] false-[CN_TEXT]
-    var customMinColor: Int = 0xff0000FF.toInt(),   //[CN_TEXT]([CN_TEXT]Low temperature)
-    var customMiddleColor: Int = 0xFFFF0000.toInt(),//[CN_TEXT]
-    var customMaxColor: Int = 0xFFFFFF00.toInt(),   //[CN_TEXT]([CN_TEXT]High temperature)
-    var customRecommendIndex: Int = 0,              //[CN_TEXT] index
-    var isUseGray: Boolean = true,                  //true-[CN_TEXT] false-[CN_TEXT]
+    var selectIndex: Int = 0,                       //CurrentSelecteddata index
+    var colors: IntArray? = null,                   //7 data
+    var zAltitudes: IntArray? = null,               //7 data
+    var places: FloatArray? = null,                 //7 data
+    var isUseCustomPseudo: Boolean = false,         //true-data false-data
+    var maxTemp: Float = 50f,                       // Data fieldHigh temperature，dataCelsius，data50Celsius
+    var minTemp: Float = 0f,                        // Data fieldLow temperature，dataCelsius，data0Celsius
+    var isColorCustom: Boolean = true,              //true-data false-data
+    var customMinColor: Int = 0xff0000FF.toInt(),   // Data field(dataLow temperature)
+    var customMiddleColor: Int = 0xFFFF0000.toInt(),// Data field
+    var customMaxColor: Int = 0xFFFFFF00.toInt(),   // Data field(dataHigh temperature)
+    var customRecommendIndex: Int = 0,              // Data field index
+    var isUseGray: Boolean = true,                  //true-data false-data
 ) : Parcelable {
 
     companion object {
@@ -112,10 +112,10 @@ data class CustomPseudoBean (
 
     fun getColorList(isTC007: Boolean = false): IntArray? {
         // Note: Synchronization of places calculation required across all usage locations
-        if (!isUseCustomPseudo) {//[CN_TEXT]
+        if (!isUseCustomPseudo) {// Data field
             return null
         }
-        return if (isColorCustom) {//[CN_TEXT]
+        return if (isColorCustom) {// Data field
             val sourceColors = getCustomColors()
             val places = getCustomPlaces()
             val actualColors = IntArray(sourceColors.size)
@@ -126,24 +126,24 @@ data class CustomPseudoBean (
                 }
             }
             actualColors
-        } else {//[CN_TEXT]
+        } else {// Data field
             ColorRecommend.getColorByIndex(isTC007, customRecommendIndex)
         }
     }
 
     fun getPlaceList(): FloatArray? {
-        if (!isUseCustomPseudo) {//[CN_TEXT]
+        if (!isUseCustomPseudo) {// Data field
             return null
         }
-        return if (isColorCustom) {//[CN_TEXT]
+        return if (isColorCustom) {// Data field
             getCustomPlaces()
-        } else {//[CN_TEXT]
+        } else {// Data field
             null
         }
     }
 
     fun getCustomColors(): IntArray {
-        if (colors == null) {//[CN_TEXT]
+        if (colors == null) {// Data field
             colors = intArrayOf(customMinColor, customMiddleColor, customMaxColor)
         }
         return colors!!

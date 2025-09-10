@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
 
 /**
- * Gallery[CN_TEXT]Switch PopupWindow.
+ * GallerydataSwitch PopupWindow.
  *
  * Created by LCG on 2024/1/5.
  */
@@ -24,7 +24,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
 
 
     /**
-     * [CN_TEXT]Option[CN_TEXT]Selected[CN_TEXT].
+     * dataOptiondataSelecteddata.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 

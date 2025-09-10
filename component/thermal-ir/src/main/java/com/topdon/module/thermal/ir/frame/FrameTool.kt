@@ -48,7 +48,7 @@ class FrameTool {
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsutility
      */
     fun initStruct(struct: FrameStruct) {
         this.struct = struct
@@ -57,7 +57,7 @@ class FrameTool {
     }
 
     /**
-     * [CN_TEXT]Angle
+     * utilityAngle
      */
     fun initRotate(): ImageParams {
         var rotate = ImageParams.ROTATE_0
@@ -71,7 +71,7 @@ class FrameTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun getTempBytes(rotate: ImageParams = ImageParams.ROTATE_0): ByteArray {
         val tempBytes = ByteArray(srcTemperatureLen)
@@ -98,7 +98,7 @@ class FrameTool {
     }
 
     /**
-     * [CN_TEXT]Pseudo-color[CN_TEXT]
+     * utilityPseudo-colorutility
      * yuv -> argb -> temperature scale -> rotation -> bitmap
      */
     fun getScrPseudoColorScaledBitmap(
@@ -121,7 +121,7 @@ class FrameTool {
         val maxRGB = IntArray(3)
         val minRGB = IntArray(3)
         if (customPseudoBean.isUseCustomPseudo) {
-            //[CN_TEXT]Mode
+            // Utility functionMode
             LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), CommonParams.PseudoColorType.PSEUDO_1, argbBytes)
             val colorList: IntArray? = customPseudoBean.getColorList(struct.isTC007())
             val places: FloatArray? = customPseudoBean.getPlaceList()
@@ -138,10 +138,10 @@ class FrameTool {
                 minRGB[2] = minColor and 0xFF
                 var j = 0
                 val argbBytesLength = imageWidth * imageHeight * 4
-                // [CN_TEXT]，[CN_TEXT]
+                // utility，utility
                 var index = 0
                 while (index < argbBytesLength) {
-                    // [CN_TEXT]
+                    // utility
                     var temperature0: Float =
                         ((temperatureBytes[j].toInt() and 0xff) + (temperatureBytes[j + 1]
                             .toInt() and 0xff) * 256).toFloat()
@@ -227,7 +227,7 @@ class FrameTool {
     }
 
     /**
-     * [CN_TEXT]bitmap
+     * utilitybitmap
      */
     fun getBaseBitmap(rotate : ImageParams) : Bitmap{
         val dstImageRes = getDstImageRes(rotate)
@@ -240,7 +240,7 @@ class FrameTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     private fun getDstImageRes(rotate: ImageParams): LibIRProcess.ImageRes_t {
         val dstImageRes = LibIRProcess.ImageRes_t() // Target dimensions
@@ -255,7 +255,7 @@ class FrameTool {
     }
 
     /**
-     * argb[CN_TEXT]Rotate
+     * argbutilityRotate
      */
     private fun argbBytesRotate(argbBytes: ByteArray, dstArgbBytes: ByteArray, rotate: ImageParams) {
         when (rotate) {
@@ -278,7 +278,7 @@ class FrameTool {
     }
 
 //    fun getTemp() {
-//        // [CN_TEXT]High temperature[CN_TEXT]Low temperature[CN_TEXT]
+//        // utilityHigh temperatureutilityLow temperatureutility
 //        val irTemp = Libirtemp(256, 192)
 //        irTemp.settempdata(mixTemperatureBytes)
 //        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
@@ -287,7 +287,7 @@ class FrameTool {
 
 
 //    fun getSrcTemp()：Libirt{
-//        // [CN_TEXT]High temperature[CN_TEXT]Low temperature[CN_TEXT]
+//        // utilityHigh temperatureutilityLow temperatureutility
 //        val irTemp = Libirtemp(256, 192)
 //        irTemp.settempdata(temperatureBytes)
 //        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
@@ -296,10 +296,10 @@ class FrameTool {
 //    }
 
     /**
-     * [CN_TEXT]Temperature measurement([CN_TEXT])
+     * utilityTemperature measurement(utility)
      */
     fun getSrcTemp(): LibIRTemp.TemperatureSampleResult {
-        // [CN_TEXT]High temperature[CN_TEXT]Low temperature[CN_TEXT]
+        // utilityHigh temperatureutilityLow temperatureutility
         val irTemp = LibIRTemp(imageWidth, imageHeight)
         irTemp.setTempData(temperatureBytes)
         return irTemp.getTemperatureOfRect(Rect(0, 0, imageWidth, imageHeight))

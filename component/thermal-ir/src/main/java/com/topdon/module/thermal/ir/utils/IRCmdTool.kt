@@ -29,9 +29,9 @@ object IRCmdTool {
 
         val oemInfo = ByteArray(512)
         val snData = ByteArray(256)
-        val dispData = ByteArray(5)//Registration[CN_TEXT]
+        val dispData = ByteArray(5)//Registration data
         irCmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
-        XLog.w("Core[CN_TEXT]", "[CN_TEXT]:")
+        XLog.w("Core calibration", "data loaded:")
         val calibrationData = ByteArray(calibrationDataSize)
         val productTypeData = ByteArray(2)
         System.arraycopy(oemInfo, 0, calibrationData, 0, calibrationData.size)
@@ -49,9 +49,9 @@ object IRCmdTool {
             if (dispNumber < -20){
                 dispNumber = -20
             }
-            XLog.w("Registration[CN_TEXT]:", ""+dispNumber)
+            XLog.w("Registration offset:", ""+dispNumber)
         }catch (e:Exception){
-            XLog.w("Registration[CN_TEXT]")
+            XLog.w("Registration error")
         }
         val snList = String(snData).split(";")
         val snStr = if (snList.isNotEmpty() && snList[0].contains("sn",true)){
@@ -76,10 +76,10 @@ object IRCmdTool {
                     Log.e(TAG, "read file fail ")
                 }
                 parameters[length] = 1
-                //[CN_TEXT]，[CN_TEXT]
+                //Using calibration file, loading alignment data
                 val alignByte = SharedManager.getManualData(snStr)
                 System.arraycopy(alignByte, 0, parameters, calibrationDataSize + 1, alignByte.size)
-                XLog.w("Core[CN_TEXT]，[CN_TEXT]")
+                XLog.w("Core calibration using file, loading alignment data")
             } catch (e: IOException) {
                 e.printStackTrace()
             } finally {
@@ -108,7 +108,7 @@ object IRCmdTool {
 
 
     /**
-     * Settings[CN_TEXT] unit:cnt(128cnt = 1)
+     * Settings emissivity unit:cnt(128cnt = 1)
      * @param value 1 ~ 128
      */
     fun setTpdEms(irCmd: IRCMD?, value: Int) {
@@ -117,10 +117,10 @@ object IRCmdTool {
     }
 
     /**
-     * Settings[CN_TEXT] unit:cnt(128cnt = 1m, [CN_TEXT]: 0.25 * 128 = 32)
+     * Settings distance unit:cnt(128cnt = 1m, example: 0.25 * 128 = 32)
      * @param value 0 ~ 25600
      *
-     * [CN_TEXT]sdk[CN_TEXT]SettingsTPD_PROP_DISTANCE[CN_TEXT]
+     * Note: sdk requires SettingsTPD_PROP_DISTANCE parameter
      */
     fun setTpdDis(irCmd: IRCMD?, value: Int) {
         val data = CommonParams.PropTPDParamsValue.NumberType(value.toString())
@@ -129,7 +129,7 @@ object IRCmdTool {
 
 
     /**
-     * Settings[CN_TEXT]
+     * Settings contrast level
      * @param value 0 ~ 255
      */
     fun setLevelContrast(irCmd: IRCMD?, value: Int) {
@@ -138,7 +138,7 @@ object IRCmdTool {
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settings DDE level
      * @param value 0 ~ 4
      *
      */
@@ -155,7 +155,7 @@ object IRCmdTool {
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settings AGC mode
      */
     fun setLevelAgc(irCmd: IRCMD?, value: Boolean) {
         val data = if (value) {
@@ -167,7 +167,7 @@ object IRCmdTool {
     }
 
     /**
-     * [CN_TEXT]Mode
+     * Get gain mode
      * @return 1:High gain(Normal temperature)    0:Low gain(High temperature)
      */
     fun getTpdGainSel(irCmd: IRCMD?): Int {
@@ -180,7 +180,7 @@ object IRCmdTool {
     }
 
     /**
-     * Settings[CN_TEXT]Mode
+     * Settings gain mode
      * @param value 1:High gain(Normal temperature)    0:Low gain(High temperature)
      */
     fun setTpdGainSel(irCmd: IRCMD?, value: Int): Int {
@@ -193,7 +193,7 @@ object IRCmdTool {
     }
 
     /**
-     * [CN_TEXT]Tpd
+     * Query TPD parameters
      */
     fun queryTpdParam(irCmd: IRCMD?, params: CommonParams.PropTPDParams): Int {
         val value = IntArray(1)
@@ -202,7 +202,7 @@ object IRCmdTool {
     }
 
     /**
-     * [CN_TEXT]Image
+     * Query image parameters
      */
     fun queryImageParam(irCmd: IRCMD?, params: CommonParams.PropImageParams): Int {
         val value = IntArray(1)
@@ -217,26 +217,26 @@ object IRCmdTool {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("Settings[CN_TEXT][${params.name}]: ${e.message}")
+            XLog.w("Settings TPD error [${params.name}]: ${e.message}")
             0
         }
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settings image parameters
      */
     private fun setImageParams(irCmd: IRCMD?, params: CommonParams.PropImageParams, value: CommonParams.PropImageParamsValue): Int {
         return try {
             irCmd?.setPropImageParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("Settings[CN_TEXT][${params.name}]: ${e.message}")
+            XLog.w("Settings image error [${params.name}]: ${e.message}")
             0
         }
     }
 
     /**
      * Registration
-     * [CN_TEXT]
+     * Temperature offset calibration
      * @param value (-20 ~ 60)
      */
     fun setDisp(dualView: BaseDualView?, value: Int): Int {
@@ -248,13 +248,13 @@ object IRCmdTool {
                 -1 // Return error
             }
         } catch (e: Exception) {
-            XLog.w("SettingsRegistration[CN_TEXT][${value}]: ${e.message}")
+            XLog.w("Settings registration error [${value}]: ${e.message}")
             0
         }
     }
 
     /**
-     * @param moveX [CN_TEXT]Current[CN_TEXT]
+     * @param moveX X-axis offset value
      */
     fun setAlignTranslate(dualView: BaseDualView?, moveX: Int, moveY: Int) {
         val newSrc = ByteArray(8)
@@ -271,19 +271,19 @@ object IRCmdTool {
     }
 
     /**
-     * [CN_TEXT]
+     * Manual shutter calibration
      */
     fun shutter(irCmd: IRCMD?, syncImage: SynchronizedBitmap) {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-            // [CN_TEXT]
+            // Manual shutter adjustment
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-     * [CN_TEXT]
+     * Manual shutter calibration
      */
     fun autoShutter(irCmd: IRCMD?, flag: Boolean) {
         val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
@@ -291,16 +291,16 @@ object IRCmdTool {
     }
 
     /**
-     * [CN_TEXT]
-     * @param highC [CN_TEXT]，[CN_TEXT]Celsius
-     * @param lowC [CN_TEXT]，[CN_TEXT]Celsius
+     * Set isothermal color mapping
+     * @param highC High temperature threshold in Celsius
+     * @param lowC Low temperature threshold in Celsius
      */
     fun setIsoColorOpen(dualUVCCamera: DualUVCCamera?, highC: Float, lowC: Float) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.ON)
-        val normalHighTemp = (highC + 273).toDouble() //[CN_TEXT]k
-        val normalLowTemp = (lowC + 273).toDouble() //[CN_TEXT]k
-        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // High temperature[CN_TEXT]
-        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // Low temperature[CN_TEXT]
+        val normalHighTemp = (highC + 273).toDouble() // Convert to Kelvin
+        val normalLowTemp = (lowC + 273).toDouble() // Convert to Kelvin
+        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // High temperature threshold
+        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // Low temperature threshold
         val highData = ByteArray(2)
         highData[0] = highTemp.toByte()
         highData[1] = (highTemp shr 8).toByte()
@@ -314,25 +314,25 @@ object IRCmdTool {
     }
 
     /**
-     * [CN_TEXT]
+     * Manual shutter calibration
      */
     fun setIsoColorClose(dualUVCCamera: DualUVCCamera?) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.OFF)
     }
 
     /**
-     * [CN_TEXT]([CN_TEXT])
-     * ZoomScaleStep.ZOOM_STEP1: 2[CN_TEXT]
-     * ZoomScaleStep.ZOOM_STEP2: 4[CN_TEXT]
-     * ZoomScaleStep.ZOOM_STEP3: 8[CN_TEXT]
-     * ZoomScaleStep.ZOOM_STEP4: 16[CN_TEXT]
+     * Zoom in (digital zoom)
+     * ZoomScaleStep.ZOOM_STEP1: 2x magnification
+     * ZoomScaleStep.ZOOM_STEP2: 4x magnification
+     * ZoomScaleStep.ZOOM_STEP3: 8x magnification
+     * ZoomScaleStep.ZOOM_STEP4: 16x magnification
      */
     fun setZoomUp(irCmd: IRCMD?) {
         irCmd?.zoomCenterUp(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)
     }
 
     /**
-     * [CN_TEXT]
+     * Manual shutter calibration
      */
     fun setZoomDown(irCmd: IRCMD?) {
         irCmd?.zoomCenterDown(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)

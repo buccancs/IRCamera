@@ -6,12 +6,12 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * [CN_TEXT] [CN_TEXT]1[CN_TEXT] [CN_TEXT]2[CN_TEXT] [CN_TEXT].
- * @param type 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT]
+ * data data1data data2data data.
+ * @param type 1-data 2-data 3-data
  */
 @Parcelize
 data class SelectPositionBean(
-    val type: Int = 0, //1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT]
+    val type: Int = 0, //1-data 2-data 3-data
     val startPosition: Point = Point(),
     val endPosition: Point = Point(),
 ) : Parcelable {

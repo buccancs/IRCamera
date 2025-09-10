@@ -44,7 +44,7 @@ import java.math.BigDecimal
 import java.util.*
 
 /**
- * [CN_TEXT]
+ * fragment
  */
 class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     protected var mIrSurfaceViewLayout: FrameLayout? = null
@@ -54,7 +54,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private val msgLiveData by lazy { MutableLiveData<Int>() }
 
-    // Settings[CN_TEXT]
+    // Settingsfragment
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -71,7 +71,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         val y1 = y * ph / rawHeight
         val maxX = x1 - imageView.width / 2
         val maxY = y1 - imageView.height / 2
-//        Log.w("123", "[CN_TEXT] maxX:$maxX, maxY:$maxY")
+//        Log.w("123", "fragment maxX:$maxX, maxY:$maxY")
         imageView.x = maxX.toFloat()
         imageView.y = maxY.toFloat()
     }
@@ -80,7 +80,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        rotateType = 3 // [CN_TEXT]Rotate270[CN_TEXT]
+        rotateType = 3 // fragmentRotate270fragment
         mCenterTextView = requireView().findViewById(R.id.temp_display)
         mMaxTextView = requireView().findViewById(R.id.max_temp_display)
         mMinTextView = requireView().findViewById(R.id.min_temp_display)
@@ -105,8 +105,8 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 //        height = resources.getDimension(R.dimen.ir_height).toInt()
         val screenWidth = ScreenUtils.getScreenWidth()
         val screenHeight = screenWidth * 270 / 360
-        Log.w("123", "screenWidth[CN_TEXT]:$screenWidth / $screenHeight")
-        Log.w("123", "screenWidth[CN_TEXT]:${screenWidth.toFloat() / screenHeight}")
+        Log.w("123", "screenWidthfragment:$screenWidth / $screenHeight")
+        Log.w("123", "screenWidthfragment:${screenWidth.toFloat() / screenHeight}")
         width = screenWidth
         height = screenHeight
         highCrossWidth = resources.getDimension(R.dimen.high_cross_width).toInt()
@@ -142,11 +142,11 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             fenceLayoutParams!!.height = irSurfaceViewHeight
             mFenceLayout!!.layoutParams = fenceLayoutParams
 
-//            Log.i("123", "[CN_TEXT]w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
+//            Log.i("123", "fragmentw:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
         }
-        // [CN_TEXT]
+        // fragment
         initFence()
-        // [CN_TEXT]
+        // fragment
         onIrVideoStart()
         mIrSurfaceView!!.post {
             Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
@@ -154,9 +154,9 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
         msgLiveData.observe(this) { msg ->
             if (msg == 0) {
-                mCenterTextView!!.text = "[CN_TEXT] $mCenter"
-                mMaxTextView!!.text = "[CN_TEXT]High temperature $mMaxTemp"
-                mMinTextView!!.text = "[CN_TEXT]Low temperature $mMinTemp"
+                mCenterTextView!!.text = "fragment $mCenter"
+                mMaxTextView!!.text = "fragmentHigh temperature $mMaxTemp"
+                mMinTextView!!.text = "fragmentLow temperature $mMinTemp"
                 maxImg?.let { setViewPosition(it, maxIndex) }
                 minImg?.let { setViewPosition(it, minIndex) }
             }
@@ -173,12 +173,12 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     fun onIrVideoStart() {
         mIsIrVideoStart =
             if (mIsIrVideoStart) {
-                ToastUtils.showShort("[CN_TEXT]")
+                ToastUtils.showShort("fragment")
                 return
             } else {
                 true
@@ -192,11 +192,11 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                         yuv: ByteArray,
                         temp: FloatArray,
                     ) {
-                        // [CN_TEXT]
+                        // fragment
                         if (mIrBitmap == null) {
                             mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
                         }
-                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // [CN_TEXT]yuv
+                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // fragmentyuv
 //                mIrBitmap = mIrBitmap?.let { rotateBitmap(it, 90f) }
                         try {
                             mIrSurfaceView!!.doDraw(mIrBitmap, mGuideInterface!!.getImageStatus())
@@ -212,7 +212,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                         }
                         val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
                         try {
-                            // [CN_TEXT]
+                            // fragment
                             val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                             val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
                             maxIndex = maxTempIndex
@@ -226,17 +226,17 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                             mMinTemp = minBigDecimal.setScale(1, java.math.RoundingMode.HALF_UP).toFloat()
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            Log.e(TAG, "[CN_TEXT]:${e.message}")
+                            Log.e(TAG, "fragment:${e.message}")
                         }
                     }
                 },
             )
 
         if (ret == 5) {
-            Log.w("123", "[CN_TEXT]")
+            Log.w("123", "fragment")
         } else {
-//            ToastUtils.showShort("[CN_TEXT]")
-            Log.w("123", "[CN_TEXT]")
+//            ToastUtils.showShort("fragment")
+            Log.w("123", "fragment")
             mGuideInterface = null
             mIsIrVideoStart = false
         }
@@ -267,45 +267,45 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     fun onIrVideoStop() {
         mIsIrVideoStart =
             if (!mIsIrVideoStart) {
-                Log.w("123", "[CN_TEXT]")
+                Log.w("123", "fragment")
                 return
             } else {
                 false
             }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        Log.w("123", "[CN_TEXT]")
+        Log.w("123", "fragment")
     }
 
     fun onLowRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("[CN_TEXT]")
+            ToastUtils.showShort("fragment")
             return
         }
         mGuideInterface!!.setRange(1)
-        ToastUtils.showShort("Switch[CN_TEXT]Normal temperature[CN_TEXT]")
+        ToastUtils.showShort("SwitchfragmentNormal temperaturefragment")
     }
 
     fun onHighRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("[CN_TEXT]")
+            ToastUtils.showShort("fragment")
             return
         }
         mGuideInterface!!.setRange(2)
-        ToastUtils.showShort("Switch[CN_TEXT]High temperature[CN_TEXT]")
+        ToastUtils.showShort("SwitchfragmentHigh temperaturefragment")
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     fun onTempBtnClick() {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("[CN_TEXT]")
+            ToastUtils.showShort("fragment")
             return
         }
         isDispLayTemp = !isDispLayTemp
@@ -327,10 +327,10 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         }
     }
 
-    // ***************************************[CN_TEXT]Mode**********************************************
+    // ***************************************fragmentMode**********************************************
 
     /**
-     * [CN_TEXT]Mode
+     * fragmentMode
      */
     fun onExpertModeClick(view: View?) {
         System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
@@ -347,7 +347,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     fun onNucShutterClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("[CN_TEXT]")
+            ToastUtils.showShort("fragment")
             return
         }
         mGuideInterface!!.nuc()
@@ -382,28 +382,28 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 picture()
             }
             1002 -> {
-                // [CN_TEXT]
-                ToastUtils.showShort("[CN_TEXT]")
+                // fragment
+                ToastUtils.showShort("fragment")
                 video()
             }
             2001 -> {
-                // [CN_TEXT]
+                // fragment
                 addPoint()
             }
             2002 -> {
-                // [CN_TEXT]
+                // fragment
                 addLine()
             }
             2003 -> {
-                // [CN_TEXT]
+                // fragment
                 addFence()
             }
             2004 -> {
-                // [CN_TEXT]
+                // fragment
                 onTempBtnClick()
             }
             2006 -> {
-                // Clear[CN_TEXT]
+                // Clearfragment
                 clearFence()
             }
             in 3000..3010 -> {
@@ -411,15 +411,15 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 setColor(event.action)
             }
             in 5000..5010 -> {
-                // [CN_TEXT]
+                // fragment
                 full()
             }
             10001 -> {
-                // [CN_TEXT]
+                // fragment
                 recordThermal()
             }
             10003 -> {
-                // [CN_TEXT]
+                // fragment
                 isRecord = false
             }
         }
@@ -443,11 +443,11 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun updatePalette(index: Int) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("[CN_TEXT]")
+            ToastUtils.showShort("fragment")
             return
         }
         mGuideInterface!!.changePalette(index)
@@ -470,7 +470,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         type = "fence"
     }
 
-    // [CN_TEXT]Point/Line/Area[CN_TEXT]
+    // fragmentPoint/Line/Areafragment
     private fun showFence(index: Int) {
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) // Settings001 or 010 or 100
@@ -484,7 +484,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         }
     }
 
-    var selectIndex: ArrayList<Int> = arrayListOf() // [CN_TEXT]
+    var selectIndex: ArrayList<Int> = arrayListOf() // fragment
 
     private fun initFence() {
         requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).listener =
@@ -493,7 +493,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                     startPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-                    // [CN_TEXT]
+                    // fragment
                     val activity: MonitorActivity = requireActivity() as MonitorActivity
                     selectIndex.clear()
                     selectIndex =
@@ -508,7 +508,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-                    // [CN_TEXT]
+                    // fragment
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
                             .getLineIndex(startPoint, endPoint)
@@ -523,7 +523,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-                    // [CN_TEXT]
+                    // fragment
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
                             .getAreaIndex(startPoint, endPoint)
@@ -543,7 +543,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private fun video() {
         if (isVideoRunning) {
-            Log.w("123", "[CN_TEXT]")
+            Log.w("123", "fragment")
             return
         }
         // Note: FileConfig.galleryPath requires integration with file configuration module
@@ -556,7 +556,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     private fun full() {
         rotateType =
             if (rotateType == 0) {
-                Log.w("123", "[CN_TEXT]")
+                Log.w("123", "fragment")
                 1
             } else {
                 0
@@ -581,7 +581,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     var isRecord = false
     var type = ""
-    var timeMillis = 1000L // [CN_TEXT]1s
+    var timeMillis = 1000L // fragment1s
 
     private fun recordThermal() {
         val thermalId = TimeTool.showDateSecond()
@@ -603,7 +603,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
                 delay(timeMillis)
                 time++
             }
-            Log.w("123", "[CN_TEXT], [CN_TEXT]:$time")
+            Log.w("123", "fragment, fragment:$time")
         }
     }
 }

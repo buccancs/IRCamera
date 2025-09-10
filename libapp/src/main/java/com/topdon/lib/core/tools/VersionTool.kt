@@ -18,7 +18,7 @@ object VersionTool {
                 str.toFloat()
                 versionStr = str
             } catch (e: Exception) {
-                // str [CN_TEXT]1.01Type[CN_TEXT]
+                // str utility1.01Typeutility
             }
         }
 
@@ -26,7 +26,7 @@ object VersionTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun checkNewVersion(
         serverVersionStr: String,
@@ -38,13 +38,13 @@ object VersionTool {
             return serverV.toFloat() > localV.toFloat()
 //            return serverV.toFloat() != localV.toFloat()
         } catch (e: Exception) {
-            XLog.e("[CN_TEXT]: ${e.message}")
+            XLog.e("utility: ${e.message}")
             return false
         }
     }
 
     /**
-     * [CN_TEXT]app[CN_TEXT]
+     * utilityapputility
      */
     fun checkVersion(
         remoteStr: String,
@@ -66,7 +66,7 @@ object VersionTool {
             }
             return result
         } catch (e: Exception) {
-            XLog.e("[CN_TEXT]: ${e.message}, remoteStr: $remoteStr, localStr: $localStr")
+            XLog.e("utility: ${e.message}, remoteStr: $remoteStr, localStr: $localStr")
             return false
         }
     }

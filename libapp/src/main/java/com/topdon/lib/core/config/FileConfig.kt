@@ -10,8 +10,8 @@ import java.io.File
 
 object FileConfig {
     /**
-     * [CN_TEXT]Specified[CN_TEXT].
-     * Note，[CN_TEXT]，[CN_TEXT].
+     * dataSpecifieddata.
+     * Note，data，data.
      */
     fun getDetectImageDir(
         context: Context,
@@ -30,8 +30,8 @@ object FileConfig {
     }
 
     /**
-     * [CN_TEXT]-[CN_TEXT].
-     * Note，[CN_TEXT]，[CN_TEXT].
+     * data-data.
+     * Note，data，data.
      */
     fun getSignImageDir(
         context: Context,
@@ -50,12 +50,12 @@ object FileConfig {
     }
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     fun getFirmwareFile(filename: String): File = File(Utils.getApp().getExternalFilesDir("firmware"), filename)
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @JvmStatic
     fun getPdfDir(): String {
@@ -73,7 +73,7 @@ object FileConfig {
     }
 
     /**
-     * [CN_TEXT] Excel [CN_TEXT].
+     * data Excel data.
      */
     @JvmStatic
     val excelDir: String
@@ -92,7 +92,7 @@ object FileConfig {
         }
 
     /**
-     * [CN_TEXT]Gallery[CN_TEXT]
+     * dataGallerydata
      */
     @JvmStatic
     val gallerySourDir: String
@@ -106,7 +106,7 @@ object FileConfig {
         }
 
     /**
-     * [CN_TEXT] APP TC001 Gallery[CN_TEXT]，[CN_TEXT]
+     * data APP TC001 Gallerydata，data
      */
     @JvmStatic
     val oldTc001GalleryDir: String
@@ -128,7 +128,7 @@ object FileConfig {
         }
 
     /**
-     * [CN_TEXT] Gallery[CN_TEXT]
+     * data Gallerydata
      */
     @JvmStatic
     val lineGalleryDir: String
@@ -143,7 +143,7 @@ object FileConfig {
         }
 
     /**
-     * TS004 [CN_TEXT]Gallery[CN_TEXT]
+     * TS004 dataGallerydata
      */
     @JvmStatic
     val ts004GalleryDir: String
@@ -158,7 +158,7 @@ object FileConfig {
         }
 
     /**
-     * TC007 [CN_TEXT]Gallery[CN_TEXT]
+     * TC007 dataGallerydata
      */
     @JvmStatic
     val tc007GalleryDir: String
@@ -173,7 +173,7 @@ object FileConfig {
         }
 
     /**
-     * [CN_TEXT] [CN_TEXT]Gallery[CN_TEXT]
+     * data dataGallerydata
      */
     @JvmStatic
     val lineIrGalleryDir: String
@@ -188,7 +188,7 @@ object FileConfig {
         }
 
     /**
-     * TC007 [CN_TEXT]Gallery[CN_TEXT]
+     * TC007 dataGallerydata
      */
     @JvmStatic
     val tc007IrGalleryDir: String
@@ -203,7 +203,7 @@ object FileConfig {
         }
 
     /**
-     * [CN_TEXT]/Documents/APP[CN_TEXT]/house
+     * data/Documents/APPdata/house
      */
     @JvmStatic
     val documentsDir: String

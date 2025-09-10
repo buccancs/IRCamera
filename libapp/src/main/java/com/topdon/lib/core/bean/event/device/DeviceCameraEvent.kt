@@ -2,8 +2,8 @@ package com.topdon.lib.core.bean.event.device
 
 /**
  * @param action
- * 100:[CN_TEXT]
- * 101:[CN_TEXT]
+ * 100:event
+ * 101:event
  */
-@Deprecated("[CN_TEXT]，[CN_TEXT] Event")
+@Deprecated("event，event Event")
 data class DeviceCameraEvent(val action: Int)

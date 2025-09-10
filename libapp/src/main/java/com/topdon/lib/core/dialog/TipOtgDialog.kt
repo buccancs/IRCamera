@@ -16,7 +16,7 @@ import com.topdon.lib.core.databinding.DialogTipOtgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * [CN_TEXT]
+ * dialog
  * create by fylder on 2018/6/15
  **/
 class TipOtgDialog : Dialog {
@@ -115,13 +115,13 @@ class TipOtgDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // [CN_TEXT]
+                    // dialog
                     0.85
                 } else {
-                    // [CN_TEXT]
+                    // dialog
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[CN_TEXT]
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settingsdialog
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

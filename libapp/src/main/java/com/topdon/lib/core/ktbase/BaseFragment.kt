@@ -46,9 +46,9 @@ abstract class BaseFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden) {
-            // [CN_TEXT] [CN_TEXT]onPause();
-        } else { // [CN_TEXT] [CN_TEXT]onResume();
-            // [CN_TEXT]
+            // fragment fragmentonPause();
+        } else { // fragment fragmentonResume();
+            // fragment
             initData()
         }
     }
@@ -59,12 +59,12 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * [CN_TEXT] LMS [CN_TEXT].
+     * fragment LMS fragment.
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * [CN_TEXT] LMS [CN_TEXT].
+     * fragment LMS fragment.
      */
     fun showLoadingDialog(
         @StringRes resId: Int = 0,
@@ -77,7 +77,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * [CN_TEXT] LMS [CN_TEXT].
+     * fragment LMS fragment.
      */
     fun showLoadingDialog(text: CharSequence) {
         if (loadingDialog == null) {
@@ -88,7 +88,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * [CN_TEXT] LMS [CN_TEXT].
+     * fragment LMS fragment.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()

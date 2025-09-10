@@ -5,14 +5,14 @@ import com.blankj.utilcode.util.GsonUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
- * [CN_TEXT]，[CN_TEXT].
+ * Report data structure for IR thermal analysis.
  */
 @Parcelize
 data class ReportItemBean(
     val testReportId: String?,
-    val testInfo: String?, //[CN_TEXT] JSON
+    val testInfo: String?, // Data field JSON
     val testTime: String?,
-    val uploadTime: String?, //[CN_TEXT]
+    val uploadTime: String?, // Data field
     val sn: String?,
     val url: String?,
     val status: Int?

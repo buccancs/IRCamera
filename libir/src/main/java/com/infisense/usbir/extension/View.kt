@@ -22,8 +22,8 @@ fun View.invisible(){
 }
 
 /**
- * [CN_TEXT]view，[CN_TEXT]。
- * @param duration [CN_TEXT]，[CN_TEXT]，[CN_TEXT]500[CN_TEXT]。
+ * viewview，view。
+ * @param duration view，view，view500view。
  */
 fun View?.goneAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.GONE
@@ -34,8 +34,8 @@ fun View?.goneAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * [CN_TEXT]view，[CN_TEXT]。
- * @param duration [CN_TEXT]，[CN_TEXT]，[CN_TEXT]500[CN_TEXT]。
+ * viewview，view。
+ * @param duration view，view，view500view。
  */
 fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.INVISIBLE
@@ -46,9 +46,9 @@ fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * [CN_TEXT]view，[CN_TEXT]。
+ * viewview，view。
  *
- * @param duration [CN_TEXT]，[CN_TEXT]，[CN_TEXT]500[CN_TEXT]。
+ * @param duration view，view，view500view。
  */
 fun View?.visibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.VISIBLE

@@ -45,23 +45,23 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * [CN_TEXT]、TC007 [CN_TEXT]
+ * activity、TC007 activity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
 
     /**
-     * Current[CN_TEXT] position
+     * Currentactivity position
      */
     private var position = 0
     /**
-     * [CN_TEXT]，Current[CN_TEXT].
+     * activity，Currentactivity.
      */
     private lateinit var dataList: ArrayList<GalleryBean>
 
@@ -203,7 +203,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT] excel [CN_TEXT].
+     * activity excel activity.
      */
     private var progressDialog: ProgressDialog? = null
     private var excelName: String = ""
@@ -228,12 +228,12 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             findViewById<LinearLayout>(R.id.ll_ir_edit_2D) -> {
-                //2d[CN_TEXT]
+                //2dactivity
                 actionEditOrReport(false)
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_edit_3D) -> {
-                //[CN_TEXT]3D
+                // Activity logic3D
                 val data = dataList[position]
                 val fileName = data.name.substringBeforeLast(".")
                 val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
@@ -248,10 +248,10 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                     withContext(Dispatchers.IO) {
                         val file = File(irPath)
                         if (!file.exists()) {
-                            XLog.w("IR[CN_TEXT]: ${file.absolutePath}")
+                            XLog.w("IRactivity: ${file.absolutePath}")
                             return@withContext
                         }
-                        XLog.w("IR[CN_TEXT]: ${file.absolutePath}")
+                        XLog.w("IRactivity: ${file.absolutePath}")
                         val bytes = file.readBytes()
                         val headLenBytes = ByteArray(2)
                         System.arraycopy(bytes, 0, headLenBytes, 0, 2)
@@ -273,7 +273,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_report) -> {
-                //[CN_TEXT]
+                // Activity logic
                 actionEditOrReport(true)
             }
 

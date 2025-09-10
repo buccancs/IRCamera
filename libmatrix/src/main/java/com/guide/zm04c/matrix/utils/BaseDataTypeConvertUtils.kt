@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.experimental.and
 
 /**
- * created by liuhongwei gd02527 on 2018[CN_TEXT]07[CN_TEXT]27[CN_TEXT]
+ * created by liuhongwei gd02527 on 2018utility07utility27utility
  */
 class BaseDataTypeConvertUtils private constructor() {
 
@@ -65,7 +65,7 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * [CN_TEXT]float[CN_TEXT]
+         * utilityfloatutility
          *
          * @param number
          * @return
@@ -88,7 +88,7 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * [CN_TEXT]float[CN_TEXT]
+         * utilityfloatutility
          *
          * @param number
          * @return
@@ -111,9 +111,9 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * [CN_TEXT]float[CN_TEXT]
+         * utilityfloatutility
          *
-         * @param number [CN_TEXT]float[CN_TEXT]
+         * @param number utilityfloatutility
          * @param df     DecimalFormat
          * @return
          */

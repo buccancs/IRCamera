@@ -14,7 +14,7 @@ import com.topdon.lib.ui.R as UiR
  * @author: CaiSongL
  * @date: 2023/4/1 13:48
  */
-@Deprecated("[CN_TEXT]-Menu-Photo[CN_TEXT]，[CN_TEXT]")
+@Deprecated("item-Menu-Photoitem，item")
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {
     val data: List<String> =
         listOf(

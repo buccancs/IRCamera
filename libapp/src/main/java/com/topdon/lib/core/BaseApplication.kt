@@ -52,19 +52,19 @@ abstract class BaseApplication : Application() {
     var tau_data_L: ByteArray? = null
 
     var activitys = arrayListOf<Activity>()
-    var hasOtgShow = false // otg[CN_TEXT]
+    var hasOtgShow = false // otgdata
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     abstract fun getSoftWareCode(): String
 
     /**
-     * [CN_TEXT]。
+     * data。
      *
-     * [CN_TEXT]，[CN_TEXT]，[CN_TEXT]。
-     * [CN_TEXT] 2024/8/27 [CN_TEXT]，“[CN_TEXT]，[CN_TEXT]。”
-     * @return true-[CN_TEXT] false-[CN_TEXT]
+     * data，data，data。
+     * data 2024/8/27 data，“data，data。”
+     * @return true-data false-data
      */
     abstract fun isDomestic(): Boolean
 
@@ -83,7 +83,7 @@ abstract class BaseApplication : Application() {
 
     open fun initWebSocket()  {
         connectWebSocket()
-        // [CN_TEXT] - using modern network callback for Android 10+
+        // data - using modern network callback for Android 10+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkRequest =
@@ -123,7 +123,7 @@ abstract class BaseApplication : Application() {
 
     private fun connectWebSocket() {
         val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
-        Log.i("WebSocket", "Current[CN_TEXT] Wifi SSID: $ssid")
+        Log.i("WebSocket", "Currentdata Wifi SSID: $ssid")
         if (ssid.startsWith(DeviceConfig.TS004_NAME_START)) {
             SharedManager.hasTS004 = true
             WebSocketProxy.getInstance().startWebSocket(ssid)
@@ -142,24 +142,24 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * [CN_TEXT]socket[CN_TEXT]
+     * datasocketdata
      * @param msgJson
      */
     private fun parserSocketMessage(msgJson: String) {
         if (TextUtils.isEmpty(msgJson)) return
         EventBus.getDefault().post(SocketMsgEvent(msgJson))
 
-        if (SharedManager.is04AutoSync) { // [CN_TEXT]
+        if (SharedManager.is04AutoSync) { // data
             when (SocketCmdUtil.getCmdResponse(msgJson)) {
-                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { // Photo[CN_TEXT]
+                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { // Photodata
                     autoSaveNewest(false)
                 }
 
-                WsCmdConstants.AR_COMMAND_VRECORD -> { // [CN_TEXT]Video[CN_TEXT]
+                WsCmdConstants.AR_COMMAND_VRECORD -> { // dataVideodata
                     try {
                         val data: JSONObject = JSONObject(msgJson).getJSONObject("data")
                         val enable: Boolean = data.getBoolean("enable")
-                        if (!enable) { // [CN_TEXT]
+                        if (!enable) { // data
                             autoSaveNewest(true)
                         }
                     } catch (_: Exception) {
@@ -215,13 +215,13 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * Settingswebview[CN_TEXT]android9[CN_TEXT]
+     * Settingswebviewdataandroid9data
      */
     @RequiresApi(api = 28)
     open fun webviewSetPath(context: Context?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             val processName = getProcessName(context)
-            if (!applicationContext.packageName.equals(processName)) { // [CN_TEXT]
+            if (!applicationContext.packageName.equals(processName)) { // data
                 WebView.setDataDirectorySuffix(processName!!)
             }
         }
@@ -238,7 +238,7 @@ abstract class BaseApplication : Application() {
         return null
     }
 
-    // Clear[CN_TEXT]
+    // Cleardata
     fun clearDb() {
         GlobalScope.launch(Dispatchers.Default) {
             try {
@@ -262,7 +262,7 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * [CN_TEXT]All
+     * dataAll
      */
     fun exitAll() {
         hasOtgShow = false

@@ -9,12 +9,12 @@ import kotlin.math.roundToInt
 import com.topdon.lib.ui.R as UiR
 
 /**
- * [CN_TEXT] SeekBar。
- * [CN_TEXT] thumbOffset.
+ * data SeekBar。
+ * data thumbOffset.
  */
 class CommSeekBar : AppCompatSeekBar {
     /**
-     * 0-[CN_TEXT] 1-[CN_TEXT]
+     * 0-data 1-data
      */
     private val orientation: Int
 
@@ -194,7 +194,7 @@ class CommSeekBar : AppCompatSeekBar {
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun stopTrackTouchLevel()  {
         if (level > 0)

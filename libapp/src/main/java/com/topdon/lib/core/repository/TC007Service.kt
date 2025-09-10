@@ -16,19 +16,19 @@ import retrofit2.http.Query
  */
 interface TC007Service {
     /**
-     * [CN_TEXT]
+     * data
      */
     @GET("/v1/system/product/info/dj")
     suspend fun getProductInfo(): TC007Response<ProductBean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @GET("/v1/system/local/battery")
     suspend fun getBatteryInfo(): TC007Response<BatteryInfo>
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @PUT("/v1/system/local/time")
     suspend fun syncTime(
@@ -36,7 +36,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * [CN_TEXT]-[CN_TEXT]
+     * data-data
      */
     @Multipart
     @POST("/v1/system/upgrade/package?reset=true")
@@ -49,31 +49,31 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * [CN_TEXT]State.
+     * dataState.
      */
     @GET("/v1/system/upgrade/status")
     suspend fun getUpgradeStatus(): TC007Response<TC07UpgradeStatus>
 
     /**
-     * [CN_TEXT]Settings
+     * dataSettings
      */
     @PUT("/v1/system/magic/factory")
     suspend fun resetToFactory(): TC007Response<Boolean>
 
     /**
-     * [CN_TEXT]
+     * data
      */
     @PUT("/v1/camera/videoin/thermal/lid")
     suspend fun correction(): TC007Response<Any?>
 
     /**
-     * [CN_TEXT]Temperature measurement[CN_TEXT]
+     * dataTemperature measurementdata
      */
     @GET("/v1/thermal/env/attribute?default=false")
     suspend fun getEnvAttr(): TC007Response<EnvAttr>
 
     /**
-     * SettingsTemperature measurement[CN_TEXT]
+     * SettingsTemperature measurementdata
      */
     @PUT("/v1/thermal/env/attribute?default=false")
     suspend fun setEnvAttr(
@@ -81,7 +81,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsdata
      */
     @PUT("/v1/thermal/env/target")
     suspend fun setIRConfig(
@@ -92,7 +92,7 @@ interface TC007Service {
     suspend fun getTempFrame(): TC007Response<TempFrameParam>
 
     /**
-     * Settings[CN_TEXT]Temperature measurement（[CN_TEXT]、[CN_TEXT]High temperature、[CN_TEXT]Low temperature）
+     * SettingsdataTemperature measurement（data、dataHigh temperature、dataLow temperature）
      */
     @POST("/v1/thermal/temp/frame")
     suspend fun setTempFrame(
@@ -100,7 +100,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * SettingsTemperature measurement[CN_TEXT]
+     * SettingsTemperature measurementdata
      */
     @POST("/v1/thermal/temp/point")
     suspend fun setTempPoint(
@@ -108,7 +108,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * SettingsTemperature measurement[CN_TEXT]
+     * SettingsTemperature measurementdata
      */
     @POST("/v1/thermal/temp/line")
     suspend fun setTempLine(
@@ -116,7 +116,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * SettingsTemperature measurement[CN_TEXT]
+     * SettingsTemperature measurementdata
      */
     @POST("/v1/thermal/temp/rectangle")
     suspend fun setTempRect(
@@ -130,8 +130,8 @@ interface TC007Service {
     suspend fun getPhoto(): TC007Response<PhotoBean>
 
     /**
-     * Settings[CN_TEXT]Mode
-     * 0：Infrared；1：Visible light；2：Picture in picture；3：Dual light[CN_TEXT]；4：[CN_TEXT]
+     * SettingsdataMode
+     * 0：Infrared；1：Visible light；2：Picture in picture；3：Dual lightdata；4：data
      */
     @PUT("/v1/camera/videoin/mode")
     suspend fun setMode(
@@ -171,18 +171,18 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * [CN_TEXT]Temperature measurement[CN_TEXT]
+     * dataTemperature measurementdata
      * chn
      * integer
-     * [CN_TEXT]
-     * [CN_TEXT]
-     * [CN_TEXT]:
+     * data
+     * data
+     * data:
      * 1
      * default
      * string
-     * [CN_TEXT]
-     * true：[CN_TEXT]；false：Current[CN_TEXT]
-     * [CN_TEXT]:
+     * data
+     * true：data；false：Currentdata
+     * data:
      * false
      */
     @GET("/v1/thermal/env/attribute")

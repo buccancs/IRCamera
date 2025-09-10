@@ -11,13 +11,13 @@ import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.SizeUtils
 
 /**
- * RecyclerView [CN_TEXT] BindingAdapter.
+ * RecyclerView item BindingAdapter.
  *
  * Created by LCG on 2024/11/5.
  */
 object ViewBindingAdapter {
     /**
-     * [CN_TEXT] view [CN_TEXT] background [CN_TEXT] selectableItemBackground [CN_TEXT].
+     * item view item background item selectableItemBackground item.
      */
     @JvmStatic
     @BindingAdapter("bgEffect")
@@ -46,10 +46,10 @@ object ViewBindingAdapter {
                     drawableList.add(effectDrawable)
                 }
             } else {
-                if (drawableList.size == layerCount) { // [CN_TEXT] hint
+                if (drawableList.size == layerCount) { // List item data hint
                     return
                 }
-                if (drawableList.isEmpty()) { // [CN_TEXT]1[CN_TEXT] hint，[CN_TEXT]
+                if (drawableList.isEmpty()) { // List item data1item hint，item
                     view.background = null
                     return
                 }
@@ -83,9 +83,9 @@ object ViewBindingAdapter {
     }
 
     /**
-     * [CN_TEXT] shape [CN_TEXT]Specified view [CN_TEXT] background [CN_TEXT]Settings[CN_TEXT]Specified[CN_TEXT].
+     * item shape itemSpecified view item background itemSettingsitemSpecifieditem.
      *
-     * Note：[CN_TEXT] bgXXX [CN_TEXT]Settings，[CN_TEXT]Settings[CN_TEXT] android:background [CN_TEXT]？
+     * Note：item bgXXX itemSettings，itemSettingsitem android:background item？
      */
     @JvmStatic
     @BindingAdapter("bgColor")
@@ -99,14 +99,14 @@ object ViewBindingAdapter {
     }
 
     /**
-     * [CN_TEXT] shape [CN_TEXT]Specified view [CN_TEXT] background Settings[CN_TEXT]，[CN_TEXT]**dp**.
+     * item shape itemSpecified view item background Settingsitem，item**dp**.
      *
-     * Note：[CN_TEXT] bgXXX [CN_TEXT]Settings，[CN_TEXT]Settings。
-     * @param bgCorners 4[CN_TEXT]，[CN_TEXT]dp
-     * @param bgCornersLT left-top [CN_TEXT]，[CN_TEXT]，[CN_TEXT]dp
-     * @param bgCornersRT right-top [CN_TEXT]，[CN_TEXT]，[CN_TEXT]dp
-     * @param bgCornersLB left-bottom [CN_TEXT]，[CN_TEXT]，[CN_TEXT]dp
-     * @param bgCornersRB right-bottom [CN_TEXT]，[CN_TEXT]，[CN_TEXT]dp
+     * Note：item bgXXX itemSettings，itemSettings。
+     * @param bgCorners 4item，itemdp
+     * @param bgCornersLT left-top item，item，itemdp
+     * @param bgCornersRT right-top item，item，itemdp
+     * @param bgCornersLB left-bottom item，item，itemdp
+     * @param bgCornersRB right-bottom item，item，itemdp
      */
     @JvmStatic
     @BindingAdapter(value = ["bgCorners", "bgCornersLT", "bgCornersRT", "bgCornersLB", "bgCornersRB"], requireAll = false)
@@ -131,9 +131,9 @@ object ViewBindingAdapter {
     }
 
     /**
-     * [CN_TEXT] shape [CN_TEXT]Specified view [CN_TEXT] background Settings[CN_TEXT].
-     * @param width [CN_TEXT]，[CN_TEXT]dp
-     * @param color [CN_TEXT]
+     * item shape itemSpecified view item background Settingsitem.
+     * @param width item，itemdp
+     * @param color item
      */
     @JvmStatic
     @BindingAdapter(value = ["bgStrokeWidth", "bgStrokeColor"], requireAll = false)
@@ -148,7 +148,7 @@ object ViewBindingAdapter {
     }
 
     /**
-     * [CN_TEXT] shape [CN_TEXT]Specified view [CN_TEXT] background Settings[CN_TEXT].
+     * item shape itemSpecified view item background Settingsitem.
      */
     @JvmStatic
     @BindingAdapter(value = ["bgStartColor", "bgCenterColor", "bgEndColor"], requireAll = false)
@@ -164,11 +164,11 @@ object ViewBindingAdapter {
     }
 
     /**
-     * [CN_TEXT] shape [CN_TEXT]Specified view [CN_TEXT] background SettingsSpecifiedType[CN_TEXT].
-     * @param angle [CN_TEXT]：[CN_TEXT]Angle，[CN_TEXT] 45 [CN_TEXT]，0[CN_TEXT] 90[CN_TEXT] -90[CN_TEXT]270[CN_TEXT]
-     * @param radius [CN_TEXT]：[CN_TEXT]
-     * @param centerX [CN_TEXT]：[CN_TEXT]X[CN_TEXT]
-     * @param centerY [CN_TEXT]：[CN_TEXT]Y[CN_TEXT]
+     * item shape itemSpecified view item background SettingsSpecifiedTypeitem.
+     * @param angle item：itemAngle，item 45 item，0item 90item -90item270item
+     * @param radius item：item
+     * @param centerX item：itemXitem
+     * @param centerY item：itemYitem
      */
     @JvmStatic
     @BindingAdapter(value = ["bgAngle", "bgRadius", "bgCenterX", "bgCenterY"], requireAll = false)
@@ -213,15 +213,15 @@ object ViewBindingAdapter {
     }
 
     /**
-     * [CN_TEXT]Specified view [CN_TEXT] background [CN_TEXT] GradientDrawable.
+     * itemSpecified view item background item GradientDrawable.
      *
-     * [CN_TEXT]Specified view [CN_TEXT] background [CN_TEXT] GradientDrawable，[CN_TEXT]；
+     * itemSpecified view item background item GradientDrawable，item；
      *
-     * [CN_TEXT]Specified view [CN_TEXT] background [CN_TEXT] ColorDrawable，[CN_TEXT] GradientDrawable；
+     * itemSpecified view item background item ColorDrawable，item GradientDrawable；
      *
-     * [CN_TEXT]Specified view [CN_TEXT] background [CN_TEXT] LayerDrawable，[CN_TEXT] background id [CN_TEXT] GradientDrawable；
+     * itemSpecified view item background item LayerDrawable，item background id item GradientDrawable；
      *
-     * [CN_TEXT] GradientDrawable [CN_TEXT]。
+     * item GradientDrawable item。
      */
     @JvmStatic
     private fun buildGradientDrawable(view: View): GradientDrawable {
@@ -244,8 +244,8 @@ object ViewBindingAdapter {
     }
 
     /**
-     * [CN_TEXT] view [CN_TEXT] background [CN_TEXT]Settings bgEffect，[CN_TEXT] bgDrawable [CN_TEXT] bgEffect [CN_TEXT] LayerDrawable；
-     * [CN_TEXT] bgDrawable
+     * item view item background itemSettings bgEffect，item bgDrawable item bgEffect item LayerDrawable；
+     * item bgDrawable
      */
     @JvmStatic
     private fun buildEffectDrawable(

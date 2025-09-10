@@ -10,7 +10,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 
 /**
- * ViewPager [CN_TEXT] View.
+ * ViewPager view View.
  *
  * Created by chenggeng.lin on 2023/11/13.
  */

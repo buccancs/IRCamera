@@ -31,7 +31,7 @@ import java.nio.ByteBuffer
 
 
 /**
- * Dual light[CN_TEXT]
+ * Dual lightactivity
  * @author: CaiSongL
  * @date: 2024/1/17 17:47
  */
@@ -67,7 +67,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 
     override fun initView() {
         super.initView()
-//        findViewById<TextView>(R.id.toolbar_title)?.text = "Dual light[CN_TEXT]"
+//        findViewById<TextView>(R.id.toolbar_title)?.text = "Dual lightactivity"
         cameraView.visibility = View.GONE
         dualTextureViewNativeCamera?.visibility = View.VISIBLE
         // // thermalSteeringView.listener = { action, moveX ->
@@ -81,7 +81,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             SaveSettingUtil.FusionTypeMeanFusion -> {//Dual light2
                 thermalRecyclerNight?.twoLightType = TwoLightType.TWO_LIGHT_2
             }
-            SaveSettingUtil.FusionTypeIROnly -> {//[CN_TEXT]Infrared
+            SaveSettingUtil.FusionTypeIROnly -> {// Activity logicInfrared
                 thermalRecyclerNight?.twoLightType = TwoLightType.IR
             }
             SaveSettingUtil.FusionTypeVLOnly -> {//Visible light
@@ -94,19 +94,19 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
 
 
     /**
-     * [CN_TEXT]Dual lightRegistration.
-     * @param action -1[CN_TEXT] 1-[CN_TEXT] 0[CN_TEXT]
-     * @param data CurrentRegistration[CN_TEXT]
+     * activityDual lightRegistration.
+     * @param action -1activity 1-activity 0activity
+     * @param data CurrentRegistrationactivity
      */
     private fun setDisp(action: Int, data: Int) {
         if (action == -1 || action == 1) {
-            // [CN_TEXT]
+            // activity
             lifecycleScope.launch(Dispatchers.IO) {
                 dualDisp = data
                 dualView?.dualUVCCamera!!.setDisp(data)
             }
         } else {
-            // [CN_TEXT]
+            // activity
             val oemInfo = ByteArray(1024)
             ircmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
             val dataStr = data.toString()
@@ -114,7 +114,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             val result = ircmd?.oemWrite(CommonParams.ProductType.P2,oemInfo)
 //            SharedManager.setIrDualDisp(dualDisp)
             if (result == 0){
-                // [CN_TEXT]
+                // activity
                 // if (thermalSteeringView.isVisible) {
                 //    thermalSteeringView.visibility = View.GONE
                     thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
@@ -138,14 +138,14 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeMeanFusion
                 setFusion(mCurrentFusionType)
             }
-            TwoLightType.IR -> {//[CN_TEXT]Infrared
+            TwoLightType.IR -> {// Activity logicInfrared
                 mCurrentFusionType = DualCameraParams.FusionType.IROnly
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeIROnly
                 setFusion(mCurrentFusionType)
                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
                 // thermalSteeringView.visibility = View.GONE
             }
-            TwoLightType.LIGHT -> {//[CN_TEXT]Visible light
+            TwoLightType.LIGHT -> {// Activity logicVisible light
                 mCurrentFusionType = DualCameraParams.FusionType.VLOnly
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeVLOnly
                 setFusion(mCurrentFusionType)
@@ -194,7 +194,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         temperatureSeekbar.setPseudocode(pseudoColorMode)
         /**
          * SettingsPseudo-color【set pseudocolor】
-         * [CN_TEXT]Core[CN_TEXT]([CN_TEXT]Pseudo-color[CN_TEXT],Settings[CN_TEXT])
+         * activityCoreactivity(activityPseudo-coloractivity,Settingsactivity)
          */
         // dualView?.dualUVCCamera?.setPseudocolor(PseudocodeUtils.changeDualPseudocodeModelByOld(pseudoColorMode))
         SaveSettingUtil.pseudoColorMode = pseudoColorMode
@@ -225,7 +225,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         runOnUiThread {
             // thermalSteeringView.rotationIR = rotateInt
         }
-        //Dual light[CN_TEXT]RotateAngle[CN_TEXT]
+        //Dual lightactivityRotateAngleactivity
         when (rotateInt) {
             0 -> dualView?.dualUVCCamera?.setImageRotate(DualCameraParams.TypeLoadParameters.ROTATE_90)
             90 -> dualView?.dualUVCCamera?.setImageRotate(DualCameraParams.TypeLoadParameters.ROTATE_180)
@@ -238,7 +238,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         System.arraycopy(irFrame, 0, preIrData, 0, preIrData.size)
         System.arraycopy(irFrame, preIrData.size, preTempData, 0, preTempData.size)
         if (irImageHelp.getColorList() != null){
-            //[CN_TEXT]Pseudo-color[CN_TEXT]
+            // Activity logicPseudo-coloractivity
             LibIRProcess.convertYuyvMapToARGBPseudocolor(
                 preIrData, (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
                 CommonParams.PseudoColorType.PSEUDO_1, preIrARGBData
@@ -250,11 +250,11 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             )
         }
         irImageHelp.customPseudoColor(preIrARGBData,preTempData,Const.IR_WIDTH,Const.IR_HEIGHT)
-        //[CN_TEXT],[CN_TEXT]Pseudo-color[CN_TEXT]
+        // Activity logic,activityPseudo-coloractivity
         irImageHelp.setPseudoColorMaxMin(
             preIrARGBData, preTempData, editMaxValue,
             editMinValue, Const.IR_WIDTH,Const.IR_HEIGHT)
-        //[CN_TEXT]，Dual light[CN_TEXT]Rotate[CN_TEXT]，[CN_TEXT]，（[CN_TEXT]256*192）
+        // Activity logic，Dual lightactivityRotateactivity，activity，（activity256*192）
        val tempData =irImageHelp.contourDetection(alarmBean,
            preIrARGBData,preTempData,
             Const.IR_HEIGHT,Const.IR_WIDTH)
@@ -287,7 +287,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     }
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     override fun initVideoRecordFFmpeg() {
         videoRecord = VideoRecordFFmpeg(
@@ -308,7 +308,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             startUSB(false,false)
             startISP()
             isrun = true
-            //[CN_TEXT]
+            // Activity logic
             configParam()
             thermalRecyclerNight.updateCameraModel()
             initIRConfig()

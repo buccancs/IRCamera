@@ -5,12 +5,12 @@ import kotlin.math.abs
 
 object TempUtil {
     fun getLineTemps(point1: Point, point2: Point, tempArray: ByteArray, width: Int): List<Float> {
-        if (point1 == point2) {//[CN_TEXT]，[CN_TEXT]
+        if (point1 == point2) {// Utility function，utility
             return ArrayList(0)
         }
 
         val pointList: ArrayList<Point> = ArrayList(abs(point1.x - point2.x).coerceAtLeast(abs(point1.y - point2.y)))
-        if (point1.x == point2.x) {//[CN_TEXT] X [CN_TEXT]
+        if (point1.x == point2.x) {// Utility function X utility
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
             for (i in startY .. endY) {
@@ -19,20 +19,20 @@ object TempUtil {
         } else {
             val k = (point1.y - point2.y).toFloat() / (point1.x - point2.x).toFloat()
             val b = point1.y - k * point1.x
-            if (abs(k) <= 1) {//x[CN_TEXT]
+            if (abs(k) <= 1) {//xutility
                 val startX = point1.x.coerceAtMost(point2.x)
                 val endX = point1.x.coerceAtLeast(point2.x)
                 for (i in startX .. endX) {
                     pointList.add(Point(i, (k * i + b).toInt()))
                 }
-            } else {//y[CN_TEXT]
-                if (k >= 0) {//[CN_TEXT]
+            } else {//yutility
+                if (k >= 0) {// Utility function
                     val startY = point1.y.coerceAtMost(point2.y)
                     val endY = point1.y.coerceAtLeast(point2.y)
                     for (y in startY .. endY) {
                         pointList.add(Point(((y - b) / k).toInt(), y))
                     }
-                } else {//[CN_TEXT]
+                } else {// Utility function
                     val startY = point1.y.coerceAtLeast(point2.y)
                     val endY = point1.y.coerceAtMost(point2.y)
                     for (y in startY downTo endY) {

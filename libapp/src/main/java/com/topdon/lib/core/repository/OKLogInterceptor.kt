@@ -8,7 +8,7 @@ import okio.Buffer
 import java.nio.charset.StandardCharsets
 
 /**
- * OKHttpClient [CN_TEXT]，[CN_TEXT] Interceptor.
+ * OKHttpClient data，data Interceptor.
  * Created by LCG on 2024/4/28.
  */
 class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
@@ -22,7 +22,7 @@ class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
             if (requestBody != null && (contentType == null || contentType == "application/json")) {
                 val buffer = Buffer()
                 requestBody.writeTo(buffer)
-                XLog.tag("RetrofitLog").v("[CN_TEXT]：${buffer.readString(StandardCharsets.UTF_8)}")
+                XLog.tag("RetrofitLog").v("data：${buffer.readString(StandardCharsets.UTF_8)}")
             }
         }
 
@@ -47,9 +47,9 @@ class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
                 source.request(Long.MAX_VALUE)
                 val responseStr = source.buffer.clone().readString(StandardCharsets.UTF_8)
                 if (responseStr.length > 1024) {
-                    XLog.tag("RetrofitLog").v("[CN_TEXT]：${responseStr.substring(0, 1024)} ...[CN_TEXT]")
+                    XLog.tag("RetrofitLog").v("data：${responseStr.substring(0, 1024)} ...data")
                 } else {
-                    XLog.tag("RetrofitLog").v("[CN_TEXT]：$responseStr")
+                    XLog.tag("RetrofitLog").v("data：$responseStr")
                 }
             }
         }

@@ -5,8 +5,8 @@ import com.topdon.lib.core.utils.CommUtils
 
 data class WatermarkBean(
     var isOpen: Boolean = false,
-    var title: String = CommUtils.getAppName(), // [CN_TEXT]30[CN_TEXT]
-    var address: String = "", // [CN_TEXT]80[CN_TEXT]
+    var title: String = CommUtils.getAppName(), // data30data
+    var address: String = "", // data80data
     var isAddTime: Boolean = false,
 ) {
     companion object {

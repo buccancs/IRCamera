@@ -24,13 +24,13 @@ class UserInfoManager {
     }
 
     /**
-     * [CN_TEXT]（[CN_TEXT]token[CN_TEXT]）
-     * token[CN_TEXT]-1[CN_TEXT]，[CN_TEXT]
+     * data（datatokendata）
+     * tokendata-1data，data
      */
     fun isLogin(): Boolean {
         val token = SharedManager.getToken()
         return if (TextUtils.equals("-1", token)) {
-            // [CN_TEXT]Mode[CN_TEXT]
+            // dataModedata
             false
         } else {
             !TextUtils.isEmpty(token)
@@ -38,7 +38,7 @@ class UserInfoManager {
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun login(
         token: String,
@@ -56,7 +56,7 @@ class UserInfoManager {
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun logout() {
         SharedManager.setToken("")

@@ -68,10 +68,10 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
      */
     private val mIrPid = 0x5830
     private val mIrFps = 25
-    private var mIrCameraWidth = 0 // [CN_TEXT]
-    private var mIrCameraHeight = 0 // [CN_TEXT]
-    private var mImageWidth = 0 // [CN_TEXT]Rotate[CN_TEXT]
-    private var mImageHeight = 0 // [CN_TEXT]Rotate[CN_TEXT]
+    private var mIrCameraWidth = 0 // activity
+    private var mIrCameraHeight = 0 // activity
+    private var mImageWidth = 0 // activityRotateactivity
+    private var mImageHeight = 0 // activityRotateactivity
 
     /**
      * vl camera
@@ -79,12 +79,12 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
      * 38704 - 0x9730  25 fps 1280*720
      */
     private val mVlPid = 12337
-    private val mVlFps = 30 // [CN_TEXT]
+    private val mVlFps = 30 // activity
     private val mVlCameraWidth = 1280
     private val mVlCameraHeight = 720
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private val mDualWidth = 480
     private val mDualHeight = 640
@@ -93,12 +93,12 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     private var sId : String = ""
 
     /**
-     * [CN_TEXT]Registration[CN_TEXT]
+     * activityRegistrationactivity
      */
     private val INIT_ALIGN_DATA = floatArrayOf(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
-    private var alignScaleX = 0f //[CN_TEXT]
-    private var alignScaleY = 0f //[CN_TEXT]
-    private var canOperate = false //[CN_TEXT]
+    private var alignScaleX = 0f // Activity logic
+    private var alignScaleY = 0f // Activity logic
+    private var canOperate = false // Activity logic
     private val mIrDualHandler: Handler = object : Handler(Looper.myLooper()!!) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -110,7 +110,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
                 hideLoadingDialog()
             } else if (msg.what == HANDLE_CONNECT) {
                 initDualCamera()
-                //[CN_TEXT]Registration[CN_TEXT]
+                // Activity logicRegistrationactivity
                 initDefIntegralArgsDISP_VALUE(DualCameraParams.TypeLoadParameters.ROTATE_270)
             } else if (msg.what == HIDE_LOADING_FINISH) {
                 hideLoadingDialog()
@@ -123,7 +123,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     var moveImageView: MoveImageView? = null
     var dualTextureView: SurfaceView? = null
     /**
-     * [CN_TEXT] move [CN_TEXT] Rotate[CN_TEXT].
+     * activity move activity Rotateactivity.
      */
     private var beforeTime = 0L
     public override fun initView() {
@@ -178,7 +178,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         seek_bar?.max = 2000
         seek_bar?.setEnabled(false)
         moveImageView?.setEnabled(false)
-        //[CN_TEXT]
+        // Activity logic
         initDataFlowMode(mDefaultDataFlowMode)
         initData()
         USBMonitorDualManager.getInstance()
@@ -204,10 +204,10 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     private fun initDataFlowMode(dataFlowMode: CommonParams.DataFlowMode) {
         if (dataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
             /**
-             * [CN_TEXT]+[CN_TEXT]
+             * activity+activity
              */
-            mIrCameraWidth = Const.SENSOR_WIDTH // [CN_TEXT]
-            mIrCameraHeight = Const.SENSOR_HEIGHT // [CN_TEXT]
+            mIrCameraWidth = Const.SENSOR_WIDTH // activity
+            mIrCameraHeight = Const.SENSOR_HEIGHT // activity
             mImageWidth = mIrCameraHeight / 2
             mImageHeight = mIrCameraWidth
         }
@@ -217,7 +217,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
      *
      */
     public override fun initData() {
-        // [CN_TEXT]，[CN_TEXT]
+        // activity，activity
 //        var width = 0
 //        var height = 0
 //        val screenWidth = ScreenUtils.getScreenWidth(this)
@@ -242,7 +242,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     private fun initDualCamera() {
-        //[CN_TEXT]Dual light[CN_TEXT]
+        // Activity logicDual lightactivity
         mDualView = DualViewWithManualAlignExternalCamera(
             mImageWidth, mImageHeight,
             mVlCameraHeight, mVlCameraWidth, mDualWidth, mDualHeight,
@@ -250,13 +250,13 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             mDefaultDataFlowMode
         )
 
-        //[CN_TEXT]Pseudo-color
+        // Activity logicPseudo-color
         initPsedocolor()
 
-        //Settings[CN_TEXT]Mode,[CN_TEXT]LPYFusion
+        //SettingsactivityMode,activityLPYFusion
         mDualView!!.dualUVCCamera.setFusion(DualCameraParams.FusionType.LPYFusion)
 
-        //[CN_TEXT]
+        // Activity logic
         USBMonitorDualManager.getInstance().ircmd.setPropAutoShutterParameter(
             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON
@@ -265,13 +265,13 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     /**
-     * [CN_TEXT]Pseudo-color，Settings[CN_TEXT]，Pseudo-color，[CN_TEXT]Mode[CN_TEXT]
+     * activityPseudo-color，Settingsactivity，Pseudo-color，activityModeactivity
      */
     private fun initPsedocolor() {
         val am = assets
         var `is`: InputStream
         try {
-            //[CN_TEXT]Pseudo-color
+            // Activity logicPseudo-color
             mPseudoColors = arrayOfNulls(11)
             `is` = am.open("pseudocolor/White_Hot.bin")
             var lenth = `is`.available()
@@ -318,7 +318,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
                 mPseudoColors[3]
             )
 
-            // [CN_TEXT]Settings[CN_TEXT]Pseudo-color
+            // activitySettingsactivityPseudo-color
             mDualView!!.dualUVCCamera.setPseudocolor(CommonParams.PseudoColorUsbDualType.IRONBOW_MODE)
             `is`.close()
         } catch (e: IOException) {
@@ -327,18 +327,18 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     /**
-     * [CN_TEXT]，Dual lightRegistration[CN_TEXT]，[CN_TEXT]，[CN_TEXT]NV[CN_TEXT]
-     * [CN_TEXT]Person[CN_TEXT]Registration[CN_TEXT]，[CN_TEXT]Registration[CN_TEXT]asset[CN_TEXT]
+     * activity，Dual lightRegistrationactivity，activity，activityNVactivity
+     * activityPersonactivityRegistrationactivity，activityRegistrationactivityassetactivity
      */
     open fun initDefIntegralArgsDISP_VALUE(typeLoadParameters: DualCameraParams.TypeLoadParameters) {
         lifecycleScope.launch{
             val parameters = IRCmdTool.getDualBytes(USBMonitorDualManager.getInstance().ircmd)
             val data = mDualView!!.dualUVCCamera.loadParameters(parameters, typeLoadParameters)
             dualDisp = IRCmdTool.dispNumber
-            // [CN_TEXT]
+            // activity
             mDualView?.dualUVCCamera?.setDisp(dualDisp)
             mDualView?.startPreview()
-            Log.e("Core[CN_TEXT]","[CN_TEXT]:")
+            Log.e("Coreactivity","activity:")
         }
     }
 
@@ -418,7 +418,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     var userStop = false
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun dualStop() {
         userStop = true
@@ -445,7 +445,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
             dualStopWithAlign();
             return
         }
-        //[CN_TEXT]
+        // Activity logic
         dualStop()
     }
 
@@ -466,7 +466,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     /**
-     * Photo[CN_TEXT]
+     * Photoactivity
      */
     private fun takePhoto() {
         //Photo
@@ -484,7 +484,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun handleMove(preX: Float, preY: Float, curX: Float, curY: Float) {
         if (!canOperate) {
@@ -505,7 +505,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     /**
-     * [CN_TEXT]Angle[CN_TEXT]
+     * activityAngleactivity
      */
     private fun handleAngle(angle: Float) {
         if (!canOperate) {
@@ -522,7 +522,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     }
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun finishAlign(isSavePara: Boolean) {
         if (!canOperate) {
@@ -533,7 +533,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
     fun updateSaveButton() {
         if (ivTakePhoto!!.visibility == View.INVISIBLE) {
             ivTakePhoto!!.visibility = View.VISIBLE
-            ivTakePhoto!!.setOnClickListener { //[CN_TEXT]
+            ivTakePhoto!!.setOnClickListener { // Activity logic
                 val message = Message.obtain()
                 message.what = SHOW_LOADING
                 message.obj = ""
@@ -576,7 +576,7 @@ class ManualStep2Activity : BaseActivity(), OnUSBConnectListener,
         private const val MIN_CLICK_DELAY_TIME = 100
         private var lastClickTime: Long = 0
 
-        //[CN_TEXT]70[CN_TEXT]move
+        // Activity logic70activitymove
         fun delayMoveTime(): Boolean {
             var flag = false
             val curClickTime = System.currentTimeMillis()

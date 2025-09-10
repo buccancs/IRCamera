@@ -26,7 +26,7 @@ object OpencvTools {
 //        addWeighted(backM, 1.0, frontM, 0.0, 0.0, dst)
 //        val dstBitmap = Bitmap.createBitmap(backM.width(), backM.height(), Bitmap.Config.ARGB_8888)
 //        Utils.matToBitmap(dst,dstBitmap)
-//        Log.w("opencv[CN_TEXT]：","${System.currentTimeMillis() - time}")
+//        Log.w("opencvutility：","${System.currentTimeMillis() - time}")
 //        return dstBitmap
 //    }
 

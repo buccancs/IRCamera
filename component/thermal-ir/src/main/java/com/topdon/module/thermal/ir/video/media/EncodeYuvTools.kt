@@ -4,13 +4,13 @@ import android.graphics.Bitmap
 import android.media.MediaCodecInfo.CodecCapabilities.*
 
 /**
- * COLOR_FormatYUV420Planar             [CN_TEXT]
+ * COLOR_FormatYUV420Planar             utility
  *
- * COLOR_FormatYUV420SemiPlanar         [CN_TEXT]
+ * COLOR_FormatYUV420SemiPlanar         utility
  *
- * COLOR_FormatYUV420PackedSemiPlanar   [CN_TEXT]
+ * COLOR_FormatYUV420PackedSemiPlanar   utility
  *
- * COLOR_FormatYUV420PackedPlanar       [CN_TEXT]
+ * COLOR_FormatYUV420PackedPlanar       utility
  *
  */
 object EncodeYuvTools {

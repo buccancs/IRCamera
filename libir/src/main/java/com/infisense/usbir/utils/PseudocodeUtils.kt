@@ -49,7 +49,7 @@ object PseudocodeUtils {
     }
 
     /**
-     * [CN_TEXT]sdk[CN_TEXT]
+     * utilitysdkutility
      */
     fun changePseudocodeModeByOld(oldPseudocodeMode : Int) : CommonParams.PseudoColorType {
         return when (oldPseudocodeMode) {

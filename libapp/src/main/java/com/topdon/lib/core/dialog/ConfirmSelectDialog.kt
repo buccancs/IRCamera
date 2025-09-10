@@ -13,7 +13,7 @@ import com.topdon.lib.core.databinding.DialogConfirmSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * TS004 [CN_TEXT]GalleryDelete[CN_TEXT].
+ * TS004 dialogGalleryDeletedialog.
  *
  * Created by LCG on 2024/2/29.
  */
@@ -22,7 +22,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     private lateinit var binding: DialogConfirmSelectBinding
 
     /**
-     * [CN_TEXT]，[CN_TEXT].
+     * dialog，dialog.
      */
     fun setShowIcon(isShowIcon: Boolean) {
         binding.ivIcon.isVisible = isShowIcon
@@ -39,7 +39,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * [CN_TEXT]Selected[CN_TEXT]，[CN_TEXT].
+     * dialogSelecteddialog，dialog.
      */
     fun setShowMessage(isShowMessage: Boolean) {
         binding.rlMessage.isVisible = isShowMessage
@@ -52,14 +52,14 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]“[CN_TEXT]”.
+     * dialog，dialog“dialog”.
      */
     fun setShowCancel(isShowCancel: Boolean) {
         binding.tvCancel.isVisible = isShowCancel
     }
 
     /**
-     * Settings[CN_TEXT]，[CN_TEXT]“[CN_TEXT]”.
+     * Settingsdialog，dialog“dialog”.
      */
     fun setCancelText(
         @StringRes cancelRes: Int,
@@ -68,7 +68,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * Settings[CN_TEXT]，[CN_TEXT]“Delete"
+     * Settingsdialog，dialog“Delete"
      */
     fun setConfirmText(
         @StringRes confirmRes: Int,
@@ -101,10 +101,10 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             binding.rlMessage -> { // SelectedState
                 binding.ivSelect.isSelected = !binding.ivSelect.isSelected
             }
-            binding.tvCancel -> { // [CN_TEXT]
+            binding.tvCancel -> { // dialog
                 dismiss()
             }
-            binding.tvConfirm -> { // [CN_TEXT]
+            binding.tvConfirm -> { // dialog
                 dismiss()
                 onConfirmClickListener?.invoke(binding.ivSelect.isSelected)
             }

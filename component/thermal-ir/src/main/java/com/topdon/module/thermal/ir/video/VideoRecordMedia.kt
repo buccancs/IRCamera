@@ -15,7 +15,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * [CN_TEXT]
+ * data
  * bitmap -> mp4
  */
 class VideoRecordMedia(
@@ -34,7 +34,7 @@ class VideoRecordMedia(
         encoder.setFrameDelay(25)
         width = 480
         height = width * cameraView.height / cameraView.width
-        //[CN_TEXT]
+        // Implementation
         if (height % 2 == 1) {
             height -= 1
         }
@@ -50,13 +50,13 @@ class VideoRecordMedia(
         }
         encoder.setOutputFilePath(exportedFile.path)
 //        if (bitmap == null) {
-//            Log.w("123", "[CN_TEXT]")
+//            Log.w("123", "data")
 //            return
 //        }
         encoder.setOutputSize(width, height)
         encoder.startEncode()
         isRunning = true
-        //[CN_TEXT]20,[CN_TEXT]50ms[CN_TEXT]
+        // Implementation20,data50msdata
         exportDisposable = Observable.interval(50, TimeUnit.MILLISECONDS)
             .map {
                 createBitmapFromView()
@@ -85,7 +85,7 @@ class VideoRecordMedia(
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap = cameraView.bitmap
         if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
-            // [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，[CN_TEXT]bitmap
+            // data，data，data，databitmap
             cameraViewBitmap = BitmapUtils.mergeBitmap(
                 cameraViewBitmap,
                 temperatureView.regionAndValueBitmap,

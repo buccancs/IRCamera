@@ -14,15 +14,15 @@ import com.topdon.libcom.R
 
 /**
  *
- * [CN_TEXT]Low temperature[CN_TEXT]
+ * dataLow temperaturedata
  * @author: CaiSongL
  * @date: 2023/4/28 15:52
  */
 class TempLayout : LinearLayout {
     companion object{
-        val TYPE_HOT = 1 //High temperature[CN_TEXT]
-        val TYPE_LT = 2 //Low temperature[CN_TEXT]
-        val TYPE_A = 3  //[CN_TEXT]Low temperature[CN_TEXT]
+        val TYPE_HOT = 1 //High temperaturedata
+        val TYPE_LT = 2 //Low temperaturedata
+        val TYPE_A = 3  // ImplementationLow temperaturedata
     }
 
     private var alphaAnimator: ObjectAnimator? = null
@@ -45,10 +45,10 @@ class TempLayout : LinearLayout {
         alphaAnimator = ObjectAnimator.ofFloat(this, "alpha", 0f, 1f)
         alphaAnimator?.duration = 500
         alphaAnimator?.interpolator =
-            BreatheInterpolator() //[CN_TEXT]
+            BreatheInterpolator() // Implementation
         alphaAnimator?.addUpdateListener {
             animatorAlpha = it.getAnimatedValue("alpha") as Float
-//            Log.w("[CN_TEXT]","$animatorAlpha")
+//            Log.w("data","$animatorAlpha")
         }
         alphaAnimator?.repeatCount = ValueAnimator.INFINITE
     }

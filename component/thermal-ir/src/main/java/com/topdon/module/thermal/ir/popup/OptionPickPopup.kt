@@ -15,7 +15,7 @@ import com.topdon.lib.core.view.MyTextView
 import com.topdon.module.thermal.ir.R
 
 /**
- * Option[CN_TEXT] PopupWindow.
+ * Optiondata PopupWindow.
  *
  * Created by LCG on 2024/1/5.
  */
@@ -26,18 +26,18 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
 
     companion object {
         /**
-         * Option[CN_TEXT]，[CN_TEXT] ***sp***
+         * Optiondata，data ***sp***
          */
         private const val TEXT_SIZE_SP: Float = 14f
         /**
-         * Option[CN_TEXT] padding，[CN_TEXT] ***dp***
+         * Optiondata padding，data ***dp***
          */
         private const val TEXT_PADDING: Float = 7f
     }
 
 
     /**
-     * [CN_TEXT]Option[CN_TEXT]Selected[CN_TEXT].
+     * dataOptiondataSelecteddata.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
@@ -74,9 +74,9 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
 
         val x = locationArray[0] + anchor.width - width + SizeUtils.dp2px(5f)
 
-        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) {//[CN_TEXT] anchor [CN_TEXT]
+        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) {// Implementation anchor data
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
-        } else {//[CN_TEXT]
+        } else {// Implementation
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
         }
     }
@@ -84,7 +84,7 @@ class OptionPickPopup(private val context: Context, private val strArray: Array<
 
     private inner class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-         * item [CN_TEXT].
+         * item data.
          */
         var onItemClickListener: ((position: Int) -> Unit)? = null
 

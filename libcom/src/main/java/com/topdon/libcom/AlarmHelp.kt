@@ -7,7 +7,7 @@ import com.topdon.libcom.util.SingletonHolder
 import com.topdon.libcom.view.TempLayout
 
 /**
- * [CN_TEXT]
+ * utility
  * @author: CaiSongL
  * @date: 2023/5/5 15:13
  */
@@ -96,7 +96,7 @@ class AlarmHelp private constructor(val context: Context) {
      */
     fun alarmData(realMax: Float, realMin: Float, tempLayout: TempLayout?) {
         if (isOpenHighTemp && isOpenLowTemp) {
-            //[CN_TEXT]Low temperature[CN_TEXT]
+            // Utility functionLow temperatureutility
             if (realMax > maxTemp && realMin < minTemp) {
                 tempLayout?.startAnimation(TempLayout.TYPE_A)
                 startMediaPlayer()
@@ -111,7 +111,7 @@ class AlarmHelp private constructor(val context: Context) {
                 stopPlayer()
             }
         } else if (isOpenHighTemp) {
-            //High temperature[CN_TEXT]
+            //High temperatureutility
             if (realMax > maxTemp) {
                 tempLayout?.startAnimation(TempLayout.TYPE_HOT)
                 startMediaPlayer()
@@ -120,7 +120,7 @@ class AlarmHelp private constructor(val context: Context) {
                 stopPlayer()
             }
         } else if (isOpenLowTemp) {
-            //Low temperature[CN_TEXT]
+            //Low temperatureutility
             if (realMin < minTemp) {
                 tempLayout?.startAnimation(TempLayout.TYPE_LT)
                 startMediaPlayer()

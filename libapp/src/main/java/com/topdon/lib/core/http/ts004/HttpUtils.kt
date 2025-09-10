@@ -5,9 +5,9 @@ import com.topdon.lms.sdk.xutils.x
 
 object HttpUtils {
     /**
-     * SettingsPseudo-color[CN_TEXT]
-     * @param mode              Pseudo-color[CN_TEXT]
-     * @param iResponseCallback [CN_TEXT]
+     * SettingsPseudo-colorutility
+     * @param mode              Pseudo-colorutility
+     * @param iResponseCallback utility
      * @ void
      */
     fun setPseudoColor(
@@ -23,7 +23,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]Pseudo-color[CN_TEXT]
+     * utilityPseudo-colorutility
      */
     fun getPseudoColor(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -33,9 +33,9 @@ object HttpUtils {
     }
 
     /**
-     * Settings[CN_TEXT]
-     * @param mode              [CN_TEXT]:[CN_TEXT]0-100
-     * @param iResponseCallback [CN_TEXT]
+     * Settingsutility
+     * @param mode              utility:utility0-100
+     * @param iResponseCallback utility
      * @ void
      */
     fun setBrightness(
@@ -50,7 +50,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun getBrightness(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -61,7 +61,7 @@ object HttpUtils {
 
     /**
      * SettingsPicture in picture
-     * @param iResponseCallback [CN_TEXT]
+     * @param iResponseCallback utility
      * @ void
      */
     fun setPip(
@@ -76,7 +76,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]Picture in picture
+     * utilityPicture in picture
      */
     fun getPip(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -86,9 +86,9 @@ object HttpUtils {
     }
 
     /**
-     * Settings[CN_TEXT]
-     * @param factor            [CN_TEXT]:1,2,4,8
-     * @param iResponseCallback [CN_TEXT]
+     * Settingsutility
+     * @param factor            utility:1,2,4,8
+     * @param iResponseCallback utility
      * @ void
      */
     fun setZoom(
@@ -104,7 +104,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun getZoom(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -115,7 +115,7 @@ object HttpUtils {
 
     /**
      * SettingsPhoto
-     * @param iResponseCallback [CN_TEXT]
+     * @param iResponseCallback utility
      * @void
      */
     fun setCamera(iResponseCallback: Callback.CommonCallback<String>?) {
@@ -127,8 +127,8 @@ object HttpUtils {
 
     /**
      * SettingsVideo
-     * @param enable [CN_TEXT]
-     * @param iResponseCallback [CN_TEXT]
+     * @param enable utility
+     * @param iResponseCallback utility
      * @void
      */
     fun setVideo(
@@ -143,8 +143,8 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]VideoState
-     * @param iResponseCallback [CN_TEXT]
+     * utilityVideoState
+     * @param iResponseCallback utility
      * @void
      */
     fun getVideoStatus(iResponseCallback: Callback.CommonCallback<String>?) {
@@ -155,7 +155,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun getVersion(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -165,7 +165,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun getDeviceDetails(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -175,7 +175,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun getFreeSpace(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()
@@ -185,7 +185,7 @@ object HttpUtils {
     }
 
     /**
-     * [CN_TEXT]Settings
+     * utilitySettings
      */
     fun getResetAll(iResponseCallback: Callback.CommonCallback<String>?) {
         val params = RequestParams()

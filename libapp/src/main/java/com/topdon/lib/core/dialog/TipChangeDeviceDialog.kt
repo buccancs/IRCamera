@@ -12,7 +12,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipChangeDeviceBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
-@Deprecated("3.80[CN_TEXT]，[CN_TEXT]Switch[CN_TEXT]")
+@Deprecated("3.80dialog，dialogSwitchdialog")
 class TipChangeDeviceDialog : Dialog {
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
@@ -80,13 +80,13 @@ class TipChangeDeviceDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // [CN_TEXT]
+                    // dialog
                     0.85
                 } else {
-                    // [CN_TEXT]
+                    // dialog
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings[CN_TEXT]
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settingsdialog
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

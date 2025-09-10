@@ -10,51 +10,51 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * TC007、2D[CN_TEXT]、[CN_TEXT] Point/Line/Area[CN_TEXT] View、SurfaceView [CN_TEXT]，
- * [CN_TEXT] draw [CN_TEXT]，Consider in the future[CN_TEXT]。
+ * TC007、2Dutility、utility Point/Line/Areautility View、SurfaceView utility，
+ * utility draw utility，Consider in the futureutility。
  *
  * Created by LCG on 2024/12/6.
  */
 class TempDrawHelper {
     companion object {
         /**
-         * [CN_TEXT]，[CN_TEXT]，[CN_TEXT] px.
+         * utility，utility，utility px.
          */
         private val POINT_SIZE: Int = SizeUtils.dp2px(16f)
         /**
-         * [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT] [CN_TEXT]High temperature[CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT] px.
+         * utility、utility、utility、utility utilityHigh temperatureutilityLow temperatureutility，utility px.
          */
         private val CIRCLE_RADIUS: Int = SizeUtils.dp2px(3f)
         /**
-         * [CN_TEXT]，[CN_TEXT]，[CN_TEXT]，X[CN_TEXT]，Y[CN_TEXT]/2，[CN_TEXT] px.
+         * utility，utility，utility，Xutility，Yutility/2，utility px.
          */
         private val TEMP_TEXT_OFFSET = SizeUtils.dp2px(6f)
 
 
 
         /**
-         * [CN_TEXT]Specified[CN_TEXT] View [CN_TEXT]，[CN_TEXT] View [CN_TEXT].
+         * utilitySpecifiedutility View utility，utility View utility.
          */
         fun Float.correctPoint(max: Int): Int = this.toInt()
             .coerceAtLeast(POINT_SIZE / 2)
             .coerceAtMost(max - POINT_SIZE / 2)
 
         /**
-         * [CN_TEXT]、[CN_TEXT]、[CN_TEXT]High temperature[CN_TEXT]、[CN_TEXT]Low temperature[CN_TEXT] View [CN_TEXT]，[CN_TEXT] View [CN_TEXT]。
+         * utility、utility、utilityHigh temperatureutility、utilityLow temperatureutility View utility，utility View utility。
          */
         fun Float.correct(max: Int): Int = this.toInt()
             .coerceAtLeast(CIRCLE_RADIUS)
             .coerceAtMost(max - CIRCLE_RADIUS)
 
         /**
-         * [CN_TEXT] View [CN_TEXT] Rect.
+         * utility View utility Rect.
          */
         fun getRect(width: Int, height: Int): Rect = Rect(CIRCLE_RADIUS, CIRCLE_RADIUS, width - CIRCLE_RADIUS, height - CIRCLE_RADIUS)
     }
 
 
     /**
-     * [CN_TEXT]、[CN_TEXT] AB [CN_TEXT]、Point/Line/Area[CN_TEXT] [CN_TEXT]，[CN_TEXT] px.
+     * utility、utility AB utility、Point/Line/Areautility utility，utility px.
      */
     var textSize: Int
         get() = textPaint.textSize.toInt()
@@ -63,7 +63,7 @@ class TempDrawHelper {
         }
 
     /**
-     * [CN_TEXT]、[CN_TEXT] AB [CN_TEXT]、Point/Line/Area[CN_TEXT] [CN_TEXT].
+     * utility、utility AB utility、Point/Line/Areautility utility.
      */
     var textColor: Int
         @ColorInt get() = textPaint.color
@@ -76,21 +76,21 @@ class TempDrawHelper {
 
 
     /**
-     * [CN_TEXT] [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT] Paint，[CN_TEXT].
-     * [CN_TEXT] 1dp.
+     * utility utility、utility、utility、utility Paint，utility.
+     * utility 1dp.
      */
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     /**
-     * [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT] Low temperature[CN_TEXT] Paint，[CN_TEXT].
+     * utility、utility、utility、utility Low temperatureutility Paint，utility.
      */
     private val bluePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     /**
-     * [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT] High temperature[CN_TEXT] Paint，[CN_TEXT].
+     * utility、utility、utility、utility High temperatureutility Paint，utility.
      */
     private val redPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     /**
-     * High temperature[CN_TEXT]、Low temperature[CN_TEXT]、[CN_TEXT] AB [CN_TEXT]、Point/Line/Area[CN_TEXT] Paint，
-     * [CN_TEXT]，[CN_TEXT] 14sp，[CN_TEXT]、[CN_TEXT]Settings[CN_TEXT].
+     * High temperatureutility、Low temperatureutility、utility AB utility、Point/Line/Areautility Paint，
+     * utility，utility 14sp，utility、utilitySettingsutility.
      */
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -111,32 +111,32 @@ class TempDrawHelper {
 
     /* ******************************************** Draw ******************************************** */
     /**
-     * [CN_TEXT] (x,y) [CN_TEXT].
+     * utility (x,y) utility.
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
+     * Note，utility x、y utility，utility。
      */
     fun drawPoint(canvas: Canvas, x: Int, y: Int) {
         val left: Float = x - POINT_SIZE / 2f
         val top: Float = y - POINT_SIZE / 2f
         val right: Float = x + POINT_SIZE / 2f
         val bottom: Float = y + POINT_SIZE / 2f
-        canvas.drawLine(left, y.toFloat(), right, y.toFloat(), linePaint) //[CN_TEXT]
-        canvas.drawLine(x.toFloat(), top, x.toFloat(), bottom, linePaint) //[CN_TEXT]
+        canvas.drawLine(left, y.toFloat(), right, y.toFloat(), linePaint) // Utility function
+        canvas.drawLine(x.toFloat(), top, x.toFloat(), bottom, linePaint) // Utility function
     }
 
     /**
-     * [CN_TEXT] (startX, startY)、(stopX, stopY) [CN_TEXT].
+     * utility (startX, startY)、(stopX, stopY) utility.
      *
-     * Note，[CN_TEXT] [CN_TEXT] [CN_TEXT]，[CN_TEXT]。
+     * Note，utility utility utility，utility。
      */
     fun drawLine(canvas: Canvas, startX: Int, startY: Int, stopX: Int, stopY: Int) {
         canvas.drawLine(startX.toFloat(), startY.toFloat(), stopX.toFloat(), stopY.toFloat(), linePaint)
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT].
+     * utilitySpecifiedutility.
      *
-     * Note，[CN_TEXT] [CN_TEXT] [CN_TEXT]，[CN_TEXT]。
+     * Note，utility utility utility，utility。
      */
     fun drawRect(canvas: Canvas, left: Int, top: Int, right: Int, bottom: Int) {
         val leftF: Float = left.toFloat()
@@ -150,33 +150,33 @@ class TempDrawHelper {
 
 
     /**
-     * [CN_TEXT] (x,y) [CN_TEXT]。
+     * utility (x,y) utility。
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
-     * @param isMax true-[CN_TEXT]High temperature[CN_TEXT] false-[CN_TEXT]Low temperature[CN_TEXT]
+     * Note，utility x、y utility，utility。
+     * @param isMax true-utilityHigh temperatureutility false-utilityLow temperatureutility
      */
     fun drawCircle(canvas: Canvas, x: Int, y: Int, isMax: Boolean) {
         canvas.drawCircle(x.toFloat(), y.toFloat(), CIRCLE_RADIUS.toFloat(), if (isMax) redPaint else bluePaint)
     }
 
     /**
-     * Specified[CN_TEXT] (x,y) [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT]。
-     * [CN_TEXT]，[CN_TEXT]、[CN_TEXT].
+     * Specifiedutility (x,y) utility，utilitySpecifiedutility。
+     * utility，utility、utility.
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
-     * @param x [CN_TEXT] View [CN_TEXT]
+     * Note，utility x、y utility，utility。
+     * @param x utility View utility
      */
     fun drawTempText(canvas: Canvas, text: String, width: Int, x: Int, y: Int) {
         var textX: Float = (x + TEMP_TEXT_OFFSET).toFloat()
         var textY: Float = (y - TEMP_TEXT_OFFSET).toFloat()
 
         val textWidth: Float = textPaint.measureText(text)
-        if (x > width - textWidth - TEMP_TEXT_OFFSET) {//[CN_TEXT]，[CN_TEXT]
+        if (x > width - textWidth - TEMP_TEXT_OFFSET) {// Utility function，utility
             textX = x - TEMP_TEXT_OFFSET - textWidth
         }
 
         val textFontTop: Float = -textPaint.getFontMetrics().top
-        if (y < textFontTop + TEMP_TEXT_OFFSET / 2) {//[CN_TEXT]，[CN_TEXT]
+        if (y < textFontTop + TEMP_TEXT_OFFSET / 2) {// Utility function，utility
             textY = y + TEMP_TEXT_OFFSET / 2 + textFontTop
         }
 
@@ -184,10 +184,10 @@ class TempDrawHelper {
     }
 
     /**
-     * Specified[CN_TEXT] (startX, startY)、(stopX, stopY) [CN_TEXT]，
-     * [CN_TEXT] "A"、"B" [CN_TEXT]。
+     * Specifiedutility (startX, startY)、(stopX, stopY) utility，
+     * utility "A"、"B" utility。
      *
-     * Note，[CN_TEXT] [CN_TEXT] [CN_TEXT]，[CN_TEXT]。
+     * Note，utility utility utility，utility。
      */
     fun drawTrendText(canvas: Canvas, width: Int, height: Int, startX: Int, startY: Int, stopX: Int, stopY: Int) {
         val fontMetrics: Paint.FontMetrics = textPaint.getFontMetrics()
@@ -210,11 +210,11 @@ class TempDrawHelper {
     }
 
     /**
-     * Specified[CN_TEXT] (x,y) [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT]。
-     * [CN_TEXT]，[CN_TEXT].
+     * Specifiedutility (x,y) utility，utilitySpecifiedutility。
+     * utility，utility.
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
-     * @param x [CN_TEXT] View [CN_TEXT]
+     * Note，utility x、y utility，utility。
+     * @param x utility View utility
      */
     fun drawPointName(canvas: Canvas, name: String, width: Int, height: Int, x: Int, y: Int) {
         val textWidth: Float = textPaint.measureText(name)
@@ -223,23 +223,23 @@ class TempDrawHelper {
         var textX = x - textWidth / 2
         var textY = y + POINT_SIZE / 2 + textHeight
 
-        if (textX < 0) {//x[CN_TEXT]
+        if (textX < 0) {//xutility
             textX = 0f
         }
-        if (textX + textWidth > width) {//x[CN_TEXT]
+        if (textX + textWidth > width) {//xutility
             textX = width - textWidth
         }
-        if (textY > height) {//[CN_TEXT]，[CN_TEXT]
+        if (textY > height) {// Utility function，utility
             textY = y - POINT_SIZE / 2 - textPaint.fontMetrics.bottom
         }
         canvas.drawText(name, textX, textY, textPaint)
     }
 
     /**
-     * Specified[CN_TEXT] [CN_TEXT] [CN_TEXT]，
-     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT]。
+     * Specifiedutility utility utility，
+     * utilitySpecifiedutility，utility。
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
+     * Note，utility x、y utility，utility。
      */
     fun drawPointRectName(canvas: Canvas, name: String, width: Int, height: Int, left: Int, top: Int, right: Int, bottom: Int) {
         val fontMetrics: Paint.FontMetrics = textPaint.getFontMetrics()
@@ -252,16 +252,16 @@ class TempDrawHelper {
         var textX: Float = centerX - textWidth / 2
         var textY: Float = centerY + offset
 
-        if (textX < 0) {//x[CN_TEXT]
+        if (textX < 0) {//xutility
             textX = 0f
         }
-        if (textX + textWidth > width) {//x[CN_TEXT]
+        if (textX + textWidth > width) {//xutility
             textX = width - textWidth
         }
-        if (textY < textHeight) {//y[CN_TEXT]
+        if (textY < textHeight) {//yutility
             textY = textHeight
         }
-        if (textY > height) {//y[CN_TEXT]
+        if (textY > height) {//yutility
             textY = height.toFloat()
         }
         canvas.drawText(name, textX, textY, textPaint)

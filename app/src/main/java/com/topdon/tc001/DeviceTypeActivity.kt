@@ -17,13 +17,13 @@ import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.tools.DeviceTools
 
 /**
- * [CN_TEXT]Type[CN_TEXT].
+ * activityTypeactivity.
  *
  * Created by LCG on 2024/4/22.
  */
 class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
     /**
-     * Current[CN_TEXT]Type.
+     * CurrentactivityType.
      */
     private var clientType: IRDeviceType? = null
 
@@ -100,7 +100,7 @@ class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
             arrayListOf(
                 ItemInfo(true, IRDeviceType.TS001, IRDeviceType.TC001),
                 ItemInfo(false, IRDeviceType.TC001_PLUS, IRDeviceType.TC002C_DUO),
-//            [CN_TEXT]TC007
+//            activityTC007
 //            ItemInfo(true, IRDeviceType.TS004, IRDeviceType.TC007),
                 ItemInfo(true, IRDeviceType.TS004, null),
                 ItemInfo(true, IRDeviceType.SHIMMER3_GSR, null),
@@ -233,7 +233,7 @@ class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
     }
 
     /**
-     * [CN_TEXT]Type ([CN_TEXT]GSR[CN_TEXT]).
+     * activityType (activityGSRactivity).
      */
     enum class IRDeviceType {
         TC001 {

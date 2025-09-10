@@ -16,16 +16,16 @@ import com.topdon.module.thermal.ir.report.bean.ReportIRBean
 import com.topdon.module.thermal.ir.report.bean.ReportTempBean
 
 /**
- * [CN_TEXT]Infrared[CN_TEXT] View.
+ * Infrared temperature analysis view.
  *
- * [CN_TEXT] [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT] [CN_TEXT].
+ * Displays point, line, area, and full temperature analysis data.
  */
 class ReportIRShowView: LinearLayout {
     companion object {
-        private const val TYPE_FULL = 0 //[CN_TEXT]
-        private const val TYPE_POINT = 1//[CN_TEXT]
-        private const val TYPE_LINE = 2 //[CN_TEXT]
-        private const val TYPE_RECT = 3 //[CN_TEXT]
+        private const val TYPE_FULL = 0 // Full temperature view
+        private const val TYPE_POINT = 1// Point temperature view
+        private const val TYPE_LINE = 2 // Line temperature view
+        private const val TYPE_RECT = 3 // Rectangle temperature view
     }
 
     // View references - migrated from synthetic views
@@ -112,7 +112,7 @@ class ReportIRShowView: LinearLayout {
             else -> context.getString(LibR.string.thermal_rect) + "(R)"
         }
         tvAverageTitle.text = when (type) {
-            TYPE_FULL, TYPE_POINT -> "" //[CN_TEXT]、[CN_TEXT]
+            TYPE_FULL, TYPE_POINT -> "" // Full view and point view
             TYPE_LINE -> "L${index + 1} " + context.getString(LibR.string.album_report_mean_temperature)
             else -> "R${index + 1} " + context.getString(LibR.string.album_report_mean_temperature)
         }
@@ -125,7 +125,7 @@ class ReportIRShowView: LinearLayout {
     }
 
     /**
-     * [CN_TEXT] PDF [CN_TEXT]All View [CN_TEXT].
+     * Generate PDF with all view data included.
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
@@ -261,7 +261,7 @@ class ReportIRShowView: LinearLayout {
         tvTitleRect4.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible
         tvTitleRect5.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible && !clRect4.isVisible
 
-        // [CN_TEXT]
+        // Data processing
         if (rectList.isNotEmpty()) {
             when (rectList.size) {
                 1 -> hideLastLine(isLast, clRect1, rectList[0], TYPE_RECT)

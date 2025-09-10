@@ -21,8 +21,8 @@ object TimeTool {
     }
 
     /**
-     * long: [CN_TEXT]([CN_TEXT])
-     * [CN_TEXT]
+     * long: utility(utility)
+     * utility
      */
     @SuppressLint("SimpleDateFormat")
     fun reportTime(time: Long): String {
@@ -34,7 +34,7 @@ object TimeTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      * 2021-01-01 00:00:00 => 1609430400000
      */
     @SuppressLint("SimpleDateFormat")
@@ -51,7 +51,7 @@ object TimeTool {
     }
 
     /**
-     * @param type 1:[CN_TEXT] 2:[CN_TEXT] 3:[CN_TEXT] 4:[CN_TEXT]
+     * @param type 1:utility 2:utility 3:utility 4:utility
      */
     @SuppressLint("SimpleDateFormat")
     fun showDateType(
@@ -75,7 +75,7 @@ object TimeTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     @SuppressLint("SimpleDateFormat")
     fun timeToMinute(
@@ -84,10 +84,10 @@ object TimeTool {
     ): Long {
         val dateFormat =
             when (type) {
-                1 -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // [CN_TEXT]
-                2 -> SimpleDateFormat("yyyy-MM-dd HH:mm:00") // [CN_TEXT]
-                3 -> SimpleDateFormat("yyyy-MM-dd HH:00:00") // [CN_TEXT]
-                4 -> SimpleDateFormat("yyyy-MM-dd 00:00:0") // [CN_TEXT]
+                1 -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // utility
+                2 -> SimpleDateFormat("yyyy-MM-dd HH:mm:00") // utility
+                3 -> SimpleDateFormat("yyyy-MM-dd HH:00:00") // utility
+                4 -> SimpleDateFormat("yyyy-MM-dd 00:00:0") // utility
                 else -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             }
         val date = Date(time)
@@ -96,8 +96,8 @@ object TimeTool {
     }
 
     /**
-     * long: [CN_TEXT]([CN_TEXT])
-     * [CN_TEXT]
+     * long: utility(utility)
+     * utility
      */
     @SuppressLint("SimpleDateFormat")
     fun showTimeSecond(time: Long): String {
@@ -118,7 +118,7 @@ object TimeTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     @SuppressLint("SimpleDateFormat")
     fun showVideoTime(time: Long): String {
@@ -134,7 +134,7 @@ object TimeTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     @SuppressLint("SimpleDateFormat")
     fun showVideoLongTime(time: Long): String {
@@ -157,7 +157,7 @@ object TimeTool {
                     file.lastModified()
                 }
         } catch (e: Exception) {
-            Log.e("[CN_TEXT]", "${e.message}")
+            Log.e("utility", "${e.message}")
         }
         return currentTime
     }

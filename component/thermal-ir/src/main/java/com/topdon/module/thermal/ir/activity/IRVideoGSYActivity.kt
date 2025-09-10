@@ -63,9 +63,9 @@ class IRVideoGSYActivity : BaseActivity() {
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, UiR.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
-        data = intent.getParcelableExtra("data") ?: throw NullPointerException("[CN_TEXT] data")
+        data = intent.getParcelableExtra("data") ?: throw NullPointerException("activity data")
 
-        clBottom.isVisible = isRemote //[CN_TEXT]3[CN_TEXT]
+        clBottom.isVisible = isRemote // Activity logic3activity
 
         if (!isRemote) {
             titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)
@@ -111,15 +111,15 @@ class IRVideoGSYActivity : BaseActivity() {
         GSYVideoOptionBuilder()
             .setUrl(url)
             .build(gsyPlay)
-        //[CN_TEXT]Settings
-        gsyPlay.isNeedShowWifiTip = false //[CN_TEXT]
+        // Activity logicSettings
+        gsyPlay.isNeedShowWifiTip = false // Activity logic
         gsyPlay.titleTextView.visibility = View.GONE
         gsyPlay.backButton.visibility = View.GONE
         gsyPlay.fullscreenButton.visibility = View.GONE
     }
 
     private fun actionDownload(isToShare: Boolean) {
-        if (data.hasDownload) {//[CN_TEXT]
+        if (data.hasDownload) {// Activity logic
             if (isToShare) {
                 actionShare()
             }
@@ -152,7 +152,7 @@ class IRVideoGSYActivity : BaseActivity() {
         str.append(getString(R.string.detail_date)).append("\n")
         str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
         str.append(getString(R.string.detail_info)).append("\n")
-//        str.append("[CN_TEXT]: ").append(whStr).append("\n")
+//        str.append("activity: ").append(whStr).append("\n")
         str.append("${getString(R.string.detail_len)}: ").append(sizeStr).append("\n")
         str.append("${getString(R.string.detail_path)}: ").append(data.path).append("\n")
         TipDialog.Builder(this)

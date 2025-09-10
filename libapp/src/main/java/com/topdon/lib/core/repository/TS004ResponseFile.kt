@@ -1,14 +1,14 @@
 package com.topdon.lib.core.repository
 
-// [CN_TEXT] TS004 [CN_TEXT] JSON [CN_TEXT]
+// data TS004 data JSON data
 
 /**
- * TS004 All[CN_TEXT].
- * @param command [CN_TEXT]，[CN_TEXT]
- * @param data [CN_TEXT]，[CN_TEXT]
- * @param detail [CN_TEXT]，[CN_TEXT] "ok"、"error: request process error"
- * @param status State[CN_TEXT] 0-[CN_TEXT] [CN_TEXT]
- * @param transmit_cast [CN_TEXT]
+ * TS004 Alldata.
+ * @param command data，data
+ * @param data data，data
+ * @param detail data，data "ok"、"error: request process error"
+ * @param status Statedata 0-data data
+ * @param transmit_cast data
  */
 data class TS004Response<T>(
     val command: Int,
@@ -18,15 +18,15 @@ data class TS004Response<T>(
     val transmit_cast: Int,
 ) {
     /**
-     * [CN_TEXT].
+     * data.
      */
     fun isSuccess(): Boolean = status == 0
 }
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]Pseudo-color[CN_TEXT]
+ * TS004 data：dataPseudo-colordata
  * @param enable
- * @param mode CurrentPseudo-color[CN_TEXT]
+ * @param mode CurrentPseudo-colordata
  */
 data class PseudoColorBean(
     val enable: Boolean?,
@@ -34,23 +34,23 @@ data class PseudoColorBean(
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
- * @param state 0-[CN_TEXT]，1-[CN_TEXT]
+ * TS004 data：data
+ * @param state 0-data，1-data
  */
 data class RangeBean(
     val state: Int?,
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]Picture in picture
- * @param enable true [CN_TEXT]，false [CN_TEXT]
+ * TS004 data：dataPicture in picture
+ * @param enable true data，false data
  */
 data class PipBean(
     val enable: Boolean?,
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
+ * TS004 data：data
  * brightness: Int
  */
 data class BrightnessBean(
@@ -58,35 +58,35 @@ data class BrightnessBean(
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
- * @param factor [CN_TEXT]
+ * TS004 data：data
+ * @param factor data
  */
 data class ZoomBean(
     val factor: Int?,
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]State
- * @param enable 0-[CN_TEXT] 1-[CN_TEXT]
+ * TS004 data：dataState
+ * @param enable 0-data 1-data
  */
 data class TISRBean(
     val enable: Int?,
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
- * @param firmware [CN_TEXT]，[CN_TEXT]1.0
+ * TS004 data：data
+ * @param firmware data，data1.0
  */
 data class VersionBean(
     val firmware: String?,
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
- * @param code [CN_TEXT]（[CN_TEXT]）
- * @param model [CN_TEXT]Type[CN_TEXT]，[CN_TEXT] TS004
+ * TS004 data：data
+ * @param code data（data）
+ * @param model dataTypedata，data TS004
  * @param sn sn
- * @param uuid [CN_TEXT]
+ * @param uuid data
  */
 data class DeviceInfo(
     val code: String,
@@ -96,18 +96,18 @@ data class DeviceInfo(
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
- * @param fileCount [CN_TEXT]
+ * TS004 data：data
+ * @param fileCount data
  */
 data class FileCountBean(
     val fileCount: Int,
 )
 
 /**
- * [CN_TEXT]
- * @param current Current[CN_TEXT]
- * @param total [CN_TEXT]
- * @param filelist Current[CN_TEXT]
+ * data
+ * @param current Currentdata
+ * @param total data
+ * @param filelist Currentdata
  */
 data class FilePageBean(
     val current: Int,
@@ -116,14 +116,14 @@ data class FilePageBean(
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
- * @param type 0-[CN_TEXT] 1-Video
- * @param duration Video[CN_TEXT]，[CN_TEXT]
- * @param size [CN_TEXT]，[CN_TEXT] byte
- * @param name [CN_TEXT]，[CN_TEXT] 1970_01_02075103.mp4
- * @param thumb Video[CN_TEXT]
- * @param time [CN_TEXT] Unix [CN_TEXT]，[CN_TEXT]
- * @param timezone [CN_TEXT]Settings[CN_TEXT]Settings[CN_TEXT]
+ * TS004 data：data
+ * @param type 0-data 1-Video
+ * @param duration Videodata，data
+ * @param size data，data byte
+ * @param name data，data 1970_01_02075103.mp4
+ * @param thumb Videodata
+ * @param time data Unix data，data
+ * @param timezone dataSettingsdataSettingsdata
  */
 data class FileBean(
     val id: Int,
@@ -137,9 +137,9 @@ data class FileBean(
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]State
- * @param status Current[CN_TEXT]State 1-start 2-running 3-failed 4-success
- * @param percent Current[CN_TEXT]
+ * TS004 data：dataState
+ * @param status CurrentdataState 1-start 2-running 3-failed 4-success
+ * @param percent Currentdata
  */
 data class UpgradeStatus(
     val status: Int,
@@ -147,12 +147,12 @@ data class UpgradeStatus(
 )
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]
- * @param total [CN_TEXT]，[CN_TEXT] byte
- * @param free [CN_TEXT]，[CN_TEXT] byte
- * @param system [CN_TEXT]，[CN_TEXT] byte
- * @param image_size [CN_TEXT]，[CN_TEXT] byte
- * @param video_size [CN_TEXT]，[CN_TEXT] byte
+ * TS004 data：data
+ * @param total data，data byte
+ * @param free data，data byte
+ * @param system data，data byte
+ * @param image_size data，data byte
+ * @param video_size data，data byte
  */
 data class FreeSpaceBean(
     val total: Long,
@@ -165,11 +165,11 @@ data class FreeSpaceBean(
 }
 
 /**
- * TS004 [CN_TEXT]：[CN_TEXT]VideoState
- * @param errCode [CN_TEXT]， 0:[CN_TEXT]，1: [CN_TEXT]，2: [CN_TEXT]
- * @param path Current[CN_TEXT]
- * @param pts Current[CN_TEXT]
- * @param status Current[CN_TEXT]
+ * TS004 data：dataVideoState
+ * @param errCode data， 0:data，1: data，2: data
+ * @param path Currentdata
+ * @param pts Currentdata
+ * @param status Currentdata
  */
 data class RecordStatusBean(
     val errCode: Int,

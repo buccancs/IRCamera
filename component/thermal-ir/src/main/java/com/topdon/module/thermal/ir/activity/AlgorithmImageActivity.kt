@@ -51,7 +51,7 @@ class AlgorithmImageActivity : AppCompatActivity() {
             throw RuntimeException(e)
         }
         val time = System.currentTimeMillis()
-        tvTime.text = "[CN_TEXT]：" + (System.currentTimeMillis() - time) + "/"
+        tvTime.text = "activity：" + (System.currentTimeMillis() - time) + "/"
         imageView.setImageBitmap(
             ImageColorTools.adjustPhotoRotation(
                 ImageColorTools.testImage(
@@ -92,13 +92,13 @@ class AlgorithmImageActivity : AppCompatActivity() {
             val baseTemperatureBytes = ByteArray(192*256*2)
             val nextTemperatureBytes = ByteArray(192*256*2)
             val nextImageBytes = ByteArray(192*256*2)
-            //[CN_TEXT]
+            // Activity logic
             System.arraycopy(buffer, 1024 + baseTemperatureBytes.size, baseTemperatureBytes, 0, baseTemperatureBytes.size)
-            //[CN_TEXT]
+            // Activity logic
             System.arraycopy(bufferB, 1024 + nextTemperatureBytes.size , nextTemperatureBytes, 0, nextTemperatureBytes.size)
-            //[CN_TEXT]
+            // Activity logic
             System.arraycopy(bufferB, 1024, nextImageBytes, 0, nextImageBytes.size)
-            //[CN_TEXT]3[CN_TEXT]
+            // Activity logic3activity
             val resMat = Mat(192, 256, CvType.CV_8UC2)
             resMat.put(0,0,nextImageBytes)
             Imgproc.cvtColor(resMat, resMat, Imgproc.COLOR_YUV2GRAY_YUYV)
@@ -110,18 +110,18 @@ class AlgorithmImageActivity : AppCompatActivity() {
             val im = Mat(192, 256, CvType.CV_8UC4)
             im.put(0, 0, matByteArray)
             val bitmap = ImageColorTools.matToBitmap(im)
-            Log.e("[CN_TEXT]：","diff2firstFrameByTemp ： ${System.currentTimeMillis() - startTime}")
+            Log.e("activity：","diff2firstFrameByTemp ： ${System.currentTimeMillis() - startTime}")
             imgARGB.setImageBitmap(ImageColorTools.adjustPhotoRotation(bitmap, 90))
         }
         findViewById<View>(R.id.btn_u4).setOnClickListener {
             val baseImageBytes = ByteArray(192*256*2)
             val nextImageBytes = ByteArray(192*256*2)
-            //[CN_TEXT]
+            // Activity logic
             System.arraycopy(buffer, 1024, baseImageBytes, 0, baseImageBytes.size)
-            //[CN_TEXT]
+            // Activity logic
             System.arraycopy(bufferB, 1024, nextImageBytes, 0, nextImageBytes.size)
 
-            //[CN_TEXT]4[CN_TEXT]
+            // Activity logic4activity
             val resMat = Mat(192, 256, CvType.CV_8UC2)
             resMat.put(0,0,nextImageBytes)
             Imgproc.cvtColor(resMat, resMat, Imgproc.COLOR_YUV2GRAY_YUYV)
@@ -129,7 +129,7 @@ class AlgorithmImageActivity : AppCompatActivity() {
             applyColorMap(resMat, nextImage, 15)
             Imgproc.cvtColor(nextImage, nextImage, Imgproc.COLOR_BGR2RGBA)
 
-            //[CN_TEXT]4[CN_TEXT]
+            // Activity logic4activity
             val baseMat = Mat(192, 256, CvType.CV_8UC2)
             baseMat.put(0,0,baseImageBytes)
             Imgproc.cvtColor(baseMat, baseMat, Imgproc.COLOR_YUV2GRAY_YUYV)

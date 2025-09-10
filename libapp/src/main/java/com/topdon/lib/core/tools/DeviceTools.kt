@@ -19,13 +19,13 @@ import com.topdon.lib.core.utils.ByteUtils.toHexString
 import org.greenrobot.eventbus.EventBus
 
 /**
- * [CN_TEXT]
+ * utility
  */
 object DeviceTools {
     /**
-     * [CN_TEXT]Current[CN_TEXT] [CN_TEXT] [CN_TEXT].
-     * [CN_TEXT].
-     * [CN_TEXT].
+     * utilityCurrentutility utility utility.
+     * utility.
+     * utility.
      */
     fun isConnect(
         isSendConnectEvent: Boolean = false,
@@ -36,13 +36,13 @@ object DeviceTools {
         for (usbDevice in deviceList.values) {
             if (usbDevice.isTcTsDevice()) {
                 return if (usbManager.hasPermission(usbDevice)) {
-                    XLog.i("[CN_TEXT]")
+                    XLog.i("utility")
                     if (isSendConnectEvent) {
                         EventBus.getDefault().post(DeviceConnectEvent(true, usbDevice))
                     }
                     true
                 } else {
-                    XLog.w("[CN_TEXT]")
+                    XLog.w("utility")
                     if (isAutoRequest) {
                         EventBus.getDefault().post(DevicePermissionEvent(usbDevice))
                     }
@@ -60,16 +60,16 @@ object DeviceTools {
             if (usbDevice.isTcTsDevice()) {
                 val productID = usbDevice.productId.toBytes(2).toHexString()
                 val vendorID = usbDevice.vendorId.toBytes(2).toHexString()
-                XLog.i("[CN_TEXT]usb[CN_TEXT] productId:$productID, vendorId:$vendorID, deviceName:${usbDevice.deviceName}")
+                XLog.i("utilityusbutility productId:$productID, vendorId:$vendorID, deviceName:${usbDevice.deviceName}")
                 return usbDevice
             }
         }
-        XLog.i("[CN_TEXT]${deviceList.size}[CN_TEXT], [CN_TEXT]usb[CN_TEXT]")
+        XLog.i("utility${deviceList.size}utility, utilityusbutility")
         return null
     }
 
     /**
-     * [CN_TEXT]Current[CN_TEXT] TC001 Plus [CN_TEXT].
+     * utilityCurrentutility TC001 Plus utility.
      */
     fun isTC001PlusConnect(): Boolean {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -90,7 +90,7 @@ object DeviceTools {
     }
 
     /**
-     * [CN_TEXT]TC001 Lite [CN_TEXT]
+     * utilityTC001 Lite utility
      */
     fun isTC001LiteConnect(): Boolean  {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -104,7 +104,7 @@ object DeviceTools {
     }
 
     /**
-     * [CN_TEXT] 256 [CN_TEXT]
+     * utility 256 utility
      */
     fun isHikConnect(): Boolean {
         val usbManager: UsbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -117,10 +117,10 @@ object DeviceTools {
     }
 
     /**
-     * [CN_TEXT]usb[CN_TEXT]
+     * utilityusbutility
      *
      * UsbManager.requestPermission
-     * [CN_TEXT]android 10[CN_TEXT]
+     * utilityandroid 10utility
      * targetSdk 27
      */
     fun requestUsb(
@@ -133,6 +133,6 @@ object DeviceTools {
         val flag = PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         val pendingIntent = PendingIntent.getBroadcast(activity, requestCode, intent, flag)
         usbManager.requestPermission(device, pendingIntent)
-        XLog.i("[CN_TEXT]usb[CN_TEXT]")
+        XLog.i("utilityusbutility")
     }
 }

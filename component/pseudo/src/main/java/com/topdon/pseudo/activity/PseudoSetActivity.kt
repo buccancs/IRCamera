@@ -27,18 +27,18 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * [CN_TEXT]Mode（[CN_TEXT]）Settings[CN_TEXT].
+ * activityMode（activity）Settingsactivity.
  *
- * [CN_TEXT]
- * - [ExtraKeyConfig.IS_TC007] - [CN_TEXT]Settings TC007 [CN_TEXT]
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - [CN_TEXT]Settings[CN_TEXT].（[CN_TEXT]，[CN_TEXT] SharedPreferences [CN_TEXT].）
+ * activity
+ * - [ExtraKeyConfig.IS_TC007] - activitySettings TC007 activity
+ * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - activitySettingsactivity.（activity，activity SharedPreferences activity.）
  *
- * [CN_TEXT] result
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - [CN_TEXT]Settings[CN_TEXT].
+ * activity result
+ * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - activitySettingsactivity.
  */
 class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     /**
-     * [CN_TEXT]，[CN_TEXT]Settings[CN_TEXT].
+     * activity，activitySettingsactivity.
      */
     private lateinit var customPseudoBean: CustomPseudoBean
 
@@ -150,7 +150,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
-        //[CN_TEXT]
+        // Activity logic
         etMaxTemp.setText(UnitTools.showNoUnit(customPseudoBean.maxTemp))
         etMinTemp.setText(UnitTools.showNoUnit(customPseudoBean.minTemp))
         tvMaxTempUnit.text = UnitTools.showUnit()
@@ -158,7 +158,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
         switchColorType(customPseudoBean.isColorCustom)
 
-        //[CN_TEXT]
+        // Activity logic
         pseudoPickView.onSelectChangeListener = {
             reset6CustomColor()
             colorSelectView.reset()
@@ -181,7 +181,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
             customPseudoBean.getCustomPlaces()
         )
 
-        //[CN_TEXT]
+        // Activity logic
         viewRecommendColor1.background = buildRectDrawableArray(ColorRecommend.colorList1)
         viewRecommendColor2.background = buildRectDrawableArray(ColorRecommend.colorList2)
         viewRecommendColor3.background = buildRectDrawableArray(ColorRecommend.getColorByIndex(isTC007, 2))
@@ -233,89 +233,89 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clDynamic -> {//[CN_TEXT]
+            clDynamic -> {// Activity logic
                 switchDynamicCustom(false)
             }
-            clCustom -> {//[CN_TEXT]
+            clCustom -> {// Activity logic
                 switchDynamicCustom(true)
             }
-            tvColorCustom -> {//[CN_TEXT]-[CN_TEXT]
+            tvColorCustom -> {// Activity logic-activity
                 switchColorType(true)
             }
-            tvColorRecommend -> {//[CN_TEXT]-[CN_TEXT]
+            tvColorRecommend -> {// Activity logic-activity
                 switchColorType(false)
                 switchRecommendColorIndex(customPseudoBean.customRecommendIndex)
             }
 
-            viewCustomColor1 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]1
+            viewCustomColor1 -> {// Activity logic-activity-activity1
                 reset6CustomColor()
                 viewCustomColor1.isSelected = true
                 colorSelectView.selectColor(0xff0000ff.toInt())
                 pseudoPickView.refreshColor(0xff0000ff.toInt())
             }
-            viewCustomColor2 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]2
+            viewCustomColor2 -> {// Activity logic-activity-activity2
                 reset6CustomColor()
                 viewCustomColor2.isSelected = true
                 colorSelectView.selectColor(0xffff0000.toInt())
                 pseudoPickView.refreshColor(0xffff0000.toInt())
             }
-            viewCustomColor3 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]3
+            viewCustomColor3 -> {// Activity logic-activity-activity3
                 reset6CustomColor()
                 viewCustomColor3.isSelected = true
                 colorSelectView.selectColor(0xff00ff00.toInt())
                 pseudoPickView.refreshColor(0xff00ff00.toInt())
             }
-            viewCustomColor4 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]4
+            viewCustomColor4 -> {// Activity logic-activity-activity4
                 reset6CustomColor()
                 viewCustomColor4.isSelected = true
                 colorSelectView.selectColor(0xffffff00.toInt())
                 pseudoPickView.refreshColor(0xffffff00.toInt())
             }
-            viewCustomColor5 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]5
+            viewCustomColor5 -> {// Activity logic-activity-activity5
                 reset6CustomColor()
                 viewCustomColor5.isSelected = true
                 colorSelectView.selectColor(0xff000000.toInt())
                 pseudoPickView.refreshColor(0xff000000.toInt())
             }
-            viewCustomColor6 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]6
+            viewCustomColor6 -> {// Activity logic-activity-activity6
                 reset6CustomColor()
                 viewCustomColor6.isSelected = true
                 colorSelectView.selectColor(0xffffffff.toInt())
                 pseudoPickView.refreshColor(0xffffffff.toInt())
             }
 
-            ivCustomAdd -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
+            ivCustomAdd -> {// Activity logic-activity-activity
                 pseudoPickView.add()
             }
-            ivCustomDel -> {//[CN_TEXT]-[CN_TEXT]-Delete
+            ivCustomDel -> {// Activity logic-activity-Delete
                 pseudoPickView.del()
             }
 
-            viewRecommendBgColor1 -> {//[CN_TEXT]-[CN_TEXT]-Iron red
+            viewRecommendBgColor1 -> {// Activity logic-activity-Iron red
                 switchRecommendColorIndex(0)
             }
-            viewRecommendBgColor2 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
+            viewRecommendBgColor2 -> {// Activity logic-activity-activity
                 switchRecommendColorIndex(1)
             }
-            viewRecommendBgColor3 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
+            viewRecommendBgColor3 -> {// Activity logic-activity-activity
                 switchRecommendColorIndex(2)
             }
-            viewRecommendBgColor4 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
+            viewRecommendBgColor4 -> {// Activity logic-activity-activity
                 switchRecommendColorIndex(3)
             }
-            viewRecommendBgColor5 -> {//[CN_TEXT]-[CN_TEXT]-[CN_TEXT]
+            viewRecommendBgColor5 -> {// Activity logic-activity-activity
                 switchRecommendColorIndex(4)
             }
 
-            clOverGrey -> {//[CN_TEXT]
+            clOverGrey -> {// Activity logic
                 switchUseGray(true)
             }
-            clOverColor -> {//[CN_TEXT]
+            clOverColor -> {// Activity logic
                 switchUseGray(false)
             }
 
-            tvConfirm -> {//[CN_TEXT]
-                if (clCustomContent.isVisible) {//[CN_TEXT]
+            tvConfirm -> {// Activity logic
+                if (clCustomContent.isVisible) {// Activity logic
                     val inputMax = etMaxTemp.text.toString()
                     if (inputMax.isEmpty()) {
                         ToastUtils.showShort(RUi.string.tip_input_format)
@@ -358,7 +358,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 setResult(RESULT_OK, resultIntent)
                 finish()
             }
-            tvCancel -> {//[CN_TEXT]
+            tvCancel -> {// Activity logic
                 setResult(RESULT_CANCELED)
                 finish()
             }
@@ -366,8 +366,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT]Switch.
-     * @param isToCustom true-Switch[CN_TEXT] false-Switch[CN_TEXT]
+     * activity activity activity activity activitySwitch.
+     * @param isToCustom true-Switchactivity false-Switchactivity
      */
     private fun switchDynamicCustom(isToCustom: Boolean) {
         customPseudoBean.isUseCustomPseudo = isToCustom
@@ -381,8 +381,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]-[CN_TEXT]Settings[CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT]Switch.
-     * @param isToCustom true-Switch[CN_TEXT] false-Switch[CN_TEXT]
+     * activity-activitySettingsactivity activity activity activity activitySwitch.
+     * @param isToCustom true-Switchactivity false-Switchactivity
      */
     private fun switchColorType(isToCustom: Boolean) {
         customPseudoBean.isColorCustom = isToCustom
@@ -395,7 +395,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]Settings[CN_TEXT]，6[CN_TEXT]SelectedState.
+     * activitySettingsactivity，6activitySelectedState.
      */
     private fun reset6CustomColor() {
         viewCustomColor1.isSelected = false
@@ -407,8 +407,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * Switch [CN_TEXT] [CN_TEXT] 5 [CN_TEXT]Option.
-     * @param 0-Iron red 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT] 4-[CN_TEXT]
+     * Switch activity activity 5 activityOption.
+     * @param 0-Iron red 1-activity 2-activity 3-activity 4-activity
      */
     private fun switchRecommendColorIndex(index: Int) {
         when (customPseudoBean.customRecommendIndex) {

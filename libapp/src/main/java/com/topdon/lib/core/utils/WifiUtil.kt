@@ -15,11 +15,11 @@ import androidx.lifecycle.LifecycleOwner
 import com.hjq.permissions.XXPermissions
 
 /**
- * WIFI [CN_TEXT].
+ * WIFI utility.
  */
 object WifiUtil {
     /**
-     * [CN_TEXT] SSID.
+     * utility SSID.
      */
     fun ScanResult.getWifiName(): String = if (Build.VERSION.SDK_INT < 33) {
         @Suppress("DEPRECATION")
@@ -31,7 +31,7 @@ object WifiUtil {
     fun WifiInfo.getWifiName(): String = removeQuotation(ssid)
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT]
+     * utilitySpecifiedutility，utility
      */
     private fun removeQuotation(source: String): String {
         return if (source.length > 1 && source[0] == '\"' && source[source.length - 1] == '\"') {
@@ -42,8 +42,8 @@ object WifiUtil {
     }
 
     /**
-     * [CN_TEXT]Current[CN_TEXT] Wifi ssid，[CN_TEXT]，[CN_TEXT]。
-     * @return [CN_TEXT] WIFI [CN_TEXT] [CN_TEXT] [Manifest.permission.ACCESS_FINE_LOCATION] [CN_TEXT]，[CN_TEXT] null
+     * utilityCurrentutility Wifi ssid，utility，utility。
+     * @return utility WIFI utility utility [Manifest.permission.ACCESS_FINE_LOCATION] utility，utility null
      */
     fun getCurrentWifiSSID(context: Context): String? {
         if (!XXPermissions.isGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -55,7 +55,7 @@ object WifiUtil {
     }
 
     /**
-     * [CN_TEXT] activity [CN_TEXT] WIFI [CN_TEXT]State[CN_TEXT].
+     * utility activity utility WIFI utilityStateutility.
      */
     fun addWifiStateListener(
         activity: ComponentActivity,
@@ -65,7 +65,7 @@ object WifiUtil {
     }
 
     /**
-     * [CN_TEXT] activity [CN_TEXT] WIFI [CN_TEXT].
+     * utility activity utility WIFI utility.
      */
     fun addWifiScanListener(
         activity: ComponentActivity,
@@ -97,7 +97,7 @@ object WifiUtil {
     }
 
     /**
-     * WIFI State[CN_TEXT].
+     * WIFI Stateutility.
      */
     private class WifiStateReceiver(val listener: ((isEnable: Boolean) -> Unit)) : BroadcastReceiver() {
         override fun onReceive(
@@ -112,7 +112,7 @@ object WifiUtil {
     }
 
     /**
-     * WIFI [CN_TEXT].
+     * WIFI utility.
      */
     private class WifiScanReceiver(val listener: ((isSuccess: Boolean) -> Unit)) : BroadcastReceiver() {
         override fun onReceive(

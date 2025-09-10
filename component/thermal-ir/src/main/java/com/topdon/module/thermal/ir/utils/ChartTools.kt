@@ -11,12 +11,12 @@ object ChartTools {
 
     fun getLineTemps(point1: Point, point2: Point, tempArray: ByteArray, rotate: Int): List<Float> {
         val tempList: ArrayList<Float> = ArrayList()
-        if (point1 == point2) {//[CN_TEXT]，[CN_TEXT]
+        if (point1 == point2) {// Utility function，utility
             return tempList
         }
 
         val pointList: ArrayList<Point> = ArrayList()
-        if (point1.x == point2.x) {//[CN_TEXT] X [CN_TEXT]
+        if (point1.x == point2.x) {// Utility function X utility
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
             for (i in startY .. endY) {
@@ -25,20 +25,20 @@ object ChartTools {
         } else {
             val k = (point1.y - point2.y).toFloat() / (point1.x - point2.x).toFloat()
             val b = point1.y - k * point1.x
-            if (abs(k) <= 1) {//x[CN_TEXT]
+            if (abs(k) <= 1) {//xutility
                 val startX = point1.x.coerceAtMost(point2.x)
                 val endX = point1.x.coerceAtLeast(point2.x)
                 for (i in startX .. endX) {
                     pointList.add(Point(i, (k * i + b).toInt()))
                 }
-            } else {//y[CN_TEXT]
-                if (k >= 0) {//[CN_TEXT]
+            } else {//yutility
+                if (k >= 0) {// Utility function
                     val startY = point1.y.coerceAtMost(point2.y)
                     val endY = point1.y.coerceAtLeast(point2.y)
                     for (y in startY .. endY) {
                         pointList.add(Point(((y - b) / k).toInt(), y))
                     }
-                } else {//[CN_TEXT]
+                } else {// Utility function
                     val startY = point1.y.coerceAtLeast(point2.y)
                     val endY = point1.y.coerceAtMost(point2.y)
                     for (y in startY downTo endY) {
@@ -60,7 +60,7 @@ object ChartTools {
         return tempList
     }
 
-    //X[CN_TEXT]
+    //Xutility
     fun scale(type: Int): Long {
         return when (type) {
             1 -> 1 * 1000 //s
@@ -71,7 +71,7 @@ object ChartTools {
         }
     }
 
-    //[CN_TEXT]
+    // Utility function
     fun getMinimum(type: Int): Float {
         val min = when (type) {
             1 -> 10f //10s
@@ -83,13 +83,13 @@ object ChartTools {
         return min
     }
 
-    //[CN_TEXT]，[CN_TEXT]50[CN_TEXT]
+    // Utility function，utility50utility
     fun getMaximum(type: Int): Float {
         return getMinimum(type) * 50f
     }
 
     /**
-     * SettingsY[CN_TEXT]
+     * SettingsYutility
      */
     fun setY(chart: LineChart) {
         var maxVol = 0f
@@ -136,20 +136,20 @@ object ChartTools {
     }
 
     /**
-     * SettingsX[CN_TEXT]
+     * SettingsXutility
      */
     fun setX(chart: LineChart, type: Int) {
-        //true[CN_TEXT],[CN_TEXT]false
+        //trueutility,utilityfalse
         val xLen = chart.xChartMax - chart.xChartMin
 //        Log.w("chart", "xLen: $xLen")
 //        chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), getLabCount(xLen.toInt()) < 3)
-//        chart.xAxis.setLabelCount(5, false) // 3[CN_TEXT] ok
+//        chart.xAxis.setLabelCount(5, false) // 3utility ok
 //        chart.xAxis.setLabelCount(5, true) //
         chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), xLen <= 3)
     }
 
     /**
-     * x[CN_TEXT]
+     * xutility
      */
     private fun getLabCount(count: Int): Int {
         return when {

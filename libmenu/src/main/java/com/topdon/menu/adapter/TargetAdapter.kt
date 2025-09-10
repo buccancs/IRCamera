@@ -28,8 +28,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
     var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 
     /**
-     * SettingsSpecifiedOption[CN_TEXT]SelectedState.
-     * [CN_TEXT]Selected[CN_TEXT]Selected[CN_TEXT]，[CN_TEXT]Historical legacy[CN_TEXT]，[CN_TEXT]State.
+     * SettingsSpecifiedOptionitemSelectedState.
+     * itemSelecteditemSelecteditem，itemHistorical legacyitem，itemState.
      */
     fun setSelected(targetType: TargetType, isSelected: Boolean) {
         for (i in dataArray.indices) {
@@ -42,9 +42,9 @@ internal class TargetAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * Settings ObservationMode-Menu4-Target-[CN_TEXT]Mode [CN_TEXT]Type.
+     * Settings ObservationMode-Menu4-Target-itemMode itemType.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
+     * itemHistorical legacy（Already saveditem SharedPreferences item），item code item
      * - Person：10
      * - Sheep：11
      * - Dog：12
@@ -81,8 +81,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            //Target[CN_TEXT]Selected[CN_TEXT]，[CN_TEXT]，
-            //Menu[CN_TEXT]Selected[CN_TEXT] listener [CN_TEXT]，[CN_TEXT]
+            //TargetitemSelecteditem，item，
+            //MenuitemSelecteditem listener item，item
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

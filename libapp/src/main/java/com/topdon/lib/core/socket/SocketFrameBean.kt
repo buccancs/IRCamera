@@ -1,49 +1,49 @@
 package com.topdon.lib.core.socket
 
 /**
- * TC007 Socket [CN_TEXT].
- * @param isMaxShow [CN_TEXT]High temperature[CN_TEXT]
- * @param isMinShow [CN_TEXT]Low temperature[CN_TEXT]
- * @param isCenterShow [CN_TEXT]
- * @param maxX [CN_TEXT]High temperature[CN_TEXT] X [CN_TEXT]
- * @param maxY [CN_TEXT]High temperature[CN_TEXT] Y [CN_TEXT]
- * @param maxValue [CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT]Celsius*10
- * @param minX [CN_TEXT]Low temperature[CN_TEXT] X [CN_TEXT]
- * @param minY [CN_TEXT]Low temperature[CN_TEXT] Y [CN_TEXT]
- * @param minValue [CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT]Celsius*10
- * @param centerX [CN_TEXT] X [CN_TEXT]
- * @param centerY [CN_TEXT] Y [CN_TEXT]
- * @param centerValue [CN_TEXT]，[CN_TEXT]Celsius*10
- * @param isMaxWarn [CN_TEXT]High temperature[CN_TEXT]
- * @param isMinWarn [CN_TEXT]Low temperature[CN_TEXT]
- * @param isCenterWarn [CN_TEXT]
+ * TC007 Socket data.
+ * @param isMaxShow dataHigh temperaturedata
+ * @param isMinShow dataLow temperaturedata
+ * @param isCenterShow data
+ * @param maxX dataHigh temperaturedata X data
+ * @param maxY dataHigh temperaturedata Y data
+ * @param maxValue dataHigh temperaturedata，dataCelsius*10
+ * @param minX dataLow temperaturedata X data
+ * @param minY dataLow temperaturedata Y data
+ * @param minValue dataLow temperaturedata，dataCelsius*10
+ * @param centerX data X data
+ * @param centerY data Y data
+ * @param centerValue data，dataCelsius*10
+ * @param isMaxWarn dataHigh temperaturedata
+ * @param isMinWarn dataLow temperaturedata
+ * @param isCenterWarn data
  *
- * @param isP1Show [CN_TEXT]1[CN_TEXT]
- * @param p1X [CN_TEXT]1 X [CN_TEXT]
- * @param p1Y [CN_TEXT]1 Y [CN_TEXT]
- * @param p1Value [CN_TEXT]1[CN_TEXT]，[CN_TEXT]Celsius*10
- * @param isP1MaxWarn [CN_TEXT]1High temperature[CN_TEXT]
- * @param isP1MinWarn [CN_TEXT]1Low temperature[CN_TEXT]
- * @param isP1CenterWarn [CN_TEXT]1[CN_TEXT]
+ * @param isP1Show data1data
+ * @param p1X data1 X data
+ * @param p1Y data1 Y data
+ * @param p1Value data1data，dataCelsius*10
+ * @param isP1MaxWarn data1High temperaturedata
+ * @param isP1MinWarn data1Low temperaturedata
+ * @param isP1CenterWarn data1data
  *
- * @param isL1Show [CN_TEXT]1[CN_TEXT]
- * @param l1StartX [CN_TEXT]1[CN_TEXT] X [CN_TEXT]
- * @param l1StartY [CN_TEXT]1[CN_TEXT] Y [CN_TEXT]
- * @param l1EndX [CN_TEXT]1[CN_TEXT] X [CN_TEXT]
- * @param l1EndY [CN_TEXT]1[CN_TEXT] Y [CN_TEXT]
- * @param l1MaxX [CN_TEXT]1[CN_TEXT]High temperature[CN_TEXT] X [CN_TEXT]
- * @param l1MaxY [CN_TEXT]1[CN_TEXT]High temperature[CN_TEXT] Y [CN_TEXT]
- * @param l1MaxValue [CN_TEXT]1[CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT]Celsius*10
- * @param l1MinX [CN_TEXT]1[CN_TEXT]Low temperature[CN_TEXT] X [CN_TEXT]
- * @param l1MinY [CN_TEXT]1[CN_TEXT]Low temperature[CN_TEXT] Y [CN_TEXT]
- * @param l1MinValue [CN_TEXT]1[CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT]Celsius*10
- * @param l1AveValue [CN_TEXT]1[CN_TEXT]，[CN_TEXT]Celsius*10
- * @param isL1MaxWarn [CN_TEXT]1High temperature[CN_TEXT]
- * @param isL1MinWarn [CN_TEXT]1Low temperature[CN_TEXT]
- * @param isL1CenterWarn [CN_TEXT]1[CN_TEXT]
+ * @param isL1Show data1data
+ * @param l1StartX data1data X data
+ * @param l1StartY data1data Y data
+ * @param l1EndX data1data X data
+ * @param l1EndY data1data Y data
+ * @param l1MaxX data1dataHigh temperaturedata X data
+ * @param l1MaxY data1dataHigh temperaturedata Y data
+ * @param l1MaxValue data1dataHigh temperaturedata，dataCelsius*10
+ * @param l1MinX data1dataLow temperaturedata X data
+ * @param l1MinY data1dataLow temperaturedata Y data
+ * @param l1MinValue data1dataLow temperaturedata，dataCelsius*10
+ * @param l1AveValue data1data，dataCelsius*10
+ * @param isL1MaxWarn data1High temperaturedata
+ * @param isL1MinWarn data1Low temperaturedata
+ * @param isL1CenterWarn data1data
  */
 data class SocketFrameBean(
-    // [CN_TEXT]Temperature measurement[CN_TEXT]
+    // dataTemperature measurementdata
     val isMaxShow: Boolean,
     val isMinShow: Boolean,
     val isCenterShow: Boolean,
@@ -59,7 +59,7 @@ data class SocketFrameBean(
     val isMaxWarn: Boolean,
     val isMinWarn: Boolean,
     val isCenterWarn: Boolean,
-    // [CN_TEXT]Temperature measurement[CN_TEXT]
+    // dataTemperature measurementdata
     val isP1Show: Boolean,
     val p1X: Int,
     val p1Y: Int,
@@ -81,7 +81,7 @@ data class SocketFrameBean(
     val isP3MaxWarn: Boolean,
     val isP3MinWarn: Boolean,
     val isP3CenterWarn: Boolean,
-    // [CN_TEXT]Temperature measurement[CN_TEXT]
+    // dataTemperature measurementdata
     val isL1Show: Boolean,
     val l1StartX: Int,
     val l1StartY: Int,
@@ -127,7 +127,7 @@ data class SocketFrameBean(
     val isL3MaxWarn: Boolean,
     val isL3MinWarn: Boolean,
     val isL3CenterWarn: Boolean,
-    // [CN_TEXT]Temperature measurement[CN_TEXT]
+    // dataTemperature measurementdata
     val isR1Show: Boolean,
     val r1StartX: Int,
     val r1StartY: Int,
@@ -304,7 +304,7 @@ data class SocketFrameBean(
     )
 
     companion object {
-        private fun Boolean.openText(): String = if (this) "[CN_TEXT]" else "[CN_TEXT]"
+        private fun Boolean.openText(): String = if (this) "data" else "data"
 
         private fun Int.toCStr(): String = "${this / 10}${if (this % 10 == 0) "" else ".${this % 10}"}°C"
     }
@@ -313,55 +313,55 @@ data class SocketFrameBean(
         val stringBuilder = StringBuilder()
 
         if (isMaxShow) {
-            stringBuilder.append("High temperature[CN_TEXT] ($maxX, $maxY) [CN_TEXT]${maxValue.toCStr()} [CN_TEXT]${isMaxWarn.openText()}\n")
+            stringBuilder.append("High temperaturedata ($maxX, $maxY) data${maxValue.toCStr()} data${isMaxWarn.openText()}\n")
         }
         if (isMinShow) {
-            stringBuilder.append("Low temperature[CN_TEXT] ($minX, $minY) [CN_TEXT]${minValue.toCStr()} [CN_TEXT]${isMinWarn.openText()}\n")
+            stringBuilder.append("Low temperaturedata ($minX, $minY) data${minValue.toCStr()} data${isMinWarn.openText()}\n")
         }
         if (isCenterShow) {
-            stringBuilder.append("[CN_TEXT] ($centerX, $centerY) [CN_TEXT]${centerValue.toCStr()} [CN_TEXT]${isCenterWarn.openText()}\n")
+            stringBuilder.append("data ($centerX, $centerY) data${centerValue.toCStr()} data${isCenterWarn.openText()}\n")
         }
 
         if (isP1Show) {
-            stringBuilder.append("[CN_TEXT]1 ($p1X, $p1Y) [CN_TEXT]${p1Value.toCStr()}\n")
+            stringBuilder.append("data1 ($p1X, $p1Y) data${p1Value.toCStr()}\n")
         }
         if (isP2Show) {
-            stringBuilder.append("[CN_TEXT]2 ($p2X, $p2Y) [CN_TEXT]${p2Value.toCStr()}\n")
+            stringBuilder.append("data2 ($p2X, $p2Y) data${p2Value.toCStr()}\n")
         }
         if (isP3Show) {
-            stringBuilder.append("[CN_TEXT]3 ($p3X, $p3Y) [CN_TEXT]${p3Value.toCStr()}\n")
+            stringBuilder.append("data3 ($p3X, $p3Y) data${p3Value.toCStr()}\n")
         }
 
         if (isL1Show) {
-            stringBuilder.append("[CN_TEXT]1 ($l1StartX, $l1StartY)-($l1EndX, $l1EndY) ")
-            stringBuilder.append("[CN_TEXT]Low temperature${l1MinValue.toCStr()}($l1MinX, $l1MinY) [CN_TEXT]High temperature${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ")
-            stringBuilder.append("[CN_TEXT]${l1AveValue.toCStr()}\n")
+            stringBuilder.append("data1 ($l1StartX, $l1StartY)-($l1EndX, $l1EndY) ")
+            stringBuilder.append("dataLow temperature${l1MinValue.toCStr()}($l1MinX, $l1MinY) dataHigh temperature${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ")
+            stringBuilder.append("data${l1AveValue.toCStr()}\n")
         }
         if (isL2Show) {
-            stringBuilder.append("[CN_TEXT]2 ($l2StartX, $l2StartY)-($l2EndX, $l2EndY) ")
-            stringBuilder.append("[CN_TEXT]Low temperature${l2MinValue.toCStr()}($l2MinX, $l2MinY) [CN_TEXT]High temperature${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ")
-            stringBuilder.append("[CN_TEXT]${l2AveValue.toCStr()}\n")
+            stringBuilder.append("data2 ($l2StartX, $l2StartY)-($l2EndX, $l2EndY) ")
+            stringBuilder.append("dataLow temperature${l2MinValue.toCStr()}($l2MinX, $l2MinY) dataHigh temperature${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ")
+            stringBuilder.append("data${l2AveValue.toCStr()}\n")
         }
         if (isL3Show) {
-            stringBuilder.append("[CN_TEXT]3 ($l3StartX, $l3StartY)-($l3EndX, $l3EndY) ")
-            stringBuilder.append("[CN_TEXT]Low temperature${l3MinValue.toCStr()}($l3MinX, $l3MinY) [CN_TEXT]High temperature${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ")
-            stringBuilder.append("[CN_TEXT]${l3AveValue.toCStr()}\n")
+            stringBuilder.append("data3 ($l3StartX, $l3StartY)-($l3EndX, $l3EndY) ")
+            stringBuilder.append("dataLow temperature${l3MinValue.toCStr()}($l3MinX, $l3MinY) dataHigh temperature${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ")
+            stringBuilder.append("data${l3AveValue.toCStr()}\n")
         }
 
         if (isR1Show) {
-            stringBuilder.append("[CN_TEXT]1 ($r1StartX, $r1StartY)-($r1EndX, $r1EndY) ")
-            stringBuilder.append("[CN_TEXT]Low temperature${r1MinValue.toCStr()}($r1MinX, $r1MinY) [CN_TEXT]High temperature${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ")
-            stringBuilder.append("[CN_TEXT]${r1AveValue.toCStr()}\n")
+            stringBuilder.append("data1 ($r1StartX, $r1StartY)-($r1EndX, $r1EndY) ")
+            stringBuilder.append("dataLow temperature${r1MinValue.toCStr()}($r1MinX, $r1MinY) dataHigh temperature${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ")
+            stringBuilder.append("data${r1AveValue.toCStr()}\n")
         }
         if (isR2Show) {
-            stringBuilder.append("[CN_TEXT]2 ($r2StartX, $r2StartY)-($r2EndX, $r2EndY) ")
-            stringBuilder.append("[CN_TEXT]Low temperature${r2MinValue.toCStr()}($r2MinX, $r2MinY) [CN_TEXT]High temperature${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ")
-            stringBuilder.append("[CN_TEXT]${l2AveValue.toCStr()}\n")
+            stringBuilder.append("data2 ($r2StartX, $r2StartY)-($r2EndX, $r2EndY) ")
+            stringBuilder.append("dataLow temperature${r2MinValue.toCStr()}($r2MinX, $r2MinY) dataHigh temperature${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ")
+            stringBuilder.append("data${l2AveValue.toCStr()}\n")
         }
         if (isR3Show) {
-            stringBuilder.append("[CN_TEXT]3 ($r3StartX, $r3StartY)-($r3EndX, $r3EndY) ")
-            stringBuilder.append("[CN_TEXT]Low temperature${r3MinValue.toCStr()}($r3MinX, $r3MinY) [CN_TEXT]High temperature${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ")
-            stringBuilder.append("[CN_TEXT]${r3AveValue.toCStr()}\n")
+            stringBuilder.append("data3 ($r3StartX, $r3StartY)-($r3EndX, $r3EndY) ")
+            stringBuilder.append("dataLow temperature${r3MinValue.toCStr()}($r3MinX, $r3MinY) dataHigh temperature${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ")
+            stringBuilder.append("data${r3AveValue.toCStr()}\n")
         }
         return stringBuilder.toString()
     }

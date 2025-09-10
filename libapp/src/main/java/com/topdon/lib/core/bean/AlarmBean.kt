@@ -67,7 +67,7 @@ data class AlarmBean(
             .array()
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun isOpen(): Boolean = isHighOpen || isLowOpen
 }

@@ -13,7 +13,7 @@ import com.csl.irCamera.R
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 
 /**
- * [CN_TEXT]-[CN_TEXT]-Delete[CN_TEXT] PopupWindow.
+ * data-data-Deletedata PopupWindow.
  *
  * Created by LCG on 2024/4/24.
  */

@@ -15,7 +15,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     val configLiveData = SingleLiveEvent<ModelBean>()
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun getConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -24,7 +24,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]Celsius。
+     * view，viewCelsius。
      */
     fun updateDefaultEnvironment(isTC007: Boolean, environment: Float) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -36,7 +36,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]。
+     * view，view。
      */
     fun updateDefaultDistance(isTC007: Boolean, distance: Float) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -48,7 +48,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT]。
+     * view。
      */
     fun updateDefaultRadiation(isTC007: Boolean, radiation: Float) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -60,7 +60,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT]Mode
+     * viewMode
      */
     fun addConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -80,8 +80,8 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT]Mode
-     * @param id 0:[CN_TEXT]Mode   > 0 [CN_TEXT]Mode
+     * viewMode
+     * @param id 0:viewMode   > 0 viewMode
      */
     fun checkConfig(isTC007: Boolean, id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -96,8 +96,8 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * Delete[CN_TEXT]Mode
-     * @param id [CN_TEXT]Mode id
+     * DeleteviewMode
+     * @param id viewMode id
      */
     fun deleteConfig(isTC007: Boolean, id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -106,7 +106,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
             for (i in modelBean.myselfModel.indices) {
                 val dataBean = modelBean.myselfModel[i]
                 if (dataBean.id == id) {
-                    if (dataBean.use) {//DeleteCurrent[CN_TEXT]Mode，[CN_TEXT]Mode
+                    if (dataBean.use) {//DeleteCurrentviewMode，viewMode
                         modelBean.defaultModel.use = true
                     }
                     modelBean.myselfModel.removeAt(i)
@@ -115,7 +115,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
                 }
             }
 
-            // BUG 28055 [CN_TEXT]，Delete[CN_TEXT]，[CN_TEXT]，[CN_TEXT] BUG [CN_TEXT]
+            // BUG 28055 view，Deleteview，view，view BUG view
             if (removeAt < modelBean.myselfModel.size) {
                 for (i in removeAt until modelBean.myselfModel.size) {
                     val dataBean = modelBean.myselfModel[i]
@@ -130,7 +130,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     fun updateCustom(isTC007: Boolean, dataBean: DataBean) {
         viewModelScope.launch(Dispatchers.IO) {

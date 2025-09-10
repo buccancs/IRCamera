@@ -12,7 +12,7 @@ import java.nio.ShortBuffer
 
 
 /**
- * [CN_TEXT]
+ * utility
  * @author: CaiSongL
  * @date: 2023/3/28
  */
@@ -79,7 +79,7 @@ class AudioRecordHelp private constructor() {
             }
             audioRecord!!.startRecording()
             /**
-             * [CN_TEXT]
+             * utility
              */
             try {
                 while (runAudioThread) {
@@ -87,11 +87,11 @@ class AudioRecordHelp private constructor() {
                     if (recordingAudio) {
                         if (bufferReadResult > 0) {
                             audioData?.limit(bufferReadResult)
-                            Log.w("[CN_TEXT]",bufferReadResult.toString()+"//"+bufferReadResult)
+                            Log.w("utility",bufferReadResult.toString()+"//"+bufferReadResult)
                             recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS, audioData)
-//                            Log.w("[CN_TEXT]2",""+recorder?.get()?.frameNumber)
+//                            Log.w("utility2",""+recorder?.get()?.frameNumber)
                         }
                     }else{
                         for (i in 0 until bufferSize) {
@@ -103,9 +103,9 @@ class AudioRecordHelp private constructor() {
                         Thread.sleep(1000L/VideoRecordFFmpeg.RATE)
                     }
                 }
-//                Log.w("[CN_TEXT]",""+recorder?.get()?.frameNumber)
+//                Log.w("utility",""+recorder?.get()?.frameNumber)
             }catch (e:Exception){
-                XLog.e("[CN_TEXT]")
+                XLog.e("utility")
             }
         }
     }

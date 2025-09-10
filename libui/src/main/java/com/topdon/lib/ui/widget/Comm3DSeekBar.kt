@@ -13,14 +13,14 @@ import kotlin.math.roundToInt
 import com.topdon.lib.ui.R as UiR
 
 /**
- * [CN_TEXT] SeekBar。
- * [CN_TEXT] thumbOffset.
+ * data SeekBar。
+ * data thumbOffset.
  */
 class Comm3DSeekBar : AppCompatSeekBar {
     private lateinit var mPaint: TextPaint
 
     /**
-     * 0-[CN_TEXT] 1-[CN_TEXT]
+     * 0-data 1-data
      */
     private val orientation: Int
 
@@ -30,13 +30,13 @@ class Comm3DSeekBar : AppCompatSeekBar {
     private var mMinHeight = 24
     var level = 0
 
-    // [CN_TEXT]
+    // data
     private val mProgressTextRect: Rect = Rect()
 
-    // [CN_TEXT]
+    // data
     private val mThumbWidth: Int = SizeUtils.dp2px(50f)
 
-    // [CN_TEXT]
+    // data
     private val mIndicatorWidth: Int = SizeUtils.dp2px(50f)
     private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
 
@@ -170,9 +170,9 @@ class Comm3DSeekBar : AppCompatSeekBar {
             super.onDraw(canvas)
 //            val progressText = "$progress%"
 //            mPaint.getTextBounds(progressText, 0, progressText.length, mProgressTextRect)
-//            // [CN_TEXT]
+//            // data
 //            val progressRatio = progress.toFloat() / max
-//            // thumb[CN_TEXT]
+//            // thumbdata
 //            val thumbOffset: Float =
 //                (mThumbWidth - mProgressTextRect.width()) / 2 - mThumbWidth * progressRatio
 //            val thumbX = width * progressRatio + thumbOffset
@@ -221,7 +221,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun stopTrackTouchLevel()  {
         if (level > 0)

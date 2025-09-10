@@ -21,7 +21,7 @@ object IRTool {
 
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun setAutoShutter(isAutoShutter : Boolean){
         val basicAutoFFCStatusSet: IrcmdError? =
@@ -34,7 +34,7 @@ object IRTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun setOneShutter(){
         val basicFFCUpdate = DeviceIrcmdControlManager.getInstance().ircmdEngine?.basicFFCUpdate()
@@ -46,11 +46,11 @@ object IRTool {
     /**
      *
      *
-     * Normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）[CN_TEXT]High gain
+     * Normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）utilityHigh gain
      *
-     * High temperature ([CameraItemBean.TYPE_TMP_H] = 0) [CN_TEXT]Low gain
+     * High temperature ([CameraItemBean.TYPE_TMP_H] = 0) utilityLow gain
      *
-     * [CN_TEXT] ([CameraItemBean.TYPE_TMP_ZD] = -1)
+     * utility ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
     fun basicGainSet(gainType : Int){
         if (gainType == CameraItemBean.TYPE_TMP_ZD){
@@ -69,7 +69,7 @@ object IRTool {
     }
 
     /**
-     * [CN_TEXT]：[CN_TEXT]0-100
+     * utility：utility0-100
      */
     fun basicGlobalContrastLevelSet(levelValue : Int){
         val basicGlobalContrastLevelSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
@@ -79,7 +79,7 @@ object IRTool {
         )
     }
     /**
-     * [CN_TEXT]：[CN_TEXT]0-100，[CN_TEXT]
+     * utility：utility0-100，utility
      */
     fun basicImageDetailEnhanceLevelSet(levelValue : Int){
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
@@ -90,10 +90,10 @@ object IRTool {
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsutility
      */
     fun basicMirrorAndFlipStatusSet(openMirror : Boolean){
-        //Settings[CN_TEXT] PASS
+        //Settingsutility PASS
         val basicMirrorAndFlipStatusSet = DeviceIrcmdControlManager.getInstance().ircmdEngine
             ?.basicMirrorAndFlipStatusSet(if (openMirror) CommonParams.MirrorFlipType.ONLY_FLIP else
                 CommonParams.MirrorFlipType.NO_MIRROR_OR_FLIP)
@@ -101,18 +101,18 @@ object IRTool {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      * https://alidocs.dingtalk.com/i/p/QqWXwywDMb9xKG31/docs/14lgGw3P8vL0P2qbu7OR39d5V5daZ90D
-     * Setp1：[CN_TEXT]Current[CN_TEXT]State，[CN_TEXT]3-5[CN_TEXT]。
-     * [CN_TEXT]，[CN_TEXT]，[CN_TEXT]。[CN_TEXT]、 [CN_TEXT])；
-     * Setp2：[CN_TEXT]，[CN_TEXT]
-     * Setp3：[CN_TEXT]
-     * Setp4：[CN_TEXT]
-     * Setp5：[CN_TEXT]
-     * Setp6：[CN_TEXT]
-     * Setp7：[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+     * Setp1：utilityCurrentutilityState，utility3-5utility。
+     * utility，utility，utility。utility、 utility)；
+     * Setp2：utility，utility
+     * Setp3：utility
+     * Setp4：utility
+     * Setp5：utility
+     * Setp6：utility
+     * Setp7：utility，utility，utility
      * mIrcmdEngine.advRmcoverCaliCancel();
-     * [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+     * utility，utility，utility
      * mIrcmdEngine.basicSaveData(CommonParams.DeviceDataSaveType.BASIC_SAVE_RMCOVER_DATA);
      */
     fun onceAuto() : Boolean{
@@ -138,7 +138,7 @@ object IRTool {
 
 
     /**
-     * [CN_TEXT]Low gainMode[CN_TEXT]，[CN_TEXT]
+     * utilityLow gainModeutility，utility
      */
     suspend fun autoStart() : Boolean{
         basicGainSet(CameraItemBean.TYPE_TMP_C)
@@ -156,7 +156,7 @@ object IRTool {
 
 
     /**
-     * [CN_TEXT]Core[CN_TEXT]
+     * utilityCoreutility
      */
     fun advEnvCorrectSwitchSet(open : Boolean){
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -165,8 +165,8 @@ object IRTool {
     }
 
     /**
-     * Core[CN_TEXT]
-     * [CN_TEXT]：range:1~16384
+     * Coreutility
+     * utility：range:1~16384
      */
     fun advEnvCorrectEMSSet(value : Int){
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -174,8 +174,8 @@ object IRTool {
     }
 
     /**
-     * Core[CN_TEXT]
-     * [CN_TEXT](units:Celsius)：range:233~373
+     * Coreutility
+     * utility(units:Celsius)：range:233~373
      */
     fun advEnvCorrectTUSet(value : Int){
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -184,16 +184,16 @@ object IRTool {
 
 
     /**
-     * lite[CN_TEXT]
+     * liteutility
      * @param temp Float
      * @param params_array FloatArray
-     * @param tau_data_H ByteArray High gain[CN_TEXT]
-     * @param tau_data_L ByteArray Low gain[CN_TEXT]
+     * @param tau_data_H ByteArray High gainutility
+     * @param tau_data_L ByteArray Low gainutility
      * @return Float
      */
     fun temperatureCorrection(temp : Float, params_array: FloatArray, tau_data_H: ByteArray, tau_data_L: ByteArray,basicGainGetValue : Int) : Float {
         var newTemp = temp
-        //[CN_TEXT]State PASS
+        // Utility functionState PASS
         try {
             if (tau_data_H == null || tau_data_L == null) return temp
             newTemp = LibIRTempAC020.temperatureCorrection(
@@ -215,7 +215,7 @@ object IRTool {
     }
 
     /**
-     * Settings[CN_TEXT]Mode[CN_TEXT]
+     * SettingsutilityModeutility
      */
     fun setMode(){
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine

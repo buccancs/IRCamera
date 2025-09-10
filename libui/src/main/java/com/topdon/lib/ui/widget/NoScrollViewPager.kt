@@ -22,7 +22,7 @@ class NoScrollViewPager : ViewPager {
     }
 
     override fun setCurrentItem(item: Int) {
-        // [CN_TEXT]Switch[CN_TEXT]
+        // viewSwitchview
         super.setCurrentItem(item, false)
     }
 }

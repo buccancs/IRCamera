@@ -112,7 +112,7 @@ object ByteUtils {
         }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun ByteArray.descBytes() =
         run {
@@ -124,7 +124,7 @@ object ByteUtils {
         }
 
     /**
-     * [CN_TEXT]Specified ***[CN_TEXT]*** [CN_TEXT] Int，[CN_TEXT]4[CN_TEXT]4[CN_TEXT].
+     * utilitySpecified ***utility*** utility Int，utility4utility4utility.
      */
     fun bigBytesToInt(vararg bytes: Byte): Int {
         val byteCount = bytes.size.coerceAtMost(4)
@@ -136,7 +136,7 @@ object ByteUtils {
     }
 
     /**
-     * [CN_TEXT] Float [CN_TEXT] [CN_TEXT] 4 [CN_TEXT]，[CN_TEXT].
+     * utility Float utility utility 4 utility，utility.
      */
     fun Float.toLittleBytes(): ByteArray {
         val result = ByteArray(4)

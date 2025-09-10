@@ -9,7 +9,7 @@ import kotlin.math.sqrt
 
 object ScreenTool {
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun isLandPhone(): Boolean {
         val displayMetrics: DisplayMetrics = Utils.getApp().resources.displayMetrics

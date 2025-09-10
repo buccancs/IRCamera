@@ -30,10 +30,10 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * CurrentSelected[CN_TEXT] code.
+     * CurrentSelecteditem code.
      *
-     * [CN_TEXT]Historical legacy（Already saved[CN_TEXT] SharedPreferences [CN_TEXT]），[CN_TEXT] code [CN_TEXT]
-     * - [CN_TEXT]Switch：-1
+     * itemHistorical legacy（Already saveditem SharedPreferences item），item code item
+     * - itemSwitch：-1
      * - High temperature(Low gain)：0
      * - Normal temperature(High gain)：1
      */
@@ -46,7 +46,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * Menu[CN_TEXT]，[CN_TEXT]。
+     * Menuitem，item。
      */
     var onTempLevelListener: ((code: Int) -> Unit)? = null
 
@@ -87,7 +87,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     }
 
     /**
-     * [CN_TEXT]Specified Celsius°C [CN_TEXT] Fahrenheit°F
+     * itemSpecified Celsius°C item Fahrenheit°F
      */
     private fun c2f(cValue: Int): Int = (cValue * 1.8f + 32).toInt()
 

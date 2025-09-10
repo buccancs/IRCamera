@@ -7,13 +7,13 @@ import androidx.core.content.ContextCompat
 import com.topdon.lib.core.BaseApplication
 
 /**
- * des: [CN_TEXT]android 14[CN_TEXT]
+ * des: utilityandroid 14utility
  * author: CaiSongL
  * date: 2024/9/9 9:45
  **/
 object PermissionUtils {
     /**
-     * android 14[CN_TEXT]
+     * android 14utility
      * @return Boolean
      */
     fun isVisualUser(): Boolean  {

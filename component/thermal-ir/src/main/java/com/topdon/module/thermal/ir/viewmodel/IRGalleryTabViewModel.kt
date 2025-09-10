@@ -5,16 +5,16 @@ import com.topdon.lib.core.ktbase.BaseViewModel
 
 class IRGalleryTabViewModel : BaseViewModel() {
     /**
-     * [CN_TEXT]Mode.
+     * viewMode.
      */
     val isEditModeLD: MutableLiveData<Boolean> = MutableLiveData(false)
     /**
-     * CurrentSelected[CN_TEXT].
+     * CurrentSelectedview.
      */
     val selectSizeLD: MutableLiveData<Int> = MutableLiveData(0)
 
     /**
-     * [CN_TEXT] Fragment index，[CN_TEXT] 0 [CN_TEXT]，1[CN_TEXT].
+     * view Fragment index，view 0 view，1view.
      */
     val selectAllIndex: MutableLiveData<Int> = MutableLiveData(0)
 }

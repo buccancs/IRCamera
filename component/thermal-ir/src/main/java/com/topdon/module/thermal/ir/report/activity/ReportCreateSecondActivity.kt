@@ -25,15 +25,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * [CN_TEXT]2[CN_TEXT]（[CN_TEXT]2[CN_TEXT]）.
+ * activity2activity（activity2activity）.
  *
- * [CN_TEXT]
- * - [CN_TEXT]：[CN_TEXT] TC007: [ExtraKeyConfig.IS_TC007] [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
- * - [CN_TEXT]：Current[CN_TEXT] [ExtraKeyConfig.FILE_ABSOLUTE_PATH]
- * - [CN_TEXT]：Current[CN_TEXT]Point/Line/Area[CN_TEXT] [ExtraKeyConfig.IMAGE_TEMP_BEAN]
- * - [CN_TEXT]：[CN_TEXT] [ExtraKeyConfig.REPORT_INFO]
- * - [CN_TEXT]：[CN_TEXT] [ExtraKeyConfig.REPORT_CONDITION]
- * - [CN_TEXT]：Current[CN_TEXT] [ExtraKeyConfig.REPORT_IR_LIST]
+ * activity
+ * - activity：activity TC007: [ExtraKeyConfig.IS_TC007] activity，activity，activity
+ * - activity：Currentactivity [ExtraKeyConfig.FILE_ABSOLUTE_PATH]
+ * - activity：CurrentactivityPoint/Line/Areaactivity [ExtraKeyConfig.IMAGE_TEMP_BEAN]
+ * - activity：activity [ExtraKeyConfig.REPORT_INFO]
+ * - activity：activity [ExtraKeyConfig.REPORT_CONDITION]
+ * - activity：Currentactivity [ExtraKeyConfig.REPORT_IR_LIST]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
@@ -61,17 +61,17 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
     private val reportTempViewRect5: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_rect5) }
 
     /**
-     * Current[CN_TEXT].
+     * Currentactivity.
      */
     private var reportIRList: ArrayList<ReportIRBean> = ArrayList(0)
 
 
     /**
-     * [CN_TEXT]，[CN_TEXT].
+     * activity，activity.
      */
     private var currentFilePath: String = ""
     /**
-     * [CN_TEXT]，Current[CN_TEXT]Point/Line/Area[CN_TEXT]
+     * activity，CurrentactivityPoint/Line/Areaactivity
      */
     private var imageTempBean: ImageTempBean? = null
 
@@ -186,7 +186,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tvAddImage -> {//[CN_TEXT]
+            tvAddImage -> {// Activity logic
                 if (reportIRList.size >= 9) {
                     ToastUtils.showShort(R.string.album_report_max_image_tips)
                     return
@@ -205,7 +205,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                         .navigation(this)
                 }
             }
-            tvPreview -> {//[CN_TEXT]
+            tvPreview -> {// Activity logic
                 val appLanguage = ConstantLanguages.ENGLISH
                 val sdkVersion = "1.2.8_23050619"
                 val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
@@ -242,8 +242,8 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]Point/Line/Area[CN_TEXT].
-     * @param type 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT]
+     * activityPoint/Line/Areaactivity.
+     * @param type 1-activity 2-activity 3-activity
      */
     private fun buildReportTempBeanList(type: Int): ArrayList<ReportTempBean> {
         val size = when (type) {
@@ -254,7 +254,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
         val resultList = ArrayList<ReportTempBean>(size)
         for (i in 0 until size) {
             val reportTempView = when (type) {
-                1 -> { //[CN_TEXT]
+                1 -> { // Activity logic
                     when (i) {
                         0 -> reportTempViewPoint1
                         1 -> reportTempViewPoint2
@@ -263,7 +263,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                         else -> reportTempViewPoint5
                     }
                 }
-                2 -> { //[CN_TEXT]
+                2 -> { // Activity logic
                     when (i) {
                         0 -> reportTempViewLine1
                         1 -> reportTempViewLine2
@@ -272,7 +272,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                         else -> reportTempViewLine5
                     }
                 }
-                else -> { //[CN_TEXT]
+                else -> { // Activity logic
                     when (i) {
                         0 -> reportTempViewRect1
                         1 -> reportTempViewRect2
@@ -280,7 +280,7 @@ class ReportCreateSecondActivity: BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            val reportTempBean = if (type == 1) {//[CN_TEXT]
+            val reportTempBean = if (type == 1) {// Activity logic
                 ReportTempBean(
                     if ((reportTempView as? ReportIRInputView)?.getMaxInput()?.isNotEmpty() == true) (reportTempView as ReportIRInputView).getMaxInput() + UnitTools.showUnit() else "",
                     if ((reportTempView as? ReportIRInputView)?.isSwitchMaxCheck() == true && (reportTempView as ReportIRInputView).getMaxInput().isNotEmpty()) 1 else 0,

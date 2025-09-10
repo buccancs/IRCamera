@@ -59,16 +59,16 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * [CN_TEXT]Settings[CN_TEXT]，[CN_TEXT] “[CN_TEXT]”
- * [MoreActivity] - TS004 “[CN_TEXT]”
- * [MoreFragment] - [CN_TEXT] “[CN_TEXT]”
+ * fragmentSettingsfragment，fragment “fragment”
+ * [MoreActivity] - TS004 “fragment”
+ * [MoreFragment] - fragment “fragment”
  *
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
 
     /**
-     * onResume() [CN_TEXT]State[CN_TEXT] UI.
+     * onResume() fragmentStatefragment UI.
      */
     private var isNeedRefreshLogin = false
     
@@ -112,18 +112,18 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         settingElectronicManual.setOnClickListener(this)
         settingFaq.setOnClickListener(this)
         settingFeedback.setOnClickListener(this)
-        settingItemUnit.setOnClickListener(this)//[CN_TEXT]
+        settingItemUnit.setOnClickListener(this)// Fragment logic
         dragCustomerView.setOnClickListener(this)
 
         viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) {//[CN_TEXT]
+        if (BaseApplication.instance.isDomestic()) {// Fragment logic
             // Language selection removed - English only
         }
 
         viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                // [CN_TEXT]Current[CN_TEXT] TS004、TC007，[CN_TEXT]，[CN_TEXT]
+                // fragmentCurrentfragment TS004、TC007，fragment，fragment
                 if (WebSocketProxy.getInstance().isConnected()) {
                     NetWorkUtils.switchNetwork(false)
                 }
@@ -158,7 +158,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            ivWinter -> {//[CN_TEXT]
+            ivWinter -> {// Fragment logic
                 viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
@@ -188,13 +188,13 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingElectronicManual -> {//[CN_TEXT]
+            settingElectronicManual -> {// Fragment logic
                 NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
             settingFaq -> {//FAQ
                 NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            settingFeedback -> {//[CN_TEXT]
+            settingFeedback -> {// Fragment logic
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -211,16 +211,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingItemUnit -> {//[CN_TEXT]
+            settingItemUnit -> {// Fragment logic
                 NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            settingItemVersion -> {//[CN_TEXT]
+            settingItemVersion -> {// Fragment logic
                 NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            settingItemClear -> {//Clear[CN_TEXT]，[CN_TEXT]
+            settingItemClear -> {//Clearfragment，fragment
                 clearCache()
             }
-            dragCustomerView -> {//[CN_TEXT]
+            dragCustomerView -> {// Fragment logic
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 // ZohoSalesIQ functionality disabled - dependency not available
@@ -235,14 +235,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        //activityLogin()[CN_TEXT]，[CN_TEXT]onResume()
+        //activityLogin()fragment，fragmentonResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-            //[CN_TEXT]
+            // Fragment logic
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -256,17 +256,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         headUrl = infoData.avatar,
                     )
 
-                    //[CN_TEXT]ui
+                    // Fragment logicui
                     changeLoginStyle()
                 } catch (e: Exception) {
-                    XLog.e(" [CN_TEXT]: ${e.message}")
+                    XLog.e(" fragment: ${e.message}")
                 }
             }
         } else {
-            //[CN_TEXT]
-            XLog.e(" [CN_TEXT]")
+            // Fragment logic
+            XLog.e(" fragment")
             changeLoginStyle()
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//[CN_TEXT]
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)// Fragment logic
         }
     }
 
@@ -314,12 +314,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             settingUserLay.visibility = View.GONE
             val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
             tvEmail.text = ""
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)//[CN_TEXT]
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)// Fragment logic
         }
     }
 
     /**
-     * Clear[CN_TEXT]
+     * Clearfragment
      */
     private fun clearCache() {
         lifecycleScope.launch {
@@ -329,7 +329,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("Clear[CN_TEXT]: ${e.message}")
+                    XLog.w("Clearfragment: ${e.message}")
                 }
                 delay(1000)
             }

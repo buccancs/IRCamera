@@ -31,12 +31,12 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
 
 
     /**
-     * [CN_TEXT]：
-     * - [CN_TEXT]Core[CN_TEXT]，256x192 [CN_TEXT]RotateAngle[CN_TEXT] 0 [CN_TEXT]RotateState；
-     * [CN_TEXT]APP[CN_TEXT]，192x256 [CN_TEXT](CoreRotateAngle270)[CN_TEXT]RotateAngle[CN_TEXT] 0 [CN_TEXT]RotateState。
-     * - [CN_TEXT]，Core[CN_TEXT]RotateAngle[CN_TEXT]RotateAngle，[CN_TEXT]RotateAngle。
+     * item：
+     * - itemCoreitem，256x192 itemRotateAngleitem 0 itemRotateState；
+     * itemAPPitem，192x256 item(CoreRotateAngle270)itemRotateAngleitem 0 itemRotateState。
+     * - item，CoreitemRotateAngleitemRotateAngle，itemRotateAngle。
      *
-     * [CN_TEXT]，this property[CN_TEXT] **CoreRotateAngle**
+     * item，this propertyitem **CoreRotateAngle**
      */
     var rotateAngle: Int = 270
         set(value) {
@@ -47,7 +47,7 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
 
     /**
-     * SettingsSpecifiedOption[CN_TEXT]SelectedState，Rotate[CN_TEXT]，[CN_TEXT]Rotate[CN_TEXT] 4 [CN_TEXT]State
+     * SettingsSpecifiedOptionitemSelectedState，Rotateitem，itemRotateitem 4 itemState
      */
     fun setSelected(settingType: SettingType, isSelected: Boolean) {
         for (i in dataList.indices) {
@@ -69,22 +69,22 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
             dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
             dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
         } else {
-            if (menuType == MenuType.GALLERY_EDIT) {//2D[CN_TEXT]
+            if (menuType == MenuType.GALLERY_EDIT) {//2Ditem
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
                 dataList.add(Data(R.string.app_watemarking, MenuR.drawable.selector_menu2_setting_9, SettingType.WATERMARK))
             } else {
                 dataList.add(Data(R.string.thermal_pseudo, MenuR.drawable.selector_menu2_setting_1, SettingType.PSEUDO_BAR))
                 dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
-                if (menuType != MenuType.Lite) {// Lite [CN_TEXT]([CN_TEXT])
+                if (menuType != MenuType.Lite) {// Lite item(item)
                     dataList.add(Data(R.string.thermal_sharpen, MenuR.drawable.selector_menu2_setting_3, SettingType.DETAIL))
                 }
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
-                if (menuType != MenuType.TC007) {// TC007 [CN_TEXT]Rotate
+                if (menuType != MenuType.TC007) {// TC007 itemRotate
                     dataList.add(Data(R.string.thermal_rotate, MenuR.drawable.selector_menu2_setting_4, SettingType.ROTATE))
                 }
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
-                if (menuType != MenuType.DOUBLE_LIGHT) {// TC001 Plus [CN_TEXT]
+                if (menuType != MenuType.DOUBLE_LIGHT) {// TC001 Plus item
                     dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
                 }
             }
@@ -107,8 +107,8 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            //[CN_TEXT]、[CN_TEXT]、[CN_TEXT]Selected[CN_TEXT]，[CN_TEXT]，
-            //Menu[CN_TEXT]Selected[CN_TEXT] listener [CN_TEXT]，[CN_TEXT]
+            // Adapter item、item、itemSelecteditem，item，
+            //MenuitemSelecteditem listener item，item
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * [CN_TEXT] [CN_TEXT] [CN_TEXT] [CN_TEXT].
+ * data data data data.
  *
  * Created by LCG on 2024/8/19.
  */
@@ -19,55 +19,55 @@ open class ItemBase {
     var id: Long = 0
 
     /**
-     * [CN_TEXT] Id
+     * data Id
      */
     @ColumnInfo(index = true)
     open var parentId: Long = 0
 
     /**
-     * [CN_TEXT] index.
+     * data index.
      */
     @ColumnInfo
     var position: Int = 0
 
     /**
-     * [CN_TEXT]，[CN_TEXT]“[CN_TEXT]”
+     * data，data“data”
      */
     @ColumnInfo
     var itemName: String = ""
 
     /**
-     * State 0-[CN_TEXT] 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT]
+     * State 0-data 1-data 2-data 3-data
      */
     @ColumnInfo
     var state: Int = 0
 
     /**
-     * [CN_TEXT]，""[CN_TEXT]
+     * data，""data
      */
     @ColumnInfo
     var inputText: String = ""
 
     /**
-     * [CN_TEXT]1[CN_TEXT]
+     * data1data
      */
     @ColumnInfo
     var image1: String = ""
 
     /**
-     * [CN_TEXT]2[CN_TEXT]
+     * data2data
      */
     @ColumnInfo
     var image2: String = ""
 
     /**
-     * [CN_TEXT]3[CN_TEXT]
+     * data3data
      */
     @ColumnInfo
     var image3: String = ""
 
     /**
-     * [CN_TEXT]4[CN_TEXT]
+     * data4data
      */
     @ColumnInfo
     var image4: String = ""
@@ -77,7 +77,7 @@ open class ItemBase {
     override fun hashCode(): Int = id.toInt()
 
     /**
-     * [CN_TEXT] state [CN_TEXT].
+     * data state data.
      */
     fun getStateStr(context: Context): String =
         when (state) {
@@ -137,7 +137,7 @@ open class ItemBase {
     }
 
     /**
-     * DeleteSpecified[CN_TEXT].
+     * DeleteSpecifieddata.
      * @param imageNum `[1,4]`
      */
     fun delOneImage(imageNum: Int) {
@@ -146,7 +146,7 @@ open class ItemBase {
                 image4 = ""
             }
             3 -> {
-                if (image4.isEmpty()) { // [CN_TEXT]3[CN_TEXT]3[CN_TEXT]
+                if (image4.isEmpty()) { // data3data3data
                     image3 = ""
                 } else {
                     image3 = image4
@@ -154,7 +154,7 @@ open class ItemBase {
                 }
             }
             2 -> {
-                if (image3.isEmpty()) { // [CN_TEXT]2[CN_TEXT]2[CN_TEXT]
+                if (image3.isEmpty()) { // data2data2data
                     image2 = ""
                 } else {
                     image2 = image3
@@ -167,7 +167,7 @@ open class ItemBase {
                 }
             }
             1 -> {
-                if (image2.isEmpty()) { // [CN_TEXT]1[CN_TEXT]1[CN_TEXT]
+                if (image2.isEmpty()) { // data1data1data
                     image1 = ""
                 } else {
                     image1 = image2
@@ -189,7 +189,7 @@ open class ItemBase {
 }
 
 /**
- * [CN_TEXT].
+ * data.
  */
 @Entity(
     foreignKeys = [
@@ -211,30 +211,30 @@ class ItemDetect() : ItemBase() {
     }
 
     /**
-     * [CN_TEXT] Id
+     * data Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0
 
     /**
-     * [CN_TEXT]Selected，[CN_TEXT].
+     * dataSelected，data.
      */
     @Ignore
     var hasSelect = false
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     @Ignore
     var dirDetect = DirDetect()
 
     /**
-     * [CN_TEXT]Current[CN_TEXT] 3 [CN_TEXT]：(1)，[CN_TEXT] 50 [CN_TEXT] [0,51)
+     * dataCurrentdata 3 data：(1)，data 50 data [0,51)
      */
     fun copyName(): String = "$itemName(1)"
 
     /**
-     * [CN_TEXT] id [CN_TEXT] 0，parentId、position、itemName [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT].
+     * data id data 0，parentId、position、itemName dataSpecifieddata，data.
      */
     fun copyOne(
         parentId: Long = this.parentId,
@@ -258,7 +258,7 @@ class ItemDetect() : ItemBase() {
     }
 
     /**
-     * [CN_TEXT]Current[CN_TEXT] item [CN_TEXT] item，Note id、parent [CN_TEXT] 0.
+     * dataCurrentdata item data item，Note id、parent data 0.
      */
     fun toItemReport(): ItemReport {
         val itemReport = ItemReport()
@@ -277,7 +277,7 @@ class ItemDetect() : ItemBase() {
 
     companion object {
         /**
-         * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT].
+         * dataSpecifieddata，data.
          */
         fun buildDefaultItemList(
             parentId: Long,
@@ -378,7 +378,7 @@ class ItemDetect() : ItemBase() {
 }
 
 /**
- * [CN_TEXT].
+ * data.
  */
 @Entity(
     foreignKeys = [
@@ -393,7 +393,7 @@ class ItemDetect() : ItemBase() {
 )
 class ItemReport : ItemBase() {
     /**
-     * [CN_TEXT] Id
+     * data Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0

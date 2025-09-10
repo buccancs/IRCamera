@@ -7,7 +7,7 @@ package com.topdon.lib.core.common
  **/
 object ProductType {
     /**
-     * [CN_TEXT]
+     * data
      */
     const val PRODUCT_NAME_TC = "TC001"
     const val PRODUCT_NAME_TS = "TS001"

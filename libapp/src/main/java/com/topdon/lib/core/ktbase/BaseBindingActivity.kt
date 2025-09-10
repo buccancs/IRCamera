@@ -23,10 +23,10 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * [CN_TEXT] DataBinding [CN_TEXT] Activity.
+ * activity DataBinding activity Activity.
  *
- * [CN_TEXT] BaseActivity [CN_TEXT]，
- * [CN_TEXT] BaseActivity [CN_TEXT]，[CN_TEXT].
+ * activity BaseActivity activity，
+ * activity BaseActivity activity，activity.
  *
  * Created by LCG on 2024/10/14.
  */
@@ -34,7 +34,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     protected lateinit var binding: B
 
     /**
-     * [CN_TEXT]，[CN_TEXT] DataBinding [CN_TEXT] layout [CN_TEXT] Id.
+     * activity，activity DataBinding activity layout activity Id.
      */
     @LayoutRes
     protected abstract fun initContentLayoutId(): Int
@@ -88,12 +88,12 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * [CN_TEXT] LMS [CN_TEXT].
+     * activity LMS activity.
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * [CN_TEXT].
+     * activity.
      */
     fun showLoadingDialog(
         @StringRes resId: Int = R.string.tip_loading,
@@ -102,7 +102,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * [CN_TEXT].
+     * activity.
      */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
@@ -113,7 +113,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * [CN_TEXT].
+     * activity.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()

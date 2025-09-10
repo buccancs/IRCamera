@@ -19,21 +19,21 @@ import com.topdon.module.thermal.ir.bean.DataBean // Use local data bean instead
 import java.nio.ByteBuffer
 
 /**
- * [CN_TEXT] Hik [CN_TEXT] SurfaceView.
+ * view Hik view SurfaceView.
  *
  * Created by LCG on 2024/11/30.
  */
 class HikSurfaceView : SurfaceView {
     companion object {
         /**
-         * [CN_TEXT]
+         * view
          */
         private const val MULTIPLE = 2
     }
 
 
     /**
-     * [CN_TEXT]
+     * view
      */
     var isOpenAmplify: Boolean = false
         set(value) {
@@ -45,7 +45,7 @@ class HikSurfaceView : SurfaceView {
         }
 
     /**
-     * [CN_TEXT]RotateAngle，[CN_TEXT] 0、90、180、270，[CN_TEXT] 270
+     * viewRotateAngle，view 0、90、180、270，view 270
      */
     @Volatile
     var rotateAngle: Int = 270
@@ -58,27 +58,27 @@ class HikSurfaceView : SurfaceView {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT].
+     * view，view.
      */
     var alarmBean = AlarmBean()
 
     /**
-     * [CN_TEXT]Low temperature[CN_TEXT]，[CN_TEXT]Celsius，MIN_VALUE [CN_TEXT]Settings
+     * viewLow temperatureview，viewCelsius，MIN_VALUE viewSettings
      */
     var limitTempMin = Float.MIN_VALUE
     /**
-     * [CN_TEXT]High temperature[CN_TEXT]，[CN_TEXT]Celsius，MAX_VALUE [CN_TEXT]Settings
+     * viewHigh temperatureview，viewCelsius，MAX_VALUE viewSettings
      */
     var limitTempMax = Float.MAX_VALUE
 
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     private val irImageHelp = IRImageHelp()
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun refreshCustomPseudo(it: DataBean) {
         // Temporarily disabled - pseudo component dependency
@@ -87,12 +87,12 @@ class HikSurfaceView : SurfaceView {
 
 
     /**
-     * Current[CN_TEXT]Pseudo-color.
+     * CurrentviewPseudo-color.
      */
     @Volatile
     private var pseudoType: PseudoColorType = PseudoColorType.PSEUDO_3
     /**
-     * SettingsCurrent[CN_TEXT]Pseudo-color[CN_TEXT]
+     * SettingsCurrentviewPseudo-colorview
      *
      * 1-White hot 3-Iron red 4-Rainbow1 5-Rainbow2 6-Rainbow3 7-Red hot 8-Hot iron 9-Rainbow4 10-Rainbow5 11-Black hot
      */
@@ -102,27 +102,27 @@ class HikSurfaceView : SurfaceView {
 
 
     /**
-     * [CN_TEXT]Rotate[CN_TEXT].
+     * viewRotateview.
      */
     private val imageRes = ImageRes_t()
     /**
-     * Current[CN_TEXT] Bitmap.
+     * Currentview Bitmap.
      */
     private var bitmap: Bitmap = Bitmap.createBitmap(192, 256, Bitmap.Config.ARGB_8888)
     /**
-     * [CN_TEXT]Rotate[CN_TEXT] ARGB [CN_TEXT].
+     * viewRotateview ARGB view.
      */
     private val sourceArgbArray = ByteArray(256 * 192 * 4)
     /**
-     * Rotate[CN_TEXT] ARGB [CN_TEXT].
+     * Rotateview ARGB view.
      */
     private val rotateArgbArray = ByteArray(256 * 192 * 4)
     /**
-     * [CN_TEXT] ARGB [CN_TEXT].
+     * view ARGB view.
      */
     private val amplifyArray = ByteArray(256 * MULTIPLE * 192 * MULTIPLE * 4)
     /**
-     * [CN_TEXT]
+     * view
      */
     private val tempArray = ByteArray(256 * 192 * 2)
 
@@ -140,30 +140,30 @@ class HikSurfaceView : SurfaceView {
 
 
     /**
-     * [CN_TEXT]Current View [CN_TEXT].
+     * viewCurrent View view.
      */
     fun getScaleBitmap(): Bitmap = synchronized(this) {
         Bitmap.createScaledBitmap(bitmap, width, height, true)
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT] YUV [CN_TEXT]
+     * viewSpecifiedview YUV view
      */
     fun refresh(yuvArray: ByteArray, newTempArray: ByteArray) {
-        //[CN_TEXT]，[CN_TEXT]Rotate[CN_TEXT]
+        // View rendering，viewRotateview
         val sourceWidth = 256
         val sourceHeight = 192
 
         System.arraycopy(newTempArray, 0, tempArray, 0, tempArray.size)
 
-        //[CN_TEXT]White hotPseudo-color，[CN_TEXT]Mode[CN_TEXT]
+        // View renderingWhite hotPseudo-color，viewModeview
         val pseudo: PseudoColorType = if (irImageHelp.getColorList() == null) pseudoType else PseudoColorType.PSEUDO_1
         LibIRProcess.convertYuyvMapToARGBPseudocolor(yuvArray, (sourceWidth * sourceHeight).toLong(), pseudo, sourceArgbArray)
-        //[CN_TEXT]
+        // View rendering
         irImageHelp.customPseudoColor(sourceArgbArray, tempArray, sourceWidth, sourceHeight)
-        //[CN_TEXT]
+        // View rendering
         irImageHelp.setPseudoColorMaxMin(sourceArgbArray, tempArray, limitTempMax, limitTempMin, sourceWidth, sourceHeight)
-        //[CN_TEXT]
+        // View rendering
         val newArray = irImageHelp.contourDetection(alarmBean, sourceArgbArray, tempArray, sourceWidth, sourceHeight) ?: sourceArgbArray
         //Rotate
         when (rotateAngle) {
@@ -172,7 +172,7 @@ class HikSurfaceView : SurfaceView {
             270 -> LibIRProcess.rotateRight90(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
             else  -> System.arraycopy(newArray, 0, rotateArgbArray, 0, rotateArgbArray.size)
         }
-        //[CN_TEXT]
+        // View rendering
         if (isOpenAmplify) {
             val width: Int = if (rotateAngle == 90 || rotateAngle == 270) sourceWidth else sourceHeight
             val height: Int = if (rotateAngle == 90 || rotateAngle == 270) sourceHeight else sourceWidth

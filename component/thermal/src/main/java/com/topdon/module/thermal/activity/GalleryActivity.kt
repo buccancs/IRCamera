@@ -66,7 +66,7 @@ class GalleryActivity : BaseActivity() {
             fm,
             BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
         ) {
-            titles = arrayOf("[CN_TEXT]", "[CN_TEXT]")
+            titles = arrayOf("activity", "activity")
         }
 
         override fun getCount(): Int {

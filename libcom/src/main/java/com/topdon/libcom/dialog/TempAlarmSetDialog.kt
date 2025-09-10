@@ -34,12 +34,12 @@ class TempAlarmSetDialog(
         }
 
     /**
-     * [CN_TEXT].
+     * dialog.
      */
     var onSaveListener: ((alarmBean: AlarmBean) -> Unit)? = null
 
     /**
-     * [CN_TEXT].
+     * dialog.
      */
     private var mediaPlayer: MediaPlayer? = null
 
@@ -286,22 +286,22 @@ class TempAlarmSetDialog(
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         when (buttonView?.id) {
-            R.id.switch_alarm_high -> {//High temperature[CN_TEXT]
+            R.id.switch_alarm_high -> {//High temperaturedialog
                 etAlarmHigh.isEnabled = isChecked
                 alarmBean.isHighOpen = isChecked
             }
 
-            R.id.switch_alarm_low -> {//Low temperature[CN_TEXT]
+            R.id.switch_alarm_low -> {//Low temperaturedialog
                 etAlarmLow.isEnabled = isChecked
                 alarmBean.isLowOpen = isChecked
             }
 
-            R.id.switch_alarm_mark -> {//[CN_TEXT]
+            R.id.switch_alarm_mark -> {// Dialog content
                 clAlarmMark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
 
-            R.id.switch_alarm_ringtone -> {//[CN_TEXT]
+            R.id.switch_alarm_ringtone -> {// Dialog content
                 clRingtoneSelect.isVisible = isChecked
                 if (isChecked) {
                     selectRingtone(alarmBean.ringtoneType)
@@ -313,7 +313,7 @@ class TempAlarmSetDialog(
     }
 
     /**
-     * SettingsCurrentSelected[CN_TEXT]，null [CN_TEXT].
+     * SettingsCurrentSelecteddialog，null dialog.
      */
     private fun selectRingtone(position: Int?) {
         try {

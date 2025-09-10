@@ -24,21 +24,21 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("[CN_TEXT]SettingsMenu，[CN_TEXT]")
+@Deprecated("itemSettingsMenu，item")
 @SuppressLint("NotifyDataSetChanged")
 class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
 
-    private var colorEnable = false // Pseudo-color[CN_TEXT]
-    private var contrastEnable = false // [CN_TEXT]
-    private var ddeEnable = false // [CN_TEXT]
-    private var alarmEnable = false // [CN_TEXT]
-    private var textColorEnable = false // [CN_TEXT]
-    private var mirrorEnable = false // [CN_TEXT]
-    private var waterMarkEnable = false // [CN_TEXT]
-    private var compassEnable = false // [CN_TEXT]
+    private var colorEnable = false // Pseudo-coloritem
+    private var contrastEnable = false // List item data
+    private var ddeEnable = false // List item data
+    private var alarmEnable = false // List item data
+    private var textColorEnable = false // List item data
+    private var mirrorEnable = false // List item data
+    private var waterMarkEnable = false // List item data
+    private var compassEnable = false // List item data
 
-    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE // [CN_TEXT]Angle0
+    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE // List item dataAngle0
 
     fun selectRotate(rotateAngle: Int) {
         this.rotateAngle = rotateAngle
@@ -86,13 +86,13 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     /**
-     * [CN_TEXT]
-     * [CN_TEXT] [Constants.IR_TEMPERATURE_MODE] = 1 Temperature measurementMode   Pseudo-color[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、Rotate、[CN_TEXT]、[CN_TEXT]
-     * [CN_TEXT] [Constants.IR_TCPLUS_MODE] = 5 Dual light[CN_TEXT]        Pseudo-color[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、Rotate、[CN_TEXT]、
-     * [CN_TEXT] [Constants.IR_TEMPERATURE_LITE] = 7 Lite[CN_TEXT]  Pseudo-color[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、Rotate、[CN_TEXT]、[CN_TEXT]
-     * [CN_TEXT] [Constants.IR_TC007_MODE] = 6 TC007          Pseudo-color[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]
-     * else - 2D[CN_TEXT]Menu                                  [CN_TEXT]、[CN_TEXT]、[CN_TEXT]
-     * [CN_TEXT] [Constants.IR_OBSERVE_MODE] = 2 ObservationMode  [CN_TEXT]、Rotate、[CN_TEXT]、[CN_TEXT]
+     * item
+     * item [Constants.IR_TEMPERATURE_MODE] = 1 Temperature measurementMode   Pseudo-coloritem、item、item、item、Rotate、item、item
+     * item [Constants.IR_TCPLUS_MODE] = 5 Dual lightitem        Pseudo-coloritem、item、item、item、Rotate、item、
+     * item [Constants.IR_TEMPERATURE_LITE] = 7 Liteitem  Pseudo-coloritem、item、item、Rotate、item、item
+     * item [Constants.IR_TC007_MODE] = 6 TC007          Pseudo-coloritem、item、item、item、item、item
+     * else - 2DitemMenu                                  item、item、item
+     * item [Constants.IR_OBSERVE_MODE] = 2 ObservationMode  item、Rotate、item、item
      */
     fun setShowMenuFour(modeType: Int)  {
         fourBean.clear()
@@ -354,7 +354,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         @SuppressLint("RecyclerView") position: Int,
     ) {
         if (holder is ItemView) {
-            // [CN_TEXT]SwitchTab[CN_TEXT]item[CN_TEXT]
+            // List item dataSwitchTabitemitemitem
             updateViewWidth(holder.itemView, holder.img)
             val bean = fourBean[position]
             holder.name.text = bean.name
@@ -430,7 +430,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         }
     }
 
-    // State[CN_TEXT]
+    // Stateitem
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,
@@ -461,8 +461,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                 itemView.layoutParams =
                     ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             }
-//        if (fourBean.size <= 4) {  //item[CN_TEXT]4[CN_TEXT]，[CN_TEXT]1/4
-//            val canSeeCount = fourBean.size //[CN_TEXT]4[CN_TEXT]
+//        if (fourBean.size <= 4) {  //itemitem4item，item1/4
+//            val canSeeCount = fourBean.size // Adapter item4item
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
 //            itemView.layoutParams =
 //                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -471,8 +471,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.width = imageSize
 //            layoutParams.height = imageSize
 //            itemMenu.layoutParams = layoutParams
-//        } else {    //item[CN_TEXT]4[CN_TEXT]，[CN_TEXT]4.5[CN_TEXT]item
-//            val canSeeCount = 4.5 //[CN_TEXT]4[CN_TEXT]
+//        } else {    //itemitem4item，item4.5itemitem
+//            val canSeeCount = 4.5 // Adapter item4item
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams =
 //                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)

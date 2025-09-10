@@ -20,7 +20,7 @@ import com.topdon.lib.core.tools.PermissionTool
 
 object BluetoothUtil {
     /**
-     * [CN_TEXT] activity [CN_TEXT] [CN_TEXT] [CN_TEXT]State[CN_TEXT].
+     * utility activity utility utility utilityStateutility.
      */
     fun addBtStateListener(
         activity: ComponentActivity,
@@ -57,7 +57,7 @@ object BluetoothUtil {
     private val scanCallback = MyScanCallback()
 
     /**
-     * Settings[CN_TEXT].
+     * Settingsutility.
      */
     fun setLeScanListener(
         isTS004: Boolean,
@@ -68,22 +68,22 @@ object BluetoothUtil {
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT].
-     * @return true-[CN_TEXT] false-[CN_TEXT]
+     * utility，utility.
+     * @return true-utility false-utility
      */
     @SuppressLint("MissingPermission")
     fun startLeScan(context: Context): Boolean {
         XLog.i("startLeScan()")
 
         if (!PermissionTool.hasBtPermission(context)) {
-            XLog.e("[CN_TEXT]-[CN_TEXT]!")
+            XLog.e("utility-utility!")
             return false
         }
 
         val btAdapter: BluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
-            XLog.e("[CN_TEXT]-[CN_TEXT]")
+            XLog.e("utility-utility")
             return false
         }
 
@@ -98,22 +98,22 @@ object BluetoothUtil {
     }
 
     /**
-     * [CN_TEXT]，[CN_TEXT].
-     * @return true-[CN_TEXT] false-[CN_TEXT]
+     * utility，utility.
+     * @return true-utility false-utility
      */
     @SuppressLint("MissingPermission")
     fun stopLeScan(context: Context): Boolean {
         XLog.i("stopBtScan()")
 
         if (!PermissionTool.hasBtPermission(context)) {
-            XLog.w("[CN_TEXT]-[CN_TEXT]!")
+            XLog.w("utility-utility!")
             return false
         }
 
         val btAdapter: BluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
-            XLog.w("[CN_TEXT]-[CN_TEXT]")
+            XLog.w("utility-utility")
             return false
         }
 
@@ -132,13 +132,13 @@ object BluetoothUtil {
         ) {
             val name: String = result?.device?.name ?: return
             if (name.startsWith(if (isTS004) DeviceConfig.TS004_NAME_START else DeviceConfig.TC007_NAME_START)) {
-                XLog.v("[CN_TEXT]：$name")
+                XLog.v("utility：$name")
                 listener?.invoke(name)
             }
         }
 
         override fun onScanFailed(errorCode: Int) {
-            XLog.e("[CN_TEXT]！$errorCode")
+            XLog.e("utility！$errorCode")
         }
     }
 }

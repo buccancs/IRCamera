@@ -12,7 +12,7 @@ import com.topdon.lib.core.databinding.DialogLoadingBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * [CN_TEXT] UI [CN_TEXT] LMS [CN_TEXT]，[CN_TEXT] LMS [CN_TEXT]，[CN_TEXT]。
+ * dialog UI dialog LMS dialog，dialog LMS dialog，dialog。
  *
  * Created by LCG on 2024/4/12.
  */

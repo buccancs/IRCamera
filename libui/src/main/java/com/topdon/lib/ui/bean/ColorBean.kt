@@ -6,5 +6,5 @@ data class ColorBean(
     val code: Int,
     var isSelect: Boolean = false,
     var n_res: Int = 0,
-    var isMutually: Boolean = false, // [CN_TEXT]
+    var isMutually: Boolean = false, // data
 )

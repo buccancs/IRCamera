@@ -11,8 +11,8 @@ data class ModelBean(
 data class DataBean(
     var id: Int = 1,
     var name: String = "1",
-    var environment: Float = 30.0f,//[CN_TEXT]，[CN_TEXT]Celsius
-    var distance: Float = 0.25f,//[CN_TEXT]，[CN_TEXT]
-    var radiation: Float = 0.95f,//[CN_TEXT]
+    var environment: Float = 30.0f,// Data field，dataCelsius
+    var distance: Float = 0.25f,// Data field，data
+    var radiation: Float = 0.95f,// Data field
     var use: Boolean = false
 )

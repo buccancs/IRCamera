@@ -33,10 +33,10 @@ object TC007Repository {
     private fun getOKHttpClient(timeout: Long): OkHttpClient {
         val builder =
             OkHttpClient.Builder()
-                .retryOnConnectionFailure(false) // [CN_TEXT]
-                .connectTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 [CN_TEXT]15[CN_TEXT]
-                .readTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 [CN_TEXT]15[CN_TEXT]
-                .writeTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 [CN_TEXT]15[CN_TEXT]
+                .retryOnConnectionFailure(false) // repository
+                .connectTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 repository15repository
+                .readTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 repository15repository
+                .writeTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 repository15repository
                 .addInterceptor(OKLogInterceptor(true))
         netWork?.socketFactory?.let {
             builder.socketFactory(it)
@@ -55,7 +55,7 @@ object TC007Repository {
             .create(TC007Service::class.java)
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getProductInfo(): ProductBean? =
         withContext(Dispatchers.IO) {
@@ -67,7 +67,7 @@ object TC007Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getBatteryInfo(): BatteryInfo? =
         withContext(Dispatchers.IO) {
@@ -79,7 +79,7 @@ object TC007Repository {
         }
 
     /**
-     * [CN_TEXT].
+     * repository.
      */
     suspend fun syncTime(): Boolean =
         withContext(Dispatchers.IO) {
@@ -99,7 +99,7 @@ object TC007Repository {
         }
 
     /**
-     * [CN_TEXT].
+     * repository.
      */
     suspend fun updateFirmware(file: File): Boolean =
         withContext(Dispatchers.IO) {
@@ -110,7 +110,7 @@ object TC007Repository {
                 }
 
                 var status = getTC007Service().getUpgradeStatus().Data?.Status
-                while (status == 0 || status == 1 || status == 2) { // [CN_TEXT]
+                while (status == 0 || status == 1 || status == 2) { // repository
                     delay(1000)
                     status = getTC007Service().getUpgradeStatus().Data?.Status
                 }
@@ -123,7 +123,7 @@ object TC007Repository {
 
     private suspend fun sendUpgradeFile(file: File): Boolean =
         withContext(Dispatchers.IO) {
-            val pageSize = 1024 * 1024 * 10 // 10M[CN_TEXT]
+            val pageSize = 1024 * 1024 * 10 // 10Mrepository
             var fileInputStream: FileInputStream? = null
             try {
                 fileInputStream = FileInputStream(file)
@@ -131,7 +131,7 @@ object TC007Repository {
                 var result = true
                 var packNum = 0
                 var hasReadCount = 0
-                var byteArray = ByteArray(pageSize) // 10M[CN_TEXT]
+                var byteArray = ByteArray(pageSize) // 10Mrepository
                 val totalPackNum = (file.length() / (pageSize) + (if (file.length() % (pageSize) > 0) 1 else 0)).toInt()
                 val md5 = EncryptUtils.encryptMD5File2String(file).lowercase(Locale.ROOT)
 
@@ -143,14 +143,14 @@ object TC007Repository {
                         val body = byteArray.toRequestBody("application/octet-stream".toMediaTypeOrNull())
                         val part = MultipartBody.Part.createFormData("zipFile", "zipFile", body)
                         val code = getTC007Service(30).sendUpgradeFile(file.name, packNum, totalPackNum, md5, part).Code
-                        if (code == 400805) { // [CN_TEXT]
+                        if (code == 400805) { // repository
                             return@withContext true
                         }
-                        if (code != 200) { // 200[CN_TEXT]
+                        if (code != 200) { // 200repository
                             result = false
                         }
                         hasReadCount = 0
-                        byteArray = ByteArray(pageSize) // 10M[CN_TEXT]
+                        byteArray = ByteArray(pageSize) // 10Mrepository
                     }
                     readCount = fileInputStream.read(byteArray, hasReadCount, byteArray.size - hasReadCount)
                 }
@@ -162,10 +162,10 @@ object TC007Repository {
                     val body = lastArray.toRequestBody("application/octet-stream".toMediaTypeOrNull())
                     val part = MultipartBody.Part.createFormData("zipFile", "zipFile", body)
                     val code = getTC007Service(30).sendUpgradeFile(file.name, packNum, totalPackNum, md5, part).Code
-                    if (code == 400805) { // [CN_TEXT]
+                    if (code == 400805) { // repository
                         return@withContext true
                     }
-                    if (code != 200) { // 200[CN_TEXT]
+                    if (code != 200) { // 200repository
                         result = false
                     }
                 }
@@ -179,7 +179,7 @@ object TC007Repository {
         }
 
     /**
-     * [CN_TEXT]Settings
+     * repositorySettings
      */
     suspend fun resetToFactory(): Boolean =
         withContext(Dispatchers.IO) {
@@ -191,7 +191,7 @@ object TC007Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun correction(): Boolean =
         withContext(Dispatchers.IO) {
@@ -203,7 +203,7 @@ object TC007Repository {
         }
 
     /**
-     * [CN_TEXT]Temperature measurement[CN_TEXT]
+     * repositoryTemperature measurementrepository
      */
     suspend fun getEnvAttr(): EnvAttr? =
         withContext(Dispatchers.IO) {
@@ -215,9 +215,9 @@ object TC007Repository {
         }
 
     /**
-     * Settings[CN_TEXT]Celsius
+     * SettingsrepositoryCelsius
      * @param isCelsius true-Celsius false-Fahrenheit
-     * @param Level Temperature measurement[CN_TEXT],0:High gain 1:Low gain 3:[CN_TEXT]Switch
+     * @param Level Temperature measurementrepository,0:High gain 1:Low gain 3:repositorySwitch
      */
     suspend fun setEnvAttr(
         isCelsius: Boolean,
@@ -226,11 +226,11 @@ object TC007Repository {
         withContext(Dispatchers.IO) {
             try {
                 val paramMap: HashMap<String, Any> = HashMap()
-                paramMap["TempUnit"] = if (isCelsius) 0 else 2 // 0-Celsius 1-[CN_TEXT] 2-Fahrenheit
-                paramMap["Level"] = Level // 0:High gain 1:Low gain 3:[CN_TEXT]Switch
-                paramMap["Fps"] = 12 // Temperature measurement[CN_TEXT],[CN_TEXT][0,[CN_TEXT]],[CN_TEXT]12,[CN_TEXT]12[CN_TEXT]
-                paramMap["OsdMode"] = 1 // Temperature measurement[CN_TEXT]，0:[CN_TEXT] 1:[CN_TEXT]([CN_TEXT]) 2:[CN_TEXT]
-                paramMap["DistanceUnit"] = 0 // [CN_TEXT]，0:[CN_TEXT] 1:[CN_TEXT]
+                paramMap["TempUnit"] = if (isCelsius) 0 else 2 // 0-Celsius 1-repository 2-Fahrenheit
+                paramMap["Level"] = Level // 0:High gain 1:Low gain 3:repositorySwitch
+                paramMap["Fps"] = 12 // Temperature measurementrepository,repository[0,repository],repository12,repository12repository
+                paramMap["OsdMode"] = 1 // Temperature measurementrepository，0:repository 1:repository(repository) 2:repository
+                paramMap["DistanceUnit"] = 0 // repository，0:repository 1:repository
                 getTC007Service().setEnvAttr(paramMap.toBody()).isSuccess()
             } catch (_: Exception) {
                 false
@@ -238,10 +238,10 @@ object TC007Repository {
         }
 
     /**
-     * Settings[CN_TEXT]
-     * @param environment [CN_TEXT]，[CN_TEXT]Celsius
-     * @param distance Temperature measurement[CN_TEXT]，[CN_TEXT]
-     * @param radiation [CN_TEXT] `[0.01,1]`
+     * Settingsrepository
+     * @param environment repository，repositoryCelsius
+     * @param distance Temperature measurementrepository，repository
+     * @param radiation repository `[0.01,1]`
      */
     suspend fun setIRConfig(
         environment: Float,
@@ -263,7 +263,7 @@ object TC007Repository {
         }
 
     /**
-     * ClearAll[CN_TEXT]、[CN_TEXT]、[CN_TEXT].
+     * ClearAllrepository、repository、repository.
      */
     suspend fun clearAllTemp(): Boolean =
         withContext(Dispatchers.IO) {
@@ -279,7 +279,7 @@ object TC007Repository {
         }
 
     /**
-     * Switch[CN_TEXT]Temperature measurement[CN_TEXT]State
+     * SwitchrepositoryTemperature measurementrepositoryState
      */
     suspend fun getTempFrame(): Boolean =
         withContext(Dispatchers.IO) {
@@ -296,7 +296,7 @@ object TC007Repository {
         }
 
     /**
-     * Settings[CN_TEXT]Temperature measurement[CN_TEXT].
+     * SettingsrepositoryTemperature measurementrepository.
      */
     suspend fun setTempFrame(boolean: Boolean): Boolean =
         withContext(Dispatchers.IO) {
@@ -317,7 +317,7 @@ object TC007Repository {
         }
 
     /**
-     * SettingsTemperature measurement[CN_TEXT].
+     * SettingsTemperature measurementrepository.
      */
     suspend fun setTempPointList(pointList: List<Point>): Boolean =
         withContext(Dispatchers.IO) {
@@ -333,7 +333,7 @@ object TC007Repository {
         }
 
     /**
-     * SettingsTemperature measurement[CN_TEXT].
+     * SettingsTemperature measurementrepository.
      */
     suspend fun setTempLineList(lineList: List<Point>): Boolean =
         withContext(Dispatchers.IO) {
@@ -351,7 +351,7 @@ object TC007Repository {
         }
 
     /**
-     * SettingsTemperature measurement[CN_TEXT].
+     * SettingsTemperature measurementrepository.
      */
     suspend fun setTempRectList(rectList: List<Rect>): Boolean =
         withContext(Dispatchers.IO) {
@@ -374,20 +374,20 @@ object TC007Repository {
             try {
                 getTC007Service().getPhoto()
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
 
     /**
-     * Settings[CN_TEXT]Mode
+     * SettingsrepositoryMode
      */
     suspend fun setMode(mode: Int): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
             try {
                 getTC007Service().setMode(mode)
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
@@ -410,7 +410,7 @@ object TC007Repository {
             try {
                 getTC007Service().setRatio(data.toBody())
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
@@ -433,7 +433,7 @@ object TC007Repository {
             try {
                 getTC007Service().setRegistration(data.toBody())
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
@@ -447,7 +447,7 @@ object TC007Repository {
             try {
                 getTC007Service().setPallete(data.toBody())
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
@@ -461,7 +461,7 @@ object TC007Repository {
             try {
                 getTC007Service().setParam(data.toBody())
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
@@ -475,7 +475,7 @@ object TC007Repository {
             try {
                 getTC007Service().setFont(data.toBody())
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
@@ -485,7 +485,7 @@ object TC007Repository {
             try {
                 getTC007Service().setCorrection()
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }
@@ -499,7 +499,7 @@ object TC007Repository {
             try {
                 getTC007Service().setIsotherm(data.toBody())
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]：${e?.message}")
+                XLog.e("repository：${e?.message}")
                 null
             }
         }

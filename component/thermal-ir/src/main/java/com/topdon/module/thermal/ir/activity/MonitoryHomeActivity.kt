@@ -16,12 +16,12 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * [CN_TEXT] Tab [CN_TEXT]，[CN_TEXT]
- * - [CN_TEXT] [IRMonitorHistoryFragment]
- * - [CN_TEXT] [IRMonitorCaptureFragment]
+ * activity Tab activity，activity
+ * - activity [IRMonitorHistoryFragment]
+ * - activity [IRMonitorCaptureFragment]
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
+ * activity：
+ * - [ExtraKeyConfig.IS_TC007] - Currentactivity TC007
  *
  * Created by LCG on 2024/8/20.
  */

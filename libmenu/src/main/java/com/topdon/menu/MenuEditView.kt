@@ -29,7 +29,7 @@ class MenuEditView : FrameLayout, View.OnClickListener {
      */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
     /**
-     * Pseudo-color[CN_TEXT].
+     * Pseudo-colorview.
      */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
 
@@ -59,7 +59,7 @@ class MenuEditView : FrameLayout, View.OnClickListener {
 
 
     /**
-     * CurrentSelected[CN_TEXT] tab，[CN_TEXT] `[0,2]`
+     * CurrentSelectedview tab，view `[0,2]`
      */
     private var selectPosition = -1
         set(value) {

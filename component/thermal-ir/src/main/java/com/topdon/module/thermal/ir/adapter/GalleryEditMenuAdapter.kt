@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
 import com.topdon.menu.R as MenuR
 
-@Deprecated("[CN_TEXT]2D[CN_TEXT]Menu，[CN_TEXT]")
+@Deprecated("item2DitemMenu，item")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var listener: ((code: Int) -> Unit)? = null
 
-    private var pointColor = false //[CN_TEXT]
+    private var pointColor = false // Adapter item
     private var pseudoColor = false //Pseudo-color
-    private var pseudoColorBar = false //Pseudo-color[CN_TEXT]
+    private var pseudoColorBar = false //Pseudo-coloritem
     private var settingColorBar = false //Settings
 
     private val bean = arrayListOf(
-        IconBean(name = context.getString(R.string.menu_3d_calibrate), icon = MenuR.drawable.selector_menu_first_2_5, code = 1000), //[CN_TEXT]
+        IconBean(name = context.getString(R.string.menu_3d_calibrate), icon = MenuR.drawable.selector_menu_first_2_5, code = 1000), // Adapter item
         IconBean(name = context.getString(R.string.thermal_false_color), icon = MenuR.drawable.selector_menu_first_4_3, code = 2000), //Pseudo-color
         IconBean(name = context.getString(R.string.app_setting), icon = MenuR.drawable.selector_menu_first_5_6, code = 4000), //Settings
-        IconBean(name = context.getString(R.string.func_temper_ruler), icon = MenuR.drawable.selector_menu_first_edit_4, code = 3000), //[CN_TEXT]
+        IconBean(name = context.getString(R.string.func_temper_ruler), icon = MenuR.drawable.selector_menu_first_edit_4, code = 3000), // Adapter item
     )
 
     fun enPointColor(pointColor: Boolean) {
@@ -82,7 +82,7 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-    // State[CN_TEXT]
+    // Stateitem
     private fun iconUI(isActive: Boolean, img: ImageView, nameText: TextView) {
         img.isSelected = isActive
         if (isActive) {

@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  *
- * [CN_TEXT]
+ * activity
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
@@ -66,7 +66,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
 
 
         binding.timeDownView.postDelayed({
-            //[CN_TEXT]
+            // Activity logic
             if (binding.timeDownView.downTimeWatcher == null){
                 binding.timeDownView.setOnTimeDownListener(object : TimeDownView.DownTimeWatcher{
                     override fun onTime(num: Int) {
@@ -82,7 +82,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
                     override fun onLastTimeFinish(num: Int) {
                         try {
                             if (!result){
-                                ToastUtils.showShort("[CN_TEXT]，[CN_TEXT]")
+                                ToastUtils.showShort("activity，activity")
                                 return
                             }
                             if (!this@IRCorrectionLiteFourActivity.isFinishing){

@@ -9,26 +9,26 @@ import com.topdon.lib.ui.R as UiR
 
 class RoundImageView : AppCompatImageView {
     companion object {
-        /** [CN_TEXT] - [CN_TEXT].  */
+        /** view - view.  */
         const val LEFT_TOP = 1
 
-        /** [CN_TEXT] - [CN_TEXT].  */
+        /** view - view.  */
         const val RIGHT_TOP = 2
 
-        /** [CN_TEXT] - [CN_TEXT].  */
+        /** view - view.  */
         const val LEFT_BOTTOM = 4
 
-        /** [CN_TEXT] - [CN_TEXT].  */
+        /** view - view.  */
         const val RIGHT_BOTTOM = 8
 
-        /** [CN_TEXT] - 10dp  */
+        /** view - 10dp  */
         private const val DEFAULT_RADIUS = 10f
 
-        /** [CN_TEXT] - 4[CN_TEXT]  */
+        /** view - 4view  */
         private const val DEFAULT_POSITION = 15
     }
 
-    var position = 0 // [CN_TEXT]
+    var position = 0 // view
         set(value) {
             if (field != value) {
                 field = value
@@ -36,9 +36,9 @@ class RoundImageView : AppCompatImageView {
             }
         }
 
-    private var radius = 0 // [CN_TEXT]，[CN_TEXT] px
-    private val path = Path() // [CN_TEXT]
-    private var density = 0f // [CN_TEXT]，[CN_TEXT]dp[CN_TEXT]px[CN_TEXT]
+    private var radius = 0 // view，view px
+    private val path = Path() // view
+    private var density = 0f // view，viewdpviewpxview
 
     constructor(context: Context) : this(context, null)
 
@@ -93,7 +93,7 @@ class RoundImageView : AppCompatImageView {
     }
 
     /**
-     * Settings[CN_TEXT]，[CN_TEXT]**dp**.
+     * Settingsview，view**dp**.
      */
     fun setRadius(radius: Float) {
         if (this.radius != dp2px(radius)) {

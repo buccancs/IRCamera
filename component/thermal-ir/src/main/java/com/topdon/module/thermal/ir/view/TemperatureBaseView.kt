@@ -24,7 +24,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
- * TC007、2D [CN_TEXT] Point/Line/Area[CN_TEXT].
+ * TC007、2D view Point/Line/Areaview.
  *
  * Created by LCG on 2024/5/7.
  */
@@ -32,23 +32,23 @@ abstract class TemperatureBaseView : View {
 
     companion object {
         /**
-         * [CN_TEXT]Point/Line/Area[CN_TEXT].
+         * viewPoint/Line/Areaview.
          */
         private const val DEFAULT_MAX_COUNT = 3
 
         /**
-         * Selected[CN_TEXT]，[CN_TEXT] Touch Down [CN_TEXT]Point/Line/Area[CN_TEXT]，[CN_TEXT]Selected，[CN_TEXT] px.
+         * Selectedview，view Touch Down viewPoint/Line/Areaview，viewSelected，view px.
          */
         private val TOUCH_TOLERANCE = SizeUtils.dp2px(8f)
         /**
-         * Delete[CN_TEXT]，[CN_TEXT] Touch UP [CN_TEXT] Touch Down [CN_TEXT]，[CN_TEXT]Delete，[CN_TEXT] px.
+         * Deleteview，view Touch UP view Touch Down view，viewDelete，view px.
          */
         private val DELETE_TOLERANCE = SizeUtils.dp2px(2f)
     }
 
 
     /**
-     * [CN_TEXT]Mode，[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、Clear.
+     * viewMode，view、view、view、view、Clear.
      */
     enum class Mode {
         POINT,
@@ -60,7 +60,7 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * Current[CN_TEXT].
+     * Currentview.
      */
     @Volatile
     var isShowFull: Boolean = true
@@ -72,13 +72,13 @@ abstract class TemperatureBaseView : View {
             invalidate()
         }
     /**
-     * Current[CN_TEXT]Mode：[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT]、Clear。
+     * CurrentviewMode：view、view、view、view、Clear。
      */
     @Volatile
     open var mode = Mode.FULL
         set(value) {
             field = value
-            if (value == Mode.FULL) {//[CN_TEXT]
+            if (value == Mode.FULL) {// View rendering
                 isShowFull = true
                 invalidate()
             } else if (value == Mode.CLEAR) {
@@ -95,7 +95,7 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * [CN_TEXT]，[CN_TEXT] px.
+     * view，view px.
      */
     var tempTextSize: Int
         get() = helper.textSize
@@ -104,7 +104,7 @@ abstract class TemperatureBaseView : View {
             invalidate()
         }
     /**
-     * [CN_TEXT]、Point/Line/Area[CN_TEXT] [CN_TEXT].
+     * view、Point/Line/Areaview view.
      */
     var textColor: Int
         @ColorInt get() = helper.textColor
@@ -115,40 +115,40 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * [CN_TEXT] Touch [CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT] [setImageSize] Settings[CN_TEXT]
+     * view Touch view、view、view，view [setImageSize] Settingsview
      */
     var onPointListener: ((pointList: List<Point>) -> Unit)? = null
     /**
-     * [CN_TEXT] Touch [CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT] [setImageSize] Settings[CN_TEXT]
+     * view Touch view、view、view，view [setImageSize] Settingsview
      */
     var onLineListener: ((lineList: List<Point>) -> Unit)? = null
     /**
-     * [CN_TEXT] Touch [CN_TEXT]、[CN_TEXT]、[CN_TEXT]，[CN_TEXT] [setImageSize] Settings[CN_TEXT]
+     * view Touch view、view、view，view [setImageSize] Settingsview
      */
     var onRectListener: ((rectList: List<Rect>) -> Unit)? = null
     /**
-     * [CN_TEXT] Touch [CN_TEXT].
+     * view Touch view.
      *
-     * [CN_TEXT]：[CN_TEXT] [mode] Settings[CN_TEXT] [Mode.CLEAR] [CN_TEXT].
+     * view：view [mode] Settingsview [Mode.CLEAR] view.
      */
     var onTrendOperateListener: ((isAdd: Boolean) -> Unit)? = null
 
 
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
+     * view View view，Currentview.
      */
     protected val pointList = ArrayList<Point>()
     /**
-     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
+     * view View view，Currentview.
      */
     protected val lineList = ArrayList<Line>()
     /**
-     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
+     * view View view，Currentview.
      */
     protected val rectList = ArrayList<Rect>()
     /**
-     * [CN_TEXT] View [CN_TEXT]，Current[CN_TEXT].
+     * view View view，Currentview.
      */
     @Volatile
     protected var trendLine: Line? = null
@@ -207,7 +207,7 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * [CN_TEXT]Point/Line/Area[CN_TEXT]，[CN_TEXT]3.
+     * viewPoint/Line/Areaview，view3.
      */
     protected val maxCount: Int
 
@@ -234,21 +234,21 @@ abstract class TemperatureBaseView : View {
 
     /* ******************************************** Draw ******************************************** */
     /**
-     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT] (x,y) [CN_TEXT].
+     * view View view，view (x,y) view.
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
-     * @param point [CN_TEXT] View [CN_TEXT]
+     * Note，view x、y view，view。
+     * @param point view View view
      */
     protected fun drawPoint(canvas: Canvas, point: Point) {
         helper.drawPoint(canvas, point.x, point.y)
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT] (startX, startY)、(stopX, stopY) [CN_TEXT].
+     * view View view，view (startX, startY)、(stopX, stopY) view.
      */
     protected fun drawLine(canvas: Canvas, line: Line) {
-        // [CN_TEXT]，[CN_TEXT]Current View [CN_TEXT]，[CN_TEXT](192x256)[CN_TEXT] View [CN_TEXT]
-        // [CN_TEXT]Current[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+        // view，viewCurrent View view，view(192x256)view View view
+        // viewCurrentview，view，view
         val startX: Int = ((line.start.x / xScale).toInt() * xScale).toInt()
         val startY: Int = ((line.start.y / yScale).toInt() * yScale).toInt()
         val stopX: Int = ((line.end.x / xScale).toInt() * xScale).toInt()
@@ -257,7 +257,7 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT].
+     * view View view，viewSpecifiedview.
      */
     protected fun drawRect(canvas: Canvas, rect: Rect) {
         val left: Int = ((rect.left / xScale).toInt() * xScale).toInt()
@@ -270,30 +270,30 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT] (x,y) [CN_TEXT]。
+     * view View view，view (x,y) view。
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
-     * @param isMax true-[CN_TEXT]High temperature[CN_TEXT] false-[CN_TEXT]Low temperature[CN_TEXT]
+     * Note，view x、y view，view。
+     * @param isMax true-viewHigh temperatureview false-viewLow temperatureview
      */
     protected fun drawCircle(canvas: Canvas, x: Int, y: Int, isMax: Boolean) {
         helper.drawCircle(canvas, x, y, isMax)
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] (x,y) [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT]。
-     * [CN_TEXT]，[CN_TEXT]、[CN_TEXT].
+     * view View view，Specifiedview (x,y) view，viewSpecifiedview。
+     * view，view、view.
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
-     * @param x [CN_TEXT] View [CN_TEXT]
+     * Note，view x、y view，view。
+     * @param x view View view
      */
     protected fun drawTempText(canvas: Canvas, x: Int, y: Int, temp: Float) {
         helper.drawTempText(canvas, UnitTools.showC(temp), width, x, y)
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT] "A"、"B" [CN_TEXT]。
+     * view View view，viewSpecifiedview "A"、"B" view。
      *
-     * Note，[CN_TEXT] x、y [CN_TEXT]，[CN_TEXT]。
+     * Note，view x、y view，view。
      */
     protected fun drawTrendText(canvas: Canvas, line: Line) {
         helper.drawTrendText(canvas, width, height, line.start.x, line.start.y, line.end.x, line.end.y)
@@ -301,20 +301,20 @@ abstract class TemperatureBaseView : View {
 
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] (x,y) [CN_TEXT]，[CN_TEXT]Specified[CN_TEXT]。
-     * [CN_TEXT]，[CN_TEXT].
+     * view View view，Specifiedview (x,y) view，viewSpecifiedview。
+     * view，view.
      */
     protected fun drawPointName(canvas: Canvas, name: String, point: Point) {
-        // [CN_TEXT]，[CN_TEXT]Current View [CN_TEXT]，[CN_TEXT](192x256)[CN_TEXT]
-        // [CN_TEXT]Current[CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+        // view，viewCurrent View view，view(192x256)view
+        // viewCurrentview，view，view
         val x = ((point.x / xScale).toInt() * xScale).toInt()
         val y = ((point.y / yScale).toInt() * yScale).toInt()
         helper.drawPointName(canvas, name, width, height, x, y)
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] [CN_TEXT] [CN_TEXT]，
-     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT]。
+     * view View view，Specifiedview view view，
+     * viewSpecifiedview，view。
      */
     protected fun drawLineName(canvas: Canvas, name: String, line: Line) {
         val startX = ((line.start.x / xScale).toInt() * xScale).toInt()
@@ -325,8 +325,8 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * [CN_TEXT] View [CN_TEXT]，Specified[CN_TEXT] [CN_TEXT] [CN_TEXT]，
-     * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT]。
+     * view View view，Specifiedview view view，
+     * viewSpecifiedview，view。
      */
     protected fun drawRectName(canvas: Canvas, name: String, rect: Rect) {
         val left: Int = ((rect.left / xScale).toInt() * xScale).toInt()
@@ -344,9 +344,9 @@ abstract class TemperatureBaseView : View {
     private var downY = 0
 
     /**
-     * [CN_TEXT] Point/Line/Area Mode。
+     * view Point/Line/Area Mode。
      *
-     * true-[CN_TEXT]Point/Line/Area false-[CN_TEXT]Point/Line/Area
+     * true-viewPoint/Line/Area false-viewPoint/Line/Area
      */
     private var isAddAction = true
 
@@ -365,10 +365,10 @@ abstract class TemperatureBaseView : View {
     }
 
 
-    /* **************************************** [CN_TEXT] **************************************** */
+    /* **************************************** view **************************************** */
 
     /**
-     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
+     * Touch viewCurrentview（view、view）view.
      */
     protected var operatePoint: Point? = null
 
@@ -380,7 +380,7 @@ abstract class TemperatureBaseView : View {
                 val point: Point? = pollPoint(downX, downY)
                 isAddAction = point == null
                 operatePoint = point ?: Point(downX, downY)
-                if (point == null && pointList.size == maxCount) {//[CN_TEXT]
+                if (point == null && pointList.size == maxCount) {// View rendering
                     synchronized(this) {
                         pointList.removeAt(0)
                     }
@@ -426,25 +426,25 @@ abstract class TemperatureBaseView : View {
     }
 
 
-    /* **************************************** [CN_TEXT] **************************************** */
+    /* **************************************** view **************************************** */
 
     /**
-     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
+     * Touch viewCurrentview（view、view）view.
      */
     protected var operateLine: Line? = null
     /**
-     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
+     * Touch viewCurrentview（view、view）view.
      */
     protected var operateTrend: Line? = null
 
     private enum class LineMoveType { ALL, START, END, }
     /**
-     * [CN_TEXT]：[CN_TEXT]、[CN_TEXT]、[CN_TEXT]。
+     * view：view、view、view。
      */
     private var lineMoveType = LineMoveType.ALL
 
     /**
-     * [CN_TEXT]，[CN_TEXT] DOWN State[CN_TEXT]，[CN_TEXT].
+     * view，view DOWN Stateview，view.
      */
     private val downLine: Line = Line(Point(0, 0), Point(0, 0))
 
@@ -499,7 +499,7 @@ abstract class TemperatureBaseView : View {
                     (if (isTrend) operateTrend else operateLine)?.end?.y = y
                 } else {
                     when (lineMoveType) {
-                        LineMoveType.ALL -> {//[CN_TEXT]
+                        LineMoveType.ALL -> {// View rendering
                             val rect: Rect = TempDrawHelper.getRect(width, height)
                             val minX: Int = min(downLine.start.x, downLine.end.x)
                             val maxX: Int = max(downLine.start.x, downLine.end.x)
@@ -528,7 +528,7 @@ abstract class TemperatureBaseView : View {
                 val y: Int = event.y.correct(height)
                 val line: Line = (if (isTrend) operateTrend else operateLine) ?: Line(Point(), Point())
                 if ((line.start.x / xScale).toInt() != (line.end.x / xScale).toInt() || (line.start.y / yScale).toInt() != (line.end.y / yScale).toInt()) {
-                    //[CN_TEXT]
+                    // View rendering
                     if (isAddAction || abs(x - downX) > DELETE_TOLERANCE || abs(y - downY) > DELETE_TOLERANCE) {
                         if (isTrend) {
                             trendLine = line
@@ -572,7 +572,7 @@ abstract class TemperatureBaseView : View {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT] (x, y) [CN_TEXT]Specified Line [CN_TEXT]Selected.
+     * viewSpecifiedview (x, y) viewSpecified Line viewSelected.
      */
     private fun isLineConcat(line: Line?, x: Int, y: Int): Boolean {
         if (line == null) {
@@ -585,36 +585,36 @@ abstract class TemperatureBaseView : View {
 
 
 
-    /* **************************************** [CN_TEXT] **************************************** */
+    /* **************************************** view **************************************** */
 
     /**
-     * Touch [CN_TEXT]Current[CN_TEXT]（[CN_TEXT]、[CN_TEXT]）[CN_TEXT].
+     * Touch viewCurrentview（view、view）view.
      */
     protected var operateRect: Rect? = null
 
 
     private enum class RectMoveType { ALL, EDGE, CORNER, }
     /**
-     * [CN_TEXT]：[CN_TEXT]-[CN_TEXT]、[CN_TEXT]4[CN_TEXT]-[CN_TEXT]、[CN_TEXT]4[CN_TEXT]-[CN_TEXT]。
+     * view：view-view、view4view-view、view4view-view。
      */
     private var rectMoveType = RectMoveType.ALL
 
 
     private enum class RectMoveEdge { LEFT, TOP, RIGHT, BOTTOM }
     /**
-     * [CN_TEXT]Mode[CN_TEXT]，[CN_TEXT].
+     * viewModeview，view.
      */
     private var rectMoveEdge = RectMoveEdge.LEFT
 
 
     private enum class RectMoveCorner { LT, RT, RB, LB }
     /**
-     * [CN_TEXT]Mode[CN_TEXT]，[CN_TEXT].
+     * viewModeview，view.
      */
     private var rectMoveCorner = RectMoveCorner.LT
 
     /**
-     * [CN_TEXT]，[CN_TEXT] DOWN State[CN_TEXT]，[CN_TEXT].
+     * view，view DOWN Stateview，view.
      */
     private val downRect = Rect()
 
@@ -624,7 +624,7 @@ abstract class TemperatureBaseView : View {
                 downX = event.x.correct(width)
                 downY = event.y.correct(height)
                 val rect: Rect? = pollRect(downX, downY)
-                if (rect == null) {//[CN_TEXT]
+                if (rect == null) {// View rendering
                     isAddAction = true
                     operateRect = Rect(downX, downY, downX, downY)
                     if (rectList.size == maxCount) {
@@ -632,18 +632,18 @@ abstract class TemperatureBaseView : View {
                             rectList.removeAt(0)
                         }
                     }
-                } else {//[CN_TEXT] - Delete
+                } else {// View rendering - Delete
                     isAddAction = false
                     operateRect = rect
                     downRect.set(rect)
                     when (downX) {
-                        in rect.left - TOUCH_TOLERANCE .. rect.left + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                        in rect.left - TOUCH_TOLERANCE .. rect.left + TOUCH_TOLERANCE -> {//Selectedview
                             when (downY) {
-                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selectedview
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.LT
                                 }
-                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selectedview
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.LB
                                 }
@@ -653,13 +653,13 @@ abstract class TemperatureBaseView : View {
                                 }
                             }
                         }
-                        in rect.right - TOUCH_TOLERANCE .. rect.right + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                        in rect.right - TOUCH_TOLERANCE .. rect.right + TOUCH_TOLERANCE -> {//Selectedview
                             when (downY) {
-                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selectedview
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.RT
                                 }
-                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selectedview
                                     rectMoveType = RectMoveType.CORNER
                                     rectMoveCorner = RectMoveCorner.RB
                                 }
@@ -669,13 +669,13 @@ abstract class TemperatureBaseView : View {
                                 }
                             }
                         }
-                        else -> {//[CN_TEXT]Selected
+                        else -> {// View renderingSelected
                             when (downY) {
-                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                                in rect.top - TOUCH_TOLERANCE .. rect.top + TOUCH_TOLERANCE -> {//Selectedview
                                     rectMoveType = RectMoveType.EDGE
                                     rectMoveEdge = RectMoveEdge.TOP
                                 }
-                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selected[CN_TEXT]
+                                in rect.bottom - TOUCH_TOLERANCE .. rect.bottom + TOUCH_TOLERANCE -> {//Selectedview
                                     rectMoveType = RectMoveType.EDGE
                                     rectMoveEdge = RectMoveEdge.BOTTOM
                                 }
@@ -695,50 +695,50 @@ abstract class TemperatureBaseView : View {
                     operateRect?.set(min(downX, x), min(downY, y), max(downX, x), max(downY, y))
                 } else {
                     when (rectMoveType) {
-                        RectMoveType.ALL -> {//[CN_TEXT]
+                        RectMoveType.ALL -> {// View rendering
                             val rect: Rect = TempDrawHelper.getRect(width, height)
                             val biasX: Int = if (x < downX) max(x - downX, rect.left - downRect.left) else min(x - downX, rect.right - downRect.right)
                             val biasY: Int = if (y < downY) max(y - downY, rect.top - downRect.top) else min(y - downY, rect.bottom - downRect.bottom)
                             operateRect?.set(downRect.left + biasX, downRect.top + biasY, downRect.right + biasX, downRect.bottom + biasY)
                         }
                         RectMoveType.EDGE -> when (rectMoveEdge) {
-                            RectMoveEdge.LEFT -> {//[CN_TEXT]
+                            RectMoveEdge.LEFT -> {// View rendering
                                 operateRect?.left = min(x, downRect.right)
                                 operateRect?.right = max(x, downRect.right)
                             }
-                            RectMoveEdge.TOP -> {//[CN_TEXT]
+                            RectMoveEdge.TOP -> {// View rendering
                                 operateRect?.top = min(y, downRect.bottom)
                                 operateRect?.bottom = max(y, downRect.bottom)
                             }
-                            RectMoveEdge.RIGHT -> {//[CN_TEXT]
+                            RectMoveEdge.RIGHT -> {// View rendering
                                 operateRect?.right = max(x, downRect.left)
                                 operateRect?.left = min(x, downRect.left)
                             }
-                            RectMoveEdge.BOTTOM -> {//[CN_TEXT]
+                            RectMoveEdge.BOTTOM -> {// View rendering
                                 operateRect?.bottom = max(y, downRect.top)
                                 operateRect?.top = min(y, downRect.top)
                             }
                         }
                         RectMoveType.CORNER -> when (rectMoveCorner) {
-                            RectMoveCorner.LT -> {//[CN_TEXT]
+                            RectMoveCorner.LT -> {// View rendering
                                 operateRect?.left = min(x, downRect.right)
                                 operateRect?.right = max(x, downRect.right)
                                 operateRect?.top = min(y, downRect.bottom)
                                 operateRect?.bottom = max(y, downRect.bottom)
                             }
-                            RectMoveCorner.RT -> {//[CN_TEXT]
+                            RectMoveCorner.RT -> {// View rendering
                                 operateRect?.right = max(x, downRect.left)
                                 operateRect?.left = min(x, downRect.left)
                                 operateRect?.top = min(y, downRect.bottom)
                                 operateRect?.bottom = max(y, downRect.bottom)
                             }
-                            RectMoveCorner.RB -> {//[CN_TEXT]
+                            RectMoveCorner.RB -> {// View rendering
                                 operateRect?.right = max(x, downRect.left)
                                 operateRect?.left = min(x, downRect.left)
                                 operateRect?.bottom = max(y, downRect.top)
                                 operateRect?.top = min(y, downRect.top)
                             }
-                            RectMoveCorner.LB -> {//[CN_TEXT]
+                            RectMoveCorner.LB -> {// View rendering
                                 operateRect?.left = min(x, downRect.right)
                                 operateRect?.right = max(x, downRect.right)
                                 operateRect?.bottom = max(y, downRect.top)
@@ -756,7 +756,7 @@ abstract class TemperatureBaseView : View {
                 val rect: Rect = operateRect ?: Rect()
                 if ((rect.left / xScale).toInt() != (rect.right / xScale).toInt() &&
                     (rect.top / yScale).toInt() != (rect.bottom / yScale).toInt()) {
-                    //[CN_TEXT]
+                    // View rendering
                     if (isAddAction || abs(x - downX) > DELETE_TOLERANCE || abs(y - downY) > DELETE_TOLERANCE) {
                         synchronized(this) {
                             rectList.add(rect)

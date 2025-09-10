@@ -80,10 +80,10 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         if (twoLightType == TwoLightType.TWO_LIGHT_1 || twoLightType == TwoLightType.TWO_LIGHT_2) {//Dual light1、Dual light2
             return
         }
-        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {//[CN_TEXT]Infrared、Visible light
+        if (twoLightType == TwoLightType.IR || twoLightType == TwoLightType.LIGHT) {// Adapter itemInfrared、Visible light
             return
         }
-        if (menuType == MenuType.TC007 && twoLightType == TwoLightType.P_IN_P) {//TC007 [CN_TEXT]Picture in picture
+        if (menuType == MenuType.TC007 && twoLightType == TwoLightType.P_IN_P) {//TC007 itemPicture in picture
             return
         }
         for (data in dataList) {
@@ -121,12 +121,12 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            if (data.isSingle) {//[CN_TEXT]
-                if (!data.isSelected) {//[CN_TEXT]
+            if (data.isSingle) {// Adapter item
+                if (!data.isSelected) {// Adapter item
                     twoLightType = data.twoLightType
                     onTwoLightListener?.invoke(data.twoLightType, true)
                 }
-            } else {//[CN_TEXT]
+            } else {// Adapter item
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
@@ -138,8 +138,8 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
     override fun getItemCount(): Int = dataList.size
 
     /**
-     * @param isSingle [CN_TEXT]，[CN_TEXT]1[CN_TEXT]，[CN_TEXT] Boolean [CN_TEXT]
-     * @param isSelected Current[CN_TEXT]Selected
+     * @param isSingle item，item1item，item Boolean item
+     * @param isSelected CurrentitemSelected
      */
     data class Data(
         @StringRes val stringId: Int,

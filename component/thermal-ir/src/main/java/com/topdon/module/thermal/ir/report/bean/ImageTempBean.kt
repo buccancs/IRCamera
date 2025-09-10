@@ -4,20 +4,20 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * [CN_TEXT]Point/Line/Area[CN_TEXT].
+ * dataPoint/Line/Areadata.
  */
 @Parcelize
 data class ImageTempBean(
-    val full: TempBean?,//[CN_TEXT]
-    val pointList: ArrayList<TempBean>,//[CN_TEXT]
-    val lineList: ArrayList<TempBean>, //[CN_TEXT]
-    val rectList: ArrayList<TempBean>, //[CN_TEXT]
+    val full: TempBean?,// Data field
+    val pointList: ArrayList<TempBean>,// Data field
+    val lineList: ArrayList<TempBean>, // Data field
+    val rectList: ArrayList<TempBean>, // Data field
 ) : Parcelable {
 
     @Parcelize
     data class TempBean(
-        val max: String,//[CN_TEXT]High temperature，[CN_TEXT]
-        val min: String? = null,//[CN_TEXT]Low temperature，[CN_TEXT]
-        val average: String? = null,//[CN_TEXT]，[CN_TEXT]
+        val max: String,// Data fieldHigh temperature，data
+        val min: String? = null,// Data fieldLow temperature，data
+        val average: String? = null,// Data field，data
     ) : Parcelable
 }

@@ -48,12 +48,12 @@ object BitmapTools {
                         r = imageBytes[i * 4].toInt() and 0xff
                         g = imageBytes[i * 4 + 1].toInt() and 0xff
                         b = imageBytes[i * 4 + 2].toInt() and 0xff
-                        //[CN_TEXT]
+                        // Utility function
                         grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
                         imageBytes[i * 4] = grey.toByte()
                         imageBytes[i * 4 + 1] = grey.toByte()
                         imageBytes[i * 4 + 2] = grey.toByte()
-//                        Log.e("[CN_TEXT]","[CN_TEXT]"+value)
+//                        Log.e("utility","utility"+value)
                     }
                 }
             } else {
@@ -88,7 +88,7 @@ object BitmapTools {
                 }
             }
         } catch (e: Exception) {
-            XLog.w("[CN_TEXT]: ${e.message}")
+            XLog.w("utility: ${e.message}")
         }
     }
 }

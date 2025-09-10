@@ -71,7 +71,7 @@ class PdfActivity : BaseBindingActivity<ActivityPdfBinding>() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    // [CN_TEXT]assets[CN_TEXT]
+    // activityassetsactivity
     @Throws(IOException::class)
     private fun copyBigDataToSD(
         assetsName: String,

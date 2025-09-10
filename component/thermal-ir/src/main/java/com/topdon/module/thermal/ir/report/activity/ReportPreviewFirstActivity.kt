@@ -12,11 +12,11 @@ import com.topdon.lib.core.R as LibCoreR
 import com.topdon.lib.ui.R as UiR
 
 /**
- * [CN_TEXT]1[CN_TEXT].
+ * activity1activity.
  *
- * [CN_TEXT]
- * - [CN_TEXT]：[CN_TEXT] [ExtraKeyConfig.REPORT_INFO]
- * - [CN_TEXT]：[CN_TEXT] [ExtraKeyConfig.REPORT_CONDITION]
+ * activity
+ * - activity：activity [ExtraKeyConfig.REPORT_INFO]
+ * - activity：activity [ExtraKeyConfig.REPORT_CONDITION]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewFirstActivity: BaseActivity() {

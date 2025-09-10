@@ -26,43 +26,43 @@ class ChartTrendView : LineChart {
         val axisChartColors: Int = ContextCompat.getColor(context, LibR.color.chart_axis)
 
         this.isDragEnabled = false
-        this.isScaleYEnabled = false //[CN_TEXT]Y[CN_TEXT]
-        this.isScaleXEnabled = false //[CN_TEXT]X[CN_TEXT]
-        this.isDoubleTapToZoomEnabled = false//[CN_TEXT]
-        this.setScaleEnabled(false)//[CN_TEXT]
-        this.setPinchZoom(false)//[CN_TEXT]，[CN_TEXT]x[CN_TEXT]y[CN_TEXT]
+        this.isScaleYEnabled = false // View renderingYview
+        this.isScaleXEnabled = false // View renderingXview
+        this.isDoubleTapToZoomEnabled = false// View rendering
+        this.setScaleEnabled(false)// View rendering
+        this.setPinchZoom(false)// View rendering，viewxviewyview
         this.setTouchEnabled(true)
         this.setDrawGridBackground(false)
-        this.description = null//[CN_TEXT]
-        this.axisRight.isEnabled = false //[CN_TEXT]Y[CN_TEXT]
+        this.description = null// View rendering
+        this.axisRight.isEnabled = false // View renderingYview
         this.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat()
-        )//[CN_TEXT]
+        )// View rendering
 
         setNoDataText(context.getString(ThermalR.string.lms_http_code998))
         setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
 
         val mv = MyMarkerView(context, R.layout.marker_lay)
         mv.chartView = this
-        marker = mv//Settings[CN_TEXT]
+        marker = mv//Settingsview
 
         legend.form = Legend.LegendForm.CIRCLE
         legend.textColor = textColor
-        legend.isEnabled = false//[CN_TEXT]
+        legend.isEnabled = false// View rendering
 
-        //x[CN_TEXT]
+        //xview
         val xAxis = this.xAxis
         xAxis.textColor = textColor
-        xAxis.setDrawGridLines(false)//[CN_TEXT]
-        xAxis.axisLineColor = 0x00000000 //x[CN_TEXT]
+        xAxis.setDrawGridLines(false)// View rendering
+        xAxis.axisLineColor = 0x00000000 //xview
         xAxis.setAvoidFirstLastClipping(true)
         xAxis.isEnabled = true
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true//[CN_TEXT]
+        xAxis.isGranularityEnabled = true// View rendering
         xAxis.textSize = 11f
         xAxis.isJumpFirstLabel = false
         xAxis.axisMinimum = 0f
@@ -80,12 +80,12 @@ class ChartTrendView : LineChart {
             }
         }
 
-        //y[CN_TEXT]
+        //yview
         val leftAxis = this.axisLeft
-        leftAxis.textColor = textColor //y[CN_TEXT]
-        leftAxis.axisLineColor = 0x00000000 //y[CN_TEXT]
-        leftAxis.setDrawGridLines(true)//[CN_TEXT]
-        leftAxis.gridColor = axisChartColors //y[CN_TEXT]
+        leftAxis.textColor = textColor //yview
+        leftAxis.axisLineColor = 0x00000000 //yview
+        leftAxis.setDrawGridLines(true)// View rendering
+        leftAxis.gridColor = axisChartColors //yview
         leftAxis.gridLineWidth = 1.5f
         leftAxis.setLabelCount(6, true)
         leftAxis.valueFormatter = object : ValueFormatter() {
@@ -107,8 +107,8 @@ class ChartTrendView : LineChart {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT]
-     * @param tempList [CN_TEXT]，[CN_TEXT]Celsius
+     * viewSpecifiedview
+     * @param tempList view，viewCelsius
      */
     fun refresh(tempList: List<Float>) {
         if (tempList.isEmpty()) {
@@ -150,15 +150,15 @@ class ChartTrendView : LineChart {
 
         val lineDataSet = LineDataSet(entryList, "point temp")
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        lineDataSet.color = 0xffffffff.toInt()//[CN_TEXT]
-        lineDataSet.circleHoleColor = 0xffffffff.toInt()//[CN_TEXT]
-        lineDataSet.setCircleColor(0xffffffff.toInt())//[CN_TEXT]
+        lineDataSet.color = 0xffffffff.toInt()// View rendering
+        lineDataSet.circleHoleColor = 0xffffffff.toInt()// View rendering
+        lineDataSet.setCircleColor(0xffffffff.toInt())// View rendering
         lineDataSet.valueTextColor = Color.WHITE
         lineDataSet.lineWidth = 2f
-        lineDataSet.circleRadius = 1f//[CN_TEXT]
+        lineDataSet.circleRadius = 1f// View rendering
         lineDataSet.fillAlpha = 200
         lineDataSet.valueTextSize = 10f
-        lineDataSet.setDrawValues(false)//Settings[CN_TEXT]
+        lineDataSet.setDrawValues(false)//Settingsview
 
         data = LineData(lineDataSet)
         invalidate()

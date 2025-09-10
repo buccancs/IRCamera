@@ -77,9 +77,9 @@ import java.io.OutputStream
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickListener {
     private val versionViewModel: VersionViewModel by viewModels()
 
-    private var checkPermissionType: Int = -1 // 0 initData[CN_TEXT] 1 Gallery  2 connect[CN_TEXT]
+    private var checkPermissionType: Int = -1 // 0 initDataactivity 1 Gallery  2 connectactivity
 
-    // [CN_TEXT]
+    // activity
     private fun logInfo() {
         try {
             val str = StringBuilder()
@@ -146,7 +146,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         }
 
         if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
-            // [CN_TEXT]，[CN_TEXT]
+            // activity，activity
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
                     NavigationManager.build(RouterConfig.IR_MAIN)
@@ -179,7 +179,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     override fun onStart() {
         super.onStart()
 
-        // [CN_TEXT]
+        // activity
         versionViewModel.updateLiveData.observe(this) {
             FirmwareUpDialog(this).apply {
                 titleStr = getString(com.topdon.lib.core.R.string.update_new_version)
@@ -190,7 +190,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                     updateApk(it.downPageUrl)
                 }
                 onCancelClickListener = {
-                    SharedManager.setVersionCheckDate(System.currentTimeMillis()) // [CN_TEXT]
+                    SharedManager.setVersionCheckDate(System.currentTimeMillis()) // activity
                 }
             }.show()
         }
@@ -198,7 +198,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
     private fun updateApk(url: String) {
         if (applicationInfo.targetSdkVersion < Build.VERSION_CODES.P) {
-            // [CN_TEXT]27[CN_TEXT]
+            // activity27activity
             val intent = Intent()
             intent.action = "android.intent.action.VIEW"
             intent.data = Uri.parse(url)
@@ -261,7 +261,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         filename: String,
         targetFile: File,
     ) {
-        if (targetFile.exists()) { // [CN_TEXT]
+        if (targetFile.exists()) { // activity
             return
         }
         try {
@@ -300,10 +300,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 checkPermissionType = 1
                 checkStoragePermission()
             }
-            binding.viewMain -> { // [CN_TEXT]
+            binding.viewMain -> { // activity
                 binding.viewPage.setCurrentItem(1, false)
             }
-            binding.clIconMine -> { // [CN_TEXT]
+            binding.clIconMine -> { // activity
                 binding.viewPage.setCurrentItem(2, false)
             }
         }
@@ -338,8 +338,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * [CN_TEXT] 3 [CN_TEXT] tab [CN_TEXT]SelectedState
-     * @param index CurrentSelected[CN_TEXT] tab，`[0, 2]`
+     * activity 3 activity tab activitySelectedState
+     * @param index CurrentSelectedactivity tab，`[0, 2]`
      */
     private fun refreshTabSelect(index: Int) {
         binding.ivIconGallery.isSelected = false
@@ -356,7 +356,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             1 -> {
                 binding.ivBottomMainBg.setImageResource(R.drawable.ic_main_bg_select)
             }
-            2 -> { // [CN_TEXT]
+            2 -> { // activity
                 binding.ivIconMine.isSelected = true
                 binding.tvIconMine.isSelected = true
             }
@@ -376,7 +376,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         if (WebSocketProxy.getInstance().isTS004Connect()) {
             NavigationManager.build(RouterConfig.IR_MONOCULAR).navigation(this)
         }
-        // [CN_TEXT]OTG[CN_TEXT]
+        // activityOTGactivity
         if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
             return
         }
@@ -403,7 +403,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     override fun onSocketDisConnected(isTS004: Boolean) {
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED) && isTS004) { // TC007[CN_TEXT]
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED) && isTS004) { // TC007activity
             dialogDisconnect()
         }
     }
@@ -430,9 +430,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * [CN_TEXT]
-     * [CN_TEXT]，[CN_TEXT]key value[CN_TEXT]
-     * @return key：[CN_TEXT] value：[CN_TEXT]
+     * activity
+     * activity，activitykey valueactivity
+     * @return key：activity value：activity
      */
     private fun getNeedPermissionList(): SparseArray<List<String>> {
         val sparseArray = SparseArray<List<String>>()
@@ -468,7 +468,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         ) {
             if (BaseApplication.instance.isDomestic()) {
                 if (SharedManager.getMainPermissionsState()) {
-                    // [CN_TEXT]
+                    // activity
                     return
                 }
                 TipDialog.Builder(this)
@@ -487,7 +487,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun initCameraPermission() {
         XXPermissions.with(this)
@@ -511,7 +511,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                             SharedManager.setMainPermissionsState(true)
                         }
                         if (doNotAskAgain) {
-                            // [CN_TEXT]
+                            // activity
                             TipDialog.Builder(this@MainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(
@@ -553,7 +553,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * [CN_TEXT]
+     * activity
      */
     private fun initStoragePermission() {
         if (PermissionUtils.isVisualUser()) {
@@ -580,7 +580,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-                            // [CN_TEXT]
+                            // activity
                             TipDialog.Builder(this@MainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_album_content))

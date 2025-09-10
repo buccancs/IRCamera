@@ -24,8 +24,8 @@ open class BaseThermalFragment : BaseFragment() {
     var mMinTemp = 0f
     var maxImg: ImageView? = null
     var minImg: ImageView? = null
-    var maxIndex = 0 // [CN_TEXT]High temperature[CN_TEXT]
-    var minIndex = 0 // [CN_TEXT]Low temperature[CN_TEXT]
+    var maxIndex = 0 // fragmentHigh temperaturefragment
+    var minIndex = 0 // fragmentLow temperaturefragment
 
     var mCenterTextView: TextView? = null
     var mMaxTextView: TextView? = null
@@ -54,7 +54,7 @@ open class BaseThermalFragment : BaseFragment() {
     var rawHeight = 0
     var highCrossWidth = 40
     var highCrossHeight = 40
-    var rotateType = 0 // 1:90[CN_TEXT]  2:180[CN_TEXT]  3:270[CN_TEXT]
+    var rotateType = 0 // 1:90fragment  2:180fragment  3:270fragment
     var irSurfaceViewWidth = 0
     var irSurfaceViewHeight = 0
 

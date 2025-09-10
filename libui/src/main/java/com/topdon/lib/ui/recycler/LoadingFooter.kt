@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import com.topdon.lib.ui.databinding.UiFooterViewBinding
 
 /**
- * [CN_TEXT]FooterView - Modernized with view binding
+ * dataFooterView - Modernized with view binding
  */
 class LoadingFooter : LinearLayout {
     private val binding: UiFooterViewBinding

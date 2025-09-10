@@ -42,22 +42,22 @@ import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 /**
- * TS004 [CN_TEXT]
+ * TS004 activity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail04Activity : BaseActivity() {
 
     /**
-     * [CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]
+     * activity.
+     * true-activity false-activity
      */
     private var isRemote = false
     /**
-     * Current[CN_TEXT] position
+     * Currentactivity position
      */
     private var position = 0
     /**
-     * [CN_TEXT]，Current[CN_TEXT].
+     * activity，Currentactivity.
      */
     private lateinit var dataList: ArrayList<GalleryBean>
 
@@ -72,7 +72,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
         val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
         titleView.setTitleText("${position + 1}/${dataList.size}")
 
-        findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote //[CN_TEXT]3[CN_TEXT]
+        findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote // Activity logic3activity
 
         if (!isRemote) {
             titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)

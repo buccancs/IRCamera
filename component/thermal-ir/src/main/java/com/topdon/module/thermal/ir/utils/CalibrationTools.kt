@@ -7,85 +7,85 @@ import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.utils.SynchronizedBitmap
 
 /**
- * [CN_TEXT]
+ * utility
  */
 object CalibrationTools {
 
     /**
-     * [CN_TEXT]
-     * [CN_TEXT] - Settings[CN_TEXT]
+     * utility
+     * utility - Settingsutility
      */
     fun sign(irCmd: IRCMD, singlePointTemp: Int): Boolean {
         var success = false
-        // [CN_TEXT]Temperature measurement[CN_TEXT],[CN_TEXT]
+        // utilityTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_1_POINT, singlePointTemp)
             if (result == 0) {
                 success = true
             } else {
-                XLog.w("[CN_TEXT]")
+                XLog.w("utility")
             }
         } else {
-            XLog.w("[CN_TEXT]")
+            XLog.w("utility")
         }
         return success
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      * Low temperature(100 ~ 400)
      */
     fun pointFirst(irCmd: IRCMD, pointTemp: Int): Boolean {
         var success = false
-        // [CN_TEXT]Temperature measurement[CN_TEXT],[CN_TEXT]
+        // utilityTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_FIRST, pointTemp + 273)
             if (result == 0) {
                 success = true
             } else {
-                XLog.w("Low temperature[CN_TEXT]")
+                XLog.w("Low temperatureutility")
             }
         } else {
-            XLog.w("Low temperature[CN_TEXT]")
+            XLog.w("Low temperatureutility")
         }
         return success
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      * High temperature(20 ~ 100)
      *
-     * [CN_TEXT]Low temperature[CN_TEXT]High temperature
+     * utilityLow temperatureutilityHigh temperature
      */
     fun pointEnd(irCmd: IRCMD, pointTemp: Int): Boolean {
         var success = false
-        // [CN_TEXT]Temperature measurement[CN_TEXT],[CN_TEXT]
+        // utilityTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_END, pointTemp + 273)
             if (result == 0) {
                 success = true
             } else {
-                Log.w("123", "[CN_TEXT]")
+                Log.w("123", "utility")
             }
         } else {
-            Log.w("123", "[CN_TEXT]")
+            Log.w("123", "utility")
         }
         return success
     }
 
     /**
-     * [CN_TEXT] - [CN_TEXT]
+     * utility - utility
      *
      */
     fun potReady(irCmd: IRCMD): Boolean {
-        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 //[CN_TEXT]
+        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 // Utility function
     }
 
     /**
-     * [CN_TEXT] - [CN_TEXT]
+     * utility - utility
      *
-     * @param gainType [CN_TEXT]GAIN_1
+     * @param gainType utilityGAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
@@ -97,26 +97,26 @@ object CalibrationTools {
             4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
             else -> CommonParams.RMCoverAutoCalcType.GAIN_1
         }
-        irCmd.rmCoverAutoCalc(gainType) //[CN_TEXT]
-        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) //[CN_TEXT]
+        irCmd.rmCoverAutoCalc(gainType) // Utility function
+        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) // Utility function
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun cancelCalibration(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun reset(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_ALL)
     }
 
     /**
-     * [CN_TEXT]Mode
+     * utilityMode
      * @return true: High gain    false: Low gain
      */
     fun queryGain(irCmd: IRCMD): Boolean {
@@ -126,8 +126,8 @@ object CalibrationTools {
     }
 
     /**
-     * Settings[CN_TEXT]Mode
-     * @param type 1: [CN_TEXT]    0: [CN_TEXT]
+     * SettingsutilityMode
+     * @param type 1: utility    0: utility
      *
      */
     fun setGain(irCmd: IRCMD, type: Int) {
@@ -139,7 +139,7 @@ object CalibrationTools {
     }
 
     /**
-     * [CN_TEXT]Tpd
+     * utilityTpd
      */
     fun queryTpd(irCmd: IRCMD, params: CommonParams.PropTPDParams): Int {
         val value = IntArray(1)
@@ -148,19 +148,19 @@ object CalibrationTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun shutter(irCmd: IRCMD?, syncImage: SynchronizedBitmap) {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-            // [CN_TEXT]
+            // utility
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun stsSwitch(irCmd: IRCMD?, flag: Boolean) {
         if (flag) {
@@ -171,9 +171,9 @@ object CalibrationTools {
     }
 
     /**
-     * [CN_TEXT] - [CN_TEXT]
+     * utility - utility
      *
-     * @param gainType [CN_TEXT]GAIN_1
+     * @param gainType utilityGAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
@@ -185,11 +185,11 @@ object CalibrationTools {
             4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
             else -> CommonParams.RMCoverAutoCalcType.GAIN_1
         }
-        irCmd.rmCoverAutoCalc(gainType) //[CN_TEXT]
+        irCmd.rmCoverAutoCalc(gainType) // Utility function
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun autoShutter(irCmd: IRCMD?, flag: Boolean) {
         val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
@@ -197,8 +197,8 @@ object CalibrationTools {
     }
 
     /**
-     * TPD_PROP_DISTANCE[CN_TEXT]Settings
-     * Settings[CN_TEXT] unit:cnt(128cnt=1m)
+     * TPD_PROP_DISTANCEutilitySettings
+     * Settingsutility unit:cnt(128cnt=1m)
      * @param value 0 ~ 25600
      */
     fun setTpdDis(irCmd: IRCMD?, value: Int) {
@@ -207,7 +207,7 @@ object CalibrationTools {
     }
 
     /**
-     * Settings[CN_TEXT] unit:cnt(128cnt=1)
+     * Settingsutility unit:cnt(128cnt=1)
      * @param value 1 ~ 128
      */
     fun setTpdEms(irCmd: IRCMD?, value: Int) {
@@ -222,7 +222,7 @@ object CalibrationTools {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("Settings[CN_TEXT][${params.name}]: ${e.message}")
+            XLog.w("Settingsutility[${params.name}]: ${e.message}")
             0
         }
     }

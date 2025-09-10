@@ -42,7 +42,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * [CN_TEXT]
+ * activity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
@@ -50,7 +50,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     private lateinit var binding: ActivityIrMonitorChartLiteBinding
     
     /**
-     * [CN_TEXT]，CurrentSelected[CN_TEXT] [CN_TEXT]/[CN_TEXT]/[CN_TEXT] [CN_TEXT].
+     * activity，CurrentSelectedactivity activity/activity/activity activity.
      */
     private var selectBean: SelectPositionBean = SelectPositionBean()
 
@@ -81,7 +81,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
             irMonitorLiteFragment?.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.thermal_lay, irMonitorLiteFragment!!).commit()
             delay(1000)
-            recordThermal()//[CN_TEXT]
+            recordThermal()// Activity logic
         }
     }
 
@@ -129,9 +129,9 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                     if (isFirstRead) {
                         if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                             errorReadCount++
-                            XLog.w("[CN_TEXT] $errorReadCount [CN_TEXT]，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                            XLog.w("activity $errorReadCount activity，max = ${result.maxTemperature} min = ${result.minTemperature}")
                             if (errorReadCount > 10) {
-                                XLog.i("[CN_TEXT]10[CN_TEXT]，[CN_TEXT]")
+                                XLog.i("activity10activity，activity")
                                 isFirstRead = false
                             }
                             continue
@@ -149,7 +149,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                         bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         bean.createTime = System.currentTimeMillis()
-                        canUpdate = true//[CN_TEXT]
+                        canUpdate = true// Activity logic
                     }
                 }
             }
@@ -164,7 +164,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     override fun onResume() {
         super.onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        binding.mpChartView.highlightValue(null) //[CN_TEXT]Marker
+        binding.mpChartView.highlightValue(null) // Activity logicMarker
     }
 
     override fun onPause() {
@@ -185,12 +185,12 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     }
 
     private var isRecord = false
-    private var timeMillis = 1000L //[CN_TEXT]1s
+    private var timeMillis = 1000L // Activity logic1s
     private var canUpdate = false
 
     private var recordJob: Job? = null
     /**
-     * [CN_TEXT]1[CN_TEXT].
+     * activity1activity.
      */
     private fun recordThermal() {
         recordJob = lifecycleScope.launch(Dispatchers.IO) {
@@ -227,7 +227,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                     binding.tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
                 }
             }
-            XLog.w("[CN_TEXT], [CN_TEXT]:$time")
+            XLog.w("activity, activity:$time")
         }
     }
 
@@ -235,11 +235,11 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                //[CN_TEXT]
+                // Activity logic
                 showCameraLoading()
             }
             101 -> {
-                //[CN_TEXT]
+                // Activity logic
                 dismissCameraLoading()
             }
         }
@@ -264,13 +264,13 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                 return temp!!
             }
 
-            //[CN_TEXT]State PASS
+            // Activity logicState PASS
             if (System.currentTimeMillis() - basicGainGetTime > 5000L){
                 try {
                     val basicGainGet: IrcmdError? = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                         ?.basicGainGet(basicGainGetValue)
                 }catch (e : Exception){
-                    XLog.e("[CN_TEXT]")
+                    XLog.e("activity")
                 }
                 basicGainGetTime = System.currentTimeMillis()
             }
@@ -297,7 +297,7 @@ class IRMonitorChartLiteActivity : BaseActivity(),ITsTempListener {
                         "distance = " + params_array[4] + " hum = " + params_array[5]
             )
         }catch (e : Exception){
-            XLog.e("$TAG--[CN_TEXT]：${e.message}")
+            XLog.e("$TAG--activity：${e.message}")
         }finally {
             return tempNew ?: 0f
         }

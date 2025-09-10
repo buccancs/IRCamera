@@ -10,18 +10,18 @@ import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
 import com.topdon.lib.ui.R as UiR
 
 /**
- * [CN_TEXT]
+ * dialog
  * create by fylder on 2018/6/15
  **/
 class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     class Builder(private val context: Context) {
         /**
-         * [CN_TEXT] 1 [CN_TEXT].
+         * dialog 1 dialog.
          */
         private var isFirstStep = true
 
         /**
-         * CurrentSelected[CN_TEXT]Type 1-[CN_TEXT] 2-[CN_TEXT] 3-[CN_TEXT].
+         * CurrentSelecteddialogType 1-dialog 2-dialog 3-dialog.
          */
         private var monitorType = 0
 
@@ -40,12 +40,12 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             dialog.setContentView(binding.root)
 
             val lp = dialog.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settings[CN_TEXT]
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settingsdialog
             dialog.window!!.attributes = lp
 
             binding.btnConfirmOrBack.setOnClickListener {
-                if (isFirstStep) { // [CN_TEXT]1->[CN_TEXT]2 [CN_TEXT]“[CN_TEXT]”
-                    if (monitorType == 0) { // [CN_TEXT]Type[CN_TEXT]
+                if (isFirstStep) { // dialog1->dialog2 dialog“dialog”
+                    if (monitorType == 0) { // dialogTypedialog
                         return@setOnClickListener
                     }
                     isFirstStep = false
@@ -54,7 +54,7 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
                     binding.clSecondStep.visibility = View.VISIBLE
                     binding.tvTitle.text = context.getString(R.string.select_monitor_type_step2)
                     binding.btnConfirmOrBack.text = context.getString(R.string.select_monitor_return)
-                } else { // [CN_TEXT]2->[CN_TEXT]1 [CN_TEXT]“[CN_TEXT]”
+                } else { // dialog2->dialog1 dialog“dialog”
                     isFirstStep = true
                     binding.btnCancel.visibility = View.GONE
                     binding.clFirstStep.visibility = View.VISIBLE

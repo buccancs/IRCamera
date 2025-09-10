@@ -10,25 +10,25 @@ import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
 
 /**
- * [CN_TEXT]，[CN_TEXT]
+ * data，data
  * ```
- * len                 [ 0,  2)    2 byte   [CN_TEXT]，[CN_TEXT] 1024
- * name                [ 2, 18)   16 byte   [CN_TEXT]([CN_TEXT] TopInfrared [CN_TEXT]，[CN_TEXT]MPDC4GSR，[CN_TEXT]TC001、TS001 [CN_TEXT] TC007)
- * ver                 [18, 26)    6 byte   APP[CN_TEXT](versionName)
- * width               [26, 28)    2 byte   [CN_TEXT] 256 [CN_TEXT] 192([CN_TEXT])
- * height              [28, 30)    2 byte   [CN_TEXT] 256 [CN_TEXT] 192([CN_TEXT])
+ * len                 [ 0,  2)    2 byte   data，data 1024
+ * name                [ 2, 18)   16 byte   data(data TopInfrared data，dataMPDC4GSR，dataTC001、TS001 data TC007)
+ * ver                 [18, 26)    6 byte   APPdata(versionName)
+ * width               [26, 28)    2 byte   data 256 data 192(data)
+ * height              [28, 30)    2 byte   data 256 data 192(data)
  * rotate              [30, 32)    2 byte   RotateAngle
- * pseudo              [32, 34)    2 byte   Pseudo-color[CN_TEXT]
- * initRotate          [34, 36)    2 byte   [CN_TEXT]Angle([CN_TEXT])
- * correctRotate       [36, 38)    2 byte   [CN_TEXT]Angle([CN_TEXT])
- *                     [38, 81)   44 byte   Point/Line/Area([CN_TEXT]，[CN_TEXT]0[CN_TEXT])
+ * pseudo              [32, 34)    2 byte   Pseudo-colordata
+ * initRotate          [34, 36)    2 byte   dataAngle(data)
+ * correctRotate       [36, 38)    2 byte   dataAngle(data)
+ *                     [38, 81)   44 byte   Point/Line/Area(data，data0data)
  *
  * customPseudoBean    [81,173)  92 byte
- *   colorSize                   81     1 byte   [CN_TEXT]
- *   selectIndex                 82     1 byte   CurrentSelected[CN_TEXT] index
- *   colors                [ 83,111)   28 byte   7 [CN_TEXT]
- *   zAltitudes            [111,118)    7 byte   7 [CN_TEXT]
- *   places                [118,146)   28 byte   7 [CN_TEXT]
+ *   colorSize                   81     1 byte   data
+ *   selectIndex                 82     1 byte   CurrentSelecteddata index
+ *   colors                [ 83,111)   28 byte   7 data
+ *   zAltitudes            [111,118)    7 byte   7 data
+ *   places                [118,146)   28 byte   7 data
  *   isUseCustomPseudo          146     1 byte
  *   maxTemp               [147,151)    4 byte
  *   minTemp               [151,155)    4 byte
@@ -39,45 +39,45 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   customRecommendIndex  [168,172)    4 byte
  *   isUseGray                  172     1 byte
  *
- * isShowPseudoBar          173     1 byte   [CN_TEXT]Pseudo-color[CN_TEXT]
- * textColor           [174,178)    4 byte   [CN_TEXT]
+ * isShowPseudoBar          173     1 byte   dataPseudo-colordata
+ * textColor           [174,178)    4 byte   data
  *
- * watermarkBean       [178,628)  450 byte   [CN_TEXT]
- *   isOpen                 178     1 byte   [CN_TEXT]
- *   titleLen          [179,183)    4 byte   [CN_TEXT]
- *   title             [183,303)  120 byte   [CN_TEXT]
- *   addressLen        [303,307)    4 byte   [CN_TEXT]
- *   address           [307,627)  320 byte   [CN_TEXT]
- *   isAddTime              627     1 byte   [CN_TEXT]
+ * watermarkBean       [178,628)  450 byte   data
+ *   isOpen                 178     1 byte   data
+ *   titleLen          [179,183)    4 byte   data
+ *   title             [183,303)  120 byte   data
+ *   addressLen        [303,307)    4 byte   data
+ *   address           [307,627)  320 byte   data
+ *   isAddTime              627     1 byte   data
  *
- * alarmBean           [628,656)   28 byte   [CN_TEXT]
- *   isHighOpen             628     1 byte   High temperature[CN_TEXT]
- *   isLowOpen              629     1 byte   Low temperature[CN_TEXT]
- *   highTemp          [630,634)    4 byte   High temperature[CN_TEXT]，[CN_TEXT]Celsius
- *   lowTemp           [634,638)    4 byte   Low temperature[CN_TEXT]，[CN_TEXT]Celsius
- *   isMarkOpen             638     1 byte   [CN_TEXT]
- *   highColor         [639,643)    4 byte   High temperature[CN_TEXT]
- *   lowColor          [643,647)    4 byte   Low temperature[CN_TEXT]
- *   markType          [647,651)    4 byte   [CN_TEXT]Type 1-[CN_TEXT] 2-[CN_TEXT]
- *   isRingtoneOpen         651     1 byte   [CN_TEXT]
- *   ringtoneType      [652,656)    4 byte   [CN_TEXT]Type
- *   gainStatus       [657)    1 byte   //[CN_TEXT]Low gain 1:（Low temperature）High gain 0: High temperature（Low gain）
- *   textSize         [658,659） 2byte //[CN_TEXT]
- *   environment      [660,663) 4byte //[CN_TEXT] ： [CN_TEXT]，[CN_TEXT]Celsius
- *   distance      [664,667) 4byte //[CN_TEXT] ：[CN_TEXT]，
- *   radiation      [668,671) 4byte //[CN_TEXT] ：[CN_TEXT] [CN_TEXT]，[CN_TEXT]Celsius
- *   amplify        672     1 byte   //[CN_TEXT]
+ * alarmBean           [628,656)   28 byte   data
+ *   isHighOpen             628     1 byte   High temperaturedata
+ *   isLowOpen              629     1 byte   Low temperaturedata
+ *   highTemp          [630,634)    4 byte   High temperaturedata，dataCelsius
+ *   lowTemp           [634,638)    4 byte   Low temperaturedata，dataCelsius
+ *   isMarkOpen             638     1 byte   data
+ *   highColor         [639,643)    4 byte   High temperaturedata
+ *   lowColor          [643,647)    4 byte   Low temperaturedata
+ *   markType          [647,651)    4 byte   dataType 1-data 2-data
+ *   isRingtoneOpen         651     1 byte   data
+ *   ringtoneType      [652,656)    4 byte   dataType
+ *   gainStatus       [657)    1 byte   // ImplementationLow gain 1:（Low temperature）High gain 0: High temperature（Low gain）
+ *   textSize         [658,659） 2byte // Implementation
+ *   environment      [660,663) 4byte // Implementation ： data，dataCelsius
+ *   distance      [664,667) 4byte // Implementation ：data，
+ *   radiation      [668,671) 4byte // Implementation ：data data，dataCelsius
+ *   amplify        672     1 byte   // Implementation
  * ```
  */
 class FrameStruct() {
     companion object {
         /**
-         * [CN_TEXT].
+         * data.
          */
         private const val SIZE = 1024
 
         /**
-         * [CN_TEXT]Specified[CN_TEXT].
+         * dataSpecifieddata.
          */
         fun toCode(
             name : String,
@@ -151,12 +151,12 @@ class FrameStruct() {
             resultArray[658] = (textSize ushr 8).toByte()
             resultArray[659] = textSize.toByte()
 
-            // [CN_TEXT] Float [CN_TEXT] 4 [CN_TEXT]
+            // data Float data 4 data
             val envBytes = java.nio.ByteBuffer.allocate(4).putFloat(environment).array()
             val distanceBytes = java.nio.ByteBuffer.allocate(4).putFloat(distance).array()
             val radiationBytes = java.nio.ByteBuffer.allocate(4).putFloat(radiation).array()
 
-            // [CN_TEXT] resultArray [CN_TEXT]，[660, 663)[CN_TEXT]，[664, 667)[CN_TEXT]，[668, 671)[CN_TEXT]
+            // data resultArray data，[660, 663)data，[664, 667)data，[668, 671)data
             System.arraycopy(envBytes, 0, resultArray, 660, 4)
             System.arraycopy(distanceBytes, 0, resultArray, 664, 4)
             System.arraycopy(radiationBytes, 0, resultArray, 668, 4)
@@ -180,7 +180,7 @@ class FrameStruct() {
     var textColor = 0xffffffff.toInt()
     var watermarkBean = WatermarkBean()
     var alarmBean = AlarmBean()
-    var gainStatus : Int = 1 // [CN_TEXT]Low gain 1:Low gain 0: High gain
+    var gainStatus : Int = 1 // dataLow gain 1:Low gain 0: High gain
     var textSize : Int = SizeUtils.sp2px(14f)
     var environment : Float = 0f
     var distance : Float = 0f

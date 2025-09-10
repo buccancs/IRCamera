@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 
 /**
- * [CN_TEXT]FooterView
+ * viewFooterView
  */
 class LoadingView : LinearLayout {
     constructor(context: Context) : this(context, null)

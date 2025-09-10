@@ -32,7 +32,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * [CN_TEXT] View Current[CN_TEXT].
+     * data View Currentdata.
      */
     var valueText: String
         get() {
@@ -43,17 +43,17 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * seekBar [CN_TEXT] onProgressChange [CN_TEXT].
+     * seekBar data onProgressChange data.
      */
     var onProgressChangeListener: ((progress: Int, fromUser: Boolean) -> Unit)? = null
 
     /**
-     * seekBar [CN_TEXT] onStopTrackingTouch [CN_TEXT].
+     * seekBar data onStopTrackingTouch data.
      */
     var onStopTrackingTouch: ((progress: Int) -> Unit)? = null
 
     /**
-     * [CN_TEXT] View [CN_TEXT].
+     * data View data.
      */
     var valueFormatListener: ((progress: Int) -> CharSequence?)? = null
         set(value) {
@@ -73,7 +73,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         defStyleAttr,
         defStyleRes,
     ) {
-        // seekBar [CN_TEXT] maxHeight [CN_TEXT] 29 [CN_TEXT] xml Settings[CN_TEXT]，[CN_TEXT]Current View Settings maxHeight,[CN_TEXT] attr [CN_TEXT] seekBar
+        // seekBar data maxHeight data 29 data xml Settingsdata，dataCurrent View Settings maxHeight,data attr data seekBar
         val thumb = ContextCompat.getDrawable(context, UiR.drawable.ic_tips_seek_bar_thumb)
         val thumbWidth = thumb?.intrinsicWidth ?: 0
         seekBar = SeekBar(context, attrs)

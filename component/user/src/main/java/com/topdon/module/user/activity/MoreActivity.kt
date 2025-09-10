@@ -37,7 +37,7 @@ import java.io.File
 import java.text.DecimalFormat
 
 /**
- * TS004 [CN_TEXT] “[CN_TEXT]” [CN_TEXT].
+ * TS004 activity “activity” activity.
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreActivity : BaseActivity(), View.OnClickListener {
@@ -77,10 +77,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         settingDisconnect.setOnClickListener(this)
         settingAutoSave.setOnClickListener(this)
 
-        /*if (Build.VERSION.SDK_INT < 29) {//[CN_TEXT] Android10
+        /*if (Build.VERSION.SDK_INT < 29) {// Activity logic Android10
             settingVersion.isVisible = false
         }*/
-        // 2024-5-30 09:16 TS004[CN_TEXT]APP[CN_TEXT]，3.30[CN_TEXT]
+        // 2024-5-30 09:16 TS004activityAPPactivity，3.30activity
         settingVersion.isVisible = false
     }
 
@@ -90,7 +90,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
-            if (it == null) {//[CN_TEXT]，[CN_TEXT]
+            if (it == null) {// Activity logic，activity
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -105,29 +105,29 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            settingDeviceInformation -> {//[CN_TEXT]
+            settingDeviceInformation -> {// Activity logic
                 NavigationManager.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
-            settingTisr -> {//Settings[CN_TEXT]
+            settingTisr -> {//Settingsactivity
                 NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
-            settingAutoSave -> {//[CN_TEXT]
+            settingAutoSave -> {// Activity logic
                 NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
-            settingStorageSpace -> {//TS004[CN_TEXT]
+            settingStorageSpace -> {//TS004activity
                 NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            settingVersion -> {//[CN_TEXT]
-                //[CN_TEXT]，V3.30[CN_TEXT] apk [CN_TEXT]，[CN_TEXT]
+            settingVersion -> {// Activity logic
+                // Activity logic，V3.30activity apk activity，activity
 //                if (LMS.getInstance().isLogin) {
                     val firmwareData = firmwareViewModel.firmwareDataLD.value
                     if (firmwareData != null) {
                         showFirmwareUpDialog(firmwareData)
                     } else {
-                        XLog.i("TS004 [CN_TEXT] - [CN_TEXT]")
+                        XLog.i("TS004 activity - activity")
                         showCameraLoading()
                         firmwareViewModel.queryFirmware(true)
                     }
@@ -135,10 +135,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 //                    LMS.getInstance().activityLogin()
 //                }
             }
-            settingReset -> {//[CN_TEXT]Settings
+            settingReset -> {// Activity logicSettings
                 restoreFactory()
             }
-            settingDisconnect -> {//[CN_TEXT]
+            settingDisconnect -> {// Activity logic
                 NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
@@ -147,7 +147,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT].
+     * activity.
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(this)
@@ -156,7 +156,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-            //[CN_TEXT]，V3.30[CN_TEXT] apk [CN_TEXT]，[CN_TEXT]
+            // Activity logic，V3.30activity apk activity，activity
             //downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
@@ -174,11 +174,11 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT]
+     * activitySpecifiedactivity
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {
-            XLog.d("TS004 [CN_TEXT] - [CN_TEXT]")
+            XLog.d("TS004 activity - activity")
             val progressDialog = DownloadProDialog(this@MoreActivity)
             progressDialog.show()
 
@@ -188,10 +188,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             }
             progressDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 [CN_TEXT] - [CN_TEXT]，[CN_TEXT]")
+                XLog.d("TS004 activity - activity，activity")
                 installFirmware(file)
             } else {
-                XLog.w("TS004 [CN_TEXT] - [CN_TEXT]!")
+                XLog.w("TS004 activity - activity!")
                 showReDownloadDialog(firmwareData)
             }
         }
@@ -199,19 +199,19 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private fun installFirmware(file: File) {
         lifecycleScope.launch {
-            XLog.d("TS004 [CN_TEXT] - [CN_TEXT]")
+            XLog.d("TS004 activity - activity")
             val installDialog = FirmwareInstallDialog(this@MoreActivity)
             installDialog.show()
 
             val isSuccess = TS004Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 [CN_TEXT] - [CN_TEXT] TS004 [CN_TEXT]，[CN_TEXT]")
+                XLog.d("TS004 activity - activity TS004 activity，activity")
                 (application as BaseApplication).disconnectWebSocket()
                 NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
-                XLog.w("TS004 [CN_TEXT] - [CN_TEXT] TS004 [CN_TEXT]!")
+                XLog.w("TS004 activity - activity TS004 activity!")
                 showReInstallDialog(file)
             }
         }
@@ -268,9 +268,9 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun resetAll() {
         showLoadingDialog(RCore.string.ts004_reset_tip3)
         lifecycleScope.launch {
-            XLog.i("[CN_TEXT]Settings[CN_TEXT]")
+            XLog.i("activitySettingsactivity")
             val isSuccess = TS004Repository.getResetAll()
-            XLog.i("[CN_TEXT]Settings[CN_TEXT] ${if (isSuccess) "[CN_TEXT]" else "[CN_TEXT]"}")
+            XLog.i("activitySettingsactivity ${if (isSuccess) "activity" else "activity"}")
             if (isSuccess) {
                 TToast.shortToast(this@MoreActivity, RCore.string.ts004_reset_tip4)
                 (application as BaseApplication).disconnectWebSocket()

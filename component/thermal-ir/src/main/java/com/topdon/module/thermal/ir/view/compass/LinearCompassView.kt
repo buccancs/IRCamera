@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
 /**
- * [CN_TEXT]View
+ * viewView
  */
 class LinearCompassView : View {
 
@@ -46,10 +46,10 @@ class LinearCompassView : View {
     private var markerSize = SizeUtils.sp2px(2f).toFloat()
     private var backgroundColor = Color.BLACK
 
-    private var lastDrawTime = 0L //[CN_TEXT]
-    private var step = 1000/10 //[CN_TEXT]
+    private var lastDrawTime = 0L // View rendering
+    private var step = 1000/10 // View rendering
     private val scope = CoroutineScope(EmptyCoroutineContext)
-    var curBitmap:Bitmap?= null //Currentview[CN_TEXT]bitmap
+    var curBitmap:Bitmap?= null //Currentviewviewbitmap
 
     constructor(context: Context) : this(context, null) {
         initView()
@@ -150,12 +150,12 @@ class LinearCompassView : View {
         drawCompassLine()
     }
 
-    //[CN_TEXT]
+    // View rendering
     private fun drawBackGround() {
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
     }
 
-    //[CN_TEXT]Angle
+    // View renderingAngle
     private fun drawAzimuthArrow() {
         if (!showAzimuthArrow) {
             return
@@ -165,14 +165,14 @@ class LinearCompassView : View {
         canvas.drawText(text, realX(text, endWidth,textPaint), realY(text, endHeight,textPaint), textPaint)
     }
 
-    //[CN_TEXT]
+    // View rendering
     private fun drawCompassLine() {
-        //[CN_TEXT]
+        // View rendering
 //        val values = getValuesBetween(getRawMinimum(), getRawMaximum(), 5f).map { it.toInt() }
         drawCompass()
         val bottomHeight = height * 7 / 10f
         canvas.drawLine(0f, (bottomHeight - 1), width.toFloat(), bottomHeight, shortLinePaint)
-        //[CN_TEXT]
+        // View rendering
         canvas.drawLine(
             width / 2f + markerSize / 2,
             height * (3 / 10f),
@@ -201,25 +201,25 @@ class LinearCompassView : View {
         getValuesBetween(getRawMinimum(), getRawMaximum(), 5f).map {
             it.toInt()
         }.toMutableList().forEach {
-            //[CN_TEXT]X[CN_TEXT]
+            // View renderingXview
             val x = toPixel(it.toFloat())
 
-            // [CN_TEXT]：15[CN_TEXT] [CN_TEXT]：90[CN_TEXT] [CN_TEXT]x[CN_TEXT]
+            // view：15view view：90view viewxview
             val lineHeight = when {
                 it % 90 == 0 -> (3 / 10f) * height
                 it % 15 == 0 -> (4 / 10f) * height
                 else -> (5 / 10f) * height
             }
-            //[CN_TEXT]y
+            // View renderingy
             val bottomHeight = height * 7 / 10f
 
-            //[CN_TEXT]
+            // View rendering
             when {
                 it % 90 == 0 -> canvas.drawLine(x, lineHeight, x, bottomHeight, longLinePaint)
                 else -> canvas.drawLine(x, lineHeight, x, bottomHeight, shortLinePaint)
             }
 
-            //[CN_TEXT]
+            // View rendering
             if (it % 45 == 0) {
                 val coord = getPositionText(it)
                 canvas.drawText(coord, realX(coord, x,positionPaint), realY(coord, height - 2f,positionPaint), positionPaint)

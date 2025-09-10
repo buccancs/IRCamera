@@ -9,57 +9,57 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 /**
- * RecyclerView [CN_TEXT]，[CN_TEXT].
+ * RecyclerView data，data.
  *
  * Created by LCG on 2023/9/20.
  */
 class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT]，[CN_TEXT] dp.
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] [itemLeft] [CN_TEXT]（[CN_TEXT]Current[CN_TEXT]）.
+     * data RecyclerView data，data dp.
+     * data item data，data [itemLeft] data（dataCurrentdata）.
      */
     var wholeLeft: Float? = null
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT]，[CN_TEXT] dp.
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] [itemRight] [CN_TEXT]（[CN_TEXT]Current[CN_TEXT]）.
+     * data RecyclerView data，data dp.
+     * data item data，data [itemRight] data（dataCurrentdata）.
      */
     var wholeRight: Float? = null
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT]，[CN_TEXT] dp.
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] [itemTop] [CN_TEXT]（[CN_TEXT]Current[CN_TEXT]）.
+     * data RecyclerView data，data dp.
+     * data item data，data [itemTop] data（dataCurrentdata）.
      */
     var wholeTop: Float? = null
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT]，[CN_TEXT] dp.
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] [itemBottom] [CN_TEXT]（[CN_TEXT]Current[CN_TEXT]）.
+     * data RecyclerView data，data dp.
+     * data item data，data [itemBottom] data（dataCurrentdata）.
      */
     var wholeBottom: Float? = null
 
     /**
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] dp.
+     * data item data，data dp.
      */
     var itemLeft: Float? = null
 
     /**
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] dp.
+     * data item data，data dp.
      */
     var itemRight: Float? = null
 
     /**
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] dp.
+     * data item data，data dp.
      */
     var itemTop: Float? = null
 
     /**
-     * [CN_TEXT] item [CN_TEXT]，[CN_TEXT] dp.
+     * data item data，data dp.
      */
     var itemBottom: Float? = null
 
     /**
-     * [CN_TEXT]，[CN_TEXT] dp [CN_TEXT] px
+     * data，data dp data px
      */
     private val density: Float = context.resources.displayMetrics.density
 
@@ -103,8 +103,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT] 1 [CN_TEXT]，Settings[CN_TEXT].
-     * @param itemCount [CN_TEXT]
+     * data RecyclerView data 1 data，Settingsdata.
+     * @param itemCount data
      */
     private fun setVerticalOne(
         outRect: Rect,
@@ -119,8 +119,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT] 1 [CN_TEXT]，Settings[CN_TEXT].
-     * @param itemCount [CN_TEXT]
+     * data RecyclerView data 1 data，Settingsdata.
+     * @param itemCount data
      */
     private fun setHorizontalOne(
         outRect: Rect,
@@ -135,9 +135,9 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT]，Settings[CN_TEXT].
-     * @param itemCount [CN_TEXT]
-     * @param spanCount [CN_TEXT]([CN_TEXT])
+     * data RecyclerView data，Settingsdata.
+     * @param itemCount data
+     * @param spanCount data(data)
      */
     private fun setVerticalMulti(
         outRect: Rect,
@@ -145,9 +145,9 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         itemCount: Int,
         spanCount: Int,
     ) {
-        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // [CN_TEXT]
-        val rowPosition = position / spanCount // Current position [CN_TEXT][0, totalRow)
-        val columnPosition = position % spanCount // Current position [CN_TEXT][0, spanCount)
+        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // data
+        val rowPosition = position / spanCount // Current position data[0, totalRow)
+        val columnPosition = position % spanCount // Current position data[0, spanCount)
 
         val left: Int = dp2px(if (columnPosition == 0) wholeLeft ?: ((itemLeft ?: 0f) * 2) else (itemLeft ?: 0f))
         val right: Int = dp2px(if (columnPosition == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
@@ -157,10 +157,10 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT]，Settings[CN_TEXT].
-     * @param itemCount [CN_TEXT]
-     * @param spanCount [CN_TEXT]([CN_TEXT])
-     * @param spanIndex Current[CN_TEXT]index[0, spanCount)，[CN_TEXT]
+     * data RecyclerView data，Settingsdata.
+     * @param itemCount data
+     * @param spanCount data(data)
+     * @param spanIndex Currentdataindex[0, spanCount)，data
      */
     private fun setVerticalMultiStaggered(
         outRect: Rect,
@@ -169,8 +169,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         spanCount: Int,
         spanIndex: Int,
     ) {
-        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // [CN_TEXT]
-        val rowPosition = position / spanCount // Currentposition[CN_TEXT][0, totalRow)
+        val totalRow = itemCount / spanCount + if (itemCount % spanCount == 0) 0 else 1 // data
+        val rowPosition = position / spanCount // Currentpositiondata[0, totalRow)
 
         val left: Int = dp2px(if (spanIndex == 0) wholeLeft ?: ((itemLeft ?: 0f) * 2) else (itemLeft ?: 0f))
         val right: Int = dp2px(if (spanIndex == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
@@ -180,9 +180,9 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     }
 
     /**
-     * [CN_TEXT] RecyclerView [CN_TEXT]，Settings[CN_TEXT].
-     * @param itemCount [CN_TEXT]
-     * @param spanCount [CN_TEXT]([CN_TEXT])
+     * data RecyclerView data，Settingsdata.
+     * @param itemCount data
+     * @param spanCount data(data)
      */
     private fun setHorizontalMulti(
         outRect: Rect,

@@ -5,7 +5,7 @@ import com.energy.iruvc.utils.DualCameraParams
 
 
 /**
- * [CN_TEXT]
+ * data
  * @author: CaiSongL
  * @date: 2024/1/10 11:40
  */

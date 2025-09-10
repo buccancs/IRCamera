@@ -28,14 +28,14 @@ class MenuTabAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
-    // [CN_TEXT]
+    // List item data
     private val firstMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg,
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7002_svg,
         )
 
-    // [CN_TEXT]
+    // List item data
     private val secondMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal6001,
@@ -46,27 +46,27 @@ class MenuTabAdapter(val context: Context) :
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7004,
         )
 
-    // [CN_TEXT]
+    // List item data
     private val secondMenusStr =
         arrayListOf(
-            "[CN_TEXT]",
-            "[CN_TEXT]",
-            "[CN_TEXT]",
-            "[CN_TEXT]",
-            "[CN_TEXT]",
+            "item",
+            "item",
+            "item",
+            "item",
+            "item",
             "Delete",
         )
 
-    // [CN_TEXT]
+    // List item data
     private val fourthMenusStr =
         arrayListOf(
             "Rotate",
-            "[CN_TEXT]",
+            "item",
             "Picture in picture",
-            "[CN_TEXT]",
+            "item",
         )
 
-    // [CN_TEXT] - Using available resources as placeholders
+    // List item data - Using available resources as placeholders
     private val thirdMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal5003,

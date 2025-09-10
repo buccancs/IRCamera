@@ -12,7 +12,7 @@ import com.topdon.lib.core.databinding.DialogTipShutterBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * [CN_TEXT]
+ * dialog
  * @author: CaiSongL
  * @date: 2023/4/13 10:57
  */
@@ -71,7 +71,7 @@ class TipShutterDialog : Dialog {
             dialog!!.setCanceledOnTouchOutside(canceled)
 
             val lp = dialog!!.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settings[CN_TEXT]
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settingsdialog
             dialog!!.window!!.attributes = lp
 
             binding.tvIKnow.setOnClickListener {

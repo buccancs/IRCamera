@@ -5,15 +5,15 @@ import java.util.*
 
 object UnitTools {
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param float [CN_TEXT]
+     * @param float utility
      */
     @JvmStatic
     fun showC(float: Float): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // [CN_TEXT]
+                // utility
                 "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
             } else {
                 // Fahrenheit
@@ -23,9 +23,9 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param float [CN_TEXT]
+     * @param float utility
      */
     @JvmStatic
     fun showC(
@@ -34,7 +34,7 @@ object UnitTools {
     ): String {
         val str =
             if (isC) {
-                // [CN_TEXT]
+                // utility
                 "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
             } else {
                 // Fahrenheit
@@ -44,7 +44,7 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     @JvmStatic
     fun showIntervalC(
@@ -53,7 +53,7 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // [CN_TEXT]
+                // utility
                 "$min~$max°C"
             } else {
                 // Fahrenheit
@@ -65,7 +65,7 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     @JvmStatic
     fun showConfigC(
@@ -74,7 +74,7 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // [CN_TEXT]
+                // utility
                 "($min~$max°C)"
             } else {
                 // Fahrenheit
@@ -86,15 +86,15 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param float [CN_TEXT]
+     * @param float utility
      */
     @JvmStatic
     fun showUnit(): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // [CN_TEXT]
+                // utility
                 "°C"
             } else {
                 // Fahrenheit
@@ -104,15 +104,15 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param float [CN_TEXT]
+     * @param float utility
      */
     @JvmStatic
     fun showUnitValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // [CN_TEXT]
+                // utility
                 value
             } else {
                 // Fahrenheit
@@ -122,9 +122,9 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      *
-     * @param float [CN_TEXT]
+     * @param float utility
      */
     @JvmStatic
     fun showUnitValue(
@@ -137,7 +137,7 @@ object UnitTools {
             }
         val str =
             if (showC) {
-                // [CN_TEXT]
+                // utility
                 value
             } else {
                 // Fahrenheit
@@ -147,9 +147,9 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]Celsius
+     * utilityCelsius
      *
-     * @param float [CN_TEXT]
+     * @param float utility
      */
     @JvmStatic
     fun showToCValue(
@@ -158,7 +158,7 @@ object UnitTools {
     ): Float {
         val str =
             if (isShowC) {
-                // [CN_TEXT]
+                // utility
                 value
             } else {
                 // Fahrenheit
@@ -168,15 +168,15 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]Celsius
+     * utilityCelsius
      *
-     * @param float [CN_TEXT]
+     * @param float utility
      */
     @JvmStatic
     fun showToCValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // [CN_TEXT]
+                // utility
                 value
             } else {
                 // Fahrenheit
@@ -186,24 +186,24 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]Fahrenheit
+     * utilityFahrenheit
      */
     fun toF(value: Float): Float {
         return value * 1.8000f + 32.00f
     }
 
     /**
-     * [CN_TEXT]Celsius
-     * [CN_TEXT],[CN_TEXT]Fahrenheit[CN_TEXT]Celsius[CN_TEXT]
+     * utilityCelsius
+     * utility,utilityFahrenheitutilityCelsiusutility
      */
     fun toC(value: Float): Float {
         return (value - 32.0f) / 1.8000f
     }
 
     /**
-     * [CN_TEXT]Celsius，[CN_TEXT]1[CN_TEXT] String.
+     * utilityCelsius，utility1utility String.
      *
-     * @param float [CN_TEXT]，[CN_TEXT]Celsius
+     * @param float utility，utilityCelsius
      */
     @JvmStatic
     fun showNoUnit(float: Float): String {
@@ -217,9 +217,9 @@ object UnitTools {
     }
 
     /**
-     * [CN_TEXT]Celsius，[CN_TEXT]1[CN_TEXT] String.
+     * utilityCelsius，utility1utility String.
      *
-     * @param float [CN_TEXT]，[CN_TEXT]Celsius
+     * @param float utility，utilityCelsius
      */
     @JvmStatic
     fun showWithUnit(float: Float): String {

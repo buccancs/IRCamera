@@ -7,7 +7,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.module.user.databinding.ActivityUnitBinding
 
 /**
- * [CN_TEXT]Switch
+ * activitySwitch
  */
 class UnitActivity : AppCompatActivity() {
 

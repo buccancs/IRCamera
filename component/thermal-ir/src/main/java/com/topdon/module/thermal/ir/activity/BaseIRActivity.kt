@@ -4,13 +4,13 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.libcom.bean.SaveSettingBean
 
 /**
- * [CN_TEXT] [CN_TEXT] Activity，[CN_TEXT].
+ * activity activity Activity，activity.
  *
  * Created by LCG on 2023/12/6.
  */
 abstract class BaseIRActivity : BaseActivity() {
     /**
-     * [CN_TEXT]Settings[CN_TEXT].
+     * activitySettingsactivity.
      */
     protected val saveSetBean = SaveSettingBean()
 }

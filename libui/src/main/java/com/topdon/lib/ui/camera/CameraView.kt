@@ -37,7 +37,7 @@ import android.view.LayoutInflater
 import com.topdon.lib.ui.databinding.CameraLayBinding
 
 class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
-    /**[CN_TEXT] */
+    /** Custom view */
     lateinit var mTextureView: TextureView
     private lateinit var binding: CameraLayBinding
 
@@ -82,7 +82,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 parentViewH = view.height.toFloat()
             }
             MotionEvent.ACTION_MOVE -> {
-                // [CN_TEXT]
+                // view
                 moveX = event.x - startX
                 moveY = event.y - startY
                 if (moveX - scaleW < 0f) moveX = 0f + scaleW
@@ -97,14 +97,14 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 mTextureView.y = moveY
             }
             MotionEvent.ACTION_UP -> {
-                isScale = false // [CN_TEXT]
+                isScale = false // view
             }
         }
         return lis.onTouchEvent(event)
     }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
-        // [CN_TEXT]
+        // view
         isScale = true
         detector?.let {
             val scaleFactor = it.scaleFactor - 1
@@ -123,7 +123,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     override fun onScaleEnd(detector: ScaleGestureDetector) {
     }
 
-    private var startX = 0f // [CN_TEXT]
+    private var startX = 0f // view
     private var startY = 0f
     private var moveX = 0f
     private var moveY = 0f
@@ -131,64 +131,64 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     private var parentViewH = 0f
     private var isScale = false
     private var scale = 1f
-    private var scaleW = 0f // [CN_TEXT]
+    private var scaleW = 0f // view
     private var scaleH = 0f
 
     private lateinit var lis: ScaleGestureDetector
 
 // ////////////////
-    /**[CN_TEXT] */
+    /** Custom view */
     private val REQUEST_CAMERA_CODE = 0x100
 
-    /**Photo[CN_TEXT] */
+    /**Photoview */
     private var mBtnTake: Button? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mImageView: ImageView? = null
 
-    /**[CN_TEXT]ID，[CN_TEXT] */
+    /**viewID，view */
     private lateinit var mCameraId: String
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mCaptureSize: Size? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private lateinit var mImageReader: ImageReader
 
-    /**[CN_TEXT]Handler */
+    /**viewHandler */
     private lateinit var mCameraHandler: Handler
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mCameraDevice: CameraDevice? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mPreviewSize: Size? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private lateinit var mCameraCaptureBuilder: CaptureRequest.Builder
 
-    /**[CN_TEXT]Photo[CN_TEXT] */
+    /**viewPhotoview */
     private var mCameraCaptureSession: CameraCaptureSession? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mCameraManager: CameraManager? = null
 
-    /**[CN_TEXT]State[CN_TEXT] */
+    /**viewStateview */
     private val mStateCallback: CameraDevice.StateCallback =
         object : CameraDevice.StateCallback() {
             override fun onOpened(
                 @NonNull camera: CameraDevice,
             ) {
-                // [CN_TEXT]
+                // view
                 mCameraDevice = camera
-                // [CN_TEXT]
+                // view
                 takePreview()
             }
 
             override fun onDisconnected(
                 @NonNull camera: CameraDevice,
             ) {
-                // [CN_TEXT]
+                // view
                 camera.close()
                 mCameraDevice = null
             }
@@ -197,31 +197,31 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 @NonNull camera: CameraDevice,
                 error: Int,
             ) {
-                // [CN_TEXT]
+                // view
                 camera.close()
                 mCameraDevice = null
             }
         }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     private fun takePreview() {
 //        mTextureView.rotation = 270f
         mTextureView.rotation = 0f
-        // [CN_TEXT]SurfaceTexture
+        // viewSurfaceTexture
         val surfaceTexture = mTextureView.surfaceTexture
-        // Settings[CN_TEXT]
+        // Settingsview
         surfaceTexture!!.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        // [CN_TEXT]Surface
+        // viewSurface
         val previewSurface = Surface(surfaceTexture)
         try {
-            // [CN_TEXT]
+            // view
             mCameraCaptureBuilder =
                 mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            // [CN_TEXT]previewSurface[CN_TEXT]
+            // viewpreviewSurfaceview
             mCameraCaptureBuilder.addTarget(previewSurface)
-            // [CN_TEXT]
+            // view
             @Suppress("DEPRECATION")
             mCameraDevice!!.createCaptureSession(
                 listOf(
@@ -233,11 +233,11 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                         @NonNull session: CameraCaptureSession,
                     ) {
                         try {
-                            // [CN_TEXT]
+                            // view
                             val captureRequest = mCameraCaptureBuilder.build()
-                            // [CN_TEXT]session
+                            // viewsession
                             mCameraCaptureSession = session
-                            // Settings[CN_TEXT]
+                            // Settingsview
                             mCameraCaptureSession!!.setRepeatingRequest(
                                 captureRequest,
                                 null,
@@ -251,7 +251,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                     override fun onConfigureFailed(
                         @NonNull session: CameraCaptureSession,
                     ) {
-                        // [CN_TEXT]
+                        // view
                     }
                 },
                 mCameraHandler,
@@ -269,8 +269,8 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                     width: Int,
                     height: Int,
                 ) {
-                    // SurfaceTexture[CN_TEXT]
-                    // Settings[CN_TEXT]
+                    // SurfaceTextureview
+                    // Settingsview
                     Log.w("123", "width:$width, height:$height")
                     // w:h = 1 / 1.33
                     setUpCamera(width, height)
@@ -282,82 +282,82 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                     width: Int,
                     height: Int,
                 ) {
-                    // SurfaceTexture[CN_TEXT]
+                    // SurfaceTextureview
                 }
 
                 override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-                    // SurfaceTexture [CN_TEXT]
+                    // SurfaceTexture view
                     return false
                 }
 
                 override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                    // SurfaceTexture [CN_TEXT]
+                    // SurfaceTexture view
                 }
             }
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     @SuppressLint("MissingPermission")
     fun openCamera() {
-        // [CN_TEXT]
+        // view
         try {
             mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
             mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
         } catch (e: Exception) {
-            Log.e("123", "[CN_TEXT]:${e.message}")
-            ToastUtils.showShort("[CN_TEXT]")
+            Log.e("123", "view:${e.message}")
+            ToastUtils.showShort("view")
         }
     }
 
     /**
-     * Settings[CN_TEXT]
-     * @param width [CN_TEXT]
-     * @param height [CN_TEXT]
+     * Settingsview
+     * @param width view
+     * @param height view
      */
     private fun setUpCamera(
         width: Int,
         height: Int,
     ) {
-        // [CN_TEXT]Handler
+        // viewHandler
         mCameraHandler = Handler(Looper.getMainLooper())
-        // [CN_TEXT]
+        // view
         val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
-            // [CN_TEXT]All[CN_TEXT]
+            // viewAllview
             for (cameraId in cameraManager.cameraIdList) {
-                // [CN_TEXT]
+                // view
                 val cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId)
-                // [CN_TEXT]
+                // view
                 val facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING)
-                // [CN_TEXT]
+                // view
                 if (null != facing && CameraCharacteristics.LENS_FACING_FRONT == facing) continue
-                // [CN_TEXT]StreamConfigurationMap，[CN_TEXT]All[CN_TEXT]
+                // viewStreamConfigurationMap，viewAllview
                 val map =
                     cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
-                // [CN_TEXT]TextureView[CN_TEXT]Settings[CN_TEXT]
+                // viewTextureViewviewSettingsview
                 mPreviewSize =
                     getOptimalSize(
                         map.getOutputSizes(SurfaceTexture::class.java),
                         width,
                         height,
                     )
-                // [CN_TEXT]Photo[CN_TEXT]
+                // viewPhotoview
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)
                 val w = 1000
                 val h = w * sizes[0].height / sizes[0].width
                 mCaptureSize = Size(w, h)
                 Log.w("123", "w:${sizes[0].width}, h:${sizes[0].height}")
-                Log.w("123", "[CN_TEXT]w:$w, h:$h")
+                Log.w("123", "vieww:$w, h:$h")
 //                mCaptureSize = Size(1000, 1000)
 //                mCaptureSize =
 //                    Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG))) { lhs, rhs ->
 //                        java.lang.Long.signum(lhs.getWidth() * lhs.getHeight() - rhs.getHeight() * rhs.getWidth())
 //                    }
-                // [CN_TEXT]ImageReader[CN_TEXT]Photo[CN_TEXT]
+                // viewImageReaderviewPhotoview
                 setupImageReader()
-                // [CN_TEXT]
+                // view
                 mCameraId = cameraId
                 break
             }
@@ -367,22 +367,22 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     }
 
     /**
-     * [CN_TEXT]SizeMap[CN_TEXT]width[CN_TEXT]height[CN_TEXT]size
-     * @param sizeMap [CN_TEXT]
-     * @param width [CN_TEXT]
-     * @param height [CN_TEXT]
-     * @return [CN_TEXT]width[CN_TEXT]height[CN_TEXT]size
+     * viewSizeMapviewwidthviewheightviewsize
+     * @param sizeMap view
+     * @param width view
+     * @param height view
+     * @return viewwidthviewheightviewsize
      */
     private fun getOptimalSize(
         sizeMap: Array<Size>,
         width: Int,
         height: Int,
     ): Size {
-        // [CN_TEXT]
+        // view
         val sizeList: MutableList<Size> = ArrayList()
-        // [CN_TEXT]
+        // view
         for (option in sizeMap) {
-            // [CN_TEXT]
+            // view
             if (width > height) {
                 if (option.width > width && option.height > height) {
                     sizeList.add(option)
@@ -393,7 +393,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 }
             }
         }
-        // [CN_TEXT]Size[CN_TEXT]
+        // viewSizeview
         return if (sizeList.size > 0) {
             Collections.min(
                 sizeList,
@@ -409,7 +409,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
      * SettingsImageReader
      */
     private fun setupImageReader() {
-        // 2[CN_TEXT]ImageReader[CN_TEXT]
+        // 2viewImageReaderview
         mImageReader =
             ImageReader.newInstance(
                 mCaptureSize!!.width,
@@ -417,25 +417,25 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
                 ImageFormat.JPEG,
                 1,
             )
-        // Settings[CN_TEXT]
+        // Settingsview
         mImageReader.setOnImageAvailableListener({ reader ->
             flag = 1
-            // [CN_TEXT]
+            // view
             val image: Image = reader.acquireLatestImage()
-            // [CN_TEXT]，[CN_TEXT]
+            // view，view
             mCameraHandler.post(ImageSaver(image))
-            // [CN_TEXT]UI
-            runOnUiThread { // [CN_TEXT]
+            // viewUI
+            runOnUiThread { // view
                 val buffer: ByteBuffer = image.planes[0].buffer
-                // [CN_TEXT]，[CN_TEXT]Settings
+                // view，viewSettings
                 buffer.rewind()
-                // [CN_TEXT]
+                // view
                 val bytes = ByteArray(buffer.remaining())
-                // [CN_TEXT],[CN_TEXT]position[CN_TEXT]
+                // view,viewpositionview
                 buffer[bytes]
-                // [CN_TEXT]Bitmap[CN_TEXT]
+                // viewBitmapview
                 val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                // [CN_TEXT]
+                // view
                 if (null != bitmap) {
                     val h = bitmap.height
                     val w = bitmap.width
@@ -460,10 +460,10 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     private inner class ImageSaver(image: Image) : Runnable {
-        /**[CN_TEXT] */
+        /** Custom view */
         private val mImage: Image = image
 
         override fun run() {

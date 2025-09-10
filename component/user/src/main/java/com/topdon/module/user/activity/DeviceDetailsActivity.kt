@@ -19,10 +19,10 @@ import com.topdon.module.user.R
 import kotlinx.coroutines.launch
 
 /**
- * TS004、TC007 [CN_TEXT]
+ * TS004、TC007 activity
  *
- * [CN_TEXT]：
- * - [ExtraKeyConfig.IS_TC007] - Current[CN_TEXT] TC007
+ * activity：
+ * - [ExtraKeyConfig.IS_TC007] - Currentactivity TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
@@ -35,8 +35,8 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     private lateinit var tvDeviceModel: TextView
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT] TC007 [CN_TEXT]Type.
-     * true-TC007 false-[CN_TEXT]
+     * activity，Currentactivity TC007 activityType.
+     * true-TC007 false-activity
      */
     private var isTC007 = false
 
@@ -83,7 +83,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            clLayoutCopy -> {//[CN_TEXT]
+            clLayoutCopy -> {// Activity logic
                 val text = "${tvSn.text}:${tvSnValue.text}  ${tvDeviceModel.text}:${tvDeviceModelValue.text}"
                 val cm = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val mClipData = ClipData.newPlainText("text", text)

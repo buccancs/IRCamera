@@ -18,14 +18,14 @@ import com.topdon.libcom.R
 import com.topdon.libcom.util.ColorUtils
 
 /**
- * [CN_TEXT].
+ * dialog.
  *
  * Created by chenggeng.lin on 2023/12/18.
  */
 class ColorPickDialog(context: Context, @ColorInt private var color: Int,var textSize: Int,var textSizeIsDP : Boolean = false) : Dialog(context, com.topdon.lib.core.R.style.InfoDialog), View.OnClickListener {
 
     /**
-     * [CN_TEXT].
+     * dialog.
      */
     var onPickListener: ((color: Int,textSize : Int) -> Unit)? = null
 
@@ -77,7 +77,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
                     rightValue: Float,
                     isFromUser: Boolean
                 ) {
-                    var text = "[CN_TEXT]"
+                    var text = "dialog"
                     text = if (leftValue <= 0){
                         textSize = 14
                         context.getString(com.topdon.lib.ui.R.string.temp_text_standard)
@@ -131,7 +131,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
         when (v) {
             rootView.findViewById<View>(R.id.rl_close) -> dismiss()
 
-            rootView.findViewById<View>(R.id.tv_save) -> {//[CN_TEXT]
+            rootView.findViewById<View>(R.id.tv_save) -> {// Dialog content
                 dismiss()
                 onPickListener?.invoke(color,textSize)
             }
@@ -176,7 +176,7 @@ class ColorPickDialog(context: Context, @ColorInt private var color: Int,var tex
     }
 
     /**
-     * [CN_TEXT] 6 [CN_TEXT]SelectedState.
+     * dialog 6 dialogSelectedState.
      */
     private fun unSelect6Color() {
         rootView.findViewById<View>(R.id.view_color1).isSelected = false

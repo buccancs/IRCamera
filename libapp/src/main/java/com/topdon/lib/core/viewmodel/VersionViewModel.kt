@@ -11,40 +11,40 @@ class VersionViewModel : BaseViewModel() {
     val updateLiveData = SingleLiveEvent<VersionUpData>()
 
     /**
-     * forcedUpgradeFlag: 1 [CN_TEXT]    0 [CN_TEXT]
-     * descType: [CN_TEXT]3[CN_TEXT],[CN_TEXT](descType[CN_TEXT])
+     * forcedUpgradeFlag: 1 view    0 view
+     * descType: view3view,view(descTypeview)
      */
     fun checkVersion() {
 //        viewModelScope.launch(Dispatchers.IO) {
 //            try {
 //                if (TimeUtils.isToday(SharedManager.getVersionCheckDate())) {
-//                    Log.w("123", "[CN_TEXT]")
+//                    Log.w("123", "view")
 //                    return@launch
 //                }
 //                val result: CheckVersionJson = LmsRepository.getVersionInfo() ?: return@launch
 //                /*if (result.googleVerCode > AppUtils.getAppVersionCode()) {
-//                    // google play[CN_TEXT]
+//                    // google playview
 //                    updateTip(result)
 //                    return@launch
 //                }*/
 //                if (VersionTool.checkVersion(remoteStr = result.versionNo ?: "1.0", localStr = AppUtils.getAppVersionName())) {
-//                    // google play[CN_TEXT],[CN_TEXT],[CN_TEXT]app[CN_TEXT]
+//                    // google playview,view,viewappview
 //                    updateTip(result)
 //                    return@launch
 //                }
 //            } catch (e: Exception) {
-//                XLog.e("[CN_TEXT]: ${e.message}")
+//                XLog.e("view: ${e.message}")
 //            }
 //        }
     }
 
     private fun updateTip(result: CheckVersionJson) {
-        val isForcedUpgrade = (result.forcedUpgradeFlag?.toInt() ?: 0) == 1 // 1: [CN_TEXT]
+        val isForcedUpgrade = (result.forcedUpgradeFlag?.toInt() ?: 0) == 1 // 1: view
         val description = getDescription(result.softConfigOtherTypeVOList)
         val downPageUrl = result.downloadPageUrl
         val sizeStr = "${result.notUnZipSize}MB"
 
-        XLog.i("[CN_TEXT],[CN_TEXT]: $description, [CN_TEXT]: $isForcedUpgrade")
+        XLog.i("view,view: $description, view: $isForcedUpgrade")
 
         val versionUpData =
             VersionUpData(
@@ -58,7 +58,7 @@ class VersionViewModel : BaseViewModel() {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     private fun getDescription(list: List<SoftConfigOtherTypeVO>?): String {
         list?.forEach {

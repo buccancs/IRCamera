@@ -11,7 +11,7 @@ import com.infisense.usbir.view.ITsTempListener
 import java.lang.ref.WeakReference
 
 /**
- * 2D [CN_TEXT] Point/Line/Area[CN_TEXT] View.
+ * 2D view Point/Line/Areaview View.
  */
 class TemperatureEditView : TemperatureBaseView {
 
@@ -48,7 +48,7 @@ class TemperatureEditView : TemperatureBaseView {
 
 
     /**
-     * [CN_TEXT]Point/Line/Area[CN_TEXT].
+     * viewPoint/Line/Areaview.
      */
     var isShowName = false
         set(value) {
@@ -99,21 +99,21 @@ class TemperatureEditView : TemperatureBaseView {
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
-        //[CN_TEXT]
+        // View rendering
         for (i in pointList.indices) {
             val result = drawOnePoint(canvas, pointList[i], i) ?: continue
             tempListData.pointTemps[i] = result
         }
         operatePoint?.let { drawOnePoint(canvas, it, pointList.size + 1) }
 
-        //[CN_TEXT]
+        // View rendering
         for (i in lineList.indices) {
             val result = drawOneLine(canvas, lineList[i], i) ?: continue
             tempListData.lineTemps[i] = result
         }
         operateLine?.let { drawOneLine(canvas, it, lineList.size + 1) }
 
-        //[CN_TEXT]
+        // View rendering
         for (i in rectList.indices) {
             val result = drawOneRect(canvas, rectList[i], i) ?: continue
             tempListData.rectangleTemps[i] = result
@@ -142,15 +142,15 @@ class TemperatureEditView : TemperatureBaseView {
     }
 
     /**
-     * [CN_TEXT]、[CN_TEXT]、[CN_TEXT]、[CN_TEXT].
-     * @param point [CN_TEXT] View [CN_TEXT]
+     * view、view、view、view.
+     * @param point view View view
      */
     private fun drawOnePoint(canvas: Canvas, point: Point, index: Int): LibIRTemp.TemperatureSampleResult? {
         val result = try {
             irtemp.getTemperatureOfPoint(Point((point.x / xScale).toInt(), (point.y / yScale).toInt()))
         } catch (_: IllegalArgumentException) {
-            //[CN_TEXT] View [CN_TEXT] xScale、yScale [CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT]
-            //[CN_TEXT] [CN_TEXT] scale [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+            // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+            // View rendering view scale view，view，view
             return null
         }
         drawPoint(canvas, point)
@@ -163,8 +163,8 @@ class TemperatureEditView : TemperatureBaseView {
     }
 
     /**
-     * [CN_TEXT]、[CN_TEXT]Low temperature[CN_TEXT]、[CN_TEXT]Low temperature[CN_TEXT]、[CN_TEXT].
-     * @param line [CN_TEXT] View [CN_TEXT]
+     * view、viewLow temperatureview、viewLow temperatureview、view.
+     * @param line view View view
      */
     private fun drawOneLine(canvas: Canvas, line: Line, index: Int): LibIRTemp.TemperatureSampleResult? {
         drawLine(canvas, line)
@@ -180,8 +180,8 @@ class TemperatureEditView : TemperatureBaseView {
         val result = try {
             irtemp.getTemperatureOfLine(Line(Point(tempStartX, tempStartY), Point(tempStopX, tempStopY)))
         } catch (_: IllegalArgumentException) {
-            //[CN_TEXT] View [CN_TEXT] xScale、yScale [CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT]
-            //[CN_TEXT] [CN_TEXT] scale [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+            // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+            // View rendering view scale view，view，view
             return null
         }
         val maxX: Int = (result.maxTemperaturePixel.x * xScale).correct(width)
@@ -200,13 +200,13 @@ class TemperatureEditView : TemperatureBaseView {
     }
 
     /**
-     * [CN_TEXT]、[CN_TEXT]Low temperature[CN_TEXT]、[CN_TEXT]Low temperature[CN_TEXT]、[CN_TEXT].
-     * @param rect [CN_TEXT] View [CN_TEXT]
+     * view、viewLow temperatureview、viewLow temperatureview、view.
+     * @param rect view View view
      */
     private fun drawOneRect(canvas: Canvas, rect: Rect, index: Int): LibIRTemp.TemperatureSampleResult? {
         drawRect(canvas, rect)
 
-        // rect [CN_TEXT] touch [CN_TEXT]，left < right, top < bottom
+        // rect view touch view，left < right, top < bottom
         val left = (rect.left / xScale).toInt()
         val top = (rect.top / yScale).toInt()
         val right = (rect.right / xScale).toInt()
@@ -217,8 +217,8 @@ class TemperatureEditView : TemperatureBaseView {
         val result = try {
             irtemp.getTemperatureOfRect(Rect(left, top, right, bottom))
         } catch (_: IllegalArgumentException) {
-            //[CN_TEXT] View [CN_TEXT] xScale、yScale [CN_TEXT]，[CN_TEXT]Point/Line/Area[CN_TEXT]
-            //[CN_TEXT] [CN_TEXT] scale [CN_TEXT]，[CN_TEXT]，[CN_TEXT]
+            // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+            // View rendering view scale view，view，view
             return null
         }
         val maxX: Int = (result.maxTemperaturePixel.x * xScale).correct(width)

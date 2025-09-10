@@ -17,34 +17,34 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * [CN_TEXT] DataBinding [CN_TEXT] Fragment.
+ * fragment DataBinding fragment Fragment.
  *
- * [CN_TEXT] BaseFragment [CN_TEXT]，[CN_TEXT].
+ * fragment BaseFragment fragment，fragment.
  *
  * Created by LCG on 2024/11/5.
  */
 abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
     /**
-     * [CN_TEXT] [onDestroyView] [CN_TEXT] binding [CN_TEXT] null，
-     * [CN_TEXT] binding [CN_TEXT] null Type[CN_TEXT]，[CN_TEXT].
+     * fragment [onDestroyView] fragment binding fragment null，
+     * fragment binding fragment null Typefragment，fragment.
      */
     private var _binding: B? = null
 
     /**
-     * Note：[CN_TEXT] Fragment [CN_TEXT]，binding [CN_TEXT] [onDestroyView] [CN_TEXT] null.
+     * Note：fragment Fragment fragment，binding fragment [onDestroyView] fragment null.
      *
-     * [CN_TEXT] [onCreateView] [CN_TEXT] [onDestroyView] [CN_TEXT].
+     * fragment [onCreateView] fragment [onDestroyView] fragment.
      */
     protected val binding: B get() = _binding!!
 
     /**
-     * [CN_TEXT]，[CN_TEXT] DataBinding [CN_TEXT] layout [CN_TEXT] Id.
+     * fragment，fragment DataBinding fragment layout fragment Id.
      */
     @LayoutRes
     protected abstract fun initContentLayoutId(): Int
 
     /**
-     * [CN_TEXT]，[CN_TEXT] onViewCreated [CN_TEXT].
+     * fragment，fragment onViewCreated fragment.
      */
     protected abstract fun initView(savedInstanceState: Bundle?)
 
@@ -104,12 +104,12 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
     }
 
     /**
-     * [CN_TEXT] LMS [CN_TEXT].
+     * fragment LMS fragment.
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * [CN_TEXT].
+     * fragment.
      */
     fun showLoadingDialog(
         @StringRes resId: Int,
@@ -118,7 +118,7 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
     }
 
     /**
-     * [CN_TEXT].
+     * fragment.
      */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
@@ -129,7 +129,7 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
     }
 
     /**
-     * [CN_TEXT].
+     * fragment.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()

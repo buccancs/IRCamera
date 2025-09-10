@@ -40,7 +40,7 @@ class IRLogMPChartActivity : BaseActivity() {
     private val viewModel: IRMonitorViewModel by viewModels()
 
     /**
-     * [CN_TEXT]，Current[CN_TEXT].
+     * activity，Currentactivity.
      */
     private var startTime = 0L
 
@@ -74,7 +74,7 @@ class IRLogMPChartActivity : BaseActivity() {
                 val chartView = findViewById<com.topdon.module.thermal.ir.view.ChartLogView>(R.id.log_chart_time_chart)
                 chartView.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                XLog.e("[CN_TEXT]:${e.message}")
+                XLog.e("activity:${e.message}")
             }
         }
 
@@ -126,7 +126,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                     doNotAskAgain: Boolean
                                 ) {
                                     if (doNotAskAgain) {
-                                        //[CN_TEXT]
+                                        // Activity logic
                                         if (BaseApplication.instance.isDomestic()){
                                             ToastUtils.showShort(getString(LibR.string.app_storage_content))
                                             return

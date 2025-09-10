@@ -37,7 +37,7 @@ import java.util.Collections
 import android.view.LayoutInflater
 
 /**
- * [CN_TEXT]
+ * view
  */
 class CameraPreView :
     LinearLayout,
@@ -79,7 +79,7 @@ class CameraPreView :
         mCameraHandler?.removeCallbacksAndMessages(null)
     }
 
-    private var startX = 0f // [CN_TEXT]
+    private var startX = 0f // view
     private var startY = 0f
     private var moveX = 0f
     private var moveY = 0f
@@ -87,7 +87,7 @@ class CameraPreView :
     private var parentViewH = 0f
     private var isScale = false
     private var scale = 1f
-    private var scaleW = 0f // [CN_TEXT]
+    private var scaleW = 0f // view
     private var scaleH = 0f
 
     private lateinit var lis: ScaleGestureDetector
@@ -108,10 +108,10 @@ class CameraPreView :
                 parentViewH = view.height.toFloat()
             }
             MotionEvent.ACTION_MOVE -> {
-                // [CN_TEXT]
+                // view
                 moveX = event.x - startX
                 moveY = event.y - startY
-                // [CN_TEXT]，[CN_TEXT]
+                // view，view
 //                if (moveX-scaleW < -mTextureView.width ||
 //                    moveX+scaleW > parentViewW ||
 //                    moveY - scaleH < -mTextureView.height ||
@@ -119,7 +119,7 @@ class CameraPreView :
 //                    cameraPreViewCloseListener?.invoke()
 //                }
 
-                // [CN_TEXT]
+                // view
 //                if (moveX - scaleW < 0f) moveX = 0f + scaleW
 //                if (moveY - scaleH < 0f) moveY = 0f + scaleH
 //                if (moveX + scaleW > parentViewW - mTextureView.width) {
@@ -128,15 +128,15 @@ class CameraPreView :
 //                if (moveY + scaleH > parentViewH - mTextureView.height) {
 //                    moveY = parentViewH - mTextureView.height - scaleH
 //                }
-//                Log.e("[CN_TEXT]---","/"+(moveX + scaleW)+"///"+(parentViewW - mTextureView.width))
+//                Log.e("view---","/"+(moveX + scaleW)+"///"+(parentViewW - mTextureView.width))
                 binding.cameraTexture.x = moveX
                 binding.cameraTexture.y = moveY
             }
             MotionEvent.ACTION_UP -> {
-                isScale = false // [CN_TEXT]
+                isScale = false // view
                 val startX = viewX
                 val startY = viewY
-//                Log.e("[CN_TEXT]","/"+(startX)+"///"+startY+"///"+(mTextureView.width)+"//"+mTextureView.width * scale)
+//                Log.e("view","/"+(startX)+"///"+startY+"///"+(mTextureView.width)+"//"+mTextureView.width * scale)
                 if ((viewX < 0 && startX < -binding.cameraTexture.width * scale + SizeUtils.dp2px(10f)) ||
                     (startX > 0 && startX > parentViewW - SizeUtils.dp2px(10f)) ||
                     (startY < 0 && startY < -binding.cameraTexture.height * scale + SizeUtils.dp2px(10f)) ||
@@ -151,14 +151,14 @@ class CameraPreView :
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     public fun getBitmap(): Bitmap? {
         return binding.cameraTexture.bitmap
     }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
-        // [CN_TEXT]
+        // view
         isScale = true
         detector?.let {
             val scaleFactor = it.scaleFactor - 1
@@ -189,7 +189,7 @@ class CameraPreView :
     }
 
     fun onResume()  {
-        // [CN_TEXT]Switch[CN_TEXT]，[CN_TEXT]，[CN_TEXT]app[CN_TEXT]
+        // viewSwitchview，view，viewappview
         if (mCameraDevice != null)
             {
                 mCameraDevice?.close()
@@ -199,47 +199,47 @@ class CameraPreView :
 
 // ////////////////
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private val REQUEST_CAMERA_CODE = 0x100
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mImageView: ImageView? = null
 
-    /**[CN_TEXT]ID，[CN_TEXT] */
+    /**viewID，view */
     private lateinit var mCameraId: String
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mCaptureSize: Size? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mImageReader: ImageReader? = null
 
-    /**[CN_TEXT]Handler */
+    /**viewHandler */
     private var mCameraHandler: Handler? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mCameraDevice: CameraDevice? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mPreviewSize: Size? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private lateinit var mCaptureBuilder: CaptureRequest.Builder
 
-    /**[CN_TEXT]Photo[CN_TEXT] */
+    /**viewPhotoview */
     private var mCameraCaptureSession: CameraCaptureSession? = null
 
-    /**[CN_TEXT] */
+    /** Custom view */
     private var mCameraManager: CameraManager? = null
 
-    /**[CN_TEXT]State[CN_TEXT] */
+    /**viewStateview */
     private val mStateCallback: CameraDevice.StateCallback =
         object : CameraDevice.StateCallback() {
             override fun onOpened(
                 @NonNull camera: CameraDevice,
             ) {
-                // [CN_TEXT]
-                XLog.i("[CN_TEXT]")
+                // view
+                XLog.i("view")
                 mCameraDevice = camera
                 takePreview()
             }
@@ -247,8 +247,8 @@ class CameraPreView :
             override fun onDisconnected(
                 @NonNull camera: CameraDevice,
             ) {
-                // [CN_TEXT]
-                XLog.i("[CN_TEXT]")
+                // view
+                XLog.i("view")
                 isPreviewing = false
 //                camera.close()
 //                mCameraDevice = null
@@ -258,11 +258,11 @@ class CameraPreView :
                 @NonNull camera: CameraDevice,
                 error: Int,
             ) {
-                // [CN_TEXT]
+                // view
                 isPreviewing = false
                 camera.close()
                 mCameraDevice = null
-                XLog.e("[CN_TEXT] error: $error")
+                XLog.e("view error: $error")
             }
         }
 
@@ -282,8 +282,8 @@ class CameraPreView :
     }
 
     /**
-     * [CN_TEXT]
-     * [CN_TEXT]
+     * view
+     * view
      */
     private fun takePreview() {
 //        mTextureView.rotation = 270f
@@ -293,16 +293,16 @@ class CameraPreView :
 //        layoutParams.width = cameraWidth / 2
 //        mTextureView.layoutParams = layoutParams
         val surfaceTexture = binding.cameraTexture.surfaceTexture
-        // Settings[CN_TEXT]
+        // Settingsview
         surfaceTexture?.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        // [CN_TEXT]Surface  
+        // viewSurface  
         val previewSurface = Surface(surfaceTexture)
         try {
-            // [CN_TEXT]
+            // view
             mCaptureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            // [CN_TEXT]previewSurface[CN_TEXT]
+            // viewpreviewSurfaceview
             mCaptureBuilder.addTarget(previewSurface)
-            // [CN_TEXT]
+            // view
             @Suppress("DEPRECATION")
             mCameraDevice!!.createCaptureSession(
                 listOf(previewSurface),
@@ -311,26 +311,26 @@ class CameraPreView :
                         @NonNull session: CameraCaptureSession,
                     ) {
                         try {
-                            // [CN_TEXT]
+                            // view
                             val captureRequest = mCaptureBuilder.build()
-                            // [CN_TEXT]session
+                            // viewsession
                             mCameraCaptureSession = session
-                            // Settings[CN_TEXT]
+                            // Settingsview
                             mCameraCaptureSession?.setRepeatingRequest(
                                 captureRequest,
                                 null,
                                 mCameraHandler,
                             )
                         } catch (e: CameraAccessException) {
-                            XLog.e("[CN_TEXT]：${e.printStackTrace()}")
+                            XLog.e("view：${e.printStackTrace()}")
                         }
                     }
 
                     override fun onConfigureFailed(
                         @NonNull session: CameraCaptureSession,
                     ) {
-                        // [CN_TEXT]
-                        XLog.e("[CN_TEXT]")
+                        // view
+                        XLog.e("view")
                     }
                 },
                 mCameraHandler,
@@ -348,7 +348,7 @@ class CameraPreView :
                     width: Int,
                     height: Int,
                 ) {
-                    // SurfaceTexture[CN_TEXT]
+                    // SurfaceTextureview
                     XLog.w("width:$width, height:$height")
                     setUpCamera(width, height)
                 }
@@ -358,16 +358,16 @@ class CameraPreView :
                     width: Int,
                     height: Int,
                 ) {
-                    // SurfaceTexture[CN_TEXT]
+                    // SurfaceTextureview
                 }
 
                 override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-                    // SurfaceTexture [CN_TEXT]
+                    // SurfaceTexture view
                     return false
                 }
 
                 override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                    // SurfaceTexture [CN_TEXT]
+                    // SurfaceTexture view
                 }
             }
     }
@@ -377,30 +377,30 @@ class CameraPreView :
     }
 
     /**
-     * Settings[CN_TEXT]
-     * @param width [CN_TEXT]
-     * @param height [CN_TEXT]
+     * Settingsview
+     * @param width view
+     * @param height view
      */
     private fun setUpCamera(
         width: Int,
         height: Int,
     ) {
-        // [CN_TEXT]Handler
+        // viewHandler
         mCameraHandler = Handler(Looper.getMainLooper())
-        // [CN_TEXT]
+        // view
         mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
-            // [CN_TEXT]All[CN_TEXT],[CN_TEXT]
+            // viewAllview,view
             for (cameraId in mCameraManager!!.cameraIdList) {
                 XLog.i("camera id: $cameraId")
                 cameraCharacteristics = mCameraManager!!.getCameraCharacteristics(cameraId)
-                // [CN_TEXT]
+                // view
                 val facing = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING)
-                // [CN_TEXT]
+                // view
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) continue
-                // [CN_TEXT]StreamConfigurationMap，[CN_TEXT]All[CN_TEXT]
+                // viewStreamConfigurationMap，viewAllview
                 val map = cameraCharacteristics?.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
-                // [CN_TEXT]TextureView[CN_TEXT]Settings[CN_TEXT]
+                // viewTextureViewviewSettingsview
                 val mapList = map.getOutputSizes(SurfaceTexture::class.java)
 
                 mPreviewSize = getOptimalSize(mapList, width, height)
@@ -409,43 +409,43 @@ class CameraPreView :
                 constraintSet.constrainHeight(binding.cameraTexture.id, width * mPreviewSize!!.width / mPreviewSize!!.height)
                 constraintSet.applyTo(binding.cameraLayRoot)
                 XLog.w("mPreviewSize:$mPreviewSize")
-                // [CN_TEXT]Photo[CN_TEXT]
+                // viewPhotoview
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)
                 XLog.w("size:${sizes.toList()}")
                 val w = 1000
                 val h = w * sizes[0].height / sizes[0].width
-//                mCaptureSize = Size(w, h)//[CN_TEXT]Photo[CN_TEXT]
-                XLog.w("[CN_TEXT] w:${sizes[0].width}, h:${sizes[0].height}")
-                XLog.w("[CN_TEXT] w: $w, h:$h")
-                // [CN_TEXT]ImageReader[CN_TEXT]Photo[CN_TEXT]
+//                mCaptureSize = Size(w, h)// View renderingPhotoview
+                XLog.w("view w:${sizes[0].width}, h:${sizes[0].height}")
+                XLog.w("view w: $w, h:$h")
+                // viewImageReaderviewPhotoview
 //                setupImageReader()
-                // [CN_TEXT]
+                // view
                 mCameraId = cameraId
                 break
             }
         } catch (e: CameraAccessException) {
             e.printStackTrace()
-            Log.e("123", "Settings[CN_TEXT]:${e.message}")
+            Log.e("123", "Settingsview:${e.message}")
         }
     }
 
     /**
-     * [CN_TEXT]SizeMap[CN_TEXT]width[CN_TEXT]height[CN_TEXT]size
-     * @param sizeMap [CN_TEXT]
-     * @param width [CN_TEXT]
-     * @param height [CN_TEXT]
-     * @return [CN_TEXT]width[CN_TEXT]height[CN_TEXT]size
+     * viewSizeMapviewwidthviewheightviewsize
+     * @param sizeMap view
+     * @param width view
+     * @param height view
+     * @return viewwidthviewheightviewsize
      */
     private fun getOptimalSize(
         sizeMap: Array<Size>,
         width: Int,
         height: Int,
     ): Size {
-        // [CN_TEXT]
+        // view
         val sizeList: MutableList<Size> = ArrayList()
-        // [CN_TEXT]
+        // view
         for (option in sizeMap) {
-            // [CN_TEXT]
+            // view
             if (width > height) {
                 if (option.width > width && option.height > height) {
                     sizeList.add(option)
@@ -456,7 +456,7 @@ class CameraPreView :
                 }
             }
         }
-        // [CN_TEXT]Size[CN_TEXT]
+        // viewSizeview
         return if (sizeList.size > 0) {
             Collections.min(sizeList) { lhs, rhs ->
                 java.lang.Long.signum((lhs.width * lhs.height - rhs.width * rhs.height).toLong())
@@ -467,7 +467,7 @@ class CameraPreView :
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     @SuppressLint("MissingPermission")
     fun openCamera() {
@@ -477,20 +477,20 @@ class CameraPreView :
             mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
         } catch (e: Exception) {
             isPreviewing = false
-            XLog.e("[CN_TEXT]:${e.message}")
-            ToastUtils.showShort("[CN_TEXT]")
+            XLog.e("view:${e.message}")
+            ToastUtils.showShort("view")
         }
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     @SuppressLint("MissingPermission")
     fun closeCamera() {
         isPreviewing = false
         try {
             mCameraDevice?.close()
-            // [CN_TEXT]State
+            // viewState
             binding.cameraTexture.x = 0f
             binding.cameraTexture.y = 0f
             binding.cameraTexture.scaleX = 1f
@@ -498,8 +498,8 @@ class CameraPreView :
             scale = 1f
 //            isReverse = false
         } catch (e: Exception) {
-            XLog.e("[CN_TEXT]:${e.message}")
-            ToastUtils.showShort("[CN_TEXT]")
+            XLog.e("view:${e.message}")
+            ToastUtils.showShort("view")
         }
     }
 

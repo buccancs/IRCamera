@@ -12,14 +12,14 @@ import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
 import kotlin.math.min
 
 /**
- * [CN_TEXT].
+ * view.
  *
  * Created by LCG on 2024/12/31.
  */
 class TrendView : FrameLayout {
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun expand() {
         binding.clOpen.isVisible = true
@@ -27,7 +27,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun close() {
         binding.clOpen.isVisible = false
@@ -35,8 +35,8 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * [CN_TEXT]Specified[CN_TEXT]
-     * @param tempList [CN_TEXT]，[CN_TEXT]Celsius
+     * viewSpecifiedview
+     * @param tempList view，viewCelsius
      */
     fun refreshChart(tempList: List<Float>) {
         if (isVisible && binding.clOpen.isVisible) {
@@ -45,7 +45,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun setToEmpty() {
         binding.viewChartTrend.setToEmpty()
@@ -89,7 +89,7 @@ class TrendView : FrameLayout {
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        //[CN_TEXT] UNSPECIFIED [CN_TEXT]，[CN_TEXT]
+        // View rendering UNSPECIFIED view，view
         val wantHeight: Int = SizeUtils.dp2px(34f) + (widthSize * 158 / 264f).toInt()
         val height = when (heightMode) {
             MeasureSpec.EXACTLY -> heightSize

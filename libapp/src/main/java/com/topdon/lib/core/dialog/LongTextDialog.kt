@@ -10,7 +10,7 @@ import com.topdon.lib.core.databinding.DialogLongTextBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * [CN_TEXT].
+ * dialog.
  *
  * Created by LCG on 2024/2/2.
  */

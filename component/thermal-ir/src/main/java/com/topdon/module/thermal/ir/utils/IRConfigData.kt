@@ -24,7 +24,7 @@ data class IRConfigData(val name: String, val value: String) {
         )
 
         /**
-         * [CN_TEXT]Specified[CN_TEXT]，[CN_TEXT].
+         * dataSpecifieddata，data.
          */
         fun getTextByEmissivity(context: Context, emissivity: Float): String {
             val stringBuilder = StringBuilder()

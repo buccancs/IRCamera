@@ -21,12 +21,12 @@
 //    override fun initContentView() = R.layout.activity_chart
 //
 //    override fun initView() {
-//        setTitleText("[CN_TEXT]")
-//        //[CN_TEXT]
+//        setTitleText("activity")
+//        // Activity logic
 //        aa_chart_view.aa_drawChartWithChartOptions(
 //            configureSpecialStyleMarkerOfSingleDataElementChart().aa_toAAOptions()
 //        )
-//        //[CN_TEXT]
+//        // Activity logic
 //        lifecycleScope.launch {
 //            flow {
 //                repeat(40) {
@@ -65,14 +65,14 @@
 //    private fun configureSpecialStyleMarkerOfSingleDataElementChart(): AAChartModel {
 //        return AAChartModel()
 //            .chartType(AAChartType.Spline)
-//            .title("[CN_TEXT]")
+//            .title("activity")
 //            .subtitle("2021-10-20")
 //            .titleStyle(AAStyle.Companion.style("#FFFFFF"))
 //            .subtitleStyle(AAStyle.Companion.style(color = "#FFFFFF", fontSize = 12f))
 //            .backgroundColor("#3598E8")
 //            .yAxisTitle("")
 //            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)//[CN_TEXT]
+//            .dataLabelsEnabled(false)// Activity logic
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
 //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))

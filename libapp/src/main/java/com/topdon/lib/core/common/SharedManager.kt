@@ -12,29 +12,29 @@ import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.dialog.CarDetectDialog
 
 /**
- * Current[CN_TEXT]“[CN_TEXT]Settings[CN_TEXT]”[CN_TEXT]，
+ * Currentdata“dataSettingsdata”data，
  *
- * [SaveSettingUtil] [CN_TEXT]“[CN_TEXT]Settings[CN_TEXT]”[CN_TEXT].
+ * [SaveSettingUtil] data“dataSettingsdata”data.
  *
  * create by fylder on 2018/6/14
  **/
 object SharedManager {
     /**
-     * [CN_TEXT].
+     * data.
      */
     var hasClickWinter: Boolean
         get() = SPUtils.getInstance().getBoolean("hasClickWinter", false)
         set(value) = SPUtils.getInstance().put("hasClickWinter", value)
 
     /**
-     * [CN_TEXT]-[CN_TEXT].
+     * data-data.
      */
     var isNeedShowTrendTips: Boolean
         get() = SPUtils.getInstance().getBoolean("isNeedShowTrendTips", true)
         set(value) = SPUtils.getInstance().put("isNeedShowTrendTips", value)
 
     /**
-     * [CN_TEXT] - [CN_TEXT] 0-[CN_TEXT] 1-[CN_TEXT] 2-[CN_TEXT]
+     * data - data 0-data 1-data 2-data
      */
     var houseSpaceUnit: Int
         get() = SPUtils.getInstance().getInt("houseSpaceUnit", 0)
@@ -43,7 +43,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT] - [CN_TEXT]，0-[CN_TEXT]USD 1-[CN_TEXT]EUR 2-[CN_TEXT]GBP 3-[CN_TEXT]AUD 4-[CN_TEXT]JPY 5-[CN_TEXT]CAD 6-[CN_TEXT]NZD 7-Person[CN_TEXT]RMB 8-[CN_TEXT]HKD
+     * data - data，0-dataUSD 1-dataEUR 2-dataGBP 3-dataAUD 4-dataJPY 5-dataCAD 6-dataNZD 7-PersondataRMB 8-dataHKD
      */
     var costUnit: Int
         get() = SPUtils.getInstance().getInt("costUnit", 0)
@@ -52,7 +52,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT] TC [CN_TEXT]，[CN_TEXT] false.
+     * data TC data，data false.
      */
     var hasTcLine: Boolean
         get() = SPUtils.getInstance().getBoolean("hasConnectTcLine", false)
@@ -61,7 +61,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT] TS004 [CN_TEXT]，[CN_TEXT] false.
+     * data TS004 data，data false.
      */
     var hasTS004: Boolean
         get() = SPUtils.getInstance().getBoolean("hasConnectTS004", false)
@@ -70,7 +70,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT] TC007 [CN_TEXT]，[CN_TEXT] false.
+     * data TC007 data，data false.
      */
     var hasTC007: Boolean
         get() = SPUtils.getInstance().getBoolean("hasConnectTC007", false)
@@ -79,7 +79,7 @@ object SharedManager {
         }
 
     /**
-     * TC007 [CN_TEXT]，JSON [CN_TEXT].
+     * TC007 data，JSON data.
      */
     var irConfigJsonTC007: String
         get() = SPUtils.getInstance().getString("irConfigJsonTC007")
@@ -88,7 +88,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT] 1-[CN_TEXT]1[CN_TEXT] 2-[CN_TEXT]2[CN_TEXT] 3-[CN_TEXT]3[CN_TEXT] 0-[CN_TEXT]
+     * data 1-data1data 2-data2data 3-data3data 0-data
      */
     var homeGuideStep: Int
         get() {
@@ -100,14 +100,14 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT] 1-[CN_TEXT]1[CN_TEXT] 2-[CN_TEXT]2[CN_TEXT] 0-[CN_TEXT]
+     * data 1-data1data 2-data2data 0-data
      */
     var configGuideStep: Int
         get() = SPUtils.getInstance().getInt("configGuideStep", 1)
         set(value) = SPUtils.getInstance().put("configGuideStep", value)
 
     /**
-     * [CN_TEXT]
+     * data
      */
     var isHideEmissivityTips: Boolean
         get() = SPUtils.getInstance().getBoolean("isHideEmissivityTips", false)
@@ -116,7 +116,7 @@ object SharedManager {
         }
 
     /**
-     * tc007[CN_TEXT]
+     * tc007data
      */
     var is07HideEmissivityTips: Boolean
         get() = SPUtils.getInstance().getBoolean("is07HideEmissivityTips", false)
@@ -125,7 +125,7 @@ object SharedManager {
         }
 
     /**
-     * TS004[CN_TEXT]”[CN_TEXT]“
+     * TS004data”data“
      */
     var is04TISR: Boolean
         get() = SPUtils.getInstance().getBoolean("is04TISR", false)
@@ -134,7 +134,7 @@ object SharedManager {
         }
 
     /**
-     * TS004 [CN_TEXT]”[CN_TEXT]“
+     * TS004 data”data“
      */
     var is04AutoSync: Boolean
         get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
@@ -143,7 +143,7 @@ object SharedManager {
         }
 
     /**
-     * Dual light[CN_TEXT]RotateAngle，[CN_TEXT] [0, 2000]，[CN_TEXT] SeekBar [CN_TEXT].id[CN_TEXT]sid[CN_TEXT]
+     * Dual lightdataRotateAngle，data [0, 2000]，data SeekBar data.iddatasiddata
      */
     fun getManualAngle(sId: String): Int {
         return SPUtils.getInstance().getInt("manualAngle_$sId", 1000)
@@ -157,12 +157,12 @@ object SharedManager {
     }
 
     /**
-     * Dual light[CN_TEXT]，[CN_TEXT] 24.
+     * Dual lightdata，data 24.
      */
     fun getManualData(sId: String): ByteArray {
         val strValue = SPUtils.getInstance().getString("manualData_$sId")
         return if (strValue.isNullOrEmpty()) {
-            // [CN_TEXT] 1,0,0,0,1,0 6[CN_TEXT] float，[CN_TEXT]
+            // data 1,0,0,0,1,0 6data float，data
             byteArrayOf(
                 0,
                 0,
@@ -205,7 +205,7 @@ object SharedManager {
     }
 
     /**
-     * [CN_TEXT].
+     * data.
      */
     var isConnectAutoOpen: Boolean
         get() = SPUtils.getInstance().getBoolean("isConnectAutoOpen", false)
@@ -214,7 +214,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT] TC007 [CN_TEXT].
+     * data TC007 data.
      */
     var isConnect07AutoOpen: Boolean
         get() = SPUtils.getInstance().getBoolean("isConnect07AutoOpen", false)
@@ -223,8 +223,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT] OTG [CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * data，data OTG data.
+     * true-data false-data，data
      */
     var isTipOTG: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipOTG", true)
@@ -233,8 +233,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]-[CN_TEXT]，[CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * data-data，data.
+     * true-data false-data，data
      */
     var isTipShutter: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipShutter", true)
@@ -243,8 +243,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]-High temperature[CN_TEXT]，[CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * data-High temperaturedata，data.
+     * true-data false-data，data
      */
     var isTipHighTemp: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipHighTemp", true)
@@ -253,8 +253,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]-Picture in picture（[CN_TEXT]Dual light）[CN_TEXT]，[CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * data-Picture in picture（dataDual light）data，data.
+     * true-data false-data，data
      */
     var isTipPinP: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipPinP", true)
@@ -263,8 +263,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]-Observation[CN_TEXT]，[CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * data-Observationdata，data.
+     * true-data false-data，data
      */
     var isTipCoordinate: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipCoordinate", true)
@@ -273,8 +273,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]-AI[CN_TEXT]，[CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * data-AIdata，data.
+     * true-data false-data，data
      */
     var isTipAIRecognition: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipAIRecognition", true)
@@ -283,8 +283,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]-ObservationMode-Photo[CN_TEXT]，[CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * data-ObservationMode-Photodata，data.
+     * true-data false-data，data
      */
     var isTipObservePhoto: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipObservePhoto", true)
@@ -293,7 +293,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]Photo[CN_TEXT]，[CN_TEXT]Settings[CN_TEXT].
+     * dataPhotodata，dataSettingsdata.
      */
     var continuousBean: ContinuousBean
         get() {
@@ -312,8 +312,8 @@ object SharedManager {
         }
 
     /**
-     * wifi[CN_TEXT]
-     * [CN_TEXT]，[CN_TEXT]Settings[CN_TEXT].
+     * wifidata
+     * data，dataSettingsdata.
      */
     var wifiWatermarkBean: WatermarkBean
         get() {
@@ -332,7 +332,7 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]Settings[CN_TEXT].
+     * data，dataSettingsdata.
      */
     var watermarkBean: WatermarkBean
         get() {
@@ -351,8 +351,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]TS004-[CN_TEXT]Switch[CN_TEXT]，[CN_TEXT].
-     * true-[CN_TEXT] false-[CN_TEXT]，[CN_TEXT]
+     * dataTS004-dataSwitchdata，data.
+     * true-data false-data，data
      */
     var isTipChangeDevice: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipChangeDevice", true)
@@ -361,8 +361,8 @@ object SharedManager {
         }
 
     /**
-     * [CN_TEXT]，[CN_TEXT]Switch.
-     * true-Switch false-[CN_TEXT]Switch
+     * data，dataSwitch.
+     * true-Switch false-dataSwitch
      */
     var isChangeDevice: Boolean
         get() = SPUtils.getInstance().getBoolean("isChangeDevice", false)
@@ -377,28 +377,28 @@ object SharedManager {
     private const val HEAD_ICON: String = "head_icon"
 
     private const val BASE_HOST: String = "base_host"
-    private const val LANGUAGE = "language" // [CN_TEXT]Settings
+    private const val LANGUAGE = "language" // dataSettings
 
-    private const val HAS_SHOW_CLAUSE = "hasShowClause" // [CN_TEXT]
-    private const val TEMPERATURE_UNIT = "temperature" // [CN_TEXT]
-    private const val VERSION_CHECK_DATE = "version_check_date" // [CN_TEXT]
+    private const val HAS_SHOW_CLAUSE = "hasShowClause" // data
+    private const val TEMPERATURE_UNIT = "temperature" // data
+    private const val VERSION_CHECK_DATE = "version_check_date" // data
 
-    private const val DEVICE_SN = "deviceSn" // [CN_TEXT]SN
-    private const val DEVICE_VERSION = "deviceVersion" // [CN_TEXT]
+    private const val DEVICE_SN = "deviceSn" // dataSN
+    private const val DEVICE_VERSION = "deviceVersion" // data
 
-    private const val IR_CONFIG = "ir_config" // [CN_TEXT](json)
-    private const val SP_CUSTOM_PSEUDO = "sp_custom_pseudo" // [CN_TEXT]Pseudo-color[CN_TEXT]
-    private const val SP_TARGET_POP = "sp_target_pop" // Target[CN_TEXT]
+    private const val IR_CONFIG = "ir_config" // data(json)
+    private const val SP_CUSTOM_PSEUDO = "sp_custom_pseudo" // dataPseudo-colordata
+    private const val SP_TARGET_POP = "sp_target_pop" // Targetdata
 
-    private const val SP_SETTING_IS_PUSH = "sp_setting_is_push" // [CN_TEXT]
+    private const val SP_SETTING_IS_PUSH = "sp_setting_is_push" // data
     private const val SP_SETTING_IS_RECOMMEND = "sp_setting_is_recommend"
 
     /************************TS004************************************/
     private const val SP_HOT_MODE = "sp_hot_mode" // White hot
-    private const val SP_CHANGE_DEVICE = "sp_change_device" // ts001[CN_TEXT]ts004[CN_TEXT]Switch
-    private const val SP_TC007_CUSTOM_PSEUDO = "sp_tc007_custom_pseudo" // tc007[CN_TEXT]Pseudo-color[CN_TEXT]
+    private const val SP_CHANGE_DEVICE = "sp_change_device" // ts001datats004dataSwitch
+    private const val SP_TC007_CUSTOM_PSEUDO = "sp_tc007_custom_pseudo" // tc007dataPseudo-colordata
 
-    private const val SP_CAR_DETECT = "sp_car_detect" // [CN_TEXT]
+    private const val SP_CAR_DETECT = "sp_car_detect" // data
 
     fun setToken(token: String) {
         SPUtils.getInstance().put(TOKEN, token)
@@ -456,7 +456,7 @@ object SharedManager {
             .edit().putString(LANGUAGE, language).apply()
     }
 
-    // [CN_TEXT]Application[CN_TEXT]applicationContext[CN_TEXT]，[CN_TEXT]context
+    // dataApplicationdataapplicationContextdata，datacontext
     fun getLanguage(context: Context): String {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGE, "")!!
     }
@@ -527,7 +527,7 @@ object SharedManager {
     }
 
     /**
-     * Target[CN_TEXT]
+     * Targetdata
      */
     fun getTargetPop(): Boolean {
         return SPUtils.getInstance().getBoolean(SP_TARGET_POP, false)
@@ -537,8 +537,8 @@ object SharedManager {
         SPUtils.getInstance().put(SP_TARGET_POP, targetPop)
     }
 
-    private const val IR_DUAL_DISP = "ir_dual_disp" // Dual lightRegistration-[CN_TEXT]
-    private const val IR_DUAL_DISP_V = "ir_dual_disp_v" // Dual lightRegistration-[CN_TEXT]
+    private const val IR_DUAL_DISP = "ir_dual_disp" // Dual lightRegistration-data
+    private const val IR_DUAL_DISP_V = "ir_dual_disp_v" // Dual lightRegistration-data
 
     fun saveSettingIsPush(isPush: Boolean) {
         SPUtils.getInstance().put(SP_SETTING_IS_PUSH, isPush)
@@ -557,7 +557,7 @@ object SharedManager {
     }
 
     /**
-     * [CN_TEXT]
+     * data
      */
     fun getMainPermissionsState(): Boolean {
         return SPUtils.getInstance().getBoolean("main_permissions_state", false)
@@ -577,7 +577,7 @@ object SharedManager {
     /************************TS004************************************/
 
     /**
-     * TS004[CN_TEXT]-Black hot
+     * TS004data-Black hot
      */
     fun getHotMode(): Int {
         return SPUtils.getInstance().getInt(SP_HOT_MODE, 1)
@@ -588,7 +588,7 @@ object SharedManager {
     }
 
     /**
-     * TS004[CN_TEXT]TS001[CN_TEXT]Switch device 0:[CN_TEXT]  1:TS001[CN_TEXT]  2:TS004[CN_TEXT]
+     * TS004dataTS001dataSwitch device 0:data  1:TS001data  2:TS004data
      */
     fun getChangeDevice(): Int {
         return SPUtils.getInstance().getInt(SP_CHANGE_DEVICE, 0)

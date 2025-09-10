@@ -34,7 +34,7 @@ class UsbBuffer {
     private var findHeadFramePos = -1
 
     /**
-     * [CN_TEXT]
+     * data
      */
     private fun getMark(buf: ByteArray, offset: Int): Int {
         return (buf[offset].toUByte().toInt().shl(0) or ((buf[offset + 1].toUByte()).toInt()
@@ -46,7 +46,7 @@ class UsbBuffer {
         var i = 0
         while (i < frame.size - 1) {
             if (getMark(frame, i) == mark1) {
-                //Log.d(TAG, "[CN_TEXT]...");
+                //Log.d(TAG, "data...");
                 return true
             }
             i += 2
@@ -58,7 +58,7 @@ class UsbBuffer {
         var i = 0
         while (i < frame.size - 1) {
             if (getMark(frame, i) == mark1) {
-//                Log.d(TAG, "[CN_TEXT]...")
+//                Log.d(TAG, "data...")
                 return i
             }
             i += 2
@@ -70,7 +70,7 @@ class UsbBuffer {
         if (mRingBuffer == null) {
             return false
         }
-        //Current[CN_TEXT]buffer[CN_TEXT]4[CN_TEXT]，[CN_TEXT]
+        //Currentdatabufferdata4data，data
         if (mRingBuffer.getUnReadLength() < mFrameSize * 4) {
 //            Logger.d(TAG, "RingBuffer <4");
             return false
@@ -88,9 +88,9 @@ class UsbBuffer {
 //        Log.d(TAG, "1 findHeadFrame=" + findHeadFrame);
         if (findHeadFramePos != -1) {
             //Log.d(TAG, "1: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));
-            //[CN_TEXT]
+            // Implementation
             mRingBuffer.moveBack(mPacketSize - findHeadFramePos)
-            //[CN_TEXT]
+            // Implementation
             mRingBuffer.moveForward(mFrameSize)
             mRingBuffer.read(mPakagebuffer, 0, mPacketSize)
             //Log.d(TAG, "2: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));
@@ -110,7 +110,7 @@ class UsbBuffer {
             try {
                 synchronized(this) {
                     Log.d(TAG, "wait(100)")
-                    lock.wait(100)//kotlin any[CN_TEXT]wait()
+                    lock.wait(100)//kotlin anydatawait()
                 }
             } catch (e: InterruptedException) {
                 e.printStackTrace()

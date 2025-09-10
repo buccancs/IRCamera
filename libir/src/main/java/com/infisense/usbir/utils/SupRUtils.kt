@@ -9,14 +9,14 @@ object SupRUtils {
 
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun canOpenSupR() :Boolean{
         return true
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun showOpenSupRTipsDialog(activity : Activity){
 

@@ -33,7 +33,7 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
         }
 
     /**
-     * ObservationMode-Menu2-[CN_TEXT]Low temperature[CN_TEXT] [CN_TEXT]，[CN_TEXT]。
+     * ObservationMode-Menu2-itemLow temperatureitem item，item。
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 

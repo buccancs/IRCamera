@@ -245,7 +245,7 @@ class YapVideoEncoder(
             try {
                 mediaCodec!!.signalEndOfInputStream()
             } catch (e: Exception) {
-                Log.e("123", "[CN_TEXT]:${e.message}")
+                Log.e("123", "data:${e.message}")
                 e.printStackTrace()
             }
         }

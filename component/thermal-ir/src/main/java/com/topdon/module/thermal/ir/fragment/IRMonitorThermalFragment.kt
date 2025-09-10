@@ -42,11 +42,11 @@ import com.infisense.usbir.view.CameraView
 import android.widget.FrameLayout
 
 /**
- * [CN_TEXT]
+ * fragment
  */
 class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
-    /** [CN_TEXT]Mode：[CN_TEXT]+[CN_TEXT] */
+    /** fragmentMode：fragment+fragment */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
@@ -59,7 +59,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     override fun initContentView() = R.layout.fragment_ir_monitor_thermal
 
-    private var rotateAngle = 270 //[CN_TEXT]Angle270
+    private var rotateAngle = 270 // Fragment logicAngle270
     private var ts_data_H: ByteArray? = null
     private var ts_data_L: ByteArray? = null
     private var isPick = false
@@ -104,19 +104,19 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         Log.w("123", "event:${event.action}")
         when (event.action) {
             2001 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
                 readPosition(1)
             }
             2002 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
                 readPosition(2)
             }
             2003 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
                 readPosition(3)
@@ -148,7 +148,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -169,23 +169,23 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
         setViewLay()
-        // [CN_TEXT]sensor
+        // fragmentsensor
         if (Usbcontorl.isload) {
-            Usbcontorl.usb3803_mode_setting(1) //[CN_TEXT]5V
-            Log.w("123", "[CN_TEXT]5V")
+            Usbcontorl.usb3803_mode_setting(1) // Fragment logic5V
+            Log.w("123", "fragment5V")
         }
-        //[CN_TEXT]Temperature measurement
+        // Fragment logicTemperature measurement
         temperatureView.post {
             if (!temperaturerun) {
                 temperaturerun = true
-                //[CN_TEXT]
+                // Fragment logic
                 temperatureView.visibility = View.VISIBLE
             }
         }
     }
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun startISP() {
 
@@ -200,7 +200,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             imageThread!!.setRotate(true)
             imageThread!!.start()
         }catch (e : Exception){
-            Log.e("[CN_TEXT]",e.message.toString())
+            Log.e("fragment",e.message.toString())
         }
     }
 
@@ -220,13 +220,13 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                         "ConnectCallback->onIRCMDCreate"
                     )
                     this@IRMonitorThermalFragment.ircmd = ircmd
-                    //[CN_TEXT]
+                    // Fragment logic
                     ircmd.setPropImageParams(
                         CommonParams.PropImageParams.IMAGE_PROP_SEL_MIRROR_FLIP,
 
                         CommonParams.PropImageParamsValue.MirrorFlipType.NO_MIRROR_FLIP
                     )
-                    // [CN_TEXT]IRCMD[CN_TEXT]
+                    // fragmentIRCMDfragment
 //                    ircmd?.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.PseudoColorType.PSEUDO_1)
                     val fwBuildVersionInfoBytes = ByteArray(50)
                     ircmd?.getDeviceInfo(
@@ -239,11 +239,11 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                     ircmd!!.getPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value)
                     Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                     gainStatus = if (value[0] == 1) {
-                        // CurrentCore[CN_TEXT]High gain
+                        // CurrentCorefragmentHigh gain
                         CommonParams.GainStatus.HIGH_GAIN
-                        // [CN_TEXT]
+                        // fragment
                     } else {
-                        // CurrentCore[CN_TEXT]Low gain
+                        // CurrentCorefragmentLow gain
                         CommonParams.GainStatus.LOW_GAIN
                     }
                 }
@@ -282,7 +282,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         super.onStart()
         Log.w(TAG, "onStart")
         if (!isrun) {
-            //[CN_TEXT],Pseudo-colorIron red
+            // Fragment logic,Pseudo-colorIron red
             if (isPick){
                 pseudocolorMode = SaveSettingUtil.pseudoColorMode
             }else{
@@ -293,7 +293,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
             temperatureView.start()
             cameraView!!.start()
             isrun = true
-            //[CN_TEXT]
+            // Fragment logic
             configParam()
         }
     }
@@ -320,9 +320,9 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         } catch (e: InterruptedException) {
             Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
-        // [CN_TEXT]sensor
+        // fragmentsensor
 //        if (Usbcontorl.isload) {
-//            Usbcontorl.usb3803_mode_setting(0) //[CN_TEXT]5V
+//            Usbcontorl.usb3803_mode_setting(0) // Fragment logic5V
 //        }
 //        if (tempinfo != 0L) {
 //            Libircmd.temp_correction_release(tempinfo)
@@ -353,7 +353,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         }
     }
 
-    //[CN_TEXT]
+    // Fragment logic
     private fun updateTemp(type: Int) {
         var result: SelectPositionBean? = null
         val contentRectF = RectF(0f,0f,192f,256f)
@@ -411,7 +411,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                 params.height = params.width * imageHeight / imageWidth
                 thermalLay.layoutParams = params
             } else {
-                // [CN_TEXT]
+                // fragment
                 val params = thermalLay.layoutParams
                 params.height = thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
@@ -424,11 +424,11 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 showLoadingDialog()
             }
             101 -> {
-                //[CN_TEXT]
+                // Fragment logic
                 lifecycleScope.launch {
                     delay(500)
                     isConfigWait = false
@@ -441,7 +441,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
 
     private var isConfigWait = true
 
-    //[CN_TEXT]
+    // Fragment logic
     private fun configParam() {
         lifecycleScope.launch {
             imageThread?.pseudocolorMode = pseudocolorMode//SettingsPseudo-color
@@ -450,27 +450,27 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                 delay(100)
             }
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() //[CN_TEXT]([CN_TEXT])
-            val emsChar = (config.radiation * 128).toInt() //[CN_TEXT]
-//            val tuChar = (config.environment * 10).toInt().toChar() //[CN_TEXT]
+            val disChar = (config.distance * 128).toInt() // Fragment logic(fragment)
+            val emsChar = (config.radiation * 128).toInt() // Fragment logic
+//            val tuChar = (config.environment * 10).toInt().toChar() // Fragment logic
             XLog.w("SettingsTPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)
-            //[CN_TEXT]
+            // Fragment logic
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString())
             )
             delay(timeMillis)
-            //[CN_TEXT]
+            // Fragment logic
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString())
             )
-            // [CN_TEXT]
+            // fragment
             delay(timeMillis)
             iruvc?.let {
-                // [CN_TEXT]，[CN_TEXT]
+                // fragment，fragment
                 withContext(Dispatchers.IO){
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd?.setPropAutoShutterParameter(
@@ -485,7 +485,7 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
                     }
                 }
             }
-            //[CN_TEXT]、[CN_TEXT]
+            // Fragment logic、fragment
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -509,11 +509,11 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
     }
 
     fun startCoverStsSwitchReady() : Int{
-        // [CN_TEXT]-[CN_TEXT]
+        // fragment-fragment
         return  ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
     fun startCoverStsSwitch() : Int{
-        // [CN_TEXT]-[CN_TEXT]
+        // fragment-fragment
         ircmd?.rmCoverAutoCalc(CommonParams.RMCoverAutoCalcType.GAIN_1)
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
@@ -523,14 +523,14 @@ class IRMonitorThermalFragment : BaseFragment(),ITsTempListener {
         try {
             tmp = tempCorrect(temp!!, gainStatus, 0)
         } catch (e: Exception) {
-            XLog.i("[CN_TEXT]: ${e.message}")
+            XLog.i("fragment: ${e.message}")
         }
         return tmp!!
     }
 
 
     /**
-     * [CN_TEXT]
+     * fragment
      */
     private fun tempCorrect(
         temp: Float,

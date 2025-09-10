@@ -30,10 +30,10 @@ object TS004Repository {
     private fun getOKHttpClient(): OkHttpClient {
         val build =
             OkHttpClient.Builder()
-                .retryOnConnectionFailure(false) // [CN_TEXT]
-                .connectTimeout(15, TimeUnit.SECONDS) // 2024-5-29 TS004 [CN_TEXT]15[CN_TEXT]
-                .readTimeout(15, TimeUnit.SECONDS) // 2024-5-29 TS004 [CN_TEXT]15[CN_TEXT]
-                .writeTimeout(15, TimeUnit.SECONDS) // 2024-5-29 TS004 [CN_TEXT]15[CN_TEXT]
+                .retryOnConnectionFailure(false) // repository
+                .connectTimeout(15, TimeUnit.SECONDS) // 2024-5-29 TS004 repository15repository
+                .readTimeout(15, TimeUnit.SECONDS) // 2024-5-29 TS004 repository15repository
+                .writeTimeout(15, TimeUnit.SECONDS) // 2024-5-29 TS004 repository15repository
                 .addInterceptor(OKLogInterceptor(false))
         netWork?.socketFactory?.let {
             build.socketFactory(it)
@@ -52,9 +52,9 @@ object TS004Repository {
             .create(TS004Service::class.java)
 
     /**
-     * [CN_TEXT]
-     * @param dataMap key-URL，value-[CN_TEXT]
-     * @param listener [CN_TEXT]，[CN_TEXT]
+     * repository
+     * @param dataMap key-URL，value-repository
+     * @param listener repository，repository
      */
     suspend fun downloadList(
         dataMap: Map<String, File>,
@@ -110,7 +110,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT].
+     * repository.
      */
     suspend fun syncTime(): Boolean =
         withContext(Dispatchers.IO) {
@@ -131,7 +131,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT].
+     * repository.
      */
     suspend fun syncTimeZone(): Boolean =
         withContext(Dispatchers.IO) {
@@ -145,7 +145,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getVersion(): TS004Response<VersionBean>? =
         withContext(Dispatchers.IO) {
@@ -157,7 +157,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getDeviceInfo(): TS004Response<DeviceInfo>? =
         withContext(Dispatchers.IO) {
@@ -169,8 +169,8 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT].
-     * @param fileType 0-[CN_TEXT] 1-Video 2-All
+     * repository.
+     * @param fileType 0-repository 1-Video 2-All
      */
     suspend fun getFileCount(fileType: Int): Int? =
         withContext(Dispatchers.IO) {
@@ -184,8 +184,8 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]SpecifiedType[CN_TEXT].
-     * @param fileType 0-[CN_TEXT] 1-Video 2-All
+     * repositorySpecifiedTyperepository.
+     * @param fileType 0-repository 1-Video 2-All
      */
     suspend fun getNewestFile(fileType: Int): List<FileBean>? =
         withContext(Dispatchers.IO) {
@@ -201,8 +201,8 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]SpecifiedType[CN_TEXT]All[CN_TEXT].
-     * @param fileType 0-[CN_TEXT] 1-Video 2-All
+     * repositorySpecifiedTyperepositoryAllrepository.
+     * @param fileType 0-repository 1-Video 2-All
      */
     suspend fun getAllFileList(fileType: Int): List<FileBean> =
         withContext(Dispatchers.IO) {
@@ -223,9 +223,9 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]SpecifiedType[CN_TEXT].
-     * @param fileType 0-[CN_TEXT] 1-Video 2-All
-     * @return null-[CN_TEXT]
+     * repositorySpecifiedTyperepository.
+     * @param fileType 0-repository 1-Video 2-All
+     * @return null-repository
      */
     suspend fun getFileByPage(
         fileType: Int,
@@ -247,7 +247,7 @@ object TS004Repository {
     data class IdData(val id: Int)
 
     /**
-     * DeleteSpecified id [CN_TEXT]
+     * DeleteSpecified id repository
      */
     suspend fun deleteFiles(ids: Array<Int>): Boolean =
         withContext(Dispatchers.IO) {
@@ -266,7 +266,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT].
+     * repository.
      */
     suspend fun updateFirmware(file: File): Boolean =
         withContext(Dispatchers.IO) {
@@ -292,7 +292,7 @@ object TS004Repository {
                 }
 
                 var status = getTS004Service().getUpgradeStatus().data?.status
-                while (status == 0 || status == 1 || status == 2) { // [CN_TEXT]
+                while (status == 0 || status == 1 || status == 2) { // repository
                     delay(1000)
                     status = getTS004Service().getUpgradeStatus().data?.status
                 }
@@ -323,7 +323,7 @@ object TS004Repository {
                 fileInputStream = FileInputStream(file)
 
                 var hasReadCount = 0
-                var byteArray = ByteArray(1024 * 1024 * 5) // 5M[CN_TEXT]
+                var byteArray = ByteArray(1024 * 1024 * 5) // 5Mrepository
 
                 var readCount = fileInputStream.read(byteArray)
                 while (readCount != -1) {
@@ -331,7 +331,7 @@ object TS004Repository {
                     if (hasReadCount == 1024 * 1024 * 5) {
                         getTS004Service().sendUpgradeFile(byteArray.toRequestBody())
                         hasReadCount = 0
-                        byteArray = ByteArray(1024 * 1024 * 5) // 5M[CN_TEXT]
+                        byteArray = ByteArray(1024 * 1024 * 5) // 5Mrepository
                     }
                     readCount = fileInputStream.read(byteArray, hasReadCount, byteArray.size - hasReadCount)
                 }
@@ -362,8 +362,8 @@ object TS004Repository {
         }
 
     /**
-     * SettingsPseudo-color[CN_TEXT]
-     * @param mode Pseudo-color[CN_TEXT] White hot-1，Black hot-2，Red hot-9, Iron red-5
+     * SettingsPseudo-colorrepository
+     * @param mode Pseudo-colorrepository White hot-1，Black hot-2，Red hot-9, Iron red-5
      */
     suspend fun setPseudoColor(mode: Int): Boolean =
         withContext(Dispatchers.IO) {
@@ -378,7 +378,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]Pseudo-color[CN_TEXT]
+     * repositoryPseudo-colorrepository
      */
     suspend fun getPseudoColor(): TS004Response<PseudoColorBean>? =
         withContext(Dispatchers.IO) {
@@ -390,8 +390,8 @@ object TS004Repository {
         }
 
     /**
-     * Settings[CN_TEXT]
-     * @param state 0-[CN_TEXT]，1-[CN_TEXT]
+     * Settingsrepository
+     * @param state 0-repository，1-repository
      */
     suspend fun setRangeFind(state: Int): Boolean =
         withContext(Dispatchers.IO) {
@@ -405,7 +405,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getRangeFind(): TS004Response<RangeBean>? =
         withContext(Dispatchers.IO) {
@@ -417,8 +417,8 @@ object TS004Repository {
         }
 
     /**
-     * Settings[CN_TEXT]
-     * @param brightness  [CN_TEXT]:[CN_TEXT]0-100
+     * Settingsrepository
+     * @param brightness  repository:repository0-100
      */
     suspend fun setPanelParam(brightness: Int): Boolean =
         withContext(Dispatchers.IO) {
@@ -432,7 +432,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getPanelParam(): TS004Response<BrightnessBean>? =
         withContext(Dispatchers.IO) {
@@ -445,7 +445,7 @@ object TS004Repository {
 
     /**
      * SettingsPicture in picture
-     * @param enable  true [CN_TEXT]，false [CN_TEXT]
+     * @param enable  true repository，false repository
      */
     suspend fun setPip(enable: Boolean): Boolean =
         withContext(Dispatchers.IO) {
@@ -459,7 +459,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]Picture in picture
+     * repositoryPicture in picture
      */
     suspend fun getPip(): TS004Response<PipBean>? =
         withContext(Dispatchers.IO) {
@@ -471,8 +471,8 @@ object TS004Repository {
         }
 
     /**
-     * Settings[CN_TEXT]
-     * @param factor [CN_TEXT]:1,2,4,8
+     * Settingsrepository
+     * @param factor repository:1,2,4,8
      */
     suspend fun setZoom(factor: Int): Boolean =
         withContext(Dispatchers.IO) {
@@ -487,7 +487,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getZoom(): TS004Response<ZoomBean>? =
         withContext(Dispatchers.IO) {
@@ -500,7 +500,7 @@ object TS004Repository {
 
     /**
      * SettingsPhoto
-     * @param factor [CN_TEXT]:1,2,4,8
+     * @param factor repository:1,2,4,8
      */
     suspend fun setSnapshot(): Boolean =
         withContext(Dispatchers.IO) {
@@ -513,7 +513,7 @@ object TS004Repository {
 
     /**
      * SettingsVideo
-     * @param enable [CN_TEXT]
+     * @param enable repository
      */
     suspend fun setVideo(enable: Boolean): Boolean =
         withContext(Dispatchers.IO) {
@@ -527,7 +527,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]State
+     * repositoryState
      */
     suspend fun getRecordStatus(): TS004Response<RecordStatusBean>? =
         withContext(Dispatchers.IO) {
@@ -539,7 +539,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getFreeSpace(): FreeSpaceBean? =
         withContext(Dispatchers.IO) {
@@ -551,7 +551,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]
+     * repository
      */
     suspend fun getFormatStorage(): Boolean =
         withContext(Dispatchers.IO) {
@@ -563,12 +563,12 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]Settings
+     * repositorySettings
      */
     suspend fun getResetAll(): Boolean =
         withContext(Dispatchers.IO) {
             try {
-                // [CN_TEXT]Historical legacy[CN_TEXT]，[CN_TEXT] status 0 [CN_TEXT]，[CN_TEXT]，100 [CN_TEXT]
+                // repositoryHistorical legacyrepository，repository status 0 repository，repository，100 repository
                 getTS004Service().resetAll().status == 100
             } catch (_: Exception) {
                 false
@@ -576,8 +576,8 @@ object TS004Repository {
         }
 
     /**
-     * Settings[CN_TEXT]
-     * @param state 0-[CN_TEXT] 1-[CN_TEXT]
+     * Settingsrepository
+     * @param state 0-repository 1-repository
      */
     suspend fun setTISR(state: Int): Boolean =
         withContext(Dispatchers.IO) {
@@ -591,7 +591,7 @@ object TS004Repository {
         }
 
     /**
-     * [CN_TEXT]State
+     * repositoryState
      */
     suspend fun getTISR(): TS004Response<TISRBean>? =
         withContext(Dispatchers.IO) {

@@ -46,7 +46,7 @@ public class TimeDownView : AppCompatTextView {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      *
      * @param seconds
      */
@@ -68,12 +68,12 @@ public class TimeDownView : AppCompatTextView {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      *
-     * @param downCount     [CN_TEXT]
-     * @param lastDown      [CN_TEXT]
-     * @param delayMills    [CN_TEXT]（[CN_TEXT]）
-     * @param intervalMills [CN_TEXT]（[CN_TEXT]）
+     * @param downCount     view
+     * @param lastDown      view
+     * @param delayMills    view（view）
+     * @param intervalMills view（view）
      */
     fun downTime(downCount: Int, lastDown: Int, delayMills: Long, intervalMills: Long,startAnimate : Boolean) {
         timer = Timer()
@@ -105,14 +105,14 @@ public class TimeDownView : AppCompatTextView {
     }
 
     /**
-     * [CN_TEXT]
+     * view
      */
     fun cancel() {
         animationSet?.cancel()
         downTimerTask?.cancel()
         timer?.cancel()
         drawTextFlag = DRAW_TEXT_NO
-        invalidate() //[CN_TEXT]
+        invalidate() // View rendering
         visibility = GONE
         downTimerTask = null
         timer = null
@@ -136,11 +136,11 @@ public class TimeDownView : AppCompatTextView {
     }
 
     /**
-     * [CN_TEXT].
+     * view.
      */
     var onTimeListener: ((time: Int) -> Unit)? = null
     /**
-     * [CN_TEXT].
+     * view.
      */
     var onFinishListener: (() -> Unit)? = null
 
@@ -149,7 +149,7 @@ public class TimeDownView : AppCompatTextView {
     var downTimeWatcher: DownTimeWatcher? = null
 
     /**
-     * [CN_TEXT]
+     * view
      * @param downTimeWatcher
      */
     fun setOnTimeDownListener(downTimeWatcher: DownTimeWatcher?) {
@@ -166,23 +166,23 @@ public class TimeDownView : AppCompatTextView {
                     downTimeWatcher!!.onTime(downCount)
                 }
                 onTimeListener?.invoke(downCount)
-//                Log.e("[CN_TEXT]","//handleMessage"+downCount+"//"+lastDown);
+//                Log.e("view","//handleMessage"+downCount+"//"+lastDown);
                 if (downCount >= lastDown - 1) {
-                    drawTextFlag = DRAW_TEXT_YES //[CN_TEXT]
-                    //[CN_TEXT]
+                    drawTextFlag = DRAW_TEXT_YES // View rendering
+                    // View rendering
                     if (downCount >= lastDown) {
                         text = downCount.toString() + ""
                         startDefaultAnimate()
                         if (downCount == lastDown && downTimeWatcher != null) {
                             downTimeWatcher!!.onLastTime(downCount)
                         }
-                    } else if (downCount == lastDown - 1) { // [CN_TEXT]lastDown[CN_TEXT]0，downCount == -1[CN_TEXT]。
-                        //[CN_TEXT]，[CN_TEXT]setText()[CN_TEXT]onDraw，[CN_TEXT]
-                        //Settings[CN_TEXT]
+                    } else if (downCount == lastDown - 1) { // viewlastDownview0，downCount == -1view。
+                        // View rendering，viewsetText()viewonDraw，view
+                        //Settingsview
                         if (afterDownDimissFlag == AFTER_LAST_TIME_DIMISS) {
                             drawTextFlag = DRAW_TEXT_NO
                         }
-                        invalidate() //[CN_TEXT]
+                        invalidate() // View rendering
                         isRunning = false
                         downTimerTask == null
                         timer?.cancel()
@@ -203,26 +203,26 @@ public class TimeDownView : AppCompatTextView {
     private val DRAW_TEXT_NO = 0
 
     /**
-     * [CN_TEXT]onDraw[CN_TEXT]，[CN_TEXT]
+     * viewonDrawview，view
      */
     private var drawTextFlag = DRAW_TEXT_YES
     private val AFTER_LAST_TIME_DIMISS = 1
     private val AFTER_LAST_TIME_NODIMISS = 0
 
     /**
-     * [CN_TEXT]，[CN_TEXT]
+     * view，view
      */
     private var afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsview
      */
     fun setAfterDownNoDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_NODIMISS
     }
 
     /**
-     * Settings[CN_TEXT]
+     * Settingsview
      */
     fun setAferDownDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
@@ -230,13 +230,13 @@ public class TimeDownView : AppCompatTextView {
 
     var startDefaultAnimFlag = true
 
-    //[CN_TEXT]
+    // View rendering
     fun closeDefaultAnimate() {
         animationSet?.reset()
         startDefaultAnimFlag = false
     }
 
-    //[CN_TEXT]
+    // View rendering
     private fun startDefaultAnimate() {
         if (startDefaultAnimFlag) {
             animation?.start()
@@ -260,7 +260,7 @@ public class TimeDownView : AppCompatTextView {
         scaleAnimation.duration = intervalMills
         val alphaAnimation = AlphaAnimation(1f, 0.3f)
         alphaAnimation.duration = intervalMills
-        //[CN_TEXT]AlphaAnimation[CN_TEXT]Settings[CN_TEXT] AnimationSet[CN_TEXT]
+        // View renderingAlphaAnimationviewSettingsview AnimationSetview
         animationSet!!.addAnimation(scaleAnimation)
         animationSet!!.addAnimation(alphaAnimation)
         animationSet!!.interpolator = AccelerateInterpolator()

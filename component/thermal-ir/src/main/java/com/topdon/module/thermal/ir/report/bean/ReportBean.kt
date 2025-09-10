@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * [CN_TEXT].
+ * data.
  */
 @Parcelize
 data class ReportBean(

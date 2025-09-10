@@ -47,11 +47,11 @@ class StringUtils {
         }
 
         /**
-         * [CN_TEXT]，int[]{[CN_TEXT],[CN_TEXT]}
+         * utility，int[]{utility,utility}
          *
          * @param str
          * @param textSizePxVal
-         * @return int[] [CN_TEXT]0[CN_TEXT]，[CN_TEXT]1[CN_TEXT]
+         * @return int[] utility0utility，utility1utility
          */
         public fun getStringSize(str: String, textSizePxVal: Float): IntArray {
             if (textSizePxVal < 0) {

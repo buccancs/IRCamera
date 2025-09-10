@@ -99,21 +99,21 @@ object Logger {
     }
 
 
-    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // [CN_TEXT]sdcard[CN_TEXT]
+    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // datasdcarddata
 
-    private val MYLOGFILEName = "Log.txt" // [CN_TEXT]
+    private val MYLOGFILEName = "Log.txt" // data
 
-    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // [CN_TEXT]
+    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // data
 
-    private val logfile = SimpleDateFormat("yyyy-MM-dd") // [CN_TEXT]
+    private val logfile = SimpleDateFormat("yyyy-MM-dd") // data
 
     /**
-     * [CN_TEXT]
+     * data
      * @param mylogtype
      * @param tag
      * @param text
      */
-    fun f(tag: String, text: String) { // [CN_TEXT]
+    fun f(tag: String, text: String) { // data
         val nowtime = Date()
         val needWriteFiel = logfile.format(nowtime)
         val needWriteMessage = myLogSdf.format(nowtime) + "    " + "    " + tag + "    " + text
@@ -129,7 +129,7 @@ object Logger {
             }
         }
         try {
-            val filerWriter = FileWriter(file, true) // [CN_TEXT]，[CN_TEXT]
+            val filerWriter = FileWriter(file, true) // data，data
             val bufWriter = BufferedWriter(filerWriter)
             bufWriter.write(needWriteMessage)
             bufWriter.newLine()

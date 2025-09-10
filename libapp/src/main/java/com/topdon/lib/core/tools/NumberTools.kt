@@ -6,36 +6,36 @@ import java.util.*
 
 object NumberTools {
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun to01(float: Float): String {
         return String.format(Locale.ENGLISH, "%.1f", float)
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun to01f(float: Float): Float {
         return to01(float).toFloat()
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun to02(float: Float): String {
         return String.format(Locale.ENGLISH, "%.2f", float)
     }
 
     /**
-     * [CN_TEXT]
+     * utility
      */
     fun to02f(float: Float): Float {
         return to02(float).toFloat()
     }
 
     /**
-     * [CN_TEXT]
-     * @param newScale [CN_TEXT]
+     * utility
+     * @param newScale utility
      */
     fun scale(
         value: Float,

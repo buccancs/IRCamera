@@ -10,7 +10,7 @@ import java.io.*
 
 
 /**
- * created by liuhongwei gd02527 on 2018[CN_TEXT]08[CN_TEXT]29[CN_TEXT]
+ * created by liuhongwei gd02527 on 2018utility08utility29utility
  */
 class FileUtils {
 
@@ -29,14 +29,14 @@ class FileUtils {
 
 
         /**
-         * Delete[CN_TEXT]
-         * @param   filePath [CN_TEXT]Delete[CN_TEXT]
-         * @return  [CN_TEXT]Delete[CN_TEXT]true，[CN_TEXT]false
+         * Deleteutility
+         * @param   filePath utilityDeleteutility
+         * @return  utilityDeleteutilitytrue，utilityfalse
          */
         fun deleteDirectory(filePath: String): Boolean {
             var filePath = filePath
             var flag = false
-            //[CN_TEXT]filePath[CN_TEXT]，[CN_TEXT]
+            // Utility functionfilePathutility，utility
             if (!filePath.endsWith(File.separator)) {
                 filePath = filePath + File.separator
             }
@@ -46,20 +46,20 @@ class FileUtils {
             }
             flag = true
             val files = dirFile.listFiles()
-            //[CN_TEXT]Delete[CN_TEXT]All[CN_TEXT]([CN_TEXT])
+            // Utility functionDeleteutilityAllutility(utility)
             for (i in files.indices) {
                 if (files[i].isFile) {
-                    //Delete[CN_TEXT]
+                    //Deleteutility
                     flag = deleteFile(files[i].absolutePath)
                     if (!flag) break
                 } else {
-                    //Delete[CN_TEXT]
+                    //Deleteutility
                     flag = deleteDirectory(files[i].absolutePath)
                     if (!flag) break
                 }
             }
             return if (!flag) false else dirFile.delete()
-            //DeleteCurrent[CN_TEXT]
+            //DeleteCurrentutility
         }
 
         fun deleteFile(path: String): Boolean {
@@ -89,11 +89,11 @@ class FileUtils {
 
 
         fun appFile(data: ByteArray, filePath: String) {
-            // [CN_TEXT]，[CN_TEXT]
+            // utility，utility
             var randomFile = RandomAccessFile(filePath, "rw")
-            // [CN_TEXT]，[CN_TEXT]
+            // utility，utility
             var fileLength = randomFile.length()
-            //[CN_TEXT]。
+            // Utility function。
             randomFile.seek(fileLength);
             randomFile.write(data);
 
@@ -130,7 +130,7 @@ class FileUtils {
         }
 
         /**
-         * [CN_TEXT]Bitmap[CN_TEXT]JPG[CN_TEXT]
+         * utilityBitmaputilityJPGutility
          *
          * @param bmp
          * @param filePath
@@ -170,7 +170,7 @@ class FileUtils {
         /**
          * RotateBitmap
          *
-         * @param srcBitmap    [CN_TEXT]Bitmap
+         * @param srcBitmap    utilityBitmap
          * @param rotateDegree RotateAngle
          * @return
          */
@@ -235,7 +235,7 @@ class FileUtils {
                         if (imagePath.contains(".jpg")) {
                             var rotate = 0
                             val exif = ExifInterface(imagePath)
-                            //[CN_TEXT]
+                            // Utility function
                             val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
 
                             when (orientation) {
@@ -267,7 +267,7 @@ class FileUtils {
         }
 
         fun readFile2ByteArr(filePath: String, fileNotFoundErrAction: () -> Unit, ioErrAction: () -> Unit): ByteArray? {
-            // [CN_TEXT]
+            // utility
             var fis: FileInputStream? = null
             val inFile = File(filePath)
             val buffer: ByteArray?
@@ -308,7 +308,7 @@ class FileUtils {
                 }
             } catch (e1: Exception) {
                 e1.printStackTrace()
-                // [CN_TEXT]
+                // utility
                 try {
                     if (null != inputStream) {
                         byteArr = ByteArray(inputStream.available())
