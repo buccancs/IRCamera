@@ -697,7 +697,7 @@ def calculate_temporal_alignment(
     Returns:
         Dictionary mapping device_id to offset in nanoseconds
     """
-    device_offsets: Dict[str, int] = {}
+    device_offsets: Dict[str, float] = {}
 
     if not sync_events:
         return device_offsets

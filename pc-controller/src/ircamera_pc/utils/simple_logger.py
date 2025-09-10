@@ -14,7 +14,7 @@ and enterprise-grade features.
 - **Performance Optimized**: < 1ms logging overhead in production
 - **Thread-Safe Operations**: Full concurrency support for multi-threaded applications
 
-### Enterprise Integration  
+### Enterprise Integration
 - **Log Aggregation**: Compatible with ELK Stack and Splunk
 - **Security Compliance**: PII redaction and secure log transport
 - **Monitoring Integration**: Prometheus metrics and alerting support

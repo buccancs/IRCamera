@@ -143,7 +143,7 @@ class SessionMetadata:
         # Validate session_id format
         if not self.session_id:
             raise ValueError("Session ID cannot be empty")
-        
+
         # Ensure state is valid
         if self.state not in [state.value for state in SessionState]:
             logger.warning(f"Unknown session state: {self.state}")

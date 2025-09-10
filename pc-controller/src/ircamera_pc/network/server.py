@@ -792,7 +792,7 @@ class NetworkServer:
         return results
 
     async def start_recording_session(
-        self, session_id: str, session_name: str = None
+        self, session_id: str, session_name: Optional[str] = None
     ) -> Dict[str, bool]:
         """Start recording session on all devices using protocol format."""
         command = create_message(
@@ -821,7 +821,7 @@ class NetworkServer:
         return await self.broadcast_command(command)
 
     async def send_sync_mark(
-        self, mark_type: str, metadata: Dict[str, Any] = None
+        self, mark_type: str, metadata: Optional[Dict[str, Any]] = None
     ) -> Dict[str, bool]:
         """Send sync mark to all devices using protocol format."""
         command = create_message(
@@ -853,7 +853,7 @@ class NetworkServer:
         self,
         writer: asyncio.StreamWriter,
         error_message: str,
-        message_id: str = None,
+        message_id: Optional[str] = None,
     ) -> None:
         """Send error response to client using protocol format."""
         error_response = create_message(

@@ -456,7 +456,9 @@ class IntegrationManagementWidget(QWidget):
             self.hub_status_label.setStyleSheet("color: red;")
             self.hub_connect_btn.setText("Connect to Hub")
 
-    def update_spoke_count(self, count: int, active_spokes: Optional[List[str]] = None) -> None:
+    def update_spoke_count(
+        self, count: int, active_spokes: Optional[List[str]] = None
+    ) -> None:
         """Update active spoke count and list."""
         self.spoke_count_label.setText(f"Active Spokes: {count}")
         if count > 0:

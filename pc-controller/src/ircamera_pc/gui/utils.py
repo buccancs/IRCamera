@@ -244,12 +244,13 @@ def format_file_size(size_bytes: int) -> str:
     if size_bytes == 0:
         return "0 B"
 
+    size_float = float(size_bytes)
     for unit in ["B", "KB", "MB", "GB", "TB"]:
-        if size_bytes < 1024.0:
-            return f"{size_bytes:.1f} {unit}"
-        size_bytes = size_bytes / 1024.0
+        if size_float < 1024.0:
+            return f"{size_float:.1f} {unit}"
+        size_float = size_float / 1024.0
 
-    return f"{size_bytes:.1f} PB"
+    return f"{size_float:.1f} PB"
 
 
 def format_duration(seconds: float) -> str:

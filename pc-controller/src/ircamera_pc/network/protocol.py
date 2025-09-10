@@ -203,7 +203,7 @@ class ProtocolManager:
         """Add common fields to message schema."""
         if self._protocol_def is None:
             return schema
-        
+
         common_fields = self._protocol_def.get("common_fields", {})
 
         # Make a copy of the schema

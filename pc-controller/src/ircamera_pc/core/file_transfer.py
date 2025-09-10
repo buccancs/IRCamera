@@ -688,7 +688,8 @@ class FileTransferManager:
     def get_active_transfers(self) -> List[Dict[str, Any]]:
         """Get list of all active transfer statuses"""
         return [
-            status for job_id in self.active_jobs.keys()
+            status
+            for job_id in self.active_jobs.keys()
             if (status := self.get_transfer_status(job_id)) is not None
         ]
 

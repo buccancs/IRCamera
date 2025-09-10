@@ -20,6 +20,7 @@ def _create_pyqt_base_manager() -> type:
 
     try:
         from sip import wrappertype
+
         QObjectMetaClass = wrappertype
     except ImportError:
         QObjectMetaClass = type(QtQObject)

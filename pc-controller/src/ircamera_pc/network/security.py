@@ -136,6 +136,40 @@ class SecurityManager:
 
         return context
 
+    def _extract_certificate_info(
+        self, certificate
+    ) -> Tuple[Optional[str], Optional[str]]:
+        """Extract common name and organization from certificate subject."""
+        subject = certificate.subject
+        common_name = None
+        organization = None
+
+        for attribute in subject:
+            if attribute.oid == NameOID.COMMON_NAME:
+                common_name = attribute.value
+            elif attribute.oid == NameOID.ORGANIZATION_NAME:
+                organization = attribute.value
+
+        return common_name, organization
+
+    def _validate_topdon_device(self, common_name: str) -> Optional[str]:
+        """Validate and identify specific Topdon device types."""
+        device_types = {
+            "tc001": "TC001",
+            "ts004": "TS004",
+            "tc007": "TC007",
+        }
+
+        for device_key, device_type in device_types.items():
+            if device_key in common_name.lower():
+                return device_type
+
+        return None
+
+    def _is_topdon_organization(self, organization: Optional[str]) -> bool:
+        """Check if organization is Topdon."""
+        return organization and "topdon" in organization.lower()
+
     def validate_device_certificate(
         self, cert_data: bytes
     ) -> Tuple[bool, Optional[str]]:
@@ -150,27 +184,14 @@ class SecurityManager:
         """
         try:
             certificate = x509.load_pem_x509_certificate(cert_data)
-
-            # Extract device information from certificate
-            subject = certificate.subject
-            common_name = None
-            organization = None
-
-            for attribute in subject:
-                if attribute.oid == NameOID.COMMON_NAME:
-                    common_name = attribute.value
-                elif attribute.oid == NameOID.ORGANIZATION_NAME:
-                    organization = attribute.value
+            common_name, organization = self._extract_certificate_info(certificate)
 
             # Check if this is a known Topdon device
-            if organization and "topdon" in organization.lower():
+            if self._is_topdon_organization(organization):
                 if common_name:
-                    if "tc001" in common_name.lower():
-                        return True, "TC001"
-                    elif "ts004" in common_name.lower():
-                        return True, "TS004"
-                    elif "tc007" in common_name.lower():
-                        return True, "TC007"
+                    device_type = self._validate_topdon_device(common_name)
+                    if device_type:
+                        return True, device_type
 
             # Default to generic acceptance for development
             logger.warning(

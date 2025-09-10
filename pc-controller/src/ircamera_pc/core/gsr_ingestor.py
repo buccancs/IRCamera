@@ -689,7 +689,8 @@ class GSRIngestor:
                 "device_id": dataset.device_id,
                 "mode": dataset.mode.value,
                 "samples_collected": len(dataset.samples),
-                "duration": (dataset.end_time or dataset.start_time) - dataset.start_time,
+                "duration": (dataset.end_time or dataset.start_time)
+                - dataset.start_time,
                 "sample_rate": dataset.sample_rate,
                 "quality_stats": dataset.quality_stats,
             }

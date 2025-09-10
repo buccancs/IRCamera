@@ -25,18 +25,10 @@ except ImportError:
 
 from .base_manager import BaseManager
 
-try:
-    from PyQt6.QtCore import QThread, QTimer, pyqtSignal, pyqtSlot
 
-    PYQT_AVAILABLE = True
+def _create_mock_signal():
+    """Create mock PyQt signal for when PyQt is not available."""
 
-    class BaseThread(QThread):
-        pass
-
-except ImportError:
-    PYQT_AVAILABLE = False
-
-    # Fallback signal implementation for when PyQt is not available
     class MockPyQtSignal:
         def __init__(self, *args):
             self._callbacks = []
@@ -48,11 +40,23 @@ except ImportError:
         def connect(self, callback):
             self._callbacks.append(callback)
 
+    return MockPyQtSignal
+
+
+def _create_mock_slot():
+    """Create mock PyQt slot decorator for when PyQt is not available."""
+
     def mock_pyqt_slot(*args, **kwargs):
         def decorator(func):
             return func
 
         return decorator
+
+    return mock_pyqt_slot
+
+
+def _create_mock_thread():
+    """Create mock base thread for when PyQt is not available."""
 
     class MockBaseThread:
         def __init__(self):
@@ -71,11 +75,61 @@ except ImportError:
         def wait(self):
             pass
 
-    # Assign to the names that would be imported
-    pyqtSignal = MockPyQtSignal
-    pyqtSlot = mock_pyqt_slot
-    # For typing purposes, create BaseThread as an alias
-    BaseThread = MockBaseThread  # type: ignore
+    return MockBaseThread
+
+
+def _create_mock_timer():
+    """Create mock QTimer for when PyQt is not available."""
+
+    class MockQTimer:
+        def __init__(self):
+            self._timeout_callback = None
+
+        def timeout(self):
+            return self
+
+        def connect(self, callback):
+            self._timeout_callback = callback
+
+        def start(self, interval):
+            # In mock mode, don't start any timer
+            pass
+
+        def stop(self):
+            pass
+
+    return MockQTimer
+
+
+def _initialize_pyqt_imports():
+    """Initialize PyQt imports with fallbacks when not available."""
+    global PYQT_AVAILABLE, BaseThread, pyqtSignal, pyqtSlot, QTimer
+
+    try:
+        from PyQt6.QtCore import QThread, QTimer, pyqtSignal, pyqtSlot
+
+        PYQT_AVAILABLE = True
+
+        class BaseThread(QThread):
+            pass
+
+        return BaseThread, pyqtSignal, pyqtSlot, QTimer
+
+    except ImportError:
+        PYQT_AVAILABLE = False
+
+        # Use mock implementations
+        pyqtSignal = _create_mock_signal()
+        pyqtSlot = _create_mock_slot()
+        BaseThread = _create_mock_thread()  # type: ignore
+        QTimer = _create_mock_timer()  # type: ignore
+
+        return BaseThread, pyqtSignal, pyqtSlot, QTimer
+
+
+# Initialize PyQt components
+PYQT_AVAILABLE = False  # Initialize before function call
+BaseThread, pyqtSignal, pyqtSlot, QTimer = _initialize_pyqt_imports()
 
 
 try:
@@ -612,7 +666,9 @@ class WiFiManager(BaseManager):
         """Handle scan error."""
         self.error_occurred.emit("scan", error)
 
-    async def connect_to_network(self, ssid: str, password: Optional[str] = None) -> bool:
+    async def connect_to_network(
+        self, ssid: str, password: Optional[str] = None
+    ) -> bool:
         """
         Connect to a WiFi network.
 
@@ -669,7 +725,10 @@ class WiFiManager(BaseManager):
             self.error_occurred.emit("disconnect", str(e))
 
     async def start_hotspot(
-        self, ssid: Optional[str] = None, password: Optional[str] = None, channel: Optional[int] = None
+        self,
+        ssid: Optional[str] = None,
+        password: Optional[str] = None,
+        channel: Optional[int] = None,
     ) -> bool:
         """
         Start mobile hotspot for IRCamera device connections.
@@ -827,7 +886,7 @@ class WiFiManager(BaseManager):
             logger.error(f"Status update failed: {e}")
 
     async def _platform_connect(
-        self, ssid: str, password: str, security: NetworkSecurityType
+        self, ssid: str, password: Optional[str], security: NetworkSecurityType
     ) -> bool:
         """Platform-specific WiFi connection implementation."""
         system = platform.system()

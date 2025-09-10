@@ -92,7 +92,7 @@ License:
 import asyncio
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 from loguru import logger
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
@@ -684,10 +684,10 @@ class MainWindow(QMainWindow):
             for device_id, device_info in connected_devices.items():
                 device_dict = {
                     "device_id": device_id,
-                    "device_type": getattr(device_info, 'device_type', 'unknown'),
-                    "state": getattr(device_info, 'state', 'unknown'),
-                    "capabilities": getattr(device_info, 'capabilities', []),
-                    "last_seen": getattr(device_info, 'last_seen', None),
+                    "device_type": getattr(device_info, "device_type", "unknown"),
+                    "state": getattr(device_info, "state", "unknown"),
+                    "capabilities": getattr(device_info, "capabilities", []),
+                    "last_seen": getattr(device_info, "last_seen", None),
                 }
                 device_list.append(device_dict)
             self.device_list_widget.update_devices(device_list)

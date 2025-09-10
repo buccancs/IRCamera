@@ -347,7 +347,7 @@ class AdminPrivilegesManager(BaseManager):
         """Check privilege level on Windows."""
         try:
             # Check if running as administrator
-            if ctypes.windll.shell32.IsUserAnAdmin():
+            if ctypes.windll.shell32.IsUserAnAdmin():  # type: ignore[attr-defined]
                 # Check if running as SYSTEM
                 if WIN32_AVAILABLE:
                     try:
@@ -565,7 +565,7 @@ class AdminPrivilegesManager(BaseManager):
                 python_path = sys.executable
                 script_path = " ".join(sys.argv)
 
-                result = ctypes.windll.shell32.ShellExecuteW(
+                result = ctypes.windll.shell32.ShellExecuteW(  # type: ignore
                     None, "runas", python_path, script_path, None, 1
                 )
 
@@ -651,10 +651,13 @@ class AdminPrivilegesManager(BaseManager):
         try:
             import winreg
 
-            key = winreg.OpenKey(
-                winreg.HKEY_LOCAL_MACHINE, "SOFTWARE", 0, winreg.KEY_READ
+            key = winreg.OpenKey(  # type: ignore
+                winreg.HKEY_LOCAL_MACHINE,  # type: ignore
+                "SOFTWARE",
+                0,
+                winreg.KEY_READ,  # type: ignore
             )
-            winreg.CloseKey(key)
+            winreg.CloseKey(key)  # type: ignore
             return True
         except (OSError, ValueError, RuntimeError):
             return False

@@ -387,35 +387,52 @@ class NetworkDiscoveryService:
         except Exception:
             return "127.0.0.1"
 
+    def _get_explicit_device_type(
+        self, properties: Dict[str, bytes]
+    ) -> Optional[DeviceType]:
+        """Get device type from explicit device_type property."""
+        if "device_type" in properties:
+            try:
+                device_type_str = properties["device_type"].decode("utf-8")
+                return DeviceType(device_type_str)
+            except ValueError:
+                pass
+        return None
+
+    def _infer_thermal_camera_type(self, properties: Dict[str, bytes]) -> DeviceType:
+        """Infer specific thermal camera type from model property."""
+        if "model" in properties:
+            model = properties["model"].decode("utf-8").upper()
+            if "TS004" in model:
+                return DeviceType.THERMAL_CAMERA_TS004
+            elif "TC007" in model:
+                return DeviceType.THERMAL_CAMERA_TC007
+        return DeviceType.THERMAL_CAMERA_TS004  # Default
+
+    def _infer_from_service_type(
+        self, service_type: str, properties: Dict[str, bytes]
+    ) -> DeviceType:
+        """Infer device type from service type and properties."""
+        if self.SERVICE_TYPE_PC_CONTROLLER in service_type:
+            return DeviceType.PC_CONTROLLER
+        elif self.SERVICE_TYPE_THERMAL_CAMERA in service_type:
+            return self._infer_thermal_camera_type(properties)
+        elif self.SERVICE_TYPE_ANDROID_NODE in service_type:
+            return DeviceType.ANDROID_SENSOR_NODE
+        return DeviceType.UNKNOWN
+
     def _determine_device_type(
         self, service_type: str, properties: Dict[str, bytes]
     ) -> DeviceType:
         """Determine device type from service information."""
         try:
-            # Check explicit device type property
-            if "device_type" in properties:
-                device_type_str = properties["device_type"].decode("utf-8")
-                try:
-                    return DeviceType(device_type_str)
-                except ValueError:
-                    pass
+            # Check explicit device type property first
+            explicit_type = self._get_explicit_device_type(properties)
+            if explicit_type:
+                return explicit_type
 
             # Infer from service type and name
-            if self.SERVICE_TYPE_PC_CONTROLLER in service_type:
-                return DeviceType.PC_CONTROLLER
-            elif self.SERVICE_TYPE_THERMAL_CAMERA in service_type:
-                # Check for specific thermal camera models
-                if "model" in properties:
-                    model = properties["model"].decode("utf-8").upper()
-                    if "TS004" in model:
-                        return DeviceType.THERMAL_CAMERA_TS004
-                    elif "TC007" in model:
-                        return DeviceType.THERMAL_CAMERA_TC007
-                return DeviceType.THERMAL_CAMERA_TS004  # Default
-            elif self.SERVICE_TYPE_ANDROID_NODE in service_type:
-                return DeviceType.ANDROID_SENSOR_NODE
-
-            return DeviceType.UNKNOWN
+            return self._infer_from_service_type(service_type, properties)
 
         except Exception as e:
             logger.warning(f"Failed to determine device type: {e}")
