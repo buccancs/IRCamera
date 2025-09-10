@@ -214,10 +214,13 @@ class EnhancedNetworkingTests:
             logger.info("OK Transport configuration")
 
             # Test service initialization
-            assert (
-                await messaging_service.initialize()
-            ), "Messaging service initialization failed"
-            assert messaging_service.is_running, "Messaging service should be running"
+            init_result = await messaging_service.initialize()
+            if not init_result:
+                logger.error("Messaging service initialization failed")
+                return False
+            if not messaging_service.is_running:
+                logger.error("Messaging service should be running")
+                return False
             logger.info("OK Service initialization")
 
             # Test message handler registration
