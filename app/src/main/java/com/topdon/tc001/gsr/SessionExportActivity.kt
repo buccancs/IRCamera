@@ -10,6 +10,8 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
  * Export session data in various research formats
  */
 class SessionExportActivity : BaseBindingActivity<ActivitySessionExportBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_session_export
+
     companion object {
         private const val EXTRA_SESSION_ID = "session_id"
 

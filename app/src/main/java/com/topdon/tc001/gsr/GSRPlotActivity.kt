@@ -11,16 +11,18 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.topdon.lib.core.base.BaseBindingActivity
+import com.topdon.lib.core.ktbase.BaseBindingActivity
 
 /**
  * GSR Plot Activity
  * Advanced visualization of GSR data with multiple analysis views
  */
 class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_gsr_plot
+
     private lateinit var plotData: GSRDataViewActivity.GSRPlotData
 
-    override fun getLayoutId() = R.layout.activity_gsr_plot
+    override fun initContentLayoutId() = R.layout.activity_gsr_plot
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

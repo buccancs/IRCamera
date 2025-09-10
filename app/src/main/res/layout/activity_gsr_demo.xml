@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="32dp">
-  <!-- Title -->
-  <TextView android:id="@+id/title_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="GSR Recording Demo" android:textSize="24sp" android:paddingBottom="32dp"/>
-  <!-- Description -->
-  <TextView android:id="@+id/description_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Demonstrates 128 Hz GSR data recording with CSV export and sync events." android:paddingBottom="24dp"/>
-  <!-- Control Buttons -->
-  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-    <Button android:id="@+id/start_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Start Recording" android:layout_marginEnd="8dp"/>
-    <Button android:id="@+id/stop_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Stop Recording" android:enabled="false" android:layout_marginEnd="8dp"/>
-    <Button android:id="@+id/sync_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sync Event" android:enabled="false"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+<LinearLayout xmlns:ns0="http://schemas.android.com/apk/res/android" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:padding="32dp">
+  
+  <TextView ns0:id="@+id/title_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="GSR Recording Demo" ns0:textSize="24sp" ns0:paddingBottom="32dp" />
+  
+  <TextView ns0:id="@+id/description_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Demonstrates 128 Hz GSR data recording with CSV export and sync events." ns0:paddingBottom="24dp" />
+  
+  <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal">
+    <Button ns0:id="@+id/start_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Start Recording" ns0:layout_marginEnd="8dp" />
+    <Button ns0:id="@+id/stop_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Stop Recording" ns0:enabled="false" ns0:layout_marginEnd="8dp" />
+    <Button ns0:id="@+id/sync_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Sync Event" ns0:enabled="false" />
   </LinearLayout>
-  <!-- Status Text -->
-  <TextView android:id="@+id/status_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ready to record" android:textSize="16sp" android:paddingTop="32dp" android:paddingBottom="16dp"/>
-  <!-- Data Display -->
-  <TextView android:id="@+id/data_text" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:text="No data yet. Press 'Start Recording' to begin." android:background="@android:drawable/editbox_background" android:padding="16dp" android:typeface="monospace"/>
+  
+  <TextView ns0:id="@+id/status_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Ready to record" ns0:textSize="16sp" ns0:paddingTop="32dp" ns0:paddingBottom="16dp" />
+  
+  <TextView ns0:id="@+id/data_text" ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1" ns0:text="No data yet. Press 'Start Recording' to begin." ns0:background="@android:drawable/editbox_background" ns0:padding="16dp" ns0:typeface="monospace" />
 </LinearLayout>
+</layout>

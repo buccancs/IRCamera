@@ -20,6 +20,8 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
  * Navigation: Use NavigationManager.getInstance().build(RouterConfig.GSR_DEMO).navigation(context)
  */
 class GSRDemoActivity : BaseBindingActivity<ActivityGsrDemoBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_gsr_demo
+
     companion object {
         private const val TAG = "GSRDemoActivity"
 

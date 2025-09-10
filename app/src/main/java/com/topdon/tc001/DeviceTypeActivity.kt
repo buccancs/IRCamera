@@ -22,6 +22,8 @@ import com.topdon.lib.core.tools.DeviceTools
  * Created by LCG on 2024/4/22.
  */
 class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_device_type
+
     /**
      * CurrentactivityType.
      */

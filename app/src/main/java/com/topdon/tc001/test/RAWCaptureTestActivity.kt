@@ -10,6 +10,8 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
  * Shows the enhanced multi-modal recording interface with RAW capture options
  */
 class RAWCaptureTestActivity : BaseBindingActivity<ActivityRawCaptureTestBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_raw_capture_test
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize UI components through view binding

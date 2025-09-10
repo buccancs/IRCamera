@@ -70,6 +70,8 @@ import kotlinx.coroutines.launch
  * @author Topdon Engineering Team
  */
 class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecordingBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_multi_modal_recording
+
     companion object {
         private const val TAG = "MultiModalActivity"
         private const val REQUEST_PERMISSIONS = 100

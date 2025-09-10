@@ -15,6 +15,8 @@ import com.topdon.lib.core.utils.Constants
 
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreHelpActivity : BaseBindingActivity<ActivityMoreHelpBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_more_help
+
     private var connectionType: Int = 0
     private lateinit var wifiManager: WifiManager
 

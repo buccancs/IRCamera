@@ -12,13 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.csl.irCamera.R
 import com.csl.irCamera.databinding.ActivityResearchTemplateBinding
 import com.topdon.gsr.model.ResearchTemplate
-import com.topdon.lib.core.base.BaseBindingActivity
+import com.topdon.lib.core.ktbase.BaseBindingActivity
 
 /**
  * Research Template Selection Activity
  * Allows users to choose from predefined research templates or create custom configurations
  */
 class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_research_template
+
     private lateinit var templateAdapter: TemplateAdapter
 
     private var selectedTemplate: ResearchTemplate? = null
@@ -31,7 +33,7 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
         }
     }
 
-    override fun getLayoutId() = R.layout.activity_research_template
+    override fun initContentLayoutId() = R.layout.activity_research_template
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

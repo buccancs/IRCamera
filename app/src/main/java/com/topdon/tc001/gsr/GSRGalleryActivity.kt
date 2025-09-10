@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.csl.irCamera.R
 import com.csl.irCamera.databinding.ActivityGsrGalleryBinding
-import com.topdon.lib.core.base.BaseBindingActivity
+import com.topdon.lib.core.ktbase.BaseBindingActivity
 import com.topdon.lib.core.tools.PermissionTool
 
 /**
@@ -18,6 +18,8 @@ import com.topdon.lib.core.tools.PermissionTool
  * Consistent with thermal camera gallery interface
  */
 class GSRGalleryActivity : BaseBindingActivity<ActivityGsrGalleryBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_gsr_gallery
+
     companion object {
         private const val TAG = "GSRGalleryActivity"
 
@@ -47,7 +49,7 @@ class GSRGalleryActivity : BaseBindingActivity<ActivityGsrGalleryBinding>() {
         }
     }
 
-    override fun getLayoutId() = R.layout.activity_gsr_gallery
+    override fun initContentLayoutId() = R.layout.activity_gsr_gallery
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

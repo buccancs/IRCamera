@@ -43,6 +43,8 @@ import java.util.*
  * @author IRCamera Android Sensor Node (Spoke)
  */
 class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrationBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_hub_spoke_integration
+
     companion object {
         private const val TAG = "HubSpokeIntegration"
         private const val DEFAULT_PC_CONTROLLER_PORT = 8080

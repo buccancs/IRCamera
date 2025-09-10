@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#f5f5f5">
-  <!-- Search and Filter Bar -->
-  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@android:color/white" android:elevation="4dp" android:padding="16dp">
-    <!-- Search View -->
-    <SearchView android:id="@+id/search_view" android:layout_width="match_parent" android:layout_height="wrap_content" android:queryHint="Search sessions..." android:iconifiedByDefault="false" android:background="@drawable/search_background"/>
-    <!-- Filter Spinner -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal" android:gravity="center_vertical">
-      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Filter: " android:textColor="#666666" android:textSize="14sp"/>
-      <Spinner android:id="@+id/filter_spinner" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+<LinearLayout xmlns:ns0="http://schemas.android.com/apk/res/android" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:background="#f5f5f5">
+  
+  <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:background="@android:color/white" ns0:elevation="4dp" ns0:padding="16dp">
+    
+    <SearchView ns0:id="@+id/search_view" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:queryHint="Search sessions..." ns0:iconifiedByDefault="false" ns0:background="@drawable/search_background" />
+    
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginTop="8dp" ns0:orientation="horizontal" ns0:gravity="center_vertical">
+      <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Filter: " ns0:textColor="#666666" ns0:textSize="14sp" />
+      <Spinner ns0:id="@+id/filter_spinner" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:layout_marginStart="8dp" />
     </LinearLayout>
   </LinearLayout>
-  <!-- Content Area -->
-  <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
-    <!-- Sessions RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/sessions_recycler_view" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="8dp" android:clipToPadding="false"/>
-    <!-- Loading View -->
-    <LinearLayout android:id="@+id/loading_view" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:visibility="gone">
-      <ProgressBar android:layout_width="48dp" android:layout_height="48dp" android:layout_marginBottom="16dp"/>
-      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading sessions..." android:textColor="#666666" android:textSize="16sp"/>
+  
+  <FrameLayout ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1">
+    
+    <androidx.recyclerview.widget.RecyclerView ns0:id="@+id/sessions_recycler_view" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:padding="8dp" ns0:clipToPadding="false" />
+    
+    <LinearLayout ns0:id="@+id/loading_view" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:gravity="center" ns0:visibility="gone">
+      <ProgressBar ns0:layout_width="48dp" ns0:layout_height="48dp" ns0:layout_marginBottom="16dp" />
+      <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Loading sessions..." ns0:textColor="#666666" ns0:textSize="16sp" />
     </LinearLayout>
-    <!-- Empty View -->
-    <LinearLayout android:id="@+id/empty_view" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="32dp" android:visibility="gone">
-      <ImageView android:layout_width="64dp" android:layout_height="64dp" android:layout_marginBottom="16dp" android:src="@drawable/ic_folder_empty" android:alpha="0.3"/>
-      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No recording sessions found" android:textColor="#666666" android:textSize="18sp" android:textStyle="bold" android:layout_marginBottom="8dp"/>
-      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Start a new multi-modal recording session to see it here" android:textColor="#888888" android:textSize="14sp" android:gravity="center" android:layout_marginBottom="16dp"/>
-      <Button android:id="@+id/start_recording_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Start Recording" android:textColor="@android:color/white" android:background="@drawable/button_primary" android:paddingHorizontal="24dp" android:paddingVertical="12dp"/>
+    
+    <LinearLayout ns0:id="@+id/empty_view" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:gravity="center" ns0:padding="32dp" ns0:visibility="gone">
+      <ImageView ns0:layout_width="64dp" ns0:layout_height="64dp" ns0:layout_marginBottom="16dp" ns0:src="@drawable/ic_folder_empty" ns0:alpha="0.3" />
+      <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="No recording sessions found" ns0:textColor="#666666" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="8dp" />
+      <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Start a new multi-modal recording session to see it here" ns0:textColor="#888888" ns0:textSize="14sp" ns0:gravity="center" ns0:layout_marginBottom="16dp" />
+      <Button ns0:id="@+id/start_recording_button" ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Start Recording" ns0:textColor="@android:color/white" ns0:background="@drawable/button_primary" ns0:paddingHorizontal="24dp" ns0:paddingVertical="12dp" />
     </LinearLayout>
   </FrameLayout>
 </LinearLayout>
+</layout>

@@ -26,8 +26,6 @@ object Const {
     const val SHOW_RESTART_MESSAGE = 1006
     
     // Device connection check
-    fun isDeviceConnected(): Boolean {
-        // Temporary implementation
-        return true
-    }
+    val isDeviceConnected: Boolean
+        get() = true // Temporary implementation
 }

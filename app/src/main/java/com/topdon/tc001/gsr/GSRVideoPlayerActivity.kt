@@ -12,7 +12,7 @@ import android.widget.MediaController
 import androidx.core.content.FileProvider
 import com.csl.irCamera.R
 import com.csl.irCamera.databinding.ActivityGsrVideoPlayerBinding
-import com.topdon.lib.core.base.BaseBindingActivity
+import com.topdon.lib.core.ktbase.BaseBindingActivity
 import java.io.File
 
 /**
@@ -20,6 +20,8 @@ import java.io.File
  * Video playback for recorded videos from multi-modal sessions
  */
 class GSRVideoPlayerActivity : BaseBindingActivity<ActivityGsrVideoPlayerBinding>() {
+    override fun initContentLayoutId(): Int = R.layout.activity_gsr_video_player
+
     companion object {
         private const val TAG = "GSRVideoPlayerActivity"
         private const val EXTRA_VIDEO_PATH = "video_path"
@@ -38,7 +40,7 @@ class GSRVideoPlayerActivity : BaseBindingActivity<ActivityGsrVideoPlayerBinding
 
     private lateinit var videoPath: String
 
-    override fun getLayoutId() = R.layout.activity_gsr_video_player
+    override fun initContentLayoutId() = R.layout.activity_gsr_video_player
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

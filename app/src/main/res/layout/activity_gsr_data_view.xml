@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#16131e">
-  <!-- File Information Card -->
-  <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="16dp" app:cardCornerRadius="8dp" app:cardElevation="2dp" app:cardBackgroundColor="#2a2a2a">
-    <TextView android:id="@+id/file_info_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="Loading file information..." android:textColor="#ffffff" android:textSize="14sp" android:fontFamily="monospace"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+<LinearLayout xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:background="#16131e">
+  
+  <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_margin="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
+    <TextView ns0:id="@+id/file_info_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:padding="16dp" ns0:text="Loading file information..." ns0:textColor="#ffffff" ns0:textSize="14sp" ns0:fontFamily="monospace" />
   </androidx.cardview.widget.CardView>
-  <!-- Statistics Card -->
-  <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="16dp" android:layout_marginBottom="16dp" app:cardCornerRadius="8dp" app:cardElevation="2dp" app:cardBackgroundColor="#2a2a2a">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-      <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="GSR Data Statistics" android:textColor="#ffffff" android:textSize="18sp" android:textStyle="bold" android:layout_marginBottom="12dp"/>
-      <TextView android:id="@+id/statistics_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Calculating statistics..." android:textColor="#ccffffff" android:textSize="14sp" android:fontFamily="monospace"/>
+  
+  <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginHorizontal="16dp" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
+      <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="GSR Data Statistics" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="12dp" />
+      <TextView ns0:id="@+id/statistics_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Calculating statistics..." ns0:textColor="#ccffffff" ns0:textSize="14sp" ns0:fontFamily="monospace" />
     </LinearLayout>
   </androidx.cardview.widget.CardView>
-  <!-- Data Preview Card -->
-  <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginHorizontal="16dp" android:layout_marginBottom="16dp" app:cardCornerRadius="8dp" app:cardElevation="2dp" app:cardBackgroundColor="#2a2a2a">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
-      <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Data Preview (First 100 rows)" android:textColor="#ffffff" android:textSize="16sp" android:textStyle="bold" android:padding="16dp" android:background="#f8f8f8"/>
-      <androidx.recyclerview.widget.RecyclerView android:id="@+id/data_recycler_view" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:padding="8dp"/>
+  
+  <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1" ns0:layout_marginHorizontal="16dp" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical">
+      <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Data Preview (First 100 rows)" ns0:textColor="#ffffff" ns0:textSize="16sp" ns0:textStyle="bold" ns0:padding="16dp" ns0:background="#f8f8f8" />
+      <androidx.recyclerview.widget.RecyclerView ns0:id="@+id/data_recycler_view" ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1" ns0:padding="8dp" />
     </LinearLayout>
   </androidx.cardview.widget.CardView>
 </LinearLayout>
+</layout>

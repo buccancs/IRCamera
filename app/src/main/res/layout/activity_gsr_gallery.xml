@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:fitsSystemWindows="true" android:background="#16131e">
-  <!-- Toolbar -->
-  <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="0dp" android:layout_height="56dp" android:background="@color/colorPrimary" android:elevation="4dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:titleTextColor="@android:color/white"/>
-  <!-- Tab Layout -->
-  <com.google.android.material.tabs.TabLayout android:id="@+id/gsr_gallery_tab" android:layout_width="0dp" android:layout_height="48dp" android:background="#2a2a2a" android:elevation="2dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/toolbar" app:tabIndicatorColor="@color/colorAccent" app:tabRippleColor="@color/colorAccent" app:tabSelectedTextColor="@color/colorAccent" app:tabTextColor="#ccffffff" app:tabMode="scrollable"/>
-  <!-- ViewPager for tab content -->
-  <androidx.viewpager.widget.ViewPager android:id="@+id/gsr_gallery_viewpager" android:layout_width="0dp" android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/gsr_gallery_tab"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:fitsSystemWindows="true" ns0:background="#16131e">
+  
+  <androidx.appcompat.widget.Toolbar ns0:id="@+id/toolbar" ns0:layout_width="0dp" ns0:layout_height="56dp" ns0:background="@color/colorPrimary" ns0:elevation="4dp" ns1:layout_constraintEnd_toEndOf="parent" ns1:layout_constraintStart_toStartOf="parent" ns1:layout_constraintTop_toTopOf="parent" ns1:titleTextColor="@android:color/white" />
+  
+  <com.google.android.material.tabs.TabLayout ns0:id="@+id/gsr_gallery_tab" ns0:layout_width="0dp" ns0:layout_height="48dp" ns0:background="#2a2a2a" ns0:elevation="2dp" ns1:layout_constraintEnd_toEndOf="parent" ns1:layout_constraintStart_toStartOf="parent" ns1:layout_constraintTop_toBottomOf="@id/toolbar" ns1:tabIndicatorColor="@color/colorAccent" ns1:tabRippleColor="@color/colorAccent" ns1:tabSelectedTextColor="@color/colorAccent" ns1:tabTextColor="#ccffffff" ns1:tabMode="scrollable" />
+  
+  <androidx.viewpager.widget.ViewPager ns0:id="@+id/gsr_gallery_viewpager" ns0:layout_width="0dp" ns0:layout_height="0dp" ns1:layout_constraintBottom_toBottomOf="parent" ns1:layout_constraintEnd_toEndOf="parent" ns1:layout_constraintStart_toStartOf="parent" ns1:layout_constraintTop_toBottomOf="@id/gsr_gallery_tab" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

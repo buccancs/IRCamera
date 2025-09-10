@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
-  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:spacing="8dp">
-    <!-- Session Title -->
-    <TextView android:id="@+id/session_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Multi-Modal Recording Session" android:textSize="20sp" android:textStyle="bold" android:gravity="center" android:padding="8dp"/>
-    <!-- Participant ID Input -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Participant ID:" android:textSize="16sp" android:layout_marginEnd="8dp"/>
-      <EditText android:id="@+id/participant_id_input" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="Enter participant ID" android:inputType="text"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+<ScrollView xmlns:ns0="http://schemas.android.com/apk/res/android" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:padding="16dp">
+  <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:spacing="8dp">
+    
+    <TextView ns0:id="@+id/session_title" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Multi-Modal Recording Session" ns0:textSize="20sp" ns0:textStyle="bold" ns0:gravity="center" ns0:padding="8dp" />
+    
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal" ns0:gravity="center_vertical">
+      <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Participant ID:" ns0:textSize="16sp" ns0:layout_marginEnd="8dp" />
+      <EditText ns0:id="@+id/participant_id_input" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:hint="Enter participant ID" ns0:inputType="text" />
     </LinearLayout>
-    <!-- Recording Options -->
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Recording Options" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="16dp"/>
-    <Switch android:id="@+id/enable_video_switch" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Enable Video Recording" android:padding="8dp"/>
-    <Switch android:id="@+id/enable_4k_switch" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Enable 4K Recording" android:padding="8dp"/>
-    <Switch android:id="@+id/enable_raw_capture_switch" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Enable Raw Frame Capture" android:padding="8dp"/>
-    <!-- Raw Frame Rate Spinner -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Raw Frame Rate:" android:layout_marginEnd="8dp"/>
-      <Spinner android:id="@+id/raw_frame_rate_spinner" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+    
+    <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Recording Options" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginTop="16dp" />
+    <Switch ns0:id="@+id/enable_video_switch" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Enable Video Recording" ns0:padding="8dp" />
+    <Switch ns0:id="@+id/enable_4k_switch" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Enable 4K Recording" ns0:padding="8dp" />
+    <Switch ns0:id="@+id/enable_raw_capture_switch" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Enable Raw Frame Capture" ns0:padding="8dp" />
+    
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal" ns0:gravity="center_vertical">
+      <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Raw Frame Rate:" ns0:layout_marginEnd="8dp" />
+      <Spinner ns0:id="@+id/raw_frame_rate_spinner" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" />
     </LinearLayout>
-    <!-- Control Buttons -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="16dp">
-      <Button android:id="@+id/start_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Start Recording" android:layout_marginEnd="8dp"/>
-      <Button android:id="@+id/stop_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Stop Recording" android:enabled="false"/>
+    
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal" ns0:layout_marginTop="16dp">
+      <Button ns0:id="@+id/start_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Start Recording" ns0:layout_marginEnd="8dp" />
+      <Button ns0:id="@+id/stop_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Stop Recording" ns0:enabled="false" />
     </LinearLayout>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-      <Button android:id="@+id/sync_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Add Sync Mark" android:enabled="false" android:layout_marginEnd="8dp"/>
-      <Button android:id="@+id/flash_sync_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Flash Sync" android:enabled="false"/>
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal">
+      <Button ns0:id="@+id/sync_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Add Sync Mark" ns0:enabled="false" ns0:layout_marginEnd="8dp" />
+      <Button ns0:id="@+id/flash_sync_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Flash Sync" ns0:enabled="false" />
     </LinearLayout>
-    <!-- Status Display -->
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Status Information" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="16dp"/>
-    <TextView android:id="@+id/status_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ready to record..." android:padding="8dp" android:background="@android:color/darker_gray" android:textColor="@android:color/white"/>
-    <TextView android:id="@+id/data_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="No data recorded yet" android:padding="8dp"/>
-    <ProgressBar android:id="@+id/progress_bar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:visibility="gone"/>
-    <!-- Network Status -->
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Network Status" android:textSize="18sp" android:textStyle="bold" android:layout_marginTop="16dp"/>
-    <TextView android:id="@+id/network_status_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Network disconnected" android:padding="8dp"/>
-    <TextView android:id="@+id/discovered_devices_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="No devices discovered" android:padding="4dp"/>
-    <TextView android:id="@+id/streaming_queue_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Queue: 0 items" android:padding="4dp"/>
-    <TextView android:id="@+id/network_metrics_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Metrics: 0 KB/s" android:padding="4dp"/>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-      <Button android:id="@+id/start_discovery_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Start Discovery" android:layout_marginEnd="8dp"/>
-      <Button android:id="@+id/connect_to_device_button" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Connect to Device" android:enabled="false"/>
+    
+    <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Status Information" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginTop="16dp" />
+    <TextView ns0:id="@+id/status_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Ready to record..." ns0:padding="8dp" ns0:background="@android:color/darker_gray" ns0:textColor="@android:color/white" />
+    <TextView ns0:id="@+id/data_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="No data recorded yet" ns0:padding="8dp" />
+    <ProgressBar ns0:id="@+id/progress_bar" style="?android:attr/progressBarStyleHorizontal" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:visibility="gone" />
+    
+    <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Network Status" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginTop="16dp" />
+    <TextView ns0:id="@+id/network_status_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Network disconnected" ns0:padding="8dp" />
+    <TextView ns0:id="@+id/discovered_devices_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="No devices discovered" ns0:padding="4dp" />
+    <TextView ns0:id="@+id/streaming_queue_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Queue: 0 items" ns0:padding="4dp" />
+    <TextView ns0:id="@+id/network_metrics_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Metrics: 0 KB/s" ns0:padding="4dp" />
+    <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal">
+      <Button ns0:id="@+id/start_discovery_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Start Discovery" ns0:layout_marginEnd="8dp" />
+      <Button ns0:id="@+id/connect_to_device_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Connect to Device" ns0:enabled="false" />
     </LinearLayout>
   </LinearLayout>
 </ScrollView>
+</layout>

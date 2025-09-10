@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/color_16131E" android:fitsSystemWindows="true">
-  <com.topdon.lib.core.view.TitleView android:id="@+id/title_view" android:layout_width="0dp" android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-  <WebView android:id="@+id/policy_web" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginBottom="24dp" android:overScrollMode="never" android:scrollbars="none" android:visibility="invisible" android:background="@color/c_bg_white" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/title_view" app:layout_constraintWidth_percent="0.96"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:background="@color/color_16131E" ns0:fitsSystemWindows="true">
+  <com.topdon.lib.core.view.TitleView ns0:id="@+id/title_view" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns1:layout_constraintStart_toStartOf="parent" ns1:layout_constraintEnd_toEndOf="parent" ns1:layout_constraintTop_toTopOf="parent" />
+  <WebView ns0:id="@+id/policy_web" ns0:layout_width="0dp" ns0:layout_height="0dp" ns0:layout_marginBottom="24dp" ns0:overScrollMode="never" ns0:scrollbars="none" ns0:visibility="invisible" ns0:background="@color/c_bg_white" ns1:layout_constraintBottom_toBottomOf="parent" ns1:layout_constraintEnd_toEndOf="parent" ns1:layout_constraintStart_toStartOf="parent" ns1:layout_constraintTop_toBottomOf="@id/title_view" ns1:layout_constraintWidth_percent="0.96" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
