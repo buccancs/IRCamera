@@ -12,7 +12,7 @@ import ssl
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, Optional, Tuple, cast
+from typing import TYPE_CHECKING, Dict, Optional, Tuple, Union, cast
 
 if TYPE_CHECKING:
     from ..core.config import ConfigManager
@@ -20,6 +20,10 @@ if TYPE_CHECKING:
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.asymmetric.types import (
+    RSAPrivateKey, DSAPrivateKey, EllipticCurvePrivateKey,
+    Ed25519PrivateKey, Ed448PrivateKey
+)
 from cryptography.x509.oid import NameOID
 
 try:
@@ -417,7 +421,9 @@ class SecurityManager:
                 ),
                 critical=False,
             )
-            .sign(ca_key, hashes.SHA256())
+            .sign(cast(Union[RSAPrivateKey, DSAPrivateKey,
+                       EllipticCurvePrivateKey, Ed25519PrivateKey,
+                       Ed448PrivateKey], ca_key), hashes.SHA256())
         )
 
         # Save certificate and key

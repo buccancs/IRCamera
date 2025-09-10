@@ -14,7 +14,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, List, Optional
 
 try:
     from loguru import logger
@@ -132,7 +132,9 @@ PYQT_AVAILABLE = False  # Initialize before function call
 BaseThread, pyqtSignal, pyqtSlot, QTimer = _initialize_pyqt_imports()
 
 # Type alias for BaseThread to resolve mypy issues
-BaseThreadType = Type[BaseThread]
+
+
+# Removed BaseThreadProtocol as it's not needed
 
 
 try:
