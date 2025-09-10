@@ -161,6 +161,10 @@ class ConfigManager:
         """Get entire configuration dictionary."""
         return self._config.copy()
 
+    def to_dict(self) -> Dict[str, Any]:
+        """Get entire configuration as dictionary (alias for get_all)."""
+        return self.get_all()
+
 
 # Global configuration instance
 config = ConfigManager()
