@@ -61,7 +61,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
                 1,
             ),
         )
-        if (menuType == MenuType.Lite) {
+        if (menuType == MenuType.LITE) {
             dataList.add(
                 Data(
                     R.string.thermal_high_temperature,

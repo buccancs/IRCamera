@@ -51,6 +51,16 @@ object SaveSettingUtil {
     const val FUSION_TYPE_SCREEN_FUSION = 5
     const val FUSION_TYPE_IR_ONLY_NO_FUSION = 6
 
+    // Backward compatibility aliases for existing code references
+    const val FusionTypeLPYFusion = FUSION_TYPE_LPY_FUSION
+    const val FusionTypeMeanFusion = FUSION_TYPE_MEAN_FUSION
+    const val FusionTypeIROnly = FUSION_TYPE_IR_ONLY
+    const val FusionTypeVLOnly = FUSION_TYPE_VL_ONLY
+    const val FusionTypeTC007Fusion = FUSION_TYPE_TC007_FUSION
+    const val FusionTypeHSLFusion = FUSION_TYPE_HSL_FUSION
+    const val FusionTypeScreenFusion = FUSION_TYPE_SCREEN_FUSION
+    const val FusionTypeIROnlyNoFusion = FUSION_TYPE_IR_ONLY_NO_FUSION
+
     /**
      * utilitySettingsutility，utilityAllutility.
      */

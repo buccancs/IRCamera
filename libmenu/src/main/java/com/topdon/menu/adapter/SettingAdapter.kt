@@ -92,7 +92,7 @@ internal class SettingAdapter(
                 dataList.add(
                     Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST),
                 )
-                if (menuType != MenuType.Lite) { // Lite item(item)
+                if (menuType != MenuType.LITE) { // Lite item(item)
                     dataList.add(
                         Data(R.string.thermal_sharpen, MenuR.drawable.selector_menu2_setting_3, SettingType.DETAIL),
                     )

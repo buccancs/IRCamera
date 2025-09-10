@@ -250,7 +250,7 @@ class MenuSecondView : FrameLayout {
             when (typedArray.getInt(R.styleable.MenuSecondView_deviceType, 0)) {
                 0 -> MenuType.SINGLE_LIGHT
                 1 -> MenuType.DOUBLE_LIGHT
-                2 -> MenuType.Lite
+                2 -> MenuType.LITE
                 4 -> MenuType.GALLERY_EDIT
                 else -> MenuType.TC007
             }
