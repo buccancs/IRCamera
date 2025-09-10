@@ -8,15 +8,15 @@ object Const {
     const val TYPE_IR_DUAL = 1
     const val TYPE_IR_SINGLE = 0
     const val TYPE_VISIBLE = 2
-    
+
     // IR Camera dimensions
     const val IR_WIDTH = 256
     const val IR_HEIGHT = 192
-    
-    // Sensor dimensions  
+
+    // Sensor dimensions
     const val SENSOR_WIDTH = 256
     const val SENSOR_HEIGHT = 192
-    
+
     // Handler message constants
     const val RESTART_USB = 1001
     const val HANDLE_CONNECT = 1002
@@ -24,7 +24,7 @@ object Const {
     const val SHOW_LOADING = 1004
     const val HIDE_LOADING = 1005
     const val SHOW_RESTART_MESSAGE = 1006
-    
+
     // Device connection check
     val isDeviceConnected: Boolean
         get() = true // Temporary implementation

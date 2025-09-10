@@ -31,7 +31,7 @@ object ImageUtils {
         bitmap: Bitmap,
         isTC007: Boolean = false,
     ): String {
-        // Handle negative slope or alternative case，utility
+
         val dicName = if (isTC007) "TC007" else CommUtils.getAppName()
         val fileName = "${dicName}_${System.currentTimeMillis()}.jpg"
         val saveFile = ImageUtils.save2Album(bitmap, dicName, Bitmap.CompressFormat.JPEG)

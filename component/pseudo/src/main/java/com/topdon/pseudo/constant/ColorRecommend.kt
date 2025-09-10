@@ -1,53 +1,5 @@
 package com.topdon.pseudo.constant
 
-/**
- * @author: CaiSongL
- * @date: 2023/8/8 19:37
- */
-object ColorRecommend {
-    val colorList1 =
-        intArrayOf(
-            0xff0000ff.toInt(),
-            0xffff0000.toInt(),
-            0xffffff00.toInt(),
-        )
-
-    val colorList2 =
-        intArrayOf(
-            0xff000000.toInt(),
-            0xffffffff.toInt(),
-            0xffff0000.toInt(),
-        )
-    val colorList3 =
-        intArrayOf(
-            0xff0000ff.toInt(),
-            0xff00ff00.toInt(),
-            0xffffff00.toInt(),
-            0xffff0000.toInt(),
-        )
-    val colorList3TC007 =
-        intArrayOf(
-            0xff0000ff.toInt(),
-            0xff00ff00.toInt(),
-            0xffff0000.toInt(),
-        )
-    val colorList4 =
-        intArrayOf(
-            0xff000000.toInt(),
-            0xFF840000.toInt(),
-            0xffff0000.toInt(),
-        )
-    val colorList5 =
-        intArrayOf(
-            0xff0000ff.toInt(),
-            0xFF7B7B83.toInt(),
-            0xffffff00.toInt(),
-        )
-
-    /**
-     *
-     * @param index 0-Iron red 1-data 2-data 3-data 4-data
-     */
     fun getColorByIndex(
         isTC007: Boolean,
         index: Int,

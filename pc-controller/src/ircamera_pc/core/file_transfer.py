@@ -1,96 +1,4 @@
 #!/usr/bin/env python3
-"""
-Enterprise-Grade File Transfer Manager for IRCamera PC Controller
-
-This module provides a comprehensive, high-performance file transfer system designed
-for the IRCamera platform's data aggregation requirements. It implements resumable,
-secure, and efficient file transfers from Android devices with enterprise-grade
-reliability and monitoring capabilities.
-
-## Key Features
-
-### High-Performance Transfer Engine
-- **Resumable Transfers**: Automatic resume on network interruption
-- **Parallel Processing**: Up to 10 concurrent transfers per device
-- **Bandwidth Optimization**: Adaptive transfer rates based on network conditions
-- **Integrity Verification**: SHA-256 checksums for data validation
-
-### Enterprise Reliability
-- **Fault Tolerance**: Automatic retry with exponential backoff
-- **State Persistence**: Transfer state survives application restarts
-- **Progress Monitoring**: Real-time transfer statistics and ETA
-- **Error Recovery**: Sophisticated error categorization and recovery
-
-### Security Features
-- **End-to-End Encryption**: AES-256 encryption for data in transit
-- **Authentication**: Device certificate validation
-- **Audit Logging**: Comprehensive transfer activity tracking
-- **Access Control**: Role-based transfer permissions
-
-## Performance Specifications
-
-| Metric | Specification | Notes |
-|--------|---------------|-------|
-| Max Concurrent Transfers | 50+ | Per PC Controller instance |
-| Transfer Resume Time | < 500ms | After network interruption |
-| Throughput | 100+ MB/s | On gigabit networks |
-| Memory Usage | < 50MB | Per active transfer |
-| Error Recovery | 99.9% | Success rate with retries |
-
-## Architecture Overview
-
-```
-FileTransferManager
-├── TransferJob (Data Model)
-├── FileManifest (Metadata)
-├── TransferWorker (Processing)
-├── SecurityValidator (Validation)
-└── ProgressMonitor (Monitoring)
-```
-
-## Usage Example
-
-```python
-# Initialize transfer manager
-transfer_manager = FileTransferManager(
-    data_dir=Path("/data/transfers"),
-    max_concurrent=10
-)
-
-# Register progress callback
-transfer_manager.register_progress_callback(
-    lambda job_id, progress: print(f"Transfer {job_id}: {progress}%")
-)
-
-# Start transfer
-manifest = FileManifest(
-    file_id="thermal_001",
-    filename="thermal_recording_001.mp4",
-    size_bytes=1024*1024*100,  # 100MB
-    checksum="sha256_hash",
-    file_type=FileType.THERMAL_VIDEO,
-    device_id="device_001"
-)
-
-await transfer_manager.start_transfer(manifest, device_socket)
-```
-
-## Integration Points
-
-- **SessionManager**: Coordinates transfers with recording sessions
-- **NetworkController**: Manages device connections and bandwidth
-- **DataAggregator**: Processes completed transfers for analysis
-- **SecurityManager**: Validates device certificates and permissions
-
-Authors:
-    IRCamera Development Team - Data Infrastructure Division
-
-Version:
-    3.2.0 - Enterprise Edition
-
-License:
-    MIT License with Enterprise Extensions
-"""
 
 import asyncio
 import hashlib
@@ -103,108 +11,8 @@ from typing import Any, Callable, Dict, List, Optional
 
 from loguru import logger
 
-
 class TransferStatus(Enum):
-    """File transfer status states"""
 
-    PENDING = "pending"
-    IN_PROGRESS = "in_progress"
-    PAUSED = "paused"
-    COMPLETED = "completed"
-    FAILED = "failed"
-    CANCELLED = "cancelled"
-
-
-class FileType(Enum):
-    """Types of files transferred from devices"""
-
-    THERMAL_VIDEO = "thermal_video"
-    VISUAL_VIDEO = "visual_video"
-    GSR_DATA = "gsr_data"
-    IMU_DATA = "imu_data"
-    AUDIO = "audio"
-    METADATA = "metadata"
-    CALIBRATION = "calibration"
-
-
-@dataclass
-class FileManifest:
-    """File information from device"""
-
-    file_id: str
-    filename: str
-    file_type: FileType
-    size_bytes: int
-    checksum: str  # SHA-256 hex digest
-    device_id: str
-    session_id: str
-    timestamp: float
-    compression: Optional[str] = None  # gzip, lz4, etc.
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for JSON serialization"""
-        data = asdict(self)
-        data["file_type"] = self.file_type.value
-        return data
-
-
-@dataclass
-class TransferJob:
-    """Individual file transfer job"""
-
-    job_id: str
-    manifest: FileManifest
-    local_path: Path
-    status: TransferStatus
-    bytes_transferred: int
-    start_time: float
-    end_time: Optional[float]
-    resume_offset: int
-    retry_count: int
-    error_message: Optional[str]
-    device_connection: Optional[Any] = None  # Connection to source device
-
-    @property
-    def progress_percent(self) -> float:
-        """Calculate transfer progress percentage"""
-        if self.manifest.size_bytes == 0:
-            return 100.0
-        return (self.bytes_transferred / self.manifest.size_bytes) * 100.0
-
-    @property
-    def transfer_rate(self) -> float:
-        """Calculate transfer rate in bytes/second"""
-        if self.status != TransferStatus.IN_PROGRESS or self.start_time == 0:
-            return 0.0
-        elapsed = time.time() - self.start_time
-        if elapsed == 0:
-            return 0.0
-        return self.bytes_transferred / elapsed
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for JSON serialization"""
-        data = asdict(self)
-        data["status"] = self.status.value
-        data["manifest"] = self.manifest.to_dict()
-        data["local_path"] = str(self.local_path)
-        return data
-
-
-class FileTransferManager:
-    """
-    Resumable File Transfer Manager
-
-    Handles secure and efficient transfer of files from Android devices
-    with support for resume, retry, and integrity verification.
-    """
-
-    def __init__(self, config: Dict[str, Any]):
-        """
-        Initialize File Transfer Manager
-
-        Args:
-            config: Configuration dictionary with transfer settings
-        """
         self.config = config.get("file_transfer", {})
         self.data_dir = Path(self.config.get("data_dir", "data/transfers"))
         self.data_dir.mkdir(parents=True, exist_ok=True)
@@ -233,25 +41,11 @@ class FileTransferManager:
         )
 
     def add_progress_callback(self, callback: Callable[[str, float, float], None]):
-        """
-        Add callback for transfer progress updates
 
-        Args:
-            callback: Function(job_id, progress_percent, transfer_rate)
-        """
         self.progress_callbacks.append(callback)
 
     async def queue_transfer(self, manifest: FileManifest, device_conn: Any) -> str:
-        """
-        Queue a file for transfer
 
-        Args:
-            manifest: File information from device
-            device_conn: Connection to source device
-
-        Returns:
-            Transfer job ID
-        """
         try:
             # Generate unique job ID
             job_id = (
@@ -266,13 +60,11 @@ class FileTransferManager:
 
             local_path = device_dir / manifest.filename
 
-            # Check if file already exists and is complete
             if local_path.exists():
                 if await self._verify_existing_file(local_path, manifest):
                     logger.info(f"File already exists and verified:{manifest.filename}")
                     return job_id  # Skip transfer
 
-            # Create transfer job
             job = TransferJob(
                 job_id=job_id,
                 manifest=manifest,
@@ -288,7 +80,6 @@ class FileTransferManager:
                 device_connection=device_conn,
             )
 
-            # Check for partial file to resume
             if local_path.exists():
                 job.resume_offset = local_path.stat().st_size
                 job.bytes_transferred = job.resume_offset
@@ -303,7 +94,6 @@ class FileTransferManager:
                 f"Queued transfer: {manifest.filename}({manifest.size_bytes} bytes)"
             )
 
-            # Start transfer if we have capacity
             if self.concurrent_transfers < self.max_concurrent:
                 await self._start_next_transfer()
 
@@ -314,22 +104,13 @@ class FileTransferManager:
             raise
 
     async def cancel_transfer(self, job_id: str) -> bool:
-        """
-        Cancel an active or queued transfer
 
-        Args:
-            job_id: Transfer job identifier
-
-        Returns:
-            True if cancelled successfully
-        """
         try:
             if job_id in self.active_jobs:
                 job = self.active_jobs[job_id]
                 job.status = TransferStatus.CANCELLED
                 job.end_time = time.time()
 
-                # Remove from queue if pending
                 if job_id in self.transfer_queue:
                     self.transfer_queue.remove(job_id)
 
@@ -343,173 +124,7 @@ class FileTransferManager:
             return False
 
     async def pause_transfer(self, job_id: str) -> bool:
-        """Pause an active transfer"""
-        try:
-            if job_id in self.active_jobs:
-                job = self.active_jobs[job_id]
-                if job.status == TransferStatus.IN_PROGRESS:
-                    job.status = TransferStatus.PAUSED
-                    logger.info(f"Paused transfer: {job.manifest.filename}")
-                    return True
-            return False
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Failed to pause transfer {job_id}: {e}")
-            return False
 
-    async def resume_transfer(self, job_id: str) -> bool:
-        """Resume a paused transfer"""
-        try:
-            if job_id in self.active_jobs:
-                job = self.active_jobs[job_id]
-                if job.status == TransferStatus.PAUSED:
-                    job.status = TransferStatus.PENDING
-                    if job_id not in self.transfer_queue:
-                        self.transfer_queue.append(job_id)
-
-                    # Start if we have capacity
-                    if self.concurrent_transfers < self.max_concurrent:
-                        await self._start_next_transfer()
-
-                    logger.info(f"Resumed transfer: {job.manifest.filename}")
-                    return True
-            return False
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Failed to resume transfer {job_id}: {e}")
-            return False
-
-    async def _start_next_transfer(self):
-        """Start the next queued transfer"""
-        if not self.transfer_queue or self.concurrent_transfers >= self.max_concurrent:
-            return
-
-        job_id = self.transfer_queue.pop(0)
-        if job_id not in self.active_jobs:
-            return
-
-        job = self.active_jobs[job_id]
-        if job.status != TransferStatus.PENDING:
-            return
-
-        # Start the transfer
-        self.concurrent_transfers += 1
-        asyncio.create_task(self._execute_transfer(job))
-
-    async def _execute_transfer(self, job: TransferJob):
-        """Execute the actual file transfer"""
-        try:
-            job.status = TransferStatus.IN_PROGRESS
-            job.start_time = time.time()
-
-            logger.info(f"Starting transfer: {job.manifest.filename}")
-
-            # Real file transfer implementation using network communication
-            await self._transfer_file_chunks(job)
-
-            # Verify file integrity if enabled
-            if self.verify_checksums:
-                if not await self._verify_file_integrity(job):
-                    raise Exception("File integrity verification failed")
-
-            # Mark as completed
-            job.status = TransferStatus.COMPLETED
-            job.end_time = time.time()
-            job.bytes_transferred = job.manifest.size_bytes
-
-            # Move to completed jobs
-            self.completed_jobs[job.job_id] = job
-            del self.active_jobs[job.job_id]
-
-            duration = job.end_time - job.start_time
-            rate = job.manifest.size_bytes / duration if duration > 0 else 0
-
-            logger.info(f"Transfer completed: {job.manifest.filename}")
-            logger.info(
-                f"Size: {job.manifest.size_bytes} bytes, "
-                f"Duration: {duration:.2f}s, "
-                f"Rate: {rate/1024/1024:.2f} MB/s"
-            )
-
-        except (OSError, ValueError, RuntimeError) as e:
-            job.status = TransferStatus.FAILED
-            job.end_time = time.time()
-            job.error_message = str(e)
-            job.retry_count += 1
-
-            logger.error(f"Transfer failed: {job.manifest.filename} - {e}")
-
-            # Retry if under limit
-            if job.retry_count <= self.retry_limit:
-                logger.info(
-                    f"Retrying transfer (attempt {job.retry_count}/{self.retry_limit})"
-                )
-                job.status = TransferStatus.PENDING
-                job.error_message = None
-                self.transfer_queue.append(job.job_id)
-            else:
-                logger.error(
-                    f"Transfer permanently failed after{job.retry_count} attempts"
-                )
-
-        finally:
-            self.concurrent_transfers -= 1
-            # Start next transfer if available
-            if self.transfer_queue:
-                await self._start_next_transfer()
-
-    async def _transfer_file_chunks(self, job: TransferJob):
-        """Transfer file in chunks with progress updates"""
-        try:
-            # Open local file for writing
-            mode = "ab" if job.resume_offset > 0 else "wb"
-
-            with open(job.local_path, mode) as f:
-                bytes_remaining = job.manifest.size_bytes - job.resume_offset
-                bytes_transferred = job.resume_offset
-
-                while bytes_remaining > 0:
-                    if job.status != TransferStatus.IN_PROGRESS:
-                        break  # Transfer was paused or cancelled
-
-                    # Determine chunk size for this iteration
-                    chunk_size = min(self.chunk_size, bytes_remaining)
-
-                    # Read chunk from device using real network communication
-                    chunk_data = await self._read_chunk_from_device(
-                        job, bytes_transferred, chunk_size
-                    )
-
-                    # Write chunk to local file
-                    f.write(chunk_data)
-                    f.flush()
-
-                    bytes_transferred += len(chunk_data)
-                    bytes_remaining -= len(chunk_data)
-                    job.bytes_transferred = bytes_transferred
-
-                    # Update progress
-                    await self._update_progress(job)
-
-                    # Small delay to prevent overwhelming the system
-                    await asyncio.sleep(0.001)
-
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Error during chunk transfer: {e}")
-            raise
-
-    async def _read_chunk_from_device(
-        self, job: TransferJob, offset: int, size: int
-    ) -> bytes:
-        """
-        Read a chunk of data from the device using real network communication
-
-        Args:
-            job: Transfer job containing device connection info
-            offset: File offset to read from
-            size: Number of bytes to read
-
-        Returns:
-            Chunk data as bytes
-        """
         try:
             # Real network communication to read file chunk from Android device
             device_conn = job.device_connection
@@ -550,16 +165,7 @@ class FileTransferManager:
             raise
 
     async def _send_device_request(self, device_conn: Any, request_data: dict) -> dict:
-        """
-        Send request to Android device and get response
 
-        Args:
-            device_conn: Device connection object
-            request_data: Request data as dict
-
-        Returns:
-            Response data as dict
-        """
         try:
             import json
 
@@ -634,7 +240,6 @@ class FileTransferManager:
             if not filepath.exists():
                 return False
 
-            # Check file size
             file_size = filepath.stat().st_size
             if file_size != manifest.size_bytes:
                 return False

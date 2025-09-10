@@ -1,11 +1,5 @@
 package com.topdon.lib.core.bean
 
-/**
- * dataPhotodata.
- * @param isOpen data
- * @param continuaTime dataPhotodata，data
- * @param count dataPhotodata
- */
 data class ContinuousBean(var isOpen: Boolean = false, var continuaTime: Long = 1000, var count: Int = 3)
 
 class ObserveBean {

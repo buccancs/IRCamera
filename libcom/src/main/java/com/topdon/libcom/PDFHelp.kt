@@ -20,10 +20,6 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
-/**
- * @author: CaiSongL
- * @date: 2023/5/5 17:41
- */
 object PDFHelp {
     fun savePdfFileByListView(
         name: String,
@@ -44,7 +40,7 @@ object PDFHelp {
 
         for (index in 0 until viewList.size) {
             val contentHeight = viewList[index].measuredHeight
-            if (onePageContentHeight + contentHeight > onePageHeight) { // Handle special case
+            if (onePageContentHeight + contentHeight > onePageHeight) {
                 onePageContentHeight = 0f
                 pdfDocument.finishPage(page)
                 page = null

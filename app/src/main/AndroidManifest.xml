@@ -54,7 +54,7 @@
     <meta-data android:name="ScopedStorage" android:value="true"/>
     <activity android:name="com.topdon.tc001.IRGalleryEditActivity" android:launchMode="singleTop" android:screenOrientation="userPortrait" android:windowSoftInputMode="adjustPan"/>
     <activity android:name=".BlankDevActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:theme="@style/Blank" android:exported="true">
-      <!-- 监听USB设备的插拔 -->
+
       <intent-filter>
         <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"/>
       </intent-filter>

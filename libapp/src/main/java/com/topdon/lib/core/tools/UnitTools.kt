@@ -4,11 +4,7 @@ import com.topdon.lib.core.common.SharedManager
 import java.util.*
 
 object UnitTools {
-    /**
-     * utility
-     *
-     * @param float utility
-     */
+
     @JvmStatic
     fun showC(float: Float): String {
         val str =
@@ -22,11 +18,6 @@ object UnitTools {
         return str
     }
 
-    /**
-     * utility
-     *
-     * @param float utility
-     */
     @JvmStatic
     fun showC(
         float: Float,
@@ -43,53 +34,6 @@ object UnitTools {
         return str
     }
 
-    /**
-     * utility
-     */
-    @JvmStatic
-    fun showIntervalC(
-        min: Int,
-        max: Int,
-    ): String {
-        val str =
-            if (SharedManager.getTemperature() == 1) {
-                // Utility function
-                "$min~$max°C"
-            } else {
-                // Fahrenheit
-                val maxT: Int = (max * 1.8000 + 32.00).toInt()
-                val minT: Int = (min * 1.8000 + 32.00).toInt()
-                "$minT~$maxT°F"
-            }
-        return str
-    }
-
-    /**
-     * utility
-     */
-    @JvmStatic
-    fun showConfigC(
-        min: Int,
-        max: Int,
-    ): String {
-        val str =
-            if (SharedManager.getTemperature() == 1) {
-                // Utility function
-                "($min~$max°C)"
-            } else {
-                // Fahrenheit
-                val maxT: Int = (max * 1.8000 + 32.00).toInt()
-                val minT: Int = (min * 1.8000 + 32.00).toInt()
-                "($minT~$maxT°F)"
-            }
-        return str
-    }
-
-    /**
-     * utility
-     *
-     * @param float utility
-     */
     @JvmStatic
     fun showUnit(): String {
         val str =
@@ -103,11 +47,6 @@ object UnitTools {
         return str
     }
 
-    /**
-     * utility
-     *
-     * @param float utility
-     */
     @JvmStatic
     fun showUnitValue(value: Float): Float {
         val str =
@@ -121,11 +60,6 @@ object UnitTools {
         return str.toFloat()
     }
 
-    /**
-     * utility
-     *
-     * @param float utility
-     */
     @JvmStatic
     fun showUnitValue(
         value: Float,
@@ -145,11 +79,6 @@ object UnitTools {
         return str.toFloat()
     }
 
-    /**
-     * utilityCelsius
-     *
-     * @param float utility
-     */
     @JvmStatic
     fun showToCValue(
         value: Float,
@@ -166,11 +95,6 @@ object UnitTools {
         return str.toFloat()
     }
 
-    /**
-     * utilityCelsius
-     *
-     * @param float utility
-     */
     @JvmStatic
     fun showToCValue(value: Float): Float {
         val str =
@@ -184,26 +108,6 @@ object UnitTools {
         return str.toFloat()
     }
 
-    /**
-     * utilityFahrenheit
-     */
-    fun toF(value: Float): Float {
-        return value * 1.8000f + 32.00f
-    }
-
-    /**
-     * utilityCelsius
-     * utility,utilityFahrenheitutilityCelsiusutility
-     */
-    fun toC(value: Float): Float {
-        return (value - 32.0f) / 1.8000f
-    }
-
-    /**
-     * utilityCelsius，utility1utility String.
-     *
-     * @param float utility，utilityCelsius
-     */
     @JvmStatic
     fun showNoUnit(float: Float): String {
         val str =
@@ -215,11 +119,6 @@ object UnitTools {
         return if (str.endsWith(".0")) str.substring(0, str.length - 2) else str
     }
 
-    /**
-     * utilityCelsius，utility1utility String.
-     *
-     * @param float utility，utilityCelsius
-     */
     @JvmStatic
     fun showWithUnit(float: Float): String {
         val str =

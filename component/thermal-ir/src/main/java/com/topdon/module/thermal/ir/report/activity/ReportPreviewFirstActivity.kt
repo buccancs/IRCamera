@@ -26,7 +26,7 @@ class ReportPreviewFirstActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_report_preview_first
 
     override fun initView() {
-        // Initialize views
+
         titleView = findViewById(R.id.title_view)
         reportInfoView = findViewById(R.id.report_info_view)
         watermarkView = findViewById(R.id.watermark_view)

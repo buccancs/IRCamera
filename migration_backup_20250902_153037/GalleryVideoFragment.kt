@@ -58,17 +58,7 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
         super.onStart()
         viewModel.getVideoData()
     }
-
-//    fun previewVideo(path: String) {
-//        val imageEngine = GlideImageEngine()
-//        MNImageBrowser.with(context)
-//            .setCurrentPosition(0)
-//            .setImageEngine(imageEngine)
-//            .setImageUrl(path)
-//            .show()
-//    }
-
-    fun openVideo(path: String) {
+fun openVideo(path: String) {
         ARouter.getInstance().build(RouterConfig.VIDEO).withString("video_path", path)
             .navigation(requireContext())
     }

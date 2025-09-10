@@ -10,113 +10,6 @@ import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.SizeUtils
 
-/**
- * RecyclerView item BindingAdapter.
- *
- * Created by LCG on 2024/11/5.
- */
-object ViewBindingAdapter {
-    /**
-     * item view item background item selectableItemBackground item.
-     */
-    @JvmStatic
-    @BindingAdapter("bgEffect")
-    fun setBgEffect(
-        view: View,
-        wantEffect: Boolean,
-    ) {
-        val oldDrawable: Drawable? = view.background
-        if (oldDrawable is LayerDrawable) {
-            val layerCount = oldDrawable.numberOfLayers
-            val drawableList = ArrayList<Drawable>(layerCount + 1)
-            for (i in 0 until layerCount) {
-                if (oldDrawable.getId(i) == android.R.id.hint) {
-                    if (wantEffect) {
-                        return
-                    }
-                } else {
-                    drawableList.add(oldDrawable.getDrawable(i))
-                }
-            }
-            if (wantEffect) {
-                val typedArray: TypedArray =
-                    view.context.obtainStyledAttributes(
-                        intArrayOf(android.R.attr.selectableItemBackground),
-                    )
-                val effectDrawable: Drawable? = typedArray.getDrawable(0)
-                typedArray.recycle()
-                if (effectDrawable != null) {
-                    drawableList.add(effectDrawable)
-                }
-            } else {
-                if (drawableList.size == layerCount) { // List item data hint
-                    return
-                }
-                if (drawableList.isEmpty()) { // List item data1item hint，item
-                    view.background = null
-                    return
-                }
-            }
-
-            if (drawableList.size == 1) {
-                view.background = drawableList[0]
-                return
-            }
-
-            val newDrawable = LayerDrawable(drawableList.toArray(arrayOf()))
-            if (drawableList.size == 2 && drawableList[0] is GradientDrawable) {
-                oldDrawable.setId(0, android.R.id.content)
-            }
-            if (wantEffect) {
-                oldDrawable.setId(drawableList.size - 1, android.R.id.hint)
-            }
-            view.background = newDrawable
-        } else {
-            val typedArray: TypedArray =
-                view.context.obtainStyledAttributes(
-                    intArrayOf(android.R.attr.selectableItemBackground),
-                )
-            val effectDrawable: Drawable? = typedArray.getDrawable(0)
-            typedArray.recycle()
-
-            val newDrawable =
-                LayerDrawable(
-                    if (oldDrawable == null) arrayOf(effectDrawable) else arrayOf(oldDrawable, effectDrawable),
-                )
-            if (oldDrawable is GradientDrawable) {
-                newDrawable.setId(0, android.R.id.content)
-            }
-            newDrawable.setId(if (oldDrawable == null) 0 else 1, android.R.id.hint)
-            view.background = newDrawable
-        }
-    }
-
-    /**
-     * item shape itemSpecified view item background itemSettingsitemSpecifieditem.
-     *
-     * Note：item bgXXX itemSettings，itemSettingsitem android:background item？
-     */
-    @JvmStatic
-    @BindingAdapter("bgColor")
-    fun setBgColor(
-        view: View,
-        @ColorInt color: Int,
-    ) {
-        val gradientDrawable: GradientDrawable = buildGradientDrawable(view)
-        gradientDrawable.setColor(color)
-        view.background = buildEffectDrawable(view, gradientDrawable)
-    }
-
-    /**
-     * item shape itemSpecified view item background Settingsitem，item**dp**.
-     *
-     * Note：item bgXXX itemSettings，itemSettings。
-     * @param bgCorners 4item，itemdp
-     * @param bgCornersLT left-top item，item，itemdp
-     * @param bgCornersRT right-top item，item，itemdp
-     * @param bgCornersLB left-bottom item，item，itemdp
-     * @param bgCornersRB right-bottom item，item，itemdp
-     */
     @JvmStatic
     @BindingAdapter(
         value = ["bgCorners", "bgCornersLT", "bgCornersRT", "bgCornersLB", "bgCornersRB"],
@@ -151,11 +44,6 @@ object ViewBindingAdapter {
         view.background = buildEffectDrawable(view, gradientDrawable)
     }
 
-    /**
-     * item shape itemSpecified view item background Settingsitem.
-     * @param width item，itemdp
-     * @param color item
-     */
     @JvmStatic
     @BindingAdapter(value = ["bgStrokeWidth", "bgStrokeColor"], requireAll = false)
     fun setBgStroke(
@@ -168,37 +56,6 @@ object ViewBindingAdapter {
         view.background = buildEffectDrawable(view, gradientDrawable)
     }
 
-    /**
-     * item shape itemSpecified view item background Settingsitem.
-     */
-    @JvmStatic
-    @BindingAdapter(value = ["bgStartColor", "bgCenterColor", "bgEndColor"], requireAll = false)
-    fun setBgGradientColor(
-        view: View,
-        @ColorInt startColor: Int,
-        @ColorInt centerColor: Int?,
-        @ColorInt endColor: Int,
-    ) {
-        val gradientDrawable: GradientDrawable = buildGradientDrawable(view)
-        gradientDrawable.colors =
-            if (centerColor == null) {
-                intArrayOf(
-                    startColor,
-                    endColor,
-                )
-            } else {
-                intArrayOf(startColor, centerColor, endColor)
-            }
-        view.background = buildEffectDrawable(view, gradientDrawable)
-    }
-
-    /**
-     * item shape itemSpecified view item background SettingsSpecifiedTypeitem.
-     * @param angle item：itemAngle，item 45 item，0item 90item -90item270item
-     * @param radius item：item
-     * @param centerX item：itemXitem
-     * @param centerY item：itemYitem
-     */
     @JvmStatic
     @BindingAdapter(value = ["bgAngle", "bgRadius", "bgCenterX", "bgCenterY"], requireAll = false)
     fun setBgGradient(

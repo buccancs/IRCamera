@@ -27,7 +27,7 @@ class ElectronicManualActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_electronic_manual
 
     override fun initView() {
-        // Initialize views - migrated from synthetic views
+
         titleView = findViewById(R.id.title_view)
         electronicManualRecycler = findViewById(R.id.electronic_manual_recycler)
 

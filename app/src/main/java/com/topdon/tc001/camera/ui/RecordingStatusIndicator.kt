@@ -93,7 +93,6 @@ class RecordingStatusIndicator
 
             updateDisplay()
 
-            // Start duration counter
             startDurationCounter()
         }
 
@@ -139,7 +138,6 @@ class RecordingStatusIndicator
                 durationText.text = ""
                 sensorsText.text = ""
 
-                // Hide when not recording to save screen space
                 visibility = GONE
             }
         }
@@ -153,7 +151,6 @@ class RecordingStatusIndicator
 
             durationText.text = String.format("%02d:%02d", minutes, seconds)
 
-            // Update every second
             postDelayed({ startDurationCounter() }, 1000)
         }
 

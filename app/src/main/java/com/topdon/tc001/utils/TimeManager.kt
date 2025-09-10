@@ -10,85 +10,6 @@ import java.util.UUID
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.math.abs
 
-/**
- * High-precision time management for multi-modal sensor synchronization.
- *
- * This manager handles temporal synchronization between the Android Sensor Node (Spoke)
- * and the PC Controller (Hub) to achieve sub-5ms accuracy as required.
- *
- * Features:
- * - NTP-like clock synchronization with PC Controller
- * - High-precision monotonic clock baseline
- * - Clock drift detection and compensation
- * - Network latency measurement and compensation
- * - Synchronized timestamp generation for all sensors
- *
- * Technical Approach:
- * - Uses SystemClock.elapsedRealtimeNanos() for monotonic baseline
- * - Implements custom NTP-like protocol for PC sync
- * - Calculates and applies clock offset corrections
- * - Monitors sync quality and drift over time
- *
- * @author IRCamera Android Sensor Node (Spoke)
- */
-class TimeManager(
-    private val context: Context,
-) {
-    companion object {
-        private const val TAG = "TimeManager"
-        private const val SYNC_TIMEOUT_MS = 5000L
-        private const val SYNC_RETRY_COUNT = 3
-        private const val SYNC_QUALITY_THRESHOLD_MS = 5.0
-        private const val DRIFT_MONITORING_INTERVAL_MS = 30000L
-
-        // Singleton instance
-        @Volatile
-        private var INSTANCE: TimeManager? = null
-
-        fun getInstance(context: Context): TimeManager {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: TimeManager(context.applicationContext).also { INSTANCE = it }
-            }
-        }
-    }
-
-    // Time synchronization state
-    private var clockOffsetNs = AtomicLong(0) // Offset to align with PC Controller
-    private var lastSyncTimestamp = AtomicLong(0)
-    private var syncQualityMs = AtomicLong(Long.MAX_VALUE)
-    private var isTimeSynced = false
-
-    // Network connectivity
-    private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-    // Monitoring
-    private val syncScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    private var driftMonitoringJob: Job? = null
-
-    /**
-     * Get the current synchronized timestamp in nanoseconds.
-     * This is the primary method for generating timestamps for sensor data.
-     */
-    fun getCurrentTimestampNs(): Long {
-        val monotonicTime = SystemClock.elapsedRealtimeNanos()
-        val offset = clockOffsetNs.get()
-        return monotonicTime + offset
-    }
-
-    /**
-     * Get the current synchronized timestamp in milliseconds.
-     */
-    fun getCurrentTimestampMs(): Long {
-        return getCurrentTimestampNs() / 1_000_000
-    }
-
-    /**
-     * Synchronize clock with PC Controller using NTP-like protocol.
-     *
-     * @param pcControllerAddress IP address of PC Controller
-     * @param port Time sync port on PC Controller
-     * @return true if synchronization successful, false otherwise
-     */
     suspend fun synchronizeWithPC(
         pcControllerAddress: String,
         port: Int = 8082,
@@ -139,7 +60,6 @@ class TimeManager(
                     syncQualityMs.set(bestRtt / 1_000_000)
                     isTimeSynced = true
 
-                    // Start drift monitoring
                     startDriftMonitoring()
 
                     Log.i(
@@ -205,7 +125,7 @@ class TimeManager(
         // Real network communication with PC Controller using TCP socket
         return try {
             withContext(Dispatchers.IO) {
-                // Create TCP socket connection to PC Controller
+
                 val socket = java.net.Socket()
                 socket.connect(java.net.InetSocketAddress(pcAddress, port), SYNC_TIMEOUT_MS.toInt())
 
@@ -213,7 +133,6 @@ class TimeManager(
                     val outputStream = socket.getOutputStream()
                     val inputStream = socket.getInputStream()
 
-                    // Create time sync request message
                     val requestJson =
                         """
                         {
@@ -289,7 +208,7 @@ class TimeManager(
                     delay(DRIFT_MONITORING_INTERVAL_MS)
 
                     try {
-                        // Check if resync is needed based on time since last sync
+
                         val timeSinceSync = (getCurrentTimestampNs() - lastSyncTimestamp.get()) / 1_000_000
 
                         if (timeSinceSync > 300_000) { // 5 minutes

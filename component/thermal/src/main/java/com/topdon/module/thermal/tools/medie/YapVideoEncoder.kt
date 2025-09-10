@@ -12,12 +12,6 @@ import java.io.IOException
 import java.nio.ByteBuffer
 import kotlin.concurrent.thread
 
-/**
- * @author YaphetZhao
- * @email yaphetzhao@gmail.com
- * @data 2020-07-30
- * @wechat yaphetzhao92
- */
 class YapVideoEncoder(
     private val IProvider: IYapVideoProvider<Bitmap>,
     private val out: File,
@@ -115,7 +109,7 @@ class YapVideoEncoder(
 
         try {
             mediaCodec = MediaCodec.createEncoderByType(MediaFormat.MIMETYPE_VIDEO_AVC)
-            // Create the generated MP4 initialization object
+
             if (!out.exists()) {
                 out.createNewFile()
             }
@@ -359,7 +353,7 @@ class YapVideoEncoder(
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0
@@ -416,7 +410,7 @@ class YapVideoEncoder(
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0
@@ -470,7 +464,7 @@ class YapVideoEncoder(
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0
@@ -528,7 +522,7 @@ class YapVideoEncoder(
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0

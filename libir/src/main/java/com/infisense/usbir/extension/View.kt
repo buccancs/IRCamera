@@ -5,26 +5,6 @@ import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 
-/**
- * @author: CaiSongL
- * @date: 2022/6/3 21:09
- */
-fun View.gone() {
-    this.visibility = View.GONE
-}
-
-fun View.visible() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.invisible() {
-    this.visibility = View.INVISIBLE
-}
-
-/**
- * viewview，view。
- * @param duration view，view，view500view。
- */
 fun View?.goneAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.GONE
     this?.startAnimation(
@@ -35,10 +15,6 @@ fun View?.goneAlphaAnimation(duration: Long = 500L) {
     )
 }
 
-/**
- * viewview，view。
- * @param duration view，view，view500view。
- */
 fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.INVISIBLE
     this?.startAnimation(
@@ -49,11 +25,6 @@ fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
     )
 }
 
-/**
- * viewview，view。
- *
- * @param duration view，view，view500view。
- */
 fun View?.visibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.VISIBLE
     this?.startAnimation(

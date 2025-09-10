@@ -16,10 +16,6 @@ import org.opencv.imgproc.Imgproc.*
 import java.io.IOException
 import java.io.InputStream
 
-/**
- * @author: CaiSongL
- * @date: 2023/10/28 15:35
- */
 class AlgorithmImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -159,7 +155,6 @@ class AlgorithmImageActivity : AppCompatActivity() {
             applyColorMap(baseMat, baseImage, 15)
             Imgproc.cvtColor(baseImage, baseImage, Imgproc.COLOR_BGR2RGBA)
 
-//            val tmp = Mat(192, 256, CvType.CV_8UC4)
 //            tmp.put(0,0,ImageColorTools.matToByteArrayBy4(baseImage))
 //            Imgproc.cvtColor(tmp,tmp, COLOR_RGBA2GRAY)
 

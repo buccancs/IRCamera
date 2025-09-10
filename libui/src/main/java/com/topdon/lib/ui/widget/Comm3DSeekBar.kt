@@ -168,17 +168,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
     override fun onDraw(canvas: Canvas) {
         if (orientation == 0) {
             super.onDraw(canvas)
-//            val progressText = "$progress%"
-//            mPaint.getTextBounds(progressText, 0, progressText.length, mProgressTextRect)
-//            // data
-//            val progressRatio = progress.toFloat() / max
-//            // thumbdata
-//            val thumbOffset: Float =
-//                (mThumbWidth - mProgressTextRect.width()) / 2 - mThumbWidth * progressRatio
-//            val thumbX = width * progressRatio + thumbOffset
-//            val thumbY: Float = height / 2f + mProgressTextRect.height() / 2f
-//            canvas!!.drawText(progressText, thumbX, thumbY, mPaint)
-        } else {
+} else {
             canvas?.let {
                 it.rotate(90f)
                 it.translate(-paddingStart.toFloat(), -width.toFloat() + paddingEnd)

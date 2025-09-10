@@ -6,24 +6,24 @@
     </data>
 <ScrollView xmlns:ns0="http://schemas.android.com/apk/res/android" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:padding="16dp">
   <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:spacing="8dp">
-    
+
     <TextView ns0:id="@+id/session_title" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Multi-Modal Recording Session" ns0:textSize="20sp" ns0:textStyle="bold" ns0:gravity="center" ns0:padding="8dp" />
-    
+
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal" ns0:gravity="center_vertical">
       <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Participant ID:" ns0:textSize="16sp" ns0:layout_marginEnd="8dp" />
       <EditText ns0:id="@+id/participant_id_input" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:hint="Enter participant ID" ns0:inputType="text" />
     </LinearLayout>
-    
+
     <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Recording Options" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginTop="16dp" />
     <Switch ns0:id="@+id/enable_video_switch" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Enable Video Recording" ns0:padding="8dp" />
     <Switch ns0:id="@+id/enable_4k_switch" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Enable 4K Recording" ns0:padding="8dp" />
     <Switch ns0:id="@+id/enable_raw_capture_switch" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Enable Raw Frame Capture" ns0:padding="8dp" />
-    
+
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal" ns0:gravity="center_vertical">
       <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Raw Frame Rate:" ns0:layout_marginEnd="8dp" />
       <Spinner ns0:id="@+id/raw_frame_rate_spinner" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" />
     </LinearLayout>
-    
+
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="horizontal" ns0:layout_marginTop="16dp">
       <Button ns0:id="@+id/start_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Start Recording" ns0:layout_marginEnd="8dp" />
       <Button ns0:id="@+id/stop_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Stop Recording" ns0:enabled="false" />
@@ -32,12 +32,12 @@
       <Button ns0:id="@+id/sync_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Add Sync Mark" ns0:enabled="false" ns0:layout_marginEnd="8dp" />
       <Button ns0:id="@+id/flash_sync_button" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:text="Flash Sync" ns0:enabled="false" />
     </LinearLayout>
-    
+
     <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Status Information" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginTop="16dp" />
     <TextView ns0:id="@+id/status_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Ready to record..." ns0:padding="8dp" ns0:background="@android:color/darker_gray" ns0:textColor="@android:color/white" />
     <TextView ns0:id="@+id/data_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="No data recorded yet" ns0:padding="8dp" />
     <ProgressBar ns0:id="@+id/progress_bar" style="?android:attr/progressBarStyleHorizontal" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:visibility="gone" />
-    
+
     <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Network Status" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginTop="16dp" />
     <TextView ns0:id="@+id/network_status_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Network disconnected" ns0:padding="8dp" />
     <TextView ns0:id="@+id/discovered_devices_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="No devices discovered" ns0:padding="4dp" />

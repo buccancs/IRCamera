@@ -13,10 +13,6 @@ import org.junit.Before
 import org.junit.Test
 import java.io.File
 
-/**
- * Comprehensive unit tests for GSRSensorRecorder
- * Tests real Shimmer SDK integration, data recording, and sync markers
- */
 @OptIn(ExperimentalCoroutinesApi::class)
 class GSRSensorRecorderTest {
     @MockK
@@ -72,7 +68,6 @@ class GSRSensorRecorderTest {
     fun testInitializationFailure() {
         every { mockShimmerRecorder.initialize() } returns false
 
-        // Create new instance to test initialization failure
         val failingRecorder = GSRSensorRecorder(context)
         assertFalse("Initialization should fail", failingRecorder.initialize())
     }
@@ -339,7 +334,6 @@ class GSRSensorRecorderTest {
         gsrRecorder.initialize()
         gsrRecorder.startRecording(testSessionDir, "TestSession")
 
-        // Add some sync markers for metrics
         repeat(5) { index ->
             gsrRecorder.addSyncMarker("SYNC_$index", emptyMap())
         }

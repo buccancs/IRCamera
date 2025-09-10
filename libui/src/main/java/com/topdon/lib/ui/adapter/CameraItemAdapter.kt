@@ -10,10 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.R
 import com.topdon.lib.ui.R as UiR
 
-/**
- * @author: CaiSongL
- * @date: 2023/4/1 13:48
- */
 @Deprecated("item-Menu-Photoitem，item")
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {
     val data: List<String> =

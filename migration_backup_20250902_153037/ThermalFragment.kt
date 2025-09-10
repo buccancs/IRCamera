@@ -76,7 +76,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         val y1 = y * ph / rawHeight
         val maxX = x1 - imageView.width / 2
         val maxY = y1 - imageView.height / 2
-//        Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
+
         imageView.x = maxX.toFloat()
         imageView.y = maxY.toFloat()
     }
@@ -404,7 +404,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
 //    private fun showTipDialog(tip: String, type: Int) {
-//        val tipDialog = TipDialog.Builder(requireContext())
+
 //            .setIconType(type)
 //            .setTipWord(tip)
 //            .create()

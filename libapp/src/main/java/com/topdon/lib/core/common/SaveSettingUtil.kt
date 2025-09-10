@@ -9,61 +9,6 @@ import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
-/**
- * utilitySettingsutility，utility，utility.
- *
- * Currentutility“utilitySettingsutility”utility，
- *
- * [SharedManager] utility“utilitySettingsutility”utility.
- */
-object SaveSettingUtil {
-    /**
-     * utilitySettingsutility SharedPreferences utility.
-     */
-    private const val SP_NAME = "SaveSettingUtil"
-
-    /**
-     * Dual light1
-     */
-    const val FUSION_TYPE_LPY_FUSION = 4
-
-    /**
-     * Dual light2
-     */
-    const val FUSION_TYPE_MEAN_FUSION = 2
-
-    /**
-     * utilityInfrared
-     */
-    const val FUSION_TYPE_IR_ONLY = 1 // Utility functionInfrared
-
-    /**
-     * utilityVisible light
-     */
-    const val FUSION_TYPE_VL_ONLY = 0 // Utility functionVisible light
-
-    /**
-     * Picture in picture
-     */
-    const val FUSION_TYPE_TC007_FUSION = 7 // tc007utilityPicture in picture
-
-    const val FUSION_TYPE_HSL_FUSION = 3
-    const val FUSION_TYPE_SCREEN_FUSION = 5
-    const val FUSION_TYPE_IR_ONLY_NO_FUSION = 6
-
-    // Backward compatibility aliases for existing code references
-    const val FusionTypeLPYFusion = FUSION_TYPE_LPY_FUSION
-    const val FusionTypeMeanFusion = FUSION_TYPE_MEAN_FUSION
-    const val FusionTypeIROnly = FUSION_TYPE_IR_ONLY
-    const val FusionTypeVLOnly = FUSION_TYPE_VL_ONLY
-    const val FusionTypeTC007Fusion = FUSION_TYPE_TC007_FUSION
-    const val FusionTypeHSLFusion = FUSION_TYPE_HSL_FUSION
-    const val FusionTypeScreenFusion = FUSION_TYPE_SCREEN_FUSION
-    const val FusionTypeIROnlyNoFusion = FUSION_TYPE_IR_ONLY_NO_FUSION
-
-    /**
-     * utilitySettingsutility，utilityAllutility.
-     */
     fun reset() {
         // Measure view dimensionsTemperature measurementObservationModeutility
         isMeasureTempMode = true

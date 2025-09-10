@@ -1,36 +1,5 @@
 package com.topdon.gsr.util
 
-/**
- * Utility class for time synchronization and timestamp management
- * Implements unified NTP-style timing with Samsung S22 device as ground truth
- *
- * Samsung S22 Device Specifications (Model-Specific):
- * - SM-S901E (International): Samsung Exynos 2200 with ARM Cortex-X2 high-precision timer
- * - SM-S901U (US): Qualcomm Snapdragon 8 Gen 1 with Kryo 780 high-precision timer
- * - Timing Accuracy: Sub-millisecond precision for physiological recording (both variants)
- * - NTP Synchronization: Device acts as unified time base for all modalities
- */
-object TimeUtil {
-    private const val TAG = "TimeUtil"
-
-    // PC time offset for synchronization (would be set via network communication in production)
-    private var pcTimeOffset: Long = 0L
-
-    // Samsung S22 device ground truth timestamp base - established at system initialization
-    private var deviceGroundTruthBase: Long = System.currentTimeMillis()
-
-    // Boot time reference for high-precision timing (Samsung S22 system uptime)
-    private var bootTimeReference: Long = 0L
-
-    // Detected processor information for optimal timing configuration
-    private var detectedProcessor: String = "Unknown"
-    private var deviceModel: String = "Unknown"
-
-    /**
-     * Get UTC timestamp adjusted for PC synchronization with Samsung S22 ground truth
-     * Uses Samsung S22 processor-specific system timer for maximum precision
-     * Compatible with both Exynos 2200 and Snapdragon 8 Gen 1 variants
-     */
     fun getUtcTimestamp(): Long {
         // Use Samsung S22 device clock as authoritative ground truth reference
         val currentDeviceTime = System.currentTimeMillis()

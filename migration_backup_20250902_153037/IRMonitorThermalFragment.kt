@@ -455,7 +455,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
             val config = ConfigRepository.readConfig(false)
             val disChar = (config.distance * 128).toInt() // 距离(米)
             val emsChar = (config.radiation * 128).toInt() // 发射率
-//            val tuChar = (config.environment * 10).toInt().toChar() //环境温度
+
             XLog.w("设置TPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)

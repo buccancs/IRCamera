@@ -7,9 +7,7 @@ Tests all key components to ensure stability and no errors
 import sys
 from pathlib import Path
 
-# Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
-
 
 def test_imports_and_basic_functionality() -> bool:
     """Test that all core modules import and basic functionality works."""
@@ -59,7 +57,6 @@ def test_imports_and_basic_functionality() -> bool:
         traceback.print_exc()
         return False
 
-
 def test_android_build() -> bool:
     """Test that Android build is successful."""
     print("\nDEVICE Testing Android build...")
@@ -68,10 +65,9 @@ def test_android_build() -> bool:
     import subprocess
 
     try:
-        # Change to root directory
+
         os.chdir(Path(__file__).parent.parent)
 
-        # Run Android build
         result = subprocess.run(
             ["./gradlew", ":libapp:assembleRelease", "--quiet"],
             capture_output=True,
@@ -93,7 +89,6 @@ def test_android_build() -> bool:
         print(f"ERROR Android build error: {e}")
         return False
 
-
 def test_python_tests() -> bool:
     """Run Python test suite."""
     print("\nTESTING Testing Python test suite...")
@@ -109,7 +104,6 @@ def test_python_tests() -> bool:
         env["QT_QPA_PLATFORM"] = "offscreen"
         env["DISPLAY"] = ":99"
 
-        # Run pytest
         result = subprocess.run(
             [
                 sys.executable,
@@ -135,7 +129,6 @@ def test_python_tests() -> bool:
     except Exception as e:
         print(f"ERROR Python test error: {e}")
         return False
-
 
 def main() -> int:
     """Run all validation tests."""
@@ -177,7 +170,6 @@ def main() -> int:
         print("Please review the output above for details")
 
     return 0 if all_passed else 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

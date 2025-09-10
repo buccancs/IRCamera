@@ -172,7 +172,7 @@ class LinearCompassView : View {
     // View rendering
     private fun drawCompassLine() {
         // View rendering
-//        val values = getValuesBetween(getRawMinimum(), getRawMaximum(), 5f).map { it.toInt() }
+
         drawCompass()
         val bottomHeight = height * 7 / 10f
         canvas.drawLine(0f, (bottomHeight - 1), width.toFloat(), bottomHeight, shortLinePaint)

@@ -493,28 +493,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             itemView.layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-//        if (fourBean.size <= 4) {  //itemitem4item，item1/4
-//            val canSeeCount = fourBean.size // Adapter item4item
-//            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
-//            itemView.layoutParams =
-//                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-//            val layoutParams = itemMenu.layoutParams
-//            layoutParams.width = imageSize
-//            layoutParams.height = imageSize
-//            itemMenu.layoutParams = layoutParams
-//        } else {    //itemitem4item，item4.5itemitem
-//            val canSeeCount = 4.5 // Adapter item4item
-//            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
-//            itemView.layoutParams =
-//                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-//            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-//            val layoutParams = itemMenu.layoutParams
-//            layoutParams.width = imageSize
-//            layoutParams.height = imageSize
-//            itemMenu.layoutParams = layoutParams
-//        }
-    }
+}
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)

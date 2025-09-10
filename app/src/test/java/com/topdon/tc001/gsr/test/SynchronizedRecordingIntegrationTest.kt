@@ -9,10 +9,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-/**
- * Comprehensive integration test for synchronized thermal + GSR recording
- * Tests Samsung S22 ground truth timing coordination
- */
 class SynchronizedRecordingIntegrationTest {
     @Mock
     private lateinit var context: Context
@@ -23,7 +19,6 @@ class SynchronizedRecordingIntegrationTest {
     fun setup() {
         MockitoAnnotations.initMocks(this)
 
-        // Initialize Samsung S22 ground truth timing
         TimeUtil.initializeGroundTruthTiming()
         enhancedRecorder = EnhancedThermalRecorder.create(context)
     }

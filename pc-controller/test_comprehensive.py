@@ -15,10 +15,8 @@ import tempfile
 import time
 from pathlib import Path
 
-# Add src directory to Python path
 src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
-
 
 def test_all_components():
     """Test all PC Controller components comprehensively."""
@@ -29,7 +27,7 @@ def test_all_components():
     print(f"Using temporary directory: {temp_dir}")
 
     try:
-        # Import all components
+
         from ircamera_pc.core import (
             CameraCalibrator,
             ConfigManager,
@@ -156,14 +154,12 @@ def test_all_components():
         print(f"\nCleaned up temporary directory: {temp_dir}")
         shutil.rmtree(temp_dir)
 
-
 async def test_gsr_session(gsr_ingestor, session_id):
     """Test GSR ingestor functionality."""
     from ircamera_pc.core.gsr_ingestor import GSRMode
 
     device_id = "test_gsr_device"
 
-    # Start GSR session
     success = await gsr_ingestor.start_session(session_id, device_id, GSRMode.LOCAL)
     assert success, "Failed to start GSR session"
 
@@ -180,19 +176,16 @@ async def test_gsr_session(gsr_ingestor, session_id):
         success = await gsr_ingestor.ingest_sample(session_id, sample_data)
         assert success, f"Failed to ingest GSR sample {i}"
 
-    # End session
     dataset = await gsr_ingestor.end_session(session_id)
     if dataset is None:
         raise ValueError("Failed to end GSR session")
     if len(dataset.samples) != 5:
         raise ValueError(f"Expected 5 samples, got {len(dataset.samples)}")
 
-
 async def test_file_transfer(file_transfer_manager, session_id):
     """Test file transfer manager functionality."""
     from ircamera_pc.core.file_transfer import FileManifest, FileType
 
-    # Create test file manifest
     manifest = FileManifest(
         file_id="test_file_001",
         filename="test_thermal_video.mp4",
@@ -208,14 +201,11 @@ async def test_file_transfer(file_transfer_manager, session_id):
     job_id = await file_transfer_manager.queue_transfer(manifest, None)
     assert job_id is not None, "Failed to queue transfer"
 
-    # Check status
     status = file_transfer_manager.get_transfer_status(job_id)
     assert status is not None, "Failed to get transfer status"
 
-    # Get summary
     summary = file_transfer_manager.get_transfer_summary()
     assert summary["active_transfers"] >= 0, "Invalid transfer summary"
-
 
 async def test_calibration_session(camera_calibrator, session_id):
     """Test camera calibrator functionality."""
@@ -223,13 +213,11 @@ async def test_calibration_session(camera_calibrator, session_id):
 
     device_id = "test_camera_device"
 
-    # Start calibration session
     success = await camera_calibrator.start_calibration(
         device_id, session_id, CameraType.THERMAL
     )
     assert success, "Failed to start calibration session"
 
-    # Check status
     status = camera_calibrator.get_calibration_status(
         device_id, session_id, CameraType.THERMAL
     )
@@ -243,7 +231,6 @@ async def test_calibration_session(camera_calibrator, session_id):
         device_id, session_id, CameraType.THERMAL
     )
     assert success, "Failed to cancel calibration"
-
 
 if __name__ == "__main__":
     success = test_all_components()

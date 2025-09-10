@@ -10,15 +10,6 @@ import android.widget.SeekBar
 import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 
-/**
- * data SeekBar data PopupWindow.
- *
- * data Fusion degree(data)、data(data)、data(data) Settings
- *
- * Created by LCG on 2024/12/3.
- *
- * @param hasTitle data
- */
 @SuppressLint("SetTextI18n")
 class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() {
     var progress: Int
@@ -33,65 +24,6 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
             binding.seekBar.max = value
         }
 
-    /**
-     * data.
-     *
-     * true-data  false-data(stop)data
-     */
-    var isRealTimeTrigger = false
-
-    /**
-     * data.
-     */
-    var onValuePickListener: ((progress: Int) -> Unit)? = null
-
-    private val binding: PopSeekBarBinding = PopSeekBarBinding.inflate(LayoutInflater.from(context))
-
-    init {
-        val widthMeasureSpec =
-            View.MeasureSpec.makeMeasureSpec(
-                context.resources.displayMetrics.widthPixels,
-                View.MeasureSpec.EXACTLY,
-            )
-        val heightMeasureSpec =
-            View.MeasureSpec.makeMeasureSpec(
-                context.resources.displayMetrics.heightPixels,
-                View.MeasureSpec.AT_MOST,
-            )
-        binding.tvTitle.isVisible = hasTitle
-        binding.root.measure(widthMeasureSpec, heightMeasureSpec)
-        binding.tvValue.text = "$progress%"
-        binding.seekBar.setOnSeekBarChangeListener(
-            object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(
-                    seekBar: SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean,
-                ) {
-                    binding.tvValue.text = "$progress%"
-                    if (isRealTimeTrigger) {
-                        onValuePickListener?.invoke(progress)
-                    }
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    onValuePickListener?.invoke(seekBar.progress)
-                }
-            },
-        )
-
-        contentView = binding.root
-        width = contentView.measuredWidth
-        height = contentView.measuredHeight
-        isOutsideTouchable = false
-    }
-
-    /**
-     * @param isDropDown true-dataanchordata false-dataanchordata
-     */
     fun show(
         anchor: View,
         isDropDown: Boolean,

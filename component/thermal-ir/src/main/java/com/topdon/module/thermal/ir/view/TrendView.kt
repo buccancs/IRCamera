@@ -11,32 +11,6 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
 import kotlin.math.min
 
-/**
- * view.
- *
- * Created by LCG on 2024/12/31.
- */
-class TrendView : FrameLayout {
-    /**
-     * view
-     */
-    fun expand() {
-        binding.clOpen.isVisible = true
-        binding.llClose.isVisible = false
-    }
-
-    /**
-     * view
-     */
-    fun close() {
-        binding.clOpen.isVisible = false
-        binding.llClose.isVisible = true
-    }
-
-    /**
-     * viewSpecifiedview
-     * @param tempList view，viewCelsius
-     */
     fun refreshChart(tempList: List<Float>) {
         if (isVisible && binding.clOpen.isVisible) {
             binding.viewChartTrend.refresh(tempList)

@@ -2,10 +2,6 @@ package com.topdon.lib.core.bean
 
 import java.nio.ByteBuffer
 
-/**
- * @author: CaiSongL
- * @date: 2023/5/16 15:56
- */
 data class AlarmBean(
     var isHighOpen: Boolean = false,
     var isLowOpen: Boolean = false,

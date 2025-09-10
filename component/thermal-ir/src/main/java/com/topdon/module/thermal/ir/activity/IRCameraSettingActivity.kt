@@ -36,11 +36,6 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import com.topdon.lib.core.R as LibR
 
-/**
- * activitySettings
- * @author: CaiSongL
- * @date: 2023/4/3 15:00
- */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCameraSettingActivity : BaseActivity() {
     companion object {

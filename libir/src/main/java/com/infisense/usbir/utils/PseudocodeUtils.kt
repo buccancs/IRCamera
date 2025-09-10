@@ -2,10 +2,6 @@ package com.infisense.usbir.utils
 
 import com.energy.iruvc.utils.CommonParams
 
-/**
- * @author: CaiSongL
- * @date: 2023/6/2 9:36
- */
 object PseudocodeUtils {
     fun changeDualPseudocodeModelByOld(oldPseudocodeMode: Int): CommonParams.PseudoColorUsbDualType {
         return when (oldPseudocodeMode) {

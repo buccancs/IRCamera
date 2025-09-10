@@ -13,10 +13,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.topdon.lib.core.ktbase.BaseBindingActivity
 
-/**
- * GSR Plot Activity
- * Advanced visualization of GSR data with multiple analysis views
- */
 class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
     override fun initContentLayoutId(): Int = R.layout.activity_gsr_plot
 
@@ -27,7 +23,6 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Setup toolbar
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             title = "GSR Data Analysis"
@@ -48,7 +43,7 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
     }
 
     private fun setupGSRChart() {
-        // Configure GSR chart
+
         binding.gsrChart.apply {
             description =
                 Description().apply {
@@ -56,7 +51,6 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
                     textSize = 12f
                 }
 
-            // Configure X-axis
             xAxis.apply {
                 position = XAxis.XAxisPosition.BOTTOM
                 valueFormatter = TimeFormatter()
@@ -64,21 +58,18 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
                 labelCount = 6
             }
 
-            // Configure Y-axis
             axisLeft.apply {
                 setDrawGridLines(true)
                 gridColor = Color.LTGRAY
             }
             axisRight.isEnabled = false
 
-            // Enable zoom and pan
             setTouchEnabled(true)
             isDragEnabled = true
             setScaleEnabled(true)
             setPinchZoom(true)
         }
 
-        // Create GSR data sets
         val gsrEntries =
             plotData.timestamps.mapIndexed { index, timestamp ->
                 Entry(timestamp.toFloat(), plotData.gsrValues[index].toFloat())
@@ -111,7 +102,7 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
     }
 
     private fun setupPPGChart() {
-        // Configure PPG chart
+
         ppgChart.apply {
             description =
                 Description().apply {
@@ -119,7 +110,6 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
                     textSize = 12f
                 }
 
-            // Configure X-axis
             xAxis.apply {
                 position = XAxis.XAxisPosition.BOTTOM
                 valueFormatter = TimeFormatter()
@@ -127,21 +117,18 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
                 labelCount = 6
             }
 
-            // Configure Y-axis
             axisLeft.apply {
                 setDrawGridLines(true)
                 gridColor = Color.LTGRAY
             }
             axisRight.isEnabled = false
 
-            // Enable zoom and pan
             setTouchEnabled(true)
             isDragEnabled = true
             setScaleEnabled(true)
             setPinchZoom(true)
         }
 
-        // Create PPG data sets
         val ppgEntries =
             plotData.timestamps.mapIndexed { index, timestamp ->
                 Entry(timestamp.toFloat(), plotData.ppgValues[index].toFloat())

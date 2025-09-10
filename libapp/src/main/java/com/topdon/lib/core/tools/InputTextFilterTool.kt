@@ -7,11 +7,7 @@ import android.widget.EditText
 import java.util.regex.Pattern
 
 class InputTextFilterTool {
-    /**
-     * SettingseditTextutility
-     *
-     * @param editText
-     */
+
     fun setEditTextFilter(editText: EditText) {
         val oldFilters = editText.filters
         val oldFiltersLength = oldFilters.size
@@ -24,7 +20,6 @@ class InputTextFilterTool {
         editText.filters = newFilters
     }
 
-    // Initialize variable
     private var mInputFilter: InputFilter =
         object : InputFilter {
             //        Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);

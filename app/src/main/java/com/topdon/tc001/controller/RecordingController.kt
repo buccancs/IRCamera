@@ -13,21 +13,6 @@ import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 
-/**
- * Central coordinator for all sensor recording in the Multi-Modal Physiological Sensing Platform.
- *
- * This controller manages the complete sensor recording pipeline:
- * - Initialization and cleanup of all sensor recorders
- * - Synchronized start/stop across all sensors
- * - Real-time monitoring and error handling
- * - Temporal synchronization and sync marker distribution
- * - Performance monitoring and quality assurance
- *
- * The RecordingController implements the core logic for the Android Sensor Node (Spoke)
- * in the Hub-and-Spoke architecture, coordinating multi-modal data collection.
- *
- * @author IRCamera Android Sensor Node (Spoke)
- */
 class RecordingController(
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner,
@@ -75,12 +60,10 @@ class RecordingController(
             try {
                 Log.i(TAG, "Initializing sensor recorders")
 
-                // Create sensor recorders
                 val rgbCamera = RgbCameraRecorder(context, lifecycleOwner, "rgb_camera_1")
                 val thermalCamera = ThermalCameraRecorder(context, "thermal_camera_1")
                 val gsrSensor = GSRSensorRecorder(context, "gsr_shimmer_1")
 
-                // Initialize each sensor
                 val initResults =
                     listOf(
                         "rgb_camera_1" to rgbCamera.initialize(),
@@ -88,7 +71,6 @@ class RecordingController(
                         "gsr_shimmer_1" to gsrSensor.initialize(),
                     )
 
-                // Add successfully initialized sensors
                 initResults.forEach { (sensorId, success) ->
                     if (success) {
                         when (sensorId) {
@@ -110,7 +92,6 @@ class RecordingController(
                     }
                 }
 
-                // Start monitoring
                 startMonitoring()
 
                 val successCount = sensorRecorders.size
@@ -118,7 +99,6 @@ class RecordingController(
 
                 Log.i(TAG, "Sensor initialization complete: $successCount/$totalCount sensors ready")
 
-                // Return true if at least one sensor is available
                 successCount > 0
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to initialize sensors", e)
@@ -148,7 +128,6 @@ class RecordingController(
                 Log.i(TAG, "Starting multi-modal recording")
                 _recordingStateFlow.value = RecordingState.STARTING
 
-                // Create session directory
                 val sessionDir = File(sessionDirectory)
                 if (!sessionDir.exists()) {
                     sessionDir.mkdirs()
@@ -157,7 +136,6 @@ class RecordingController(
                 currentSessionDirectory = sessionDirectory
                 recordingStartTime = System.nanoTime()
 
-                // Start all sensors concurrently
                 val startJobs =
                     sensorRecorders.values.map { sensor ->
                         async {
@@ -170,7 +148,6 @@ class RecordingController(
                 val successfulStarts = startResults.filter { it.second }
                 val failedStarts = startResults.filter { !it.second }
 
-                // Log results
                 successfulStarts.forEach { (sensorId, _) ->
                     Log.i(TAG, "Sensor $sensorId started successfully")
                 }
@@ -191,7 +168,6 @@ class RecordingController(
                     _isRecording.set(true)
                     _recordingStateFlow.value = RecordingState.RECORDING
 
-                    // Add initial sync marker
                     addSyncMarker("session_start", recordingStartTime)
 
                     Log.i(TAG, "Multi-modal recording started with ${successfulStarts.size} sensors")
@@ -230,13 +206,11 @@ class RecordingController(
                 Log.i(TAG, "Stopping multi-modal recording")
                 _recordingStateFlow.value = RecordingState.STOPPING
 
-                // Add final sync marker
                 addSyncMarker("session_end", System.nanoTime())
 
                 // Wait a moment for sync marker to propagate
                 delay(SYNC_MARKER_DISTRIBUTION_DELAY_MS)
 
-                // Stop all sensors concurrently
                 val stopJobs =
                     sensorRecorders.values.map { sensor ->
                         async {
@@ -249,7 +223,6 @@ class RecordingController(
                 val successfulStops = stopResults.filter { it.second }
                 val failedStops = stopResults.filter { !it.second }
 
-                // Log results
                 successfulStops.forEach { (sensorId, _) ->
                     Log.i(TAG, "Sensor $sensorId stopped successfully")
                 }
@@ -377,12 +350,10 @@ class RecordingController(
             try {
                 Log.i(TAG, "Cleaning up recording controller")
 
-                // Stop recording if active
                 if (_isRecording.get()) {
                     stopRecording()
                 }
 
-                // Stop monitoring
                 statusMonitoringJob?.cancel()
                 errorMonitoringJob?.cancel()
 
@@ -413,7 +384,7 @@ class RecordingController(
     }
 
     private fun startMonitoring() {
-        // Start status monitoring
+
         statusMonitoringJob =
             controllerScope.launch {
                 while (isActive) {
@@ -442,7 +413,6 @@ class RecordingController(
                 }
             }
 
-        // Start error monitoring
         errorMonitoringJob =
             controllerScope.launch {
                 sensorRecorders.values.forEach { sensor ->

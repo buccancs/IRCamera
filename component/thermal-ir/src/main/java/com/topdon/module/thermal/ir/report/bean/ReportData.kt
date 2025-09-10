@@ -2,15 +2,6 @@ package com.topdon.module.thermal.ir.report.bean
 
 import com.blankj.utilcode.util.GsonUtils
 
-/**
- * @author: CaiSongL
- * @date: 2023/5/29 18:00
- */
-
-/**
- * @author: CaiSongL
- * @date: 2023/5/12 17:44
- */
 class ReportData {
     /**
      * code : 2000

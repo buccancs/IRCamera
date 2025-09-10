@@ -85,7 +85,6 @@ object CalibrationUtilities {
         // Reverse calibration: ADC = (multiplier / R) + offset
         val calculatedADC = (multiplier / targetResistanceKohms) + offset
 
-        // Add some realistic noise (±5%)
         val noise = (Math.random() - 0.5) * 0.1 * calculatedADC
 
         return (calculatedADC + noise).toInt().coerceIn(0, 4095) // 12-bit ADC
@@ -102,7 +101,6 @@ object CalibrationUtilities {
         val validResistance = resistanceKohms >= 1.0 && resistanceKohms <= 10000.0
         val validConductance = conductanceUS >= 0.1 && conductanceUS <= 1000.0
 
-        // Check consistency between resistance and conductance
         val calculatedConductance = resistanceToConductance(resistanceKohms)
         val consistency = kotlin.math.abs(calculatedConductance - conductanceUS) / conductanceUS < 0.1
 

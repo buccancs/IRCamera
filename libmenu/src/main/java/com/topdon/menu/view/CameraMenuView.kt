@@ -17,82 +17,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.topdon.menu.databinding.ViewCameraMenuBinding
 import com.topdon.menu.R as MenuR
 
-/**
- * Menu 1 - Photo/Video related wrapper.
- *
- * The central photo/video button has the following states:
- * - Photo mode - Normal
- * - Photo mode - Taking photo - Immediate photo
- * - Photo mode - Taking photo - Delayed photo
- * - Video mode - Normal
- * - Video mode - Recording
- *
- * Created by LCG on 2024/11/8.
- */
-class CameraMenuView : FrameLayout, View.OnClickListener {
-    companion object {
-        /** onCameraClickListener event code: Photo/Video **/
-        const val CODE_ACTION = 0
-
-        /** onCameraClickListener event code: Gallery **/
-        const val CODE_GALLERY = 1
-
-        /** onCameraClickListener event code: More menu **/
-        const val CODE_MORE = 2
-
-        /** onCameraClickListener event code: Switch to photo **/
-        const val CODE_TO_PHOTO = 3
-
-        /** onCameraClickListener event code: Switch to video **/
-        const val CODE_TO_VIDEO = 4
-    }
-
-    /**
-     * Whether currently in video mode.
-     *
-     * true-video recording mode false-photo capture mode
-     */
-    var isVideoMode: Boolean
-        get() = binding.viewPager2.currentItem == 1
-        set(value) {
-            binding.viewPager2.currentItem = if (value) 1 else 0
-        }
-
-    /**
-     * Photo/video text visibility and switching capability.
-     * Switching is not allowed during active photo capture or video recording.
-     *
-     * true-visible and switchable false-hidden and non-switchable
-     */
-    var canSwitchMode: Boolean
-        get() = binding.viewPager2.isUserInputEnabled
-        set(value) {
-            binding.viewPager2.isUserInputEnabled = value
-            binding.tvPhoto.isVisible = value
-            binding.tvVideo.isVisible = value
-        }
-
-    /**
-     * Click event listener for various operations.
-     * actionCode: 0-photo/video  1-gallery  2-more menu  3-switch to photo  4-switch to video
-     */
-    var onCameraClickListener: ((actionCode: Int) -> Unit)? = null
-
-    /**
-     * Set the central photo/video button to normal (not capturing/recording) state.
-     */
-    fun setToNormal() {
-        if (isVideoMode) {
-            binding.ivAction.setImageResource(MenuR.drawable.svg_camera_video_normal)
-        } else {
-            binding.ivAction.setImageResource(MenuR.drawable.svg_camera_photo_normal)
-        }
-    }
-
-    /**
-     * Set the central photo/video button to recording state: immediate photo/delayed photo/video recording.
-     * @param isDelay true-delayed photo capture false-immediate photo capture (irrelevant for video)
-     */
     fun setToRecord(isDelay: Boolean) {
         if (isVideoMode) {
             binding.ivAction.setImageResource(MenuR.drawable.svg_camera_video_record)
@@ -165,7 +89,7 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.ivAction -> { // Start photo capture/Start video recording/Stop video recording
+            binding.ivAction -> {
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - lastClickTime > 500) {
                     lastClickTime = currentTime

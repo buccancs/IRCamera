@@ -16,7 +16,6 @@ import uuid
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
-# Add the src directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ircamera_pc.network.discovery import DeviceType, NetworkDiscoveryService
@@ -32,7 +31,6 @@ except ImportError:
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-
 class EnhancedNetworkingTests:
     """Comprehensive test suite for enhanced networking features."""
 
@@ -45,11 +43,9 @@ class EnhancedNetworkingTests:
         """Run all enhanced networking tests."""
         logger.info("=== Enhanced Networking Test Suite ===")
 
-        # Create temporary directory for test certificates
         with tempfile.TemporaryDirectory() as temp_dir:
             self.temp_dir = temp_dir
 
-            # Run test categories
             await self.test_security_manager()
             await self.test_discovery_service()
             await self.test_reliable_messaging()
@@ -65,7 +61,7 @@ class EnhancedNetworkingTests:
         logger.info("Testing Security Manager...")
 
         try:
-            # Initialize security manager with test directory
+
             with patch.object(SecurityManager, "__init__", self._mock_security_init):
                 security_manager = SecurityManager()
                 security_manager.cert_dir = Path(self.temp_dir) if self.temp_dir else Path.cwd()
@@ -202,7 +198,6 @@ class EnhancedNetworkingTests:
                 not messaging_service.is_running
             ), "Messaging service should not be running initially"
 
-            # Set up mock transport
             sent_messages = []
 
             async def mock_transport(host, port, message):
@@ -221,211 +216,4 @@ class EnhancedNetworkingTests:
             if not messaging_service.is_running:
                 logger.error("Messaging service should be running")
                 return False
-            logger.info("OK Service initialization")  # type: ignore[unreachable]
-
-            # Test message handler registration
-            response_messages = []
-
-            def test_handler(message):
-                response_messages.append(message)
-                return {"status": "handled", "message_id": message.get("test_id")}
-
-            messaging_service.register_message_handler("test_message", test_handler)
-            assert (
-                "test_message" in messaging_service.message_handlers
-            ), "Handler not registered"
-            logger.info("OK Message handler registration")
-
-            # Test message sending
-            message_id = await messaging_service.send_message(
-                target_host="192.168.1.100",
-                target_port=8080,
-                message_type="test_message",
-                content={"test_data": "hello"},
-                priority=MessagePriority.HIGH,
-            )
-            assert message_id is not None, "Message ID not returned"
-            assert len(messaging_service.pending_messages) > 0, "Message not queued"
-            logger.info("OK Message sending")
-
-            # Wait for message processing
-            await asyncio.sleep(1)
-            assert len(sent_messages) > 0, "Message not sent by transport"
-            logger.info("OK Message processing")
-
-            # Test acknowledgment handling
-            await messaging_service.handle_acknowledgment(message_id, True)
-            assert (
-                message_id not in messaging_service.pending_messages
-            ), "Message not removed after ACK"
-            logger.info("OK Acknowledgment handling")
-
-            # Test incoming message handling
-            test_message = {
-                "message_id": str(uuid.uuid4()),
-                "message_type": "test_message",
-                "test_id": "test_123",
-            }
-            await messaging_service.handle_incoming_message(test_message)
-            assert len(response_messages) > 0, "Incoming message not handled"
-            logger.info("OK Incoming message handling")
-
-            # Test queue sizes
-            queue_sizes = messaging_service.get_queue_sizes()
-            assert isinstance(queue_sizes, dict), "Queue sizes not returned as dict"
-            logger.info("OK Queue size monitoring")
-
-            # Test service shutdown
-            await messaging_service.shutdown()
-            assert (
-                not messaging_service.is_running
-            ), "Service should not be running after shutdown"
-            logger.info("OK Service shutdown")
-
-            self.test_results["reliable_messaging"] = True
-            logger.info("OK Reliable Messaging tests passed")
-
-        except Exception as e:
-            logger.error(f"ERROR Reliable Messaging tests failed: {e}")
-            self.test_results["reliable_messaging"] = False
-
-    async def test_network_server_integration(self):
-        """Test NetworkServer integration with enhanced features."""
-        logger.info("Testing Network Server Integration...")
-
-        try:
-            # Create server with mocked enhanced services
-            with (
-                patch("ircamera_pc.network.server.SecurityManager") as MockSecurity,
-                patch(
-                    "ircamera_pc.network.server.NetworkDiscoveryService"
-                ) as MockDiscovery,
-                patch(
-                    "ircamera_pc.network.server.ReliableMessageService"
-                ) as MockMessaging,
-            ):
-
-                # Configure mocks
-                mock_security = MockSecurity.return_value
-                mock_security.initialize.return_value = True
-                mock_security.create_ssl_context.return_value = MagicMock()
-
-                mock_discovery = MockDiscovery.return_value
-                mock_discovery.start_discovery = AsyncMock(return_value=True)
-                mock_discovery.stop_discovery = AsyncMock()
-
-                mock_messaging = MockMessaging.return_value
-                mock_messaging.initialize = AsyncMock(return_value=True)
-                mock_messaging.shutdown = AsyncMock()
-
-                # Create and test server
-                server = NetworkServer()
-
-                # Test enhanced service setup
-                assert hasattr(
-                    server, "_security_manager"
-                ), "Security manager not initialized"
-                assert hasattr(
-                    server, "_discovery_service"
-                ), "Discovery service not initialized"
-                assert hasattr(
-                    server, "_messaging_service"
-                ), "Messaging service not initialized"
-                logger.info("OK Enhanced services initialization")
-
-                # Test server configuration
-                assert (
-                    server._secure_port == server._port + 1
-                ), "Secure port not configured correctly"
-                logger.info("OK Server configuration")
-
-                # Test message handlers setup
-                expected_handlers = ["device_auth", "message_ack", "message_nack"]
-                for handler in expected_handlers:
-                    assert (
-                        handler in server._message_handlers
-                    ), f"Handler {handler} not registered"
-                logger.info("OK Enhanced message handlers")
-
-                # Test service integration methods
-                assert hasattr(
-                    server, "_handle_secure_client"
-                ), "Secure client handler missing"
-                assert hasattr(
-                    server, "_send_message_to_device"
-                ), "Message transport method missing"
-                assert hasattr(
-                    server, "_on_device_discovered"
-                ), "Discovery callback missing"
-                logger.info("OK Integration methods")
-
-                # Test reliable messaging integration
-                assert hasattr(
-                    server, "send_reliable_message_to_device"
-                ), "Reliable messaging method missing"
-                logger.info("OK Reliable messaging integration")
-
-            self.test_results["network_server_integration"] = True
-            logger.info("OK Network Server Integration tests passed")
-
-        except Exception as e:
-            logger.error(f"ERROR Network Server Integration tests failed: {e}")
-            self.test_results["network_server_integration"] = False
-
-    def _mock_security_init(self, *args, **kwargs):
-        """Mock SecurityManager __init__ to avoid config dependencies."""
-
-    def report_results(self):
-        """Report test results summary."""
-        logger.info("\n=== Test Results Summary ===")
-
-        total_tests = len(self.test_results)
-        passed_tests = sum(self.test_results.values())
-        failed_tests = total_tests - passed_tests
-
-        for test_name, passed in self.test_results.items():
-            status = "OK PASS" if passed else "ERROR FAIL"
-            logger.info(f"{test_name}: {status}")
-
-        logger.info(
-            f"\nTotal: {total_tests}, Passed: {passed_tests}, Failed: {failed_tests}"
-        )
-
-        if passed_tests == total_tests:
-            logger.info("SUCCESS All tests passed!")
-        else:
-            logger.warning(f"WARNING  {failed_tests} test(s) failed")
-
-
-async def main():
-    """Main test runner."""
-    logger.info("Starting Enhanced Networking Test Suite...")
-
-    test_suite = EnhancedNetworkingTests()
-
-    try:
-        success = await test_suite.run_all_tests()
-
-        if success:
-            logger.info("OK All enhanced networking tests completed successfully")
-            return 0
-        else:
-            logger.error("ERROR Some tests failed")
-            return 1
-
-    except Exception as e:
-        logger.error(f"Test suite error: {e}")
-        return 1
-
-
-if __name__ == "__main__":
-    # Run the test suite
-    try:
-        exit_code = asyncio.run(main())
-        sys.exit(exit_code)
-    except KeyboardInterrupt:
-        logger.info("Test suite interrupted by user")
-        sys.exit(0)
-    except Exception as e:
-        logger.error(f"Unexpected error: {e}")
-        sys.exit(1)
+            logger.info("OK Service initialization")

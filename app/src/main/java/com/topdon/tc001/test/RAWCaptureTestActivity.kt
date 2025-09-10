@@ -14,7 +14,7 @@ class RAWCaptureTestActivity : BaseBindingActivity<ActivityRawCaptureTestBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Initialize UI components through view binding
+
         setupSpinner()
         setupSwitchListeners()
     }

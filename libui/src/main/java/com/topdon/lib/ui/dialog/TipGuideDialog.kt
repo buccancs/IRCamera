@@ -67,7 +67,6 @@ class TipGuideDialog : DialogFragment() {
                 UiR.drawable.target_guide_pic_4,
             )
 
-        // Initialize views using binding
         viewPager = binding.viewPager
         tvContent1 = binding.tvContent1
         tvContent2 = binding.tvContent2

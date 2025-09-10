@@ -170,7 +170,7 @@ class DevicePairingActivity : BaseBindingActivity<ActivityDevicePairingBinding>(
 
     override fun onRemoteMeasurementRequest(sessionInfo: SessionInfo) {
         runOnUiThread {
-            // Show dialog for remote measurement request
+
             androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Remote Measurement Request")
                 .setMessage(
@@ -216,7 +216,7 @@ class DevicePairingActivity : BaseBindingActivity<ActivityDevicePairingBinding>(
     }
 
     private fun startRemoteMeasurement(sessionInfo: SessionInfo) {
-        // Launch MultiModalRecordingActivity with remote session info
+
         val intent =
             Intent(this, MultiModalRecordingActivity::class.java).apply {
                 putExtra("session_id", sessionInfo.sessionId)

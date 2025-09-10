@@ -91,7 +91,7 @@ class TempAlarmSetDialog(
     }
 
     private fun initView() {
-        // Initialize view references
+
         clRoot = findViewById(R.id.cl_root)
         clClose = findViewById(R.id.cl_close)
         tvSave = findViewById(R.id.tv_save)

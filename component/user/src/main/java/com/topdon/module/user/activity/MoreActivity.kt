@@ -32,49 +32,6 @@ import java.io.File
 import java.text.DecimalFormat
 import com.topdon.lib.core.R as RCore
 
-/**
- * TS004 activity “activity” activity.
- */
-// Legacy ARouter route annotation - now using NavigationManager
-class MoreActivity : BaseActivity(), View.OnClickListener {
-    private val firmwareViewModel: FirmwareViewModel by viewModels()
-
-    // View references
-    private lateinit var settingDeviceInformation: View
-    private lateinit var settingTisr: View
-    private lateinit var settingStorageSpace: View
-    private lateinit var settingReset: View
-    private lateinit var settingVersion: View
-    private lateinit var settingDisconnect: View
-    private lateinit var settingAutoSave: View
-    private lateinit var itemSettingBottomText: TextView
-    private lateinit var tvUpgradePoint: TextView
-
-    override fun initContentView() = R.layout.activity_more
-
-    override fun initView() {
-        // Initialize views
-        settingDeviceInformation = findViewById(R.id.setting_device_information)
-        settingTisr = findViewById(R.id.setting_tisr)
-        settingStorageSpace = findViewById(R.id.setting_storage_space)
-        settingReset = findViewById(R.id.setting_reset)
-        settingVersion = findViewById(R.id.setting_version)
-        settingDisconnect = findViewById(R.id.setting_disconnect)
-        settingAutoSave = findViewById(R.id.setting_auto_save)
-        itemSettingBottomText = findViewById(R.id.item_setting_bottom_text)
-        tvUpgradePoint = findViewById(R.id.tv_upgrade_point)
-
-        settingDeviceInformation.setOnClickListener(this)
-        settingTisr.setOnClickListener(this)
-        settingStorageSpace.setOnClickListener(this)
-        settingReset.setOnClickListener(this)
-        settingVersion.setOnClickListener(this)
-        settingDisconnect.setOnClickListener(this)
-        settingAutoSave.setOnClickListener(this)
-
-        /*if (Build.VERSION.SDK_INT < 29) {// Activity logic Android10
-            settingVersion.isVisible = false
-        }*/
         // 2024-5-30 09:16 TS004activityAPPactivity，3.30activity
         settingVersion.isVisible = false
     }

@@ -34,11 +34,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-/**
- * 摄像头属性值设置
- * @author: CaiSongL
- * @date: 2023/4/3 15:00
- */
 @Route(path = RouterConfig.IR_CAMERA_SETTING)
 class IRCameraSettingActivity : BaseActivity() {
     companion object {

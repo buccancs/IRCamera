@@ -26,7 +26,7 @@ class QuestionActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_question
 
     override fun initView() {
-        // Initialize views - migrated from synthetic views
+
         questionRecycler = findViewById(R.id.question_recycler)
 
         val adapter = MyAdapter(FaqRepository.getQuestionList(intent.getBooleanExtra("isTS001", false)))

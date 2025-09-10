@@ -65,7 +65,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_storage_space
 
     override fun initView() {
-        // Initialize views - migrated from synthetic views
+
         tvFormatStorage = findViewById(R.id.tv_format_storage)
         tvProgressValue = findViewById(R.id.tv_progress_value)
         tvUsedValue = findViewById(R.id.tv_used_value)

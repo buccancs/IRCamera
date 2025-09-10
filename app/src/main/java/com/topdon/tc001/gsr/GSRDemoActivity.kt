@@ -64,7 +64,6 @@ class GSRDemoActivity : BaseBindingActivity<ActivityGsrDemoBinding>() {
             override fun onSampleRecorded(sample: GSRSample) {
                 lastSample = sample
 
-                // Update display every 32 samples (4 times per second at 128Hz)
                 if (sample.sampleIndex % 32 == 0L) {
                     runOnUiThread {
                         binding.dataText.text =
@@ -105,7 +104,7 @@ class GSRDemoActivity : BaseBindingActivity<ActivityGsrDemoBinding>() {
         }
 
     override fun initView() {
-        // Setup click listeners
+
         binding.startButton.setOnClickListener { startRecording() }
         binding.stopButton.setOnClickListener { stopRecording() }
         binding.syncButton.setOnClickListener { triggerSyncEvent() }
@@ -145,7 +144,7 @@ class GSRDemoActivity : BaseBindingActivity<ActivityGsrDemoBinding>() {
             val success = gsrRecorder.addSyncMark("DEMO_SYNC_EVENT", metadataJson)
 
             if (success) {
-                // Success feedback is handled in the listener
+
                 Log.d(TAG, "Demo sync event triggered successfully")
             } else {
                 Log.w(TAG, "Failed to trigger demo sync event")

@@ -12,12 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
-/**
- *
- * activity
- * @author: CaiSongL
- * @date: 2023/8/4 9:06
- */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionFourActivity : BaseActivity() {
     val time = 60

@@ -169,7 +169,7 @@ object NetWorkUtils {
         isWifi: Boolean,
         listener: ((network: Network?) -> Unit)? = null,
     ) {
-        if (Build.VERSION.SDK_INT < 29) { // Return result Android10
+        if (Build.VERSION.SDK_INT < 29) {
             return
         }
         if (isWifi) {

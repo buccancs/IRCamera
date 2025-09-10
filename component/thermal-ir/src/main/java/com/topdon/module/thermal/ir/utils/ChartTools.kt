@@ -13,12 +13,12 @@ object ChartTools {
         rotate: Int,
     ): List<Float> {
         val tempList: ArrayList<Float> = ArrayList()
-        if (point1 == point2) { // Handle special case
+        if (point1 == point2) {
             return tempList
         }
 
         val pointList: ArrayList<Point> = ArrayList()
-        if (point1.x == point2.x) { // Handle vertical line case
+        if (point1.x == point2.x) {
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
             for (i in startY..endY) {
@@ -86,7 +86,6 @@ object ChartTools {
         return min
     }
 
-    // Handle special case50utility
     fun getMaximum(type: Int): Float {
         return getMinimum(type) * 50f
     }
@@ -147,11 +146,7 @@ object ChartTools {
     ) {
         // trueutility,utilityfalse
         val xLen = chart.xChartMax - chart.xChartMin
-//        Log.w("chart", "xLen: $xLen")
-//        chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), getLabCount(xLen.toInt()) < 3)
-//        chart.xAxis.setLabelCount(5, false) // 3utility ok
-//        chart.xAxis.setLabelCount(5, true) //
-        chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), xLen <= 3)
+chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), xLen <= 3)
     }
 
     /**

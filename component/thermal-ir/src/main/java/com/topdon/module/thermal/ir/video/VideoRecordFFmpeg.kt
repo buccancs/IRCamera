@@ -164,24 +164,7 @@ class VideoRecordFFmpeg(
     private val pixArray = ByteArray(width * height * 4)
     private val bufferRef: AtomicReference<ByteBuffer> =
         AtomicReference(ByteBuffer.allocate(pixArray.size))
-
-    //    fun readByteBuffer(): ByteBuffer? {
-//        synchronized(lock) {
-//            return pixels?.duplicate() as ByteBuffer?
-//        }
-//    }
-//
-//    fun setBitmap(bitmap: Bitmap) {
-//        synchronized(lock) {
-//            if (pixels == null || pixels?.capacity() != bitmap.byteCount) {
-//                pixels = ByteBuffer.allocate(bitmap.byteCount)
-//            }
-//            pixels?.position(0)
-//            bitmap.copyPixelsToBuffer(pixels)
-//            bitmap.recycle()
-//        }
-//    }
-    private fun readByteBuffer(): ByteBuffer? {
+private fun readByteBuffer(): ByteBuffer? {
         return bufferRef.get()?.duplicate()
     }
 
@@ -193,31 +176,7 @@ class VideoRecordFFmpeg(
         bitmap.recycle()
         bufferRef.set(newPixels)
     }
-
-//    fun setBitmap(bitmap: Bitmap) {
-//        lockWriteLock.writeLock().lock()
-//        try {
-//            if (pixels == null || pixels?.capacity() != bitmap.byteCount) {
-//                pixels = ByteBuffer.allocate(bitmap.byteCount)
-//            }
-//            pixels?.position(0)
-//            bitmap.copyPixelsToBuffer(pixels)
-//            bitmap.recycle()
-//        } finally {
-//            lockWriteLock.writeLock().unlock()
-//        }
-//    }
-//
-//    fun readByteBuffer(): ByteBuffer? {
-//        lockWriteLock.readLock().lock()
-//        try {
-//            return pixels?.duplicate()
-//        } finally {
-//            lockWriteLock.readLock().unlock()
-//        }
-//    }
-
-    /**
+/**
      *
      * avcodec.AV_CODEC_ID_MPEG4 data
      * avcodec.AV_CODEC_ID_H264 data
@@ -299,10 +258,7 @@ class VideoRecordFFmpeg(
             recorder!!.videoCodec = VIDEO_CODEC
 //            recorder!!.setAudioOption("itsoffset",(1000L * 200L).toString())
             recorder!!.sampleRate = SAMPLE_AUDIO_RETE_INHZ
-//            recorder!!.pixelFormat = avutil.AV_PIX_FMT_YUV420P
-//            recorder!!.audioChannels = 1
-//            recorder!!.setVideoOption("preset", "ultrafast")
-            recorder!!.timestamp = 0L
+recorder!!.timestamp = 0L
             recorder!!.start()
             isRunning = true
             isBitmapChangeTime = System.currentTimeMillis()
@@ -418,11 +374,7 @@ class VideoRecordFFmpeg(
                                         tmpAudioData,
                                     )
                                 }
-//                        Log.w(
-//                            "data",
-//                            "${System.currentTimeMillis() - time}======${frame.image.size}//${bufferSize}//${(recorder?.timestamp!! / 1000000L)}"
-//                        )
-                            } catch (e: Exception) {
+} catch (e: Exception) {
                                 Log.e("data", "Caught an exception: " + e.message)
                             }
                         },
@@ -518,7 +470,7 @@ class VideoRecordFFmpeg(
                         ?: 0
                 )
             ) > (500L * 1000 * 1000)
-//        Log.w("data","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
+
         if (!canStart) {
             ThreadUtils.runOnUiThread {
                 TipDialog.Builder(cameraView.context)
@@ -647,7 +599,7 @@ class VideoRecordFFmpeg(
         if (thermalPseudoBarView?.visibility == VISIBLE) {
             try {
                 thermalPseudoBarView?.viewBitmap?.let {
-//                    Log.w("data-data",it.byteCount.toString())
+
                     cameraViewBitmap =
                         BitmapUtils.mergeBitmap(
                             cameraViewBitmap,
@@ -656,9 +608,9 @@ class VideoRecordFFmpeg(
                             (cameraViewBitmap!!.height - it.height) / 2,
                         )
                 }
-//                Log.w("data-data",""+(System.currentTimeMillis() - startTime))
+
             } catch (e: Exception) {
-//                Log.e("data-data",""+(System.currentTimeMillis() - startTime))
+
             }
         }
         if (true == tempBg?.isVisible) {
@@ -699,7 +651,7 @@ class VideoRecordFFmpeg(
                 } catch (e: Exception) {
                     Log.e(TAG, "data exception:${e.message}")
                 }
-//                Log.w("data-data", "${System.currentTimeMillis() - startTime}")
+
             }
         }
 

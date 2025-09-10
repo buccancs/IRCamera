@@ -221,7 +221,6 @@ class ReportIRShowView : LinearLayout {
             }
         }
 
-        // Update title visibility with findViewById
         val tvTitlePoint2 = clPoint2.findViewById<TextView>(R.id.tv_title)
         val tvTitlePoint3 = clPoint3.findViewById<TextView>(R.id.tv_title)
         val tvTitlePoint4 = clPoint4.findViewById<TextView>(R.id.tv_title)
@@ -243,7 +242,6 @@ class ReportIRShowView : LinearLayout {
             }
         }
 
-        // Update line title visibility with findViewById
         val tvTitleLine2 = clLine2.findViewById<TextView>(R.id.tv_title)
         val tvTitleLine3 = clLine3.findViewById<TextView>(R.id.tv_title)
         val tvTitleLine4 = clLine4.findViewById<TextView>(R.id.tv_title)
@@ -265,7 +263,6 @@ class ReportIRShowView : LinearLayout {
             }
         }
 
-        // Update rect title visibility with findViewById
         val tvTitleRect2 = clRect2.findViewById<TextView>(R.id.tv_title)
         val tvTitleRect3 = clRect3.findViewById<TextView>(R.id.tv_title)
         val tvTitleRect4 = clRect4.findViewById<TextView>(R.id.tv_title)
@@ -324,7 +321,6 @@ class ReportIRShowView : LinearLayout {
         val viewLineAverage = itemRoot.findViewById<View>(R.id.view_line_average)
         val viewLineRange = itemRoot.findViewById<View>(R.id.view_line_range)
 
-        // Hide the last visible line divider
         if (tempBean.isExplainOpen()) {
             viewLineExplain.isVisible = !isLast
         } else if ((type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()) {

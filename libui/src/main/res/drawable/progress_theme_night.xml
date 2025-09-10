@@ -6,7 +6,7 @@
       <solid android:color="#4cffffff"/>
     </shape>
   </item>
-  <!--  设置进度条颜色  -->
+
   <item android:id="@android:id/progress">
     <scale android:scaleWidth="100%">
       <shape>

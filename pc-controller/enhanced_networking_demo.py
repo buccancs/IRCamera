@@ -20,7 +20,6 @@ from ircamera_pc.network.messaging import MessagePriority, ReliableMessageServic
 from ircamera_pc.network.security import SecurityManager
 from ircamera_pc.network.server import NetworkServer
 
-# Add the src directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 try:
@@ -30,7 +29,6 @@ except ImportError:
 
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
-
 
 class EnhancedNetworkingDemo:
     """Demonstrates enhanced networking features of the PC Controller."""
@@ -102,7 +100,6 @@ class EnhancedNetworkingDemo:
         logger.info("Stopping enhanced networking demo...")
         self.is_running = False
 
-        # Stop all services
         await self.messaging_service.shutdown()
         await self.discovery_service.stop_discovery()
         await self.server.stop()
@@ -111,7 +108,7 @@ class EnhancedNetworkingDemo:
 
     async def _demonstrate_features(self):
         """Demonstrate the enhanced networking features."""
-        demo_duration = 60  # Run demo for 60 seconds
+        demo_duration = 60
         start_time = asyncio.get_event_loop().time()
 
         logger.info(f"Running networking demonstration for {demo_duration} seconds...")
@@ -122,7 +119,7 @@ class EnhancedNetworkingDemo:
                 await self._process_discovered_devices()
                 await self._process_connected_devices()
                 await self._check_service_status()
-                await asyncio.sleep(5)  # Check every 5 seconds
+                await asyncio.sleep(5)
 
             except Exception as e:
                 logger.error(f"Error in demo loop: {e}")
@@ -170,7 +167,7 @@ class EnhancedNetworkingDemo:
 
     def _check_service_status(self):
         """Check messaging service health and cleanup."""
-        # Check messaging service health
+
         pending_count = self.messaging_service.get_pending_message_count()
         if pending_count > 0:
             logger.debug(f"Pending messages: {pending_count}")
@@ -216,7 +213,6 @@ class EnhancedNetworkingDemo:
         """Demonstrate discovery features."""
         logger.info("=== Discovery Features Demo ===")
 
-        # Get discovered devices by type
         thermal_cameras = await self.discovery_service.get_devices_by_type(
             DeviceType.THERMAL_CAMERA_TS004
         )
@@ -237,21 +233,18 @@ class EnhancedNetworkingDemo:
                 f"  Android: {node.service_name} at {node.ip_address}:{node.port}"
             )
 
-
 async def main():
     """Main demonstration function."""
     demo = EnhancedNetworkingDemo()
 
     try:
-        # Show security features
+
         demo.demonstrate_security_features()
 
-        # Start the networking demo
         if await demo.start_demo():
             logger.info("Enhanced networking demo is running...")
             logger.info("Press Ctrl+C to stop")
 
-            # Show discovery features
             await demo.demonstrate_discovery_features()
 
             # Keep running until interrupted
@@ -272,9 +265,8 @@ async def main():
 
     return 0
 
-
 if __name__ == "__main__":
-    # Run the demonstration
+
     try:
         exit_code = asyncio.run(main())
         sys.exit(exit_code)

@@ -7,10 +7,6 @@ import com.topdon.lms.sdk.network.IResponseCallback
 import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.lms.sdk.xutils.http.RequestParams
 
-/**
- * @author: CaiSongL
- * @date: 2023/5/12 17:17
- */
 object HttpHelp {
     /**
      * utility

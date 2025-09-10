@@ -179,20 +179,18 @@ class GSRRecorder(
         studyName: String?,
     ): Boolean {
         try {
-            // Create session directory
+
             sessionDirectory = createSessionDirectory(sessionId)
             if (sessionDirectory == null) {
                 notifyError("Failed to create session directory")
                 return false
             }
 
-            // Initialize CSV writers
             if (!initializeCsvWriters()) {
                 notifyError("Failed to initialize CSV writers")
                 return false
             }
 
-            // Create session info
             currentSession =
                 SessionInfo(
                     sessionId = sessionId,
@@ -201,11 +199,9 @@ class GSRRecorder(
                     studyName = studyName ?: "GSR_Study",
                 )
 
-            // Reset counters
             sampleIndex.set(0)
             isRecording.set(true)
 
-            // Start data generation coroutine for simulated data
             recordingJob =
                 CoroutineScope(Dispatchers.IO).launch {
                     generateSimulatedGSRData()
@@ -312,7 +308,6 @@ class GSRRecorder(
             session.endTime = System.currentTimeMillis()
             session.sampleCount = sampleIndex.get()
 
-            // Save session metadata
             saveSessionMetadata(session)
 
             listeners.forEach { it.onRecordingStopped(session) }
@@ -399,7 +394,7 @@ class GSRRecorder(
     private fun initializeCsvWriters(): Boolean {
         return try {
             sessionDirectory?.let { dir ->
-                // Initialize signals CSV writer
+
                 val signalsFile = File(dir, SIGNALS_FILENAME)
                 signalsWriter =
                     CSVWriter(FileWriter(signalsFile)).apply {
@@ -407,7 +402,6 @@ class GSRRecorder(
                         flush()
                     }
 
-                // Initialize sync marks CSV writer
                 val syncMarksFile = File(dir, SYNC_MARKS_FILENAME)
                 syncMarksWriter =
                     CSVWriter(FileWriter(syncMarksFile)).apply {

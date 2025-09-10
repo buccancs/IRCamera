@@ -10,11 +10,6 @@ import org.bytedeco.javacv.FFmpegFrameRecorder
 import java.lang.ref.WeakReference
 import java.nio.ShortBuffer
 
-/**
- * utility
- * @author: CaiSongL
- * @date: 2023/3/28
- */
 class AudioRecordHelp private constructor() {
     private var audioRecord: AudioRecord? = null
     private var audioRecordRunnable: AudioRecordRunnable? = null
@@ -79,7 +74,7 @@ class AudioRecordHelp private constructor() {
 
         @SuppressLint("MissingPermission")
         override fun run() {
-//            Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO)
+
             if (audioRecord == null) {
                 return
             }
@@ -103,7 +98,7 @@ class AudioRecordHelp private constructor() {
                                 VideoRecordFFmpeg.AUDIO_CHANNELS,
                                 audioData,
                             )
-//                            Log.w("utility2",""+recorder?.get()?.frameNumber)
+
                         }
                     } else {
                         for (i in 0 until bufferSize) {
@@ -117,7 +112,7 @@ class AudioRecordHelp private constructor() {
                         Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
                     }
                 }
-//                Log.w("utility",""+recorder?.get()?.frameNumber)
+
             } catch (e: Exception) {
                 XLog.e("utility")
             }

@@ -7,9 +7,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/tools" xmlns:ns2="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:background="#16131e" ns1:context=".IRGalleryEditActivity">
   <com.topdon.lib.core.view.TitleView ns0:id="@+id/title_view" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintTop_toTopOf="parent" />
   <LinearLayout ns0:id="@+id/ll_bottom" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintBottom_toBottomOf="parent">
-    
+
     <com.topdon.menu.MenuSecondView ns0:id="@+id/edit_recycler_second" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns2:deviceType="gallery_edit" />
-    
+
     <com.topdon.menu.MenuEditView ns0:id="@+id/edit_recycler_first" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" />
   </LinearLayout>
   <ImageView ns0:id="@+id/ir_image_view" ns0:layout_width="0dp" ns0:layout_height="0dp" ns0:contentDescription="@null" ns2:layout_constraintDimensionRatio="192:256" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintTop_toBottomOf="@id/title_view" ns2:layout_constraintBottom_toTopOf="@id/ll_bottom" />

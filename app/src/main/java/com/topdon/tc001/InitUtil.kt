@@ -94,32 +94,11 @@ object InitUtil {
     }
 
     fun initUM() {
-//        if (BaseApplication.instance.isDomestic()){
-        // Utility function
-//            UMConfigure.setLogEnabled(BuildConfig.DEBUG)
-//            // Utility function
-//            UMConfigure.preInit(BaseApplication.instance, "659384b895b14f599d0d9247", "Um-eng")
-//            // Utility function，uminitutility1utility，utilityumsdk
-//            UMConfigure.init(
-//                BaseApplication.instance,
-//                "659384b895b14f599d0d9247",
-//                "Um-eng",
-//                UMConfigure.DEVICE_TYPE_PHONE,
-//                ""
-//            )
-//            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
-//        }
-    }
+}
 
     fun initJPush() {
         var registrationID = ""
-//        if (BaseApplication.instance.isDomestic()){
-//            // Utility function
-//            JPushInterface.setDebugMode(BuildConfig.DEBUG)
-//            JPushInterface.init(BaseApplication.instance)
-//            registrationID = JPushInterface.getRegistrationID(BaseApplication.instance)
-//        }
-        if (SharedManager.getHasShowClause()) {
+if (SharedManager.getHasShowClause()) {
             XLog.w("registrationID= $registrationID")
         }
     }

@@ -6,16 +6,6 @@ import android.os.Build
 import androidx.core.content.ContextCompat
 import com.topdon.lib.core.BaseApplication
 
-/**
- * des: utilityandroid 14utility
- * author: CaiSongL
- * date: 2024/9/9 9:45
- **/
-object PermissionUtils {
-    /**
-     * android 14utility
-     * @return Boolean
-     */
     fun isVisualUser(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
             ContextCompat.checkSelfPermission(

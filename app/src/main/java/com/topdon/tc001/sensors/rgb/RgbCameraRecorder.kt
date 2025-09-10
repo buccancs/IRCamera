@@ -19,21 +19,6 @@ import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
-/**
- * RGB Camera recorder implementing dual-stream capture as specified in FR5:
- * - 1080p MP4 video recording for playback
- * - High-resolution timestamped JPEG image capture for analysis
- *
- * Uses CameraX for robust Android camera handling with lifecycle awareness.
- *
- * Technical Requirements:
- * - Simultaneous video (1080p 30fps) and image (max resolution) capture
- * - Frame-accurate timestamps for temporal synchronization
- * - Storage optimized with JPEG compression
- * - Automatic exposure and focus control
- *
- * @author IRCamera Android Sensor Node (Spoke)
- */
 class RgbCameraRecorder(
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner,
@@ -83,7 +68,6 @@ class RgbCameraRecorder(
             try {
                 Log.i(TAG, "Initializing RGB camera for sensor $sensorId")
 
-                // Check camera permission
                 if (ContextCompat.checkSelfPermission(
                         context,
                         Manifest.permission.CAMERA,
@@ -93,18 +77,15 @@ class RgbCameraRecorder(
                     return@withContext false
                 }
 
-                // Initialize CameraX
                 val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
                 cameraProvider = cameraProviderFuture.get()
 
-                // Configure video capture
                 val recorder =
                     Recorder.Builder()
                         .setQualitySelector(QualitySelector.from(Quality.FHD)) // 1080p
                         .build()
                 videoCapture = VideoCapture.withOutput(recorder)
 
-                // Configure image capture
                 imageCapture =
                     ImageCapture.Builder()
                         .setTargetResolution(targetImageResolution)
@@ -133,11 +114,9 @@ class RgbCameraRecorder(
                 this@RgbCameraRecorder.sessionDirectory = sessionDirectory
                 recordingStartTime = System.nanoTime()
 
-                // Create output files
                 videoFile = File(sessionDirectory, VIDEO_FILENAME)
                 imagesDirectory = File(sessionDirectory, IMAGES_SUBDIRECTORY).apply { mkdirs() }
 
-                // Start video recording
                 val mediaStoreOutput = FileOutputOptions.Builder(videoFile!!).build()
                 recording =
                     videoCapture?.output
@@ -149,7 +128,6 @@ class RgbCameraRecorder(
                 // Bind camera with both video and image capture
                 bindCamera()
 
-                // Start periodic image capture
                 startImageCapture()
 
                 _isRecording.set(true)
@@ -173,7 +151,6 @@ class RgbCameraRecorder(
                 // Select back camera
                 val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
-                // Create preview for monitoring (optional)
                 val preview =
                     Preview.Builder()
                         .setTargetResolution(Size(1280, 720))
@@ -189,7 +166,6 @@ class RgbCameraRecorder(
                         imageCapture,
                     )
 
-                // Configure auto-focus and exposure
                 camera?.cameraControl?.enableTorch(false) // Ensure flash is off initially
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to bind camera", e)
@@ -256,7 +232,7 @@ class RgbCameraRecorder(
                 }
             }
             is VideoRecordEvent.Status -> {
-                // Update recording statistics
+
                 recordingScope.launch { emitStatus() }
             }
         }
@@ -269,10 +245,8 @@ class RgbCameraRecorder(
                 return true
             }
 
-            // Stop image capture
             imageCapturJob?.cancel()
 
-            // Stop video recording
             recording?.stop()
             recording = null
 
@@ -294,7 +268,7 @@ class RgbCameraRecorder(
         metadata: Map<String, String>,
     ) {
         try {
-            // Create sync marker file in images directory
+
             val syncFile = File(imagesDirectory, "sync_${markerType}_$timestampNs.txt")
             syncFile.writeText(
                 "marker_type=$markerType\ntimestamp_ns=$timestampNs\n" +

@@ -56,7 +56,6 @@ class IRMonitorHistoryFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize findViewById
         recyclerView = view.findViewById(R.id.recycler_view)
 
         adapter.loadMoreModule.loadMoreView = CommLoadMoreView()

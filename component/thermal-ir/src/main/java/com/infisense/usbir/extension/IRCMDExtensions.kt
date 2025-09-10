@@ -22,10 +22,10 @@ fun IRCMD.setMirror(enabled: Boolean) {
         // Use real IRCMD native methods for mirror control
         val result =
             if (enabled) {
-                // Enable mirror mode through native IRCMD interface
+
                 nativeSetProperty("mirror", 1)
             } else {
-                // Disable mirror mode
+
                 nativeSetProperty("mirror", 0)
             }
         Log.d(TAG, "Mirror mode set to $enabled, result: $result")
@@ -94,7 +94,7 @@ private fun IRCMD.nativeSetProperty(
         // Use actual IRCMD SDK methods here
         // For now, we'll use a placeholder that represents real hardware interaction
         Log.d(TAG, "Setting $property to $value via native IRCMD interface")
-        true // Return success for real hardware interaction
+        true
     } catch (e: Exception) {
         Log.e(TAG, "Native property set failed for $property: ${e.message}")
         false

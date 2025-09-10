@@ -8,38 +8,6 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 import com.topdon.menu.R as MenuR
 
-/**
- * Adapter used for Settings menu, all options are independent and support multiple selection.
- *
- * - Single light: Pseudo color bar, Contrast, Sharpness, Alarm, Rotation, Font, Mirror
- * - Dual light: Pseudo color bar, Contrast, Sharpness, Alarm, Rotation, Font
- * - Lite: Pseudo color bar, Contrast, Alarm, Rotation, Font, Mirror
- * - TC007: Pseudo color bar, Contrast, Sharpness, Alarm, Font, Mirror
- * - 2D editing: Alarm, Font, Watermark
- *
- * - TS001 observation: Compass, Rotation, Mirror, Contrast
- *
- * Created by LCG on 2024/11/28.
- */
-@SuppressLint("NotifyDataSetChanged")
-internal class SettingAdapter(
-    menuType: MenuType = MenuType.SINGLE_LIGHT,
-    isObserver: Boolean = false,
-) : BaseMenuAdapter() {
-    /**
-     * Settings menu click event listener.
-     * isSelected: Whether in selected state when clicked
-     */
-    var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
-
-    /**
-     * item：
-     * - itemCoreitem，256x192 itemRotateAngleitem 0 itemRotateState；
-     * itemAPPitem，192x256 item(CoreRotateAngle270)itemRotateAngleitem 0 itemRotateState。
-     * - item，CoreitemRotateAngleitemRotateAngle，itemRotateAngle。
-     *
-     * item，this propertyitem **CoreRotateAngle**
-     */
     var rotateAngle: Int = 270
         set(value) {
             if (field != value) {
@@ -134,12 +102,7 @@ internal class SettingAdapter(
         }
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            // Adapter item、item、itemSelecteditem，item，
-            // MenuitemSelecteditem listener item，item
-//            data.isSelected = !data.isSelected
-//            holder.binding.ivIcon.isSelected = data.isSelected
-//            holder.binding.tvText.isSelected = data.isSelected
-            onSettingListener?.invoke(data.settingType, data.isSelected)
+onSettingListener?.invoke(data.settingType, data.isSelected)
         }
     }
 

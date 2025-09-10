@@ -33,12 +33,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/**
- * activity
- * - activity TC007: [ExtraKeyConfig.IS_TC007]
- * @author: CaiSongL
- * @date: 2023/5/12 11:34
- */
 // Legacy ARouter route annotation - now using NavigationManager
 class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     // View references using findViewById

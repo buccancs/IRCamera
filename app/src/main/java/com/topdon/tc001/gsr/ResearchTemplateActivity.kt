@@ -118,7 +118,6 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
         templateAdapter.notifyDataSetChanged()
         updateEmptyView()
 
-        // Clear selection when changing categories
         if (selectedTemplate != null && !filteredTemplates.contains(selectedTemplate)) {
             clearSelection()
         }
@@ -128,7 +127,6 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
         selectedTemplate = template
         updateSelectedTemplateView()
 
-        // Update adapter to show selection
         templateAdapter.notifyDataSetChanged()
     }
 
@@ -188,7 +186,7 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
     }
 
     private fun startRecordingWithTemplate(template: ResearchTemplate) {
-        // Create session with template configuration
+
         val intent =
             Intent(this, MultiModalRecordingActivity::class.java).apply {
                 putExtra("template_id", template.id)

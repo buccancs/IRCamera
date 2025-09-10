@@ -19,11 +19,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/**
- * 热成像的3D界面
- * @author: CaiSongL
- * @date: 2023/8/26 14:42
- */
 @Route(path = RouterConfig.IR_GALLERY_3D)
 class Image3DActivity : BaseActivity() {
     private var ir_path: String? = null

@@ -74,7 +74,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
     }
 
     override fun initView() {
-        // Initialize findViewById using view
+
         temperatureView = view!!.findViewById(R.id.temperatureView)
         thermalLay = view!!.findViewById(R.id.thermal_lay)
         cameraView = view!!.findViewById(R.id.cameraView)
@@ -466,7 +466,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
             val config = ConfigRepository.readConfig(false)
             val disChar = (config.distance * 128).toInt() // Fragment logic(fragment)
             val emsChar = (config.radiation * 128).toInt() // Fragment logic
-//            val tuChar = (config.environment * 10).toInt().toChar() // Fragment logic
+
             XLog.w("SettingsTPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)

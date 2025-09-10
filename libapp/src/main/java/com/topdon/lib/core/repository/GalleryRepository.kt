@@ -74,37 +74,6 @@ object GalleryRepository {
         }
     }
 
-    /**
-     * repositoryGallerySpecifiedrepositoryTyperepository
-     */
-    fun readLatest(dirType: DirType): String {
-        var firstPath = ""
-        try {
-            val path = if (dirType == DirType.LINE) FileConfig.lineGalleryDir else FileConfig.tc007GalleryDir
-            val dirFile = File(path)
-            if (dirFile.isDirectory) {
-                val files = dirFile.listFiles()!!
-                // repository
-                files.sortByDescending {
-                    it.lastModified()
-                }
-                if (files.isNotEmpty()) {
-                    firstPath = "${path}${File.separator}${files.first().name}"
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            XLog.e("repositoryGalleryrepository: ${e.message}")
-            return ""
-        }
-        return firstPath
-    }
-
-    /**
-     * repository
-     * @param pageNum repository，repository1repository
-     * @param pageCount repository
-     */
     suspend fun loadByPage(
         isVideo: Boolean,
         dirType: DirType,

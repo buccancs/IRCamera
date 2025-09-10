@@ -7,8 +7,8 @@
     <TextView android:id="@+id/tv_message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:paddingTop="16dp" android:paddingBottom="16dp" android:textSize="12sp" android:textColor="@color/white" tools:text="同时从手机相册中删除" app:layout_goneMarginStart="0dp" app:layout_constrainedWidth="true" app:layout_constraintStart_toEndOf="@id/iv_select" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
   <View android:id="@+id/view_space" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginTop="12dp" app:layout_goneMarginTop="45dp" app:layout_constraintDimensionRatio="235:44" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/rl_message"/>
-  <!-- 取消 -->
+
   <TextView android:id="@+id/tv_cancel" android:layout_width="0dp" android:layout_height="0dp" android:gravity="center" android:text="@string/app_cancel" android:textSize="16sp" android:textColor="@color/white" android:background="@drawable/bg_corners05_solid_3b3e44_stroke_theme" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@+id/tv_confirm" app:layout_constraintTop_toTopOf="@id/view_space" app:layout_constraintBottom_toBottomOf="@id/view_space"/>
-  <!-- 确认 -->
+
   <TextView android:id="@+id/tv_confirm" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginStart="20dp" android:gravity="center" android:text="@string/report_delete" android:textSize="16sp" android:textColor="#55272F" android:background="@drawable/bg_corners05_solid_theme" app:layout_goneMarginStart="0dp" app:layout_constraintStart_toEndOf="@id/tv_cancel" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/view_space" app:layout_constraintBottom_toBottomOf="@id/view_space"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

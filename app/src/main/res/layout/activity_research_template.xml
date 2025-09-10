@@ -5,23 +5,23 @@
     <data>
     </data>
 <LinearLayout xmlns:ns0="http://schemas.android.com/apk/res/android" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:background="#f5f5f5">
-  
+
   <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:background="@android:color/white" ns0:elevation="4dp" ns0:padding="16dp" ns0:orientation="horizontal" ns0:gravity="center_vertical">
     <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Category: " ns0:textColor="#666666" ns0:textSize="14sp" />
     <Spinner ns0:id="@+id/category_spinner" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_weight="1" ns0:layout_marginStart="8dp" />
   </LinearLayout>
-  
+
   <ScrollView ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1">
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical">
-      
+
       <FrameLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView ns0:id="@+id/templates_recycler_view" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:padding="8dp" ns0:clipToPadding="false" ns0:nestedScrollingEnabled="false" />
-        
+
         <LinearLayout ns0:id="@+id/empty_view" ns0:layout_width="match_parent" ns0:layout_height="200dp" ns0:orientation="vertical" ns0:gravity="center" ns0:visibility="gone">
           <TextView ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="No templates found" ns0:textColor="#666666" ns0:textSize="16sp" />
         </LinearLayout>
       </FrameLayout>
-      
+
       <LinearLayout ns0:id="@+id/selected_template_container" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_margin="16dp" ns0:background="@drawable/template_detail_background" ns0:orientation="vertical" ns0:padding="16dp" ns0:visibility="gone" ns0:elevation="2dp">
         <TextView ns0:id="@+id/selected_template_title" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Template Name" ns0:textColor="@android:color/black" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="8dp" />
         <TextView ns0:id="@+id/selected_template_description" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Template description" ns0:textColor="#666666" ns0:textSize="14sp" ns0:layout_marginBottom="12dp" />

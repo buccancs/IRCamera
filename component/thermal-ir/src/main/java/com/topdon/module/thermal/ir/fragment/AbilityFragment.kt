@@ -42,7 +42,6 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
     override fun initView() {
         mIsTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
 
-        // Initialize views with findViewById
         ivWinter = requireView().findViewById(R.id.iv_winter)
         viewMonitory = requireView().findViewById(R.id.view_monitory)
         viewHouse = requireView().findViewById(R.id.view_house)
@@ -79,12 +78,8 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                 startActivity(intent)
             }
 
-            viewHouse -> { // 房屋检测
-                // Disabled - HouseHomeActivity from removed house module
-                // val intent = Intent(requireContext(), HouseHomeActivity::class.java)
-                // intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
-                // startActivity(intent)
-            }
+            viewHouse -> {
+}
 
             viewCar -> { // 汽车检测
                 if (mIsTC007) {

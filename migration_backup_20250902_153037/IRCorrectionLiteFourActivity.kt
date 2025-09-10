@@ -18,12 +18,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
-/**
- *
- * 锅盖矫正
- * @author: CaiSongL
- * @date: 2023/8/4 9:06
- */
 @Route(path = RouterConfig.IR_CORRECTION_FOUR_LITE)
 class IRCorrectionLiteFourActivity : BaseActivity() {
     val time = 60

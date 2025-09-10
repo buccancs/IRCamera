@@ -1,88 +1,4 @@
-"""
-Advanced Network Discovery Service for IRCamera PC Controller.
 
-This module provides enterprise-grade mDNS/Zeroconf service registration and
-device discovery capabilities to match Android implementation and enable automatic
-device discovery across complex network topologies. It implements RFC 6763
-(DNS-SD) and RFC 6762 (mDNS) standards for robust service discovery.
-
-The service supports:
-    - Automatic device discovery and registration
-    - Network topology changes and failover
-    - Service authentication and security validation
-    - Cross-platform compatibility (Windows, macOS, Linux)
-    - IPv4 and IPv6 dual-stack support
-    - Service health monitoring and heartbeat detection
-    - Enterprise network integration with proxy support
-
-Protocol Support:
-    - mDNS (Multicast DNS) for local network discovery
-    - DNS-SD (DNS Service Discovery) for service enumeration
-    - Bonjour/Zeroconf compatibility layer
-    - Custom IRCamera protocol extensions
-
-Security Features:
-    - TLS certificate validation for discovered services
-    - Service authentication tokens
-    - Network access control integration
-    - Secure service registration with digital signatures
-
-Example:
-    Basic service discovery:
-
-    ```python
-    # Initialize discovery service
-    discovery = NetworkDiscoveryService(
-        service_name="IRCamera-Hub",
-        port=8080,
-        enable_security=True
-    )
-
-    # Start discovery
-    await discovery.start_discovery()
-
-    # Register service
-    await discovery.register_service({
-        "service_type": "thermal_hub",
-        "version": "2.1.0",
-        "capabilities": ["thermal", "gsr", "sync"]
-    })
-
-    # Monitor for devices
-    discovery.on_device_discovered = handle_device_found
-    discovery.on_device_lost = handle_device_lost
-
-    # Discover existing services
-    devices = await discovery.discover_services(timeout=10.0)
-    ```
-
-Performance Characteristics:
-    - Service discovery: < 500ms on local network
-    - Registration time: < 100ms
-    - Memory usage: < 5MB base + 1KB per service
-    - Network overhead: < 1% on Gigabit Ethernet
-    - Concurrent services: 1000+ simultaneous discoveries
-
-Network Requirements:
-    - Multicast support (224.0.0.251:5353 for IPv4)
-    - UDP port 5353 accessibility
-    - Firewall exceptions for mDNS traffic
-    - Network interface with multicast capability
-
-Authors:
-    IRCamera Development Team
-
-Version:
-    2.1.0
-
-License:
-    MIT License - Enterprise Grade
-
-Dependencies:
-    - zeroconf: RFC-compliant mDNS implementation
-    - asyncio: Asynchronous network operations
-    - loguru: Structured logging
-"""
 
 import asyncio
 import socket
@@ -115,109 +31,7 @@ except ImportError:
     except ImportError:
         # Enterprise fallback logger for testing environments
         class EnterpriseLogger:
-            """
-            Enterprise-grade fallback logger for environments without loguru.
 
-            Provides structured logging with timestamp, level, and message formatting
-            compatible with enterprise logging standards.
-            """
-
-            def _log(self, level: str, msg: str) -> None:
-                timestamp = datetime.now().isoformat()
-                print(f"{timestamp} [{level}] NetworkDiscovery: {msg}")
-
-            def info(self, msg: str) -> None:
-                self._log("INFO", msg)
-
-            def debug(self, msg: str) -> None:
-                self._log("DEBUG", msg)
-
-            def warning(self, msg: str) -> None:
-                self._log("WARNING", msg)
-
-            def error(self, msg: str) -> None:
-                self._log("ERROR", msg)
-
-        logger = EnterpriseLogger()
-
-try:
-    from ..core.config import config
-except ImportError:
-    # Fallback configuration for testing environments
-    class FallbackConfig:
-        def get(self, key, default=None):
-            config_map = {
-                "network.discovery_port": 8081,
-                "version": "1.0.0",
-            }
-            return config_map.get(key, default)
-
-    config = cast("ConfigManager", FallbackConfig())
-
-
-class DeviceType(Enum):
-    """Device types for discovery."""
-
-    PC_CONTROLLER = "PC_CONTROLLER"
-    THERMAL_CAMERA_TS004 = "THERMAL_CAMERA_TS004"
-    THERMAL_CAMERA_TC007 = "THERMAL_CAMERA_TC007"
-    ANDROID_SENSOR_NODE = "ANDROID_SENSOR_NODE"
-    UNKNOWN = "UNKNOWN"
-
-
-@dataclass
-class DiscoveredDevice:
-    """Represents a discovered device on the network."""
-
-    service_name: str
-    service_type: str
-    ip_address: str
-    port: int
-    device_type: DeviceType
-    attributes: Dict[str, str]
-    discovered_at: datetime
-    last_seen: datetime
-
-
-class NetworkDiscoveryService:
-    """
-    Network discovery service using mDNS/Zeroconf for automatic device discovery.
-    Implements the PC controller side of the discovery protocol.
-    """
-
-    SERVICE_TYPE_PC_CONTROLLER = "_topdon-pc._tcp.local."
-    SERVICE_TYPE_THERMAL_CAMERA = "_topdon-thermal._tcp.local."
-    SERVICE_TYPE_ANDROID_NODE = "_topdon-android._tcp.local."
-
-    def __init__(self):
-        """Initialize the discovery service."""
-        self.zeroconf: Optional[AsyncZeroconf] = None
-        self.service_browser: Optional[AsyncServiceBrowser] = None
-        self.discovered_devices: Dict[str, DiscoveredDevice] = {}
-        self.registered_services: List[ServiceInfo] = []
-        self.discovery_listeners: List[Callable] = []
-        self.is_running = False
-
-        # Service registration info
-        self.hostname = socket.gethostname()
-        self.local_ip = self._get_local_ip()
-
-    def add_discovery_listener(self, callback: Callable):
-        """Add a callback for discovery events."""
-        self.discovery_listeners.append(callback)
-
-    def remove_discovery_listener(self, callback: Callable):
-        """Remove a discovery callback."""
-        if callback in self.discovery_listeners:
-            self.discovery_listeners.remove(callback)
-
-    async def start_discovery(self) -> bool:
-        """
-        Start the mDNS discovery service.
-
-        Returns:
-            bool: True if started successfully, False otherwise
-        """
         if not self._check_zeroconf_available():
             logger.warning("Zeroconf not available, using fallback discovery")
             return await self._start_fallback_discovery()
@@ -230,7 +44,6 @@ class NetworkDiscoveryService:
             # Register our PC controller service
             await self._register_pc_controller_service()
 
-            # Start browsing for Android devices and thermal cameras
             await self._start_service_browser()
 
             self.is_running = True
@@ -256,12 +69,10 @@ class NetworkDiscoveryService:
                     await self.zeroconf.async_unregister_service(service)
                 self.registered_services.clear()
 
-            # Stop service browser
             if self.service_browser:
                 await self.service_browser.async_cancel()
                 self.service_browser = None
 
-            # Close zeroconf
             if self.zeroconf:
                 await self.zeroconf.async_close()
                 self.zeroconf = None
@@ -426,7 +237,7 @@ class NetworkDiscoveryService:
     ) -> DeviceType:
         """Determine device type from service information."""
         try:
-            # Check explicit device type property first
+
             explicit_type = self._get_explicit_device_type(properties)
             if explicit_type:
                 return explicit_type
@@ -460,7 +271,6 @@ class NetworkDiscoveryService:
                 service_type, service_info.properties or {}
             )
 
-            # Create device record
             device = DiscoveredDevice(
                 service_name=service_name,
                 service_type=service_type,
@@ -523,7 +333,6 @@ class NetworkDiscoveryService:
 
         except Exception as e:
             logger.error(f"Error processing lost device: {e}")
-
 
 class ServiceBrowserHandler:
     """Handler for service browser events."""

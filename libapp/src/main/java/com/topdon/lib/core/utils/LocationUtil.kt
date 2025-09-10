@@ -17,15 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
-/**
- *
- * Created by LCG on 2024/6/27.
- */
-object LocationUtil {
-    /**
-     * utility，utility utility.
-     * @return utility-utility-utility，utility null
-     */
     @RequiresPermission(Permission.ACCESS_FINE_LOCATION)
     suspend fun getLastLocationStr(context: Context): String? =
         withContext(Dispatchers.IO) {

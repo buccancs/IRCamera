@@ -39,12 +39,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         findViewById<Button>(R.id.motion_log_btn).setOnClickListener(this)
         findViewById<Button>(R.id.motion_btn).setOnClickListener(this)
         findViewById<Button>(R.id.motion_start_btn).setOnClickListener(this)
-//        if (BaseApplication.instance.isConnected()) {
-//            mHandler.postDelayed({
-//                EventBus.getDefault().post(ThermalActionEvent(action = 2001))
-//            }, 300)
-//        }
-    }
+}
 
     override fun initData() {
     }

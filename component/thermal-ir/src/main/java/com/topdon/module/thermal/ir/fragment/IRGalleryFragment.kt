@@ -73,7 +73,7 @@ class IRGalleryFragment : BaseFragment() {
     override fun initContentView() = R.layout.fragment_ir_gallery
 
     override fun initView() {
-        // Initialize views with findViewById
+
         refreshLayout = requireView().findViewById(R.id.refresh_layout)
         clDownload = requireView().findViewById(R.id.cl_download)
         clShare = requireView().findViewById(R.id.cl_share)

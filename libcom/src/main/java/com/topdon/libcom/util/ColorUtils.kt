@@ -7,10 +7,6 @@ import androidx.annotation.Dimension
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-/**
- * @author : litao
- * @date : 2023/2/21 16:41
- */
 object ColorUtils {
     fun setColorAlpha(
         @ColorInt color: Int,

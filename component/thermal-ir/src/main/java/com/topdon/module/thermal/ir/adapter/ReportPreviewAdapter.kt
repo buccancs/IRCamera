@@ -63,18 +63,7 @@ class ReportPreviewAdapter(private val cxt: Context, var dataList: List<HouseRep
                 val albumAdapter = ReportPreviewAlbumAdapter(cxt, data.albumItemBeans)
                 holder.rcyAlbum.adapter = albumAdapter
                 albumAdapter.jumpListener = { _, position ->
-                    // Disabled - ImagesDetailActivity from removed house module
-                    // var intent = Intent(cxt, ImagesDetailActivity::class.java)
-                    // var photos = ArrayList<String>()
-                    // data.albumItemBeans.forEach {
-                    //     photos.add(it.photoPath)
-                    // }
-                    // intent.putExtra(ExtraKeyConfig.IMAGE_PATH_LIST, photos)
-                    // intent.putExtra(ExtraKeyConfig.CURRENT_ITEM, position)
-                    // cxt.startActivity(intent)
-
-                    // Temporary stub - show toast instead of navigating
-                    TToast.shortToast(cxt, "Image detail view disabled - house module removed")
+TToast.shortToast(cxt, "Image detail view disabled - house module removed")
                 }
             } else {
                 holder.llyAlbum.visibility = View.GONE
@@ -114,7 +103,7 @@ class ReportPreviewAdapter(private val cxt: Context, var dataList: List<HouseRep
             }
         })
          */
-        } // End of if (holder is ItemView) block
+        }
     }
 
     override fun getItemCount(): Int {

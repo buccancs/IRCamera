@@ -265,10 +265,6 @@ class IRMonocularActivity : BaseWifiActivity() {
         }
     }
 
-    /**
-     * 显示和隐藏状态栏
-     * @param show
-     */
     private fun setStatusBarVisible(show: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             if (show) {
@@ -543,10 +539,6 @@ class IRMonocularActivity : BaseWifiActivity() {
         }
     }
 
-    /**
-     * 更新最新图库照片或视频
-     * @param fileType 0-图片 1-录像 2-所有
-     */
     private fun refreshImg(fileType: Int) {
         lifecycleScope.launch {
             val fileList: List<FileBean>? = TS004Repository.getNewestFile(fileType)

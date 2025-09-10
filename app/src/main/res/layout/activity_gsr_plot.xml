@@ -6,28 +6,28 @@
     </data>
 <ScrollView xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:background="@color/white">
   <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="300dp" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="4dp">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:padding="8dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:gravity="center" ns0:text="GSR (Galvanic Skin Response)" ns0:textSize="16sp" ns0:textStyle="bold" ns0:textColor="@color/black" ns0:layout_marginBottom="8dp" />
         <com.github.mikephil.charting.charts.LineChart ns0:id="@+id/gsr_chart" ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1" />
       </LinearLayout>
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="300dp" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="4dp">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:padding="8dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:gravity="center" ns0:text="PPG (Photoplethysmography)" ns0:textSize="16sp" ns0:textStyle="bold" ns0:textColor="@color/black" ns0:layout_marginBottom="8dp" />
         <com.github.mikephil.charting.charts.LineChart ns0:id="@+id/ppg_chart" ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1" />
       </LinearLayout>
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="4dp">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:gravity="center" ns0:text="📊 Data Analysis" ns0:textSize="18sp" ns0:textStyle="bold" ns0:textColor="@color/black" ns0:layout_marginBottom="12dp" />
         <TextView ns0:id="@+id/stats_text_view" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:fontFamily="monospace" ns0:textSize="12sp" ns0:textColor="@color/black" ns0:lineSpacingMultiplier="1.2" ns0:text="Loading statistics..." />
       </LinearLayout>
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns1:cardCornerRadius="8dp" ns1:cardElevation="4dp" ns1:cardBackgroundColor="#E3F2FD">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="💡 Chart Interaction" ns0:textSize="16sp" ns0:textStyle="bold" ns0:textColor="@color/black" ns0:layout_marginBottom="8dp" />

@@ -23,25 +23,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Hub-Spoke Integration Activity demonstrating the complete Multi-Modal Physiological Sensing Platform.
- *
- * This activity provides a comprehensive interface for:
- * - PC Controller discovery and connection
- * - Multi-modal sensor recording coordination
- * - Real-time status monitoring and error handling
- * - Time synchronization visualization
- * - Background service management
- *
- * Features:
- * - Complete Hub-Spoke system demonstration
- * - Real-time sensor status display
- * - Network connectivity and sync quality monitoring
- * - Coordinated recording session management
- * - Error recovery and status reporting
- *
- * @author IRCamera Android Sensor Node (Spoke)
- */
 class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrationBinding>() {
     override fun initContentLayoutId(): Int = R.layout.activity_hub_spoke_integration
 
@@ -126,7 +107,6 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
     private fun initializeComponents() {
         timeManager = TimeManager.getInstance(this)
 
-        // Initialize network client (will be connected to service later)
         recordingController = RecordingController(this, this)
         networkClient = EnhancedNetworkClient(this, recordingController)
     }
@@ -243,7 +223,6 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
                 binding.progressBar.visibility = View.VISIBLE
                 binding.statusTextView.text = "Starting coordinated recording session..."
 
-                // Create session directory
                 val sessionDir = File(sessionDirectory)
                 if (!sessionDir.exists()) {
                     sessionDir.mkdirs()
@@ -251,10 +230,10 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
 
                 val success =
                     if (networkClient.isConnected()) {
-                        // Start coordinated session with PC Controller
+
                         networkClient.startCoordinatedSession(sessionDirectory)
                     } else {
-                        // Start local recording only
+
                         recordingController.startRecording(sessionDirectory)
                     }
 
@@ -296,10 +275,10 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
 
                 val success =
                     if (networkClient.isConnected()) {
-                        // Stop coordinated session
+
                         networkClient.stopCoordinatedSession()
                     } else {
-                        // Stop local recording only
+
                         recordingController.stopRecording()
                     }
 
@@ -342,7 +321,7 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
                     // Distribute sync marker through PC Controller
                     networkClient.distributeSyncMarker(markerType, metadata)
                 } else {
-                    // Add local sync marker only
+
                     val timestampNs = timeManager.getCurrentTimestampNs()
                     recordingController.addSyncMarker(markerType, timestampNs, metadata)
                 }
@@ -425,7 +404,7 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
                             syncQuality.timeSinceSyncMs?.let { append(" - ${it / 1000}s ago") }
                         }
                 }
-                kotlinx.coroutines.delay(2000) // Update every 2 seconds
+                kotlinx.coroutines.delay(2000)
             }
         }
     }

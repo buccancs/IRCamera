@@ -1,14 +1,5 @@
 package com.topdon.menu.util
 
-/**
- * Preset pseudo color configuration used by pseudo color menu and pseudo color bar.
- */
-object PseudoColorConfig {
-    /**
-     * Get corresponding color array based on specified pseudo color code
-     * 1-White hot 3-Iron red 4-Rainbow1 5-Rainbow2 6-Rainbow3 7-Red hot 8-Hot iron 9-Rainbow4 10-Rainbow5 11-Black hot
-     * @param code Pseudo color code, cannot be changed due to legacy reasons (2D editing data, saved settings pseudo color)
-     */
     @JvmStatic
     fun getColors(code: Int): IntArray =
         when (code) {

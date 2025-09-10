@@ -11,11 +11,6 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipShutterBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
-/**
- * dialog
- * @author: CaiSongL
- * @date: 2023/4/13 10:57
- */
 class TipShutterDialog : Dialog {
     constructor(context: Context) : super(context)
 

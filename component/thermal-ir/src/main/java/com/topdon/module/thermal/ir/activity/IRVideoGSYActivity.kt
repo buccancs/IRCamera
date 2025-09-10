@@ -48,7 +48,7 @@ class IRVideoGSYActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_ir_video_gsy
 
     override fun initView() {
-        // Initialize views
+
         titleView = findViewById(R.id.title_view)
         clBottom = findViewById(R.id.cl_bottom)
         clDownload = findViewById(R.id.cl_download)

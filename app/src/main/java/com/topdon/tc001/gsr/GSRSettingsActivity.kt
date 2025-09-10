@@ -35,7 +35,6 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
         loadCurrentSettings()
         setupListeners()
 
-        // Setup modern back handling
         onBackPressedDispatcher.addCallback(
             this,
             object : androidx.activity.OnBackPressedCallback(true) {
@@ -116,28 +115,24 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
     }
 
     private fun loadCurrentSettings() {
-        // Load GSR Settings
+
         binding.gsrSamplingRateSpinner.setSelection(prefs.getInt("gsr_sampling_rate", 2)) // Default: 128 Hz
         binding.gsrRangeSpinner.setSelection(prefs.getInt("gsr_range", 0)) // Default: Auto Range
         binding.gsrCalibrationSwitch.isChecked = prefs.getBoolean("gsr_calibration", true)
 
-        // Load Video Settings
         binding.videoResolutionSpinner.setSelection(prefs.getInt("video_resolution", 0)) // Default: 4K UHD
         binding.videoFrameRateSpinner.setSelection(prefs.getInt("video_frame_rate", 0)) // Default: 30 fps
         binding.enableVideoSwitch.isChecked = prefs.getBoolean("enable_video", true)
         binding.enableStabilizationSwitch.isChecked = prefs.getBoolean("enable_stabilization", true)
 
-        // Load RAW Capture Settings
         binding.enableRawCaptureSwitch.isChecked = prefs.getBoolean("enable_raw_capture", false)
         binding.rawFrameRateSpinner.setSelection(prefs.getInt("raw_frame_rate", 0)) // Default: 30 fps
         binding.rawQualitySpinner.setSelection(prefs.getInt("raw_quality", 0)) // Default: Maximum
 
-        // Load Session Settings
         binding.autoExportSwitch.isChecked = prefs.getBoolean("auto_export", false)
         binding.dataRetentionSpinner.setSelection(prefs.getInt("data_retention", 0)) // Default: Keep Forever
         binding.sessionPrefixEdit.setText(prefs.getString("session_prefix", "GSR_Session"))
 
-        // Load Sync Settings
         binding.enableTimeSyncSwitch.isChecked = prefs.getBoolean("enable_time_sync", true)
         binding.syncToleranceSpinner.setSelection(prefs.getInt("sync_tolerance", 1)) // Default: 5 ms
     }
@@ -205,7 +200,7 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        // Handle via OnBackPressedCallback instead
+
         onBackPressedDispatcher.onBackPressed()
     }
 }

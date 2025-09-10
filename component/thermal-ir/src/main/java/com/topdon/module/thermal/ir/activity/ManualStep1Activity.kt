@@ -20,7 +20,7 @@ class ManualStep1Activity : BaseActivity() {
     override fun initContentView(): Int = R.layout.activity_manual_step1
 
     override fun initView() {
-        // Initialize views
+
         tvManual = findViewById(R.id.tv_manual)
 
         tvManual.setOnClickListener {

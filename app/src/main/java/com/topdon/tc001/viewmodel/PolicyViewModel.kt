@@ -10,9 +10,6 @@ import kotlinx.coroutines.launch
 class PolicyViewModel : BaseViewModel() {
     val htmlViewData = SingleLiveEvent<HtmlBean>()
 
-    /**
-     * @param type 1: view 2: view 3: view
-     */
     fun getUrl(type: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val urlType =

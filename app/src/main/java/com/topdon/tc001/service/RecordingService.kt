@@ -18,21 +18,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.io.File
 
-/**
- * Background service for multi-modal sensor recording.
- *
- * This service ensures continuous recording operation even when the app is in the background.
- * It manages the RecordingController and provides status updates through notifications.
- *
- * Key Features:
- * - Foreground service for uninterrupted recording
- * - Real-time status notifications
- * - Automatic recovery from errors
- * - Integration with PC Controller communication
- * - Power management awareness
- *
- * @author IRCamera Android Sensor Node (Spoke)
- */
 class RecordingService : LifecycleService() {
     companion object {
         private const val TAG = "RecordingService"
@@ -115,14 +100,11 @@ class RecordingService : LifecycleService() {
         super.onCreate()
         Log.i(TAG, "RecordingService created")
 
-        // Initialize notification manager
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel()
 
-        // Initialize recording controller
         recordingController = RecordingController(this, this)
 
-        // Initialize sensors
         lifecycleScope.launch {
             try {
                 val success = recordingController.initializeSensors()
@@ -216,7 +198,7 @@ class RecordingService : LifecycleService() {
 
         lifecycleScope.launch {
             try {
-                // Create session directory
+
                 val sessionDir = File(sessionDirectory)
                 if (!sessionDir.exists()) {
                     sessionDir.mkdirs()
@@ -225,10 +207,8 @@ class RecordingService : LifecycleService() {
                 currentSessionDirectory = sessionDirectory
                 recordingStartTime = System.nanoTime()
 
-                // Start foreground service
                 startForeground(NOTIFICATION_ID, createRecordingNotification("Starting recording..."))
 
-                // Start recording
                 val success = recordingController.startRecording(sessionDirectory)
 
                 if (success) {
@@ -265,7 +245,6 @@ class RecordingService : LifecycleService() {
                     Log.i(TAG, "Recording session stopped (duration: ${sessionDuration}s)")
                     updateNotification("Recording completed (${String.format("%.1f", sessionDuration)}s)")
 
-                    // Stop foreground service after a brief delay to show completion message
                     kotlinx.coroutines.delay(2000)
                     stopForeground(true)
                     stopSelf()
@@ -343,7 +322,7 @@ class RecordingService : LifecycleService() {
                     updateNotification("Critical error: ${error.message}")
                     stopRecordingSession()
                 } else {
-                    // Show temporary error notification
+
                     updateNotification("Warning: ${error.message}")
                     kotlinx.coroutines.delay(3000)
                     updateNotification("Recording in progress")

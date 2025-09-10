@@ -207,7 +207,6 @@ class ThermalInputDialog : Dialog {
                 context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             binding = DialogThermalInputBinding.inflate(inflater)
 
-            // Initialize views using binding
             messageText = binding.dialogTipMsgText
             successBtn = binding.dialogTipSuccessBtn
             cancelBtn = binding.dialogTipCancelBtn

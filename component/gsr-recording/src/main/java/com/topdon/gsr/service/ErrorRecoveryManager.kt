@@ -5,10 +5,6 @@ import kotlinx.coroutines.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 
-/**
- * Enhanced Error Recovery System
- * Production-grade error handling and recovery mechanisms for sensor disconnections and recording failures
- */
 class ErrorRecoveryManager private constructor() {
     companion object {
         private const val TAG = "ErrorRecoveryManager"
@@ -86,8 +82,8 @@ class ErrorRecoveryManager private constructor() {
         val severity: Severity = Severity.MEDIUM,
     ) {
         enum class Severity {
-            LOW, // Warning, service continues
-            MEDIUM, // Error, automatic recovery attempted
+            LOW,
+            MEDIUM,
             HIGH, // Critical, immediate recovery required
             FATAL, // Unrecoverable, stop all operations
         }
@@ -278,7 +274,7 @@ class ErrorRecoveryManager private constructor() {
 
         if (error.severity == RecoverableError.Severity.FATAL) {
             Log.e(TAG, "Fatal error detected, stopping all operations")
-            // Handle fatal error - stop all services
+
             return
         }
 
@@ -421,7 +417,6 @@ class ErrorRecoveryManager private constructor() {
             Log.w(TAG, "Recovering from GSR data stream error: ${error.message}")
             Log.d(TAG, "Attempting GSR data stream recovery")
 
-            // Reset data stream buffers and restart data collection
             RecoveryResult(true, "GSR data stream recovered")
         } catch (e: Exception) {
             RecoveryResult(false, "GSR data stream recovery failed: ${e.message}", shouldRetry = true)
@@ -484,7 +479,6 @@ class ErrorRecoveryManager private constructor() {
         return try {
             Log.d(TAG, "Attempting storage access recovery for error: ${error.message}")
 
-            // Check and request storage permissions
             RecoveryResult(true, "Storage access recovered")
         } catch (e: Exception) {
             RecoveryResult(false, "Storage access recovery failed: ${e.message}", shouldRetry = true)
@@ -495,7 +489,6 @@ class ErrorRecoveryManager private constructor() {
         return try {
             Log.d(TAG, "Attempting Bluetooth connection recovery for error: ${error.type}")
 
-            // Reset Bluetooth connection and reconnect
             delay(2000L)
             RecoveryResult(true, "Bluetooth connection recovered")
         } catch (e: Exception) {
@@ -507,7 +500,6 @@ class ErrorRecoveryManager private constructor() {
         return try {
             Log.d(TAG, "Attempting Shimmer device recovery for error: ${error.type}")
 
-            // Reset Shimmer device connection
             delay(3000L)
             RecoveryResult(true, "Shimmer device recovered")
         } catch (e: Exception) {

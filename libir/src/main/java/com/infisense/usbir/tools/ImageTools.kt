@@ -19,7 +19,7 @@ object ImageTools {
             return
         }
         val selectBean = getTempIndex(tempBytes, max, min)
-//        Log.w("123", "max size: ${selectBean.maxIndex.size}, min size: ${selectBean.minIndex.size}")
+
         bitmapFromRgbaGrey(bytes = imageBytes, bean = selectBean) // Utility function
     }
 
@@ -119,11 +119,6 @@ object ImageTools {
         }
     }
 
-    /**
-     * utility
-     *
-     * @param bytes utility
-     */
     private fun getTempIndex(
         bytes: ByteArray,
         max: Float,
@@ -154,49 +149,6 @@ object ImageTools {
         return (tempInt.toDouble() / scale.toDouble() - 273.15).toFloat()
     }
 
-//    // RGBA utility bitmap
-//    fun bitmapFromRgba(bytes: ByteArray, width: Int, height: Int): Bitmap {
-//        val len = bytes.size / 4
-//        val pixels = IntArray(len)
-//        for (i in pixels.indices) {
-//            if (i > len / 4 * 3 && i < len) {
-//                //Specifiedutility
-//                val r = 255
-//                val g = 215
-//                val b = 0
-//                val a = 255
-//                val pixel = (a shl 24) or (r shl 16) or (g shl 8) or b
-//                pixels[i] = pixel
-//            } else if (i > 0 && i < len / 2) {
-//                val r: Int = (bytes[i * 4] and 0xff.toByte()).toUByte().toInt()
-//                val g: Int = (bytes[i * 4 + 1] and 0xff.toByte()).toUByte().toInt()
-//                val b: Int = (bytes[i * 4 + 2] and 0xff.toByte()).toUByte().toInt()
-//                val a: Int = (bytes[i * 4 + 3] and 0xff.toByte()).toUByte().toInt()
-//
-//                // Utility function
-//                val grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
-//                val pixel = (a shl 24) or (grey shl 16) or (grey shl 8) or grey
-//                pixels[i] = pixel
-//            } else {
-//                val r: Int = (bytes[i * 4] and 0xff.toByte()).toUByte().toInt()
-//                val g: Int = (bytes[i * 4 + 1] and 0xff.toByte()).toUByte().toInt()
-//                val b: Int = (bytes[i * 4 + 2] and 0xff.toByte()).toUByte().toInt()
-//                val a: Int = (bytes[i * 4 + 3] and 0xff.toByte()).toUByte().toInt()
-//                val pixel = (a shl 24) or (r shl 16) or (g shl 8) or b
-//                pixels[i] = pixel
-//            }
-//        }
-//        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//        bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
-//        return bitmap
-//    }
-
-    /**
-     * @param imageBytes    utility
-     * @param tempBytes     utility
-     * @param max           utility
-     * @param min           utility
-     */
     fun dualReadFrame(
         imageBytes: ByteArray,
         tempBytes: ByteArray,

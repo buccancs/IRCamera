@@ -163,12 +163,10 @@ class NetworkDiscoveryService(private val context: Context) {
                     this.serviceType = serviceType
                     this.port = port
 
-                    // Add device attributes
                     attributes.forEach { (key, value) ->
                         setAttribute(key, value)
                     }
 
-                    // Add device type
                     setAttribute("device_type", deviceType.name)
                     setAttribute("version", "1.0")
                 }

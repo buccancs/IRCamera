@@ -19,58 +19,7 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.tools.PermissionTool
 
 object BluetoothUtil {
-    /**
-     * utility activity utility utility utilityStateutility.
-     */
-    fun addBtStateListener(
-        activity: ComponentActivity,
-        listener: ((isEnable: Boolean) -> Unit),
-    ) {
-        activity.lifecycle.addObserver(BtStateObserver(activity, listener))
-    }
 
-    private class BtStateObserver(val context: Context, val listener: ((isEnable: Boolean) -> Unit)) : DefaultLifecycleObserver {
-        private val receiver = BtStateReceiver()
-
-        override fun onCreate(owner: LifecycleOwner) {
-            context.registerReceiver(receiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
-        }
-
-        override fun onDestroy(owner: LifecycleOwner) {
-            context.unregisterReceiver(receiver)
-            owner.lifecycle.removeObserver(this)
-        }
-
-        private inner class BtStateReceiver : BroadcastReceiver() {
-            override fun onReceive(
-                context: Context?,
-                intent: Intent?,
-            ) {
-                when (intent?.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.STATE_OFF)) {
-                    BluetoothAdapter.STATE_OFF -> listener.invoke(false)
-                    BluetoothAdapter.STATE_ON -> listener.invoke(true)
-                }
-            }
-        }
-    }
-
-    private val scanCallback = MyScanCallback()
-
-    /**
-     * Settingsutility.
-     */
-    fun setLeScanListener(
-        isTS004: Boolean,
-        listener: (name: String) -> Unit,
-    ) {
-        scanCallback.isTS004 = isTS004
-        scanCallback.listener = listener
-    }
-
-    /**
-     * utility，utility.
-     * @return true-utility false-utility
-     */
     @SuppressLint("MissingPermission")
     fun startLeScan(context: Context): Boolean {
         XLog.i("startLeScan()")
@@ -102,10 +51,6 @@ object BluetoothUtil {
         return true
     }
 
-    /**
-     * utility，utility.
-     * @return true-utility false-utility
-     */
     @SuppressLint("MissingPermission")
     fun stopLeScan(context: Context): Boolean {
         XLog.i("stopBtScan()")

@@ -9,66 +9,6 @@ import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
 
-/**
- * data，data
- * ```
- * len                 [ 0,  2)    2 byte   data，data 1024
- * name                [ 2, 18)   16 byte   data(data TopInfrared data，dataMPDC4GSR，dataTC001、TS001 data TC007)
- * ver                 [18, 26)    6 byte   APPdata(versionName)
- * width               [26, 28)    2 byte   data 256 data 192(data)
- * height              [28, 30)    2 byte   data 256 data 192(data)
- * rotate              [30, 32)    2 byte   RotateAngle
- * pseudo              [32, 34)    2 byte   Pseudo-colordata
- * initRotate          [34, 36)    2 byte   dataAngle(data)
- * correctRotate       [36, 38)    2 byte   dataAngle(data)
- *                     [38, 81)   44 byte   Point/Line/Area(data，data0data)
- *
- * customPseudoBean    [81,173)  92 byte
- *   colorSize                   81     1 byte   data
- *   selectIndex                 82     1 byte   CurrentSelecteddata index
- *   colors                [ 83,111)   28 byte   7 data
- *   zAltitudes            [111,118)    7 byte   7 data
- *   places                [118,146)   28 byte   7 data
- *   isUseCustomPseudo          146     1 byte
- *   maxTemp               [147,151)    4 byte
- *   minTemp               [151,155)    4 byte
- *   isColorCustom              155     1 byte
- *   customMinColor        [156,160)    4 byte
- *   customMiddleColor     [160,164)    4 byte
- *   customMaxColor        [164,168)    4 byte
- *   customRecommendIndex  [168,172)    4 byte
- *   isUseGray                  172     1 byte
- *
- * isShowPseudoBar          173     1 byte   dataPseudo-colordata
- * textColor           [174,178)    4 byte   data
- *
- * watermarkBean       [178,628)  450 byte   data
- *   isOpen                 178     1 byte   data
- *   titleLen          [179,183)    4 byte   data
- *   title             [183,303)  120 byte   data
- *   addressLen        [303,307)    4 byte   data
- *   address           [307,627)  320 byte   data
- *   isAddTime              627     1 byte   data
- *
- * alarmBean           [628,656)   28 byte   data
- *   isHighOpen             628     1 byte   High temperaturedata
- *   isLowOpen              629     1 byte   Low temperaturedata
- *   highTemp          [630,634)    4 byte   High temperaturedata，dataCelsius
- *   lowTemp           [634,638)    4 byte   Low temperaturedata，dataCelsius
- *   isMarkOpen             638     1 byte   data
- *   highColor         [639,643)    4 byte   High temperaturedata
- *   lowColor          [643,647)    4 byte   Low temperaturedata
- *   markType          [647,651)    4 byte   dataType 1-data 2-data
- *   isRingtoneOpen         651     1 byte   data
- *   ringtoneType      [652,656)    4 byte   dataType
- *   gainStatus       [657)    1 byte   // ImplementationLow gain 1:（Low temperature）High gain 0: High temperature（Low gain）
- *   textSize         [658,659） 2byte // Implementation
- *   environment      [660,663) 4byte // Implementation ： data，dataCelsius
- *   distance      [664,667) 4byte // Implementation ：data，
- *   radiation      [668,671) 4byte // Implementation ：data data，dataCelsius
- *   amplify        672     1 byte   // Implementation
- * ```
- */
 class FrameStruct() {
     companion object {
         /**

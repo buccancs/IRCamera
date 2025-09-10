@@ -1,146 +1,4 @@
-"""
-Reliable Messaging Service for IRCamera PC Controller
 
-Provides reliable message delivery with acknowledgments, retry logic, and
-priority queuing to match the Android implementation.
-"""
-
-import asyncio
-import time
-import uuid
-from collections import deque
-from dataclasses import dataclass
-from enum import Enum
-from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, cast
-
-if TYPE_CHECKING:
-    from ..core.config import ConfigManager
-
-try:
-    from loguru import logger
-except ImportError:
-    try:
-        from ..utils.simple_logger import logger
-    except ImportError:
-        # Fallback logger for testing
-        class FallbackLogger:
-            def info(self, msg):
-                print(f"INFO: {msg}")
-
-            def debug(self, msg):
-                print(f"DEBUG: {msg}")
-
-            def warning(self, msg):
-                print(f"WARNING: {msg}")
-
-            def error(self, msg):
-                print(f"ERROR: {msg}")
-
-        logger = FallbackLogger()
-
-try:
-    from ..core.config import config
-except ImportError:
-    # Fallback config for testing
-    class FallbackConfig:
-        def get(self, key, default=None):
-            config_map = {
-                "messaging.base_retry_delay": 1.0,
-                "messaging.max_retry_delay": 30.0,
-                "messaging.default_timeout": 30.0,
-                "messaging.cleanup_interval": 60.0,
-            }
-            return config_map.get(key, default)
-
-    config = cast("ConfigManager", FallbackConfig())
-
-
-class MessagePriority(Enum):
-    """Message priority levels."""
-
-    LOW = 1
-    NORMAL = 2
-    HIGH = 3
-    CRITICAL = 4
-
-
-class MessageStatus(Enum):
-    """Message delivery status."""
-
-    PENDING = "pending"
-    SENT = "sent"
-    ACKNOWLEDGED = "acknowledged"
-    FAILED = "failed"
-    EXPIRED = "expired"
-
-
-@dataclass
-class ReliableMessage:
-    """Represents a reliable message."""
-
-    message_id: str
-    target_host: str
-    target_port: int
-    message_type: str
-    content: Dict[str, Any]
-    priority: MessagePriority
-    created_at: float
-    expires_at: float
-    max_retries: int
-    retry_count: int = 0
-    status: MessageStatus = MessageStatus.PENDING
-    last_attempt: Optional[float] = None
-    error_message: Optional[str] = None
-
-
-@dataclass
-class MessageCallback:
-    """Callback configuration for message delivery events."""
-
-    on_acknowledged: Optional[Callable[[str], None]] = None
-    on_failed: Optional[Callable[[str, str], None]] = None
-    on_retrying: Optional[Callable[[str, int], None]] = None
-
-
-class ReliableMessageService:
-    """
-    Reliable messaging service that ensures message delivery with acknowledgments,
-    automatic retries, and priority-based queuing.
-    """
-
-    def __init__(self):
-        """Initialize the reliable messaging service."""
-        self.pending_messages: Dict[str, ReliableMessage] = {}
-        self.message_callbacks: Dict[str, MessageCallback] = {}
-        self.message_handlers: Dict[
-            str, Callable[[Dict[str, Any]], Optional[Dict[str, Any]]]
-        ] = {}
-        self.priority_queues: Dict[MessagePriority, deque] = {
-            priority: deque() for priority in MessagePriority
-        }
-
-        # Message transport - will be set by the server
-        self.transport: Optional[Callable] = None
-
-        # Service state
-        self.is_running = False
-        self.processing_task: Optional[asyncio.Task] = None
-        self.cleanup_task: Optional[asyncio.Task] = None
-
-        # Configuration
-        self.base_retry_delay = config.get("messaging.base_retry_delay", 1.0)
-        self.max_retry_delay = config.get("messaging.max_retry_delay", 30.0)
-        self.default_timeout = config.get("messaging.default_timeout", 30.0)
-        self.cleanup_interval = config.get("messaging.cleanup_interval", 60.0)
-
-    def set_transport(self, transport: Callable):
-        """
-        Set the message transport function.
-
-        Args:
-            transport: Async function that takes (host, port, message_dict)
-                      and returns bool
-        """
         self.transport = transport
 
     def register_message_handler(
@@ -148,112 +6,12 @@ class ReliableMessageService:
         message_type: str,
         handler: Callable[[Dict[str, Any]], Optional[Dict[str, Any]]],
     ):
-        """
-        Register a handler for incoming messages of a specific type.
 
-        Args:
-            message_type: The message type to handle
-            handler: Function that processes the message and optionally
-                    returns a response
-        """
         self.message_handlers[message_type] = handler
         logger.debug(f"Registered handler for message type: {message_type}")
 
     def unregister_message_handler(self, message_type: str):
-        """Unregister a message handler."""
-        if message_type in self.message_handlers:
-            del self.message_handlers[message_type]
-            logger.debug(f"Unregistered handler for message type: {message_type}")
 
-    async def initialize(self) -> bool:
-        """
-        Initialize the reliable messaging service.
-
-        Returns:
-            bool: True if initialization successful
-        """
-        try:
-            if self.is_running:
-                logger.warning("Messaging service already running")
-                return True
-
-            logger.info("Initializing reliable messaging service...")
-
-            # Start background tasks
-            self.processing_task = asyncio.create_task(self._message_processor())
-            self.cleanup_task = asyncio.create_task(self._cleanup_processor())
-
-            self.is_running = True
-            logger.info("Reliable messaging service initialized")
-            return True
-
-        except Exception as e:
-            logger.error(f"Failed to initialize messaging service: {e}")
-            await self.shutdown()
-            return False
-
-    async def shutdown(self):
-        """Shutdown the messaging service."""
-        if not self.is_running:
-            return
-
-        logger.info("Shutting down reliable messaging service...")
-
-        self.is_running = False
-
-        # Cancel background tasks
-        if self.processing_task:
-            self.processing_task.cancel()
-            try:
-                await self.processing_task
-            except asyncio.CancelledError:
-                pass
-
-        if self.cleanup_task:
-            self.cleanup_task.cancel()
-            try:
-                await self.cleanup_task
-            except asyncio.CancelledError:
-                pass
-
-        # Fail any pending messages
-        for message_id, message in self.pending_messages.items():
-            message.status = MessageStatus.FAILED
-            message.error_message = "Service shutdown"
-            await self._notify_message_failed(message_id, "Service shutdown")
-
-        self.pending_messages.clear()
-        self.message_callbacks.clear()
-
-        logger.info("Reliable messaging service shutdown complete")
-
-    async def send_message(
-        self,
-        target_host: str,
-        target_port: int,
-        message_type: str,
-        content: Dict[str, Any],
-        priority: MessagePriority = MessagePriority.NORMAL,
-        timeout_seconds: Optional[float] = None,
-        max_retries: int = 3,
-        callback: Optional[MessageCallback] = None,
-    ) -> str:
-        """
-        Send a reliable message with automatic retry logic.
-
-        Args:
-            target_host: Target device IP address
-            target_port: Target device port
-            message_type: Type of message
-            content: Message content
-            priority: Message priority level
-            timeout_seconds: Message timeout in seconds
-            max_retries: Maximum retry attempts
-            callback: Optional callback for delivery events
-
-        Returns:
-            str: Unique message ID
-        """
         if not self.is_running:
             raise RuntimeError("Messaging service not running")
 
@@ -267,7 +25,6 @@ class ReliableMessageService:
         if timeout_seconds is None:
             timeout_seconds = self.default_timeout
 
-        # Create message
         current_time = time.time()
         message = ReliableMessage(
             message_id=message_id,
@@ -286,7 +43,6 @@ class ReliableMessageService:
         if callback:
             self.message_callbacks[message_id] = callback
 
-        # Add to priority queue
         self.priority_queues[priority].append(message_id)
 
         logger.debug(
@@ -298,14 +54,7 @@ class ReliableMessageService:
     async def handle_acknowledgment(
         self, message_id: str, success: bool, error_message: Optional[str] = None
     ):
-        """
-        Handle an acknowledgment for a sent message.
 
-        Args:
-            message_id: The message ID being acknowledged
-            success: Whether the message was successfully processed
-            error_message: Error message if success is False
-        """
         if message_id not in self.pending_messages:
             logger.warning(f"Received acknowledgment for unknown message: {message_id}")
             return
@@ -322,29 +71,18 @@ class ReliableMessageService:
             await self._notify_message_failed(message_id, message.error_message)
             logger.warning(f"Message {message_id} failed: {message.error_message}")
 
-        # Remove from pending messages
         self._remove_pending_message(message_id)
 
     async def handle_incoming_message(
         self, message_data: Dict[str, Any], sender_info: Optional[Dict[str, Any]] = None
     ) -> Optional[Dict[str, Any]]:
-        """
-        Handle an incoming message from a remote device.
 
-        Args:
-            message_data: The received message data
-            sender_info: Information about the sender (host, port, etc.)
-
-        Returns:
-            Optional[Dict[str, Any]]: Response message or None
-        """
         try:
             message_type = message_data.get("message_type")
             if not message_type:
                 logger.warning("Received message without message_type")
                 return self._create_error_response("Missing message_type")
 
-            # Check for acknowledgment messages
             if message_type == "message_ack":
                 await self._handle_ack_message(message_data)
                 return None
@@ -352,7 +90,6 @@ class ReliableMessageService:
                 await self._handle_nack_message(message_data)
                 return None
 
-            # Handle regular messages
             if message_type in self.message_handlers:
                 handler = self.message_handlers[message_type]
 
@@ -395,7 +132,7 @@ class ReliableMessageService:
 
         while self.is_running:
             try:
-                # Process messages by priority (highest first)
+
                 message_processed = False
 
                 for priority in reversed(list(MessagePriority)):
@@ -427,14 +164,12 @@ class ReliableMessageService:
 
         current_time = time.time()
 
-        # Check if message has expired
         if current_time >= message.expires_at:
             message.status = MessageStatus.EXPIRED
             await self._notify_message_failed(message_id, "Message expired")
             self._remove_pending_message(message_id)
             return
 
-        # Check if we should retry yet (exponential backoff)
         if message.last_attempt:
             retry_delay = min(
                 self.base_retry_delay * (2**message.retry_count), self.max_retry_delay
@@ -447,7 +182,7 @@ class ReliableMessageService:
 
         # Attempt to send message
         try:
-            # Create message payload
+
             payload = {
                 "message_id": message.message_id,
                 "message_type": message.message_type,

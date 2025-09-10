@@ -7,14 +7,14 @@
     <com.topdon.menu.MenuFirstTabView android:id="@+id/view_menu_first" android:layout_width="0dp" android:layout_height="wrap_content" android:paddingTop="8dp" android:paddingBottom="8dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
     <com.topdon.menu.MenuSecondView android:id="@+id/thermal_recycler_night" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginBottom="6dp" app:deviceType="single_light" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@id/view_menu_first"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
-  <!-- 中间部分 -->
+
   <FrameLayout android:id="@+id/thermal_lay" android:layout_width="0dp" android:layout_height="0dp" app:layout_constraintDimensionRatio="192:256" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/title_view" app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay">
-    <!-- 红外出图图层 -->
+
     <com.infisense.usbir.view.CameraView android:id="@+id/cameraView" android:layout_width="match_parent" android:layout_height="match_parent"/>
-    <!-- 双光融合图层 native camera use -->
+
     <SurfaceView android:id="@+id/dualTextureViewNativeCamera" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone"/>
     <com.topdon.lib.ui.camera.CameraPreView android:id="@+id/cameraPreview" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone"/>
-    <!-- 温度图层 -->
+
     <com.infisense.usbir.view.TemperatureView android:id="@+id/temperatureView" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone"/>
     <com.topdon.module.thermal.ir.view.compass.LinearCompassView android:id="@+id/compassView" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginHorizontal="25dp" android:layout_marginTop="20dp" android:visibility="gone" app:backgroundColor="#00ffffff" app:markerColor="@color/color_select3" tools:visibility="visible"/>
     <TextView android:id="@+id/thermal_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/white" android:textSize="12sp"/>
@@ -23,7 +23,7 @@
     <com.infisense.usbir.view.ZoomCaliperView android:id="@+id/zoomView" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone"/>
     <com.topdon.lib.ui.widget.SteeringWheelView android:id="@+id/thermal_steering_view" android:layout_width="200dp" android:layout_height="200dp" android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="20dp" android:visibility="gone"/>
   </FrameLayout>
-  <!-- 趋势图 -->
+
   <Space android:id="@+id/space_chart" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintWidth_percent="0.7" app:layout_constraintDimensionRatio="264:158" app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay"/>
   <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/cl_trend_open" android:layout_width="0dp" android:layout_height="wrap_content" android:background="#e616131e" android:visibility="gone" app:layout_constraintWidth_percent="0.7" app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="@id/space_chart">
     <ImageView android:id="@+id/iv_trend_close" android:layout_width="34dp" android:layout_height="34dp" android:padding="6dp" android:src="@drawable/svg_ir_trend_close" android:contentDescription="@null" app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
@@ -33,7 +33,7 @@
     <ImageView android:layout_width="34dp" android:layout_height="34dp" android:padding="6dp" android:src="@drawable/svg_ir_trend_icon" android:contentDescription="@null" app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
     <ImageView android:id="@+id/iv_trend_open" android:layout_width="34dp" android:layout_height="34dp" android:layout_marginStart="4dp" android:padding="6dp" android:src="@drawable/svg_ir_trend_open" android:contentDescription="@null" app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
   </LinearLayout>
-  <!-- 伪彩条 -->
+
   <com.topdon.lib.ui.widget.BitmapConstraintLayout android:id="@+id/cl_seek_bar" android:layout_width="wrap_content" android:layout_height="0dp" app:layout_constraintBottom_toBottomOf="@id/thermal_lay" app:layout_constraintRight_toRightOf="@id/thermal_lay" app:layout_constraintTop_toTopOf="@id/thermal_lay">
     <ImageView android:id="@+id/temperature_iv_lock" android:layout_width="36dp" android:layout_height="36dp" android:layout_marginTop="22dp" android:layout_marginEnd="6dp" android:padding="8dp" android:src="@drawable/svg_pseudo_bar_unlock" android:contentDescription="@null" app:layout_constraintBottom_toTopOf="@id/temperature_seekbar" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <TextView android:id="@+id/tv_temp_content" android:layout_width="200dp" android:layout_height="wrap_content" android:layout_marginEnd="6dp" android:gravity="end" android:textColor="@color/white" android:textSize="13sp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
@@ -42,7 +42,7 @@
   </com.topdon.lib.ui.widget.BitmapConstraintLayout>
   <com.topdon.module.thermal.ir.view.TimeDownView android:id="@+id/time_down_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/white" android:textSize="25sp" app:layout_constraintStart_toStartOf="@id/thermal_lay" app:layout_constraintEnd_toEndOf="@id/thermal_lay" app:layout_constraintTop_toTopOf="@id/thermal_lay" app:layout_constraintBottom_toBottomOf="@id/thermal_lay"/>
   <TextView android:id="@+id/tv_type_ind" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginBottom="12dp" android:background="@drawable/bg_time_shape" android:paddingStart="5dp" android:paddingTop="3dp" android:paddingEnd="5dp" android:paddingBottom="3dp" android:text="@string/app_auto_photo" android:textColor="@color/white" android:textSize="15sp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay"/>
-  <!-- 拍照-更多 5 选项菜单 -->
+
   <ViewStub android:id="@+id/view_stub_camera" android:layout_width="0dp" android:layout_height="wrap_content" android:layout="@layout/layout_camera_setting" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/thermal_menu_lay"/>
   <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/pop_time_lay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_time_shape" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay">
     <TextView android:id="@+id/pop_time_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="36dp" android:layout_marginTop="8dp" android:layout_marginEnd="36dp" android:layout_marginBottom="8dp" android:text="00:00" android:textColor="@color/white" android:textSize="@dimen/app_font_15" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>

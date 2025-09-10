@@ -492,28 +492,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             itemView.layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-//        if (fourBean.size <= 4) {  //item少于4个，每个占1/4
-//            val canSeeCount = fourBean.size //一屏占4个
-//            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
-//            itemView.layoutParams =
-//                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-//            val layoutParams = itemMenu.layoutParams
-//            layoutParams.width = imageSize
-//            layoutParams.height = imageSize
-//            itemMenu.layoutParams = layoutParams
-//        } else {    //item大于4个，每屏4.5个item
-//            val canSeeCount = 4.5 //一屏占4个
-//            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
-//            itemView.layoutParams =
-//                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-//            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-//            val layoutParams = itemMenu.layoutParams
-//            layoutParams.width = imageSize
-//            layoutParams.height = imageSize
-//            itemMenu.layoutParams = layoutParams
-//        }
-    }
+}
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lay: View = itemView.item_menu_tab_lay

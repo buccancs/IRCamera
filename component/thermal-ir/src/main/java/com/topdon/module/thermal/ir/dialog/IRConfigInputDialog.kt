@@ -52,7 +52,6 @@ class IRConfigInputDialog(
 
         setContentView(R.layout.dialog_ir_config_input)
 
-        // Initialize views with findViewById
         val tvTitle: TextView = findViewById(R.id.tv_title)
         val tvUnit: TextView = findViewById(R.id.tv_unit)
         val etInput: EditText = findViewById(R.id.et_input)

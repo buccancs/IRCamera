@@ -30,10 +30,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-/**
- * Production-Ready Session Management UI
- * Browse, manage, and delete recording sessions with comprehensive file cleanup
- */
 class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding>() {
     private lateinit var adapter: SessionAdapter
     private lateinit var sessionManager: SessionManager
@@ -65,7 +61,7 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
 
     private fun initializeViews() {
         private fun initializeViews() {
-            // Setup toolbar
+
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "Session Manager"
         }
@@ -89,7 +85,7 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
         }
 
         private fun setupSearchAndFilter() {
-            // Setup search functionality
+
             binding.searchView.setOnQueryTextListener(
                 object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -104,7 +100,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
                 },
             )
 
-            // Setup filter spinner
             val filterOptions = arrayOf("All Sessions", "Recent", "Completed", "With Data")
             val spinnerAdapter =
                 ArrayAdapter(
@@ -139,7 +134,7 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
                 try {
                     val loadedSessions =
                         withContext(Dispatchers.IO) {
-                            // Load from SessionManager and also scan for historical sessions
+
                             val activeSessions = sessionManager.getActiveSessions()
                             val historicalSessions = loadHistoricalSessions()
 
@@ -219,7 +214,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
                 }
             }
 
-            // Check for available data files
             sessionInfo.hasGSRData = File(sessionDir, "gsr_data.csv").exists()
             sessionInfo.hasRGBData = File(sessionDir, "rgb_video.mp4").exists()
             sessionInfo.hasThermalData = File(sessionDir, "thermal_video.mp4").exists()
@@ -308,12 +302,11 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
                         }
 
                     if (success) {
-                        // Remove from active sessions if present
+
                         if (sessionManager.isSessionActive(session.sessionId)) {
                             sessionManager.completeSession(session.sessionId)
                         }
 
-                        // Remove from local lists
                         sessions.remove(session)
                         filteredSessions.remove(session)
                         adapter.notifyDataSetChanged()
@@ -338,7 +331,7 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
         private suspend fun deleteSessionFiles(session: SessionInfo): Boolean {
             return withContext(Dispatchers.IO) {
                 try {
-                    // Delete session directory and all contents
+
                     val sessionDir = File(getExternalFilesDir(null), "recordings/${session.sessionId}")
                     if (sessionDir.exists()) {
                         sessionDir.deleteRecursively()
@@ -359,7 +352,7 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
         }
 
         private fun exportSession(session: SessionInfo) {
-            // Launch session export functionality
+
             SessionExportActivity.startActivity(this, session.sessionId)
         }
 

@@ -34,7 +34,6 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
      */
     var onSkinClickListener: (() -> Unit)? = null
 
-    // Initialize view as class property for coroutine access
     private lateinit var ivBlurBg: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,6 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
         setCanceledOnTouchOutside(false)
         setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_home_guide, null))
 
-        // Initialize views with findViewById
         ivBlurBg = findViewById(R.id.iv_blur_bg)
         val clGuide1: View = findViewById(R.id.cl_guide_1)
         val clGuide2: View = findViewById(R.id.cl_guide_2)

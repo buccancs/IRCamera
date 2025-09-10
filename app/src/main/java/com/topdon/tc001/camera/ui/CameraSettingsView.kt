@@ -50,7 +50,7 @@ class CameraSettingsView
         }
 
         private fun initView() {
-            // Create the layout programmatically since we don't have XML resources
+
             this.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             setPadding(16, 16, 16, 16)
 
@@ -398,7 +398,6 @@ class CameraSettingsView
                 statusText.setTextColor(context.getColor(android.R.color.primary_text_light))
             }
 
-            // Disable settings during recording
             settingsButton.isEnabled = !isRecording
         }
 
@@ -427,7 +426,7 @@ class CameraSettingsView
         }
 
         fun setCameraFacing(facing: RGBCameraRecorder.CameraFacing) {
-            // Update camera icon or text based on facing
+
             cameraToggleButton.contentDescription = facing.displayName
         }
 
@@ -436,7 +435,7 @@ class CameraSettingsView
         }
 
         fun setAvailableCameraFacing(facingOptions: List<RGBCameraRecorder.CameraFacing>) {
-            // Enable/disable camera toggle based on available options
+
             cameraToggleButton.isEnabled = facingOptions.size > 1
         }
 
@@ -447,7 +446,6 @@ class CameraSettingsView
         fun updateSettings(settings: RGBCameraRecorder.RecordingSettings) {
             currentSettings = settings
 
-            // Update UI to reflect new settings
             resolutionSpinner.setSelection(settings.resolution.ordinal)
             frameRateSpinner.setSelection(if (settings.frameRate == 30) 0 else 1)
 

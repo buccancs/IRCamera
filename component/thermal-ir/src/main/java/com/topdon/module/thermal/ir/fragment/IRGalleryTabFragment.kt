@@ -60,7 +60,7 @@ class IRGalleryTabFragment : BaseFragment() {
     override fun initContentView(): Int = R.layout.fragment_gallery_tab
 
     override fun initView() {
-        // Initialize views with findViewById
+
         titleView = requireView().findViewById(R.id.title_view)
         tvTitleDir = requireView().findViewById(R.id.tv_title_dir)
         tabLayout = requireView().findViewById(R.id.tab_layout)

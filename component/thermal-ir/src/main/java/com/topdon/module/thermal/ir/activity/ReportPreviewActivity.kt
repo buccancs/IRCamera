@@ -9,12 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.CollectionUtils
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
-// Removed house module imports - module removed as unused
-// import com.topdon.house.activity.SignInputActivity
-// import com.topdon.house.event.HouseReportAddEvent
-// import com.topdon.house.util.PDFUtil
-// import com.topdon.house.viewmodel.DetectViewModel
-// import com.topdon.house.viewmodel.ReportViewModel
 import com.topdon.lib.core.bean.HouseRepPreviewAlbumItemBean
 import com.topdon.lib.core.bean.HouseRepPreviewBean
 import com.topdon.lib.core.bean.HouseRepPreviewItemBean
@@ -38,12 +32,7 @@ import kotlin.math.abs
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
-    // Disabled - ViewModels from removed house module
-    // private val detectViewModel: DetectViewModel by viewModels()
-    // private val reportViewModel: ReportViewModel by viewModels()
-
-    // View declarations
-    private lateinit var tvSave: android.widget.TextView
+private lateinit var tvSave: android.widget.TextView
     private lateinit var rlyInspectorSignature: android.widget.RelativeLayout
     private lateinit var rlyHouseOwnerSignature: android.widget.RelativeLayout
     private lateinit var toolbarBackImg: android.widget.ImageView
@@ -74,7 +63,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_report_preview
 
     override fun initView() {
-        // Initialize views
+
         tvSave = findViewById(R.id.tv_save)
         rlyInspectorSignature = findViewById(R.id.rly_inspector_signature)
         rlyHouseOwnerSignature = findViewById(R.id.rly_house_owner_signature)
@@ -112,36 +101,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
             val mAppBarParams = mAppBarChildAt.layoutParams as AppBarLayout.LayoutParams
             mAppBarParams.scrollFlags = 0
         }
-
-        // Disabled - ViewModels from removed house module
-        // detectViewModel.detectLD.observe(this) {
-        //     tvSave.isEnabled = it != null
-        //     if (it != null) {
-        //         houseReport = it.toHouseReport()
-        //         mPreviewBean = convertDataModel(houseReport)
-        //         setAdapter()
-        //     }
-        //     dismissLoadingDialog()
-        // }
-        // reportViewModel.reportLD.observe(this) {
-        //     tvSave.isEnabled = it != null
-        //     if (it != null) {
-        //         houseReport = it
-        //         mPreviewBean = convertDataModel(it)
-        //         setAdapter()
-        //     }
-        //     dismissLoadingDialog()
-        // }
-
-        // Disabled - ViewModels from removed house module
-        // if (isReport) {//查看报告
-        //     reportViewModel.queryById(intent.getLongExtra(ExtraKeyConfig.LONG_ID, 0))
-        // } else {//生成报告
-        //     detectViewModel.queryById(intent.getLongExtra(ExtraKeyConfig.LONG_ID, 0))
-        // }
-
-        // Temporary stub - disable save functionality without ViewModels
-        tvSave.isEnabled = false
+tvSave.isEnabled = false
         dismissLoadingDialog()
     }
 
@@ -176,40 +136,20 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
             }
 
             rlyInspectorSignature -> {
-                // Disabled - SignInputActivity from removed house module
-                // var intent = Intent(this, SignInputActivity::class.java)
-                // intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, true)
-                // startActivityForResult(intent, 1000)
-            }
+}
 
             rlyHouseOwnerSignature -> {
-                // Disabled - SignInputActivity from removed house module
-                // var intent = Intent(this, SignInputActivity::class.java)
-                // intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, false)
-                // startActivityForResult(intent, 1001)
-            }
+}
 
             tvSave -> {
                 if (isReport) { // 分享
                     lifecycleScope.launch {
                         showLoadingDialog()
-                        // Disabled - PDFUtil from removed house module
-                        // PDFUtil.delAllPDF(this@ReportPreviewActivity)
-                        // val pdfUri: Uri? = PDFUtil.savePDF(this@ReportPreviewActivity, houseReport)
-                        dismissLoadingDialog()
+dismissLoadingDialog()
 
                         // Disabled PDF functionality - house module removed
                         TToast.shortToast(this@ReportPreviewActivity, "PDF sharing disabled - house module removed")
-
-                        // Original PDF sharing code commented out:
-                        // if (pdfUri != null) {
-                        //     val shareIntent = Intent()
-                        //     shareIntent.action = Intent.ACTION_SEND
-                        //     shareIntent.putExtra(Intent.EXTRA_STREAM, pdfUri)
-                        //     shareIntent.type = "application/pdf"
-                        //     startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
-                        // }
-                    }
+}
                 } else { // 定稿并保存
                     if (houseReport.inspectorWhitePath.isEmpty() || houseReport.houseOwnerWhitePath.isEmpty()) {
                         if (clSign.bottom + layAppbar.height > llSave.top) {

@@ -40,10 +40,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/**
- * @author: CaiSongL
- * @date: 2023/5/12 11:34
- */
 class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     /**
      * 从上一界面传递过来的，当前是否为 TC007 设备类型.

@@ -1,11 +1,5 @@
 package com.topdon.lib.core.repository
 
-/**
- * websocket data.
- * @param cmd data
- * @param data data，data
- * @param id dataid
- */
 data class WsResponse<T>(
     val cmd: Int,
     val data: T?,

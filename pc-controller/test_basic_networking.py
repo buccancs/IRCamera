@@ -12,9 +12,7 @@ from pathlib import Path
 
 import pytest
 
-# Add the src directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
-
 
 # Simple logger fallback
 class SimpleLogger:
@@ -30,9 +28,7 @@ class SimpleLogger:
     def error(self, msg):
         print(f"ERROR: {msg}")
 
-
 logger = SimpleLogger()
-
 
 # Mock config for testing
 class MockConfig:
@@ -48,10 +44,8 @@ class MockConfig:
         }
         return config_map.get(key, default)
 
-
 config = MockConfig()
 
-# Import our modules with mocked dependencies
 sys.modules["ircamera_pc.core.config"] = type("module", (), {"config": config})()
 sys.modules["ircamera_pc.utils.simple_logger"] = type(
     "module", (), {"logger": logger}
@@ -67,7 +61,6 @@ except ImportError as e:
     logger.error(f"Import error: {e}")
     security_available = False
     messaging_available = False
-
 
 @pytest.mark.asyncio
 async def test_security_manager():
@@ -125,7 +118,6 @@ async def test_security_manager():
         logger.error(f"SecurityManager test failed: {e}")
         return False
 
-
 @pytest.mark.asyncio
 async def test_reliable_messaging():
     """Test ReliableMessageService basic functionality."""
@@ -138,7 +130,6 @@ async def test_reliable_messaging():
     try:
         messaging_service = ReliableMessageService()
 
-        # Set up mock transport
         sent_messages = []
 
         async def mock_transport(host, port, message):
@@ -173,7 +164,6 @@ async def test_reliable_messaging():
             # Wait for processing
             await asyncio.sleep(1)
 
-            # Check if message was processed
             logger.info(f"OK Messages sent by transport: {len(sent_messages)}")
 
             # Test acknowledgment
@@ -192,7 +182,6 @@ async def test_reliable_messaging():
     except Exception as e:
         logger.error(f"ReliableMessageService test failed: {e}")
         return False
-
 
 async def main():
     """Run basic tests."""
@@ -225,7 +214,6 @@ async def main():
     else:
         logger.error(f"WARNING {total_tests - tests_passed} test(s) failed")
         return 1
-
 
 if __name__ == "__main__":
     try:

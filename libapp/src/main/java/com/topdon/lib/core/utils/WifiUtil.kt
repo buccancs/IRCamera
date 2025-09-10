@@ -14,38 +14,6 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.hjq.permissions.XXPermissions
 
-/**
- * WIFI utility.
- */
-object WifiUtil {
-    /**
-     * utility SSID.
-     */
-    fun ScanResult.getWifiName(): String =
-        if (Build.VERSION.SDK_INT < 33) {
-            @Suppress("DEPRECATION")
-            SSID
-        } else {
-            removeQuotation(wifiSsid.toString())
-        }
-
-    fun WifiInfo.getWifiName(): String = removeQuotation(ssid)
-
-    /**
-     * utilitySpecifiedutility，utility
-     */
-    private fun removeQuotation(source: String): String {
-        return if (source.length > 1 && source[0] == '\"' && source[source.length - 1] == '\"') {
-            source.subSequence(1, source.length - 1).toString()
-        } else {
-            source
-        }
-    }
-
-    /**
-     * utilityCurrentutility Wifi ssid，utility，utility。
-     * @return utility WIFI utility utility [Manifest.permission.ACCESS_FINE_LOCATION] utility，utility null
-     */
     fun getCurrentWifiSSID(context: Context): String? {
         if (!XXPermissions.isGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
             return null

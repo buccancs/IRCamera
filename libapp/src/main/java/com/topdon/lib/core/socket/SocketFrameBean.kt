@@ -1,47 +1,5 @@
 package com.topdon.lib.core.socket
 
-/**
- * TC007 Socket data.
- * @param isMaxShow dataHigh temperaturedata
- * @param isMinShow dataLow temperaturedata
- * @param isCenterShow data
- * @param maxX dataHigh temperaturedata X data
- * @param maxY dataHigh temperaturedata Y data
- * @param maxValue dataHigh temperaturedata，dataCelsius*10
- * @param minX dataLow temperaturedata X data
- * @param minY dataLow temperaturedata Y data
- * @param minValue dataLow temperaturedata，dataCelsius*10
- * @param centerX data X data
- * @param centerY data Y data
- * @param centerValue data，dataCelsius*10
- * @param isMaxWarn dataHigh temperaturedata
- * @param isMinWarn dataLow temperaturedata
- * @param isCenterWarn data
- *
- * @param isP1Show data1data
- * @param p1X data1 X data
- * @param p1Y data1 Y data
- * @param p1Value data1data，dataCelsius*10
- * @param isP1MaxWarn data1High temperaturedata
- * @param isP1MinWarn data1Low temperaturedata
- * @param isP1CenterWarn data1data
- *
- * @param isL1Show data1data
- * @param l1StartX data1data X data
- * @param l1StartY data1data Y data
- * @param l1EndX data1data X data
- * @param l1EndY data1data Y data
- * @param l1MaxX data1dataHigh temperaturedata X data
- * @param l1MaxY data1dataHigh temperaturedata Y data
- * @param l1MaxValue data1dataHigh temperaturedata，dataCelsius*10
- * @param l1MinX data1dataLow temperaturedata X data
- * @param l1MinY data1dataLow temperaturedata Y data
- * @param l1MinValue data1dataLow temperaturedata，dataCelsius*10
- * @param l1AveValue data1data，dataCelsius*10
- * @param isL1MaxWarn data1High temperaturedata
- * @param isL1MinWarn data1Low temperaturedata
- * @param isL1CenterWarn data1data
- */
 data class SocketFrameBean(
     // dataTemperature measurementdata
     val isMaxShow: Boolean,

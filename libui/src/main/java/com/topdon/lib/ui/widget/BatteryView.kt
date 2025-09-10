@@ -7,15 +7,6 @@ import android.graphics.Path
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
-/**
- * TC007 view.
- *
- * Created by LCG on 2024/5/22.
- */
-class BatteryView : AppCompatImageView {
-    /**
-     * Currentview
-     */
     var battery = -1
         set(value) {
             field = value

@@ -76,7 +76,7 @@ class BluetoothManager(private val context: Context) {
      * Check if required Bluetooth permissions are granted
      */
     fun hasRequiredPermissions(): Boolean {
-        // Check for Android 12+ (API 31) specific permissions
+
         val connectPermission =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 ActivityCompat.checkSelfPermission(
@@ -180,7 +180,7 @@ class BluetoothManager(private val context: Context) {
      */
     fun getConnectionState(device: BluetoothDevice): Int {
         return try {
-            // Check permissions before accessing device properties
+
             if (!hasRequiredPermissions()) {
                 Log.w(TAG, "Required permissions not available for connection state check")
                 return STATE_NONE
@@ -218,7 +218,7 @@ class BluetoothManager(private val context: Context) {
         }
 
         try {
-            // Check permissions before accessing device properties
+
             if (hasRequiredPermissions() && device.bondState != BluetoothDevice.BOND_BONDED) {
                 issues.add("Device is not paired")
             }

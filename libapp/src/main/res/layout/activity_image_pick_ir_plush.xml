@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#16131e">
   <com.topdon.lib.core.view.TitleView android:id="@+id/title_view" android:layout_width="0dp" android:layout_height="wrap_content" app:titleText="@string/ir_camera_take_photo" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-  <!-- 为适配平板，这两个 View 的尺寸在 Activity 里去动态算 -->
+
   <androidx.fragment.app.FragmentContainerView android:id="@+id/fragment_container_view" android:layout_width="192dp" android:layout_height="256dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/title_view"/>
   <com.topdon.lib.core.view.ImageEditView android:id="@+id/image_edit_view" android:layout_width="192dp" android:layout_height="256dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/title_view"/>
   <ImageView android:id="@+id/img_pick" android:layout_width="60dp" android:layout_height="60dp" android:layout_marginTop="20dp" android:src="@drawable/ic_camera_grey_svg" android:contentDescription="@null" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/fragment_container_view"/>

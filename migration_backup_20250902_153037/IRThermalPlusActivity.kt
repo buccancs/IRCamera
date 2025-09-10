@@ -30,65 +30,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
-/**
- * 双光设备的界面
- * @author: CaiSongL
- * @date: 2024/1/17 17:47
- */
-@Route(path = RouterConfig.IR_FRAME_PLUSH)
-class IRThermalPlusActivity : BaseIRPlushActivity() {
-    private val irImageHelp by lazy {
-        IRImageHelp()
-    }
-
-    override fun initContentView() = R.layout.activity_ir_thermal_double
-
-    override fun isDualIR(): Boolean {
-        return true
-    }
-
-    override fun getSurfaceView(): SurfaceView {
-        return dualTextureViewNativeCamera
-    }
-
-    override fun getTemperatureDualView(): TemperatureView {
-        return temperatureView
-    }
-
-    override fun getProductName(): String {
-        return PRODUCT_NAME_TCP
-    }
-
-    override fun initView() {
-        super.initView()
-//        findViewById<TextView>(R.id.toolbar_title)?.text = "双光设备"
-        cameraView.visibility = View.GONE
-        dualTextureViewNativeCamera?.visibility = View.VISIBLE
-        thermal_steering_view.listener = { action, moveX ->
-            setDisp(action, moveX)
-        }
-
-        when (SaveSettingUtil.fusionType) {
-            SaveSettingUtil.FusionTypeLPYFusion -> { // 双光1
-                thermal_recycler_night?.twoLightType = TwoLightType.TWO_LIGHT_1
-            }
-            SaveSettingUtil.FusionTypeMeanFusion -> { // 双光2
-                thermal_recycler_night?.twoLightType = TwoLightType.TWO_LIGHT_2
-            }
-            SaveSettingUtil.FusionTypeIROnly -> { // 单红外
-                thermal_recycler_night?.twoLightType = TwoLightType.IR
-            }
-            SaveSettingUtil.FusionTypeVLOnly -> { // 可见光
-                thermal_recycler_night?.twoLightType = TwoLightType.LIGHT
-            }
-        }
-    }
-
-    /**
-     * 执行双光配准.
-     * @param action -1左移 1-右移 0确定
-     * @param data 当前配准值
-     */
     private fun setDisp(
         action: Int,
         data: Int,

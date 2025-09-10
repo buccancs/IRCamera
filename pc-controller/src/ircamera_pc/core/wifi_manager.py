@@ -1,336 +1,4 @@
-"""
-WiFi Manager for IRCamera PC Controller
 
-Provides WiFi network discovery, connection management, and hotspot creation
-for direct communication with IRCamera devices.
-"""
-
-import asyncio
-import os
-import platform
-import re
-import shutil
-import subprocess
-from dataclasses import dataclass
-from datetime import datetime
-from enum import Enum
-from typing import Any, Dict, List, Optional, TYPE_CHECKING
-
-try:
-    from loguru import logger
-except ImportError:
-    from ..utils.simple_logger import get_logger
-
-    logger = get_logger(__name__)
-
-from .base_manager import BaseManager
-
-
-def _create_mock_signal():
-    """Create mock PyQt signal for when PyQt is not available."""
-
-    class MockPyQtSignal:
-        def __init__(self, *args):
-            self._callbacks = []
-
-        def emit(self, *args):
-            for callback in self._callbacks:
-                callback(*args)
-
-        def connect(self, callback):
-            self._callbacks.append(callback)
-
-    return MockPyQtSignal
-
-
-def _create_mock_slot():
-    """Create mock PyQt slot decorator for when PyQt is not available."""
-
-    def mock_pyqt_slot(*args, **kwargs):
-        def decorator(func):
-            return func
-
-        return decorator
-
-    return mock_pyqt_slot
-
-
-def _create_mock_thread():
-    """Create mock base thread for when PyQt is not available."""
-
-    class MockBaseThread:
-        def __init__(self):
-            pass
-
-        def start(self):
-            # Run in current thread if PyQt6 not available
-            self.run()
-
-        def run(self):
-            pass
-
-        def quit(self):
-            pass
-
-        def wait(self):
-            pass
-
-    return MockBaseThread
-
-
-def _create_mock_timer():
-    """Create mock QTimer for when PyQt is not available."""
-
-    class MockQTimer:
-        def __init__(self):
-            self._timeout_callback = None
-
-        def timeout(self):
-            return self
-
-        def connect(self, callback):
-            self._timeout_callback = callback
-
-        def start(self, interval):
-            # In mock mode, don't start any timer
-            pass
-
-        def stop(self):
-            pass
-
-    return MockQTimer
-
-
-def _initialize_pyqt_imports():
-    """Initialize PyQt imports with fallbacks when not available."""
-    global PYQT_AVAILABLE, BaseThread, pyqtSignal, pyqtSlot, QTimer
-
-    try:
-        from PyQt6.QtCore import QThread, QTimer, pyqtSignal, pyqtSlot
-
-        PYQT_AVAILABLE = True
-
-        class BaseThread(QThread):
-            pass
-
-        return BaseThread, pyqtSignal, pyqtSlot, QTimer
-
-    except ImportError:
-        PYQT_AVAILABLE = False
-
-        # Use mock implementations
-        pyqtSignal = _create_mock_signal()
-        pyqtSlot = _create_mock_slot()
-        BaseThread = _create_mock_thread()  # type: ignore
-        QTimer = _create_mock_timer()  # type: ignore
-
-        return BaseThread, pyqtSignal, pyqtSlot, QTimer
-
-
-# Initialize PyQt components
-PYQT_AVAILABLE = False  # Initialize before function call
-BaseThread, pyqtSignal, pyqtSlot, QTimer = _initialize_pyqt_imports()
-
-# Type alias for BaseThread to resolve mypy issues
-if TYPE_CHECKING:
-    from PyQt6.QtCore import QThread
-    BaseThreadType = QThread
-else:
-    BaseThreadType = BaseThread
-
-
-try:
-    import psutil
-
-    PSUTIL_AVAILABLE = True
-except ImportError:
-    logger.warning(
-        "psutil not available. Install 'psutil'" "for network interface monitoring"
-    )
-    PSUTIL_AVAILABLE = False
-
-try:
-    if platform.system() == "Windows":
-        pass
-
-        COMTYPES_AVAILABLE = True
-    else:
-        COMTYPES_AVAILABLE = False
-except ImportError:
-    COMTYPES_AVAILABLE = False
-
-
-class NetworkSecurityType(Enum):
-    """WiFi network security types."""
-
-    OPEN = "open"
-    WEP = "wep"
-    WPA = "wpa"
-    WPA2 = "wpa2"
-    WPA3 = "wpa3"
-    ENTERPRISE = "enterprise"
-
-
-class ConnectionState(Enum):
-    """WiFi connection states."""
-
-    DISCONNECTED = "disconnected"
-    CONNECTING = "connecting"
-    CONNECTED = "connected"
-    AUTHENTICATING = "authenticating"
-    ERROR = "error"
-
-
-class HotspotState(Enum):
-    """Mobile hotspot states."""
-
-    STOPPED = "stopped"
-    STARTING = "starting"
-    RUNNING = "running"
-    STOPPING = "stopping"
-    ERROR = "error"
-
-
-@dataclass
-class WiFiNetwork:
-    """WiFi network information."""
-
-    ssid: str
-    bssid: str
-    signal_strength: int  # -100 to 0 dBm
-    frequency: int  # MHz
-    security_type: NetworkSecurityType
-    channel: int
-    is_ircamera_hotspot: bool = False
-    last_seen: Optional[datetime] = None
-
-    def __post_init__(self):
-        if self.last_seen is None:
-            self.last_seen = datetime.now()
-
-
-@dataclass
-class NetworkInterface:
-    """Network interface information."""
-
-    name: str
-    description: str
-    is_wifi: bool
-    is_active: bool
-    ip_address: Optional[str]
-    mac_address: str
-    status: str
-
-
-class WiFiScanWorker(BaseThreadType):  # type: ignore
-    """Worker thread for WiFi network scanning."""
-
-    networks_found = pyqtSignal(list)
-    scan_completed = pyqtSignal(int)
-    error_occurred = pyqtSignal(str)
-
-    def __init__(self):
-        super().__init__()
-        self._running = False
-
-    def run(self):
-        """Run the WiFi scan in a separate thread."""
-        self._running = True
-        try:
-            networks = self._scan_networks()
-            if self._running:  # Check if still running after scan
-                self.networks_found.emit(networks)
-                self.scan_completed.emit(len(networks))
-        except (OSError, ValueError, RuntimeError) as e:
-            if self._running:
-                logger.error(f"WiFi scan error: {e}")
-                self.error_occurred.emit(str(e))
-
-    def stop(self):
-        """Stop the scanning process."""
-        self._running = False
-
-    def _scan_networks(self) -> List[WiFiNetwork]:
-        """Scan for available WiFi networks using platform-specific methods."""
-        system = platform.system()
-
-        if system == "Windows":
-            return self._scan_windows()
-        elif system == "Linux":
-            return self._scan_linux()
-        elif system == "Darwin":  # macOS
-            return self._scan_macos()
-        else:
-            raise RuntimeError(f"Unsupported platform: {system}")
-
-    def _scan_windows(self) -> List[WiFiNetwork]:
-        """Scan WiFi networks on Windows using netsh."""
-        networks = []
-
-        try:
-            # Security: Use full path for netsh command
-            netsh_path = "C:\\Windows\\System32\\netsh.exe"
-            if not os.path.exists(netsh_path):
-                raise FileNotFoundError("netsh.exe not found at expected location")
-
-            # Run netsh command to get WiFi profiles
-            result = subprocess.run(
-                [netsh_path, "wlan", "show", "profiles"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                shell=False,
-                check=False,
-            )
-
-            if result.returncode != 0:
-                raise RuntimeError(f"netsh failed: {result.stderr}")
-
-            # Parse available networks
-            result = subprocess.run(
-                [netsh_path, "wlan", "show", "profile", "interface=*"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                shell=False,
-                check=False,
-            )
-
-            # Get current scan results
-            scan_result = subprocess.run(
-                [netsh_path, "wlan", "show", "networks", "mode=bssid"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                shell=False,
-                check=False,
-            )
-
-            if scan_result.returncode == 0:
-                networks = self._parse_windows_scan(scan_result.stdout)
-
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Windows WiFi scan failed: {e}")
-            raise
-
-        return networks
-
-    def _parse_windows_scan(self, output: str) -> List[WiFiNetwork]:
-        """
-        Parse Windows netsh scan output.
-
-        Processes the text output from Windows netsh command to extract
-        WiFi network information including SSID, signal strength, and security.
-
-        Args:
-            output: Raw text output from netsh wlan show networks command
-
-        Returns:
-            List of WiFiNetwork objects parsed from the command output
-
-        Raises:
-            ValueError: If output format is unexpected or unparseable
-        """
         networks: List[Dict[str, Any]] = []
         lines = output.split("\n")
         current_network: Dict[str, Any] = {}
@@ -339,7 +7,6 @@ class WiFiScanWorker(BaseThreadType):  # type: ignore
             line = line.strip()
             current_network = self._process_scan_line(line, current_network, networks)
 
-        # Process the last network
         self._finalize_current_network(current_network, networks)
 
         # Convert dict representations back to WiFiNetwork objects
@@ -355,292 +22,7 @@ class WiFiScanWorker(BaseThreadType):  # type: ignore
     def _process_scan_line(
         self, line: str, current_network: Dict[str, Any], networks: List[Dict[str, Any]]
     ) -> Dict[str, Any]:
-        """Process a single line from Windows scan output"""
-        if line.startswith("SSID"):
-            return self._process_ssid_line(line, current_network, networks)
-        elif "Network type" in line:
-            current_network["type"] = line.split(":")[1].strip()
-        elif "Authentication" in line:
-            self._process_auth_line(line, current_network)
-        elif "Signal" in line:
-            self._process_signal_line(line, current_network)
-        elif "BSSID" in line and ":" in line:
-            current_network["bssid"] = line.split(":")[1].strip()
-        elif "Channel" in line:
-            self._process_channel_line(line, current_network)
 
-        return current_network
-
-    def _process_ssid_line(
-        self, line: str, current_network: Dict[str, Any], networks: List[Dict[str, Any]]
-    ) -> Dict[str, Any]:
-        """Process SSID line and finalize previous network"""
-        self._finalize_current_network(current_network, networks)
-
-        ssid_match = re.search(r"SSID \d+ : (.+)", line)
-        return {"ssid": ssid_match.group(1) if ssid_match else "Unknown"}
-
-    def _process_auth_line(self, line: str, current_network: Dict[str, Any]) -> None:
-        """Process authentication line"""
-        auth = line.split(":")[1].strip()
-        current_network["security"] = self._parse_security_type(auth)
-
-    def _process_signal_line(self, line: str, current_network: Dict[str, Any]) -> None:
-        """Process signal strength line"""
-        signal_match = re.search(r"(\d+)%", line)
-        if signal_match:
-            # Convert percentage to dBm approximation
-            percentage = int(signal_match.group(1))
-            current_network["signal"] = -100 + (percentage * 70 // 100)
-
-    def _process_channel_line(self, line: str, current_network: Dict):
-        """Process channel line"""
-        channel_match = re.search(r"(\d+)", line)
-        if channel_match:
-            current_network["channel"] = int(channel_match.group(1))
-
-    def _finalize_current_network(
-        self, current_network: Dict[str, Any], networks: List[Dict[str, Any]]
-    ) -> None:
-        """Finalize and add current network to dict list"""
-        if current_network and "ssid" in current_network:
-            networks.append(current_network.copy())
-
-    def _scan_linux(self) -> List[WiFiNetwork]:
-        """Scan WiFi networks on Linux using iwlist or nmcli."""
-        networks = []
-
-        try:
-            # Try nmcli first (NetworkManager) - Security: use full path and validation
-            nmcli_path = shutil.which("nmcli")
-            if nmcli_path:
-                result = subprocess.run(
-                    [
-                        nmcli_path,
-                        "-t",
-                        "-f",
-                        "SSID,BSSID,CHAN,FREQ,SIGNAL,SECURITY",
-                        "dev",
-                        "wifi",
-                        "list",
-                    ],
-                    capture_output=True,
-                    text=True,
-                    timeout=30,
-                    shell=False,
-                    check=False,
-                )
-
-                if result.returncode == 0:
-                    networks = self._parse_nmcli_output(result.stdout)
-                else:
-                    # Fallback to iwlist
-                    networks = self._scan_linux_iwlist()
-            else:
-                # Fallback to iwlist
-                networks = self._scan_linux_iwlist()
-
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Linux WiFi scan failed: {e}")
-            raise
-
-        return networks
-
-    def _scan_linux_iwlist(self) -> List[WiFiNetwork]:
-        """Scan using iwlist as fallback."""
-        networks = []
-
-        try:
-            # Security: Validate iwlist path and sudo access
-            iwlist_path = shutil.which("iwlist")
-            sudo_path = shutil.which("sudo")
-
-            if not iwlist_path or not sudo_path:
-                raise FileNotFoundError("Required commands (iwlist/sudo) not found")
-
-            result = subprocess.run(
-                [sudo_path, iwlist_path, "scan"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                shell=False,
-                check=False,
-            )
-
-            if result.returncode == 0:
-                networks = self._parse_iwlist_output(result.stdout)
-
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.warning(f"iwlist scan failed: {e}")
-
-        return networks
-
-    def _scan_macos(self) -> List[WiFiNetwork]:
-        """Scan WiFi networks on macOS using airport utility."""
-        networks = []
-
-        try:
-            # Use the built-in airport utility - Security: validate path
-            airport_path = (
-                "/System/Library/PrivateFrameworks/Apple80211.framework/"
-                "Versions/Current/Resources/airport"
-            )
-
-            if not os.path.exists(airport_path):
-                raise FileNotFoundError(
-                    "Airport utility not found at expected location"
-                )
-
-            result = subprocess.run(
-                [airport_path, "-s"],
-                capture_output=True,
-                text=True,
-                timeout=30,
-                shell=False,
-                check=False,
-            )
-
-            if result.returncode == 0:
-                networks = self._parse_airport_output(result.stdout)
-
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"macOS WiFi scan failed: {e}")
-            raise
-
-        return networks
-
-    def _create_network_from_dict(self, data: dict) -> Optional[WiFiNetwork]:
-        """Create WiFiNetwork from parsed data dictionary."""
-        try:
-            ssid = data.get("ssid", "Unknown")
-            if not ssid or ssid == "Unknown":
-                return None
-
-            # Check if this might be an IRCamera hotspot
-            is_ircamera = self._is_ircamera_network(ssid)
-
-            return WiFiNetwork(
-                ssid=ssid,
-                bssid=data.get("bssid", "00:00:00:00:00:00"),
-                signal_strength=data.get("signal", -100),
-                frequency=data.get("frequency", 2400),  # Default 2.4 GHz
-                security_type=data.get("security", NetworkSecurityType.OPEN),
-                channel=data.get("channel", 1),
-                is_ircamera_hotspot=is_ircamera,
-            )
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.warning(f"Failed to create network from data: {e}")
-            return None
-
-    def _is_ircamera_network(self, ssid: str) -> bool:
-        """Check if network SSID indicates an IRCamera device hotspot."""
-        ssid_lower = ssid.lower()
-        ircamera_patterns = [
-            "ircamera",
-            "thermal",
-            "flir",
-            "seek",
-            "hikvision",
-            "thermal_cam",
-            "ir_cam",
-            "heatcam",
-        ]
-        return any(pattern in ssid_lower for pattern in ircamera_patterns)
-
-    def _parse_security_type(self, auth_string: str) -> NetworkSecurityType:
-        """Parse security type from authentication string."""
-        auth_lower = auth_string.lower()
-
-        if "wpa3" in auth_lower:
-            return NetworkSecurityType.WPA3
-        elif "wpa2" in auth_lower:
-            return NetworkSecurityType.WPA2
-        elif "wpa" in auth_lower:
-            return NetworkSecurityType.WPA
-        elif "wep" in auth_lower:
-            return NetworkSecurityType.WEP
-        elif "open" in auth_lower or "none" in auth_lower:
-            return NetworkSecurityType.OPEN
-        else:
-            return NetworkSecurityType.WPA2  # Default assumption
-
-
-class WiFiManager(BaseManager):
-    """
-    Manages WiFi connectivity and hotspot functionality for IRCamera devices.
-
-    Provides:
-    - WiFi network scanning and discovery
-    - Connection management with credentials
-    - Mobile hotspot creation and configuration
-    - IRCamera device hotspot detection
-    - Network interface monitoring
-    """
-
-    # Signals
-    networks_discovered = pyqtSignal(list)  # List[WiFiNetwork]
-    network_connected = pyqtSignal(str, str)  # ssid, ip_address
-    network_disconnected = pyqtSignal(str, str)  # ssid, reason
-    connection_failed = pyqtSignal(str, str)  # ssid, error
-    hotspot_state_changed = pyqtSignal(HotspotState, str)  # state, message
-    interface_changed = pyqtSignal(str, bool)  # interface_name, is_active
-    error_occurred = pyqtSignal(str, str)  # operation, error_message
-
-    def __init__(self):
-        super().__init__("wifi_manager")
-        self._networks: Dict[str, WiFiNetwork] = {}  # SSID -> WiFiNetwork
-        self._interfaces: Dict[str, NetworkInterface] = {}
-        self._current_connection: Optional[str] = None  # Current SSID
-        self._scan_worker: Optional[WiFiScanWorker] = None
-        self._hotspot_state = HotspotState.STOPPED
-        self._hotspot_config = {
-            "ssid": "IRCamera_PC_Controller",
-            "password": "IRCamera123",
-            "channel": 6,
-            "max_clients": 8,
-        }
-
-        # Initialize interface monitoring
-        self._init_interfaces()
-
-        # Timer for periodic status updates
-        self._status_timer = QTimer()
-        self._status_timer.timeout.connect(self._update_status)
-        self._status_timer.start(5000)  # Update every 5 seconds
-
-    @property
-    def available_networks(self) -> List[WiFiNetwork]:
-        """Get list of available WiFi networks."""
-        return list(self._networks.values())
-
-    @property
-    def ircamera_networks(self) -> List[WiFiNetwork]:
-        """Get list of detected IRCamera hotspots."""
-        return [net for net in self._networks.values() if net.is_ircamera_hotspot]
-
-    @property
-    def current_connection(self) -> Optional[str]:
-        """Get currently connected network SSID."""
-        return self._current_connection
-
-    @property
-    def hotspot_state(self) -> HotspotState:
-        """Get current hotspot state."""
-        return self._hotspot_state
-
-    @property
-    def wifi_interfaces(self) -> List[NetworkInterface]:
-        """Get list of WiFi interfaces."""
-        return [iface for iface in self._interfaces.values() if iface.is_wifi]
-
-    def start_scanning(self, continuous: bool = False, interval: int = 15) -> None:
-        """
-        Start scanning for WiFi networks.
-
-        Args:
-            continuous: Enable continuous scanning
-            interval: Scan interval in seconds
-        """
         if self._scan_worker and self._scan_worker.isRunning():
             logger.warning("WiFi scan already in progress")
             return
@@ -655,44 +37,7 @@ class WiFiManager(BaseManager):
         self._scan_worker.start()
 
     def stop_scanning(self) -> None:
-        """Stop WiFi scanning."""
-        if self._scan_worker and self._scan_worker.isRunning():
-            self._scan_worker.stop()
-            self._scan_worker.wait(5000)  # Wait up to 5 seconds
-            logger.info("WiFi scanning stopped")
 
-    @pyqtSlot(list)
-    def _handle_scan_results(self, networks: List[WiFiNetwork]) -> None:
-        """Handle scan results from worker thread."""
-        for network in networks:
-            self._networks[network.ssid] = network
-
-        self.networks_discovered.emit(networks)
-        logger.info(f"Discovered {len(networks)} WiFi networks")
-
-    @pyqtSlot(int)
-    def _handle_scan_completed(self, count: int) -> None:
-        """Handle scan completion."""
-        logger.debug(f"WiFi scan completed - {count} networks found")
-
-    @pyqtSlot(str)
-    def _handle_scan_error(self, error: str) -> None:
-        """Handle scan error."""
-        self.error_occurred.emit("scan", error)
-
-    async def connect_to_network(
-        self, ssid: str, password: Optional[str] = None
-    ) -> bool:
-        """
-        Connect to a WiFi network.
-
-        Args:
-            ssid: Network SSID
-            password: Network password (if required)
-
-        Returns:
-            True if connection successful
-        """
         if ssid not in self._networks:
             self.error_occurred.emit("connect", f"Network '{ssid}' not found")
             return False
@@ -707,7 +52,7 @@ class WiFiManager(BaseManager):
 
             if success:
                 self._current_connection = ssid
-                # Get IP address after connection
+
                 ip_address = await self._get_interface_ip()
                 self.network_connected.emit(ssid, ip_address or "Unknown")
                 logger.info(f"Successfully connected to {ssid}")
@@ -722,39 +67,7 @@ class WiFiManager(BaseManager):
             return False
 
     async def disconnect_from_network(self) -> None:
-        """Disconnect from current WiFi network."""
-        if not self._current_connection:
-            logger.warning("No active WiFi connection to disconnect")
-            return
 
-        try:
-            await self._platform_disconnect()
-            ssid = self._current_connection
-            self._current_connection = None
-            self.network_disconnected.emit(ssid, "User initiated")
-            logger.info(f"Disconnected from {ssid}")
-
-        except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Failed to disconnect: {e}")
-            self.error_occurred.emit("disconnect", str(e))
-
-    async def start_hotspot(
-        self,
-        ssid: Optional[str] = None,
-        password: Optional[str] = None,
-        channel: Optional[int] = None,
-    ) -> bool:
-        """
-        Start mobile hotspot for IRCamera device connections.
-
-        Args:
-            ssid: Hotspot SSID (optional, uses default)
-            password: Hotspot password (optional, uses default)
-            channel: WiFi channel (optional, uses default)
-
-        Returns:
-            True if hotspot started successfully
-        """
         if self._hotspot_state in [
             HotspotState.RUNNING,
             HotspotState.STARTING,
@@ -762,7 +75,6 @@ class WiFiManager(BaseManager):
             logger.warning("Hotspot already running or starting")
             return True
 
-        # Update configuration if provided
         if ssid:
             self._hotspot_config["ssid"] = ssid
         if password:
@@ -884,7 +196,7 @@ class WiFiManager(BaseManager):
     def _update_status(self) -> None:
         """Periodic status update."""
         try:
-            # Update interface status
+
             if PSUTIL_AVAILABLE:
                 stats = psutil.net_if_stats()
                 for name, interface in self._interfaces.items():
@@ -926,7 +238,6 @@ class WiFiManager(BaseManager):
             if not os.path.exists(netsh_path):
                 raise FileNotFoundError("netsh.exe not found")
 
-            # Create WiFi profile if password is provided
             if password and security != NetworkSecurityType.OPEN:
                 profile_xml = self._create_wifi_profile_xml(ssid, password, security)
 
@@ -940,7 +251,7 @@ class WiFiManager(BaseManager):
                     profile_path = f.name
 
                 try:
-                    # Add the profile
+
                     result = await asyncio.create_subprocess_exec(
                         netsh_path,
                         "wlan",
@@ -1007,11 +318,9 @@ class WiFiManager(BaseManager):
             # Build connection command
             cmd = [nmcli_path, "device", "wifi", "connect", ssid]
 
-            # Add password if required
             if password and security != NetworkSecurityType.OPEN:
                 cmd.extend(["password", password])
 
-            # Execute connection command
             result = await asyncio.create_subprocess_exec(
                 *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
             )
@@ -1048,7 +357,6 @@ class WiFiManager(BaseManager):
             if not os.path.exists(networksetup_path):
                 raise FileNotFoundError("networksetup not found")
 
-            # Get WiFi interface name
             result = await asyncio.create_subprocess_exec(
                 networksetup_path,
                 "-listallhardwareports",
@@ -1126,7 +434,7 @@ class WiFiManager(BaseManager):
     async def _start_hotspot_windows(self) -> bool:
         """Start hotspot on Windows using netsh."""
         try:
-            # Create hotspot profile
+
             result = subprocess.run(
                 [
                     "netsh",
@@ -1144,7 +452,6 @@ class WiFiManager(BaseManager):
                 logger.error(f"Failed to set hotspot profile: {result.stderr}")
                 return False
 
-            # Start hotspot
             result = subprocess.run(
                 ["netsh", "wlan", "start", "hostednetwork"],
                 capture_output=True,
@@ -1271,7 +578,6 @@ class WiFiManager(BaseManager):
                 logger.info(f"Activated existing connection to {ssid}")
                 return True
 
-            # Create new connection profile
             security_type = (
                 "wpa-psk"
                 if security in [NetworkSecurityType.WPA, NetworkSecurityType.WPA2]

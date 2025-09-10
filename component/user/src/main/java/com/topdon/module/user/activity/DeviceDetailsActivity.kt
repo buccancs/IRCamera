@@ -41,7 +41,7 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_device_details
 
     override fun initView() {
-        // Initialize views - migrated from synthetic views
+
         clLayoutCopy = findViewById(R.id.cl_layout_copy)
         tvSnValue = findViewById(R.id.tv_sn_value)
         tvDeviceModelValue = findViewById(R.id.tv_device_model_value)

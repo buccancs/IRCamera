@@ -16,11 +16,10 @@ import pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 # Local imports - moved after sys.path setup
-from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
-from ircamera_pc.data.exporter import DataExporter, ExportFormat  # noqa: E402
-from ircamera_pc.data.processor import DataProcessor  # noqa: E402
-from ircamera_pc.data.validator import DataValidator  # noqa: E402
-
+from ircamera_pc.data.aggregator import DataAggregator
+from ircamera_pc.data.exporter import DataExporter, ExportFormat
+from ircamera_pc.data.processor import DataProcessor
+from ircamera_pc.data.validator import DataValidator
 
 class TestDataAggregator(unittest.TestCase):
     """Comprehensive tests for DataAggregator functionality"""
@@ -109,7 +108,6 @@ class TestDataAggregator(unittest.TestCase):
         """Test sync marker processing and alignment"""
         session_id = self.aggregator.create_session("SyncTest", "P001")
 
-        # Add sync markers
         for marker in self.sample_sync_markers:
             result = self.aggregator.add_sync_marker(session_id, marker)
             self.assertTrue(result)
@@ -176,7 +174,6 @@ class TestDataAggregator(unittest.TestCase):
         """Test real-time data processing capabilities"""
         session_id = self.aggregator.create_session("RealTimeTest", "P001")
 
-        # Enable real-time processing
         self.aggregator.enable_real_time_processing(session_id)
 
         # Stream data points individually
@@ -193,7 +190,7 @@ class TestDataAggregator(unittest.TestCase):
 
     def test_concurrent_sessions(self):
         """Test handling multiple concurrent sessions"""
-        # Create multiple sessions
+
         sessions = []
         for i in range(5):
             session_id = self.aggregator.create_session(
@@ -247,7 +244,6 @@ class TestDataAggregator(unittest.TestCase):
         # Verify memory usage is reasonable
         memory_stats = self.aggregator.get_memory_statistics()
         self.assertIsNotNone(memory_stats)
-
 
 class TestDataExporter(unittest.TestCase):
     """Tests for data export functionality"""
@@ -374,7 +370,6 @@ class TestDataExporter(unittest.TestCase):
         exported_files = os.listdir(output_dir)
         self.assertEqual(len(exported_files), 3)
 
-
 class TestDataProcessor(unittest.TestCase):
     """Tests for data processing and analysis"""
 
@@ -444,7 +439,7 @@ class TestDataProcessor(unittest.TestCase):
 
     def test_synchronization_analysis(self):
         """Test cross-signal synchronization analysis"""
-        # Create synthetic synchronized signals
+
         t = np.arange(0, 1000, 1)
         signal1 = np.sin(t / 50)
         signal2 = np.sin((t / 50) + 0.1)  # Slight phase shift
@@ -493,7 +488,6 @@ class TestDataProcessor(unittest.TestCase):
         """Helper assertion for range checking"""
         self.assertGreaterEqual(value, min_val)
         self.assertLessEqual(value, max_val)
-
 
 class TestDataValidator(unittest.TestCase):
     """Tests for data validation functionality"""
@@ -596,7 +590,6 @@ class TestDataValidator(unittest.TestCase):
 
         result = self.validator.validate_sync_markers(invalid_markers)
         self.assertFalse(result["unique_ids"])
-
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

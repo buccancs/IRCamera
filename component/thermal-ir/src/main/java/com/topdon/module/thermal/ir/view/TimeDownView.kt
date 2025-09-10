@@ -11,45 +11,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.blankj.utilcode.util.SizeUtils
 import java.util.*
 
-/**
- * @author: CaiSongL
- * @date: 2023/4/7 23:43
- */
-public class TimeDownView : AppCompatTextView {
-    private var timer: Timer? = null
-    private var downTimerTask: DownTimerTask? = null
-    private var downCount = 0
-    private var lastDown = 0
-    private var intervalMills: Long = 0
-    private var delayMills: Long = 0
-    private var animationSet: AnimationSet? = null
-    var isRunning = false
-
-    private fun init() {
-        if (animationSet == null) {
-            animationSet = AnimationSet(true)
-        }
-        if (downHandler == null) {
-            downHandler = DownHandler()
-        }
-        gravity = Gravity.CENTER
-        textSize = SizeUtils.sp2px(30f).toFloat()
-    }
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle,
-    ) {
-        init()
-    }
-
-    /**
-     * view
-     *
-     * @param seconds
-     */
     fun downSecond(seconds: Int) {
         downSecond(seconds, true)
     }
@@ -70,14 +31,6 @@ public class TimeDownView : AppCompatTextView {
         }
     }
 
-    /**
-     * view
-     *
-     * @param downCount     view
-     * @param lastDown      view
-     * @param delayMills    view（view）
-     * @param intervalMills view（view）
-     */
     fun downTime(
         downCount: Int,
         lastDown: Int,
@@ -113,55 +66,6 @@ public class TimeDownView : AppCompatTextView {
         super.onDraw(canvas)
     }
 
-    /**
-     * view
-     */
-    fun cancel() {
-        animationSet?.cancel()
-        downTimerTask?.cancel()
-        timer?.cancel()
-        drawTextFlag = DRAW_TEXT_NO
-        invalidate() // View rendering
-        visibility = GONE
-        downTimerTask = null
-        timer = null
-        isRunning = false
-    }
-
-    private inner class DownTimerTask : TimerTask() {
-        override fun run() {
-            if (downCount >= lastDown - 1) {
-                val msg = Message.obtain()
-                msg.what = 1
-                downHandler!!.sendMessage(msg)
-            }
-        }
-    }
-
-    interface DownTimeWatcher {
-        fun onTime(num: Int)
-
-        fun onLastTime(num: Int)
-
-        fun onLastTimeFinish(num: Int)
-    }
-
-    /**
-     * view.
-     */
-    var onTimeListener: ((time: Int) -> Unit)? = null
-
-    /**
-     * view.
-     */
-    var onFinishListener: (() -> Unit)? = null
-
-    var downTimeWatcher: DownTimeWatcher? = null
-
-    /**
-     * view
-     * @param downTimeWatcher
-     */
     fun setOnTimeDownListener(downTimeWatcher: DownTimeWatcher?) {
         this.downTimeWatcher = downTimeWatcher
     }
@@ -176,7 +80,7 @@ public class TimeDownView : AppCompatTextView {
                     downTimeWatcher!!.onTime(downCount)
                 }
                 onTimeListener?.invoke(downCount)
-//                Log.e("view","//handleMessage"+downCount+"//"+lastDown);
+
                 if (downCount >= lastDown - 1) {
                     drawTextFlag = DRAW_TEXT_YES // View rendering
                     // View rendering

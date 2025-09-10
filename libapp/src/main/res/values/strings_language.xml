@@ -237,7 +237,7 @@
   <string name="app_save_image">Do you want to save images?</string>
   <string name="app_tip">Tips</string>
   <string name="device_loading_tip">Loading…</string>
-  <!-- 2.00版本 -->
+
   <string name="app_lapsePhotography">Timed Photo</string>
   <string name="app_Manual_Shutter">Manual Shutter</string>
   <string name="app_record_sound">Record Audio</string>
@@ -277,7 +277,7 @@
   <string name="app_open">to open</string>
   <string name="album_report_aleart">The phone memory is insufficient, the video recording stops</string>
   <string name="tip_video_record">Each recording time is up to 60 minutes</string>
-  <!-- 2.10版本 -->
+
   <string name="temp_alarm_alarm">Alarm</string>
   <string name="temp_alarm_high_alarm">High Temp. Alarm</string>
   <string name="temp_alarm_low_alarm">Low Temp. Alarm</string>
@@ -440,7 +440,7 @@
   <string name="target_tips_step_3">3.Move the target or the camera to align the object with the center of the target.</string>
   <string name="target_tips_step_4">4.Observe the object and the number on the target (the distance between the camera and the object). As shown in the picture below, the distance between the camera and the object is 20 meters.</string>
   <string name="target_tips_tip_content">Note: Currently, referential heights for 4 types of objects are available.</string>
-  <!--国内上架用-->
+
   <string name="permission_request_camera_app">%1$s is requesting permission for your camera to allow changing your profile picture or taking photos to give feedback.</string>
   <string name="permission_request_location_app">%1$s is requesting permission for your location to search for nearby Bluetooth devices.</string>
   <string name="permission_request_storage_app">%1$s is requesting storage permission to save local files or read pictures for profile setting.</string>
@@ -587,7 +587,7 @@
   <string name="ts004_faq_a4">You can keep recording videos before the battery of TS004 runs out. However, TS004 will automatically save the video every 20 minutes.</string>
   <string name="ts004_faq_q5">How do I view the captured thermal images on a PC?</string>
   <string name="ts004_faq_a5">Connect TS004 to a PC via the USB cable, and then you can view the thermal images stored on TS004.</string>
-  <!-- TC001 老 APP 引流 -->
+
   <string name="gallery_transfer">Gallery Transfer</string>
   <string name="gallery_transfer_wait">Data is being transferred. Please wait.</string>
   <string name="gallery_transfer_complete">Data Transfer Completed</string>
@@ -634,7 +634,7 @@
   <string name="open_bt_switch_tips">When connecting to a mobile phone, Bluetooth needs to be turned on to obtain necessary device information</string>
   <string name="wifi_connect_loading">It is expected to take 15s…</string>
   <string name="tc007_done_fast">Frequent operations</string>
-  <!-- 房屋检测 -->
+
   <string name="main_professional_test">Professional Testing</string>
   <string name="main_temperature_test">Temperature Testing</string>
   <string name="main_thermal_tips">Professional Thermal Imaging Testing</string>
@@ -802,7 +802,7 @@
   <string name="abnormal_description16">The temperature of the rear window defroster is affected by many factors, such as ambient temperature, and heater load. Monitor the heater temperature of the rear window defroster with a thermal imager, and then you can assess whether the rear window defroster can be heated effectively.</string>
   <string name="abnormal_description17">The temperature of the rear mirror heater is affected by many factors, such as ambient temperature, and heater load. Monitor the heater temperature with a thermal imager, and then you can assess whether the rear mirror can be heated effectively.</string>
   <string name="abnormal_description18">The window motor temperature is affected by many factors, such as ambient temperature, and motor load. Monitor the motor temperature with a thermal imager. If the temperature is too high, it may be caused by the failure of the window lifting mechanism or the motor itself.</string>
-  <!-- 房屋检测新增 -->
+
   <string name="vehicle_function">Function</string>
   <string name="ability_find">find</string>
   <string name="ability_monitory">Real time viewing of object temperature to generate data</string>

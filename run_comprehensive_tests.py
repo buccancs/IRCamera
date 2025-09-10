@@ -1,159 +1,5 @@
 #!/usr/bin/env python3
-"""
-Comprehensive Test Runner for Hub-and-Spoke Multi-Modal Physiological Platform
-Executes unit tests, integration tests, and performance tests across Android
-and PC Controller
-"""
 
-import argparse
-import json
-import subprocess
-import sys
-import time
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
-
-
-@dataclass
-class TestResult:
-    name: str
-    passed: bool
-    duration: float
-    details: str
-    coverage: Optional[float] = None
-
-
-@dataclass
-class TestSuite:
-    name: str
-    description: str
-    command: str
-    working_dir: str
-    timeout: int = 300  # 5 minutes default
-
-
-class ComprehensiveTestRunner:
-    """Main test runner that orchestrates all test suites"""
-
-    def __init__(self, project_root: Path):
-        self.project_root = project_root
-        self.results: List[TestResult] = []
-
-        # Define all test suites
-        self.test_suites = self._define_test_suites()
-
-    def _define_test_suites(self) -> List[TestSuite]:
-        """Define all test suites to be executed"""
-        return [
-            # Android Unit Tests
-            TestSuite(
-                name="android_unit_tests",
-                description=(
-                    "Android Unit Tests (RecordingController, TimeManager, "
-                    "NetworkClient, GSRSensorRecorder)"
-                ),
-                command="./gradlew test --info",
-                working_dir=str(self.project_root),
-                timeout=600,
-            ),
-            # Android Integration Tests
-            TestSuite(
-                name="android_integration_tests",
-                description=(
-                    "Android Integration Tests "
-                    "(Hub-Spoke Communication, Multi-Modal Coordination)"
-                ),
-                command="./gradlew connectedAndroidTest --info",
-                working_dir=str(self.project_root),
-                timeout=900,
-            ),
-            # Android Performance Tests
-            TestSuite(
-                name="android_performance_tests",
-                description=(
-                    "Android Performance Tests (Throughput, Latency, " "Resource Usage)"
-                ),
-                command="./gradlew connectedBenchmarkAndroidTest --info",
-                working_dir=str(self.project_root),
-                timeout=1200,
-            ),
-            # PC Controller Unit Tests
-            TestSuite(
-                name="pc_unit_tests",
-                description="PC Controller Unit Tests (Network, Data, Protocol)",
-                command=(
-                    "python -m pytest src/ircamera_pc/tests/test_network.py "
-                    "src/ircamera_pc/tests/test_data_aggregation.py -v "
-                    "--cov=ircamera_pc --cov-report=html"
-                ),
-                working_dir=str(self.project_root / "pc-controller"),
-                timeout=300,
-            ),
-            # PC Controller Integration Tests
-            TestSuite(
-                name="pc_integration_tests",
-                description="PC Controller Integration Tests (End-to-End Workflows)",
-                command=(
-                    "python -m pytest src/ircamera_pc/tests/test_integration.py -v "
-                    "--cov=ircamera_pc --cov-append"
-                ),
-                working_dir=str(self.project_root / "pc-controller"),
-                timeout=600,
-            ),
-            # Cross-Platform Integration Tests
-            TestSuite(
-                name="cross_platform_tests",
-                description=(
-                    "Cross-Platform Integration Tests " "(Android-PC Communication)"
-                ),
-                command="python integration_example.py --test-mode",
-                working_dir=str(self.project_root / "pc-controller"),
-                timeout=300,
-            ),
-            # Vendor SDK Integration Validation
-            TestSuite(
-                name="vendor_sdk_validation",
-                description=(
-                    "Vendor SDK Integration Validation "
-                    "(Shimmer, IR Camera, Real Hardware)"
-                ),
-                command=(
-                    "./gradlew testDebugUnitTest --tests '*GSRSensorRecorderTest*' "
-                    "--info"
-                ),
-                working_dir=str(self.project_root),
-                timeout=300,
-            ),
-            # System Validation Tests
-            TestSuite(
-                name="system_validation",
-                description=(
-                    "System Validation (Component Verification, " "Build Validation)"
-                ),
-                command="python test_components.py",
-                working_dir=str(self.project_root / "pc-controller"),
-                timeout=120,
-            ),
-        ]
-
-    def run_all_tests(
-        self,
-        include_performance: bool = True,
-        include_integration: bool = True,
-        parallel: bool = False,
-    ) -> Tuple[int, int]:
-        """
-        Run all test suites
-
-        Args:
-            include_performance: Whether to run performance tests (slower)
-            include_integration: Whether to run integration tests
-            parallel: Whether to run tests in parallel (experimental)
-
-        Returns:
-            Tuple of (passed_count, total_count)
-        """
         print("START Starting Comprehensive Test Suite for Hub-and-Spoke Architecture")
         print("=" * 80)
 
@@ -219,7 +65,7 @@ class ComprehensiveTestRunner:
         start_time = time.time()
 
         try:
-            # Execute the test command
+
             process = subprocess.Popen(
                 suite.command,
                 shell=True,
@@ -397,7 +243,6 @@ class ComprehensiveTestRunner:
 
         return html
 
-
 def main():
     """Main entry point for comprehensive test runner"""
     parser = argparse.ArgumentParser(
@@ -429,7 +274,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Initialize and run tests
     runner = ComprehensiveTestRunner(args.project_root)
 
     passed_count, total_count = runner.run_all_tests(
@@ -448,7 +292,6 @@ def main():
         print(f"\nFAILED Test suite FAILED with {success_rate:.1%} success rate")
         print("   Required: 90% success rate for passing")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

@@ -108,7 +108,7 @@ class MultiModalRecordingService : Service() {
 
             override fun onError(error: String) {
                 Log.e(TAG, "GSR recording error: $error")
-                // Handle error - could show notification or broadcast
+
             }
         }
 
@@ -160,13 +160,10 @@ class MultiModalRecordingService : Service() {
             return
         }
 
-        // Create session
         sessionManager.createSession(sessionId, participantId, studyName)
 
-        // Start foreground service
         startForeground(NOTIFICATION_ID, createNotification("Starting recording..."))
 
-        // Start GSR recording in coroutine
         CoroutineScope(Dispatchers.IO).launch {
             if (gsrRecorder.startRecording(sessionId, participantId, studyName)) {
                 isRecording = true
@@ -185,7 +182,6 @@ class MultiModalRecordingService : Service() {
             return
         }
 
-        // Stop GSR recording
         val session = gsrRecorder.stopRecording()
         session?.let {
             sessionManager.completeSession(it.sessionId)

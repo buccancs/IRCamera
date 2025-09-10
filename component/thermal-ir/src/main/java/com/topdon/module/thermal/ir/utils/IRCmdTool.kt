@@ -109,10 +109,6 @@ object IRCmdTool {
         }
     }
 
-    /**
-     * Settings emissivity unit:cnt(128cnt = 1)
-     * @param value 1 ~ 128
-     */
     fun setTpdEms(
         irCmd: IRCMD?,
         value: Int,
@@ -121,12 +117,6 @@ object IRCmdTool {
         setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_EMS, value = data)
     }
 
-    /**
-     * Settings distance unit:cnt(128cnt = 1m, example: 0.25 * 128 = 32)
-     * @param value 0 ~ 25600
-     *
-     * Note: sdk requires SettingsTPD_PROP_DISTANCE parameter
-     */
     fun setTpdDis(
         irCmd: IRCMD?,
         value: Int,
@@ -135,10 +125,6 @@ object IRCmdTool {
         setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_DISTANCE, value = data)
     }
 
-    /**
-     * Settings contrast level
-     * @param value 0 ~ 255
-     */
     fun setLevelContrast(
         irCmd: IRCMD?,
         value: Int,
@@ -147,11 +133,6 @@ object IRCmdTool {
         setImageParams(irCmd = irCmd, params = CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST, value = data)
     }
 
-    /**
-     * Settings DDE level
-     * @param value 0 ~ 4
-     *
-     */
     fun setLevelDdd(
         irCmd: IRCMD?,
         value: Int,
@@ -168,39 +149,6 @@ object IRCmdTool {
         setImageParams(irCmd = irCmd, params = CommonParams.PropImageParams.IMAGE_PROP_LEVEL_DDE, value = data)
     }
 
-    /**
-     * Settings AGC mode
-     */
-    fun setLevelAgc(
-        irCmd: IRCMD?,
-        value: Boolean,
-    ) {
-        val data =
-            if (value) {
-                CommonParams.PropImageParamsValue.StatusSwith.ON
-            } else {
-                CommonParams.PropImageParamsValue.StatusSwith.OFF
-            }
-        setImageParams(irCmd = irCmd, params = CommonParams.PropImageParams.IMAGE_PROP_ONOFF_AGC, value = data)
-    }
-
-    /**
-     * Get gain mode
-     * @return 1:High gain(Normal temperature)    0:Low gain(High temperature)
-     */
-    fun getTpdGainSel(irCmd: IRCMD?): Int {
-        val result = queryTpdParam(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL)
-        return if (result == CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_HIGH.value) {
-            1
-        } else {
-            0
-        }
-    }
-
-    /**
-     * Settings gain mode
-     * @param value 1:High gain(Normal temperature)    0:Low gain(High temperature)
-     */
     fun setTpdGainSel(
         irCmd: IRCMD?,
         value: Int,
@@ -214,67 +162,6 @@ object IRCmdTool {
         return setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value = data)
     }
 
-    /**
-     * Query TPD parameters
-     */
-    fun queryTpdParam(
-        irCmd: IRCMD?,
-        params: CommonParams.PropTPDParams,
-    ): Int {
-        val value = IntArray(1)
-        irCmd?.getPropTPDParams(params, value)
-        return value[0]
-    }
-
-    /**
-     * Query image parameters
-     */
-    fun queryImageParam(
-        irCmd: IRCMD?,
-        params: CommonParams.PropImageParams,
-    ): Int {
-        val value = IntArray(1)
-        irCmd?.getPropImageParams(params, value)
-        return value[0]
-    }
-
-    /**
-     * SettingsTpd
-     */
-    private fun setTpdParams(
-        irCmd: IRCMD?,
-        params: CommonParams.PropTPDParams,
-        value: CommonParams.PropTPDParamsValue,
-    ): Int {
-        return try {
-            irCmd?.setPropTPDParams(params, value) ?: 0
-        } catch (e: Exception) {
-            XLog.w("Settings TPD error [${params.name}]: ${e.message}")
-            0
-        }
-    }
-
-    /**
-     * Settings image parameters
-     */
-    private fun setImageParams(
-        irCmd: IRCMD?,
-        params: CommonParams.PropImageParams,
-        value: CommonParams.PropImageParamsValue,
-    ): Int {
-        return try {
-            irCmd?.setPropImageParams(params, value) ?: 0
-        } catch (e: Exception) {
-            XLog.w("Settings image error [${params.name}]: ${e.message}")
-            0
-        }
-    }
-
-    /**
-     * Registration
-     * Temperature offset calibration
-     * @param value (-20 ~ 60)
-     */
     fun setDisp(
         dualView: BaseDualView?,
         value: Int,
@@ -282,9 +169,9 @@ object IRCmdTool {
         return try {
             if (dualView != null) {
                 dualView?.dualUVCCamera!!.setDisp(value)
-                0 // Return success
+                0
             } else {
-                -1 // Return error
+                -1
             }
         } catch (e: Exception) {
             XLog.w("Settings registration error [$value]: ${e.message}")
@@ -292,9 +179,6 @@ object IRCmdTool {
         }
     }
 
-    /**
-     * @param moveX X-axis offset value
-     */
     fun setAlignTranslate(
         dualView: BaseDualView?,
         moveX: Int,
@@ -313,37 +197,6 @@ object IRCmdTool {
         dualView?.dualUVCCamera?.setAlignTranslateParameter(newSrc)
     }
 
-    /**
-     * Manual shutter calibration
-     */
-    fun shutter(
-        irCmd: IRCMD?,
-        syncImage: SynchronizedBitmap,
-    ) {
-        if (syncImage.type == 1) {
-            irCmd?.tc1bShutterManual()
-        } else {
-            // Manual shutter adjustment
-            irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
-        }
-    }
-
-    /**
-     * Manual shutter calibration
-     */
-    fun autoShutter(
-        irCmd: IRCMD?,
-        flag: Boolean,
-    ) {
-        val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
-        irCmd?.setPropAutoShutterParameter(CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH, data)
-    }
-
-    /**
-     * Set isothermal color mapping
-     * @param highC High temperature threshold in Celsius
-     * @param lowC Low temperature threshold in Celsius
-     */
     fun setIsoColorOpen(
         dualUVCCamera: DualUVCCamera?,
         highC: Float,

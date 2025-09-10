@@ -94,7 +94,6 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         binding.dataRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.dataRecyclerView.adapter = adapter
 
-        // Display basic file info
         val fileSize =
             if (file.length() >= 1024 * 1024) {
                 "%.1f MB".format(file.length() / (1024.0 * 1024.0))
@@ -137,13 +136,13 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
                         """
                         Total Samples: ${rows.size}
                         Duration: ${formatDuration((rows.size / 128).toLong())} (@ 128 Hz)
-                        
+
                         GSR Statistics:
                         • Min: %.3f μS
-                        • Max: %.3f μS  
+                        • Max: %.3f μS
                         • Mean: %.3f μS
                         • Std Dev: %.3f μS
-                        
+
                         Resistance Statistics:
                         • Min: %.1f kΩ
                         • Max: %.1f kΩ
@@ -350,7 +349,6 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
             ),
         )
 
-        // Process and export data with enhancements
         gsrDataPoints.forEachIndexed { index, dataPoint ->
             val timestampMs = dataPoint.timestamp / 1000000
             val timestampIso =
@@ -521,10 +519,10 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
             val message =
                 """
                 Data exported successfully!
-                
+
                 Files created:
                 ${exportResult.exportedFiles.joinToString("\n") { "• ${it.name}" }}
-                
+
                 Location: ${exportResult.exportDirectory.absolutePath}
                 """.trimIndent()
 
@@ -567,7 +565,7 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
     private fun plotData() {
         lifecycleScope.launch {
             try {
-                // Show loading dialog
+
                 val progressDialog = createProgressDialog("Generating Plot", "Preparing GSR data visualization...")
                 progressDialog.show()
 
@@ -579,7 +577,6 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
 
                 progressDialog.dismiss()
 
-                // Launch plotting activity
                 val intent =
                     Intent(this@GSRDataViewActivity, GSRPlotActivity::class.java).apply {
                         putExtra("plot_data", plotData)
@@ -748,17 +745,14 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         // Simple quality score based on signal characteristics
         var quality = 100.0
 
-        // Check for unrealistic values
         if (dataPoint.gsrValue < 0.01 || dataPoint.gsrValue > 100.0) {
             quality -= 30.0
         }
 
-        // Check for PPG signal quality
         if (dataPoint.ppgValue < 100 || dataPoint.ppgValue > 3900) {
             quality -= 20.0
         }
 
-        // Check for rapid changes (potential artifacts)
         if (index > 0 && index < gsrDataPoints.size - 1) {
             val prevChange = kotlin.math.abs(dataPoint.gsrValue - gsrDataPoints[index - 1].gsrValue)
             val nextChange = kotlin.math.abs(gsrDataPoints[index + 1].gsrValue - dataPoint.gsrValue)

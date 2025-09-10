@@ -27,7 +27,6 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         path = requireArguments().getString("path")!!
 
-        // Initialize view with findViewById
         val fragmentGalleryImg: ImageView = view.findViewById(R.id.fragment_gallery_img)
         Glide.with(this).load(path).into(fragmentGalleryImg)
     }

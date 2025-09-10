@@ -137,7 +137,7 @@ class GSRDataFragment : Fragment() {
     }
 
     private fun openDataFile(dataFile: GSRDataFile) {
-        // Open detailed data view activity
+
         GSRDataViewActivity.startActivity(requireContext(), dataFile.file.absolutePath)
     }
 }
@@ -216,7 +216,7 @@ class GSRVideoFragment : Fragment() {
     }
 
     private fun openVideoFile(videoFile: File) {
-        // Open video player activity
+
         GSRVideoPlayerActivity.startActivity(requireContext(), videoFile.absolutePath)
     }
 }
@@ -295,7 +295,7 @@ class GSRRawImageFragment : Fragment() {
     }
 
     private fun openRawImageFile(rawImageFile: File) {
-        // Open RAW image viewer activity
+
         GSRRawImageViewActivity.startActivity(requireContext(), rawImageFile.absolutePath)
     }
 }

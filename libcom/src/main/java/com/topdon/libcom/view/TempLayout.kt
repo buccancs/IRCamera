@@ -10,12 +10,6 @@ import android.view.View
 import android.widget.LinearLayout
 import com.topdon.libcom.R
 
-/**
- *
- * dataLow temperaturedata
- * @author: CaiSongL
- * @date: 2023/4/28 15:52
- */
 class TempLayout : LinearLayout {
     companion object {
         val TYPE_HOT = 1 // High temperaturedata
@@ -46,7 +40,7 @@ class TempLayout : LinearLayout {
             BreatheInterpolator() // Implementation
         alphaAnimator?.addUpdateListener {
             animatorAlpha = it.getAnimatedValue("alpha") as Float
-//            Log.w("data","$animatorAlpha")
+
         }
         alphaAnimator?.repeatCount = ValueAnimator.INFINITE
     }

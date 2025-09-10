@@ -8,70 +8,6 @@ import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 import java.io.IOException
 
-/**
- * utility，utility
- * @author: CaiSongL
- * @date: 2024/1/17 9:54
- */
-class IRImageHelp {
-    // Utility function
-    @Volatile
-    private var colorList: IntArray? = null
-
-    @Volatile
-    private var places: FloatArray? = null
-
-    private var isUseGray = true
-    private var customMaxTemp = 0f
-    private var customMinTemp = 0f
-    private var maxRGB = IntArray(3)
-    private var minRGB = IntArray(3)
-
-    fun getColorList(): IntArray? {
-        return colorList
-    }
-
-    /**
-     * SettingsutilityPseudo-colorutility
-     * @author: CaiSongL
-     * @date: 2024/1/17 10:07
-     */
-    fun setColorList(
-        colorList: IntArray?,
-        places: FloatArray?,
-        isUseGray: Boolean,
-        customMaxTemp: Float,
-        customMinTemp: Float,
-    ) {
-        if (colorList == null) {
-            this.isUseGray = true
-        } else {
-            this.isUseGray = isUseGray
-        }
-        this.colorList = colorList
-        this.places = places
-        if (colorList != null) {
-            this.customMaxTemp = customMaxTemp
-            this.customMinTemp = customMinTemp
-            val maxColor = colorList[colorList.size - 1]
-            val minColor = colorList[0]
-            this.maxRGB[0] = maxColor shr 16 and 0xFF
-            this.maxRGB[1] = maxColor shr 8 and 0xFF
-            this.maxRGB[2] = maxColor and 0xFF
-            this.minRGB[0] = minColor shr 16 and 0xFF
-            this.minRGB[1] = minColor shr 8 and 0xFF
-            this.minRGB[2] = minColor and 0xFF
-        }
-    }
-
-    /**
-     * utilityPseudo-colorutility，utility，utilityPseudo-colorutility utilitysetColorListutilitySettings
-     * @param imageDst ByteArray ： utility，argbutility
-     * @param temperatureSrc ByteArray ： utility
-     * @param imageWidth Int ：
-     * @param imageHeight Int
-     * @return ByteArray ： utility，argbutility
-     */
     fun customPseudoColor(
         imageDst: ByteArray,
         temperatureSrc: ByteArray,
@@ -82,10 +18,10 @@ class IRImageHelp {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
                 val imageDstLength: Int = imageWidth * imageHeight * 4
-                // Initialize variable，utility
+
                 var index = 0
                 while (index < imageDstLength) {
-                    // Initialize variable
+
                     var temperature0: Float =
                         (
                             (temperatureSrc.get(j).toInt() and 0xff) + (
@@ -139,7 +75,7 @@ class IRImageHelp {
                     index += 4
                     j += 2
                 }
-//                                        Log.w("utility-utility", System.currentTimeMillis() - startTimeAll + "//");
+
             }
         } catch (exception: Exception) {
             Log.e("utility", exception.message!!)
@@ -165,10 +101,10 @@ class IRImageHelp {
             val biaochiMax: Float = max
             val biaochiMin: Float = min // Calculate value
             val startTimeAll = System.currentTimeMillis()
-            // Initialize variable，utility
+
             var index = 0
             while (index < imageDstLength) {
-                // Initialize variable
+
                 var temperature0: Float =
                     (
                         (temperatureSrc[j].toInt() and 0xff) + (

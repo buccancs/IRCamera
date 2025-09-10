@@ -8,10 +8,6 @@ import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.report.bean.ReportData
 
-/**
- * @author: CaiSongL
- * @date: 2023/5/12 15:38
- */
 class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>, LoadMoreModule {
     constructor(layoutResId: Int) : super(layoutResId) {}
     constructor(layoutResId: Int, data: MutableList<ReportData.Records?>?) : super(layoutResId, data) {}

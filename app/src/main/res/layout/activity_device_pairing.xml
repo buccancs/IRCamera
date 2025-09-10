@@ -5,9 +5,9 @@
     <data>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/tools" xmlns:ns2="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:background="#16131e" ns1:context="com.topdon.tc001.network.DevicePairingActivity">
-  
+
   <com.topdon.lib.core.view.TitleView ns0:id="@+id/title_view" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns2:layout_constraintTop_toTopOf="parent" ns2:titleText="Device Pairing" />
-  
+
   <androidx.cardview.widget.CardView ns0:id="@+id/status_card" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_margin="16dp" ns2:cardBackgroundColor="#2a2a2a" ns2:cardCornerRadius="8dp" ns2:cardElevation="2dp" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintTop_toBottomOf="@id/title_view">
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
       <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Connection Status" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="8dp" />
@@ -15,7 +15,7 @@
       <Button ns0:id="@+id/disconnect_button" ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:text="Disconnect" ns0:backgroundTint="#ff4444" ns0:textColor="#ffffff" ns0:visibility="gone" />
     </LinearLayout>
   </androidx.cardview.widget.CardView>
-  
+
   <androidx.cardview.widget.CardView ns0:id="@+id/scan_card" ns0:layout_width="0dp" ns0:layout_height="wrap_content" ns0:layout_margin="16dp" ns2:cardBackgroundColor="#2a2a2a" ns2:cardCornerRadius="8dp" ns2:cardElevation="2dp" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintTop_toBottomOf="@id/status_card">
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
       <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="PC Controller Discovery" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="8dp" />
@@ -27,14 +27,14 @@
       <TextView ns0:id="@+id/status_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Ready to scan" ns0:textColor="#aaffffff" ns0:textSize="12sp" ns0:layout_marginTop="8dp" />
     </LinearLayout>
   </androidx.cardview.widget.CardView>
-  
+
   <androidx.cardview.widget.CardView ns0:id="@+id/controllers_card" ns0:layout_width="0dp" ns0:layout_height="0dp" ns0:layout_margin="16dp" ns2:cardBackgroundColor="#2a2a2a" ns2:cardCornerRadius="8dp" ns2:cardElevation="2dp" ns2:layout_constraintBottom_toBottomOf="parent" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintTop_toBottomOf="@id/scan_card">
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:padding="16dp">
       <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Available PC Controllers" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="16dp" />
       <androidx.recyclerview.widget.RecyclerView ns0:id="@+id/controllers_recycler_view" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:scrollbars="vertical" />
     </LinearLayout>
   </androidx.cardview.widget.CardView>
-  
+
   <View ns0:id="@+id/flash_overlay" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:background="#ffffff" ns0:visibility="gone" ns0:alpha="0" ns2:layout_constraintBottom_toBottomOf="parent" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

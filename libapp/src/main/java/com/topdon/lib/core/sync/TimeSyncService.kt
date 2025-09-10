@@ -254,7 +254,7 @@ class TimeSyncService {
         // Use nanoTime for precision, but convert to wall-clock time
         val systemTime = System.currentTimeMillis()
         val nanoOffset = (System.nanoTime() % 1000000) / 1000 // microsecond precision
-        return systemTime * 1000 + nanoOffset // Return in microseconds
+        return systemTime * 1000 + nanoOffset
     }
 
     /**

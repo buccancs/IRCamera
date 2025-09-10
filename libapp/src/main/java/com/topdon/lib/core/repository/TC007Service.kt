@@ -10,47 +10,6 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Query
 
-/**
- *
- * Created by LCG on 2024/4/28.
- */
-interface TC007Service {
-    /**
-     * data
-     */
-    @GET("/v1/system/product/info/dj")
-    suspend fun getProductInfo(): TC007Response<ProductBean>
-
-    /**
-     * data
-     */
-    @GET("/v1/system/local/battery")
-    suspend fun getBatteryInfo(): TC007Response<BatteryInfo>
-
-    /**
-     * data.
-     */
-    @PUT("/v1/system/local/time")
-    suspend fun syncTime(
-        @Body requestBody: RequestBody,
-    ): TC007Response<Any?>
-
-    /**
-     * data-data
-     */
-    @Multipart
-    @POST("/v1/system/upgrade/package?reset=true")
-    suspend fun sendUpgradeFile(
-        @Query("filename") filename: String,
-        @Query("fileNumber") fileNumber: Int,
-        @Query("totalNumber") totalNumber: Int,
-        @Query("md5") md5: String,
-        @Part part: MultipartBody.Part,
-    ): TC007Response<Any?>
-
-    /**
-     * dataState.
-     */
     @GET("/v1/system/upgrade/status")
     suspend fun getUpgradeStatus(): TC007Response<TC07UpgradeStatus>
 

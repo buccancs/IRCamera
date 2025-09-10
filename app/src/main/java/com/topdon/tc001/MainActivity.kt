@@ -100,7 +100,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     override fun initView() {
-        // Check if clause needs to be shown (moved from SplashActivity)
+
         if (!SharedManager.getHasShowClause()) {
             NavigationManager.build(RouterConfig.CLAUSE).navigation(this)
             finish()
@@ -193,7 +193,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
     private fun updateApk(url: String) {
         if (applicationInfo.targetSdkVersion < Build.VERSION_CODES.P) {
-            // Create intent27activity
+
             val intent = Intent()
             intent.action = "android.intent.action.VIEW"
             intent.data = Uri.parse(url)
@@ -332,10 +332,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         viewMinePoint.isVisible = false
     }
 
-    /**
-     * activity 3 activity tab activitySelectedState
-     * @param index CurrentSelectedactivity tab，`[0, 2]`
-     */
     private fun refreshTabSelect(index: Int) {
         binding.ivIconGallery.isSelected = false
         binding.tvIconGallery.isSelected = false
@@ -424,11 +420,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         }
     }
 
-    /**
-     * activity
-     * activity，activitykey valueactivity
-     * @return key：activity value：activity
-     */
     private fun getNeedPermissionList(): SparseArray<List<String>> {
         val sparseArray = SparseArray<List<String>>()
         sparseArray.append(R.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))

@@ -193,7 +193,6 @@ class EnhancedNetworkingExample(private val context: Context) {
     private fun demonstrateSecureWebSocket(deviceName: String = "TS004_DEMO_DEVICE") {
         Log.i(TAG, "7. Demonstrating secure WebSocket connection...")
 
-        // Start secure WebSocket connection to thermal camera
         webSocketProxy.startWebSocket(deviceName)
 
         // Send command to thermal camera

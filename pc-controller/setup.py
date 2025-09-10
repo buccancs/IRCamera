@@ -9,7 +9,6 @@ import pybind11
 from pybind11.setup_helpers import ParallelCompile, Pybind11Extension, build_ext
 from setuptools import find_packages, setup
 
-# Enable parallel compilation
 ParallelCompile("NPY_NUM_BUILD_JOBS").install()
 
 # Platform-specific configurations

@@ -13,84 +13,6 @@ import kotlinx.coroutines.launch
 class IRConfigViewModel(application: Application) : AndroidViewModel(application) {
     val configLiveData = SingleLiveEvent<ModelBean>()
 
-    /**
-     * view
-     */
-    fun getConfig(isTC007: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            configLiveData.postValue(ConfigRepository.read(isTC007))
-        }
-    }
-
-    /**
-     * view，viewCelsius。
-     */
-    fun updateDefaultEnvironment(
-        isTC007: Boolean,
-        environment: Float,
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
-            modelBean.defaultModel.environment = environment
-            ConfigRepository.update(isTC007, modelBean)
-            configLiveData.postValue(modelBean)
-        }
-    }
-
-    /**
-     * view，view。
-     */
-    fun updateDefaultDistance(
-        isTC007: Boolean,
-        distance: Float,
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
-            modelBean.defaultModel.distance = distance
-            ConfigRepository.update(isTC007, modelBean)
-            configLiveData.postValue(modelBean)
-        }
-    }
-
-    /**
-     * view。
-     */
-    fun updateDefaultRadiation(
-        isTC007: Boolean,
-        radiation: Float,
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
-            modelBean.defaultModel.radiation = radiation
-            ConfigRepository.update(isTC007, modelBean)
-            configLiveData.postValue(modelBean)
-        }
-    }
-
-    /**
-     * viewMode
-     */
-    fun addConfig(isTC007: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
-
-            var index = 0
-            modelBean.myselfModel.forEach {
-                index = index.coerceAtLeast(it.id)
-            }
-            index++
-
-            modelBean.myselfModel.add(DataBean(id = index, name = index.toString()))
-
-            ConfigRepository.update(isTC007, modelBean)
-            configLiveData.postValue(modelBean)
-        }
-    }
-
-    /**
-     * viewMode
-     * @param id 0:viewMode   > 0 viewMode
-     */
     fun checkConfig(
         isTC007: Boolean,
         id: Int,
@@ -106,10 +28,6 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    /**
-     * DeleteviewMode
-     * @param id viewMode id
-     */
     fun deleteConfig(
         isTC007: Boolean,
         id: Int,

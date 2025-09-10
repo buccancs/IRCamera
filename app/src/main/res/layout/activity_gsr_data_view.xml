@@ -5,18 +5,18 @@
     <data>
     </data>
 <LinearLayout xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical" ns0:background="#16131e">
-  
+
   <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_margin="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
     <TextView ns0:id="@+id/file_info_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:padding="16dp" ns0:text="Loading file information..." ns0:textColor="#ffffff" ns0:textSize="14sp" ns0:fontFamily="monospace" />
   </androidx.cardview.widget.CardView>
-  
+
   <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginHorizontal="16dp" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
       <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="GSR Data Statistics" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="12dp" />
       <TextView ns0:id="@+id/statistics_text" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Calculating statistics..." ns0:textColor="#ccffffff" ns0:textSize="14sp" ns0:fontFamily="monospace" />
     </LinearLayout>
   </androidx.cardview.widget.CardView>
-  
+
   <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="0dp" ns0:layout_weight="1" ns0:layout_marginHorizontal="16dp" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
     <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:orientation="vertical">
       <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Data Preview (First 100 rows)" ns0:textColor="#ffffff" ns0:textSize="16sp" ns0:textStyle="bold" ns0:padding="16dp" ns0:background="#f8f8f8" />

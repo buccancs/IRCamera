@@ -19,10 +19,6 @@ import org.junit.Test
 import java.io.File
 import java.net.Socket
 
-/**
- * Comprehensive integration tests for Hub-and-Spoke architecture
- * Tests complete communication flow, sensor coordination, and synchronization
- */
 @OptIn(ExperimentalCoroutinesApi::class)
 class HubSpokeIntegrationTest {
     @MockK
@@ -55,12 +51,10 @@ class HubSpokeIntegrationTest {
         every { context.cacheDir } returns File("/tmp/test")
         every { context.getExternalFilesDir(any()) } returns File("/tmp/test")
 
-        // Initialize core components
         recordingController = RecordingController(context, lifecycleOwner)
         networkClient = EnhancedNetworkClient(context)
         timeManager = TimeManager.getInstance(context)
 
-        // Setup mock sensors
         setupMockSensors()
         setupMockNetwork()
     }
@@ -80,7 +74,6 @@ class HubSpokeIntegrationTest {
         rgbRecorder = mockk()
         thermalRecorder = mockk()
 
-        // Setup common sensor behaviors
         listOf(gsrRecorder, rgbRecorder, thermalRecorder).forEach { sensor ->
             every { sensor.initialize() } returns true
             every { sensor.startRecording(any(), any()) } returns true
@@ -180,7 +173,6 @@ class HubSpokeIntegrationTest {
             networkClient.connect(hubHost, hubPort)
             registerAllSensors()
 
-            // Start coordinated recording
             recordingController.startRecording("MultiModal_Test")
 
             // Simulate simultaneous sensor events
@@ -202,7 +194,6 @@ class HubSpokeIntegrationTest {
                         "sequence_number" to events.indexOf(eventId to offset),
                     )
 
-                // Add sync marker to all sensors simultaneously
                 val localResult = recordingController.addSyncMarker(eventId, eventMetadata)
                 val hubResult = networkClient.addSyncMarker(eventId, eventMetadata)
 
@@ -257,13 +248,11 @@ class HubSpokeIntegrationTest {
             networkClient.connect(hubHost, hubPort)
             registerAllSensors()
 
-            // Create test session with data
             recordingController.startRecording("FileTransfer_Test")
 
             // Simulate some recording time
             delay(1000)
 
-            // Add some sync markers for data
             recordingController.addSyncMarker("DATA_START", mapOf("event" to "recording_start"))
             delay(500)
             recordingController.addSyncMarker("DATA_MIDDLE", mapOf("event" to "recording_middle"))
@@ -363,7 +352,6 @@ class HubSpokeIntegrationTest {
             networkClient.connect(hubHost, hubPort)
             registerAllSensors()
 
-            // Start recording with integrity checking
             recordingController.startRecording("Integrity_Test")
 
             // Generate known sequence of sync markers

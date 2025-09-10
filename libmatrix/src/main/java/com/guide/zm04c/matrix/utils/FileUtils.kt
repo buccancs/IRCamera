@@ -8,27 +8,6 @@ import android.media.ExifInterface
 import com.guide.zm04c.matrix.Logger
 import java.io.*
 
-/**
- * created by liuhongwei gd02527 on 2018utility08utility29utility
- */
-class FileUtils {
-    companion object {
-        private val TAG = "RealTimeImpl"
-
-        fun isFileExist(filePath: String): Boolean {
-            if (StringUtils.isBlank(filePath)) {
-                return false
-            }
-
-            val file = File(filePath)
-            return file.exists() && file.isFile
-        }
-
-        /**
-         * Deleteutility
-         * @param filePath utilityDeleteutility
-         * @return utilityDeleteutilitytrue，utilityfalse
-         */
         fun deleteDirectory(filePath: String): Boolean {
             var filePath = filePath
             var flag = false
@@ -87,9 +66,9 @@ class FileUtils {
             data: ByteArray,
             filePath: String,
         ) {
-            // Initialize variable，utility
+
             var randomFile = RandomAccessFile(filePath, "rw")
-            // Initialize variable，utility
+
             var fileLength = randomFile.length()
             // Utility function。
             randomFile.seek(fileLength)
@@ -133,13 +112,6 @@ class FileUtils {
             saveFile(BaseDataTypeConvertUtils.convertShortArr2LittleEndianByteArr(data), filePath, isAppend)
         }
 
-        /**
-         * utilityBitmaputilityJPGutility
-         *
-         * @param bmp
-         * @param filePath
-         * @return
-         */
         fun saveBitmap2JpegFile(
             bmp: Bitmap,
             filePath: String,
@@ -172,13 +144,6 @@ class FileUtils {
             return false
         }
 
-        /**
-         * RotateBitmap
-         *
-         * @param srcBitmap    utilityBitmap
-         * @param rotateDegree RotateAngle
-         * @return
-         */
         fun rotateBitmap(
             srcBitmap: Bitmap,
             rotateDegree: Float,
@@ -286,7 +251,7 @@ class FileUtils {
             fileNotFoundErrAction: () -> Unit,
             ioErrAction: () -> Unit,
         ): ByteArray? {
-            // Initialize variable
+
             var fis: FileInputStream? = null
             val inFile = File(filePath)
             val buffer: ByteArray?

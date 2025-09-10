@@ -11,22 +11,6 @@ import java.io.*
 import java.net.*
 import java.util.concurrent.atomic.AtomicBoolean
 
-/**
- * Enhanced network client for Hub-Spoke communication with PC Controller.
- *
- * This client implements the full communication protocol for the Multi-Modal
- * Physiological Sensing Platform, enabling coordinated recording sessions
- * between the Android Sensor Node (Spoke) and PC Controller (Hub).
- *
- * Key Features:
- * - Integration with RecordingController for coordinated sessions
- * - Time synchronization with PC Controller
- * - Real-time status reporting and error handling
- * - File transfer management for recorded data
- * - Network discovery and automatic reconnection
- *
- * @author IRCamera Android Sensor Node (Spoke)
- */
 class EnhancedNetworkClient(
     private val context: Context,
     private val recordingController: RecordingController,
@@ -124,7 +108,6 @@ class EnhancedNetworkClient(
                         capabilities = listOf("hub", "aggregation", "sync"),
                     )
 
-                // Start background communication tasks
                 startMessageListener()
                 startHeartbeat()
                 startStatusReporting()
@@ -166,7 +149,6 @@ class EnhancedNetworkClient(
                     }
                 }
 
-                // Close connections
                 outputStream?.close()
                 inputStream?.close()
                 socket?.close()
@@ -214,7 +196,6 @@ class EnhancedNetworkClient(
                     return@withContext false
                 }
 
-                // Start local recording
                 val recordingSuccess = recordingController.startRecording(sessionDirectory)
                 if (!recordingSuccess) {
                     Log.e(TAG, "Failed to start local recording")
@@ -254,7 +235,6 @@ class EnhancedNetworkClient(
 
                 Log.i(TAG, "Stopping coordinated recording session")
 
-                // Add final sync marker
                 val finalSyncTimestamp = timeManager.getCurrentTimestampNs()
                 recordingController.addSyncMarker("session_end", finalSyncTimestamp)
 
@@ -267,7 +247,6 @@ class EnhancedNetworkClient(
 
                 sendMessage(sessionStopMessage)
 
-                // Stop local recording
                 val recordingSuccess = recordingController.stopRecording()
 
                 // Report completion to PC Controller
@@ -298,7 +277,6 @@ class EnhancedNetworkClient(
             try {
                 val syncTimestamp = timeManager.getCurrentTimestampNs()
 
-                // Add sync marker locally
                 recordingController.addSyncMarker(markerType, syncTimestamp, metadata)
 
                 // Send sync marker to PC Controller for distribution
@@ -444,7 +422,7 @@ class EnhancedNetworkClient(
             }
 
             "time_sync_request" -> {
-                // Handle time sync requests
+
                 val syncResult = timeManager.getSyncQuality()
                 val response =
                     createMessage("time_sync_response").apply {

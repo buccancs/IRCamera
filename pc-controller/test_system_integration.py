@@ -8,10 +8,8 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Add src to path
 src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
-
 
 async def test_bluetooth_manager():
     """Test Bluetooth manager basic functionality."""
@@ -28,7 +26,6 @@ async def test_bluetooth_manager():
     except (OSError, ValueError, RuntimeError) as e:
         print(f"ERROR Bluetooth Manager test failed: {e}")
         return False
-
 
 async def test_wifi_manager():
     """Test WiFi manager basic functionality."""
@@ -47,7 +44,6 @@ async def test_wifi_manager():
     except (OSError, ValueError, RuntimeError) as e:
         print(f"ERROR WiFi Manager test failed: {e}")
         return False
-
 
 def test_admin_privileges_basic():
     """Test admin privileges manager basic functionality (without GUI)."""
@@ -74,7 +70,6 @@ def test_admin_privileges_basic():
     except (OSError, ValueError, RuntimeError) as e:
         print(f"ERROR Admin Privileges test failed: {e}")
         return False
-
 
 def test_protocol_extension():
     """Test protocol extension with new message types."""
@@ -113,7 +108,6 @@ def test_protocol_extension():
         print(f"ERROR Protocol extension test failed: {e}")
         return False
 
-
 async def main():
     """Run all tests."""
     print("TESTING Testing IRCamera PC Controller - System Integration Features")
@@ -141,7 +135,6 @@ async def main():
     else:
         print("WARNING Some tests failed. Check the output above for details.")
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(asyncio.run(main()))

@@ -16,16 +16,6 @@ import org.opencv.imgproc.Imgproc
 import kotlin.math.pow
 import com.topdon.lib.ui.R as UiR
 
-/**
- * @author: CaiSongL
- * @date: 2023/4/4 14:28
- */
-object IRImageUtil {
-    /**
-     * utility
-     * @param contrast      utility 1: utility  0: utility   2: utility
-     * @param brightness    utility
-     */
     fun showContrast(
         imageView: ImageView,
         @FloatRange(from = 0.0, to = 2.0) contrast: Double,
@@ -69,12 +59,6 @@ object IRImageUtil {
         }
     }
 
-    /**
-     * utility
-     * https://www.cnblogs.com/AlgrithmsRookie/p/13212369.html
-     * @param a     [0 ~ 1]utility
-     * @param gamma utility
-     */
     private fun lutGamma(
         @FloatRange(from = 0.0, to = 1.0) x: Double,
         a: Double = 0.5,
@@ -89,12 +73,6 @@ object IRImageUtil {
         return y
     }
 
-    /**
-     * utility
-     * @param sharpen [1,3,5]
-     *
-     * kernel_size  utility,Settingsutility
-     */
     private fun showSharpen(
         imageView: ImageView,
         @FloatRange(from = 0.0, to = 2.55) sharpen: Double,

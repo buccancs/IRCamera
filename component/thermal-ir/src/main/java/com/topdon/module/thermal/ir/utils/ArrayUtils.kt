@@ -1,10 +1,7 @@
 package com.topdon.module.thermal.ir.utils
 
 object ArrayUtils {
-    /**
-     * utility(utility)-Rotateutility
-     * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
-     */
+
     fun getMaxIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -18,10 +15,6 @@ object ArrayUtils {
         return index
     }
 
-    /**
-     * utility(utility)-Rotateutility
-     * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
-     */
     fun getMinIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -35,10 +28,6 @@ object ArrayUtils {
         return index
     }
 
-    /**
-     * Rotateutility
-     * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
-     */
     fun matrixRotate(
         srcData: FloatArray,
         rotateType: Int = 0,
@@ -51,77 +40,6 @@ object ArrayUtils {
         }
     }
 
-    /**
-     * utility(utility)-utility
-     */
-    private fun getMaxIndex(
-        data: FloatArray,
-        selectIndexList: ArrayList<Int> = arrayListOf(),
-    ): Int {
-        if (selectIndexList.size == 0) {
-            // Utility functionSpecifiedutility
-            var maxIndex = 0
-            for (i in 1 until data.size - 1) {
-                if (data[i] > data[maxIndex]) {
-                    maxIndex = i
-                }
-            }
-            return maxIndex
-        } else {
-            val selectPoint = FloatArray(selectIndexList.size)
-            for (i in 0 until selectIndexList.size) {
-                selectPoint[i] = data[selectIndexList[i]]
-            }
-            var maxIndex = 0
-            for (i in 1 until selectPoint.size - 1) {
-                if (selectPoint[i] > selectPoint[maxIndex]) {
-                    maxIndex = i
-                }
-            }
-            return selectIndexList[maxIndex]
-        }
-    }
-
-    /**
-     * utility(utility)-utility
-     */
-    private fun getMinIndex(
-        data: FloatArray,
-        selectIndexList: ArrayList<Int> = arrayListOf(),
-    ): Int {
-        if (selectIndexList.size == 0) {
-            var minIndex = 0
-            for (i in 1 until data.size - 1) {
-                if (data[i] == 0f) {
-                    continue
-                }
-                if (data[i] < data[minIndex]) {
-                    minIndex = i
-                }
-            }
-            return minIndex
-        } else {
-            val selectPoint = FloatArray(selectIndexList.size)
-            for (i in 0 until selectIndexList.size) {
-                selectPoint[i] = data[selectIndexList[i]]
-            }
-            var minIndex = 0
-            for (i in 1 until selectPoint.size - 1) {
-                if (selectPoint[i] == 0f) {
-                    continue
-                }
-                if (selectPoint[i] < selectPoint[minIndex]) {
-                    minIndex = i
-                }
-            }
-            return selectIndexList[minIndex]
-        }
-    }
-
-    /**
-     * utility(utility)-Rotateutility
-     * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
-     */
     private fun getRotateMaxIndex(
         data: FloatArray,
         rotateType: Int = 0,
@@ -152,10 +70,6 @@ object ArrayUtils {
         }
     }
 
-    /**
-     * utility(utility)-Rotateutility
-     * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
-     */
     private fun getRotateMinIndex(
         data: FloatArray,
         rotateType: Int = 0,

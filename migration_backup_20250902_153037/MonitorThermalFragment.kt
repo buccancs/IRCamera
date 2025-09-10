@@ -73,7 +73,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         val y1 = y * ph / rawHeight
         val maxX = x1 - imageView.width / 2
         val maxY = y1 - imageView.height / 2
-//        Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
+
         imageView.x = maxX.toFloat()
         imageView.y = maxY.toFloat()
     }
@@ -144,7 +144,6 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
             fenceLayoutParams!!.height = irSurfaceViewHeight
             mFenceLayout!!.layoutParams = fenceLayoutParams
 
-//            Log.i("123", "修改后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
         }
         // 初始选取范围
         initFence()
@@ -356,7 +355,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
     }
 
 //    private fun showTipDialog(tip: String, type: Int) {
-//        val tipDialog = TipDialog.Builder(requireContext())
+
 //            .setIconType(type)
 //            .setTipWord(tip)
 //            .create()

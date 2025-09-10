@@ -17,27 +17,6 @@ import java.util.concurrent.atomic.AtomicLong
 import com.infisense.usbir.camera.IRUVCTC
 import com.energy.iruvc.uvc.UVCCamera
 
-/**
- * Thermal Camera recorder using real IR Camera integration.
- *
- * Implementation uses REAL IR Camera SDK for hardware integration.
- * No stubs or simulation - full vendor SDK integration as required.
- *
- * Technical Specifications:
- * - Real IR Camera SDK for hardware interface
- * - Raw thermal frame data parsing and CSV export
- * - Nanosecond timestamp precision for synchronization
- * - Temperature calibration and radiometric data
- * - USB IR camera interface with vendor-specific protocols
- *
- * Hardware Details:
- * - Uses existing IRUVCTC implementation for real hardware
- * - Parses IR camera-specific thermal data formats
- * - Outputs temperature matrices as CSV rows with timestamps
- * - Handles real thermal calibration and environmental compensation
- *
- * @author IRCamera Android Sensor Node (Spoke)
- */
 class ThermalCameraRecorder(
     private val context: Context,
     override val sensorId: String = "thermal_camera_1",
@@ -103,10 +82,8 @@ class ThermalCameraRecorder(
             try {
                 Log.i(TAG, "Initializing real IR thermal camera using existing implementation for sensor $sensorId")
 
-                // Initialize USB manager for IR camera detection
                 usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
 
-                // Initialize real IR camera using existing IRUVCTC implementation
                 val connectionSuccess = initializeRealIRCamera()
 
                 if (!connectionSuccess) {
@@ -157,10 +134,8 @@ class ThermalCameraRecorder(
                 val timestamp = System.nanoTime()
                 val frameNumber = frameCount.incrementAndGet()
 
-                // Process real thermal data from IR camera
                 val thermalData = processRealThermalData(temperature, width, height)
 
-                // Save real IR thermal data
                 saveRealIRThermalData(
                     timestamp = timestamp,
                     frameNumber = frameNumber,
@@ -183,7 +158,7 @@ class ThermalCameraRecorder(
         width: Int,
         height: Int,
     ): ThermalFrameData {
-        // Process real thermal data from IR camera
+
         val temperatureMatrix = Array(height) { FloatArray(width) }
         var minTemp = Float.MAX_VALUE
         var maxTemp = Float.MIN_VALUE
@@ -298,15 +273,12 @@ class ThermalCameraRecorder(
                 this@ThermalCameraRecorder.sessionDirectory = sessionDirectory
                 recordingStartTime = System.nanoTime()
 
-                // Create output files
                 setupOutputFiles()
 
-                // Start real IR thermal capture using existing implementation
                 val irCamera = iruvctc
                 if (irCamera != null && isIRCameraConnected) {
                     Log.i(TAG, "Starting real IR thermal capture using existing implementation")
 
-                    // Start thermal streaming using real IR camera
                     val startSuccess =
                         try {
                             startRealIRCameraRecording(irCamera)
@@ -343,7 +315,7 @@ class ThermalCameraRecorder(
 
     private suspend fun startRealIRCameraRecording(irCamera: IRUVCTC): Boolean {
         return try {
-            // Start preview/recording on the real IR camera
+
             // This would integrate with the existing IRUVCTC implementation
             Log.i(TAG, "Starting real IR camera recording using existing IRUVCTC implementation")
 
@@ -363,7 +335,6 @@ class ThermalCameraRecorder(
                 return true
             }
 
-            // Stop real IR thermal streaming using existing implementation
             val irCamera = iruvctc
             if (irCamera != null && isIRCameraConnected) {
                 Log.i(TAG, "Stopping real IR thermal streaming")
@@ -385,7 +356,6 @@ class ThermalCameraRecorder(
 
             _isRecording.set(false)
 
-            // Close CSV writers
             csvWriter?.close()
             framesCsvWriter?.close()
             csvWriter = null
@@ -403,7 +373,7 @@ class ThermalCameraRecorder(
 
     private suspend fun stopRealIRCameraRecording(irCamera: IRUVCTC): Boolean {
         return try {
-            // Stop preview/recording on the real IR camera
+
             // This would integrate with the existing IRUVCTC implementation
             Log.i(TAG, "Stopping real IR camera recording using existing IRUVCTC implementation")
 
@@ -417,7 +387,7 @@ class ThermalCameraRecorder(
     }
 
     private suspend fun setupOutputFiles() {
-        // Create thermal data CSV file
+
         thermalDataFile = File(sessionDirectory, THERMAL_DATA_FILENAME)
         csvWriter = CSVWriter(FileWriter(thermalDataFile))
 
@@ -436,7 +406,6 @@ class ThermalCameraRecorder(
             )
         csvWriter?.writeNext(header)
 
-        // Create thermal frames CSV file for full frame data
         thermalFramesFile = File(sessionDirectory, THERMAL_FRAMES_FILENAME)
         framesCsvWriter = CSVWriter(FileWriter(thermalFramesFile))
 
@@ -483,7 +452,7 @@ class ThermalCameraRecorder(
         metadata: Map<String, String>,
     ) {
         try {
-            // Add sync marker as a special row in thermal data
+
             val syncRow =
                 arrayOf(
                     timestampNs.toString(),

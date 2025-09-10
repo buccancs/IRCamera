@@ -21,10 +21,6 @@ import java.util.*
 import java.util.concurrent.CountDownLatch
 import com.topdon.lib.core.R as LibR
 
-/**
- * @author: CaiSongL
- * @date: 2023/5/12 17:43
- */
 class PdfViewModel : BaseViewModel() {
     val listData = MutableLiveData<ReportData?>()
 
@@ -56,21 +52,7 @@ class PdfViewModel : BaseViewModel() {
             object : IResponseCallback {
                 override fun onResponse(p0: String?) {
                     result = Gson().fromJson(p0, ReportData::class.java)
-//                val testData : MutableList<ReportData.Records?> = mutableListOf()
-//                var tmp = ReportData.Records()
-//                tmp.uploadTime = TimeTool.getNowTime()
-//                testData.add(tmp)
-//                tmp = ReportData.Records()
-//                tmp.uploadTime = TimeTool.getNowTime()
-//                testData.add(tmp)
-//                tmp = ReportData.Records()
-//                tmp.uploadTime = TimeTool.getNowTime()
-//                testData.add(tmp)
-//                tmp = ReportData.Records()
-//                tmp.uploadTime = "1992-12-30 11:11"
-//                testData.add(tmp)
-//                result?.data?.records = testData
-                    downLatch.countDown()
+downLatch.countDown()
                 }
 
                 override fun onFail(p0: Exception?) {

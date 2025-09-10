@@ -9,7 +9,7 @@ import org.junit.Test
 class TimeUtilTest {
     @Test
     fun testPcTimeOffset() {
-        // Initialize timing system first to ensure proper state
+
         TimeUtil.initializeGroundTruthTiming()
 
         val initialOffset = TimeUtil.getPcTimeOffset()
@@ -19,7 +19,6 @@ class TimeUtilTest {
         TimeUtil.setPcTimeOffset(testOffset)
         assertEquals(testOffset, TimeUtil.getPcTimeOffset())
 
-        // Reset for other tests
         TimeUtil.setPcTimeOffset(0L)
     }
 
@@ -37,13 +36,12 @@ class TimeUtilTest {
             Math.abs(utcTime - (systemTime + offset)) < 100,
         )
 
-        // Reset
         TimeUtil.setPcTimeOffset(0L)
     }
 
     @Test
     fun testTimeConversion() {
-        // Initialize ground truth timing first
+
         TimeUtil.initializeGroundTruthTiming()
 
         val offset = 2000L
@@ -57,7 +55,6 @@ class TimeUtilTest {
         assertTrue("UTC time should include PC offset", Math.abs(utcTime - (systemTime + offset)) < 100)
         assertTrue("Back conversion should be close to original", Math.abs(backToSystem - systemTime) < 100)
 
-        // Reset
         TimeUtil.setPcTimeOffset(0L)
     }
 
@@ -80,14 +77,13 @@ class TimeUtilTest {
         assertTrue("Session ID should start with GSR", sessionId2.startsWith("GSR_"))
         assertTrue("Custom session ID should start with CUSTOM", customId.startsWith("CUSTOM_"))
 
-        // Check that IDs are not empty and contain underscores
         assertTrue("Session ID should not be empty", sessionId1.length > 4)
         assertTrue("Session ID should contain underscore", sessionId1.contains("_"))
     }
 
     @Test
     fun testGroundTruthTiming() {
-        // Initialize ground truth
+
         TimeUtil.initializeGroundTruthTiming()
 
         val groundTruthBase = TimeUtil.getGroundTruthBase()
@@ -120,7 +116,6 @@ class TimeUtilTest {
         // Verify processor is detected
         assertNotNull("Device processor should be detected", metadata["device_processor"])
 
-        // Reset
         TimeUtil.setPcTimeOffset(0L)
     }
 }

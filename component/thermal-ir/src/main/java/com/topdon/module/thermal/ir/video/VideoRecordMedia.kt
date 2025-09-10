@@ -47,7 +47,7 @@ class VideoRecordMedia(
         }
         encoder.setOutputFilePath(exportedFile.path)
 //        if (bitmap == null) {
-//            Log.w("123", "data")
+
 //            return
 //        }
         encoder.setOutputSize(width, height)

@@ -100,7 +100,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         val layoutParams = mTextureView.layoutParams
         layoutParams.width = showBitmapHeightWidth.toInt()
         layoutParams.height = showBitmapHeight.toInt()
-//        Log.e("view","Rotateview：Target"+showBitmapHeight+"///"+imageHeight+"---")
+
         mTextureView.layoutParams = layoutParams
         (mTextureView as ImageView).setImageBitmap(originalBitmap)
     }
@@ -358,7 +358,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
             ) as? BitmapDrawable
         )?.bitmap ?: return
         (mTextureView as ImageView).setImageBitmap(originalBitmap)
-//        Log.e("view","RotateviewupdateSelectBitmap"+parentCameraView!!.width+"---"+parentCameraView!!.height)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             magnifier?.dismiss()
             if (m >= 100f) {

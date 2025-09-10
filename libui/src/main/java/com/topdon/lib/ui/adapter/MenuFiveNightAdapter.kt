@@ -114,17 +114,7 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //        init {
-//            val canSeeCount = itemCount.toFloat() // Adapter item item item，item
-//            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
-//            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-//            val layoutParams = itemView.item_menu_tab_fl.layoutParams
-//            layoutParams.width = imageSize
-//            layoutParams.height = imageSize
-//            itemView.item_menu_tab_fl.layoutParams = layoutParams
-//        }
-        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
         val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
         val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
         val info: TextView = itemView.findViewById(UiR.id.item_menu_tab_info_text)

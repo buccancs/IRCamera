@@ -5,10 +5,6 @@ import android.graphics.Rect
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-/**
- * data data1data data2data data.
- * @param type 1-data 2-data 3-data
- */
 @Parcelize
 data class SelectPositionBean(
     val type: Int = 0, // 1-data 2-data 3-data

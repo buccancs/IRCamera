@@ -8,7 +8,7 @@
   <usb-device class="2" subclass="0"/>
   <usb-device class="6" subclass="-1"/>
   <usb-device class="39" subclass="0"/>
-  <!-- vid若为0A0A会影响到模组重新插拔之后的数据格式转换 -->
+
   <usb-device product-id="9730" vendor-id="2570"/>
   <usb-device product-id="4836" vendor-id="9573"/>
   <usb-device product-id="2229" vendor-id="1133"/>

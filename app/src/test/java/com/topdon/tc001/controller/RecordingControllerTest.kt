@@ -15,10 +15,6 @@ import org.junit.Before
 import org.junit.Test
 import java.io.File
 
-/**
- * Comprehensive unit tests for RecordingController
- * Tests core functionality, error handling, and state management
- */
 @OptIn(ExperimentalCoroutinesApi::class)
 class RecordingControllerTest {
     @MockK
@@ -50,7 +46,6 @@ class RecordingControllerTest {
 
         recordingController = RecordingController(context, lifecycleOwner)
 
-        // Setup mock recorders
         setupMockRecorders()
     }
 
@@ -135,10 +130,9 @@ class RecordingControllerTest {
     @Test
     fun testStartRecording() =
         runTest {
-            // Setup sensors
+
             registerAllSensors()
 
-            // Start recording
             val sessionName = "TestSession"
             val result = recordingController.startRecording(sessionName)
 
@@ -165,7 +159,6 @@ class RecordingControllerTest {
         runTest {
             registerAllSensors()
 
-            // Start recording first time
             val firstResult = recordingController.startRecording("Session1")
             assertTrue("First start should succeed", firstResult)
 
@@ -179,7 +172,6 @@ class RecordingControllerTest {
         runTest {
             registerAllSensors()
 
-            // Start and then stop recording
             recordingController.startRecording("TestSession")
             val result = recordingController.stopRecording()
 
@@ -206,7 +198,6 @@ class RecordingControllerTest {
             registerAllSensors()
             recordingController.startRecording("TestSession")
 
-            // Add sync marker
             val syncId = "TEST_SYNC"
             val metadata = mapOf("test" to "value")
             val result = recordingController.addSyncMarker(syncId, metadata)
@@ -248,7 +239,6 @@ class RecordingControllerTest {
         runTest {
             registerAllSensors()
 
-            // Start recording and wait a bit
             recordingController.startRecording("TestSession")
             delay(100)
 
@@ -310,7 +300,6 @@ class RecordingControllerTest {
         runTest {
             registerAllSensors()
 
-            // Start multiple operations concurrently
             val operations =
                 (1..10).map { index ->
                     async {

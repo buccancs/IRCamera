@@ -6,11 +6,6 @@ import java.lang.NumberFormatException
 
 // data TC007 data JSON data
 
-/**
- * TC007 Alldata.
- * @param Detail data，data
- * @param Data data，data
- */
 data class TC007Response<T>(
     val Code: Int,
     val Message: String?,
@@ -18,19 +13,7 @@ data class TC007Response<T>(
     val Detail: String?,
     val Data: T?,
 ) {
-    /**
-     * data.
-     */
-    fun isSuccess(): Boolean = Code == 200
-}
 
-/**
- * TC007 data：data
- * @param ProductName data
- * @param ProductPN PN
- * @param ProductSN SN
- * @param Code data
- */
 data class ProductBean(
     val ProductName: String,
     val ProductPN: String,
@@ -48,11 +31,6 @@ data class Version07Bean(
     val Build: String?,
 )
 
-/**
- * TC007 data：data
- * @param Status Charging-data Discharging-data
- * @param Remaining data
- */
 data class BatteryInfo(
     val Status: String?,
     val Remaining: String?,
@@ -67,26 +45,12 @@ data class BatteryInfo(
         }
 }
 
-/**
- * TC007 data：dataState
- * @param Status CurrentdataState 1-data 2-data 3-data 4-data
- * @param Percent Currentdata
- * @param Code data
- */
 data class TC07UpgradeStatus(
     val Status: Int,
     val Percent: Int,
     val Code: Int,
 )
 
-/**
- * TC007 data：Temperature measurementdata
- * @param Fps Temperature measurementdata[0,data]，data12，data12
- * @param Level Temperature measurementdata 0-High gain 1-Low gain 3-dataSwitch
- * @param OsdMode Temperature measurementdata 0-data 1-data(data) 2-data
- * @param TempUnit data 0-Celsius 1-data 2-Fahrenheit
- * @param DistanceUnit data 0-data 1-data
- */
 data class EnvAttr(
     val Fps: Int,
     val Level: Int,
@@ -188,10 +152,6 @@ internal data class TempRectParam(
     }
 }
 
-/**
- * @param DCFile Visible lightdata
- * @param IRFile Infrareddata
- */
 data class PhotoBean(
     val DCFile: String?,
     val IRFile: String?,

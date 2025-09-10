@@ -65,7 +65,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_report_pick_img
 
     override fun initView() {
-        // Initialize views
+
         titleView = findViewById(R.id.title_view)
         clShare = findViewById(R.id.cl_share)
         clDelete = findViewById(R.id.cl_delete)

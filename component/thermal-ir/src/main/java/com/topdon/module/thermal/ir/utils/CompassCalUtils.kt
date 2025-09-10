@@ -41,13 +41,6 @@ fun textDimensions(
     return measurementRect.width().toFloat() to measurementRect.height().toFloat()
 }
 
-/**
- * Returns the values between min and max, inclusive, that are divisible by divisor
- * @param min The minimum value
- * @param max The maximum value
- * @param divisor The divisor
- * @return The values between min and max, inclusive, that are divisible by divisor
- */
 fun getValuesBetween(
     min: Float,
     max: Float,
@@ -69,13 +62,6 @@ fun Float.roundNearest(nearest: Float): Float {
     return (this / nearest).roundToLong() * nearest
 }
 
-/**
- * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
- * @param bearing The compass bearing in degrees of the point
- * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
- * @param viewWidth The size of the view in pixels
- * @param fovWidth The field of view of the camera in degrees
- */
 fun getPixelLinear(
     bearing: Float,
     azimuth: Float,

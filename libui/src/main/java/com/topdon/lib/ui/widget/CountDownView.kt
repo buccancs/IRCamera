@@ -158,7 +158,6 @@ class CountDownView : View {
         mTextPaint.textAlign = Paint.Align.CENTER
         mTextPaint.typeface = font
         // view(5 4 3 2 1)
-        // val text: String = (mCountdownTime - (mCurrentProgress / 360f * mCountdownTime)).toInt().toString()
 
         mTextPaint.textSize = mRingProgressTextSize.toFloat()
         mTextPaint.color = mProgressTextColor

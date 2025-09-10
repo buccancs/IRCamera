@@ -39,7 +39,7 @@ class ConfigGuideDialog(
     val isTC007: Boolean,
     val dataBean: DataBean,
 ) : Dialog(context, R.style.TransparentDialog) {
-    // Initialize views with findViewById
+
     private lateinit var tvDefaultTempTitle: TextView
     private lateinit var tvDefaultDisTitle: TextView
     private lateinit var tvSpaceEmTitle: TextView
@@ -60,7 +60,6 @@ class ConfigGuideDialog(
         setCanceledOnTouchOutside(false)
         setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_config_guide, null))
 
-        // Initialize views
         tvDefaultTempTitle = findViewById(R.id.tv_default_temp_title)
         tvDefaultDisTitle = findViewById(R.id.tv_default_dis_title)
         tvSpaceEmTitle = findViewById(R.id.tv_space_em_title)

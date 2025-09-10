@@ -20,39 +20,6 @@ object TimeTool {
         return dateFormat.format(date)
     }
 
-    /**
-     * long: utility(utility)
-     * utility
-     */
-    @SuppressLint("SimpleDateFormat")
-    fun reportTime(time: Long): String {
-        val date = Date(time)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val timeZone = TimeZone.getTimeZone(TimeZone.getDefault().getDisplayName(false, TimeZone.SHORT))
-        dateFormat.timeZone = timeZone
-        return dateFormat.format(date)
-    }
-
-    /**
-     * utility
-     * 2021-01-01 00:00:00 => 1609430400000
-     */
-    @SuppressLint("SimpleDateFormat")
-    fun strToTime(timeStr: String): Long {
-        return try {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val timeZone = TimeZone.getTimeZone(TimeZone.getDefault().getDisplayName(false, TimeZone.SHORT))
-            dateFormat.timeZone = timeZone
-            dateFormat.parse(timeStr, ParsePosition(0))?.time ?: 1609430400000
-        } catch (e: Exception) {
-            // 2021-01-01 00:00:00
-            1609430400000
-        }
-    }
-
-    /**
-     * @param type 1:utility 2:utility 3:utility 4:utility
-     */
     @SuppressLint("SimpleDateFormat")
     fun showDateType(
         time: Long,
@@ -87,7 +54,7 @@ object TimeTool {
                 1 -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // Utility function
                 2 -> SimpleDateFormat("yyyy-MM-dd HH:mm:00") // Utility function
                 3 -> SimpleDateFormat("yyyy-MM-dd HH:00:00") // Utility function
-                4 -> SimpleDateFormat("yyyy-MM-dd 00:00:0") // Handle negative slope or alternative case
+                4 -> SimpleDateFormat("yyyy-MM-dd 00:00:0")
                 else -> SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             }
         val date = Date(time)

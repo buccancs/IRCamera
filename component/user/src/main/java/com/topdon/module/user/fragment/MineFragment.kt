@@ -84,7 +84,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.fragment_mine
 
     override fun initView() {
-        // Initialize views
+
         ivWinter = requireView().findViewById(R.id.iv_winter)
         settingItemVersion = requireView().findViewById(R.id.setting_item_version)
         settingItemClear = requireView().findViewById(R.id.setting_item_clear)

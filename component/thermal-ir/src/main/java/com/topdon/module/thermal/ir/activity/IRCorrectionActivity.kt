@@ -9,15 +9,6 @@ import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-/**
- *
- * activity
- * @author: CaiSongL
- * @date: 2023/8/4 9:06
- *
- * activity：
- * - [ExtraKeyConfig.IS_TC007] - Currentactivity TC007
- */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionActivity : BaseActivity() {
     override fun initContentView(): Int = R.layout.activity_ir_correction

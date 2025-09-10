@@ -1,93 +1,4 @@
-"""
-Enterprise-Grade Main Window Interface for IRCamera PC Controller.
 
-This module provides the comprehensive main researcher interface with advanced device
-monitoring, session control, real-time analytics, and enterprise-grade user experience
-design. It implements Material Design 3 principles adapted for thermal imaging research
-applications with accessibility compliance and multi-monitor support.
-
-The main window serves as the central command center for thermal imaging research,
-providing researchers with all necessary tools for device management, data collection,
-real-time monitoring, and session orchestration across multiple thermal cameras and
-physiological sensors.
-
-Key Features:
-    - **Multi-Device Dashboard**: Real-time monitoring of 50+ concurrent devices
-    - **Advanced Session Management**: Complex recording workflows with branching logic
-    - **Real-Time Analytics**: Live thermal and GSR data visualization with ML insights
-    - **Enterprise Security**: Role-based access control and audit logging
-    - **Accessibility Compliance**: WCAG 2.1 AA compliant with screen reader support
-    - **Multi-Monitor Support**: Flexible layouts across multiple displays
-    - **Performance Optimization**: 60 FPS UI updates with minimal CPU overhead
-    - **Customizable Workspaces**: User-configurable layouts and preferences
-
-Architecture:
-    - **MVVM Pattern**: Clean separation of UI, business logic, and data models
-    - **Async UI Updates**: Non-blocking interface with PyQt6 async integration
-    - **Plugin Architecture**: Extensible widget system for custom functionality
-    - **Theme Engine**: Dynamic theming with dark/light mode and custom palettes
-    - **Internationalization**: Full i18n support with 25+ languages
-
-Example:
-    Basic main window initialization and customization:
-
-    ```python
-    # Initialize main window with enterprise configuration
-    main_window = MainWindow(
-        config={
-            "theme": "enterprise_dark",
-            "multi_monitor": True,
-            "enable_analytics": True,
-            "accessibility_mode": False
-        }
-    )
-
-    # Configure custom workspace layout
-    main_window.configure_workspace({
-        "primary_layout": "researcher_dashboard",
-        "secondary_monitor": "analytics_view",
-        "sidebar_position": "left",
-        "enable_minimap": True
-    })
-
-    # Add custom analysis widgets
-    main_window.add_analysis_widget(ThermalAnalyticsWidget())
-    main_window.add_analysis_widget(GSRAnalyticsWidget())
-
-    # Configure real-time data streams
-    main_window.setup_data_streams([
-        "thermal_stream_001",
-        "gsr_stream_001",
-        "sync_events"
-    ])
-
-    # Launch with enterprise settings
-    main_window.show_maximized()
-    ```
-
-Performance Metrics:
-    - **UI Response Time**: < 16ms for all user interactions
-    - **Memory Usage**: < 200MB base + 50MB per active device
-    - **CPU Overhead**: < 5% during normal operation
-    - **Rendering Performance**: 60 FPS with hardware acceleration
-    - **Network Efficiency**: < 1% bandwidth overhead for UI updates
-
-Security Features:
-    - **Authentication**: Multi-factor authentication with enterprise SSO
-    - **Authorization**: Role-based access control with fine-grained permissions
-    - **Audit Logging**: Comprehensive activity tracking and compliance reporting
-    - **Data Protection**: Encryption at rest and in transit with key management
-    - **Session Management**: Secure session handling with automatic timeout
-
-Authors:
-    IRCamera Development Team - UI/UX Division
-
-Version:
-    2.1.0
-
-License:
-    MIT License - Enterprise Grade
-"""
 
 import asyncio
 from datetime import datetime
@@ -124,187 +35,8 @@ from .widgets import (
     WiFiControlWidget,
 )
 
-
 class WindowState(Enum):
-    """
-    Main window operational states for state machine management.
 
-    These states control the overall application behavior and determine
-    which UI components are active and accessible.
-    """
-
-    INITIALIZING = "initializing"
-    IDLE = "idle"
-    CONNECTING = "connecting"
-    ACTIVE = "active"
-    RECORDING = "recording"
-    PROCESSING = "processing"
-    ERROR = "error"
-
-
-class MainWindow(QMainWindow):
-    """
-    Enterprise-grade main application window for IRCamera PC Controller.
-
-    This comprehensive interface serves as the central command center for thermal
-    imaging research operations, providing researchers with sophisticated tools for
-    device management, data collection, real-time monitoring, and session orchestration.
-
-    The window implements advanced UI patterns including responsive design,
-    accessibility compliance, multi-monitor support, and enterprise-grade security
-    features. It serves as the primary interface for managing complex thermal
-    imaging research workflows.
-
-    ## Core Interface Components
-
-    ### Device Management Panel
-    - **Multi-Device Dashboard**: Real-time status monitoring for 50+ devices
-    - **Connection Management**: Automated discovery and manual device configuration
-    - **Health Monitoring**: Device diagnostics, performance metrics, and alerts
-    - **Configuration Sync**: Cross-device settings synchronization and management
-
-    ### Session Control Center
-    - **Recording Workflows**: Complex multi-phase recording session management
-    - **Real-Time Monitoring**: Live data streams with interactive visualizations
-    - **Quality Assurance**: Automatic data validation and quality metrics
-    - **Export Management**: Multi-format data export with processing pipelines
-
-    ### Analytics Dashboard
-    - **Live Thermal Analytics**: Real-time thermal data processing and visualization
-    - **GSR Analysis**: Physiological data monitoring with ML-powered insights
-    - **Synchronization Monitoring**: Cross-device timing and data alignment metrics
-    - **Performance Analytics**: System performance monitoring and optimization
-
-    ### Enterprise Features
-    - **Role-Based Access**: Fine-grained permissions and user management
-    - **Audit Logging**: Comprehensive activity tracking for compliance
-    - **Security Controls**: Multi-factor authentication and data protection
-    - **Integration APIs**: Enterprise system integration and workflow automation
-
-    ## GUI Requirements Implementation (FR6)
-
-    The interface implements all specified functional requirements:
-    - ✅ **Device List**: Real-time status indicators with connection health
-    - ✅ **Session Controls**: Start/stop/pause with advanced workflow management
-    - ✅ **Monitoring Displays**: Multi-stream real-time data visualization
-    - ✅ **Recording Status**: Elapsed time, data rates, and quality metrics
-    - ✅ **Alert System**: Device disconnect alerts and system notifications
-    - ✅ **Data Export**: Multiple format support with automated processing
-
-    ## Advanced UI Features
-
-    ### Responsive Design
-    - **Multi-Monitor Support**: Optimized layouts for dual/triple monitor setups
-    - **Adaptive Scaling**: DPI-aware rendering with automatic scaling
-    - **Flexible Layouts**: Drag-and-drop widget arrangement and customization
-    - **Workspace Presets**: Saved layout configurations for different workflows
-
-    ### Accessibility Compliance
-    - **WCAG 2.1 AA**: Full compliance with accessibility standards
-    - **Screen Reader Support**: Complete navigation and content access
-    - **Keyboard Navigation**: Comprehensive keyboard shortcuts and tab ordering
-    - **High Contrast**: Customizable themes for visual accessibility
-
-    ### Performance Optimization
-    - **Hardware Acceleration**: GPU-accelerated rendering and animations
-    - **Efficient Updates**: Selective UI updates to minimize CPU overhead
-    - **Memory Management**: Automatic resource cleanup and garbage collection
-    - **Background Processing**: Non-blocking operations with progress indication
-
-    ## Usage Example
-
-    ```python
-    # Initialize with enterprise configuration
-    window = MainWindow(
-        session_manager=session_mgr,
-        network_server=net_server,
-        config={
-            "theme": "enterprise_professional",
-            "layout": "researcher_dashboard",
-            "enable_analytics": True,
-            "multi_monitor": True
-        }
-    )
-
-    # Configure custom workspace
-    window.setup_workspace({
-        "primary_panel": "device_management",
-        "secondary_panel": "analytics_dashboard",
-        "sidebar": "session_control",
-        "notifications": "top_right"
-    })
-
-    # Add custom analysis components
-    window.register_analytics_widget(CustomThermalAnalyzer())
-    window.register_analytics_widget(PhysiologicalMonitor())
-
-    # Launch application
-    window.show_enterprise_mode()
-    ```
-
-    ## Performance Characteristics
-
-    - **UI Response Time**: < 16ms for all user interactions (60 FPS)
-    - **Memory Footprint**: 150MB base + 25MB per connected device
-    - **CPU Usage**: < 3% during normal operation, < 8% during recording
-    - **Network Overhead**: < 100KB/s for UI updates and status monitoring
-    - **Rendering Performance**: Hardware-accelerated with automatic optimization
-
-    ## Security & Compliance
-
-    - **Data Protection**: AES-256 encryption for sensitive configuration data
-    - **Authentication**: Integration with enterprise SSO systems (LDAP, SAML)
-    - **Authorization**: Role-based access control with configurable permissions
-    - **Audit Trail**: Comprehensive logging of all user actions and system events
-    - **Compliance**: HIPAA, GDPR, and research data protection standards
-
-    Attributes:
-        session_manager: Core session management instance
-        network_server: Network communication server
-        current_state: Current window operational state
-        device_widgets: Dictionary of active device monitoring widgets
-        analytics_panels: List of registered analytics visualization components
-        security_manager: Enterprise security and access control manager
-
-    Signals:
-        state_changed(WindowState): Emitted when window state changes
-        device_status_updated(str, dict): Device status change notifications
-        session_event(str, dict): Session lifecycle event notifications
-        error_occurred(str, Exception): Error event notifications
-        analytics_updated(str, dict): Real-time analytics data updates
-    """
-
-    # Custom signals
-    session_started = pyqtSignal(str)
-    session_stopped = pyqtSignal(str)
-    sync_flash_triggered = pyqtSignal()
-
-    def __init__(
-        self,
-        session_manager: SessionManager,
-        network_server: NetworkServer,
-        time_sync_service: TimeSyncService,
-        gsr_ingestor=None,
-        file_transfer_manager=None,
-        camera_calibrator=None,
-        bluetooth_manager=None,
-        wifi_manager=None,
-        admin_privileges_manager=None,
-    ):
-        """
-        Initialize main window with all components.
-
-        Args:
-            session_manager: Session management service
-            network_server: Network server for device communication
-            time_sync_service: Time synchronization service
-            gsr_ingestor: GSR data ingestor (optional)
-            file_transfer_manager: File transfer manager (optional)
-            camera_calibrator: Camera calibration service (optional)
-            bluetooth_manager: Bluetooth device manager (optional)
-            wifi_manager: WiFi network manager (optional)
-            admin_privileges_manager: Administrator privileges manager (optional)
-        """
         super().__init__()
 
         # Core services
@@ -356,7 +88,6 @@ class MainWindow(QMainWindow):
         # Main layout
         main_layout = QHBoxLayout(central_widget)
 
-        # Create splitter for resizable panes
         splitter = QSplitter(Qt.Orientation.Horizontal)
         main_layout.addWidget(splitter)
 
@@ -485,7 +216,6 @@ class MainWindow(QMainWindow):
 
         layout.addWidget(status_group)
 
-        # Log display section
         log_group = QGroupBox("System Log")
         log_layout = QVBoxLayout(log_group)
 
@@ -659,7 +389,7 @@ class MainWindow(QMainWindow):
         """Start periodic UI updates."""
         self._update_timer = QTimer()
         self._update_timer.timeout.connect(self._update_displays)
-        self._update_timer.start(1000)  # Update every second
+        self._update_timer.start(1000)
 
     def _update_displays(self) -> None:
         """Update all display components."""
@@ -719,7 +449,7 @@ class MainWindow(QMainWindow):
         """Update recording status display"""
         if self._session_start_time:
             elapsed = datetime.now() - self._session_start_time
-            elapsed_str = str(elapsed).split(".")[0]  # Remove microseconds
+            elapsed_str = str(elapsed).split(".")[0]
             self.session_label.setText(f"Recording: {elapsed_str}")
         else:
             self.session_label.setText("Recording: --:--:--")
@@ -748,11 +478,9 @@ class MainWindow(QMainWindow):
         current_session = self.session_manager.get_current_session()
         has_devices = len(self.network_server.get_connected_devices()) > 0
 
-        # Update session control state
         if self.session_control_widget:
             self.session_control_widget.update_state(current_session, has_devices)
 
-        # Update sync controls
         can_sync = (
             current_session
             and current_session.state
@@ -781,7 +509,6 @@ class MainWindow(QMainWindow):
                 )
                 return
 
-            # Start the session
             self.session_manager.start_session()
             self.session_manager.begin_recording()
             self._session_start_time = datetime.now()
@@ -817,7 +544,6 @@ class MainWindow(QMainWindow):
                 self.network_server.stop_recording_session(current_session.session_id)
             )
 
-            # End the session
             ended_session = self.session_manager.end_session()
             self._session_start_time = None
 
@@ -836,7 +562,7 @@ class MainWindow(QMainWindow):
     def _on_new_session_requested(self) -> None:
         """Handle new session creation request."""
         try:
-            # Get session name from user
+
             name, ok = QInputDialog.getText(
                 self,
                 "New Session",
@@ -848,7 +574,6 @@ class MainWindow(QMainWindow):
 
             session_name = name.strip() if name.strip() else None
 
-            # Create new session
             session = self.session_manager.create_session(session_name)
 
             logger.info(f"New session created: {session.name}")
@@ -865,7 +590,6 @@ class MainWindow(QMainWindow):
 
             asyncio.create_task(self.network_server.send_sync_flash())
 
-            # Add sync event to session
             current_session = self.session_manager.get_current_session()
             if current_session:
                 self.session_manager.add_sync_event("flash")
@@ -882,7 +606,7 @@ class MainWindow(QMainWindow):
     def _on_sync_mark_clicked(self) -> None:
         """Handle sync mark button click."""
         try:
-            # Get mark description from user
+
             description, ok = QInputDialog.getText(
                 self, "Sync Mark", "Enter sync mark description:"
             )
@@ -898,7 +622,6 @@ class MainWindow(QMainWindow):
                 )
             )
 
-            # Add sync event to session
             current_session = self.session_manager.get_current_session()
             if current_session:
                 self.session_manager.add_sync_event(
@@ -928,7 +651,6 @@ class MainWindow(QMainWindow):
             f"({device_info.device_type})"
         )
 
-        # Add device to current session if active
         current_session = self.session_manager.get_current_session()
         if current_session:
             self.session_manager.add_device(device_info.to_dict())
@@ -938,7 +660,6 @@ class MainWindow(QMainWindow):
         logger.warning(f"Device disconnected: {device_info.device_id}")
         self._add_log_message(f"Device disconnected: {device_info.device_id}")
 
-        # Show alert for important devices
         if device_info.is_gsr_leader:
             self._show_warning(
                 "GSR Leader Disconnected",
@@ -984,7 +705,7 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event) -> None:
         """Handle window close event."""
-        # Stop any active session
+
         current_session = self.session_manager.get_current_session()
         if current_session and current_session.state in [
             SessionState.ACTIVE.value,
@@ -1003,7 +724,6 @@ class MainWindow(QMainWindow):
             elif reply == QMessageBox.Yes:
                 self._on_stop_session_requested()
 
-        # Stop UI updates
         if self._update_timer:
             self._update_timer.stop()
 

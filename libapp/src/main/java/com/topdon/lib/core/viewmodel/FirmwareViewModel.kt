@@ -32,73 +32,6 @@ import java.lang.NumberFormatException
 import java.util.TimeZone
 import java.util.concurrent.CountDownLatch
 
-/**
- * view
- */
-class FirmwareViewModel(application: Application) : AndroidViewModel(application) {
-    companion object {
-        /**
-         * TS004 view view.
-         */
-        private const val TS004_SOFT_CODE = "TS004_FirmwareSW_Scope"
-
-        /**
-         * TC007 view view.
-         */
-        private const val TC007_SOFT_CODE = "TC007_FirmwareSW_Wireless"
-
-        /**
-         * TS004 apk view.
-         */
-        private const val TS004_FIRMWARE_VERSION = "V1.70"
-
-        /**
-         * TS004 apk view.
-         */
-        private const val TS004_FIRMWARE_NAME = "TS004V1.70.zip"
-
-        /**
-         * TC007 apk view.
-         */
-        private const val TC007_FIRMWARE_VERSION = "V4.06"
-
-        /**
-         * TC007 apk view.
-         */
-        private const val TC007_FIRMWARE_NAME = "TC007V4.06.zip"
-
-        private const val USE_DEBUG_SN = false
-        private const val TS004_DEBUG_SN = "1D003655A10016"
-        private const val TS004_DEBUG_RANDOM_NUM = "8D2N01"
-        private const val TC007_DEBUG_SN = "1D004714E10002"
-        private const val TC007_DEBUG_RANDOM_NUM = "EN6L6Q"
-    }
-
-    /**
-     * viewState，view.
-     */
-    @Volatile
-    private var isRequest = false
-
-    /**
-     * view LiveData.
-     * nullview
-     */
-    val firmwareDataLD: MutableLiveData<FirmwareData?> = MutableLiveData()
-
-    /**
-     * view LiveData.
-     * true-view false-view
-     */
-    val failLD: MutableLiveData<Boolean> = MutableLiveData()
-
-    /**
-     * view.
-     * @param version view，V1.00view
-     * @param updateStr view
-     * @param downUrl view URL
-     * @param size view，view byte
-     */
     data class FirmwareData(
         val version: String,
         val updateStr: String,
@@ -106,12 +39,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
         val size: Long,
     )
 
-    /**
-     * view，view：
-     * - [firmwareDataLD] (view)
-     * - [failLD] (view)
-     * @param isTS004 true-TS004 false-TC007
-     */
     fun queryFirmware(isTS004: Boolean) {
         if (isRequest) { // view，view
             return

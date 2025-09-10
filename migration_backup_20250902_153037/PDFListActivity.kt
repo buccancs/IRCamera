@@ -32,12 +32,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/**
- * 需要传递
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007]
- * @author: CaiSongL
- * @date: 2023/5/12 11:34
- */
 @Route(path = RouterConfig.REPORT_LIST)
 class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     /**

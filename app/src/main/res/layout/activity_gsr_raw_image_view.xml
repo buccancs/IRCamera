@@ -6,11 +6,11 @@
     </data>
 <ScrollView xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:background="#16131e">
   <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="4dp">
       <ImageView ns0:id="@+id/raw_image_view" ns0:layout_width="match_parent" ns0:layout_height="300dp" ns0:scaleType="centerCrop" ns0:src="@drawable/ic_camera_alt" ns0:background="@android:color/black" />
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Image Metadata" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="12dp" />

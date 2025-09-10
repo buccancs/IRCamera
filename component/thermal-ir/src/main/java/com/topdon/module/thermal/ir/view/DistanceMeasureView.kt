@@ -9,10 +9,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 
-/**
- * @author: CaiSongL
- * @date: 2023/9/28 13:49
- */
 class DistanceMeasureView : View {
     private var margin: Float = 0f
     private var linePaint: Paint? = null

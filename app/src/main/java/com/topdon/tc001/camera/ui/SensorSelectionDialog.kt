@@ -11,40 +11,6 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import com.csl.irCamera.R
 
-/**
- * Dialog for selecting which sensors to include in multi-modal recording
- * Allows any combination of Thermal (IR), RGB Camera, and GSR sensors
- */
-class SensorSelectionDialog(
-    context: Context,
-    private val availableSensors: Set<SensorType>,
-    private val onSensorsSelected: (Set<SensorType>) -> Unit,
-) : Dialog(context) {
-    companion object {
-        private const val TAG = "SensorSelectionDialog"
-
-        fun detectAvailableSensors(context: Context): Set<SensorType> {
-            val available = mutableSetOf<SensorType>()
-
-            // Thermal camera is always available in this thermal camera app
-            available.add(SensorType.THERMAL)
-
-            // Check RGB camera availability
-            if (context.packageManager.hasSystemFeature(android.content.pm.PackageManager.FEATURE_CAMERA_ANY)) {
-                available.add(SensorType.RGB)
-            }
-
-            // GSR sensor availability - for now assume always available with fallback to simulated data
-            // In production, this would check for paired Shimmer devices
-            available.add(SensorType.GSR)
-
-            Log.d(TAG, "Detected available sensors: $available")
-            return available
-        }
-
-        /**
-         * Show sensor selection dialog with auto-detected available sensors
-         */
         fun show(
             context: Context,
             onSensorsSelected: (Set<SensorType>) -> Unit,
@@ -71,7 +37,6 @@ class SensorSelectionDialog(
         super.onCreate(savedInstanceState)
         setTitle("Select Recording Sensors")
 
-        // Create layout
         val mainLayout =
             LinearLayout(context).apply {
                 orientation = LinearLayout.VERTICAL
@@ -149,7 +114,6 @@ class SensorSelectionDialog(
 
         mainLayout.addView(buttonLayout)
 
-        // Setup change listeners
         setupCheckBoxListeners()
 
         setContentView(mainLayout)

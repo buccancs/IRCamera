@@ -31,14 +31,12 @@ class CertificateManager(private val context: Context) {
      */
     fun initialize(): Boolean {
         return try {
-            // Initialize device keystore for client certificates
+
             deviceKeyStore = KeyStore.getInstance(KEY_STORE_TYPE)
             deviceKeyStore?.load(null, null)
 
-            // Create custom trust manager for device validation
             trustManager = createCustomTrustManager()
 
-            // Initialize key manager for client authentication
             keyManager = createKeyManager()
 
             Log.i(TAG, "Certificate manager initialized successfully")
@@ -85,7 +83,7 @@ class CertificateManager(private val context: Context) {
      */
     fun validateDeviceCertificate(certificate: X509Certificate): Boolean {
         return try {
-            // Check if certificate is from a valid Topdon device
+
             val subject = certificate.subjectDN.name
             val issuer = certificate.issuerDN.name
 
@@ -101,7 +99,6 @@ class CertificateManager(private val context: Context) {
                 return false
             }
 
-            // Check certificate validity period
             certificate.checkValidity()
 
             Log.d(TAG, "Device certificate validated: $subject")
@@ -135,7 +132,6 @@ class CertificateManager(private val context: Context) {
                 return false
             }
 
-            // Add to trust store
             deviceKeyStore?.setCertificateEntry(alias, certificate)
 
             Log.i(TAG, "Device certificate installed: $alias")
@@ -168,7 +164,7 @@ class CertificateManager(private val context: Context) {
             }
 
             override fun getAcceptedIssuers(): Array<X509Certificate> {
-                // Return trusted certificate authorities
+
                 return deviceKeyStore?.let { ks ->
                     val aliases = ks.aliases()
                     val certificates = mutableListOf<X509Certificate>()
@@ -275,7 +271,6 @@ class CertificateManager(private val context: Context) {
             val timestamp = parts[1].toLong()
             val currentTime = System.currentTimeMillis()
 
-            // Check token age
             if (currentTime - timestamp > maxAgeMs) {
                 Log.w(TAG, "Auth token expired")
                 return false

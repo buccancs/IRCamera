@@ -29,7 +29,7 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
      * data
      */
     fun startTransition() {
-//        Log.w("123", "data")
+
         if (!isAdd) {
             addTransitionListener(this)
             isAdd = true
@@ -67,7 +67,7 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
         motionLayout: MotionLayout?,
         currentId: Int,
     ) {
-//        Log.w("123", "onTransitionCompleted currentId:$currentId")
+
         if (currentId == motionEndId) {
             transitionToStart()
         } else {

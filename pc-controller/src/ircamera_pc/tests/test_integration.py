@@ -18,10 +18,9 @@ from loguru import logger
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 # Local imports - moved after sys.path setup
-from ircamera_pc.core.session_manager import SessionManager  # noqa: E402
-from ircamera_pc.data.aggregator import DataAggregator  # noqa: E402
-from ircamera_pc.network.server import NetworkServer  # noqa: E402
-
+from ircamera_pc.core.session_manager import SessionManager
+from ircamera_pc.data.aggregator import DataAggregator
+from ircamera_pc.network.server import NetworkServer
 
 class TestEndToEndIntegration(unittest.TestCase):
     """End-to-end integration tests for complete Hub-and-Spoke system"""
@@ -30,7 +29,6 @@ class TestEndToEndIntegration(unittest.TestCase):
         """Set up integration test environment"""
         self.temp_dir = tempfile.mkdtemp()
 
-        # Initialize core components
         self.network_server = NetworkServer()
         self.data_aggregator = DataAggregator(output_dir=self.temp_dir)
         self.session_manager = SessionManager()
@@ -60,7 +58,7 @@ class TestEndToEndIntegration(unittest.TestCase):
     def tearDown(self):
         """Clean up integration test environment"""
         if self.network_server.is_running:
-            # Run async stop method in sync context
+
             asyncio.run(self.network_server.stop())
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
@@ -109,7 +107,6 @@ class TestEndToEndIntegration(unittest.TestCase):
             # Device sends registration message
             registration_msg = {"type": "device_register", **device_config}
 
-            # Process registration using correct async method
             try:
                 await self.network_server._handle_device_register(
                     registration_msg, mock_socket
@@ -268,7 +265,6 @@ class TestEndToEndIntegration(unittest.TestCase):
         self.data_aggregator.initialize()
         await self._register_test_devices()
 
-        # Create test session with recorded data
         session_id = self.session_manager.create_session(
             {"session_name": "FileTransfer_Test", "participant_id": "P001"}
         )
@@ -365,9 +361,6 @@ class TestEndToEndIntegration(unittest.TestCase):
         self.data_aggregator.initialize()
         await self._register_test_devices()
 
-        # Enable real-time monitoring
-        # Remove unused monitoring_config variable - already set above
-        # Create and start session
         session_id = self.session_manager.create_session(
             {"session_name": "QualityMonitoring_Test", "participant_id": "P001"}
         )
@@ -451,7 +444,6 @@ class TestEndToEndIntegration(unittest.TestCase):
         self.data_aggregator.initialize()
         await self._register_test_devices()
 
-        # Create test session
         _ = self.session_manager.create_session(
             {"session_name": "ErrorRecovery_Test", "participant_id": "P001"}
         )
@@ -499,10 +491,8 @@ class TestEndToEndIntegration(unittest.TestCase):
                 # Mock high latency behavior
                 original_latency = 50  # Mock original latency in ms
 
-                # Check if system adapts
                 time.sleep(3)
 
-                # Remove latency simulation (simulate via internal network state)
                 # Mock the latency adaptation process
                 adapted_latency = original_latency * 0.8  # Mock improved latency
 
@@ -514,7 +504,6 @@ class TestEndToEndIntegration(unittest.TestCase):
                 # Send corrupted sync marker
                 corrupted_marker = "invalid json data"
 
-                # Process corrupted message through validate_message
                 try:
                     from ..network.protocol import validate_message
                     # Try to parse as JSON first, then validate
@@ -598,7 +587,6 @@ class TestEndToEndIntegration(unittest.TestCase):
                     "timestamp": time.time_ns(),
                 }
 
-                # Process device message through message processing
                 try:
                     await self.network_server._process_message(message, Mock())
                     success = True
@@ -609,7 +597,6 @@ class TestEndToEndIntegration(unittest.TestCase):
 
                 time.sleep(1.0 / scenario["sync_rate"])
 
-        # Start concurrent tasks using asyncio
         tasks = []
         for i in range(scenario["devices_count"]):
             task = asyncio.create_task(send_device_messages(f"LOAD_DEVICE_{i:02d}"))
@@ -640,7 +627,6 @@ class TestEndToEndIntegration(unittest.TestCase):
                 "timestamp": time.time_ns(),
             }
 
-            # Process large message
             try:
                 await self.network_server._process_message(large_message, Mock())
                 success = True
@@ -705,7 +691,6 @@ class TestEndToEndIntegration(unittest.TestCase):
             self.assertGreater(results.get("success_rate", 0), 0.5)
             logger.info(f"Performance test '{scenario_name}': {results}")
 
-        # Get overall performance statistics (mock)
         perf_stats = {
             "messages_processed": sum(results.get("success_count", 0) for results in performance_results.values()),
             "average_response_time_ms": 50.0,
@@ -798,7 +783,6 @@ class TestEndToEndIntegration(unittest.TestCase):
                 content += f"{timestamp},{value}\n"
 
         return content
-
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

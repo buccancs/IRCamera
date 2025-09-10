@@ -17,10 +17,6 @@ import org.junit.Test
 import java.io.File
 import kotlin.system.measureTimeMillis
 
-/**
- * Comprehensive performance tests for Hub-and-Spoke architecture
- * Tests data throughput, latency, CPU/memory usage under various load conditions
- */
 @OptIn(ExperimentalCoroutinesApi::class)
 class PerformanceTest {
     @MockK
@@ -55,12 +51,10 @@ class PerformanceTest {
         every { context.cacheDir } returns File("/tmp/test")
         every { context.getExternalFilesDir(any()) } returns File("/tmp/test")
 
-        // Initialize components
         recordingController = RecordingController(context, lifecycleOwner)
         networkClient = EnhancedNetworkClient(context)
         timeManager = TimeManager.getInstance(context)
 
-        // Setup mock sensors
         setupMockSensors()
     }
 
@@ -309,7 +303,6 @@ class PerformanceTest {
                     val latency = (endTime - startTime) / 1_000_000
                     latencies.add(latency)
 
-                    // Check if sync was successful
                     if (timeManager.isSynchronized()) successCount++
 
                     delay(10) // Realistic interval between syncs
@@ -345,7 +338,7 @@ class PerformanceTest {
             val startTime = System.currentTimeMillis()
 
             repeat(totalOperations.toInt()) { index ->
-                // Add sync markers continuously
+
                 recordingController.addSyncMarker(
                     "MEMORY_TEST_$index",
                     mapOf(
@@ -374,7 +367,6 @@ class PerformanceTest {
             // Memory growth should be reasonable
             assertTrue("Memory growth should be under 50MB for sustained load", memoryGrowth < 50.0)
 
-            // Check for memory leaks (memory should not grow continuously)
             val memoryTrend =
                 memorySnapshots.zipWithNext { current, next ->
                     next.second - current.second
@@ -404,7 +396,6 @@ class PerformanceTest {
             scenarios.forEach { (scenarioName, opsPerSec) ->
                 val cpuMetrics = measureCPUUsage(opsPerSec, durationSeconds = 5)
 
-                // Log scenario results
                 println(
                     "$scenarioName: CPU=${cpuMetrics.averageCpuPercent}%, " +
                         "Peak=${cpuMetrics.peakCpuPercent}%, Ops/sec=$opsPerSec",
@@ -432,7 +423,6 @@ class PerformanceTest {
         val totalOperations = operationsPerSecond * durationSeconds
         val intervalMs = 1000 / operationsPerSecond
 
-        // Start CPU monitoring
         launch {
             repeat(durationSeconds * 2) { // Sample twice per second
                 val cpuPercent = getCurrentCPUUsage()

@@ -107,7 +107,7 @@ class FencePointView : View {
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
-//                Log.i("123", "onTouchEvent: ACTION_UP")
+
                 startPoint[0] = mX.toInt()
                 startPoint[1] = mY.toInt()
                 result()

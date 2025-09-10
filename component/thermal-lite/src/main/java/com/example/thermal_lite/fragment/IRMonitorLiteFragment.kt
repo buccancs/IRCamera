@@ -114,7 +114,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     }
 
     override fun initView() {
-        // Initialize view references
+
         temperatureView = requireView().findViewById(R.id.temperatureView)
         cameraView = requireView().findViewById(R.id.cameraView)
 

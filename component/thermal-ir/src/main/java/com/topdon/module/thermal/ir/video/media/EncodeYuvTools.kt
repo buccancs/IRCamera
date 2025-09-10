@@ -75,7 +75,7 @@ object EncodeYuvTools {
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0
@@ -132,7 +132,7 @@ object EncodeYuvTools {
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0
@@ -186,7 +186,7 @@ object EncodeYuvTools {
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0
@@ -244,7 +244,7 @@ object EncodeYuvTools {
         var index = 0
         for (j in 0 until height) {
             for (i in 0 until width) {
-                // val a = argb[index] and -0x1000000 shr 24
+
                 val r = argb[index] and 0xff0000 shr 16
                 val g = argb[index] and 0xff00 shr 8
                 val b = argb[index] and 0xff shr 0

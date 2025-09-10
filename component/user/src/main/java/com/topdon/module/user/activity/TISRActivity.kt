@@ -26,7 +26,7 @@ class TISRActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_tisr
 
     override fun initView() {
-        // Initialize views - migrated from synthetic views
+
         titleView = findViewById(R.id.title_view)
         settingItemTisrSelect = findViewById(R.id.setting_item_tisr_select)
 

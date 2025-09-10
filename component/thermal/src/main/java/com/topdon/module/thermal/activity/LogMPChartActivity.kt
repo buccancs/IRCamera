@@ -108,8 +108,8 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         chart.description = null // Activity operation
         chart.setBackgroundResource(com.topdon.lib.core.R.color.chart_bg)
         chart.setScaleEnabled(true) // Activity operation
-        chart.setPinchZoom(false) // Initialize flag，activityxactivityyactivity
-        chart.isDoubleTapToZoomEnabled = false // Initialize flag
+        chart.setPinchZoom(false)
+        chart.isDoubleTapToZoomEnabled = false
         chart.isScaleYEnabled = false // Activity operationYactivity
         chart.setExtraOffsets(
             0f,

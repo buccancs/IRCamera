@@ -15,10 +15,6 @@ import org.junit.Test
 import java.net.InetAddress
 import kotlin.math.abs
 
-/**
- * Comprehensive unit tests for TimeManager
- * Tests time synchronization, NTP protocol, and clock management
- */
 @OptIn(ExperimentalCoroutinesApi::class)
 class TimeManagerTest {
     @MockK
@@ -107,7 +103,7 @@ class TimeManagerTest {
     @Test
     fun testSynchronizedTimestamp() =
         runTest {
-            // Setup synchronization
+
             val pcTime = System.currentTimeMillis() * 1000000
             val localTime = SystemClock.elapsedRealtimeNanos()
             timeManager.updateClockOffset(pcTime, localTime, 0)
@@ -202,7 +198,6 @@ class TimeManagerTest {
             // Simulate time passing and drift
             delay(100)
 
-            // Update with slightly different offset (simulating drift)
             timeManager.updateClockOffset(
                 System.currentTimeMillis() * 1000000,
                 SystemClock.elapsedRealtimeNanos(),

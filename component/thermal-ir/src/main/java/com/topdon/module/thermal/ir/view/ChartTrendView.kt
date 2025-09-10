@@ -108,10 +108,6 @@ class ChartTrendView : LineChart {
         invalidate()
     }
 
-    /**
-     * viewSpecifiedview
-     * @param tempList view，viewCelsius
-     */
     fun refresh(tempList: List<Float>) {
         if (tempList.isEmpty()) {
             setToEmpty()

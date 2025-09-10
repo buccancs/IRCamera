@@ -51,11 +51,6 @@ object TS004Repository {
             .build()
             .create(TS004Service::class.java)
 
-    /**
-     * repository
-     * @param dataMap key-URL，value-repository
-     * @param listener repository，repository
-     */
     suspend fun downloadList(
         dataMap: Map<String, File>,
         listener: ((path: String, isSuccess: Boolean) -> Unit),
@@ -109,69 +104,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repository.
-     */
-    suspend fun syncTime(): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                val calendar = Calendar.getInstance()
-                val paramMap: HashMap<String, Any> = HashMap()
-                paramMap["year"] = calendar.get(Calendar.YEAR)
-                paramMap["month"] = calendar.get(Calendar.MONTH) + 1
-                paramMap["day"] = calendar.get(Calendar.DAY_OF_MONTH)
-                paramMap["hour"] = calendar.get(Calendar.HOUR_OF_DAY)
-                paramMap["min"] = calendar.get(Calendar.MINUTE)
-                paramMap["sec"] = calendar.get(Calendar.SECOND)
-                paramMap["usec"] = calendar.get(Calendar.MILLISECOND)
-                getTS004Service().syncTime(paramMap.toBody()).isSuccess()
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    /**
-     * repository.
-     */
-    suspend fun syncTimeZone(): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                val paramMap: HashMap<String, Any> = HashMap()
-                paramMap["timezone"] = TimeZone.getDefault().rawOffset / 1000 / 60 / 60
-                getTS004Service().syncTimeZone(paramMap.toBody()).isSuccess()
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    /**
-     * repository
-     */
-    suspend fun getVersion(): TS004Response<VersionBean>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getVersion()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * repository
-     */
-    suspend fun getDeviceInfo(): TS004Response<DeviceInfo>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getDeviceInfo()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * repository.
-     * @param fileType 0-repository 1-Video 2-All
-     */
     suspend fun getFileCount(fileType: Int): Int? =
         withContext(Dispatchers.IO) {
             try {
@@ -183,10 +115,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repositorySpecifiedTyperepository.
-     * @param fileType 0-repository 1-Video 2-All
-     */
     suspend fun getNewestFile(fileType: Int): List<FileBean>? =
         withContext(Dispatchers.IO) {
             try {
@@ -200,10 +128,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repositorySpecifiedTyperepositoryAllrepository.
-     * @param fileType 0-repository 1-Video 2-All
-     */
     suspend fun getAllFileList(fileType: Int): List<FileBean> =
         withContext(Dispatchers.IO) {
             try {
@@ -222,11 +146,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repositorySpecifiedTyperepository.
-     * @param fileType 0-repository 1-Video 2-All
-     * @return null-repository
-     */
     suspend fun getFileByPage(
         fileType: Int,
         pageNum: Int,
@@ -246,125 +165,6 @@ object TS004Repository {
 
     data class IdData(val id: Int)
 
-    /**
-     * DeleteSpecified id repository
-     */
-    suspend fun deleteFiles(ids: Array<Int>): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                val idArray: Array<IdData> =
-                    Array(ids.size) {
-                        IdData(ids[it])
-                    }
-
-                val paramMap: HashMap<String, Any> = HashMap()
-                paramMap["filelist"] = idArray
-                getTS004Service().deleteFile(paramMap.toBody()).isSuccess()
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    /**
-     * repository.
-     */
-    suspend fun updateFirmware(file: File): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                val isStartSuccess = getTS004Service().firmwareUpdateStart().isSuccess()
-                if (!isStartSuccess) {
-                    return@withContext false
-                }
-
-                val isSendStartSuccess = sendUpgradeFileStart(file)
-                if (!isSendStartSuccess) {
-                    return@withContext false
-                }
-
-                val isSendFileSuccess = sendUpgradeFile(file)
-                if (!isSendFileSuccess) {
-                    return@withContext false
-                }
-
-                val isEndSuccess = sendUpgradeFileEnd(file)
-                if (!isEndSuccess) {
-                    return@withContext false
-                }
-
-                var status = getTS004Service().getUpgradeStatus().data?.status
-                while (status == 0 || status == 1 || status == 2) { // repository
-                    delay(1000)
-                    status = getTS004Service().getUpgradeStatus().data?.status
-                }
-
-                status == 4
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    private suspend fun sendUpgradeFileStart(file: File): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                val paramMap: HashMap<String, Any> = HashMap()
-                paramMap["saveAsFile"] = true
-                paramMap["MD5"] = EncryptUtils.encryptMD5File2String(file).lowercase(Locale.ROOT)
-                paramMap["length"] = file.length()
-                getTS004Service().sendUpgradeFileStart(paramMap.toBody()).isSuccess()
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    private suspend fun sendUpgradeFile(file: File): Boolean =
-        withContext(Dispatchers.IO) {
-            var fileInputStream: FileInputStream? = null
-            try {
-                fileInputStream = FileInputStream(file)
-
-                var hasReadCount = 0
-                var byteArray = ByteArray(1024 * 1024 * 5) // 5Mrepository
-
-                var readCount = fileInputStream.read(byteArray)
-                while (readCount != -1) {
-                    hasReadCount += readCount
-                    if (hasReadCount == 1024 * 1024 * 5) {
-                        getTS004Service().sendUpgradeFile(byteArray.toRequestBody())
-                        hasReadCount = 0
-                        byteArray = ByteArray(1024 * 1024 * 5) // 5Mrepository
-                    }
-                    readCount = fileInputStream.read(byteArray, hasReadCount, byteArray.size - hasReadCount)
-                }
-
-                if (hasReadCount > 0) {
-                    val lastArray = ByteArray(hasReadCount)
-                    System.arraycopy(byteArray, 0, lastArray, 0, hasReadCount)
-                    getTS004Service().sendUpgradeFile(lastArray.toRequestBody())
-                }
-
-                true
-            } catch (_: Exception) {
-                false
-            } finally {
-                fileInputStream?.close()
-            }
-        }
-
-    private suspend fun sendUpgradeFileEnd(file: File): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                val paramMap: HashMap<String, Any> = HashMap()
-                paramMap["MD5"] = EncryptUtils.encryptMD5File2String(file).lowercase(Locale.ROOT)
-                getTS004Service().sendUpgradeFileEnd(paramMap.toBody()).isSuccess()
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    /**
-     * SettingsPseudo-colorrepository
-     * @param mode Pseudo-colorrepository White hot-1，Black hot-2，Red hot-9, Iron red-5
-     */
     suspend fun setPseudoColor(mode: Int): Boolean =
         withContext(Dispatchers.IO) {
             try {
@@ -377,22 +177,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repositoryPseudo-colorrepository
-     */
-    suspend fun getPseudoColor(): TS004Response<PseudoColorBean>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getPseudoColor()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * Settingsrepository
-     * @param state 0-repository，1-repository
-     */
     suspend fun setRangeFind(state: Int): Boolean =
         withContext(Dispatchers.IO) {
             try {
@@ -404,22 +188,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repository
-     */
-    suspend fun getRangeFind(): TS004Response<RangeBean>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getRangeFind()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * Settingsrepository
-     * @param brightness  repository:repository0-100
-     */
     suspend fun setPanelParam(brightness: Int): Boolean =
         withContext(Dispatchers.IO) {
             try {
@@ -431,22 +199,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repository
-     */
-    suspend fun getPanelParam(): TS004Response<BrightnessBean>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getPanelParam()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * SettingsPicture in picture
-     * @param enable  true repository，false repository
-     */
     suspend fun setPip(enable: Boolean): Boolean =
         withContext(Dispatchers.IO) {
             try {
@@ -458,22 +210,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repositoryPicture in picture
-     */
-    suspend fun getPip(): TS004Response<PipBean>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getPip()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * Settingsrepository
-     * @param factor repository:1,2,4,8
-     */
     suspend fun setZoom(factor: Int): Boolean =
         withContext(Dispatchers.IO) {
             try {
@@ -486,22 +222,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repository
-     */
-    suspend fun getZoom(): TS004Response<ZoomBean>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getZoom()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * SettingsPhoto
-     * @param factor repository:1,2,4,8
-     */
     suspend fun setSnapshot(): Boolean =
         withContext(Dispatchers.IO) {
             try {
@@ -511,10 +231,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * SettingsVideo
-     * @param enable repository
-     */
     suspend fun setVideo(enable: Boolean): Boolean =
         withContext(Dispatchers.IO) {
             try {
@@ -526,59 +242,6 @@ object TS004Repository {
             }
         }
 
-    /**
-     * repositoryState
-     */
-    suspend fun getRecordStatus(): TS004Response<RecordStatusBean>? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().getVRecord()
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * repository
-     */
-    suspend fun getFreeSpace(): FreeSpaceBean? =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().freeSpace().data
-            } catch (_: Exception) {
-                null
-            }
-        }
-
-    /**
-     * repository
-     */
-    suspend fun getFormatStorage(): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                getTS004Service().formatStorage().isSuccess()
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    /**
-     * repositorySettings
-     */
-    suspend fun getResetAll(): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                // repositoryHistorical legacyrepository，repository status 0 repository，repository，100 repository
-                getTS004Service().resetAll().status == 100
-            } catch (_: Exception) {
-                false
-            }
-        }
-
-    /**
-     * Settingsrepository
-     * @param state 0-repository 1-repository
-     */
     suspend fun setTISR(state: Int): Boolean =
         withContext(Dispatchers.IO) {
             try {

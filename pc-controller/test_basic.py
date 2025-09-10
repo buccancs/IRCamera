@@ -10,17 +10,14 @@ import sys
 import tempfile
 from pathlib import Path
 
-# Add src to path
 src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
-
 
 def test_basic_functionality():
     """Test basic functionality without external dependencies."""
     print("TESTING Testing IRCamera PC Controller Core Components")
     print("=" * 60)
 
-    # Create temporary directory for testing
     temp_dir = tempfile.mkdtemp()
     print(f"DIRECTORY Using temporary directory: {temp_dir}")
 
@@ -29,7 +26,6 @@ def test_basic_functionality():
         print("\n1. Testing Configuration Manager...")
         from ircamera_pc.core.config import ConfigManager
 
-        # Create config manager with temp dir
         config = ConfigManager()
         config.set("session.data_root", temp_dir)
 
@@ -51,7 +47,6 @@ def test_basic_functionality():
 
         session_mgr = SessionManager()
 
-        # Create a session
         session = session_mgr.create_session("test_session")
         print(f"   OK Created session: {session.name}")
         print(f"   OK Session ID: {session.session_id[:8]}...")
@@ -68,7 +63,6 @@ def test_basic_functionality():
         if current:
             print(f"   OK Started recording, state: {current.state}")
 
-        # Add some test data
         session_mgr.add_device(
             {
                 "device_id": "test_android_device",
@@ -81,7 +75,6 @@ def test_basic_functionality():
         session_mgr.add_sync_event("flash", {"description": "test flash"})
         print("   OK Added sync event to session")
 
-        # End session
         ended_session = session_mgr.end_session()
         print(f"   OK Ended session, final state: {ended_session.state}")
         print(f"   OK Session duration: {ended_session.duration_seconds:.1f}s")
@@ -90,7 +83,6 @@ def test_basic_functionality():
         # Test 3: Session Persistence
         print("\n3. Testing Session Persistence...")
 
-        # Load session
         loaded_session = session_mgr.load_session(ended_session.session_id)
         if loaded_session:
             print(f"   OK Loaded session: {loaded_session.name}")
@@ -107,7 +99,6 @@ def test_basic_functionality():
         config.set("test.value", "test_data")
         config.save()
 
-        # Create new config manager to test loading
         config2 = ConfigManager(str(config.config_path))
         test_value = config2.get("test.value")
 
@@ -122,7 +113,6 @@ def test_basic_functionality():
         print("\n5. Testing Network Message Structure...")
         from ircamera_pc.network.server import DeviceInfo
 
-        # Create device info
         device = DeviceInfo(
             device_id="test_device_001",
             device_type="android",
@@ -169,7 +159,6 @@ def test_basic_functionality():
         # Clean up
         shutil.rmtree(temp_dir, ignore_errors=True)
         print(f"\nCLEAN Cleaned up temporary directory: {temp_dir}")
-
 
 if __name__ == "__main__":
     success = test_basic_functionality()

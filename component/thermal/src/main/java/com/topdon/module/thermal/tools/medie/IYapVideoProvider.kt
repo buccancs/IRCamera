@@ -1,11 +1,5 @@
 package com.topdon.module.thermal.tools.medie
 
-/**
- * @author YaphetZhao
- * @email yaphetzhao@gmail.com
- * @data 2020-07-30
- * @wechat yaphetzhao92
- */
 interface IYapVideoProvider<Bitmap> {
     /**
      * bitmap list size, you can set like

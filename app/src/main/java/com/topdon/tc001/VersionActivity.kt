@@ -22,7 +22,7 @@ class VersionActivity : BaseBindingActivity<ActivityVersionBinding>(), View.OnCl
     override fun getViewBinding(): ActivityVersionBinding = ActivityVersionBinding.inflate(layoutInflater)
 
     override fun initView() {
-        // Set up views using binding
+
         binding.versionCodeText.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
         val year = Calendar.getInstance().get(Calendar.YEAR)
         binding.versionYearTxt.text = getString(R.string.version_year, "2023-$year")

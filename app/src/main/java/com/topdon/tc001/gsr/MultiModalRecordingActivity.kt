@@ -29,46 +29,6 @@ import kotlinx.coroutines.launch
 
 // Note: EnhancedRecordingService is referenced with full package name since it's in a different module
 
-/**
- * Advanced multi-modal recording interface for synchronized GSR and thermal data acquisition.
- *
- * This enterprise-grade Activity provides comprehensive coordination between GSR (Galvanic Skin Response)
- * sensors and thermal imaging devices, enabling synchronized data collection for research and analysis
- * applications. The interface supports both BLE-based Shimmer3 GSR sensors and Topdon thermal cameras.
- *
- * ## Core Capabilities
- *
- * ### Multi-Modal Synchronization
- * - **Sub-5ms Precision**: Hardware-level synchronization between GSR and thermal modalities
- * - **Cross-Modal Coordination**: Unified device discovery and management across BLE and USB devices
- * - **Temporal Alignment**: High-precision timestamping with NTP-level accuracy for post-processing
- * - **Session Management**: Enterprise session control with comprehensive metadata tracking
- *
- * ### Advanced Recording Features
- * - **Real-Time Data Streaming**: Live GSR waveform visualization with thermal overlay
- * - **Adaptive Quality Control**: Dynamic quality assessment and recording parameter optimization
- * - **Multi-Format Export**: Support for CSV, HDF5, and custom binary formats for research workflows
- * - **Error Recovery**: Robust handling of device disconnections and data loss scenarios
- *
- * ### Enterprise Integration
- * - **BLE Device Management**: Advanced Shimmer3 GSR sensor integration with Nordic backend
- * - **Thermal Camera Control**: Direct Topdon TC001 thermal camera coordination
- * - **Network Synchronization**: Hub-and-spoke architecture support for distributed recording
- * - **Quality Metrics**: Real-time SNR, drift, and calibration monitoring for data validation
- *
- * ## Navigation
- * ```kotlin
- * NavigationManager.getInstance()
- *     .build(RouterConfig.GSR_MULTI_MODAL)
- *     .navigation(context)
- * ```
- *
- * @see GSRRecorder For GSR sensor management and data acquisition
- * @see CrossModalSyncManager For inter-device synchronization protocols
- * @see SessionManager For session lifecycle and metadata management
- * @since 1.10.0
- * @author Topdon Engineering Team
- */
 class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecordingBinding>() {
     override fun initContentLayoutId(): Int = R.layout.activity_multi_modal_recording
 
@@ -198,7 +158,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                     }
                 }
 
-                // Update UI every second (128 samples)
                 if (sampleCount % 128 == 0L) {
                     runOnUiThread {
                         binding.dataText.text = "Samples: $sampleCount"
@@ -238,21 +197,17 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize recording components
         gsrRecorder = GSRRecorder(this)
         sessionManager = SessionManager.getInstance(this)
 
-        // Set up view references using binding
         with(binding) {
-            // Configure session ID input
+
             participantIdInput.setText(TimeUtil.generateSessionId("MultiModal"))
 
-            // Configure switches
             enableVideoSwitch.isChecked = true
             enable4KSwitch.isChecked = false
             enableRawCaptureSwitch.isChecked = false
 
-            // Set up raw frame rate spinner
             val frameRateAdapter =
                 ArrayAdapter(
                     this@MultiModalRecordingActivity,
@@ -264,12 +219,10 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             rawFrameRateSpinner.adapter = frameRateAdapter
             rawFrameRateSpinner.isEnabled = false
 
-            // Configure raw capture switch listener
             enableRawCaptureSwitch.setOnCheckedChangeListener { _, isChecked ->
                 rawFrameRateSpinner.isEnabled = isChecked
             }
 
-            // Set up control buttons
             startButton.setOnClickListener { toggleRecording() }
             stopButton.setOnClickListener { stopRecording() }
             syncButton.setOnClickListener { triggerSyncEvent() }
@@ -288,7 +241,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             networkMetricsText.text = "Latency: -- ms | Throughput: -- KB/s"
         }
 
-        // Initialize network client for PC Controller communication
         networkClient =
             com.topdon.gsr.network.NetworkClient(this).apply {
                 setEventListener(
@@ -437,7 +389,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 )
             }
 
-        // Initialize RGB camera recorder
         // Pass the camera preview component from the binding if it exists, otherwise null
         val cameraPreviewView =
             try {
@@ -473,11 +424,9 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 }
             }
 
-        // Initialize camera
         rgbCameraRecorder?.initialize()
         gsrRecorder.addListener(gsrListener)
 
-        // Check permissions
         if (!hasRequiredPermissions()) {
             requestPermissions()
         }
@@ -493,13 +442,11 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 Manifest.permission.CAMERA,
             )
 
-        // Check base permissions
         val baseGranted =
             basePermissions.all { permission ->
                 ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
             }
 
-        // Check Android 12+ Bluetooth permissions for Shimmer3 GSR devices
         val bluetoothGranted =
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                 val bluetoothPermissions =
@@ -568,7 +515,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 statusText.text = "Permissions required for GSR recording and Shimmer3 device access."
                 val missingPermissions = mutableListOf<String>()
 
-                // Check which specific permissions are missing
                 permissions.forEachIndexed { index, permission ->
                     if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
                         when (permission) {
@@ -625,7 +571,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             }
         val participantId = binding.participantIdInput.text.toString().trim().takeIf { it.isNotEmpty() }
 
-        // Start RGB camera recording if enabled
         if (binding.enableVideoSwitch.isChecked) {
             val resolution =
                 if (binding.enable4KSwitch.isChecked) {
@@ -659,7 +604,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
 
             val cameraStarted = rgbCameraRecorder?.startRecording(sessionId) ?: false
             if (!cameraStarted) {
-                // Reset guard flags on failure
+
                 isStartingRecording = false
                 binding.startButton.isEnabled = true
                 binding.startButton.text = "Start Recording"
@@ -669,13 +614,12 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             }
         }
 
-        // Start GSR recording asynchronously
         lifecycleScope.launch {
             try {
                 val success = gsrRecorder.startRecording(sessionId, participantId, null)
 
                 if (success) {
-                    // Reset counters
+
                     sampleCount = 0
                     syncMarkCount = 0
 
@@ -683,7 +627,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                     isRecording = true
                     isStartingRecording = false
 
-                    // Start enhanced recording service for background operation
                     try {
                         com.topdon.gsr.service.EnhancedRecordingService.startRecording(
                             this@MultiModalRecordingActivity,
@@ -719,7 +662,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
 
                     Log.i(TAG, "Multi-modal recording started: $sessionId")
                 } else {
-                    // Reset guard flags on GSR failure
+
                     isStartingRecording = false
 
                     runOnUiThread {
@@ -728,7 +671,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                         binding.statusText.text = "Failed to start recording"
                     }
 
-                    // Stop camera if GSR fails
                     rgbCameraRecorder?.stopRecording()
                     Toast.makeText(
                         this@MultiModalRecordingActivity,
@@ -737,7 +679,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                     ).show()
                 }
             } catch (e: Exception) {
-                // Reset guard flags on exception
+
                 isStartingRecording = false
 
                 runOnUiThread {
@@ -758,7 +700,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     }
 
     private fun stopRecording() {
-        // Stop enhanced recording service
+
         try {
             com.topdon.gsr.service.EnhancedRecordingService.stopRecording(this)
             Log.i(TAG, "Enhanced recording service stopped")
@@ -767,7 +709,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             // Continue - not critical
         }
 
-        // Stop RGB camera recording
         val videoFile = rgbCameraRecorder?.stopRecording()
 
         val session = gsrRecorder.stopRecording()
@@ -802,7 +743,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     }
 
     private fun triggerFlashSync() {
-        // Trigger a visual flash for synchronization
+
         val overlay =
             android.view.View(this).apply {
                 setBackgroundColor(android.graphics.Color.WHITE)
@@ -876,7 +817,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     // Network status UI update method
     private fun updateNetworkStatusUI() {
         runOnUiThread {
-            // Update network connection status
+
             val connectionStatus =
                 when {
                     networkClient?.isConnected() == true -> "Connected"
@@ -885,7 +826,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 }
             binding.networkStatusText.text = "Network: $connectionStatus"
 
-            // Update discovered devices
             val deviceCount = discoveredDevices.size
             val deviceText =
                 if (deviceCount > 0) {
@@ -896,7 +836,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 }
             binding.discoveredDevicesText.text = deviceText
 
-            // Update streaming queue (get total from all queue types)
             enhancedRecordingService?.let { service ->
                 val queueSizes = service.getQueueSizes()
                 val totalItems = queueSizes.values.sum()
@@ -912,7 +851,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 binding.streamingQueueText.text = "Streaming Queue: Service not bound"
             }
 
-            // Update network metrics (simulate metrics)
             networkClient?.let { client ->
                 if (client.isConnected()) {
                     val latency = client.getLatencyMs()
@@ -925,7 +863,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
         }
     }
 
-    // Start device discovery
     private fun startDeviceDiscovery() {
         discoveredDevices.clear()
         binding.connectToDeviceButton.isEnabled = false
@@ -992,19 +929,17 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
         unbindEnhancedRecordingService()
     }
 
-    // Start periodic UI updates
     private fun startUIUpdates() {
         uiUpdateJob?.cancel()
         uiUpdateJob =
             lifecycleScope.launch {
                 while (true) {
                     updateNetworkStatusUI()
-                    kotlinx.coroutines.delay(2000) // Update every 2 seconds
+                    kotlinx.coroutines.delay(2000)
                 }
             }
     }
 
-    // Stop periodic UI updates
     private fun stopUIUpdates() {
         uiUpdateJob?.cancel()
         uiUpdateJob = null

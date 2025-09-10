@@ -3,57 +3,6 @@ package com.guide.zm04c.matrix.utils
 import android.graphics.Paint
 import android.graphics.Rect
 
-/**
- * Created by 02881hy on 2018/9/18.
- */
-
-class StringUtils {
-    companion object {
-        fun isBlank(str: String?): Boolean {
-            return str == null || str.trim().length == 0
-        }
-
-        fun createFileName(tiemStr: String): String {
-            return "_" + tiemStr
-        }
-
-        fun dateString(date: String): String {
-            val year = date.substring(0, 4)
-            val month = date.substring(4, 6)
-            val day = date.substring(6, 8)
-            return "$year-$month-$day"
-        }
-
-        fun equals(
-            a: CharSequence?,
-            b: CharSequence?,
-        ): Boolean {
-            if (a === b) {
-                return true
-            }
-
-            if (a != null && b != null && (a.length == b.length)) {
-                if (a is String && b is String) {
-                    return a == b
-                } else {
-                    for (i in 0 until a.length) {
-                        if (a[i] != b[i]) {
-                            return false
-                        }
-                    }
-                    return true
-                }
-            }
-            return false
-        }
-
-        /**
-         * utility，int[]{utility,utility}
-         *
-         * @param str
-         * @param textSizePxVal
-         * @return int[] utility0utility，utility1utility
-         */
         public fun getStringSize(
             str: String,
             textSizePxVal: Float,

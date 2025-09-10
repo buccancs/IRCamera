@@ -24,7 +24,7 @@ class IRPlushFragment : BaseIRPlushFragment() {
         savedInstanceState: android.os.Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
-        // Initialize findViewById in onViewCreated
+
         dualTextureViewNativeCamera = view.findViewById(R.id.dualTextureViewNativeCamera)
         temperatureView = view.findViewById(R.id.temperature_view)
     }

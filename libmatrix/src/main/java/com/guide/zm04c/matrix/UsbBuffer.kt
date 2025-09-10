@@ -53,7 +53,7 @@ class UsbBuffer {
         var i = 0
         while (i < frame.size - 1) {
             if (getMark(frame, i) == mark1) {
-                // Log.d(TAG, "data...");
+
                 return true
             }
             i += 2
@@ -65,7 +65,7 @@ class UsbBuffer {
         var i = 0
         while (i < frame.size - 1) {
             if (getMark(frame, i) == mark1) {
-//                Log.d(TAG, "data...")
+
                 return i
             }
             i += 2
@@ -93,15 +93,14 @@ class UsbBuffer {
                 }
         }
 
-//        Log.d(TAG, "1 findHeadFrame=" + findHeadFrame);
         if (findHeadFramePos != -1) {
-            // Log.d(TAG, "1: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));
+
             // Implementation
             mRingBuffer.moveBack(mPacketSize - findHeadFramePos)
             // Implementation
             mRingBuffer.moveForward(mFrameSize)
             mRingBuffer.read(mPakagebuffer, 0, mPacketSize)
-            // Log.d(TAG, "2: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));
+
             findHeadFrame =
                 if (mPakagebuffer != null && mPacketSize == mPakagebuffer.size) {
                     isValidFrame(mPakagebuffer)

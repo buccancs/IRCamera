@@ -6,10 +6,6 @@ import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.util.TimeUtil
 import java.util.concurrent.ConcurrentHashMap
 
-/**
- * Session lifecycle and metadata management
- * Fixed memory leak by using application context and WeakReference
- */
 class SessionManager private constructor(context: Context) {
     companion object {
         private const val TAG = "SessionManager"

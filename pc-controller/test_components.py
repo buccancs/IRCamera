@@ -1,21 +1,10 @@
 #!/usr/bin/env python3
-"""
-Test script for the new PC Controller components
-
-This script tests the newly implemented components:
-- Native backend functionality
-- Real-time plotting widgets
-- Data aggregation engine
-- Enhanced GUI components
-"""
 
 import sys
 import time
 from pathlib import Path
 
-# Add src directory to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
-
 
 def test_imports():
     """Test that all new components can be imported."""
@@ -41,7 +30,6 @@ def test_imports():
         print(f"FAIL Import failed: {e}")
         return False
 
-
 def test_data_aggregation():
     """Test the data aggregation engine."""
     print("\nTesting data aggregation engine...")
@@ -49,21 +37,17 @@ def test_data_aggregation():
     try:
         from ircamera_pc.data import DataAggregationEngine
 
-        # Create test session directory
         test_dir = Path("/tmp/test_session")
         test_dir.mkdir(exist_ok=True)
 
-        # Initialize aggregation engine
         engine = DataAggregationEngine(test_dir)
         engine.start()
 
-        # Add test streams
         gsr_stream_id = engine.add_stream("device_1", "gsr", 128.0)
         video_stream_id = engine.add_stream("device_1", "rgb_video", 30.0)
 
         print(f"OK Added streams: {gsr_stream_id}, {video_stream_id}")
 
-        # Add test data
         timestamp_ns = time.time_ns()
 
         # Simulate GSR data
@@ -80,13 +64,11 @@ def test_data_aggregation():
         video_data = {"frame_number": 1, "width": 1920, "height": 1080}
         engine.add_data(video_stream_id, timestamp_ns, video_data)
 
-        # Add sync event
         engine.add_sync_event("flash", "device_1", timestamp_ns)
 
         # Wait a bit for processing
         time.sleep(0.1)
 
-        # Get statistics
         stats = engine.get_statistics()
         print(
             f"OK Statistics: {stats.total_devices} devices, {stats.active_streams} streams"
@@ -102,7 +84,6 @@ def test_data_aggregation():
         print(f"FAIL Data aggregation test failed: {e}")
         return False
 
-
 def test_plotting_widgets():
     """Test the plotting widgets (without actually displaying)."""
     print("\nTesting plotting widgets...")
@@ -111,7 +92,6 @@ def test_plotting_widgets():
         from ircamera_pc.gui.plotting_widgets import GSRPlotWidget, MultiModalDashboard
         from PyQt6.QtWidgets import QApplication
 
-        # Create minimal QApplication for testing
         app = QApplication.instance()
         if app is None:
             app = QApplication([])
@@ -135,7 +115,6 @@ def test_plotting_widgets():
         print(f"FAIL Plotting widgets test failed: {e}")
         return False
 
-
 def test_native_backend_structure():
     """Test that native backend structure is in place."""
     print("\nTesting native backend structure...")
@@ -143,7 +122,6 @@ def test_native_backend_structure():
     try:
         backend_dir = Path(__file__).parent / "native_backend"
 
-        # Check directory structure
         if not backend_dir.exists():
             print("FAIL Native backend directory missing")
             return False
@@ -171,7 +149,6 @@ def test_native_backend_structure():
         print(f"FAIL Native backend structure test failed: {e}")
         return False
 
-
 def test_gui_widgets():
     """Test the enhanced GUI widgets."""
     print("\nTesting enhanced GUI widgets...")
@@ -184,7 +161,6 @@ def test_gui_widgets():
         )
         from PyQt6.QtWidgets import QApplication
 
-        # Create minimal QApplication for testing
         app = QApplication.instance()
         if app is None:
             app = QApplication([])
@@ -219,21 +195,18 @@ def test_gui_widgets():
         print(f"FAIL Enhanced GUI widgets test failed: {e}")
         return False
 
-
 def main():
     """Run all tests."""
     print("=== PC Controller Components Test Suite ===\n")
 
     test_results = []
 
-    # Run all tests
     test_results.append(("Imports", test_imports()))
     test_results.append(("Native Backend Structure", test_native_backend_structure()))
     test_results.append(("Data Aggregation", test_data_aggregation()))
     test_results.append(("Plotting Widgets", test_plotting_widgets()))
     test_results.append(("GUI Widgets", test_gui_widgets()))
 
-    # Print summary
     print("\n=== Test Results Summary ===")
     passed = 0
     total = len(test_results)
@@ -254,7 +227,6 @@ def main():
     else:
         print("ERROR Some tests failed. Check the output above for details.")
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

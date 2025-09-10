@@ -76,7 +76,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         val y1 = y * ph / rawHeight
         val maxX = x1 - imageView.width / 2
         val maxY = y1 - imageView.height / 2
-//        Log.w("123", "fragment maxX:$maxX, maxY:$maxY")
+
         imageView.x = maxX.toFloat()
         imageView.y = maxY.toFloat()
     }
@@ -404,7 +404,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
 //    private fun showTipDialog(tip: String, type: Int) {
-//        val tipDialog = TipDialog.Builder(requireContext())
+
 //            .setIconType(type)
 //            .setTipWord(tip)
 //            .create()
@@ -618,7 +618,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             return
         }
         // Note: FileConfig.galleryPath requires integration with file configuration module
-        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
+
         val latestResultPath = "/tmp/YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // Temporary fallback
         Log.w("123", "latestResultPath:$latestResultPath")
         YapVideoEncoder(this, File(latestResultPath)).start()
@@ -653,7 +653,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     var isRunCamera = false
 
     private fun checkCameraPermission() {
-        // Check camera permission using modern Android APIs
+
         if (requireContext().checkSelfPermission(
                 android.Manifest.permission.CAMERA,
             ) == android.content.pm.PackageManager.PERMISSION_GRANTED

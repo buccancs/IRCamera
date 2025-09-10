@@ -55,7 +55,6 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        // Initialize views with findViewById
         temperatureView = requireView().findViewById<TemperatureView>(R.id.temperatureView)
         cameraView = requireView().findViewById<CameraView>(R.id.cameraView)
         thermalLay = requireView().findViewById<ViewGroup>(R.id.thermal_lay)
@@ -162,10 +161,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                                 "ConnectCallback->onIRCMDCreate",
                             )
                             this@IRCorrectionFragment.ircmd = ircmd
-                            // fragmentIRCMDfragment
-//                        ircmd.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
-//                            PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
-                        }
+}
                     },
                     object : USBMonitorCallback {
                         override fun onAttach() {}
@@ -379,18 +375,9 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
 
     suspend fun autoStart() {
         withContext(Dispatchers.IO) {
-            //            ToastUtils.showShort("fragment")
-            // fragment
-            // 1 fragment
-            // 2 fragment
-            CalibrationTools.autoShutter(irCmd = ircmd, false)
+CalibrationTools.autoShutter(irCmd = ircmd, false)
             XLog.w("fragment：" + "fragment")
-            // Normal temperature
-            // 3 fragment
-//            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
-//            XLog.w("fragment："+"fragment")
-            // 4 fragment
-            delay(2000)
+delay(2000)
             XLog.w("fragment：" + "fragment")
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
             // 5 fragment
@@ -402,12 +389,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             delay(20000)
             XLog.w("fragment：" + "20000")
-            // High temperature
-            // 11 fragment
-//            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
-//            XLog.w("fragment："+"fragment")
-            // 12 fragment
-            delay(2000)
+delay(2000)
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
             XLog.w("fragment：" + "fragment")
             // 13 fragment

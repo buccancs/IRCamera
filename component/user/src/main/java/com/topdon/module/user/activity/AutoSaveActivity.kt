@@ -16,7 +16,7 @@ class AutoSaveActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_auto_save
 
     override fun initView() {
-        // Initialize views - migrated from synthetic views
+
         settingItemSaveSelect = findViewById(R.id.setting_item_save_select)
 
         settingItemSaveSelect.isChecked = SharedManager.is04AutoSync

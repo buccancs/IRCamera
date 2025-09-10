@@ -13,10 +13,6 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.net.Socket
 
-/**
- * Comprehensive unit tests for EnhancedNetworkClient
- * Tests network communication, JSON protocol, and error handling
- */
 @OptIn(ExperimentalCoroutinesApi::class)
 class EnhancedNetworkClientTest {
     @MockK
@@ -89,7 +85,7 @@ class EnhancedNetworkClientTest {
     @Test
     fun testSendMessage() =
         runTest {
-            // Setup connected state
+
             setupConnectedClient()
 
             val message =
@@ -253,7 +249,7 @@ class EnhancedNetworkClientTest {
     @Test
     fun testReconnection() =
         runTest {
-            // Setup initial connection
+
             setupConnectedClient()
             networkClient.disconnect()
 

@@ -96,7 +96,7 @@ class GuideUsbManager {
         val deviceList = mUsbManager!!.deviceList
         if (!deviceList.isEmpty()) {
             for (device in deviceList.values) {
-//                Log.w(
+
 //                    "123",
 //                    "device vendorId:" + device.vendorId + ", device productId:" + device.productId
 //                )
@@ -219,7 +219,7 @@ class GuideUsbManager {
             for (i in 0 until endpointCount) {
                 usbEndpoint = mUsbInterface!!.getEndpoint(i)
                 val address = usbEndpoint.address
-//                Log.w("123", "address:$address")
+
                 when (address) {
                     ADDRESS_ENDPOINT_DATA_IN -> mEndpointDataIn = usbEndpoint
                     ADDRESS_ENDPOINT_CONTROL_OUT -> mEndpointControlOut = usbEndpoint

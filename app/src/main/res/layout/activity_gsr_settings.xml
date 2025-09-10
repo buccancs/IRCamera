@@ -6,7 +6,7 @@
     </data>
 <ScrollView xmlns:ns0="http://schemas.android.com/apk/res/android" xmlns:ns1="http://schemas.android.com/apk/res-auto" ns0:layout_width="match_parent" ns0:layout_height="match_parent" ns0:background="#16131e">
   <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="GSR Sensor Settings" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="16dp" />
@@ -24,7 +24,7 @@
         </LinearLayout>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Video Recording Settings" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="16dp" />
@@ -46,7 +46,7 @@
         </LinearLayout>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="RAW Image Capture Settings" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="16dp" />
@@ -64,7 +64,7 @@
         </LinearLayout>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:layout_marginBottom="16dp" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Session Management" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="16dp" />
@@ -82,7 +82,7 @@
         </LinearLayout>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
-    
+
     <androidx.cardview.widget.CardView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns1:cardCornerRadius="8dp" ns1:cardElevation="2dp" ns1:cardBackgroundColor="#2a2a2a">
       <LinearLayout ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:orientation="vertical" ns0:padding="16dp">
         <TextView ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns0:text="Synchronization Settings" ns0:textColor="#ffffff" ns0:textSize="18sp" ns0:textStyle="bold" ns0:layout_marginBottom="16dp" />

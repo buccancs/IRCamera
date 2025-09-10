@@ -216,7 +216,6 @@ class EnhancedRecordingService : Service() {
                     updateNotification("Recording started - ${sessionInfo.sessionId}")
                     eventListener?.onRecordingStateChanged(true, sessionInfo.sessionId)
 
-                    // Start data streaming if connected to PC
                     if (isConnectedToPC) {
                         serviceScope.launch {
                             val streamingStarted = dataStreamingService.startStreaming(sessionInfo.sessionId)
@@ -233,7 +232,6 @@ class EnhancedRecordingService : Service() {
                     isRecording = false
                     currentSessionId = null
 
-                    // Stop data streaming
                     if (isStreamingData) {
                         serviceScope.launch {
                             dataStreamingService.stopStreaming()
@@ -252,7 +250,6 @@ class EnhancedRecordingService : Service() {
                         dataStreamingService.queueGSRSample(sample)
                     }
 
-                    // Update notification periodically
                     if (sample.sampleIndex % 1280 == 0L) { // Every 10 seconds at 128Hz
                         updateNotification("Recording... ${sample.sampleIndex} samples")
                     }
@@ -287,7 +284,6 @@ class EnhancedRecordingService : Service() {
                     Log.i(TAG, "Disconnected from PC Controller: $reason")
                     isConnectedToPC = false
 
-                    // Stop data streaming
                     if (isStreamingData) {
                         serviceScope.launch {
                             dataStreamingService.stopStreaming()
@@ -310,7 +306,7 @@ class EnhancedRecordingService : Service() {
 
                 override fun onSyncFlash(durationMs: Int) {
                     Log.i(TAG, "Sync flash requested: ${durationMs}ms")
-                    // Trigger visual sync flash on device
+
                     if (isRecording) {
                         gsrRecorder.triggerSyncEvent("SYNC_FLASH_${durationMs}ms")
                     }
@@ -441,13 +437,11 @@ class EnhancedRecordingService : Service() {
 
         serviceScope.launch {
             try {
-                // Create session
+
                 sessionManager.createSession(sessionId, participantId, studyName)
 
-                // Start foreground notification
                 startForeground(NOTIFICATION_ID, createNotification("Starting recording..."))
 
-                // Start GSR recording
                 if (gsrRecorder.startRecording(sessionId, participantId, studyName)) {
                     isRecording = true
                     currentSessionId = sessionId
@@ -471,7 +465,7 @@ class EnhancedRecordingService : Service() {
 
         serviceScope.launch {
             try {
-                // Stop GSR recording
+
                 val session = gsrRecorder.stopRecording()
                 session?.let {
                     sessionManager.completeSession(it.sessionId)

@@ -323,10 +323,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         view_mine_point.isVisible = false
     }
 
-    /**
-     * 刷新 3 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 2]`
-     */
     private fun refreshTabSelect(index: Int) {
         iv_icon_gallery.isSelected = false
         tv_icon_gallery.isSelected = false
@@ -415,11 +411,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * 权限检测
-     * 因申请权限前需要弹窗提示用户，所以修改成key value形式
-     * @return key：权限种类 value：具体权限
-     */
     private fun getNeedPermissionList(): SparseArray<List<String>> {
         val sparseArray = SparseArray<List<String>>()
         sparseArray.append(R.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))

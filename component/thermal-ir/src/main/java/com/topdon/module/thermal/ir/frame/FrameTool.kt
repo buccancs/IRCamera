@@ -168,10 +168,10 @@ class FrameTool {
                 minRGB[2] = minColor and 0xFF
                 var j = 0
                 val argbBytesLength = imageWidth * imageHeight * 4
-                // Initialize variable，utility
+
                 var index = 0
                 while (index < argbBytesLength) {
-                    // Initialize variable
+
                     var temperature0: Float =
                         (
                             (temperatureBytes[j].toInt() and 0xff) + (
@@ -239,11 +239,7 @@ class FrameTool {
         val dstImageRes = getDstImageRes(rotate)
         var scrBitmap: Bitmap? = null
         if (isAmplify) {
-//            scrBitmap = Bitmap.createBitmap(dstImageRes.width.code,
-//                dstImageRes.height.code, Bitmap.Config.ARGB_8888)
-//            scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(dstArgbBytes, 0, argbLen))
-//            return OpencvTools.supImageFourExToBitmap(scrBitmap)
-            SupHelp.getInstance().initA4KCPP()
+SupHelp.getInstance().initA4KCPP()
             if (SupHelp.getInstance().loadOpenclSuccess) {
                 OpencvTools.supImage(
                     dstArgbBytes,
@@ -345,25 +341,7 @@ class FrameTool {
             else -> System.arraycopy(argbBytes, 0, dstArgbBytes, 0, argbBytes.size)
         }
     }
-
-//    fun getTemp() {
-//        // Calculate valueHigh temperatureutilityLow temperatureutility
-//        val irTemp = Libirtemp(256, 192)
-//        irTemp.settempdata(mixTemperatureBytes)
-//        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
-//        Log.w("123", "mix max: ${temperatureSampleEasyResult.maxTemperature}, min: ${temperatureSampleEasyResult.minTemperature}")
-//    }
-
-//    fun getSrcTemp()：Libirt{
-//        // Calculate valueHigh temperatureutilityLow temperatureutility
-//        val irTemp = Libirtemp(256, 192)
-//        irTemp.settempdata(temperatureBytes)
-//        val temperatureSampleEasyResult = irTemp.getTemperatureOfRect(Rect(0, 0, 256, 192))
-//        temperatureSampleEasyResult.maxTemperaturePixel
-//        Log.w("123", "src max: ${temperatureSampleEasyResult.maxTemperature}, min: ${temperatureSampleEasyResult.minTemperature}")
-//    }
-
-    /**
+/**
      * utilityTemperature measurement(utility)
      */
     fun getSrcTemp(): LibIRTemp.TemperatureSampleResult {

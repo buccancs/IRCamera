@@ -72,7 +72,6 @@ class TipPreviewDialog : DialogFragment() {
                 getString(R.string.preview_step_2),
             )
 
-        // Initialize views using binding
         checkBox = binding.dialogTipCheck
         imgClose = binding.imgClose
         viewPager = binding.viewPager

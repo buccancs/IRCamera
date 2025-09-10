@@ -23,115 +23,15 @@ import com.topdon.tc001.InitUtil.initLms
 import com.topdon.tc001.InitUtil.initLog
 import com.topdon.tc001.InitUtil.initReceiver
 import com.topdon.tc001.InitUtil.initUM
-// Zoho dependencies commented out - not available in build
-// import com.zoho.livechat.android.listeners.InitListener
-// import com.zoho.salesiqembed.ZohoSalesIQ
 import io.reactivex.plugins.RxJavaPlugins
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class App : BaseApplication() {
-    // Temporarily commented out due to dependency issues
-    // init {
-    //     SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ ->
-    //         MaterialHeader(
-    //             context
-    //         )
-    //     }
-    //     SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
-    //         LoadingFooter(context)
-    //     }
-    // }
-
-    companion object {
+companion object {
         lateinit var instance: App
 
-        /**
-         * data
-         */
-        fun delayInit() {
-            initReceiver()
-            initLog()
-            initLms()
-            initUM()
-            initJPush()
-        }
-    }
-
-    override fun getSoftWareCode(): String = BuildConfig.SOFT_CODE
-
-    override fun isDomestic(): Boolean = false // Default to international since flavors were removed
-
-    val activityNameList: MutableList<String> = mutableListOf()
-
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
-        // dataappdata，dataSettingslmsdataSettingsdatatrue
-        SPUtils.getInstance(this).put(Config.KEY_PRIVACY_AGREEMENT, true)
-
-        if (SharedManager.getHasShowClause() || !isDomestic()) {
-            delayInit()
-        }
-
-        RxJavaPlugins.setErrorHandler {
-            if (SharedManager.getHasShowClause()) {
-                XLog.w("data： ${it.message}")
-            }
-        }
-        if (!isDomestic()) {
-            // Production version - force production URL and disable URL switching
-            UrlConstant.setBaseUrl("${HttpConfig.HOST}/", false)
-            SharedManager.setBaseHost(UrlConstant.BASE_URL) // dataappdata
-        }
-
-        CoroutineScope(Dispatchers.IO).launch {
-            tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
-            tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
-        }
-//        CrashReport.initCrashReport(applicationContext, "cd1f9e26ee", false)
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        registerActivityLifecycleCallbacks(
-            object : Application.ActivityLifecycleCallbacks {
-                override fun onActivityCreated(
-                    activity: Activity,
-                    savedInstanceState: Bundle?,
-                ) {
-                    if (!activityNameList.contains(activity.javaClass.getSimpleName())) {
-                        activityNameList.add(activity.javaClass.getSimpleName())
-                    }
-                }
-
-                override fun onActivityStarted(activity: Activity) {
-                }
-
-                override fun onActivityResumed(activity: Activity) {
-                }
-
-                override fun onActivityPaused(activity: Activity) {
-                }
-
-                override fun onActivityStopped(activity: Activity) {
-                }
-
-                override fun onActivitySaveInstanceState(
-                    activity: Activity,
-                    outState: Bundle,
-                ) {
-                }
-
-                override fun onActivityDestroyed(activity: Activity) {
-                    activityNameList.remove(activity.javaClass.getSimpleName())
-                }
-            },
-        )
-        // initZoho() // Commented out - Zoho dependency not available
-    }
-
-    /**
-     * dataZOHO - commented out as dependency not available
-     */
     private fun initZoho() {
         // ZohoSalesIQ initialization commented out - dependency not available in build
         /*

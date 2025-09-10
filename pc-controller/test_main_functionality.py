@@ -8,15 +8,12 @@ import sys
 import tempfile
 from pathlib import Path
 
-# Add the src directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ircamera_pc.network.discovery import NetworkDiscoveryService
 from ircamera_pc.network.messaging import MessagePriority, ReliableMessageService
 
-# Import core networking components directly
 from ircamera_pc.network.security import SecurityManager
-
 
 async def test_basic_integration():
     """Test basic integration of networking components."""
@@ -101,7 +98,6 @@ async def test_basic_integration():
     print("\n3. Testing NetworkDiscoveryService...")
     discovery = NetworkDiscoveryService()
 
-    # Start discovery (automatically registers PC controller service)
     success = await discovery.start_discovery()
     if success:
         print("   OK NetworkDiscoveryService started")
@@ -128,12 +124,10 @@ async def test_basic_integration():
 
     return True
 
-
 async def main():
     """Run the integration test."""
     success = await test_basic_integration()
     return 0 if success else 1
-
 
 if __name__ == "__main__":
     try:

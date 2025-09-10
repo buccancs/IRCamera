@@ -46,7 +46,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     override fun initContentView() = R.layout.fragment_thermal_ir
 
     override fun initView() {
-        // Initialize views
+
         titleView = requireView().findViewById(R.id.title_view)
         clOpenThermal = requireView().findViewById(R.id.cl_open_thermal)
         tvMainEnter = requireView().findViewById(R.id.tv_main_enter)
