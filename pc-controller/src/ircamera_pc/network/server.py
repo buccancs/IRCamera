@@ -169,15 +169,15 @@ class NetworkServer:
         # Register discovery listener
         self._discovery_service.add_discovery_listener(self._on_device_discovered)
 
-        # Register reliable message handlers
+        # Register reliable message handlers with sync wrappers
         self._messaging_service.register_message_handler(
-            "session_start", self._handle_reliable_session_start
+            "session_start", self._sync_wrapper_session_start
         )
         self._messaging_service.register_message_handler(
-            "session_stop", self._handle_reliable_session_stop
+            "session_stop", self._sync_wrapper_session_stop
         )
         self._messaging_service.register_message_handler(
-            "sync_flash", self._handle_reliable_sync_flash
+            "sync_flash", self._sync_wrapper_sync_flash
         )
 
     def _setup_message_handlers(self) -> None:
@@ -1053,6 +1053,58 @@ class NetworkServer:
             message.get("error_message", "Unknown error"),
         )
         return None
+
+    def _sync_wrapper_session_start(
+        self, message: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """Sync wrapper for reliable session start handler."""
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # Create a task to run the async handler
+                asyncio.create_task(self._handle_reliable_session_start(message))
+                return None  # Return immediately for async processing
+            else:
+                return loop.run_until_complete(
+                    self._handle_reliable_session_start(message)
+                )
+        except Exception as e:
+            logger.error(f"Error in session start handler: {e}")
+            return None
+
+    def _sync_wrapper_session_stop(
+        self, message: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """Sync wrapper for reliable session stop handler."""
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                asyncio.create_task(self._handle_reliable_session_stop(message))
+                return None
+            else:
+                return loop.run_until_complete(
+                    self._handle_reliable_session_stop(message)
+                )
+        except Exception as e:
+            logger.error(f"Error in session stop handler: {e}")
+            return None
+
+    def _sync_wrapper_sync_flash(
+        self, message: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """Sync wrapper for reliable sync flash handler."""
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                asyncio.create_task(self._handle_reliable_sync_flash(message))
+                return None
+            else:
+                return loop.run_until_complete(
+                    self._handle_reliable_sync_flash(message)
+                )
+        except Exception as e:
+            logger.error(f"Error in sync flash handler: {e}")
+            return None
 
     async def _handle_reliable_session_start(
         self, message: Dict[str, Any]

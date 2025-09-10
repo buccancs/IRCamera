@@ -27,6 +27,7 @@ opencv_libs: list[str] = []
 
 try:
     import cv2
+
     opencv_include_dirs = [cv2.includes()]
 except ImportError:
     pass

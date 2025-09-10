@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 # Local imports - moved after sys.path setup
 from ircamera_pc.network.protocol import ProtocolManager  # noqa: E402
-from ircamera_pc.network.server import NetworkServer, MessageType  # noqa: E402
+from ircamera_pc.network.server import MessageType, NetworkServer  # noqa: E402
 
 
 class TestNetworkServer(unittest.TestCase):

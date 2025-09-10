@@ -11,7 +11,7 @@ import uuid
 from collections import deque
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, Dict, Optional, cast, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, cast
 
 if TYPE_CHECKING:
     from ..core.config import ConfigManager

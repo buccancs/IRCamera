@@ -27,7 +27,7 @@ import argparse
 import sys
 import time
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 import numpy as np
 from PyQt6.QtCore import QTimer, pyqtSignal
@@ -56,7 +56,7 @@ from ircamera_pc.gui.widgets import (  # noqa: E402
 from ircamera_pc.network.server import NetworkServer  # noqa: E402
 
 try:
-    import native_backend
+    import native_backend  # type: ignore  # noqa: F401
 
     NATIVE_BACKEND_AVAILABLE = True
     print("OK Enhanced native backend available - High-performance mode enabled")
@@ -104,8 +104,8 @@ class EnhancedPCController(QMainWindow):
         self.data_aggregation = DataAggregationEngine(session_dir, buffer_size_mb=1000)
 
         # Native backend components (if available)
-        self.native_shimmer: Optional["native_backend.NativeShimmer"] = None
-        self.native_webcam: Optional["native_backend.NativeWebcam"] = None
+        self.native_shimmer: Optional[Any] = None
+        self.native_webcam: Optional[Any] = None
 
         # Enhanced state management
         self.connected_devices: Dict[str, Dict] = {}
@@ -214,46 +214,76 @@ class EnhancedPCController(QMainWindow):
     def _initialize_native_backend(self):
         """Initialize native backend components."""
         try:
-            # Initialize Shimmer sensor
-            shimmer_ports = native_backend.get_shimmer_ports()
-            if shimmer_ports:
-                self.native_shimmer = native_backend.NativeShimmer(shimmer_ports[0])
-                if self.native_shimmer.connect():
-                    print(f"OK Connected to Shimmer on {shimmer_ports[0]}")
+            import native_backend  # type: ignore  # noqa: F811
 
-                    # Set up data callback
-                    def shimmer_callback(gsr_data):
-                        self._on_gsr_data("shimmer_1", gsr_data)
-
-                    self.native_shimmer.set_data_callback(shimmer_callback)
-                else:
-                    print("FAIL Failed to connect to Shimmer")
-
-            # Initialize webcam
-            cameras = native_backend.get_available_cameras()
-            if cameras:
-                self.native_webcam = native_backend.NativeWebcam(cameras[0])
-                config = native_backend.CameraConfig()
-                config.width = 1920
-                config.height = 1080
-                config.fps = 30.0
-
-                if self.native_webcam.open_camera(config):
-                    print(f"OK Opened camera {cameras[0]}")
-
-                    # Set up frame callback
-                    def frame_callback(frame_data):
-                        self._on_frame_data("webcam_1", frame_data)
-
-                    self.native_webcam.set_frame_callback(frame_callback)
-                else:
-                    print("FAIL Failed to open camera")
-
+            self._initialize_shimmer_sensor(native_backend)
+            self._initialize_webcam_sensor(native_backend)
         except Exception as e:
             print(f"WARNING Native backend initialization failed: {e}")
 
+    def _initialize_shimmer_sensor(self, native_backend):  # noqa: F811
+        """Initialize Shimmer sensor from native backend."""
+        if not hasattr(native_backend, "get_shimmer_ports"):
+            return
+
+        shimmer_ports = native_backend.get_shimmer_ports()
+        if not (shimmer_ports and hasattr(native_backend, "NativeShimmer")):
+            return
+
+        self.native_shimmer = native_backend.NativeShimmer(shimmer_ports[0])
+        if self.native_shimmer.connect():
+            print(f"OK Connected to Shimmer on {shimmer_ports[0]}")
+            self._setup_shimmer_callback()
+        else:
+            print("FAIL Failed to connect to Shimmer")
+
+    def _setup_shimmer_callback(self):
+        """Set up Shimmer data callback."""
+
+        def shimmer_callback(gsr_data):
+            self._on_gsr_data("shimmer_1", gsr_data)
+
+        self.native_shimmer.set_data_callback(shimmer_callback)
+
+    def _initialize_webcam_sensor(self, native_backend):  # noqa: F811
+        """Initialize webcam sensor from native backend."""
+        if not hasattr(native_backend, "get_available_cameras"):
+            return
+
+        cameras = native_backend.get_available_cameras()
+        if not (cameras and hasattr(native_backend, "NativeWebcam")):
+            return
+
+        self.native_webcam = native_backend.NativeWebcam(cameras[0])
+        if hasattr(native_backend, "CameraConfig"):
+            self._configure_webcam(native_backend, cameras[0])
+
+    def _configure_webcam(self, native_backend, camera_id):  # noqa: F811
+        """Configure webcam settings."""
+        config = native_backend.CameraConfig()
+        config.width = 1920
+        config.height = 1080
+        config.fps = 30.0
+
+        if self.native_webcam.open_camera(config):
+            print(f"OK Opened camera {camera_id}")
+            self._setup_webcam_callback()
+        else:
+            print("FAIL Failed to open camera")
+
+    def _setup_webcam_callback(self):
+        """Set up webcam frame callback."""
+
+        def frame_callback(frame_data):
+            self._on_frame_data("webcam_1", frame_data)
+
+        self.native_webcam.set_frame_callback(frame_callback)
+
     def _setup_demo_devices(self):
         """Set up demo devices for simulation."""
+        if self.dashboard is None:
+            return
+
         # Add demo GSR device to dashboard
         self.dashboard.add_gsr_device("demo_gsr_1", "cyan")
         self.dashboard.add_gsr_device("demo_gsr_2", "yellow")
@@ -326,24 +356,23 @@ class EnhancedPCController(QMainWindow):
         gsr_2 = gsr_base_2 + np.random.normal(0, 0.3)
 
         # Update dashboard plots
-        self.dashboard.add_gsr_data("demo_gsr_1", timestamp_ns, gsr_1)
-        self.dashboard.add_gsr_data("demo_gsr_2", timestamp_ns, gsr_2)
+        if self.dashboard is not None:
+            self.dashboard.add_gsr_data("demo_gsr_1", timestamp_ns, gsr_1)
+            self.dashboard.add_gsr_data("demo_gsr_2", timestamp_ns, gsr_2)
 
         # Create mock GSR data objects
         class MockGSRData:
-            def __init__(self, gsr_value):
+            def __init__(self, gsr_value, demo_counter):
                 self.raw_gsr_value = int(gsr_value * 200)  # Mock raw value
                 self.gsr_microsiemens = gsr_value
-                self.raw_ppg_value = int(
-                    1500 + 100 * np.sin(self.gsr_demo_counter * 0.2)
-                )
+                self.raw_ppg_value = int(1500 + 100 * np.sin(demo_counter * 0.2))
 
         # Add to data aggregation engine
         self.data_aggregation.add_data(
-            "demo_gsr_1_gsr", timestamp_ns, MockGSRData(gsr_1)
+            "demo_gsr_1_gsr", timestamp_ns, MockGSRData(gsr_1, self.gsr_demo_counter)
         )
         self.data_aggregation.add_data(
-            "demo_gsr_2_gsr", timestamp_ns, MockGSRData(gsr_2)
+            "demo_gsr_2_gsr", timestamp_ns, MockGSRData(gsr_2, self.gsr_demo_counter)
         )
 
         # Generate simulated video frames occasionally
@@ -352,22 +381,26 @@ class EnhancedPCController(QMainWindow):
             frame_data = np.random.randint(0, 255, (480, 640, 3), dtype=np.uint8)
 
             # Update video widgets
-            rgb_widget = self.dashboard.video_widgets.get("demo_rgb_1")
-            if rgb_widget:
-                rgb_widget.update_frame(frame_data)
+            if self.dashboard is not None:
+                rgb_widget = self.dashboard.video_widgets.get("demo_rgb_1")
+                if rgb_widget:
+                    rgb_widget.update_frame(frame_data)
 
-            thermal_widget = self.dashboard.video_widgets.get("demo_thermal_1")
-            if thermal_widget:
-                # Thermal frame (grayscale)
-                thermal_frame = np.random.randint(0, 255, (240, 320), dtype=np.uint8)
-                thermal_widget.update_frame(thermal_frame)
+                thermal_widget = self.dashboard.video_widgets.get("demo_thermal_1")
+                if thermal_widget:
+                    # Thermal frame (grayscale)
+                    thermal_frame = np.random.randint(
+                        0, 255, (240, 320), dtype=np.uint8
+                    )
+                    thermal_widget.update_frame(thermal_frame)
 
     def _trigger_flash_sync(self):
         """Trigger a flash sync event."""
         timestamp_ns = time.time_ns()
 
         # Add sync marker to dashboard
-        self.dashboard.add_sync_marker(timestamp_ns, "Manual Flash")
+        if self.dashboard is not None:
+            self.dashboard.add_sync_marker(timestamp_ns, "Manual Flash")
 
         # Add sync event to data aggregation
         self.data_aggregation.add_sync_event("flash", "demo_controller", timestamp_ns)
@@ -377,9 +410,10 @@ class EnhancedPCController(QMainWindow):
     def _on_gsr_data(self, device_id: str, gsr_data):
         """Handle GSR data from native backend."""
         # Add to dashboard
-        self.dashboard.add_gsr_data(
-            device_id, gsr_data.timestamp_ns, gsr_data.gsr_microsiemens
-        )
+        if self.dashboard is not None:
+            self.dashboard.add_gsr_data(
+                device_id, gsr_data.timestamp_ns, gsr_data.gsr_microsiemens
+            )
 
         # Add to data aggregation
         stream_id = f"{device_id}_gsr"
@@ -390,9 +424,10 @@ class EnhancedPCController(QMainWindow):
         # Convert to numpy array and update video widget
         frame_array = frame_data.get_numpy_array()
 
-        video_widget = self.dashboard.video_widgets.get(device_id)
-        if video_widget and frame_array.size > 0:
-            video_widget.update_frame(frame_array)
+        if self.dashboard is not None:
+            video_widget = self.dashboard.video_widgets.get(device_id)
+            if video_widget and frame_array.size > 0:
+                video_widget.update_frame(frame_array)
 
         # Add metadata to data aggregation
         stream_id = f"{device_id}_video"

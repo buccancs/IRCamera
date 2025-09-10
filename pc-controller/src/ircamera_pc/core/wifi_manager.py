@@ -14,7 +14,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Type
 
 try:
     from loguru import logger
@@ -130,6 +130,9 @@ def _initialize_pyqt_imports():
 # Initialize PyQt components
 PYQT_AVAILABLE = False  # Initialize before function call
 BaseThread, pyqtSignal, pyqtSlot, QTimer = _initialize_pyqt_imports()
+
+# Type alias for BaseThread to resolve mypy issues
+BaseThreadType = Type[BaseThread]
 
 
 try:
@@ -334,11 +337,20 @@ class WiFiScanWorker(BaseThread):
 
         # Process the last network
         self._finalize_current_network(current_network, networks)
-        return networks
+
+        # Convert dict representations back to WiFiNetwork objects
+        wifi_networks = []
+        for net_dict in networks:
+            if isinstance(net_dict, dict) and "ssid" in net_dict:
+                network = self._create_network_from_dict(net_dict)
+                if network:
+                    wifi_networks.append(network)
+
+        return wifi_networks
 
     def _process_scan_line(
-        self, line: str, current_network: Dict, networks: List[WiFiNetwork]
-    ) -> Dict:
+        self, line: str, current_network: Dict[str, Any], networks: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
         """Process a single line from Windows scan output"""
         if line.startswith("SSID"):
             return self._process_ssid_line(line, current_network, networks)
@@ -356,20 +368,20 @@ class WiFiScanWorker(BaseThread):
         return current_network
 
     def _process_ssid_line(
-        self, line: str, current_network: Dict, networks: List[WiFiNetwork]
-    ) -> Dict:
+        self, line: str, current_network: Dict[str, Any], networks: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
         """Process SSID line and finalize previous network"""
         self._finalize_current_network(current_network, networks)
 
         ssid_match = re.search(r"SSID \d+ : (.+)", line)
         return {"ssid": ssid_match.group(1) if ssid_match else "Unknown"}
 
-    def _process_auth_line(self, line: str, current_network: Dict):
+    def _process_auth_line(self, line: str, current_network: Dict[str, Any]) -> None:
         """Process authentication line"""
         auth = line.split(":")[1].strip()
         current_network["security"] = self._parse_security_type(auth)
 
-    def _process_signal_line(self, line: str, current_network: Dict):
+    def _process_signal_line(self, line: str, current_network: Dict[str, Any]) -> None:
         """Process signal strength line"""
         signal_match = re.search(r"(\d+)%", line)
         if signal_match:
@@ -384,13 +396,11 @@ class WiFiScanWorker(BaseThread):
             current_network["channel"] = int(channel_match.group(1))
 
     def _finalize_current_network(
-        self, current_network: Dict, networks: List[WiFiNetwork]
-    ):
-        """Finalize and add current network to list"""
+        self, current_network: Dict[str, Any], networks: List[Dict[str, Any]]
+    ) -> None:
+        """Finalize and add current network to dict list"""
         if current_network and "ssid" in current_network:
-            network = self._create_network_from_dict(current_network)
-            if network:
-                networks.append(network)
+            networks.append(current_network.copy())
 
     def _scan_linux(self) -> List[WiFiNetwork]:
         """Scan WiFi networks on Linux using iwlist or nmcli."""
@@ -892,11 +902,11 @@ class WiFiManager(BaseManager):
         system = platform.system()
 
         if system == "Windows":
-            return await self._connect_windows(ssid, password, security)
+            return await self._connect_windows(ssid, password or "", security)
         elif system == "Linux":
-            return await self._connect_linux(ssid, password, security)
+            return await self._connect_linux(ssid, password or "", security)
         elif system == "Darwin":
-            return await self._connect_macos(ssid, password, security)
+            return await self._connect_macos(ssid, password or "", security)
         else:
             raise RuntimeError(f"Unsupported platform: {system}")
 

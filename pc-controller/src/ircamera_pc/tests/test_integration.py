@@ -575,9 +575,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         """Run concurrent device message test."""
         message_count = 0
         total_messages = (
-            scenario["devices_count"]
-            * scenario["sync_rate"]
-            * scenario["duration_sec"]
+            scenario["devices_count"] * scenario["sync_rate"] * scenario["duration_sec"]
         )
 
         def send_device_messages(device_id):
@@ -599,7 +597,9 @@ class TestEndToEndIntegration(unittest.TestCase):
         # Start concurrent threads
         threads = []
         for i in range(scenario["devices_count"]):
-            t = threading.Thread(target=send_device_messages, args=(f"LOAD_DEVICE_{i:02d}",))
+            t = threading.Thread(
+                target=send_device_messages, args=(f"LOAD_DEVICE_{i:02d}",)
+            )
             threads.append(t)
             t.start()
 

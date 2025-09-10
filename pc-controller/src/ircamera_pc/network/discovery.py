@@ -89,7 +89,7 @@ import socket
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Callable, Dict, List, Optional, cast, TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable, Dict, List, Optional, cast
 
 if TYPE_CHECKING:
     from ..core.config import ConfigManager

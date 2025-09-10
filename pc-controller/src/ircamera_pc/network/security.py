@@ -12,7 +12,7 @@ import ssl
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Optional, Tuple, cast, TYPE_CHECKING
+from typing import TYPE_CHECKING, Dict, Optional, Tuple, cast
 
 if TYPE_CHECKING:
     from ..core.config import ConfigManager
@@ -168,7 +168,9 @@ class SecurityManager:
 
     def _is_topdon_organization(self, organization: Optional[str]) -> bool:
         """Check if organization is Topdon."""
-        return organization and "topdon" in organization.lower()
+        if not organization:
+            return False
+        return "topdon" in organization.lower()
 
     def validate_device_certificate(
         self, cert_data: bytes

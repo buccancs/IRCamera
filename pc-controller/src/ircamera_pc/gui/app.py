@@ -294,7 +294,8 @@ class IRCameraApp:
 
             # Run Qt event loop
             if self.qt_app is not None:
-                return self.qt_app.exec_()
+                result = self.qt_app.exec_()
+                return int(result) if result is not None else 0
             else:
                 return 1
 

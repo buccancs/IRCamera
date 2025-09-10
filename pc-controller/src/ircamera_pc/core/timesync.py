@@ -693,10 +693,13 @@ class TimeSyncProtocol(asyncio.DatagramProtocol):
         self.service = service
         self.transport: Optional[asyncio.DatagramTransport] = None
 
-    def connection_made(self, transport: asyncio.DatagramTransport) -> None:
+    def connection_made(self, transport: asyncio.BaseTransport) -> None:
         """Called when connection is made."""
-        self.transport = transport
-        logger.debug("Time sync protocol connection made")
+        if isinstance(transport, asyncio.DatagramTransport):
+            self.transport = transport
+            logger.debug("Time sync protocol connection made")
+        else:
+            logger.warning("Expected DatagramTransport, got different type")
 
     def datagram_received(self, data: bytes, addr: Tuple[str, int]) -> None:
         """
