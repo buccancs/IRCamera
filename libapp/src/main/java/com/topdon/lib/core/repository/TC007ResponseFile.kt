@@ -25,13 +25,10 @@ data class ProductBean(
         "${SoftwareVersion?.Major ?: "-"}.${SoftwareVersion?.Minor ?: "-"}${SoftwareVersion?.Build ?: "-"}"
 }
 
-data class Version07Bean(
-    val Major: String?,
     val Minor: String?,
     val Build: String?,
 )
 
-data class BatteryInfo(
     val Status: String?,
     val Remaining: String?,
 ) {
@@ -45,13 +42,10 @@ data class BatteryInfo(
         }
 }
 
-data class TC07UpgradeStatus(
-    val Status: Int,
     val Percent: Int,
     val Code: Int,
 )
 
-data class EnvAttr(
     val Fps: Int,
     val Level: Int,
     val OsdMode: Int,
@@ -59,12 +53,10 @@ data class EnvAttr(
     val DistanceUnit: Int,
 )
 
-data class FrameParam(
     var Enable: Boolean,
     val TempRule: TempRule,
 )
 
-data class TempRule(
     val AlarmRule: Int,
     val ThresholdTemp: Int,
     val Debounce: Int,
@@ -72,14 +64,12 @@ data class TempRule(
     val TempRise: TempRise,
 )
 
-data class TempRise(
     var Enable: Boolean,
     var TRTemp: Int,
     var TRTime: Int,
     var TRNum: Int,
 )
 
-data class TempFrameParam(
     val FrameHigh: FrameParam,
     val FrameLow: FrameParam,
     val FrameCenter: FrameParam,
@@ -87,11 +77,7 @@ data class TempFrameParam(
 //    constructor(isEnable: Boolean): this(FrameParam(isEnable), FrameParam(isEnable), FrameParam(isEnable))
 }
 
-internal data class PointParam(val X: Int, val Y: Int) {
-    constructor(point: Point?) : this(point?.x ?: 0, point?.y ?: 0)
 }
-
-internal data class TargetParam(val Enable: Boolean)
 
 internal data class TempPointParam(
     val Enable: Boolean,
@@ -109,7 +95,6 @@ internal data class TempPointParam(
     )
 }
 
-internal data class TempLineParam(
     val Enable: Boolean,
     val ID: Int,
     val Name: String,
@@ -127,7 +112,6 @@ internal data class TempLineParam(
     data class LineParam(val Point0: PointParam, val Point1: PointParam)
 }
 
-internal data class TempRectParam(
     val Enable: Boolean,
     val ID: Int,
     val Name: String,
@@ -152,19 +136,16 @@ internal data class TempRectParam(
     }
 }
 
-data class PhotoBean(
     val DCFile: String?,
     val IRFile: String?,
 )
 
-data class AttributeBean(
     var Fps: Int?,
     var Level: Int?,
     var TempUnit: Int?,
     var DistanceUnit: Int?,
 )
 
-/**
  * dataTC007dataAlldata
  */
 data class WifiAttributeBean(
@@ -173,18 +154,15 @@ data class WifiAttributeBean(
     var Y: Int? = null,
 )
 
-data class PalleteBean(
     val palleteMode: Int,
     var stander: Stander? = null,
     var custom: Custom? = null,
 )
 
-data class Stander(
     var palleteNo: Int = 0,
     val threshold: List<Int>,
 )
 
-data class Custom(
     var customMode: Int,
     var highThreshold: Int,
     var lowThreshold: Int,
@@ -193,13 +171,11 @@ data class Custom(
     var lowColor: CustomColor,
 )
 
-data class CustomColor(
     var red: Int,
     var green: Int,
     var blue: Int,
 )
 
-data class Param(
     var brightness: Int = 50, // data, 0-100, data50
     var contrast: Int = 50, // data, 0-100, data50
     var saturation: Int = 50, // data, 0-100, data50
@@ -207,18 +183,15 @@ data class Param(
     var flipMode: Int = 0, // data, 0:data, 1:data 2:data 3:180data
 )
 
-data class Isotherm(
     val color: Long,
     val size: Int,
 )
 
-data class IsothermColor(
     val red: Int,
     val green: Int,
     val blue: Int,
 )
 
-data class IsothermC(
     val mode: Int, // 0：data，1：data，2：data，3：data
     val highThreshold: Int,
     val lowThreshold: Int,

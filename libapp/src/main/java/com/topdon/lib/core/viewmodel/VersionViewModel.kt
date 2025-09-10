@@ -13,8 +13,6 @@ class VersionViewModel : BaseViewModel() {
     fun checkVersion() {
 }
 
-    private fun updateTip(result: CheckVersionJson) {
-        val isForcedUpgrade = (result.forcedUpgradeFlag?.toInt() ?: 0) == 1 // 1: view
         val description = getDescription(result.softConfigOtherTypeVOList)
         val downPageUrl = result.downloadPageUrl
         val sizeStr = "${result.notUnZipSize}MB"

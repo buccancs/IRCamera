@@ -123,8 +123,6 @@ open class HouseBase {
     fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
 
-/**
- * data - data.
  */
 @Entity
 class HouseDetect : HouseBase() {
@@ -185,8 +183,6 @@ class HouseDetect : HouseBase() {
     }
 }
 
-/**
- * data - data.
  */
 @Entity
 class HouseReport : HouseBase() {

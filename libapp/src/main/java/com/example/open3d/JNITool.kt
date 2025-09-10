@@ -1,5 +1,6 @@
 package com.example.open3d
 
+object JNITool {
     external fun draw_edge_from_temp_reigon_bitmap_argb_psd(
         image: ByteArray,
         temperature: ByteArray,

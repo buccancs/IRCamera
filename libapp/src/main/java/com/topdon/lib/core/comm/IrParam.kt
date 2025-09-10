@@ -18,4 +18,3 @@ enum class IrParam {
     ParamTemperature, // dataMode、dataLow gain
 }
 
-data class TempFont(val textSize: Int, val textColor: Int)

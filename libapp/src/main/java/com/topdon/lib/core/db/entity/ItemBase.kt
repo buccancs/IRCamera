@@ -57,8 +57,6 @@ import com.topdon.lib.core.R
     }
 }
 
-/**
- * data.
  */
 @Entity(
     foreignKeys = [
@@ -246,8 +244,6 @@ class ItemDetect() : ItemBase() {
     }
 }
 
-/**
- * data.
  */
 @Entity(
     foreignKeys = [

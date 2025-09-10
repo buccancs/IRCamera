@@ -15,44 +15,35 @@ data class PseudoColorBean(
     val mode: Int?,
 )
 
-data class RangeBean(
     val state: Int?,
 )
 
-data class PipBean(
     val enable: Boolean?,
 )
 
-data class ZoomBean(
     val factor: Int?,
 )
 
-data class TISRBean(
     val enable: Int?,
 )
 
-data class VersionBean(
     val firmware: String?,
 )
 
-data class DeviceInfo(
     val code: String,
     val model: String,
     val sn: String,
     val uuid: String,
 )
 
-data class FileCountBean(
     val fileCount: Int,
 )
 
-data class FilePageBean(
     val current: Int,
     val total: Int,
     val filelist: List<FileBean>,
 )
 
-data class FileBean(
     val id: Int,
     val type: Int,
     val duration: Int,
@@ -63,12 +54,10 @@ data class FileBean(
     val timezone: Int,
 )
 
-data class UpgradeStatus(
     val status: Int,
     val percent: Int,
 )
 
-data class FreeSpaceBean(
     val total: Long,
     val free: Long,
     val system: Long,
@@ -78,7 +67,6 @@ data class FreeSpaceBean(
     fun hasUseSize(): Long = system + image_size + video_size
 }
 
-data class RecordStatusBean(
     val errCode: Int,
     val path: String,
     val pts: Int,
