@@ -92,7 +92,7 @@ class DataAggregationEngine:
         self.sync_events: List[SyncEvent] = []
 
         # Threading and async management
-        self.data_queue: Queue[DataPoint] = Queue()
+        self.data_queue: Queue[Dict[str, Any]] = Queue()
         self.sync_queue: Queue[SyncEvent] = Queue()
         self.aggregation_thread: Optional[threading.Thread] = None
         self.is_running = threading.Event()

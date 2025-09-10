@@ -247,7 +247,7 @@ def format_file_size(size_bytes: int) -> str:
     for unit in ["B", "KB", "MB", "GB", "TB"]:
         if size_bytes < 1024.0:
             return f"{size_bytes:.1f} {unit}"
-        size_bytes /= 1024.0
+        size_bytes = size_bytes / 1024.0
 
     return f"{size_bytes:.1f} PB"
 
@@ -345,4 +345,4 @@ def confirm_action(parent, title: str, message: str) -> bool:
         QMessageBox.StandardButton.No,
     )
 
-    return reply == QMessageBox.StandardButton.Yes
+    return bool(reply == QMessageBox.StandardButton.Yes)

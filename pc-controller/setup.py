@@ -22,14 +22,14 @@ elif platform.system() in ["Linux", "Darwin"]:
     extra_compile_args = ["-std=c++17", "-O3", "-ffast-math"]
 
 # OpenCV configuration
+opencv_include_dirs: list[str] = []
+opencv_libs: list[str] = []
+
 try:
     import cv2
-
     opencv_include_dirs = [cv2.includes()]
-    opencv_libs: list[str] = []
 except ImportError:
-    opencv_include_dirs: list[str] = []
-    opencv_libs: list[str] = []
+    pass
 
 # Define the native backend extension
 ext_modules = [

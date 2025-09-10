@@ -11,7 +11,10 @@ import uuid
 from collections import deque
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, Dict, Optional, cast
+from typing import Any, Callable, Dict, Optional, cast, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..core.config import ConfigManager
 
 try:
     from loguru import logger

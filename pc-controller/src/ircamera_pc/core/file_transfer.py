@@ -513,17 +513,17 @@ class FileTransferManager:
         try:
             # Real network communication to read file chunk from Android device
             device_conn = job.device_connection
-            if hasattr(device_conn, "read_file_chunk"):
+            if device_conn is not None and hasattr(device_conn, "read_file_chunk"):
                 # Use device connection's file reading method
                 result = await device_conn.read_file_chunk(
-                    job.manifest.remote_path, offset, size
+                    job.manifest.filename, offset, size
                 )
                 return bytes(result)
             else:
                 # Fallback: use TCP socket communication with Android device
                 request_data = {
                     "type": "read_file_chunk",
-                    "file_path": job.manifest.remote_path,
+                    "file_path": job.manifest.filename,
                     "offset": offset,
                     "size": size,
                     "session_id": job.manifest.session_id,
@@ -687,7 +687,10 @@ class FileTransferManager:
 
     def get_active_transfers(self) -> List[Dict[str, Any]]:
         """Get list of all active transfer statuses"""
-        return [self.get_transfer_status(job_id) for job_id in self.active_jobs.keys()]
+        return [
+            status for job_id in self.active_jobs.keys()
+            if (status := self.get_transfer_status(job_id)) is not None
+        ]
 
     def get_transfer_summary(self) -> Dict[str, Any]:
         """Get overall transfer manager status"""
@@ -783,6 +786,7 @@ class FileTransferManager:
             checksum=manifest_data.get("checksum", ""),
             file_type=FileType(manifest_data.get("file_type", "metadata")),
             device_id=manifest_data.get("device_id", ""),
+            session_id=manifest_data.get("session_id", ""),
             timestamp=manifest_data.get("timestamp", 0.0),
         )
 

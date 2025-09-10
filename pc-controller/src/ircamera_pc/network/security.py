@@ -12,7 +12,10 @@ import ssl
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Optional, Tuple, cast
+from typing import Dict, Optional, Tuple, cast, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..core.config import ConfigManager
 
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
