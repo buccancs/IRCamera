@@ -14,7 +14,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TYPE_CHECKING
 
 try:
     from loguru import logger
@@ -132,7 +132,6 @@ PYQT_AVAILABLE = False  # Initialize before function call
 BaseThread, pyqtSignal, pyqtSlot, QTimer = _initialize_pyqt_imports()
 
 # Type alias for BaseThread to resolve mypy issues
-from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from PyQt6.QtCore import QThread
     BaseThreadType = QThread

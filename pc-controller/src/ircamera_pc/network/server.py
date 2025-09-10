@@ -553,87 +553,24 @@ class NetworkServer:
         device_id = message.get("device_id")
         if not device_id:
             logger.warning("GSR data batch missing device_id")
-            return create_message("ack", ack_for="gsr_data_batch", status="error", error="Missing device_id")
-        
+            return create_message(
+                "ack",
+                ack_for="gsr_data_batch",
+                status="error",
+                error="Missing device_id",
+            )
+
         device_id = str(device_id)  # Ensure string type
-        message.get("session_id")
         data_points = message.get("data_points", [])
 
         logger.debug(
             f"Received GSR data batch from {device_id}: {len(data_points)} points"
         )
 
-        # Forward to enhanced GSR data ingestion system
         try:
-            from ..data import get_data_aggregator
-
-            # Get the data aggregator instance for real-time processing
-            aggregator = get_data_aggregator()
-
-            # Process each GSR data point with enhanced metadata
-            for point in data_points:
-                # Add to aggregator with device synchronization
-                if aggregator:
-                    stream_id = f"{device_id}_gsr"
-                    timestamp_ns = point.get("timestamp_ns", time.time_ns())
-                    aggregator.add_data(stream_id, timestamp_ns, point)
-
-            # Update real-time visualization if available
-            self._update_realtime_gsr_visualization(device_id, data_points)
-
-            logger.info(
-                f"Successfully processed {len(data_points)} GSR points from {device_id}"
-            )
-
+            await self._process_gsr_data_with_aggregator(device_id, data_points)
         except ImportError:
-            logger.warning(
-                "Data aggregator not available, trying fallback GSR ingestor"
-            )
-
-            # Fallback to GSR ingestor for processing
-            try:
-                from ..core.gsr_ingestor import GSRIngestor, GSRSample, GSRMode
-
-                # Convert data points to GSR samples
-                gsr_samples = []
-                for point in data_points:
-                    from ..core.gsr_ingestor import GSRQuality
-                    sample = GSRSample(
-                        timestamp=point.get("timestamp", time.time()),
-                        value=point.get("value", 0.0),
-                        raw_adc=point.get("raw_adc", 2048),  # Add required parameter
-                        quality=GSRQuality(point.get("quality", 100)),  # Convert to enum
-                        device_id=str(device_id) if device_id else "",  # Ensure string type
-                    )
-                    gsr_samples.append(sample)
-
-                # Get or create GSR ingestor instance
-                if not hasattr(self, "_gsr_ingestor"):
-                    # Create default config for GSRIngestor
-                    default_config = {"gsr": {"data_dir": "data/gsr"}}
-                    self._gsr_ingestor = GSRIngestor(default_config)
-
-                # Process the data batch
-                for sample in gsr_samples:
-                    # Since ingest_sample expects bytes, we'll create a dataset instead
-                    if sample.session_id not in self._gsr_ingestor.active_sessions:
-                        await self._gsr_ingestor.start_session(
-                            sample.session_id or "default_session", 
-                            sample.device_id, 
-                            GSRMode.BRIDGED
-                        )
-                    
-                    # Add to the active session's dataset
-                    if sample.session_id in self._gsr_ingestor.active_sessions:
-                        self._gsr_ingestor.active_sessions[sample.session_id].add_sample(sample)
-
-                logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
-
-            except Exception as e:
-                logger.warning(f"GSR ingestor also failed, storing data to buffer: {e}")
-                # Final fallback to simple storage
-                self._buffer_gsr_data(device_id, data_points)
-
+            await self._process_gsr_data_with_fallback(device_id, data_points)
         except Exception as e:
             logger.error(f"Failed to process GSR data from {device_id}: {e}")
             return create_message(
@@ -641,6 +578,74 @@ class NetworkServer:
             )
 
         return create_message("ack", ack_for="gsr_data_batch", status="success")
+
+    async def _process_gsr_data_with_aggregator(
+        self, device_id: str, data_points: List[Dict[str, Any]]
+    ) -> None:
+        """Process GSR data using the data aggregator."""
+        from ..data import get_data_aggregator
+
+        aggregator = get_data_aggregator()
+        for point in data_points:
+            if aggregator:
+                stream_id = f"{device_id}_gsr"
+                timestamp_ns = point.get("timestamp_ns", time.time_ns())
+                aggregator.add_data(stream_id, timestamp_ns, point)
+
+        self._update_realtime_gsr_visualization(device_id, data_points)
+        logger.info(
+            f"Successfully processed {len(data_points)} GSR points from {device_id}"
+        )
+
+    async def _process_gsr_data_with_fallback(
+        self, device_id: str, data_points: List[Dict[str, Any]]
+    ) -> None:
+        """Process GSR data using fallback GSR ingestor."""
+        logger.warning("Data aggregator not available, trying fallback GSR ingestor")
+
+        try:
+            gsr_samples = self._convert_to_gsr_samples(device_id, data_points)
+            await self._process_with_gsr_ingestor(gsr_samples)
+            logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
+        except Exception as e:
+            logger.warning(f"GSR ingestor failed, storing to buffer: {e}")
+            self._buffer_gsr_data(device_id, data_points)
+
+    def _convert_to_gsr_samples(
+        self, device_id: str, data_points: List[Dict[str, Any]]
+    ) -> List:
+        """Convert data points to GSR samples."""
+        from ..core.gsr_ingestor import GSRQuality, GSRSample
+
+        gsr_samples = []
+        for point in data_points:
+            sample = GSRSample(
+                timestamp=point.get("timestamp", time.time()),
+                value=point.get("value", 0.0),
+                raw_adc=point.get("raw_adc", 2048),
+                quality=GSRQuality(point.get("quality", 100)),
+                device_id=str(device_id),
+            )
+            gsr_samples.append(sample)
+        return gsr_samples
+
+    async def _process_with_gsr_ingestor(self, gsr_samples: List) -> None:
+        """Process samples with GSR ingestor."""
+        from ..core.gsr_ingestor import GSRIngestor, GSRMode
+
+        if not hasattr(self, "_gsr_ingestor"):
+            default_config = {"gsr": {"data_dir": "data/gsr"}}
+            self._gsr_ingestor = GSRIngestor(default_config)
+
+        for sample in gsr_samples:
+            session_id = sample.session_id or "default_session"
+            if session_id not in self._gsr_ingestor.active_sessions:
+                await self._gsr_ingestor.start_session(
+                    session_id, sample.device_id, GSRMode.BRIDGED
+                )
+
+            if session_id in self._gsr_ingestor.active_sessions:
+                self._gsr_ingestor.active_sessions[session_id].add_sample(sample)
 
     async def _handle_gsr_leader_election(
         self, message: Dict[str, Any], writer: asyncio.StreamWriter
@@ -947,7 +952,9 @@ class NetworkServer:
             if writer:
                 await self._send_message(writer, message)
             else:
-                logger.warning(f"No active connection for device {target_device.device_id}")
+                logger.warning(
+                    f"No active connection for device {target_device.device_id}"
+                )
             return True
 
         except Exception as e:
@@ -1018,9 +1025,7 @@ class NetworkServer:
 
                 if is_valid and token_device_id == device_id:
                     return create_message(
-                        "auth_response",
-                        success=True,
-                        token_valid=True
+                        "auth_response", success=True, token_valid=True
                     )
                 else:
                     return create_message(
@@ -1217,15 +1222,19 @@ class NetworkServer:
             if device.last_heartbeat:
                 try:
                     # Parse last_heartbeat string to datetime
-                    last_heartbeat = datetime.fromisoformat(device.last_heartbeat.replace('Z', '+00:00'))
-                    
+                    last_heartbeat = datetime.fromisoformat(
+                        device.last_heartbeat.replace("Z", "+00:00")
+                    )
+
                     # Estimate round-trip time based on heartbeat response
                     latency_ms = (
                         current_time - last_heartbeat
                     ).total_seconds() * 500  # Rough estimate
                     return float(min(latency_ms, 1000.0))  # Cap at 1 second
                 except (ValueError, TypeError):
-                    logger.warning(f"Invalid heartbeat timestamp for device {device_id}")
+                    logger.warning(
+                        f"Invalid heartbeat timestamp for device {device_id}"
+                    )
         return 50.0  # Default estimate
 
     def _calculate_data_hash(self, data_point: Dict[str, Any]) -> str:

@@ -19,21 +19,19 @@ if TYPE_CHECKING:
 
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.asymmetric import (
     rsa, dsa, ec, ed25519, ed448
 )
-from typing import Union
+from cryptography.x509.oid import NameOID
 
 # Type alias for private key types
 PrivateKeyTypes = Union[
     rsa.RSAPrivateKey,
-    dsa.DSAPrivateKey, 
+    dsa.DSAPrivateKey,
     ec.EllipticCurvePrivateKey,
     ed25519.Ed25519PrivateKey,
     ed448.Ed448PrivateKey
 ]
-from cryptography.x509.oid import NameOID
 
 try:
     from loguru import logger

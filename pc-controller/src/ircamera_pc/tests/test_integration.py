@@ -60,7 +60,7 @@ class TestEndToEndIntegration(unittest.TestCase):
 
     def tearDown(self):
         """Clean up integration test environment"""
-        if self.network_server.is_running():
+        if self.network_server.is_running:
             # Run async stop method in sync context
             asyncio.run(self.network_server.stop())
         shutil.rmtree(self.temp_dir, ignore_errors=True)
@@ -80,7 +80,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         self.assertTrue(session_started, "Session manager should start")
 
         # Verify system is running
-        self.assertTrue(self.network_server.is_running())
+        self.assertTrue(self.network_server.is_running)
         self.assertTrue(self.session_manager.is_active())
 
         # Step 4: Graceful shutdown
@@ -89,7 +89,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         asyncio.run(self.network_server.stop())
 
         # Verify clean shutdown
-        self.assertFalse(self.network_server.is_running())
+        self.assertFalse(self.network_server.is_running)
         self.assertFalse(self.session_manager.is_active())
 
     def test_multi_device_discovery_and_registration(self):
@@ -121,12 +121,12 @@ class TestEndToEndIntegration(unittest.TestCase):
 
         # Verify devices can be queried
         for device_id in registered_devices:
-            self.network_server.get_device_info(device_id)
+            asyncio.run(self.network_server.get_device_info(device_id))
             # Device info may be None for mock devices, just check it doesn't crash
 
     def test_coordinated_multi_modal_session(self):
         """Test coordinated multi-modal recording session across devices"""
-        self.network_server.start()
+        asyncio.run(self.network_server.start())
         self.data_aggregator.initialize()
 
         # Register devices
