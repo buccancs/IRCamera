@@ -243,7 +243,8 @@ class EnhancedPCController(QMainWindow):
         def shimmer_callback(gsr_data):
             self._on_gsr_data("shimmer_1", gsr_data)
 
-        self.native_shimmer.set_data_callback(shimmer_callback)
+        if self.native_shimmer:
+            self.native_shimmer.set_data_callback(shimmer_callback)
 
     def _initialize_webcam_sensor(self, native_backend):  # noqa: F811
         """Initialize webcam sensor from native backend."""
@@ -265,7 +266,7 @@ class EnhancedPCController(QMainWindow):
         config.height = 1080
         config.fps = 30.0
 
-        if self.native_webcam.open_camera(config):
+        if self.native_webcam and self.native_webcam.open_camera(config):
             print(f"OK Opened camera {camera_id}")
             self._setup_webcam_callback()
         else:
@@ -277,7 +278,8 @@ class EnhancedPCController(QMainWindow):
         def frame_callback(frame_data):
             self._on_frame_data("webcam_1", frame_data)
 
-        self.native_webcam.set_frame_callback(frame_callback)
+        if self.native_webcam:
+            self.native_webcam.set_frame_callback(frame_callback)
 
     def _setup_demo_devices(self):
         """Set up demo devices for simulation."""

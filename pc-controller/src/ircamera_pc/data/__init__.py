@@ -682,6 +682,31 @@ class DataAggregationEngine:
 # Utility functions for data aggregation
 
 
+# Global data aggregator instance for singleton pattern
+_global_aggregator: Optional[DataAggregationEngine] = None
+
+
+def get_data_aggregator() -> Optional[DataAggregationEngine]:
+    """
+    Get the global data aggregator instance.
+    
+    Returns:
+        Global DataAggregationEngine instance or None if not initialized
+    """
+    return _global_aggregator
+
+
+def set_data_aggregator(aggregator: DataAggregationEngine) -> None:
+    """
+    Set the global data aggregator instance.
+    
+    Args:
+        aggregator: DataAggregationEngine instance to set as global
+    """
+    global _global_aggregator
+    _global_aggregator = aggregator
+
+
 def calculate_temporal_alignment(
     sync_events: List[SyncEvent], tolerance_ms: float = 5.0
 ) -> Dict[str, float]:

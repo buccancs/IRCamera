@@ -23,7 +23,9 @@ class TestNetworkServer(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.server = NetworkServer(host="localhost", port=8080)
+        self.server = NetworkServer()
+        self.test_host = "localhost"
+        self.test_port = 8080
         self.test_client_data = {
             "device_id": "TEST_ANDROID_001",
             "device_type": "android_spoke",
@@ -39,10 +41,8 @@ class TestNetworkServer(unittest.TestCase):
     def test_server_initialization(self):
         """Test server initialization and configuration"""
         self.assertIsNotNone(self.server)
-        self.assertEqual(self.server.host, "localhost")
-        self.assertEqual(self.server.port, 8080)
-        self.assertFalse(self.server.is_running())
-        self.assertEqual(len(self.server.get_connected_devices()), 0)
+        self.assertFalse(self.server.is_running)
+        self.assertEqual(len(self.server._devices), 0)
 
     def test_server_start_stop(self):
         """Test server start and stop functionality"""

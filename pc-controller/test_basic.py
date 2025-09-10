@@ -60,11 +60,13 @@ def test_basic_functionality():
         # Test session lifecycle
         session_mgr.start_session()
         current = session_mgr.get_current_session()
-        print(f"   OK Started session, new state: {current.state}")
+        if current:
+            print(f"   OK Started session, new state: {current.state}")
 
         session_mgr.begin_recording()
         current = session_mgr.get_current_session()
-        print(f"   OK Started recording, state: {current.state}")
+        if current:
+            print(f"   OK Started recording, state: {current.state}")
 
         # Add some test data
         session_mgr.add_device(
@@ -106,7 +108,7 @@ def test_basic_functionality():
         config.save()
 
         # Create new config manager to test loading
-        config2 = ConfigManager(config.config_path)
+        config2 = ConfigManager(str(config.config_path))
         test_value = config2.get("test.value")
 
         if test_value == "test_data":

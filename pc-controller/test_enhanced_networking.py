@@ -68,7 +68,7 @@ class EnhancedNetworkingTests:
             # Initialize security manager with test directory
             with patch.object(SecurityManager, "__init__", self._mock_security_init):
                 security_manager = SecurityManager()
-                security_manager.cert_dir = Path(self.temp_dir)
+                security_manager.cert_dir = Path(self.temp_dir) if self.temp_dir else Path.cwd()
                 security_manager.ca_cert_path = (
                     security_manager.cert_dir / "ca_cert.pem"
                 )
@@ -146,7 +146,7 @@ class EnhancedNetworkingTests:
 
             # Test device type determination
             device_type = discovery_service._determine_device_type(
-                "_topdon-thermal._tcp.local.", {b"device_type": b"THERMAL_CAMERA_TS004"}
+                "_topdon-thermal._tcp.local.", {"device_type": b"THERMAL_CAMERA_TS004"}
             )
             assert (
                 device_type == DeviceType.THERMAL_CAMERA_TS004

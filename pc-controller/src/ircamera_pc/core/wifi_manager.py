@@ -132,9 +132,12 @@ PYQT_AVAILABLE = False  # Initialize before function call
 BaseThread, pyqtSignal, pyqtSlot, QTimer = _initialize_pyqt_imports()
 
 # Type alias for BaseThread to resolve mypy issues
-
-
-# Removed BaseThreadProtocol as it's not needed
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from PyQt6.QtCore import QThread
+    BaseThreadType = QThread
+else:
+    BaseThreadType = BaseThread
 
 
 try:
@@ -220,7 +223,7 @@ class NetworkInterface:
     status: str
 
 
-class WiFiScanWorker(BaseThread):
+class WiFiScanWorker(BaseThreadType):  # type: ignore
     """Worker thread for WiFi network scanning."""
 
     networks_found = pyqtSignal(list)

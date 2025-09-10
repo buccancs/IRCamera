@@ -20,10 +20,19 @@ if TYPE_CHECKING:
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives.asymmetric.types import (
-    RSAPrivateKey, DSAPrivateKey, EllipticCurvePrivateKey,
-    Ed25519PrivateKey, Ed448PrivateKey
+from cryptography.hazmat.primitives.asymmetric import (
+    rsa, dsa, ec, ed25519, ed448
 )
+from typing import Union
+
+# Type alias for private key types
+PrivateKeyTypes = Union[
+    rsa.RSAPrivateKey,
+    dsa.DSAPrivateKey, 
+    ec.EllipticCurvePrivateKey,
+    ed25519.Ed25519PrivateKey,
+    ed448.Ed448PrivateKey
+]
 from cryptography.x509.oid import NameOID
 
 try:
@@ -421,9 +430,7 @@ class SecurityManager:
                 ),
                 critical=False,
             )
-            .sign(cast(Union[RSAPrivateKey, DSAPrivateKey,
-                       EllipticCurvePrivateKey, Ed25519PrivateKey,
-                       Ed448PrivateKey], ca_key), hashes.SHA256())
+            .sign(cast(PrivateKeyTypes, ca_key), hashes.SHA256())
         )
 
         # Save certificate and key

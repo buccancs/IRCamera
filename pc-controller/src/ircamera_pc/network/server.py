@@ -551,6 +551,11 @@ class NetworkServer:
     ) -> Dict[str, Any]:
         """Handle GSR data batch using protocol format."""
         device_id = message.get("device_id")
+        if not device_id:
+            logger.warning("GSR data batch missing device_id")
+            return create_message("ack", ack_for="gsr_data_batch", status="error", error="Missing device_id")
+        
+        device_id = str(device_id)  # Ensure string type
         message.get("session_id")
         data_points = message.get("data_points", [])
 
@@ -567,26 +572,11 @@ class NetworkServer:
 
             # Process each GSR data point with enhanced metadata
             for point in data_points:
-                enhanced_point = {
-                    "device_id": device_id,
-                    "timestamp_ns": point.get("timestamp_ns"),
-                    "gsr_raw": point.get("gsr_raw"),
-                    "gsr_microsiemens": point.get("gsr_microsiemens"),
-                    "ppg_raw": point.get("ppg_raw"),
-                    "ppg_value": point.get("ppg_value"),
-                    "quality_score": point.get("quality_score", 100.0),
-                    "sync_marker": point.get("sync_marker", False),
-                    "session_metadata": {
-                        "network_latency_ms": self._calculate_network_latency(
-                            device_id
-                        ),
-                        "reception_timestamp_ns": time.time_ns(),
-                        "data_integrity_hash": self._calculate_data_hash(point),
-                    },
-                }
-
                 # Add to aggregator with device synchronization
-                await aggregator.add_gsr_data_point(enhanced_point)
+                if aggregator:
+                    stream_id = f"{device_id}_gsr"
+                    timestamp_ns = point.get("timestamp_ns", time.time_ns())
+                    aggregator.add_data(stream_id, timestamp_ns, point)
 
             # Update real-time visualization if available
             self._update_realtime_gsr_visualization(device_id, data_points)
@@ -602,29 +592,40 @@ class NetworkServer:
 
             # Fallback to GSR ingestor for processing
             try:
-                from ..core.gsr_ingestor import GSRIngestor, GSRSample
+                from ..core.gsr_ingestor import GSRIngestor, GSRSample, GSRMode
 
                 # Convert data points to GSR samples
                 gsr_samples = []
                 for point in data_points:
+                    from ..core.gsr_ingestor import GSRQuality
                     sample = GSRSample(
                         timestamp=point.get("timestamp", time.time()),
                         value=point.get("value", 0.0),
-                        quality=point.get("quality", 100),
-                        device_id=device_id,
+                        raw_adc=point.get("raw_adc", 2048),  # Add required parameter
+                        quality=GSRQuality(point.get("quality", 100)),  # Convert to enum
+                        device_id=str(device_id) if device_id else "",  # Ensure string type
                     )
                     gsr_samples.append(sample)
 
                 # Get or create GSR ingestor instance
                 if not hasattr(self, "_gsr_ingestor"):
-                    self._gsr_ingestor = GSRIngestor()
+                    # Create default config for GSRIngestor
+                    default_config = {"gsr": {"data_dir": "data/gsr"}}
+                    self._gsr_ingestor = GSRIngestor(default_config)
 
                 # Process the data batch
-                await self._gsr_ingestor.process_data_batch(
-                    session_id=message.get("session_id"),
-                    device_id=device_id,
-                    samples=gsr_samples,
-                )
+                for sample in gsr_samples:
+                    # Since ingest_sample expects bytes, we'll create a dataset instead
+                    if sample.session_id not in self._gsr_ingestor.active_sessions:
+                        await self._gsr_ingestor.start_session(
+                            sample.session_id or "default_session", 
+                            sample.device_id, 
+                            GSRMode.BRIDGED
+                        )
+                    
+                    # Add to the active session's dataset
+                    if sample.session_id in self._gsr_ingestor.active_sessions:
+                        self._gsr_ingestor.active_sessions[sample.session_id].add_sample(sample)
 
                 logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
 
@@ -942,7 +943,11 @@ class NetworkServer:
                 return False
 
             # Send message to device
-            await self._send_to_client(target_device.device_id, message)
+            writer = self._clients.get(target_device.device_id)
+            if writer:
+                await self._send_message(writer, message)
+            else:
+                logger.warning(f"No active connection for device {target_device.device_id}")
             return True
 
         except Exception as e:
@@ -994,17 +999,16 @@ class NetworkServer:
 
                     return create_message(
                         "auth_response",
-                        {
-                            "success": True,
-                            "auth_token": token,
-                            "device_type": device_type,
-                            "secure_port": self._secure_port,
-                        },
+                        success=True,
+                        auth_token=token,
+                        device_type=device_type,
+                        secure_port=self._secure_port,
                     )
                 else:
                     return create_message(
                         "auth_response",
-                        {"success": False, "error": "Certificate validation failed"},
+                        success=False,
+                        error="Certificate validation failed",
                     )
             elif auth_token:
                 # Validate existing token
@@ -1014,24 +1018,29 @@ class NetworkServer:
 
                 if is_valid and token_device_id == device_id:
                     return create_message(
-                        "auth_response", {"success": True, "token_valid": True}
+                        "auth_response",
+                        success=True,
+                        token_valid=True
                     )
                 else:
                     return create_message(
                         "auth_response",
-                        {"success": False, "error": "Token validation failed"},
+                        success=False,
+                        error="Token validation failed",
                     )
             else:
                 return create_message(
                     "auth_response",
-                    {"success": False, "error": "No authentication data provided"},
+                    success=False,
+                    error="No authentication data provided",
                 )
 
         except Exception as e:
             logger.error(f"Error handling device authentication: {e}")
             return create_message(
                 "auth_response",
-                {"success": False, "error": f"Authentication error: {e}"},
+                success=False,
+                error=f"Authentication error: {e}",
             )
 
     async def _handle_message_ack(
@@ -1206,11 +1215,17 @@ class NetworkServer:
         if device and hasattr(device, "last_heartbeat"):
             current_time = datetime.now()
             if device.last_heartbeat:
-                # Estimate round-trip time based on heartbeat response
-                latency_ms = (
-                    current_time - device.last_heartbeat
-                ).total_seconds() * 500  # Rough estimate
-                return float(min(latency_ms, 1000.0))  # Cap at 1 second
+                try:
+                    # Parse last_heartbeat string to datetime
+                    last_heartbeat = datetime.fromisoformat(device.last_heartbeat.replace('Z', '+00:00'))
+                    
+                    # Estimate round-trip time based on heartbeat response
+                    latency_ms = (
+                        current_time - last_heartbeat
+                    ).total_seconds() * 500  # Rough estimate
+                    return float(min(latency_ms, 1000.0))  # Cap at 1 second
+                except (ValueError, TypeError):
+                    logger.warning(f"Invalid heartbeat timestamp for device {device_id}")
         return 50.0  # Default estimate
 
     def _calculate_data_hash(self, data_point: Dict[str, Any]) -> str:

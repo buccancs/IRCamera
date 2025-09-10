@@ -42,7 +42,7 @@ def test_all_components():
 
         print("\n1. Testing Configuration Manager...")
         config_file = Path(temp_dir) / "test_config.yaml"
-        ConfigManager(config_file)
+        ConfigManager(str(config_file))
         print("   + Configuration manager created")
 
         print("\n2. Testing Session Manager...")
