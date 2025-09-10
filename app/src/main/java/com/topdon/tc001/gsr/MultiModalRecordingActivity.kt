@@ -374,7 +374,8 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                             runOnUiThread {
                                 Toast.makeText(
                                     this@MultiModalRecordingActivity,
-                                    "Network error: $error", Toast.LENGTH_SHORT,
+                                    "Network error: $error",
+                                    Toast.LENGTH_SHORT,
                                 ).show()
                             }
                         }
@@ -463,7 +464,8 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                     runOnUiThread {
                         Toast.makeText(
                             this@MultiModalRecordingActivity,
-                            "Camera Error: $error", Toast.LENGTH_LONG,
+                            "Camera Error: $error",
+                            Toast.LENGTH_LONG,
                         ).show()
                     }
                 }
@@ -508,8 +510,14 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                 }
             } else {
                 // Legacy Bluetooth permissions
-                ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.BLUETOOTH,
+                ) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.BLUETOOTH_ADMIN,
+                    ) == PackageManager.PERMISSION_GRANTED
             }
 
         return baseGranted && bluetoothGranted

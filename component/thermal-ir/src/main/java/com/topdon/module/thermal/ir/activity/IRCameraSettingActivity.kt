@@ -324,7 +324,8 @@ class IRCameraSettingActivity : BaseActivity() {
                 result =
                     gc.getFromLocation(
                         location.latitude,
-                        location.longitude, 1,
+                        location.longitude,
+                        1,
                     )
                 Log.v("TAG", "activity：$result")
             }

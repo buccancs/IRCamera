@@ -216,8 +216,17 @@ class DeviceAddActivity : BaseActivity() {
                         if (!isLocationEnable || !isWifiEnable || !isBtEnable) {
                             appendColor(", ", 0xff06aaff.toInt())
                         }
-                        val hasLocationPermission = XXPermissions.isGranted(this@DeviceAddActivity, Permission.ACCESS_FINE_LOCATION)
-                        appendColorAndClick(getString(if (hasLocationPermission) R.string.nearby_device_permissions else R.string.ts004_location_permission), 0xff06aaff.toInt()) {
+                        val hasLocationPermission =
+                            XXPermissions.isGranted(
+                                this@DeviceAddActivity,
+                                Permission.ACCESS_FINE_LOCATION,
+                            )
+                        appendColorAndClick(
+                            getString(
+                                if (hasLocationPermission) R.string.nearby_device_permissions else R.string.ts004_location_permission,
+                            ),
+                            0xff06aaff.toInt(),
+                        ) {
                             requestPermission(0)
                         }
                     }
@@ -480,7 +489,10 @@ class DeviceAddActivity : BaseActivity() {
 
                         tv_scan_state.setText(R.string.ts004_scan_nothing)
                         tv_scan_tips.text =
-                            SpanBuilder().appendColorAndClick(getString(R.string.ts004_scan_again), 0xff06aaff.toInt()) {
+                            SpanBuilder().appendColorAndClick(
+                                getString(R.string.ts004_scan_again),
+                                0xff06aaff.toInt(),
+                            ) {
                                 requestPermission(2)
                             }
                     }

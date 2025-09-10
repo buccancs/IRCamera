@@ -446,7 +446,15 @@ class TemperatureHikView : TemperatureBaseView {
                     }
                 }
 
-                tempInfo = TempInfo(centerResult, if (isShowFull) fullResult else null, trendResult, pointResultList, lineResultList, rectResultList)
+                tempInfo =
+                    TempInfo(
+                        centerResult,
+                        if (isShowFull) fullResult else null,
+                        trendResult,
+                        pointResultList,
+                        lineResultList,
+                        rectResultList,
+                    )
                 mainHandler.post {
                     onTempResultListener?.invoke(tempInfo)
                 }

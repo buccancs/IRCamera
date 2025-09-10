@@ -99,9 +99,16 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
         ts_data_L = CommonUtils.getTauData(this@IRMonitorChartActivity, "ts/TS001_L.bin")
         selectBean = intent.getParcelableExtra("select")!!
 
-        findViewById<TextView>(R.id.monitor_current_vol).text = getString(if (selectBean.type == 1) LibR.string.chart_temperature else LibR.string.chart_temperature_high)
+        findViewById<TextView>(
+            R.id.monitor_current_vol,
+        ).text =
+            getString(
+                if (selectBean.type == 1) LibR.string.chart_temperature else LibR.string.chart_temperature_high,
+            )
         findViewById<TextView>(R.id.monitor_real_vol).visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
-        findViewById<ImageView>(R.id.monitor_real_img).visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        findViewById<ImageView>(
+            R.id.monitor_real_img,
+        ).visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
 
         // Initialize view properties
         temperatureView = findViewById(R.id.temperatureView)
@@ -144,7 +151,9 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
                     if (isFirstRead) {
                         if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                             errorReadCount++
-                            XLog.w("activity $errorReadCount activity，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                            XLog.w(
+                                "activity $errorReadCount activity，max = ${result.maxTemperature} min = ${result.minTemperature}",
+                            )
                             if (errorReadCount > 10) {
                                 XLog.i("activity10activity，activity")
                                 isFirstRead = false
@@ -380,7 +389,10 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
     private fun startUSB(isRestart: Boolean) {
         iruvc =
             IRUVCTC(
-                cameraWidth, cameraHeight, this@IRMonitorChartActivity, syncimage,
+                cameraWidth,
+                cameraHeight,
+                this@IRMonitorChartActivity,
+                syncimage,
                 defaultDataFlowMode,
                 object : ConnectCallback {
                     override fun onCameraOpened(uvcCamera: UVCCamera) {

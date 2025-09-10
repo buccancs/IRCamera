@@ -121,11 +121,31 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
         tv_create_report.setOnClickListener(this)
 
         // 给各个标题添加红色*号
-        tv_detect_name_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.album_report_name))
-        tv_inspector_name_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.inspector_name))
-        tv_detect_time_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.detect_time))
-        tv_house_address_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.house_detail_address))
-        tv_house_image_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.house_image))
+        tv_detect_name_title.text =
+            SpanBuilder().appendColor(
+                "*",
+                0xffff4848.toInt(),
+            ).append(getString(R.string.album_report_name))
+        tv_inspector_name_title.text =
+            SpanBuilder().appendColor(
+                "*",
+                0xffff4848.toInt(),
+            ).append(getString(R.string.inspector_name))
+        tv_detect_time_title.text =
+            SpanBuilder().appendColor(
+                "*",
+                0xffff4848.toInt(),
+            ).append(getString(R.string.detect_time))
+        tv_house_address_title.text =
+            SpanBuilder().appendColor(
+                "*",
+                0xffff4848.toInt(),
+            ).append(getString(R.string.house_detail_address))
+        tv_house_image_title.text =
+            SpanBuilder().appendColor(
+                "*",
+                0xffff4848.toInt(),
+            ).append(getString(R.string.house_image))
 
         onBackPressedDispatcher.addCallback(
             this,

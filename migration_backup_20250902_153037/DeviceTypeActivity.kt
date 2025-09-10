@@ -110,7 +110,10 @@ class DeviceTypeActivity : BaseActivity() {
             val firstType: IRDeviceType = dataList[position].firstType
             val secondType: IRDeviceType? = dataList[position].secondType
             holder.itemView.tv_title.isVisible = dataList[position].isTitle
-            holder.itemView.tv_title.text = context.getString(if (firstType.isLine()) R.string.tc_connect_line else R.string.tc_connect_wifi)
+            holder.itemView.tv_title.text =
+                context.getString(
+                    if (firstType.isLine()) R.string.tc_connect_line else R.string.tc_connect_wifi,
+                )
 
             holder.itemView.tv_item1.text = firstType.getDeviceName()
             when (firstType) {

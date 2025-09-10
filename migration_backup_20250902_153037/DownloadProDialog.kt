@@ -40,7 +40,9 @@ class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) 
         total: Long,
     ) {
         val progress = (current * 100f / total).toInt()
-        rootView.tv_size.text = "${context.getString(R.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
+        rootView.tv_size.text = "${context.getString(
+            R.string.detail_len,
+        )}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
         rootView.progress_bar.progress = progress
         rootView.tv_progress.text = "$progress%"
     }

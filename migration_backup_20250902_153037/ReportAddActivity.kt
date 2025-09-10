@@ -166,7 +166,14 @@ class ReportAddActivity : BaseActivity(), View.OnClickListener {
             // 项目添加图片
             editLayoutIndex = layoutIndex
             editItemDetect = item
-            ThreePickPopup(this, arrayListOf(R.string.person_headshot_phone, R.string.light_camera_take_photo, R.string.ir_camera_take_photo)) {
+            ThreePickPopup(
+                this,
+                arrayListOf(
+                    R.string.person_headshot_phone,
+                    R.string.light_camera_take_photo,
+                    R.string.ir_camera_take_photo,
+                ),
+            ) {
                 when (it) {
                     0 -> { // 从相册获取
                         PermissionTool.requestImageRead(this) {

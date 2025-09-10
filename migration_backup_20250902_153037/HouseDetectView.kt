@@ -313,7 +313,10 @@ class HouseDetectView : FrameLayout {
                 holder.itemView.iv_del_image3.isVisible = itemDetect.image3.isNotEmpty()
                 holder.itemView.iv_image4.isVisible = itemDetect.image4.isNotEmpty()
                 holder.itemView.iv_del_image4.isVisible = itemDetect.image4.isNotEmpty()
-                holder.itemView.tv_image_count_tips.text = SpanBuilder(itemDetect.getImageSize().toString()).appendColor("/4", 0x80ffffff.toInt())
+                holder.itemView.tv_image_count_tips.text =
+                    SpanBuilder(
+                        itemDetect.getImageSize().toString(),
+                    ).appendColor("/4", 0x80ffffff.toInt())
                 if (itemDetect.image1.isNotEmpty()) {
                     Glide.with(context).load(itemDetect.image1).into(holder.itemView.iv_image1)
                 }
@@ -527,7 +530,14 @@ class HouseDetectView : FrameLayout {
                 return
             }
             // notify 后旧 currentPosition 已不准确，需要刷新
-            currentPosition = if (dataList[seeFirstPosition] is DirDetect) seeFirstPosition else findDirPosition(seeFirstPosition)
+            currentPosition =
+                if (dataList[seeFirstPosition] is DirDetect) {
+                    seeFirstPosition
+                } else {
+                    findDirPosition(
+                        seeFirstPosition,
+                    )
+                }
             titleView.translationY = 0f
             adapter.refreshDir(titleView, dataList[currentPosition] as DirDetect)
             onScrollListener.onScrolled(recyclerView, 0, 0)

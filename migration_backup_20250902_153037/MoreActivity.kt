@@ -221,7 +221,9 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launch {
             val versionBean = TS004Repository.getVersion()
             if (versionBean?.isSuccess() == true) {
-                item_setting_bottom_text.text = getString(R.string.setting_firmware_update_version) + "V" + versionBean.data?.firmware
+                item_setting_bottom_text.text = getString(
+                    R.string.setting_firmware_update_version,
+                ) + "V" + versionBean.data?.firmware
             } else {
                 TToast.shortToast(this@MoreActivity, R.string.operation_failed_tips)
             }

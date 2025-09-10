@@ -222,7 +222,11 @@ class CameraMenuView : FrameLayout, View.OnClickListener {
             viewType: Int,
         ): ViewHolder {
             val view = View(parent.context)
-            view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            view.layoutParams =
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                )
             return ViewHolder(view)
         }
 

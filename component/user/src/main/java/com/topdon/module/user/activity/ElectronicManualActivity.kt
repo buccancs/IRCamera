@@ -44,15 +44,21 @@ class ElectronicManualActivity : BaseActivity() {
                     // Activity logic-TS001
                 } else {
                     // FAQ-TS001
-                    NavigationManager.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", true).navigation(this)
+                    NavigationManager.getInstance().build(
+                        RouterConfig.QUESTION,
+                    ).withBoolean("isTS001", true).navigation(this)
                 }
             } else {
                 if (productType == Constants.SETTING_BOOK) {
                     // Activity logic-TS004
-                    NavigationManager.getInstance().build(RouterConfig.PDF).withBoolean("isTS001", false).navigation(this)
+                    NavigationManager.getInstance().build(
+                        RouterConfig.PDF,
+                    ).withBoolean("isTS001", false).navigation(this)
                 } else {
                     // FAQ-TS004
-                    NavigationManager.getInstance().build(RouterConfig.QUESTION).withBoolean("isTS001", false).navigation(this)
+                    NavigationManager.getInstance().build(
+                        RouterConfig.QUESTION,
+                    ).withBoolean("isTS001", false).navigation(this)
                 }
             }
         }

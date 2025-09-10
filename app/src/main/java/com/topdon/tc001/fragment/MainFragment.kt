@@ -96,7 +96,8 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
                 TipDialog.Builder(requireContext())
                     .setTitleMessage(
                         AppLanguageUtils.attachBaseContext(
-                            context, ConstantLanguages.ENGLISH,
+                            context,
+                            ConstantLanguages.ENGLISH,
                         ).getString(R.string.tc_delete_device),
                     )
                     .setMessage(R.string.tc_delete_device_tips)
@@ -354,7 +355,8 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
                 tvTitle.isVisible = hasTitle
                 tvTitle.text =
                     AppLanguageUtils.attachBaseContext(
-                        itemView.context, ConstantLanguages.ENGLISH,
+                        itemView.context,
+                        ConstantLanguages.ENGLISH,
                     )
                         .getString(if (type == ConnectType.LINE) R.string.tc_connect_line else R.string.tc_connect_wifi)
 

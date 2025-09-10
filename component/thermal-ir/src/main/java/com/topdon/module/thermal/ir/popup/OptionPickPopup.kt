@@ -76,7 +76,11 @@ class OptionPickPopup(
 
         val x = locationArray[0] + anchor.width - width + SizeUtils.dp2px(5f)
 
-        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) { // Implementation anchor data
+        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height -
+            SizeUtils.dp2px(
+                5f,
+            )
+        ) { // Implementation anchor data
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
         } else { // Implementation
             showAtLocation(

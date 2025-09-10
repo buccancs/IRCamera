@@ -367,7 +367,9 @@ class ReportIRShowView : LinearLayout {
                     }
                 prefix +
                     if (tempBean.isMinOpen() && tempBean.isMaxOpen()) {
-                        context.getString(LibR.string.chart_temperature_low) + "-" + context.getString(LibR.string.chart_temperature_high)
+                        context.getString(
+                            LibR.string.chart_temperature_low,
+                        ) + "-" + context.getString(LibR.string.chart_temperature_high)
                     } else if (tempBean.isMinOpen()) {
                         context.getString(LibR.string.chart_temperature_low)
                     } else {

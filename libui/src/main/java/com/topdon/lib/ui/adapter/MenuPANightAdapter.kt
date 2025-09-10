@@ -33,7 +33,11 @@ class MenuPANightAdapter(
             layoutParams.height = imageSize
             holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams = layoutParams
         } else {
-            holder.itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            holder.itemView.layoutParams =
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                )
             val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
             val layoutParams =
                 holder.itemView.findViewById<android.widget.ImageView>(

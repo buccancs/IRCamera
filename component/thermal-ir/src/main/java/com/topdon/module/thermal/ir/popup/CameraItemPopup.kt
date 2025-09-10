@@ -87,7 +87,11 @@ class CameraItemPopup(
 
         binding.ivDelay.setImageLevel(saveSetBean.delayCaptureSecond)
         binding.ivAuto.isSelected = saveSetBean.isAutoShutter
-        binding.ivAudio.isSelected = saveSetBean.isRecordAudio && XXPermissions.isGranted(context, Permission.RECORD_AUDIO)
+        binding.ivAudio.isSelected = saveSetBean.isRecordAudio &&
+            XXPermissions.isGranted(
+                context,
+                Permission.RECORD_AUDIO,
+            )
 
         binding.clDelay.setOnClickListener(this)
         binding.clAuto.setOnClickListener(this)

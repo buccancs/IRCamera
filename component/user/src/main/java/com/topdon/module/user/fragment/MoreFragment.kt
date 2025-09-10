@@ -256,7 +256,9 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 if (productBean == null) {
                     TToast.shortToast(requireContext(), RCore.string.operation_failed_tips)
                 } else {
-                    itemSettingBottomText.text = getString(RCore.string.setting_firmware_update_version) + "V" + productBean.getVersionStr()
+                    itemSettingBottomText.text = getString(
+                        RCore.string.setting_firmware_update_version,
+                    ) + "V" + productBean.getVersionStr()
                 }
             }
         } else {

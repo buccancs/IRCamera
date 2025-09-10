@@ -80,7 +80,8 @@ class BluetoothManager(private val context: Context) {
         val connectPermission =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.BLUETOOTH_CONNECT,
+                    context,
+                    Manifest.permission.BLUETOOTH_CONNECT,
                 ) == PackageManager.PERMISSION_GRANTED
             } else {
                 // For older versions, BLUETOOTH_CONNECT doesn't exist, so we check basic permissions
@@ -89,7 +90,8 @@ class BluetoothManager(private val context: Context) {
 
         val locationPermission =
             ActivityCompat.checkSelfPermission(
-                context, Manifest.permission.ACCESS_FINE_LOCATION,
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION,
             ) == PackageManager.PERMISSION_GRANTED
 
         return connectPermission && locationPermission

@@ -163,7 +163,11 @@ class ShimmerGSRRecorder(
                     } else {
                         // Use first available Shimmer device
                         // Check for Bluetooth permissions
-                        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.checkSelfPermission(
+                                context,
+                                android.Manifest.permission.BLUETOOTH_CONNECT,
+                            ) != PackageManager.PERMISSION_GRANTED
+                        ) {
                             Log.w(TAG, "BLUETOOTH_CONNECT permission not granted")
                             notifyError("BLUETOOTH_CONNECT permission not granted")
                             return@withContext false

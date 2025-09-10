@@ -146,7 +146,11 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
             }
         }
 
-        val height = tvTips.measuredHeight + SizeUtils.dp2px(5f) + (seekBar.thumb?.intrinsicHeight ?: seekBar.measuredHeight)
+        val height =
+            tvTips.measuredHeight +
+                SizeUtils.dp2px(
+                    5f,
+                ) + (seekBar.thumb?.intrinsicHeight ?: seekBar.measuredHeight)
         setMeasuredDimension(width, if (heightMode == MeasureSpec.EXACTLY) heightSize else height)
     }
 

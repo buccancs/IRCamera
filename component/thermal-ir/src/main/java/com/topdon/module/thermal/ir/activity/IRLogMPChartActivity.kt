@@ -62,7 +62,9 @@ class IRLogMPChartActivity : BaseActivity() {
             dismissLoadingDialog()
 
             val isPoint = it?.isNotEmpty() == true && it.first().type == "point"
-            findViewById<TextView>(R.id.monitor_current_vol).text = getString(if (isPoint) LibR.string.chart_temperature else LibR.string.chart_temperature_high)
+            findViewById<TextView>(
+                R.id.monitor_current_vol,
+            ).text = getString(if (isPoint) LibR.string.chart_temperature else LibR.string.chart_temperature_high)
             findViewById<TextView>(R.id.monitor_real_vol).visibility = if (isPoint) View.GONE else View.VISIBLE
             findViewById<ImageView>(R.id.monitor_real_img).visibility = if (isPoint) View.GONE else View.VISIBLE
 
@@ -98,7 +100,11 @@ class IRLogMPChartActivity : BaseActivity() {
                                                 var filePath: String? = null
                                                 withContext(Dispatchers.IO) {
                                                     tempData?.get(0)?.let {
-                                                        filePath = ExcelUtil.exportExcel(tempData as java.util.ArrayList<ThermalEntity>?, "point" == it.type)
+                                                        filePath =
+                                                            ExcelUtil.exportExcel(
+                                                                tempData as java.util.ArrayList<ThermalEntity>?,
+                                                                "point" == it.type,
+                                                            )
                                                     }
                                                 }
                                                 dismissLoadingDialog()
@@ -153,7 +159,9 @@ class IRLogMPChartActivity : BaseActivity() {
                 .setCanceled(true)
                 .create().show()
         }
-        findViewById<TextView>(R.id.tv_save_path)?.text = getString(LibR.string.temp_export_path) + ": " + FileConfig.excelDir
+        findViewById<TextView>(
+            R.id.tv_save_path,
+        )?.text = getString(LibR.string.temp_export_path) + ": " + FileConfig.excelDir
         viewModel.queryDetail(startTime)
     }
 

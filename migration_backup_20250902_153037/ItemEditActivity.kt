@@ -81,7 +81,9 @@ class ItemEditActivity : BaseActivity(), View.OnClickListener {
             view_copy.isEnabled = it > 0
             view_del.isEnabled = it > 0
             iv_select_all.isSelected = adapter.isSelectAll
-            tv_select_all.setText(if (adapter.isSelectAll) R.string.app_cancel_select_all else R.string.report_select_all)
+            tv_select_all.setText(
+                if (adapter.isSelectAll) R.string.app_cancel_select_all else R.string.report_select_all,
+            )
             tv_title.text = if (it > 0) getString(R.string.chosen_item, it) else getString(R.string.not_selected)
         }
         adapter.onStateChangeListener = { oldState, newState ->

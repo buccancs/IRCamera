@@ -45,7 +45,9 @@ class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDi
         val progressBar = rootView.findViewById<android.widget.ProgressBar>(R.id.progress_bar)
         val tvProgress = rootView.findViewById<android.widget.TextView>(R.id.tv_progress)
 
-        tvSize.text = "${context.getString(RCore.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
+        tvSize.text = "${context.getString(
+            RCore.string.detail_len,
+        )}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
         progressBar.progress = progress
         tvProgress.text = "$progress%"
     }

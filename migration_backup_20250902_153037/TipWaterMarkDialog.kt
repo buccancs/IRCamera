@@ -273,7 +273,8 @@ class TipWaterMarkDialog : Dialog {
                     result =
                         gc.getFromLocation(
                             location.latitude,
-                            location.longitude, 1,
+                            location.longitude,
+                            1,
                         )
                     Log.v("TAG", "获取地址信息：$result")
                 }

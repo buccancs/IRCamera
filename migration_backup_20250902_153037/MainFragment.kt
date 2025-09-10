@@ -112,7 +112,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 TipDialog.Builder(requireContext())
                     .setTitleMessage(
                         AppLanguageUtils.attachBaseContext(
-                            context, SharedManager.getLanguage(requireContext()),
+                            context,
+                            SharedManager.getLanguage(requireContext()),
                         ).getString(R.string.tc_delete_device),
                     )
                     .setMessage(R.string.tc_delete_device_tips)
@@ -303,7 +304,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             holder.itemView.tv_title.isVisible = hasTitle
             holder.itemView.tv_title.text =
                 AppLanguageUtils.attachBaseContext(
-                    holder.itemView.context, SharedManager.getLanguage(holder.itemView.context!!),
+                    holder.itemView.context,
+                    SharedManager.getLanguage(holder.itemView.context!!),
                 )
                     .getString(if (type == ConnectType.LINE) R.string.tc_connect_line else R.string.tc_connect_wifi)
 

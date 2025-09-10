@@ -161,7 +161,16 @@ class PseudoPickView : View {
         this.zAltitudes = zAltitudes
         this.places = places
         refreshActualColors()
-        barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
+        barPaint.shader =
+            LinearGradient(
+                barRect.left,
+                0f,
+                barRect.right,
+                0f,
+                actualColors,
+                places,
+                Shader.TileMode.CLAMP,
+            )
         invalidate()
         onSelectChangeListener?.invoke(selectIndex)
     }
@@ -175,7 +184,16 @@ class PseudoPickView : View {
         sourceColors[selectIndex] = color
         actualColors[selectIndex] = color
         refreshActualColors()
-        barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
+        barPaint.shader =
+            LinearGradient(
+                barRect.left,
+                0f,
+                barRect.right,
+                0f,
+                actualColors,
+                places,
+                Shader.TileMode.CLAMP,
+            )
         invalidate()
     }
 
@@ -220,7 +238,16 @@ class PseudoPickView : View {
         places = places.add(addIndex, 0.75f)
         selectIndex = addIndex
         refreshActualColors()
-        barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
+        barPaint.shader =
+            LinearGradient(
+                barRect.left,
+                0f,
+                barRect.right,
+                0f,
+                actualColors,
+                places,
+                Shader.TileMode.CLAMP,
+            )
         invalidate()
         onSelectChangeListener?.invoke(selectIndex)
     }
@@ -246,7 +273,16 @@ class PseudoPickView : View {
             }
         }
         refreshActualColors()
-        barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
+        barPaint.shader =
+            LinearGradient(
+                barRect.left,
+                0f,
+                barRect.right,
+                0f,
+                actualColors,
+                places,
+                Shader.TileMode.CLAMP,
+            )
         invalidate()
         onSelectChangeListener?.invoke(selectIndex)
     }
@@ -318,10 +354,23 @@ class PseudoPickView : View {
             (widthSize - selectRadius).toFloat(),
             ((widthSize - selectRadius * 2) * 30 / 311f).toInt().toFloat(),
         )
-        barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
+        barPaint.shader =
+            LinearGradient(
+                barRect.left,
+                0f,
+                barRect.right,
+                0f,
+                actualColors,
+                places,
+                Shader.TileMode.CLAMP,
+            )
 
         // 2dp view
-        val wantHeight: Int = barRect.height().toInt() + SizeUtils.dp2px(2f) + selectNotDrawable.bounds.height() + selectRadius * 2
+        val wantHeight: Int =
+            barRect.height().toInt() +
+                SizeUtils.dp2px(
+                    2f,
+                ) + selectNotDrawable.bounds.height() + selectRadius * 2
 
         // View rendering UNSPECIFIED view，view；view wrap_content view，view
         setMeasuredDimension(widthSize, wantHeight)
@@ -465,7 +514,16 @@ class PseudoPickView : View {
                     places[newIndex] = newPlace
                     zAltitudes[newIndex] = calculateZAltitude(newPlace)
                     refreshActualColors()
-                    barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
+                    barPaint.shader =
+                        LinearGradient(
+                            barRect.left,
+                            0f,
+                            barRect.right,
+                            0f,
+                            actualColors,
+                            places,
+                            Shader.TileMode.CLAMP,
+                        )
                     invalidate()
                 }
             }

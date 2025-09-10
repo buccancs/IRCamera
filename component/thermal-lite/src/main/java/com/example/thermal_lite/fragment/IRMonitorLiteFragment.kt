@@ -151,8 +151,10 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                     // Fragment logic
                     IRTool.basicImageDetailEnhanceLevelSet(50)
                     CameraPreviewManager.getInstance()?.setLimit(
-                        Float.MAX_VALUE, Float.MIN_VALUE,
-                        0, 0,
+                        Float.MAX_VALUE,
+                        Float.MIN_VALUE,
+                        0,
+                        0,
                     ) // Fragment logic
                     shutterHandler = Handler(Looper.getMainLooper())
 

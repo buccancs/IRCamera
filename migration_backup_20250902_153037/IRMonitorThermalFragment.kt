@@ -195,7 +195,10 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
     private fun startUSB(isRestart: Boolean) {
         iruvc =
             IRUVCTC(
-                cameraWidth, cameraHeight, context, syncimage,
+                cameraWidth,
+                cameraHeight,
+                context,
+                syncimage,
                 defaultDataFlowMode,
                 object : ConnectCallback {
                     override fun onCameraOpened(uvcCamera: UVCCamera) {

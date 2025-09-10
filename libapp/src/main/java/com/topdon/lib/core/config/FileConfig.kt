@@ -97,7 +97,10 @@ object FileConfig {
     @JvmStatic
     val gallerySourDir: String
         get() {
-            val result = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.absolutePath + File.separator + "MPDC4GSR"
+            val result =
+                Utils.getApp().getExternalFilesDir(
+                    Environment.DIRECTORY_PICTURES,
+                )!!.absolutePath + File.separator + "MPDC4GSR"
             val file = File(result)
             if (!file.exists()) {
                 file.mkdirs()

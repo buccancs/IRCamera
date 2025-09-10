@@ -140,10 +140,26 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     private var mColorMatrix =
         ColorMatrix(
             floatArrayOf(
-                1f, 0f, 0f, 0f, 0f,
-                0f, 1f, 0f, 0f, 0f,
-                0f, 0f, 1f, 0f, 0f,
-                0f, 0f, 0f, 01f, 0f,
+                1f,
+                0f,
+                0f,
+                0f,
+                0f,
+                0f,
+                1f,
+                0f,
+                0f,
+                0f,
+                0f,
+                0f,
+                1f,
+                0f,
+                0f,
+                0f,
+                0f,
+                0f,
+                01f,
+                0f,
             ),
         )
 
@@ -151,10 +167,26 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     private var mColorMatrixLut =
         ColorMatrix(
             floatArrayOf(
-                1f, 0f, 0f, 0f, 0f,
-                0f, 1.5f, 0f, 0f, 25f,
-                0.1f, 0.2f, 0.7f, 0f, 25f,
-                0f, 0f, 0f, 01f, 0f,
+                1f,
+                0f,
+                0f,
+                0f,
+                0f,
+                0f,
+                1.5f,
+                0f,
+                0f,
+                25f,
+                0.1f,
+                0.2f,
+                0.7f,
+                0f,
+                25f,
+                0f,
+                0f,
+                0f,
+                01f,
+                0f,
             ),
         )
     private val n = 1f
@@ -169,10 +201,26 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
 //            0f, 0f, 0f, 1f, 0f
 //        )
             floatArrayOf(
-                1f, 0f, 0f, 0f, 0f,
-                0f, 1f, 0f, 0f, 0f,
-                0f, 0f, 1f, 0f, 0f,
-                0f, 0f, 0f, 1f, 0f,
+                1f,
+                0f,
+                0f,
+                0f,
+                0f,
+                0f,
+                1f,
+                0f,
+                0f,
+                0f,
+                0f,
+                0f,
+                1f,
+                0f,
+                0f,
+                0f,
+                0f,
+                0f,
+                1f,
+                0f,
             ),
         )
 

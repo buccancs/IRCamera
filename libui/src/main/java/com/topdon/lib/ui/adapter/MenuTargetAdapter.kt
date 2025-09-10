@@ -184,7 +184,11 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         init {
 //            val canSeeCount = 4.5 // Adapter item4item
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
-            itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            itemView.layoutParams =
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                )
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
 //            val layoutParams = itemView.item_menu_tab_img.layoutParams
 //            layoutParams.width = imageSize

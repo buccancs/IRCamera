@@ -73,9 +73,13 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         val tvDefaultTempValue = findViewById<android.widget.TextView>(R.id.tv_default_temp_value)
         val tvDefaultDisValue = findViewById<android.widget.TextView>(R.id.tv_default_dis_value)
 
-        tvDefaultTempTitle.text = "${getString(LibR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+        tvDefaultTempTitle.text = "${getString(
+            LibR.string.thermal_config_environment,
+        )} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
         tvDefaultDisTitle.text = "${getString(LibR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        tvDefaultEmTitle.text = "${getString(LibR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        tvDefaultEmTitle.text = "${getString(
+            LibR.string.thermal_config_radiation,
+        )} (${if (isTC007) "0.1" else "0.01"}~1.00)"
         tvDefaultTempUnit.text = UnitTools.showUnit()
 
         ivDefaultSelector.setOnClickListener(this)
@@ -89,7 +93,9 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         }
         adapter.onDeleteListener = {
             TipDialog.Builder(this)
-                .setMessage(getString(LibR.string.tip_config_delete, "${getString(LibR.string.thermal_custom_mode)}${it.name}"))
+                .setMessage(
+                    getString(LibR.string.tip_config_delete, "${getString(LibR.string.thermal_custom_mode)}${it.name}"),
+                )
                 .setPositiveListener(LibR.string.app_confirm) {
                     viewModel.deleteConfig(isTC007, it.id)
                 }
@@ -261,17 +267,35 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         ) {
             if (holder is ItemViewHolder) {
                 val dataBean = dataList[position]
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_name).text = "${context.getString(LibR.string.thermal_custom_mode)}${dataBean.name}"
+                holder.itemView.findViewById<android.widget.TextView>(
+                    R.id.tv_name,
+                ).text = "${context.getString(LibR.string.thermal_custom_mode)}${dataBean.name}"
                 holder.itemView.findViewById<android.widget.ImageView>(R.id.iv_selector).isSelected = dataBean.use
 
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_title).text = "${context.getString(LibR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_dis_title).text = "${context.getString(LibR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_em_title).text = "${context.getString(LibR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+                holder.itemView.findViewById<android.widget.TextView>(
+                    R.id.tv_temp_title,
+                ).text = "${context.getString(
+                    LibR.string.thermal_config_environment,
+                )} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+                holder.itemView.findViewById<android.widget.TextView>(
+                    R.id.tv_dis_title,
+                ).text = "${context.getString(LibR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+                holder.itemView.findViewById<android.widget.TextView>(
+                    R.id.tv_em_title,
+                ).text = "${context.getString(
+                    LibR.string.thermal_config_radiation,
+                )} (${if (isTC007) "0.1" else "0.01"}~1.00)"
                 holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_unit).text = UnitTools.showUnit()
 
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_value).text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_dis_value).text = NumberTools.to02(dataBean.distance)
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_em_value).text = NumberTools.to02(dataBean.radiation)
+                holder.itemView.findViewById<android.widget.TextView>(
+                    R.id.tv_temp_value,
+                ).text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))
+                holder.itemView.findViewById<android.widget.TextView>(
+                    R.id.tv_dis_value,
+                ).text = NumberTools.to02(dataBean.distance)
+                holder.itemView.findViewById<android.widget.TextView>(
+                    R.id.tv_em_value,
+                ).text = NumberTools.to02(dataBean.radiation)
             } else if (holder is FootViewHolder) {
                 holder.itemView.findViewById<android.widget.TextView>(
                     R.id.tv_add,
@@ -301,7 +325,9 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                         IRConfigInputDialog(context, IRConfigInputDialog.Type.TEMP, isTC007)
                             .setInput(UnitTools.showUnitValue(dataList[position].environment))
                             .setConfirmListener {
-                                itemView.findViewById<android.widget.TextView>(R.id.tv_temp_value).text = NumberTools.to02(UnitTools.showToCValue(it))
+                                itemView.findViewById<android.widget.TextView>(
+                                    R.id.tv_temp_value,
+                                ).text = NumberTools.to02(UnitTools.showToCValue(it))
                                 dataList[position].environment = UnitTools.showToCValue(it)
                                 onUpdateListener?.invoke(dataList[position])
                             }

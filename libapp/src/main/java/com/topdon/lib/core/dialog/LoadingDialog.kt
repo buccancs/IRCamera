@@ -39,7 +39,12 @@ class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialo
 
         window?.let {
             val layoutParams = it.attributes
-            layoutParams.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.3 else 0.15).toInt()
+            layoutParams.width =
+                (
+                    ScreenUtil.getScreenWidth(
+                        context,
+                    ) * if (ScreenUtil.isPortrait(context)) 0.3 else 0.15
+                ).toInt()
             layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             it.attributes = layoutParams
         }

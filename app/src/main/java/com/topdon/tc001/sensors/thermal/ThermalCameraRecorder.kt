@@ -488,7 +488,10 @@ class ThermalCameraRecorder(
                 arrayOf(
                     timestampNs.toString(),
                     "SYNC_$markerType",
-                    "0", "0", "0", "0", // Zero temps for sync marker
+                    "0",
+                    "0",
+                    "0",
+                    "0", // Zero temps for sync marker
                     ambientTemperature.toString(),
                     emissivity.toString(),
                     reflectedTemperature.toString(),

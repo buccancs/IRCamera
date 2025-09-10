@@ -84,7 +84,11 @@ class RgbCameraRecorder(
                 Log.i(TAG, "Initializing RGB camera for sensor $sensorId")
 
                 // Check camera permission
-                if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.CAMERA,
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
                     emitError(ErrorType.PERMISSION_DENIED, "Camera permission not granted")
                     return@withContext false
                 }

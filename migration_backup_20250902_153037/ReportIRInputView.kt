@@ -52,33 +52,58 @@ class ReportIRInputView : LinearLayout {
                 tv_title.setText(R.string.thermal_full_rect)
                 cl_min.isVisible = true
                 cl_average.isVisible = false
-                cl_max.tv_item_name.text = context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                cl_min.tv_item_name.text = context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
+                cl_max.tv_item_name.text = context.getString(
+                    R.string.chart_temperature_high,
+                ) + " (${UnitTools.showUnit()})"
+                cl_min.tv_item_name.text = context.getString(
+                    R.string.chart_temperature_low,
+                ) + " (${UnitTools.showUnit()})"
                 cl_explain.tv_item_name.text = context.getString(R.string.album_report_comment)
             }
             TYPE_POINT -> {
                 tv_title.text = context.getString(R.string.thermal_point) + "(P)"
                 cl_min.isVisible = false
                 cl_average.isVisible = false
-                cl_max.tv_item_name.text = "P${index + 1} " + context.getString(R.string.chart_temperature) + " (${UnitTools.showUnit()})"
+                cl_max.tv_item_name.text = "P${index + 1} " +
+                    context.getString(
+                        R.string.chart_temperature,
+                    ) + " (${UnitTools.showUnit()})"
                 cl_explain.tv_item_name.text = "P${index + 1} " + context.getString(R.string.album_report_comment)
             }
             TYPE_LINE -> {
                 tv_title.text = context.getString(R.string.thermal_line) + "(L)"
                 cl_min.isVisible = true
                 cl_average.isVisible = true
-                cl_max.tv_item_name.text = "L${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                cl_min.tv_item_name.text = "L${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                cl_average.tv_item_name.text = "L${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
+                cl_max.tv_item_name.text = "L${index + 1} " +
+                    context.getString(
+                        R.string.chart_temperature_high,
+                    ) + " (${UnitTools.showUnit()})"
+                cl_min.tv_item_name.text = "L${index + 1} " +
+                    context.getString(
+                        R.string.chart_temperature_low,
+                    ) + " (${UnitTools.showUnit()})"
+                cl_average.tv_item_name.text = "L${index + 1} " +
+                    context.getString(
+                        R.string.album_report_mean_temperature,
+                    ) + " (${UnitTools.showUnit()})"
                 cl_explain.tv_item_name.text = "L${index + 1} " + context.getString(R.string.album_report_comment)
             }
             TYPE_RECT -> {
                 tv_title.text = context.getString(R.string.thermal_rect) + "(R)"
                 cl_min.isVisible = true
                 cl_average.isVisible = true
-                cl_max.tv_item_name.text = "R${index + 1} " + context.getString(R.string.chart_temperature_high) + " (${UnitTools.showUnit()})"
-                cl_min.tv_item_name.text = "R${index + 1} " + context.getString(R.string.chart_temperature_low) + " (${UnitTools.showUnit()})"
-                cl_average.tv_item_name.text = "R${index + 1} " + context.getString(R.string.album_report_mean_temperature) + " (${UnitTools.showUnit()})"
+                cl_max.tv_item_name.text = "R${index + 1} " +
+                    context.getString(
+                        R.string.chart_temperature_high,
+                    ) + " (${UnitTools.showUnit()})"
+                cl_min.tv_item_name.text = "R${index + 1} " +
+                    context.getString(
+                        R.string.chart_temperature_low,
+                    ) + " (${UnitTools.showUnit()})"
+                cl_average.tv_item_name.text = "R${index + 1} " +
+                    context.getString(
+                        R.string.album_report_mean_temperature,
+                    ) + " (${UnitTools.showUnit()})"
                 cl_explain.tv_item_name.text = "R${index + 1} " + context.getString(R.string.album_report_comment)
             }
         }

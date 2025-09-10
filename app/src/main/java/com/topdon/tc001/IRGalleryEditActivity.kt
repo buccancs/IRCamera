@@ -140,7 +140,11 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
             ts_data_L = CommonUtil.getAssetData(this@IRGalleryEditActivity, "ts/TS001_L.bin")
 
             if (BaseApplication.instance.tau_data_H == null) {
-                BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+                BaseApplication.instance.tau_data_H =
+                    CommonUtil.getAssetData(
+                        mContext,
+                        IrConst.TAU_HIGH_GAIN_ASSET_PATH,
+                    )
             }
             if (BaseApplication.instance.tau_data_L == null) {
                 BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
@@ -289,7 +293,10 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
             temperatureSeekbar.setIndicatorTextStringFormat("%.1f")
             if (struct.customPseudoBean.isUseCustomPseudo) {
                 tvTempContent.visibility = View.VISIBLE
-                tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
+                tvTempContent.text = "Max:${UnitTools.showC(
+                    tempCorrect(tempResult.maxTemperature),
+                    isShowC,
+                )}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
                 rightValue = showUnitValue(struct.customPseudoBean.maxTemp, isShowC)
                 leftValue = showUnitValue(struct.customPseudoBean.minTemp, isShowC)
                 temperatureIvInput.setImageResource(ThermalIrR.drawable.ir_model)
@@ -298,7 +305,10 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                 temperatureSeekbar.setPlaces(struct.customPseudoBean.getPlaceList())
             } else {
                 tvTempContent.visibility = View.GONE
-                tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
+                tvTempContent.text = "Max:${UnitTools.showC(
+                    tempCorrect(tempResult.maxTemperature),
+                    isShowC,
+                )}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
                 rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature), isShowC)
                 leftValue = showUnitValue(tempCorrect(tempResult.minTemperature), isShowC)
                 temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
@@ -850,8 +860,11 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                 if (BaseApplication.instance.tau_data_H == null || BaseApplication.instance.tau_data_L == null) return temp
                 newTemp =
                     IRTool.temperatureCorrection(
-                        temp, paramsArray, BaseApplication.instance.tau_data_H!!,
-                        BaseApplication.instance.tau_data_L!!, struct.gainStatus,
+                        temp,
+                        paramsArray,
+                        BaseApplication.instance.tau_data_H!!,
+                        BaseApplication.instance.tau_data_L!!,
+                        struct.gainStatus,
                     )
             }
         } catch (e: Exception) {

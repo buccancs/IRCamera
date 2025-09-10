@@ -146,7 +146,16 @@ class ColorView : View {
         val strokeSize: Float = SizeUtils.dp2px(2f).toFloat() // Border width 2dp
         val barHeight: Int = (measuredWidth * 73f / 62).toInt() // 62 and 73 are based on UI design - selected state including border color block aspect ratio 62:73
         val selectBarHeight: Int = (barHeight - strokeSize * 2).toInt()
-        shaderSelectYes = LinearGradient(0f, strokeSize, 0f, strokeSize + selectBarHeight, colors, positions, Shader.TileMode.CLAMP)
+        shaderSelectYes =
+            LinearGradient(
+                0f,
+                strokeSize,
+                0f,
+                strokeSize + selectBarHeight,
+                colors,
+                positions,
+                Shader.TileMode.CLAMP,
+            )
 
         val normalBarWidth: Int = (measuredWidth * 50f / 62).toInt() // Unselected width 50, total width 62
         val normalBarHeight: Int = (normalBarWidth * 60f / 50).toInt() // Aspect ratio 50:60

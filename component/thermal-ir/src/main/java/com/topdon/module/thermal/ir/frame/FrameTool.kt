@@ -226,7 +226,8 @@ class FrameTool {
                 argbBytes =
                     irImageHelp.contourDetection(
                         struct.alarmBean,
-                        argbBytes, temperatureBytes,
+                        argbBytes,
+                        temperatureBytes,
                         imageWidth,
                         imageHeight,
                     )!!
@@ -253,14 +254,16 @@ class FrameTool {
                 scrBitmap =
                     Bitmap.createBitmap(
                         dstImageRes.width.code * 2,
-                        dstImageRes.height.code * 2, Bitmap.Config.ARGB_8888,
+                        dstImageRes.height.code * 2,
+                        Bitmap.Config.ARGB_8888,
                     )
                 scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(supImageData, 0, argbLen * 4))
             } else {
                 scrBitmap =
                     Bitmap.createBitmap(
                         dstImageRes.width.code,
-                        dstImageRes.height.code, Bitmap.Config.ARGB_8888,
+                        dstImageRes.height.code,
+                        Bitmap.Config.ARGB_8888,
                     )
                 scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(dstArgbBytes, 0, argbLen))
             }
@@ -268,7 +271,8 @@ class FrameTool {
             scrBitmap =
                 Bitmap.createBitmap(
                     dstImageRes.width.code,
-                    dstImageRes.height.code, Bitmap.Config.ARGB_8888,
+                    dstImageRes.height.code,
+                    Bitmap.Config.ARGB_8888,
                 )
             scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(dstArgbBytes, 0, argbLen))
         }

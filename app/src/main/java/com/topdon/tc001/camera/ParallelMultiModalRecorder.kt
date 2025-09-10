@@ -138,7 +138,10 @@ class ParallelMultiModalRecorder(
                                             "PARALLEL_THERMAL_START",
                                             mapOf(
                                                 "sync_timestamp" to synchronizedTimestamp.toString(),
-                                                "selected_sensors" to selectedSensors.map { it.displayName }.joinToString(","),
+                                                "selected_sensors" to
+                                                    selectedSensors.map { it.displayName }.joinToString(
+                                                        ",",
+                                                    ),
                                                 "recording_mode" to "parallel_multimodal",
                                             ),
                                         )

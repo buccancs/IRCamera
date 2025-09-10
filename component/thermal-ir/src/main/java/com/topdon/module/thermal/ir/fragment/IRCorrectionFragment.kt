@@ -147,7 +147,10 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
         context?.let {
             iruvc =
                 IRUVCTC(
-                    cameraWidth, cameraHeight, context, syncimage,
+                    cameraWidth,
+                    cameraHeight,
+                    context,
+                    syncimage,
                     defaultDataFlowMode,
                     object : ConnectCallback {
                         override fun onCameraOpened(uvcCamera: UVCCamera) {

@@ -119,7 +119,9 @@ class ReportDetailActivity : BaseActivity() {
                 pdfFilePath =
                     PDFHelp.savePdfFileByListView(
                         name ?: System.currentTimeMillis().toString(),
-                        scrollView, getPrintViewList(), watermarkView,
+                        scrollView,
+                        getPrintViewList(),
+                        watermarkView,
                     )
                 lifecycleScope.launch {
                     dismissCameraLoading()

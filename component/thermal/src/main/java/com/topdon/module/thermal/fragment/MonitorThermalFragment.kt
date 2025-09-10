@@ -475,9 +475,15 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) // Settings001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
-            requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+            requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(
+                R.id.fence_point_view,
+            ).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
+            requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(
+                R.id.fence_line_view,
+            ).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
+            requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(
+                R.id.fence_view,
+            ).visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
         } else {
             fenceFlag = 0x000
             mFenceLayout!!.visibility = View.GONE

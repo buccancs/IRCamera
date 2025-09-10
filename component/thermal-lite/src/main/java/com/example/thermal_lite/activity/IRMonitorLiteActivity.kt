@@ -106,13 +106,18 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener, ITsTemp
                         val result: LibIRTemp.TemperatureSampleResult =
                             when (selectBean.type) {
                                 1 -> irMonitorLiteFragment!!.temperatureView.getPointTemp(selectBean.startPosition)
-                                2 -> irMonitorLiteFragment!!.temperatureView.getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
+                                2 ->
+                                    irMonitorLiteFragment!!.temperatureView.getLineTemp(
+                                        Line(selectBean.startPosition, selectBean.endPosition),
+                                    )
                                 else -> irMonitorLiteFragment!!.temperatureView.getRectTemp(selectBean.getRect())
                             } ?: continue
                         if (isFirstRead) {
                             if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                                 errorReadCount++
-                                XLog.w("activity $errorReadCount activity，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                                XLog.w(
+                                    "activity $errorReadCount activity，max = ${result.maxTemperature} min = ${result.minTemperature}",
+                                )
                                 if (errorReadCount > 10) {
                                     XLog.i("activity10activity，activity")
                                     isFirstRead = false
@@ -138,7 +143,10 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener, ITsTemp
                 }
             }
 
-        binding.monitorCurrentVol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        binding.monitorCurrentVol.text =
+            getString(
+                if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high,
+            )
         binding.monitorRealVol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         binding.monitorRealImg.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         recordThermal() // Activity logic

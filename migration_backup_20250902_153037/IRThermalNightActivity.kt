@@ -375,8 +375,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             )
                             if (editMinValue != Float.MIN_VALUE && editMaxValue != Float.MAX_VALUE) {
                                 imageThread?.setLimit(
-                                    editMaxValue, editMinValue,
-                                    upColor, downColor,
+                                    editMaxValue,
+                                    editMinValue,
+                                    upColor,
+                                    downColor,
                                 ) // 自定义颜色
                             }
                         } catch (e: Exception) {
@@ -1121,7 +1123,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     SpanBuilder(getString(R.string.tc_high_temp_test_tips1))
                         .appendDrawable(
                             this@IRThermalNightActivity,
-                            R.drawable.svg_title_temp, SizeUtils.sp2px(24f),
+                            R.drawable.svg_title_temp,
+                            SizeUtils.sp2px(24f),
                         )
                         .append(getString(R.string.tc_high_temp_test_tips2))
                 TipShutterDialog.Builder(this)
@@ -1961,7 +1964,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         iruvc =
             IRUVCTC(
-                cameraWidth, cameraHeight, this, syncimage,
+                cameraWidth,
+                cameraHeight,
+                this,
+                syncimage,
                 defaultDataFlowMode,
                 object : ConnectCallback {
                     override fun onCameraOpened(uvcCamera: UVCCamera) {
@@ -2346,7 +2352,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     } else {
                         recyclerView.layoutManager =
                             GridLayoutManager(
-                                this, cameraItemBeanList.size, GridLayoutManager.VERTICAL, false,
+                                this,
+                                cameraItemBeanList.size,
+                                GridLayoutManager.VERTICAL,
+                                false,
                             )
                     }
                     cameraItemAdapter = CameraItemAdapter(cameraItemBeanList)
@@ -2472,7 +2481,12 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         }
                     // 可见光
                     if (isOpenPreview) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmapByView(cameraViewBitmap, cameraPreview.getBitmap(), cameraPreview)
+                        cameraViewBitmap =
+                            BitmapUtils.mergeBitmapByView(
+                                cameraViewBitmap,
+                                cameraPreview.getBitmap(),
+                                cameraPreview,
+                            )
                         // 画中画原图保存
                         cameraPreview.getBitmap()?.let {
                             ImageUtils.saveImageToApp(it)
@@ -2530,14 +2544,22 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     if ((curChooseTabPos == 1 && temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) ||
                         (curChooseTabPos == 2 && temperatureView.isUserHighTemp() && temperatureView.isUserLowTemp())
                     ) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionAndValueBitmap, 0, 0)
+                        cameraViewBitmap =
+                            BitmapUtils.mergeBitmap(
+                                cameraViewBitmap,
+                                temperatureView.regionAndValueBitmap,
+                                0,
+                                0,
+                            )
                     }
                     // 添加汽车检测
                     if (lay_car_detect_prompt.isVisible) {
                         cameraViewBitmap =
                             BitmapUtils.mergeBitmap(
                                 cameraViewBitmap,
-                                lay_car_detect_prompt.drawToBitmap(), 0, 0,
+                                lay_car_detect_prompt.drawToBitmap(),
+                                0,
+                                0,
                             )
                     }
                     // 添加水印
@@ -2624,7 +2646,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 curChooseTabPos == 1,
                 cl_seek_bar,
                 temp_bg,
-                compassView, null,
+                compassView,
+                null,
                 carView = lay_car_detect_prompt,
             )
     }
@@ -3188,7 +3211,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                                 isRecordAudio = true
                                 SaveSettingUtil.isRecordAudio = isRecordAudio
                                 videoRecord?.updateAudioState(true)
-                                cameraItemAdapter?.data?.get(audioPosition)?.isSel = !(cameraItemAdapter?.data?.get(audioPosition)?.isSel?:false)
+                                cameraItemAdapter?.data?.get(
+                                    audioPosition,
+                                )?.isSel = !(cameraItemAdapter?.data?.get(audioPosition)?.isSel?:false)
                                 cameraItemAdapter?.notifyItemChanged(audioPosition)
                             } else {
                                 ToastUtils.showShort(R.string.scan_ble_tip_authorize)
@@ -3248,10 +3273,12 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                                                 this@IRThermalNightActivity.lifecycleScope,
                                                 onTick = {
                                                     camera()
-                                                }, onStart = {
+                                                },
+                                                onStart = {
                                                     tv_type_ind?.visibility = VISIBLE
                                                     isAutoCamera = true
-                                                }, onFinish = {
+                                                },
+                                                onFinish = {
                                                     tv_type_ind?.visibility = GONE
                                                     isAutoCamera = false
                                                 },
@@ -3306,14 +3333,31 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             tvDetectPrompt.text = getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
         } else {
             var temperature = carDetectInfo.temperature.split("~")
-            tvDetectPrompt.text = carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+            tvDetectPrompt.text = carDetectInfo.item +
+                TemperatureUtil.getTempStr(
+                    temperature[0].toInt(),
+                    temperature[1].toInt(),
+                )
         }
         val test = intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, false)
-        lay_car_detect_prompt.visibility = if (intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, false)) View.VISIBLE else View.GONE
+        lay_car_detect_prompt.visibility =
+            if (intent.getBooleanExtra(
+                    ExtraKeyConfig.IS_CAR_DETECT_ENTER,
+                    false,
+                )
+            ) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         view_car_detect.findViewById<RelativeLayout>(R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
-                tvDetectPrompt.text = it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+                tvDetectPrompt.text = it.item +
+                    TemperatureUtil.getTempStr(
+                        temperature[0].toInt(),
+                        temperature[1].toInt(),
+                    )
             }.show()
         }
     }

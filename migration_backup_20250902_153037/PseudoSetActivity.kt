@@ -37,7 +37,9 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         val isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
-        customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
+        customPseudoBean = intent.getParcelableExtra(
+            ExtraKeyConfig.CUSTOM_PSEUDO_BEAN,
+        ) ?: CustomPseudoBean.loadFromShared(isTC007)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
         // 加载温度配置

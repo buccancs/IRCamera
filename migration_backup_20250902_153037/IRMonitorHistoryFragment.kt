@@ -124,7 +124,7 @@ class IRMonitorHistoryFragment : Fragment() {
         BaseQuickAdapter<
             ThermalDao.Record,
             BaseViewHolder,
-            >(R.layout.item_monitory_history, dataList),
+        >(R.layout.item_monitory_history, dataList),
         LoadMoreModule {
         /**
          * item 点击事件监听.

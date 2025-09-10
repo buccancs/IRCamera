@@ -245,11 +245,17 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
         dualView =
             DualViewWithExternalCameraCommonApi(
                 getSurfaceView(),
-                USBMonitorManager.getInstance().uvcCamera, defaultDataFlowMode,
-                imageHeight, imageWidth,
-                vlCameraWidth, vlCameraHeight,
-                dualCameraWidth, dualCameraHeight,
-                isUseIRISP, dualRotate, this,
+                USBMonitorManager.getInstance().uvcCamera,
+                defaultDataFlowMode,
+                imageHeight,
+                imageWidth,
+                vlCameraWidth,
+                vlCameraHeight,
+                dualCameraWidth,
+                dualCameraHeight,
+                isUseIRISP,
+                dualRotate,
+                this,
             )
         dualView?.addFrameCallback(getTemperatureDualView())
         //
@@ -340,7 +346,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                     ) {
                         System.arraycopy(frame, 0, vlData, 0, vlData.size)
                         dualView?.getDualUVCCamera()?.updateFrame(
-                            ImageFormat.FLEX_RGB_888, vlData, vlCameraWidth,
+                            ImageFormat.FLEX_RGB_888,
+                            vlData,
+                            vlCameraWidth,
                             vlCameraHeight,
                         )
                     }

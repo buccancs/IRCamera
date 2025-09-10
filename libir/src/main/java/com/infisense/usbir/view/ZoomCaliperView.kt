@@ -53,7 +53,12 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         // Cache view reference instead of repeated findViewById calls
         mTextureView = findViewById(R.id.camera_texture)
         lis = ScaleGestureDetector(context, this)
-        originalBitmap = (androidx.core.content.ContextCompat.getDrawable(context, R.drawable.svg_ic_target_horizontal_person_green) as? BitmapDrawable)?.bitmap
+        originalBitmap = (
+            androidx.core.content.ContextCompat.getDrawable(
+                context,
+                R.drawable.svg_ic_target_horizontal_person_green,
+            ) as? BitmapDrawable
+        )?.bitmap
             ?: return // Early return if bitmap is null
 //        pxBitmapHeight = originalBitmap.height.toFloat()
         originalBitmapWidth = originalBitmap.width.toFloat()
@@ -345,7 +350,12 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
         this.visibility = View.VISIBLE
         m = TargetUtils.getMeasureSize(targetMeasureMode)
         val targetIcon = TargetUtils.getSelectTargetDraw(targetMeasureMode, targetType, targetColorType)
-        originalBitmap = (androidx.core.content.ContextCompat.getDrawable(context, targetIcon) as? BitmapDrawable)?.bitmap ?: return
+        originalBitmap = (
+            androidx.core.content.ContextCompat.getDrawable(
+                context,
+                targetIcon,
+            ) as? BitmapDrawable
+        )?.bitmap ?: return
         (mTextureView as ImageView).setImageBitmap(originalBitmap)
 //        Log.e("view","RotateviewupdateSelectBitmap"+parentCameraView!!.width+"---"+parentCameraView!!.height)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

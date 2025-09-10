@@ -64,9 +64,13 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        tv_default_temp_title.text = "${getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+        tv_default_temp_title.text = "${getString(
+            R.string.thermal_config_environment,
+        )} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
         tv_default_dis_title.text = "${getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        tv_default_em_title.text = "${getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        tv_default_em_title.text = "${getString(
+            R.string.thermal_config_radiation,
+        )} (${if (isTC007) "0.1" else "0.01"}~1.00)"
         tv_default_temp_unit.text = UnitTools.showUnit()
 
         iv_default_selector.setOnClickListener(this)
@@ -80,7 +84,9 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         }
         adapter.onDeleteListener = {
             TipDialog.Builder(this)
-                .setMessage(getString(R.string.tip_config_delete, "${getString(R.string.thermal_custom_mode)}${it.name}"))
+                .setMessage(
+                    getString(R.string.tip_config_delete, "${getString(R.string.thermal_custom_mode)}${it.name}"),
+                )
                 .setPositiveListener(R.string.app_confirm) {
                     viewModel.deleteConfig(isTC007, it.id)
                 }
@@ -247,9 +253,15 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                 holder.itemView.tv_name.text = "${context.getString(R.string.thermal_custom_mode)}${dataBean.name}"
                 holder.itemView.iv_selector.isSelected = dataBean.use
 
-                holder.itemView.tv_temp_title.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-                holder.itemView.tv_dis_title.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-                holder.itemView.tv_em_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+                holder.itemView.tv_temp_title.text = "${context.getString(
+                    R.string.thermal_config_environment,
+                )} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+                holder.itemView.tv_dis_title.text = "${context.getString(
+                    R.string.thermal_config_distance,
+                )} (0.2~${if (isTC007) 4 else 5}m)"
+                holder.itemView.tv_em_title.text = "${context.getString(
+                    R.string.thermal_config_radiation,
+                )} (${if (isTC007) "0.1" else "0.01"}~1.00)"
                 holder.itemView.tv_temp_unit.text = UnitTools.showUnit()
 
                 holder.itemView.tv_temp_value.text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))

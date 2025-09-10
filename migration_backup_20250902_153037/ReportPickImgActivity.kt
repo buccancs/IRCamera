@@ -191,8 +191,14 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                     .withBoolean(IS_REPORT_FIRST, false)
                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
                     .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
-                    .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST))
+                    .withParcelable(
+                        ExtraKeyConfig.REPORT_CONDITION,
+                        intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION),
+                    )
+                    .withParcelableArrayList(
+                        ExtraKeyConfig.REPORT_IR_LIST,
+                        intent.getParcelableArrayListExtra(ExtraKeyConfig.REPORT_IR_LIST),
+                    )
                     .navigation(this)
             } else {
                 ToastTools.showShort(R.string.album_report_on_edit)

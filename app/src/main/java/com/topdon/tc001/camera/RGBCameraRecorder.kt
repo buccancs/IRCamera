@@ -464,7 +464,11 @@ class RGBCameraRecorder(
             // Setup sizes
             setupCameraSizes(characteristics)
 
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.CAMERA,
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 onError?.invoke("Camera permission not granted")
                 return
             }

@@ -53,7 +53,9 @@ class IRConfigInputDialog(
 
         when (type) {
             Type.TEMP -> {
-                tv_title.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+                tv_title.text = "${context.getString(
+                    R.string.thermal_config_environment,
+                )} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
                 tv_unit.text = UnitTools.showUnit()
                 tv_unit.isVisible = true
             }
@@ -63,7 +65,9 @@ class IRConfigInputDialog(
                 tv_unit.isVisible = true
             }
             Type.EM -> {
-                tv_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+                tv_title.text = "${context.getString(
+                    R.string.thermal_config_radiation,
+                )} (${if (isTC007) "0.1" else "0.01"}~1.00)"
                 tv_unit.text = ""
                 tv_unit.isVisible = false
             }
@@ -78,7 +82,10 @@ class IRConfigInputDialog(
                 val input: Float = et_input.text.toString().toFloat()
                 val isRight =
                     when (type) {
-                        Type.TEMP -> input in UnitTools.showUnitValue(-10f)..UnitTools.showUnitValue(if (isTC007) 50f else 55f)
+                        Type.TEMP ->
+                            input in UnitTools.showUnitValue(
+                                -10f,
+                            )..UnitTools.showUnitValue(if (isTC007) 50f else 55f)
                         Type.DIS -> input in 0.2f..if (isTC007) 4f else 5f
                         Type.EM -> input in (if (isTC007) 0.1f else 0.01f)..1f
                     }

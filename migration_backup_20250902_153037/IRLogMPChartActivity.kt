@@ -62,7 +62,10 @@ class IRLogMPChartActivity : BaseActivity() {
             dismissLoadingDialog()
 
             val isPoint = it?.isNotEmpty() == true && it.first().type == "point"
-            monitor_current_vol.text = getString(if (isPoint) R.string.chart_temperature else R.string.chart_temperature_high)
+            monitor_current_vol.text =
+                getString(
+                    if (isPoint) R.string.chart_temperature else R.string.chart_temperature_high,
+                )
             monitor_real_vol.visibility = if (isPoint) View.GONE else View.VISIBLE
             monitor_real_img.visibility = if (isPoint) View.GONE else View.VISIBLE
 
@@ -97,7 +100,11 @@ class IRLogMPChartActivity : BaseActivity() {
                                                 var filePath: String? = null
                                                 withContext(Dispatchers.IO) {
                                                     tempData?.get(0)?.let {
-                                                        filePath = ExcelUtil.exportExcel(tempData as java.util.ArrayList<ThermalEntity>?, "point" == it.type)
+                                                        filePath =
+                                                            ExcelUtil.exportExcel(
+                                                                tempData as java.util.ArrayList<ThermalEntity>?,
+                                                                "point" == it.type,
+                                                            )
                                                     }
                                                 }
                                                 dismissLoadingDialog()

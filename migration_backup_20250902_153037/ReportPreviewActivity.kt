@@ -223,7 +223,13 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
         houseRepPreviewBean.houseArea =
             if (houseReport.houseSpace.isEmpty()) "--" else "${houseReport.houseSpace} ${houseReport.getSpaceUnitStr()}"
         houseRepPreviewBean.expenses =
-            if (houseReport.cost.isEmpty()) "--" else "${resources.getStringArray(R.array.currency)[houseReport.costUnit]} ${houseReport.cost}"
+            if (houseReport.cost.isEmpty()) {
+                "--"
+            } else {
+                "${resources.getStringArray(
+                    R.array.currency,
+                )[houseReport.costUnit]} ${houseReport.cost}"
+            }
         houseRepPreviewBean.itemBeans = ArrayList<HouseRepPreviewItemBean>()
         houseReport.dirList.forEachIndexed { _, dirReport ->
             var itemBean = HouseRepPreviewItemBean()

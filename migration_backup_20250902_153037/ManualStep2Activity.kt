@@ -186,8 +186,16 @@ class ManualStep2Activity :
         initData()
         USBMonitorDualManager.getInstance()
             .init(
-                mIrPid, mIrFps, mIrCameraWidth, mIrCameraHeight, 1.0f,
-                mVlPid, mVlFps, mVlCameraWidth, mVlCameraHeight, 0.6f,
+                mIrPid,
+                mIrFps,
+                mIrCameraWidth,
+                mIrCameraHeight,
+                1.0f,
+                mVlPid,
+                mVlFps,
+                mVlCameraWidth,
+                mVlCameraHeight,
+                0.6f,
             ) { frame ->
                 if (mDualView != null && mDualView!!.dualUVCCamera != null) {
                     mDualView!!.dualUVCCamera.updateFrame(
@@ -247,9 +255,14 @@ class ManualStep2Activity :
         // 初始化双光预览相关的类
         mDualView =
             DualViewWithManualAlignExternalCamera(
-                mImageWidth, mImageHeight,
-                mVlCameraHeight, mVlCameraWidth, mDualWidth, mDualHeight,
-                dualTextureView, USBMonitorDualManager.getInstance().irUvcCamera,
+                mImageWidth,
+                mImageHeight,
+                mVlCameraHeight,
+                mVlCameraWidth,
+                mDualWidth,
+                mDualHeight,
+                dualTextureView,
+                USBMonitorDualManager.getInstance().irUvcCamera,
                 mDefaultDataFlowMode,
             )
 

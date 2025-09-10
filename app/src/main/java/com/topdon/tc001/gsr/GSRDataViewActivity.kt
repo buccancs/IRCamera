@@ -107,7 +107,10 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
             File: ${file.name}
             Size: $fileSize
             Path: ${file.absolutePath}
-            Modified: ${java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date(file.lastModified()))}
+            Modified: ${java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss",
+                java.util.Locale.getDefault(),
+            ).format(java.util.Date(file.lastModified()))}
             """.trimIndent()
     }
 
@@ -146,8 +149,13 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
                         • Max: %.1f kΩ
                         • Mean: %.1f kΩ
                         """.trimIndent().format(
-                            statistics.gsrMin, statistics.gsrMax, statistics.gsrMean, statistics.gsrStdDev,
-                            statistics.resistanceMin / 1000, statistics.resistanceMax / 1000, statistics.resistanceMean / 1000,
+                            statistics.gsrMin,
+                            statistics.gsrMax,
+                            statistics.gsrMean,
+                            statistics.gsrStdDev,
+                            statistics.resistanceMin / 1000,
+                            statistics.resistanceMax / 1000,
+                            statistics.resistanceMean / 1000,
                         )
 
                     // Convert data for export functions
@@ -328,10 +336,17 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         // Data header
         csvWriter.writeNext(
             arrayOf(
-                "timestamp_ns", "timestamp_ms", "timestamp_iso",
-                "gsr_raw", "gsr_microsiemens", "gsr_normalized",
-                "ppg_raw", "ppg_normalized",
-                "quality_score", "sync_marker", "notes",
+                "timestamp_ns",
+                "timestamp_ms",
+                "timestamp_iso",
+                "gsr_raw",
+                "gsr_microsiemens",
+                "gsr_normalized",
+                "ppg_raw",
+                "ppg_normalized",
+                "quality_score",
+                "sync_marker",
+                "notes",
             ),
         )
 

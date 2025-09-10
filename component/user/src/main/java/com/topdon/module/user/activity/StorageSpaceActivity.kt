@@ -89,7 +89,9 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
             } else {
                 TLog.d("ts004", "║ response :$freeSpaceBean")
 
-                tvProgressValue.text = "${(freeSpaceBean.hasUseSize() * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1)}"
+                tvProgressValue.text = "${(freeSpaceBean.hasUseSize() * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(
+                    1,
+                )}"
 
                 tvUsedValue.text = formatFileSize(freeSpaceBean.hasUseSize())
                 tvUsed.text = getUnit(freeSpaceBean.hasUseSize())

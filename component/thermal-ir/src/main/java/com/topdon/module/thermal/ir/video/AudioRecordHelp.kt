@@ -52,8 +52,11 @@ class AudioRecordHelp private constructor() {
         if (audioRecord == null) {
             audioRecord =
                 AudioRecord(
-                    MediaRecorder.AudioSource.MIC, VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
-                    AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+                    MediaRecorder.AudioSource.MIC,
+                    VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
+                    AudioFormat.CHANNEL_IN_MONO,
+                    AudioFormat.ENCODING_PCM_16BIT,
+                    bufferSize,
                 )
         }
         try {

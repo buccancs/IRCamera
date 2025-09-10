@@ -55,7 +55,10 @@ class IR07MonitorCapture2Activity : BaseActivity() {
 
         selectInfo = intent.getParcelableExtra("select")!!
 
-        monitor_current_vol.text = getString(if (selectInfo.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        monitor_current_vol.text =
+            getString(
+                if (selectInfo.type == 1) R.string.chart_temperature else R.string.chart_temperature_high,
+            )
         monitor_real_vol.visibility = if (selectInfo.type == 1) View.GONE else View.VISIBLE
         monitor_real_img.visibility = if (selectInfo.type == 1) View.GONE else View.VISIBLE
 

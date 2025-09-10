@@ -43,11 +43,19 @@ class ConfigGuideDialog(
         setCanceledOnTouchOutside(false)
         setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_config_guide, null))
 
-        tv_default_temp_title.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-        tv_default_dis_title.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        tv_space_em_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        tv_default_temp_title.text = "${context.getString(
+            R.string.thermal_config_environment,
+        )} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+        tv_default_dis_title.text = "${context.getString(
+            R.string.thermal_config_distance,
+        )} (0.2~${if (isTC007) 4 else 5}m)"
+        tv_space_em_title.text = "${context.getString(
+            R.string.thermal_config_radiation,
+        )} (${if (isTC007) "0.1" else "0.01"}~1.00)"
 
-        tv_default_em_title.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+        tv_default_em_title.text = "${context.getString(
+            R.string.thermal_config_radiation,
+        )} (${if (isTC007) "0.1" else "0.01"}~1.00)"
         tv_default_em_value.text = NumberTools.to02(dataBean.radiation)
 
         val itemDecoration = MyItemDecoration(context)

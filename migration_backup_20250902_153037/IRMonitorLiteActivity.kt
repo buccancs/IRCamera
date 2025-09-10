@@ -104,13 +104,18 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener, ITsTemp
                         val result: LibIRTemp.TemperatureSampleResult =
                             when (selectBean.type) {
                                 1 -> irMonitorLiteFragment!!.getTemperatureView().getPointTemp(selectBean.startPosition)
-                                2 -> irMonitorLiteFragment!!.getTemperatureView().getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
+                                2 ->
+                                    irMonitorLiteFragment!!.getTemperatureView().getLineTemp(
+                                        Line(selectBean.startPosition, selectBean.endPosition),
+                                    )
                                 else -> irMonitorLiteFragment!!.getTemperatureView().getRectTemp(selectBean.getRect())
                             } ?: continue
                         if (isFirstRead) {
                             if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                                 errorReadCount++
-                                XLog.w("第 $errorReadCount 次读取到异常数据，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                                XLog.w(
+                                    "第 $errorReadCount 次读取到异常数据，max = ${result.maxTemperature} min = ${result.minTemperature}",
+                                )
                                 if (errorReadCount > 10) {
                                     XLog.i("连续10次获取到异常数据，认为温度区域稳定")
                                     isFirstRead = false
@@ -136,7 +141,10 @@ open class IRMonitorLiteActivity : BaseActivity(), View.OnClickListener, ITsTemp
                 }
             }
 
-        monitor_current_vol.text = getString(if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        monitor_current_vol.text =
+            getString(
+                if (selectIndex!!.type == 1) R.string.chart_temperature else R.string.chart_temperature_high,
+            )
         monitor_real_vol.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         monitor_real_img.visibility = if (selectIndex!!.type == 1) View.GONE else View.VISIBLE
         recordThermal() // 开始记录

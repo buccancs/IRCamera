@@ -313,7 +313,8 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                 curChooseTabPos == 1,
                 cl_seek_bar,
                 temp_bg,
-                compassView, dualView,
+                compassView,
+                dualView,
                 carView = layCarDetectPrompt,
             )
     }

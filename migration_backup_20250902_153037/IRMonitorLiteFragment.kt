@@ -145,8 +145,10 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                     // 初始化锐度
                     IRTool.basicImageDetailEnhanceLevelSet(50)
                     CameraPreviewManager.getInstance()?.setLimit(
-                        Float.MAX_VALUE, Float.MIN_VALUE,
-                        0, 0,
+                        Float.MAX_VALUE,
+                        Float.MIN_VALUE,
+                        0,
+                        0,
                     ) // 自定义颜色
                     shutterHandler = Handler(Looper.getMainLooper())
 

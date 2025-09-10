@@ -144,7 +144,9 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         tvOverColor = findViewById(R.id.tv_over_color)
 
         val isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
-        customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
+        customPseudoBean = intent.getParcelableExtra(
+            ExtraKeyConfig.CUSTOM_PSEUDO_BEAN,
+        ) ?: CustomPseudoBean.loadFromShared(isTC007)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
         // Activity logic

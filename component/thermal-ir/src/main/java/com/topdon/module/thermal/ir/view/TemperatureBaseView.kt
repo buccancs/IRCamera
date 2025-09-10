@@ -660,8 +660,21 @@ abstract class TemperatureBaseView : View {
             return false
         }
         var tempDistance = (line.end.y - line.start.y) * x - (line.end.x - line.start.x) * y + line.end.x * line.start.y - line.start.x * line.end.y
-        tempDistance = (tempDistance / sqrt((line.end.y - line.start.y).toDouble().pow(2.0) + (line.end.x - line.start.x).toDouble().pow(2.0))).toInt()
-        return abs(tempDistance) < TOUCH_TOLERANCE && x > min(line.start.x, line.end.x) - TOUCH_TOLERANCE && x < max(line.start.x, line.end.x) + TOUCH_TOLERANCE
+        tempDistance =
+            (
+                tempDistance /
+                    sqrt(
+                        (line.end.y - line.start.y).toDouble().pow(
+                            2.0,
+                        ) + (line.end.x - line.start.x).toDouble().pow(2.0),
+                    )
+            ).toInt()
+        return abs(
+            tempDistance,
+        ) < TOUCH_TOLERANCE && x > min(
+            line.start.x,
+            line.end.x,
+        ) - TOUCH_TOLERANCE && x < max(line.start.x, line.end.x) + TOUCH_TOLERANCE
     }
 
     // **************************************** view ****************************************

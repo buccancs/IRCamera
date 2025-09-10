@@ -126,7 +126,11 @@ class TargetBarPickView : View {
         val typedArray = context.obtainStyledAttributes(attrs, com.topdon.lib.ui.R.styleable.BarPickView, 0, 0)
         max = typedArray.getInt(com.topdon.lib.ui.R.styleable.BarPickView_android_max, 100)
         min = typedArray.getInt(com.topdon.lib.ui.R.styleable.BarPickView_barMin, 0)
-        progress = typedArray.getInt(com.topdon.lib.ui.R.styleable.BarPickView_android_progress, min).coerceAtMost(max).coerceAtLeast(min)
+        progress =
+            typedArray.getInt(
+                com.topdon.lib.ui.R.styleable.BarPickView_android_progress,
+                min,
+            ).coerceAtMost(max).coerceAtLeast(min)
         barSize = typedArray.getInt(com.topdon.lib.ui.R.styleable.BarPickView_barSize, SizeUtils.dp2px(4f))
         rotate = typedArray.getInt(com.topdon.lib.ui.R.styleable.BarPickView_barOrientation, 0)
         labelText = typedArray.getString(com.topdon.lib.ui.R.styleable.BarPickView_barLabel) ?: ""
@@ -244,7 +248,16 @@ class TargetBarPickView : View {
         val thumbWidth = computeThumbWidth()
         val thumbHeight = textHeight + SizeUtils.dp2px(4f)
         if (rotate == 0 || rotate == 180) {
-            val labelTextSpace = if (labelText.isEmpty()) 0 else (paint.measureText(labelText).toInt() + SizeUtils.dp2px(6f))
+            val labelTextSpace =
+                if (labelText.isEmpty()) {
+                    0
+                } else {
+                    (
+                        paint.measureText(
+                            labelText,
+                        ).toInt() + SizeUtils.dp2px(6f)
+                    )
+                }
             val leftText = valueFormatListener.invoke(if (rotate == 0) min else max)
             val rightText = valueFormatListener.invoke(if (rotate == 0) max else min)
             val leftTextWidth = paint.measureText(leftText).toInt()

@@ -140,7 +140,12 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
             // Format template details
             val details =
                 buildString {
-                    append("🎯 Category: ${template.category.name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }}\n")
+                    append(
+                        "🎯 Category: ${template.category.name.replace(
+                            "_",
+                            " ",
+                        ).lowercase().replaceFirstChar { it.uppercase() }}\n",
+                    )
                     append("🔧 Sensors: ${template.sensors.joinToString(", ") { it.name.replace("_", " ") }}\n")
 
                     if (template.duration != null) {
@@ -152,7 +157,9 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
                     }
 
                     append("📊 GSR Rate: ${template.gsrSamplingRate}Hz\n")
-                    append("📹 Video: ${template.videoResolution.width}x${template.videoResolution.height} @ ${template.videoFrameRate}fps\n")
+                    append(
+                        "📹 Video: ${template.videoResolution.width}x${template.videoResolution.height} @ ${template.videoFrameRate}fps\n",
+                    )
 
                     template.instructions?.let { instructions ->
                         append("\n📋 Instructions:\n$instructions")
@@ -242,7 +249,11 @@ class TemplateAdapter(
         // Template info
         holder.iconText.text = template.icon ?: "📊"
         holder.nameText.text = template.name
-        holder.categoryText.text = template.category.name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
+        holder.categoryText.text =
+            template.category.name.replace(
+                "_",
+                " ",
+            ).lowercase().replaceFirstChar { it.uppercase() }
 
         // Sensors
         val sensorIcons =

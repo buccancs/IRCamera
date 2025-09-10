@@ -142,7 +142,8 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                             params.addBodyParameter("languageId", LanguageUtil.getLanguageId(Utils.getApp()))
                             params.addBodyParameter("reportType", 2)
                             HttpProxy.instant.post(
-                                url, params,
+                                url,
+                                params,
                                 object :
                                     IResponseCallback {
                                     override fun onResponse(response: String?) {

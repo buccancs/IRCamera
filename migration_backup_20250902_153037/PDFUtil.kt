@@ -150,7 +150,12 @@ object PDFUtil {
                     // 计算第1行item高度
                     val tabItemView = LayoutInflater.from(context).inflate(R.layout.pdf_tab_item, null)
                     tabItemView.tv_item_name.text = dirBean.itemList[0].itemName
-                    tabItemView.tv_input.text = dirBean.itemList[0].inputText.ifEmpty { dirBean.itemList[0].getStateStr(context) }
+                    tabItemView.tv_input.text =
+                        dirBean.itemList[0].inputText.ifEmpty {
+                            dirBean.itemList[0].getStateStr(
+                                context,
+                            )
+                        }
                     tabItemView.measure(
                         MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY),
                         MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -415,7 +420,14 @@ object PDFUtil {
             val contentUri: Uri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
             val selection = "${MediaStore.MediaColumns.RELATIVE_PATH} = ? AND ${MediaStore.MediaColumns.DISPLAY_NAME} = ?"
             val selectionArgs: Array<String> = arrayOf(FileConfig.documentsDir, pdfFileName)
-            val cursor: Cursor = resolver.query(contentUri, arrayOf(MediaStore.MediaColumns.DATA), selection, selectionArgs, null) ?: return null
+            val cursor: Cursor =
+                resolver.query(
+                    contentUri,
+                    arrayOf(MediaStore.MediaColumns.DATA),
+                    selection,
+                    selectionArgs,
+                    null,
+                ) ?: return null
             if (cursor.moveToFirst()) {
                 val pdfFile =
                     File(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)) ?: return null)
@@ -442,7 +454,9 @@ object PDFUtil {
         headView.tv_cost_title.text = "${context.getString(R.string.detection_cost)}:"
 
         headView.tv_report_name.text = houseReport.name
-        headView.tv_time.text = context.getString(R.string.detect_time) + ": " + TimeUtils.millis2String(houseReport.detectTime, "yyyy-MM-dd HH:mm")
+        headView.tv_time.text = context.getString(
+            R.string.detect_time,
+        ) + ": " + TimeUtils.millis2String(houseReport.detectTime, "yyyy-MM-dd HH:mm")
         headView.tv_house_address.text = houseReport.address
 
         headView.tv_inspector_name.text = houseReport.inspectorName

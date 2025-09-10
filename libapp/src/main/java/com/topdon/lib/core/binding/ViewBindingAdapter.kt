@@ -180,7 +180,15 @@ object ViewBindingAdapter {
         @ColorInt endColor: Int,
     ) {
         val gradientDrawable: GradientDrawable = buildGradientDrawable(view)
-        gradientDrawable.colors = if (centerColor == null) intArrayOf(startColor, endColor) else intArrayOf(startColor, centerColor, endColor)
+        gradientDrawable.colors =
+            if (centerColor == null) {
+                intArrayOf(
+                    startColor,
+                    endColor,
+                )
+            } else {
+                intArrayOf(startColor, centerColor, endColor)
+            }
         view.background = buildEffectDrawable(view, gradientDrawable)
     }
 

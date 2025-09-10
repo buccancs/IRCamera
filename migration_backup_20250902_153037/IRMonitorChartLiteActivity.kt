@@ -65,10 +65,18 @@ class IRMonitorChartLiteActivity : BaseActivity(), ITsTempListener {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 if (BaseApplication.instance.tau_data_H == null) {
-                    BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+                    BaseApplication.instance.tau_data_H =
+                        CommonUtil.getAssetData(
+                            mContext,
+                            IrConst.TAU_HIGH_GAIN_ASSET_PATH,
+                        )
                 }
                 if (BaseApplication.instance.tau_data_L == null) {
-                    BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
+                    BaseApplication.instance.tau_data_L =
+                        CommonUtil.getAssetData(
+                            mContext,
+                            IrConst.TAU_LOW_GAIN_ASSET_PATH,
+                        )
                 }
             }
             delay(1000)
@@ -91,7 +99,10 @@ class IRMonitorChartLiteActivity : BaseActivity(), ITsTempListener {
             }
         }
 
-        monitor_current_vol.text = getString(if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high)
+        monitor_current_vol.text =
+            getString(
+                if (selectBean.type == 1) R.string.chart_temperature else R.string.chart_temperature_high,
+            )
         monitor_real_vol.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
         monitor_real_img.visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
     }
@@ -118,13 +129,18 @@ class IRMonitorChartLiteActivity : BaseActivity(), ITsTempListener {
                         val result: LibIRTemp.TemperatureSampleResult =
                             when (selectBean.type) {
                                 1 -> irMonitorLiteFragment!!.getTemperatureView().getPointTemp(selectBean.startPosition)
-                                2 -> irMonitorLiteFragment!!.getTemperatureView().getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
+                                2 ->
+                                    irMonitorLiteFragment!!.getTemperatureView().getLineTemp(
+                                        Line(selectBean.startPosition, selectBean.endPosition),
+                                    )
                                 else -> irMonitorLiteFragment!!.getTemperatureView().getRectTemp(selectBean.getRect())
                             } ?: continue
                         if (isFirstRead) {
                             if (result.maxTemperature > 200f || result.minTemperature < -200f) {
                                 errorReadCount++
-                                XLog.w("第 $errorReadCount 次读取到异常数据，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                                XLog.w(
+                                    "第 $errorReadCount 次读取到异常数据，max = ${result.maxTemperature} min = ${result.minTemperature}",
+                                )
                                 if (errorReadCount > 10) {
                                     XLog.i("连续10次获取到异常数据，认为温度区域稳定")
                                     isFirstRead = false

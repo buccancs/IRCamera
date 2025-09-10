@@ -163,7 +163,24 @@ class TempDrawHelper {
         val rightF: Float = right.toFloat()
         val bottomF: Float = bottom.toFloat()
         val points =
-            floatArrayOf(leftF, topF, rightF, topF, rightF, topF, rightF, bottomF, rightF, bottomF, leftF, bottomF, leftF, bottomF, leftF, topF)
+            floatArrayOf(
+                leftF,
+                topF,
+                rightF,
+                topF,
+                rightF,
+                topF,
+                rightF,
+                bottomF,
+                rightF,
+                bottomF,
+                leftF,
+                bottomF,
+                leftF,
+                bottomF,
+                leftF,
+                topF,
+            )
         canvas.drawLines(points, linePaint)
     }
 

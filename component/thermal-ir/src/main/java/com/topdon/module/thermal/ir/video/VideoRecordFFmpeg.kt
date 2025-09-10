@@ -255,12 +255,16 @@ class VideoRecordFFmpeg(
         bufferSize =
             AudioRecord.getMinBufferSize(
                 SAMPLE_AUDIO_RETE_INHZ,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
+                AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
             )
         audioRecord =
             AudioRecord(
-                MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+                MediaRecorder.AudioSource.MIC,
+                SAMPLE_AUDIO_RETE_INHZ,
+                AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                bufferSize,
             )
         paint.color = Color.WHITE // Implementation
         paint.textSize = SizeUtils.sp2px(6f).toFloat()
@@ -283,7 +287,9 @@ class VideoRecordFFmpeg(
             }
             recorder =
                 FFmpegFrameRecorder(
-                    exportedFile!!.absolutePath, width, height,
+                    exportedFile!!.absolutePath,
+                    width,
+                    height,
                     AUDIO_CHANNELS,
                 )
             recorder!!.format = FORMAT
@@ -337,8 +343,11 @@ class VideoRecordFFmpeg(
             if (audioRecord == null) {
                 audioRecord =
                     AudioRecord(
-                        MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                        AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+                        MediaRecorder.AudioSource.MIC,
+                        SAMPLE_AUDIO_RETE_INHZ,
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT,
+                        bufferSize,
                     )
             }
             startTime = System.currentTimeMillis()
@@ -391,7 +400,8 @@ class VideoRecordFFmpeg(
                                         }
                                         recorder?.recordSamples(
                                             SAMPLE_AUDIO_RETE_INHZ,
-                                            AUDIO_CHANNELS, audioData,
+                                            AUDIO_CHANNELS,
+                                            audioData,
                                         )
                                     }
                                 } else {
@@ -404,7 +414,8 @@ class VideoRecordFFmpeg(
                                     }
                                     recorder?.recordSamples(
                                         SAMPLE_AUDIO_RETE_INHZ,
-                                        AUDIO_CHANNELS, tmpAudioData,
+                                        AUDIO_CHANNELS,
+                                        tmpAudioData,
                                     )
                                 }
 //                        Log.w(
@@ -468,8 +479,11 @@ class VideoRecordFFmpeg(
     fun startAudioRecording() {
         audioRecord =
             AudioRecord(
-                MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+                MediaRecorder.AudioSource.MIC,
+                SAMPLE_AUDIO_RETE_INHZ,
+                AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                bufferSize,
             )
         audioRecord!!.startRecording()
     }
@@ -481,8 +495,11 @@ class VideoRecordFFmpeg(
                 audioRecord?.release()
                 audioRecord =
                     AudioRecord(
-                        MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                        AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+                        MediaRecorder.AudioSource.MIC,
+                        SAMPLE_AUDIO_RETE_INHZ,
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT,
+                        bufferSize,
                     )
             }
         } catch (e: Exception) {
@@ -652,7 +669,8 @@ class VideoRecordFFmpeg(
             cameraViewBitmap =
                 BitmapUtils.mergeBitmapAlpha(
                     cameraViewBitmap,
-                    tempBg!!.drawToBitmap(), alphaPaint,
+                    tempBg!!.drawToBitmap(),
+                    alphaPaint,
                     0,
                     0,
                 )
@@ -661,7 +679,9 @@ class VideoRecordFFmpeg(
             cameraViewBitmap =
                 BitmapUtils.mergeBitmap(
                     cameraViewBitmap,
-                    carView?.drawToBitmap(), 0, 0,
+                    carView?.drawToBitmap(),
+                    0,
+                    0,
                 )
         }
         // Implementation

@@ -199,7 +199,12 @@ class PerformanceTest {
 
             // Verify network scalability with message size
             messageResults.zipWithNext { current, next ->
-                val sizeRatio = messageSizes[messageResults.indexOf(next)] / messageSizes[messageResults.indexOf(current)]
+                val sizeRatio =
+                    messageSizes[
+                        messageResults.indexOf(
+                            next,
+                        ),
+                    ] / messageSizes[messageResults.indexOf(current)]
                 val latencyRatio = next.averageLatencyMs / current.averageLatencyMs
 
                 // Latency should not increase more than proportionally to message size

@@ -208,7 +208,9 @@ class ReportPreviewSecondActivity : BaseViewModelActivity<UpReportViewModel>(), 
                 pdfFilePath =
                     PDFHelp.savePdfFileByListView(
                         name ?: System.currentTimeMillis().toString(),
-                        scrollView, getPrintViewList(), watermarkView,
+                        scrollView,
+                        getPrintViewList(),
+                        watermarkView,
                     )
                 lifecycleScope.launch {
                     tvToPdf.text = getString(LibCoreR.string.battery_share)

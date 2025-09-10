@@ -186,7 +186,14 @@ class HikSurfaceView : SurfaceView {
             sourceHeight,
         )
         // View rendering
-        val newArray = irImageHelp.contourDetection(alarmBean, sourceArgbArray, tempArray, sourceWidth, sourceHeight) ?: sourceArgbArray
+        val newArray =
+            irImageHelp.contourDetection(
+                alarmBean,
+                sourceArgbArray,
+                tempArray,
+                sourceWidth,
+                sourceHeight,
+            ) ?: sourceArgbArray
         // Rotate
         when (rotateAngle) {
             90 ->

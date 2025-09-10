@@ -448,8 +448,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             )
                             if (editMinValue != Float.MIN_VALUE && editMaxValue != Float.MAX_VALUE) {
                                 imageThread?.setLimit(
-                                    editMaxValue, editMinValue,
-                                    upColor, downColor,
+                                    editMaxValue,
+                                    editMinValue,
+                                    upColor,
+                                    downColor,
                                 ) // Activity logic
                             }
                         } catch (e: Exception) {
@@ -1191,7 +1193,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     SpanBuilder(getString(R.string.tc_high_temp_test_tips1))
                         .appendDrawable(
                             this@IRThermalNightActivity,
-                            R.drawable.svg_title_temp, SizeUtils.sp2px(24f),
+                            R.drawable.svg_title_temp,
+                            SizeUtils.sp2px(24f),
                         )
                         .append(getString(R.string.tc_high_temp_test_tips2))
                 TipShutterDialog.Builder(this)
@@ -2034,7 +2037,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         iruvc =
             IRUVCTC(
-                cameraWidth, cameraHeight, this, syncimage,
+                cameraWidth,
+                cameraHeight,
+                this,
+                syncimage,
                 defaultDataFlowMode,
                 object : ConnectCallback {
                     override fun onCameraOpened(uvcCamera: UVCCamera) {
@@ -2547,7 +2553,12 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         }
                     // Visible light
                     if (isOpenPreview) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmapByView(cameraViewBitmap, cameraPreview.getBitmap(), cameraPreview)
+                        cameraViewBitmap =
+                            BitmapUtils.mergeBitmapByView(
+                                cameraViewBitmap,
+                                cameraPreview.getBitmap(),
+                                cameraPreview,
+                            )
                         // Picture in pictureactivity
                         cameraPreview.getBitmap()?.let {
                             ImageUtils.saveImageToApp(it)
@@ -2605,14 +2616,22 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     if ((curChooseTabPos == 1 && temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) ||
                         (curChooseTabPos == 2 && temperatureView.isUserHighTemp() && temperatureView.isUserLowTemp())
                     ) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionAndValueBitmap, 0, 0)
+                        cameraViewBitmap =
+                            BitmapUtils.mergeBitmap(
+                                cameraViewBitmap,
+                                temperatureView.regionAndValueBitmap,
+                                0,
+                                0,
+                            )
                     }
                     // Activity logic
                     if (layCarDetectPrompt.isVisible) {
                         cameraViewBitmap =
                             BitmapUtils.mergeBitmap(
                                 cameraViewBitmap,
-                                layCarDetectPrompt.drawToBitmap(), 0, 0,
+                                layCarDetectPrompt.drawToBitmap(),
+                                0,
+                                0,
                             )
                     }
                     // Activity logic
@@ -2699,7 +2718,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 curChooseTabPos == 1,
                 cl_seek_bar,
                 temp_bg,
-                compassView, null,
+                compassView,
+                null,
                 carView = layCarDetectPrompt,
             )
     }
@@ -2935,7 +2955,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     // Activity logic
                     ircmd?.setContrast(saveSetBean.contrastValue)
                     if (SaveSettingUtil.isSaveSetting) {
-                        XLog.i("activityModeactivity：${if (SaveSettingUtil.isMeasureTempMode) "Temperature measurement" else "Observation"}Mode")
+                        XLog.i(
+                            "activityModeactivity：${if (SaveSettingUtil.isMeasureTempMode) "Temperature measurement" else "Observation"}Mode",
+                        )
                         if (isTS001) {
                             switchTs001Mode(SaveSettingUtil.isMeasureTempMode)
                         } else {
@@ -3263,7 +3285,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                                 isRecordAudio = true
                                 SaveSettingUtil.isRecordAudio = isRecordAudio
                                 videoRecord?.updateAudioState(true)
-                                cameraItemAdapter?.data?.get(audioPosition)?.isSel = !(cameraItemAdapter?.data?.get(audioPosition)?.isSel?:false)
+                                cameraItemAdapter?.data?.get(
+                                    audioPosition,
+                                )?.isSel = !(cameraItemAdapter?.data?.get(audioPosition)?.isSel?:false)
                                 cameraItemAdapter?.notifyItemChanged(audioPosition)
                             } else {
                                 ToastUtils.showShort(R.string.scan_ble_tip_authorize)
@@ -3323,10 +3347,12 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                                                 this@IRThermalNightActivity.lifecycleScope,
                                                 onTick = {
                                                     camera()
-                                                }, onStart = {
+                                                },
+                                                onStart = {
                                                     tvTypeInd?.visibility = VISIBLE
                                                     isAutoCamera = true
-                                                }, onFinish = {
+                                                },
+                                                onFinish = {
                                                     tvTypeInd?.visibility = GONE
                                                     isAutoCamera = false
                                                 },

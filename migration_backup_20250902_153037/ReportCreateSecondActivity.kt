@@ -75,7 +75,12 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launch {
             val drawable = GlideLoader.getDrawable(this@ReportCreateSecondActivity, absolutePath)
             val isLand = (drawable?.intrinsicWidth ?: 0) > (drawable?.intrinsicHeight ?: 0)
-            val width = (ScreenUtil.getScreenWidth(this@ReportCreateSecondActivity) * (if (isLand) 234 else 175) / 375f).toInt()
+            val width =
+                (
+                    ScreenUtil.getScreenWidth(
+                        this@ReportCreateSecondActivity,
+                    ) * (if (isLand) 234 else 175) / 375f
+                ).toInt()
             val layoutParams = iv_image.layoutParams
             layoutParams.width = width
             layoutParams.height = (width * (drawable?.intrinsicHeight ?: 0).toFloat() / (drawable?.intrinsicWidth ?: 1)).toInt()

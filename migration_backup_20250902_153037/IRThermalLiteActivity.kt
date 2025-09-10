@@ -271,7 +271,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         lifecycleScope.launch(Dispatchers.IO) {
             delay(1000)
             if (BaseApplication.instance.tau_data_H == null) {
-                BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+                BaseApplication.instance.tau_data_H =
+                    CommonUtil.getAssetData(
+                        mContext,
+                        IrConst.TAU_HIGH_GAIN_ASSET_PATH,
+                    )
             }
             if (BaseApplication.instance.tau_data_L == null) {
                 BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
@@ -400,7 +404,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 // 切换到高温档
                 val message =
                     SpanBuilder(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips1))
-                        .appendDrawable(this@IRThermalLiteActivity, com.topdon.module.thermal.ir.R.drawable.svg_title_temp, SizeUtils.sp2px(24f))
+                        .appendDrawable(
+                            this@IRThermalLiteActivity,
+                            com.topdon.module.thermal.ir.R.drawable.svg_title_temp,
+                            SizeUtils.sp2px(24f),
+                        )
                         .append(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips2))
                 TipShutterDialog.Builder(this)
                     .setTitle(com.topdon.module.thermal.ir.R.string.tc_high_temp_test)
@@ -451,22 +459,30 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                             )
                             if (editMinValue != Float.MIN_VALUE && editMaxValue != Float.MAX_VALUE) {
                                 CameraPreviewManager.getInstance()?.setLimit(
-                                    editMaxValue, editMinValue,
-                                    upColor, downColor,
+                                    editMaxValue,
+                                    editMinValue,
+                                    upColor,
+                                    downColor,
                                 ) // 自定义颜色
                             }
                         } catch (e: Exception) {
                             Log.e("温度图层更新失败", e.message.toString())
                         }
                         try {
-                            tv_temp_content.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
+                            tv_temp_content.text = "Max:${UnitTools.showC(
+                                max,
+                                isShowC,
+                            )}\nMin:${UnitTools.showC(min, isShowC)}"
                         } catch (e: Exception) {
                             Log.e("温度图层更新失败", e.message.toString())
                         }
                     } else {
                         // 自定义渲染
                         try {
-                            tv_temp_content.text = " Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
+                            tv_temp_content.text = " Max:${UnitTools.showC(
+                                max,
+                                isShowC,
+                            )}\nMin:${UnitTools.showC(min, isShowC)}"
                         } catch (e: Exception) {
                             Log.e("温度图层更新失败", e.message.toString())
                         }
@@ -1133,7 +1149,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         childLayoutParams.width = thermal_lay.measuredWidth
                         childLayoutParams.height = thermal_lay.measuredHeight
                         temperatureView.layoutParams = childLayoutParams
-                        mPreviewLayoutParams = RelativeLayout.LayoutParams(thermal_lay.measuredWidth, thermal_lay.measuredHeight)
+                        mPreviewLayoutParams =
+                            RelativeLayout.LayoutParams(
+                                thermal_lay.measuredWidth,
+                                thermal_lay.measuredHeight,
+                            )
                         cameraView.setLayoutParams(mPreviewLayoutParams)
                         cameraPreview.layoutParams = mPreviewLayoutParams
                         thermal_lay.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -1142,7 +1162,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         childLayoutParams.width = thermal_lay.measuredWidth
                         childLayoutParams.height = thermal_lay.measuredHeight
                         temperatureView.layoutParams = childLayoutParams
-                        mPreviewLayoutParams = RelativeLayout.LayoutParams(thermal_lay.measuredWidth, thermal_lay.measuredHeight)
+                        mPreviewLayoutParams =
+                            RelativeLayout.LayoutParams(
+                                thermal_lay.measuredWidth,
+                                thermal_lay.measuredHeight,
+                            )
                         cameraView.setLayoutParams(mPreviewLayoutParams)
                         cameraPreview.layoutParams = mPreviewLayoutParams
                         thermal_lay.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -1460,7 +1484,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     } else {
                         recyclerView.layoutManager =
                             GridLayoutManager(
-                                this, cameraItemBeanList.size, GridLayoutManager.VERTICAL, false,
+                                this,
+                                cameraItemBeanList.size,
+                                GridLayoutManager.VERTICAL,
+                                false,
                             )
                     }
                     cameraItemAdapter = CameraItemAdapter(cameraItemBeanList)
@@ -1617,7 +1644,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 isRecordAudio = true
                                 SaveSettingUtil.isRecordAudio = isRecordAudio
                                 videoRecord?.updateAudioState(true)
-                                cameraItemAdapter?.data?.get(audioPosition)?.isSel = !(cameraItemAdapter?.data?.get(audioPosition)?.isSel?:false)
+                                cameraItemAdapter?.data?.get(
+                                    audioPosition,
+                                )?.isSel = !(cameraItemAdapter?.data?.get(audioPosition)?.isSel?:false)
                                 cameraItemAdapter?.notifyItemChanged(audioPosition)
                             } else {
                                 ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.scan_ble_tip_authorize)
@@ -1698,10 +1727,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                                 this@IRThermalLiteActivity.lifecycleScope,
                                                 onTick = {
                                                     camera()
-                                                }, onStart = {
+                                                },
+                                                onStart = {
                                                     tv_type_ind?.visibility = VISIBLE
                                                     isAutoCamera = true
-                                                }, onFinish = {
+                                                },
+                                                onFinish = {
                                                     tv_type_ind?.visibility = GONE
                                                     isAutoCamera = false
                                                 },
@@ -1780,7 +1811,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     var cameraViewBitmap: Bitmap? = getCameraViewBitmap()
                     // 可见光
                     if (isOpenPreview) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmapByView(cameraViewBitmap, cameraPreview.getBitmap(), cameraPreview)
+                        cameraViewBitmap =
+                            BitmapUtils.mergeBitmapByView(
+                                cameraViewBitmap,
+                                cameraPreview.getBitmap(),
+                                cameraPreview,
+                            )
                         // 画中画原图保存
                         cameraPreview.getBitmap()?.let {
                             ImageUtils.saveImageToApp(it)
@@ -1789,7 +1825,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
 
                     // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
                     if (temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionAndValueBitmap, 0, 0)
+                        cameraViewBitmap =
+                            BitmapUtils.mergeBitmap(
+                                cameraViewBitmap,
+                                temperatureView.regionAndValueBitmap,
+                                0,
+                                0,
+                            )
                     }
 
                     // 合并伪彩条
@@ -1826,7 +1868,9 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                         cameraViewBitmap =
                             BitmapUtils.mergeBitmap(
                                 cameraViewBitmap,
-                                lay_car_detect_prompt.drawToBitmap(), 0, 0,
+                                lay_car_detect_prompt.drawToBitmap(),
+                                0,
+                                0,
                             )
                     }
 
@@ -1898,7 +1942,8 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 true,
                 cl_seek_bar,
                 temp_bg,
-                null, null,
+                null,
+                null,
                 carView = lay_car_detect_prompt,
             )
     }
@@ -2014,8 +2059,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 IRTool.basicMirrorAndFlipStatusSet(saveSetBean.isOpenMirror)
                 thermal_recycler_night.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
                 CameraPreviewManager.getInstance()?.setLimit(
-                    editMaxValue, editMinValue,
-                    upColor, downColor,
+                    editMaxValue,
+                    editMinValue,
+                    upColor,
+                    downColor,
                 )
                 delay(2000)
                 // 增益模式初始化
@@ -2174,13 +2221,30 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             tvDetectPrompt.text = getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
         } else {
             var temperature = carDetectInfo.temperature.split("~")
-            tvDetectPrompt.text = carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+            tvDetectPrompt.text = carDetectInfo.item +
+                TemperatureUtil.getTempStr(
+                    temperature[0].toInt(),
+                    temperature[1].toInt(),
+                )
         }
-        lay_car_detect_prompt.visibility = if (intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, false)) View.VISIBLE else View.GONE
+        lay_car_detect_prompt.visibility =
+            if (intent.getBooleanExtra(
+                    ExtraKeyConfig.IS_CAR_DETECT_ENTER,
+                    false,
+                )
+            ) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         view_car_detect.findViewById<RelativeLayout>(com.topdon.module.thermal.ir.R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
-                tvDetectPrompt.text = it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+                tvDetectPrompt.text = it.item +
+                    TemperatureUtil.getTempStr(
+                        temperature[0].toInt(),
+                        temperature[1].toInt(),
+                    )
             }.show()
         }
     }

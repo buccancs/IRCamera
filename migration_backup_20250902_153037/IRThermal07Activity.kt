@@ -550,7 +550,10 @@ class IRThermal07Activity : BaseWifiActivity() {
                                 val isothermC =
                                     IsothermC(
                                         temperature_seekbar.tempMode,
-                                        max, min, min, max,
+                                        max,
+                                        min,
+                                        min,
+                                        max,
                                     )
                                 TC007Repository.setIsotherm(isothermC)
                             }
@@ -573,7 +576,8 @@ class IRThermal07Activity : BaseWifiActivity() {
                     SpanBuilder(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips1))
                         .appendDrawable(
                             this@IRThermal07Activity,
-                            R.drawable.svg_title_temp, SizeUtils.sp2px(24f),
+                            R.drawable.svg_title_temp,
+                            SizeUtils.sp2px(24f),
                         )
                         .append(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips2))
                 TipShutterDialog
@@ -713,10 +717,15 @@ class IRThermal07Activity : BaseWifiActivity() {
                             }
 
                             Log.i(TAG, "Parallel recording started: ${session.sessionId}")
-                            Log.i(TAG, "Active sensors: ${session.selectedSensors.map { it.displayName }.joinToString(", ")}")
+                            Log.i(
+                                TAG,
+                                "Active sensors: ${session.selectedSensors.map { it.displayName }.joinToString(", ")}",
+                            )
 
                             lifecycleScope.launch(Dispatchers.Main) {
-                                val message = "🚀 Recording started:\n${session.selectedSensors.map { "• ${it.displayName}" }.joinToString("\n")}"
+                                val message = "🚀 Recording started:\n${session.selectedSensors.map { "• ${it.displayName}" }.joinToString(
+                                    "\n",
+                                )}"
                                 TToast.shortToast(this@IRThermal07Activity, message)
                             }
                         }
@@ -738,7 +747,9 @@ class IRThermal07Activity : BaseWifiActivity() {
                                     buildString {
                                         append("✅ Recording completed (${session.recordingDuration / 1000}s):\n")
                                         session.selectedSensors.forEach { sensor ->
-                                            append("• ${sensor.displayName}: ${session.sensorStatus[sensor] ?: "Unknown"}\n")
+                                            append(
+                                                "• ${sensor.displayName}: ${session.sensorStatus[sensor] ?: "Unknown"}\n",
+                                            )
                                         }
                                     }
                                 TToast.shortToast(this@IRThermal07Activity, message.trim())
@@ -1765,8 +1776,10 @@ class IRThermal07Activity : BaseWifiActivity() {
                     } else {
                         recyclerView.layoutManager =
                             GridLayoutManager(
-                                this, cameraItemBeanList.size,
-                                GridLayoutManager.VERTICAL, false,
+                                this,
+                                cameraItemBeanList.size,
+                                GridLayoutManager.VERTICAL,
+                                false,
                             )
                     }
                     cameraItemAdapter = CameraItemAdapter(cameraItemBeanList)
@@ -2088,7 +2101,9 @@ class IRThermal07Activity : BaseWifiActivity() {
                             alarmBean = alarmBean,
                             0,
                             textSize = SizeUtils.sp2px(textSize.toFloat()),
-                            0f, 0f, 0f,
+                            0f,
+                            0f,
+                            0f,
                             false,
                         )
                     ImageUtils.saveFrame(bs = imageEditBytes, capital = capital, name = name)
@@ -2143,7 +2158,8 @@ class IRThermal07Activity : BaseWifiActivity() {
                     false,
                     cl_seek_bar,
                     temp_bg,
-                    null, null,
+                    null,
+                    null,
                     true,
                     carView = lay_car_detect_prompt,
                 )
@@ -2219,8 +2235,14 @@ class IRThermal07Activity : BaseWifiActivity() {
                         )
                         val session = recorder.stopRecording()
                         session?.let {
-                            Log.d("ThermalSync", "Synchronized recording completed: ${it.sessionId}, duration: ${it.getDurationMs()}ms")
-                            Log.d("ThermalSync", "Session files saved to: ${recorder.getSessionDirectory()?.absolutePath}")
+                            Log.d(
+                                "ThermalSync",
+                                "Synchronized recording completed: ${it.sessionId}, duration: ${it.getDurationMs()}ms",
+                            )
+                            Log.d(
+                                "ThermalSync",
+                                "Session files saved to: ${recorder.getSessionDirectory()?.absolutePath}",
+                            )
 
                             // Show completion feedback with file location
                             TToast.shortToast(
@@ -2864,13 +2886,30 @@ class IRThermal07Activity : BaseWifiActivity() {
             tvDetectPrompt.text = getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
         } else {
             var temperature = carDetectInfo.temperature.split("~")
-            tvDetectPrompt.text = carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+            tvDetectPrompt.text = carDetectInfo.item +
+                TemperatureUtil.getTempStr(
+                    temperature[0].toInt(),
+                    temperature[1].toInt(),
+                )
         }
-        lay_car_detect_prompt.visibility = if (intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, false)) View.VISIBLE else View.GONE
+        lay_car_detect_prompt.visibility =
+            if (intent.getBooleanExtra(
+                    ExtraKeyConfig.IS_CAR_DETECT_ENTER,
+                    false,
+                )
+            ) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         view_car_detect.findViewById<RelativeLayout>(com.topdon.module.thermal.ir.R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {
                 var temperature = it.temperature.split("~")
-                tvDetectPrompt.text = it.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+                tvDetectPrompt.text = it.item +
+                    TemperatureUtil.getTempStr(
+                        temperature[0].toInt(),
+                        temperature[1].toInt(),
+                    )
             }.show()
         }
     }

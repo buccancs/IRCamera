@@ -142,15 +142,21 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
                 when (lightLevel) {
                     in 81..100 -> {
                         holder.img.setImageResource(R.drawable.ic_menu_light_high)
-                        holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_high)
+                        holder.name.text = context.getString(
+                            R.string.brightness_ios,
+                        ) + ": " + context.getString(R.string.ts004_high)
                     }
                     in 61..80 -> {
                         holder.img.setImageResource(R.drawable.ic_menu_light_middle)
-                        holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_middle)
+                        holder.name.text = context.getString(
+                            R.string.brightness_ios,
+                        ) + ": " + context.getString(R.string.ts004_middle)
                     }
                     in 0..60 -> {
                         holder.img.setImageResource(R.drawable.ic_menu_light_low)
-                        holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_low)
+                        holder.name.text = context.getString(
+                            R.string.brightness_ios,
+                        ) + ": " + context.getString(R.string.ts004_low)
                     }
                 }
             }
