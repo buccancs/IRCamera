@@ -1,606 +1,626 @@
 {
-  "formatVersion": 1,
   "database": {
-    "version": 6,
-    "identityHash": "56862c1f9e419fba77360707c700bde1",
     "entities": [
       {
-        "tableName": "thermal",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
             "id"
           ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal"
       },
       {
-        "tableName": "thermal_minute",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
             "id"
           ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal_minute"
       },
       {
-        "tableName": "thermal_hour",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
             "id"
           ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal_hour"
       },
       {
-        "tableName": "thermal_day",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
             "id"
           ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal_day"
       },
       {
-        "tableName": "HouseDetect",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `inspectorName` TEXT NOT NULL, `address` TEXT NOT NULL, `imagePath` TEXT NOT NULL, `year` INTEGER, `houseSpace` TEXT NOT NULL, `houseSpaceUnit` INTEGER NOT NULL, `cost` TEXT NOT NULL, `costUnit` INTEGER NOT NULL, `detectTime` INTEGER NOT NULL, `createTime` INTEGER NOT NULL, `updateTime` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "name",
+            "affinity": "TEXT",
             "columnName": "name",
-            "affinity": "TEXT",
+            "fieldPath": "name",
             "notNull": true
           },
           {
-            "fieldPath": "inspectorName",
+            "affinity": "TEXT",
             "columnName": "inspectorName",
-            "affinity": "TEXT",
+            "fieldPath": "inspectorName",
             "notNull": true
           },
           {
-            "fieldPath": "address",
+            "affinity": "TEXT",
             "columnName": "address",
-            "affinity": "TEXT",
+            "fieldPath": "address",
             "notNull": true
           },
           {
-            "fieldPath": "imagePath",
+            "affinity": "TEXT",
             "columnName": "imagePath",
-            "affinity": "TEXT",
+            "fieldPath": "imagePath",
             "notNull": true
           },
           {
-            "fieldPath": "year",
-            "columnName": "year",
             "affinity": "INTEGER",
+            "columnName": "year",
+            "fieldPath": "year",
             "notNull": false
           },
           {
-            "fieldPath": "houseSpace",
+            "affinity": "TEXT",
             "columnName": "houseSpace",
-            "affinity": "TEXT",
+            "fieldPath": "houseSpace",
             "notNull": true
           },
           {
-            "fieldPath": "houseSpaceUnit",
+            "affinity": "INTEGER",
             "columnName": "houseSpaceUnit",
-            "affinity": "INTEGER",
+            "fieldPath": "houseSpaceUnit",
             "notNull": true
           },
           {
-            "fieldPath": "cost",
-            "columnName": "cost",
             "affinity": "TEXT",
+            "columnName": "cost",
+            "fieldPath": "cost",
             "notNull": true
           },
           {
-            "fieldPath": "costUnit",
+            "affinity": "INTEGER",
             "columnName": "costUnit",
-            "affinity": "INTEGER",
+            "fieldPath": "costUnit",
             "notNull": true
           },
           {
-            "fieldPath": "detectTime",
+            "affinity": "INTEGER",
             "columnName": "detectTime",
-            "affinity": "INTEGER",
+            "fieldPath": "detectTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "createTime",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "updateTime",
             "affinity": "INTEGER",
+            "columnName": "updateTime",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
             "id"
           ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "HouseDetect"
       },
       {
-        "tableName": "HouseReport",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`inspectorWhitePath` TEXT NOT NULL, `inspectorBlackPath` TEXT NOT NULL, `houseOwnerWhitePath` TEXT NOT NULL, `houseOwnerBlackPath` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `inspectorName` TEXT NOT NULL, `address` TEXT NOT NULL, `imagePath` TEXT NOT NULL, `year` INTEGER, `houseSpace` TEXT NOT NULL, `houseSpaceUnit` INTEGER NOT NULL, `cost` TEXT NOT NULL, `costUnit` INTEGER NOT NULL, `detectTime` INTEGER NOT NULL, `createTime` INTEGER NOT NULL, `updateTime` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "inspectorWhitePath",
+            "affinity": "TEXT",
             "columnName": "inspectorWhitePath",
-            "affinity": "TEXT",
+            "fieldPath": "inspectorWhitePath",
             "notNull": true
           },
           {
-            "fieldPath": "inspectorBlackPath",
+            "affinity": "TEXT",
             "columnName": "inspectorBlackPath",
-            "affinity": "TEXT",
+            "fieldPath": "inspectorBlackPath",
             "notNull": true
           },
           {
-            "fieldPath": "houseOwnerWhitePath",
+            "affinity": "TEXT",
             "columnName": "houseOwnerWhitePath",
-            "affinity": "TEXT",
+            "fieldPath": "houseOwnerWhitePath",
             "notNull": true
           },
           {
-            "fieldPath": "houseOwnerBlackPath",
+            "affinity": "TEXT",
             "columnName": "houseOwnerBlackPath",
-            "affinity": "TEXT",
+            "fieldPath": "houseOwnerBlackPath",
             "notNull": true
           },
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "name",
+            "affinity": "TEXT",
             "columnName": "name",
-            "affinity": "TEXT",
+            "fieldPath": "name",
             "notNull": true
           },
           {
-            "fieldPath": "inspectorName",
+            "affinity": "TEXT",
             "columnName": "inspectorName",
-            "affinity": "TEXT",
+            "fieldPath": "inspectorName",
             "notNull": true
           },
           {
-            "fieldPath": "address",
+            "affinity": "TEXT",
             "columnName": "address",
-            "affinity": "TEXT",
+            "fieldPath": "address",
             "notNull": true
           },
           {
-            "fieldPath": "imagePath",
+            "affinity": "TEXT",
             "columnName": "imagePath",
-            "affinity": "TEXT",
+            "fieldPath": "imagePath",
             "notNull": true
           },
           {
-            "fieldPath": "year",
-            "columnName": "year",
             "affinity": "INTEGER",
+            "columnName": "year",
+            "fieldPath": "year",
             "notNull": false
           },
           {
-            "fieldPath": "houseSpace",
+            "affinity": "TEXT",
             "columnName": "houseSpace",
-            "affinity": "TEXT",
+            "fieldPath": "houseSpace",
             "notNull": true
           },
           {
-            "fieldPath": "houseSpaceUnit",
+            "affinity": "INTEGER",
             "columnName": "houseSpaceUnit",
-            "affinity": "INTEGER",
+            "fieldPath": "houseSpaceUnit",
             "notNull": true
           },
           {
-            "fieldPath": "cost",
-            "columnName": "cost",
             "affinity": "TEXT",
+            "columnName": "cost",
+            "fieldPath": "cost",
             "notNull": true
           },
           {
-            "fieldPath": "costUnit",
+            "affinity": "INTEGER",
             "columnName": "costUnit",
-            "affinity": "INTEGER",
+            "fieldPath": "costUnit",
             "notNull": true
           },
           {
-            "fieldPath": "detectTime",
+            "affinity": "INTEGER",
             "columnName": "detectTime",
-            "affinity": "INTEGER",
+            "fieldPath": "detectTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "createTime",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "updateTime",
             "affinity": "INTEGER",
+            "columnName": "updateTime",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
             "id"
           ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "HouseReport"
       },
       {
-        "tableName": "DirDetect",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`parentId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `position` INTEGER NOT NULL, `dirName` TEXT NOT NULL, `goodCount` INTEGER NOT NULL, `warnCount` INTEGER NOT NULL, `dangerCount` INTEGER NOT NULL, FOREIGN KEY(`parentId`) REFERENCES `HouseDetect`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
-            "fieldPath": "parentId",
+            "affinity": "INTEGER",
             "columnName": "parentId",
-            "affinity": "INTEGER",
+            "fieldPath": "parentId",
             "notNull": true
           },
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "position",
+            "affinity": "INTEGER",
             "columnName": "position",
-            "affinity": "INTEGER",
+            "fieldPath": "position",
             "notNull": true
           },
           {
-            "fieldPath": "dirName",
-            "columnName": "dirName",
             "affinity": "TEXT",
+            "columnName": "dirName",
+            "fieldPath": "dirName",
             "notNull": true
           },
           {
-            "fieldPath": "goodCount",
+            "affinity": "INTEGER",
             "columnName": "goodCount",
-            "affinity": "INTEGER",
+            "fieldPath": "goodCount",
             "notNull": true
           },
           {
-            "fieldPath": "warnCount",
+            "affinity": "INTEGER",
             "columnName": "warnCount",
-            "affinity": "INTEGER",
+            "fieldPath": "warnCount",
             "notNull": true
           },
           {
-            "fieldPath": "dangerCount",
-            "columnName": "dangerCount",
             "affinity": "INTEGER",
+            "columnName": "dangerCount",
+            "fieldPath": "dangerCount",
             "notNull": true
+          }
+        ],
+        "foreignKeys": [
+          {
+            "columns": [
+              "parentId"
+            ],
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "referencedColumns": [
+              "id"
+            ],
+            "table": "HouseDetect"
+          }
+        ],
+        "indices": [
+          {
+            "columnNames": [
+              "parentId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_DirDetect_parentId` ON `${TABLE_NAME}` (`parentId`)",
+            "name": "index_DirDetect_parentId",
+            "orders": [],
+            "unique": false
           }
         ],
         "primaryKey": {
@@ -609,76 +629,76 @@
             "id"
           ]
         },
-        "indices": [
-          {
-            "name": "index_DirDetect_parentId",
-            "unique": false,
-            "columnNames": [
-              "parentId"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_DirDetect_parentId` ON `${TABLE_NAME}` (`parentId`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "HouseDetect",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "parentId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "tableName": "DirDetect"
       },
       {
-        "tableName": "DirReport",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`parentId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `position` INTEGER NOT NULL, `dirName` TEXT NOT NULL, `goodCount` INTEGER NOT NULL, `warnCount` INTEGER NOT NULL, `dangerCount` INTEGER NOT NULL, FOREIGN KEY(`parentId`) REFERENCES `HouseReport`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
-            "fieldPath": "parentId",
+            "affinity": "INTEGER",
             "columnName": "parentId",
-            "affinity": "INTEGER",
+            "fieldPath": "parentId",
             "notNull": true
           },
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "position",
+            "affinity": "INTEGER",
             "columnName": "position",
-            "affinity": "INTEGER",
+            "fieldPath": "position",
             "notNull": true
           },
           {
-            "fieldPath": "dirName",
-            "columnName": "dirName",
             "affinity": "TEXT",
+            "columnName": "dirName",
+            "fieldPath": "dirName",
             "notNull": true
           },
           {
-            "fieldPath": "goodCount",
+            "affinity": "INTEGER",
             "columnName": "goodCount",
-            "affinity": "INTEGER",
+            "fieldPath": "goodCount",
             "notNull": true
           },
           {
-            "fieldPath": "warnCount",
+            "affinity": "INTEGER",
             "columnName": "warnCount",
-            "affinity": "INTEGER",
+            "fieldPath": "warnCount",
             "notNull": true
           },
           {
-            "fieldPath": "dangerCount",
-            "columnName": "dangerCount",
             "affinity": "INTEGER",
+            "columnName": "dangerCount",
+            "fieldPath": "dangerCount",
             "notNull": true
+          }
+        ],
+        "foreignKeys": [
+          {
+            "columns": [
+              "parentId"
+            ],
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "referencedColumns": [
+              "id"
+            ],
+            "table": "HouseReport"
+          }
+        ],
+        "indices": [
+          {
+            "columnNames": [
+              "parentId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_DirReport_parentId` ON `${TABLE_NAME}` (`parentId`)",
+            "name": "index_DirReport_parentId",
+            "orders": [],
+            "unique": false
           }
         ],
         "primaryKey": {
@@ -687,94 +707,94 @@
             "id"
           ]
         },
-        "indices": [
-          {
-            "name": "index_DirReport_parentId",
-            "unique": false,
-            "columnNames": [
-              "parentId"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_DirReport_parentId` ON `${TABLE_NAME}` (`parentId`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "HouseReport",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "parentId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "tableName": "DirReport"
       },
       {
-        "tableName": "ItemDetect",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`parentId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `position` INTEGER NOT NULL, `itemName` TEXT NOT NULL, `state` INTEGER NOT NULL, `inputText` TEXT NOT NULL, `image1` TEXT NOT NULL, `image2` TEXT NOT NULL, `image3` TEXT NOT NULL, `image4` TEXT NOT NULL, FOREIGN KEY(`parentId`) REFERENCES `DirDetect`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
-            "fieldPath": "parentId",
+            "affinity": "INTEGER",
             "columnName": "parentId",
-            "affinity": "INTEGER",
+            "fieldPath": "parentId",
             "notNull": true
           },
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "position",
+            "affinity": "INTEGER",
             "columnName": "position",
-            "affinity": "INTEGER",
+            "fieldPath": "position",
             "notNull": true
           },
           {
-            "fieldPath": "itemName",
+            "affinity": "TEXT",
             "columnName": "itemName",
-            "affinity": "TEXT",
+            "fieldPath": "itemName",
             "notNull": true
           },
           {
-            "fieldPath": "state",
-            "columnName": "state",
             "affinity": "INTEGER",
+            "columnName": "state",
+            "fieldPath": "state",
             "notNull": true
           },
           {
-            "fieldPath": "inputText",
+            "affinity": "TEXT",
             "columnName": "inputText",
-            "affinity": "TEXT",
+            "fieldPath": "inputText",
             "notNull": true
           },
           {
-            "fieldPath": "image1",
+            "affinity": "TEXT",
             "columnName": "image1",
-            "affinity": "TEXT",
+            "fieldPath": "image1",
             "notNull": true
           },
           {
-            "fieldPath": "image2",
+            "affinity": "TEXT",
             "columnName": "image2",
-            "affinity": "TEXT",
+            "fieldPath": "image2",
             "notNull": true
           },
           {
-            "fieldPath": "image3",
+            "affinity": "TEXT",
             "columnName": "image3",
-            "affinity": "TEXT",
+            "fieldPath": "image3",
             "notNull": true
           },
           {
-            "fieldPath": "image4",
-            "columnName": "image4",
             "affinity": "TEXT",
+            "columnName": "image4",
+            "fieldPath": "image4",
             "notNull": true
+          }
+        ],
+        "foreignKeys": [
+          {
+            "columns": [
+              "parentId"
+            ],
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "referencedColumns": [
+              "id"
+            ],
+            "table": "DirDetect"
+          }
+        ],
+        "indices": [
+          {
+            "columnNames": [
+              "parentId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ItemDetect_parentId` ON `${TABLE_NAME}` (`parentId`)",
+            "name": "index_ItemDetect_parentId",
+            "orders": [],
+            "unique": false
           }
         ],
         "primaryKey": {
@@ -783,94 +803,94 @@
             "id"
           ]
         },
-        "indices": [
-          {
-            "name": "index_ItemDetect_parentId",
-            "unique": false,
-            "columnNames": [
-              "parentId"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_ItemDetect_parentId` ON `${TABLE_NAME}` (`parentId`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "DirDetect",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "parentId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "tableName": "ItemDetect"
       },
       {
-        "tableName": "ItemReport",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`parentId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `position` INTEGER NOT NULL, `itemName` TEXT NOT NULL, `state` INTEGER NOT NULL, `inputText` TEXT NOT NULL, `image1` TEXT NOT NULL, `image2` TEXT NOT NULL, `image3` TEXT NOT NULL, `image4` TEXT NOT NULL, FOREIGN KEY(`parentId`) REFERENCES `DirReport`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
-            "fieldPath": "parentId",
+            "affinity": "INTEGER",
             "columnName": "parentId",
-            "affinity": "INTEGER",
+            "fieldPath": "parentId",
             "notNull": true
           },
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "position",
+            "affinity": "INTEGER",
             "columnName": "position",
-            "affinity": "INTEGER",
+            "fieldPath": "position",
             "notNull": true
           },
           {
-            "fieldPath": "itemName",
+            "affinity": "TEXT",
             "columnName": "itemName",
-            "affinity": "TEXT",
+            "fieldPath": "itemName",
             "notNull": true
           },
           {
-            "fieldPath": "state",
-            "columnName": "state",
             "affinity": "INTEGER",
+            "columnName": "state",
+            "fieldPath": "state",
             "notNull": true
           },
           {
-            "fieldPath": "inputText",
+            "affinity": "TEXT",
             "columnName": "inputText",
-            "affinity": "TEXT",
+            "fieldPath": "inputText",
             "notNull": true
           },
           {
-            "fieldPath": "image1",
+            "affinity": "TEXT",
             "columnName": "image1",
-            "affinity": "TEXT",
+            "fieldPath": "image1",
             "notNull": true
           },
           {
-            "fieldPath": "image2",
+            "affinity": "TEXT",
             "columnName": "image2",
-            "affinity": "TEXT",
+            "fieldPath": "image2",
             "notNull": true
           },
           {
-            "fieldPath": "image3",
+            "affinity": "TEXT",
             "columnName": "image3",
-            "affinity": "TEXT",
+            "fieldPath": "image3",
             "notNull": true
           },
           {
-            "fieldPath": "image4",
-            "columnName": "image4",
             "affinity": "TEXT",
+            "columnName": "image4",
+            "fieldPath": "image4",
             "notNull": true
+          }
+        ],
+        "foreignKeys": [
+          {
+            "columns": [
+              "parentId"
+            ],
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "referencedColumns": [
+              "id"
+            ],
+            "table": "DirReport"
+          }
+        ],
+        "indices": [
+          {
+            "columnNames": [
+              "parentId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ItemReport_parentId` ON `${TABLE_NAME}` (`parentId`)",
+            "name": "index_ItemReport_parentId",
+            "orders": [],
+            "unique": false
           }
         ],
         "primaryKey": {
@@ -879,36 +899,16 @@
             "id"
           ]
         },
-        "indices": [
-          {
-            "name": "index_ItemReport_parentId",
-            "unique": false,
-            "columnNames": [
-              "parentId"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_ItemReport_parentId` ON `${TABLE_NAME}` (`parentId`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "DirReport",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "parentId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "tableName": "ItemReport"
       }
     ],
-    "views": [],
+    "identityHash": "56862c1f9e419fba77360707c700bde1",
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '56862c1f9e419fba77360707c700bde1')"
-    ]
-  }
+    ],
+    "version": 6,
+    "views": []
+  },
+  "formatVersion": 1
 }

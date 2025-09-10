@@ -1,470 +1,470 @@
 {
-  "formatVersion": 1,
   "database": {
-    "version": 4,
-    "identityHash": "ad3722dff0382af0c38b88ba3e60027f",
     "entities": [
       {
-        "tableName": "file",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `url` TEXT NOT NULL, `path` TEXT NOT NULL, `version` TEXT NOT NULL, `md5` TEXT NOT NULL, `create_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "name",
+            "affinity": "TEXT",
             "columnName": "name",
-            "affinity": "TEXT",
+            "fieldPath": "name",
             "notNull": true
           },
           {
-            "fieldPath": "url",
+            "affinity": "TEXT",
             "columnName": "url",
-            "affinity": "TEXT",
+            "fieldPath": "url",
             "notNull": true
           },
           {
-            "fieldPath": "path",
+            "affinity": "TEXT",
             "columnName": "path",
-            "affinity": "TEXT",
+            "fieldPath": "path",
             "notNull": true
           },
           {
-            "fieldPath": "version",
+            "affinity": "TEXT",
             "columnName": "version",
-            "affinity": "TEXT",
+            "fieldPath": "version",
             "notNull": true
           },
           {
-            "fieldPath": "md5",
+            "affinity": "TEXT",
             "columnName": "md5",
-            "affinity": "TEXT",
+            "fieldPath": "md5",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
-            "columnName": "create_time",
             "affinity": "INTEGER",
+            "columnName": "create_time",
+            "fieldPath": "createTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "file"
       },
       {
-        "tableName": "tc001_file",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `file_id` TEXT NOT NULL, `path` TEXT NOT NULL, `version` TEXT NOT NULL, `md5` TEXT NOT NULL, `create_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
             "affinity": "INTEGER",
+            "columnName": "id",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "name",
+            "affinity": "TEXT",
             "columnName": "name",
-            "affinity": "TEXT",
+            "fieldPath": "name",
             "notNull": true
           },
           {
-            "fieldPath": "fileId",
+            "affinity": "TEXT",
             "columnName": "file_id",
-            "affinity": "TEXT",
+            "fieldPath": "fileId",
             "notNull": true
           },
           {
-            "fieldPath": "path",
+            "affinity": "TEXT",
             "columnName": "path",
-            "affinity": "TEXT",
+            "fieldPath": "path",
             "notNull": true
           },
           {
-            "fieldPath": "version",
+            "affinity": "TEXT",
             "columnName": "version",
-            "affinity": "TEXT",
+            "fieldPath": "version",
             "notNull": true
           },
           {
-            "fieldPath": "md5",
+            "affinity": "TEXT",
             "columnName": "md5",
-            "affinity": "TEXT",
+            "fieldPath": "md5",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
-            "columnName": "create_time",
             "affinity": "INTEGER",
+            "columnName": "create_time",
+            "fieldPath": "createTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "tc001_file"
       },
       {
-        "tableName": "thermal",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal"
       },
       {
-        "tableName": "thermal_minute",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal_minute"
       },
       {
-        "tableName": "thermal_hour",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal_hour"
       },
       {
-        "tableName": "thermal_day",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `thermal_id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `thermal` REAL NOT NULL, `thermal_max` REAL NOT NULL, `thermal_min` REAL NOT NULL, `sn` TEXT NOT NULL, `info` TEXT NOT NULL, `type` TEXT NOT NULL, `start_time` INTEGER NOT NULL, `create_time` INTEGER NOT NULL, `update_time` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
+            "affinity": "INTEGER",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "id",
             "notNull": true
           },
           {
-            "fieldPath": "thermalId",
+            "affinity": "TEXT",
             "columnName": "thermal_id",
-            "affinity": "TEXT",
+            "fieldPath": "thermalId",
             "notNull": true
           },
           {
-            "fieldPath": "userId",
+            "affinity": "TEXT",
             "columnName": "user_id",
-            "affinity": "TEXT",
+            "fieldPath": "userId",
             "notNull": true
           },
           {
-            "fieldPath": "thermal",
+            "affinity": "REAL",
             "columnName": "thermal",
-            "affinity": "REAL",
+            "fieldPath": "thermal",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMax",
+            "affinity": "REAL",
             "columnName": "thermal_max",
-            "affinity": "REAL",
+            "fieldPath": "thermalMax",
             "notNull": true
           },
           {
-            "fieldPath": "thermalMin",
+            "affinity": "REAL",
             "columnName": "thermal_min",
-            "affinity": "REAL",
+            "fieldPath": "thermalMin",
             "notNull": true
           },
           {
-            "fieldPath": "sn",
+            "affinity": "TEXT",
             "columnName": "sn",
-            "affinity": "TEXT",
+            "fieldPath": "sn",
             "notNull": true
           },
           {
-            "fieldPath": "info",
+            "affinity": "TEXT",
             "columnName": "info",
-            "affinity": "TEXT",
+            "fieldPath": "info",
             "notNull": true
           },
           {
-            "fieldPath": "type",
+            "affinity": "TEXT",
             "columnName": "type",
-            "affinity": "TEXT",
+            "fieldPath": "type",
             "notNull": true
           },
           {
-            "fieldPath": "startTime",
+            "affinity": "INTEGER",
             "columnName": "start_time",
-            "affinity": "INTEGER",
+            "fieldPath": "startTime",
             "notNull": true
           },
           {
-            "fieldPath": "createTime",
+            "affinity": "INTEGER",
             "columnName": "create_time",
-            "affinity": "INTEGER",
+            "fieldPath": "createTime",
             "notNull": true
           },
           {
-            "fieldPath": "updateTime",
-            "columnName": "update_time",
             "affinity": "INTEGER",
+            "columnName": "update_time",
+            "fieldPath": "updateTime",
             "notNull": true
           }
         ],
+        "foreignKeys": [],
+        "indices": [],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
-        "indices": [],
-        "foreignKeys": []
+        "tableName": "thermal_day"
       }
     ],
-    "views": [],
+    "identityHash": "ad3722dff0382af0c38b88ba3e60027f",
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ad3722dff0382af0c38b88ba3e60027f')"
-    ]
-  }
+    ],
+    "version": 4,
+    "views": []
+  },
+  "formatVersion": 1
 }

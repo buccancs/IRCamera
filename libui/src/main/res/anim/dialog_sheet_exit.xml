@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
   ~ Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
   ~
@@ -10,14 +11,7 @@
   ~ PURPOSE.
   ~ See the Mulan PSL v2 for more details.
   -->
-
 <set xmlns:android="http://schemas.android.com/apk/res/android">
-    <translate
-        android:duration="300"
-        android:fromYDelta="0"
-        android:toYDelta="100%" />
-    <alpha
-        android:duration="300"
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0" />
+  <translate android:duration="300" android:fromYDelta="0" android:toYDelta="100%"/>
+  <alpha android:duration="300" android:fromAlpha="1.0" android:toAlpha="0.0"/>
 </set>

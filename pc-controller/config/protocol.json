@@ -1,630 +1,1420 @@
 {
-  "protocol": {
-    "name": "IRCamera Communication Protocol",
-    "version": "1.0.0",
-    "description": "JSON-based communication protocol for IRCamera PC-Android device coordination"
+  "common_fields": {
+    "correlation_id": {
+      "description": "ID to correlate request/response pairs",
+      "required": false,
+      "type": "string"
+    },
+    "message_id": {
+      "description": "Unique identifier for message (UUID recommended)",
+      "required": false,
+      "type": "string"
+    },
+    "message_type": {
+      "description": "Type of message being sent",
+      "required": true,
+      "type": "string"
+    },
+    "timestamp": {
+      "description": "ISO 8601 timestamp when message was created",
+      "format": "date-time",
+      "required": true,
+      "type": "string"
+    }
   },
   "message_types": {
     "device_lifecycle": {
-      "device_register": {
+      "device_heartbeat": {
+        "description": "Device heartbeat message",
         "direction": "device_to_pc",
-        "description": "Device registration message",
-        "required_fields": ["device_id", "device_type", "capabilities", "ip_address", "port"],
-        "optional_fields": ["battery_level", "gsr_mode", "device_name"],
+        "optional_fields": [
+          "battery_level",
+          "state",
+          "current_session_id"
+        ],
+        "required_fields": [
+          "device_id"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "device_register"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
-            "device_type": {"type": "string", "enum": ["android_phone", "android_tablet", "thermal_camera", "depth_camera"]},
-            "capabilities": {
-              "type": "array",
-              "items": {"type": "string", "enum": ["thermal", "visual", "depth", "audio", "gsr", "imu", "gps"]}
+            "battery_level": {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
             },
-            "ip_address": {"type": "string", "format": "ipv4"},
-            "port": {"type": "integer", "minimum": 1024, "maximum": 65535},
-            "battery_level": {"type": "integer", "minimum": 0, "maximum": 100},
-            "gsr_mode": {"type": "string", "enum": ["local", "bridged"]},
-            "device_name": {"type": "string", "maxLength": 64}
-          }
+            "current_session_id": {
+              "type": "string"
+            },
+            "device_id": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "device_heartbeat",
+              "type": "string"
+            },
+            "state": {
+              "enum": [
+                "idle",
+                "recording",
+                "error"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
-      "device_heartbeat": {
+      "device_register": {
+        "description": "Device registration message",
         "direction": "device_to_pc",
-        "description": "Device heartbeat message",
-        "required_fields": ["device_id"],
-        "optional_fields": ["battery_level", "state", "current_session_id"],
+        "optional_fields": [
+          "battery_level",
+          "gsr_mode",
+          "device_name"
+        ],
+        "required_fields": [
+          "device_id",
+          "device_type",
+          "capabilities",
+          "ip_address",
+          "port"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "device_heartbeat"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string"},
-            "battery_level": {"type": "integer", "minimum": 0, "maximum": 100},
-            "state": {"type": "string", "enum": ["idle", "recording", "error"]},
-            "current_session_id": {"type": "string"}
-          }
+            "battery_level": {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "capabilities": {
+              "items": {
+                "enum": [
+                  "thermal",
+                  "visual",
+                  "depth",
+                  "audio",
+                  "gsr",
+                  "imu",
+                  "gps"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "device_id": {
+              "pattern": "^[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "device_name": {
+              "maxLength": 64,
+              "type": "string"
+            },
+            "device_type": {
+              "enum": [
+                "android_phone",
+                "android_tablet",
+                "thermal_camera",
+                "depth_camera"
+              ],
+              "type": "string"
+            },
+            "gsr_mode": {
+              "enum": [
+                "local",
+                "bridged"
+              ],
+              "type": "string"
+            },
+            "ip_address": {
+              "format": "ipv4",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "device_register",
+              "type": "string"
+            },
+            "port": {
+              "maximum": 65535,
+              "minimum": 1024,
+              "type": "integer"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "device_status": {
-        "direction": "device_to_pc",
         "description": "Device status update message",
-        "required_fields": ["device_id", "status"],
-        "optional_fields": ["error_message", "data_stats"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "device_status"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string"},
-            "status": {"type": "string", "enum": ["ready", "recording", "transferring", "error", "low_battery"]},
-            "error_message": {"type": "string"},
-            "data_stats": {
-              "type": "object",
-              "properties": {
-                "storage_used_mb": {"type": "number"},
-                "storage_available_mb": {"type": "number"},
-                "samples_recorded": {"type": "integer"}
-              }
-            }
-          }
-        }
-      }
-    },
-    "session_control": {
-      "session_start": {
-        "direction": "pc_to_device",
-        "description": "Start session command",
-        "required_fields": ["session_id", "session_name"],
-        "optional_fields": ["recording_params", "sync_offset_ms"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "session_start"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "session_id": {"type": "string"},
-            "session_name": {"type": "string"},
-            "recording_params": {
-              "type": "object",
-              "properties": {
-                "thermal_fps": {"type": "integer", "minimum": 1, "maximum": 60},
-                "visual_fps": {"type": "integer", "minimum": 1, "maximum": 60},
-                "audio_sample_rate": {"type": "integer", "enum": [8000, 16000, 44100, 48000]},
-                "gsr_sample_rate": {"type": "integer", "minimum": 1, "maximum": 1000},
-                "imu_sample_rate": {"type": "integer", "minimum": 1, "maximum": 1000}
-              }
-            },
-            "sync_offset_ms": {"type": "integer"}
-          }
-        }
-      },
-      "session_stop": {
-        "direction": "pc_to_device",
-        "description": "Stop session command",
-        "required_fields": ["session_id"],
-        "optional_fields": [],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "session_stop"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "session_id": {"type": "string"}
-          }
-        }
-      },
-      "recording_start": {
-        "direction": "pc_to_device",
-        "description": "Start recording command",
-        "required_fields": ["session_id"],
-        "optional_fields": ["start_timestamp", "recording_duration_s"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "recording_start"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "session_id": {"type": "string"},
-            "start_timestamp": {"type": "string", "format": "date-time"},
-            "recording_duration_s": {"type": "integer", "minimum": 1}
-          }
-        }
-      },
-      "recording_stop": {
-        "direction": "pc_to_device",
-        "description": "Stop recording command",
-        "required_fields": ["session_id"],
-        "optional_fields": [],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "recording_stop"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "session_id": {"type": "string"}
-          }
-        }
-      }
-    },
-    "synchronization": {
-      "sync_mark": {
-        "direction": "bidirectional",
-        "description": "Synchronization marker message",
-        "required_fields": ["mark_type", "mark_id"],
-        "optional_fields": ["metadata", "session_id"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "sync_mark"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "mark_type": {"type": "string", "enum": ["manual_mark", "auto_mark", "event_mark", "calibration_mark"]},
-            "mark_id": {"type": "string"},
-            "metadata": {
-              "type": "object",
-              "properties": {
-                "description": {"type": "string"},
-                "user_id": {"type": "string"},
-                "coordinates": {
-                  "type": "object",
-                  "properties": {
-                    "x": {"type": "number"},
-                    "y": {"type": "number"},
-                    "z": {"type": "number"}
-                  }
-                }
-              }
-            },
-            "session_id": {"type": "string"}
-          }
-        }
-      },
-      "sync_flash": {
-        "direction": "pc_to_device",
-        "description": "Visual synchronization flash command",
-        "required_fields": [],
-        "optional_fields": ["duration_ms", "intensity", "color"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "sync_flash"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "duration_ms": {"type": "integer", "minimum": 10, "maximum": 5000, "default": 100},
-            "intensity": {"type": "number", "minimum": 0.1, "maximum": 1.0, "default": 1.0},
-            "color": {"type": "string", "enum": ["white", "red", "green", "blue"], "default": "white"}
-          }
-        }
-      },
-      "time_sync_request": {
         "direction": "device_to_pc",
-        "description": "Time synchronization request",
-        "required_fields": ["device_id"],
-        "optional_fields": ["client_timestamp"],
+        "optional_fields": [
+          "error_message",
+          "data_stats"
+        ],
+        "required_fields": [
+          "device_id",
+          "status"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "time_sync_request"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string"},
-            "client_timestamp": {"type": "string", "format": "date-time"}
-          }
-        }
-      },
-      "time_sync_response": {
-        "direction": "pc_to_device",
-        "description": "Time synchronization response",
-        "required_fields": ["server_timestamp"],
-        "optional_fields": ["client_timestamp", "processing_delay_ms"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "time_sync_response"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "server_timestamp": {"type": "string", "format": "date-time"},
-            "client_timestamp": {"type": "string", "format": "date-time"},
-            "processing_delay_ms": {"type": "number"}
-          }
+            "data_stats": {
+              "properties": {
+                "samples_recorded": {
+                  "type": "integer"
+                },
+                "storage_available_mb": {
+                  "type": "number"
+                },
+                "storage_used_mb": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "device_id": {
+              "type": "string"
+            },
+            "error_message": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "device_status",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "ready",
+                "recording",
+                "transferring",
+                "error",
+                "low_battery"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       }
     },
     "file_transfer": {
-      "file_transfer_request": {
+      "file_chunk": {
+        "description": "File data chunk message",
         "direction": "device_to_pc",
-        "description": "File transfer request message",
-        "required_fields": ["device_id", "file_info"],
-        "optional_fields": ["session_id", "priority"],
+        "optional_fields": [
+          "is_final_chunk",
+          "chunk_checksum"
+        ],
+        "required_fields": [
+          "transfer_id",
+          "chunk_index",
+          "chunk_data"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "file_transfer_request"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string"},
-            "session_id": {"type": "string"},
-            "file_info": {
-              "type": "object",
-              "properties": {
-                "filename": {"type": "string"},
-                "file_type": {"type": "string", "enum": ["thermal", "visual", "depth", "audio", "gsr", "imu", "metadata"]},
-                "file_size": {"type": "integer", "minimum": 0},
-                "checksum": {"type": "string"},
-                "checksum_algorithm": {"type": "string", "enum": ["sha256", "md5"], "default": "sha256"},
-                "compression": {"type": "string", "enum": ["none", "gzip", "lz4"]},
-                "encoding": {"type": "string", "default": "utf-8"}
-              },
-              "required": ["filename", "file_type", "file_size", "checksum"]
+            "chunk_checksum": {
+              "type": "string"
             },
-            "priority": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5}
-          }
+            "chunk_data": {
+              "contentEncoding": "base64",
+              "type": "string"
+            },
+            "chunk_index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "is_final_chunk": {
+              "default": false,
+              "type": "boolean"
+            },
+            "message_type": {
+              "const": "file_chunk",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "transfer_id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "file_transfer_complete": {
-        "direction": "device_to_pc",
         "description": "File transfer completion notification",
-        "required_fields": ["device_id", "transfer_id", "status"],
-        "optional_fields": ["error_message", "bytes_transferred"],
+        "direction": "device_to_pc",
+        "optional_fields": [
+          "error_message",
+          "bytes_transferred"
+        ],
+        "required_fields": [
+          "device_id",
+          "transfer_id",
+          "status"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "file_transfer_complete"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string"},
-            "transfer_id": {"type": "string"},
-            "status": {"type": "string", "enum": ["success", "error", "cancelled"]},
-            "error_message": {"type": "string"},
-            "bytes_transferred": {"type": "integer", "minimum": 0}
-          }
+            "bytes_transferred": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "device_id": {
+              "type": "string"
+            },
+            "error_message": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "file_transfer_complete",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "success",
+                "error",
+                "cancelled"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "transfer_id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
-      "file_chunk": {
+      "file_transfer_request": {
+        "description": "File transfer request message",
         "direction": "device_to_pc",
-        "description": "File data chunk message",
-        "required_fields": ["transfer_id", "chunk_index", "chunk_data"],
-        "optional_fields": ["is_final_chunk", "chunk_checksum"],
+        "optional_fields": [
+          "session_id",
+          "priority"
+        ],
+        "required_fields": [
+          "device_id",
+          "file_info"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "file_chunk"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "transfer_id": {"type": "string"},
-            "chunk_index": {"type": "integer", "minimum": 0},
-            "chunk_data": {"type": "string", "contentEncoding": "base64"},
-            "is_final_chunk": {"type": "boolean", "default": false},
-            "chunk_checksum": {"type": "string"}
-          }
+            "device_id": {
+              "type": "string"
+            },
+            "file_info": {
+              "properties": {
+                "checksum": {
+                  "type": "string"
+                },
+                "checksum_algorithm": {
+                  "default": "sha256",
+                  "enum": [
+                    "sha256",
+                    "md5"
+                  ],
+                  "type": "string"
+                },
+                "compression": {
+                  "enum": [
+                    "none",
+                    "gzip",
+                    "lz4"
+                  ],
+                  "type": "string"
+                },
+                "encoding": {
+                  "default": "utf-8",
+                  "type": "string"
+                },
+                "file_size": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "file_type": {
+                  "enum": [
+                    "thermal",
+                    "visual",
+                    "depth",
+                    "audio",
+                    "gsr",
+                    "imu",
+                    "metadata"
+                  ],
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "filename",
+                "file_type",
+                "file_size",
+                "checksum"
+              ],
+              "type": "object"
+            },
+            "message_type": {
+              "const": "file_transfer_request",
+              "type": "string"
+            },
+            "priority": {
+              "default": 5,
+              "maximum": 10,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       }
     },
     "gsr_data": {
       "gsr_data_batch": {
-        "direction": "device_to_pc",
         "description": "Batch of GSR sensor data",
-        "required_fields": ["device_id", "data_points"],
-        "optional_fields": ["session_id", "quality_metrics"],
+        "direction": "device_to_pc",
+        "optional_fields": [
+          "session_id",
+          "quality_metrics"
+        ],
+        "required_fields": [
+          "device_id",
+          "data_points"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "gsr_data_batch"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string"},
-            "session_id": {"type": "string"},
             "data_points": {
-              "type": "array",
               "items": {
-                "type": "object",
                 "properties": {
-                  "timestamp": {"type": "string", "format": "date-time"},
-                  "value": {"type": "number"},
-                  "unit": {"type": "string", "enum": ["microsiemens", "ohms"], "default": "microsiemens"},
-                  "quality": {"type": "number", "minimum": 0, "maximum": 1}
+                  "quality": {
+                    "maximum": 1,
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  "timestamp": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "unit": {
+                    "default": "microsiemens",
+                    "enum": [
+                      "microsiemens",
+                      "ohms"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
                 },
-                "required": ["timestamp", "value"]
-              }
+                "required": [
+                  "timestamp",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "device_id": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "gsr_data_batch",
+              "type": "string"
             },
             "quality_metrics": {
-              "type": "object",
               "properties": {
-                "avg_quality": {"type": "number", "minimum": 0, "maximum": 1},
-                "noise_level": {"type": "number"},
-                "saturation_rate": {"type": "number", "minimum": 0, "maximum": 1}
-              }
+                "avg_quality": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "noise_level": {
+                  "type": "number"
+                },
+                "saturation_rate": {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
             }
-          }
+          },
+          "type": "object"
         }
       },
       "gsr_leader_election": {
-        "direction": "bidirectional",
         "description": "GSR leader election message",
-        "required_fields": ["device_id", "election_type"],
-        "optional_fields": ["priority_score", "capabilities"],
+        "direction": "bidirectional",
+        "optional_fields": [
+          "priority_score",
+          "capabilities"
+        ],
+        "required_fields": [
+          "device_id",
+          "election_type"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "gsr_leader_election"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "device_id": {"type": "string"},
-            "election_type": {"type": "string", "enum": ["candidate", "leader", "acknowledge"]},
-            "priority_score": {"type": "number", "minimum": 0},
             "capabilities": {
-              "type": "object",
               "properties": {
-                "bridged_mode_support": {"type": "boolean"},
-                "sampling_rates": {"type": "array", "items": {"type": "integer"}},
-                "quality_filtering": {"type": "boolean"}
-              }
+                "bridged_mode_support": {
+                  "type": "boolean"
+                },
+                "quality_filtering": {
+                  "type": "boolean"
+                },
+                "sampling_rates": {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "device_id": {
+              "type": "string"
+            },
+            "election_type": {
+              "enum": [
+                "candidate",
+                "leader",
+                "acknowledge"
+              ],
+              "type": "string"
+            },
+            "message_type": {
+              "const": "gsr_leader_election",
+              "type": "string"
+            },
+            "priority_score": {
+              "minimum": 0,
+              "type": "number"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
             }
-          }
+          },
+          "type": "object"
         }
       }
     },
     "responses": {
       "ack": {
-        "direction": "bidirectional",
         "description": "Acknowledgment message",
-        "required_fields": ["ack_for"],
-        "optional_fields": ["status", "message"],
+        "direction": "bidirectional",
+        "optional_fields": [
+          "status",
+          "message"
+        ],
+        "required_fields": [
+          "ack_for"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "ack"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "ack_for": {"type": "string"},
-            "status": {"type": "string", "enum": ["success", "error"], "default": "success"},
-            "message": {"type": "string"}
-          }
+            "ack_for": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "ack",
+              "type": "string"
+            },
+            "status": {
+              "default": "success",
+              "enum": [
+                "success",
+                "error"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "error": {
-        "direction": "bidirectional",
         "description": "Error message",
-        "required_fields": ["error_code", "error_message"],
-        "optional_fields": ["context", "retry_after_s"],
+        "direction": "bidirectional",
+        "optional_fields": [
+          "context",
+          "retry_after_s"
+        ],
+        "required_fields": [
+          "error_code",
+          "error_message"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "error"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "error_code": {"type": "string", "enum": ["INVALID_MESSAGE", "UNSUPPORTED_OPERATION", "DEVICE_BUSY", "SESSION_NOT_FOUND", "PERMISSION_DENIED", "RESOURCE_UNAVAILABLE", "TIMEOUT"]},
-            "error_message": {"type": "string"},
             "context": {
-              "type": "object",
               "properties": {
-                "request_id": {"type": "string"},
-                "device_id": {"type": "string"},
-                "session_id": {"type": "string"}
-              }
+                "device_id": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                },
+                "session_id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
             },
-            "retry_after_s": {"type": "integer", "minimum": 1}
-          }
+            "error_code": {
+              "enum": [
+                "INVALID_MESSAGE",
+                "UNSUPPORTED_OPERATION",
+                "DEVICE_BUSY",
+                "SESSION_NOT_FOUND",
+                "PERMISSION_DENIED",
+                "RESOURCE_UNAVAILABLE",
+                "TIMEOUT"
+              ],
+              "type": "string"
+            },
+            "error_message": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "error",
+              "type": "string"
+            },
+            "retry_after_s": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "session_control": {
+      "recording_start": {
+        "description": "Start recording command",
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "start_timestamp",
+          "recording_duration_s"
+        ],
+        "required_fields": [
+          "session_id"
+        ],
+        "schema": {
+          "properties": {
+            "message_type": {
+              "const": "recording_start",
+              "type": "string"
+            },
+            "recording_duration_s": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "start_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "recording_stop": {
+        "description": "Stop recording command",
+        "direction": "pc_to_device",
+        "optional_fields": [],
+        "required_fields": [
+          "session_id"
+        ],
+        "schema": {
+          "properties": {
+            "message_type": {
+              "const": "recording_stop",
+              "type": "string"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "session_start": {
+        "description": "Start session command",
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "recording_params",
+          "sync_offset_ms"
+        ],
+        "required_fields": [
+          "session_id",
+          "session_name"
+        ],
+        "schema": {
+          "properties": {
+            "message_type": {
+              "const": "session_start",
+              "type": "string"
+            },
+            "recording_params": {
+              "properties": {
+                "audio_sample_rate": {
+                  "enum": [
+                    8000,
+                    16000,
+                    44100,
+                    48000
+                  ],
+                  "type": "integer"
+                },
+                "gsr_sample_rate": {
+                  "maximum": 1000,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "imu_sample_rate": {
+                  "maximum": 1000,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "thermal_fps": {
+                  "maximum": 60,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "visual_fps": {
+                  "maximum": 60,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "session_name": {
+              "type": "string"
+            },
+            "sync_offset_ms": {
+              "type": "integer"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "session_stop": {
+        "description": "Stop session command",
+        "direction": "pc_to_device",
+        "optional_fields": [],
+        "required_fields": [
+          "session_id"
+        ],
+        "schema": {
+          "properties": {
+            "message_type": {
+              "const": "session_stop",
+              "type": "string"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "synchronization": {
+      "sync_flash": {
+        "description": "Visual synchronization flash command",
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "duration_ms",
+          "intensity",
+          "color"
+        ],
+        "required_fields": [],
+        "schema": {
+          "properties": {
+            "color": {
+              "default": "white",
+              "enum": [
+                "white",
+                "red",
+                "green",
+                "blue"
+              ],
+              "type": "string"
+            },
+            "duration_ms": {
+              "default": 100,
+              "maximum": 5000,
+              "minimum": 10,
+              "type": "integer"
+            },
+            "intensity": {
+              "default": 1.0,
+              "maximum": 1.0,
+              "minimum": 0.1,
+              "type": "number"
+            },
+            "message_type": {
+              "const": "sync_flash",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "sync_mark": {
+        "description": "Synchronization marker message",
+        "direction": "bidirectional",
+        "optional_fields": [
+          "metadata",
+          "session_id"
+        ],
+        "required_fields": [
+          "mark_type",
+          "mark_id"
+        ],
+        "schema": {
+          "properties": {
+            "mark_id": {
+              "type": "string"
+            },
+            "mark_type": {
+              "enum": [
+                "manual_mark",
+                "auto_mark",
+                "event_mark",
+                "calibration_mark"
+              ],
+              "type": "string"
+            },
+            "message_type": {
+              "const": "sync_mark",
+              "type": "string"
+            },
+            "metadata": {
+              "properties": {
+                "coordinates": {
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "user_id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "time_sync_request": {
+        "description": "Time synchronization request",
+        "direction": "device_to_pc",
+        "optional_fields": [
+          "client_timestamp"
+        ],
+        "required_fields": [
+          "device_id"
+        ],
+        "schema": {
+          "properties": {
+            "client_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "device_id": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "time_sync_request",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "time_sync_response": {
+        "description": "Time synchronization response",
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "client_timestamp",
+          "processing_delay_ms"
+        ],
+        "required_fields": [
+          "server_timestamp"
+        ],
+        "schema": {
+          "properties": {
+            "client_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "time_sync_response",
+              "type": "string"
+            },
+            "processing_delay_ms": {
+              "type": "number"
+            },
+            "server_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       }
     },
     "system_integration": {
-      "bluetooth_scan_request": {
-        "direction": "pc_to_device",
-        "description": "Request device to scan for Bluetooth devices",
-        "required_fields": ["scan_duration"],
-        "optional_fields": ["filter_ircamera_only"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "bluetooth_scan_request"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "scan_duration": {"type": "integer", "minimum": 5, "maximum": 60},
-            "filter_ircamera_only": {"type": "boolean"}
-          }
-        }
-      },
-      "bluetooth_scan_result": {
-        "direction": "device_to_pc",
-        "description": "Bluetooth scan results from device",
-        "required_fields": ["devices"],
-        "optional_fields": ["scan_complete"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "bluetooth_scan_result"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "devices": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "address": {"type": "string", "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$"},
-                  "name": {"type": "string"},
-                  "rssi": {"type": "integer", "minimum": -100, "maximum": 0},
-                  "device_type": {"type": "string", "enum": ["ble", "classic", "unknown"]},
-                  "is_ircamera": {"type": "boolean"}
-                },
-                "required": ["address", "rssi", "device_type"]
-              }
-            },
-            "scan_complete": {"type": "boolean"}
-          }
-        }
-      },
       "bluetooth_connect_request": {
-        "direction": "pc_to_device",
         "description": "Request device to connect to Bluetooth device",
-        "required_fields": ["target_address"],
-        "optional_fields": ["connection_timeout"],
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "connection_timeout"
+        ],
+        "required_fields": [
+          "target_address"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "bluetooth_connect_request"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "target_address": {"type": "string", "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$"},
-            "connection_timeout": {"type": "integer", "minimum": 5, "maximum": 60}
-          }
+            "connection_timeout": {
+              "maximum": 60,
+              "minimum": 5,
+              "type": "integer"
+            },
+            "message_type": {
+              "const": "bluetooth_connect_request",
+              "type": "string"
+            },
+            "target_address": {
+              "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "bluetooth_connection_status": {
-        "direction": "device_to_pc",
         "description": "Bluetooth connection status update",
-        "required_fields": ["target_address", "status"],
-        "optional_fields": ["error_message"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "bluetooth_connection_status"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "target_address": {"type": "string", "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$"},
-            "status": {"type": "string", "enum": ["connecting", "connected", "disconnected", "error"]},
-            "error_message": {"type": "string"}
-          }
-        }
-      },
-      "wifi_scan_request": {
-        "direction": "pc_to_device",
-        "description": "Request device to scan for WiFi networks",
-        "required_fields": [],
-        "optional_fields": ["filter_ircamera_only"],
-        "schema": {
-          "type": "object",
-          "properties": {
-            "message_type": {"type": "string", "const": "wifi_scan_request"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "filter_ircamera_only": {"type": "boolean"}
-          }
-        }
-      },
-      "wifi_scan_result": {
         "direction": "device_to_pc",
-        "description": "WiFi scan results from device",
-        "required_fields": ["networks"],
-        "optional_fields": ["scan_complete"],
+        "optional_fields": [
+          "error_message"
+        ],
+        "required_fields": [
+          "target_address",
+          "status"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "wifi_scan_result"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "networks": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "ssid": {"type": "string"},
-                  "bssid": {"type": "string", "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$"},
-                  "signal_strength": {"type": "integer", "minimum": -100, "maximum": 0},
-                  "frequency": {"type": "integer", "minimum": 2400, "maximum": 6000},
-                  "security_type": {"type": "string", "enum": ["open", "wep", "wpa", "wpa2", "wpa3", "enterprise"]},
-                  "channel": {"type": "integer", "minimum": 1, "maximum": 196},
-                  "is_ircamera_hotspot": {"type": "boolean"}
-                },
-                "required": ["ssid", "signal_strength", "security_type"]
-              }
+            "error_message": {
+              "type": "string"
             },
-            "scan_complete": {"type": "boolean"}
-          }
+            "message_type": {
+              "const": "bluetooth_connection_status",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "connecting",
+                "connected",
+                "disconnected",
+                "error"
+              ],
+              "type": "string"
+            },
+            "target_address": {
+              "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
-      "wifi_connect_request": {
+      "bluetooth_scan_request": {
+        "description": "Request device to scan for Bluetooth devices",
         "direction": "pc_to_device",
-        "description": "Request device to connect to WiFi network",
-        "required_fields": ["ssid"],
-        "optional_fields": ["password", "connection_timeout"],
+        "optional_fields": [
+          "filter_ircamera_only"
+        ],
+        "required_fields": [
+          "scan_duration"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "wifi_connect_request"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "ssid": {"type": "string"},
-            "password": {"type": "string"},
-            "connection_timeout": {"type": "integer", "minimum": 10, "maximum": 120}
-          }
+            "filter_ircamera_only": {
+              "type": "boolean"
+            },
+            "message_type": {
+              "const": "bluetooth_scan_request",
+              "type": "string"
+            },
+            "scan_duration": {
+              "maximum": 60,
+              "minimum": 5,
+              "type": "integer"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
-      "wifi_connection_status": {
+      "bluetooth_scan_result": {
+        "description": "Bluetooth scan results from device",
         "direction": "device_to_pc",
-        "description": "WiFi connection status update",
-        "required_fields": ["ssid", "status"],
-        "optional_fields": ["ip_address", "error_message"],
+        "optional_fields": [
+          "scan_complete"
+        ],
+        "required_fields": [
+          "devices"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "wifi_connection_status"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "ssid": {"type": "string"},
-            "status": {"type": "string", "enum": ["connecting", "connected", "disconnected", "error"]},
-            "ip_address": {"type": "string", "format": "ipv4"},
-            "error_message": {"type": "string"}
-          }
+            "devices": {
+              "items": {
+                "properties": {
+                  "address": {
+                    "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$",
+                    "type": "string"
+                  },
+                  "device_type": {
+                    "enum": [
+                      "ble",
+                      "classic",
+                      "unknown"
+                    ],
+                    "type": "string"
+                  },
+                  "is_ircamera": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "rssi": {
+                    "maximum": 0,
+                    "minimum": -100,
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "address",
+                  "rssi",
+                  "device_type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "message_type": {
+              "const": "bluetooth_scan_result",
+              "type": "string"
+            },
+            "scan_complete": {
+              "type": "boolean"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "hotspot_control_request": {
-        "direction": "pc_to_device",
         "description": "Request to start/stop mobile hotspot",
-        "required_fields": ["action"],
-        "optional_fields": ["ssid", "password", "channel"],
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "ssid",
+          "password",
+          "channel"
+        ],
+        "required_fields": [
+          "action"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "hotspot_control_request"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "action": {"type": "string", "enum": ["start", "stop"]},
-            "ssid": {"type": "string"},
-            "password": {"type": "string"},
-            "channel": {"type": "integer", "minimum": 1, "maximum": 13}
-          }
+            "action": {
+              "enum": [
+                "start",
+                "stop"
+              ],
+              "type": "string"
+            },
+            "channel": {
+              "maximum": 13,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "message_type": {
+              "const": "hotspot_control_request",
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "ssid": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "hotspot_status": {
-        "direction": "device_to_pc",
         "description": "Mobile hotspot status update",
-        "required_fields": ["status"],
-        "optional_fields": ["ssid", "connected_clients", "error_message"],
+        "direction": "device_to_pc",
+        "optional_fields": [
+          "ssid",
+          "connected_clients",
+          "error_message"
+        ],
+        "required_fields": [
+          "status"
+        ],
         "schema": {
-          "type": "object",
           "properties": {
-            "message_type": {"type": "string", "const": "hotspot_status"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "status": {"type": "string", "enum": ["stopped", "starting", "running", "stopping", "error"]},
-            "ssid": {"type": "string"},
-            "connected_clients": {"type": "integer", "minimum": 0},
-            "error_message": {"type": "string"}
-          }
+            "connected_clients": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "error_message": {
+              "type": "string"
+            },
+            "message_type": {
+              "const": "hotspot_status",
+              "type": "string"
+            },
+            "ssid": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "stopped",
+                "starting",
+                "running",
+                "stopping",
+                "error"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "wifi_connect_request": {
+        "description": "Request device to connect to WiFi network",
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "password",
+          "connection_timeout"
+        ],
+        "required_fields": [
+          "ssid"
+        ],
+        "schema": {
+          "properties": {
+            "connection_timeout": {
+              "maximum": 120,
+              "minimum": 10,
+              "type": "integer"
+            },
+            "message_type": {
+              "const": "wifi_connect_request",
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "ssid": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "wifi_connection_status": {
+        "description": "WiFi connection status update",
+        "direction": "device_to_pc",
+        "optional_fields": [
+          "ip_address",
+          "error_message"
+        ],
+        "required_fields": [
+          "ssid",
+          "status"
+        ],
+        "schema": {
+          "properties": {
+            "error_message": {
+              "type": "string"
+            },
+            "ip_address": {
+              "format": "ipv4",
+              "type": "string"
+            },
+            "message_type": {
+              "const": "wifi_connection_status",
+              "type": "string"
+            },
+            "ssid": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "connecting",
+                "connected",
+                "disconnected",
+                "error"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "wifi_scan_request": {
+        "description": "Request device to scan for WiFi networks",
+        "direction": "pc_to_device",
+        "optional_fields": [
+          "filter_ircamera_only"
+        ],
+        "required_fields": [],
+        "schema": {
+          "properties": {
+            "filter_ircamera_only": {
+              "type": "boolean"
+            },
+            "message_type": {
+              "const": "wifi_scan_request",
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "wifi_scan_result": {
+        "description": "WiFi scan results from device",
+        "direction": "device_to_pc",
+        "optional_fields": [
+          "scan_complete"
+        ],
+        "required_fields": [
+          "networks"
+        ],
+        "schema": {
+          "properties": {
+            "message_type": {
+              "const": "wifi_scan_result",
+              "type": "string"
+            },
+            "networks": {
+              "items": {
+                "properties": {
+                  "bssid": {
+                    "pattern": "^[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}$",
+                    "type": "string"
+                  },
+                  "channel": {
+                    "maximum": 196,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  "frequency": {
+                    "maximum": 6000,
+                    "minimum": 2400,
+                    "type": "integer"
+                  },
+                  "is_ircamera_hotspot": {
+                    "type": "boolean"
+                  },
+                  "security_type": {
+                    "enum": [
+                      "open",
+                      "wep",
+                      "wpa",
+                      "wpa2",
+                      "wpa3",
+                      "enterprise"
+                    ],
+                    "type": "string"
+                  },
+                  "signal_strength": {
+                    "maximum": 0,
+                    "minimum": -100,
+                    "type": "integer"
+                  },
+                  "ssid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ssid",
+                  "signal_strength",
+                  "security_type"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "scan_complete": {
+              "type": "boolean"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       }
     }
   },
-  "common_fields": {
-    "message_type": {
-      "type": "string",
-      "description": "Type of message being sent",
-      "required": true
-    },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time",
-      "description": "ISO 8601 timestamp when message was created",
-      "required": true
-    },
-    "message_id": {
-      "type": "string",
-      "description": "Unique identifier for message (UUID recommended)",
-      "required": false
-    },
-    "correlation_id": {
-      "type": "string",
-      "description": "ID to correlate request/response pairs",
-      "required": false
-    }
+  "protocol": {
+    "description": "JSON-based communication protocol for IRCamera PC-Android device coordination",
+    "name": "IRCamera Communication Protocol",
+    "version": "1.0.0"
   },
   "transport": {
-    "protocol": "TCP",
+    "connection": {
+      "heartbeat_interval_s": 5,
+      "keep_alive": true,
+      "timeout_s": 30
+    },
     "encoding": "UTF-8",
     "message_framing": {
-      "type": "length_prefixed",
-      "length_bytes": 4,
       "byte_order": "big_endian",
-      "max_message_size": 16777216
+      "length_bytes": 4,
+      "max_message_size": 16777216,
+      "type": "length_prefixed"
     },
-    "connection": {
-      "keep_alive": true,
-      "timeout_s": 30,
-      "heartbeat_interval_s": 5
-    }
+    "protocol": "TCP"
   },
   "validation": {
-    "schema_validation": true,
+    "message_id_uniqueness": true,
     "required_fields_check": true,
-    "timestamp_tolerance_ms": 5000,
-    "message_id_uniqueness": true
+    "schema_validation": true,
+    "timestamp_tolerance_ms": 5000
   }
 }
