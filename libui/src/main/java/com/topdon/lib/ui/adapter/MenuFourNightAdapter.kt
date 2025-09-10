@@ -141,7 +141,11 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                     ),
                 )
                 fourBean.add(
-                    ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR),
+                    ColorBean(
+                        MenuR.drawable.selector_menu2_setting_5,
+                        context.getString(R.string.mirror),
+                        CameraHelp.TYPE_SET_MIRROR,
+                    ),
                 )
             }
             IR_TCPLUS_MODE -> {
@@ -225,7 +229,11 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                     ),
                 )
                 fourBean.add(
-                    ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR),
+                    ColorBean(
+                        MenuR.drawable.selector_menu2_setting_5,
+                        context.getString(R.string.mirror),
+                        CameraHelp.TYPE_SET_MIRROR,
+                    ),
                 )
             }
             IR_TC007_MODE -> {
@@ -265,7 +273,11 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                     ),
                 )
                 fourBean.add(
-                    ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR),
+                    ColorBean(
+                        MenuR.drawable.selector_menu2_setting_5,
+                        context.getString(R.string.mirror),
+                        CameraHelp.TYPE_SET_MIRROR,
+                    ),
                 )
             }
             IR_OBSERVE_MODE -> {
@@ -284,7 +296,11 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                     ),
                 )
                 fourBean.add(
-                    ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR),
+                    ColorBean(
+                        MenuR.drawable.selector_menu2_setting_5,
+                        context.getString(R.string.mirror),
+                        CameraHelp.TYPE_SET_MIRROR,
+                    ),
                 )
                 fourBean.add(
                     ColorBean(
@@ -323,7 +339,11 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     private val fourBean =
         arrayListOf(
-            ColorBean(MenuR.drawable.selector_menu2_setting_1, context.getString(R.string.thermal_pseudo), CameraHelp.TYPE_SET_PSEUDOCOLOR),
+            ColorBean(
+                MenuR.drawable.selector_menu2_setting_1,
+                context.getString(R.string.thermal_pseudo),
+                CameraHelp.TYPE_SET_PSEUDOCOLOR,
+            ),
             ColorBean(
                 MenuR.drawable.selector_menu2_setting_2,
                 context.getString(R.string.thermal_contrast),
@@ -334,10 +354,26 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
                 context.getString(R.string.thermal_sharpen),
                 CameraHelp.TYPE_SET_ParamLevelDde,
             ),
-            ColorBean(MenuR.drawable.selector_menu2_setting_6, context.getString(R.string.temp_alarm_alarm), CameraHelp.TYPE_SET_ALARM),
-            ColorBean(MenuR.drawable.selector_menu2_setting_4, context.getString(R.string.thermal_rotate), CameraHelp.TYPE_SET_ROTATE),
-            ColorBean(MenuR.drawable.selector_menu2_setting_7, context.getString(R.string.menu_thermal_font), CameraHelp.TYPE_SET_COLOR),
-            ColorBean(MenuR.drawable.selector_menu2_setting_5, context.getString(R.string.mirror), CameraHelp.TYPE_SET_MIRROR),
+            ColorBean(
+                MenuR.drawable.selector_menu2_setting_6,
+                context.getString(R.string.temp_alarm_alarm),
+                CameraHelp.TYPE_SET_ALARM,
+            ),
+            ColorBean(
+                MenuR.drawable.selector_menu2_setting_4,
+                context.getString(R.string.thermal_rotate),
+                CameraHelp.TYPE_SET_ROTATE,
+            ),
+            ColorBean(
+                MenuR.drawable.selector_menu2_setting_7,
+                context.getString(R.string.menu_thermal_font),
+                CameraHelp.TYPE_SET_COLOR,
+            ),
+            ColorBean(
+                MenuR.drawable.selector_menu2_setting_5,
+                context.getString(R.string.mirror),
+                CameraHelp.TYPE_SET_MIRROR,
+            ),
         )
 
     override fun onCreateViewHolder(

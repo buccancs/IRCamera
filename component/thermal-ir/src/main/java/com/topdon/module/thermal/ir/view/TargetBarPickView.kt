@@ -130,7 +130,11 @@ class TargetBarPickView : View {
         barSize = typedArray.getInt(com.topdon.lib.ui.R.styleable.BarPickView_barSize, SizeUtils.dp2px(4f))
         rotate = typedArray.getInt(com.topdon.lib.ui.R.styleable.BarPickView_barOrientation, 0)
         labelText = typedArray.getString(com.topdon.lib.ui.R.styleable.BarPickView_barLabel) ?: ""
-        val textSize = typedArray.getDimensionPixelSize(com.topdon.lib.ui.R.styleable.BarPickView_android_textSize, SizeUtils.sp2px(13f))
+        val textSize =
+            typedArray.getDimensionPixelSize(
+                com.topdon.lib.ui.R.styleable.BarPickView_android_textSize,
+                SizeUtils.sp2px(13f),
+            )
         typedArray.recycle()
 
         paint.isAntiAlias = true
@@ -328,9 +332,21 @@ class TargetBarPickView : View {
                 return
             }
             if (rotate == 0) {
-                canvas.drawRect((right - bgWidth + thumbWidth / 2).coerceAtLeast(left + thumbWidth), top, right, bottom, paint)
+                canvas.drawRect(
+                    (right - bgWidth + thumbWidth / 2).coerceAtLeast(left + thumbWidth),
+                    top,
+                    right,
+                    bottom,
+                    paint,
+                )
             } else {
-                canvas.drawRect(left, top, (left + bgWidth - thumbWidth / 2).coerceAtMost(right - thumbWidth), bottom, paint)
+                canvas.drawRect(
+                    left,
+                    top,
+                    (left + bgWidth - thumbWidth / 2).coerceAtMost(right - thumbWidth),
+                    bottom,
+                    paint,
+                )
             }
         } else {
             val thumbHeight = paint.fontMetricsInt.bottom - paint.fontMetricsInt.top + SizeUtils.dp2px(4f)
@@ -339,9 +355,21 @@ class TargetBarPickView : View {
                 return
             }
             if (rotate == 90) {
-                canvas.drawRect(left, (bottom - bgHeight + thumbHeight / 2).coerceAtLeast(top + thumbHeight), right, bottom, paint)
+                canvas.drawRect(
+                    left,
+                    (bottom - bgHeight + thumbHeight / 2).coerceAtLeast(top + thumbHeight),
+                    right,
+                    bottom,
+                    paint,
+                )
             } else {
-                canvas.drawRect(left, top, right, (top + bgHeight - thumbHeight / 2).coerceAtMost(bottom - thumbHeight), paint)
+                canvas.drawRect(
+                    left,
+                    top,
+                    right,
+                    (top + bgHeight - thumbHeight / 2).coerceAtMost(bottom - thumbHeight),
+                    paint,
+                )
             }
         }
     }
@@ -360,9 +388,21 @@ class TargetBarPickView : View {
                 return
             }
             if (rotate == 0) {
-                canvas.drawRect(left, top, (left + progressWidth - thumbWidth / 2).coerceAtMost(right - thumbWidth), bottom, paint)
+                canvas.drawRect(
+                    left,
+                    top,
+                    (left + progressWidth - thumbWidth / 2).coerceAtMost(right - thumbWidth),
+                    bottom,
+                    paint,
+                )
             } else {
-                canvas.drawRect((right - progressWidth + thumbWidth / 2).coerceAtLeast(left + thumbWidth), top, right, bottom, paint)
+                canvas.drawRect(
+                    (right - progressWidth + thumbWidth / 2).coerceAtLeast(left + thumbWidth),
+                    top,
+                    right,
+                    bottom,
+                    paint,
+                )
             }
         } else {
             val thumbHeight = paint.fontMetricsInt.bottom - paint.fontMetricsInt.top + SizeUtils.dp2px(4f)
@@ -371,9 +411,21 @@ class TargetBarPickView : View {
                 return
             }
             if (rotate == 90) {
-                canvas.drawRect(left, top, right, (top + progressHeight - thumbHeight / 2).coerceAtMost(bottom - thumbHeight), paint)
+                canvas.drawRect(
+                    left,
+                    top,
+                    right,
+                    (top + progressHeight - thumbHeight / 2).coerceAtMost(bottom - thumbHeight),
+                    paint,
+                )
             } else {
-                canvas.drawRect(left, (bottom - progressHeight + thumbHeight / 2).coerceAtLeast(top + thumbHeight), right, bottom, paint)
+                canvas.drawRect(
+                    left,
+                    (bottom - progressHeight + thumbHeight / 2).coerceAtLeast(top + thumbHeight),
+                    right,
+                    bottom,
+                    paint,
+                )
             }
         }
     }

@@ -282,14 +282,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         USBMonitorManager.getInstance().registerMonitor()
         lifecycleScope.launch(Dispatchers.IO) {
             delay(1000)
-            if (BaseApplication.instance.tau_data_H == null)
-                {
-                    BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
-                }
-            if (BaseApplication.instance.tau_data_L == null)
-                {
-                    BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
-                }
+            if (BaseApplication.instance.tau_data_H == null) {
+                BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+            }
+            if (BaseApplication.instance.tau_data_L == null) {
+                BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
+            }
         }
     }
 
@@ -327,19 +325,16 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             val config = ConfigRepository.readConfig(false)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this)) {
-                if (config.radiation.toString() == tmp.value)
-                    {
-                        if (text.isEmpty())
-                            {
-                                text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
-                            }
-                        text += "${tmp.name}/"
+                if (config.radiation.toString() == tmp.value) {
+                    if (text.isEmpty()) {
+                        text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
                     }
-            }
-            if (text.isNotEmpty())
-                {
-                    text = text.substring(0, text.length - 1)
+                    text += "${tmp.name}/"
                 }
+            }
+            if (text.isNotEmpty()) {
+                text = text.substring(0, text.length - 1)
+            }
             EmissivityTipPopup(this@IRThermalLiteActivity, false)
                 .setDataBean(config.environment, config.distance, config.radiation, text)
                 .build()
@@ -499,16 +494,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 }
             }
         addTemperatureListener()
-        if (SaveSettingUtil.isOpenTwoLight)
-            {
-                cameraPreviewConfig(false)
-            }
+        if (SaveSettingUtil.isOpenTwoLight) {
+            cameraPreviewConfig(false)
+        }
         lifecycleScope.launch {
             delay(1000)
-            if (!SharedManager.isHideEmissivityTips)
-                {
-                    showEmissivityTips()
-                }
+            if (!SharedManager.isHideEmissivityTips) {
+                showEmissivityTips()
+            }
         }
 //
 //        handler = Handler(Looper.getMainLooper())
@@ -597,23 +590,20 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             }
     }
 
-    private fun showEmissivityTips()  {
+    private fun showEmissivityTips() {
         val config = ConfigRepository.readConfig(false)
         var text = ""
         for (tmp in IRConfigData.irConfigData(this)) {
-            if (config.radiation.toString() == tmp.value)
-                {
-                    if (text.isEmpty())
-                        {
-                            text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
-                        }
-                    text += "${tmp.name}/"
+            if (config.radiation.toString() == tmp.value) {
+                if (text.isEmpty()) {
+                    text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
                 }
-        }
-        if (text.isNotEmpty())
-            {
-                text = text.substring(0, text.length - 1)
+                text += "${tmp.name}/"
             }
+        }
+        if (text.isNotEmpty()) {
+            text = text.substring(0, text.length - 1)
+        }
         val dialog =
             TipEmissivityDialog.Builder(this@IRThermalLiteActivity)
                 .setDataBean(config.environment, config.distance, config.radiation, text)
@@ -652,21 +642,17 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                 ) {
                     if (isTouchSeekBar) {
                         editMinValue =
-                            if (tempMode == RangeSeekBar.TEMP_MODE_MIN || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL)
-                                {
-                                    UnitTools.showToCValue(leftValue, isShowC)
-                                } else
-                                {
-                                    Float.MIN_VALUE
-                                }
+                            if (tempMode == RangeSeekBar.TEMP_MODE_MIN || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL) {
+                                UnitTools.showToCValue(leftValue, isShowC)
+                            } else {
+                                Float.MIN_VALUE
+                            }
                         editMaxValue =
-                            if (tempMode == RangeSeekBar.TEMP_MODE_MAX || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL)
-                                {
-                                    UnitTools.showToCValue(rightValue, isShowC)
-                                } else
-                                {
-                                    Float.MAX_VALUE
-                                }
+                            if (tempMode == RangeSeekBar.TEMP_MODE_MAX || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL) {
+                                UnitTools.showToCValue(rightValue, isShowC)
+                            } else {
+                                Float.MAX_VALUE
+                            }
                         CameraPreviewManager.getInstance()?.setLimit(
                             editMaxValue,
                             editMinValue,
@@ -769,13 +755,20 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         editMaxValue = Float.MAX_VALUE
         editMinValue = Float.MIN_VALUE
         CameraPreviewManager.getInstance()?.setLimit(editMaxValue, editMinValue, upColor, downColor) // Activity logic
-        binding.temperatureSeekbar.setRangeAndPro(editMinValue, editMaxValue, realLeftValue, realRightValue) // Activity logic
+        binding.temperatureSeekbar.setRangeAndPro(
+            editMinValue,
+            editMaxValue,
+            realLeftValue,
+            realRightValue,
+        ) // Activity logic
     }
 
     private fun updateTemperatureSeekBar(isEnabled: Boolean) {
         binding.temperatureSeekbar.isEnabled = isEnabled
         binding.temperatureSeekbar.drawIndPath(isEnabled)
-        binding.temperatureIvLock.setImageResource(if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock)
+        binding.temperatureIvLock.setImageResource(
+            if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock,
+        )
         binding.temperatureIvLock.contentDescription = if (isEnabled) "unlock" else "lock"
         if (isEnabled) {
             binding.temperatureSeekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
@@ -881,7 +874,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         popupWindow = seekBarPopup
     }
 
-    private fun getProductName(): String  {
+    private fun getProductName(): String {
         return ProductType.PRODUCT_NAME_TC001LITE
     }
 
@@ -891,15 +884,14 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private fun setConfigForIr(
         type: IrParam,
         data: Any?,
-    )  {
+    ) {
         when (type) {
             IrParam.ParamTemperature -> {
                 // Activity logicLow gainSwitch
                 lifecycleScope.launch {
-                    if (temperatureMode == CameraItemBean.TYPE_TMP_C)
-                        {
-                            basicGainGetValue[0] = 1
-                        }
+                    if (temperatureMode == CameraItemBean.TYPE_TMP_C) {
+                        basicGainGetValue[0] = 1
+                    }
                     withContext(Dispatchers.IO) {
                         IRTool.basicGainSet(temperatureMode)
                     }
@@ -956,7 +948,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         ) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(com.topdon.module.thermal.ir.R.string.permission_request_camera_app, CommUtils.getAppName()))
+                    .setMessage(
+                        getString(
+                            com.topdon.module.thermal.ir.R.string.permission_request_camera_app,
+                            CommUtils.getAppName(),
+                        ),
+                    )
                     .setCancelListener(com.topdon.module.thermal.ir.R.string.app_cancel)
                     .setPositiveListener(com.topdon.module.thermal.ir.R.string.app_confirm) {
                         initCameraPermission(needShowTip)
@@ -1012,11 +1009,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     ) {
                         if (doNotAskAgain) {
                             // Activity logic
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(com.topdon.module.thermal.ir.R.string.app_camera_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(
+                                    getString(com.topdon.module.thermal.ir.R.string.app_camera_content),
+                                )
+                                return
+                            }
                             TipDialog.Builder(this@IRThermalLiteActivity)
                                 .setTitleMessage(getString(com.topdon.module.thermal.ir.R.string.app_tip))
                                 .setMessage(getString(com.topdon.module.thermal.ir.R.string.app_camera_content))
@@ -1082,13 +1080,28 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
             }
             when (saveSetBean.rotateAngle) {
                 270 -> {
-                    LibIRProcess.rotateLeft90(temperatureBytes, imageRes, CommonParams.IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, dstTempBytes)
+                    LibIRProcess.rotateLeft90(
+                        temperatureBytes,
+                        imageRes,
+                        CommonParams.IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14,
+                        dstTempBytes,
+                    )
                 }
                 0 -> {
-                    LibIRProcess.rotate180(temperatureBytes, imageRes, CommonParams.IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, dstTempBytes)
+                    LibIRProcess.rotate180(
+                        temperatureBytes,
+                        imageRes,
+                        CommonParams.IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14,
+                        dstTempBytes,
+                    )
                 }
                 90 -> {
-                    LibIRProcess.rotateRight90(temperatureBytes, imageRes, CommonParams.IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, dstTempBytes)
+                    LibIRProcess.rotateRight90(
+                        temperatureBytes,
+                        imageRes,
+                        CommonParams.IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14,
+                        dstTempBytes,
+                    )
                 }
                 180 -> {
                     System.arraycopy(temperatureBytes, 0, dstTempBytes, 0, dstTempBytes.size)
@@ -1406,13 +1419,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 }
 
                                 override fun onLastTimeFinish(num: Int) {
-                                    if (binding.thermalRecyclerNight.isVideoMode)
-                                        {
-                                            updateVideoDelayView()
-                                        } else
-                                        {
-                                            updateDelayView()
-                                        }
+                                    if (binding.thermalRecyclerNight.isVideoMode) {
+                                        updateVideoDelayView()
+                                    } else {
+                                        updateDelayView()
+                                    }
                                     centerCamera()
                                 }
                             },
@@ -1559,7 +1570,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     /**
      *
      */
-    fun updateVideoDelayView()  {
+    fun updateVideoDelayView() {
         try {
             if (binding.timeDownView.isRunning) {
                 lifecycleScope.launch(Dispatchers.Main) {
@@ -1601,7 +1612,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         }
     }
 
-    private fun initAudioPermission()  {
+    private fun initAudioPermission() {
         XXPermissions.with(this@IRThermalLiteActivity)
             .permission(
                 Permission.RECORD_AUDIO,
@@ -1634,11 +1645,12 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     ) {
                         if (doNotAskAgain) {
                             // Activity logic
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(com.topdon.module.thermal.ir.R.string.app_microphone_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(
+                                    getString(com.topdon.module.thermal.ir.R.string.app_microphone_content),
+                                )
+                                return
+                            }
                             TipDialog.Builder(this@IRThermalLiteActivity)
                                 .setTitleMessage(getString(com.topdon.module.thermal.ir.R.string.app_tip))
                                 .setMessage(getString(com.topdon.module.thermal.ir.R.string.app_microphone_content))
@@ -1729,11 +1741,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                     ) {
                         if (doNotAskAgain) {
                             // Activity logic
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(R.string.app_storage_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(getString(R.string.app_storage_content))
+                                return
+                            }
                             TipDialog.Builder(this@IRThermalLiteActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(R.string.app_storage_content)
@@ -1815,13 +1826,11 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
                                 watermarkBean.title,
                                 watermarkBean.address,
                                 if (watermarkBean.isAddTime) TimeTool.getNowTime() else "",
-                                if (binding.temperatureSeekbar.isVisible)
-                                    {
-                                        binding.temperatureSeekbar.measuredWidth
-                                    } else
-                                    {
-                                        0
-                                    },
+                                if (binding.temperatureSeekbar.isVisible) {
+                                    binding.temperatureSeekbar.measuredWidth
+                                } else {
+                                    0
+                                },
                             )
                     }
                     // Activity logic - disabled due to missing layout
@@ -2096,11 +2105,10 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         super.onResume()
         AlarmHelp.getInstance(this).onResume()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (isPause)
-            {
-                DeviceControlManager.getInstance().handleResumeDualPreview()
-                isPause = false
-            }
+        if (isPause) {
+            DeviceControlManager.getInstance().handleResumeDualPreview()
+            isPause = false
+        }
         binding.thermalRecyclerNight.refreshImg()
         config = ConfigRepository.readConfig(false)
         orientationEventListener.enable()
@@ -2169,7 +2177,7 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
         SystemClock.sleep(100)
     }
 
-    private fun setCarDetectPrompt()  {
+    private fun setCarDetectPrompt() {
         // Car detection feature not available in thermal-lite layout
         // var carDetectInfo = SharedManager.getCarDetectInfo()
         // var tvDetectPrompt = binding.viewCarDetect.findViewById<TextView>(R.id.tv_detect_prompt)
@@ -2193,41 +2201,36 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     var basicGainGetTime = 0L
 
     override fun tempCorrectByTs(temp: Float?): Float {
-        if (isPause)
-            {
-                return temp!!
-            }
+        if (isPause) {
+            return temp!!
+        }
         var tempNew = temp
         try {
-            if (config == null)
-                {
-                    config = ConfigRepository.readConfig(false)
-                }
-            if (isConfigWait)
-                {
-                    return temp!!
-                }
+            if (config == null) {
+                config = ConfigRepository.readConfig(false)
+            }
+            if (isConfigWait) {
+                return temp!!
+            }
             val defModel = DataBean()
             if (config!!.radiation == defModel.radiation &&
                 defModel.environment == config!!.environment &&
                 defModel.distance == config!!.distance
-            )
-                {
-                    return temp!!
-                }
+            ) {
+                return temp!!
+            }
 
             // Activity logicState PASS
-            if (System.currentTimeMillis() - basicGainGetTime > 5000L)
-                {
-                    try {
-                        val basicGainGet: IrcmdError? =
-                            DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
-                                ?.basicGainGet(basicGainGetValue)
-                    } catch (e: Exception) {
-                        XLog.e("activity")
-                    }
-                    basicGainGetTime = System.currentTimeMillis()
+            if (System.currentTimeMillis() - basicGainGetTime > 5000L) {
+                try {
+                    val basicGainGet: IrcmdError? =
+                        DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
+                            ?.basicGainGet(basicGainGetValue)
+                } catch (e: Exception) {
+                    XLog.e("activity")
                 }
+                basicGainGetTime = System.currentTimeMillis()
+            }
             val params_array =
                 floatArrayOf(
                     temp!!,

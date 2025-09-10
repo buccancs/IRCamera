@@ -37,7 +37,7 @@ class IRGalleryEditViewModel : BaseViewModel() {
      * view
      */
 
-    fun getTailData(bytes: ByteArray)  {
+    fun getTailData(bytes: ByteArray) {
     }
 
     data class FrameBean(val capital: ByteArray, val frame: ByteArray)

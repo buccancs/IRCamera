@@ -73,7 +73,12 @@ class ConnectionGuideView : LinearLayout {
         val spannableString = SpannableString(mContent)
         val drawable = context.getDrawable(UiR.drawable.ic_connection_press_tip)
         drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-        spannableString.setSpan(ImageSpan(drawable), mContent.length - 1, mContent.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(
+            ImageSpan(drawable),
+            mContent.length - 1,
+            mContent.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+        )
         binding.tvContent.text = spannableString
     }
 }

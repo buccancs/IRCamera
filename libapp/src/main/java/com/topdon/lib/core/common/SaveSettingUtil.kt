@@ -25,31 +25,31 @@ object SaveSettingUtil {
     /**
      * Dual light1
      */
-    const val FusionTypeLPYFusion = 4
+    const val FUSION_TYPE_LPY_FUSION = 4
 
     /**
      * Dual light2
      */
-    const val FusionTypeMeanFusion = 2
+    const val FUSION_TYPE_MEAN_FUSION = 2
 
     /**
      * utilityInfrared
      */
-    const val FusionTypeIROnly = 1 // utilityInfrared
+    const val FUSION_TYPE_IR_ONLY = 1 // utilityInfrared
 
     /**
      * utilityVisible light
      */
-    const val FusionTypeVLOnly = 0 // utilityVisible light
+    const val FUSION_TYPE_VL_ONLY = 0 // utilityVisible light
 
     /**
      * Picture in picture
      */
-    const val FusionTypeTC007Fusion = 7 // tc007utilityPicture in picture
+    const val FUSION_TYPE_TC007_FUSION = 7 // tc007utilityPicture in picture
 
-    const val FusionTypeHSLFusion = 3
-    const val FusionTypeScreenFusion = 5
-    const val FusionTypeIROnlyNoFusion = 6
+    const val FUSION_TYPE_HSL_FUSION = 3
+    const val FUSION_TYPE_SCREEN_FUSION = 5
+    const val FUSION_TYPE_IR_ONLY_NO_FUSION = 6
 
     /**
      * utilitySettingsutility，utilityAllutility.
@@ -190,7 +190,14 @@ object SaveSettingUtil {
         }
 
     var fusionType: Int
-        get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("fusionType", FusionTypeLPYFusion) else FusionTypeLPYFusion
+        get() =
+            if (isSaveSetting) {
+                SPUtils.getInstance(
+                    SP_NAME,
+                ).getInt("fusionType", FusionTypeLPYFusion)
+            } else {
+                FusionTypeLPYFusion
+            }
         set(value) {
             SPUtils.getInstance(SP_NAME).put("fusionType", value)
         }

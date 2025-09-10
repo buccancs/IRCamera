@@ -27,7 +27,7 @@ class IRImageHelp {
     private var maxRGB = IntArray(3)
     private var minRGB = IntArray(3)
 
-    fun getColorList(): IntArray?  {
+    fun getColorList(): IntArray? {
         return colorList
     }
 
@@ -77,7 +77,7 @@ class IRImageHelp {
         temperatureSrc: ByteArray,
         imageWidth: Int,
         imageHeight: Int,
-    ): ByteArray  {
+    ): ByteArray {
         try {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
@@ -112,7 +112,11 @@ class IRImageHelp {
                         }
                          */
                         // Simple fallback: use temperature-based grayscale
-                        val intensity = ((temperature0 - customMinTemp) / (customMaxTemp - customMinTemp) * 255).toInt().coerceIn(0, 255)
+                        val intensity =
+                            ((temperature0 - customMinTemp) / (customMaxTemp - customMinTemp) * 255).toInt().coerceIn(
+                                0,
+                                255,
+                            )
                         imageDst[index] = intensity.toByte()
                         imageDst[index + 1] = intensity.toByte()
                         imageDst[index + 2] = intensity.toByte()
@@ -154,7 +158,7 @@ class IRImageHelp {
         min: Float,
         imageWidth: Int,
         imageHeight: Int,
-    )  {
+    ) {
         if (temperatureSrc != null && (max != Float.MAX_VALUE || min != Float.MIN_VALUE)) {
             var j = 0
             val imageDstLength: Int = imageWidth * imageHeight * 4
@@ -200,7 +204,7 @@ class IRImageHelp {
         temperatureSrc: ByteArray?,
         imageWidth: Int,
         imageHeight: Int,
-    ): ByteArray?  {
+    ): ByteArray? {
         if (alarmBean != null && imageDst != null && temperatureSrc != null) {
             if (alarmBean.isMarkOpen && (
                     (alarmBean.highTemp != Float.MAX_VALUE && alarmBean.isHighOpen) ||

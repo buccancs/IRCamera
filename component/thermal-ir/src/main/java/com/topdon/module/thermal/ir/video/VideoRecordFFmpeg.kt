@@ -657,14 +657,13 @@ class VideoRecordFFmpeg(
                     0,
                 )
         }
-        if (carView?.isVisible == true)
-            {
-                cameraViewBitmap =
-                    BitmapUtils.mergeBitmap(
-                        cameraViewBitmap,
-                        carView?.drawToBitmap(), 0, 0,
-                    )
-            }
+        if (carView?.isVisible == true) {
+            cameraViewBitmap =
+                BitmapUtils.mergeBitmap(
+                    cameraViewBitmap,
+                    carView?.drawToBitmap(), 0, 0,
+                )
+        }
         // Implementation
         compassView?.let {
             if (it.isVisible) {
@@ -708,10 +707,9 @@ class VideoRecordFFmpeg(
 
         // Implementation
         val watermarkBean =
-            if (isTC007)
-                {
-                    SharedManager.wifiWatermarkBean
-                } else {
+            if (isTC007) {
+                SharedManager.wifiWatermarkBean
+            } else {
                 SharedManager.watermarkBean
             }
         if (watermarkBean.isOpen) {

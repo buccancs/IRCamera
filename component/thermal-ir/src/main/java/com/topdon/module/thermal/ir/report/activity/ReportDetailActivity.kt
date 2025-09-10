@@ -88,7 +88,11 @@ class ReportDetailActivity : BaseActivity() {
                     val drawable = GlideLoader.getDrawable(this@ReportDetailActivity, irList[i].picture_url)
                     reportShowView.setImageDrawable(drawable)
                 }
-                llContent.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                llContent.addView(
+                    reportShowView,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                )
             }
         }
     }

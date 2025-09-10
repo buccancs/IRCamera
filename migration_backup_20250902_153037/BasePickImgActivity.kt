@@ -116,7 +116,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    open suspend fun getPickBitmap(): Bitmap?  {
+    open suspend fun getPickBitmap(): Bitmap? {
         return null
     }
 

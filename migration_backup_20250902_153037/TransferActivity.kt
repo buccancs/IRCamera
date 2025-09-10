@@ -52,7 +52,9 @@ class TransferActivity : BaseActivity() {
      */
     private fun requestPermission() {
         XXPermissions.with(this)
-            .permission(if (applicationInfo.targetSdkVersion < 33) Permission.READ_EXTERNAL_STORAGE else Permission.READ_MEDIA_IMAGES)
+            .permission(
+                if (applicationInfo.targetSdkVersion < 33) Permission.READ_EXTERNAL_STORAGE else Permission.READ_MEDIA_IMAGES,
+            )
             .request(
                 object : OnPermissionCallback {
                     override fun onGranted(

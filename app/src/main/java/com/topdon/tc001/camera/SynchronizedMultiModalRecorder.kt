@@ -186,7 +186,13 @@ class SynchronizedMultiModalRecorder(
                     rgbVideoFile = rgbVideoFile,
                     gsrDataFile = gsrSession?.let { File(thermalRecorder.getSessionDirectory(), "signals.csv") },
                     syncMarksFile = gsrSession?.let { File(thermalRecorder.getSessionDirectory(), "sync_marks.csv") },
-                    sessionMetadata = gsrSession?.let { File(thermalRecorder.getSessionDirectory(), "session_metadata.json") },
+                    sessionMetadata =
+                        gsrSession?.let {
+                            File(
+                                thermalRecorder.getSessionDirectory(),
+                                "session_metadata.json",
+                            )
+                        },
                 )
 
             currentSessionId = null

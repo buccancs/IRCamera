@@ -120,21 +120,20 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
 
     abstract fun setTemperatureViewType()
 
-    open fun setDispViewData(dualDisp: Int)  {
+    open fun setDispViewData(dualDisp: Int) {
     }
 
     override fun initView() {
         super.initView()
-        if (isDualIR())
-            {
-                // defaultDataFlowMode activity activity+activity，activity SDK activity 256x384
-                // activity、activity 256x(384/2) = 256x192
-                // activityRotate，activity 192x256
-                imageWidth = 192
-                imageHeight = 256
-                USBMonitorManager.getInstance().init(irPid, isUseIRISP, defaultDataFlowMode)
-                USBMonitorManager.getInstance().addOnUSBConnectListener(this)
-            }
+        if (isDualIR()) {
+            // defaultDataFlowMode activity activity+activity，activity SDK activity 256x384
+            // activity、activity 256x(384/2) = 256x192
+            // activityRotate，activity 192x256
+            imageWidth = 192
+            imageHeight = 256
+            USBMonitorManager.getInstance().init(irPid, isUseIRISP, defaultDataFlowMode)
+            USBMonitorManager.getInstance().addOnUSBConnectListener(this)
+        }
     }
 
     override fun onResume() {
@@ -154,10 +153,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
     }
 
     private fun dualStart() {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         /**
          * activityInfraredactivity
          * activitypidactivity
@@ -177,10 +175,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
     private var mIrHandler: Handler =
         object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
-                if (!isDualIR())
-                    {
-                        return
-                    }
+                if (!isDualIR()) {
+                    return
+                }
                 if (msg.what == Const.RESTART_USB) {
                     restartDualCamera()
                 } else if (msg.what == Const.HANDLE_CONNECT) {
@@ -225,10 +222,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
      * activity
      */
     private fun initDefIntegralArgsDISPValue(typeLoadParameters: DualCameraParams.TypeLoadParameters) {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         lifecycleScope.launch {
             val parameters = IRCmdTool.getDualBytes(USBMonitorManager.getInstance().ircmd)
             val data = dualView?.dualUVCCamera?.loadParameters(parameters, typeLoadParameters)
@@ -241,10 +237,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
     }
 
     private fun initDualCamera() {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         if (dualView != null) {
             return
         }
@@ -323,10 +318,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
         cameraWidth: Int,
         cameraHeight: Int,
     ) {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         vlUVCCamera =
             IRUVCDual(
                 cameraWidth,
@@ -374,10 +368,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
     }
 
     private fun dualStop() {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         isrun = false
         syncimage.valid = false
         isConfigWait = true
@@ -480,23 +473,20 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
                     XLog.e("activity")
                 }
             }
-            if (!SupHelp.getInstance().loadOpenclSuccess)
-                {
-                    return@launch
-                }
+            if (!SupHelp.getInstance().loadOpenclSuccess) {
+                return@launch
+            }
             isOpenAmplify = !isOpenAmplify
             dualView?.isOpenAmplify = isOpenAmplify
 
             val titleView = findViewById<com.topdon.lib.core.view.TitleView>(com.topdon.lib.core.R.id.title_view)
             titleView?.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
-            if (isOpenAmplify)
-                {
-                    ToastUtils.showShort(R.string.tips_tisr_on)
-                } else
-                {
-                    ToastUtils.showShort(R.string.tips_tisr_off)
-                }
+            if (isOpenAmplify) {
+                ToastUtils.showShort(R.string.tips_tisr_on)
+            } else {
+                ToastUtils.showShort(R.string.tips_tisr_off)
+            }
         }
     }
 
@@ -505,10 +495,9 @@ abstract class BaseIRPlushActivity : IRThermalNightActivity(), OnUSBConnectListe
             val titleView = findViewById<com.topdon.lib.core.view.TitleView>(com.topdon.lib.core.R.id.title_view)
             titleView?.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             withContext(Dispatchers.IO) {
-                if (isOpenAmplify)
-                    {
-                        SupHelp.getInstance().initA4KCPP()
-                    }
+                if (isOpenAmplify) {
+                    SupHelp.getInstance().initA4KCPP()
+                }
             }
             dualView?.isOpenAmplify = isOpenAmplify
         }

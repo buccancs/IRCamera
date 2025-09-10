@@ -173,7 +173,10 @@ object NetWorkUtils {
             return
         }
         if (isWifi) {
-            val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.boundNetworkForProcess)
+            val networkCapabilities =
+                connectivityManager.getNetworkCapabilities(
+                    connectivityManager.boundNetworkForProcess,
+                )
             if (networkCapabilities != null &&
                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
             ) {
@@ -183,7 +186,9 @@ object NetWorkUtils {
         }
         val request: NetworkRequest =
             NetworkRequest.Builder()
-                .addTransportType(if (isWifi) NetworkCapabilities.TRANSPORT_WIFI else NetworkCapabilities.TRANSPORT_CELLULAR)
+                .addTransportType(
+                    if (isWifi) NetworkCapabilities.TRANSPORT_WIFI else NetworkCapabilities.TRANSPORT_CELLULAR,
+                )
                 .build()
         connectivityManager.registerNetworkCallback(
             request,

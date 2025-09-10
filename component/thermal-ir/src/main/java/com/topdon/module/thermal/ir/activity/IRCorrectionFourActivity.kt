@@ -54,40 +54,37 @@ class IRCorrectionFourActivity : BaseActivity() {
         val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
         timeDownView.postDelayed({
             // Activity logic
-            if (timeDownView.downTimeWatcher == null)
-                {
-                    timeDownView.setOnTimeDownListener(
-                        object : TimeDownView.DownTimeWatcher {
-                            override fun onTime(num: Int) {
-                                if (num == 50)
-                                    {
-                                        lifecycleScope.launch(Dispatchers.IO) {
-                                            irFragment.autoStart()
-                                        }
-                                    }
-                            }
-
-                            override fun onLastTime(num: Int) {
-                            }
-
-                            override fun onLastTimeFinish(num: Int) {
-                                try {
-                                    if (!this@IRCorrectionFourActivity.isFinishing)
-                                        {
-                                            TipDialog.Builder(this@IRCorrectionFourActivity)
-                                                .setMessage(com.topdon.lib.core.R.string.correction_complete)
-                                                .setPositiveListener(com.topdon.lib.core.R.string.app_confirm) {
-                                                    EventBus.getDefault().post(CorrectionFinishEvent())
-                                                    finish()
-                                                }
-                                                .create().show()
-                                        }
-                                } catch (e: Exception) {
+            if (timeDownView.downTimeWatcher == null) {
+                timeDownView.setOnTimeDownListener(
+                    object : TimeDownView.DownTimeWatcher {
+                        override fun onTime(num: Int) {
+                            if (num == 50) {
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    irFragment.autoStart()
                                 }
                             }
-                        },
-                    )
-                }
+                        }
+
+                        override fun onLastTime(num: Int) {
+                        }
+
+                        override fun onLastTimeFinish(num: Int) {
+                            try {
+                                if (!this@IRCorrectionFourActivity.isFinishing) {
+                                    TipDialog.Builder(this@IRCorrectionFourActivity)
+                                        .setMessage(com.topdon.lib.core.R.string.correction_complete)
+                                        .setPositiveListener(com.topdon.lib.core.R.string.app_confirm) {
+                                            EventBus.getDefault().post(CorrectionFinishEvent())
+                                            finish()
+                                        }
+                                        .create().show()
+                                }
+                            } catch (e: Exception) {
+                            }
+                        }
+                    },
+                )
+            }
             timeDownView.downSecond(time, false)
         }, 2000)
     }

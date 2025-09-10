@@ -108,7 +108,10 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             refresh07Connect(WebSocketProxy.getInstance().isTC007Connect())
         }
 
-        val settingItemAutoShow = requireView().findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.setting_item_auto_show)
+        val settingItemAutoShow =
+            requireView().findViewById<androidx.appcompat.widget.SwitchCompat>(
+                R.id.setting_item_auto_show,
+            )
         settingItemAutoShow.isChecked = if (isTC007) SharedManager.isConnect07AutoOpen else SharedManager.isConnectAutoOpen
         settingItemAutoShow.setOnCheckedChangeListener { _, isChecked ->
             if (isTC007) {
@@ -124,13 +127,11 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 TipDialog.Builder(requireContext())
                     .setMessage(RCore.string.save_setting_tips)
                     .setPositiveListener(RCore.string.app_ok) {
-                        if (isTC007)
-                            {
-                                WifiSaveSettingUtil.isSaveSetting = true
-                            } else
-                            {
-                                SaveSettingUtil.isSaveSetting = true
-                            }
+                        if (isTC007) {
+                            WifiSaveSettingUtil.isSaveSetting = true
+                        } else {
+                            SaveSettingUtil.isSaveSetting = true
+                        }
                     }
                     .setCancelListener(RCore.string.app_cancel) {
                         settingItemConfigSelect.isChecked = false
@@ -138,15 +139,13 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                     .setCanceled(false)
                     .create().show()
             } else {
-                if (isTC007)
-                    {
-                        WifiSaveSettingUtil.reset()
-                        WifiSaveSettingUtil.isSaveSetting = false
-                    } else
-                    {
-                        SaveSettingUtil.reset()
-                        SaveSettingUtil.isSaveSetting = false
-                    }
+                if (isTC007) {
+                    WifiSaveSettingUtil.reset()
+                    WifiSaveSettingUtil.isSaveSetting = false
+                } else {
+                    SaveSettingUtil.reset()
+                    SaveSettingUtil.isSaveSetting = false
+                }
             }
         }
 
@@ -161,7 +160,10 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         }
         firmwareViewModel.failLD.observe(this) {
             dismissLoadingDialog()
-            TToast.shortToast(requireContext(), if (it) RCore.string.upgrade_bind_error else RCore.string.operation_failed_tips)
+            TToast.shortToast(
+                requireContext(),
+                if (it) RCore.string.upgrade_bind_error else RCore.string.operation_failed_tips,
+            )
             tvUpgradePoint.isVisible = false
         }
     }

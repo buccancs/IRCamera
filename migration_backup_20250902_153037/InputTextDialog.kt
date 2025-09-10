@@ -17,7 +17,11 @@ import kotlinx.android.synthetic.main.dialog_input_text.view.*
  * Created by LCG on 2024/8/29.
  * @param inputText 预输入的文字内容
  */
-class InputTextDialog(context: Context, private val inputText: String, private val onConfirmListener: (text: String) -> Unit) :
+class InputTextDialog(
+    context: Context,
+    private val inputText: String,
+    private val onConfirmListener: (text: String) -> Unit,
+) :
     Dialog(context, R.style.TextInputDialog), View.OnClickListener {
     private lateinit var contentView: View
 

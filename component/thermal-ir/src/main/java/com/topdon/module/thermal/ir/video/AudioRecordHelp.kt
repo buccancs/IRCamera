@@ -49,14 +49,13 @@ class AudioRecordHelp private constructor() {
         this.startRecordTime = startRecordTime
         type = 1
         initRecorder(recorder)
-        if (audioRecord == null)
-            {
-                audioRecord =
-                    AudioRecord(
-                        MediaRecorder.AudioSource.MIC, VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
-                        AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
-                    )
-            }
+        if (audioRecord == null) {
+            audioRecord =
+                AudioRecord(
+                    MediaRecorder.AudioSource.MIC, VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
+                    AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+                )
+        }
         try {
             startTime = System.currentTimeMillis()
             audioThread!!.start()
@@ -78,15 +77,13 @@ class AudioRecordHelp private constructor() {
         @SuppressLint("MissingPermission")
         override fun run() {
 //            Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO)
-            if (audioRecord == null)
-                {
-                    return
-                }
+            if (audioRecord == null) {
+                return
+            }
             // Audio
-            if (audioData == null)
-                {
-                    audioData = ShortBuffer.allocate(bufferSize)
-                }
+            if (audioData == null) {
+                audioData = ShortBuffer.allocate(bufferSize)
+            }
             audioRecord!!.startRecording()
             /**
              * utility
@@ -105,18 +102,17 @@ class AudioRecordHelp private constructor() {
                             )
 //                            Log.w("utility2",""+recorder?.get()?.frameNumber)
                         }
-                    } else
-                        {
-                            for (i in 0 until bufferSize) {
-                                audioData!!.put(i, 0)
-                            }
-                            recorder?.get()?.recordSamples(
-                                VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
-                                VideoRecordFFmpeg.AUDIO_CHANNELS,
-                                audioData,
-                            )
-                            Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
+                    } else {
+                        for (i in 0 until bufferSize) {
+                            audioData!!.put(i, 0)
                         }
+                        recorder?.get()?.recordSamples(
+                            VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
+                            VideoRecordFFmpeg.AUDIO_CHANNELS,
+                            audioData,
+                        )
+                        Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
+                    }
                 }
 //                Log.w("utility",""+recorder?.get()?.frameNumber)
             } catch (e: Exception) {
@@ -125,16 +121,15 @@ class AudioRecordHelp private constructor() {
         }
     }
 
-    public fun updateAudioRecordingState(boolean: Boolean)  {
+    public fun updateAudioRecordingState(boolean: Boolean) {
         recordingAudio = boolean
     }
 
     fun stopAudioRecording() {
         type = 2
-        if (!runAudioThread)
-            {
-                return
-            }
+        if (!runAudioThread) {
+            return
+        }
         runAudioThread = false
         try {
             audioThread?.interrupt()
@@ -149,11 +144,10 @@ class AudioRecordHelp private constructor() {
         recordingAudio = false
     }
 
-    fun stopRecording()  {
-        if (!runAudioThread)
-            {
-                return
-            }
+    fun stopRecording() {
+        if (!runAudioThread) {
+            return
+        }
     }
 
     companion object {

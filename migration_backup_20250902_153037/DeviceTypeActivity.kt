@@ -116,8 +116,14 @@ class DeviceTypeActivity : BaseActivity() {
             when (firstType) {
                 // TODO: 替换 TC002 Duo 图标
                 IRDeviceType.TC001 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc001)
-                IRDeviceType.TC001_PLUS -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                IRDeviceType.TC002C_DUO -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc001_plus)
+                IRDeviceType.TC001_PLUS ->
+                    holder.itemView.iv_item1.setImageResource(
+                        R.drawable.ic_device_type_tc001_plus,
+                    )
+                IRDeviceType.TC002C_DUO ->
+                    holder.itemView.iv_item1.setImageResource(
+                        R.drawable.ic_device_type_tc001_plus,
+                    )
                 IRDeviceType.TC007 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_tc007)
                 IRDeviceType.TS001 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_ts001)
                 IRDeviceType.TS004 -> holder.itemView.iv_item1.setImageResource(R.drawable.ic_device_type_ts004)
@@ -129,8 +135,14 @@ class DeviceTypeActivity : BaseActivity() {
                 when (secondType) {
                     // TODO: 替换 TC002 Duo 图标
                     IRDeviceType.TC001 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc001)
-                    IRDeviceType.TC001_PLUS -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc001_plus)
-                    IRDeviceType.TC002C_DUO -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc001_plus)
+                    IRDeviceType.TC001_PLUS ->
+                        holder.itemView.iv_item2.setImageResource(
+                            R.drawable.ic_device_type_tc001_plus,
+                        )
+                    IRDeviceType.TC002C_DUO ->
+                        holder.itemView.iv_item2.setImageResource(
+                            R.drawable.ic_device_type_tc001_plus,
+                        )
                     IRDeviceType.TC007 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_tc007)
                     IRDeviceType.TS001 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_ts001)
                     IRDeviceType.TS004 -> holder.itemView.iv_item2.setImageResource(R.drawable.ic_device_type_ts004)

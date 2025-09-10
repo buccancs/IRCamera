@@ -136,11 +136,10 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
 
     private lateinit var lis: ScaleGestureDetector
 
-// ////////////////
     /** Custom view */
-    private val REQUEST_CAMERA_CODE = 0x100
+    private val requestCameraCode = 0x100
 
-    /**Photoview */
+    /** Photoview */
     private var mBtnTake: Button? = null
 
     /** Custom view */

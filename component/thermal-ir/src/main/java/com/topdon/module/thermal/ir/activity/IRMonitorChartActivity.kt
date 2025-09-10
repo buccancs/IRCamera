@@ -178,19 +178,17 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
             temperatureView.postDelayed({
                 // Activity logic,Pseudo-colorIron red
                 try {
-                    if (!isStop)
-                        {
-                            pseudoColorMode = 3
-                            startUSB(false)
-                            startISP()
-                            temperatureView.start()
-                            cameraView.start()
-                            isrun = true
-                            if (!isRecord)
-                                {
-                                    recordThermal() // Activity logic
-                                }
+                    if (!isStop) {
+                        pseudoColorMode = 3
+                        startUSB(false)
+                        startISP()
+                        temperatureView.start()
+                        cameraView.start()
+                        isrun = true
+                        if (!isRecord) {
+                            recordThermal() // Activity logic
                         }
+                    }
                 } catch (e: Exception) {
                     Log.e("activity", "//" + e.message)
                 }
@@ -263,31 +261,30 @@ class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
                     }
                 var time = 0L
                 while (isRecord) {
-                    if (!isStop)
-                        {
-                            if (canUpdate) {
-                                val entity = ThermalEntity()
-                                entity.userId = SharedManager.getUserId()
-                                entity.thermalId = thermalId
-                                entity.thermal = NumberTools.to02f(bean.centerTemp)
-                                entity.thermalMax = NumberTools.to02f(bean.maxTemp)
-                                entity.thermalMin = NumberTools.to02f(bean.minTemp)
-                                entity.type = typeStr
-                                entity.startTime = startTime
-                                entity.createTime = System.currentTimeMillis()
-                                AppDatabase.getInstance().thermalDao().insert(entity)
-                                time++
-                                launch(Dispatchers.Main) {
-                                    mpChartView.addPointToChart(bean = entity, selectType = selectBean.type)
-                                }
-                                delay(timeMillis)
-                            } else {
-                                delay(100)
+                    if (!isStop) {
+                        if (canUpdate) {
+                            val entity = ThermalEntity()
+                            entity.userId = SharedManager.getUserId()
+                            entity.thermalId = thermalId
+                            entity.thermal = NumberTools.to02f(bean.centerTemp)
+                            entity.thermalMax = NumberTools.to02f(bean.maxTemp)
+                            entity.thermalMin = NumberTools.to02f(bean.minTemp)
+                            entity.type = typeStr
+                            entity.startTime = startTime
+                            entity.createTime = System.currentTimeMillis()
+                            AppDatabase.getInstance().thermalDao().insert(entity)
+                            time++
+                            launch(Dispatchers.Main) {
+                                mpChartView.addPointToChart(bean = entity, selectType = selectBean.type)
                             }
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
-                            }
+                            delay(timeMillis)
+                        } else {
+                            delay(100)
                         }
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
+                        }
+                    }
                 }
                 XLog.w("activity, activity:$time")
             }

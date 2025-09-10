@@ -137,12 +137,18 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
                 binding.ivMenu2.setImageResource(
                     if (value) R.drawable.selector_menu_first_observe_2 else R.drawable.selector_menu_first_2_5,
                 )
-                binding.ivMenu3.setImageResource(if (value) R.drawable.selector_menu_first_4_3 else R.drawable.selector_menu_first_normal_3)
+                binding.ivMenu3.setImageResource(
+                    if (value) R.drawable.selector_menu_first_4_3 else R.drawable.selector_menu_first_normal_3,
+                )
                 binding.ivMenu4.setImageResource(
                     if (value) R.drawable.selector_menu_first_observe_4 else R.drawable.selector_menu_first_4_3,
                 )
-                binding.ivMenu5.setImageResource(if (value) R.drawable.selector_menu_first_2_5 else R.drawable.selector_menu_first_5_6)
-                binding.ivMenu6.setImageResource(if (value) R.drawable.selector_menu_first_5_6 else R.drawable.selector_menu_first_normal_6)
+                binding.ivMenu5.setImageResource(
+                    if (value) R.drawable.selector_menu_first_2_5 else R.drawable.selector_menu_first_5_6,
+                )
+                binding.ivMenu6.setImageResource(
+                    if (value) R.drawable.selector_menu_first_5_6 else R.drawable.selector_menu_first_normal_6,
+                )
                 selectPosition = 0
             }
         }

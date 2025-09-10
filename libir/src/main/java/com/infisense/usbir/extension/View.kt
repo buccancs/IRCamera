@@ -9,15 +9,15 @@ import androidx.viewpager2.widget.ViewPager2
  * @author: CaiSongL
  * @date: 2022/6/3 21:09
  */
-fun View.gone()  {
+fun View.gone() {
     this.visibility = View.GONE
 }
 
-fun View.visible()  {
+fun View.visible() {
     this.visibility = View.VISIBLE
 }
 
-fun View.invisible()  {
+fun View.invisible() {
     this.visibility = View.INVISIBLE
 }
 

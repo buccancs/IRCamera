@@ -71,12 +71,32 @@ class IRGalleryViewModel : BaseViewModel() {
         dirType: GalleryRepository.DirType,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val pageList: ArrayList<GalleryBean>? = GalleryRepository.loadByPage(isVideo, dirType, hasLoadPage + 1, PAGE_COUNT)
+            val pageList: ArrayList<GalleryBean>? =
+                GalleryRepository.loadByPage(
+                    isVideo,
+                    dirType,
+                    hasLoadPage + 1,
+                    PAGE_COUNT,
+                )
             pageListLD.postValue(pageList)
 
             if (pageList != null) {
-                val sourceList = if (hasLoadPage == 0) ArrayList(pageList.size) else sourceListLD.value ?: ArrayList(pageList.size)
-                val showList = if (hasLoadPage == 0) ArrayList(pageList.size) else showListLD.value ?: ArrayList(pageList.size)
+                val sourceList =
+                    if (hasLoadPage == 0) {
+                        ArrayList(
+                            pageList.size,
+                        )
+                    } else {
+                        sourceListLD.value ?: ArrayList(pageList.size)
+                    }
+                val showList =
+                    if (hasLoadPage == 0) {
+                        ArrayList(
+                            pageList.size,
+                        )
+                    } else {
+                        showListLD.value ?: ArrayList(pageList.size)
+                    }
                 if (pageList.isNotEmpty()) {
                     hasLoadPage++
                 }

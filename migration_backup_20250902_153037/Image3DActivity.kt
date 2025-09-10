@@ -59,7 +59,13 @@ class Image3DActivity : BaseActivity() {
                 System.arraycopy(allBytes, 0, headLenBytes, 0, 2)
                 val headLen = headLenBytes.bytesToInt()
                 System.arraycopy(allBytes, headLen, imageBytes, 0, imageBytes.size)
-                System.arraycopy(allBytes, imageBytes.size + headLen, temperatureBytes, 0, temperatureBytes.size) // 温度数据 (192 x 256 x 2)
+                System.arraycopy(
+                    allBytes,
+                    imageBytes.size + headLen,
+                    temperatureBytes,
+                    0,
+                    temperatureBytes.size,
+                ) // 温度数据 (192 x 256 x 2)
             }
             open3DTools.init(imageBytes!!, 1)
             ir_sf = IRSurfaceView(this@Image3DActivity)
@@ -193,7 +199,7 @@ class Image3DActivity : BaseActivity() {
         temp: Float,
         x: Float,
         y: Float,
-    ): String  {
+    ): String {
         return "X ${(256 - (y * open3DTools.halfy + open3DTools.halfy)).toInt()}," +
             "Y ${(192 - (x * open3DTools.halfx + open3DTools.halfx)).toInt()}," +
             "Z ${UnitTools.showC(temp)}"

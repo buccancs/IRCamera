@@ -82,7 +82,14 @@ object WifiSaveSettingUtil {
             SPUtils.getInstance(SP_NAME).put("registrationY", value)
         }
     var fusionType: Int
-        get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("fusionType", FusionTypeIROnly) else FusionTypeIROnly
+        get() =
+            if (isSaveSetting) {
+                SPUtils.getInstance(
+                    SP_NAME,
+                ).getInt("fusionType", FusionTypeIROnly)
+            } else {
+                FusionTypeIROnly
+            }
         set(value) {
             SPUtils.getInstance(SP_NAME).put("fusionType", value)
         }

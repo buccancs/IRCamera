@@ -39,7 +39,11 @@ object LocationUtil {
             }
             try {
                 @Suppress("DEPRECATION")
-                val resultList = Geocoder(context, Locale.getDefault()).getFromLocation(location.latitude, location.longitude, 1)
+                val resultList =
+                    Geocoder(
+                        context,
+                        Locale.getDefault(),
+                    ).getFromLocation(location.latitude, location.longitude, 1)
                 if (resultList.isNullOrEmpty()) {
                     return@withContext null
                 }
@@ -64,7 +68,10 @@ object LocationUtil {
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
-    private class ModeChangeObserver(val context: Context, val listener: ((isEnable: Boolean) -> Unit)) : DefaultLifecycleObserver {
+    private class ModeChangeObserver(
+        val context: Context,
+        val listener: ((isEnable: Boolean) -> Unit),
+    ) : DefaultLifecycleObserver {
         private val receiver = ModeChangeReceiver()
         private val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 

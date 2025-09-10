@@ -236,7 +236,11 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     private fun loginAction() {
         isNeedRefreshLogin = true
         // activityLogin()fragment，fragmentonResume()
-        val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
+        val bgBitmap =
+            BitmapFactory.decodeResource(
+                resources,
+                LibAppR.mipmap.ic_default_user_head,
+            ) // Use available resource from libapp
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
@@ -306,7 +310,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             layoutParams.startToEnd = R.id.setting_user_img_night
             layoutParams.topToTop = R.id.setting_user_img_night
             layoutParams.bottomToBottom = R.id.setting_user_img_night
-            settingUserText.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+            settingUserText.setPadding(
+                SizeUtils.dp2px(16f),
+                SizeUtils.dp2px(16f),
+                SizeUtils.dp2px(16f),
+                SizeUtils.dp2px(16f),
+            )
             settingUserText.gravity = Gravity.CENTER
             settingUserText.layoutParams = layoutParams
             settingUserText.setText(

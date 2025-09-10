@@ -101,14 +101,51 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
     init {
         if (menuType == MenuType.DOUBLE_LIGHT || menuType == MenuType.TC007) {
             if (menuType == MenuType.DOUBLE_LIGHT) {
-                dataList.add(Data(R.string.dual_menu_1, MenuR.drawable.selector_menu2_two_light_1, TwoLightType.TWO_LIGHT_1, true))
-                dataList.add(Data(R.string.dual_menu_2, MenuR.drawable.selector_menu2_two_light_2, TwoLightType.TWO_LIGHT_2, true))
+                dataList.add(
+                    Data(
+                        R.string.dual_menu_1,
+                        MenuR.drawable.selector_menu2_two_light_1,
+                        TwoLightType.TWO_LIGHT_1,
+                        true,
+                    ),
+                )
+                dataList.add(
+                    Data(
+                        R.string.dual_menu_2,
+                        MenuR.drawable.selector_menu2_two_light_2,
+                        TwoLightType.TWO_LIGHT_2,
+                        true,
+                    ),
+                )
             } else {
-                dataList.add(Data(R.string.menu_thermal_merge, MenuR.drawable.selector_menu2_two_light_2, TwoLightType.TWO_LIGHT_2, true))
+                dataList.add(
+                    Data(
+                        R.string.menu_thermal_merge,
+                        MenuR.drawable.selector_menu2_two_light_2,
+                        TwoLightType.TWO_LIGHT_2,
+                        true,
+                    ),
+                )
             }
-            dataList.add(Data(R.string.menu_thermal_imaging, MenuR.drawable.selector_menu2_two_light_3, TwoLightType.IR, true))
-            dataList.add(Data(R.string.menu_thermal_visible_light, MenuR.drawable.selector_menu2_two_light_4, TwoLightType.LIGHT, true))
-            dataList.add(Data(R.string.menu_thermal_registration, MenuR.drawable.selector_menu2_two_light_5, TwoLightType.CORRECT, false))
+            dataList.add(
+                Data(R.string.menu_thermal_imaging, MenuR.drawable.selector_menu2_two_light_3, TwoLightType.IR, true),
+            )
+            dataList.add(
+                Data(
+                    R.string.menu_thermal_visible_light,
+                    MenuR.drawable.selector_menu2_two_light_4,
+                    TwoLightType.LIGHT,
+                    true,
+                ),
+            )
+            dataList.add(
+                Data(
+                    R.string.menu_thermal_registration,
+                    MenuR.drawable.selector_menu2_two_light_5,
+                    TwoLightType.CORRECT,
+                    false,
+                ),
+            )
         }
         dataList.add(
             Data(
@@ -118,7 +155,14 @@ internal class TwoLightAdapter(private val menuType: MenuType) : BaseMenuAdapter
                 menuType == MenuType.TC007,
             ),
         )
-        dataList.add(Data(R.string.ios_double_light, MenuR.drawable.selector_menu2_two_light_7, TwoLightType.BLEND_EXTENT, false))
+        dataList.add(
+            Data(
+                R.string.ios_double_light,
+                MenuR.drawable.selector_menu2_two_light_7,
+                TwoLightType.BLEND_EXTENT,
+                false,
+            ),
+        )
     }
 
     override fun onBindViewHolder(

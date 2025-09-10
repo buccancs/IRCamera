@@ -107,12 +107,11 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
         rlyInspectorSignature.setOnClickListener(this)
         rlyHouseOwnerSignature.setOnClickListener(this)
 
-        if (clSign.isShown)
-            {
-                val mAppBarChildAt: View = layAppbar.getChildAt(0)
-                val mAppBarParams = mAppBarChildAt.layoutParams as AppBarLayout.LayoutParams
-                mAppBarParams.scrollFlags = 0
-            }
+        if (clSign.isShown) {
+            val mAppBarChildAt: View = layAppbar.getChildAt(0)
+            val mAppBarParams = mAppBarChildAt.layoutParams as AppBarLayout.LayoutParams
+            mAppBarParams.scrollFlags = 0
+        }
 
         // Disabled - ViewModels from removed house module
         // detectViewModel.detectLD.observe(this) {

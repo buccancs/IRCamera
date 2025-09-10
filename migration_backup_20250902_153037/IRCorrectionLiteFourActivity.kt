@@ -64,45 +64,41 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
 
         time_down_view.postDelayed({
             // 开始矫正
-            if (time_down_view.downTimeWatcher == null)
-                {
-                    time_down_view.setOnTimeDownListener(
-                        object : TimeDownView.DownTimeWatcher {
-                            override fun onTime(num: Int) {
-                                if (num == 35)
-                                    {
-                                        lifecycleScope.launch(Dispatchers.IO) {
-                                            result = irFragment.autoStart()
-                                        }
-                                    }
-                            }
-
-                            override fun onLastTime(num: Int) {
-                            }
-
-                            override fun onLastTimeFinish(num: Int) {
-                                try {
-                                    if (!result)
-                                        {
-                                            ToastUtils.showShort("标定保存失败，请重新标定")
-                                            return
-                                        }
-                                    if (!this@IRCorrectionLiteFourActivity.isFinishing)
-                                        {
-                                            TipDialog.Builder(this@IRCorrectionLiteFourActivity)
-                                                .setMessage(R.string.correction_complete)
-                                                .setPositiveListener(R.string.app_confirm) {
-                                                    EventBus.getDefault().post(CorrectionFinishEvent())
-                                                    finish()
-                                                }
-                                                .create().show()
-                                        }
-                                } catch (e: Exception) {
+            if (time_down_view.downTimeWatcher == null) {
+                time_down_view.setOnTimeDownListener(
+                    object : TimeDownView.DownTimeWatcher {
+                        override fun onTime(num: Int) {
+                            if (num == 35) {
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    result = irFragment.autoStart()
                                 }
                             }
-                        },
-                    )
-                }
+                        }
+
+                        override fun onLastTime(num: Int) {
+                        }
+
+                        override fun onLastTimeFinish(num: Int) {
+                            try {
+                                if (!result) {
+                                    ToastUtils.showShort("标定保存失败，请重新标定")
+                                    return
+                                }
+                                if (!this@IRCorrectionLiteFourActivity.isFinishing) {
+                                    TipDialog.Builder(this@IRCorrectionLiteFourActivity)
+                                        .setMessage(R.string.correction_complete)
+                                        .setPositiveListener(R.string.app_confirm) {
+                                            EventBus.getDefault().post(CorrectionFinishEvent())
+                                            finish()
+                                        }
+                                        .create().show()
+                                }
+                            } catch (e: Exception) {
+                            }
+                        }
+                    },
+                )
+            }
             time_down_view.downSecond(time, false)
         }, 2000)
     }

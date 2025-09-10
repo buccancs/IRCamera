@@ -171,7 +171,12 @@ class IRGalleryDetail04Activity : BaseActivity() {
                 if (isSuccess) {
                     if (isDelLocal) {
                         File(FileConfig.ts004GalleryDir, data.name).delete()
-                        MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
+                        MediaScannerConnection.scanFile(
+                            this@IRGalleryDetail04Activity,
+                            arrayOf(FileConfig.ts004GalleryDir),
+                            null,
+                            null,
+                        )
                     }
 
                     dismissCameraLoading()
@@ -241,7 +246,12 @@ class IRGalleryDetail04Activity : BaseActivity() {
                     EventBus.getDefault().post(GalleryDownloadEvent(data.name))
                     dismissCameraLoading()
                     FileUtils.copy(resource, File(FileConfig.ts004GalleryDir, data.name))
-                    MediaScannerConnection.scanFile(this@IRGalleryDetail04Activity, arrayOf(FileConfig.ts004GalleryDir), null, null)
+                    MediaScannerConnection.scanFile(
+                        this@IRGalleryDetail04Activity,
+                        arrayOf(FileConfig.ts004GalleryDir),
+                        null,
+                        null,
+                    )
                     ToastTools.showShort(R.string.tip_save_success)
                     data.hasDownload = true
                     iv_download.isSelected = dataList[position].hasDownload

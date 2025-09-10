@@ -191,7 +191,12 @@ class IRVideoGSYActivity : BaseActivity() {
                 if (isSuccess) {
                     if (isDelLocal) {
                         File(FileConfig.ts004GalleryDir, data.name).delete()
-                        MediaScannerConnection.scanFile(this@IRVideoGSYActivity, arrayOf(FileConfig.ts004GalleryDir), null, null)
+                        MediaScannerConnection.scanFile(
+                            this@IRVideoGSYActivity,
+                            arrayOf(FileConfig.ts004GalleryDir),
+                            null,
+                            null,
+                        )
                     }
                     dismissCameraLoading()
                     ToastTools.showShort(R.string.test_results_delete_success)

@@ -77,8 +77,16 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     private val etAmbientTemperature: android.widget.EditText by lazy { findViewById(R.id.et_ambient_temperature) }
     private val tipSeekHumidity: com.topdon.lib.ui.widget.TipsSeekBar by lazy { findViewById(R.id.tip_seek_humidity) }
     private val switchAmbientHumidity: android.widget.Switch by lazy { findViewById(R.id.switch_ambient_humidity) }
-    private val switchAmbientTemperature: android.widget.Switch by lazy { findViewById(R.id.switch_ambient_temperature) }
-    private val tipSeekEmissivity: com.topdon.lib.ui.widget.TipsSeekBar by lazy { findViewById(R.id.tip_seek_emissivity) }
+    private val switchAmbientTemperature: android.widget.Switch by lazy {
+        findViewById(
+            R.id.switch_ambient_temperature,
+        )
+    }
+    private val tipSeekEmissivity: com.topdon.lib.ui.widget.TipsSeekBar by lazy {
+        findViewById(
+            R.id.tip_seek_emissivity,
+        )
+    }
     private val switchEmissivity: android.widget.Switch by lazy { findViewById(R.id.switch_emissivity) }
     private val etTestDistance: android.widget.EditText by lazy { findViewById(R.id.et_test_distance) }
     private val switchTestDistance: android.widget.Switch by lazy { findViewById(R.id.switch_test_distance) }
@@ -235,17 +243,14 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                 return null
             }
         var location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (location == null)
-            {
-                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            }
-        return if (location == null)
-            {
-                null
-            } else
-            {
-                getAddress(location)
-            }
+        if (location == null) {
+            location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        }
+        return if (location == null) {
+            null
+        } else {
+            getAddress(location)
+        }
     }
 
     // Activity logic:activity、activity
@@ -265,35 +270,29 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
             e.printStackTrace()
         }
         var str = ""
-        if (result != null && result.isNotEmpty())
-            {
-                result?.get(0)?.let {
-                    str += getNullString(it.adminArea)
-                    if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea)))
-                        {
-                            str += getNullString(it.subAdminArea)
-                        }
-                    if (!str.contains(getNullString(it.locality)))
-                        {
-                            str += getNullString(it.locality)
-                        }
-                    if (!str.contains(getNullString(it.subLocality)))
-                        {
-                            str += getNullString(it.subLocality)
-                        }
+        if (result != null && result.isNotEmpty()) {
+            result?.get(0)?.let {
+                str += getNullString(it.adminArea)
+                if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea))) {
+                    str += getNullString(it.subAdminArea)
+                }
+                if (!str.contains(getNullString(it.locality))) {
+                    str += getNullString(it.locality)
+                }
+                if (!str.contains(getNullString(it.subLocality))) {
+                    str += getNullString(it.subLocality)
                 }
             }
+        }
         return str
     }
 
-    private fun getNullString(str: String?): String  {
-        return if (str.isNullOrEmpty())
-            {
-                ""
-            } else
-            {
-                str
-            }
+    private fun getNullString(str: String?): String {
+        return if (str.isNullOrEmpty()) {
+            ""
+        } else {
+            str
+        }
     }
 
     private fun buildReportInfo(): ReportInfoBean =
@@ -402,31 +401,27 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         permissions: MutableList<String>,
                         all: Boolean,
                     ) {
-                        if (all)
-                            {
-                                showLoadingDialog(R.string.get_current_address)
-                                lifecycleScope.launch {
-                                    var addressText: String? = ""
-                                    withContext(Dispatchers.IO) {
-                                        addressText = getLocation()
-                                    }
-                                    dismissLoadingDialog()
-                                    if (addressText == null)
-                                        {
-                                            TipDialog.Builder(this@ReportCreateFirstActivity)
-                                                .setMessage(LibR.string.get_Location_failed)
-                                                .setPositiveListener(R.string.app_ok)
-                                                .setCanceled(false)
-                                                .create().show()
-                                        } else
-                                        {
-                                            etReportPlace.setText(addressText)
-                                        }
+                        if (all) {
+                            showLoadingDialog(R.string.get_current_address)
+                            lifecycleScope.launch {
+                                var addressText: String? = ""
+                                withContext(Dispatchers.IO) {
+                                    addressText = getLocation()
                                 }
-                            } else
-                            {
-                                ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                                dismissLoadingDialog()
+                                if (addressText == null) {
+                                    TipDialog.Builder(this@ReportCreateFirstActivity)
+                                        .setMessage(LibR.string.get_Location_failed)
+                                        .setPositiveListener(R.string.app_ok)
+                                        .setCanceled(false)
+                                        .create().show()
+                                } else {
+                                    etReportPlace.setText(addressText)
+                                }
                             }
+                        } else {
+                            ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        }
                     }
 
                     override fun onDenied(
@@ -435,11 +430,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                     ) {
                         if (never) {
                             // activitySettingsactivity
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(R.string.app_location_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(getString(R.string.app_location_content))
+                                return
+                            }
                             TipDialog.Builder(this@ReportCreateFirstActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_location_content))

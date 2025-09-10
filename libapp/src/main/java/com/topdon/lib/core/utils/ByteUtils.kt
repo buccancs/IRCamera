@@ -26,7 +26,10 @@ object ByteUtils {
      * string => byte[]
      * 0102 => [0x01, 0x02]
      */
-    fun String.hexStringToByteArray() = ByteArray(this.length / 2) { this.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
+    fun String.hexStringToByteArray() =
+        ByteArray(
+            this.length / 2,
+        ) { this.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
 
     /**
      * UUID => ff01

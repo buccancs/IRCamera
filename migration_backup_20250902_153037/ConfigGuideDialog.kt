@@ -31,7 +31,11 @@ import kotlinx.coroutines.launch
  *
  * Created by LCG on 2024/11/13.
  */
-class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, R.style.TransparentDialog) {
+class ConfigGuideDialog(
+    context: Context,
+    val isTC007: Boolean,
+    val dataBean: DataBean,
+) : Dialog(context, R.style.TransparentDialog) {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

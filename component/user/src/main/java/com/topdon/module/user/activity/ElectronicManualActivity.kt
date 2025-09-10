@@ -33,7 +33,9 @@ class ElectronicManualActivity : BaseActivity() {
 
         val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) // 0-activity 1-FAQ
 
-        titleView.setTitleText(if (productType == Constants.SETTING_BOOK) RCore.string.electronic_manual else RCore.string.app_question)
+        titleView.setTitleText(
+            if (productType == Constants.SETTING_BOOK) RCore.string.electronic_manual else RCore.string.app_question,
+        )
 
         val adapter = MyAdapter(productType == 1)
         adapter.onPickListener = { isTS001 ->
@@ -79,7 +81,9 @@ class ElectronicManualActivity : BaseActivity() {
             parent: ViewGroup,
             viewType: Int,
         ): RecyclerView.ViewHolder {
-            return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_electronic_manual, parent, false))
+            return ItemViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_electronic_manual, parent, false),
+            )
         }
 
         override fun onBindViewHolder(

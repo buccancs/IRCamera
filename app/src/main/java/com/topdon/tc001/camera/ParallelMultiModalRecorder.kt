@@ -172,7 +172,9 @@ class ParallelMultiModalRecorder(
                     if (successfulSensors.isEmpty()) {
                         // All sensors failed to start
                         Log.e(TAG, "All sensors failed to start: $failedSensors")
-                        onError?.invoke("Failed to start any sensors: ${failedSensors.map { it.displayName }.joinToString(", ")}")
+                        onError?.invoke(
+                            "Failed to start any sensors: ${failedSensors.map { it.displayName }.joinToString(", ")}",
+                        )
                         cleanup()
                         return@withContext
                     }

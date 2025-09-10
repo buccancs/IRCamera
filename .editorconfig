@@ -1,0 +1,31 @@
+# Kotlin/Java enterprise code style configuration
+# Compatible with ktlint, IntelliJ IDEA, and Android Studio
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{kt,kts}]
+# Kotlin-specific settings
+indent_size = 4
+max_line_length = 120
+ktlint_standard_no-wildcard-imports = disabled
+ktlint_standard_max-line-length = disabled
+ktlint_experimental_trailing-comma-on-call-site = disabled
+ktlint_experimental_trailing-comma-on-declaration-site = disabled
+
+[*.{xml,yml,yaml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+[*.properties]
+end_of_line = lf

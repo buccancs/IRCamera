@@ -61,10 +61,9 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
 
         viewModel.listData.observe(this) {
             dismissLoadingDialog()
-            if (!reportAdapter.hasEmptyView())
-                {
-                    reportAdapter.setEmptyView(R.layout.layout_empty)
-                }
+            if (!reportAdapter.hasEmptyView()) {
+                reportAdapter.setEmptyView(R.layout.layout_empty)
+            }
             if (it == null) {
                 if (page == 1) {
                     fragment_pdf_recycler_lay.finishRefresh(false)
@@ -75,39 +74,32 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             it?.let { data ->
                 if (page == 1) {
                     // 刷新
-                    if (data.code == LMS.SUCCESS)
-                        {
-                            reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
-                            fragment_pdf_recycler_lay.finishRefresh()
-                        } else
-                        {
-                            fragment_pdf_recycler_lay.finishRefresh(false)
-                        }
+                    if (data.code == LMS.SUCCESS) {
+                        reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
+                        fragment_pdf_recycler_lay.finishRefresh()
+                    } else {
+                        fragment_pdf_recycler_lay.finishRefresh(false)
+                    }
                     reportAdapter.setNewInstance(data.data?.records)
                 } else {
                     data.data?.records?.let { it1 -> reportAdapter.addData(it1) }
-                    if (data.code == LMS.SUCCESS)
-                        {
-                            if (data.data?.records.isNullOrEmpty())
-                                {
-                                    reportAdapter.loadMoreModule.loadMoreEnd()
-                                } else
-                                {
-                                    reportAdapter.loadMoreModule.loadMoreComplete()
-                                }
-                        } else
-                        {
-                            reportAdapter.loadMoreModule.loadMoreFail()
+                    if (data.code == LMS.SUCCESS) {
+                        if (data.data?.records.isNullOrEmpty()) {
+                            reportAdapter.loadMoreModule.loadMoreEnd()
+                        } else {
+                            reportAdapter.loadMoreModule.loadMoreComplete()
                         }
+                    } else {
+                        reportAdapter.loadMoreModule.loadMoreFail()
+                    }
                 }
             }
         }
         if (WebSocketProxy.getInstance().isConnected()) {
             NetWorkUtils.switchNetwork(false)
-        } else
-            {
-                NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
-            }
+        } else {
+            NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
+        }
         initRecycler()
     }
 
@@ -185,16 +177,14 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                             )
                         }
                         dismissLoadingDialog()
-                        if (item.isShowTitleTime)
-                            {
-                                reportAdapter.remove(item)
-                                reportAdapter.setNewInstance(reportAdapter.data)
-                                reportAdapter.notifyDataSetChanged()
-                            } else
-                            {
-                                reportAdapter.data.removeAt(position)
-                                reportAdapter.notifyItemRemoved(position)
-                            }
+                        if (item.isShowTitleTime) {
+                            reportAdapter.remove(item)
+                            reportAdapter.setNewInstance(reportAdapter.data)
+                            reportAdapter.notifyDataSetChanged()
+                        } else {
+                            reportAdapter.data.removeAt(position)
+                            reportAdapter.notifyItemRemoved(position)
+                        }
                     }
                 }
                 .setCancelListener(R.string.app_cancel) {

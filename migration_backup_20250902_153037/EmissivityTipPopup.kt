@@ -75,14 +75,12 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
             view.tv_distance_title.text = context.getString(R.string.thermal_config_distance) + ":"
 
             view.tv_title.visibility = View.GONE
-            if (text.isNotEmpty())
-                {
-                    view.tv_emissivity_materials.text = text
-                    view.tv_emissivity_materials.visibility = View.VISIBLE
-                } else
-                {
-                    view.tv_emissivity_materials.visibility = View.GONE
-                }
+            if (text.isNotEmpty()) {
+                view.tv_emissivity_materials.text = text
+                view.tv_emissivity_materials.visibility = View.VISIBLE
+            } else {
+                view.tv_emissivity_materials.visibility = View.GONE
+            }
             view.dialog_tip_cancel_btn.visibility = View.GONE
             view.dialog_tip_success_btn.text = context.getString(R.string.tc_modify_params)
             view.dialog_tip_check.visibility = View.GONE
@@ -103,7 +101,9 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 必要时可以替换为其他Drawable
             }
             view.dialog_tip_success_btn.setOnClickListener {
-                ARouter.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(context)
+                ARouter.getInstance().build(
+                    RouterConfig.IR_SETTING,
+                ).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(context)
                 dismiss()
             }
         }

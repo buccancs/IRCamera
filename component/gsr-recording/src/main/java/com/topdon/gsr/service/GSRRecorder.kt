@@ -316,7 +316,10 @@ class GSRRecorder(
             saveSessionMetadata(session)
 
             listeners.forEach { it.onRecordingStopped(session) }
-            Log.i(TAG, "Simulated GSR recording stopped: sessionId=${session.sessionId}, samples=${session.sampleCount}")
+            Log.i(
+                TAG,
+                "Simulated GSR recording stopped: sessionId=${session.sessionId}, samples=${session.sampleCount}",
+            )
         }
 
         cleanup()

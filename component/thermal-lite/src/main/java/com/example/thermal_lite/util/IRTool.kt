@@ -22,7 +22,7 @@ object IRTool {
     /**
      * utility
      */
-    fun setAutoShutter(isAutoShutter: Boolean)  {
+    fun setAutoShutter(isAutoShutter: Boolean) {
         val basicAutoFFCStatusSet: IrcmdError? =
             DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                 ?.basicAutoFFCStatusSet(
@@ -41,7 +41,7 @@ object IRTool {
     /**
      * utility
      */
-    fun setOneShutter()  {
+    fun setOneShutter() {
         val basicFFCUpdate = DeviceIrcmdControlManager.getInstance().ircmdEngine?.basicFFCUpdate()
         Log.d(
             TAG,
@@ -58,31 +58,28 @@ object IRTool {
      *
      * utility ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
-    fun basicGainSet(gainType: Int)  {
-        if (gainType == CameraItemBean.TYPE_TMP_ZD)
-            {
-                CameraPreviewManager.getInstance().setAutoSwitchGainEnable(true)
-            } else if (gainType == CameraItemBean.TYPE_TMP_C)
-            {
-                CameraPreviewManager.getInstance().setAutoSwitchGainEnable(false)
-                val basicGainSet =
-                    DeviceIrcmdControlManager.getInstance().ircmdEngine
-                        ?.basicGainSet(CommonParams.GainStatus.HIGH_GAIN)
-                Log.d(TAG, "basicGainSet=$basicGainSet--$gainType")
-            } else if (gainType == CameraItemBean.TYPE_TMP_H)
-            {
-                CameraPreviewManager.getInstance().setAutoSwitchGainEnable(false)
-                val basicGainSet =
-                    DeviceIrcmdControlManager.getInstance().ircmdEngine
-                        ?.basicGainSet(CommonParams.GainStatus.LOW_GAIN)
-                Log.d(TAG, "basicGainSet=$basicGainSet--$gainType")
-            }
+    fun basicGainSet(gainType: Int) {
+        if (gainType == CameraItemBean.TYPE_TMP_ZD) {
+            CameraPreviewManager.getInstance().setAutoSwitchGainEnable(true)
+        } else if (gainType == CameraItemBean.TYPE_TMP_C) {
+            CameraPreviewManager.getInstance().setAutoSwitchGainEnable(false)
+            val basicGainSet =
+                DeviceIrcmdControlManager.getInstance().ircmdEngine
+                    ?.basicGainSet(CommonParams.GainStatus.HIGH_GAIN)
+            Log.d(TAG, "basicGainSet=$basicGainSet--$gainType")
+        } else if (gainType == CameraItemBean.TYPE_TMP_H) {
+            CameraPreviewManager.getInstance().setAutoSwitchGainEnable(false)
+            val basicGainSet =
+                DeviceIrcmdControlManager.getInstance().ircmdEngine
+                    ?.basicGainSet(CommonParams.GainStatus.LOW_GAIN)
+            Log.d(TAG, "basicGainSet=$basicGainSet--$gainType")
+        }
     }
 
     /**
      * utility：utility0-100
      */
-    fun basicGlobalContrastLevelSet(levelValue: Int)  {
+    fun basicGlobalContrastLevelSet(levelValue: Int) {
         val basicGlobalContrastLevelSetResult =
             DeviceIrcmdControlManager.getInstance().ircmdEngine
                 ?.basicGlobalContrastLevelSet(levelValue)
@@ -95,7 +92,7 @@ object IRTool {
     /**
      * utility：utility0-100，utility
      */
-    fun basicImageDetailEnhanceLevelSet(levelValue: Int)  {
+    fun basicImageDetailEnhanceLevelSet(levelValue: Int) {
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
 //            .advProfessionModeSet(CommonParams.ProfessionMode.valueOf(0))
 //        val basicImageDetailEnhanceLevelSetResult = DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -106,7 +103,7 @@ object IRTool {
     /**
      * Settingsutility
      */
-    fun basicMirrorAndFlipStatusSet(openMirror: Boolean)  {
+    fun basicMirrorAndFlipStatusSet(openMirror: Boolean) {
         // Settingsutility PASS
         val basicMirrorAndFlipStatusSet =
             DeviceIrcmdControlManager.getInstance().ircmdEngine
@@ -135,7 +132,7 @@ object IRTool {
      * utility，utility，utility
      * mIrcmdEngine.basicSaveData(CommonParams.DeviceDataSaveType.BASIC_SAVE_RMCOVER_DATA);
      */
-    fun onceAuto(): Boolean  {
+    fun onceAuto(): Boolean {
         // Setp2
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.basicRestoreDefaultData(CommonParams.DeviceRestoreTypeType.BASIC_RESTROE_RMCOVER_DATA)
@@ -160,14 +157,13 @@ object IRTool {
     /**
      * utilityLow gainModeutility，utility
      */
-    suspend fun autoStart(): Boolean  {
+    suspend fun autoStart(): Boolean {
         basicGainSet(CameraItemBean.TYPE_TMP_C)
         delay(2000)
         XLog.d(TAG, "onceAuto=start")
-        if (!onceAuto())
-            {
-                return false
-            }
+        if (!onceAuto()) {
+            return false
+        }
         XLog.d(TAG, "basicGainSet=start")
         basicGainSet(CameraItemBean.TYPE_TMP_H)
         delay(2000)
@@ -178,7 +174,7 @@ object IRTool {
     /**
      * utilityCoreutility
      */
-    fun advEnvCorrectSwitchSet(open: Boolean)  {
+    fun advEnvCorrectSwitchSet(open: Boolean) {
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.advEnvCorrectSwitchSet(
                 if (open) {
@@ -193,7 +189,7 @@ object IRTool {
      * Coreutility
      * utility：range:1~16384
      */
-    fun advEnvCorrectEMSSet(value: Int)  {
+    fun advEnvCorrectEMSSet(value: Int) {
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             .advEnvCorrectEMSSet(value)
     }
@@ -202,7 +198,7 @@ object IRTool {
      * Coreutility
      * utility(units:Celsius)：range:233~373
      */
-    fun advEnvCorrectTUSet(value: Int)  {
+    fun advEnvCorrectTUSet(value: Int) {
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
             ?.advEnvCorrectTUSet(value)
     }
@@ -248,7 +244,7 @@ object IRTool {
     /**
      * SettingsutilityModeutility
      */
-    fun setMode()  {
+    fun setMode() {
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine
 //            .advProfessionModeSet(CommonParams.ProfessionMode.valueOf(0))
 //        val ircmdError = DeviceIrcmdControlManager.getInstance().ircmdEngine

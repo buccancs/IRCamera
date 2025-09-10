@@ -80,7 +80,12 @@ object BluetoothUtil {
             return false
         }
 
-        val btAdapter: BluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        val btAdapter: BluetoothAdapter =
+            (
+                context.getSystemService(
+                    Context.BLUETOOTH_SERVICE,
+                ) as BluetoothManager
+            ).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
             XLog.e("utility-utility")
@@ -110,7 +115,12 @@ object BluetoothUtil {
             return false
         }
 
-        val btAdapter: BluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        val btAdapter: BluetoothAdapter =
+            (
+                context.getSystemService(
+                    Context.BLUETOOTH_SERVICE,
+                ) as BluetoothManager
+            ).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
             XLog.w("utility-utility")

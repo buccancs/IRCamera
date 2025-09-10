@@ -12,10 +12,9 @@ abstract class NullSensor(private val interval: Long = 0) : AbstractSensor() {
         }
 
     override fun startImpl() {
-        if (interval == 0L)
-            {
-                timer.once(0L)
-            } else {
+        if (interval == 0L) {
+            timer.once(0L)
+        } else {
             timer.interval(interval)
         }
     }

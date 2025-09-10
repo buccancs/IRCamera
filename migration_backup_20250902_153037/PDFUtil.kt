@@ -119,7 +119,12 @@ object PDFUtil {
                 titleText.textSize = 8f
                 titleText.paint.isFakeBoldText = true
                 titleText.setTextColor(0xff333333.toInt())
-                titleText.setPadding(SizeUtils.dp2px(13f), SizeUtils.dp2px(13f), SizeUtils.dp2px(13f), SizeUtils.dp2px(3f))
+                titleText.setPadding(
+                    SizeUtils.dp2px(13f),
+                    SizeUtils.dp2px(13f),
+                    SizeUtils.dp2px(13f),
+                    SizeUtils.dp2px(3f),
+                )
                 titleText.measure(
                     MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -365,7 +370,8 @@ object PDFUtil {
 
                             // 部分机型 resolver.insert() 返回的 Uri 用 id 拼的，导致分享时显示的文件名有问题，这里查询一遍
                             val selection = "${MediaStore.MediaColumns.RELATIVE_PATH} = ? AND ${MediaStore.MediaColumns.DISPLAY_NAME} = ?"
-                            val selectionArgs: Array<String> = arrayOf(FileConfig.documentsDir, houseReport.getPdfFileName())
+                            val selectionArgs: Array<String> =
+                                arrayOf(FileConfig.documentsDir, houseReport.getPdfFileName())
                             val cursor: Cursor? =
                                 resolver.query(
                                     contentUri,
@@ -376,7 +382,10 @@ object PDFUtil {
                                 )
                             if (cursor != null) {
                                 if (cursor.moveToFirst()) {
-                                    val data: String? = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA))
+                                    val data: String? =
+                                        cursor.getString(
+                                            cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA),
+                                        )
                                     if (data != null) {
                                         pdfUri = UriUtils.file2Uri(File(data))
                                     }
@@ -408,7 +417,8 @@ object PDFUtil {
             val selectionArgs: Array<String> = arrayOf(FileConfig.documentsDir, pdfFileName)
             val cursor: Cursor = resolver.query(contentUri, arrayOf(MediaStore.MediaColumns.DATA), selection, selectionArgs, null) ?: return null
             if (cursor.moveToFirst()) {
-                val pdfFile = File(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)) ?: return null)
+                val pdfFile =
+                    File(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)) ?: return null)
                 cursor.close()
                 return if (pdfFile.exists()) UriUtils.file2Uri(pdfFile) else null
             } else {
@@ -477,7 +487,10 @@ object PDFUtil {
 
         val ownerWidth = footView.iv_house_owner_signature.width
         val ownerHeight = footView.iv_house_owner_signature.height
-        val ownerDrawable = Glide.with(context).asDrawable().load(houseReport.houseOwnerBlackPath).submit(ownerWidth, ownerHeight).get()
+        val ownerDrawable =
+            Glide.with(
+                context,
+            ).asDrawable().load(houseReport.houseOwnerBlackPath).submit(ownerWidth, ownerHeight).get()
         footView.iv_house_owner_signature.setImageDrawable(ownerDrawable)
 
         return footView

@@ -170,9 +170,27 @@ class TemperatureHikView : TemperatureBaseView {
 
             System.arraycopy(newData, 0, sourceTempArray, 0, sourceTempArray.size)
             when (rotateAngle) {
-                90 -> LibIRProcess.rotateLeft90(sourceTempArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, rotateTempArray)
-                180 -> LibIRProcess.rotate180(sourceTempArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, rotateTempArray)
-                270 -> LibIRProcess.rotateRight90(sourceTempArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, rotateTempArray)
+                90 ->
+                    LibIRProcess.rotateLeft90(
+                        sourceTempArray,
+                        imageRes,
+                        IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14,
+                        rotateTempArray,
+                    )
+                180 ->
+                    LibIRProcess.rotate180(
+                        sourceTempArray,
+                        imageRes,
+                        IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14,
+                        rotateTempArray,
+                    )
+                270 ->
+                    LibIRProcess.rotateRight90(
+                        sourceTempArray,
+                        imageRes,
+                        IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14,
+                        rotateTempArray,
+                    )
                 else -> System.arraycopy(sourceTempArray, 0, rotateTempArray, 0, rotateTempArray.size)
             }
 
@@ -356,7 +374,14 @@ class TemperatureHikView : TemperatureBaseView {
                     return
                 }
 
-                val centerResult = if (isShowFull) libIRTemp.getTemperatureOfPoint(Point(imageWidth / 2, imageHeight / 2)) else null
+                val centerResult =
+                    if (isShowFull) {
+                        libIRTemp.getTemperatureOfPoint(
+                            Point(imageWidth / 2, imageHeight / 2),
+                        )
+                    } else {
+                        null
+                    }
 
                 var trendResult: TemperatureSampleResult? = null
                 trendLine?.let {

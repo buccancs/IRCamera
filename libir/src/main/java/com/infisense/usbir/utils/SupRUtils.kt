@@ -9,14 +9,14 @@ object SupRUtils {
     /**
      * utility
      */
-    fun canOpenSupR(): Boolean  {
+    fun canOpenSupR(): Boolean {
         return true
     }
 
     /**
      * utility
      */
-    fun showOpenSupRTipsDialog(activity: Activity)  {
+    fun showOpenSupRTipsDialog(activity: Activity) {
     }
 
     fun bitmapToByteArray(bitmap: Bitmap): ByteArray {

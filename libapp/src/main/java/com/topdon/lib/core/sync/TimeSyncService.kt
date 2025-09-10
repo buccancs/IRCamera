@@ -81,7 +81,10 @@ class TimeSyncService {
                     // Only accept samples with reasonable round-trip delay
                     if (sample.roundTripDelay <= MAX_ACCEPTABLE_DELAY_MS) {
                         samples.add(sample)
-                        Log.d(TAG, "Sample ${attempt + 1}: offset=${sample.clockOffset}ms, delay=${sample.roundTripDelay}ms")
+                        Log.d(
+                            TAG,
+                            "Sample ${attempt + 1}: offset=${sample.clockOffset}ms, delay=${sample.roundTripDelay}ms",
+                        )
                     } else {
                         Log.w(TAG, "Sample ${attempt + 1} rejected: delay too high (${sample.roundTripDelay}ms)")
                     }

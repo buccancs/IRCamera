@@ -119,12 +119,11 @@ class TempAlarmSetDialog(
         cl_ringtone_select.isVisible = !isEdit && switch_alarm_ringtone.isChecked
         tv_alarm_ringtone.isVisible = !isEdit
         switch_alarm_ringtone.isVisible = !isEdit
-        if (hideAlarmMark)
-            {
-                tv_alarm_mark.visibility = View.GONE
-                switch_alarm_mark.visibility = View.GONE
-                cl_alarm_mark.visibility = View.GONE
-            }
+        if (hideAlarmMark) {
+            tv_alarm_mark.visibility = View.GONE
+            switch_alarm_mark.visibility = View.GONE
+            cl_alarm_mark.visibility = View.GONE
+        }
         switch_alarm_mark.isVisible = !isEdit
         if (alarmBean.highTemp == Float.MAX_VALUE) {
             et_alarm_high.setText("")
@@ -154,13 +153,25 @@ class TempAlarmSetDialog(
         try {
             val inputHigh =
                 if (switch_alarm_high.isChecked) {
-                    if (et_alarm_high.text.isNotEmpty()) UnitTools.showToCValue(et_alarm_high.text.toString().toFloat()) else null
+                    if (et_alarm_high.text.isNotEmpty()) {
+                        UnitTools.showToCValue(
+                            et_alarm_high.text.toString().toFloat(),
+                        )
+                    } else {
+                        null
+                    }
                 } else {
                     null
                 }
             val inputLow =
                 if (switch_alarm_low.isChecked) {
-                    if (et_alarm_low.text.isNotEmpty()) UnitTools.showToCValue(et_alarm_low.text.toString().toFloat()) else null
+                    if (et_alarm_low.text.isNotEmpty()) {
+                        UnitTools.showToCValue(
+                            et_alarm_low.text.toString().toFloat(),
+                        )
+                    } else {
+                        null
+                    }
                 } else {
                     null
                 }

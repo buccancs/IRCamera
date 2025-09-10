@@ -38,7 +38,6 @@ import org.greenrobot.eventbus.ThreadMode
  * fragment
  */
 class IRCorrectionFragment : BaseFragment(), ITsTempListener {
-
     /** fragmentMode：fragment+fragment */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
@@ -348,13 +347,12 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
                             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    } else
-                        {
-                            ircmd?.setPropAutoShutterParameter(
-                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
-                            )
-                        }
+                    } else {
+                        ircmd?.setPropAutoShutterParameter(
+                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                        )
+                    }
                 }
             }
             // Fragment logic、fragment

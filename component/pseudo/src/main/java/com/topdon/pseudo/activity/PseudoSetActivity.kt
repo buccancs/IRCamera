@@ -375,7 +375,9 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         ivDynamic.setImageResource(
             if (isToCustom) R.drawable.svg_pseudo_set_dynamic_not_select else R.drawable.svg_pseudo_set_dynamic_select,
         )
-        ivCustom.setImageResource(if (isToCustom) R.drawable.svg_pseudo_set_custom_select else R.drawable.svg_pseudo_set_custom_not_select)
+        ivCustom.setImageResource(
+            if (isToCustom) R.drawable.svg_pseudo_set_custom_select else R.drawable.svg_pseudo_set_custom_not_select,
+        )
         tvDynamicTitle.setTextColor(if (isToCustom) 0xffffffff.toInt() else 0xffffba42.toInt())
         tvCustomTitle.setTextColor(if (isToCustom) 0xffffba42.toInt() else 0xffffffff.toInt())
     }
@@ -390,8 +392,12 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         clColorRecommend.isVisible = !isToCustom
         tvColorCustom.setTextColor(if (isToCustom) 0xffffba42.toInt() else 0xffffffff.toInt())
         tvColorRecommend.setTextColor(if (isToCustom) 0xffffffff.toInt() else 0xffffba42.toInt())
-        tvColorCustom.setBackgroundResource(if (isToCustom) RCore.drawable.bg_corners50_solid_2a183e_stroke_theme else 0)
-        tvColorRecommend.setBackgroundResource(if (isToCustom) 0 else RCore.drawable.bg_corners50_solid_2a183e_stroke_theme)
+        tvColorCustom.setBackgroundResource(
+            if (isToCustom) RCore.drawable.bg_corners50_solid_2a183e_stroke_theme else 0,
+        )
+        tvColorRecommend.setBackgroundResource(
+            if (isToCustom) 0 else RCore.drawable.bg_corners50_solid_2a183e_stroke_theme,
+        )
     }
 
     /**

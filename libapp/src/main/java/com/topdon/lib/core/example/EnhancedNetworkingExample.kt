@@ -54,7 +54,10 @@ class EnhancedNetworkingExample(private val context: Context) {
                 Log.i(TAG, "Found ${discoveredDevices.size} devices")
 
                 discoveredDevices.forEach { device ->
-                    Log.i(TAG, "  - Device: ${device.serviceName} at ${device.ipAddress}:${device.port} (${device.deviceType})")
+                    Log.i(
+                        TAG,
+                        "  - Device: ${device.serviceName} at ${device.ipAddress}:${device.port} (${device.deviceType})",
+                    )
                 }
 
                 // Step 4: Time synchronization with a discovered controller
@@ -65,7 +68,10 @@ class EnhancedNetworkingExample(private val context: Context) {
 
                         val syncResult = timeSyncService.synchronizeTime(pcController.ipAddress, pcController.port)
                         if (syncResult.isSuccess) {
-                            Log.i(TAG, "✓ Time synchronized. Offset: ${syncResult.clockOffsetMs}ms, RTT: ${syncResult.roundTripDelayMs}ms")
+                            Log.i(
+                                TAG,
+                                "✓ Time synchronized. Offset: ${syncResult.clockOffsetMs}ms, RTT: ${syncResult.roundTripDelayMs}ms",
+                            )
 
                             // Step 5: Demonstrate synchronized timestamps
                             val syncTimestamp = timeSyncService.getSynchronizedTime(syncResult.clockOffsetMs)

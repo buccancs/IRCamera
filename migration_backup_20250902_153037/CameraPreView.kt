@@ -130,10 +130,9 @@ class CameraPreView :
                     (startX > 0 && startX > parentViewW - SizeUtils.dp2px(10f)) ||
                     (startY < 0 && startY < -mTextureView.height * scale + SizeUtils.dp2px(10f)) ||
                     (startY > 0 && startY > parentViewH - SizeUtils.dp2px(10f))
-                )
-                    {
-                        cameraPreViewCloseListener?.invoke()
-                    }
+                ) {
+                    cameraPreViewCloseListener?.invoke()
+                }
             }
         }
         return lis.onTouchEvent(event)
@@ -151,20 +150,17 @@ class CameraPreView :
         isScale = true
         detector?.let {
             val scaleFactor = it.scaleFactor - 1
-            if (scaleFactor < 0)
-                {
-                    if (scale > 0.1)
-                        {
-                            scale += scaleFactor
-                            mTextureView.scaleX = scale
-                            mTextureView.scaleY = scale
-                        }
-                } else
-                {
+            if (scaleFactor < 0) {
+                if (scale > 0.1) {
                     scale += scaleFactor
                     mTextureView.scaleX = scale
                     mTextureView.scaleY = scale
                 }
+            } else {
+                scale += scaleFactor
+                mTextureView.scaleX = scale
+                mTextureView.scaleY = scale
+            }
         }
         return true
     }
@@ -177,13 +173,12 @@ class CameraPreView :
     override fun onScaleEnd(detector: ScaleGestureDetector) {
     }
 
-    fun onResume()  {
+    fun onResume() {
         // 处理切换后台，打开系统相机后，回到app导致预览不更新画面的问题
-        if (mCameraDevice != null)
-            {
-                mCameraDevice?.close()
-                openCamera()
-            }
+        if (mCameraDevice != null) {
+            mCameraDevice?.close()
+            openCamera()
+        }
     }
 
 // ////////////////
@@ -255,19 +250,17 @@ class CameraPreView :
             }
         }
 
-    fun setRotation(isReverse: Boolean)  {
+    fun setRotation(isReverse: Boolean) {
         this.isReverse = isReverse
         updateRotation()
     }
 
-    private fun updateRotation()  {
-        if (isReverse)
-            {
-                mTextureView.rotation = 180f
-            } else
-            {
-                mTextureView.rotation = 0f
-            }
+    private fun updateRotation() {
+        if (isReverse) {
+            mTextureView.rotation = 180f
+        } else {
+            mTextureView.rotation = 0f
+        }
     }
 
     /**
@@ -504,11 +497,11 @@ class CameraPreView :
     override val viewScale: Float
         get() = scale
 
-    fun setCameraAlpha(alpha: Float)  {
+    fun setCameraAlpha(alpha: Float) {
         mTextureView?.alpha = 1 - alpha
     }
 
-    fun setZoom(zoomLeve: Int)  {
+    fun setZoom(zoomLeve: Int) {
         scale = zoomLeve * 0.5f
         mTextureView.scaleX = scale
         mTextureView.scaleY = scale

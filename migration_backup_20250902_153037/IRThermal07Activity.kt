@@ -423,14 +423,12 @@ class IRThermal07Activity : BaseWifiActivity() {
         val config = ConfigRepository.readConfig(false)
         var text = ""
         for (tmp in IRConfigData.irConfigData(this)) {
-            if (config.radiation.toString() == tmp.value)
-                {
-                    if (text.isEmpty())
-                        {
-                            text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
-                        }
-                    text += "${tmp.name}/"
+            if (config.radiation.toString() == tmp.value) {
+                if (text.isEmpty()) {
+                    text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
                 }
+                text += "${tmp.name}/"
+            }
         }
         if (text.isNotEmpty()) {
             text = text.substring(0, text.length - 1)
@@ -480,14 +478,12 @@ class IRThermal07Activity : BaseWifiActivity() {
             val config = ConfigRepository.readConfig(true)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this)) {
-                if (config.radiation.toString() == tmp.value)
-                    {
-                        if (text.isEmpty())
-                            {
-                                text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
-                            }
-                        text += "${tmp.name}/"
+                if (config.radiation.toString() == tmp.value) {
+                    if (text.isEmpty()) {
+                        text = "${resources.getString(com.topdon.module.thermal.ir.R.string.tc_temp_test_materials)} : "
                     }
+                    text += "${tmp.name}/"
+                }
             }
             if (text.isNotEmpty()) {
                 text = text.substring(0, text.length - 1)
@@ -503,8 +499,14 @@ class IRThermal07Activity : BaseWifiActivity() {
             showGSROptions()
             true
         }
-        view_car_detect.findViewById<LinearLayout>(com.topdon.module.thermal.ir.R.id.ll_car_detect_info).setOnClickListener {
-            LongTextDialog(this, SharedManager.getCarDetectInfo()?.item, SharedManager.getCarDetectInfo()?.description).show()
+        view_car_detect.findViewById<LinearLayout>(
+            com.topdon.module.thermal.ir.R.id.ll_car_detect_info,
+        ).setOnClickListener {
+            LongTextDialog(
+                this,
+                SharedManager.getCarDetectInfo()?.item,
+                SharedManager.getCarDetectInfo()?.description,
+            ).show()
         }
         thermal_recycler_night.isVideoMode = WifiSaveSettingUtil.isVideoMode // 恢复拍照/录像状态
         thermal_recycler_night.onCameraClickListener = {
@@ -783,7 +785,10 @@ class IRThermal07Activity : BaseWifiActivity() {
                 val availableCameras = parallelRecorder?.getAvailableRGBCameras() ?: emptyList()
                 rgbCameraSettingsView?.setAvailableCameraFacing(availableCameras)
 
-                Log.i(TAG, "Parallel multi-modal recording system initialized with ${availableCameras.size} RGB cameras available")
+                Log.i(
+                    TAG,
+                    "Parallel multi-modal recording system initialized with ${availableCameras.size} RGB cameras available",
+                )
             }
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize parallel recording system", e)
@@ -1466,7 +1471,9 @@ class IRThermal07Activity : BaseWifiActivity() {
             IrParam.ParamPColor -> {
                 // 伪彩样式切换
                 lifecycleScope.launch {
-                    TC007Repository.setPallete(PalleteBean(0, stander = Stander(data as Int, arrayListOf(200, 100, 80))))
+                    TC007Repository.setPallete(
+                        PalleteBean(0, stander = Stander(data as Int, arrayListOf(200, 100, 80))),
+                    )
                     netListener?.invoke()
                 }
             }
@@ -1989,7 +1996,10 @@ class IRThermal07Activity : BaseWifiActivity() {
                         "timing_precision" to "samsung_s22_device_clock",
                     ),
                 )
-                Log.d("ThermalSync", "Synchronized GSR sync event triggered for thermal photo capture at timestamp: $synchronizedTimestamp")
+                Log.d(
+                    "ThermalSync",
+                    "Synchronized GSR sync event triggered for thermal photo capture at timestamp: $synchronizedTimestamp",
+                )
             }
 
             thermal_recycler_night.setToCamera()
@@ -2044,13 +2054,11 @@ class IRThermal07Activity : BaseWifiActivity() {
                             watermarkBean.title,
                             watermarkBean.address,
                             if (watermarkBean.isAddTime) TimeTool.getNowTime() else "",
-                            if (temperature_seekbar.isVisible)
-                                {
-                                    temperature_seekbar.measuredWidth
-                                } else
-                                {
-                                    0
-                                },
+                            if (temperature_seekbar.isVisible) {
+                                temperature_seekbar.measuredWidth
+                            } else {
+                                0
+                            },
                         )
                 }
                 var name = ""
@@ -2155,7 +2163,10 @@ class IRThermal07Activity : BaseWifiActivity() {
             val sessionId = TimeUtil.generateSessionId("Thermal_Video")
             currentSessionId = sessionId
 
-            Log.d("ThermalSync", "Starting synchronized thermal+GSR recording at unified timestamp: $synchronizedTimestamp")
+            Log.d(
+                "ThermalSync",
+                "Starting synchronized thermal+GSR recording at unified timestamp: $synchronizedTimestamp",
+            )
 
             // Start GSR recording first with unified timestamp
             enhancedThermalRecorder?.let { recorder ->
@@ -2846,17 +2857,15 @@ class IRThermal07Activity : BaseWifiActivity() {
         }
     }
 
-    private fun setCarDetectPrompt()  {
+    private fun setCarDetectPrompt() {
         var carDetectInfo = SharedManager.getCarDetectInfo()
         var tvDetectPrompt = view_car_detect.findViewById<TextView>(R.id.tv_detect_prompt)
-        if (carDetectInfo == null)
-            {
-                tvDetectPrompt.text = getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
-            } else
-            {
-                var temperature = carDetectInfo.temperature.split("~")
-                tvDetectPrompt.text = carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
-            }
+        if (carDetectInfo == null) {
+            tvDetectPrompt.text = getString(R.string.abnormal_item1) + TemperatureUtil.getTempStr(40, 70)
+        } else {
+            var temperature = carDetectInfo.temperature.split("~")
+            tvDetectPrompt.text = carDetectInfo.item + TemperatureUtil.getTempStr(temperature[0].toInt(), temperature[1].toInt())
+        }
         lay_car_detect_prompt.visibility = if (intent.getBooleanExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, false)) View.VISIBLE else View.GONE
         view_car_detect.findViewById<RelativeLayout>(com.topdon.module.thermal.ir.R.id.rl_content).setOnClickListener {
             CarDetectDialog(this) {

@@ -229,7 +229,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     // Common view lazy properties to replace synthetic views
     private val titleView by lazy { findViewById<MainTitleView>(R.id.title_view) }
-    protected val thermalRecyclerNight by lazy { findViewById<com.topdon.menu.MenuSecondView>(R.id.thermal_recycler_night) }
+    protected val thermalRecyclerNight by lazy {
+        findViewById<com.topdon.menu.MenuSecondView>(
+            R.id.thermal_recycler_night,
+        )
+    }
     private val thermalLay by lazy { findViewById<ConstraintLayout>(R.id.thermal_lay) }
     protected val tvTypeInd by lazy { findViewById<TextView>(R.id.tv_type_ind) }
 
@@ -241,11 +245,17 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private val popTimeText by lazy { findViewById<TextView>(R.id.pop_time_text) }
     protected val layCarDetectPrompt by lazy { findViewById<View>(R.id.lay_car_detect_prompt) }
     protected val temp_bg by lazy { findViewById<com.topdon.libcom.view.TempLayout>(R.id.temp_bg) }
-    protected val cl_seek_bar by lazy { findViewById<com.topdon.lib.ui.widget.BitmapConstraintLayout>(R.id.cl_seek_bar) }
+    protected val cl_seek_bar by lazy {
+        findViewById<com.topdon.lib.ui.widget.BitmapConstraintLayout>(
+            R.id.cl_seek_bar,
+        )
+    }
     protected val cameraPreview by lazy { findViewById<com.topdon.lib.ui.camera.CameraPreView>(R.id.cameraPreview) }
     private val distance_measure_view by lazy { findViewById<View>(R.id.distance_measure_view) }
     private val zoomView by lazy { findViewById<com.infisense.usbir.view.ZoomCaliperView>(R.id.zoomView) }
-    protected val temperatureSeekbar by lazy { findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar) }
+    protected val temperatureSeekbar by lazy {
+        findViewById<com.topdon.lib.ui.widget.seekbar.RangeSeekBar>(R.id.temperature_seekbar)
+    }
 
     // Additional view references for findViewById modernization
     // private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recycler_view) }  // ID doesn't exist
@@ -287,10 +297,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     XLog.e("activity")
                 }
             }
-            if (!SupHelp.getInstance().loadOpenclSuccess)
-                {
-                    return@launch
-                }
+            if (!SupHelp.getInstance().loadOpenclSuccess) {
+                return@launch
+            }
             isOpenAmplify = !isOpenAmplify
             if (saveSetBean.isRotatePortrait()) {
                 bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
@@ -304,31 +313,26 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             // titleView already initialized as class property
             titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
             SaveSettingUtil.isOpenAmplify = isOpenAmplify
-            if (isOpenAmplify)
-                {
-                    ToastUtils.showShort(R.string.tips_tisr_on)
-                } else
-                {
-                    ToastUtils.showShort(R.string.tips_tisr_off)
-                }
+            if (isOpenAmplify) {
+                ToastUtils.showShort(R.string.tips_tisr_on)
+            } else {
+                ToastUtils.showShort(R.string.tips_tisr_off)
+            }
         }
     }
 
-    open fun initAmplify(show: Boolean)  {
+    open fun initAmplify(show: Boolean) {
         lifecycleScope.launch {
             // titleView already initialized as class property
-            if (show)
-                {
-                    titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
-                } else
-                {
-                    titleView.setRight2Drawable(0)
-                }
+            if (show) {
+                titleView.setRight2Drawable(if (isOpenAmplify) R.drawable.svg_tisr_on else R.drawable.svg_tisr_off)
+            } else {
+                titleView.setRight2Drawable(0)
+            }
             withContext(Dispatchers.IO) {
-                if (isOpenAmplify)
-                    {
-                        SupHelp.getInstance().initA4KCPP()
-                    }
+                if (isOpenAmplify) {
+                    SupHelp.getInstance().initA4KCPP()
+                }
             }
             if (saveSetBean.isRotatePortrait()) {
                 bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
@@ -375,35 +379,30 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             finish()
         }
         titleView.setRight2ClickListener {
-            if (SupHelp.getInstance().loadOpenclSuccess)
-                {
-                    switchAmplify()
-                } else
-                {
-                    TipDialog.Builder(this)
-                        .setMessage(R.string.tips_tisr_fail)
-                        .setPositiveListener(R.string.app_got_it) {
-                        }
-                        .create().show()
-                }
+            if (SupHelp.getInstance().loadOpenclSuccess) {
+                switchAmplify()
+            } else {
+                TipDialog.Builder(this)
+                    .setMessage(R.string.tips_tisr_fail)
+                    .setPositiveListener(R.string.app_got_it) {
+                    }
+                    .create().show()
+            }
         }
         titleView.setRightClickListener {
             val config = ConfigRepository.readConfig(false)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this@IRThermalNightActivity)) {
-                if (config.radiation.toString() == tmp.value)
-                    {
-                        if (text.isEmpty())
-                            {
-                                text = "${resources.getString(LibcoreR.string.tc_temp_test_materials)} : "
-                            }
-                        text += "${tmp.name}/"
+                if (config.radiation.toString() == tmp.value) {
+                    if (text.isEmpty()) {
+                        text = "${resources.getString(LibcoreR.string.tc_temp_test_materials)} : "
                     }
-            }
-            if (text.isNotEmpty())
-                {
-                    text = text.substring(0, text.length - 1)
+                    text += "${tmp.name}/"
                 }
+            }
+            if (text.isNotEmpty()) {
+                text = text.substring(0, text.length - 1)
+            }
             EmissivityTipPopup(this@IRThermalNightActivity, false)
                 .setDataBean(config.environment, config.distance, config.radiation, text)
                 .build()
@@ -539,10 +538,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         // thermalText.text - it parameter removed
         lifecycleScope.launch {
             delay(1000)
-            if (!SharedManager.isHideEmissivityTips)
-                {
-                    showEmissivityTips()
-                }
+            if (!SharedManager.isHideEmissivityTips) {
+                showEmissivityTips()
+            }
         }
 
         ivTrendClose.setOnClickListener {
@@ -679,11 +677,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             // thermalRecyclerNight.setSettingSelected - synthetic method removed
 
             // Activity logicLow temperatureactivity
-            if (SaveSettingUtil.isOpenHighPoint || SaveSettingUtil.isOpenLowPoint)
-                {
-                    temperatureView.temperatureRegionMode = REGION_MODE_RESET
-                    temperatureView.visibility = View.VISIBLE
-                }
+            if (SaveSettingUtil.isOpenHighPoint || SaveSettingUtil.isOpenLowPoint) {
+                temperatureView.temperatureRegionMode = REGION_MODE_RESET
+                temperatureView.visibility = View.VISIBLE
+            }
             temperatureView.isUserHighTemp = SaveSettingUtil.isOpenHighPoint
             temperatureView.isUserLowTemp = SaveSettingUtil.isOpenLowPoint
             thermalRecyclerNight.setTempPointSelect(TempPointType.HIGH, SaveSettingUtil.isOpenHighPoint)
@@ -796,23 +793,20 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
     }
 
-    private fun showEmissivityTips()  {
+    private fun showEmissivityTips() {
         val config = ConfigRepository.readConfig(false)
         var text = ""
         for (tmp in IRConfigData.irConfigData(this)) {
-            if (config.radiation.toString() == tmp.value)
-                {
-                    if (text.isEmpty())
-                        {
-                            text = "${resources.getString(LibcoreR.string.tc_temp_test_materials)} : "
-                        }
-                    text += "${tmp.name}/"
+            if (config.radiation.toString() == tmp.value) {
+                if (text.isEmpty()) {
+                    text = "${resources.getString(LibcoreR.string.tc_temp_test_materials)} : "
                 }
-        }
-        if (text.isNotEmpty())
-            {
-                text = text.substring(0, text.length - 1)
+                text += "${tmp.name}/"
             }
+        }
+        if (text.isNotEmpty()) {
+            text = text.substring(0, text.length - 1)
+        }
         val dialog =
             TipEmissivityDialog.Builder(this@IRThermalNightActivity)
                 .setDataBean(config.environment, config.distance, config.radiation, text)
@@ -921,21 +915,17 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 ) {
                     if (isTouchSeekBar) {
                         editMinValue =
-                            if (tempMode == RangeSeekBar.TEMP_MODE_MIN || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL)
-                                {
-                                    UnitTools.showToCValue(leftValue, isShowC)
-                                } else
-                                {
-                                    Float.MIN_VALUE
-                                }
+                            if (tempMode == RangeSeekBar.TEMP_MODE_MIN || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL) {
+                                UnitTools.showToCValue(leftValue, isShowC)
+                            } else {
+                                Float.MIN_VALUE
+                            }
                         editMaxValue =
-                            if (tempMode == RangeSeekBar.TEMP_MODE_MAX || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL)
-                                {
-                                    UnitTools.showToCValue(rightValue, isShowC)
-                                } else
-                                {
-                                    Float.MAX_VALUE
-                                }
+                            if (tempMode == RangeSeekBar.TEMP_MODE_MAX || tempMode == RangeSeekBar.TEMP_MODE_INTERVAL) {
+                                UnitTools.showToCValue(rightValue, isShowC)
+                            } else {
+                                Float.MAX_VALUE
+                            }
                         imageThread?.setLimit(
                             editMaxValue,
                             editMinValue,
@@ -975,7 +965,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private fun updateTemperatureSeekBar(isEnabled: Boolean) {
         temperatureSeekbar.isEnabled = isEnabled
         // temperatureSeekbar.drawIndPath(isEnabled) // Method may not exist on RangeSeekBar
-        temperatureIvLock.setImageResource(if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock)
+        temperatureIvLock.setImageResource(
+            if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock,
+        )
         temperatureIvLock.contentDescription = if (isEnabled) "unlock" else "lock"
         if (isEnabled) {
             temperatureSeekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
@@ -1041,16 +1033,15 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             downColor,
         ) // Activity logic
         lifecycleScope.launch {
-            if (curChooseTabPos == Constants.IR_TEMPERATURE_MODE)
-                {
-                    temperatureView.clear()
-                    temperatureView.temperatureRegionMode = REGION_MODE_CENTER
-                    hasClickTrendDel = true
-                    spaceChart.isVisible = false
-                    clTrendOpen.isVisible = false
-                    llTrendClose.isVisible = false
-                    // thermalRecyclerNight.fenceSelectType - synthetic property removed
-                }
+            if (curChooseTabPos == Constants.IR_TEMPERATURE_MODE) {
+                temperatureView.clear()
+                temperatureView.temperatureRegionMode = REGION_MODE_CENTER
+                hasClickTrendDel = true
+                spaceChart.isVisible = false
+                clTrendOpen.isVisible = false
+                llTrendClose.isVisible = false
+                // thermalRecyclerNight.fenceSelectType - synthetic property removed
+            }
             setRotate(rotateAngle)
             delay(100)
             thermalRecyclerNight.setSettingRotate(rotateAngle)
@@ -1067,10 +1058,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
         if (rotateInt == 0 || rotateInt == 180) {
             bitmap = Bitmap.createBitmap(bitmapHeight, bitmapWidth, Bitmap.Config.ARGB_8888)
-            if (getProductName() != PRODUCT_NAME_TCP)
-                {
-                    temperatureView.setImageSize(imageHeight, imageWidth, this)
-                }
+            if (getProductName() != PRODUCT_NAME_TCP) {
+                temperatureView.setImageSize(imageHeight, imageWidth, this)
+            }
             cameraView.setImageSize(imageHeight, imageWidth)
             setViewLay(false)
         } else {
@@ -1108,7 +1098,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         irStart()
     }
 
-    open fun irStart()  {
+    open fun irStart() {
         if (!isrun) {
             syncimage.valid = true
             tvTypeInd?.visibility = GONE
@@ -1440,7 +1430,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
     }
 
-    private fun updateVideoDelayView()  {
+    private fun updateVideoDelayView() {
         try {
             // if (timeDownView.isRunning) {
             //     lifecycleScope.launch(Dispatchers.Main) {
@@ -1853,7 +1843,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             .create().show()
     }
 
-    private fun showTargetHelpDialog()  {
+    private fun showTargetHelpDialog() {
         // thermalRecyclerNight.setTargetSelected - synthetic method removed
         val dialog = TipGuideDialog.newInstance()
         dialog.closeEvent = {
@@ -2039,10 +2029,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         isBadFrames: Boolean,
     ) {
         isOnRestart = true
-        if (!isBadFrames)
-            {
-                showCameraLoading()
-            }
+        if (!isBadFrames) {
+            showCameraLoading()
+        }
         iruvc =
             IRUVCTC(
                 cameraWidth, cameraHeight, this, syncimage,
@@ -2150,26 +2139,22 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 if (nuc_table_low == null) {
                     return@let
                 }
-                if (ts_data_H == null)
-                    {
-                        ts_data_H = CommonUtils.getTauData(this@IRThermalNightActivity, "ts/TS001_H.bin")
-                    }
-                if (ts_data_L == null)
-                    {
-                        ts_data_L = CommonUtils.getTauData(this@IRThermalNightActivity, "ts/TS001_L.bin")
-                    }
+                if (ts_data_H == null) {
+                    ts_data_H = CommonUtils.getTauData(this@IRThermalNightActivity, "ts/TS001_H.bin")
+                }
+                if (ts_data_L == null) {
+                    ts_data_L = CommonUtils.getTauData(this@IRThermalNightActivity, "ts/TS001_L.bin")
+                }
                 isTS001 = true
             } else {
                 isTS001 = false
             }
-            if (!DeviceTools.isTC001PlusConnect())
-                {
-                    initAmplify(true)
-                } else
-                {
+            if (!DeviceTools.isTC001PlusConnect()) {
+                initAmplify(true)
+            } else {
 //                isOpenAmplify = false
 //                initAmplify(false)
-                }
+            }
         }
     }
 
@@ -2188,10 +2173,9 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         if (ts_data_H == null || ts_data_L == null) {
             return temp
         }
-        if (emissivityConfig == null)
-            {
-                emissivityConfig = ConfigRepository.readConfig(false)
-            }
+        if (emissivityConfig == null) {
+            emissivityConfig = ConfigRepository.readConfig(false)
+        }
         val paramsArray =
             floatArrayOf(
                 temp,
@@ -2348,12 +2332,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     private val permissionList by lazy {
-        if (this.applicationInfo.targetSdkVersion >= 34)
-            {
-                mutableListOf(
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
+        if (this.applicationInfo.targetSdkVersion >= 34) {
+            mutableListOf(
+                Permission.WRITE_EXTERNAL_STORAGE,
+            )
+        } else if (this.applicationInfo.targetSdkVersion == 33) {
             mutableListOf(
                 Permission.READ_MEDIA_VIDEO,
                 Permission.READ_MEDIA_IMAGES,
@@ -2538,15 +2521,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     open fun getCameraViewBitmap(): Bitmap {
-        if (isOpenAmplify)
-            {
-                // Activity logic，activity
-                return imageThread?.getBaseBitmap(saveSetBean.rotateAngle)
-                    ?: cameraView.getScaledBitmap()
-            } else
-            {
-                return cameraView.getScaledBitmap()
-            }
+        if (isOpenAmplify) {
+            // Activity logic，activity
+            return imageThread?.getBaseBitmap(saveSetBean.rotateAngle)
+                ?: cameraView.getScaledBitmap()
+        } else {
+            return cameraView.getScaledBitmap()
+        }
     }
 
     // Photo
@@ -2627,14 +2608,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionAndValueBitmap, 0, 0)
                     }
                     // Activity logic
-                    if (layCarDetectPrompt.isVisible)
-                        {
-                            cameraViewBitmap =
-                                BitmapUtils.mergeBitmap(
-                                    cameraViewBitmap,
-                                    layCarDetectPrompt.drawToBitmap(), 0, 0,
-                                )
-                        }
+                    if (layCarDetectPrompt.isVisible) {
+                        cameraViewBitmap =
+                            BitmapUtils.mergeBitmap(
+                                cameraViewBitmap,
+                                layCarDetectPrompt.drawToBitmap(), 0, 0,
+                            )
+                    }
                     // Activity logic
                     val watermarkBean = SharedManager.watermarkBean
                     if (watermarkBean.isOpen) {
@@ -2644,13 +2624,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                                 watermarkBean.title,
                                 watermarkBean.address,
                                 if (watermarkBean.isAddTime) TimeTool.getNowTime() else "",
-                                if (temperatureSeekbar.isVisible)
-                                    {
-                                        temperatureSeekbar.measuredWidth
-                                    } else
-                                    {
-                                        0
-                                    },
+                                if (temperatureSeekbar.isVisible) {
+                                    temperatureSeekbar.measuredWidth
+                                } else {
+                                    0
+                                },
                             )
                     }
 
@@ -2697,7 +2675,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
     }
 
-    open fun getProductName(): String  {
+    open fun getProductName(): String {
         return if (isTS001) {
             PRODUCT_NAME_TS
         } else {
@@ -2900,7 +2878,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         thermalRecyclerNight.setTempLevel(CameraItemBean.TYPE_TMP_ZD)
     }
 
-    open fun switchAutoGain(boolean: Boolean)  {
+    open fun switchAutoGain(boolean: Boolean) {
         iruvc?.auto_gain_switch = boolean
     }
 
@@ -2958,13 +2936,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     ircmd?.setContrast(saveSetBean.contrastValue)
                     if (SaveSettingUtil.isSaveSetting) {
                         XLog.i("activityModeactivity：${if (SaveSettingUtil.isMeasureTempMode) "Temperature measurement" else "Observation"}Mode")
-                        if (isTS001)
-                            {
-                                switchTs001Mode(SaveSettingUtil.isMeasureTempMode)
-                            } else
-                            {
-                                switchTs001Mode(true)
-                            }
+                        if (isTS001) {
+                            switchTs001Mode(SaveSettingUtil.isMeasureTempMode)
+                        } else {
+                            switchTs001Mode(true)
+                        }
                     }
                 }
                 ircmd?.setPropImageParams(
@@ -3219,11 +3195,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     ) {
                         if (doNotAskAgain) {
                             // Activity logic
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(R.string.app_camera_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(getString(R.string.app_camera_content))
+                                return
+                            }
                             TipDialog.Builder(this@IRThermalNightActivity)
                                 .setTitleMessage(getString(LibcoreR.string.app_tip))
                                 .setMessage(getString(R.string.app_camera_content))
@@ -3271,7 +3246,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
     }
 
-    private fun initAudioPermission()  {
+    private fun initAudioPermission() {
         XXPermissions.with(this@IRThermalNightActivity)
             .permission(
                 Permission.RECORD_AUDIO,
@@ -3304,11 +3279,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     ) {
                         if (doNotAskAgain) {
                             // Activity logic
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(R.string.app_microphone_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(getString(R.string.app_microphone_content))
+                                return
+                            }
                             TipDialog.Builder(this@IRThermalNightActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_microphone_content))
@@ -3380,11 +3354,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     ) {
                         if (doNotAskAgain) {
                             // Activity logic
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(R.string.app_storage_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(getString(R.string.app_storage_content))
+                                return
+                            }
                             TipDialog.Builder(this@IRThermalNightActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(R.string.app_storage_content)
@@ -3401,7 +3374,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             )
     }
 
-    private fun setCarDetectPrompt()  {
+    private fun setCarDetectPrompt() {
         // Car detection views don't exist in layout - commenting out for now
         /*
         var carDetectInfo = SharedManager.getCarDetectInfo()

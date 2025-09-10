@@ -109,17 +109,15 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             System.arraycopy(dataStr.toByteArray(), 0, oemInfo, 194, dataStr.toByteArray().size)
             val result = ircmd?.oemWrite(CommonParams.ProductType.P2, oemInfo)
 //            SharedManager.setIrDualDisp(dualDisp)
-            if (result == 0)
-                {
-                    // activity
-                    // if (thermalSteeringView.isVisible) {
-                    //    thermalSteeringView.visibility = View.GONE
-                    thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
-                    // }
-                } else
-                {
-                    ToastUtils.showShort(R.string.correction_fail)
-                }
+            if (result == 0) {
+                // activity
+                // if (thermalSteeringView.isVisible) {
+                //    thermalSteeringView.visibility = View.GONE
+                thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
+                // }
+            } else {
+                ToastUtils.showShort(R.string.correction_fail)
+            }
         }
     }
 
@@ -153,19 +151,17 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
             }
             TwoLightType.CORRECT -> { // Registration
-                if (isSelected)
-                    {
-                        // thermalSteeringView.visibility = View.VISIBLE
-                        if (mCurrentFusionType != DualCameraParams.FusionType.LPYFusion && mCurrentFusionType != DualCameraParams.FusionType.MeanFusion) {
-                            mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
-                            thermalRecyclerNight.twoLightType = TwoLightType.TWO_LIGHT_1
-                            SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
-                            setFusion(DualCameraParams.FusionType.LPYFusion)
-                        }
-                    } else
-                    {
-                        // thermalSteeringView.visibility = View.GONE
+                if (isSelected) {
+                    // thermalSteeringView.visibility = View.VISIBLE
+                    if (mCurrentFusionType != DualCameraParams.FusionType.LPYFusion && mCurrentFusionType != DualCameraParams.FusionType.MeanFusion) {
+                        mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
+                        thermalRecyclerNight.twoLightType = TwoLightType.TWO_LIGHT_1
+                        SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
+                        setFusion(DualCameraParams.FusionType.LPYFusion)
                     }
+                } else {
+                    // thermalSteeringView.visibility = View.GONE
+                }
             }
             else -> {
                 super.setTwoLight(twoLightType, isSelected)
@@ -242,24 +238,22 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     override fun onIrFrame(irFrame: ByteArray?): ByteArray {
         System.arraycopy(irFrame, 0, preIrData, 0, preIrData.size)
         System.arraycopy(irFrame, preIrData.size, preTempData, 0, preTempData.size)
-        if (irImageHelp.getColorList() != null)
-            {
-                // Activity logicPseudo-coloractivity
-                LibIRProcess.convertYuyvMapToARGBPseudocolor(
-                    preIrData,
-                    (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
-                    CommonParams.PseudoColorType.PSEUDO_1,
-                    preIrARGBData,
-                )
-            } else
-            {
-                LibIRProcess.convertYuyvMapToARGBPseudocolor(
-                    preIrData,
-                    (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
-                    PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode),
-                    preIrARGBData,
-                )
-            }
+        if (irImageHelp.getColorList() != null) {
+            // Activity logicPseudo-coloractivity
+            LibIRProcess.convertYuyvMapToARGBPseudocolor(
+                preIrData,
+                (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
+                CommonParams.PseudoColorType.PSEUDO_1,
+                preIrARGBData,
+            )
+        } else {
+            LibIRProcess.convertYuyvMapToARGBPseudocolor(
+                preIrData,
+                (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
+                PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode),
+                preIrARGBData,
+            )
+        }
         irImageHelp.customPseudoColor(preIrARGBData, preTempData, Const.IR_WIDTH, Const.IR_HEIGHT)
         // Activity logic,activityPseudo-coloractivity
         irImageHelp.setPseudoColorMaxMin(

@@ -18,15 +18,13 @@ class WifiSteeringWheelView : LinearLayout, OnClickListener {
     var rotationIR = 270
         set(value) {
             field = value
-            if (value == 270 || value == 90)
-                {
-                    tv_confirm?.rotation = 270f
-                    rotation = 90f
-                } else
-                {
-                    tv_confirm?.rotation = 0f
-                    rotation = 0f
-                }
+            if (value == 270 || value == 90) {
+                tv_confirm?.rotation = 270f
+                rotation = 90f
+            } else {
+                tv_confirm?.rotation = 0f
+                rotation = 0f
+            }
             requestLayout()
         }
 
@@ -49,15 +47,13 @@ class WifiSteeringWheelView : LinearLayout, OnClickListener {
         steering_wheel_end_btn.setOnClickListener(this)
         steering_wheel_top_btn.setOnClickListener(this)
         steering_wheel_bottom_btn.setOnClickListener(this)
-        if (rotationIR == 270 || rotationIR == 90)
-            {
-                tv_confirm.rotation = 270f
-                rotation = 90f
-            } else
-            {
-                tv_confirm.rotation = 0f
-                rotation = 0f
-            }
+        if (rotationIR == 270 || rotationIR == 90) {
+            tv_confirm.rotation = 270f
+            rotation = 90f
+        } else {
+            tv_confirm.rotation = 0f
+            rotation = 0f
+        }
     }
 
     val moveI = 2

@@ -271,21 +271,19 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     private fun checkStoragePermission() {
         val permissionList: List<String> =
-            if (this.applicationInfo.targetSdkVersion >= 34)
-                {
-                    listOf(
-                        Permission.READ_MEDIA_VIDEO,
-                        Permission.READ_MEDIA_IMAGES,
-                        Permission.WRITE_EXTERNAL_STORAGE,
-                    )
-                } else if (this.applicationInfo.targetSdkVersion >= 34)
-                {
-                    listOf(
-                        Permission.READ_MEDIA_VIDEO,
-                        Permission.READ_MEDIA_IMAGES,
-                        Permission.WRITE_EXTERNAL_STORAGE,
-                    )
-                } else if (this.applicationInfo.targetSdkVersion == 33) {
+            if (this.applicationInfo.targetSdkVersion >= 34) {
+                listOf(
+                    Permission.READ_MEDIA_VIDEO,
+                    Permission.READ_MEDIA_IMAGES,
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                )
+            } else if (this.applicationInfo.targetSdkVersion >= 34) {
+                listOf(
+                    Permission.READ_MEDIA_VIDEO,
+                    Permission.READ_MEDIA_IMAGES,
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                )
+            } else if (this.applicationInfo.targetSdkVersion == 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,
@@ -316,11 +314,10 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
      * 动态申请权限
      */
     private fun initStoragePermission(permissionList: List<String>) {
-        if (PermissionUtils.isVisualUser())
-            {
-                view_page.setCurrentItem(1, false)
-                return
-            }
+        if (PermissionUtils.isVisualUser()) {
+            view_page.setCurrentItem(1, false)
+            return
+        }
         XXPermissions.with(this)
             .permission(permissionList)
             .request(

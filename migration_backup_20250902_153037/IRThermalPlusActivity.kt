@@ -107,17 +107,15 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             System.arraycopy(dataStr.toByteArray(), 0, oemInfo, 194, dataStr.toByteArray().size)
             val result = ircmd?.oemWrite(CommonParams.ProductType.P2, oemInfo)
 //            SharedManager.setIrDualDisp(dualDisp)
-            if (result == 0)
-                {
-                    // 关闭控件
-                    if (thermal_steering_view.isVisible) {
-                        thermal_steering_view.visibility = View.GONE
-                        thermal_recycler_night.setTwoLightSelected(TwoLightType.CORRECT, false)
-                    }
-                } else
-                {
-                    ToastUtils.showShort(R.string.correction_fail)
+            if (result == 0) {
+                // 关闭控件
+                if (thermal_steering_view.isVisible) {
+                    thermal_steering_view.visibility = View.GONE
+                    thermal_recycler_night.setTwoLightSelected(TwoLightType.CORRECT, false)
                 }
+            } else {
+                ToastUtils.showShort(R.string.correction_fail)
+            }
         }
     }
 
@@ -151,19 +149,17 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                 thermal_recycler_night.setTwoLightSelected(TwoLightType.CORRECT, false)
             }
             TwoLightType.CORRECT -> { // 配准
-                if (isSelected)
-                    {
-                        thermal_steering_view.visibility = View.VISIBLE
-                        if (mCurrentFusionType != DualCameraParams.FusionType.LPYFusion && mCurrentFusionType != DualCameraParams.FusionType.MeanFusion) {
-                            mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
-                            thermal_recycler_night.twoLightType = TwoLightType.TWO_LIGHT_1
-                            SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
-                            setFusion(DualCameraParams.FusionType.LPYFusion)
-                        }
-                    } else
-                    {
-                        thermal_steering_view.visibility = View.GONE
+                if (isSelected) {
+                    thermal_steering_view.visibility = View.VISIBLE
+                    if (mCurrentFusionType != DualCameraParams.FusionType.LPYFusion && mCurrentFusionType != DualCameraParams.FusionType.MeanFusion) {
+                        mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
+                        thermal_recycler_night.twoLightType = TwoLightType.TWO_LIGHT_1
+                        SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
+                        setFusion(DualCameraParams.FusionType.LPYFusion)
                     }
+                } else {
+                    thermal_steering_view.visibility = View.GONE
+                }
             }
             else -> {
                 super.setTwoLight(twoLightType, isSelected)
@@ -239,24 +235,22 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     override fun onIrFrame(irFrame: ByteArray?): ByteArray {
         System.arraycopy(irFrame, 0, preIrData, 0, preIrData.size)
         System.arraycopy(irFrame, preIrData.size, preTempData, 0, preTempData.size)
-        if (irImageHelp.getColorList() != null)
-            {
-                // 转成灰度图进行自定义伪彩融合处理
-                LibIRProcess.convertYuyvMapToARGBPseudocolor(
-                    preIrData,
-                    (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
-                    CommonParams.PseudoColorType.PSEUDO_1,
-                    preIrARGBData,
-                )
-            } else
-            {
-                LibIRProcess.convertYuyvMapToARGBPseudocolor(
-                    preIrData,
-                    (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
-                    PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode),
-                    preIrARGBData,
-                )
-            }
+        if (irImageHelp.getColorList() != null) {
+            // 转成灰度图进行自定义伪彩融合处理
+            LibIRProcess.convertYuyvMapToARGBPseudocolor(
+                preIrData,
+                (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
+                CommonParams.PseudoColorType.PSEUDO_1,
+                preIrARGBData,
+            )
+        } else {
+            LibIRProcess.convertYuyvMapToARGBPseudocolor(
+                preIrData,
+                (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
+                PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode),
+                preIrARGBData,
+            )
+        }
         irImageHelp.customPseudoColor(preIrARGBData, preTempData, Const.IR_WIDTH, Const.IR_HEIGHT)
         // 等温尺处理,展示伪彩的温度范围内信息
         irImageHelp.setPseudoColorMaxMin(

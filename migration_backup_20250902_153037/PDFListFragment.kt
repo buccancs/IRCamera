@@ -77,10 +77,9 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
 
         viewModel.listData.observe(this) {
             dismissLoadingDialog()
-            if (!reportAdapter.hasEmptyView())
-                {
-                    reportAdapter.setEmptyView(R.layout.layout_empty)
-                }
+            if (!reportAdapter.hasEmptyView()) {
+                reportAdapter.setEmptyView(R.layout.layout_empty)
+            }
             if (it == null) {
                 if (page == 1) {
                     fragment_pdf_recycler_lay.finishRefresh(false)
@@ -90,34 +89,30 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
             }
             it?.let { data ->
                 val tvEmpty: TextView? = reportAdapter.emptyLayout?.findViewById(R.id.tv_empty)
-                tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) R.string.request_fail else R.string.tip_no_more_data)
+                tvEmpty?.setText(
+                    if (page == 1 && data.code != LMS.SUCCESS) R.string.request_fail else R.string.tip_no_more_data,
+                )
 
                 if (page == 1) {
                     // 刷新
-                    if (data.code == LMS.SUCCESS)
-                        {
-                            reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
-                            fragment_pdf_recycler_lay.finishRefresh()
-                        } else
-                        {
-                            fragment_pdf_recycler_lay.finishRefresh(false)
-                        }
+                    if (data.code == LMS.SUCCESS) {
+                        reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
+                        fragment_pdf_recycler_lay.finishRefresh()
+                    } else {
+                        fragment_pdf_recycler_lay.finishRefresh(false)
+                    }
                     reportAdapter.setNewInstance(data.data?.records)
                 } else {
                     data.data?.records?.let { it1 -> reportAdapter.addData(it1) }
-                    if (data.code == LMS.SUCCESS)
-                        {
-                            if (data.data?.records.isNullOrEmpty())
-                                {
-                                    reportAdapter.loadMoreModule.loadMoreEnd()
-                                } else
-                                {
-                                    reportAdapter.loadMoreModule.loadMoreComplete()
-                                }
-                        } else
-                        {
-                            reportAdapter.loadMoreModule.loadMoreFail()
+                    if (data.code == LMS.SUCCESS) {
+                        if (data.data?.records.isNullOrEmpty()) {
+                            reportAdapter.loadMoreModule.loadMoreEnd()
+                        } else {
+                            reportAdapter.loadMoreModule.loadMoreComplete()
                         }
+                    } else {
+                        reportAdapter.loadMoreModule.loadMoreFail()
+                    }
                 }
             }
         }
@@ -126,10 +121,9 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 override fun onResume(owner: LifecycleOwner) {
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(false)
-                    } else
-                        {
-                            NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
-                        }
+                    } else {
+                        NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
+                    }
                     if (!hasLoadData) {
                         hasLoadData = true
                         fragment_pdf_recycler_lay.autoRefresh()
@@ -220,16 +214,14 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                             )
                         }
                         dismissLoadingDialog()
-                        if (item.isShowTitleTime)
-                            {
-                                reportAdapter.remove(item)
-                                reportAdapter.setNewInstance(reportAdapter.data)
-                                reportAdapter.notifyDataSetChanged()
-                            } else
-                            {
-                                reportAdapter.data.removeAt(position)
-                                reportAdapter.notifyItemRemoved(position)
-                            }
+                        if (item.isShowTitleTime) {
+                            reportAdapter.remove(item)
+                            reportAdapter.setNewInstance(reportAdapter.data)
+                            reportAdapter.notifyDataSetChanged()
+                        } else {
+                            reportAdapter.data.removeAt(position)
+                            reportAdapter.notifyItemRemoved(position)
+                        }
                     }
                 }
                 .setCancelListener(R.string.app_cancel) {

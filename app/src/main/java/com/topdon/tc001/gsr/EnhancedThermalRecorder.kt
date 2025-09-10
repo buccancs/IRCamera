@@ -43,8 +43,16 @@ class EnhancedThermalRecorder private constructor(
                 Log.d(TAG, "Processor variant: $detectedProcessor - Optimal timing performance enabled")
 
                 when (detectedProcessor) {
-                    "Exynos_2200" -> Log.i(TAG, "Exynos 2200 processor detected - ARM Cortex-X2 high-precision timing active")
-                    "Snapdragon_8_Gen_1" -> Log.i(TAG, "Snapdragon 8 Gen 1 processor detected - Kryo 780 high-precision timing active")
+                    "Exynos_2200" ->
+                        Log.i(
+                            TAG,
+                            "Exynos 2200 processor detected - ARM Cortex-X2 high-precision timing active",
+                        )
+                    "Snapdragon_8_Gen_1" ->
+                        Log.i(
+                            TAG,
+                            "Snapdragon 8 Gen 1 processor detected - Kryo 780 high-precision timing active",
+                        )
                     "Samsung_S22_Generic" -> Log.i(TAG, "Samsung S22 detected - Generic high-precision timing active")
                 }
             } else {

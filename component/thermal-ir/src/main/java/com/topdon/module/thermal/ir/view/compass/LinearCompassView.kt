@@ -227,7 +227,12 @@ class LinearCompassView : View {
             // View rendering
             if (it % 45 == 0) {
                 val coord = getPositionText(it)
-                canvas.drawText(coord, realX(coord, x, positionPaint), realY(coord, height - 2f, positionPaint), positionPaint)
+                canvas.drawText(
+                    coord,
+                    realX(coord, x, positionPaint),
+                    realY(coord, height - 2f, positionPaint),
+                    positionPaint,
+                )
             }
         }
     }

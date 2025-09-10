@@ -96,9 +96,21 @@ class AlgorithmImageActivity : AppCompatActivity() {
             val nextTemperatureBytes = ByteArray(192 * 256 * 2)
             val nextImageBytes = ByteArray(192 * 256 * 2)
             // Activity logic
-            System.arraycopy(buffer, 1024 + baseTemperatureBytes.size, baseTemperatureBytes, 0, baseTemperatureBytes.size)
+            System.arraycopy(
+                buffer,
+                1024 + baseTemperatureBytes.size,
+                baseTemperatureBytes,
+                0,
+                baseTemperatureBytes.size,
+            )
             // Activity logic
-            System.arraycopy(bufferB, 1024 + nextTemperatureBytes.size, nextTemperatureBytes, 0, nextTemperatureBytes.size)
+            System.arraycopy(
+                bufferB,
+                1024 + nextTemperatureBytes.size,
+                nextTemperatureBytes,
+                0,
+                nextTemperatureBytes.size,
+            )
             // Activity logic
             System.arraycopy(bufferB, 1024, nextImageBytes, 0, nextImageBytes.size)
             // Activity logic3activity

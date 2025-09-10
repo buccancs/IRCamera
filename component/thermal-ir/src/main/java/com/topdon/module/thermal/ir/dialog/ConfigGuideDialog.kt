@@ -34,7 +34,11 @@ import kotlinx.coroutines.launch
  *
  * Created by LCG on 2024/11/13.
  */
-class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, R.style.TransparentDialog) {
+class ConfigGuideDialog(
+    context: Context,
+    val isTC007: Boolean,
+    val dataBean: DataBean,
+) : Dialog(context, R.style.TransparentDialog) {
     // Initialize views with findViewById
     private lateinit var tvDefaultTempTitle: TextView
     private lateinit var tvDefaultDisTitle: TextView

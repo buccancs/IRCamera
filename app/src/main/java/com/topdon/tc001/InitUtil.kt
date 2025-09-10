@@ -139,7 +139,11 @@ object InitUtil {
         if (Build.VERSION.SDK_INT < 33) {
             BaseApplication.instance.registerReceiver(BaseApplication.usbObserver, filter)
         } else {
-            BaseApplication.instance.registerReceiver(BaseApplication.usbObserver, filter, Context.RECEIVER_NOT_EXPORTED)
+            BaseApplication.instance.registerReceiver(
+                BaseApplication.usbObserver,
+                filter,
+                Context.RECEIVER_NOT_EXPORTED,
+            )
         }
     }
 }

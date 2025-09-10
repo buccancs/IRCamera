@@ -36,7 +36,6 @@ import org.greenrobot.eventbus.ThreadMode
  * 热成像选取点
  */
 class IRCorrectionFragment : BaseFragment(), ITsTempListener {
-
     /** 默认数据流模式：图像+温度复合数据 */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
@@ -333,13 +332,12 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
                             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    } else
-                        {
-                            ircmd?.setPropAutoShutterParameter(
-                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
-                            )
-                        }
+                    } else {
+                        ircmd?.setPropAutoShutterParameter(
+                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                        )
+                    }
                 }
             }
             // 复位对比度、细节

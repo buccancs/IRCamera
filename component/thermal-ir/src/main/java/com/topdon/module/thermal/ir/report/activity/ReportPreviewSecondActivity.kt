@@ -127,7 +127,11 @@ class ReportPreviewSecondActivity : BaseViewModelActivity<UpReportViewModel>(), 
                     val drawable = GlideLoader.getDrawable(this@ReportPreviewSecondActivity, irList[i].picture_url)
                     reportShowView.setImageDrawable(drawable)
                 }
-                llContent.addView(reportShowView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                llContent.addView(
+                    reportShowView,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                )
             }
         }
 

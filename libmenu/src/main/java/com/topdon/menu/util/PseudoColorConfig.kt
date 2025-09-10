@@ -14,7 +14,14 @@ object PseudoColorConfig {
         when (code) {
             1 -> intArrayOf(0xffffffff.toInt(), 0xff000000.toInt())
             3 -> intArrayOf(0xfffbda00.toInt(), 0xffea0e0e.toInt(), 0xff6907af.toInt())
-            4 -> intArrayOf(0xffe7321d.toInt(), 0xfffdee38.toInt(), 0xff58e531.toInt(), 0xff0003c8.toInt(), 0xff01000e.toInt())
+            4 ->
+                intArrayOf(
+                    0xffe7321d.toInt(),
+                    0xfffdee38.toInt(),
+                    0xff58e531.toInt(),
+                    0xff0003c8.toInt(),
+                    0xff01000e.toInt(),
+                )
             5 ->
                 intArrayOf(
                     0xffe7321d.toInt(),

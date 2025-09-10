@@ -188,7 +188,12 @@ class ColorSelectView : View {
             path.lineTo(margin + itemSize * 12 - connerSize, margin)
             path.quadTo(margin + itemSize * 12, margin, margin + itemSize * 12, margin + connerSize)
             path.lineTo(margin + itemSize * 12, margin + itemSize * 10 - connerSize)
-            path.quadTo(margin + itemSize * 12, margin + itemSize * 10, margin + itemSize * 12 - connerSize, margin + itemSize * 10)
+            path.quadTo(
+                margin + itemSize * 12,
+                margin + itemSize * 10,
+                margin + itemSize * 12 - connerSize,
+                margin + itemSize * 10,
+            )
             path.lineTo(margin + connerSize, margin + itemSize * 10)
             path.quadTo(margin, margin + itemSize * 10, margin, margin + itemSize * 10 - connerSize)
             path.close()
@@ -228,7 +233,12 @@ class ColorSelectView : View {
                 } else if (row == 9 && column == 11) {
                     path.rewind()
                     path.moveTo(margin + itemSize * 12, margin + itemSize * 10 - connerSize)
-                    path.quadTo(margin + itemSize * 12, margin + itemSize * 10, margin + itemSize * 12 - connerSize, margin + itemSize * 10)
+                    path.quadTo(
+                        margin + itemSize * 12,
+                        margin + itemSize * 10,
+                        margin + itemSize * 12 - connerSize,
+                        margin + itemSize * 10,
+                    )
                     path.lineTo(margin + itemSize * 11, margin + itemSize * 10)
                     path.lineTo(margin + itemSize * 11, margin + itemSize * 9)
                     path.lineTo(margin + itemSize * 12, margin + itemSize * 9)

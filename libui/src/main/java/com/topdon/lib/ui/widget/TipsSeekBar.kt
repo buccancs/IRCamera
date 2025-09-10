@@ -128,7 +128,10 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
                 seekBar -> {
                     val childWidthSpec = MeasureSpec.makeMeasureSpec((width * seekPercent).toInt(), MeasureSpec.EXACTLY)
                     val childHeightSpc = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.AT_MOST)
-                    child.measure(childWidthSpec, if (heightMode == MeasureSpec.EXACTLY) childHeightSpc else heightMeasureSpec)
+                    child.measure(
+                        childWidthSpec,
+                        if (heightMode == MeasureSpec.EXACTLY) childHeightSpc else heightMeasureSpec,
+                    )
                 }
                 tvTips -> {
                     val tipsWidth = (width * tipsPercent).toInt()

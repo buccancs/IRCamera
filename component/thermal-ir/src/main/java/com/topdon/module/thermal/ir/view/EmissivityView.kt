@@ -121,7 +121,13 @@ class EmissivityView : View {
         if (drawTopLine) {
             canvas.drawLine(0f, strokeWidth / 2, contentWidth, strokeWidth / 2, linePaint)
         }
-        canvas.drawLine(0f, height.toFloat() - strokeWidth / 2, contentWidth, height.toFloat() - strokeWidth / 2, linePaint)
+        canvas.drawLine(
+            0f,
+            height.toFloat() - strokeWidth / 2,
+            contentWidth,
+            height.toFloat() - strokeWidth / 2,
+            linePaint,
+        )
         canvas.drawLine(strokeWidth / 2, 0f, strokeWidth / 2, height.toFloat(), linePaint)
 
         val padding = SizeUtils.dp2px(12f).toFloat()

@@ -168,18 +168,42 @@ class HikSurfaceView : SurfaceView {
 
         // View renderingWhite hotPseudo-color，viewModeview
         val pseudo: PseudoColorType = if (irImageHelp.getColorList() == null) pseudoType else PseudoColorType.PSEUDO_1
-        LibIRProcess.convertYuyvMapToARGBPseudocolor(yuvArray, (sourceWidth * sourceHeight).toLong(), pseudo, sourceArgbArray)
+        LibIRProcess.convertYuyvMapToARGBPseudocolor(
+            yuvArray,
+            (sourceWidth * sourceHeight).toLong(),
+            pseudo,
+            sourceArgbArray,
+        )
         // View rendering
         irImageHelp.customPseudoColor(sourceArgbArray, tempArray, sourceWidth, sourceHeight)
         // View rendering
-        irImageHelp.setPseudoColorMaxMin(sourceArgbArray, tempArray, limitTempMax, limitTempMin, sourceWidth, sourceHeight)
+        irImageHelp.setPseudoColorMaxMin(
+            sourceArgbArray,
+            tempArray,
+            limitTempMax,
+            limitTempMin,
+            sourceWidth,
+            sourceHeight,
+        )
         // View rendering
         val newArray = irImageHelp.contourDetection(alarmBean, sourceArgbArray, tempArray, sourceWidth, sourceHeight) ?: sourceArgbArray
         // Rotate
         when (rotateAngle) {
-            90 -> LibIRProcess.rotateLeft90(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
+            90 ->
+                LibIRProcess.rotateLeft90(
+                    newArray,
+                    imageRes,
+                    IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888,
+                    rotateArgbArray,
+                )
             180 -> LibIRProcess.rotate180(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
-            270 -> LibIRProcess.rotateRight90(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
+            270 ->
+                LibIRProcess.rotateRight90(
+                    newArray,
+                    imageRes,
+                    IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888,
+                    rotateArgbArray,
+                )
             else -> System.arraycopy(newArray, 0, rotateArgbArray, 0, rotateArgbArray.size)
         }
         // View rendering

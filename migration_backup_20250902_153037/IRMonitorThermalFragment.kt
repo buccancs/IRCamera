@@ -76,10 +76,9 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments?.containsKey("isPick") == true)
-            {
-                isPick = requireArguments().getBoolean("isPick")
-            }
+        if (arguments?.containsKey("isPick") == true) {
+            isPick = requireArguments().getBoolean("isPick")
+        }
     }
 
     override fun initData() {
@@ -277,13 +276,11 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         Log.w(TAG, "onStart")
         if (!isrun) {
             // 初始配置,伪彩铁红
-            if (isPick)
-                {
-                    pseudocolorMode = SaveSettingUtil.pseudoColorMode
-                } else
-                {
-                    pseudocolorMode = 3
-                }
+            if (isPick) {
+                pseudocolorMode = SaveSettingUtil.pseudoColorMode
+            } else {
+                pseudocolorMode = 3
+            }
             startUSB(false)
             startISP()
             temperatureView.start()
@@ -480,13 +477,12 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
                             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    } else
-                        {
-                            ircmd?.setPropAutoShutterParameter(
-                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
-                            )
-                        }
+                    } else {
+                        ircmd?.setPropAutoShutterParameter(
+                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                        )
+                    }
                 }
             }
             // 复位对比度、细节
@@ -508,16 +504,16 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         }
     }
 
-    fun getBitmap(): Bitmap  {
+    fun getBitmap(): Bitmap {
         return cameraView.scaledBitmap
     }
 
-    fun startCoverStsSwitchReady(): Int  {
+    fun startCoverStsSwitchReady(): Int {
         // 锅盖标定-准备
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
 
-    fun startCoverStsSwitch(): Int  {
+    fun startCoverStsSwitch(): Int {
         // 锅盖标定-准备
         ircmd?.rmCoverAutoCalc(CommonParams.RMCoverAutoCalcType.GAIN_1)
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1

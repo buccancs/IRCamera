@@ -55,7 +55,11 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
                 context.getString(R.string.main_tab_second_target_color),
                 CameraHelp.TYPE_SET_TARGET_COLOR,
             ),
-            ColorBean(MenuR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
+            ColorBean(
+                MenuR.drawable.selector_menu2_del,
+                context.getString(R.string.thermal_delete),
+                CameraHelp.TYPE_SET_TARGET_DELETE,
+            ),
             ColorBean(
                 MenuR.drawable.selector_menu2_target_4_help,
                 context.getString(R.string.main_tab_second_target_help),
@@ -121,7 +125,11 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
             ),
         )
         secondBean.add(
-            ColorBean(MenuR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
+            ColorBean(
+                MenuR.drawable.selector_menu2_del,
+                context.getString(R.string.thermal_delete),
+                CameraHelp.TYPE_SET_TARGET_DELETE,
+            ),
         )
         secondBean.add(
             ColorBean(

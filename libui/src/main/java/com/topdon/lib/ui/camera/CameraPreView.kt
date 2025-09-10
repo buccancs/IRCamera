@@ -396,7 +396,10 @@ class CameraPreView :
                 mPreviewSize = getOptimalSize(mapList, width, height)
                 val constraintSet = ConstraintSet()
                 constraintSet.clone(binding.cameraLayRoot)
-                constraintSet.constrainHeight(binding.cameraTexture.id, width * mPreviewSize!!.width / mPreviewSize!!.height)
+                constraintSet.constrainHeight(
+                    binding.cameraTexture.id,
+                    width * mPreviewSize!!.width / mPreviewSize!!.height,
+                )
                 constraintSet.applyTo(binding.cameraLayRoot)
                 XLog.w("mPreviewSize:$mPreviewSize")
                 // viewPhotoview

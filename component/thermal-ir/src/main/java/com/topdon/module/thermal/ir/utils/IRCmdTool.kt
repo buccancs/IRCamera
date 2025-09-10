@@ -45,27 +45,23 @@ object IRCmdTool {
             var str = String(dispData)
             str = str.replace(Regex("[^-\\d]"), "")
             dispNumber = str.toInt()
-            if (dispNumber > 60)
-                {
-                    dispNumber = dispNumber / 10
-                }
-            if (dispNumber < -20)
-                {
-                    dispNumber = -20
-                }
+            if (dispNumber > 60) {
+                dispNumber = dispNumber / 10
+            }
+            if (dispNumber < -20) {
+                dispNumber = -20
+            }
             XLog.w("Registration offset:", "" + dispNumber)
         } catch (e: Exception) {
             XLog.w("Registration error")
         }
         val snList = String(snData).split(";")
         val snStr =
-            if (snList.isNotEmpty() && snList[0].contains("sn", true))
-                {
-                    snList[0].replace("SN:", "")
-                } else
-                {
-                    ""
-                }
+            if (snList.isNotEmpty() && snList[0].contains("sn", true)) {
+                snList[0].replace("SN:", "")
+            } else {
+                ""
+            }
         val parameters = ByteArray(calibrationDataSize + 1 + 24)
         if (String(productTypeData) == "TD") {
             System.arraycopy(calibrationData, 0, parameters, 0, calibrationData.size)
@@ -100,19 +96,17 @@ object IRCmdTool {
         return parameters
     }
 
-    fun getSNStr(irCmd: IRCMD?): String  {
+    fun getSNStr(irCmd: IRCMD?): String {
         val oemInfo = ByteArray(512)
         irCmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
         val snData = ByteArray(256)
         System.arraycopy(oemInfo, 256, snData, 0, snData.size)
         val snList = String(snData).split(";")
-        return if (snList.isNotEmpty() && snList[0].contains("sn", true))
-            {
-                snList[0].replace("SN:", "")
-            } else
-            {
-                ""
-            }
+        return if (snList.isNotEmpty() && snList[0].contains("sn", true)) {
+            snList[0].replace("SN:", "")
+        } else {
+            ""
+        }
     }
 
     /**

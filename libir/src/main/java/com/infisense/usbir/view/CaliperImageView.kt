@@ -60,20 +60,16 @@ class CaliperImageView : AppCompatImageView {
     ) {
         this.imageWidth = imageWidth
         this.imageHeight = imageHeight
-        if (parentViewWidth > 0)
-            {
-                this.parentViewWidth = parentViewWidth.toFloat()
-            } else
-            {
-                this.parentViewWidth = (parent as ViewGroup).measuredWidth.toFloat()
-            }
-        if (parentViewHeight > 0)
-            {
-                this.parentViewHeight = parentViewHeight.toFloat()
-            } else
-            {
-                this.parentViewHeight = (parent as ViewGroup).measuredHeight.toFloat()
-            }
+        if (parentViewWidth > 0) {
+            this.parentViewWidth = parentViewWidth.toFloat()
+        } else {
+            this.parentViewWidth = (parent as ViewGroup).measuredWidth.toFloat()
+        }
+        if (parentViewHeight > 0) {
+            this.parentViewHeight = parentViewHeight.toFloat()
+        } else {
+            this.parentViewHeight = (parent as ViewGroup).measuredHeight.toFloat()
+        }
         if (parentViewWidth > 0) {
             xscale = parentViewWidth.toFloat() / imageWidth.toFloat()
         }
@@ -87,13 +83,12 @@ class CaliperImageView : AppCompatImageView {
         layoutParams.width = showBitmapWidth.toInt()
         layoutParams.height = showBitmapHeight.toInt()
         this.layoutParams = layoutParams
-        if (l == 0 && t == 0 && r == 0 && b == 0)
-            {
-                l = (parentViewWidth / 2 - showBitmapWidth / 2).toInt()
-                r = (parentViewWidth / 2 + showBitmapWidth / 2).toInt()
-                t = (parentViewHeight / 2 - showBitmapHeight / 2).toInt()
-                b = (parentViewHeight / 2 + showBitmapHeight / 2).toInt()
-            }
+        if (l == 0 && t == 0 && r == 0 && b == 0) {
+            l = (parentViewWidth / 2 - showBitmapWidth / 2).toInt()
+            r = (parentViewWidth / 2 + showBitmapWidth / 2).toInt()
+            t = (parentViewHeight / 2 - showBitmapHeight / 2).toInt()
+            b = (parentViewHeight / 2 + showBitmapHeight / 2).toInt()
+        }
         layout(l, t, r, b)
         requestLayout()
     }

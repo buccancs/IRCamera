@@ -110,7 +110,14 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         adapter.isEditMode = isEditMode
         group_bottom.isVisible = isEditMode
         title_view.setTitleText(
-            if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery),
+            if (isEditMode) {
+                getString(
+                    R.string.chosen_item,
+                    adapter.selectList.size,
+                )
+            } else {
+                getString(R.string.app_gallery)
+            },
         )
         title_view.setLeftDrawable(if (isEditMode) R.drawable.svg_x_cc else R.drawable.ic_back_white_svg)
         title_view.setLeftClickListener {

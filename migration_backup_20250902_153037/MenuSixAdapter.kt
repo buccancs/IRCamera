@@ -57,12 +57,36 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
 
     private val sixBean =
         arrayListOf(
-            MonocularBean(R.drawable.ic_menu_black_hot_svg, context.getString(R.string.color_p11), MonocularHelp.TYPE_SET_BLACK),
-            MonocularBean(R.drawable.ic_menu_range, context.getString(R.string.func_test_distance), MonocularHelp.TYPE_SET_RANGE),
-            MonocularBean(R.drawable.ic_menu_light_high_svg, context.getString(R.string.brightness_ios), MonocularHelp.TYPE_SET_LIGHT),
-            MonocularBean(R.drawable.ic_menu_pip, context.getString(R.string.thermal_picture_in_camera), MonocularHelp.TYPE_SET_PIP),
-            MonocularBean(R.drawable.ic_menu_gain_x1_svg, context.getString(R.string.func_focal_distance), MonocularHelp.TYPE_SET_GAIN),
-            MonocularBean(R.drawable.ic_menu_more, context.getString(R.string.search_learn_more), MonocularHelp.TYPE_SET_MORE),
+            MonocularBean(
+                R.drawable.ic_menu_black_hot_svg,
+                context.getString(R.string.color_p11),
+                MonocularHelp.TYPE_SET_BLACK,
+            ),
+            MonocularBean(
+                R.drawable.ic_menu_range,
+                context.getString(R.string.func_test_distance),
+                MonocularHelp.TYPE_SET_RANGE,
+            ),
+            MonocularBean(
+                R.drawable.ic_menu_light_high_svg,
+                context.getString(R.string.brightness_ios),
+                MonocularHelp.TYPE_SET_LIGHT,
+            ),
+            MonocularBean(
+                R.drawable.ic_menu_pip,
+                context.getString(R.string.thermal_picture_in_camera),
+                MonocularHelp.TYPE_SET_PIP,
+            ),
+            MonocularBean(
+                R.drawable.ic_menu_gain_x1_svg,
+                context.getString(R.string.func_focal_distance),
+                MonocularHelp.TYPE_SET_GAIN,
+            ),
+            MonocularBean(
+                R.drawable.ic_menu_more,
+                context.getString(R.string.search_learn_more),
+                MonocularHelp.TYPE_SET_MORE,
+            ),
         )
 
     override fun onCreateViewHolder(
@@ -89,67 +113,64 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
                 listener?.invoke(position, bean.code)
                 selected(bean.code)
             }
-            if (bean.code == MonocularHelp.TYPE_SET_BLACK)
-                {
-                    when (pseudoMode) {
-                        MenuBean.TYPE_WHITE_HOT -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_white_hot)
-                            holder.name.text = context.getString(R.string.color_p1)
-                        }
-                        MenuBean.TYPE_BLACK_HOT -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_black_hot)
-                            holder.name.text = context.getString(R.string.color_p11)
-                        }
-                        MenuBean.TYPE_RED_HOT -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_red_hot)
-                            holder.name.text = context.getString(R.string.color_p7)
-                        }
-                        MenuBean.TYPE_MIX -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_mix)
-                            holder.name.text = context.getString(R.string.color_p12)
-                        }
-                        MenuBean.TYPE_BIRD -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_bird)
-                            holder.name.text = context.getString(R.string.color_p13)
-                        }
+            if (bean.code == MonocularHelp.TYPE_SET_BLACK) {
+                when (pseudoMode) {
+                    MenuBean.TYPE_WHITE_HOT -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_white_hot)
+                        holder.name.text = context.getString(R.string.color_p1)
+                    }
+                    MenuBean.TYPE_BLACK_HOT -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_black_hot)
+                        holder.name.text = context.getString(R.string.color_p11)
+                    }
+                    MenuBean.TYPE_RED_HOT -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_red_hot)
+                        holder.name.text = context.getString(R.string.color_p7)
+                    }
+                    MenuBean.TYPE_MIX -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_mix)
+                        holder.name.text = context.getString(R.string.color_p12)
+                    }
+                    MenuBean.TYPE_BIRD -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_bird)
+                        holder.name.text = context.getString(R.string.color_p13)
                     }
                 }
+            }
 
-            if (bean.code == MonocularHelp.TYPE_SET_LIGHT)
-                {
-                    when (lightLevel) {
-                        in 81..100 -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_light_high)
-                            holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_high)
-                        }
-                        in 61..80 -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_light_middle)
-                            holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_middle)
-                        }
-                        in 0..60 -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_light_low)
-                            holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_low)
-                        }
+            if (bean.code == MonocularHelp.TYPE_SET_LIGHT) {
+                when (lightLevel) {
+                    in 81..100 -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_light_high)
+                        holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_high)
+                    }
+                    in 61..80 -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_light_middle)
+                        holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_middle)
+                    }
+                    in 0..60 -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_light_low)
+                        holder.name.text = context.getString(R.string.brightness_ios) + ": " + context.getString(R.string.ts004_low)
                     }
                 }
+            }
 
-            if (bean.code == MonocularHelp.TYPE_SET_GAIN)
-                {
-                    when (gainLevel) {
-                        MenuBean.TYPE_GAIN_X1 -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_gain_x1)
-                        }
-                        MenuBean.TYPE_GAIN_X2 -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_gain_x2)
-                        }
-                        MenuBean.TYPE_GAIN_X4 -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_gain_x4)
-                        }
-                        MenuBean.TYPE_GAIN_X8 -> {
-                            holder.img.setImageResource(R.drawable.ic_menu_gain_x8)
-                        }
+            if (bean.code == MonocularHelp.TYPE_SET_GAIN) {
+                when (gainLevel) {
+                    MenuBean.TYPE_GAIN_X1 -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_gain_x1)
+                    }
+                    MenuBean.TYPE_GAIN_X2 -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_gain_x2)
+                    }
+                    MenuBean.TYPE_GAIN_X4 -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_gain_x4)
+                    }
+                    MenuBean.TYPE_GAIN_X8 -> {
+                        holder.img.setImageResource(R.drawable.ic_menu_gain_x8)
                     }
                 }
+            }
 
             when (bean.code) {
                 MonocularHelp.TYPE_SET_RANGE -> {
@@ -193,17 +214,16 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
                 layoutParams.width = imageSize
                 layoutParams.height = imageSize
                 itemView.item_menu_tab_img.layoutParams = layoutParams
-            } else
-                {
-                    val count = 3.5 // 一屏占4个
-                    val height = (ScreenUtil.getScreenHeight(context) / count).toInt()
-                    itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
-                    val imageSize = (ScreenUtil.getScreenHeight(context) * 62 / 375f).toInt()
-                    val layoutParams = itemView.item_menu_tab_img.layoutParams
-                    layoutParams.width = imageSize
-                    layoutParams.height = imageSize
-                    itemView.item_menu_tab_img.layoutParams = layoutParams
-                }
+            } else {
+                val count = 3.5 // 一屏占4个
+                val height = (ScreenUtil.getScreenHeight(context) / count).toInt()
+                itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
+                val imageSize = (ScreenUtil.getScreenHeight(context) * 62 / 375f).toInt()
+                val layoutParams = itemView.item_menu_tab_img.layoutParams
+                layoutParams.width = imageSize
+                layoutParams.height = imageSize
+                itemView.item_menu_tab_img.layoutParams = layoutParams
+            }
         }
     }
 }

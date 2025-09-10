@@ -97,13 +97,11 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 TipDialog.Builder(requireContext())
                     .setMessage(R.string.save_setting_tips)
                     .setPositiveListener(R.string.app_ok) {
-                        if (isTC007)
-                            {
-                                WifiSaveSettingUtil.isSaveSetting = true
-                            } else
-                            {
-                                SaveSettingUtil.isSaveSetting = true
-                            }
+                        if (isTC007) {
+                            WifiSaveSettingUtil.isSaveSetting = true
+                        } else {
+                            SaveSettingUtil.isSaveSetting = true
+                        }
                     }
                     .setCancelListener(R.string.app_cancel) {
                         setting_item_config_select.isChecked = false
@@ -111,15 +109,13 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                     .setCanceled(false)
                     .create().show()
             } else {
-                if (isTC007)
-                    {
-                        WifiSaveSettingUtil.reset()
-                        WifiSaveSettingUtil.isSaveSetting = false
-                    } else
-                    {
-                        SaveSettingUtil.reset()
-                        SaveSettingUtil.isSaveSetting = false
-                    }
+                if (isTC007) {
+                    WifiSaveSettingUtil.reset()
+                    WifiSaveSettingUtil.isSaveSetting = false
+                } else {
+                    SaveSettingUtil.reset()
+                    SaveSettingUtil.isSaveSetting = false
+                }
             }
         }
 

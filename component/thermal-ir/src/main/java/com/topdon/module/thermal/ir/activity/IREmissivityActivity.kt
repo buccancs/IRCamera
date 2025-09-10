@@ -183,7 +183,9 @@ class IREmissivityActivity : BaseActivity() {
                         if (minTemp == null || maxTemp == null || minTemp == maxTemp) {
                             textList.add(UnitTools.showNoUnit((minTemp ?: maxTemp)!!.toFloat()))
                         } else {
-                            textList.add(UnitTools.showNoUnit(minTemp.toFloat()) + "~" + UnitTools.showNoUnit(maxTemp.toFloat()))
+                            textList.add(
+                                UnitTools.showNoUnit(minTemp.toFloat()) + "~" + UnitTools.showNoUnit(maxTemp.toFloat()),
+                            )
                         }
                     } else {
                         if (emStr != null) {
@@ -207,7 +209,12 @@ class IREmissivityActivity : BaseActivity() {
             ItemBean(name = getString(LibR.string.material_aluminum)),
             ItemBean(name = getString(LibR.string.material_polished_aluminum), minTemp = 100, emStr = "0.09"),
             ItemBean(name = getString(LibR.string.material_comm_aluminum_foil), minTemp = 100, emStr = "0.09"),
-            ItemBean(name = getString(LibR.string.material_mild_alumina), minTemp = 25, maxTemp = 600, emStr = "0.10～0.20"),
+            ItemBean(
+                name = getString(LibR.string.material_mild_alumina),
+                minTemp = 25,
+                maxTemp = 600,
+                emStr = "0.10～0.20",
+            ),
             ItemBean(name = getString(LibR.string.material_alumina), minTemp = 25, maxTemp = 600, emStr = "0.30～0.40"),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_brass)),
@@ -215,16 +222,36 @@ class IREmissivityActivity : BaseActivity() {
             ItemBean(name = getString(LibR.string.material_oxide), minTemp = 200, maxTemp = 600, emStr = "0.59～0.61"),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_chromium)),
-            ItemBean(name = getString(LibR.string.material_polished_chromium), minTemp = 40, maxTemp = 1090, emStr = "0.08～0.36"),
+            ItemBean(
+                name = getString(LibR.string.material_polished_chromium),
+                minTemp = 40,
+                maxTemp = 1090,
+                emStr = "0.08～0.36",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_copper)),
             ItemBean(name = getString(LibR.string.material_bronze_mirror_1), minTemp = 100, emStr = "0.05"),
             ItemBean(name = getString(LibR.string.material_copper_oxide), minTemp = 25, emStr = "0.078"),
-            ItemBean(name = getString(LibR.string.material_oxide_bronze), minTemp = 800, maxTemp = 1100, emStr = "0.66～0.54"),
-            ItemBean(name = getString(LibR.string.material_bronze_water), minTemp = 1080, maxTemp = 1280, emStr = "0.16～0.13"),
+            ItemBean(
+                name = getString(LibR.string.material_oxide_bronze),
+                minTemp = 800,
+                maxTemp = 1100,
+                emStr = "0.66～0.54",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_bronze_water),
+                minTemp = 1080,
+                maxTemp = 1280,
+                emStr = "0.16～0.13",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_gold)),
-            ItemBean(name = getString(LibR.string.material_golden_mirror), minTemp = 230, maxTemp = 630, emStr = "0.02"),
+            ItemBean(
+                name = getString(LibR.string.material_golden_mirror),
+                minTemp = 230,
+                maxTemp = 630,
+                emStr = "0.02",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_iron)),
             ItemBean(name = getString(LibR.string.material_polished_cast_iron), minTemp = 200, emStr = "0.21"),
@@ -236,26 +263,76 @@ class IREmissivityActivity : BaseActivity() {
                 maxTemp = 600,
                 emStr = "0.64～0.78",
             ),
-            ItemBean(name = getString(LibR.string.material_e_iron_oxide), minTemp = 125, maxTemp = 520, emStr = "0.78～0.82"),
-            ItemBean(name = getString(LibR.string.material_iron_oxide), minTemp = 500, maxTemp = 1200, emStr = "0.85～0.89"),
-            ItemBean(name = getString(LibR.string.material_iron_plate), minTemp = 925, maxTemp = 1120, emStr = "0.87～0.95"),
+            ItemBean(
+                name = getString(LibR.string.material_e_iron_oxide),
+                minTemp = 125,
+                maxTemp = 520,
+                emStr = "0.78～0.82",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_iron_oxide),
+                minTemp = 500,
+                maxTemp = 1200,
+                emStr = "0.85～0.89",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_iron_plate),
+                minTemp = 925,
+                maxTemp = 1120,
+                emStr = "0.87～0.95",
+            ),
             ItemBean(name = getString(LibR.string.material_cast_iron_oxygen), minTemp = 25, emStr = "0.8"),
             ItemBean(name = getString(LibR.string.material_melt_surface), minTemp = 22, emStr = "0.94"),
-            ItemBean(name = getString(LibR.string.material_melt_cast_iron), minTemp = 1300, maxTemp = 1400, emStr = "0.29"),
-            ItemBean(name = getString(LibR.string.material_pure_iron), minTemp = 1515, maxTemp = 1680, emStr = "0.42～0.45"),
+            ItemBean(
+                name = getString(LibR.string.material_melt_cast_iron),
+                minTemp = 1300,
+                maxTemp = 1400,
+                emStr = "0.29",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_pure_iron),
+                minTemp = 1515,
+                maxTemp = 1680,
+                emStr = "0.42～0.45",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_steel)),
             ItemBean(name = getString(LibR.string.material_steel_1, UnitTools.showWithUnit(600f))),
             ItemBean(name = getString(LibR.string.material_oxide_steel), minTemp = 100, emStr = "0.74"),
-            ItemBean(name = getString(LibR.string.material_metrot_low_carbon_steel), minTemp = 1600, maxTemp = 1800, emStr = "0.28"),
-            ItemBean(name = getString(LibR.string.material_steel_water), minTemp = 1500, maxTemp = 1650, emStr = "0.42～0.53"),
+            ItemBean(
+                name = getString(LibR.string.material_metrot_low_carbon_steel),
+                minTemp = 1600,
+                maxTemp = 1800,
+                emStr = "0.28",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_steel_water),
+                minTemp = 1500,
+                maxTemp = 1650,
+                emStr = "0.42～0.53",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_lead)),
-            ItemBean(name = getString(LibR.string.material_pure_lead), minTemp = 125, maxTemp = 225, emStr = "0.06～0.08"),
-            ItemBean(name = getString(LibR.string.material_mild_oxidation_lead), minTemp = 25, maxTemp = 300, emStr = "0.20～0.45"),
+            ItemBean(
+                name = getString(LibR.string.material_pure_lead),
+                minTemp = 125,
+                maxTemp = 225,
+                emStr = "0.06～0.08",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_mild_oxidation_lead),
+                minTemp = 25,
+                maxTemp = 300,
+                emStr = "0.20～0.45",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_magnesium)),
-            ItemBean(name = getString(LibR.string.material_magnesium_oxide), minTemp = 275, maxTemp = 825, emStr = "0.55～0.20"),
+            ItemBean(
+                name = getString(LibR.string.material_magnesium_oxide),
+                minTemp = 275,
+                maxTemp = 825,
+                emStr = "0.55～0.20",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_mercury)),
             ItemBean(name = getString(LibR.string.material_mercury), minTemp = 0, maxTemp = 100, emStr = "0.09～0.12"),
@@ -263,13 +340,38 @@ class IREmissivityActivity : BaseActivity() {
             ItemBean(name = getString(LibR.string.material_nickel)),
             ItemBean(name = getString(LibR.string.material_plating_polished_nickel), minTemp = 25, emStr = "0.05"),
             ItemBean(name = getString(LibR.string.material_nickel_not_polished), minTemp = 20, emStr = "0.01"),
-            ItemBean(name = getString(LibR.string.material_nickel_wire), minTemp = 185, maxTemp = 1010, emStr = "0.09～0.19"),
-            ItemBean(name = getString(LibR.string.material_nickel_plate_oxidized), minTemp = 198, maxTemp = 600, emStr = "0.37～0.48"),
-            ItemBean(name = getString(LibR.string.material_nickel_oxide), minTemp = 650, maxTemp = 1255, emStr = "0.59～0.86"),
+            ItemBean(
+                name = getString(LibR.string.material_nickel_wire),
+                minTemp = 185,
+                maxTemp = 1010,
+                emStr = "0.09～0.19",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_nickel_plate_oxidized),
+                minTemp = 198,
+                maxTemp = 600,
+                emStr = "0.37～0.48",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_nickel_oxide),
+                minTemp = 650,
+                maxTemp = 1255,
+                emStr = "0.59～0.86",
+            ),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_nickel_alloy)),
-            ItemBean(name = getString(LibR.string.material_nickel_chromium_alloy_line), minTemp = 50, maxTemp = 1000, emStr = "0.65～0.79"),
-            ItemBean(name = getString(LibR.string.material_nickel_chromium_alloy), minTemp = 50, maxTemp = 1040, emStr = "0.64～0.76"),
+            ItemBean(
+                name = getString(LibR.string.material_nickel_chromium_alloy_line),
+                minTemp = 50,
+                maxTemp = 1000,
+                emStr = "0.65～0.79",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_nickel_chromium_alloy),
+                minTemp = 50,
+                maxTemp = 1040,
+                emStr = "0.64～0.76",
+            ),
             ItemBean(
                 name = getString(LibR.string.material_nickel_chromium_heat_resistance),
                 minTemp = 50,
@@ -289,18 +391,36 @@ class IREmissivityActivity : BaseActivity() {
             ItemBean(name = getString(LibR.string.material_commercial_tin), minTemp = 100, emStr = "0.07"),
             // Activity logic
             ItemBean(name = getString(LibR.string.material_zinc)),
-            ItemBean(name = getString(LibR.string.material_400c_zinc_oxide, UnitTools.showWithUnit(400f)), minTemp = 400, emStr = "0.01"),
-            ItemBean(name = getString(LibR.string.material_galvanized_brighter_iron_board), minTemp = 28, emStr = "0.23"),
+            ItemBean(
+                name = getString(LibR.string.material_400c_zinc_oxide, UnitTools.showWithUnit(400f)),
+                minTemp = 400,
+                emStr = "0.01",
+            ),
+            ItemBean(
+                name = getString(LibR.string.material_galvanized_brighter_iron_board),
+                minTemp = 28,
+                emStr = "0.23",
+            ),
             ItemBean(name = getString(LibR.string.material_gray_zinc_oxide), minTemp = 25, emStr = "0.28"),
             // Activity logic
             ItemBean(true, getString(LibR.string.material_nonMetal)),
             ItemBean(name = getString(LibR.string.material_brick), minTemp = 1100, emStr = "0.75"),
             ItemBean(name = getString(LibR.string.material_fire_brick), minTemp = 1100, emStr = "0.75"),
-            ItemBean(name = getString(LibR.string.material_graphite_black), minTemp = 96, maxTemp = 225, emStr = "0.95"),
+            ItemBean(
+                name = getString(LibR.string.material_graphite_black),
+                minTemp = 96,
+                maxTemp = 225,
+                emStr = "0.95",
+            ),
             ItemBean(name = getString(LibR.string.material_enamel_white), minTemp = 18, emStr = "0.9"),
             ItemBean(name = getString(LibR.string.material_asphalt), minTemp = 0, maxTemp = 200, emStr = "0.85"),
             ItemBean(name = getString(LibR.string.material_glass_surface), minTemp = 23, emStr = "0.94"),
-            ItemBean(name = getString(LibR.string.material_heat_resistant_glass), minTemp = 200, maxTemp = 540, emStr = "0.85～0.95"),
+            ItemBean(
+                name = getString(LibR.string.material_heat_resistant_glass),
+                minTemp = 200,
+                maxTemp = 540,
+                emStr = "0.85～0.95",
+            ),
             ItemBean(name = getString(LibR.string.material_wall_powder), minTemp = 20, emStr = "0.9"),
             ItemBean(name = getString(LibR.string.material_oak), minTemp = 20, emStr = "0.9"),
             ItemBean(name = getString(LibR.string.material_carbon_slice), emStr = "0.85"),

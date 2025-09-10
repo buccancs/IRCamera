@@ -58,18 +58,16 @@ public class TimeDownView : AppCompatTextView {
         seconds: Int,
         openAnimation: Boolean,
     ) {
-        if (seconds == 0)
-            {
-                isRunning = false
-                visibility = GONE
-                downTimeWatcher?.onLastTimeFinish(seconds)
-                onFinishListener?.invoke()
-            } else
-            {
-                visibility = VISIBLE
-                isRunning = true
-                downTime(seconds, 1, 0, 1000, openAnimation)
-            }
+        if (seconds == 0) {
+            isRunning = false
+            visibility = GONE
+            downTimeWatcher?.onLastTimeFinish(seconds)
+            onFinishListener?.invoke()
+        } else {
+            visibility = VISIBLE
+            isRunning = true
+            downTime(seconds, 1, 0, 1000, openAnimation)
+        }
     }
 
     /**
@@ -92,10 +90,9 @@ public class TimeDownView : AppCompatTextView {
         this.lastDown = lastDown
         this.delayMills = delayMills
         this.intervalMills = intervalMills
-        if (startAnimate)
-            {
-                initDefaultAnimate()
-            }
+        if (startAnimate) {
+            initDefaultAnimate()
+        }
         downTimerTask = DownTimerTask()
         timer?.schedule(downTimerTask, delayMills, intervalMills)
     }

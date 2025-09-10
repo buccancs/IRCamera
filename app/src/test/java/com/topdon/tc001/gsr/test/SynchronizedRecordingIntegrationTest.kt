@@ -93,7 +93,13 @@ class SynchronizedRecordingIntegrationTest {
         // Verify processor is one of the expected types
         val detectedProcessor = metadata["device_processor"]
         val validProcessors =
-            listOf("Exynos_2200", "Snapdragon_8_Gen_1", "Samsung_S22_Generic", "Generic_Android_Timer", "Detection_Failed")
+            listOf(
+                "Exynos_2200",
+                "Snapdragon_8_Gen_1",
+                "Samsung_S22_Generic",
+                "Generic_Android_Timer",
+                "Detection_Failed",
+            )
         assertTrue(
             "Processor should be one of expected types: $detectedProcessor",
             validProcessors.contains(detectedProcessor),
@@ -146,7 +152,11 @@ class SynchronizedRecordingIntegrationTest {
 
         stats?.let {
             assertTrue("Session should have some duration", it.duration > 0)
-            assertEquals("Session ID should match", sessionName + "_", it.sessionId.substringBefore(sessionName.substringAfter("_")))
+            assertEquals(
+                "Session ID should match",
+                sessionName + "_",
+                it.sessionId.substringBefore(sessionName.substringAfter("_")),
+            )
             assertTrue("Session should be active", it.isActive)
         }
 

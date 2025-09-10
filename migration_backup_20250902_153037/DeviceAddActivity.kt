@@ -508,7 +508,9 @@ class DeviceAddActivity : BaseActivity() {
                 ARouter.getInstance().build(RouterConfig.IR_MONOCULAR).navigation(this)
             } else {
                 SharedManager.hasTC007 = true
-                ARouter.getInstance().build(RouterConfig.IR_MAIN).withBoolean(ExtraKeyConfig.IS_TC007, true).navigation(this)
+                ARouter.getInstance().build(
+                    RouterConfig.IR_MAIN,
+                ).withBoolean(ExtraKeyConfig.IS_TC007, true).navigation(this)
             }
             finish()
             return
@@ -552,28 +554,26 @@ class DeviceAddActivity : BaseActivity() {
     /**
      * 递归检查是否链接
      */
-    suspend fun examineConnect()  {
+    suspend fun examineConnect() {
         delay(10 * 1000)
-        if (WebSocketProxy.getInstance().isConnected())
-            {
-                NetWorkUtils.switchNetwork(true) {
-                    if (isTS004) {
-                        TS004Repository.netWork = it
-                        SharedManager.hasTS004 = true
-                        ARouter.getInstance().build(RouterConfig.IR_MONOCULAR)
-                            .navigation(this@DeviceAddActivity)
-                    } else {
-                        TC007Repository.netWork = it
-                        SharedManager.hasTC007 = true
-                        ARouter.getInstance().build(RouterConfig.IR_MAIN)
-                            .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                            .navigation(this@DeviceAddActivity)
-                    }
+        if (WebSocketProxy.getInstance().isConnected()) {
+            NetWorkUtils.switchNetwork(true) {
+                if (isTS004) {
+                    TS004Repository.netWork = it
+                    SharedManager.hasTS004 = true
+                    ARouter.getInstance().build(RouterConfig.IR_MONOCULAR)
+                        .navigation(this@DeviceAddActivity)
+                } else {
+                    TC007Repository.netWork = it
+                    SharedManager.hasTC007 = true
+                    ARouter.getInstance().build(RouterConfig.IR_MAIN)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
+                        .navigation(this@DeviceAddActivity)
                 }
-            } else
-            {
-                examineConnect()
             }
+        } else {
+            examineConnect()
+        }
         dismissCameraLoading()
     }
 
@@ -641,7 +641,9 @@ class DeviceAddActivity : BaseActivity() {
             holder: ViewHolder,
             position: Int,
         ) {
-            holder.itemView.iv_icon.setImageResource(if (isTS004) R.mipmap.ic_device_add_ts004 else R.mipmap.ic_device_add_tc007)
+            holder.itemView.iv_icon.setImageResource(
+                if (isTS004) R.mipmap.ic_device_add_ts004 else R.mipmap.ic_device_add_tc007,
+            )
             holder.itemView.tv_name.text = dataList[position]
         }
 

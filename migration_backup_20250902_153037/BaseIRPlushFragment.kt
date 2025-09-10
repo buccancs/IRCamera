@@ -237,12 +237,11 @@ abstract class BaseIRPlushFragment :
     abstract fun setTemperatureViewType()
 
     override fun initView() {
-        if (isDualIR())
-            {
-                getTemperatureDualView().setTextSize(SaveSettingUtil.tempTextSize)
-                initDataFlowMode(defaultDataFlowMode)
-                initIrDualdata()
-            }
+        if (isDualIR()) {
+            getTemperatureDualView().setTextSize(SaveSettingUtil.tempTextSize)
+            initDataFlowMode(defaultDataFlowMode)
+            initIrDualdata()
+        }
     }
 
     private fun initIrDualdata() {
@@ -326,10 +325,9 @@ abstract class BaseIRPlushFragment :
      * 一体式
      */
     open fun initDefIntegralArgsDISP_VALUE(typeLoadParameters: DualCameraParams.TypeLoadParameters) {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         lifecycleScope.launch {
             val parameters = IRCmdTool.getDualBytes(USBMonitorManager.getInstance().ircmd)
             val data = dualView?.dualUVCCamera?.loadParameters(parameters, typeLoadParameters)
@@ -341,7 +339,7 @@ abstract class BaseIRPlushFragment :
         }
     }
 
-    open fun setDispViewData(dualDisp: Int)  {
+    open fun setDispViewData(dualDisp: Int) {
     }
 
     open fun restartDualCamera() {
@@ -359,10 +357,9 @@ abstract class BaseIRPlushFragment :
     }
 
     open fun dualStart() {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         Log.d(
             TAG,
             "dualStart",
@@ -396,10 +393,9 @@ abstract class BaseIRPlushFragment :
                     TAG,
                     "USBMonitorManager 收到消息${msg.what}",
                 )
-                if (!isDualIR())
-                    {
-                        return
-                    }
+                if (!isDualIR()) {
+                    return
+                }
                 if (msg.what == Const.RESTART_USB) {
                     Log.d(
                         TAG,
@@ -448,10 +444,9 @@ abstract class BaseIRPlushFragment :
         }
 
     open fun initDualCamera() {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         if (dualView != null) {
             return
         }
@@ -491,10 +486,9 @@ abstract class BaseIRPlushFragment :
         cameraWidth: Int,
         cameraHeight: Int,
     ) {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         Log.i(
             TAG,
             "startVLCamera",
@@ -628,10 +622,9 @@ abstract class BaseIRPlushFragment :
     }
 
     open fun dualStop() {
-        if (!isDualIR())
-            {
-                return
-            }
+        if (!isDualIR()) {
+            return
+        }
         Log.d(
             TAG,
             "USBMonitorManager dualStop",

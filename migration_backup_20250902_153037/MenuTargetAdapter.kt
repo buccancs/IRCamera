@@ -54,7 +54,11 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
                 context.getString(R.string.main_tab_second_target_color),
                 CameraHelp.TYPE_SET_TARGET_COLOR,
             ),
-            ColorBean(R.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
+            ColorBean(
+                R.drawable.selector_menu2_del,
+                context.getString(R.string.thermal_delete),
+                CameraHelp.TYPE_SET_TARGET_DELETE,
+            ),
             ColorBean(
                 R.drawable.selector_menu2_target_4_help,
                 context.getString(R.string.main_tab_second_target_help),
@@ -65,7 +69,7 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
     /**
      * 刷新测量模式图标
      */
-    fun upCurrentMeasureMode(measureMode: Int)  {
+    fun upCurrentMeasureMode(measureMode: Int) {
         secondBean.clear()
         when (measureMode) {
             ObserveBean.TYPE_MEASURE_PERSON -> {
@@ -120,7 +124,11 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
             ),
         )
         secondBean.add(
-            ColorBean(R.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_TARGET_DELETE),
+            ColorBean(
+                R.drawable.selector_menu2_del,
+                context.getString(R.string.thermal_delete),
+                CameraHelp.TYPE_SET_TARGET_DELETE,
+            ),
         )
         secondBean.add(
             ColorBean(

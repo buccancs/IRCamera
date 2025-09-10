@@ -454,7 +454,11 @@ class ErrorRecoveryManager private constructor() {
 
     private suspend fun recoverRGBCameraAccess(error: RecoverableError): RecoveryResult {
         Log.w(TAG, "RGB camera access error: ${error.message}")
-        return RecoveryResult(false, "RGB camera access requires user intervention - check permissions", shouldRetry = false)
+        return RecoveryResult(
+            false,
+            "RGB camera access requires user intervention - check permissions",
+            shouldRetry = false,
+        )
     }
 
     private suspend fun recoverRGBRecording(error: RecoverableError): RecoveryResult {
@@ -469,7 +473,11 @@ class ErrorRecoveryManager private constructor() {
     }
 
     private suspend fun recoverStorageSpace(error: RecoverableError): RecoveryResult {
-        return RecoveryResult(false, "Storage full - user intervention required to free space for ${error.message}", shouldRetry = false)
+        return RecoveryResult(
+            false,
+            "Storage full - user intervention required to free space for ${error.message}",
+            shouldRetry = false,
+        )
     }
 
     private suspend fun recoverStorageAccess(error: RecoverableError): RecoveryResult {

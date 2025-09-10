@@ -23,7 +23,10 @@ import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
  * Created by LCG on 2025/1/3.
  */
 @SuppressLint("SetTextI18n")
-class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
+class CameraItemPopup(
+    val context: Context,
+    private val saveSetBean: SaveSettingBean,
+) : PopupWindow(), View.OnClickListener {
     /**
      * dataSelectedState
      */
@@ -65,8 +68,16 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
     private val binding: PopCameraItemBinding = PopCameraItemBinding.inflate(LayoutInflater.from(context))
 
     init {
-        val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.widthPixels, View.MeasureSpec.EXACTLY)
-        val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.heightPixels, View.MeasureSpec.AT_MOST)
+        val widthMeasureSpec =
+            View.MeasureSpec.makeMeasureSpec(
+                context.resources.displayMetrics.widthPixels,
+                View.MeasureSpec.EXACTLY,
+            )
+        val heightMeasureSpec =
+            View.MeasureSpec.makeMeasureSpec(
+                context.resources.displayMetrics.heightPixels,
+                View.MeasureSpec.AT_MOST,
+            )
         binding.root.measure(widthMeasureSpec, heightMeasureSpec)
 
         contentView = binding.root
@@ -123,7 +134,10 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                     onShutterClickListener?.invoke()
                 }
             binding.clAudio -> onAudioCLickListener?.invoke()
-            binding.clSetting -> NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING).navigation(context)
+            binding.clSetting ->
+                NavigationManager.getInstance().build(
+                    RouterConfig.IR_CAMERA_SETTING,
+                ).navigation(context)
         }
     }
 

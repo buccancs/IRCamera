@@ -70,17 +70,36 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                 tv_total_value.text = " / " + formatFileSize(freeSpaceBean.total)
                 tv_total.text = getUnit(freeSpaceBean.total)
 
-                list_storage_photo.setRightText(formatFileSize(freeSpaceBean.image_size) + getUnit(freeSpaceBean.image_size))
-                list_storage_video.setRightText(formatFileSize(freeSpaceBean.video_size) + getUnit(freeSpaceBean.video_size))
+                list_storage_photo.setRightText(
+                    formatFileSize(freeSpaceBean.image_size) + getUnit(freeSpaceBean.image_size),
+                )
+                list_storage_video.setRightText(
+                    formatFileSize(freeSpaceBean.video_size) + getUnit(freeSpaceBean.video_size),
+                )
                 list_storage_system.setRightText(formatFileSize(freeSpaceBean.system) + getUnit(freeSpaceBean.system))
 
-                val systemPercent = (freeSpaceBean.system * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
-                val imagePercent = (freeSpaceBean.image_size * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
-                val videoPercent = (freeSpaceBean.video_size * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(1).coerceAtMost(98)
+                val systemPercent =
+                    (freeSpaceBean.system * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(
+                        1,
+                    ).coerceAtMost(98)
+                val imagePercent =
+                    (freeSpaceBean.image_size * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(
+                        1,
+                    ).coerceAtMost(98)
+                val videoPercent =
+                    (freeSpaceBean.video_size * 100.0 / freeSpaceBean.total).toInt().coerceAtLeast(
+                        1,
+                    ).coerceAtMost(98)
                 val colorList = arrayListOf<ColorsBean>()
                 colorList.add(ColorsBean(0, systemPercent, 0xff8d98a9.toInt()))
                 colorList.add(ColorsBean(systemPercent, systemPercent + imagePercent, 0xff019dff.toInt()))
-                colorList.add(ColorsBean(systemPercent + imagePercent, systemPercent + imagePercent + videoPercent, 0xff70e297.toInt()))
+                colorList.add(
+                    ColorsBean(
+                        systemPercent + imagePercent,
+                        systemPercent + imagePercent + videoPercent,
+                        0xff70e297.toInt(),
+                    ),
+                )
                 custom_view_progress.setSegmentPart(colorList)
             }
         }

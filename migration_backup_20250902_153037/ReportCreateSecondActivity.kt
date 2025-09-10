@@ -167,7 +167,10 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                     .build(RouterConfig.REPORT_PICK_IMG)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_INFO, intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO))
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+                    .withParcelable(
+                        ExtraKeyConfig.REPORT_CONDITION,
+                        intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION),
+                    )
                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
                     .navigation(this)
             }
@@ -178,7 +181,13 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                 val conditionBean: ReportConditionBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION)
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
-                val reportBean = ReportBean(SoftwareInfo(appLanguage, sdkVersion), reportInfoBean!!, conditionBean!!, reportIRBeanList)
+                val reportBean =
+                    ReportBean(
+                        SoftwareInfo(appLanguage, sdkVersion),
+                        reportInfoBean!!,
+                        conditionBean!!,
+                        reportIRBeanList,
+                    )
                 ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)

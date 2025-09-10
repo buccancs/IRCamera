@@ -179,7 +179,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
                 ARouter.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                    .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH))
+                    .withString(
+                        ExtraKeyConfig.FILE_ABSOLUTE_PATH,
+                        intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH),
+                    )
                     .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)
                     .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
@@ -209,17 +212,14 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                 return null
             }
         var location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (location == null)
-            {
-                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            }
-        return if (location == null)
-            {
-                null
-            } else
-            {
-                getAddress(location)
-            }
+        if (location == null) {
+            location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        }
+        return if (location == null) {
+            null
+        } else {
+            getAddress(location)
+        }
     }
 
     // 获取地址信息:城市、街道等信息
@@ -239,35 +239,29 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
             e.printStackTrace()
         }
         var str = ""
-        if (result != null && result.isNotEmpty())
-            {
-                result?.get(0)?.let {
-                    str += getNullString(it.adminArea)
-                    if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea)))
-                        {
-                            str += getNullString(it.subAdminArea)
-                        }
-                    if (!str.contains(getNullString(it.locality)))
-                        {
-                            str += getNullString(it.locality)
-                        }
-                    if (!str.contains(getNullString(it.subLocality)))
-                        {
-                            str += getNullString(it.subLocality)
-                        }
+        if (result != null && result.isNotEmpty()) {
+            result?.get(0)?.let {
+                str += getNullString(it.adminArea)
+                if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea))) {
+                    str += getNullString(it.subAdminArea)
+                }
+                if (!str.contains(getNullString(it.locality))) {
+                    str += getNullString(it.locality)
+                }
+                if (!str.contains(getNullString(it.subLocality))) {
+                    str += getNullString(it.subLocality)
                 }
             }
+        }
         return str
     }
 
-    private fun getNullString(str: String?): String  {
-        return if (str.isNullOrEmpty())
-            {
-                ""
-            } else
-            {
-                str
-            }
+    private fun getNullString(str: String?): String {
+        return if (str.isNullOrEmpty()) {
+            ""
+        } else {
+            str
+        }
     }
 
     private fun buildReportInfo(): ReportInfoBean =
@@ -376,31 +370,27 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         permissions: MutableList<String>,
                         all: Boolean,
                     ) {
-                        if (all)
-                            {
-                                showLoadingDialog(R.string.get_current_address)
-                                lifecycleScope.launch {
-                                    var addressText: String? = ""
-                                    withContext(Dispatchers.IO) {
-                                        addressText = getLocation()
-                                    }
-                                    dismissLoadingDialog()
-                                    if (addressText == null)
-                                        {
-                                            TipDialog.Builder(this@ReportCreateFirstActivity)
-                                                .setMessage(R.string.get_Location_failed)
-                                                .setPositiveListener(R.string.app_ok)
-                                                .setCanceled(false)
-                                                .create().show()
-                                        } else
-                                        {
-                                            et_report_place.setText(addressText)
-                                        }
+                        if (all) {
+                            showLoadingDialog(R.string.get_current_address)
+                            lifecycleScope.launch {
+                                var addressText: String? = ""
+                                withContext(Dispatchers.IO) {
+                                    addressText = getLocation()
                                 }
-                            } else
-                            {
-                                ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                                dismissLoadingDialog()
+                                if (addressText == null) {
+                                    TipDialog.Builder(this@ReportCreateFirstActivity)
+                                        .setMessage(R.string.get_Location_failed)
+                                        .setPositiveListener(R.string.app_ok)
+                                        .setCanceled(false)
+                                        .create().show()
+                                } else {
+                                    et_report_place.setText(addressText)
+                                }
                             }
+                        } else {
+                            ToastUtils.showShort(R.string.scan_ble_tip_authorize)
+                        }
                     }
 
                     override fun onDenied(
@@ -409,11 +399,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                     ) {
                         if (never) {
                             // 如果是被永久拒绝就跳转到应用权限系统设置页面
-                            if (BaseApplication.instance.isDomestic())
-                                {
-                                    ToastUtils.showShort(getString(R.string.app_location_content))
-                                    return
-                                }
+                            if (BaseApplication.instance.isDomestic()) {
+                                ToastUtils.showShort(getString(R.string.app_location_content))
+                                return
+                            }
                             TipDialog.Builder(this@ReportCreateFirstActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_location_content))

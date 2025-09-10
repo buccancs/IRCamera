@@ -141,7 +141,12 @@ object PermissionTool {
         return if (Build.VERSION.SDK_INT < 31) { // utility Android12
             XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION)
         } else {
-            XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION, Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
+            XXPermissions.isGranted(
+                context,
+                Permission.ACCESS_FINE_LOCATION,
+                Permission.BLUETOOTH_SCAN,
+                Permission.BLUETOOTH_CONNECT,
+            )
         }
     }
 

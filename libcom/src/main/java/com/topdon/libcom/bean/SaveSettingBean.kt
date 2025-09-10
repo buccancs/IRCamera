@@ -249,7 +249,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
     /**
      * data-Temperature measurementMode-data，data.
      */
-    var tempTextColor: Int = if (isSaveSetting) getSPUtils().getInt("tempTextColor", 0xffffffff.toInt()) else 0xffffffff.toInt()
+    var tempTextColor: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "tempTextColor",
+                0xffffffff.toInt(),
+            )
+        } else {
+            0xffffffff.toInt()
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
@@ -260,7 +268,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
     /**
      * data-Temperature measurementMode-data，data px，data14sp.
      */
-    var tempTextSize: Int = if (isSaveSetting) getSPUtils().getInt("tempTextSize", SizeUtils.sp2px(14f)) else SizeUtils.sp2px(14f)
+    var tempTextSize: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "tempTextSize",
+                SizeUtils.sp2px(14f),
+            )
+        } else {
+            SizeUtils.sp2px(14f)
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
@@ -331,7 +347,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
      *
      * Low temperaturedata ([ObserveBean.TYPE_TMP_L_S] = 2)
      */
-    var aiTraceType: Int = if (isSaveSetting) getSPUtils().getInt("aiTraceType", ObserveBean.TYPE_NONE) else ObserveBean.TYPE_NONE
+    var aiTraceType: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "aiTraceType",
+                ObserveBean.TYPE_NONE,
+            )
+        } else {
+            ObserveBean.TYPE_NONE
+        }
         set(value) {
             field = value
             if (isSaveSetting) {

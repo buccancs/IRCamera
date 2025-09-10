@@ -292,7 +292,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             layoutParams.startToEnd = R.id.setting_user_img_night
             layoutParams.topToTop = R.id.setting_user_img_night
             layoutParams.bottomToBottom = R.id.setting_user_img_night
-            setting_user_text.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+            setting_user_text.setPadding(
+                SizeUtils.dp2px(16f),
+                SizeUtils.dp2px(16f),
+                SizeUtils.dp2px(16f),
+                SizeUtils.dp2px(16f),
+            )
             setting_user_text.gravity = Gravity.CENTER
             setting_user_text.layoutParams = layoutParams
             setting_user_text.setText(

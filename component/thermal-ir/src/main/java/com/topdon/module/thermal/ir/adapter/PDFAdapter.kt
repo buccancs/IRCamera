@@ -24,16 +24,14 @@ class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>, LoadMo
         item: ReportData.Records?,
     ) {
         item?.let {
-            if (it.isShowTitleTime)
-                {
-                    baseViewHolder.setVisible(R.id.item_message_read, true)
-                    baseViewHolder.setGone(R.id.tv_time, false)
-                    baseViewHolder.setText(R.id.tv_time, it.uploadTime?.split(" ")?.get(0))
-                } else
-                {
-                    baseViewHolder.setVisible(R.id.item_message_read, false)
-                    baseViewHolder.setGone(R.id.tv_time, true)
-                }
+            if (it.isShowTitleTime) {
+                baseViewHolder.setVisible(R.id.item_message_read, true)
+                baseViewHolder.setGone(R.id.tv_time, false)
+                baseViewHolder.setText(R.id.tv_time, it.uploadTime?.split(" ")?.get(0))
+            } else {
+                baseViewHolder.setVisible(R.id.item_message_read, false)
+                baseViewHolder.setGone(R.id.tv_time, true)
+            }
             item?.reportContent?.infrared_data?.get(0)?.picture_url?.let { url ->
                 GlideLoader.loadP(baseViewHolder.getView(R.id.img_content), url)
             }
@@ -64,23 +62,20 @@ class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>, LoadMo
         compatibilityDataSizeChanged(newData.size)
     }
 
-    private fun updateTime(dataList: MutableList<ReportData.Records?>)  {
+    private fun updateTime(dataList: MutableList<ReportData.Records?>) {
         for (i in 0 until dataList.size) {
             dataList[i]?.isShowTitleTime = false
-            if (i == 0)
-                {
-                    dataList[i]?.isShowTitleTime = true
-                } else {
+            if (i == 0) {
+                dataList[i]?.isShowTitleTime = true
+            } else {
                 // Adapter item
                 val lastTimes = dataList[i - 1]?.uploadTime?.split(" ")
                 val times = dataList[i]?.uploadTime?.split(" ")
-                if (lastTimes?.size!! > 1 && times?.size!! > 1)
-                    {
-                        if (times[0] != lastTimes[0])
-                            {
-                                dataList[i]?.isShowTitleTime = true
-                            }
+                if (lastTimes?.size!! > 1 && times?.size!! > 1) {
+                    if (times[0] != lastTimes[0]) {
+                        dataList[i]?.isShowTitleTime = true
                     }
+                }
             }
         }
     }

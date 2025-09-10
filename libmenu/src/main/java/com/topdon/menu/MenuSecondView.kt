@@ -239,7 +239,13 @@ class MenuSecondView : FrameLayout {
         defStyleAttr,
         defStyleRes,
     ) {
-        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.MenuSecondView, defStyleAttr, defStyleRes)
+        val typedArray: TypedArray =
+            context.obtainStyledAttributes(
+                attrs,
+                R.styleable.MenuSecondView,
+                defStyleAttr,
+                defStyleRes,
+            )
         menuType =
             when (typedArray.getInt(R.styleable.MenuSecondView_deviceType, 0)) {
                 0 -> MenuType.SINGLE_LIGHT
@@ -371,7 +377,6 @@ class MenuSecondView : FrameLayout {
             fenceAdapter.selectType = value
         }
 
-    // *****************************************  Temperature measurement mode - Menu 3 - Dual light  *****************************************
     /**
      * Current single-selection dual light type
      * - Single light:  Should not usethis property

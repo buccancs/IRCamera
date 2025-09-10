@@ -139,24 +139,22 @@ class ManualStep2Activity :
         ivTakePhoto?.setVisibility(View.VISIBLE)
         ivTakePhoto?.setOnClickListener(
             View.OnClickListener {
-                if (!canOperate)
-                    {
-                        // Photo
-                        takePhoto()
-                        ivTakePhoto?.setText(R.string.app_ok)
-                        tvTips.text = getString(R.string.dual_light_correction_tips_3)
-                        ivTips.visibility = View.GONE
-                        llSeekBar.visibility = View.VISIBLE
-                    } else
-                    {
-                        SharedManager.setManualAngle(snStr, seek_bar!!.progress)
-                        val byteArray = ByteArray(24)
-                        mDualView?.dualUVCCamera?.setAlignFinish()
-                        mDualView?.dualUVCCamera?.getManualRegistration(byteArray)
-                        SharedManager.setManualData(snStr, byteArray)
-                        EventBus.getDefault().post(ManualFinishBean())
-                        finish()
-                    }
+                if (!canOperate) {
+                    // Photo
+                    takePhoto()
+                    ivTakePhoto?.setText(R.string.app_ok)
+                    tvTips.text = getString(R.string.dual_light_correction_tips_3)
+                    ivTips.visibility = View.GONE
+                    llSeekBar.visibility = View.VISIBLE
+                } else {
+                    SharedManager.setManualAngle(snStr, seek_bar!!.progress)
+                    val byteArray = ByteArray(24)
+                    mDualView?.dualUVCCamera?.setAlignFinish()
+                    mDualView?.dualUVCCamera?.getManualRegistration(byteArray)
+                    SharedManager.setManualData(snStr, byteArray)
+                    EventBus.getDefault().post(ManualFinishBean())
+                    finish()
+                }
             },
         )
         seek_bar?.setOnSeekBarChangeListener(
@@ -170,7 +168,9 @@ class ManualStep2Activity :
                         val currentTime = System.currentTimeMillis()
                         if (currentTime - beforeTime > OPERATE_INTERVAL) {
                             beforeTime = currentTime
-                            mDualView?.dualUVCCamera?.setAlignRotateParameter(((progress - 1000) / 100f).toLittleBytes())
+                            mDualView?.dualUVCCamera?.setAlignRotateParameter(
+                                ((progress - 1000) / 100f).toLittleBytes(),
+                            )
                         }
                     }
                 }
@@ -400,11 +400,10 @@ class ManualStep2Activity :
         device: UsbDevice,
         ctrlBlock: USBMonitor.UsbControlBlock,
     ) {
-        if (!canOperate && !userStop)
-            {
-                EventBus.getDefault().post(ManualFinishBean())
-                finish()
-            }
+        if (!canOperate && !userStop) {
+            EventBus.getDefault().post(ManualFinishBean())
+            finish()
+        }
     }
 
     override fun onCancel(device: UsbDevice) {}

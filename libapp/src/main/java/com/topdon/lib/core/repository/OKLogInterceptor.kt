@@ -39,7 +39,9 @@ class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
         if (BuildConfig.DEBUG) {
             XLog.tag(
                 "RetrofitLog",
-            ).i("<-- ${response.code}${if (response.message.isEmpty()) "" else ' ' + response.message} ${response.request.url}")
+            ).i(
+                "<-- ${response.code}${if (response.message.isEmpty()) "" else ' ' + response.message} ${response.request.url}",
+            )
             val responseBody = response.body
             val contentType = response.headers["Content-Type"]
             if (responseBody != null && (isTC007 || contentType == null || contentType == "application/json")) {

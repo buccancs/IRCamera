@@ -266,7 +266,9 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                         tempLow = frameTool.getSrcTemp().minTemperature
                     }
 //                    dismissLoading()
-                    NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_3D).withString(ExtraKeyConfig.IR_PATH, irPath)
+                    NavigationManager.getInstance().build(
+                        RouterConfig.IR_GALLERY_3D,
+                    ).withString(ExtraKeyConfig.IR_PATH, irPath)
                         .withFloat(ExtraKeyConfig.TEMP_HIGH, tempHigh).withFloat(ExtraKeyConfig.TEMP_LOW, tempLow)
                         .navigation(this@IRGalleryDetail01Activity)
                 }
@@ -278,7 +280,9 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_ex) -> {
-                TipDialog.Builder(this).setMessage(LibR.string.tip_album_temp_exportfile).setPositiveListener(LibR.string.app_confirm) {
+                TipDialog.Builder(
+                    this,
+                ).setMessage(LibR.string.tip_album_temp_exportfile).setPositiveListener(LibR.string.app_confirm) {
                     actionExcel()
                 }.setCancelListener(LibR.string.app_cancel) {}.setCanceled(true).create().show()
             }

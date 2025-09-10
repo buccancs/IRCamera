@@ -74,15 +74,14 @@ data class CustomPseudoBean(
             var customMaxColor = buffer.int
             val customRecommendIndex = buffer.int
             val isUseGray = buffer.get() == 0.toByte()
-            if (customMinColor == 0 && customMiddleColor == 0 && customMaxColor == 0)
-                {
-                    maxTemp = 50f
-                    minTemp = 0f
-                    isColorCustom = true
-                    customMinColor = 0xff0000FF.toInt()
-                    customMiddleColor = 0xFFFF0000.toInt()
-                    customMaxColor = 0xFFFFFF00.toInt()
-                }
+            if (customMinColor == 0 && customMiddleColor == 0 && customMaxColor == 0) {
+                maxTemp = 50f
+                minTemp = 0f
+                isColorCustom = true
+                customMinColor = 0xff0000FF.toInt()
+                customMiddleColor = 0xFFFF0000.toInt()
+                customMaxColor = 0xFFFFFF00.toInt()
+            }
 
             return CustomPseudoBean(
                 selectIndex = byteArray[1].toInt() and 0xff,

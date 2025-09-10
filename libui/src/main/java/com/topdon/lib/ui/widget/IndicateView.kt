@@ -71,7 +71,15 @@ class IndicateView : View {
             val right = left + itemWidth
             val top = 0f
             val bottom = itemHeight.toFloat()
-            canvas.drawRoundRect(left, top, right, bottom, roundRadius, roundRadius, if (i == currentIndex) selectPaint else defaultPaint)
+            canvas.drawRoundRect(
+                left,
+                top,
+                right,
+                bottom,
+                roundRadius,
+                roundRadius,
+                if (i == currentIndex) selectPaint else defaultPaint,
+            )
         }
     }
 }

@@ -262,7 +262,10 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
                 if (exportResult.isSuccess) {
                     showExportSuccessDialog(exportResult.getOrNull())
                 } else {
-                    showErrorDialog("Export Failed", exportResult.exceptionOrNull()?.message ?: "Unknown error occurred")
+                    showErrorDialog(
+                        "Export Failed",
+                        exportResult.exceptionOrNull()?.message ?: "Unknown error occurred",
+                    )
                 }
             } catch (e: Exception) {
                 showErrorDialog("Export Error", "Failed to export data: ${e.message}")
@@ -316,7 +319,9 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         // Enhanced header with metadata
         csvWriter.writeNext(arrayOf("# GSR Data Export"))
         csvWriter.writeNext(arrayOf("# Source File: ${file.name}"))
-        csvWriter.writeNext(arrayOf("# Export Date: ${SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())}"))
+        csvWriter.writeNext(
+            arrayOf("# Export Date: ${SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())}"),
+        )
         csvWriter.writeNext(arrayOf("# Device: ${getDeviceInfo()}"))
         csvWriter.writeNext(arrayOf(""))
 
@@ -333,7 +338,11 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         // Process and export data with enhancements
         gsrDataPoints.forEachIndexed { index, dataPoint ->
             val timestampMs = dataPoint.timestamp / 1000000
-            val timestampIso = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(Date(timestampMs))
+            val timestampIso =
+                SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                    Locale.getDefault(),
+                ).format(Date(timestampMs))
 
             // Calculate additional metrics
             val normalizedGSR = normalizeGSRValue(dataPoint.gsrValue.toFloat())
@@ -453,7 +462,9 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         summary.appendLine("GSR Data Statistical Summary")
         summary.appendLine("=" + "=".repeat(40))
         summary.appendLine("Source File: ${file.name}")
-        summary.appendLine("Export Date: ${SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())}")
+        summary.appendLine(
+            "Export Date: ${SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())}",
+        )
         summary.appendLine("Device: ${getDeviceInfo()}")
         summary.appendLine("")
 
@@ -569,7 +580,10 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
 
     private fun preparePlotData(): GSRPlotData {
         // Prepare data for plotting
-        val timestamps = gsrDataPoints.map { (it.timestamp - gsrDataPoints.first().timestamp) / 1000000.0 } // Convert to seconds
+        val timestamps =
+            gsrDataPoints.map {
+                (it.timestamp - gsrDataPoints.first().timestamp) / 1000000.0
+            } // Convert to seconds
         val gsrValues = gsrDataPoints.map { it.gsrValue.toDouble() }
         val ppgValues = gsrDataPoints.map { it.ppgValue.toDouble() }
 

@@ -48,7 +48,10 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
         private const val DEFAULT_PC_CONTROLLER_PORT = 8080
     }
 
-    override fun getViewBinding(): ActivityHubSpokeIntegrationBinding = ActivityHubSpokeIntegrationBinding.inflate(layoutInflater)
+    override fun getViewBinding(): ActivityHubSpokeIntegrationBinding =
+        ActivityHubSpokeIntegrationBinding.inflate(
+            layoutInflater,
+        )
 
     // Core components
     private lateinit var recordingController: RecordingController
@@ -156,7 +159,11 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
     private fun connectToPCController() {
         val pcAddress = binding.pcAddressEditText.text.toString().trim()
         if (pcAddress.isEmpty()) {
-            android.widget.Toast.makeText(this, "Please enter PC Controller IP address", android.widget.Toast.LENGTH_SHORT).show()
+            android.widget.Toast.makeText(
+                this,
+                "Please enter PC Controller IP address",
+                android.widget.Toast.LENGTH_SHORT,
+            ).show()
             return
         }
 
@@ -204,7 +211,11 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
                 binding.statusTextView.text = "Disconnecting from PC Controller..."
                 networkClient.disconnect()
                 binding.statusTextView.text = "Disconnected from PC Controller"
-                android.widget.Toast.makeText(this@HubSpokeIntegrationActivity, "Disconnected", android.widget.Toast.LENGTH_SHORT).show()
+                android.widget.Toast.makeText(
+                    this@HubSpokeIntegrationActivity,
+                    "Disconnected",
+                    android.widget.Toast.LENGTH_SHORT,
+                ).show()
             } catch (e: Exception) {
                 Log.e(TAG, "Disconnect error", e)
                 binding.statusTextView.text = "Disconnect error: ${e.message}"
@@ -217,7 +228,11 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
     private fun startCoordinatedRecording() {
         val sessionDirectory = binding.sessionDirectoryEditText.text.toString().trim()
         if (sessionDirectory.isEmpty()) {
-            android.widget.Toast.makeText(this, "Please enter session directory", android.widget.Toast.LENGTH_SHORT).show()
+            android.widget.Toast.makeText(
+                this,
+                "Please enter session directory",
+                android.widget.Toast.LENGTH_SHORT,
+            ).show()
             return
         }
 
@@ -259,7 +274,11 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
             } catch (e: Exception) {
                 Log.e(TAG, "Recording start error", e)
                 binding.statusTextView.text = "Recording start error: ${e.message}"
-                android.widget.Toast.makeText(this@HubSpokeIntegrationActivity, "Recording error", android.widget.Toast.LENGTH_SHORT).show()
+                android.widget.Toast.makeText(
+                    this@HubSpokeIntegrationActivity,
+                    "Recording error",
+                    android.widget.Toast.LENGTH_SHORT,
+                ).show()
             } finally {
                 binding.progressBar.visibility = View.GONE
                 updateUI()

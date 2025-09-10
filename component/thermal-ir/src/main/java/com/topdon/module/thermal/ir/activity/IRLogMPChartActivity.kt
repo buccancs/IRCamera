@@ -41,12 +41,11 @@ class IRLogMPChartActivity : BaseActivity() {
     private var startTime = 0L
 
     private val permissionList by lazy {
-        if (this.applicationInfo.targetSdkVersion >= 34)
-            {
-                listOf(
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
+        if (this.applicationInfo.targetSdkVersion >= 34) {
+            listOf(
+                Permission.WRITE_EXTERNAL_STORAGE,
+            )
+        } else if (this.applicationInfo.targetSdkVersion == 33) {
             mutableListOf(
                 Permission.WRITE_EXTERNAL_STORAGE,
             )
@@ -111,7 +110,12 @@ class IRLogMPChartActivity : BaseActivity() {
                                                     shareIntent.action = Intent.ACTION_SEND
                                                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
                                                     shareIntent.type = "application/xlsx"
-                                                    startActivity(Intent.createChooser(shareIntent, getString(LibR.string.battery_share)))
+                                                    startActivity(
+                                                        Intent.createChooser(
+                                                            shareIntent,
+                                                            getString(LibR.string.battery_share),
+                                                        ),
+                                                    )
                                                 }
                                             }
                                         } else {
@@ -125,11 +129,10 @@ class IRLogMPChartActivity : BaseActivity() {
                                     ) {
                                         if (doNotAskAgain) {
                                             // Activity logic
-                                            if (BaseApplication.instance.isDomestic())
-                                                {
-                                                    ToastUtils.showShort(getString(LibR.string.app_storage_content))
-                                                    return
-                                                }
+                                            if (BaseApplication.instance.isDomestic()) {
+                                                ToastUtils.showShort(getString(LibR.string.app_storage_content))
+                                                return
+                                            }
                                             TipDialog.Builder(this@IRLogMPChartActivity)
                                                 .setTitleMessage(getString(LibR.string.app_tip))
                                                 .setMessage(getString(LibR.string.app_storage_content))

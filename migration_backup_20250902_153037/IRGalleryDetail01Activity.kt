@@ -275,7 +275,9 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             }
 
             ll_ir_ex -> {
-                TipDialog.Builder(this).setMessage(R.string.tip_album_temp_exportfile).setPositiveListener(R.string.app_confirm) {
+                TipDialog.Builder(
+                    this,
+                ).setMessage(R.string.tip_album_temp_exportfile).setPositiveListener(R.string.app_confirm) {
                     actionExcel()
                 }.setCancelListener(R.string.app_cancel) {}.setCanceled(true).create().show()
             }

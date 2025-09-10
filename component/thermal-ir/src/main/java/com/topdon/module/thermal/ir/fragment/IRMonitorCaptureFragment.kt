@@ -50,21 +50,25 @@ class IRMonitorCaptureFragment : BaseFragment() {
         viewStart.setOnClickListener {
             if (isTC007) {
                 if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    NavigationManager.getInstance().build(RouterConfig.IR_MONITOR_CAPTURE_07).navigation(requireContext())
+                    NavigationManager.getInstance().build(
+                        RouterConfig.IR_MONITOR_CAPTURE_07,
+                    ).navigation(requireContext())
                 } else {
                     ToastTools.showShort(R.string.device_connect_tip)
                 }
             } else {
                 if (DeviceTools.isConnect()) {
-                    if (DeviceTools.isTC001LiteConnect())
-                        {
-                            NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
-                        } else if (DeviceTools.isHikConnect()) {
-                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
-                    } else
-                        {
-                            startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
-                        }
+                    if (DeviceTools.isTC001LiteConnect()) {
+                        NavigationManager.getInstance().build(
+                            RouterConfig.IR_THERMAL_MONITOR_LITE,
+                        ).navigation(requireContext())
+                    } else if (DeviceTools.isHikConnect()) {
+                        NavigationManager.getInstance().build(
+                            RouterConfig.IR_HIK_MONITOR_CAPTURE1,
+                        ).navigation(requireContext())
+                    } else {
+                        startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
+                    }
                 } else {
                     ToastTools.showShort(R.string.device_connect_tip)
                 }

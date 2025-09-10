@@ -10,7 +10,6 @@ import com.topdon.module.user.R
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class AutoSaveActivity : BaseActivity() {
-
     // View references - migrated from synthetic views
     private lateinit var settingItemSaveSelect: SwitchCompat
 

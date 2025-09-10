@@ -313,13 +313,19 @@ data class SocketFrameBean(
         val stringBuilder = StringBuilder()
 
         if (isMaxShow) {
-            stringBuilder.append("High temperaturedata ($maxX, $maxY) data${maxValue.toCStr()} data${isMaxWarn.openText()}\n")
+            stringBuilder.append(
+                "High temperaturedata ($maxX, $maxY) data${maxValue.toCStr()} data${isMaxWarn.openText()}\n",
+            )
         }
         if (isMinShow) {
-            stringBuilder.append("Low temperaturedata ($minX, $minY) data${minValue.toCStr()} data${isMinWarn.openText()}\n")
+            stringBuilder.append(
+                "Low temperaturedata ($minX, $minY) data${minValue.toCStr()} data${isMinWarn.openText()}\n",
+            )
         }
         if (isCenterShow) {
-            stringBuilder.append("data ($centerX, $centerY) data${centerValue.toCStr()} data${isCenterWarn.openText()}\n")
+            stringBuilder.append(
+                "data ($centerX, $centerY) data${centerValue.toCStr()} data${isCenterWarn.openText()}\n",
+            )
         }
 
         if (isP1Show) {

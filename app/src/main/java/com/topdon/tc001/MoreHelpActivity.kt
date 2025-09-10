@@ -43,7 +43,12 @@ class MoreHelpActivity : BaseBindingActivity<ActivityMoreHelpBinding>() {
             binding.disconnectTip2.visibility = View.VISIBLE
             binding.ivTvSetting.visibility = View.VISIBLE
             val spannable = SpannableStringBuilder(getString(R.string.ts004_disconnect_tips4))
-            spannable.setSpan(UnderlineSpan(), 0, getString(R.string.ts004_disconnect_tips4).length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(
+                UnderlineSpan(),
+                0,
+                getString(R.string.ts004_disconnect_tips4).length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+            )
             binding.ivTvSetting.text = spannable
         }
     }

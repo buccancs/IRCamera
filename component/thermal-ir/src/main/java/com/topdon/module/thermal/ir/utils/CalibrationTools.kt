@@ -45,7 +45,11 @@ object CalibrationTools {
         var success = false
         // utilityTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
-            val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_FIRST, pointTemp + 273)
+            val result =
+                irCmd.setTPDKtBtRecalPoint(
+                    CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_FIRST,
+                    pointTemp + 273,
+                )
             if (result == 0) {
                 success = true
             } else {
@@ -70,7 +74,11 @@ object CalibrationTools {
         var success = false
         // utilityTemperature measurementutility,utility
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
-            val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_END, pointTemp + 273)
+            val result =
+                irCmd.setTPDKtBtRecalPoint(
+                    CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_END,
+                    pointTemp + 273,
+                )
             if (result == 0) {
                 success = true
             } else {
@@ -152,7 +160,10 @@ object CalibrationTools {
                 CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_HIGH,
             )
         } else {
-            irCmd.setPropTPDParams(CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_LOW)
+            irCmd.setPropTPDParams(
+                CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL,
+                CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_LOW,
+            )
         }
     }
 

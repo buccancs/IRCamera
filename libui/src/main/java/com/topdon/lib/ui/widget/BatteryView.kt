@@ -61,7 +61,11 @@ class BatteryView : AppCompatImageView {
             }
             MeasureSpec.AT_MOST -> {
                 when (widthMode) {
-                    MeasureSpec.EXACTLY -> setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt().coerceAtMost(heightSize))
+                    MeasureSpec.EXACTLY ->
+                        setMeasuredDimension(
+                            widthSize,
+                            (widthSize * 30 / 58f).toInt().coerceAtMost(heightSize),
+                        )
                     MeasureSpec.AT_MOST -> {
                         if (widthSize < 58) {
                             if (heightSize < 30) { // view✘ view✘
@@ -81,13 +85,21 @@ class BatteryView : AppCompatImageView {
                             }
                         }
                     }
-                    else -> setMeasuredDimension((widthSize * 30.coerceAtMost(heightSize) / 58f).toInt(), 30.coerceAtMost(heightSize))
+                    else ->
+                        setMeasuredDimension(
+                            (widthSize * 30.coerceAtMost(heightSize) / 58f).toInt(),
+                            30.coerceAtMost(heightSize),
+                        )
                 }
             }
             else -> {
                 when (widthMode) {
                     MeasureSpec.EXACTLY -> setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt())
-                    MeasureSpec.AT_MOST -> setMeasuredDimension(58.coerceAtMost(widthSize), (58.coerceAtMost(widthSize) * 30 / 58f).toInt())
+                    MeasureSpec.AT_MOST ->
+                        setMeasuredDimension(
+                            58.coerceAtMost(widthSize),
+                            (58.coerceAtMost(widthSize) * 30 / 58f).toInt(),
+                        )
                     else -> setMeasuredDimension(58, 30)
                 }
             }

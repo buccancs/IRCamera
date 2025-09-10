@@ -55,15 +55,13 @@ class IRCorrectionTwoActivity : BaseActivity() {
                 if (isTC007) {
                     NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
                 } else {
-                    if (DeviceTools.isTC001LiteConnect())
-                        {
-                            NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
-                        } else if (DeviceTools.isHikConnect()) {
+                    if (DeviceTools.isTC001LiteConnect()) {
+                        NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
+                    } else if (DeviceTools.isHikConnect()) {
                         NavigationManager.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
-                    } else
-                        {
-                            startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
-                        }
+                    } else {
+                        startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
+                    }
                 }
             }
         }

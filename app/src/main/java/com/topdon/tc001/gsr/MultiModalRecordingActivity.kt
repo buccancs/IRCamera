@@ -30,8 +30,44 @@ import kotlinx.coroutines.launch
 // Note: EnhancedRecordingService is referenced with full package name since it's in a different module
 
 /**
- * Full multi-modal recording interface with GSR and thermal coordination
- * Navigation: Use NavigationManager.getInstance().build(RouterConfig.GSR_MULTI_MODAL).navigation(context)
+ * Advanced multi-modal recording interface for synchronized GSR and thermal data acquisition.
+ *
+ * This enterprise-grade Activity provides comprehensive coordination between GSR (Galvanic Skin Response)
+ * sensors and thermal imaging devices, enabling synchronized data collection for research and analysis
+ * applications. The interface supports both BLE-based Shimmer3 GSR sensors and Topdon thermal cameras.
+ *
+ * ## Core Capabilities
+ *
+ * ### Multi-Modal Synchronization
+ * - **Sub-5ms Precision**: Hardware-level synchronization between GSR and thermal modalities
+ * - **Cross-Modal Coordination**: Unified device discovery and management across BLE and USB devices
+ * - **Temporal Alignment**: High-precision timestamping with NTP-level accuracy for post-processing
+ * - **Session Management**: Enterprise session control with comprehensive metadata tracking
+ *
+ * ### Advanced Recording Features
+ * - **Real-Time Data Streaming**: Live GSR waveform visualization with thermal overlay
+ * - **Adaptive Quality Control**: Dynamic quality assessment and recording parameter optimization
+ * - **Multi-Format Export**: Support for CSV, HDF5, and custom binary formats for research workflows
+ * - **Error Recovery**: Robust handling of device disconnections and data loss scenarios
+ *
+ * ### Enterprise Integration
+ * - **BLE Device Management**: Advanced Shimmer3 GSR sensor integration with Nordic backend
+ * - **Thermal Camera Control**: Direct Topdon TC001 thermal camera coordination
+ * - **Network Synchronization**: Hub-and-spoke architecture support for distributed recording
+ * - **Quality Metrics**: Real-time SNR, drift, and calibration monitoring for data validation
+ *
+ * ## Navigation
+ * ```kotlin
+ * NavigationManager.getInstance()
+ *     .build(RouterConfig.GSR_MULTI_MODAL)
+ *     .navigation(context)
+ * ```
+ *
+ * @see GSRRecorder For GSR sensor management and data acquisition
+ * @see CrossModalSyncManager For inter-device synchronization protocols
+ * @see SessionManager For session lifecycle and metadata management
+ * @since 1.10.0
+ * @author Topdon Engineering Team
  */
 class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecordingBinding>() {
     companion object {
@@ -255,7 +291,9 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             com.topdon.gsr.network.NetworkClient(this).apply {
                 setEventListener(
                     object : com.topdon.gsr.network.NetworkClient.NetworkEventListener {
-                        override fun onControllerDiscovered(controller: com.topdon.gsr.network.NetworkClient.ControllerInfo) {
+                        override fun onControllerDiscovered(
+                            controller: com.topdon.gsr.network.NetworkClient.ControllerInfo,
+                        ) {
                             runOnUiThread {
                                 discoveredDevices.add(controller)
                                 updateNetworkStatusUI()
@@ -682,7 +720,11 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
 
                     // Stop camera if GSR fails
                     rgbCameraRecorder?.stopRecording()
-                    Toast.makeText(this@MultiModalRecordingActivity, "Failed to start GSR recording", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@MultiModalRecordingActivity,
+                        "Failed to start GSR recording",
+                        Toast.LENGTH_LONG,
+                    ).show()
                 }
             } catch (e: Exception) {
                 // Reset guard flags on exception
@@ -696,7 +738,11 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
 
                 Log.e(TAG, "Error starting recording", e)
                 rgbCameraRecorder?.stopRecording()
-                Toast.makeText(this@MultiModalRecordingActivity, "Error starting recording: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@MultiModalRecordingActivity,
+                    "Error starting recording: ${e.message}",
+                    Toast.LENGTH_LONG,
+                ).show()
             }
         }
     }

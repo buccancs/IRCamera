@@ -108,16 +108,40 @@ object NavigationManager {
                 // IR routes
                 RouterConfig.IR_MAIN -> getClassByName("com.topdon.module.thermal.ir.activity.IRMainActivity")
                 RouterConfig.IR_SETTING -> getClassByName("com.topdon.module.thermal.ir.activity.IRConfigActivity")
-                RouterConfig.IR_THERMAL_MONITOR -> getClassByName("com.topdon.module.thermal.ir.activity.IRMonitorActivity")
-                RouterConfig.IR_MONITOR_CHART -> getClassByName("com.topdon.module.thermal.ir.activity.IRMonitorChartActivity")
-                RouterConfig.IR_GALLERY_DETAIL_01 -> getClassByName("com.topdon.module.thermal.ir.activity.IRGalleryDetail01Activity")
-                RouterConfig.IR_GALLERY_DETAIL_04 -> getClassByName("com.topdon.module.thermal.ir.activity.IRGalleryDetail04Activity")
+                RouterConfig.IR_THERMAL_MONITOR ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.IRMonitorActivity",
+                    )
+                RouterConfig.IR_MONITOR_CHART ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.IRMonitorChartActivity",
+                    )
+                RouterConfig.IR_GALLERY_DETAIL_01 ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.IRGalleryDetail01Activity",
+                    )
+                RouterConfig.IR_GALLERY_DETAIL_04 ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.IRGalleryDetail04Activity",
+                    )
                 RouterConfig.IR_VIDEO_GSY -> getClassByName("com.topdon.module.thermal.ir.activity.IRVideoGSYActivity")
-                RouterConfig.IR_CORRECTION_TWO -> getClassByName("com.topdon.module.thermal.ir.activity.IRCorrectionTwoActivity")
-                RouterConfig.IR_CORRECTION_THREE -> getClassByName("com.topdon.module.thermal.ir.activity.IRCorrectionThreeActivity")
-                RouterConfig.IR_CORRECTION_FOUR -> getClassByName("com.topdon.module.thermal.ir.activity.IRCorrectionFourActivity")
+                RouterConfig.IR_CORRECTION_TWO ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.IRCorrectionTwoActivity",
+                    )
+                RouterConfig.IR_CORRECTION_THREE ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.IRCorrectionThreeActivity",
+                    )
+                RouterConfig.IR_CORRECTION_FOUR ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.IRCorrectionFourActivity",
+                    )
                 RouterConfig.IR_IMG_PICK -> getClassByName("com.topdon.module.thermal.ir.activity.ImagePickIRActivity")
-                RouterConfig.IR_IMG_PICK_PLUS -> getClassByName("com.topdon.module.thermal.ir.activity.ImagePickIRPlushActivity")
+                RouterConfig.IR_IMG_PICK_PLUS ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.ImagePickIRPlushActivity",
+                    )
 
                 // Thermal routes
                 RouterConfig.GALLERY -> getClassByName("com.topdon.module.thermal.activity.GalleryActivity")
@@ -129,14 +153,32 @@ object NavigationManager {
 
                 // Thermal-lite routes
                 RouterConfig.IR_TCLITE -> getClassByName("com.example.thermal_lite.activity.IRThermalLiteActivity")
-                RouterConfig.IR_THERMAL_MONITOR_LITE -> getClassByName("com.example.thermal_lite.activity.IRMonitorLiteActivity")
-                RouterConfig.IR_IMG_PICK_LITE -> getClassByName("com.example.thermal_lite.activity.ImagePickIRLiteActivity")
-                RouterConfig.IR_MONITOR_CHART_LITE -> getClassByName("com.example.thermal_lite.activity.IRMonitorChartLiteActivity")
-                RouterConfig.IR_CORRECTION_THREE_LITE -> getClassByName("com.example.thermal_lite.activity.IRCorrectionLiteThreeActivity")
-                RouterConfig.IR_CORRECTION_FOUR_LITE -> getClassByName("com.example.thermal_lite.activity.IRCorrectionLiteFourActivity")
+                RouterConfig.IR_THERMAL_MONITOR_LITE ->
+                    getClassByName(
+                        "com.example.thermal_lite.activity.IRMonitorLiteActivity",
+                    )
+                RouterConfig.IR_IMG_PICK_LITE ->
+                    getClassByName(
+                        "com.example.thermal_lite.activity.ImagePickIRLiteActivity",
+                    )
+                RouterConfig.IR_MONITOR_CHART_LITE ->
+                    getClassByName(
+                        "com.example.thermal_lite.activity.IRMonitorChartLiteActivity",
+                    )
+                RouterConfig.IR_CORRECTION_THREE_LITE ->
+                    getClassByName(
+                        "com.example.thermal_lite.activity.IRCorrectionLiteThreeActivity",
+                    )
+                RouterConfig.IR_CORRECTION_FOUR_LITE ->
+                    getClassByName(
+                        "com.example.thermal_lite.activity.IRCorrectionLiteFourActivity",
+                    )
 
                 // Report routes
-                RouterConfig.REPORT_CREATE_FIRST -> getClassByName("com.topdon.module.thermal.ir.report.activity.ReportCreateFirstActivity")
+                RouterConfig.REPORT_CREATE_FIRST ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.report.activity.ReportCreateFirstActivity",
+                    )
                 RouterConfig.REPORT_CREATE_SECOND ->
                     getClassByName(
                         "com.topdon.module.thermal.ir.report.activity.ReportCreateSecondActivity",
@@ -145,11 +187,17 @@ object NavigationManager {
                     getClassByName(
                         "com.topdon.module.thermal.ir.report.activity.ReportPreviewSecondActivity",
                     )
-                RouterConfig.REPORT_PICK_IMG -> getClassByName("com.topdon.module.thermal.ir.activity.ReportPickImgActivity")
+                RouterConfig.REPORT_PICK_IMG ->
+                    getClassByName(
+                        "com.topdon.module.thermal.ir.activity.ReportPickImgActivity",
+                    )
 
                 // User routes
                 RouterConfig.QUESTION -> getClassByName("com.topdon.module.user.activity.QuestionActivity")
-                RouterConfig.ELECTRONIC_MANUAL -> getClassByName("com.topdon.module.user.activity.ElectronicManualActivity")
+                RouterConfig.ELECTRONIC_MANUAL ->
+                    getClassByName(
+                        "com.topdon.module.user.activity.ElectronicManualActivity",
+                    )
                 RouterConfig.STORAGE_SPACE -> getClassByName("com.topdon.module.user.activity.StorageSpaceActivity")
                 RouterConfig.TC_MORE -> getClassByName("com.topdon.module.user.activity.MoreActivity")
 

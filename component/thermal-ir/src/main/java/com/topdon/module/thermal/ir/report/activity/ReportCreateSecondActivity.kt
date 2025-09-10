@@ -208,7 +208,13 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                 val conditionBean: ReportConditionBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION)
                 val reportIRBeanList = ArrayList<ReportIRBean>(reportIRList)
                 reportIRBeanList.add(buildReportIr(currentFilePath))
-                val reportBean = ReportBean(SoftwareInfo(appLanguage, sdkVersion), reportInfoBean!!, conditionBean!!, reportIRBeanList)
+                val reportBean =
+                    ReportBean(
+                        SoftwareInfo(appLanguage, sdkVersion),
+                        reportInfoBean!!,
+                        conditionBean!!,
+                        reportIRBeanList,
+                    )
                 NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_SECOND)
                     .withBoolean(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                     .withParcelable(ExtraKeyConfig.REPORT_BEAN, reportBean)

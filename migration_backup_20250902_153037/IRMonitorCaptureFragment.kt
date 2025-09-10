@@ -41,15 +41,13 @@ class IRMonitorCaptureFragment : BaseFragment() {
                 }
             } else {
                 if (DeviceTools.isConnect()) {
-                    if (DeviceTools.isTC001LiteConnect())
-                        {
-                            ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
-                        } else if (DeviceTools.isHikConnect()) {
+                    if (DeviceTools.isTC001LiteConnect()) {
+                        ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+                    } else if (DeviceTools.isHikConnect()) {
                         ARouter.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
-                    } else
-                        {
-                            startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
-                        }
+                    } else {
+                        startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
+                    }
                 } else {
                     ToastTools.showShort(R.string.device_connect_tip)
                 }

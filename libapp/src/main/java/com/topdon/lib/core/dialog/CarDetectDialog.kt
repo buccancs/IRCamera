@@ -331,7 +331,9 @@ class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean
             return carChildDetects.size
         }
 
-        inner class ItemView(private val binding: ItemCarDetectChildLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class ItemView(private val binding: ItemCarDetectChildLayoutBinding) : RecyclerView.ViewHolder(
+            binding.root,
+        ) {
             val rlyParent: RelativeLayout = binding.rlyParent
             val tvTitle: TextView = binding.tvName
             val ivSelectState: ImageView = binding.ivSelectState

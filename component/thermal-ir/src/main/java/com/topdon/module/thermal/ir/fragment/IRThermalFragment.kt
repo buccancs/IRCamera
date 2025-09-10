@@ -82,10 +82,9 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     // fragmentCurrentfragment TS004、TC007，fragment，fragment
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(true)
-                    } else
-                        {
-                            NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
-                        }
+                    } else {
+                        NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
+                    }
                 }
             },
         )
@@ -152,10 +151,9 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
                         startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
-                    } else if (DeviceTools.isTC001LiteConnect())
-                        {
-                            NavigationManager.getInstance().build(RouterConfig.IR_TCLITE).navigation(requireActivity(), 101)
-                        } else if (DeviceTools.isHikConnect()) {
+                    } else if (DeviceTools.isTC001LiteConnect()) {
+                        NavigationManager.getInstance().build(RouterConfig.IR_TCLITE).navigation(requireActivity(), 101)
+                    } else if (DeviceTools.isHikConnect()) {
                         NavigationManager.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(requireActivity())
                     } else {
                         startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
@@ -264,14 +262,13 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     private fun checkStoragePermission() {
         val permissionList: List<String> =
-            if (activity?.applicationInfo?.targetSdkVersion!! >= 34)
-                {
-                    listOf(
-                        Permission.READ_MEDIA_VIDEO,
-                        Permission.READ_MEDIA_IMAGES,
-                        Permission.WRITE_EXTERNAL_STORAGE,
-                    )
-                } else if (activity?.applicationInfo?.targetSdkVersion!! >= 33) {
+            if (activity?.applicationInfo?.targetSdkVersion!! >= 34) {
+                listOf(
+                    Permission.READ_MEDIA_VIDEO,
+                    Permission.READ_MEDIA_IMAGES,
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                )
+            } else if (activity?.applicationInfo?.targetSdkVersion!! >= 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,

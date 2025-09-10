@@ -20,7 +20,11 @@ import java.lang.NumberFormatException
  *
  * Created by LCG on 2024/10/24.
  */
-class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean) : Dialog(context, R.style.TextInputDialog) {
+class IRConfigInputDialog(
+    context: Context,
+    val type: Type,
+    val isTC007: Boolean,
+) : Dialog(context, R.style.TextInputDialog) {
     private var value: Float? = null
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 

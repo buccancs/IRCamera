@@ -43,10 +43,14 @@ class ConnectTipsActivity : BaseActivity() {
                 SpanBuilder(getString(R.string.ts004_guide_text2))
                     .appendDrawable(this, R.drawable.svg_connect_tips_m, SizeUtils.sp2px(18f))
         }
-        iv_tips1.setImageResource(if (isTC007) R.drawable.ic_connect_tips_tc007_1 else R.drawable.ic_connect_tips_ts004_1)
+        iv_tips1.setImageResource(
+            if (isTC007) R.drawable.ic_connect_tips_tc007_1 else R.drawable.ic_connect_tips_ts004_1,
+        )
 
         tv_tips2.setText(if (isTC007) R.string.tc007_connect_tips2 else R.string.ts004_guide_text3)
-        iv_tips2.setImageResource(if (isTC007) R.drawable.ic_connect_tips_tc007_2 else R.drawable.ic_connect_tips_ts004_2)
+        iv_tips2.setImageResource(
+            if (isTC007) R.drawable.ic_connect_tips_tc007_2 else R.drawable.ic_connect_tips_ts004_2,
+        )
 
         tv_tips3.isVisible = isTC007
         iv_tips3.isVisible = isTC007

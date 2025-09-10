@@ -277,9 +277,13 @@ class HouseDetectView : FrameLayout {
             viewType: Int,
         ): RecyclerView.ViewHolder {
             return if (viewType == 0) {
-                HeadViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_report_add_head, parent, false))
+                HeadViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_report_add_head, parent, false),
+                )
             } else {
-                ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_report_add_default, parent, false))
+                ItemViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_report_add_default, parent, false),
+                )
             }
         }
 

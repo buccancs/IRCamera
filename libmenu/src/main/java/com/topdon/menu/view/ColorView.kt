@@ -90,7 +90,12 @@ class ColorView : View {
         setMeasuredDimension(width, height)
 
         refreshShader()
-        triangleDrawable.setBounds((width - triangleSize) / 2, barHeight + margin, (width - triangleSize) / 2 + triangleSize, height)
+        triangleDrawable.setBounds(
+            (width - triangleSize) / 2,
+            barHeight + margin,
+            (width - triangleSize) / 2 + triangleSize,
+            height,
+        )
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -104,7 +109,15 @@ class ColorView : View {
             paint.shader = null
             canvas.drawRoundRect(0f, 0f, width.toFloat(), barHeight.toFloat(), radius, radius, paint)
             paint.shader = shaderSelectYes
-            canvas.drawRoundRect(strokeSize, strokeSize, width - strokeSize, strokeSize + selectBarHeight, radius, radius, paint)
+            canvas.drawRoundRect(
+                strokeSize,
+                strokeSize,
+                width - strokeSize,
+                strokeSize + selectBarHeight,
+                radius,
+                radius,
+                paint,
+            )
             triangleDrawable.draw(canvas)
         } else {
             val normalBarWidth: Int = (width * 50f / 62).toInt() // Unselected width 50, total width 62

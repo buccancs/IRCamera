@@ -19,7 +19,10 @@ import kotlinx.android.synthetic.main.item_house_list.view.*
  * Created by LCG on 2024/8/28.
  */
 @SuppressLint("NotifyDataSetChanged")
-internal class HouseAdapter(val context: Context, val isDetect: Boolean) : RecyclerView.Adapter<HouseAdapter.ViewHolder>() {
+internal class HouseAdapter(
+    val context: Context,
+    val isDetect: Boolean,
+) : RecyclerView.Adapter<HouseAdapter.ViewHolder>() {
     var dataList: ArrayList<HouseBase> = ArrayList()
 
     /**

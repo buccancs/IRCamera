@@ -114,7 +114,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         val left: Int = dp2px(wholeLeft ?: ((itemLeft ?: 0f) * 2))
         val right: Int = dp2px(wholeRight ?: ((itemRight ?: 0f) * 2))
         val top: Int = dp2px(if (position == 0) wholeTop ?: ((itemTop ?: 0f) * 2) else (itemTop ?: 0f))
-        val bottom: Int = dp2px(if (position == itemCount - 1) wholeBottom ?: ((itemBottom ?: 0f) * 2) else (itemBottom ?: 0f))
+        val bottom: Int =
+            dp2px(if (position == itemCount - 1) wholeBottom ?: ((itemBottom ?: 0f) * 2) else (itemBottom ?: 0f))
         outRect.set(left, top, right, bottom)
     }
 
@@ -128,7 +129,8 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         itemCount: Int,
     ) {
         val left: Int = dp2px(if (position == 0) wholeLeft ?: ((itemLeft ?: 0f) * 2) else (itemLeft ?: 0f))
-        val right: Int = dp2px(if (position == itemCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
+        val right: Int =
+            dp2px(if (position == itemCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
         val top: Int = dp2px(wholeTop ?: ((itemTop ?: 0f) * 2))
         val bottom: Int = dp2px(wholeBottom ?: ((itemBottom ?: 0f) * 2))
         outRect.set(left, top, right, bottom)
@@ -150,9 +152,11 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         val columnPosition = position % spanCount // Current position data[0, spanCount)
 
         val left: Int = dp2px(if (columnPosition == 0) wholeLeft ?: ((itemLeft ?: 0f) * 2) else (itemLeft ?: 0f))
-        val right: Int = dp2px(if (columnPosition == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
+        val right: Int =
+            dp2px(if (columnPosition == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
         val top: Int = dp2px(if (rowPosition == 0) wholeTop ?: ((itemTop ?: 0f) * 2) else (itemTop ?: 0f))
-        val bottom: Int = dp2px(if (rowPosition == totalRow - 1) wholeBottom ?: ((itemBottom ?: 0f) * 2) else (itemBottom ?: 0f))
+        val bottom: Int =
+            dp2px(if (rowPosition == totalRow - 1) wholeBottom ?: ((itemBottom ?: 0f) * 2) else (itemBottom ?: 0f))
         outRect.set(left, top, right, bottom)
     }
 
@@ -173,9 +177,11 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         val rowPosition = position / spanCount // Currentpositiondata[0, totalRow)
 
         val left: Int = dp2px(if (spanIndex == 0) wholeLeft ?: ((itemLeft ?: 0f) * 2) else (itemLeft ?: 0f))
-        val right: Int = dp2px(if (spanIndex == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
+        val right: Int =
+            dp2px(if (spanIndex == spanCount - 1) wholeRight ?: ((itemRight ?: 0f) * 2) else (itemRight ?: 0f))
         val top: Int = dp2px(if (rowPosition == 0) wholeTop ?: ((itemTop ?: 0f) * 2) else (itemTop ?: 0f))
-        val bottom: Int = dp2px(if (rowPosition == totalRow - 1) wholeBottom ?: ((itemBottom ?: 0f) * 2) else (itemBottom ?: 0f))
+        val bottom: Int =
+            dp2px(if (rowPosition == totalRow - 1) wholeBottom ?: ((itemBottom ?: 0f) * 2) else (itemBottom ?: 0f))
         outRect.set(left, top, right, bottom)
     }
 

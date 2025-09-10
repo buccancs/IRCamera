@@ -83,10 +83,18 @@ abstract class AppDatabase : RoomDatabase() {
                             database.execSQL(
                                 "CREATE TABLE IF NOT EXISTS `ItemReport` (`parentId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `position` INTEGER NOT NULL, `itemName` TEXT NOT NULL, `state` INTEGER NOT NULL, `inputText` TEXT NOT NULL, `image1` TEXT NOT NULL, `image2` TEXT NOT NULL, `image3` TEXT NOT NULL, `image4` TEXT NOT NULL, FOREIGN KEY(`parentId`) REFERENCES `DirReport`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
                             )
-                            database.execSQL("CREATE INDEX IF NOT EXISTS `index_DirDetect_parentId` ON `DirDetect` (`parentId`)")
-                            database.execSQL("CREATE INDEX IF NOT EXISTS `index_DirReport_parentId` ON `DirReport` (`parentId`)")
-                            database.execSQL("CREATE INDEX IF NOT EXISTS `index_ItemDetect_parentId` ON `ItemDetect` (`parentId`)")
-                            database.execSQL("CREATE INDEX IF NOT EXISTS `index_ItemReport_parentId` ON `ItemReport` (`parentId`)")
+                            database.execSQL(
+                                "CREATE INDEX IF NOT EXISTS `index_DirDetect_parentId` ON `DirDetect` (`parentId`)",
+                            )
+                            database.execSQL(
+                                "CREATE INDEX IF NOT EXISTS `index_DirReport_parentId` ON `DirReport` (`parentId`)",
+                            )
+                            database.execSQL(
+                                "CREATE INDEX IF NOT EXISTS `index_ItemDetect_parentId` ON `ItemDetect` (`parentId`)",
+                            )
+                            database.execSQL(
+                                "CREATE INDEX IF NOT EXISTS `index_ItemReport_parentId` ON `ItemReport` (`parentId`)",
+                            )
                         }
                     },
                 )

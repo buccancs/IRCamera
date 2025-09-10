@@ -247,7 +247,10 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
                     if (editId == 0L) {
                         val newIntent = Intent(this@DetectAddActivity, ReportAddActivity::class.java)
                         newIntent.putExtra(ExtraKeyConfig.DETECT_ID, houseDetect.id)
-                        newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+                        newIntent.putExtra(
+                            ExtraKeyConfig.IS_TC007,
+                            intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false),
+                        )
                         startActivity(newIntent)
                     }
                     dismissLoadingDialog()

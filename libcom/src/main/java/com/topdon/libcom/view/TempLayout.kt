@@ -57,31 +57,30 @@ class TempLayout : LinearLayout {
         defStyleAttr,
     )
 
-    fun startAnimation(type: Int)  {
+    fun startAnimation(type: Int) {
         this.visibility = View.VISIBLE
-        if (this.type != type)
-            {
-                alphaAnimator?.cancel()
-                alphaAnimator?.removeAllListeners()
-                when (type) {
-                    TYPE_HOT -> {
-                        isHot = true
-                        alphaAnimator?.repeatCount = ValueAnimator.INFINITE
-                        bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
-                    }
-                    TYPE_A -> {
-                        alphaAnimator?.repeatCount = 0
-                        alphaAnimator?.addListener(animatorListener)
-                    }
-                    else -> {
-                        alphaAnimator?.repeatCount = ValueAnimator.INFINITE
-                        isHot = false
-                        bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
-                    }
+        if (this.type != type) {
+            alphaAnimator?.cancel()
+            alphaAnimator?.removeAllListeners()
+            when (type) {
+                TYPE_HOT -> {
+                    isHot = true
+                    alphaAnimator?.repeatCount = ValueAnimator.INFINITE
+                    bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
                 }
-                alphaAnimator?.start()
-                this.type = type
+                TYPE_A -> {
+                    alphaAnimator?.repeatCount = 0
+                    alphaAnimator?.addListener(animatorListener)
+                }
+                else -> {
+                    alphaAnimator?.repeatCount = ValueAnimator.INFINITE
+                    isHot = false
+                    bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
+                }
             }
+            alphaAnimator?.start()
+            this.type = type
+        }
     }
 
     var animatorListener: Animator.AnimatorListener =
@@ -90,18 +89,15 @@ class TempLayout : LinearLayout {
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                if (this@TempLayout.visibility == View.VISIBLE)
-                    {
-                        isHot = !isHot
-                        if (isHot)
-                            {
-                                bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
-                            } else
-                            {
-                                bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
-                            }
-                        alphaAnimator?.start()
+                if (this@TempLayout.visibility == View.VISIBLE) {
+                    isHot = !isHot
+                    if (isHot) {
+                        bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
+                    } else {
+                        bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
                     }
+                    alphaAnimator?.start()
+                }
             }
 
             override fun onAnimationCancel(animation: Animator) {}
@@ -109,7 +105,7 @@ class TempLayout : LinearLayout {
             override fun onAnimationRepeat(animation: Animator) {}
         }
 
-    fun stopAnimation()  {
+    fun stopAnimation() {
         this.type = -1
         alphaAnimator?.removeAllListeners()
         this.visibility = View.GONE

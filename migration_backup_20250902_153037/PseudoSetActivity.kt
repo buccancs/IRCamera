@@ -268,7 +268,9 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         iv_dynamic.setImageResource(
             if (isToCustom) R.drawable.svg_pseudo_set_dynamic_not_select else R.drawable.svg_pseudo_set_dynamic_select,
         )
-        iv_custom.setImageResource(if (isToCustom) R.drawable.svg_pseudo_set_custom_select else R.drawable.svg_pseudo_set_custom_not_select)
+        iv_custom.setImageResource(
+            if (isToCustom) R.drawable.svg_pseudo_set_custom_select else R.drawable.svg_pseudo_set_custom_not_select,
+        )
         tv_dynamic_title.setTextColor(if (isToCustom) 0xffffffff.toInt() else 0xffffba42.toInt())
         tv_custom_title.setTextColor(if (isToCustom) 0xffffba42.toInt() else 0xffffffff.toInt())
     }
@@ -284,7 +286,9 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         tv_color_custom.setTextColor(if (isToCustom) 0xffffba42.toInt() else 0xffffffff.toInt())
         tv_color_recommend.setTextColor(if (isToCustom) 0xffffffff.toInt() else 0xffffba42.toInt())
         tv_color_custom.setBackgroundResource(if (isToCustom) R.drawable.bg_corners50_solid_2a183e_stroke_theme else 0)
-        tv_color_recommend.setBackgroundResource(if (isToCustom) 0 else R.drawable.bg_corners50_solid_2a183e_stroke_theme)
+        tv_color_recommend.setBackgroundResource(
+            if (isToCustom) 0 else R.drawable.bg_corners50_solid_2a183e_stroke_theme,
+        )
     }
 
     /**

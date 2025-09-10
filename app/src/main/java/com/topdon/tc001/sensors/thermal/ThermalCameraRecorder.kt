@@ -597,6 +597,9 @@ class ThermalCameraRecorder(
         this.emissivity = emissivity
         this.reflectedTemperature = reflectedTemp
 
-        Log.i(TAG, "Thermal calibration updated: ambient=$ambientTemp°C, emissivity=$emissivity, reflected=$reflectedTemp°C")
+        Log.i(
+            TAG,
+            "Thermal calibration updated: ambient=$ambientTemp°C, emissivity=$emissivity, reflected=$reflectedTemp°C",
+        )
     }
 }

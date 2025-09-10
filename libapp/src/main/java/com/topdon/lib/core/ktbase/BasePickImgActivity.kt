@@ -72,7 +72,11 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
         binding.titleView.setRightClickListener {
             if (hasTakePhoto) {
                 val absolutePath: String = intent.getStringExtra(RESULT_IMAGE_PATH)!!
-                ImageUtils.save(binding.imageEditView.buildResultBitmap(), File(absolutePath), Bitmap.CompressFormat.PNG)
+                ImageUtils.save(
+                    binding.imageEditView.buildResultBitmap(),
+                    File(absolutePath),
+                    Bitmap.CompressFormat.PNG,
+                )
                 val intent = Intent()
                 intent.putExtra(RESULT_IMAGE_PATH, absolutePath)
                 setResult(RESULT_OK, intent)

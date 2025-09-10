@@ -68,7 +68,7 @@ class ListItemView : LinearLayout {
         mIvLeftContent.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    fun getLeftText(): String  {
+    fun getLeftText(): String {
         if (mIvLeftContent == null) return ""
         return mIvLeftContent.text.toString()
     }
@@ -79,7 +79,7 @@ class ListItemView : LinearLayout {
         mIvRightContent.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    fun getRightText(): String  {
+    fun getRightText(): String {
         if (mIvRightContent == null) return ""
         return mIvRightContent.text.toString()
     }

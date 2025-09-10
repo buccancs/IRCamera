@@ -9,7 +9,10 @@ import java.lang.Exception
 object ConfigRepository {
     fun read(isTC007: Boolean): ModelBean =
         try {
-            Gson().fromJson(if (isTC007) SharedManager.irConfigJsonTC007 else SharedManager.getIRConfig(), ModelBean::class.java)
+            Gson().fromJson(
+                if (isTC007) SharedManager.irConfigJsonTC007 else SharedManager.getIRConfig(),
+                ModelBean::class.java,
+            )
         } catch (_: Exception) {
             // Repository dataSPrepository，repository
             ModelBean(DataBean(id = 0, use = true))

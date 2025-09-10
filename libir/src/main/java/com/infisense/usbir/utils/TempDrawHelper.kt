@@ -72,7 +72,7 @@ class TempDrawHelper {
     var textColor: Int
         @ColorInt get() = textPaint.color
         set(
-            @ColorInt value
+        @ColorInt value
         ) {
             textPaint.color = value
         }

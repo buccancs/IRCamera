@@ -130,7 +130,10 @@ object TimeUtil {
         // Only log if Android Log is available (not in unit tests)
         try {
             android.util.Log.d(TAG, "PC time offset set to: ${offset}ms from Samsung S22 ground truth")
-            android.util.Log.d(TAG, "Samsung S22 ($detectedProcessor) maintains authoritative timing with ${offset}ms PC coordination")
+            android.util.Log.d(
+                TAG,
+                "Samsung S22 ($detectedProcessor) maintains authoritative timing with ${offset}ms PC coordination",
+            )
         } catch (e: Exception) {
             // Ignore - running in unit tests
         }

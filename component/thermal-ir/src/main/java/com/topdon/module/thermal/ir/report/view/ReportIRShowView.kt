@@ -203,7 +203,9 @@ class ReportIRShowView : LinearLayout {
 
         tvHead.isVisible = isFirst
         viewNotHead.isVisible = !isFirst
-        viewImageBg.setBackgroundResource(if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg)
+        viewImageBg.setBackgroundResource(
+            if (isFirst) R.drawable.layer_report_ir_show_top_bg else R.drawable.layer_report_ir_show_item_bg,
+        )
         clImage.setPadding(0, if (isFirst) SizeUtils.dp2px(20f) else 0, 0, 0)
 
         refreshItem(clFull, reportIRBean.full_graph_data, TYPE_FULL, 0)

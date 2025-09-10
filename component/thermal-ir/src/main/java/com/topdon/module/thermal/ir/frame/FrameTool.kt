@@ -38,7 +38,13 @@ class FrameTool {
             System.arraycopy(bytes, 0, frame, 0, frame.size)
             println("bs len: ${frame.size}")
             System.arraycopy(frame, 0, imageBytes, 0, scrImageLen) // Image data (192 x 256 x 2) yuv
-            System.arraycopy(frame, scrImageLen, temperatureBytes, 0, srcTemperatureLen) // Temperature data (192 x 256 x 2)
+            System.arraycopy(
+                frame,
+                scrImageLen,
+                temperatureBytes,
+                0,
+                srcTemperatureLen,
+            ) // Temperature data (192 x 256 x 2)
             println("imageBytes len: ${imageBytes.size}")
             println("temperatureBytes len: ${temperatureBytes.size}")
         } catch (e: Exception) {
@@ -141,7 +147,12 @@ class FrameTool {
         val minRGB = IntArray(3)
         if (customPseudoBean.isUseCustomPseudo) {
             // Utility functionMode
-            LibIRProcess.convertYuyvMapToARGBPseudocolor(imageBytesTemp, pixNum.toLong(), CommonParams.PseudoColorType.PSEUDO_1, argbBytes)
+            LibIRProcess.convertYuyvMapToARGBPseudocolor(
+                imageBytesTemp,
+                pixNum.toLong(),
+                CommonParams.PseudoColorType.PSEUDO_1,
+                argbBytes,
+            )
             val colorList: IntArray? = customPseudoBean.getColorList(struct.isTC007())
             val places: FloatArray? = customPseudoBean.getPlaceList()
             if (colorList != null) {
@@ -226,38 +237,26 @@ class FrameTool {
         argbBytesRotate(argbBytes, dstArgbBytes!!, rotate) // Rotation
         val dstImageRes = getDstImageRes(rotate)
         var scrBitmap: Bitmap? = null
-        if (isAmplify)
-            {
+        if (isAmplify) {
 //            scrBitmap = Bitmap.createBitmap(dstImageRes.width.code,
 //                dstImageRes.height.code, Bitmap.Config.ARGB_8888)
 //            scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(dstArgbBytes, 0, argbLen))
 //            return OpencvTools.supImageFourExToBitmap(scrBitmap)
-                SupHelp.getInstance().initA4KCPP()
-                if (SupHelp.getInstance().loadOpenclSuccess)
-                    {
-                        OpencvTools.supImage(
-                            dstArgbBytes,
-                            dstImageRes.height.code,
-                            dstImageRes.width.code,
-                            supImageData,
-                        )
-                        scrBitmap =
-                            Bitmap.createBitmap(
-                                dstImageRes.width.code * 2,
-                                dstImageRes.height.code * 2, Bitmap.Config.ARGB_8888,
-                            )
-                        scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(supImageData, 0, argbLen * 4))
-                    } else
-                    {
-                        scrBitmap =
-                            Bitmap.createBitmap(
-                                dstImageRes.width.code,
-                                dstImageRes.height.code, Bitmap.Config.ARGB_8888,
-                            )
-                        scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(dstArgbBytes, 0, argbLen))
-                    }
-            } else
-            {
+            SupHelp.getInstance().initA4KCPP()
+            if (SupHelp.getInstance().loadOpenclSuccess) {
+                OpencvTools.supImage(
+                    dstArgbBytes,
+                    dstImageRes.height.code,
+                    dstImageRes.width.code,
+                    supImageData,
+                )
+                scrBitmap =
+                    Bitmap.createBitmap(
+                        dstImageRes.width.code * 2,
+                        dstImageRes.height.code * 2, Bitmap.Config.ARGB_8888,
+                    )
+                scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(supImageData, 0, argbLen * 4))
+            } else {
                 scrBitmap =
                     Bitmap.createBitmap(
                         dstImageRes.width.code,
@@ -265,13 +264,21 @@ class FrameTool {
                     )
                 scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(dstArgbBytes, 0, argbLen))
             }
+        } else {
+            scrBitmap =
+                Bitmap.createBitmap(
+                    dstImageRes.width.code,
+                    dstImageRes.height.code, Bitmap.Config.ARGB_8888,
+                )
+            scrBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(dstArgbBytes, 0, argbLen))
+        }
         return scrBitmap
     }
 
     /**
      * utilitybitmap
      */
-    fun getBaseBitmap(rotate: ImageParams): Bitmap  {
+    fun getBaseBitmap(rotate: ImageParams): Bitmap {
         val dstImageRes = getDstImageRes(rotate)
         val scrBitmap =
             Bitmap.createBitmap(

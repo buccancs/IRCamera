@@ -47,7 +47,9 @@ class MonitoryHomeActivity : BaseActivity() {
         findViewById<ViewPager2>(R.id.view_pager2).currentItem = 0
     }
 
-    private class ViewPagerAdapter(activity: MonitoryHomeActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
+    private class ViewPagerAdapter(activity: MonitoryHomeActivity, val isTC007: Boolean) : FragmentStateAdapter(
+        activity,
+    ) {
         override fun getItemCount() = 2
 
         override fun createFragment(position: Int): Fragment {

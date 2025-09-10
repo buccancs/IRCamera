@@ -277,21 +277,19 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun checkStoragePermission() {
         val permissionList: List<String> =
-            if (this.applicationInfo.targetSdkVersion >= 34)
-                {
-                    listOf(
-                        Permission.READ_MEDIA_VIDEO,
-                        Permission.READ_MEDIA_IMAGES,
-                        Permission.WRITE_EXTERNAL_STORAGE,
-                    )
-                } else if (this.applicationInfo.targetSdkVersion >= 34)
-                {
-                    listOf(
-                        Permission.READ_MEDIA_VIDEO,
-                        Permission.READ_MEDIA_IMAGES,
-                        Permission.WRITE_EXTERNAL_STORAGE,
-                    )
-                } else if (this.applicationInfo.targetSdkVersion == 33) {
+            if (this.applicationInfo.targetSdkVersion >= 34) {
+                listOf(
+                    Permission.READ_MEDIA_VIDEO,
+                    Permission.READ_MEDIA_IMAGES,
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                )
+            } else if (this.applicationInfo.targetSdkVersion >= 34) {
+                listOf(
+                    Permission.READ_MEDIA_VIDEO,
+                    Permission.READ_MEDIA_IMAGES,
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                )
+            } else if (this.applicationInfo.targetSdkVersion == 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,
@@ -322,11 +320,10 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
      * activity
      */
     private fun initStoragePermission(permissionList: List<String>) {
-        if (PermissionUtils.isVisualUser())
-            {
-                binding.viewPage.setCurrentItem(1, false)
-                return
-            }
+        if (PermissionUtils.isVisualUser()) {
+            binding.viewPage.setCurrentItem(1, false)
+            return
+        }
         XXPermissions.with(this)
             .permission(permissionList)
             .request(
@@ -362,7 +359,9 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
             )
     }
 
-    private class ViewPagerAdapter(val activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
+    private class ViewPagerAdapter(val activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(
+        activity,
+    ) {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
@@ -382,7 +381,10 @@ class IRMainActivity : AppCompatActivity(), View.OnClickListener {
                         0 -> AbilityFragment()
                         2 -> IRThermalFragment()
                         3 -> PDFListFragment()
-                        else -> NavigationManager.getInstance().build(RouterConfig.TC_MORE).navigation(activity) as Fragment
+                        else ->
+                            NavigationManager.getInstance().build(
+                                RouterConfig.TC_MORE,
+                            ).navigation(activity) as Fragment
                     }
                 fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
                 return fragment

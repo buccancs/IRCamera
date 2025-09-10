@@ -8,7 +8,9 @@ interface ThermalDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: ThermalEntity): Long
 
-    @Query("SELECT type AS type, start_time AS startTime, count(*) AS duration FROM thermal GROUP BY start_time ORDER BY start_time DESC")
+    @Query(
+        "SELECT type AS type, start_time AS startTime, count(*) AS duration FROM thermal GROUP BY start_time ORDER BY start_time DESC",
+    )
     fun queryRecordList(): List<Record>
 
     @Query("SELECT * FROM thermal WHERE start_time = :startTime ORDER BY create_time")
@@ -28,7 +30,9 @@ interface ThermalDao {
     fun deleteZero(userId: String)
 
     // New methods needed by LogViewModel
-    @Query("SELECT * FROM thermal WHERE user_id = :userId AND create_time >= :startTime AND create_time <= :endTime ORDER BY create_time")
+    @Query(
+        "SELECT * FROM thermal WHERE user_id = :userId AND create_time >= :startTime AND create_time <= :endTime ORDER BY create_time",
+    )
     fun getThermalByDate(
         userId: String,
         startTime: Long,
@@ -38,7 +42,9 @@ interface ThermalDao {
     @Query("SELECT * FROM thermal WHERE user_id = :userId ORDER BY create_time")
     fun getAllThermalByDate(userId: String): List<ThermalEntity>
 
-    @Query("SELECT * FROM thermal WHERE user_id = :userId AND create_time >= :startTime AND create_time <= :endTime ORDER BY create_time")
+    @Query(
+        "SELECT * FROM thermal WHERE user_id = :userId AND create_time >= :startTime AND create_time <= :endTime ORDER BY create_time",
+    )
     fun queryByTime(
         userId: String,
         startTime: Long,

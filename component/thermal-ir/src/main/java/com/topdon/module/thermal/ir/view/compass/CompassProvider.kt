@@ -21,10 +21,9 @@ class CompassProvider(private val context: Context) {
         val allSources = getAvailableSources(context)
 
         // There were no compass sensors found
-        if (allSources.isEmpty())
-            {
-                return NullCompass()
-            }
+        if (allSources.isEmpty()) {
+            return NullCompass()
+        }
 
         if (!allSources.contains(source)) {
             source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer

@@ -109,7 +109,7 @@ abstract class TemperatureBaseView : View {
     var textColor: Int
         @ColorInt get() = helper.textColor
         set(
-            @ColorInt value
+        @ColorInt value
         ) {
             helper.textColor = value
             invalidate()
@@ -556,10 +556,32 @@ abstract class TemperatureBaseView : View {
                             val maxX: Int = max(downLine.start.x, downLine.end.x)
                             val minY: Int = min(downLine.start.y, downLine.end.y)
                             val maxY: Int = max(downLine.start.y, downLine.end.y)
-                            val biasX: Int = if (x < downX) max(x - downX, rect.left - minX) else min(x - downX, rect.right - maxX)
-                            val biasY: Int = if (y < downY) max(y - downY, rect.top - minY) else min(y - downY, rect.bottom - maxY)
-                            (if (isTrend) operateTrend else operateLine)?.start?.set(downLine.start.x + biasX, downLine.start.y + biasY)
-                            (if (isTrend) operateTrend else operateLine)?.end?.set(downLine.end.x + biasX, downLine.end.y + biasY)
+                            val biasX: Int =
+                                if (x < downX) {
+                                    max(
+                                        x - downX,
+                                        rect.left - minX,
+                                    )
+                                } else {
+                                    min(x - downX, rect.right - maxX)
+                                }
+                            val biasY: Int =
+                                if (y < downY) {
+                                    max(
+                                        y - downY,
+                                        rect.top - minY,
+                                    )
+                                } else {
+                                    min(y - downY, rect.bottom - maxY)
+                                }
+                            (if (isTrend) operateTrend else operateLine)?.start?.set(
+                                downLine.start.x + biasX,
+                                downLine.start.y + biasY,
+                            )
+                            (if (isTrend) operateTrend else operateLine)?.end?.set(
+                                downLine.end.x + biasX,
+                                downLine.end.y + biasY,
+                            )
                         }
                         LineMoveType.START -> {
                             (if (isTrend) operateTrend else operateLine)?.start?.x = x
@@ -772,7 +794,12 @@ abstract class TemperatureBaseView : View {
                                 } else {
                                     min(y - downY, rect.bottom - downRect.bottom)
                                 }
-                            operateRect?.set(downRect.left + biasX, downRect.top + biasY, downRect.right + biasX, downRect.bottom + biasY)
+                            operateRect?.set(
+                                downRect.left + biasX,
+                                downRect.top + biasY,
+                                downRect.right + biasX,
+                                downRect.bottom + biasY,
+                            )
                         }
                         RectMoveType.EDGE ->
                             when (rectMoveEdge) {

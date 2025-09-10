@@ -235,10 +235,9 @@ class FrameStruct() {
         alarmBean = AlarmBean.loadFromArray(alarmArray)
         gainStatus = data[657].toInt()
         val tmpTextSize = (data[658].toInt() and 0xff shl 8) or (data[659].toInt() and 0xff)
-        if (tmpTextSize >= SizeUtils.sp2px(14f))
-            {
-                textSize = tmpTextSize
-            }
+        if (tmpTextSize >= SizeUtils.sp2px(14f)) {
+            textSize = tmpTextSize
+        }
 
         val envBytes = data.copyOfRange(660, 664)
         val distanceBytes = data.copyOfRange(664, 668)

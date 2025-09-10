@@ -115,8 +115,10 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
     }
 
     private fun initRecycler() {
-        val monitorChartTimeRecycler = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_time_recycler)
-        val monitorChartSettingRecycler = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_setting_recycler)
+        val monitorChartTimeRecycler =
+            findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_time_recycler)
+        val monitorChartSettingRecycler =
+            findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.monitor_chart_setting_recycler)
 
         monitorChartTimeRecycler.layoutManager = GridLayoutManager(this, 4)
         monitorChartTimeRecycler.adapter = timeAdapter

@@ -32,7 +32,7 @@ class PdfViewModel : BaseViewModel() {
     fun getReportData(
         isTC007: Boolean,
         page: Int,
-    )  {
+    ) {
         if (!NetworkUtil.isConnected(Utils.getApp())) {
             TToast.shortToast(Utils.getApp(), LibR.string.http_code_z5004)
             listData.postValue(null)

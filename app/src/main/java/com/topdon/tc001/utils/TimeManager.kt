@@ -142,7 +142,10 @@ class TimeManager(
                     // Start drift monitoring
                     startDriftMonitoring()
 
-                    Log.i(TAG, "Time synchronization successful: offset=${bestOffset}ns, quality=${bestRtt / 1_000_000}ms")
+                    Log.i(
+                        TAG,
+                        "Time synchronization successful: offset=${bestOffset}ns, quality=${bestRtt / 1_000_000}ms",
+                    )
                     return@withContext true
                 } else {
                     Log.e(TAG, "Time synchronization failed: $successCount/$SYNC_RETRY_COUNT rounds succeeded")

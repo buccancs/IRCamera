@@ -79,7 +79,12 @@ class OptionPickPopup(
         if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) { // Implementation anchor data
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
         } else { // Implementation
-            showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
+            showAtLocation(
+                anchor,
+                Gravity.NO_GRAVITY,
+                x,
+                (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0),
+            )
         }
     }
 
@@ -97,7 +102,12 @@ class OptionPickPopup(
             textView.textSize = TEXT_SIZE_SP
             textView.setDrawableHeightPx(SizeUtils.sp2px(18f))
             textView.setTextColor(0xffffffff.toInt())
-            textView.setPadding(SizeUtils.dp2px(14f), SizeUtils.dp2px(TEXT_PADDING), SizeUtils.dp2px(14f), SizeUtils.dp2px(TEXT_PADDING))
+            textView.setPadding(
+                SizeUtils.dp2px(14f),
+                SizeUtils.dp2px(TEXT_PADDING),
+                SizeUtils.dp2px(14f),
+                SizeUtils.dp2px(TEXT_PADDING),
+            )
             textView.compoundDrawablePadding = SizeUtils.dp2px(10f)
             textView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             return ViewHolder(textView)

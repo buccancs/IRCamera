@@ -225,7 +225,10 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
 //        colorBarView.isVisible = struct.isShowPseudoBar
 //        adapter.enPseudoColorBar(struct.isShowPseudoBar)
 
-            editRecyclerSecond.setSettingSelected(SettingType.ALARM, struct.alarmBean.isHighOpen || struct.alarmBean.isLowOpen)
+            editRecyclerSecond.setSettingSelected(
+                SettingType.ALARM,
+                struct.alarmBean.isHighOpen || struct.alarmBean.isLowOpen,
+            )
             editRecyclerSecond.setSettingSelected(SettingType.WATERMARK, struct.watermarkBean.isOpen)
             editRecyclerSecond.setSettingSelected(
                 SettingType.FONT,
