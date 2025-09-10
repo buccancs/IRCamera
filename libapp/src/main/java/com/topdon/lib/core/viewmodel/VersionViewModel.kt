@@ -11,8 +11,12 @@ class VersionViewModel : BaseViewModel() {
     val updateLiveData = SingleLiveEvent<VersionUpData>()
 
     fun checkVersion() {
-}
+        // Version check implementation would go here
+        // This appears to be a placeholder method that needs implementation
+    }
 
+    private fun processVersionResult(result: CheckVersionJson) {
+        val isForcedUpgrade = result.isForcedUpgrade == 1
         val description = getDescription(result.softConfigOtherTypeVOList)
         val downPageUrl = result.downloadPageUrl
         val sizeStr = "${result.notUnZipSize}MB"

@@ -170,15 +170,18 @@ data class WifiAttributeBean(
     var Y: Int? = null,
 )
 
+data class PalleteConfigBean(
     val palleteMode: Int,
     var stander: Stander? = null,
     var custom: Custom? = null,
 )
 
+data class Stander(
     var palleteNo: Int = 0,
     val threshold: List<Int>,
 )
 
+data class Custom(
     var customMode: Int,
     var highThreshold: Int,
     var lowThreshold: Int,
@@ -187,11 +190,13 @@ data class WifiAttributeBean(
     var lowColor: CustomColor,
 )
 
+data class CustomColor(
     var red: Int,
     var green: Int,
     var blue: Int,
 )
 
+data class VideoSettings(
     var brightness: Int = 50, // data, 0-100, data50
     var contrast: Int = 50, // data, 0-100, data50
     var saturation: Int = 50, // data, 0-100, data50
@@ -199,10 +204,12 @@ data class WifiAttributeBean(
     var flipMode: Int = 0, // data, 0:data, 1:data 2:data 3:180data
 )
 
+data class LineStyleParam(
     val color: Long,
     val size: Int,
 )
 
+data class ColorParam(
     val red: Int,
     val green: Int,
     val blue: Int,

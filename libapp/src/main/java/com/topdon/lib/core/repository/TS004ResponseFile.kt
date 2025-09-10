@@ -41,14 +41,17 @@ data class FirmwareBean(
     val uuid: String,
 )
 
+data class FileCountBean(
     val fileCount: Int,
 )
 
+data class FileListBean(
     val current: Int,
     val total: Int,
     val filelist: List<FileBean>,
 )
 
+data class FileBean(
     val id: Int,
     val type: Int,
     val duration: Int,
@@ -59,10 +62,12 @@ data class FirmwareBean(
     val timezone: Int,
 )
 
+data class DownloadStatusBean(
     val status: Int,
     val percent: Int,
 )
 
+data class StorageBean(
     val total: Long,
     val free: Long,
     val system: Long,
@@ -72,6 +77,7 @@ data class FirmwareBean(
     fun hasUseSize(): Long = system + image_size + video_size
 }
 
+data class ResponseStatusBean(
     val errCode: Int,
     val path: String,
     val pts: Int,
