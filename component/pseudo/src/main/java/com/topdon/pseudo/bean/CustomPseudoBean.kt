@@ -11,22 +11,21 @@ import java.nio.ByteBuffer
  * data.
  */
 @Parcelize
-data class CustomPseudoBean (
-    var selectIndex: Int = 0,                       //CurrentSelecteddata index
-    var colors: IntArray? = null,                   //7 data
-    var zAltitudes: IntArray? = null,               //7 data
-    var places: FloatArray? = null,                 //7 data
-    var isUseCustomPseudo: Boolean = false,         //true-data false-data
-    var maxTemp: Float = 50f,                       // Data fieldHigh temperature，dataCelsius，data50Celsius
-    var minTemp: Float = 0f,                        // Data fieldLow temperature，dataCelsius，data0Celsius
-    var isColorCustom: Boolean = true,              //true-data false-data
-    var customMinColor: Int = 0xff0000FF.toInt(),   // Data field(dataLow temperature)
-    var customMiddleColor: Int = 0xFFFF0000.toInt(),// Data field
-    var customMaxColor: Int = 0xFFFFFF00.toInt(),   // Data field(dataHigh temperature)
-    var customRecommendIndex: Int = 0,              // Data field index
-    var isUseGray: Boolean = true,                  //true-data false-data
+data class CustomPseudoBean(
+    var selectIndex: Int = 0, // CurrentSelecteddata index
+    var colors: IntArray? = null, // 7 data
+    var zAltitudes: IntArray? = null, // 7 data
+    var places: FloatArray? = null, // 7 data
+    var isUseCustomPseudo: Boolean = false, // true-data false-data
+    var maxTemp: Float = 50f, // Data fieldHigh temperature，dataCelsius，data50Celsius
+    var minTemp: Float = 0f, // Data fieldLow temperature，dataCelsius，data0Celsius
+    var isColorCustom: Boolean = true, // true-data false-data
+    var customMinColor: Int = 0xff0000FF.toInt(), // Data field(dataLow temperature)
+    var customMiddleColor: Int = 0xFFFF0000.toInt(), // Data field
+    var customMaxColor: Int = 0xFFFFFF00.toInt(), // Data field(dataHigh temperature)
+    var customRecommendIndex: Int = 0, // Data field index
+    var isUseGray: Boolean = true, // true-data false-data
 ) : Parcelable {
-
     companion object {
         fun loadFromShared(isTC007: Boolean = false): CustomPseudoBean {
             val json = if (isTC007) SharedManager.getTC0007CustomPseudo() else SharedManager.getCustomPseudo()
@@ -37,7 +36,7 @@ data class CustomPseudoBean (
             }
         }
 
-        fun toCustomPseudoBean(byteArray : ByteArray): CustomPseudoBean {
+        fun toCustomPseudoBean(byteArray: ByteArray): CustomPseudoBean {
             val buffer: ByteBuffer = ByteBuffer.wrap(byteArray)
 
             var colors: IntArray? = null
@@ -75,14 +74,15 @@ data class CustomPseudoBean (
             var customMaxColor = buffer.int
             val customRecommendIndex = buffer.int
             val isUseGray = buffer.get() == 0.toByte()
-            if (customMinColor == 0 && customMiddleColor == 0 && customMaxColor == 0){
-                maxTemp = 50f
-                minTemp = 0f
-                isColorCustom = true
-                customMinColor = 0xff0000FF.toInt()
-                customMiddleColor = 0xFFFF0000.toInt()
-                customMaxColor = 0xFFFFFF00.toInt()
-            }
+            if (customMinColor == 0 && customMiddleColor == 0 && customMaxColor == 0)
+                {
+                    maxTemp = 50f
+                    minTemp = 0f
+                    isColorCustom = true
+                    customMinColor = 0xff0000FF.toInt()
+                    customMiddleColor = 0xFFFF0000.toInt()
+                    customMaxColor = 0xFFFFFF00.toInt()
+                }
 
             return CustomPseudoBean(
                 selectIndex = byteArray[1].toInt() and 0xff,
@@ -97,7 +97,7 @@ data class CustomPseudoBean (
                 customMiddleColor = customMiddleColor,
                 customMaxColor = customMaxColor,
                 customRecommendIndex = customRecommendIndex,
-                isUseGray = isUseGray
+                isUseGray = isUseGray,
             )
         }
     }
@@ -112,10 +112,10 @@ data class CustomPseudoBean (
 
     fun getColorList(isTC007: Boolean = false): IntArray? {
         // Note: Synchronization of places calculation required across all usage locations
-        if (!isUseCustomPseudo) {// Data field
+        if (!isUseCustomPseudo) { // Data field
             return null
         }
-        return if (isColorCustom) {// Data field
+        return if (isColorCustom) { // Data field
             val sourceColors = getCustomColors()
             val places = getCustomPlaces()
             val actualColors = IntArray(sourceColors.size)
@@ -126,24 +126,24 @@ data class CustomPseudoBean (
                 }
             }
             actualColors
-        } else {// Data field
+        } else { // Data field
             ColorRecommend.getColorByIndex(isTC007, customRecommendIndex)
         }
     }
 
     fun getPlaceList(): FloatArray? {
-        if (!isUseCustomPseudo) {// Data field
+        if (!isUseCustomPseudo) { // Data field
             return null
         }
-        return if (isColorCustom) {// Data field
+        return if (isColorCustom) { // Data field
             getCustomPlaces()
-        } else {// Data field
+        } else { // Data field
             null
         }
     }
 
     fun getCustomColors(): IntArray {
-        if (colors == null) {// Data field
+        if (colors == null) { // Data field
             colors = intArrayOf(customMinColor, customMiddleColor, customMaxColor)
         }
         return colors!!
@@ -168,7 +168,7 @@ data class CustomPseudoBean (
 
         val colors: IntArray = getCustomColors()
 
-        buffer.put(colors.size.toByte()) //colorSize
+        buffer.put(colors.size.toByte()) // colorSize
         buffer.put(selectIndex.toByte())
 
         for (color in colors) {
@@ -187,7 +187,6 @@ data class CustomPseudoBean (
             buffer.putFloat(place)
         }
         buffer.position(2 + 7 * 4 + 7 + 7 * 4)
-
 
         buffer
             .put(if (isUseCustomPseudo) 1.toByte() else 0.toByte())

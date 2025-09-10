@@ -19,7 +19,7 @@ package com.topdon.menu.constant
  * - **Double Light**: Dual illumination thermal cameras for enhanced imaging
  * - **TC007**: Advanced wireless thermal camera with extended range capabilities
  *
- * ### Consumer & Portable Devices  
+ * ### Consumer & Portable Devices
  * - **Lite**: Lightweight thermal cameras optimized for mobile applications
  * - **Entry Level**: Basic thermal imaging for general purpose applications
  *
@@ -53,7 +53,7 @@ package com.topdon.menu.constant
  *         else -> MenuType.SINGLE_LIGHT // Default fallback
  *     }
  * }
- * 
+ *
  * // Configure UI based on menu type
  * when (menuType) {
  *     MenuType.DOUBLE_LIGHT -> {
@@ -100,7 +100,6 @@ package com.topdon.menu.constant
  * Enhanced with enterprise documentation on 2024/01/15.
  */
 enum class MenuType {
-    
     /**
      * Single illumination thermal imaging devices.
      *
@@ -121,7 +120,7 @@ enum class MenuType {
      * enhanced contrast and measurement accuracy. Provides comprehensive thermal
      * analysis tools with advanced visualization capabilities.
      *
-     * **Compatible Devices**: TC001_DL, TC004, TC008_DL  
+     * **Compatible Devices**: TC001_DL, TC004, TC008_DL
      * **Key Features**: Dual light control, advanced measurement, enhanced visualization
      * **Target Applications**: Professional inspection, detailed thermal analysis
      */

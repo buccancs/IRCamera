@@ -4,20 +4,17 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.widget.ProgressBar
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.databinding.DialogProgressBinding
-import com.topdon.lib.ui.R as UiR
 
 /**
  * dialog.
  */
 class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     private val binding: DialogProgressBinding = DialogProgressBinding.inflate(LayoutInflater.from(context))
-    
+
     var max: Int = 100
         set(value) {
             binding.progressBar.max = value

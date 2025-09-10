@@ -17,13 +17,17 @@ internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.V
         private const val VIEW_TYPE_LAST = 2
     }
 
-    override fun getItemViewType(position: Int): Int = when (position) {
-        0 -> VIEW_TYPE_FIRST
-        itemCount - 1 -> VIEW_TYPE_LAST
-        else -> VIEW_TYPE_DEFAULT
-    }
+    override fun getItemViewType(position: Int): Int =
+        when (position) {
+            0 -> VIEW_TYPE_FIRST
+            itemCount - 1 -> VIEW_TYPE_LAST
+            else -> VIEW_TYPE_DEFAULT
+        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         val binding = ItemMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val widthPixels: Int = parent.context.resources.displayMetrics.widthPixels
 
@@ -37,7 +41,7 @@ internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.V
         if (itemCount <= 4) {
             binding.root.layoutParams.width = (widthPixels / itemCount.toFloat()).toInt()
         } else {
-            val bigMargin: Int = (widthPixels * 24 / 375f).toInt()  // Based on UI design, left and right margin is 24
+            val bigMargin: Int = (widthPixels * 24 / 375f).toInt() // Based on UI design, left and right margin is 24
             val smallMargin: Int = (widthPixels * 8 / 375f).toInt() // Based on UI design, each item margin is 16
             when (viewType) {
                 VIEW_TYPE_FIRST -> binding.root.setPadding(bigMargin, 0, smallMargin, 0)

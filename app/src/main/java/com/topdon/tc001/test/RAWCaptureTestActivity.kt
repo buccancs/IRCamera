@@ -10,7 +10,6 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
  * Shows the enhanced multi-modal recording interface with RAW capture options
  */
 class RAWCaptureTestActivity : BaseBindingActivity<ActivityRawCaptureTestBinding>() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize UI components through view binding
@@ -19,13 +18,14 @@ class RAWCaptureTestActivity : BaseBindingActivity<ActivityRawCaptureTestBinding
     }
 
     private fun setupSpinner() {
-        binding.rawFrameRateSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            listOf("30 fps", "15 fps", "10 fps", "5 fps")
-        ).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
+        binding.rawFrameRateSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                listOf("30 fps", "15 fps", "10 fps", "5 fps"),
+            ).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
         binding.rawFrameRateSpinner.setSelection(0) // Default to 30fps
     }
 

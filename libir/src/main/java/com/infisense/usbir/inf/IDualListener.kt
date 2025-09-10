@@ -3,7 +3,6 @@ package com.infisense.usbir.inf
 import com.energy.iruvc.dual.DualUVCCamera
 import com.energy.iruvc.utils.DualCameraParams
 
-
 /**
  * dataDual lightdata，dataSingle light
  * @author: CaiSongL
@@ -11,14 +10,9 @@ import com.energy.iruvc.utils.DualCameraParams
  */
 @Deprecated("data，data")
 interface IDualListener {
+    fun setDualUVCCamera(dualUVCCamera: DualUVCCamera)
 
+    fun setCurrentFusionType(currentFusionType: DualCameraParams.FusionType)
 
-    fun setDualUVCCamera(dualUVCCamera : DualUVCCamera)
-
-    fun setCurrentFusionType(currentFusionType : DualCameraParams.FusionType)
-
-    fun setUseIRISP(useIRISP : Boolean)
-
-
-
+    fun setUseIRISP(useIRISP: Boolean)
 }

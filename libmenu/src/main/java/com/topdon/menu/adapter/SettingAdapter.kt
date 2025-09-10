@@ -3,10 +3,10 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R as MenuR
 import com.topdon.lib.core.R
 import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
+import com.topdon.menu.R as MenuR
 
 /**
  * Adapter used for Settings menu, all options are independent and support multiple selection.
@@ -29,7 +29,6 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
      */
     var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
 
-
     /**
      * item：
      * - itemCoreitem，256x192 itemRotateAngleitem 0 itemRotateState；
@@ -49,7 +48,10 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
     /**
      * SettingsSpecifiedOptionitemSelectedState，Rotateitem，itemRotateitem 4 itemState
      */
-    fun setSelected(settingType: SettingType, isSelected: Boolean) {
+    fun setSelected(
+        settingType: SettingType,
+        isSelected: Boolean,
+    ) {
         for (i in dataList.indices) {
             if (dataList[i].settingType == settingType) {
                 dataList[i].isSelected = isSelected
@@ -58,7 +60,6 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
             }
         }
     }
-
 
     private val dataList: ArrayList<Data> = ArrayList(7)
 
@@ -69,29 +70,32 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
             dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
             dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
         } else {
-            if (menuType == MenuType.GALLERY_EDIT) {//2Ditem
+            if (menuType == MenuType.GALLERY_EDIT) { // 2Ditem
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
                 dataList.add(Data(R.string.app_watemarking, MenuR.drawable.selector_menu2_setting_9, SettingType.WATERMARK))
             } else {
                 dataList.add(Data(R.string.thermal_pseudo, MenuR.drawable.selector_menu2_setting_1, SettingType.PSEUDO_BAR))
                 dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
-                if (menuType != MenuType.Lite) {// Lite item(item)
+                if (menuType != MenuType.Lite) { // Lite item(item)
                     dataList.add(Data(R.string.thermal_sharpen, MenuR.drawable.selector_menu2_setting_3, SettingType.DETAIL))
                 }
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
-                if (menuType != MenuType.TC007) {// TC007 itemRotate
+                if (menuType != MenuType.TC007) { // TC007 itemRotate
                     dataList.add(Data(R.string.thermal_rotate, MenuR.drawable.selector_menu2_setting_4, SettingType.ROTATE))
                 }
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
-                if (menuType != MenuType.DOUBLE_LIGHT) {// TC001 Plus item
+                if (menuType != MenuType.DOUBLE_LIGHT) { // TC001 Plus item
                     dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
                 }
             }
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         val data: Data = dataList[position]
         holder.binding.ivIcon.setImageResource(data.drawableId)
         holder.binding.tvText.setText(data.stringId)
@@ -108,7 +112,7 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
             // Adapter item、item、itemSelecteditem，item，
-            //MenuitemSelecteditem listener item，item
+            // MenuitemSelecteditem listener item，item
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

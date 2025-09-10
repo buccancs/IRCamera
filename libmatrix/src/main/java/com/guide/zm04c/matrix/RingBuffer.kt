@@ -1,7 +1,6 @@
 package com.guide.zm04c.matrix
 
 class RingBuffer {
-
     private lateinit var byteArray: ByteArray
 
     // Implementationbytedata
@@ -50,7 +49,11 @@ class RingBuffer {
      * This may be less than the requested length if there is insufficient free
      * space in the RingBuffer, or zero if the RingBuffer is full.
      */
-    fun write(buffer: ByteArray?, offset: Int, length: Int): Int {
+    fun write(
+        buffer: ByteArray?,
+        offset: Int,
+        length: Int,
+    ): Int {
         var head: Int
         var toEnd: Int
         var toWrite: Int
@@ -87,7 +90,11 @@ class RingBuffer {
      * This may be less than the requested length if there were fewer bytes in
      * the buffer, or zero if the buffer was empty.
      */
-    fun read(buffer: ByteArray?, offset: Int, length: Int): Int {
+    fun read(
+        buffer: ByteArray?,
+        offset: Int,
+        length: Int,
+    ): Int {
         var toEnd: Int
         var toRead: Int
         synchronized(this) {
@@ -112,7 +119,6 @@ class RingBuffer {
         }
         return toRead
     }
-
 
     // Implementationlengthdata
     fun moveForward(length: Int): Int {
@@ -179,5 +185,4 @@ class RingBuffer {
     override fun toString(): String {
         return "RingBuffer(byteArray=${byteArray.contentToString()}, mReadPositon=$mReadPositon, mUnReadLength=$mUnReadLength)"
     }
-
 }

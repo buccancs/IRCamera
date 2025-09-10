@@ -1,49 +1,44 @@
 package com.topdon.module.user.activity
 
-import android.os.Build
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.TS004ResetEvent
-import com.topdon.lib.core.common.SaveSettingUtil
-import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
+import com.topdon.lib.core.dialog.FirmwareUpDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.http.tool.DownloadTool
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
-import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-import com.topdon.lib.core.R as RCore
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
-import com.topdon.lib.core.dialog.FirmwareUpDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.text.DecimalFormat
+import com.topdon.lib.core.R as RCore
 
 /**
  * TS004 activity “activity” activity.
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreActivity : BaseActivity(), View.OnClickListener {
-
     private val firmwareViewModel: FirmwareViewModel by viewModels()
-    
+
     // View references
     private lateinit var settingDeviceInformation: View
     private lateinit var settingTisr: View
@@ -68,7 +63,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         settingAutoSave = findViewById(R.id.setting_auto_save)
         itemSettingBottomText = findViewById(R.id.item_setting_bottom_text)
         tvUpgradePoint = findViewById(R.id.tv_upgrade_point)
-        
+
         settingDeviceInformation.setOnClickListener(this)
         settingTisr.setOnClickListener(this)
         settingStorageSpace.setOnClickListener(this)
@@ -90,7 +85,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
-            if (it == null) {// Activity logic，activity
+            if (it == null) { // Activity logic，activity
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -105,40 +100,40 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            settingDeviceInformation -> {// Activity logic
+            settingDeviceInformation -> { // Activity logic
                 NavigationManager.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
-            settingTisr -> {//Settingsactivity
+            settingTisr -> { // Settingsactivity
                 NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
-            settingAutoSave -> {// Activity logic
+            settingAutoSave -> { // Activity logic
                 NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
-            settingStorageSpace -> {//TS004activity
+            settingStorageSpace -> { // TS004activity
                 NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            settingVersion -> {// Activity logic
+            settingVersion -> { // Activity logic
                 // Activity logic，V3.30activity apk activity，activity
 //                if (LMS.getInstance().isLogin) {
-                    val firmwareData = firmwareViewModel.firmwareDataLD.value
-                    if (firmwareData != null) {
-                        showFirmwareUpDialog(firmwareData)
-                    } else {
-                        XLog.i("TS004 activity - activity")
-                        showCameraLoading()
-                        firmwareViewModel.queryFirmware(true)
-                    }
+                val firmwareData = firmwareViewModel.firmwareDataLD.value
+                if (firmwareData != null) {
+                    showFirmwareUpDialog(firmwareData)
+                } else {
+                    XLog.i("TS004 activity - activity")
+                    showCameraLoading()
+                    firmwareViewModel.queryFirmware(true)
+                }
 //                } else {
 //                    LMS.getInstance().activityLogin()
 //                }
             }
-            settingReset -> {// Activity logicSettings
+            settingReset -> { // Activity logicSettings
                 restoreFactory()
             }
-            settingDisconnect -> {// Activity logic
+            settingDisconnect -> { // Activity logic
                 NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
@@ -157,21 +152,22 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
             // Activity logic，V3.30activity apk activity，activity
-            //downloadFirmware(firmwareData)
+            // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
         dialog.show()
     }
 
-    private fun getFileSizeStr(size: Long): String = if (size < 1024) {
-        "${size}B"
-    } else if (size < 1024 * 1024) {
-        DecimalFormat("#.0").format(size.toDouble() / 1024) + "KB"
-    } else if (size < 1024 * 1024 * 1024) {
-        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024) + "MB"
-    } else {
-        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024 / 1024) + "GB"
-    }
+    private fun getFileSizeStr(size: Long): String =
+        if (size < 1024) {
+            "${size}B"
+        } else if (size < 1024 * 1024) {
+            DecimalFormat("#.0").format(size.toDouble() / 1024) + "KB"
+        } else if (size < 1024 * 1024 * 1024) {
+            DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024) + "MB"
+        } else {
+            DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024 / 1024) + "GB"
+        }
 
     /**
      * activitySpecifiedactivity
@@ -183,9 +179,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
             progressDialog.show()
 
             val file = FileConfig.getFirmwareFile("TS004${firmwareData.version}.zip")
-            val isSuccess = DownloadTool.download(firmwareData.downUrl, file) { current, total ->
-                progressDialog.refreshProgress(current, total)
-            }
+            val isSuccess =
+                DownloadTool.download(firmwareData.downUrl, file) { current, total ->
+                    progressDialog.refreshProgress(current, total)
+                }
             progressDialog.dismiss()
             if (isSuccess) {
                 XLog.d("TS004 activity - activity，activity")

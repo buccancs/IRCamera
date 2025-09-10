@@ -71,16 +71,16 @@ package com.topdon.menu.constant
  *         enableTracking = true,
  *         enableAlerts = true
  *     )
- *     
+ *
  *     // Apply configuration to thermal analysis engine
  *     thermalAnalyzer.setTargetConfiguration(targetConfig)
- *     
+ *
  *     // Set up real-time monitoring callbacks
  *     thermalAnalyzer.onTemperatureAlert = { target, temperature ->
  *         handleFeverAlert(target, temperature)
  *     }
  * }
- * 
+ *
  * // Configure target visualization settings
  * fun customizeTargetAppearance(targetType: TargetType) {
  *     when (targetType) {
@@ -132,7 +132,6 @@ package com.topdon.menu.constant
  * Enhanced with enterprise documentation on 2024/01/15.
  */
 enum class TargetType {
-    
     /**
      * Measurement mode configuration for different target categories.
      *
@@ -143,7 +142,7 @@ enum class TargetType {
      *
      * **Available Target Categories**:
      * - **Human**: Optimized for human thermal screening (35-42°C range)
-     * - **Sheep**: Livestock health monitoring (38-40°C range)  
+     * - **Sheep**: Livestock health monitoring (38-40°C range)
      * - **Dog**: Pet health analysis (37.5-39.2°C range)
      * - **Bird**: Avian thermal profiling (40-42°C range)
      * - **Custom**: User-configurable parameters for specialized applications

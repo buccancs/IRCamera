@@ -13,25 +13,24 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.topdon.lib.core.navigation.NavigationManager
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.bean.GalleryBean
+import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.ByteUtils.bytesToInt
-import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.ui.dialog.ProgressDialog
+import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.lib.core.view.TitleView
+import com.topdon.lib.ui.dialog.ProgressDialog
 import com.topdon.libcom.ExcelUtil
 import com.topdon.module.thermal.ir.R
-import com.topdon.lib.core.R as LibR
-import com.topdon.lib.core.bean.event.GalleryDelEvent
-import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.module.thermal.ir.event.ImageGalleryEvent
 import com.topdon.module.thermal.ir.fragment.GalleryFragment
 import com.topdon.module.thermal.ir.frame.FrameTool
@@ -43,13 +42,13 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.File
+import com.topdon.lib.core.R as LibR
 
 /**
  * activity、TC007 activity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
-
     /**
      * activity，Currentactivity TC007 activityType.
      * true-TC007 false-activity
@@ -60,6 +59,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
      * Currentactivity position
      */
     private var position = 0
+
     /**
      * activity，Currentactivity.
      */
@@ -69,6 +69,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     private val irViewModel: IRGalleryEditViewModel by viewModels()
 
     override fun initContentView() = R.layout.activity_ir_gallery_detail_01
+
     private val frameTool by lazy { FrameTool() }
 
     override fun initView() {
@@ -94,17 +95,18 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                 val filePath: String?
                 withContext(Dispatchers.IO) {
                     frameTool.read(it.frame)
-                    filePath = ExcelUtil.exportExcel(
-                        excelName,
-                        192,
-                        256,
-                        frameTool.getRotate90Temp(frameTool.temperatureBytes)
-                    ) { current, total ->
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            progressDialog?.max = total
-                            progressDialog?.progress = current
+                    filePath =
+                        ExcelUtil.exportExcel(
+                            excelName,
+                            192,
+                            256,
+                            frameTool.getRotate90Temp(frameTool.temperatureBytes),
+                        ) { current, total ->
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                progressDialog?.max = total
+                                progressDialog?.progress = current
+                            }
                         }
-                    }
                 }
                 progressDialog?.dismiss()
                 if (filePath.isNullOrEmpty()) {
@@ -122,28 +124,28 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
-
     }
 
     @SuppressLint("SetTextI18n")
     private fun initViewPager() {
         val irGalleryViewpager = findViewById<ViewPager2>(R.id.ir_gallery_viewpager)
         irGalleryViewpager.adapter = GalleryViewPagerAdapter(this)
-        irGalleryViewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        irGalleryViewpager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    this@IRGalleryDetail01Activity.position = position
+                    findViewById<TitleView>(R.id.title_view).setTitleText("${position + 1}/${dataList.size}")
 
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                this@IRGalleryDetail01Activity.position = position
-                findViewById<TitleView>(R.id.title_view).setTitleText("${position + 1}/${dataList.size}")
-
-                irPath = "${FileConfig.lineIrGalleryDir}/${dataList[position].name.substringBeforeLast(".")}.ir"
-                val hasIrData = File(irPath!!).exists()
-                findViewById<LinearLayout>(R.id.ll_ir_edit_3D)?.isVisible = hasIrData
-                findViewById<LinearLayout>(R.id.ll_ir_report)?.isVisible = hasIrData
-                findViewById<LinearLayout>(R.id.ll_ir_edit_2D)?.isVisible = hasIrData
-                findViewById<LinearLayout>(R.id.ll_ir_ex)?.isVisible = hasIrData
-            }
-        })
+                    irPath = "${FileConfig.lineIrGalleryDir}/${dataList[position].name.substringBeforeLast(".")}.ir"
+                    val hasIrData = File(irPath!!).exists()
+                    findViewById<LinearLayout>(R.id.ll_ir_edit_3D)?.isVisible = hasIrData
+                    findViewById<LinearLayout>(R.id.ll_ir_report)?.isVisible = hasIrData
+                    findViewById<LinearLayout>(R.id.ll_ir_edit_2D)?.isVisible = hasIrData
+                    findViewById<LinearLayout>(R.id.ll_ir_ex)?.isVisible = hasIrData
+                }
+            },
+        )
         irGalleryViewpager?.setCurrentItem(position, false)
     }
 
@@ -153,7 +155,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             val exif = ExifInterface(data.path)
             val width = exif.getAttribute(ExifInterface.TAG_IMAGE_WIDTH)
             val length = exif.getAttribute(ExifInterface.TAG_IMAGE_LENGTH)
-            val whStr = "${width}x${length}"
+            val whStr = "${width}x$length"
             val sizeStr = FileTools.getFileSize(data.path)
 
             val str = StringBuilder()
@@ -215,7 +217,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         progressDialog?.show()
 
         excelName = dataList[position].name.substringBeforeLast(".")
-        val irPath = "${FileConfig.lineIrGalleryDir}/${excelName}.ir"
+        val irPath = "${FileConfig.lineIrGalleryDir}/$excelName.ir"
         if (!File(irPath).exists()) {
             ToastTools.showShort(getString(LibR.string.album_report_on_edit))
             progressDialog?.dismiss()
@@ -224,11 +226,10 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         irViewModel.initData(irPath)
     }
 
-
     override fun onClick(v: View?) {
         when (v) {
             findViewById<LinearLayout>(R.id.ll_ir_edit_2D) -> {
-                //2dactivity
+                // 2dactivity
                 actionEditOrReport(false)
             }
 
@@ -236,7 +237,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                 // Activity logic3D
                 val data = dataList[position]
                 val fileName = data.name.substringBeforeLast(".")
-                val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
+                val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"
                 if (!File(irPath).exists()) {
                     ToastTools.showShort(LibR.string.album_report_on_edit)
                     return
@@ -269,7 +270,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                         .withFloat(ExtraKeyConfig.TEMP_HIGH, tempHigh).withFloat(ExtraKeyConfig.TEMP_LOW, tempLow)
                         .navigation(this@IRGalleryDetail01Activity)
                 }
-
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_report) -> {
@@ -279,8 +279,8 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
 
             findViewById<LinearLayout>(R.id.ll_ir_ex) -> {
                 TipDialog.Builder(this).setMessage(LibR.string.tip_album_temp_exportfile).setPositiveListener(LibR.string.app_confirm) {
-                        actionExcel()
-                    }.setCancelListener(LibR.string.app_cancel) {}.setCanceled(true).create().show()
+                    actionExcel()
+                }.setCancelListener(LibR.string.app_cancel) {}.setCanceled(true).create().show()
             }
         }
     }
@@ -288,7 +288,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     private fun actionEditOrReport(isReport: Boolean) {
         val data = dataList[position]
         val fileName = data.name.substringBeforeLast(".")
-        val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
+        val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"
         if (!File(irPath).exists()) {
             ToastTools.showShort(LibR.string.album_report_on_edit)
             return
@@ -302,7 +302,6 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     }
 
     inner class GalleryViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-
         override fun getItemCount(): Int {
             return dataList.size
         }
@@ -314,12 +313,10 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             fragment.arguments = bundle
             return fragment
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSaveFinishBean(imageGalleryEvent : ImageGalleryEvent) {
+    fun onSaveFinishBean(imageGalleryEvent: ImageGalleryEvent) {
         finish()
     }
 }
-

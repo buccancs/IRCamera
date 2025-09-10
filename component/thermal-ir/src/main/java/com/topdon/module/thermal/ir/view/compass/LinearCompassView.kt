@@ -24,7 +24,6 @@ import kotlin.coroutines.EmptyCoroutineContext
  * viewView
  */
 class LinearCompassView : View {
-
     private val paint = Paint()
     private val textPaint = Paint()
     private val markerPaint = Paint()
@@ -47,9 +46,9 @@ class LinearCompassView : View {
     private var backgroundColor = Color.BLACK
 
     private var lastDrawTime = 0L // View rendering
-    private var step = 1000/10 // View rendering
+    private var step = 1000 / 10 // View rendering
     private val scope = CoroutineScope(EmptyCoroutineContext)
-    var curBitmap:Bitmap?= null //Currentviewviewbitmap
+    var curBitmap: Bitmap? = null // Currentviewviewbitmap
 
     constructor(context: Context) : this(context, null) {
         initView()
@@ -62,7 +61,7 @@ class LinearCompassView : View {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
-        defStyleAttr
+        defStyleAttr,
     ) {
         val attributes =
             context.obtainStyledAttributes(attrs, R.styleable.LinearCompassView, 0, 0)
@@ -78,22 +77,26 @@ class LinearCompassView : View {
             attributes.getColor(R.styleable.LinearCompassView_positionColor, Color.WHITE)
         centerAzimuthColor =
             attributes.getColor(R.styleable.LinearCompassView_compassMarkerColor, Color.WHITE)
-        shortLineSize = attributes.getDimension(
-            R.styleable.LinearCompassView_shortLineSize,
-            SizeUtils.sp2px(0.5f).toFloat()
-        )
-        longLineSize = attributes.getDimension(
-            R.styleable.LinearCompassView_longLineSize,
-            SizeUtils.sp2px(0.5f).toFloat()
-        )
-        positionSize = attributes.getDimension(
-            R.styleable.LinearCompassView_positionSize,
-            SizeUtils.sp2px(11f).toFloat()
-        )
-        markerSize = attributes.getDimension(
-            R.styleable.LinearCompassView_markerSize,
-            SizeUtils.sp2px(2f).toFloat()
-        )
+        shortLineSize =
+            attributes.getDimension(
+                R.styleable.LinearCompassView_shortLineSize,
+                SizeUtils.sp2px(0.5f).toFloat(),
+            )
+        longLineSize =
+            attributes.getDimension(
+                R.styleable.LinearCompassView_longLineSize,
+                SizeUtils.sp2px(0.5f).toFloat(),
+            )
+        positionSize =
+            attributes.getDimension(
+                R.styleable.LinearCompassView_positionSize,
+                SizeUtils.sp2px(11f).toFloat(),
+            )
+        markerSize =
+            attributes.getDimension(
+                R.styleable.LinearCompassView_markerSize,
+                SizeUtils.sp2px(2f).toFloat(),
+            )
         attributes.recycle()
         initView()
     }
@@ -140,6 +143,7 @@ class LinearCompassView : View {
     private var text: String = ""
 
     private fun getRawMinimum() = azimuth - range / 2
+
     private fun getRawMaximum() = azimuth + range / 2
 
     override fun draw(canvas: Canvas) {
@@ -162,7 +166,7 @@ class LinearCompassView : View {
         }
         val endWidth = width / 2f
         val endHeight = (3 / 10f) * height
-        canvas.drawText(text, realX(text, endWidth,textPaint), realY(text, endHeight,textPaint), textPaint)
+        canvas.drawText(text, realX(text, endWidth, textPaint), realY(text, endHeight, textPaint), textPaint)
     }
 
     // View rendering
@@ -178,7 +182,7 @@ class LinearCompassView : View {
             height * (3 / 10f),
             width / 2f + markerSize / 2,
             height * (7 / 10f),
-            markerPaint
+            markerPaint,
         )
     }
 
@@ -187,7 +191,7 @@ class LinearCompassView : View {
             this@LinearCompassView.azimuth = azimuth.toFloat()
             this@LinearCompassView.text = azimuth.toString()
             var curTime = System.currentTimeMillis()
-            if(curTime - lastDrawTime> step) {
+            if (curTime - lastDrawTime > step) {
                 lastDrawTime = curTime
                 launch(Dispatchers.Main) {
                     curBitmap = this@LinearCompassView.drawToBitmap()
@@ -205,11 +209,12 @@ class LinearCompassView : View {
             val x = toPixel(it.toFloat())
 
             // view：15view view：90view viewxview
-            val lineHeight = when {
-                it % 90 == 0 -> (3 / 10f) * height
-                it % 15 == 0 -> (4 / 10f) * height
-                else -> (5 / 10f) * height
-            }
+            val lineHeight =
+                when {
+                    it % 90 == 0 -> (3 / 10f) * height
+                    it % 15 == 0 -> (4 / 10f) * height
+                    else -> (5 / 10f) * height
+                }
             // View renderingy
             val bottomHeight = height * 7 / 10f
 
@@ -222,29 +227,30 @@ class LinearCompassView : View {
             // View rendering
             if (it % 45 == 0) {
                 val coord = getPositionText(it)
-                canvas.drawText(coord, realX(coord, x,positionPaint), realY(coord, height - 2f,positionPaint), positionPaint)
+                canvas.drawText(coord, realX(coord, x, positionPaint), realY(coord, height - 2f, positionPaint), positionPaint)
             }
         }
     }
 
-    private fun getPositionText(position: Int): String = when (position) {
-        -90, 270 -> resources.getString(R.string.compass_west)
-        -45, 315 -> resources.getString(R.string.compass_northwest)
-        0, 360 -> resources.getString(R.string.compass_north)
-        45, 405 -> resources.getString(R.string.compass_northeast)
-        90, 450 -> resources.getString(R.string.compass_east)
-        135, 495 -> resources.getString(R.string.compass_southeast)
-        -180, 180 -> resources.getString(R.string.compass_south)
-        -135, 225 -> resources.getString(R.string.compass_southwest)
-        else -> ""
-    }
+    private fun getPositionText(position: Int): String =
+        when (position) {
+            -90, 270 -> resources.getString(R.string.compass_west)
+            -45, 315 -> resources.getString(R.string.compass_northwest)
+            0, 360 -> resources.getString(R.string.compass_north)
+            45, 405 -> resources.getString(R.string.compass_northeast)
+            90, 450 -> resources.getString(R.string.compass_east)
+            135, 495 -> resources.getString(R.string.compass_southeast)
+            -180, 180 -> resources.getString(R.string.compass_south)
+            -135, 225 -> resources.getString(R.string.compass_southwest)
+            else -> ""
+        }
 
     private fun toPixel(bearing: Float): Float {
         return getPixelLinear(
             bearing,
             azimuth,
             width.toFloat(),
-            range
+            range,
         )
     }
 

@@ -334,33 +334,45 @@ data class SocketFrameBean(
 
         if (isL1Show) {
             stringBuilder.append("data1 ($l1StartX, $l1StartY)-($l1EndX, $l1EndY) ")
-            stringBuilder.append("dataLow temperature${l1MinValue.toCStr()}($l1MinX, $l1MinY) dataHigh temperature${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ")
+            stringBuilder.append(
+                "dataLow temperature${l1MinValue.toCStr()}($l1MinX, $l1MinY) dataHigh temperature${l1MaxValue.toCStr()}($l1MaxX, $l1MaxY) ",
+            )
             stringBuilder.append("data${l1AveValue.toCStr()}\n")
         }
         if (isL2Show) {
             stringBuilder.append("data2 ($l2StartX, $l2StartY)-($l2EndX, $l2EndY) ")
-            stringBuilder.append("dataLow temperature${l2MinValue.toCStr()}($l2MinX, $l2MinY) dataHigh temperature${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ")
+            stringBuilder.append(
+                "dataLow temperature${l2MinValue.toCStr()}($l2MinX, $l2MinY) dataHigh temperature${l2MaxValue.toCStr()}($l2MaxX, $l2MaxY) ",
+            )
             stringBuilder.append("data${l2AveValue.toCStr()}\n")
         }
         if (isL3Show) {
             stringBuilder.append("data3 ($l3StartX, $l3StartY)-($l3EndX, $l3EndY) ")
-            stringBuilder.append("dataLow temperature${l3MinValue.toCStr()}($l3MinX, $l3MinY) dataHigh temperature${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ")
+            stringBuilder.append(
+                "dataLow temperature${l3MinValue.toCStr()}($l3MinX, $l3MinY) dataHigh temperature${l3MaxValue.toCStr()}($l3MaxX, $l3MaxY) ",
+            )
             stringBuilder.append("data${l3AveValue.toCStr()}\n")
         }
 
         if (isR1Show) {
             stringBuilder.append("data1 ($r1StartX, $r1StartY)-($r1EndX, $r1EndY) ")
-            stringBuilder.append("dataLow temperature${r1MinValue.toCStr()}($r1MinX, $r1MinY) dataHigh temperature${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ")
+            stringBuilder.append(
+                "dataLow temperature${r1MinValue.toCStr()}($r1MinX, $r1MinY) dataHigh temperature${r1MaxValue.toCStr()}($r1MaxX, $r1MaxY) ",
+            )
             stringBuilder.append("data${r1AveValue.toCStr()}\n")
         }
         if (isR2Show) {
             stringBuilder.append("data2 ($r2StartX, $r2StartY)-($r2EndX, $r2EndY) ")
-            stringBuilder.append("dataLow temperature${r2MinValue.toCStr()}($r2MinX, $r2MinY) dataHigh temperature${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ")
+            stringBuilder.append(
+                "dataLow temperature${r2MinValue.toCStr()}($r2MinX, $r2MinY) dataHigh temperature${r2MaxValue.toCStr()}($r2MaxX, $r2MaxY) ",
+            )
             stringBuilder.append("data${l2AveValue.toCStr()}\n")
         }
         if (isR3Show) {
             stringBuilder.append("data3 ($r3StartX, $r3StartY)-($r3EndX, $r3EndY) ")
-            stringBuilder.append("dataLow temperature${r3MinValue.toCStr()}($r3MinX, $r3MinY) dataHigh temperature${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ")
+            stringBuilder.append(
+                "dataLow temperature${r3MinValue.toCStr()}($r3MinX, $r3MinY) dataHigh temperature${r3MaxValue.toCStr()}($r3MaxX, $r3MaxY) ",
+            )
             stringBuilder.append("data${r3AveValue.toCStr()}\n")
         }
         return stringBuilder.toString()

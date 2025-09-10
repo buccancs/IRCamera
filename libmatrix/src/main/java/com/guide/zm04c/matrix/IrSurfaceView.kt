@@ -3,13 +3,11 @@ package com.guide.zm04c.matrix
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.blankj.utilcode.util.ScreenUtils
 
 class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
-
     private var mHolder: SurfaceHolder? = null // viewSurfaceView
     private var mCanvas: Canvas? = null // view
     private val p: Paint by lazy { Paint() } // view
@@ -28,7 +26,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
 
     private var callback: IfrCamOpenOverCallback? = null
 
-    private var mCtx: Context? = null;
+    private var mCtx: Context? = null
 
     constructor(context: Context) : super(context) {
         mCtx = context
@@ -66,7 +64,11 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
      * 180
      * 270
      */
-    fun setMatrix(rotate: Float, w: Float, h: Float) {
+    fun setMatrix(
+        rotate: Float,
+        w: Float,
+        h: Float,
+    ) {
         mMatrix.reset()
         when (rotate) {
             90f -> {
@@ -98,8 +100,10 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     /**
      * view
      */
-    fun doDraw(bitmap: Bitmap?, shutterFlag: Int) {
-
+    fun doDraw(
+        bitmap: Bitmap?,
+        shutterFlag: Int,
+    ) {
         synchronized(this) {
             if (isLockImage || !isPrepare || null == bitmap || shutterFlag == 1) {
                 return@doDraw
@@ -111,10 +115,10 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 mCanvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 //                mCanvas?.drawBitmap(bitmap, mMatrix, p)
                 if (openLut) {
-                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f)// View rendering
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance)// View rendering
+                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f) // View rendering
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance) // View rendering
                 } else {
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix)// View rendering
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix) // View rendering
                 }
                 mCanvas?.drawBitmap(bitmap, mMatrix, p)
             } catch (e: Exception) {
@@ -129,46 +133,48 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                     }
                 }
             }
-
         }
     }
 
     // view
-    private var mColorMatrix = ColorMatrix(
-        floatArrayOf(
-            1f, 0f, 0f, 0f, 0f,
-            0f, 1f, 0f, 0f, 0f,
-            0f, 0f, 1f, 0f, 0f,
-            0f, 0f, 0f, 01f, 0f
+    private var mColorMatrix =
+        ColorMatrix(
+            floatArrayOf(
+                1f, 0f, 0f, 0f, 0f,
+                0f, 1f, 0f, 0f, 0f,
+                0f, 0f, 1f, 0f, 0f,
+                0f, 0f, 0f, 01f, 0f,
+            ),
         )
-    )
 
     // view
-    private var mColorMatrixLut = ColorMatrix(
-        floatArrayOf(
-            1f, 0f, 0f, 0f, 0f,
-            0f, 1.5f, 0f, 0f, 25f,
-            0.1f, 0.2f, 0.7f, 0f, 25f,
-            0f, 0f, 0f, 01f, 0f
+    private var mColorMatrixLut =
+        ColorMatrix(
+            floatArrayOf(
+                1f, 0f, 0f, 0f, 0f,
+                0f, 1.5f, 0f, 0f, 25f,
+                0.1f, 0.2f, 0.7f, 0f, 25f,
+                0f, 0f, 0f, 01f, 0f,
+            ),
         )
-    )
     private val n = 1f
 
     // view
-    private var mColorMatrixEnhance = ColorMatrix(
+    private var mColorMatrixEnhance =
+        ColorMatrix(
 //        floatArrayOf(
 //            n, 0f, 0f, 0f, 128 * (1 - n),
 //            0f, n, 0f, 0f, 128 * (1 - n),
 //            0f, 0f, n, 0f, 128 * (1 - n),
 //            0f, 0f, 0f, 1f, 0f
 //        )
-        floatArrayOf(
-            1f, 0f, 0f, 0f, 0f,
-            0f, 1f, 0f, 0f, 0f,
-            0f, 0f, 1f, 0f, 0f,
-            0f, 0f, 0f, 1f, 0f
+            floatArrayOf(
+                1f, 0f, 0f, 0f, 0f,
+                0f, 1f, 0f, 0f, 0f,
+                0f, 0f, 1f, 0f, 0f,
+                0f, 0f, 0f, 1f, 0f,
+            ),
         )
-    )
 
     private var saturation = 0 // View rendering 0~100
 
@@ -200,15 +206,21 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
      */
     override fun surfaceCreated(holder: SurfaceHolder) {
         isPrepare = true
-        if (callback != null)
+        if (callback != null) {
             callback!!.onSurfaceCreated()
+        }
         Logger.d(TAG, "holder onSurfaceCreated")
     }
 
     /**
      * viewSurfaceViewview，view
      */
-    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+    override fun surfaceChanged(
+        holder: SurfaceHolder,
+        format: Int,
+        width: Int,
+        height: Int,
+    ) {
         Logger.d(TAG, "holder surfaceChanged")
     }
 
@@ -229,5 +241,4 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     interface IfrCamOpenOverCallback {
         fun onSurfaceCreated()
     }
-
 }

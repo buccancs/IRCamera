@@ -9,9 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-
 class IRGalleryEditViewModel : BaseViewModel() {
-
     val resultLiveData = SingleLiveEvent<FrameBean>()
 
     fun initData(path: String) {
@@ -39,12 +37,8 @@ class IRGalleryEditViewModel : BaseViewModel() {
      * view
      */
 
-    fun getTailData(bytes: ByteArray){
-
+    fun getTailData(bytes: ByteArray)  {
     }
 
-
-
     data class FrameBean(val capital: ByteArray, val frame: ByteArray)
-
 }

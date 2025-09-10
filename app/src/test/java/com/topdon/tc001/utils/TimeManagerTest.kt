@@ -9,9 +9,9 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
 import java.net.InetAddress
 import kotlin.math.abs
 
@@ -21,7 +21,6 @@ import kotlin.math.abs
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class TimeManagerTest {
-
     @MockK
     private lateinit var context: Context
 
@@ -84,7 +83,7 @@ class TimeManagerTest {
         val timestamp2 = timeManager.getHighPrecisionTimestamp()
 
         assertTrue("High precision timestamps should be increasing", timestamp2 >= timestamp1)
-        
+
         // Should be based on SystemClock.elapsedRealtimeNanos()
         val systemTime = SystemClock.elapsedRealtimeNanos()
         val timeDiff = abs(timestamp2 - systemTime)
@@ -100,28 +99,29 @@ class TimeManagerTest {
         timeManager.updateClockOffset(pcTime, localTime, networkLatency)
 
         assertTrue("Should be synchronized after offset calculation", timeManager.isSynchronized())
-        
+
         val offset = timeManager.getClockOffset()
         assertNotNull("Clock offset should be calculated", offset)
     }
 
     @Test
-    fun testSynchronizedTimestamp() = runTest {
-        // Setup synchronization
-        val pcTime = System.currentTimeMillis() * 1000000
-        val localTime = SystemClock.elapsedRealtimeNanos()
-        timeManager.updateClockOffset(pcTime, localTime, 0)
+    fun testSynchronizedTimestamp() =
+        runTest {
+            // Setup synchronization
+            val pcTime = System.currentTimeMillis() * 1000000
+            val localTime = SystemClock.elapsedRealtimeNanos()
+            timeManager.updateClockOffset(pcTime, localTime, 0)
 
-        val syncTimestamp = timeManager.getSynchronizedTimestamp()
+            val syncTimestamp = timeManager.getSynchronizedTimestamp()
 
-        assertTrue("Synchronized timestamp should be positive", syncTimestamp > 0)
-        
-        // Should be reasonably close to current time
-        val currentTime = System.currentTimeMillis()
-        val timestampMs = syncTimestamp / 1000000
-        val timeDiff = abs(timestampMs - currentTime)
-        assertTrue("Should be close to current time", timeDiff < 1000) // 1 second tolerance
-    }
+            assertTrue("Synchronized timestamp should be positive", syncTimestamp > 0)
+
+            // Should be reasonably close to current time
+            val currentTime = System.currentTimeMillis()
+            val timestampMs = syncTimestamp / 1000000
+            val timeDiff = abs(timestampMs - currentTime)
+            assertTrue("Should be close to current time", timeDiff < 1000) // 1 second tolerance
+        }
 
     @Test
     fun testSynchronizedTimestampWhenNotSynced() {
@@ -135,32 +135,34 @@ class TimeManagerTest {
     }
 
     @Test
-    fun testNetworkLatencyMeasurement() = runTest {
-        val startTime = System.nanoTime()
-        
-        // Mock successful ping
-        mockkStatic(InetAddress::class)
-        every { InetAddress.getByName("192.168.1.100").isReachable(any()) } returns true
+    fun testNetworkLatencyMeasurement() =
+        runTest {
+            val startTime = System.nanoTime()
 
-        val latency = timeManager.measureNetworkLatency("192.168.1.100")
+            // Mock successful ping
+            mockkStatic(InetAddress::class)
+            every { InetAddress.getByName("192.168.1.100").isReachable(any()) } returns true
 
-        assertTrue("Latency should be positive", latency >= 0)
-        
-        unmockkStatic(InetAddress::class)
-    }
+            val latency = timeManager.measureNetworkLatency("192.168.1.100")
+
+            assertTrue("Latency should be positive", latency >= 0)
+
+            unmockkStatic(InetAddress::class)
+        }
 
     @Test
-    fun testNetworkLatencyTimeout() = runTest {
-        // Mock failed ping
-        mockkStatic(InetAddress::class)
-        every { InetAddress.getByName("192.168.1.100").isReachable(any()) } returns false
+    fun testNetworkLatencyTimeout() =
+        runTest {
+            // Mock failed ping
+            mockkStatic(InetAddress::class)
+            every { InetAddress.getByName("192.168.1.100").isReachable(any()) } returns false
 
-        val latency = timeManager.measureNetworkLatency("192.168.1.100")
+            val latency = timeManager.measureNetworkLatency("192.168.1.100")
 
-        assertEquals("Should return -1 for timeout", -1L, latency)
-        
-        unmockkStatic(InetAddress::class)
-    }
+            assertEquals("Should return -1 for timeout", -1L, latency)
+
+            unmockkStatic(InetAddress::class)
+        }
 
     @Test
     fun testSyncQualityCalculation() {
@@ -168,7 +170,7 @@ class TimeManagerTest {
         timeManager.updateClockOffset(
             pcTime = System.currentTimeMillis() * 1000000,
             localTime = SystemClock.elapsedRealtimeNanos(),
-            networkLatency = 1000000L // 1ms
+            networkLatency = 1000000L, // 1ms
         )
 
         val highQualitySync = timeManager.getSyncQuality()
@@ -178,7 +180,7 @@ class TimeManagerTest {
         timeManager.updateClockOffset(
             pcTime = System.currentTimeMillis() * 1000000,
             localTime = SystemClock.elapsedRealtimeNanos(),
-            networkLatency = 10000000L // 10ms (high latency)
+            networkLatency = 10000000L, // 10ms (high latency)
         )
 
         val lowQualitySync = timeManager.getSyncQuality()
@@ -186,32 +188,33 @@ class TimeManagerTest {
     }
 
     @Test
-    fun testClockDriftDetection() = runTest {
-        // Initial sync
-        timeManager.updateClockOffset(
-            System.currentTimeMillis() * 1000000,
-            SystemClock.elapsedRealtimeNanos(),
-            1000000L
-        )
+    fun testClockDriftDetection() =
+        runTest {
+            // Initial sync
+            timeManager.updateClockOffset(
+                System.currentTimeMillis() * 1000000,
+                SystemClock.elapsedRealtimeNanos(),
+                1000000L,
+            )
 
-        val initialOffset = timeManager.getClockOffset()
+            val initialOffset = timeManager.getClockOffset()
 
-        // Simulate time passing and drift
-        delay(100)
-        
-        // Update with slightly different offset (simulating drift)
-        timeManager.updateClockOffset(
-            System.currentTimeMillis() * 1000000,
-            SystemClock.elapsedRealtimeNanos(),
-            1000000L
-        )
+            // Simulate time passing and drift
+            delay(100)
 
-        val newOffset = timeManager.getClockOffset()
-        
-        // Should detect if drift is significant
-        assertNotNull("Both offsets should be calculated", initialOffset)
-        assertNotNull("Both offsets should be calculated", newOffset)
-    }
+            // Update with slightly different offset (simulating drift)
+            timeManager.updateClockOffset(
+                System.currentTimeMillis() * 1000000,
+                SystemClock.elapsedRealtimeNanos(),
+                1000000L,
+            )
+
+            val newOffset = timeManager.getClockOffset()
+
+            // Should detect if drift is significant
+            assertNotNull("Both offsets should be calculated", initialOffset)
+            assertNotNull("Both offsets should be calculated", newOffset)
+        }
 
     @Test
     fun testSessionIdGeneration() {
@@ -230,94 +233,110 @@ class TimeManagerTest {
     @Test
     fun testTimestampConversion() {
         val nanoTimestamp = System.nanoTime()
-        
+
         val milliTimestamp = timeManager.nanosToMillis(nanoTimestamp)
         val convertedBack = timeManager.millisToNanos(milliTimestamp)
 
-        assertEquals("Conversion should be consistent", 
-            nanoTimestamp / 1000000, milliTimestamp)
-        assertEquals("Back conversion should match", 
-            milliTimestamp * 1000000, convertedBack)
+        assertEquals(
+            "Conversion should be consistent",
+            nanoTimestamp / 1000000,
+            milliTimestamp,
+        )
+        assertEquals(
+            "Back conversion should match",
+            milliTimestamp * 1000000,
+            convertedBack,
+        )
     }
 
     @Test
-    fun testSyncStatistics() = runTest {
-        // Perform multiple sync operations
-        repeat(5) { index ->
-            timeManager.updateClockOffset(
-                System.currentTimeMillis() * 1000000,
-                SystemClock.elapsedRealtimeNanos(),
-                (index + 1) * 1000000L // Varying latency
-            )
-            delay(10)
-        }
-
-        val stats = timeManager.getSyncStatistics()
-
-        assertNotNull("Sync statistics should be available", stats)
-        stats?.let {
-            assertTrue("Should have sync count", it.syncCount > 0)
-            assertTrue("Should have average latency", it.averageLatency >= 0)
-            assertTrue("Should have last sync time", it.lastSyncTime > 0)
-        }
-    }
-
-    @Test
-    fun testConcurrentSyncOperations() = runTest {
-        val operations = (1..10).map { index ->
-            async {
+    fun testSyncStatistics() =
+        runTest {
+            // Perform multiple sync operations
+            repeat(5) { index ->
                 timeManager.updateClockOffset(
-                    System.currentTimeMillis() * 1000000 + index,
+                    System.currentTimeMillis() * 1000000,
                     SystemClock.elapsedRealtimeNanos(),
-                    index * 1000000L
+                    (index + 1) * 1000000L, // Varying latency
                 )
+                delay(10)
+            }
+
+            val stats = timeManager.getSyncStatistics()
+
+            assertNotNull("Sync statistics should be available", stats)
+            stats?.let {
+                assertTrue("Should have sync count", it.syncCount > 0)
+                assertTrue("Should have average latency", it.averageLatency >= 0)
+                assertTrue("Should have last sync time", it.lastSyncTime > 0)
             }
         }
 
-        // Wait for all operations to complete
-        operations.awaitAll()
+    @Test
+    fun testConcurrentSyncOperations() =
+        runTest {
+            val operations =
+                (1..10).map { index ->
+                    async {
+                        timeManager.updateClockOffset(
+                            System.currentTimeMillis() * 1000000 + index,
+                            SystemClock.elapsedRealtimeNanos(),
+                            index * 1000000L,
+                        )
+                    }
+                }
 
-        // Should handle concurrent operations gracefully
-        assertTrue("Should be synchronized after concurrent operations", 
-            timeManager.isSynchronized())
-    }
+            // Wait for all operations to complete
+            operations.awaitAll()
+
+            // Should handle concurrent operations gracefully
+            assertTrue(
+                "Should be synchronized after concurrent operations",
+                timeManager.isSynchronized(),
+            )
+        }
 
     @Test
     fun testErrorHandling() {
         // Test with invalid inputs
         timeManager.updateClockOffset(-1, -1, -1)
-        
+
         // Should handle gracefully and not crash
-        assertFalse("Should not be synchronized with invalid inputs", 
-            timeManager.isSynchronized())
+        assertFalse(
+            "Should not be synchronized with invalid inputs",
+            timeManager.isSynchronized(),
+        )
     }
 
     @Test
-    fun testSyncTimeout() = runTest {
-        // Mock network unavailable
-        every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns false
+    fun testSyncTimeout() =
+        runTest {
+            // Mock network unavailable
+            every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns false
 
-        val result = timeManager.syncWithPcController("192.168.1.100")
+            val result = timeManager.syncWithPcController("192.168.1.100")
 
-        assertFalse("Sync should fail without network", result)
-        assertFalse("Should not be synchronized", timeManager.isSynchronized())
-    }
+            assertFalse("Sync should fail without network", result)
+            assertFalse("Should not be synchronized", timeManager.isSynchronized())
+        }
 
     @Test
     fun testClockAccuracy() {
         val beforeSync = SystemClock.elapsedRealtimeNanos()
-        
+
         timeManager.updateClockOffset(
             System.currentTimeMillis() * 1000000,
             SystemClock.elapsedRealtimeNanos(),
-            0 // No network latency for accuracy test
+            0, // No network latency for accuracy test
         )
 
         val syncTimestamp = timeManager.getSynchronizedTimestamp()
         val afterSync = SystemClock.elapsedRealtimeNanos()
 
         // The synchronized timestamp should be within a reasonable range
-        assertTrue("Sync timestamp should be reasonable", 
-            syncTimestamp >= beforeSync && syncTimestamp <= afterSync + 1000000) // 1ms tolerance
+        assertTrue(
+            "Sync timestamp should be reasonable",
+            syncTimestamp >= beforeSync && syncTimestamp <= afterSync + 1000000,
+        ) // 1ms tolerance
     }
 }

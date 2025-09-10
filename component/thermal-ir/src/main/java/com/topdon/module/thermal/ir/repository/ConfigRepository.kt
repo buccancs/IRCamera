@@ -7,15 +7,18 @@ import com.topdon.module.thermal.ir.bean.ModelBean
 import java.lang.Exception
 
 object ConfigRepository {
+    fun read(isTC007: Boolean): ModelBean =
+        try {
+            Gson().fromJson(if (isTC007) SharedManager.irConfigJsonTC007 else SharedManager.getIRConfig(), ModelBean::class.java)
+        } catch (_: Exception) {
+            // Repository dataSPrepository，repository
+            ModelBean(DataBean(id = 0, use = true))
+        }
 
-    fun read(isTC007: Boolean): ModelBean = try {
-        Gson().fromJson(if (isTC007) SharedManager.irConfigJsonTC007 else SharedManager.getIRConfig(), ModelBean::class.java)
-    } catch (_: Exception) {
-        // Repository dataSPrepository，repository
-        ModelBean(DataBean(id = 0, use = true))
-    }
-
-    fun update(isTC007: Boolean, bean: ModelBean) {
+    fun update(
+        isTC007: Boolean,
+        bean: ModelBean,
+    ) {
         if (isTC007) {
             SharedManager.irConfigJsonTC007 = Gson().toJson(bean)
         } else {
@@ -38,5 +41,4 @@ object ConfigRepository {
         }
         return config.defaultModel
     }
-
 }

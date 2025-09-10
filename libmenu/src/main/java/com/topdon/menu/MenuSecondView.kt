@@ -9,9 +9,7 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.menu.databinding.ViewMenuSecondBinding
 import com.topdon.lib.core.repository.GalleryRepository
-import com.topdon.menu.constant.MenuType
 import com.topdon.menu.adapter.ColorAdapter
 import com.topdon.menu.adapter.FenceAdapter
 import com.topdon.menu.adapter.SettingAdapter
@@ -21,11 +19,12 @@ import com.topdon.menu.adapter.TempPointAdapter
 import com.topdon.menu.adapter.TempSourceAdapter
 import com.topdon.menu.adapter.TwoLightAdapter
 import com.topdon.menu.constant.FenceType
+import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 import com.topdon.menu.constant.TargetType
 import com.topdon.menu.constant.TempPointType
 import com.topdon.menu.constant.TwoLightType
-import com.topdon.menu.view.CameraMenuView
+import com.topdon.menu.databinding.ViewMenuSecondBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,8 +43,8 @@ class MenuSecondView : FrameLayout {
     // View binding for improved type safety and performance
     private lateinit var binding: ViewMenuSecondBinding
 
+    // ********************************************* Public Methods *********************************************
 
-    /* ********************************************* Public Methods ********************************************* */
     /**
      * Temperature measurement: 0 -> Camera capture    Observation 10 -> Camera capture
      *
@@ -80,9 +79,7 @@ class MenuSecondView : FrameLayout {
         binding.recyclerSettingOb.isVisible = position == 15
     }
 
-
-
-    /* *********************************************  public properties  ********************************************* */
+    // *********************************************  public properties  *********************************************
 
     /**
      * First menu - Photo/Video, click event listener for various operations.
@@ -93,6 +90,7 @@ class MenuSecondView : FrameLayout {
         set(value) {
             binding.cameraMenuView.onCameraClickListener = value
         }
+
     /**
      * Temperature measurement mode - Menu 2 - Point/Line/Area switching event listener.
      */
@@ -101,6 +99,7 @@ class MenuSecondView : FrameLayout {
         set(value) {
             fenceAdapter.onFenceListener = value
         }
+
     /**
      * Temperature measurement mode - Menu 3 - Dual light click event listener.
      * isSelected: true-Switch to selected false-Switch to unselected
@@ -110,6 +109,7 @@ class MenuSecondView : FrameLayout {
         set(value) {
             twoLightAdapter.onTwoLightListener = value
         }
+
     /**
      * Temperature measurement mode - Menu 4 - Pseudo-color / Observation mode - Menu 3 - Pseudo-color switching event listener.
      * index - Selected pseudo-color index in the list, only TC007 needs this
@@ -121,6 +121,7 @@ class MenuSecondView : FrameLayout {
         set(value) {
             colorAdapter.onColorListener = value
         }
+
     /**
      * Temperature measurement mode - Menu 5 - Settings / Observation mode - Menu 6 - Settings click event listener.
      * isSelected: true-Selected state when clicked false-Unselected state when clicked
@@ -133,6 +134,7 @@ class MenuSecondView : FrameLayout {
             settingTeAdapter.onSettingListener = value
             settingObAdapter.onSettingListener = value
         }
+
     /**
      * Temperature measurement mode - Menu 6 - High/Low temperature gain control.
      *
@@ -146,7 +148,6 @@ class MenuSecondView : FrameLayout {
         set(value) {
             tempLevelAdapter.onTempLevelListener = value
         }
-
 
     /**
      * Observation mode - Menu 2 - High/Low temperature source selection.
@@ -162,6 +163,7 @@ class MenuSecondView : FrameLayout {
         set(value) {
             tempSourceAdapter.onTempSourceListener = value
         }
+
     /**
      * Observation mode - Menu 4 - Target detection configuration.
      */
@@ -170,6 +172,7 @@ class MenuSecondView : FrameLayout {
         set(value) {
             targetAdapter.onTargetListener = value
         }
+
     /**
      * Observation mode - Menu 5 - High/Low temperature point analysis.
      */
@@ -179,54 +182,50 @@ class MenuSecondView : FrameLayout {
             tempPointAdapter.onTempPointListener = value
         }
 
-
-
-
-
     /**
      * Temperature measurement mode - Menu 2 - Point/Line/Area measurement adapter.
      */
     private val fenceAdapter: FenceAdapter
+
     /**
      * Temperature measurement mode - Menu 3 - Dual light fusion adapter.
      */
     private val twoLightAdapter: TwoLightAdapter
+
     /**
      * Temperature measurement mode - Menu 4 - Pseudo-color palette or Observation mode - Menu 3 - Pseudo-color palette adapter.
      */
     private val colorAdapter = ColorAdapter()
+
     /**
      * Temperature measurement mode - Menu 5 - Settings configuration adapter.
      */
     private val settingTeAdapter: SettingAdapter
+
     /**
      * Temperature measurement mode - Menu 6 - High/Low temperature gain control adapter.
      */
     private val tempLevelAdapter: TempLevelAdapter
 
-
     /**
      * Observation mode - Menu 2 - High/Low temperature source selection adapter.
      */
     private val tempSourceAdapter = TempSourceAdapter()
+
     /**
      * Observation mode - Menu 4 - Target detection configuration adapter.
      */
     private val targetAdapter = TargetAdapter()
+
     /**
      * Observation mode - Menu 5 - High/Low temperature point analysis adapter.
      */
     private val tempPointAdapter = TempPointAdapter()
+
     /**
      * Observation mode - Menu 6 - Settings configuration adapter.
      */
     private val settingObAdapter = SettingAdapter(isObserver = true)
-
-
-
-
-
-
 
     constructor(context: Context) : this(context, null)
 
@@ -234,15 +233,21 @@ class MenuSecondView : FrameLayout {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.MenuSecondView, defStyleAttr, defStyleRes)
-        menuType = when (typedArray.getInt(R.styleable.MenuSecondView_deviceType, 0)) {
-            0 -> MenuType.SINGLE_LIGHT
-            1 -> MenuType.DOUBLE_LIGHT
-            2 -> MenuType.Lite
-            4 -> MenuType.GALLERY_EDIT
-            else -> MenuType.TC007
-        }
+        menuType =
+            when (typedArray.getInt(R.styleable.MenuSecondView_deviceType, 0)) {
+                0 -> MenuType.SINGLE_LIGHT
+                1 -> MenuType.DOUBLE_LIGHT
+                2 -> MenuType.Lite
+                4 -> MenuType.GALLERY_EDIT
+                else -> MenuType.TC007
+            }
         typedArray.recycle()
 
         if (isInEditMode) {
@@ -281,8 +286,6 @@ class MenuSecondView : FrameLayout {
             binding.recyclerTempLevel.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerTempLevel.adapter = tempLevelAdapter
 
-
-
             // Initialize Observation mode - Menu 2 - High/Low temperature source selection Menu
             binding.recyclerTempSource.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             binding.recyclerTempSource.adapter = tempSourceAdapter
@@ -301,8 +304,8 @@ class MenuSecondView : FrameLayout {
         }
     }
 
+    // *********************************************  Menu1-PhotoVideo  *********************************************
 
-    /* *********************************************  Menu1-PhotoVideo  ********************************************* */
     /**
      * Current video recording mode.
      *
@@ -357,8 +360,8 @@ class MenuSecondView : FrameLayout {
         binding.cameraMenuView.setToRecord(false)
     }
 
+    // *****************************************  Temperature measurementMode-Menu2-Point/Line/Area  *****************************************
 
-    /* *****************************************  Temperature measurementMode-Menu2-Point/Line/Area  ***************************************** */
     /**
      * Temperature measurement mode - Menu 2 - Point/Line/Area currently selected menu type, returns null if all options are selected.
      */
@@ -368,8 +371,7 @@ class MenuSecondView : FrameLayout {
             fenceAdapter.selectType = value
         }
 
-
-    /* *****************************************  Temperature measurement mode - Menu 3 - Dual light  ***************************************** */
+    // *****************************************  Temperature measurement mode - Menu 3 - Dual light  *****************************************
     /**
      * Current single-selection dual light type
      * - Single light:  Should not usethis property
@@ -390,12 +392,15 @@ class MenuSecondView : FrameLayout {
      * - Dual light：  Registration、Picture in picture、Fusion degree
      * - TC007：Registration、、Fusion degree
      */
-    fun setTwoLightSelected(twoLightType: TwoLightType, isSelected: Boolean) {
+    fun setTwoLightSelected(
+        twoLightType: TwoLightType,
+        isSelected: Boolean,
+    ) {
         twoLightAdapter.setSelected(twoLightType, isSelected)
     }
 
+    // **********************************  Temperature measurementMode-Menu4-Pseudo-color/ObservationMode-Menu3-Pseudo-color  **********************************
 
-    /* **********************************  Temperature measurementMode-Menu4-Pseudo-color/ObservationMode-Menu3-Pseudo-color  ********************************** */
     /**
      * dataSpecifieddataPseudo-colordata，SelectedPseudo-colorMenudataSpecifiedPseudo-color，data code data code，dataSelecteddata。
      * @param code 1-White hot 3-Iron red 4-Rainbow1 5-Rainbow2 6-Rainbow3 7-Red hot 8-Hot iron 9-Rainbow4 10-Rainbow5 11-Black hot
@@ -404,12 +409,15 @@ class MenuSecondView : FrameLayout {
         colorAdapter.selectCode = code
     }
 
+    // **********************************  Temperature measurementMode-Menu5-Settings or ObservationMode-Menu6-Settings  **********************************
 
-    /* **********************************  Temperature measurementMode-Menu5-Settings or ObservationMode-Menu6-Settings  ********************************** */
     /**
      * SettingsSettingsMenudataSpecifiedOptiondataSelectedState
      */
-    fun setSettingSelected(settingType: SettingType, isSelected: Boolean) {
+    fun setSettingSelected(
+        settingType: SettingType,
+        isSelected: Boolean,
+    ) {
         settingTeAdapter.setSelected(settingType, isSelected)
         settingObAdapter.setSelected(settingType, isSelected)
     }
@@ -423,8 +431,8 @@ class MenuSecondView : FrameLayout {
         settingObAdapter.rotateAngle = rotateAngle
     }
 
+    // *****************************************  Temperature measurementMode-Menu6-dataLow temperaturedata  *****************************************
 
-    /* *****************************************  Temperature measurementMode-Menu6-dataLow temperaturedata  ***************************************** */
     /**
      * Temperature leveldataFahrenheitdata
      *
@@ -435,6 +443,7 @@ class MenuSecondView : FrameLayout {
         set(value) {
             tempLevelAdapter.isUnitF = value
         }
+
     /**
      * Settings Temperature measurementMode-Menu6-dataLow temperaturedata Temperature level.
      *
@@ -447,12 +456,8 @@ class MenuSecondView : FrameLayout {
         tempLevelAdapter.selectCode = code
     }
 
+    // *****************************************  ObservationMode-Menu2-dataLow temperaturedata  *****************************************
 
-
-
-
-
-    /* *****************************************  ObservationMode-Menu2-dataLow temperaturedata  ***************************************** */
     /**
      * Settings ObservationMode-Menu2-dataLow temperaturedata Selected.
      *
@@ -466,14 +471,18 @@ class MenuSecondView : FrameLayout {
         tempSourceAdapter.selectCode = code
     }
 
+    // *****************************************  ObservationMode-Menu4-Target  *****************************************
 
-    /* *****************************************  ObservationMode-Menu4-Target  ***************************************** */
     /**
      * Settings ObservationMode-Menu4-Target SpecifiedOptiondataSelectedState
      */
-    fun setTargetSelected(targetType: TargetType, isSelected: Boolean) {
+    fun setTargetSelected(
+        targetType: TargetType,
+        isSelected: Boolean,
+    ) {
         targetAdapter.setSelected(targetType, isSelected)
     }
+
     /**
      * Settings ObservationMode-Menu4-Target-dataMode dataType.
      *
@@ -487,14 +496,18 @@ class MenuSecondView : FrameLayout {
         targetAdapter.setTargetMode(modeCode)
     }
 
-    
-    /* *****************************************  ObservationMode-Menu5-High/Low temperature points  ***************************************** */
+    // *****************************************  ObservationMode-Menu5-High/Low temperature points  *****************************************
+
     /**
      * Settings ObservationMode-Menu5-High/Low temperature points Menudata，High temperaturedata data data dataSelectedState。
      */
-    fun setTempPointSelect(tempPointType: TempPointType, isSelected: Boolean) {
+    fun setTempPointSelect(
+        tempPointType: TempPointType,
+        isSelected: Boolean,
+    ) {
         tempPointAdapter.setSelected(tempPointType, isSelected)
     }
+
     /**
      * Clear ObservationMode-Menu5-High/Low temperature points MenudataAllSelectedState。
      * dataMaintain original logic，Consider in the futureWhether to directlySelectedDeletedone。

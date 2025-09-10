@@ -11,7 +11,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class IRConfigViewModel(application: Application) : AndroidViewModel(application) {
-
     val configLiveData = SingleLiveEvent<ModelBean>()
 
     /**
@@ -26,7 +25,10 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     /**
      * view，viewCelsius。
      */
-    fun updateDefaultEnvironment(isTC007: Boolean, environment: Float) {
+    fun updateDefaultEnvironment(
+        isTC007: Boolean,
+        environment: Float,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
             modelBean.defaultModel.environment = environment
@@ -38,7 +40,10 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     /**
      * view，view。
      */
-    fun updateDefaultDistance(isTC007: Boolean, distance: Float) {
+    fun updateDefaultDistance(
+        isTC007: Boolean,
+        distance: Float,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
             modelBean.defaultModel.distance = distance
@@ -50,7 +55,10 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     /**
      * view。
      */
-    fun updateDefaultRadiation(isTC007: Boolean, radiation: Float) {
+    fun updateDefaultRadiation(
+        isTC007: Boolean,
+        radiation: Float,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
             modelBean.defaultModel.radiation = radiation
@@ -83,7 +91,10 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
      * viewMode
      * @param id 0:viewMode   > 0 viewMode
      */
-    fun checkConfig(isTC007: Boolean, id: Int) {
+    fun checkConfig(
+        isTC007: Boolean,
+        id: Int,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
             modelBean.defaultModel.use = id == 0
@@ -99,14 +110,17 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
      * DeleteviewMode
      * @param id viewMode id
      */
-    fun deleteConfig(isTC007: Boolean, id: Int) {
+    fun deleteConfig(
+        isTC007: Boolean,
+        id: Int,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
             var removeAt = modelBean.myselfModel.size
             for (i in modelBean.myselfModel.indices) {
                 val dataBean = modelBean.myselfModel[i]
                 if (dataBean.id == id) {
-                    if (dataBean.use) {//DeleteCurrentviewMode，viewMode
+                    if (dataBean.use) { // DeleteCurrentviewMode，viewMode
                         modelBean.defaultModel.use = true
                     }
                     modelBean.myselfModel.removeAt(i)
@@ -132,7 +146,10 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     /**
      * view.
      */
-    fun updateCustom(isTC007: Boolean, dataBean: DataBean) {
+    fun updateCustom(
+        isTC007: Boolean,
+        dataBean: DataBean,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
             for (i in modelBean.myselfModel.indices) {
@@ -145,5 +162,4 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
             configLiveData.postValue(modelBean)
         }
     }
-
 }

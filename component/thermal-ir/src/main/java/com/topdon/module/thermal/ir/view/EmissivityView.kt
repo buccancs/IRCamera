@@ -27,6 +27,7 @@ class EmissivityView : View {
      * view
      */
     var isAlignTop = false
+
     /**
      * view
      */
@@ -36,11 +37,11 @@ class EmissivityView : View {
      * view.
      */
     private val textList: ArrayList<CharSequence> = ArrayList(3)
+
     /**
      * view Layout view.
      */
     private val layoutList: ArrayList<StaticLayout> = ArrayList(3)
-
 
     private val strokeWidth = SizeUtils.dp2px(DEFAULT_STROKE_WIDTH).coerceAtLeast(1).toFloat()
     private val linePaint = Paint()
@@ -52,7 +53,12 @@ class EmissivityView : View {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes:Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         linePaint.color = 0xff5b5961.toInt()
         linePaint.style = Paint.Style.STROKE
         linePaint.strokeWidth = strokeWidth
@@ -68,24 +74,28 @@ class EmissivityView : View {
         requestLayout()
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+    ) {
         val widthSize: Int = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
-        val firstWidth: Int = (widthSize * 135 / 335f).toInt()// 3 view 135:100:100
+        val firstWidth: Int = (widthSize * 135 / 335f).toInt() // 3 view 135:100:100
         val elseWidth: Int = (widthSize - firstWidth) / 2
         val contentWidth: Int = firstWidth + elseWidth * 2
 
         // View rendering layoutList
         layoutList.clear()
         for (i in textList.indices) {
-            val textWidth: Int = if (textList.size == 1) {
-                contentWidth - SizeUtils.dp2px(24f)// View rendering 12dp padding
-            } else {
-                (if (i == 0) firstWidth else elseWidth) - SizeUtils.dp2px(24f)// View rendering 12dp padding
-            }
+            val textWidth: Int =
+                if (textList.size == 1) {
+                    contentWidth - SizeUtils.dp2px(24f) // View rendering 12dp padding
+                } else {
+                    (if (i == 0) firstWidth else elseWidth) - SizeUtils.dp2px(24f) // View rendering 12dp padding
+                }
             layoutList.add(
                 StaticLayout.Builder.obtain(textList[i], 0, textList[i].length, textPaint, textWidth)
                     .setAlignment(Layout.Alignment.ALIGN_CENTER)
-                    .build()
+                    .build(),
             )
         }
 
@@ -94,10 +104,10 @@ class EmissivityView : View {
         for (layout in layoutList) {
             maxHeight = maxHeight.coerceAtLeast(layout.height)
         }
-        if (maxHeight == 0) {// View renderingSettingsview，view
+        if (maxHeight == 0) { // View renderingSettingsview，view
             maxHeight = textPaint.fontMetricsInt.bottom - textPaint.fontMetricsInt.top
         }
-        maxHeight += SizeUtils.dp2px(12f)// View rendering 6dp padding
+        maxHeight += SizeUtils.dp2px(12f) // View rendering 6dp padding
 
         // View rendering UNSPECIFIED view，view
         setMeasuredDimension(contentWidth + paddingStart + paddingEnd, maxHeight)

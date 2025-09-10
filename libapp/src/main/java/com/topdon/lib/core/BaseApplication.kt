@@ -81,7 +81,7 @@ abstract class BaseApplication : Application() {
         }
     }
 
-    open fun initWebSocket()  {
+    open fun initWebSocket() {
         connectWebSocket()
         // data - using modern network callback for Android 10+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -130,10 +130,9 @@ abstract class BaseApplication : Application() {
         } else if (ssid.startsWith(DeviceConfig.TC007_NAME_START)) {
             SharedManager.hasTC007 = true
             WebSocketProxy.getInstance().startWebSocket(ssid)
-        } else
-            {
-                NetWorkUtils.switchNetwork(true)
-            }
+        } else {
+            NetWorkUtils.switchNetwork(true)
+        }
     }
 
     fun disconnectWebSocket() {

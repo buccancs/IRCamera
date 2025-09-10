@@ -6,7 +6,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.core.view.isVisible
-import com.csl.irCamera.R
 import com.csl.irCamera.databinding.ActivityWebViewBinding
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient
 import com.topdon.lib.core.config.ExtraKeyConfig
@@ -22,9 +21,7 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class WebViewActivity : BaseBindingActivity<ActivityWebViewBinding>() {
-
-    override fun getViewBinding(): ActivityWebViewBinding = 
-        ActivityWebViewBinding.inflate(layoutInflater)
+    override fun getViewBinding(): ActivityWebViewBinding = ActivityWebViewBinding.inflate(layoutInflater)
 
     override fun initView() {
         // Views are now accessible via binding

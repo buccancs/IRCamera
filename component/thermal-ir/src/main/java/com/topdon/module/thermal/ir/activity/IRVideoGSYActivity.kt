@@ -10,35 +10,32 @@ import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.BarUtils
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
+import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import com.topdon.lib.core.bean.GalleryBean
+import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.dialog.ConfirmSelectDialog
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.TimeTool
-import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.ui.R as UiR
-import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.ToastTools
-import com.topdon.module.thermal.ir.R
-import com.topdon.lib.core.R as LibR
-import com.topdon.lib.core.dialog.ConfirmSelectDialog
-import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lms.sdk.weiget.TToast
+import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.GalleryDownloadEvent
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
-import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 import java.io.File
-
+import com.topdon.lib.core.R as LibR
+import com.topdon.lib.ui.R as UiR
 
 // Legacy ARouter route annotation - now using NavigationManager
 class IRVideoGSYActivity : BaseActivity() {
-
     private var isRemote = false
     private lateinit var data: GalleryBean
-    
+
     // View declarations
     private lateinit var titleView: com.topdon.lib.core.view.TitleView
     private lateinit var clBottom: androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +44,7 @@ class IRVideoGSYActivity : BaseActivity() {
     private lateinit var clDelete: androidx.constraintlayout.widget.ConstraintLayout
     private lateinit var ivDownload: android.widget.ImageView
     private lateinit var gsyPlay: com.topdon.module.thermal.ir.view.MyGSYVideoPlayer
-    
+
     override fun initContentView() = R.layout.activity_ir_video_gsy
 
     override fun initView() {
@@ -59,7 +56,7 @@ class IRVideoGSYActivity : BaseActivity() {
         clDelete = findViewById(R.id.cl_delete)
         ivDownload = findViewById(R.id.iv_download)
         gsyPlay = findViewById(R.id.gsy_play)
-        
+
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, UiR.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
@@ -99,14 +96,18 @@ class IRVideoGSYActivity : BaseActivity() {
     override fun initData() {
     }
 
-    private fun previewVideo(isRemote: Boolean, path: String) {
+    private fun previewVideo(
+        isRemote: Boolean,
+        path: String,
+    ) {
         PlayerFactory.setPlayManager(SystemPlayerManager::class.java)
-        val url = if (isRemote) {
-            path
-        } else {
-            path.replace("//", "/")
-            "file://$path"
-        }
+        val url =
+            if (isRemote) {
+                path
+            } else {
+                path.replace("//", "/")
+                "file://$path"
+            }
 
         GSYVideoOptionBuilder()
             .setUrl(url)
@@ -119,7 +120,7 @@ class IRVideoGSYActivity : BaseActivity() {
     }
 
     private fun actionDownload(isToShare: Boolean) {
-        if (data.hasDownload) {// Activity logic
+        if (data.hasDownload) { // Activity logic
             if (isToShare) {
                 actionShare()
             }

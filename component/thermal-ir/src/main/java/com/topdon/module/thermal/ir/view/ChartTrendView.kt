@@ -18,7 +18,6 @@ import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.R as ThermalR
 
 class ChartTrendView : LineChart {
-
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
@@ -28,69 +27,71 @@ class ChartTrendView : LineChart {
         this.isDragEnabled = false
         this.isScaleYEnabled = false // View renderingYview
         this.isScaleXEnabled = false // View renderingXview
-        this.isDoubleTapToZoomEnabled = false// View rendering
-        this.setScaleEnabled(false)// View rendering
-        this.setPinchZoom(false)// View rendering，viewxviewyview
+        this.isDoubleTapToZoomEnabled = false // View rendering
+        this.setScaleEnabled(false) // View rendering
+        this.setPinchZoom(false) // View rendering，viewxviewyview
         this.setTouchEnabled(true)
         this.setDrawGridBackground(false)
-        this.description = null// View rendering
+        this.description = null // View rendering
         this.axisRight.isEnabled = false // View renderingYview
         this.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
-            SizeUtils.dp2px(4f).toFloat()
-        )// View rendering
+            SizeUtils.dp2px(4f).toFloat(),
+        ) // View rendering
 
         setNoDataText(context.getString(ThermalR.string.lms_http_code998))
         setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
 
         val mv = MyMarkerView(context, R.layout.marker_lay)
         mv.chartView = this
-        marker = mv//Settingsview
+        marker = mv // Settingsview
 
         legend.form = Legend.LegendForm.CIRCLE
         legend.textColor = textColor
-        legend.isEnabled = false// View rendering
+        legend.isEnabled = false // View rendering
 
-        //xview
+        // xview
         val xAxis = this.xAxis
         xAxis.textColor = textColor
-        xAxis.setDrawGridLines(false)// View rendering
-        xAxis.axisLineColor = 0x00000000 //xview
+        xAxis.setDrawGridLines(false) // View rendering
+        xAxis.axisLineColor = 0x00000000 // xview
         xAxis.setAvoidFirstLastClipping(true)
         xAxis.isEnabled = true
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true// View rendering
+        xAxis.isGranularityEnabled = true // View rendering
         xAxis.textSize = 11f
         xAxis.isJumpFirstLabel = false
         xAxis.axisMinimum = 0f
         xAxis.axisMaximum = 10f
         xAxis.setLabelCount(3, true)
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                if (value < 5) {
-                    return "A"
+        xAxis.valueFormatter =
+            object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    if (value < 5) {
+                        return "A"
+                    }
+                    if (value > 5) {
+                        return "B"
+                    }
+                    return ""
                 }
-                if (value > 5) {
-                    return "B"
-                }
-                return ""
             }
-        }
 
-        //yview
+        // yview
         val leftAxis = this.axisLeft
-        leftAxis.textColor = textColor //yview
-        leftAxis.axisLineColor = 0x00000000 //yview
-        leftAxis.setDrawGridLines(true)// View rendering
-        leftAxis.gridColor = axisChartColors //yview
+        leftAxis.textColor = textColor // yview
+        leftAxis.axisLineColor = 0x00000000 // yview
+        leftAxis.setDrawGridLines(true) // View rendering
+        leftAxis.gridColor = axisChartColors // yview
         leftAxis.gridLineWidth = 1.5f
         leftAxis.setLabelCount(6, true)
-        leftAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String = ""
-        }
+        leftAxis.valueFormatter =
+            object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String = ""
+            }
         leftAxis.textSize = 11f
         leftAxis.axisMinimum = 0f
         leftAxis.axisMaximum = 50f
@@ -99,9 +100,10 @@ class ChartTrendView : LineChart {
     }
 
     fun setToEmpty() {
-        axisLeft.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String = ""
-        }
+        axisLeft.valueFormatter =
+            object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String = ""
+            }
         data = LineData()
         invalidate()
     }
@@ -119,17 +121,18 @@ class ChartTrendView : LineChart {
         xAxis.axisMinimum = 0f
         xAxis.axisMaximum = (tempList.size - 1).toFloat()
         xAxis.setLabelCount(3, true)
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                if (value < tempList.size / 3) {
-                    return "A"
+        xAxis.valueFormatter =
+            object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    if (value < tempList.size / 3) {
+                        return "A"
+                    }
+                    if (value > tempList.size * 2 / 3) {
+                        return "B"
+                    }
+                    return ""
                 }
-                if (value > tempList.size * 2 / 3) {
-                    return "B"
-                }
-                return ""
             }
-        }
 
         var max = tempList.first()
         var min = tempList.first()
@@ -144,21 +147,22 @@ class ChartTrendView : LineChart {
         val minUnit = UnitTools.showUnitValue(min)
         axisLeft.axisMaximum = (maxUnit + (maxUnit - minUnit) / 3).coerceAtLeast(maxUnit + 0.3f)
         axisLeft.axisMinimum = (minUnit - (maxUnit - minUnit) / 3).coerceAtMost(minUnit - 0.3f)
-        axisLeft.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String = "${String.format("%.1f", value)}${UnitTools.showUnit()}"
-        }
+        axisLeft.valueFormatter =
+            object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String = "${String.format("%.1f", value)}${UnitTools.showUnit()}"
+            }
 
         val lineDataSet = LineDataSet(entryList, "point temp")
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        lineDataSet.color = 0xffffffff.toInt()// View rendering
-        lineDataSet.circleHoleColor = 0xffffffff.toInt()// View rendering
-        lineDataSet.setCircleColor(0xffffffff.toInt())// View rendering
+        lineDataSet.color = 0xffffffff.toInt() // View rendering
+        lineDataSet.circleHoleColor = 0xffffffff.toInt() // View rendering
+        lineDataSet.setCircleColor(0xffffffff.toInt()) // View rendering
         lineDataSet.valueTextColor = Color.WHITE
         lineDataSet.lineWidth = 2f
-        lineDataSet.circleRadius = 1f// View rendering
+        lineDataSet.circleRadius = 1f // View rendering
         lineDataSet.fillAlpha = 200
         lineDataSet.valueTextSize = 10f
-        lineDataSet.setDrawValues(false)//Settingsview
+        lineDataSet.setDrawValues(false) // Settingsview
 
         data = LineData(lineDataSet)
         invalidate()

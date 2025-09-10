@@ -13,7 +13,6 @@ import com.topdon.menu.databinding.ViewMenuEditBinding
  * Point/Line/Area, Pseudo color, Settings, Pseudo color bar
  */
 class MenuEditView : FrameLayout, View.OnClickListener {
-
     /**
      * Whether the pseudo color bar icon is currently in selected state
      */
@@ -28,12 +27,11 @@ class MenuEditView : FrameLayout, View.OnClickListener {
      * 0-Point/Line/Area, 1-Pseudo color, 2-Settings menu click event listener.
      */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
+
     /**
      * Pseudo-colorview.
      */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
-
-
 
     private lateinit var binding: ViewMenuEditBinding
 
@@ -43,7 +41,12 @@ class MenuEditView : FrameLayout, View.OnClickListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         if (isInEditMode) {
             LayoutInflater.from(context).inflate(R.layout.view_menu_edit, this, true)
         } else {
@@ -54,9 +57,6 @@ class MenuEditView : FrameLayout, View.OnClickListener {
             binding.clMenu4.setOnClickListener(this)
         }
     }
-
-
-
 
     /**
      * CurrentSelectedview tab，view `[0,2]`

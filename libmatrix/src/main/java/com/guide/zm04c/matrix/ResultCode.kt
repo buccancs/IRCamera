@@ -1,7 +1,6 @@
 package com.guide.zm04c.matrix
 
 object ResultCode {
-
     val TAG = "mobilelibrary"
 
     // ImplementationState
@@ -19,9 +18,8 @@ object ResultCode {
     // Implementation
     val SUCC_FIND_ENDPOINT = 5
 
-    //USBdata
+    // USBdata
     val SUCC_USB_SEND_CMD = 6
-
 
     // dataUSBdata，data
     val ERROR_FIND_DEVICE_NOT_MATCH = -100
@@ -44,9 +42,9 @@ object ResultCode {
     // ImplementationUSBdata
     val ERROR_USE_NOT_AGRREN_PERMISSIONS = -106
 
-    //usbisvalid
+    // usbisvalid
     val ERROR_USE_USB_ISVALID = -107
 
-    //USBdata
+    // USBdata
     val ERROE_USB_SEND_CMD_FAILD = -108
 }

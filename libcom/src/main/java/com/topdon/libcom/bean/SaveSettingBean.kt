@@ -21,14 +21,10 @@ import com.topdon.lib.core.utils.CommUtils
  * Created by LCG on 2024/12/24.
  */
 class SaveSettingBean(private val isWifi: Boolean = false) {
-
     /**
      * data SPUtil data.
      */
     private fun getSPUtils(): SPUtils = SPUtils.getInstance(if (isWifi) "WifiSaveSettingUtil" else "SaveSettingUtil")
-
-
-
 
     /**
      * dataSettingsdata，data.
@@ -38,8 +34,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             field = value
             getSPUtils().put("isSaveSetting", value)
         }
-
-
 
     /**
      * dataTemperature measurementMode，dataTemperature measurementMode true-Temperature measurement false-Observation
@@ -51,17 +45,17 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isMeasureTempMode", value)
             }
         }
+
     /**
      * data
      */
-    var isOpenAmplify : Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenAmplify", false) else false
+    var isOpenAmplify: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenAmplify", false) else false
         set(value) {
             field = value
             if (isSaveSetting) {
                 getSPUtils().put("isOpenAmplify", value)
             }
         }
-
 
     /**
      * dataVideoMode，dataPhoto true-Video false-Photo
@@ -73,6 +67,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isVideoMode", value)
             }
         }
+
     /**
      * data，data true-data false-data
      */
@@ -83,6 +78,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isAutoShutter", value)
             }
         }
+
     /**
      * dataVideodata，data true-data false-data
      */
@@ -93,6 +89,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isRecordAudio", value)
             }
         }
+
     /**
      * dataPhotodata，data，data0data.
      */
@@ -104,14 +101,22 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
 
-
-    var fusionType : Int = if (isSaveSetting) getSPUtils().getInt("fusionType", SaveSettingUtil.FusionTypeLPYFusion) else SaveSettingUtil.FusionTypeLPYFusion
+    var fusionType: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "fusionType",
+                SaveSettingUtil.FusionTypeLPYFusion,
+            )
+        } else {
+            SaveSettingUtil.FusionTypeLPYFusion
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
                 getSPUtils().put("fusionType", value)
             }
         }
+
     /**
      * data-Temperature measurementMode-dataDual light，data true-data false-data
      */
@@ -122,6 +127,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isOpenTwoLight", value)
             }
         }
+
     /**
      * data-Temperature measurementMode-Dual lightdataFusion degree，data`[0,100]`，0data，100data，data 50%
      */
@@ -132,7 +138,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("twoLightAlpha", value)
             }
         }
-
 
     /**
      * dataPseudo-colorMode，dataPseudo-colordata，dataIron red
@@ -145,7 +150,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
 
-
     /**
      * data-Temperature measurementMode-dataPseudo-colordata，data true-data false-data
      */
@@ -156,6 +160,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isOpenPseudoBar", value)
             }
         }
+
     /**
      * data，data`[0,255]`，data 128
      */
@@ -166,6 +171,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("contrastValue", value)
             }
         }
+
     /**
      * data-Temperature measurementMode-data(data)，data`[0,4]`，data 2
      */
@@ -176,31 +182,43 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("ddeConfig", value)
             }
         }
+
     /**
      *data-Temperature measurementMode-dataSettingsdata.
      */
-    var alarmBean: AlarmBean = if (isSaveSetting) {
-        val json = getSPUtils().getString("alarmBean", "")
-        if (json.isNullOrEmpty()) AlarmBean() else Gson().fromJson(json, AlarmBean::class.java)
-    } else {
-        AlarmBean()
-    }
+    var alarmBean: AlarmBean =
+        if (isSaveSetting) {
+            val json = getSPUtils().getString("alarmBean", "")
+            if (json.isNullOrEmpty()) AlarmBean() else Gson().fromJson(json, AlarmBean::class.java)
+        } else {
+            AlarmBean()
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
                 getSPUtils().put("alarmBean", Gson().toJson(value))
             }
         }
+
     /**
      * dataRotateAngle，data 0、90、180、270，data [DeviceConfig.S_ROTATE_ANGLE]
      */
-    var rotateAngle: Int = if (isSaveSetting) getSPUtils().getInt("rotateAngle", DeviceConfig.S_ROTATE_ANGLE) else DeviceConfig.S_ROTATE_ANGLE
+    var rotateAngle: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "rotateAngle",
+                DeviceConfig.S_ROTATE_ANGLE,
+            )
+        } else {
+            DeviceConfig.S_ROTATE_ANGLE
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
                 getSPUtils().put("rotateAngle", value)
             }
         }
+
     /**
      * data(192x256)
      */
@@ -216,6 +234,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isOpenMirror", value)
             }
         }
+
     /**
      * data-ObservationMode-data，data true-data false-data
      */
@@ -226,6 +245,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isOpenCompass", value)
             }
         }
+
     /**
      * data-Temperature measurementMode-data，data.
      */
@@ -236,6 +256,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("tempTextColor", value)
             }
         }
+
     /**
      * data-Temperature measurementMode-data，data px，data14sp.
      */
@@ -246,11 +267,11 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("tempTextSize", value)
             }
         }
+
     /**
      * dataCurrentdataSettings
      */
     fun isTempTextDefault(): Boolean = tempTextColor == 0xffffffff.toInt() && tempTextSize == SizeUtils.sp2px(14f)
-
 
     /**
      * data-Temperature measurementMode-Temperature level，dataNormal temperature，data
@@ -261,15 +282,21 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
      *
      * data ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
-    var temperatureMode: Int = if (isSaveSetting) getSPUtils().getInt("temperatureMode", CameraItemBean.TYPE_TMP_C) else CameraItemBean.TYPE_TMP_C
+    var temperatureMode: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "temperatureMode",
+                CameraItemBean.TYPE_TMP_C,
+            )
+        } else {
+            CameraItemBean.TYPE_TMP_C
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
                 getSPUtils().put("temperatureMode", value)
             }
         }
-
-
 
     /**
      * data-ObservationMode-dataHigh temperaturedata，data true-data false-data
@@ -281,6 +308,7 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
                 getSPUtils().put("isOpenHighPoint", value)
             }
         }
+
     /**
      * data-ObservationMode-dataLow temperaturedata，data true-data false-data
      */
@@ -333,7 +361,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
      *
      * Bird ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
      */
-    var targetMeasureMode: Int = if (isSaveSetting) getSPUtils().getInt("targetMeasureMode", ObserveBean.TYPE_MEASURE_PERSON) else ObserveBean.TYPE_MEASURE_PERSON
+    var targetMeasureMode: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "targetMeasureMode",
+                ObserveBean.TYPE_MEASURE_PERSON,
+            )
+        } else {
+            ObserveBean.TYPE_MEASURE_PERSON
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
@@ -350,7 +386,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
      *
      * data ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
      */
-    var targetType: Int = if (isSaveSetting) getSPUtils().getInt("targetType", ObserveBean.TYPE_TARGET_HORIZONTAL) else ObserveBean.TYPE_TARGET_HORIZONTAL
+    var targetType: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "targetType",
+                ObserveBean.TYPE_TARGET_HORIZONTAL,
+            )
+        } else {
+            ObserveBean.TYPE_TARGET_HORIZONTAL
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
@@ -371,7 +415,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
      *
      * data ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
      */
-    var targetColorType: Int = if (isSaveSetting) getSPUtils().getInt("targetColorType", ObserveBean.TYPE_TARGET_COLOR_GREEN) else ObserveBean.TYPE_TARGET_COLOR_GREEN
+    var targetColorType: Int =
+        if (isSaveSetting) {
+            getSPUtils().getInt(
+                "targetColorType",
+                ObserveBean.TYPE_TARGET_COLOR_GREEN,
+            )
+        } else {
+            ObserveBean.TYPE_TARGET_COLOR_GREEN
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
@@ -379,11 +431,18 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
             }
         }
 
-
     /**
      * data-data，data App data.
      */
-    var reportAuthorName: String = if (isSaveSetting) getSPUtils().getString("reportAuthorName", CommUtils.getAppName()) else CommUtils.getAppName()
+    var reportAuthorName: String =
+        if (isSaveSetting) {
+            getSPUtils().getString(
+                "reportAuthorName",
+                CommUtils.getAppName(),
+            )
+        } else {
+            CommUtils.getAppName()
+        }
         set(value) {
             field = value
             if (isSaveSetting) {
@@ -394,7 +453,15 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
     /**
      * data-data，data App data.
      */
-    var reportWatermarkText: String = if (isSaveSetting) getSPUtils().getString("reportWatermarkText", CommUtils.getAppName()) else CommUtils.getAppName()
+    var reportWatermarkText: String =
+        if (isSaveSetting) {
+            getSPUtils().getString(
+                "reportWatermarkText",
+                CommUtils.getAppName(),
+            )
+        } else {
+            CommUtils.getAppName()
+        }
         set(value) {
             field = value
             if (isSaveSetting) {

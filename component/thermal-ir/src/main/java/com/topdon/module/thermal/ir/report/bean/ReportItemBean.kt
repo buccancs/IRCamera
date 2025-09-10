@@ -15,9 +15,8 @@ data class ReportItemBean(
     val uploadTime: String?, // Data field
     val sn: String?,
     val url: String?,
-    val status: Int?
+    val status: Int?,
 ) : Parcelable {
-
     var reportBean: ReportBean? = null
         get() {
             if (field == null) {

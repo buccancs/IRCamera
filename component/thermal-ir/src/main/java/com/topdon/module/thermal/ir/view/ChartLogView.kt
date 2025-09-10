@@ -18,18 +18,17 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.module.thermal.ir.R
-import com.topdon.lib.core.R as LibR
-import com.topdon.lib.core.R as LibcoreR
-import com.topdon.module.thermal.R as ThermalR
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import com.topdon.lib.core.R as LibR
+import com.topdon.lib.core.R as LibcoreR
+import com.topdon.module.thermal.R as ThermalR
 
 class ChartLogView : LineChart {
-
     private val mHandler by lazy { Handler(Looper.getMainLooper()) }
 
     constructor(context: Context) : this(context, null)
@@ -37,7 +36,7 @@ class ChartLogView : LineChart {
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
         context,
         attrs,
-        defStyle
+        defStyle,
     ) {
         initChart()
     }
@@ -51,66 +50,68 @@ class ChartLogView : LineChart {
     private val axisChartColors by lazy { ContextCompat.getColor(context, LibcoreR.color.chart_axis) }
     private val axisLine by lazy { ContextCompat.getColor(context, LibcoreR.color.circle_white) }
 
-    //MPChart
+    // MPChart
     private fun initChart() {
         synchronized(this) {
             this.setTouchEnabled(true)
             this.isDragEnabled = true
             this.setDrawGridBackground(false)
-            this.description = null// View rendering
+            this.description = null // View rendering
             this.setBackgroundResource(LibcoreR.color.chart_bg)
-            this.setScaleEnabled(false)// View rendering
-            this.setPinchZoom(false)// View rendering，viewxviewyview
-            this.isDoubleTapToZoomEnabled = false// View rendering
-            this.isScaleYEnabled = false// View renderingYview
-            this.isScaleXEnabled = true// View renderingXview
+            this.setScaleEnabled(false) // View rendering
+            this.setPinchZoom(false) // View rendering，viewxviewyview
+            this.isDoubleTapToZoomEnabled = false // View rendering
+            this.isScaleYEnabled = false // View renderingYview
+            this.isScaleXEnabled = true // View renderingXview
             this.setExtraOffsets(
                 0f,
                 0f,
                 SizeUtils.dp2px(8f).toFloat(),
-                SizeUtils.dp2px(4f).toFloat()
-            )// View rendering
+                SizeUtils.dp2px(4f).toFloat(),
+            ) // View rendering
             setNoDataText(context.getString(ThermalR.string.lms_http_code998))
             setNoDataTextColor(ContextCompat.getColor(context, LibcoreR.color.chart_text))
             val mv = MyMarkerView(context, R.layout.marker_lay)
             mv.chartView = this
-            marker = mv//Settingsview
+            marker = mv // Settingsview
             val data = LineData()
             data.setValueTextColor(textColor)
             this.data = data
             val l = this.legend
             l.form = Legend.LegendForm.CIRCLE
             l.textColor = textColor
-            l.isEnabled = false// View rendering
-            //xview
+            l.isEnabled = false // View rendering
+            // xview
             val xAxis = this.xAxis
             xAxis.textColor = textColor
-            xAxis.setDrawGridLines(false)// View rendering
-            xAxis.gridColor = axisChartColors //xview
-            xAxis.axisLineColor = 0x00000000 //xview
+            xAxis.setDrawGridLines(false) // View rendering
+            xAxis.gridColor = axisChartColors // xview
+            xAxis.axisLineColor = 0x00000000 // xview
             xAxis.setAvoidFirstLastClipping(true)
             xAxis.isEnabled = true
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1f
-            xAxis.isGranularityEnabled = true// View rendering
+            xAxis.isGranularityEnabled = true // View rendering
             xAxis.textSize = 8f
-            //yview
+            // yview
             val leftAxis = this.axisLeft
-            leftAxis.textColor = textColor //yview
-            leftAxis.axisLineColor = 0x00000000 //yview
-            leftAxis.setDrawGridLines(true)// View rendering
-            leftAxis.gridColor = axisChartColors //yview
+            leftAxis.textColor = textColor // yview
+            leftAxis.axisLineColor = 0x00000000 // yview
+            leftAxis.setDrawGridLines(true) // View rendering
+            leftAxis.gridColor = axisChartColors // yview
             leftAxis.gridLineWidth = 1.5f
             leftAxis.setLabelCount(6, true)
-            leftAxis.valueFormatter = YValueFormatter()//Settingsview
+            leftAxis.valueFormatter = YValueFormatter() // Settingsview
             leftAxis.textSize = 8f
 
             this.axisRight.isEnabled = false
         }
     }
 
-
-    fun initEntry(data: ArrayList<ThermalEntity>, type: Int = 1) {
+    fun initEntry(
+        data: ArrayList<ThermalEntity>,
+        type: Int = 1,
+    ) {
         synchronized(this) {
             GlobalScope.launch(Dispatchers.IO) {
                 try {
@@ -125,24 +126,25 @@ class ChartLogView : LineChart {
                 Log.w("chart", "update chart start")
                 val lineData: LineData = this@ChartLogView.data
                 if (lineData != null) {
-                    val startTime = data[0].createTime / 1000 * 1000  // View rendering (view,viewxview)
+                    val startTime = data[0].createTime / 1000 * 1000 // View rendering (view,viewxview)
                     xAxis.valueFormatter = IRMyValueFormatter(startTime = startTime, type = type)
                     XLog.w("chart init startTime:$startTime")
 //                    data[0].type = "default"
                     when (data[0].type) {
                         "point" -> {
-                            var set = lineData.getDataSetByIndex(0)// View renderingxview0view
+                            var set = lineData.getDataSetByIndex(0) // View renderingxview0view
                             if (set == null) {
                                 set = createSet(0, "point temp")
                                 lineData.addDataSet(set)
                             }
                             Log.w("123", "view")
                             data.forEach {
-                                val x = ChartTools.getChartX(
-                                    x = it.createTime,
-                                    startTime = startTime,
-                                    type = type
-                                ).toFloat()
+                                val x =
+                                    ChartTools.getChartX(
+                                        x = it.createTime,
+                                        startTime = startTime,
+                                        type = type,
+                                    ).toFloat()
                                 val entity = Entry(x, it.thermal)
                                 entity.data = it
                                 set.addEntry(entity)
@@ -150,30 +152,29 @@ class ChartLogView : LineChart {
                             XLog.w("DataSet:${set.entryCount}")
                         }
                         "line" -> {
-                            var maxDataSet = lineData.getDataSetByIndex(0)// View renderingxview0view
+                            var maxDataSet = lineData.getDataSetByIndex(0) // View renderingxview0view
                             if (maxDataSet == null) {
                                 maxDataSet = createSet(0, "line max temp")
-
                             }
 
-                            var minDataSet = lineData.getDataSetByIndex(1)// View renderingxview0view
+                            var minDataSet = lineData.getDataSetByIndex(1) // View renderingxview0view
                             if (minDataSet == null) {
                                 minDataSet = createSet(1, "line min temp")
-
                             }
                             Log.w("123", "view")
                             data.forEach {
-                                val x = ChartTools.getChartX(
-                                    x = it.createTime,
-                                    startTime = startTime,
-                                    type = type
-                                ).toFloat()
+                                val x =
+                                    ChartTools.getChartX(
+                                        x = it.createTime,
+                                        startTime = startTime,
+                                        type = type,
+                                    ).toFloat()
 //                                Log.w("123", "x: $x")
-                                //max
+                                // max
                                 val entity = Entry(x, it.thermalMax)
                                 entity.data = it
                                 maxDataSet.addEntry(entity)
-                                //min
+                                // min
                                 val entityMin = Entry(x, it.thermalMin)
                                 entityMin.data = it
                                 minDataSet.addEntry(entityMin)
@@ -183,30 +184,31 @@ class ChartLogView : LineChart {
                             XLog.w("DataSet:${maxDataSet.entryCount}")
                         }
                         else -> {
-                            //max
-                            var maxTempDataSet = lineData.getDataSetByIndex(0)// View renderingxview0view
+                            // max
+                            var maxTempDataSet = lineData.getDataSetByIndex(0) // View renderingxview0view
                             if (maxTempDataSet == null) {
                                 maxTempDataSet = createSet(0, "fence max temp")
                                 lineData.addDataSet(maxTempDataSet)
                             }
-                            //center
-                            var centerTempDataSet = lineData.getDataSetByIndex(1)// View renderingxview0view
+                            // center
+                            var centerTempDataSet = lineData.getDataSetByIndex(1) // View renderingxview0view
                             if (centerTempDataSet == null) {
                                 centerTempDataSet = createSet(1, "fence min temp")
                                 lineData.addDataSet(centerTempDataSet)
                             }
                             Log.w("123", "view")
                             data.forEach {
-                                val x = ChartTools.getChartX(
-                                    x = it.createTime,
-                                    startTime = startTime,
-                                    type = type
-                                ).toFloat()
-                                //max
+                                val x =
+                                    ChartTools.getChartX(
+                                        x = it.createTime,
+                                        startTime = startTime,
+                                        type = type,
+                                    ).toFloat()
+                                // max
                                 val entityMax = Entry(x, it.thermalMax)
                                 entityMax.data = it
                                 maxTempDataSet.addEntry(entityMax)
-                                //min
+                                // min
                                 val entity = Entry(x, it.thermalMin)
                                 entity.data = it
                                 centerTempDataSet.addEntry(entity)
@@ -217,9 +219,9 @@ class ChartLogView : LineChart {
                     lineData.notifyDataChanged()
                     notifyDataSetChanged()
                     moveViewToX(xChartMin)
-                    setVisibleXRangeMinimum(ChartTools.getMinimum(type = type) / 2)//SettingsviewXview
-                    setVisibleXRangeMaximum(ChartTools.getMaximum(type = type))//SettingsviewXview
-                    zoom(1f, 1f, xChartMin, 0f)// View rendering，view
+                    setVisibleXRangeMinimum(ChartTools.getMinimum(type = type) / 2) // SettingsviewXview
+                    setVisibleXRangeMaximum(ChartTools.getMaximum(type = type)) // SettingsviewXview
+                    zoom(1f, 1f, xChartMin, 0f) // View rendering，view
                     ChartTools.setX(this@ChartLogView, type)
 //                    ChartTools.setY(this@ChartTempView)
                 }
@@ -228,41 +230,47 @@ class ChartLogView : LineChart {
         }
     }
 
-    private val bgChartColors = intArrayOf(
-        R.drawable.bg_chart_fill,
-        R.drawable.bg_chart_fill2,
-        R.drawable.bg_chart_fill3
-    )
-    private val lineChartColors = intArrayOf(
-        LibcoreR.color.chart_line_max,
-        LibcoreR.color.chart_line_min,
-        LibcoreR.color.chart_line_center
-    )
+    private val bgChartColors =
+        intArrayOf(
+            R.drawable.bg_chart_fill,
+            R.drawable.bg_chart_fill2,
+            R.drawable.bg_chart_fill3,
+        )
+    private val lineChartColors =
+        intArrayOf(
+            LibcoreR.color.chart_line_max,
+            LibcoreR.color.chart_line_min,
+            LibcoreR.color.chart_line_center,
+        )
 
-    private val linePointColors = intArrayOf(
-        LibR.color.chart_point_max,
-        LibR.color.chart_point_min,
-        LibR.color.chart_point_center
-    )
+    private val linePointColors =
+        intArrayOf(
+            LibR.color.chart_point_max,
+            LibR.color.chart_point_min,
+            LibR.color.chart_point_center,
+        )
 
     /**
      * view
      */
-    private fun createSet(index: Int, label: String): LineDataSet {
+    private fun createSet(
+        index: Int,
+        label: String,
+    ): LineDataSet {
         val set = LineDataSet(null, label)
         set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index])//Settingsview
+        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index]) // Settingsview
         set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(context, lineChartColors[index])// View rendering
-        set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index])// View rendering
-        set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index]))// View rendering
+        set.color = ContextCompat.getColor(context, lineChartColors[index]) // View rendering
+        set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index]) // View rendering
+        set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index])) // View rendering
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
-        set.circleRadius = 1f// View rendering
+        set.circleRadius = 1f // View rendering
         set.fillAlpha = 200
         set.valueTextSize = 10f
-        set.setDrawValues(false)//Settingsview
+        set.setDrawValues(false) // Settingsview
         return set
     }
 
@@ -274,5 +282,4 @@ class ChartLogView : LineChart {
             clearValues()
         }
     }
-
 }

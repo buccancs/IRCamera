@@ -31,7 +31,6 @@ class HikSurfaceView : SurfaceView {
         private const val MULTIPLE = 2
     }
 
-
     /**
      * view
      */
@@ -66,11 +65,11 @@ class HikSurfaceView : SurfaceView {
      * viewLow temperatureview，viewCelsius，MIN_VALUE viewSettings
      */
     var limitTempMin = Float.MIN_VALUE
+
     /**
      * viewHigh temperatureview，viewCelsius，MAX_VALUE viewSettings
      */
     var limitTempMax = Float.MAX_VALUE
-
 
     /**
      * view.
@@ -85,12 +84,12 @@ class HikSurfaceView : SurfaceView {
         // irImageHelp.setColorList(it.getColorList(), it.getPlaceList(), it.isUseGray, it.maxTemp, it.minTemp)
     }
 
-
     /**
      * CurrentviewPseudo-color.
      */
     @Volatile
     private var pseudoType: PseudoColorType = PseudoColorType.PSEUDO_3
+
     /**
      * SettingsCurrentviewPseudo-colorview
      *
@@ -100,32 +99,35 @@ class HikSurfaceView : SurfaceView {
         pseudoType = PseudocodeUtils.changePseudocodeModeByOld(code)
     }
 
-
     /**
      * viewRotateview.
      */
     private val imageRes = ImageRes_t()
+
     /**
      * Currentview Bitmap.
      */
     private var bitmap: Bitmap = Bitmap.createBitmap(192, 256, Bitmap.Config.ARGB_8888)
+
     /**
      * viewRotateview ARGB view.
      */
     private val sourceArgbArray = ByteArray(256 * 192 * 4)
+
     /**
      * Rotateview ARGB view.
      */
     private val rotateArgbArray = ByteArray(256 * 192 * 4)
+
     /**
      * view ARGB view.
      */
     private val amplifyArray = ByteArray(256 * MULTIPLE * 192 * MULTIPLE * 4)
+
     /**
      * view
      */
     private val tempArray = ByteArray(256 * 192 * 2)
-
 
     constructor(context: Context) : this(context, null)
 
@@ -133,23 +135,31 @@ class HikSurfaceView : SurfaceView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         imageRes.width = 256.toChar()
         imageRes.height = 192.toChar()
     }
 
-
     /**
      * viewCurrent View view.
      */
-    fun getScaleBitmap(): Bitmap = synchronized(this) {
-        Bitmap.createScaledBitmap(bitmap, width, height, true)
-    }
+    fun getScaleBitmap(): Bitmap =
+        synchronized(this) {
+            Bitmap.createScaledBitmap(bitmap, width, height, true)
+        }
 
     /**
      * viewSpecifiedview YUV view
      */
-    fun refresh(yuvArray: ByteArray, newTempArray: ByteArray) {
+    fun refresh(
+        yuvArray: ByteArray,
+        newTempArray: ByteArray,
+    ) {
         // View rendering，viewRotateview
         val sourceWidth = 256
         val sourceHeight = 192
@@ -165,12 +175,12 @@ class HikSurfaceView : SurfaceView {
         irImageHelp.setPseudoColorMaxMin(sourceArgbArray, tempArray, limitTempMax, limitTempMin, sourceWidth, sourceHeight)
         // View rendering
         val newArray = irImageHelp.contourDetection(alarmBean, sourceArgbArray, tempArray, sourceWidth, sourceHeight) ?: sourceArgbArray
-        //Rotate
+        // Rotate
         when (rotateAngle) {
             90 -> LibIRProcess.rotateLeft90(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
             180 -> LibIRProcess.rotate180(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
             270 -> LibIRProcess.rotateRight90(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
-            else  -> System.arraycopy(newArray, 0, rotateArgbArray, 0, rotateArgbArray.size)
+            else -> System.arraycopy(newArray, 0, rotateArgbArray, 0, rotateArgbArray.size)
         }
         // View rendering
         if (isOpenAmplify) {

@@ -80,7 +80,7 @@ package com.topdon.menu.constant
  *             }
  *         }
  *     )
- *     
+ *
  *     thermalAnalyzer.addMeasurementPoint(feverPoint)
  * }
  * ```
@@ -96,7 +96,7 @@ package com.topdon.menu.constant
  *         alertEnabled = true,
  *         continuousMonitoring = true
  *     )
- *     
+ *
  *     // Low temperature alert for equipment malfunction
  *     val malfunctionPoint = ThermalPoint(
  *         type = TempPointType.LOW,
@@ -104,7 +104,7 @@ package com.topdon.menu.constant
  *         alertEnabled = true,
  *         continuousMonitoring = true
  *     )
- *     
+ *
  *     thermalAnalyzer.addMeasurementPoints(
  *         listOf(overheatPoint, malfunctionPoint)
  *     )
@@ -120,7 +120,7 @@ package com.topdon.menu.constant
  *         ThermalPoint(TempPointType.LOW, 10.0f, Point(150, 100)),
  *         ThermalPoint(TempPointType.LOW, 10.0f, Point(250, 100))
  *     )
- *     
+ *
  *     thermalAnalyzer.configureBuildingAnalysis(
  *         points = thermalBridgePoints,
  *         analysisMode = "energy_efficiency",
@@ -179,7 +179,6 @@ package com.topdon.menu.constant
  * Enhanced with enterprise documentation on 2024/01/15.
  */
 enum class TempPointType {
-    
     /**
      * High temperature measurement points for overheating and fever detection.
      *

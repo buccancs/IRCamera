@@ -19,9 +19,7 @@ import java.util.*
 
 // Legacy ARouter route annotation - now using NavigationManager
 class VersionActivity : BaseBindingActivity<ActivityVersionBinding>(), View.OnClickListener {
-
-    override fun getViewBinding(): ActivityVersionBinding = 
-        ActivityVersionBinding.inflate(layoutInflater)
+    override fun getViewBinding(): ActivityVersionBinding = ActivityVersionBinding.inflate(layoutInflater)
 
     override fun initView() {
         // Set up views using binding

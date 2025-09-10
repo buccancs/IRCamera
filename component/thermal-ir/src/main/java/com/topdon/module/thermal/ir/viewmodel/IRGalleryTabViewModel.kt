@@ -8,6 +8,7 @@ class IRGalleryTabViewModel : BaseViewModel() {
      * viewMode.
      */
     val isEditModeLD: MutableLiveData<Boolean> = MutableLiveData(false)
+
     /**
      * CurrentSelectedview.
      */

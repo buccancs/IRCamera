@@ -21,37 +21,41 @@ class TempDrawHelper {
          * utility，utility，utility px.
          */
         private val POINT_SIZE: Int = SizeUtils.dp2px(16f)
+
         /**
          * utility、utility、utility、utility utilityHigh temperatureutilityLow temperatureutility，utility px.
          */
         private val CIRCLE_RADIUS: Int = SizeUtils.dp2px(3f)
+
         /**
          * utility，utility，utility，Xutility，Yutility/2，utility px.
          */
         private val TEMP_TEXT_OFFSET = SizeUtils.dp2px(6f)
 
-
-
         /**
          * utilitySpecifiedutility View utility，utility View utility.
          */
-        fun Float.correctPoint(max: Int): Int = this.toInt()
-            .coerceAtLeast(POINT_SIZE / 2)
-            .coerceAtMost(max - POINT_SIZE / 2)
+        fun Float.correctPoint(max: Int): Int =
+            this.toInt()
+                .coerceAtLeast(POINT_SIZE / 2)
+                .coerceAtMost(max - POINT_SIZE / 2)
 
         /**
          * utility、utility、utilityHigh temperatureutility、utilityLow temperatureutility View utility，utility View utility。
          */
-        fun Float.correct(max: Int): Int = this.toInt()
-            .coerceAtLeast(CIRCLE_RADIUS)
-            .coerceAtMost(max - CIRCLE_RADIUS)
+        fun Float.correct(max: Int): Int =
+            this.toInt()
+                .coerceAtLeast(CIRCLE_RADIUS)
+                .coerceAtMost(max - CIRCLE_RADIUS)
 
         /**
          * utility View utility Rect.
          */
-        fun getRect(width: Int, height: Int): Rect = Rect(CIRCLE_RADIUS, CIRCLE_RADIUS, width - CIRCLE_RADIUS, height - CIRCLE_RADIUS)
+        fun getRect(
+            width: Int,
+            height: Int,
+        ): Rect = Rect(CIRCLE_RADIUS, CIRCLE_RADIUS, width - CIRCLE_RADIUS, height - CIRCLE_RADIUS)
     }
-
 
     /**
      * utility、utility AB utility、Point/Line/Areautility utility，utility px.
@@ -67,33 +71,33 @@ class TempDrawHelper {
      */
     var textColor: Int
         @ColorInt get() = textPaint.color
-        set(@ColorInt value) {
+        set(
+            @ColorInt value
+        ) {
             textPaint.color = value
         }
-
-
-
-
 
     /**
      * utility utility、utility、utility、utility Paint，utility.
      * utility 1dp.
      */
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     /**
      * utility、utility、utility、utility Low temperatureutility Paint，utility.
      */
     private val bluePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     /**
      * utility、utility、utility、utility High temperatureutility Paint，utility.
      */
     private val redPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     /**
      * High temperatureutility、Low temperatureutility、utility AB utility、Point/Line/Areautility Paint，
      * utility，utility 14sp，utility、utilitySettingsutility.
      */
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-
 
     init {
         linePaint.strokeWidth = SizeUtils.dp2px(1f).toFloat()
@@ -105,17 +109,20 @@ class TempDrawHelper {
 
         textPaint.textSize = SizeUtils.sp2px(14f).toFloat()
         textPaint.color = Color.WHITE
-
     }
 
+    // ******************************************** Draw ********************************************
 
-    /* ******************************************** Draw ******************************************** */
     /**
      * utility (x,y) utility.
      *
      * Note，utility x、y utility，utility。
      */
-    fun drawPoint(canvas: Canvas, x: Int, y: Int) {
+    fun drawPoint(
+        canvas: Canvas,
+        x: Int,
+        y: Int,
+    ) {
         val left: Float = x - POINT_SIZE / 2f
         val top: Float = y - POINT_SIZE / 2f
         val right: Float = x + POINT_SIZE / 2f
@@ -129,7 +136,13 @@ class TempDrawHelper {
      *
      * Note，utility utility utility，utility。
      */
-    fun drawLine(canvas: Canvas, startX: Int, startY: Int, stopX: Int, stopY: Int) {
+    fun drawLine(
+        canvas: Canvas,
+        startX: Int,
+        startY: Int,
+        stopX: Int,
+        stopY: Int,
+    ) {
         canvas.drawLine(startX.toFloat(), startY.toFloat(), stopX.toFloat(), stopY.toFloat(), linePaint)
     }
 
@@ -138,16 +151,21 @@ class TempDrawHelper {
      *
      * Note，utility utility utility，utility。
      */
-    fun drawRect(canvas: Canvas, left: Int, top: Int, right: Int, bottom: Int) {
+    fun drawRect(
+        canvas: Canvas,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+    ) {
         val leftF: Float = left.toFloat()
         val topF: Float = top.toFloat()
         val rightF: Float = right.toFloat()
         val bottomF: Float = bottom.toFloat()
-        val points = floatArrayOf(leftF, topF, rightF, topF, rightF, topF, rightF, bottomF, rightF, bottomF, leftF, bottomF, leftF, bottomF, leftF, topF)
+        val points =
+            floatArrayOf(leftF, topF, rightF, topF, rightF, topF, rightF, bottomF, rightF, bottomF, leftF, bottomF, leftF, bottomF, leftF, topF)
         canvas.drawLines(points, linePaint)
     }
-
-
 
     /**
      * utility (x,y) utility。
@@ -155,7 +173,12 @@ class TempDrawHelper {
      * Note，utility x、y utility，utility。
      * @param isMax true-utilityHigh temperatureutility false-utilityLow temperatureutility
      */
-    fun drawCircle(canvas: Canvas, x: Int, y: Int, isMax: Boolean) {
+    fun drawCircle(
+        canvas: Canvas,
+        x: Int,
+        y: Int,
+        isMax: Boolean,
+    ) {
         canvas.drawCircle(x.toFloat(), y.toFloat(), CIRCLE_RADIUS.toFloat(), if (isMax) redPaint else bluePaint)
     }
 
@@ -166,17 +189,23 @@ class TempDrawHelper {
      * Note，utility x、y utility，utility。
      * @param x utility View utility
      */
-    fun drawTempText(canvas: Canvas, text: String, width: Int, x: Int, y: Int) {
+    fun drawTempText(
+        canvas: Canvas,
+        text: String,
+        width: Int,
+        x: Int,
+        y: Int,
+    ) {
         var textX: Float = (x + TEMP_TEXT_OFFSET).toFloat()
         var textY: Float = (y - TEMP_TEXT_OFFSET).toFloat()
 
         val textWidth: Float = textPaint.measureText(text)
-        if (x > width - textWidth - TEMP_TEXT_OFFSET) {// Utility function，utility
+        if (x > width - textWidth - TEMP_TEXT_OFFSET) { // Utility function，utility
             textX = x - TEMP_TEXT_OFFSET - textWidth
         }
 
         val textFontTop: Float = -textPaint.getFontMetrics().top
-        if (y < textFontTop + TEMP_TEXT_OFFSET / 2) {// Utility function，utility
+        if (y < textFontTop + TEMP_TEXT_OFFSET / 2) { // Utility function，utility
             textY = y + TEMP_TEXT_OFFSET / 2 + textFontTop
         }
 
@@ -189,7 +218,15 @@ class TempDrawHelper {
      *
      * Note，utility utility utility，utility。
      */
-    fun drawTrendText(canvas: Canvas, width: Int, height: Int, startX: Int, startY: Int, stopX: Int, stopY: Int) {
+    fun drawTrendText(
+        canvas: Canvas,
+        width: Int,
+        height: Int,
+        startX: Int,
+        startY: Int,
+        stopX: Int,
+        stopY: Int,
+    ) {
         val fontMetrics: Paint.FontMetrics = textPaint.getFontMetrics()
         val textWidth: Float = textPaint.measureText("A")
         val textHeight: Float = -fontMetrics.top
@@ -216,20 +253,27 @@ class TempDrawHelper {
      * Note，utility x、y utility，utility。
      * @param x utility View utility
      */
-    fun drawPointName(canvas: Canvas, name: String, width: Int, height: Int, x: Int, y: Int) {
+    fun drawPointName(
+        canvas: Canvas,
+        name: String,
+        width: Int,
+        height: Int,
+        x: Int,
+        y: Int,
+    ) {
         val textWidth: Float = textPaint.measureText(name)
         val textHeight: Float = -textPaint.getFontMetrics().top
 
         var textX = x - textWidth / 2
         var textY = y + POINT_SIZE / 2 + textHeight
 
-        if (textX < 0) {//xutility
+        if (textX < 0) { // xutility
             textX = 0f
         }
-        if (textX + textWidth > width) {//xutility
+        if (textX + textWidth > width) { // xutility
             textX = width - textWidth
         }
-        if (textY > height) {// Utility function，utility
+        if (textY > height) { // Utility function，utility
             textY = y - POINT_SIZE / 2 - textPaint.fontMetrics.bottom
         }
         canvas.drawText(name, textX, textY, textPaint)
@@ -241,7 +285,16 @@ class TempDrawHelper {
      *
      * Note，utility x、y utility，utility。
      */
-    fun drawPointRectName(canvas: Canvas, name: String, width: Int, height: Int, left: Int, top: Int, right: Int, bottom: Int) {
+    fun drawPointRectName(
+        canvas: Canvas,
+        name: String,
+        width: Int,
+        height: Int,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+    ) {
         val fontMetrics: Paint.FontMetrics = textPaint.getFontMetrics()
         val textWidth: Float = textPaint.measureText(name)
         val textHeight: Float = -fontMetrics.top
@@ -252,21 +305,20 @@ class TempDrawHelper {
         var textX: Float = centerX - textWidth / 2
         var textY: Float = centerY + offset
 
-        if (textX < 0) {//xutility
+        if (textX < 0) { // xutility
             textX = 0f
         }
-        if (textX + textWidth > width) {//xutility
+        if (textX + textWidth > width) { // xutility
             textX = width - textWidth
         }
-        if (textY < textHeight) {//yutility
+        if (textY < textHeight) { // yutility
             textY = textHeight
         }
-        if (textY > height) {//yutility
+        if (textY > height) { // yutility
             textY = height.toFloat()
         }
         canvas.drawText(name, textX, textY, textPaint)
     }
 
-
-    /* ******************************************** Touch ******************************************** */
+    // ******************************************** Touch ********************************************
 }

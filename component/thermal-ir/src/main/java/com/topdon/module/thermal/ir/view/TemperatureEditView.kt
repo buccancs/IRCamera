@@ -14,7 +14,6 @@ import java.lang.ref.WeakReference
  * 2D view Point/Line/Areaview View.
  */
 class TemperatureEditView : TemperatureBaseView {
-
     override var mode: Mode
         get() = super.mode
         set(value) {
@@ -33,19 +32,17 @@ class TemperatureEditView : TemperatureBaseView {
             }
         }
 
-
     class TemperatureList {
         var pointTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
         var lineTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
         var rectangleTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
     }
+
     var tempListData = TemperatureList()
 
     private var irtemp: LibIRTemp = LibIRTemp()
     private var irTempData: ByteArray = byteArrayOf()
     var fullInfo: LibIRTemp.TemperatureSampleResult? = null
-
-
 
     /**
      * viewPoint/Line/Areaview.
@@ -64,15 +61,18 @@ class TemperatureEditView : TemperatureBaseView {
 
     private fun getTSTemp(temp: Float): Float = iTsTempListenerWeakReference?.get()?.tempCorrectByTs(temp) ?: temp
 
-
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         tempListData.pointTemps.clear()
         tempListData.lineTemps.clear()
         tempListData.rectangleTemps.clear()
@@ -85,8 +85,10 @@ class TemperatureEditView : TemperatureBaseView {
         }
     }
 
-
-    override fun setImageSize(imageWidth: Int, imageHeight: Int) {
+    override fun setImageSize(
+        imageWidth: Int,
+        imageHeight: Int,
+    ) {
         super.setImageSize(imageWidth, imageHeight)
         irtemp = LibIRTemp(imageWidth, imageHeight)
     }
@@ -145,14 +147,19 @@ class TemperatureEditView : TemperatureBaseView {
      * view、view、view、view.
      * @param point view View view
      */
-    private fun drawOnePoint(canvas: Canvas, point: Point, index: Int): LibIRTemp.TemperatureSampleResult? {
-        val result = try {
-            irtemp.getTemperatureOfPoint(Point((point.x / xScale).toInt(), (point.y / yScale).toInt()))
-        } catch (_: IllegalArgumentException) {
-            // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
-            // View rendering view scale view，view，view
-            return null
-        }
+    private fun drawOnePoint(
+        canvas: Canvas,
+        point: Point,
+        index: Int,
+    ): LibIRTemp.TemperatureSampleResult? {
+        val result =
+            try {
+                irtemp.getTemperatureOfPoint(Point((point.x / xScale).toInt(), (point.y / yScale).toInt()))
+            } catch (_: IllegalArgumentException) {
+                // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+                // View rendering view scale view，view，view
+                return null
+            }
         drawPoint(canvas, point)
         drawCircle(canvas, point.x, point.y, true)
         drawTempText(canvas, point.x, point.y, getTSTemp(result.maxTemperature))
@@ -166,7 +173,11 @@ class TemperatureEditView : TemperatureBaseView {
      * view、viewLow temperatureview、viewLow temperatureview、view.
      * @param line view View view
      */
-    private fun drawOneLine(canvas: Canvas, line: Line, index: Int): LibIRTemp.TemperatureSampleResult? {
+    private fun drawOneLine(
+        canvas: Canvas,
+        line: Line,
+        index: Int,
+    ): LibIRTemp.TemperatureSampleResult? {
         drawLine(canvas, line)
 
         val tempStartX: Int = (line.start.x / xScale).toInt()
@@ -177,13 +188,14 @@ class TemperatureEditView : TemperatureBaseView {
             return null
         }
 
-        val result = try {
-            irtemp.getTemperatureOfLine(Line(Point(tempStartX, tempStartY), Point(tempStopX, tempStopY)))
-        } catch (_: IllegalArgumentException) {
-            // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
-            // View rendering view scale view，view，view
-            return null
-        }
+        val result =
+            try {
+                irtemp.getTemperatureOfLine(Line(Point(tempStartX, tempStartY), Point(tempStopX, tempStopY)))
+            } catch (_: IllegalArgumentException) {
+                // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+                // View rendering view scale view，view，view
+                return null
+            }
         val maxX: Int = (result.maxTemperaturePixel.x * xScale).correct(width)
         val maxY: Int = (result.maxTemperaturePixel.y * yScale).correct(height)
         val minX: Int = (result.minTemperaturePixel.x * xScale).correct(width)
@@ -203,7 +215,11 @@ class TemperatureEditView : TemperatureBaseView {
      * view、viewLow temperatureview、viewLow temperatureview、view.
      * @param rect view View view
      */
-    private fun drawOneRect(canvas: Canvas, rect: Rect, index: Int): LibIRTemp.TemperatureSampleResult? {
+    private fun drawOneRect(
+        canvas: Canvas,
+        rect: Rect,
+        index: Int,
+    ): LibIRTemp.TemperatureSampleResult? {
         drawRect(canvas, rect)
 
         // rect view touch view，left < right, top < bottom
@@ -214,13 +230,14 @@ class TemperatureEditView : TemperatureBaseView {
         if (left == right || top == bottom) {
             return null
         }
-        val result = try {
-            irtemp.getTemperatureOfRect(Rect(left, top, right, bottom))
-        } catch (_: IllegalArgumentException) {
-            // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
-            // View rendering view scale view，view，view
-            return null
-        }
+        val result =
+            try {
+                irtemp.getTemperatureOfRect(Rect(left, top, right, bottom))
+            } catch (_: IllegalArgumentException) {
+                // View rendering View view xScale、yScale view，viewPoint/Line/Areaview
+                // View rendering view scale view，view，view
+                return null
+            }
         val maxX: Int = (result.maxTemperaturePixel.x * xScale).correct(width)
         val maxY: Int = (result.maxTemperaturePixel.y * yScale).correct(height)
         val minX: Int = (result.minTemperaturePixel.x * xScale).correct(width)

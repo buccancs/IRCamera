@@ -26,6 +26,7 @@ class IRGalleryViewModel : BaseViewModel() {
      * view.
      */
     val sourceListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
+
     /**
      * view.
      */
@@ -44,7 +45,7 @@ class IRGalleryViewModel : BaseViewModel() {
             var beforeTime = 0L
             for (galleryBean in sourceList) {
                 val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                if (beforeTime != currentTime) {// View rendering
+                if (beforeTime != currentTime) { // View rendering
                     showList.add(GalleryTitle(galleryBean.timeMillis))
                     beforeTime = currentTime
                 }
@@ -58,13 +59,17 @@ class IRGalleryViewModel : BaseViewModel() {
      * view
      */
     var hasLoadPage = 0
+
     /**
      * view.
      * null-view
      */
     val pageListLD: MutableLiveData<ArrayList<GalleryBean>?> = MutableLiveData()
 
-    fun queryGalleryByPage(isVideo: Boolean, dirType: GalleryRepository.DirType) {
+    fun queryGalleryByPage(
+        isVideo: Boolean,
+        dirType: GalleryRepository.DirType,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val pageList: ArrayList<GalleryBean>? = GalleryRepository.loadByPage(isVideo, dirType, hasLoadPage + 1, PAGE_COUNT)
             pageListLD.postValue(pageList)
@@ -80,7 +85,7 @@ class IRGalleryViewModel : BaseViewModel() {
                 var beforeTime = if (sourceList.isEmpty()) 0 else TimeTool.timeToMinute(sourceList.last().timeMillis, 4)
                 for (galleryBean in pageList) {
                     val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                    if (beforeTime != currentTime) {// View rendering
+                    if (beforeTime != currentTime) { // View rendering
                         showList.add(GalleryTitle(galleryBean.timeMillis))
                         beforeTime = currentTime
                     }
@@ -94,21 +99,24 @@ class IRGalleryViewModel : BaseViewModel() {
         }
     }
 
-
-
-
-
     /**
      * viewDeleteview.
      */
     val deleteResultLD: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun delete(deleteList: List<GalleryBean>, dirType: GalleryRepository.DirType, isDelLocal: Boolean) {
+    fun delete(
+        deleteList: List<GalleryBean>,
+        dirType: GalleryRepository.DirType,
+        isDelLocal: Boolean,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (dirType == GalleryRepository.DirType.TS004_REMOTE) {
-                val isSuccess = TS004Repository.deleteFiles(Array(deleteList.size) {
-                    deleteList[it].id
-                })
+                val isSuccess =
+                    TS004Repository.deleteFiles(
+                        Array(deleteList.size) {
+                            deleteList[it].id
+                        },
+                    )
                 if (isSuccess) {
                     if (isDelLocal) {
                         deleteList.forEach {

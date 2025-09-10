@@ -3,42 +3,44 @@ package com.topdon.module.thermal.ir.utils
 import android.graphics.Point
 import android.util.Log
 import com.github.mikephil.charting.charts.LineChart
-import com.topdon.lib.core.tools.UnitTools
 import kotlin.math.abs
-import kotlin.math.roundToInt
 
 object ChartTools {
-
-    fun getLineTemps(point1: Point, point2: Point, tempArray: ByteArray, rotate: Int): List<Float> {
+    fun getLineTemps(
+        point1: Point,
+        point2: Point,
+        tempArray: ByteArray,
+        rotate: Int,
+    ): List<Float> {
         val tempList: ArrayList<Float> = ArrayList()
-        if (point1 == point2) {// Utility function，utility
+        if (point1 == point2) { // Utility function，utility
             return tempList
         }
 
         val pointList: ArrayList<Point> = ArrayList()
-        if (point1.x == point2.x) {// Utility function X utility
+        if (point1.x == point2.x) { // Utility function X utility
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
-            for (i in startY .. endY) {
+            for (i in startY..endY) {
                 pointList.add(Point(point1.x, i))
             }
         } else {
             val k = (point1.y - point2.y).toFloat() / (point1.x - point2.x).toFloat()
             val b = point1.y - k * point1.x
-            if (abs(k) <= 1) {//xutility
+            if (abs(k) <= 1) { // xutility
                 val startX = point1.x.coerceAtMost(point2.x)
                 val endX = point1.x.coerceAtLeast(point2.x)
-                for (i in startX .. endX) {
+                for (i in startX..endX) {
                     pointList.add(Point(i, (k * i + b).toInt()))
                 }
-            } else {//yutility
-                if (k >= 0) {// Utility function
+            } else { // yutility
+                if (k >= 0) { // Utility function
                     val startY = point1.y.coerceAtMost(point2.y)
                     val endY = point1.y.coerceAtLeast(point2.y)
-                    for (y in startY .. endY) {
+                    for (y in startY..endY) {
                         pointList.add(Point(((y - b) / k).toInt(), y))
                     }
-                } else {// Utility function
+                } else { // Utility function
                     val startY = point1.y.coerceAtLeast(point2.y)
                     val endY = point1.y.coerceAtMost(point2.y)
                     for (y in startY downTo endY) {
@@ -60,26 +62,27 @@ object ChartTools {
         return tempList
     }
 
-    //Xutility
+    // Xutility
     fun scale(type: Int): Long {
         return when (type) {
-            1 -> 1 * 1000 //s
-            2 -> 60 * 1000  //min
-            3 -> 60 * 60 * 1000 //hour
-            4 -> 24 * 60 * 60 * 1000 //day
-            else -> 1 //10s
+            1 -> 1 * 1000 // s
+            2 -> 60 * 1000 // min
+            3 -> 60 * 60 * 1000 // hour
+            4 -> 24 * 60 * 60 * 1000 // day
+            else -> 1 // 10s
         }
     }
 
     // Utility function
     fun getMinimum(type: Int): Float {
-        val min = when (type) {
-            1 -> 10f //10s
-            2 -> 10f //10min
-            3 -> 10f //10hour
-            4 -> 10f //10day
-            else -> 1 * 10f //10s
-        }
+        val min =
+            when (type) {
+                1 -> 10f // 10s
+                2 -> 10f // 10min
+                3 -> 10f // 10hour
+                4 -> 10f // 10day
+                else -> 1 * 10f // 10s
+            }
         return min
     }
 
@@ -138,8 +141,11 @@ object ChartTools {
     /**
      * SettingsXutility
      */
-    fun setX(chart: LineChart, type: Int) {
-        //trueutility,utilityfalse
+    fun setX(
+        chart: LineChart,
+        type: Int,
+    ) {
+        // trueutility,utilityfalse
         val xLen = chart.xChartMax - chart.xChartMin
 //        Log.w("chart", "xLen: $xLen")
 //        chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), getLabCount(xLen.toInt()) < 3)
@@ -163,7 +169,11 @@ object ChartTools {
         }
     }
 
-    fun getChartX(x: Long, startTime: Long, type: Int): Long {
+    fun getChartX(
+        x: Long,
+        startTime: Long,
+        type: Int,
+    ): Long {
         return (x - startTime) / scale(type)
     }
 }

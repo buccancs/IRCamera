@@ -2,14 +2,11 @@ package com.topdon.tc001.gsr
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 // Removed ARouter import - using NavigationManager instead
-import com.csl.irCamera.R
 import com.csl.irCamera.databinding.ActivityGsrDemoBinding
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo

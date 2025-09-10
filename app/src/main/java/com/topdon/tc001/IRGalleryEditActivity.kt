@@ -5,9 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +13,8 @@ import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.SizeUtils
-import com.csl.irCamera.databinding.ActivityIrGalleryEditBinding
 import com.csl.irCamera.R
+import com.csl.irCamera.databinding.ActivityIrGalleryEditBinding
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRUtils
 import com.energy.iruvc.utils.CommonParams

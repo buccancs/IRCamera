@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.MotionEvent
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.SizeUtils
-import com.elvishew.xlog.XLog
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -19,21 +18,15 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.listener.ChartTouchListener
 import com.github.mikephil.charting.listener.OnChartGestureListener
-import com.topdon.lib.core.bean.tools.ThermalBean
 import com.topdon.lib.core.db.entity.ThermalEntity
-import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
-import com.topdon.lib.core.R as LibR
-import com.topdon.module.thermal.R as ThermalR
 import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
 import com.topdon.module.thermal.ir.chart.YValueFormatter
 import com.topdon.module.thermal.ir.utils.ChartTools
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.topdon.lib.core.R as LibR
+import com.topdon.module.thermal.R as ThermalR
 
 class ChartMonitorView : LineChart, OnChartGestureListener {
-
     private val mHandler by lazy { Handler(Looper.getMainLooper()) }
 
     constructor(context: Context) : this(context, null)
@@ -41,7 +34,7 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
         context,
         attrs,
-        defStyle
+        defStyle,
     ) {
         initChart()
     }
@@ -55,59 +48,59 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
     private val axisChartColors by lazy { ContextCompat.getColor(context, LibR.color.chart_axis) }
     private val axisLine by lazy { ContextCompat.getColor(context, LibR.color.circle_white) }
 
-    //MPChart
+    // MPChart
     private fun initChart() {
         synchronized(this) {
             this.setTouchEnabled(true)
             this.onChartGestureListener = this
             this.isDragEnabled = true
             this.setDrawGridBackground(false)
-            this.description = null// View rendering
+            this.description = null // View rendering
             this.setBackgroundResource(LibR.color.chart_bg)
-            this.setScaleEnabled(true)// View rendering
-            this.setPinchZoom(false)// View rendering，viewxviewyview
-            this.isDoubleTapToZoomEnabled = false// View rendering
-            this.isScaleYEnabled = false// View renderingYview
-            this.isScaleXEnabled = true// View renderingXview
+            this.setScaleEnabled(true) // View rendering
+            this.setPinchZoom(false) // View rendering，viewxviewyview
+            this.isDoubleTapToZoomEnabled = false // View rendering
+            this.isScaleYEnabled = false // View renderingYview
+            this.isScaleXEnabled = true // View renderingXview
             this.setExtraOffsets(
                 0f,
                 0f,
                 SizeUtils.dp2px(8f).toFloat(),
-                SizeUtils.dp2px(4f).toFloat()
-            )// View rendering
+                SizeUtils.dp2px(4f).toFloat(),
+            ) // View rendering
             setNoDataText(context.getString(ThermalR.string.lms_http_code998))
             setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
             val mv = MyMarkerView(context, R.layout.marker_lay)
             mv.chartView = this
-            marker = mv//Settingsview
+            marker = mv // Settingsview
             val data = LineData()
             data.setValueTextColor(textColor)
             this.data = data
             val l = this.legend
             l.form = Legend.LegendForm.CIRCLE
             l.textColor = textColor
-            l.isEnabled = false// View rendering
-            //xview
+            l.isEnabled = false // View rendering
+            // xview
             val xAxis = this.xAxis
             xAxis.textColor = textColor
-            xAxis.setDrawGridLines(false)// View rendering
-            xAxis.gridColor = axisChartColors //xview
-            xAxis.axisLineColor = 0x00000000 //xview
+            xAxis.setDrawGridLines(false) // View rendering
+            xAxis.gridColor = axisChartColors // xview
+            xAxis.axisLineColor = 0x00000000 // xview
             xAxis.setAvoidFirstLastClipping(true)
             xAxis.isEnabled = true
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1f
-            xAxis.isGranularityEnabled = true// View rendering
+            xAxis.isGranularityEnabled = true // View rendering
             xAxis.textSize = 8f
-            //yview
+            // yview
             val leftAxis = this.axisLeft
-            leftAxis.textColor = textColor //yview
-            leftAxis.axisLineColor = 0x00000000 //yview
-            leftAxis.setDrawGridLines(true)// View rendering
-            leftAxis.gridColor = axisChartColors //yview
+            leftAxis.textColor = textColor // yview
+            leftAxis.axisLineColor = 0x00000000 // yview
+            leftAxis.setDrawGridLines(true) // View rendering
+            leftAxis.gridColor = axisChartColors // yview
             leftAxis.gridLineWidth = 1.5f
             leftAxis.setLabelCount(6, true)
-            leftAxis.valueFormatter = YValueFormatter()//Settingsview
+            leftAxis.valueFormatter = YValueFormatter() // Settingsview
             leftAxis.textSize = 8f
 
             this.axisRight.isEnabled = false
@@ -121,11 +114,15 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
      * @param timeType view
      *
      */
-    fun addPointToChart(bean: ThermalEntity, timeType: Int = 1, selectType: Int = 1) {
+    fun addPointToChart(
+        bean: ThermalEntity,
+        timeType: Int = 1,
+        selectType: Int = 1,
+    ) {
         synchronized(this) {
             try {
                 if (bean.createTime == 0L) {
-                    Log.w("123", "createTime = 0L, bean:${bean}")
+                    Log.w("123", "createTime = 0L, bean:$bean")
                     return
                 }
                 val lineData: LineData = this.data
@@ -135,11 +132,12 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
                     xAxis.valueFormatter =
                         IRMyValueFormatter(startTime = startTime, type = timeType)
                 }
-                val x = ChartTools.getChartX(
-                    x = bean.createTime,
-                    startTime = startTime,
-                    type = timeType
-                ).toFloat()
+                val x =
+                    ChartTools.getChartX(
+                        x = bean.createTime,
+                        startTime = startTime,
+                        type = timeType,
+                    ).toFloat()
                 when (selectType) {
                     1 -> {
                         if (volDataSet == null) {
@@ -197,13 +195,13 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
 
                 lineData.notifyDataChanged()
                 notifyDataSetChanged()
-                setVisibleXRangeMinimum(ChartTools.getMinimum(type = timeType) / 2)//SettingsviewXview
-                setVisibleXRangeMaximum(ChartTools.getMaximum(type = timeType))//SettingsviewXview
+                setVisibleXRangeMinimum(ChartTools.getMinimum(type = timeType) / 2) // SettingsviewXview
+                setVisibleXRangeMaximum(ChartTools.getMaximum(type = timeType)) // SettingsviewXview
                 ChartTools.setX(this, timeType)
 //                ChartTools.setY(this)
                 // View rendering
                 if ((highestVisibleX + ChartTools.getMinimum(timeType) / 2f) > xChartMax) {
-                    moveViewToX(xChartMax)// View rendering
+                    moveViewToX(xChartMax) // View rendering
                 }
                 if (volDataSet.entryCount == 10) {
                     zoom(100f, 1f, xChartMax, 0f)
@@ -216,85 +214,91 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
         }
     }
 
-    private val bgChartColors = intArrayOf(
-        R.drawable.bg_chart_fill,
-        R.drawable.bg_chart_fill2,
-        R.drawable.bg_chart_fill3
-    )
-    private val lineChartColors = intArrayOf(
-        LibR.color.chart_line_max,
-        LibR.color.chart_line_min,
-        LibR.color.chart_line_center
-    )
-    private val linePointColors = intArrayOf(
-        LibR.color.chart_point_max,
-        LibR.color.chart_point_min,
-        LibR.color.chart_point_center
-    )
+    private val bgChartColors =
+        intArrayOf(
+            R.drawable.bg_chart_fill,
+            R.drawable.bg_chart_fill2,
+            R.drawable.bg_chart_fill3,
+        )
+    private val lineChartColors =
+        intArrayOf(
+            LibR.color.chart_line_max,
+            LibR.color.chart_line_min,
+            LibR.color.chart_line_center,
+        )
+    private val linePointColors =
+        intArrayOf(
+            LibR.color.chart_point_max,
+            LibR.color.chart_point_min,
+            LibR.color.chart_point_center,
+        )
 
     /**
      * view
      */
-    private fun createSet(index: Int, label: String): LineDataSet {
+    private fun createSet(
+        index: Int,
+        label: String,
+    ): LineDataSet {
         val set = LineDataSet(null, label)
         set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index])//Settingsview
+        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index]) // Settingsview
         set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(context, lineChartColors[index])// View rendering
-        set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index])// View rendering
-        set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index]))// View rendering
+        set.color = ContextCompat.getColor(context, lineChartColors[index]) // View rendering
+        set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index]) // View rendering
+        set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index])) // View rendering
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
-        set.circleRadius = 1f// View rendering
+        set.circleRadius = 1f // View rendering
         set.fillAlpha = 200
         set.valueTextSize = 10f
-        set.setDrawValues(false)//Settingsview
+        set.setDrawValues(false) // Settingsview
         return set
     }
 
     override fun onChartGestureStart(
         me: MotionEvent?,
-        lastPerformedGesture: ChartTouchListener.ChartGesture?
+        lastPerformedGesture: ChartTouchListener.ChartGesture?,
     ) {
-
     }
 
     override fun onChartGestureEnd(
         me: MotionEvent?,
-        lastPerformedGesture: ChartTouchListener.ChartGesture?
+        lastPerformedGesture: ChartTouchListener.ChartGesture?,
     ) {
-
     }
 
     override fun onChartLongPressed(me: MotionEvent?) {
-
     }
 
     override fun onChartDoubleTapped(me: MotionEvent?) {
-
     }
 
     override fun onChartSingleTapped(me: MotionEvent?) {
-
     }
 
     override fun onChartFling(
         me1: MotionEvent?,
         me2: MotionEvent?,
         velocityX: Float,
-        velocityY: Float
+        velocityY: Float,
     ) {
-
     }
 
-    override fun onChartScale(me: MotionEvent?, scaleX: Float, scaleY: Float) {
+    override fun onChartScale(
+        me: MotionEvent?,
+        scaleX: Float,
+        scaleY: Float,
+    ) {
         // View rendering
         highlightValue(null)
     }
 
-    override fun onChartTranslate(me: MotionEvent?, dX: Float, dY: Float) {
-
+    override fun onChartTranslate(
+        me: MotionEvent?,
+        dX: Float,
+        dY: Float,
+    ) {
     }
-
 }

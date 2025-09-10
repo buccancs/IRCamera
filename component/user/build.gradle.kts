@@ -5,7 +5,6 @@ plugins {
     // kotlin("kapt")
 }
 
-
 // kapt {
 //     arguments {
 //         // arg("AROUTER_MODULE_NAME", project.name)  // Removed for NavigationManager migration
@@ -27,15 +26,16 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {release {
+    buildTypes {
+        release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
-    
+
     // Configure single release variant for easier maintenance
     androidComponents {
         beforeVariants { variant ->
@@ -43,20 +43,21 @@ android {
             variant.enable = variant.buildType == "release"
         }
     }
-    
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
-    
+
     kotlinOptions {
         jvmTarget = "17"
-        freeCompilerArgs += listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=kotlinx.coroutines.FlowPreview"
-        )
+        freeCompilerArgs +=
+            listOf(
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=kotlinx.coroutines.FlowPreview",
+            )
     }
 
     buildFeatures {
@@ -73,7 +74,7 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))
-    
+
     // Compile-time access to LMS SDK for user component classes that import LMS classes
     compileOnly(files("../../shared/libs/lms_international-3.90.009.0.aar"))
 
@@ -82,7 +83,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.utilcode)
     implementation(libs.glide)
-    
+
     // Core library desugaring
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

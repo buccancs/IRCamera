@@ -7,15 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.core.R as LibAppR
 import com.topdon.module.user.R
+import com.topdon.lib.core.R as LibAppR
 
 /**
  * dialog.
  * Created by LCG on 2024/3/4.
  */
 class FirmwareInstallDialog(context: Context) : Dialog(context, LibAppR.style.TransparentDialog) {
-
     private val rootView: View = LayoutInflater.from(context).inflate(R.layout.dialog_firmware_install, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {

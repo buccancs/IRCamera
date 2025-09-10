@@ -9,10 +9,7 @@ import com.energy.iruvc.utils.CommonParams
 import com.energy.iruvc.utils.DualCameraParams
 import com.energy.iruvc.utils.SynchronizedBitmap
 import com.infisense.usbdual.camera.BaseDualView
-import com.infisense.usbdual.camera.USBMonitorManager
-import com.infisense.usbir.utils.FileUtil
 import com.infisense.usbir.utils.HexDump
-import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.common.SharedManager
 import java.io.IOException
 import java.io.InputStream
@@ -23,42 +20,52 @@ object IRCmdTool {
     val TAG = "IRCmdTool"
     var dispNumber = 30
 
-    fun getDualBytes(irCmd: IRCMD?):ByteArray {
+    fun getDualBytes(irCmd: IRCMD?): ByteArray {
         val calibrationDataSize = 192
         val INIT_ALIGN_DATA = floatArrayOf(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
 
         val oemInfo = ByteArray(512)
         val snData = ByteArray(256)
-        val dispData = ByteArray(5)//Registration data
+        val dispData = ByteArray(5) // Registration data
         irCmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
         XLog.w("Core calibration", "data loaded:")
         val calibrationData = ByteArray(calibrationDataSize)
         val productTypeData = ByteArray(2)
         System.arraycopy(oemInfo, 0, calibrationData, 0, calibrationData.size)
         System.arraycopy(oemInfo, calibrationDataSize, productTypeData, 0, productTypeData.size)
-        System.arraycopy(oemInfo, calibrationDataSize+productTypeData.size, dispData,
-            0, dispData.size)
-        System.arraycopy(oemInfo,256,snData,0,snData.size)
+        System.arraycopy(
+            oemInfo,
+            calibrationDataSize + productTypeData.size,
+            dispData,
+            0,
+            dispData.size,
+        )
+        System.arraycopy(oemInfo, 256, snData, 0, snData.size)
         try {
             var str = String(dispData)
-            str = str.replace(Regex("[^-\\d]"),"")
+            str = str.replace(Regex("[^-\\d]"), "")
             dispNumber = str.toInt()
-            if (dispNumber > 60){
-                dispNumber = dispNumber/10
-            }
-            if (dispNumber < -20){
-                dispNumber = -20
-            }
-            XLog.w("Registration offset:", ""+dispNumber)
-        }catch (e:Exception){
+            if (dispNumber > 60)
+                {
+                    dispNumber = dispNumber / 10
+                }
+            if (dispNumber < -20)
+                {
+                    dispNumber = -20
+                }
+            XLog.w("Registration offset:", "" + dispNumber)
+        } catch (e: Exception) {
             XLog.w("Registration error")
         }
         val snList = String(snData).split(";")
-        val snStr = if (snList.isNotEmpty() && snList[0].contains("sn",true)){
-            snList[0].replace("SN:","")
-        }else{
-            ""
-        }
+        val snStr =
+            if (snList.isNotEmpty() && snList[0].contains("sn", true))
+                {
+                    snList[0].replace("SN:", "")
+                } else
+                {
+                    ""
+                }
         val parameters = ByteArray(calibrationDataSize + 1 + 24)
         if (String(productTypeData) == "TD") {
             System.arraycopy(calibrationData, 0, parameters, 0, calibrationData.size)
@@ -76,7 +83,7 @@ object IRCmdTool {
                     Log.e(TAG, "read file fail ")
                 }
                 parameters[length] = 1
-                //Using calibration file, loading alignment data
+                // Using calibration file, loading alignment data
                 val alignByte = SharedManager.getManualData(snStr)
                 System.arraycopy(alignByte, 0, parameters, calibrationDataSize + 1, alignByte.size)
                 XLog.w("Core calibration using file, loading alignment data")
@@ -93,25 +100,29 @@ object IRCmdTool {
         return parameters
     }
 
-    fun getSNStr(irCmd: IRCMD?) : String{
+    fun getSNStr(irCmd: IRCMD?): String  {
         val oemInfo = ByteArray(512)
         irCmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
         val snData = ByteArray(256)
-        System.arraycopy(oemInfo,256,snData,0,snData.size)
+        System.arraycopy(oemInfo, 256, snData, 0, snData.size)
         val snList = String(snData).split(";")
-        return if (snList.isNotEmpty() && snList[0].contains("sn",true)){
-            snList[0].replace("SN:","")
-        }else{
-            ""
-        }
+        return if (snList.isNotEmpty() && snList[0].contains("sn", true))
+            {
+                snList[0].replace("SN:", "")
+            } else
+            {
+                ""
+            }
     }
-
 
     /**
      * Settings emissivity unit:cnt(128cnt = 1)
      * @param value 1 ~ 128
      */
-    fun setTpdEms(irCmd: IRCMD?, value: Int) {
+    fun setTpdEms(
+        irCmd: IRCMD?,
+        value: Int,
+    ) {
         val data = CommonParams.PropTPDParamsValue.NumberType(value.toString())
         setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_EMS, value = data)
     }
@@ -122,17 +133,22 @@ object IRCmdTool {
      *
      * Note: sdk requires SettingsTPD_PROP_DISTANCE parameter
      */
-    fun setTpdDis(irCmd: IRCMD?, value: Int) {
+    fun setTpdDis(
+        irCmd: IRCMD?,
+        value: Int,
+    ) {
         val data = CommonParams.PropTPDParamsValue.NumberType(value.toString())
         setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_DISTANCE, value = data)
     }
-
 
     /**
      * Settings contrast level
      * @param value 0 ~ 255
      */
-    fun setLevelContrast(irCmd: IRCMD?, value: Int) {
+    fun setLevelContrast(
+        irCmd: IRCMD?,
+        value: Int,
+    ) {
         val data = CommonParams.PropImageParamsValue.NumberType(value.toString())
         setImageParams(irCmd = irCmd, params = CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST, value = data)
     }
@@ -142,27 +158,35 @@ object IRCmdTool {
      * @param value 0 ~ 4
      *
      */
-    fun setLevelDdd(irCmd: IRCMD?, value: Int) {
-        val data = when (value) {
-            0 -> CommonParams.PropImageParamsValue.DDEType.DDE_0
-            1 -> CommonParams.PropImageParamsValue.DDEType.DDE_1
-            2 -> CommonParams.PropImageParamsValue.DDEType.DDE_2
-            3 -> CommonParams.PropImageParamsValue.DDEType.DDE_3
-            4 -> CommonParams.PropImageParamsValue.DDEType.DDE_4
-            else -> CommonParams.PropImageParamsValue.DDEType.DDE_0
-        }
+    fun setLevelDdd(
+        irCmd: IRCMD?,
+        value: Int,
+    ) {
+        val data =
+            when (value) {
+                0 -> CommonParams.PropImageParamsValue.DDEType.DDE_0
+                1 -> CommonParams.PropImageParamsValue.DDEType.DDE_1
+                2 -> CommonParams.PropImageParamsValue.DDEType.DDE_2
+                3 -> CommonParams.PropImageParamsValue.DDEType.DDE_3
+                4 -> CommonParams.PropImageParamsValue.DDEType.DDE_4
+                else -> CommonParams.PropImageParamsValue.DDEType.DDE_0
+            }
         setImageParams(irCmd = irCmd, params = CommonParams.PropImageParams.IMAGE_PROP_LEVEL_DDE, value = data)
     }
 
     /**
      * Settings AGC mode
      */
-    fun setLevelAgc(irCmd: IRCMD?, value: Boolean) {
-        val data = if (value) {
-            CommonParams.PropImageParamsValue.StatusSwith.ON
-        } else {
-            CommonParams.PropImageParamsValue.StatusSwith.OFF
-        }
+    fun setLevelAgc(
+        irCmd: IRCMD?,
+        value: Boolean,
+    ) {
+        val data =
+            if (value) {
+                CommonParams.PropImageParamsValue.StatusSwith.ON
+            } else {
+                CommonParams.PropImageParamsValue.StatusSwith.OFF
+            }
         setImageParams(irCmd = irCmd, params = CommonParams.PropImageParams.IMAGE_PROP_ONOFF_AGC, value = data)
     }
 
@@ -183,19 +207,26 @@ object IRCmdTool {
      * Settings gain mode
      * @param value 1:High gain(Normal temperature)    0:Low gain(High temperature)
      */
-    fun setTpdGainSel(irCmd: IRCMD?, value: Int): Int {
-        val data = if (value == 1) {
-            CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_HIGH
-        } else {
-            CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_LOW
-        }
+    fun setTpdGainSel(
+        irCmd: IRCMD?,
+        value: Int,
+    ): Int {
+        val data =
+            if (value == 1) {
+                CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_HIGH
+            } else {
+                CommonParams.PropTPDParamsValue.GAINSELStatus.GAIN_SEL_LOW
+            }
         return setTpdParams(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL, value = data)
     }
 
     /**
      * Query TPD parameters
      */
-    fun queryTpdParam(irCmd: IRCMD?, params: CommonParams.PropTPDParams): Int {
+    fun queryTpdParam(
+        irCmd: IRCMD?,
+        params: CommonParams.PropTPDParams,
+    ): Int {
         val value = IntArray(1)
         irCmd?.getPropTPDParams(params, value)
         return value[0]
@@ -204,7 +235,10 @@ object IRCmdTool {
     /**
      * Query image parameters
      */
-    fun queryImageParam(irCmd: IRCMD?, params: CommonParams.PropImageParams): Int {
+    fun queryImageParam(
+        irCmd: IRCMD?,
+        params: CommonParams.PropImageParams,
+    ): Int {
         val value = IntArray(1)
         irCmd?.getPropImageParams(params, value)
         return value[0]
@@ -213,7 +247,11 @@ object IRCmdTool {
     /**
      * SettingsTpd
      */
-    private fun setTpdParams(irCmd: IRCMD?, params: CommonParams.PropTPDParams, value: CommonParams.PropTPDParamsValue): Int {
+    private fun setTpdParams(
+        irCmd: IRCMD?,
+        params: CommonParams.PropTPDParams,
+        value: CommonParams.PropTPDParamsValue,
+    ): Int {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
@@ -225,7 +263,11 @@ object IRCmdTool {
     /**
      * Settings image parameters
      */
-    private fun setImageParams(irCmd: IRCMD?, params: CommonParams.PropImageParams, value: CommonParams.PropImageParamsValue): Int {
+    private fun setImageParams(
+        irCmd: IRCMD?,
+        params: CommonParams.PropImageParams,
+        value: CommonParams.PropImageParamsValue,
+    ): Int {
         return try {
             irCmd?.setPropImageParams(params, value) ?: 0
         } catch (e: Exception) {
@@ -239,7 +281,10 @@ object IRCmdTool {
      * Temperature offset calibration
      * @param value (-20 ~ 60)
      */
-    fun setDisp(dualView: BaseDualView?, value: Int): Int {
+    fun setDisp(
+        dualView: BaseDualView?,
+        value: Int,
+    ): Int {
         return try {
             if (dualView != null) {
                 dualView?.dualUVCCamera!!.setDisp(value)
@@ -248,7 +293,7 @@ object IRCmdTool {
                 -1 // Return error
             }
         } catch (e: Exception) {
-            XLog.w("Settings registration error [${value}]: ${e.message}")
+            XLog.w("Settings registration error [$value]: ${e.message}")
             0
         }
     }
@@ -256,7 +301,11 @@ object IRCmdTool {
     /**
      * @param moveX X-axis offset value
      */
-    fun setAlignTranslate(dualView: BaseDualView?, moveX: Int, moveY: Int) {
+    fun setAlignTranslate(
+        dualView: BaseDualView?,
+        moveX: Int,
+        moveY: Int,
+    ) {
         val newSrc = ByteArray(8)
 
         val xSrc = ByteArray(4)
@@ -273,7 +322,10 @@ object IRCmdTool {
     /**
      * Manual shutter calibration
      */
-    fun shutter(irCmd: IRCMD?, syncImage: SynchronizedBitmap) {
+    fun shutter(
+        irCmd: IRCMD?,
+        syncImage: SynchronizedBitmap,
+    ) {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
@@ -285,7 +337,10 @@ object IRCmdTool {
     /**
      * Manual shutter calibration
      */
-    fun autoShutter(irCmd: IRCMD?, flag: Boolean) {
+    fun autoShutter(
+        irCmd: IRCMD?,
+        flag: Boolean,
+    ) {
         val data = if (flag) CommonParams.PropAutoShutterParameterValue.StatusSwith.ON else CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
         irCmd?.setPropAutoShutterParameter(CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH, data)
     }
@@ -295,7 +350,11 @@ object IRCmdTool {
      * @param highC High temperature threshold in Celsius
      * @param lowC Low temperature threshold in Celsius
      */
-    fun setIsoColorOpen(dualUVCCamera: DualUVCCamera?, highC: Float, lowC: Float) {
+    fun setIsoColorOpen(
+        dualUVCCamera: DualUVCCamera?,
+        highC: Float,
+        lowC: Float,
+    ) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.ON)
         val normalHighTemp = (highC + 273).toDouble() // Convert to Kelvin
         val normalLowTemp = (lowC + 273).toDouble() // Convert to Kelvin
@@ -309,8 +368,8 @@ object IRCmdTool {
         lowData[1] = (lowTemp shr 8).toByte()
         val tempHFin = (highData[0].toInt() and 0x00ff) + (highData[1].toInt() and 0x00ff shl 8)
         val tempLFin = (lowData[0].toInt() and 0x00ff) + (lowData[1].toInt() and 0x00ff shl 8)
-        dualUVCCamera?.setTempL(tempLFin) //Low temperature - convert to Int
-        dualUVCCamera?.setTempH(tempHFin) //High temperature - convert to Int
+        dualUVCCamera?.setTempL(tempLFin) // Low temperature - convert to Int
+        dualUVCCamera?.setTempH(tempHFin) // High temperature - convert to Int
     }
 
     /**
@@ -337,5 +396,4 @@ object IRCmdTool {
     fun setZoomDown(irCmd: IRCMD?) {
         irCmd?.zoomCenterDown(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)
     }
-
 }

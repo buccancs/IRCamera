@@ -8,14 +8,11 @@ import android.media.ExifInterface
 import com.guide.zm04c.matrix.Logger
 import java.io.*
 
-
 /**
  * created by liuhongwei gd02527 on 2018utility08utility29utility
  */
 class FileUtils {
-
     companion object {
-
         private val TAG = "RealTimeImpl"
 
         fun isFileExist(filePath: String): Boolean {
@@ -27,11 +24,10 @@ class FileUtils {
             return file.exists() && file.isFile
         }
 
-
         /**
          * Deleteutility
-         * @param   filePath utilityDeleteutility
-         * @return  utilityDeleteutilitytrue，utilityfalse
+         * @param filePath utilityDeleteutility
+         * @return utilityDeleteutilitytrue，utilityfalse
          */
         fun deleteDirectory(filePath: String): Boolean {
             var filePath = filePath
@@ -49,17 +45,17 @@ class FileUtils {
             // Utility functionDeleteutilityAllutility(utility)
             for (i in files.indices) {
                 if (files[i].isFile) {
-                    //Deleteutility
+                    // Deleteutility
                     flag = deleteFile(files[i].absolutePath)
                     if (!flag) break
                 } else {
-                    //Deleteutility
+                    // Deleteutility
                     flag = deleteDirectory(files[i].absolutePath)
                     if (!flag) break
                 }
             }
             return if (!flag) false else dirFile.delete()
-            //DeleteCurrentutility
+            // DeleteCurrentutility
         }
 
         fun deleteFile(path: String): Boolean {
@@ -87,21 +83,26 @@ class FileUtils {
             return file.delete()
         }
 
-
-        fun appFile(data: ByteArray, filePath: String) {
+        fun appFile(
+            data: ByteArray,
+            filePath: String,
+        ) {
             // utility，utility
             var randomFile = RandomAccessFile(filePath, "rw")
             // utility，utility
             var fileLength = randomFile.length()
             // Utility function。
-            randomFile.seek(fileLength);
-            randomFile.write(data);
+            randomFile.seek(fileLength)
+            randomFile.write(data)
 
-            randomFile.close();
-
+            randomFile.close()
         }
 
-        fun saveFile(data: ByteArray, filePath: String, isAppend: Boolean) {
+        fun saveFile(
+            data: ByteArray,
+            filePath: String,
+            isAppend: Boolean,
+        ) {
             var outputFile: FileOutputStream? = null
             var inputStream: ByteArrayInputStream? = null
 
@@ -116,7 +117,6 @@ class FileUtils {
                     outputFile.write(buff, 0, len)
                     len = inputStream.read(buff)
                 }
-
             } catch (io: IOException) {
                 io.printStackTrace()
             } finally {
@@ -125,7 +125,11 @@ class FileUtils {
             }
         }
 
-        fun saveFile(data: ShortArray, filePath: String, isAppend: Boolean) {
+        fun saveFile(
+            data: ShortArray,
+            filePath: String,
+            isAppend: Boolean,
+        ) {
             saveFile(BaseDataTypeConvertUtils.convertShortArr2LittleEndianByteArr(data), filePath, isAppend)
         }
 
@@ -136,8 +140,10 @@ class FileUtils {
          * @param filePath
          * @return
          */
-        fun saveBitmap2JpegFile(bmp: Bitmap, filePath: String): Boolean {
-
+        fun saveBitmap2JpegFile(
+            bmp: Bitmap,
+            filePath: String,
+        ): Boolean {
             val format = CompressFormat.JPEG
             val quality = 100
             var stream: OutputStream? = null
@@ -152,7 +158,6 @@ class FileUtils {
                 stream = FileOutputStream(f)
 
                 Logger.d("FileUtils", "end")
-
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
                 Logger.d("FileUtils", "FileNotFoundException: " + e.message)
@@ -174,7 +179,10 @@ class FileUtils {
          * @param rotateDegree RotateAngle
          * @return
          */
-        fun rotateBitmap(srcBitmap: Bitmap, rotateDegree: Float): Bitmap? {
+        fun rotateBitmap(
+            srcBitmap: Bitmap,
+            rotateDegree: Float,
+        ): Bitmap? {
             var dstBitmap: Bitmap? = null
             val matrix = Matrix()
             matrix.setRotate(rotateDegree, srcBitmap.width.toFloat() / 2, srcBitmap.height.toFloat() / 2)
@@ -182,8 +190,11 @@ class FileUtils {
             return dstBitmap
         }
 
-        private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
-
+        private fun calculateInSampleSize(
+            options: BitmapFactory.Options,
+            reqWidth: Int,
+            reqHeight: Int,
+        ): Int {
             val height = options.outHeight
             val width = options.outWidth
             var inSampleSize = 1
@@ -199,13 +210,15 @@ class FileUtils {
             return inSampleSize
         }
 
-        fun getBitmapFromPath(imagePath: String, width: Int, height: Int): Bitmap? {
-
+        fun getBitmapFromPath(
+            imagePath: String,
+            width: Int,
+            height: Int,
+        ): Bitmap? {
             val file = File(imagePath)
             var bitmap: Bitmap? = null
 
             if (file.exists()) {
-
                 val options = BitmapFactory.Options()
                 options.inJustDecodeBounds = true
                 BitmapFactory.decodeFile(imagePath, options)
@@ -229,7 +242,6 @@ class FileUtils {
 
                 if (fs != null) {
                     try {
-
                         bitmap = BitmapFactory.decodeFileDescriptor(fs.fd, null, options)
 
                         if (imagePath.contains(".jpg")) {
@@ -257,7 +269,6 @@ class FileUtils {
                             } catch (e: IOException) {
                                 e.printStackTrace()
                             }
-
                         }
                     }
                 }
@@ -266,7 +277,11 @@ class FileUtils {
             return bitmap
         }
 
-        fun readFile2ByteArr(filePath: String, fileNotFoundErrAction: () -> Unit, ioErrAction: () -> Unit): ByteArray? {
+        fun readFile2ByteArr(
+            filePath: String,
+            fileNotFoundErrAction: () -> Unit,
+            ioErrAction: () -> Unit,
+        ): ByteArray? {
             // utility
             var fis: FileInputStream? = null
             val inFile = File(filePath)
@@ -291,13 +306,11 @@ class FileUtils {
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
-
                 }
             }
 
             return buffer
         }
-
 
         fun inputStream2ByteArray(inputStream: InputStream?): ByteArray? {
             var byteArr: ByteArray? = null
@@ -317,7 +330,6 @@ class FileUtils {
                 } catch (e2: Exception) {
                     e2.printStackTrace()
                 }
-
             }
 
             return byteArr
@@ -331,12 +343,9 @@ class FileUtils {
             val file = File(path)
             return if (file.exists() && file.isFile) file.length() else -1
         }
-
     }
-
 
     init {
         throw AssertionError("cannot be instantiated")
     }
-
 }

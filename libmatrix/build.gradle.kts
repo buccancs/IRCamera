@@ -37,7 +37,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    
+
     // Configure single release variant for easier maintenance
     androidComponents {
         beforeVariants { variant ->
@@ -62,7 +62,7 @@ android {
             version = "3.18.1"
         }
     }
-    */
+     */
 
     ndkVersion = libs.versions.ndkVersion.get()
 
@@ -80,5 +80,4 @@ dependencies {
     // Core library desugaring support
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(project(":libapp"))
-
 }

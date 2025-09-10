@@ -2,15 +2,12 @@ package com.topdon.module.thermal.ir.activity
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import com.topdon.lib.core.config.RouterConfig
 import androidx.appcompat.app.AppCompatActivity
-import com.topdon.module.thermal.ir.databinding.ActivityIrMonitorBinding
+import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.libcom.navigation.NavigationManager
-import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
-import com.topdon.module.thermal.ir.event.MonitorSaveEvent
+import com.topdon.module.thermal.ir.databinding.ActivityIrMonitorBinding
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus
 
@@ -18,9 +15,8 @@ import org.greenrobot.eventbus.EventBus
  * activity
  */
 class IRMonitorActivity : AppCompatActivity(), View.OnClickListener {
-
     private lateinit var binding: ActivityIrMonitorBinding
-    private var selectIndex: SelectPositionBean? = null// Activity logic
+    private var selectIndex: SelectPositionBean? = null // Activity logic
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +79,4 @@ class IRMonitorActivity : AppCompatActivity(), View.OnClickListener {
     private fun disConnected() {
         finish()
     }
-
-
 }

@@ -1,10 +1,10 @@
 package com.topdon.module.thermal.ir.video
 
 import android.graphics.Bitmap
-import com.topdon.lib.core.utils.BitmapUtils
 import com.infisense.usbir.view.CameraView
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.lib.core.config.FileConfig
+import com.topdon.lib.core.utils.BitmapUtils
 import com.topdon.module.thermal.ir.video.media.Encoder
 import com.topdon.module.thermal.ir.video.media.MP4Encoder
 import io.reactivex.Observable
@@ -20,9 +20,8 @@ import java.util.concurrent.TimeUnit
  */
 class VideoRecordMedia(
     private var cameraView: CameraView,
-    private var temperatureView: TemperatureView
+    private var temperatureView: TemperatureView,
 ) : VideoRecord() {
-
     private lateinit var exportDisposable: Disposable
     private var encoder: Encoder = MP4Encoder()
     private var isRunning = false
@@ -40,9 +39,7 @@ class VideoRecordMedia(
         }
     }
 
-
     override fun startRecord() {
-
         val downloadDir = FileConfig.lineGalleryDir
         val exportedFile = File(downloadDir, "${Date().time}.mp4")
         if (exportedFile.exists()) {
@@ -57,14 +54,15 @@ class VideoRecordMedia(
         encoder.startEncode()
         isRunning = true
         // Implementation20,data50msdata
-        exportDisposable = Observable.interval(50, TimeUnit.MILLISECONDS)
-            .map {
-                createBitmapFromView()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                encoder.addFrame(it)
-            }
+        exportDisposable =
+            Observable.interval(50, TimeUnit.MILLISECONDS)
+                .map {
+                    createBitmapFromView()
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    encoder.addFrame(it)
+                }
     }
 
     override fun startRecord(fileDir: String) {
@@ -86,23 +84,24 @@ class VideoRecordMedia(
         var cameraViewBitmap = cameraView.bitmap
         if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
             // data，data，data，databitmap
-            cameraViewBitmap = BitmapUtils.mergeBitmap(
-                cameraViewBitmap,
-                temperatureView.regionAndValueBitmap,
-                0,
-                0
-            )
+            cameraViewBitmap =
+                BitmapUtils.mergeBitmap(
+                    cameraViewBitmap,
+                    temperatureView.regionAndValueBitmap,
+                    0,
+                    0,
+                )
         }
-        val dstBitmap = if (cameraViewBitmap != null) {
-            Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
-        } else {
-            Bitmap.createBitmap(
-                width,
-                height,
-                Bitmap.Config.ARGB_8888
-            )
-        }
+        val dstBitmap =
+            if (cameraViewBitmap != null) {
+                Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
+            } else {
+                Bitmap.createBitmap(
+                    width,
+                    height,
+                    Bitmap.Config.ARGB_8888,
+                )
+            }
         return dstBitmap
     }
-
 }

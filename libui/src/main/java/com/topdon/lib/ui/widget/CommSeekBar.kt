@@ -196,12 +196,11 @@ class CommSeekBar : AppCompatSeekBar {
     /**
      * data
      */
-    fun stopTrackTouchLevel()  {
-        if (level > 0)
-            {
-                val newLevel = (progress.toFloat() / 100 * 4).roundToInt()
-                setProgress((newLevel.toFloat() / level * 100).toInt())
-            }
+    fun stopTrackTouchLevel() {
+        if (level > 0) {
+            val newLevel = (progress.toFloat() / 100 * 4).roundToInt()
+            setProgress((newLevel.toFloat() / level * 100).toInt())
+        }
     }
 
     private fun trackTouchEvent(event: MotionEvent) {

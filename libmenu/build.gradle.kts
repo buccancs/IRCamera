@@ -26,7 +26,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    
+
     // Configure single release variant for easier maintenance
     androidComponents {
         beforeVariants { variant ->
@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.glide)
 
     implementation(project(":libapp")) // Requires string resources
-    
+
     // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)

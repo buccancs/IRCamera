@@ -5,23 +5,21 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.elvishew.xlog.XLog
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.repository.GalleryRepository.DirType
+import com.topdon.lib.core.view.MyTextView
+import com.topdon.lib.core.view.TitleView
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.GalleryDirChangeEvent
 import com.topdon.module.thermal.ir.popup.GalleryChangePopup
-import com.topdon.module.thermal.ir.popup.OptionPickPopup
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 import org.greenrobot.eventbus.EventBus
-import com.topdon.lib.core.view.TitleView
-import com.topdon.lib.core.view.MyTextView
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager2.widget.ViewPager2
-import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.core.R as LibCoreR
+import com.topdon.lib.ui.R as UiR
 
 /**
  * Gallery Tab fragment，fragment.
@@ -38,15 +36,16 @@ class IRGalleryTabFragment : BaseFragment() {
      * fragment，Galleryfragment
      */
     private var hasBackIcon = false
+
     /**
      * fragment，GalleryfragmentSwitch fragment、TS004、TC007 fragment
      */
     private var canSwitchDir = true
+
     /**
      * fragment，fragmentGalleryfragmentType
      */
     private var currentDirType = DirType.LINE
-
 
     private val viewModel: IRGalleryTabViewModel by activityViewModels()
 
@@ -66,30 +65,33 @@ class IRGalleryTabFragment : BaseFragment() {
         tvTitleDir = requireView().findViewById(R.id.tv_title_dir)
         tabLayout = requireView().findViewById(R.id.tab_layout)
         viewPager2 = requireView().findViewById(R.id.view_pager2)
-        
+
         hasBackIcon = arguments?.getBoolean(ExtraKeyConfig.HAS_BACK_ICON, false) ?: false
         canSwitchDir = arguments?.getBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false) ?: false
-        currentDirType = when (arguments?.getInt(ExtraKeyConfig.DIR_TYPE, 0) ?: 0) {
-            DirType.TS004_LOCALE.ordinal -> DirType.TS004_LOCALE
-            DirType.TS004_REMOTE.ordinal -> DirType.TS004_REMOTE
-            DirType.TC007.ordinal -> DirType.TC007
-            else -> DirType.LINE
-        }
+        currentDirType =
+            when (arguments?.getInt(ExtraKeyConfig.DIR_TYPE, 0) ?: 0) {
+                DirType.TS004_LOCALE.ordinal -> DirType.TS004_LOCALE
+                DirType.TS004_REMOTE.ordinal -> DirType.TS004_REMOTE
+                DirType.TC007.ordinal -> DirType.TC007
+                else -> DirType.LINE
+            }
 
-        tvTitleDir.text = when (currentDirType) {
-            DirType.LINE -> getString(R.string.tc_has_line_device)
-            DirType.TC007 -> "TC007"
-            else -> "TS004"
-        }
+        tvTitleDir.text =
+            when (currentDirType) {
+                DirType.LINE -> getString(R.string.tc_has_line_device)
+                DirType.TC007 -> "TC007"
+                else -> "TS004"
+            }
         tvTitleDir.isVisible = canSwitchDir
         tvTitleDir.setOnClickListener {
             val popup = GalleryChangePopup(requireContext())
             popup.onPickListener = { position, str ->
-                currentDirType = when (position) {
-                    0 -> DirType.LINE
-                    1 -> DirType.TS004_LOCALE
-                    else -> DirType.TC007
-                }
+                currentDirType =
+                    when (position) {
+                        0 -> DirType.LINE
+                        1 -> DirType.TS004_LOCALE
+                        else -> DirType.TC007
+                    }
                 tvTitleDir.text = str
                 EventBus.getDefault().post(GalleryDirChangeEvent(currentDirType))
             }
@@ -99,9 +101,9 @@ class IRGalleryTabFragment : BaseFragment() {
         titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
         titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
         titleView.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) {//CurrentfragmentState，fragment
+            if (viewModel.isEditModeLD.value == true) { // CurrentfragmentState，fragment
                 viewModel.isEditModeLD.value = false
-            } else {//CurrentfragmentState，fragment
+            } else { // CurrentfragmentState，fragment
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
@@ -109,9 +111,9 @@ class IRGalleryTabFragment : BaseFragment() {
         }
         titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
         titleView.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) {//CurrentfragmentState，fragment
+            if (viewModel.isEditModeLD.value == true) { // CurrentfragmentState，fragment
                 viewModel.selectAllIndex.value = viewPager2.currentItem
-            } else {//CurrentfragmentState，fragment
+            } else { // CurrentfragmentState，fragment
                 viewModel.isEditModeLD.value = true
             }
         }
@@ -155,7 +157,6 @@ class IRGalleryTabFragment : BaseFragment() {
     }
 
     private inner class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-
         override fun getItemCount() = 2
 
         override fun createFragment(position: Int): Fragment {

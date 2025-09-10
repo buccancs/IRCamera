@@ -6,8 +6,6 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.topdon.lib.ui.SettingNightView
-import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
@@ -20,17 +18,18 @@ import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
 import com.topdon.lib.core.dialog.FirmwareUpDialog
-import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.http.tool.DownloadTool
+import com.topdon.lib.core.ktbase.BaseFragment
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.repository.ProductBean
 import com.topdon.lib.core.repository.TC007Repository
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
+import com.topdon.lib.ui.SettingNightView
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-import com.topdon.lib.core.R as RCore
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
 import kotlinx.coroutines.delay
@@ -38,6 +37,7 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.text.DecimalFormat
+import com.topdon.lib.core.R as RCore
 
 /**
  * fragment “fragment” fragment
@@ -47,17 +47,17 @@ import java.text.DecimalFormat
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreFragment : BaseFragment(), View.OnClickListener {
-
     /**
      * fragment，Currentfragment TC007 fragmentType.
      * true-TC007 false-fragment
      */
     private var isTC007 = false
+
     /**
      * TC007 fragment ViewModel.
      */
     private val firmwareViewModel: FirmwareViewModel by viewModels()
-    
+
     // View references
     private lateinit var settingItemModel: View
     private lateinit var settingItemCorrection: View
@@ -75,10 +75,10 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
 
     override fun initView() {
         isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
-        
+
         // Initialize views
         settingItemModel = requireView().findViewById(R.id.setting_item_model)
-        settingItemCorrection = requireView().findViewById(R.id.setting_item_correction)  
+        settingItemCorrection = requireView().findViewById(R.id.setting_item_correction)
         settingItemDual = requireView().findViewById(R.id.setting_item_dual)
         settingItemUnit = requireView().findViewById(R.id.setting_item_unit)
         settingVersion = requireView().findViewById(R.id.setting_version)
@@ -89,13 +89,13 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         itemSettingBottomText = requireView().findViewById(R.id.item_setting_bottom_text)
         tvRightText = requireView().findViewById(R.id.tv_right_text)
 
-        settingItemModel.setOnClickListener(this)// Fragment logic
-        settingItemCorrection.setOnClickListener(this)// Fragment logic
-        settingItemDual.setOnClickListener(this)//Dual lightfragment
-        settingItemUnit.setOnClickListener(this)// Fragment logic
-        settingVersion.setOnClickListener(this) //TC007fragment
-        settingDeviceInformation.setOnClickListener(this)//TC007fragment
-        settingReset.setOnClickListener(this)//TC007fragmentSettings
+        settingItemModel.setOnClickListener(this) // Fragment logic
+        settingItemCorrection.setOnClickListener(this) // Fragment logic
+        settingItemDual.setOnClickListener(this) // Dual lightfragment
+        settingItemUnit.setOnClickListener(this) // Fragment logic
+        settingVersion.setOnClickListener(this) // TC007fragment
+        settingDeviceInformation.setOnClickListener(this) // TC007fragment
+        settingReset.setOnClickListener(this) // TC007fragmentSettings
 
         // Fragment logic 2024/5/23 fragment，TC007fragment，fragment
         settingReset.isVisible = false
@@ -124,11 +124,13 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 TipDialog.Builder(requireContext())
                     .setMessage(RCore.string.save_setting_tips)
                     .setPositiveListener(RCore.string.app_ok) {
-                        if (isTC007){
-                            WifiSaveSettingUtil.isSaveSetting = true
-                        }else{
-                            SaveSettingUtil.isSaveSetting = true
-                        }
+                        if (isTC007)
+                            {
+                                WifiSaveSettingUtil.isSaveSetting = true
+                            } else
+                            {
+                                SaveSettingUtil.isSaveSetting = true
+                            }
                     }
                     .setCancelListener(RCore.string.app_cancel) {
                         settingItemConfigSelect.isChecked = false
@@ -136,20 +138,22 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                     .setCanceled(false)
                     .create().show()
             } else {
-                if (isTC007){
-                    WifiSaveSettingUtil.reset()
-                    WifiSaveSettingUtil.isSaveSetting = false
-                }else{
-                    SaveSettingUtil.reset()
-                    SaveSettingUtil.isSaveSetting = false
-                }
+                if (isTC007)
+                    {
+                        WifiSaveSettingUtil.reset()
+                        WifiSaveSettingUtil.isSaveSetting = false
+                    } else
+                    {
+                        SaveSettingUtil.reset()
+                        SaveSettingUtil.isSaveSetting = false
+                    }
             }
         }
 
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissLoadingDialog()
-            if (it == null) {// Fragment logic，fragment
+            if (it == null) { // Fragment logic，fragment
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -186,50 +190,53 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-       when(v){
-           settingItemModel -> {// Fragment logic
-               NavigationManager.getInstance().build(RouterConfig.IR_SETTING).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
-           }
-           settingItemDual->{
-               NavigationManager.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
-           }
-           settingItemUnit -> {// Fragment logic
-               NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
-           }
-           settingItemCorrection->{// Fragment logic
-               NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
-           }
-           settingVersion -> {//TC007fragment
-               // Fragment logic，V3.30fragment apk fragment，fragment
+        when (v) {
+            settingItemModel -> { // Fragment logic
+                NavigationManager.getInstance().build(
+                    RouterConfig.IR_SETTING,
+                ).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
+            }
+            settingItemDual -> {
+                NavigationManager.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
+            }
+            settingItemUnit -> { // Fragment logic
+                NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+            }
+            settingItemCorrection -> { // Fragment logic
+                NavigationManager.getInstance().build(
+                    RouterConfig.IR_CORRECTION,
+                ).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
+            }
+            settingVersion -> { // TC007fragment
+                // Fragment logic，V3.30fragment apk fragment，fragment
 //               if (LMS.getInstance().isLogin) {
-                   val firmwareData = firmwareViewModel.firmwareDataLD.value
-                   if (firmwareData != null) {
-                       showFirmwareUpDialog(firmwareData)
-                   } else {
-                       XLog.i("TC007 fragment - fragment")
-                       showLoadingDialog()
-                       firmwareViewModel.queryFirmware(false)
-                   }
+                val firmwareData = firmwareViewModel.firmwareDataLD.value
+                if (firmwareData != null) {
+                    showFirmwareUpDialog(firmwareData)
+                } else {
+                    XLog.i("TC007 fragment - fragment")
+                    showLoadingDialog()
+                    firmwareViewModel.queryFirmware(false)
+                }
 //               } else {
 //                   LMS.getInstance().activityLogin()
 //               }
-           }
-           settingDeviceInformation -> {//TC007fragment
-               if (WebSocketProxy.getInstance().isTC007Connect()) {
-                   NavigationManager.getInstance()
-                       .build(RouterConfig.DEVICE_INFORMATION)
-                       .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                       .navigation(requireContext())
-               }
-           }
-           settingReset -> {//TC007fragmentSettings
-               if (WebSocketProxy.getInstance().isTC007Connect()) {
-                   restoreFactory()
-               }
-           }
-       }
+            }
+            settingDeviceInformation -> { // TC007fragment
+                if (WebSocketProxy.getInstance().isTC007Connect()) {
+                    NavigationManager.getInstance()
+                        .build(RouterConfig.DEVICE_INFORMATION)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
+                        .navigation(requireContext())
+                }
+            }
+            settingReset -> { // TC007fragmentSettings
+                if (WebSocketProxy.getInstance().isTC007Connect()) {
+                    restoreFactory()
+                }
+            }
+        }
     }
-
 
     /**
      * fragment TC007 fragment，fragmentState.
@@ -255,7 +262,6 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-
     /**
      * fragment.
      */
@@ -267,21 +273,22 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
             // Fragment logic，V3.30fragment apk fragment，fragment
-            //downloadFirmware(firmwareData)
+            // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
         dialog.show()
     }
 
-    private fun getFileSizeStr(size: Long): String = if (size < 1024) {
-        "${size}B"
-    } else if (size < 1024 * 1024) {
-        DecimalFormat("#.0").format(size.toDouble() / 1024) + "KB"
-    } else if (size < 1024 * 1024 * 1024) {
-        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024) + "MB"
-    } else {
-        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024 / 1024) + "GB"
-    }
+    private fun getFileSizeStr(size: Long): String =
+        if (size < 1024) {
+            "${size}B"
+        } else if (size < 1024 * 1024) {
+            DecimalFormat("#.0").format(size.toDouble() / 1024) + "KB"
+        } else if (size < 1024 * 1024 * 1024) {
+            DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024) + "MB"
+        } else {
+            DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024 / 1024) + "GB"
+        }
 
     /**
      * fragmentSpecifiedfragment
@@ -292,9 +299,10 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             progressDialog.show()
 
             val file = File(requireContext().getExternalFilesDir("firmware"), "TC007${firmwareData.version}.zip")
-            val isSuccess = DownloadTool.download(firmwareData.downUrl, file) { current, total ->
-                progressDialog.refreshProgress(current, total)
-            }
+            val isSuccess =
+                DownloadTool.download(firmwareData.downUrl, file) { current, total ->
+                    progressDialog.refreshProgress(current, total)
+                }
             progressDialog.dismiss()
             if (isSuccess) {
                 installFirmware(file)
@@ -323,7 +331,6 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                         requireActivity().finish()
                     }
                     .setCancelListener(RCore.string.app_cancel) {
-
                     }
                     .create().show()
             } else {
@@ -357,7 +364,6 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         dialog.show()
     }
 
-
     private fun restoreFactory() {
         TipDialog.Builder(requireContext())
             .setTitleMessage(getString(RCore.string.ts004_reset_tip1, "TC007"))
@@ -370,7 +376,6 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             .setCanceled(true)
             .create().show()
     }
-
 
     private fun resetAll() {
         showLoadingDialog(RCore.string.ts004_reset_tip3)

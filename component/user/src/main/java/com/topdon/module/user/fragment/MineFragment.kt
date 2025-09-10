@@ -1,6 +1,5 @@
 package com.topdon.module.user.fragment
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.text.TextUtils
@@ -8,7 +7,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -16,7 +14,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.topdon.lib.core.navigation.NavigationManager
-import com.topdon.lib.core.R as LibAppR  // Import libapp R class for resources
+import com.topdon.lib.core.R as LibAppR // Import libapp R class for resources
 import com.blankj.utilcode.util.CleanUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.request.RequestOptions
@@ -38,7 +36,6 @@ import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.AppLanguageUtils
 import com.topdon.lib.core.tools.ConstantLanguages
 import com.topdon.lib.core.tools.GlideLoader
-import com.topdon.lib.core.tools.ToastTools
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lms.sdk.LMS
@@ -46,7 +43,6 @@ import com.topdon.lms.sdk.UrlConstant
 import com.topdon.lms.sdk.bean.CommonBean
 import com.topdon.lms.sdk.bean.FeedBackBean
 import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
-import com.topdon.lms.sdk.utils.LanguageUtil
 import com.topdon.module.user.R
 import com.topdon.module.user.activity.MoreActivity
 // import com.zoho.salesiqembed.ZohoSalesIQ  // ZohoSalesIQ dependency not available
@@ -66,12 +62,11 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
-
     /**
      * onResume() fragmentStatefragment UI.
      */
     private var isNeedRefreshLogin = false
-    
+
     // View references
     private lateinit var ivWinter: ImageView
     private lateinit var settingItemVersion: View
@@ -102,7 +97,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         settingItemUnit = requireView().findViewById(R.id.setting_item_unit)
         dragCustomerView = requireView().findViewById(R.id.drag_customer_view)
         viewWinterPoint = requireView().findViewById(R.id.view_winter_point)
-        
+
         ivWinter.setOnClickListener(this)
         settingItemVersion.setOnClickListener(this)
         settingItemClear.setOnClickListener(this)
@@ -112,23 +107,25 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         settingElectronicManual.setOnClickListener(this)
         settingFaq.setOnClickListener(this)
         settingFeedback.setOnClickListener(this)
-        settingItemUnit.setOnClickListener(this)// Fragment logic
+        settingItemUnit.setOnClickListener(this) // Fragment logic
         dragCustomerView.setOnClickListener(this)
 
         viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) {// Fragment logic
+        if (BaseApplication.instance.isDomestic()) { // Fragment logic
             // Language selection removed - English only
         }
 
-        viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onResume(owner: LifecycleOwner) {
-                // fragmentCurrentfragment TS004、TC007，fragment，fragment
-                if (WebSocketProxy.getInstance().isConnected()) {
-                    NetWorkUtils.switchNetwork(false)
+        viewLifecycleOwner.lifecycle.addObserver(
+            object : DefaultLifecycleObserver {
+                override fun onResume(owner: LifecycleOwner) {
+                    // fragmentCurrentfragment TS004、TC007，fragment，fragment
+                    if (WebSocketProxy.getInstance().isConnected()) {
+                        NetWorkUtils.switchNetwork(false)
+                    }
                 }
-            }
-        })
+            },
+        )
     }
 
     override fun initData() {
@@ -153,23 +150,22 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-
     // Language picker removed - English only app
 
     override fun onClick(v: View?) {
         when (v) {
-            ivWinter -> {// Fragment logic
+            ivWinter -> { // Fragment logic
                 viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
 
-                val url = if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
-                    "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
+                val url =
+                    if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
+                        "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
                             "languageId=1" // Fixed to English (languageId=1)
-                } else {
-                    "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
-                }
-
+                    } else {
+                        "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
+                    }
 
                 NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
                     .withString(ExtraKeyConfig.URL, url)
@@ -188,20 +184,24 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingElectronicManual -> {// Fragment logic
-                NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
+            settingElectronicManual -> { // Fragment logic
+                NavigationManager.getInstance().build(
+                    RouterConfig.ELECTRONIC_MANUAL,
+                ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
             }
-            settingFaq -> {//FAQ
-                NavigationManager.getInstance().build(RouterConfig.ELECTRONIC_MANUAL).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
+            settingFaq -> { // FAQ
+                NavigationManager.getInstance().build(
+                    RouterConfig.ELECTRONIC_MANUAL,
+                ).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            settingFeedback -> {// Fragment logic
+            settingFeedback -> { // Fragment logic
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
                         logPath = logPath
                         sn = devSn
                         lastConnectSn = devSn
-                        XLog.e("bcf","sn $sn  logPath $logPath")
+                        XLog.e("bcf", "sn $sn  logPath $logPath")
                     }.let { feedBackBean ->
                         val intent = Intent(requireContext(), FeedbackActivity::class.java)
                         intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
@@ -211,16 +211,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingItemUnit -> {// Fragment logic
+            settingItemUnit -> { // Fragment logic
                 NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            settingItemVersion -> {// Fragment logic
+            settingItemVersion -> { // Fragment logic
                 NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            settingItemClear -> {//Clearfragment，fragment
+            settingItemClear -> { // Clearfragment，fragment
                 clearCache()
             }
-            dragCustomerView -> {// Fragment logic
+            dragCustomerView -> { // Fragment logic
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 // ZohoSalesIQ functionality disabled - dependency not available
@@ -235,7 +235,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        //activityLogin()fragment，fragmentonResume()
+        // activityLogin()fragment，fragmentonResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
@@ -266,7 +266,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             // Fragment logic
             XLog.e(" fragment")
             changeLoginStyle()
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)// Fragment logic
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Fragment logic
         }
     }
 
@@ -278,7 +278,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
             layoutParams.marginStart = SizeUtils.dp2px(16f)
             layoutParams.marginEnd = SizeUtils.dp2px(16f)
-            settingUserText.setPadding(0,0,0,0)
+            settingUserText.setPadding(0, 0, 0, 0)
             settingUserText.gravity = Gravity.LEFT
             settingUserText.layoutParams = layoutParams
             val drawable = ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
@@ -294,11 +294,15 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     settingUserImgNight,
                     SharedManager.getHeadIcon(),
                     LibAppR.mipmap.ic_default_user_head,
-                    RequestOptions().optionalCircleCrop()
+                    RequestOptions().optionalCircleCrop(),
                 )
             }
         } else {
-            val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+            val layoutParams =
+                ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                )
             layoutParams.startToEnd = R.id.setting_user_img_night
             layoutParams.topToTop = R.id.setting_user_img_night
             layoutParams.bottomToBottom = R.id.setting_user_img_night
@@ -307,14 +311,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             settingUserText.layoutParams = layoutParams
             settingUserText.setText(
                 AppLanguageUtils.attachBaseContext(
-                context, ConstantLanguages.ENGLISH).getString(RCore.string.app_sign_in))
+                    context,
+                    ConstantLanguages.ENGLISH,
+                ).getString(RCore.string.app_sign_in),
+            )
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             settingUserText.setCompoundDrawables(null, null, drawable, null)
             settingUserLay.visibility = View.GONE
             val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
             tvEmail.text = ""
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head)// Fragment logic
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Fragment logic
         }
     }
 
@@ -339,7 +346,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 .setMessage(RCore.string.clear_finish)
                 .setCanceled(true)
                 .create().show()
-
         }
     }
 }

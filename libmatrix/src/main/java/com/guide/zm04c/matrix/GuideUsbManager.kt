@@ -13,7 +13,6 @@ import com.guide.zm04c.matrix.utils.HexDump
 import java.util.*
 
 class GuideUsbManager {
-
     private var mContext: Context? = null
     private val mPermissionIntent: PendingIntent? = null
     private var mUsbManager: UsbManager? = null
@@ -35,7 +34,7 @@ class GuideUsbManager {
     /*
         public static final int VENDOR_ID = 0x0525;
         public static final int PRODUCT_ID = 0xa4a0;
-    */
+     */
     private var mConnectCode: Int = ResultCode.READY_CONNECT_DEVICE
     private val TAG = "guidecore"
     private var mNativeGuideCore: NativeGuideCore? = null
@@ -230,18 +229,21 @@ class GuideUsbManager {
                 }
             }
             //            if (mEndpointDataIn != null && mEndpointControlOut != null && mEndpointControlIn != null) {
-            mConnectCode = if (true) {
-                ResultCode.SUCC_FIND_ENDPOINT
-            } else {
-                ResultCode.ERROR_FIND_ENDPOINT_FAILD
-            }
+            mConnectCode =
+                if (true) {
+                    ResultCode.SUCC_FIND_ENDPOINT
+                } else {
+                    ResultCode.ERROR_FIND_ENDPOINT_FAILD
+                }
         }
     }
 
     fun read(buffer: ByteArray): Int {
         return if (!isUsbValid()) {
             ResultCode.ERROR_USE_USB_ISVALID
-        } else mConnection!!.bulkTransfer(mEndpointDataIn, buffer, buffer.size, 1000)
+        } else {
+            mConnection!!.bulkTransfer(mEndpointDataIn, buffer, buffer.size, 1000)
+        }
     }
 
     fun changePalette(i: Int) {
@@ -299,12 +301,13 @@ class GuideUsbManager {
                     sendBuf = ByteArray(sendLen)
                 }
                 System.arraycopy(data, total, sendBuf, 0, sendLen)
-                total += if (!send(sendBuf)) {
-                    Logger.d(TAG, "upgrade senBuf failed")
-                    return false
-                } else {
-                    sendLen
-                }
+                total +=
+                    if (!send(sendBuf)) {
+                        Logger.d(TAG, "upgrade senBuf failed")
+                        return false
+                    } else {
+                        sendLen
+                    }
             }
         }
         // Implementation
@@ -353,7 +356,10 @@ class GuideUsbManager {
         return data
     }
 
-    private fun sendUsbCmd(cmd: ByteArray, data: ByteArray): Int {
+    private fun sendUsbCmd(
+        cmd: ByteArray,
+        data: ByteArray,
+    ): Int {
         val header = byteArrayOf(0x02)
         val reserve = byteArrayOf(0x00)
         val len = toByteArray(data.size)
@@ -387,7 +393,7 @@ class GuideUsbManager {
         val length = mConnection!!.bulkTransfer(mEndpointControlOut, buffer, buffer.size, 1000)
         Logger.d(
             TAG,
-            "send " + (length == buffer.size) + ": request len = " + buffer.size + " response len = " + length
+            "send " + (length == buffer.size) + ": request len = " + buffer.size + " response len = " + length,
         )
         return length == buffer.size
     }
@@ -400,8 +406,9 @@ class GuideUsbManager {
             length = mConnection!!.bulkTransfer(mEndpointControlIn, buffer, buffer.size, 1000)
         }
         Logger.d(
-            TAG, """receive length = $length
- data = ${HexDump.dumpHexString(buffer)}"""
+            TAG,
+            """receive length = $length
+ data = ${HexDump.dumpHexString(buffer)}""",
         )
         val headReceive = ByteArray(1)
         val cmdReceive = ByteArray(2)

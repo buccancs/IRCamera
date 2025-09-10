@@ -8,9 +8,9 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
 import java.io.File
 
 /**
@@ -19,7 +19,6 @@ import java.io.File
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class GSRSensorRecorderTest {
-
     @MockK
     private lateinit var context: Context
 
@@ -235,29 +234,36 @@ class GSRSensorRecorderTest {
         val invalidADCValues = listOf(-1, 4096, 8192)
 
         validADCValues.forEach { value ->
-            assertTrue("ADC value $value should be valid", 
-                gsrRecorder.isValidADCValue(value))
+            assertTrue(
+                "ADC value $value should be valid",
+                gsrRecorder.isValidADCValue(value),
+            )
         }
 
         invalidADCValues.forEach { value ->
-            assertFalse("ADC value $value should be invalid", 
-                gsrRecorder.isValidADCValue(value))
+            assertFalse(
+                "ADC value $value should be invalid",
+                gsrRecorder.isValidADCValue(value),
+            )
         }
     }
 
     @Test
     fun testGSRConversion() {
         // Test GSR conversion from raw ADC to microsiemens
-        val testCases = mapOf(
-            0 to 0.0,      // Minimum
-            2047 to 25.0,  // Mid-range (approximate)
-            4095 to 50.0   // Maximum (approximate)
-        )
+        val testCases =
+            mapOf(
+                0 to 0.0, // Minimum
+                2047 to 25.0, // Mid-range (approximate)
+                4095 to 50.0, // Maximum (approximate)
+            )
 
         testCases.forEach { (rawValue, expectedGSR) ->
             val convertedGSR = gsrRecorder.convertRawToGSR(rawValue)
-            assertTrue("GSR conversion for $rawValue should be reasonable",
-                convertedGSR >= 0.0 && convertedGSR <= 100.0)
+            assertTrue(
+                "GSR conversion for $rawValue should be reasonable",
+                convertedGSR >= 0.0 && convertedGSR <= 100.0,
+            )
         }
     }
 
@@ -299,32 +305,34 @@ class GSRSensorRecorderTest {
 
         // Should handle gracefully
         val isRecording = gsrRecorder.isRecording()
-        
+
         // Should not crash and should handle the error state appropriately
         assertNotNull("Error should be handled gracefully", isRecording)
     }
 
     @Test
-    fun testConcurrentOperations() = runTest {
-        gsrRecorder.initialize()
+    fun testConcurrentOperations() =
+        runTest {
+            gsrRecorder.initialize()
 
-        // Test concurrent sync marker additions
-        gsrRecorder.startRecording(testSessionDir, "TestSession")
+            // Test concurrent sync marker additions
+            gsrRecorder.startRecording(testSessionDir, "TestSession")
 
-        val operations = (1..10).map { index ->
-            async {
-                gsrRecorder.addSyncMarker("SYNC_$index", mapOf("index" to index))
-            }
+            val operations =
+                (1..10).map { index ->
+                    async {
+                        gsrRecorder.addSyncMarker("SYNC_$index", mapOf("index" to index))
+                    }
+                }
+
+            val results = operations.awaitAll()
+
+            // All sync markers should be added successfully
+            assertTrue("All sync markers should succeed", results.all { it })
+
+            // Verify all calls were made
+            verify(exactly = 10) { mockShimmerRecorder.triggerSyncEvent(any()) }
         }
-
-        val results = operations.awaitAll()
-
-        // All sync markers should be added successfully
-        assertTrue("All sync markers should succeed", results.all { it })
-
-        // Verify all calls were made
-        verify(exactly = 10) { mockShimmerRecorder.triggerSyncEvent(any()) }
-    }
 
     @Test
     fun testRecordingMetrics() {
@@ -349,7 +357,7 @@ class GSRSensorRecorderTest {
     fun testLegacyModeSupport() {
         // Test legacy GSR recorder mode
         val legacyRecorder = GSRSensorRecorder(context, useLegacyMode = true)
-        
+
         assertTrue("Legacy mode should initialize", legacyRecorder.initialize())
 
         val result = legacyRecorder.startRecording(testSessionDir, "LegacySession")
@@ -372,7 +380,7 @@ class GSRSensorRecorderTest {
         return mapOf(
             "connection" to "Connected",
             "device_id" to "SHIMMER_001",
-            "battery_level" to 85
+            "battery_level" to 85,
         )
     }
 
@@ -380,13 +388,13 @@ class GSRSensorRecorderTest {
         return RecordingMetrics(
             syncMarkerCount = 5,
             recordingDuration = 1000L,
-            dataPointCount = 100
+            dataPointCount = 100,
         )
     }
 
     data class RecordingMetrics(
         val syncMarkerCount: Int,
         val recordingDuration: Long,
-        val dataPointCount: Int
+        val dataPointCount: Int,
     )
 }

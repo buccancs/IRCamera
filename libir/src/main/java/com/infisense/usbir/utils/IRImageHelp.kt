@@ -1,13 +1,11 @@
 package com.infisense.usbir.utils
 
-import android.graphics.Bitmap
 import android.util.Log
 import com.example.open3d.JNITool
 import com.topdon.lib.core.bean.AlarmBean
 import org.opencv.core.CvType
 import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
-import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 /**
@@ -16,11 +14,9 @@ import java.io.IOException
  * @date: 2024/1/17 9:54
  */
 class IRImageHelp {
-
-
     // Utility function
     @Volatile
-    private var colorList: IntArray ?= null
+    private var colorList: IntArray? = null
 
     @Volatile
     private var places: FloatArray? = null
@@ -31,7 +27,7 @@ class IRImageHelp {
     private var maxRGB = IntArray(3)
     private var minRGB = IntArray(3)
 
-    fun getColorList() : IntArray?{
+    fun getColorList(): IntArray?  {
         return colorList
     }
 
@@ -45,7 +41,7 @@ class IRImageHelp {
         places: FloatArray?,
         isUseGray: Boolean,
         customMaxTemp: Float,
-        customMinTemp: Float
+        customMinTemp: Float,
     ) {
         if (colorList == null) {
             this.isUseGray = true
@@ -68,7 +64,6 @@ class IRImageHelp {
         }
     }
 
-
     /**
      * utilityPseudo-colorutility，utility，utilityPseudo-colorutility utilitysetColorListutilitySettings
      * @param imageDst ByteArray ： utility，argbutility
@@ -77,7 +72,12 @@ class IRImageHelp {
      * @param imageHeight Int
      * @return ByteArray ： utility，argbutility
      */
-    fun customPseudoColor(imageDst: ByteArray, temperatureSrc:ByteArray, imageWidth : Int, imageHeight : Int) : ByteArray{
+    fun customPseudoColor(
+        imageDst: ByteArray,
+        temperatureSrc: ByteArray,
+        imageWidth: Int,
+        imageHeight: Int,
+    ): ByteArray  {
         try {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
@@ -87,8 +87,12 @@ class IRImageHelp {
                 while (index < imageDstLength) {
                     // utility
                     var temperature0: Float =
-                        ((temperatureSrc.get(j).toInt() and 0xff) + (temperatureSrc.get(j + 1)
-                            .toInt() and 0xff) * 256).toFloat()
+                        (
+                            (temperatureSrc.get(j).toInt() and 0xff) + (
+                                temperatureSrc.get(j + 1)
+                                    .toInt() and 0xff
+                            ) * 256
+                        ).toFloat()
                     temperature0 = (temperature0 / 64 - 273.15).toFloat()
                     if (temperature0 >= customMinTemp && temperature0 <= customMaxTemp) {
                         // OpencvTools disabled due to missing AAR dependencies
@@ -106,7 +110,7 @@ class IRImageHelp {
                             imageDst[index + 1] = rgb[1].toByte()
                             imageDst[index + 2] = rgb[2].toByte()
                         }
-                        */
+                         */
                         // Simple fallback: use temperature-based grayscale
                         val intensity = ((temperature0 - customMinTemp) / (customMaxTemp - customMinTemp) * 255).toInt().coerceIn(0, 255)
                         imageDst[index] = intensity.toByte()
@@ -135,18 +139,22 @@ class IRImageHelp {
             }
         } catch (exception: Exception) {
             Log.e("utility", exception.message!!)
-        }finally {
+        } finally {
             return imageDst
         }
     }
 
-
-
     /**
      * utility,utilityPseudo-colorutility
      */
-    fun setPseudoColorMaxMin(imageDst: ByteArray?, temperatureSrc:ByteArray?,max : Float,
-                       min : Float,imageWidth : Int,imageHeight : Int){
+    fun setPseudoColorMaxMin(
+        imageDst: ByteArray?,
+        temperatureSrc: ByteArray?,
+        max: Float,
+        min: Float,
+        imageWidth: Int,
+        imageHeight: Int,
+    )  {
         if (temperatureSrc != null && (max != Float.MAX_VALUE || min != Float.MIN_VALUE)) {
             var j = 0
             val imageDstLength: Int = imageWidth * imageHeight * 4
@@ -156,11 +164,14 @@ class IRImageHelp {
             // utility，utility
             var index = 0
             while (index < imageDstLength) {
-
                 // utility
                 var temperature0: Float =
-                    ((temperatureSrc[j].toInt() and 0xff) + (temperatureSrc[j + 1]
-                        .toInt() and 0xff) * 256).toFloat()
+                    (
+                        (temperatureSrc[j].toInt() and 0xff) + (
+                            temperatureSrc[j + 1]
+                                .toInt() and 0xff
+                        ) * 256
+                    ).toFloat()
                 temperature0 = (temperature0 / 64 - 273.15).toFloat()
                 val y0: Int = imageDst!![j].toInt() and 0xff
                 if (temperature0 < biaochiMin || temperature0 > biaochiMax) {
@@ -179,30 +190,42 @@ class IRImageHelp {
             }
         }
     }
+
     /**
      * contourDetection utility
      */
-    fun contourDetection(alarmBean : AlarmBean?,imageDst : ByteArray?,temperatureSrc : ByteArray?,
-                         imageWidth : Int,imageHeight : Int) : ByteArray?{
+    fun contourDetection(
+        alarmBean: AlarmBean?,
+        imageDst: ByteArray?,
+        temperatureSrc: ByteArray?,
+        imageWidth: Int,
+        imageHeight: Int,
+    ): ByteArray?  {
         if (alarmBean != null && imageDst != null && temperatureSrc != null) {
             if (alarmBean.isMarkOpen && (
-                        (alarmBean.highTemp != Float.MAX_VALUE && alarmBean.isHighOpen)  ||
-                                (alarmBean.isLowOpen && alarmBean.lowTemp != Float.MIN_VALUE)
-                    )) {
+                    (alarmBean.highTemp != Float.MAX_VALUE && alarmBean.isHighOpen) ||
+                        (alarmBean.isLowOpen && alarmBean.lowTemp != Float.MIN_VALUE)
+                )
+            ) {
                 try {
-                    val matByteArray = JNITool.draw_edge_from_temp_reigon_bitmap_argb_psd(imageDst,
-                        temperatureSrc,
-                        imageHeight,
-                        imageWidth,
-                        if (alarmBean.isHighOpen) alarmBean.highTemp else Float.MAX_VALUE,
-                        if (alarmBean.isLowOpen) alarmBean.lowTemp else Float.MIN_VALUE,
-                        alarmBean.highColor,
-                        alarmBean.lowColor,
-                        alarmBean.markType)
-                    val diffMat = Mat(
-                        imageHeight,
-                        imageWidth,
-                        CvType.CV_8UC3)
+                    val matByteArray =
+                        JNITool.draw_edge_from_temp_reigon_bitmap_argb_psd(
+                            imageDst,
+                            temperatureSrc,
+                            imageHeight,
+                            imageWidth,
+                            if (alarmBean.isHighOpen) alarmBean.highTemp else Float.MAX_VALUE,
+                            if (alarmBean.isLowOpen) alarmBean.lowTemp else Float.MIN_VALUE,
+                            alarmBean.highColor,
+                            alarmBean.lowColor,
+                            alarmBean.markType,
+                        )
+                    val diffMat =
+                        Mat(
+                            imageHeight,
+                            imageWidth,
+                            CvType.CV_8UC3,
+                        )
                     diffMat.put(0, 0, matByteArray)
                     Imgproc.cvtColor(diffMat, diffMat, Imgproc.COLOR_BGR2RGBA)
                     val grayData = ByteArray(diffMat.cols() * diffMat.rows() * 4)
@@ -215,7 +238,4 @@ class IRImageHelp {
         }
         return imageDst
     }
-
-
-
 }

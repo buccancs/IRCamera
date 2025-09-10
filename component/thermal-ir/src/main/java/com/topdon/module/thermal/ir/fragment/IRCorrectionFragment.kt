@@ -2,7 +2,6 @@ package com.topdon.module.thermal.ir.fragment
 
 import android.graphics.Bitmap
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.yt.jni.Usbcontorl
@@ -19,10 +18,10 @@ import com.infisense.usbir.event.IRMsgEvent
 import com.infisense.usbir.event.PreviewComplete
 import com.infisense.usbir.thread.ImageThreadTC
 import com.infisense.usbir.utils.USBMonitorCallback
-import com.infisense.usbir.view.ITsTempListener
-import com.infisense.usbir.view.TemperatureView.*
-import com.infisense.usbir.view.TemperatureView
 import com.infisense.usbir.view.CameraView
+import com.infisense.usbir.view.ITsTempListener
+import com.infisense.usbir.view.TemperatureView
+import com.infisense.usbir.view.TemperatureView.*
 import com.topdon.lib.core.bean.event.device.DeviceCameraEvent
 import com.topdon.lib.core.common.SaveSettingUtil
 import com.topdon.lib.core.config.DeviceConfig
@@ -38,13 +37,13 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * fragment
  */
-class IRCorrectionFragment : BaseFragment(),ITsTempListener{
+class IRCorrectionFragment : BaseFragment(), ITsTempListener {
 
     /** fragmentMode：fragment+fragment */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
-    
+
     // View references
     private lateinit var temperatureView: TemperatureView
     private var cameraView: CameraView? = null
@@ -56,17 +55,16 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        
-        // Initialize views with findViewById  
+
+        // Initialize views with findViewById
         temperatureView = requireView().findViewById<TemperatureView>(R.id.temperatureView)
         cameraView = requireView().findViewById<CameraView>(R.id.cameraView)
         thermalLay = requireView().findViewById<ViewGroup>(R.id.thermal_lay)
-        
+
         initDataIR()
     }
 
     override fun initData() {
-
     }
 
     private var imageThread: ImageThreadTC? = null
@@ -99,11 +97,11 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
         if (ScreenUtil.isPortrait(requireContext())) {
             bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageWidth, imageHeight,this@IRCorrectionFragment)
+            temperatureView.setImageSize(imageWidth, imageHeight, this@IRCorrectionFragment)
             rotateAngle = DeviceConfig.S_ROTATE_ANGLE
         } else {
             bitmap = Bitmap.createBitmap(imageHeight, imageWidth, Bitmap.Config.ARGB_8888)
-            temperatureView.setImageSize(imageHeight, imageWidth,this@IRCorrectionFragment)
+            temperatureView.setImageSize(imageHeight, imageWidth, this@IRCorrectionFragment)
             rotateAngle = DeviceConfig.ROTATE_ANGLE
         }
         cameraView?.let { camera ->
@@ -128,7 +126,6 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
      * fragment
      */
     private fun startISP() {
-
         try {
             imageThread = ImageThreadTC(context, imageWidth, imageHeight)
             imageThread!!.setDataFlowMode(defaultDataFlowMode)
@@ -139,45 +136,53 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
             imageThread?.setRotate(rotateAngle)
             imageThread!!.setRotate(true)
             imageThread!!.start()
-        }catch (e : Exception){
-            Log.e("fragment",e.message.toString())
+        } catch (e: Exception) {
+            Log.e("fragment", e.message.toString())
         }
     }
 
     /**
      *
      */
-    private fun startUSB(isRestart : Boolean) {
+    private fun startUSB(isRestart: Boolean) {
         context?.let {
-            iruvc = IRUVCTC(cameraWidth, cameraHeight, context, syncimage,
-                defaultDataFlowMode, object : ConnectCallback {
-                    override fun onCameraOpened(uvcCamera: UVCCamera) {
+            iruvc =
+                IRUVCTC(
+                    cameraWidth, cameraHeight, context, syncimage,
+                    defaultDataFlowMode,
+                    object : ConnectCallback {
+                        override fun onCameraOpened(uvcCamera: UVCCamera) {
+                        }
 
-                    }
-
-                    override fun onIRCMDCreate(ircmd: IRCMD) {
-                        Log.i(
-                            TAG,
-                            "ConnectCallback->onIRCMDCreate"
-                        )
-                        this@IRCorrectionFragment.ircmd = ircmd
-                        // fragmentIRCMDfragment
+                        override fun onIRCMDCreate(ircmd: IRCMD) {
+                            Log.i(
+                                TAG,
+                                "ConnectCallback->onIRCMDCreate",
+                            )
+                            this@IRCorrectionFragment.ircmd = ircmd
+                            // fragmentIRCMDfragment
 //                        ircmd.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                            PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
-                    }
-                }, object : USBMonitorCallback {
-                    override fun onAttach() {}
-                    override fun onGranted() {}
-                    override fun onConnect() {}
-                    override fun onDisconnect() {}
-                    override fun onDettach() {
-                        activity?.finish()
-                    }
+                        }
+                    },
+                    object : USBMonitorCallback {
+                        override fun onAttach() {}
 
-                    override fun onCancel() {
-                        activity?.finish()
-                    }
-                })
+                        override fun onGranted() {}
+
+                        override fun onConnect() {}
+
+                        override fun onDisconnect() {}
+
+                        override fun onDettach() {
+                            activity?.finish()
+                        }
+
+                        override fun onCancel() {
+                            activity?.finish()
+                        }
+                    },
+                )
             iruvc!!.isRestart = isRestart
             iruvc!!.setImageSrc(image)
             iruvc!!.setTemperatureSrc(temperature)
@@ -211,7 +216,7 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
                 isrun = true
                 // Fragment logic
                 configParam()
-            },1500)
+            }, 1500)
         }
     }
 
@@ -244,7 +249,8 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
         dealY16ModePreviewComplete()
     }
 
-    var frameReady = false;
+    var frameReady = false
+
     private fun dealY16ModePreviewComplete() {
         isConfigWait = false
         iruvc?.setFrameReady(true)
@@ -299,102 +305,102 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
             val config = ConfigRepository.readConfig(false)
             val disChar = (config.distance * 128).toInt() // Fragment logic(fragment)
             val emsChar = (config.radiation * 128).toInt() // Fragment logic
-            XLog.w("SettingsTPD_PROP DISTANCE:${disChar}, EMS:${emsChar}}")
+            XLog.w("SettingsTPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
             val timeMillis = 250L
             delay(timeMillis)
             // Fragment logic
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
-                CommonParams.PropTPDParamsValue.NumberType(emsChar.toString())
+                CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
             )
             delay(timeMillis)
             // Fragment logic
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
-                CommonParams.PropTPDParamsValue.NumberType(disChar.toString())
+                CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
             // fragment
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
-                CommonParams.ZoomScaleStep.ZOOM_STEP2
+                CommonParams.ZoomScaleStep.ZOOM_STEP2,
             )
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
-                CommonParams.ZoomScaleStep.ZOOM_STEP2
+                CommonParams.ZoomScaleStep.ZOOM_STEP2,
             )
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
-                CommonParams.ZoomScaleStep.ZOOM_STEP2
+                CommonParams.ZoomScaleStep.ZOOM_STEP2,
             )
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
-                CommonParams.ZoomScaleStep.ZOOM_STEP2
+                CommonParams.ZoomScaleStep.ZOOM_STEP2,
             )
             iruvc?.let {
                 // fragment，fragment
-                withContext(Dispatchers.IO){
+                withContext(Dispatchers.IO) {
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd?.setPropAutoShutterParameter(
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                            CommonParams.PropAutoShutterParameterValue.StatusSwith.ON
+                            CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    }else{
-                        ircmd?.setPropAutoShutterParameter(
-                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF
-                        )
-                    }
+                    } else
+                        {
+                            ircmd?.setPropAutoShutterParameter(
+                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                            )
+                        }
                 }
             }
             // Fragment logic、fragment
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
-                CommonParams.PropImageParamsValue.NumberType(128.toString())
+                CommonParams.PropImageParamsValue.NumberType(128.toString()),
             )
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_DDE,
-                CommonParams.PropImageParamsValue.DDEType.DDE_2
+                CommonParams.PropImageParamsValue.DDEType.DDE_2,
             )
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_ONOFF_AGC,
-                CommonParams.PropImageParamsValue.StatusSwith.ON
+                CommonParams.PropImageParamsValue.StatusSwith.ON,
             )
         }
     }
 
-
     suspend fun autoStart() {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             //            ToastUtils.showShort("fragment")
             // fragment
             // 1 fragment
             // 2 fragment
             CalibrationTools.autoShutter(irCmd = ircmd, false)
-            XLog.w("fragment："+"fragment")
+            XLog.w("fragment：" + "fragment")
             // Normal temperature
             // 3 fragment
 //            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
 //            XLog.w("fragment："+"fragment")
             // 4 fragment
             delay(2000)
-            XLog.w("fragment："+"fragment")
+            XLog.w("fragment：" + "fragment")
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
             // 5 fragment
             CalibrationTools.pot(irCmd = ircmd!!, 1)
-            XLog.w("fragment："+"fragment")
+            XLog.w("fragment：" + "fragment")
             // 6 fragment
             delay(5000)
-            XLog.w("fragment："+"fragment")
+            XLog.w("fragment：" + "fragment")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             delay(20000)
-            XLog.w("fragment："+"20000")
+            XLog.w("fragment：" + "20000")
             // High temperature
             // 11 fragment
 //            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
@@ -402,18 +408,17 @@ class IRCorrectionFragment : BaseFragment(),ITsTempListener{
             // 12 fragment
             delay(2000)
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
-            XLog.w("fragment："+"fragment")
+            XLog.w("fragment：" + "fragment")
             // 13 fragment
             CalibrationTools.pot(irCmd = ircmd!!, 1)
             // 14 fragment
             delay(5000)
-            XLog.w("fragment："+"fragment")
+            XLog.w("fragment：" + "fragment")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             // 17 fragment
             CalibrationTools.autoShutter(irCmd = ircmd, true)
             // fragment
-            XLog.w("fragment："+"fragment")
+            XLog.w("fragment：" + "fragment")
         }
     }
-
 }

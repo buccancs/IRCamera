@@ -16,7 +16,6 @@ import com.infisense.usbir.view.TemperatureView
 import com.topdon.lib.core.bean.CameraItemBean
 import com.topdon.lib.core.common.ProductType.PRODUCT_NAME_TCP
 import com.topdon.lib.core.common.SaveSettingUtil
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.ToastTools
 import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
@@ -27,8 +26,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
-import java.nio.ByteBuffer
-
 
 /**
  * Dual lightactivity
@@ -45,7 +42,6 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     private val dualTextureViewNativeCamera by lazy { findViewById<SurfaceView>(R.id.dualTextureViewNativeCamera) }
     // // private val thermalSteeringView by lazy { findViewById<com.topdon.lib.ui.widget.SteeringWheelView>(R.id.thermalSteeringView) }  // ID doesn't exist
     // thermalRecyclerNight inherited from parent class
-
 
     override fun initContentView() = R.layout.activity_ir_thermal_double
 
@@ -75,30 +71,30 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         // }
 
         when (SaveSettingUtil.fusionType) {
-            SaveSettingUtil.FusionTypeLPYFusion -> {//Dual light1
+            SaveSettingUtil.FusionTypeLPYFusion -> { // Dual light1
                 thermalRecyclerNight?.twoLightType = TwoLightType.TWO_LIGHT_1
             }
-            SaveSettingUtil.FusionTypeMeanFusion -> {//Dual light2
+            SaveSettingUtil.FusionTypeMeanFusion -> { // Dual light2
                 thermalRecyclerNight?.twoLightType = TwoLightType.TWO_LIGHT_2
             }
-            SaveSettingUtil.FusionTypeIROnly -> {// Activity logicInfrared
+            SaveSettingUtil.FusionTypeIROnly -> { // Activity logicInfrared
                 thermalRecyclerNight?.twoLightType = TwoLightType.IR
             }
-            SaveSettingUtil.FusionTypeVLOnly -> {//Visible light
+            SaveSettingUtil.FusionTypeVLOnly -> { // Visible light
                 thermalRecyclerNight?.twoLightType = TwoLightType.LIGHT
             }
         }
     }
-
-
-
 
     /**
      * activityDual lightRegistration.
      * @param action -1activity 1-activity 0activity
      * @param data CurrentRegistrationactivity
      */
-    private fun setDisp(action: Int, data: Int) {
+    private fun setDisp(
+        action: Int,
+        data: Int,
+    ) {
         if (action == -1 || action == 1) {
             // activity
             lifecycleScope.launch(Dispatchers.IO) {
@@ -111,59 +107,65 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             ircmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
             val dataStr = data.toString()
             System.arraycopy(dataStr.toByteArray(), 0, oemInfo, 194, dataStr.toByteArray().size)
-            val result = ircmd?.oemWrite(CommonParams.ProductType.P2,oemInfo)
+            val result = ircmd?.oemWrite(CommonParams.ProductType.P2, oemInfo)
 //            SharedManager.setIrDualDisp(dualDisp)
-            if (result == 0){
-                // activity
-                // if (thermalSteeringView.isVisible) {
-                //    thermalSteeringView.visibility = View.GONE
+            if (result == 0)
+                {
+                    // activity
+                    // if (thermalSteeringView.isVisible) {
+                    //    thermalSteeringView.visibility = View.GONE
                     thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
-                // }
-            }else{
-                ToastUtils.showShort(R.string.correction_fail)
-            }
-
+                    // }
+                } else
+                {
+                    ToastUtils.showShort(R.string.correction_fail)
+                }
         }
     }
 
-    override fun setTwoLight(twoLightType: TwoLightType, isSelected: Boolean) {
+    override fun setTwoLight(
+        twoLightType: TwoLightType,
+        isSelected: Boolean,
+    ) {
         when (twoLightType) {
-            TwoLightType.TWO_LIGHT_1 -> {//Dual light1
+            TwoLightType.TWO_LIGHT_1 -> { // Dual light1
                 mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
                 setFusion(mCurrentFusionType)
             }
-            TwoLightType.TWO_LIGHT_2 -> {//Dual light2
+            TwoLightType.TWO_LIGHT_2 -> { // Dual light2
                 mCurrentFusionType = DualCameraParams.FusionType.MeanFusion
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeMeanFusion
                 setFusion(mCurrentFusionType)
             }
-            TwoLightType.IR -> {// Activity logicInfrared
+            TwoLightType.IR -> { // Activity logicInfrared
                 mCurrentFusionType = DualCameraParams.FusionType.IROnly
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeIROnly
                 setFusion(mCurrentFusionType)
                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
                 // thermalSteeringView.visibility = View.GONE
             }
-            TwoLightType.LIGHT -> {// Activity logicVisible light
+            TwoLightType.LIGHT -> { // Activity logicVisible light
                 mCurrentFusionType = DualCameraParams.FusionType.VLOnly
                 SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeVLOnly
                 setFusion(mCurrentFusionType)
                 // thermalSteeringView.visibility = View.GONE
                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
             }
-            TwoLightType.CORRECT -> {//Registration
-                if (isSelected){
-                    // thermalSteeringView.visibility = View.VISIBLE
-                    if (mCurrentFusionType != DualCameraParams.FusionType.LPYFusion && mCurrentFusionType != DualCameraParams.FusionType.MeanFusion) {
-                        mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
-                        thermalRecyclerNight.twoLightType = TwoLightType.TWO_LIGHT_1
-                        SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
-                        setFusion(DualCameraParams.FusionType.LPYFusion)
+            TwoLightType.CORRECT -> { // Registration
+                if (isSelected)
+                    {
+                        // thermalSteeringView.visibility = View.VISIBLE
+                        if (mCurrentFusionType != DualCameraParams.FusionType.LPYFusion && mCurrentFusionType != DualCameraParams.FusionType.MeanFusion) {
+                            mCurrentFusionType = DualCameraParams.FusionType.LPYFusion
+                            thermalRecyclerNight.twoLightType = TwoLightType.TWO_LIGHT_1
+                            SaveSettingUtil.fusionType = SaveSettingUtil.FusionTypeLPYFusion
+                            setFusion(DualCameraParams.FusionType.LPYFusion)
+                        }
+                    } else
+                    {
+                        // thermalSteeringView.visibility = View.GONE
                     }
-                }else{
-                    // thermalSteeringView.visibility = View.GONE
-                }
             }
             else -> {
                 super.setTwoLight(twoLightType, isSelected)
@@ -179,13 +181,15 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         return dualView?.scaledBitmap!!
     }
 
-
     override fun setTemperatureViewType() {
         temperatureView.productType = Const.TYPE_IR_DUAL
         cameraView.productType = Const.TYPE_IR_DUAL
     }
 
-    override fun startUSB(isRestart: Boolean, isBadFrames: Boolean) {
+    override fun startUSB(
+        isRestart: Boolean,
+        isBadFrames: Boolean,
+    ) {
         // Empty implementation for dual IR device
     }
 
@@ -206,7 +210,8 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             customPseudoBean.getColorList(),
             customPseudoBean.getPlaceList(),
             customPseudoBean.isUseGray,
-            customPseudoBean.maxTemp, customPseudoBean.minTemp
+            customPseudoBean.maxTemp,
+            customPseudoBean.minTemp,
         )
     }
 
@@ -215,9 +220,9 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         places: FloatArray?,
         isUseGray: Boolean,
         customMaxTemp: Float,
-        customMinTemp: Float
+        customMinTemp: Float,
     ) {
-        irImageHelp.setColorList(colorList, places, isUseGray,customMaxTemp,customMinTemp)
+        irImageHelp.setColorList(colorList, places, isUseGray, customMaxTemp, customMinTemp)
     }
 
     override fun setRotate(rotateInt: Int) {
@@ -225,7 +230,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         runOnUiThread {
             // thermalSteeringView.rotationIR = rotateInt
         }
-        //Dual lightactivityRotateAngleactivity
+        // Dual lightactivityRotateAngleactivity
         when (rotateInt) {
             0 -> dualView?.dualUVCCamera?.setImageRotate(DualCameraParams.TypeLoadParameters.ROTATE_90)
             90 -> dualView?.dualUVCCamera?.setImageRotate(DualCameraParams.TypeLoadParameters.ROTATE_180)
@@ -237,28 +242,44 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
     override fun onIrFrame(irFrame: ByteArray?): ByteArray {
         System.arraycopy(irFrame, 0, preIrData, 0, preIrData.size)
         System.arraycopy(irFrame, preIrData.size, preTempData, 0, preTempData.size)
-        if (irImageHelp.getColorList() != null){
-            // Activity logicPseudo-coloractivity
-            LibIRProcess.convertYuyvMapToARGBPseudocolor(
-                preIrData, (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
-                CommonParams.PseudoColorType.PSEUDO_1, preIrARGBData
-            )
-        }else{
-            LibIRProcess.convertYuyvMapToARGBPseudocolor(
-                preIrData, (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
-                PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode), preIrARGBData
-            )
-        }
-        irImageHelp.customPseudoColor(preIrARGBData,preTempData,Const.IR_WIDTH,Const.IR_HEIGHT)
+        if (irImageHelp.getColorList() != null)
+            {
+                // Activity logicPseudo-coloractivity
+                LibIRProcess.convertYuyvMapToARGBPseudocolor(
+                    preIrData,
+                    (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
+                    CommonParams.PseudoColorType.PSEUDO_1,
+                    preIrARGBData,
+                )
+            } else
+            {
+                LibIRProcess.convertYuyvMapToARGBPseudocolor(
+                    preIrData,
+                    (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
+                    PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode),
+                    preIrARGBData,
+                )
+            }
+        irImageHelp.customPseudoColor(preIrARGBData, preTempData, Const.IR_WIDTH, Const.IR_HEIGHT)
         // Activity logic,activityPseudo-coloractivity
         irImageHelp.setPseudoColorMaxMin(
-            preIrARGBData, preTempData, editMaxValue,
-            editMinValue, Const.IR_WIDTH,Const.IR_HEIGHT)
+            preIrARGBData,
+            preTempData,
+            editMaxValue,
+            editMinValue,
+            Const.IR_WIDTH,
+            Const.IR_HEIGHT,
+        )
         // Activity logic，Dual lightactivityRotateactivity，activity，（activity256*192）
-       val tempData =irImageHelp.contourDetection(alarmBean,
-           preIrARGBData,preTempData,
-            Const.IR_HEIGHT,Const.IR_WIDTH)
-        System.arraycopy(tempData,0, preIrARGBData, 0, preIrARGBData.size)
+        val tempData =
+            irImageHelp.contourDetection(
+                alarmBean,
+                preIrARGBData,
+                preTempData,
+                Const.IR_HEIGHT,
+                Const.IR_WIDTH,
+            )
+        System.arraycopy(tempData, 0, preIrARGBData, 0, preIrARGBData.size)
         return preIrARGBData
     }
 
@@ -280,7 +301,7 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
                 }
             }
         } catch (_: Exception) {
-        }finally {
+        } finally {
             ircmd?.onDestroy()
             ircmd = null
         }
@@ -290,22 +311,23 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
      * activity
      */
     override fun initVideoRecordFFmpeg() {
-        videoRecord = VideoRecordFFmpeg(
-            cameraView,
-            cameraPreview,
-            temperatureView,
-            curChooseTabPos == 1,
-            cl_seek_bar,
-            temp_bg,
-            compassView, dualView,
-            carView = layCarDetectPrompt
-        )
+        videoRecord =
+            VideoRecordFFmpeg(
+                cameraView,
+                cameraPreview,
+                temperatureView,
+                curChooseTabPos == 1,
+                cl_seek_bar,
+                temp_bg,
+                compassView, dualView,
+                carView = layCarDetectPrompt,
+            )
     }
 
     override fun irStart() {
         if (!isrun) {
             tvTypeInd.isVisible = false
-            startUSB(false,false)
+            startUSB(false, false)
             startISP()
             isrun = true
             // Activity logic
@@ -314,9 +336,11 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
             initIRConfig()
         }
     }
+
     override fun setDispViewData(dualDisp: Int) {
         // thermalSteeringView.moveX = dualDisp
     }
+
     override fun autoConfig() {
         lifecycleScope.launch(Dispatchers.IO) {
             dualView?.let {
@@ -330,8 +354,8 @@ class IRThermalPlusActivity : BaseIRPlushActivity() {
         dismissCameraLoading()
         thermalRecyclerNight.setTempLevel(CameraItemBean.TYPE_TMP_ZD)
     }
+
     override fun switchAutoGain(boolean: Boolean) {
         dualView?.auto_gain_switch = boolean
     }
-
 }

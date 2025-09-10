@@ -14,7 +14,6 @@ import com.topdon.module.thermal.ir.R
  * Created by chenggeng.lin on 2023/12/8.
  */
 class MyGSYVideoPlayer : StandardGSYVideoPlayer {
-
     override fun getLayoutId(): Int = R.layout.view_my_gsy_video_player
 
     constructor(context: Context) : this(context, null)

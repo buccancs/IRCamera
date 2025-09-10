@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.os.Handler
 import android.os.Message
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.animation.*
 import androidx.appcompat.widget.AppCompatTextView
@@ -25,6 +24,7 @@ public class TimeDownView : AppCompatTextView {
     private var delayMills: Long = 0
     private var animationSet: AnimationSet? = null
     var isRunning = false
+
     private fun init() {
         if (animationSet == null) {
             animationSet = AnimationSet(true)
@@ -40,7 +40,7 @@ public class TimeDownView : AppCompatTextView {
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
         context,
         attrs,
-        defStyle
+        defStyle,
     ) {
         init()
     }
@@ -51,20 +51,25 @@ public class TimeDownView : AppCompatTextView {
      * @param seconds
      */
     fun downSecond(seconds: Int) {
-        downSecond(seconds,true)
+        downSecond(seconds, true)
     }
 
-    fun downSecond(seconds: Int,openAnimation: Boolean) {
-        if (seconds == 0){
-            isRunning = false
-            visibility = GONE
-            downTimeWatcher?.onLastTimeFinish(seconds)
-            onFinishListener?.invoke()
-        }else{
-            visibility = VISIBLE
-            isRunning = true
-            downTime(seconds, 1, 0, 1000,openAnimation)
-        }
+    fun downSecond(
+        seconds: Int,
+        openAnimation: Boolean,
+    ) {
+        if (seconds == 0)
+            {
+                isRunning = false
+                visibility = GONE
+                downTimeWatcher?.onLastTimeFinish(seconds)
+                onFinishListener?.invoke()
+            } else
+            {
+                visibility = VISIBLE
+                isRunning = true
+                downTime(seconds, 1, 0, 1000, openAnimation)
+            }
     }
 
     /**
@@ -75,15 +80,22 @@ public class TimeDownView : AppCompatTextView {
      * @param delayMills    view（view）
      * @param intervalMills view（view）
      */
-    fun downTime(downCount: Int, lastDown: Int, delayMills: Long, intervalMills: Long,startAnimate : Boolean) {
+    fun downTime(
+        downCount: Int,
+        lastDown: Int,
+        delayMills: Long,
+        intervalMills: Long,
+        startAnimate: Boolean,
+    ) {
         timer = Timer()
         this.downCount = downCount
         this.lastDown = lastDown
         this.delayMills = delayMills
         this.intervalMills = intervalMills
-        if (startAnimate){
-            initDefaultAnimate()
-        }
+        if (startAnimate)
+            {
+                initDefaultAnimate()
+            }
         downTimerTask = DownTimerTask()
         timer?.schedule(downTimerTask, delayMills, intervalMills)
     }
@@ -131,7 +143,9 @@ public class TimeDownView : AppCompatTextView {
 
     interface DownTimeWatcher {
         fun onTime(num: Int)
+
         fun onLastTime(num: Int)
+
         fun onLastTimeFinish(num: Int)
     }
 
@@ -139,12 +153,11 @@ public class TimeDownView : AppCompatTextView {
      * view.
      */
     var onTimeListener: ((time: Int) -> Unit)? = null
+
     /**
      * view.
      */
     var onFinishListener: (() -> Unit)? = null
-
-
 
     var downTimeWatcher: DownTimeWatcher? = null
 
@@ -178,7 +191,7 @@ public class TimeDownView : AppCompatTextView {
                         }
                     } else if (downCount == lastDown - 1) { // viewlastDownview0，downCount == -1view。
                         // View rendering，viewsetText()viewonDraw，view
-                        //Settingsview
+                        // Settingsview
                         if (afterDownDimissFlag == AFTER_LAST_TIME_DIMISS) {
                             drawTextFlag = DRAW_TEXT_NO
                         }
@@ -247,16 +260,17 @@ public class TimeDownView : AppCompatTextView {
         if (animationSet == null) {
             animationSet = AnimationSet(true)
         }
-        val scaleAnimation = ScaleAnimation(
-            1f,
-            0.5f,
-            1f,
-            0.5f,
-            ScaleAnimation.ABSOLUTE,
-            measuredWidth / 2f,
-            ScaleAnimation.ABSOLUTE,
-            measuredHeight / 2f
-        )
+        val scaleAnimation =
+            ScaleAnimation(
+                1f,
+                0.5f,
+                1f,
+                0.5f,
+                ScaleAnimation.ABSOLUTE,
+                measuredWidth / 2f,
+                ScaleAnimation.ABSOLUTE,
+                measuredHeight / 2f,
+            )
         scaleAnimation.duration = intervalMills
         val alphaAnimation = AlphaAnimation(1f, 0.3f)
         alphaAnimation.duration = intervalMills

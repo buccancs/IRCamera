@@ -1,7 +1,6 @@
 package com.topdon.module.thermal.ir.utils
 
 object ArrayUtils {
-
     /**
      * utility(utility)-Rotateutility
      * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
@@ -9,12 +8,13 @@ object ArrayUtils {
     fun getMaxIndex(
         data: FloatArray,
         rotateType: Int = 0,
-        selectIndexList: ArrayList<Int> = arrayListOf()
+        selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
-        val index = when (rotateType) {
-            1, 2, 3 -> getRotateMaxIndex(data, rotateType, selectIndexList)
-            else -> getMaxIndex(data, selectIndexList)
-        }
+        val index =
+            when (rotateType) {
+                1, 2, 3 -> getRotateMaxIndex(data, rotateType, selectIndexList)
+                else -> getMaxIndex(data, selectIndexList)
+            }
         return index
     }
 
@@ -25,12 +25,13 @@ object ArrayUtils {
     fun getMinIndex(
         data: FloatArray,
         rotateType: Int = 0,
-        selectIndexList: ArrayList<Int> = arrayListOf()
+        selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
-        val index = when (rotateType) {
-            1, 2, 3 -> getRotateMinIndex(data, rotateType, selectIndexList)
-            else -> getMinIndex(data, selectIndexList)
-        }
+        val index =
+            when (rotateType) {
+                1, 2, 3 -> getRotateMinIndex(data, rotateType, selectIndexList)
+                else -> getMinIndex(data, selectIndexList)
+            }
         return index
     }
 
@@ -38,7 +39,10 @@ object ArrayUtils {
      * Rotateutility
      * @param rotateType 1:Rotate90 2:Rotate180  3:Rotate270
      */
-    fun matrixRotate(srcData: FloatArray, rotateType: Int = 0): FloatArray {
+    fun matrixRotate(
+        srcData: FloatArray,
+        rotateType: Int = 0,
+    ): FloatArray {
         return when (rotateType) {
             1 -> matrixRotate90(srcData)
             2 -> matrixRotate180(srcData)
@@ -52,7 +56,7 @@ object ArrayUtils {
      */
     private fun getMaxIndex(
         data: FloatArray,
-        selectIndexList: ArrayList<Int> = arrayListOf()
+        selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
             // Utility functionSpecifiedutility
@@ -78,13 +82,12 @@ object ArrayUtils {
         }
     }
 
-
     /**
      * utility(utility)-utility
      */
     private fun getMinIndex(
         data: FloatArray,
-        selectIndexList: ArrayList<Int> = arrayListOf()
+        selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
             var minIndex = 0
@@ -122,7 +125,7 @@ object ArrayUtils {
     private fun getRotateMaxIndex(
         data: FloatArray,
         rotateType: Int = 0,
-        selectIndexList: ArrayList<Int> = arrayListOf()
+        selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
             val destData = matrixRotate(data, rotateType)
@@ -156,7 +159,7 @@ object ArrayUtils {
     private fun getRotateMinIndex(
         data: FloatArray,
         rotateType: Int = 0,
-        selectIndexList: ArrayList<Int> = arrayListOf()
+        selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
             val destData = matrixRotate(data, rotateType)
@@ -204,7 +207,7 @@ object ArrayUtils {
         val destMatrix = Array(column) { FloatArray(row) }
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[row - 1 - y][x]// Utility functionRotate90utility
+                destMatrix[x][y] = srcMatrix[row - 1 - y][x] // Utility functionRotate90utility
             }
         }
         val data = FloatArray(srcData.size)
@@ -231,7 +234,7 @@ object ArrayUtils {
         val destMatrix = Array(row) { FloatArray(column) }
         for (x in 0 until row) {
             for (y in 0 until column) {
-                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y]// Utility functionRotate180utility
+                destMatrix[x][y] = srcMatrix[row - 1 - x][column - 1 - y] // Utility functionRotate180utility
             }
         }
         val data = FloatArray(srcData.size)
@@ -250,16 +253,16 @@ object ArrayUtils {
     private fun matrixRotate270(srcData: FloatArray): FloatArray {
         val row = 192
         val column = 256
-        val srcMatrix = Array(row) { FloatArray(column) }// Utility function
+        val srcMatrix = Array(row) { FloatArray(column) } // Utility function
         for (i in 0 until row) {
             for (j in 0 until column) {
                 srcMatrix[i][j] = srcData[i * column + j]
             }
         }
-        val destMatrix = Array(column) { FloatArray(row) }// Utility function
+        val destMatrix = Array(column) { FloatArray(row) } // Utility function
         for (x in 0 until column) {
             for (y in 0 until row) {
-                destMatrix[x][y] = srcMatrix[y][column - 1 - x]// Utility functionRotate270utility
+                destMatrix[x][y] = srcMatrix[y][column - 1 - x] // Utility functionRotate270utility
             }
         }
         val data = FloatArray(srcData.size)
@@ -270,5 +273,4 @@ object ArrayUtils {
         }
         return data
     }
-
 }

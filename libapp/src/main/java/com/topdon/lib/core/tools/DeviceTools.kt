@@ -77,14 +77,12 @@ object DeviceTools {
         var usbCameraNumber = 0
         var isTcTsDev = false
         for (usbDevice in deviceList.values) {
-            if ("USB Camera" == usbDevice.productName)
-                {
-                    usbCameraNumber++
-                }
-            if (!isTcTsDev)
-                {
-                    isTcTsDev = usbDevice.isTcTsDevice() && usbManager.hasPermission(usbDevice)
-                }
+            if ("USB Camera" == usbDevice.productName) {
+                usbCameraNumber++
+            }
+            if (!isTcTsDev) {
+                isTcTsDev = usbDevice.isTcTsDevice() && usbManager.hasPermission(usbDevice)
+            }
         }
         return isTcTsDev && usbCameraNumber > 1
     }
@@ -92,7 +90,7 @@ object DeviceTools {
     /**
      * utilityTC001 Lite utility
      */
-    fun isTC001LiteConnect(): Boolean  {
+    fun isTC001LiteConnect(): Boolean {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
         val deviceList: HashMap<String, UsbDevice> = usbManager.deviceList
         for (usbDevice in deviceList.values) {
