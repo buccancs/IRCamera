@@ -20,16 +20,15 @@ object PermissionUtils {
         return when {
             Build.VERSION.SDK_INT >= 34 -> { // Android 14
                 arrayOf(
-                    Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED,
                     Manifest.permission.READ_MEDIA_VIDEO,
-                    Manifest.permission.READ_MEDIA_IMAGES
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
                 )
             }
             Build.VERSION.SDK_INT >= 33 -> { // Android 13
                 arrayOf(
                     Manifest.permission.READ_MEDIA_VIDEO,
-                    Manifest.permission.READ_MEDIA_IMAGES,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    Manifest.permission.READ_MEDIA_IMAGES
                 )
             }
             else -> { // Android 12 and below
@@ -95,11 +94,28 @@ object PermissionUtils {
      * Check if all storage permissions are granted
      */
     fun hasStoragePermissions(): Boolean {
-        return getStoragePermissions().all { permission ->
-            ContextCompat.checkSelfPermission(
+        // For Android 14, check if we have either full access or partial access
+        return if (Build.VERSION.SDK_INT >= 34) {
+            val hasPartialAccess = ContextCompat.checkSelfPermission(
                 BaseApplication.instance,
-                permission
+                Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
             ) == PERMISSION_GRANTED
+            
+            val hasFullAccess = getStoragePermissions().dropLast(1).all { permission ->
+                ContextCompat.checkSelfPermission(
+                    BaseApplication.instance,
+                    permission
+                ) == PERMISSION_GRANTED
+            }
+            
+            hasPartialAccess || hasFullAccess
+        } else {
+            getStoragePermissions().all { permission ->
+                ContextCompat.checkSelfPermission(
+                    BaseApplication.instance,
+                    permission
+                ) == PERMISSION_GRANTED
+            }
         }
     }
     
@@ -128,10 +144,34 @@ object PermissionUtils {
     }
     
     /**
-     * Get list of missing permissions
+     * Get list of missing permissions for a specific type
      */
     fun getMissingPermissions(): List<String> {
         return getAllRequiredPermissions().filter { permission ->
+            ContextCompat.checkSelfPermission(
+                BaseApplication.instance,
+                permission
+            ) != PERMISSION_GRANTED
+        }
+    }
+    
+    /**
+     * Get missing storage permissions only
+     */
+    fun getMissingStoragePermissions(): List<String> {
+        return getStoragePermissions().filter { permission ->
+            ContextCompat.checkSelfPermission(
+                BaseApplication.instance,
+                permission
+            ) != PERMISSION_GRANTED
+        }
+    }
+    
+    /**
+     * Get missing bluetooth permissions only
+     */
+    fun getMissingBluetoothPermissions(): List<String> {
+        return getBluetoothPermissions().filter { permission ->
             ContextCompat.checkSelfPermission(
                 BaseApplication.instance,
                 permission

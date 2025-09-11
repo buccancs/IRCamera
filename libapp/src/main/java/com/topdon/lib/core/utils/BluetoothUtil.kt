@@ -16,7 +16,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.config.DeviceConfig
-import com.topdon.lib.core.tools.PermissionTool
+import com.topdon.lib.core.utils.PermissionUtils
 
 object BluetoothUtil {
     /**
@@ -75,8 +75,8 @@ object BluetoothUtil {
     fun startLeScan(context: Context): Boolean {
         XLog.i("startLeScan()")
 
-        if (!PermissionTool.hasBtPermission(context)) {
-            XLog.e("开始蓝牙扫描-没有相应定位或蓝牙权限!")
+        if (!PermissionUtils.hasBluetoothPermissions()) {
+            XLog.e("开始蓝牙扫描-没有相应蓝牙权限!")
             return false
         }
 
@@ -105,8 +105,8 @@ object BluetoothUtil {
     fun stopLeScan(context: Context): Boolean {
         XLog.i("stopBtScan()")
 
-        if (!PermissionTool.hasBtPermission(context)) {
-            XLog.w("停止蓝牙扫描-没有相应定位或蓝牙权限!")
+        if (!PermissionUtils.hasBluetoothPermissions()) {
+            XLog.w("停止蓝牙扫描-没有相应蓝牙权限!")
             return false
         }
 

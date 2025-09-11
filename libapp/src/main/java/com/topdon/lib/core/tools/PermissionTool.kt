@@ -7,6 +7,7 @@ import com.elvishew.xlog.XLog
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
+import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.R
 import com.topdon.lib.core.dialog.TipDialog
@@ -74,13 +75,7 @@ object PermissionTool {
                         if (context.applicationInfo.targetSdkVersion < 33) Permission.READ_EXTERNAL_STORAGE else Permission.READ_MEDIA_IMAGES,
                     )
                 Type.FILE ->
-                    if (context.applicationInfo.targetSdkVersion < 30) { // Android 10及以下
-                        listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-                    } else if (context.applicationInfo.targetSdkVersion < 33) { // Android 13以下
-                        listOf(Permission.READ_EXTERNAL_STORAGE)
-                    } else { // Android 13及以上
-                        listOf(Permission.READ_MEDIA_VIDEO, Permission.READ_MEDIA_IMAGES)
-                    }
+                    PermissionUtils.getStoragePermissions().toList()
             }
 
         XXPermissions.with(context)
@@ -134,15 +129,10 @@ object PermissionTool {
     }
 
     /**
-     * 判断是否具有 ACCESS_FINE_LOCATION、BLUETOOTH_SCAN、BLUETOOTH_CONNECT 权限。
-     * 低于 Android12 视为具有。
+     * 判断是否具有蓝牙相关权限 - 使用统一权限管理
      */
     fun hasBtPermission(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT < 31) { // 低于 Android12
-            XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION)
-        } else {
-            XXPermissions.isGranted(context, Permission.ACCESS_FINE_LOCATION, Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
-        }
+        return PermissionUtils.hasBluetoothPermissions()
     }
 
     /**
@@ -154,17 +144,7 @@ object PermissionTool {
         isBtFirst: Boolean,
         callback: Callback,
     ) {
-        val permissionList: List<String> =
-            if (Build.VERSION.SDK_INT < 31) { // 低于 Android12
-                arrayListOf(Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION)
-            } else {
-                arrayListOf(
-                    Permission.ACCESS_FINE_LOCATION,
-                    Permission.ACCESS_COARSE_LOCATION,
-                    Permission.BLUETOOTH_SCAN,
-                    Permission.BLUETOOTH_CONNECT,
-                )
-            }
+        val permissionList: List<String> = PermissionUtils.getBluetoothPermissions().toList()
 
         XXPermissions.with(context)
             .permission(permissionList)

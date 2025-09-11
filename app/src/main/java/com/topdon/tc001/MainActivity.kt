@@ -436,42 +436,18 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * 权限检测
-     * 因申请权限前需要弹窗提示用户，所以修改成key value形式
-     * @return key：权限种类 value：具体权限
+     * 权限检测 - 使用统一的权限管理系统
+     * 修改为使用PermissionUtils进行统一权限管理
      */
     private fun getNeedPermissionList(): SparseArray<List<String>> {
         val sparseArray = SparseArray<List<String>>()
         sparseArray.append(R.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))
-        (
-            if (this.applicationInfo.targetSdkVersion >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else {
-                listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-            }
-        ).let {
-            sparseArray.append(R.string.permission_request_storage_app, it)
-        }
+        sparseArray.append(R.string.permission_request_storage_app, PermissionUtils.getStoragePermissions().toList())
         return sparseArray
     }
 
     private fun checkCameraPermission() {
-        if (!PermissionUtils.isVisualUser() &&
-            !XXPermissions.isGranted(
-                this,
-                getNeedPermissionList()[R.string.permission_request_camera_app],
-            )
-        ) {
+        if (!PermissionUtils.hasCameraPermission()) {
             if (BaseApplication.instance.isDomestic()) {
                 if (SharedManager.getMainPermissionsState()) {
                     // 国内版拒绝授权之后就别再授权了华为上架不通过
@@ -541,7 +517,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     private fun checkStoragePermission() {
-        if (!XXPermissions.isGranted(this, getNeedPermissionList()[R.string.permission_request_storage_app])) {
+        if (!PermissionUtils.hasStoragePermissions()) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
                     .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
@@ -559,24 +535,25 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * 动态申请权限
+     * 动态申请存储权限 - 使用统一权限管理
      */
     private fun initStoragePermission() {
+        // For Android 14, check if we already have partial access
         if (PermissionUtils.isVisualUser()) {
             jumpIRActivity()
             return
         }
+        
         XXPermissions.with(this)
-            .permission(
-                getNeedPermissionList()[R.string.permission_request_storage_app],
-            )
+            .permission(getNeedPermissionList()[R.string.permission_request_storage_app])
             .request(
                 object : OnPermissionCallback {
                     override fun onGranted(
                         permissions: MutableList<String>,
                         allGranted: Boolean,
                     ) {
-                        if (allGranted) {
+                        // For Android 14, accept partial permissions as sufficient
+                        if (allGranted || PermissionUtils.hasStoragePermissions()) {
                             jumpIRActivity()
                         }
                     }
