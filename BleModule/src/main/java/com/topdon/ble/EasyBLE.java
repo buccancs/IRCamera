@@ -548,7 +548,7 @@ public class EasyBLE {
         if (checkStatus()) {
             Inspector.requireNonNull(device, "device can't be null");
             Connection connection = connectionMap.remove(device.getAddress());
-            //，
+            // If a connection already exists, release it first to ensure a clean state.
             if (connection != null) {
                 connection.releaseNoEvent();
             }
