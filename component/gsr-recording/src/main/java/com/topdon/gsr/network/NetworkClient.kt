@@ -28,6 +28,8 @@ class NetworkClient(private val context: Context) {
         private const val BROADCAST_TIMEOUT = 5000L
         private const val CONNECTION_TIMEOUT = 10000L
         private const val HEARTBEAT_INTERVAL = 5000L
+        // Prevent OutOfMemory by capping any single message size to 1 MiB
+        private const val MAX_RESPONSE_SIZE = 1 * 1024 * 1024 // 1 MiB
     }
 
     private var socket: Socket? = null
@@ -681,43 +683,50 @@ class NetworkClient(private val context: Context) {
     private suspend fun queryController(host: String): ControllerInfo? =
         withContext(Dispatchers.IO) {
             try {
-                val socket = Socket()
-                socket.connect(InetSocketAddress(host, PC_CONTROLLER_PORT), 2000)
+                var result: ControllerInfo? = null
+                Socket().use { socket ->
+                    socket.soTimeout = 2000
+                    socket.connect(InetSocketAddress(host, PC_CONTROLLER_PORT), 2000)
 
-                val output = DataOutputStream(socket.getOutputStream())
-                val input = DataInputStream(socket.getInputStream())
+                    DataOutputStream(socket.getOutputStream()).use { output ->
+                        DataInputStream(socket.getInputStream()).use { input ->
+                            // Send info query
+                            val query = JSONObject().apply {
+                                put("message_type", "info_query")
+                                put("device_id", deviceId)
+                            }
+                            val queryData = query.toString().toByteArray(Charsets.UTF_8)
+                            // Guard against pathological sizes
+                            if (queryData.size > MAX_RESPONSE_SIZE) {
+                                Log.w(TAG, "[DEBUG_LOG] Query too large (${queryData.size}), skipping host $host")
+                                return@withContext null
+                            }
+                            output.writeInt(queryData.size)
+                            output.write(queryData)
+                            output.flush()
 
-                // Send info query
-                val query =
-                    JSONObject().apply {
-                        put("message_type", "info_query")
-                        put("device_id", deviceId)
+                            // Read response length with bounds checking
+                            val responseLength = input.readInt()
+                            if (responseLength <= 0 || responseLength > MAX_RESPONSE_SIZE) {
+                                Log.w(TAG, "[DEBUG_LOG] Invalid response length $responseLength from $host; ignoring")
+                                return@withContext null
+                            }
+                            val responseData = ByteArray(responseLength)
+                            input.readFully(responseData, 0, responseLength)
+
+                            val response = JSONObject(String(responseData, Charsets.UTF_8))
+                            if (response.optString("message_type") == "info_response") {
+                                result = ControllerInfo(
+                                    ipAddress = host,
+                                    port = PC_CONTROLLER_PORT,
+                                    deviceName = response.optString("device_name", "PC Controller"),
+                                    capabilities = response.optString("capabilities", "").split(",").filter { it.isNotBlank() },
+                                )
+                            }
+                        }
                     }
-
-                val queryData = query.toString().toByteArray(Charsets.UTF_8)
-                output.writeInt(queryData.size)
-                output.write(queryData)
-                output.flush()
-
-                // Read response
-                val responseLength = input.readInt()
-                val responseData = ByteArray(responseLength)
-                input.readFully(responseData)
-
-                val response = JSONObject(String(responseData, Charsets.UTF_8))
-
-                socket.close()
-
-                if (response.optString("message_type") == "info_response") {
-                    ControllerInfo(
-                        ipAddress = host,
-                        port = PC_CONTROLLER_PORT,
-                        deviceName = response.optString("device_name", "PC Controller"),
-                        capabilities = response.optString("capabilities", "").split(","),
-                    )
-                } else {
-                    null
                 }
+                result
             } catch (e: Exception) {
                 Log.d(TAG, "Controller query failed for $host: ${e.message}")
                 null

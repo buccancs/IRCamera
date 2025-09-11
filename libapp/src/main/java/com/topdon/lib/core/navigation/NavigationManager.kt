@@ -176,7 +176,7 @@ object NavigationManager {
                 RouterConfig.GSR_DEMO -> getClassByName("com.topdon.component.gsr.activity.GSRDemoActivity")
 
                 // Gallery and Camera Setting routes
-                RouterConfig.IR_GALLERY_HOME -> getClassByName("com.topdon.module.thermal.ir.activity.IRGalleryActivity")
+                RouterConfig.IR_GALLERY_HOME -> getClassByName("com.topdon.module.thermal.ir.activity.IRGalleryHomeActivity")
                 RouterConfig.IR_CAMERA_SETTING -> getClassByName("com.topdon.module.thermal.ir.activity.IRCameraSettingActivity")
 
                 // Question routes
