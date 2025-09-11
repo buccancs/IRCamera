@@ -205,7 +205,6 @@ dependencies {
     implementation(project(":component:thermal-ir"))   // Thermal IR resources needed by app
     implementation(project(":component:thermal-lite")) // Thermal Lite functionality
     implementation(project(":component:pseudo"))       // Pseudo color functionality needed by app
-    implementation(project(":component:gsr-recording"))
     implementation(project(":component:user"))         // User module for MoreActivity and settings
     implementation(project(":libapp"))
     implementation(project(":libcom"))
@@ -220,8 +219,8 @@ dependencies {
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
 
-    // LocalRepo AAR files moved to app/libs
-    implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
+    // LocalRepo AAR files moved to app/libs - Updated to use latest Topdon SDK
+    implementation(files("libs/libusbirsdk_1.3.7_23051019_standard.aar"))  // Latest Topdon SDK as provided by user
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
     implementation(files("libs/libcommon_1.2.0_24052117.aar"))
     
@@ -262,9 +261,42 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     
-    // Nordic BLE Library for robust Bluetooth communication
+    // Official ShimmerAndroidAPI dependencies with Maven fallback structure
+    // For production: use Maven dependencies when GitHub credentials are configured
+    /*
+    implementation(group = "com.shimmerresearch", name = "shimmerbluetoothmanager", version = "0.11.3_beta") {
+        // excluding org.json which is provided by Android
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+        exclude(group = "org.apache.commons.math")
+    }
+    
+    implementation(group = "com.shimmerresearch", name = "shimmerdriver", version = "0.11.3_beta") {
+        // excluding org.json which is provided by Android
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+    }
+    
+    implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
+    */
+    
+    // Nordic BLE for Shimmer integration (temporary until Maven credentials are configured)
     implementation("no.nordicsemi.android:ble:2.6.1")
     implementation("no.nordicsemi.android:ble-ktx:2.6.1")
+    
+    // Official Shimmer SDK Maven dependencies - commented until GitHub credentials are provided
+    /*
+    implementation(group = "com.shimmerresearch", name = "shimmerbluetoothmanager", version = "0.11.3_beta") {
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+        exclude(group = "org.apache.commons.math")
+    }
+    implementation(group = "com.shimmerresearch", name = "shimmerdriver", version = "0.11.3_beta") {
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+    }
+    implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
+    */
     
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")
