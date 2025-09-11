@@ -87,15 +87,6 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             putExtra("template_id", templateId)
         })
     }
-            }
-
-            override fun onServiceDisconnected(name: ComponentName?) {
-                enhancedRecordingService = null
-                isServiceBound = false
-                Log.i(TAG, "Enhanced recording service disconnected")
-                updateNetworkStatusUI()
-            }
-        }
 
     private val gsrListener = object : GSRRecorder.GSRRecordingListener {
         override fun onRecordingStarted(sessionInfo: SessionInfo) = runOnUiThread {

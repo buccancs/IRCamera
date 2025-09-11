@@ -127,6 +127,25 @@ import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 import kotlin.math.abs
 
+class IRThermalLiteActivity : BaseIRActivity(), View.OnClickListener, ITsTempListener, ILiteListener {
+    
+    private companion object {
+        private const val STANDARD_DELAY_MS = 500L
+        private const val SHORT_DELAY_MS = 200L
+        private const val LONG_DELAY_MS = 2000L
+        private const val VERY_LONG_DELAY_MS = 30000L
+        private const val IMAGE_WIDTH_PORTRAIT = 192
+        private const val IMAGE_WIDTH_LANDSCAPE = 256
+        private const val IMAGE_HEIGHT_PORTRAIT = 256
+        private const val IMAGE_HEIGHT_LANDSCAPE = 192
+        private const val ROTATE_90_DEGREES = 90
+        private const val ROTATE_180_DEGREES = 180
+        private const val ROTATE_270_DEGREES = 270
+        private const val CONTRAST_PERCENTAGE_MULTIPLIER = 100
+        private const val MAX_CONTRAST_VALUE = 255f
+        private const val CUSTOM_PSEUDO_COLOR_INDEX = -1
+    }
+
     private fun setCustomPseudoColorList(
         colorList: IntArray?,
         places: FloatArray?,
@@ -160,7 +179,7 @@ import kotlin.math.abs
                     UnitTools.showUnitValue(it.minTemp),
                     UnitTools.showUnitValue(it.maxTemp),
                 )
-                binding.thermalRecyclerNight.setPseudoColor(-1)
+                binding.thermalRecyclerNight.setPseudoColor(CUSTOM_PSEUDO_COLOR_INDEX)
                 binding.temperatureIvInput.setImageResource(com.topdon.module.thermal.ir.R.drawable.ir_model)
             } else {
                 binding.temperatureIvLock.visibility = View.VISIBLE
@@ -219,7 +238,7 @@ import kotlin.math.abs
                         videoRecord?.stopRecord()
                         isVideo = false
                         videoTimeClose()
-                        delay(500)
+                        delay(STANDARD_DELAY_MS)
                     }
                     NavigationManager.getInstance()
                         .build(RouterConfig.IR_GALLERY_HOME)
@@ -814,12 +833,12 @@ import kotlin.math.abs
         configJob =
             lifecycleScope.launch {
                 while (isConfigWait && isActive) {
-                    delay(200)
+                    delay(SHORT_DELAY_MS)
                 }
-                delay(500)
+                delay(STANDARD_DELAY_MS)
                 IRTool.setAutoShutter(false)
                 // Activity logic
-                IRTool.basicGlobalContrastLevelSet((saveSetBean.contrastValue / 255f * 100).toInt())
+                IRTool.basicGlobalContrastLevelSet((saveSetBean.contrastValue / MAX_CONTRAST_VALUE * CONTRAST_PERCENTAGE_MULTIPLIER).toInt())
                 // Activity logic
                 IRTool.basicMirrorAndFlipStatusSet(saveSetBean.isOpenMirror)
                 binding.thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)

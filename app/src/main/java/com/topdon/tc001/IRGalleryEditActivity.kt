@@ -78,31 +78,34 @@ import com.topdon.module.thermal.ir.R as ThermalIrR
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(), View.OnClickListener, ITsTempListener {
+    
+    private companion object {
+        private const val IMAGE_WIDTH = 256
+        private const val IMAGE_HEIGHT = 192
+        private const val FRAME_BUFFER_SIZE = IMAGE_HEIGHT * IMAGE_WIDTH * 4
+        private const val DEFAULT_PSEUDOCOLOR_MODE = 3
+        private const val DEFAULT_LEFT_VALUE = 0f
+        private const val DEFAULT_RIGHT_VALUE = 10000f
+        private const val DEFAULT_MAX_VALUE = 10000f
+        private const val DEFAULT_MIN_VALUE = 0f
+    }
+    
     private var isShowC: Boolean = false
-
-    /**
-     * activity，Currentactivity TC007 activityType.
-     * true-TC007 false-activity
-     */
-    private var isTC007 = false
-
-    private val imageWidth = 256
-    private val imageHeight = 192
+    private var isTC007 = false // TC007 activity type flag
+    
     private val viewModel: IRGalleryEditViewModel by viewModels()
     private var filePath = ""
-
-    //    private var mCapital = ByteArray(1024)
-    private var mFrame = ByteArray(192 * 256 * 4)
+    private var mFrame = ByteArray(FRAME_BUFFER_SIZE)
     private val frameTool by lazy { FrameTool() }
 
-    // Private instance variable
-    private var pseudocodeMode = 3
-    private var leftValue = 0f
-    private var rightValue = 10000f
-    private var max = 10000f
-    private var min = 0f
+    // Temperature and display parameters
+    private var pseudocodeMode = DEFAULT_PSEUDOCOLOR_MODE
+    private var leftValue = DEFAULT_LEFT_VALUE
+    private var rightValue = DEFAULT_RIGHT_VALUE
+    private var max = DEFAULT_MAX_VALUE
+    private var min = DEFAULT_MIN_VALUE
     private var rotate = ImageParams.ROTATE_270
-    private var struct: FrameStruct = FrameStruct() // Private instance variable
+    private var struct: FrameStruct = FrameStruct()
     private var ts_data_H: ByteArray? = null
     private var ts_data_L: ByteArray? = null
 
