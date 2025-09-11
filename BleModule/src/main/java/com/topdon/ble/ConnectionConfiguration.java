@@ -84,7 +84,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * ，MAC，，
+     * The number of times to reconnect directly using the MAC address without scanning. After this limit is reached, the system will resume scanning for the device before connecting.
      */
     public ConnectionConfiguration setReconnectImmediatelyMaxTimes(int reconnectImmediatelyMaxTimes) {
         this.reconnectImmediatelyMaxTimes = reconnectImmediatelyMaxTimes;
