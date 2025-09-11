@@ -13,16 +13,13 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-// Official ShimmerAndroidAPI imports for Shimmer3 GSR+ integration
-import com.shimmerresearch.android.Shimmer
-import com.shimmerresearch.android.manager.ShimmerBluetoothManager
-import com.shimmerresearch.android.manager.ShimmerBluetoothManagerCallback
-import com.shimmerresearch.driver.Configuration
+// Official ShimmerAndroidAPI imports via Maven dependencies
 import com.shimmerresearch.driver.ShimmerDevice
 import com.shimmerresearch.driver.ObjectCluster
-import com.shimmerresearch.driver.Configuration.COMMUNICATION_TYPE
-import com.shimmerresearch.driverUtilities.SensorDetails
-import com.shimmerresearch.driverUtilities.ShimmerVerDetails.HW_ID
+import com.shimmerresearch.driver.Configuration
+import com.shimmerresearch.android.Shimmer
+import com.shimmerresearch.android.manager.ShimmerBluetoothManagerAndroid
+import com.shimmerresearch.driverUtilities.ShimmerVerDetails
 
 /**
  * GSR (Galvanic Skin Response) sensor recorder using official ShimmerAndroidAPI for Shimmer3 GSR+ integration.

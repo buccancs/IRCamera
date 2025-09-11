@@ -220,7 +220,7 @@ dependencies {
     kapt(libs.arouter.compiler)
 
     // LocalRepo AAR files moved to app/libs
-    implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))
+    implementation(files("libs/libusbirsdk_1.3.7_23051019_standard.aar"))  // Updated Topdon SDK
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
     implementation(files("libs/libcommon_1.2.0_24052117.aar"))
     
@@ -261,8 +261,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     
-    // Official ShimmerAndroidAPI for Shimmer3 GSR+ integration  
-    implementation(files("libs/ShimmerAndroidAPI-v3.2.4Beta.aar"))
+    // Official ShimmerAndroidAPI for Shimmer3 GSR+ integration (local AAR files)
+    // NOTE: Update these to actual Maven dependencies when GitHub credentials are available
+    implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
+    implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))
+    implementation(files("libs/shimmerandroidinstrumentdriver-3.2.2_beta.aar"))
     
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")
