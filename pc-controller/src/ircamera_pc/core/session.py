@@ -33,7 +33,7 @@ class SessionMetadata:
     session_id: str
     name: str
     state: str
-    created_at: float
+    created_at: Union[float, str]
     started_at: Optional[float] = None
     ended_at: Optional[float] = None
     description: Optional[str] = None
@@ -43,6 +43,11 @@ class SessionMetadata:
     data_files: List[str] = field(default_factory=list)
     session_notes: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
+    # Missing fields referenced in methods
+    gsr_mode: str = "local"
+    devices: List[Dict[str, Any]] = field(default_factory=list)
+    files: List[Dict[str, Any]] = field(default_factory=list)
+    sync_events: List[Dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert session metadata to dictionary."""
@@ -72,13 +77,19 @@ class SessionManager:
         self._data_root.mkdir(parents=True, exist_ok=True)
         logger.debug(f"Data root directory ensured: {self._data_root}")
 
-    def create_session(self, name: Optional[str] = None, description: Optional[str] = None) -> SessionMetadata:
+    def create_session(
+        self,
+        name: Optional[str] = None,
+        description: Optional[str] = None
+    ) -> SessionMetadata:
         """Create a new recording session."""
         if self._current_session and self._current_session.state in [
             SessionState.ACTIVE.value,
             SessionState.RECORDING.value,
         ]:
-            raise ValueError("Cannot create new session: another session is active")
+            raise ValueError(
+                "Cannot create new session: another session is active"
+            )
 
         # Generate session ID and name
         session_id = str(uuid.uuid4())
@@ -90,7 +101,8 @@ class SessionManager:
             session_id=session_id,
             name=name,
             state=SessionState.IDLE.value,
-            created_at=datetime.now(timezone.utc).isoformat(),
+            created_at=datetime.now(timezone.utc).timestamp(),
+            description=description,
             gsr_mode=config.get("gsr.default_mode", "local"),
         )
 
@@ -105,7 +117,24 @@ class SessionManager:
         return self._current_session
 
     def start_session(self) -> None:
+        """Start the current session."""
+        if not self._current_session:
+            raise ValueError("No active session")
 
+        if self._current_session.state != SessionState.IDLE.value:
+            raise ValueError(
+                f"Cannot start session in state: {self._current_session.state}"
+            )
+
+        self._current_session.state = SessionState.ACTIVE.value
+        self._current_session.started_at = datetime.now(timezone.utc).timestamp()
+
+        self._save_metadata()
+        self._notify_state_change("session_started")
+        logger.info(f"Session started: {self._current_session.name}")
+
+    def add_device(self, device_info: Dict[str, Any]) -> None:
+        """Add device to current session."""
         if not self._current_session:
             raise ValueError("No active session")
 
@@ -149,7 +178,19 @@ class SessionManager:
         logger.info(f"Sync event added: {event_type}")
 
     def get_current_session(self) -> Optional[SessionMetadata]:
+        """Get current session metadata."""
+        return self._current_session
 
+    def get_session_directory(self, session_id: Optional[str] = None) -> Path:
+        """
+        Get session directory path.
+
+        Args:
+            session_id: Session ID. If None, uses current session.
+
+        Returns:
+            Path to session directory
+        """
         if session_id is None:
             if not self._current_session:
                 raise ValueError("No current session")
@@ -158,7 +199,11 @@ class SessionManager:
         return self._get_session_directory(session_id)
 
     def _get_session_directory(self, session_id: str) -> Path:
+        """Get session directory path."""
+        return self._data_root / session_id
 
+    def load_session(self, session_id: str) -> Optional[SessionMetadata]:
+        """Load session metadata from disk."""
         metadata_file = self._get_session_directory(session_id) / "metadata.json"
 
         try:
@@ -175,8 +220,32 @@ class SessionManager:
             logger.error(f"Failed to load session metadata: {e}")
             return None
 
-    def list_sessions(self) -> List[str]:
+    def _save_metadata(self) -> None:
+        """Save current session metadata to disk."""
+        if not self._current_session:
+            return
 
+        session_dir = self._get_session_directory(self._current_session.session_id)
+        session_dir.mkdir(parents=True, exist_ok=True)
+
+        metadata_file = session_dir / "metadata.json"
+        try:
+            with open(metadata_file, "w", encoding="utf-8") as f:
+                json.dump(self._current_session.to_dict(), f, indent=2)
+        except (OSError, ValueError) as e:
+            logger.error(f"Failed to save session metadata: {e}")
+
+    def _notify_state_change(self, event_type: str) -> None:
+        """Notify registered callbacks of state changes."""
+        callbacks = self._state_callbacks.get(event_type, [])
+        for callback in callbacks:
+            try:
+                callback(self._current_session)
+            except Exception as e:
+                logger.error(f"Callback error for {event_type}: {e}")
+
+    def list_sessions(self) -> List[str]:
+        """List all available session IDs."""
         sessions = []
 
         try:
