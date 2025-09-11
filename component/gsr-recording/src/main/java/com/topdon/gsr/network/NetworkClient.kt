@@ -287,6 +287,88 @@ class NetworkClient(private val context: Context) {
             Log.e(TAG, "Error during disconnect", e)
         }
     }
+
+    /**
+     * Set network event listener
+     */
+    fun setEventListener(listener: NetworkEventListener?) {
+        // Store listener reference for future use
+        // For now, just log the listener registration
+        Log.d(TAG, "Network event listener set: $listener")
+    }
+
+    /**
+     * Start data streaming with PC Controller
+     */
+    suspend fun startDataStreaming(): Boolean = withContext(Dispatchers.IO) {
+        try {
+            if (!isConnected) {
+                Log.w(TAG, "Cannot start data streaming: not connected")
+                return@withContext false
+            }
+
+            val message = JSONObject().apply {
+                put("type", "start_data_streaming")
+                put("timestamp", System.currentTimeMillis())
+            }
+            
+            sendMessage(message)
+            Log.d(TAG, "Data streaming start request sent")
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to start data streaming", e)
+            false
+        }
+    }
+
+    /**
+     * Send measurement data to controller
+     */
+    suspend fun sendMeasurementData(sessionId: String, data: JSONObject): Boolean = withContext(Dispatchers.IO) {
+        try {
+            if (!isConnected) {
+                Log.w(TAG, "Cannot send measurement data: not connected")
+                return@withContext false
+            }
+
+            val message = JSONObject().apply {
+                put("type", "measurement_data")
+                put("session_id", sessionId)
+                put("data", data)
+                put("timestamp", System.currentTimeMillis())
+            }
+            
+            sendMessage(message)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to send measurement data", e)
+            false
+        }
+    }
+
+    /**
+     * Get synchronized timestamp
+     */
+    fun getSynchronizedTimestamp(): Long {
+        // For now, return system time. In a full implementation, this would
+        // return the synchronized timestamp based on time sync with PC Controller
+        return System.currentTimeMillis()
+    }
+}
+
+/**
+ * Network event listener interface
+ */
+interface NetworkEventListener {
+    fun onControllerDiscovered(controller: ControllerInfo)
+    fun onConnected(controller: ControllerInfo)
+    fun onDisconnected(reason: String)
+    fun onConnectionError(error: String)
+    fun onTimeSynchronized(offsetNanoseconds: Long)
+    fun onDataStreamingStarted()
+    fun onDataStreamingStopped()
+    fun onSyncFlash(durationMs: Int)
+    fun onPairingRequested(controllerId: String, controllerName: String)
+    fun onPairingCompleted(controllerId: String, success: Boolean)
 }
 
 /**

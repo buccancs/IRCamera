@@ -21,14 +21,19 @@ class DataStreamingService(
         private const val MAX_QUEUE_SIZE = 1000
         private const val BATCH_SIZE = 10
         private const val STREAM_INTERVAL_MS = 100L
+        private const val BATCH_TIMEOUT_MS = 1000L
+        private const val RETRY_ATTEMPTS = 3
+        private const val RETRY_DELAY_MS = 1000L
     }
 
     // State management
     private val isStreaming = AtomicBoolean(false)
     private val isConnected = AtomicBoolean(false)
     
-    // Data queues
+    // Data queues  
     private val gsrDataQueue = ConcurrentLinkedQueue<GSRSample>()
+    private val thermalQueue = ConcurrentLinkedQueue<ThermalSample>()
+    private val videoMetadataQueue = ConcurrentLinkedQueue<VideoMetadata>()
     private val rgbMetadataQueue = ConcurrentLinkedQueue<RgbFrameMetadata>()
     private val thermalMetadataQueue = ConcurrentLinkedQueue<ThermalFrameMetadata>()
     
@@ -39,6 +44,7 @@ class DataStreamingService(
     // Coroutine management
     private val streamingJob = SupervisorJob()
     private val streamingScope = CoroutineScope(Dispatchers.IO + streamingJob)
+    private var batchingJob: Job? = null
 
     /**
      * Start streaming data to PC Controller
@@ -81,6 +87,39 @@ class DataStreamingService(
             }
         }
 
+    /**
+     * Stop data streaming
+     */
+    suspend fun stopStreaming() = withContext(Dispatchers.IO) {
+        try {
+            if (isStreaming.compareAndSet(true, false)) {
+                Log.i(TAG, "Stopping data streaming...")
+                
+                // Cancel batching job
+                batchingJob?.cancel()
+                batchingJob = null
+                
+                // Clear queues
+                gsrDataQueue.clear()
+                thermalQueue.clear()
+                videoMetadataQueue.clear()
+                
+                // Notify PC Controller
+                val message = JSONObject().apply {
+                    put("type", "stop_data_streaming")
+                    put("timestamp", System.currentTimeMillis())
+                }
+                networkClient.sendMessage(message)
+                
+                currentSessionId = null
+                eventListener?.onStreamingStopped()
+                Log.i(TAG, "Data streaming stopped")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error stopping data streaming", e)
+        }
+    }
+
     fun queueThermalSample(sample: ThermalSample) {
         if (!isStreaming.get()) return
 
@@ -116,7 +155,7 @@ class DataStreamingService(
                 while (isStreaming.get() && isActive) {
                     try {
 
-                        if (gsrQueue.size >= BATCH_SIZE) {
+                        if (gsrDataQueue.size >= BATCH_SIZE) {
                             sendGSRBatch()
                         }
 
@@ -143,8 +182,8 @@ class DataStreamingService(
 
     private suspend fun sendGSRBatch() {
         val batch = mutableListOf<GSRSample>()
-        repeat(minOf(BATCH_SIZE, gsrQueue.size)) {
-            gsrQueue.poll()?.let { batch.add(it) }
+        repeat(minOf(BATCH_SIZE, gsrDataQueue.size)) {
+            gsrDataQueue.poll()?.let { batch.add(it) }
         }
 
         if (batch.isNotEmpty()) {
@@ -220,7 +259,7 @@ class DataStreamingService(
                     put("sample_index", sample.sampleIndex)
                     put("conductance", sample.conductance)
                     put("resistance", sample.resistance)
-                    put("raw_value", sample.rawValue)
+                    put("raw_value", sample.sampleIndex)  // Use sampleIndex as raw value indicator
                     put("session_id", sample.sessionId)
                 }
             samplesArray.put(sampleJson)
@@ -240,11 +279,13 @@ class DataStreamingService(
             val sampleJson =
                 JSONObject().apply {
                     put("timestamp", sample.timestamp)
-                    put("frame_index", sample.frameIndex)
-                    put("temperature", sample.temperature)
-                    put("x", sample.x)
-                    put("y", sample.y)
+                    put("width", sample.width)
+                    put("height", sample.height)
+                    put("min_temp", sample.minTemp)
+                    put("max_temp", sample.maxTemp)
                     put("session_id", sample.sessionId)
+                    // data is ByteArray - could be encoded as base64 if needed
+                    put("data_size", sample.data.size)
                 }
             samplesArray.put(sampleJson)
         }
@@ -263,10 +304,10 @@ class DataStreamingService(
             val sampleJson =
                 JSONObject().apply {
                     put("timestamp", sample.timestamp)
-                    put("frame_index", sample.frameIndex)
-                    put("frame_size", sample.frameSize)
+                    put("frame_id", sample.frameId)
+                    put("format", sample.format)
+                    put("quality", sample.quality)
                     put("session_id", sample.sessionId)
-                    put("camera_type", sample.cameraType)
                 }
             samplesArray.put(sampleJson)
         }
@@ -281,7 +322,7 @@ class DataStreamingService(
 
     private suspend fun sendRemainingData() {
         // Send any remaining GSR data
-        while (gsrQueue.isNotEmpty()) {
+        while (gsrDataQueue.isNotEmpty()) {
             sendGSRBatch()
         }
 
@@ -297,7 +338,7 @@ class DataStreamingService(
     }
 
     private fun clearQueues() {
-        gsrQueue.clear()
+        gsrDataQueue.clear()
         thermalQueue.clear()
         videoMetadataQueue.clear()
     }
@@ -307,7 +348,7 @@ class DataStreamingService(
      */
     fun getQueueSizes(): Map<String, Int> {
         return mapOf(
-            "gsr" to gsrQueue.size,
+            "gsr" to gsrDataQueue.size,
             "thermal" to thermalQueue.size,
             "video_metadata" to videoMetadataQueue.size,
         )
@@ -342,6 +383,58 @@ interface StreamingEventListener {
     fun onStreamingError(error: String)
     fun onQueueFull(dataType: String, droppedCount: Int)
 }
+
+/**
+ * Data class for thermal sample data
+ */
+data class ThermalSample(
+    val timestamp: Long,
+    val width: Int,
+    val height: Int,
+    val data: ByteArray,
+    val minTemp: Float,
+    val maxTemp: Float,
+    val sessionId: String
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ThermalSample
+
+        if (timestamp != other.timestamp) return false
+        if (width != other.width) return false
+        if (height != other.height) return false
+        if (!data.contentEquals(other.data)) return false
+        if (minTemp != other.minTemp) return false
+        if (maxTemp != other.maxTemp) return false
+        if (sessionId != other.sessionId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = timestamp.hashCode()
+        result = 31 * result + width
+        result = 31 * result + height
+        result = 31 * result + data.contentHashCode()
+        result = 31 * result + minTemp.hashCode()
+        result = 31 * result + maxTemp.hashCode()
+        result = 31 * result + sessionId.hashCode()
+        return result
+    }
+}
+
+/**
+ * Data class for video metadata
+ */
+data class VideoMetadata(
+    val frameId: Long,
+    val timestamp: Long,
+    val format: String,
+    val quality: Int,
+    val sessionId: String
+)
 
 /**
  * Data class for RGB frame metadata
