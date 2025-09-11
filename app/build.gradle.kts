@@ -261,24 +261,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     
-    // Official ShimmerAndroidAPI integration (Nordic BLE backend ready for SDK migration)
-    // Using Nordic BLE with Shimmer protocol until real ShimmerAndroidAPI AAR is available
-    implementation("no.nordicsemi.android:ble:2.6.1")
-    implementation("no.nordicsemi.android:ble-ktx:2.6.1")
-    
-    // Ready for migration to official Shimmer SDK when Maven credentials are configured:
-    /*
-    implementation(group = "com.shimmerresearch", name = "shimmerbluetoothmanager", version = "0.11.3_beta") {
-        exclude(group = "io.netty")
-        exclude(group = "com.google.protobuf")
-        exclude(group = "org.apache.commons.math")
-    }
-    implementation(group = "com.shimmerresearch", name = "shimmerdriver", version = "0.11.3_beta") {
-        exclude(group = "io.netty")
-        exclude(group = "com.google.protobuf")
-    }
-    implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
-    */
+    // GSR Recording backup module with complete Shimmer SDK implementation
+    implementation(project(":component:gsr-recording"))
     
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")

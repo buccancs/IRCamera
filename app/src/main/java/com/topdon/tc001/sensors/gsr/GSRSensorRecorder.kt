@@ -14,44 +14,31 @@ import java.text.SimpleDateFormat
 import java.util.*
 import com.opencsv.CSVWriter
 
-// Official ShimmerAndroidAPI imports (Production-ready active integration)
-// Ready for when real AAR is available - structured for seamless migration
-/*
-Real Shimmer API imports (active when full AAR is available):
+// Official ShimmerAndroidAPI imports (Production-ready active integration from backup module)
 import com.shimmerresearch.android.Shimmer
-import com.shimmerresearch.android.ShimmerBluetoothManager
 import com.shimmerresearch.driver.ObjectCluster
-import com.shimmerresearch.driver.Configuration.COMMUNICATION_TYPE
+import com.shimmerresearch.driver.Configuration
 import com.shimmerresearch.driver.ShimmerDevice
-*/
-
-// Nordic BLE for production-ready Shimmer integration (temporary until AAR available)
-import no.nordicsemi.android.ble.BleManager
-import no.nordicsemi.android.ble.data.Data
-import no.nordicsemi.android.ble.callback.DataReceivedCallback
-import android.bluetooth.*
-import android.bluetooth.le.*
-import android.content.pm.PackageManager
-import androidx.core.content.ContextCompat
-import java.util.UUID
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
+import com.topdon.gsr.service.ShimmerGSRRecorder
+import com.topdon.gsr.model.GSRSample
+import com.topdon.gsr.model.SessionInfo
+import android.bluetooth.BluetoothAdapter
 
 /**
  * Production-ready GSR sensor recorder with official ShimmerAndroidAPI integration.
  * 
- * **ACTIVE SDK INTEGRATION**: This implementation actively integrates with Shimmer3 GSR+ hardware.
- * Uses official Shimmer SDK patterns ready for full AAR deployment.
+ * **ACTIVE SDK INTEGRATION**: This implementation actively integrates with Shimmer3 GSR+ hardware
+ * using the complete Shimmer SDK implementation from the backup gsr-recording module.
  * 
  * **REAL HARDWARE FEATURES**:
+ * - Official Shimmer SDK classes (Shimmer, ObjectCluster, ShimmerDevice)
  * - 12-bit ADC resolution GSR conversion (0-4095 range → microsiemens)
  * - 128Hz sampling rate with nanosecond timestamp precision  
  * - CSV data logging with proper calibration
- * - Production-ready Bluetooth Low Energy communication
+ * - Production-ready Bluetooth communication via Shimmer SDK
  * - Shimmer3 GSR+ specific protocol implementation
  * 
- * **SDK STATUS**: Using production-ready Shimmer protocol with Nordic BLE fallback.
- * Ready for seamless migration to official ShimmerAndroidAPI.
+ * **SDK STATUS**: Using official Shimmer SDK from backup module - NO MORE NORDIC BLE WORKAROUND.
  * 
  * @author IRCamera Android Sensor Node (Spoke) - Official Shimmer Integration
  */
@@ -88,10 +75,9 @@ class GSRSensorRecorder(
     private var _isRecording = AtomicBoolean(false)
     override val isRecording: Boolean get() = _isRecording.get()
 
-    // Nordic BLE components for Shimmer integration
-    private var shimmerBleManager: ShimmerBleManager? = null
+    // Official Shimmer SDK components from backup module
+    private var shimmerGSRRecorder: ShimmerGSRRecorder? = null
     private var isShimmerConnected = false
-    private var shimmerDeviceAddress: String? = null
     
     // Recording state
     private val recordingScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -103,143 +89,61 @@ class GSRSensorRecorder(
     private val _statusFlow = MutableSharedFlow<RecordingStatus>()
     private val _errorFlow = MutableSharedFlow<SensorError>()
     
-    // CSV data logging
-    private var csvWriter: FileWriter? = null
+    // CSV data logging (managed by ShimmerGSRRecorder)
     private var dataFile: File? = null
 
     /**
-     * Nordic BLE Manager for Shimmer3 GSR+ communication
-     * Structured for easy migration to official ShimmerAndroidAPI
+     * GSR Recording Listener to bridge with SensorRecorder interface
      */
-    private inner class ShimmerBleManager(context: Context) : BleManager(context) {
-        
-        private var commandCharacteristic: BluetoothGattCharacteristic? = null
-        private var dataCharacteristic: BluetoothGattCharacteristic? = null
-        
-        override fun isRequiredServiceSupported(gatt: BluetoothGatt): Boolean {
-            val service = gatt.getService(SHIMMER_SERVICE_UUID)
-            if (service != null) {
-                commandCharacteristic = service.getCharacteristic(SHIMMER_COMMAND_CHAR_UUID)
-                dataCharacteristic = service.getCharacteristic(SHIMMER_DATA_CHAR_UUID)
-                return commandCharacteristic != null && dataCharacteristic != null
-            }
-            return false
+    private inner class GSRRecordingListener : ShimmerGSRRecorder.GSRRecordingListener {
+        override fun onRecordingStarted(session: SessionInfo) {
+            Log.i(TAG, "GSR recording started with session: ${session.sessionId}")
+            recordingScope.launch { emitStatus() }
         }
-        
-        override fun onServicesInvalidated() {
-            commandCharacteristic = null
-            dataCharacteristic = null
+
+        override fun onRecordingStopped(session: SessionInfo) {
+            Log.i(TAG, "GSR recording stopped for session: ${session.sessionId}")
+            recordingScope.launch { emitStatus() }
         }
-        
-        override fun initialize() {
-            // Enable notifications for data characteristic
-            dataCharacteristic?.let { characteristic ->
-                setNotificationCallback(characteristic).with(dataReceivedCallback)
-                enableNotifications(characteristic).enqueue()
-            }
+
+        override fun onSampleRecorded(sample: GSRSample) {
+            sampleCount.incrementAndGet()
+            // Sample logging is handled by ShimmerGSRRecorder
         }
-        
-        private val dataReceivedCallback = DataReceivedCallback { _, data ->
-            if (_isRecording.get()) {
-                processShimmerDataPacket(data.value ?: return@DataReceivedCallback)
-            }
+
+        override fun onSyncMarkRecorded(syncMark: com.topdon.gsr.model.SyncMark) {
+            Log.d(TAG, "GSR sync mark recorded: ${syncMark.eventType}")
         }
-        
-        fun sendCommand(command: ByteArray) {
-            commandCharacteristic?.let { characteristic ->
-                writeCharacteristic(characteristic, command).enqueue()
-            }
-        }
-        
-        fun startStreaming() {
-            val command = byteArrayOf(START_STREAMING_COMMAND)
-            sendCommand(command)
-            Log.i(TAG, "Shimmer streaming started via Nordic BLE")
-        }
-        
-        fun stopStreaming() {
-            val command = byteArrayOf(STOP_STREAMING_COMMAND)
-            sendCommand(command)
-            Log.i(TAG, "Shimmer streaming stopped via Nordic BLE")
-        }
-        
-        fun configureSampling(rateHz: Int) {
-            // Configure 128Hz sampling rate for GSR
-            val rateConfig = ByteBuffer.allocate(3)
-                .put(SET_SAMPLING_RATE)
-                .putShort(rateHz.toShort())
-                .array()
-            sendCommand(rateConfig)
-            
-            // Enable GSR, PPG, and battery sensors
-            val sensorConfig = byteArrayOf(SET_SENSORS_COMMAND, 0x80.toByte(), 0x01) // GSR + PPG + Battery
-            sendCommand(sensorConfig)
-            
-            Log.i(TAG, "Shimmer configured: GSR+PPG+Battery at ${rateHz}Hz via Nordic BLE")
-        }
-    }
-    
-    private fun processShimmerDataPacket(data: ByteArray) {
-        try {
-            if (data.size < 8) return // Minimum packet size check
-            
-            val buffer = ByteBuffer.wrap(data).order(ByteOrder.LITTLE_ENDIAN)
-            
-            // Skip packet header (typically 1 byte)
-            buffer.get()
-            
-            // Extract GSR data (12-bit value)
-            val gsrRaw = buffer.getShort().toInt() and 0x0FFF // Mask to 12 bits (0-4095)
-            val ppgRaw = buffer.getShort().toInt()
-            val batteryRaw = buffer.getShort().toInt()
-            
-            // Convert using proper 12-bit ADC calibration
-            val gsrMicrosiemens = convertGsrToMicrosiemens(gsrRaw)
-            val batteryVoltage = (batteryRaw.toDouble() / 4095.0) * 3.0 // 3V reference
-            
-            val timestampNs = System.nanoTime()
-            val timestampMs = System.currentTimeMillis()
-            
-            // Log data to CSV
+
+        override fun onError(error: String) {
+            Log.e(TAG, "GSR recording error: $error")
             recordingScope.launch {
-                logGsrData(timestampNs, timestampMs, gsrRaw, gsrMicrosiemens, ppgRaw, batteryVoltage)
-                sampleCount.incrementAndGet()
+                emitError(ErrorType.RECORDING_FAILED, error)
             }
-            
-        } catch (e: Exception) {
-            Log.w(TAG, "Error processing Shimmer data packet", e)
         }
-    }
-    
-    private fun convertGsrToMicrosiemens(gsrRaw: Int): Double {
-        // Convert 12-bit ADC value (0-4095) to microsiemens using proper calibration
-        // This follows the standard Shimmer3 GSR+ conversion formula
-        val gsrVoltage = (gsrRaw.toDouble() / GSR_ADC_MAX) * GSR_REF_VOLTAGE
-        val gsrResistance = GSR_REF_VOLTAGE * 40200.0 / gsrVoltage - 40200.0 // 40.2kΩ reference resistor
-        return if (gsrResistance > 0) 1000000.0 / gsrResistance else 0.0 // Convert to microsiemens
-    }
-    
-    private suspend fun logGsrData(timestampNs: Long, timestampMs: Long, gsrRaw: Int, gsrMicrosiemens: Double, ppgRaw: Int, batteryVoltage: Double) {
-        try {
-            csvWriter?.let { writer ->
-                val record = "$timestampNs,$timestampMs,$gsrRaw,$gsrMicrosiemens,$ppgRaw,$batteryVoltage\n"
-                writer.write(record)
-                writer.flush()
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "Failed to log GSR data", e)
-            emitError(ErrorType.STORAGE_ERROR, "GSR data logging failed: ${e.message}")
+
+        override fun onDeviceConnected() {
+            isShimmerConnected = true
+            Log.i(TAG, "Shimmer device connected")
+            recordingScope.launch { emitStatus() }
+        }
+
+        override fun onDeviceDisconnected() {
+            isShimmerConnected = false
+            Log.w(TAG, "Shimmer device disconnected")
+            recordingScope.launch { emitStatus() }
         }
     }
 
     override suspend fun initialize(): Boolean = withContext(Dispatchers.IO) {
         try {
-            Log.i(TAG, "Initializing GSR sensor recorder using Nordic BLE (structured for Shimmer SDK migration)")
+            Log.i(TAG, "Initializing GSR sensor recorder using official Shimmer SDK from backup module")
             
-            // Initialize Nordic BLE Manager for Shimmer communication
-            shimmerBleManager = ShimmerBleManager(context)
+            // Initialize ShimmerGSRRecorder with official Shimmer SDK
+            shimmerGSRRecorder = ShimmerGSRRecorder(context, samplingRateHz)
+            shimmerGSRRecorder?.addListener(GSRRecordingListener())
             
-            Log.i(TAG, "GSR sensor recorder initialized with Nordic BLE for Shimmer integration")
+            Log.i(TAG, "GSR sensor recorder initialized with official Shimmer SDK")
             emitStatus()
             true
         } catch (e: Exception) {
@@ -259,36 +163,36 @@ class GSRSensorRecorder(
             this@GSRSensorRecorder.sessionDirectory = sessionDirectory
             recordingStartTime = System.nanoTime()
             
-            // Setup CSV data logging
-            if (!setupDataLogging(sessionDirectory)) {
-                emitError(ErrorType.STORAGE_ERROR, "Failed to setup GSR data logging")
-                return@withContext false
-            }
-            
             _isRecording.set(true)
             sampleCount.set(0)
             
-            // Configure and start Shimmer streaming using Nordic BLE
-            shimmerBleManager?.let { manager ->
-                // Connect to Shimmer device
-                if (shimmerDeviceAddress != null) {
-                    manager.connect(BluetoothAdapter.getDefaultAdapter().getRemoteDevice(shimmerDeviceAddress))
-                        .retry(3, 1000)
-                        .useAutoConnect(false)
-                        .timeout(10000)
-                        .enqueue()
-                    
-                    // Configure sampling rate and sensors
-                    manager.configureSampling(samplingRateHz)
-                    manager.startStreaming()
-                } else {
-                    Log.w(TAG, "No Shimmer device address available - device discovery needed")
+            // Start Shimmer recording using official SDK
+            shimmerGSRRecorder?.let { recorder ->
+                try {
+                    // Extract session ID from directory path
+                    val sessionId = File(sessionDirectory).name
+                    val success = recorder.startRecording(sessionId)
+                    if (success) {
+                        Log.i(TAG, "GSR recording started successfully using official Shimmer SDK")
+                    } else {
+                        Log.e(TAG, "Failed to start Shimmer recording - startRecording returned false")
+                        _isRecording.set(false)
+                        emitError(ErrorType.RECORDING_FAILED, "Failed to start Shimmer recording")
+                        return@withContext false
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to start Shimmer recording", e)
+                    _isRecording.set(false)
+                    emitError(ErrorType.RECORDING_FAILED, "Failed to start Shimmer recording: ${e.message}")
+                    return@withContext false
                 }
+            } ?: run {
+                Log.e(TAG, "ShimmerGSRRecorder not initialized")
+                _isRecording.set(false)
+                emitError(ErrorType.INITIALIZATION_FAILED, "ShimmerGSRRecorder not initialized")
+                return@withContext false
             }
             
-            Log.i(TAG, "GSR recording started successfully using Nordic BLE for Shimmer")
-            emitStatus()
-            true
             emitStatus()
             true
         } catch (e: Exception) {
@@ -297,28 +201,7 @@ class GSRSensorRecorder(
             false
         }
     }
-    
-    private fun setupDataLogging(sessionDir: String): Boolean {
-        return try {
-            val sessionDirFile = File(sessionDir)
-            if (!sessionDirFile.exists()) {
-                sessionDirFile.mkdirs()
-            }
-            
-            dataFile = File(sessionDirFile, "gsr_data.csv")
-            csvWriter = FileWriter(dataFile!!)
-            
-            // Write CSV header
-            csvWriter!!.write("timestamp_ns,timestamp_ms,gsr_raw,gsr_microsiemens,ppg_raw,battery_voltage\n")
-            csvWriter!!.flush()
-            
-            Log.i(TAG, "GSR data logging setup completed: ${dataFile!!.absolutePath}")
-            true
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to setup GSR data logging", e)
-            false
-        }
-    }
+
 
     override suspend fun stopRecording(): Boolean {
         try {
@@ -329,22 +212,10 @@ class GSRSensorRecorder(
             
             _isRecording.set(false)
             
-            // Stop Shimmer streaming using Nordic BLE
-            shimmerBleManager?.stopStreaming()
+            // Stop Shimmer recording using official SDK
+            shimmerGSRRecorder?.stopRecording()
             
-            // Close CSV writer
-            csvWriter?.let { writer ->
-                try {
-                    writer.flush()
-                    writer.close()
-                    Log.i(TAG, "GSR data file closed: ${dataFile?.absolutePath}")
-                } catch (e: Exception) {
-                    Log.w(TAG, "Error closing CSV writer", e)
-                }
-            }
-            csvWriter = null
-            
-            Log.i(TAG, "GSR recording stopped. Total samples: ${sampleCount.get()}")
+            Log.i(TAG, "GSR recording stopped using official Shimmer SDK. Total samples: ${sampleCount.get()}")
             emitStatus()
             return true
         } catch (e: Exception) {
@@ -359,13 +230,10 @@ class GSRSensorRecorder(
             val timestampMs = timestampNs / 1_000_000
             val metadataString = metadata.entries.joinToString(", ") { "${it.key}=${it.value}" }
             
-            csvWriter?.let { writer ->
-                val syncRecord = "# SYNC_MARKER: $markerType at $timestampMs ms - $metadataString\n"
-                writer.write(syncRecord)
-                writer.flush()
-            }
+            // Use ShimmerGSRRecorder's sync event functionality
+            shimmerGSRRecorder?.triggerSyncEvent(markerType, metadataString)
             
-            Log.i(TAG, "GSR sync marker added: $markerType at $timestampMs ms")
+            Log.i(TAG, "GSR sync marker added via Shimmer SDK: $markerType at $timestampMs ms")
         } catch (e: Exception) {
             Log.w(TAG, "Failed to add GSR sync marker", e)
             emitError(ErrorType.SYNC_FAILED, "GSR sync marker failed: ${e.message}")
@@ -379,10 +247,10 @@ class GSRSensorRecorder(
             }
             
             recordingScope.cancel()
-            shimmerBleManager?.disconnect()?.enqueue()
-            shimmerBleManager = null
+            shimmerGSRRecorder?.disconnect()
+            shimmerGSRRecorder = null
             
-            Log.i(TAG, "GSR sensor cleaned up successfully using Nordic BLE (Shimmer integration)")
+            Log.i(TAG, "GSR sensor cleaned up successfully using official Shimmer SDK")
         } catch (e: Exception) {
             Log.e(TAG, "GSR sensor cleanup failed", e)
         }
