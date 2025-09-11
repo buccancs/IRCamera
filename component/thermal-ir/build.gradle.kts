@@ -97,6 +97,9 @@ dependencies {
     implementation(libs.utilcode)
     implementation(libs.glide)
     
+    // LocalBroadcastManager for backward compatibility
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
+    
     // Lottie animation library
     implementation(libs.lottie)
     // EasySwipeMenuLayout
@@ -104,8 +107,8 @@ dependencies {
     // Image browser library
     implementation(libs.mn.image.browser)
     
-    // GSY VideoPlayer for video playback - using standard version
-    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v11.1.0") {
+    // GSY VideoPlayer for video playback - using correct JitPack format
+    implementation("com.github.CarGuo:GSYVideoPlayer:v8.6.0-release-jitpack") {
         exclude(group = "androidx.media3", module = "media3-cast")
         exclude(group = "androidx.media3", module = "media3-session")
         exclude(group = "androidx.media3", module = "media3-ui")

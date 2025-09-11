@@ -266,6 +266,11 @@ dependencies {
     implementation("no.nordicsemi.android:ble:2.11.0")
     implementation("no.nordicsemi.android:ble-ktx:2.11.0")
     
+    // Shimmer Android API for GSR sensor integration
+    implementation(files("libs/shimmerandroidinstrumentdriver-3.2.4_beta.aar"))
+    implementation(files("libs/shimmerdriver-0.11.5_beta.jar"))
+    implementation(files("libs/shimmerbluetoothmanager-0.11.5_beta.jar"))
+    
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.5.0")
     implementation("androidx.camera:camera-lifecycle:1.5.0")
