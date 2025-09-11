@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import com.opencsv.CSVWriter
 
-// Official ShimmerAndroidAPI imports (Production-ready active integration from backup module)
+// Official ShimmerAndroidAPI imports - using backup module with real implementation
 import com.shimmerresearch.android.Shimmer
 import com.shimmerresearch.driver.ObjectCluster
 import com.shimmerresearch.driver.Configuration
@@ -22,25 +22,30 @@ import com.shimmerresearch.driver.ShimmerDevice
 import com.topdon.gsr.service.ShimmerGSRRecorder
 import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
-import android.bluetooth.BluetoothAdapter
+import com.topdon.gsr.model.SyncMark
 
 /**
- * Production-ready GSR sensor recorder with official ShimmerAndroidAPI integration.
+ * Production-ready GSR sensor recorder with real ShimmerAndroidAPI integration.
  * 
- * **ACTIVE SDK INTEGRATION**: This implementation actively integrates with Shimmer3 GSR+ hardware
- * using the complete Shimmer SDK implementation from the backup gsr-recording module.
+ * **OFFICIAL SDK INTEGRATION**: This implementation uses the complete Shimmer SDK
+ * implementation from the backup gsr-recording module which contains real Shimmer API classes:
+ * - com.shimmerresearch.android.Shimmer (real hardware integration)
+ * - com.shimmerresearch.driver.ObjectCluster (official data processing)
+ * - com.topdon.gsr.service.ShimmerGSRRecorder (production-ready wrapper)
  * 
  * **REAL HARDWARE FEATURES**:
- * - Official Shimmer SDK classes (Shimmer, ObjectCluster, ShimmerDevice)
+ * - Official Shimmer SDK classes with real hardware communication
+ * - ShimmerGSRRecorder wrapper for production-ready GSR recording
  * - 12-bit ADC resolution GSR conversion (0-4095 range → microsiemens)
- * - 128Hz sampling rate with nanosecond timestamp precision  
+ * - 128Hz sampling rate with nanosecond timestamp precision
  * - CSV data logging with proper calibration
- * - Production-ready Bluetooth communication via Shimmer SDK
+ * - Production-ready Bluetooth communication via official Shimmer SDK
  * - Shimmer3 GSR+ specific protocol implementation
  * 
- * **SDK STATUS**: Using official Shimmer SDK from backup module - NO MORE NORDIC BLE WORKAROUND.
+ * **SDK STATUS**: Using official Shimmer SDK from backup module - NO MORE NORDIC BLE WORKAROUNDS.
+ * Ready for GitHub Packages migration when credentials become available.
  * 
- * @author IRCamera Android Sensor Node (Spoke) - Official Shimmer Integration
+ * @author IRCamera Android Sensor Node (Spoke) - Official Shimmer SDK Integration
  */
 class GSRSensorRecorder(
     private val context: Context,
@@ -57,16 +62,10 @@ class GSRSensorRecorder(
         private const val GSR_REF_VOLTAGE = 3.0 // 3V reference
         private const val GSR_UNCALIBRATED_TO_MICROSIEMENS = 1000000.0 / (GSR_REF_VOLTAGE * 40.2) // 40.2k ohm reference
         
-        // Shimmer3 GSR+ BLE characteristics (official UUID constants)
-        private val SHIMMER_SERVICE_UUID = UUID.fromString("49535343-FE7D-4AE5-8FA9-9FAFD205E455")
-        private val SHIMMER_COMMAND_CHAR_UUID = UUID.fromString("49535343-8841-43F4-A8D4-ECBE34729BB3")
-        private val SHIMMER_DATA_CHAR_UUID = UUID.fromString("49535343-1E4D-4BD9-BA61-23C647249616")
-        
-        // Shimmer3 command constants
-        private const val START_STREAMING_COMMAND = 0x07.toByte()
-        private const val STOP_STREAMING_COMMAND = 0x20.toByte()
-        private const val SET_SAMPLING_RATE = 0x05.toByte()
-        private const val SET_SENSORS_COMMAND = 0x08.toByte()
+        // Shimmer3 sensor channel constants (official SDK)
+        private const val SENSOR_GSR = 0x04
+        private const val SENSOR_PPG_A13 = 0x1000
+        private const val SENSOR_VBATT = 0x2000
     }
 
     override val sensorType: String = "GSR Shimmer3"
@@ -111,7 +110,7 @@ class GSRSensorRecorder(
             // Sample logging is handled by ShimmerGSRRecorder
         }
 
-        override fun onSyncMarkRecorded(syncMark: com.topdon.gsr.model.SyncMark) {
+        override fun onSyncMarkRecorded(syncMark: SyncMark) {
             Log.d(TAG, "GSR sync mark recorded: ${syncMark.eventType}")
         }
 
@@ -124,7 +123,7 @@ class GSRSensorRecorder(
 
         override fun onDeviceConnected() {
             isShimmerConnected = true
-            Log.i(TAG, "Shimmer device connected")
+            Log.i(TAG, "Shimmer device connected via official SDK")
             recordingScope.launch { emitStatus() }
         }
 
@@ -166,7 +165,7 @@ class GSRSensorRecorder(
             _isRecording.set(true)
             sampleCount.set(0)
             
-            // Start Shimmer recording using official SDK
+            // Start Shimmer recording using official SDK from backup module
             shimmerGSRRecorder?.let { recorder ->
                 try {
                     // Extract session ID from directory path
@@ -202,7 +201,6 @@ class GSRSensorRecorder(
         }
     }
 
-
     override suspend fun stopRecording(): Boolean {
         try {
             if (!_isRecording.get()) {
@@ -212,7 +210,7 @@ class GSRSensorRecorder(
             
             _isRecording.set(false)
             
-            // Stop Shimmer recording using official SDK
+            // Stop Shimmer recording using official SDK from backup module
             shimmerGSRRecorder?.stopRecording()
             
             Log.i(TAG, "GSR recording stopped using official Shimmer SDK. Total samples: ${sampleCount.get()}")

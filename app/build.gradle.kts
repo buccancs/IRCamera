@@ -264,6 +264,23 @@ dependencies {
     // GSR Recording backup module with complete Shimmer SDK implementation
     implementation(project(":component:gsr-recording"))
     
+    // Official Shimmer SDK packages - real hardware integration
+    // TODO: Uncomment when GitHub Packages credentials (GPR_USER, GPR_TOKEN) are available
+    // implementation(group = "com.shimmerresearch", name = "shimmerbluetoothmanager", version = "0.11.3_beta") {
+    //     // excluding org.json which is provided by Android
+    //     exclude(group = "io.netty")
+    //     exclude(group = "com.google.protobuf")
+    //     exclude(group = "org.apache.commons.math")
+    // }
+    // 
+    // implementation(group = "com.shimmerresearch", name = "shimmerdriver", version = "0.11.3_beta") {
+    //     // excluding org.json which is provided by Android
+    //     exclude(group = "io.netty")
+    //     exclude(group = "com.google.protobuf")
+    // }
+    // 
+    // implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
+    
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")
     implementation("androidx.camera:camera-lifecycle:1.3.1")
