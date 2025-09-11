@@ -38,6 +38,7 @@ class NetworkClient(private val context: Context) {
     /**
      * Create trust-all SSL manager for development
      */
+    private fun createTrustAllTrustManager(): X509TrustManager {
         return object : X509TrustManager {
             override fun checkClientTrusted(
                 chain: Array<X509Certificate>,

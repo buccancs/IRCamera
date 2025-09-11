@@ -35,6 +35,7 @@ class MultiDeviceCoordination(
     /**
      * Initialize coordination for multi-device recording
      */
+    suspend fun initializeCoordination(sessionId: String) {
         withContext(Dispatchers.IO) {
             currentSessionId = sessionId
             isCoordinating.set(true)
@@ -47,6 +48,7 @@ class MultiDeviceCoordination(
 
             Log.d(TAG, "Multi-device coordination initialized for session: $sessionId")
         }
+    }
 
     private fun handleDeviceDiscoveryRequest(message: JSONObject) {
         val response =

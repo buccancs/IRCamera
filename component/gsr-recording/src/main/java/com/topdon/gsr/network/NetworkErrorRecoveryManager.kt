@@ -27,6 +27,7 @@ class NetworkErrorRecoveryManager(private val context: Context) {
     /**
      * Calculate retry delay with exponential backoff
      */
+    private fun calculateRetryDelay(attempt: Int): Long {
         // Exponential backoff with jitter
         val baseDelay = INITIAL_RETRY_DELAY_MS * (1L shl (attempt - 1))
         val cappedDelay = minOf(baseDelay, MAX_RETRY_DELAY_MS)

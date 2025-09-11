@@ -36,6 +36,7 @@ class QualityOfServiceManager(private val context: Context) {
     /**
      * Start QoS monitoring
      */
+    suspend fun startMonitoring() {
         withContext(Dispatchers.IO) {
             if (isMonitoring.getAndSet(true)) {
                 Log.w(TAG, "QoS monitoring already active")
@@ -52,6 +53,7 @@ class QualityOfServiceManager(private val context: Context) {
 
             startPriorityQueueProcessor()
         }
+    }
 
     private fun measureCellularBandwidth(): Long {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

@@ -34,6 +34,7 @@ class FileTransferProtocol(
     /**
      * Queue a file for transfer to PC Controller
      */
+    suspend fun queueFileTransfer(
         filePath: String,
         priority: TransferPriority = TransferPriority.NORMAL,
         sessionId: String,

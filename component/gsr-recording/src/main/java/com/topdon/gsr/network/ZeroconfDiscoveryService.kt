@@ -31,6 +31,7 @@ class ZeroconfDiscoveryService(private val context: Context) {
     /**
      * Unregister the service
      */
+    fun unregisterService() {
         if (!isRegistered) return
 
         try {

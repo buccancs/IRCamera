@@ -30,6 +30,7 @@ class DeviceAuthenticationManager(private val context: Context) {
     /**
      * Process pairing response from PC Controller
      */
+    fun processPairingResponse(response: JSONObject): Boolean {
         try {
             val success = response.getBoolean("success")
             val controllerId = response.getString("controller_id")
@@ -75,7 +76,7 @@ class DeviceAuthenticationManager(private val context: Context) {
     }
 
     fun getPairedControllers(): Set<String> {
-        val pairedJson = prefs.getString(PREF_PAIRED_CONTROLLERS, "[]")
+        val pairedJson = prefs.getString(KEY_PAIRED_CONTROLLERS, "[]")
         return try {
             val array = org.json.JSONArray(pairedJson)
             (0 until array.length()).map { array.getString(it) }.toSet()
@@ -184,5 +185,7 @@ data class AuthToken(
     val token: String,
     val deviceId: String,
     val issuedAt: Long,
-    val expiresAt: Long
+    val expiresAt: Long,
+    val controllerId: String,
+    val permissions: List<String>
 )
