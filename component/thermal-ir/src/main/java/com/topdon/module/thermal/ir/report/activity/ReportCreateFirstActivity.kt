@@ -5,8 +5,10 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import android.text.TextUtils
 import android.util.Log
+import java.util.Locale
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -247,15 +249,28 @@ class ReportCreateFirstActivity: BaseActivity(), View.OnClickListener {
     }
 
     //获取地址信息:城市、街道等信息
+    @SuppressLint("NewApi")
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
             if (location != null) {
                 val gc = Geocoder(this, Locale.getDefault())
-                result = gc.getFromLocation(
-                    location.latitude,
-                    location.longitude, 1
-                )
+                // Use newer API for Android 33+ (API level 33)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    // Use the newer API with geocoding listener (requires Android 33+)
+                    // For now, fall back to the deprecated method since we need immediate results
+                    @Suppress("DEPRECATION")
+                    result = gc.getFromLocation(
+                        location.latitude,
+                        location.longitude, 1
+                    )
+                } else {
+                    @Suppress("DEPRECATION")
+                    result = gc.getFromLocation(
+                        location.latitude,
+                        location.longitude, 1
+                    )
+                }
                 Log.v("TAG", "获取地址信息：$result")
             }
         } catch (e: Exception) {

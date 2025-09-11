@@ -3,6 +3,7 @@ package com.topdon.module.thermal.ir.view
 import android.content.Context
 import android.graphics.Canvas
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
@@ -158,7 +159,7 @@ public class TimeDownView : AppCompatTextView {
 
     private var downHandler: DownHandler? = null
 
-    private inner class DownHandler : Handler() {
+    private inner class DownHandler : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             if (msg.what == 1) {
