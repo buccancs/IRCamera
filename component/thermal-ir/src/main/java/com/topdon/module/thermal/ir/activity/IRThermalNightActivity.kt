@@ -2287,18 +2287,27 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     private val permissionList by lazy {
-        if (this.applicationInfo.targetSdkVersion >= 34){
-            mutableListOf(
-                Permission.WRITE_EXTERNAL_STORAGE
-            )
-        }else if (this.applicationInfo.targetSdkVersion == 33) {
-            mutableListOf(
-                Permission.READ_MEDIA_VIDEO, Permission.READ_MEDIA_IMAGES,
-                 Permission.WRITE_EXTERNAL_STORAGE
-            )
-        } else {
-            mutableListOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-        }
+        // Use enhanced PermissionUtils for consistent permission handling
+        com.topdon.lib.core.utils.PermissionUtils.getStoragePermissions().map { permission ->
+            when (permission) {
+                Manifest.permission.READ_EXTERNAL_STORAGE -> Permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE -> Permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.READ_MEDIA_VIDEO -> Permission.READ_MEDIA_VIDEO
+                Manifest.permission.READ_MEDIA_IMAGES -> Permission.READ_MEDIA_IMAGES
+                Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED -> Permission.READ_MEDIA_VISUAL_USER_SELECTED
+                else -> permission // fallback for unmapped permissions
+            }
+        }.toMutableList()
+    }
+    
+    // Enhanced permission checking for Bluetooth features
+    private fun hasBluetoothPermissions(): Boolean {
+        return com.topdon.lib.core.utils.PermissionUtils.hasBluetoothPermissions()
+    }
+    
+    // Enhanced permission checking for storage
+    private fun hasStoragePermissions(): Boolean {
+        return com.topdon.lib.core.utils.PermissionUtils.hasStoragePermissions()
     }
 
     private fun countDownCoroutines(
@@ -3146,7 +3155,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     private fun checkStoragePermission() {
-        if (!XXPermissions.isGranted(this,permissionList)) {
+        // Enhanced permission checking with proper error handling
+        if (!hasStoragePermissions()) {
             if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
                     .setMessage(getString(R.string.permission_request_storage_app, CommUtils.getAppName()))
@@ -3167,6 +3177,11 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 }
             }
         } else {
+            // Check Bluetooth permissions as well for enhanced features
+            if (!hasBluetoothPermissions()) {
+                Log.w("IRThermalNightActivity", "Bluetooth permissions not granted - some features may be limited")
+            }
+            
             if (storageRequestType == 0) {
                 initStoragePermission()
             } else {
@@ -3220,6 +3235,56 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                             }
                             .setCanceled(true)
                             .create().show()
+                    }
+                }
+            })
+    }
+
+    // Enhanced Bluetooth permission request for BLE features
+    private fun initBluetoothPermission() {
+        val bluetoothPermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            arrayOf(Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
+        } else {
+            arrayOf(Permission.BLUETOOTH)
+        }
+        
+        XXPermissions.with(this@IRThermalNightActivity)
+            .permission(*bluetoothPermissions)
+            .request(object : OnPermissionCallback {
+                override fun onGranted(
+                    permissions: MutableList<String>,
+                    allGranted: Boolean
+                ) {
+                    if (allGranted) {
+                        Log.i("IRThermalNightActivity", "Bluetooth permissions granted - enhanced features available")
+                        ToastUtils.showShort("Bluetooth permissions granted")
+                    } else {
+                        Log.w("IRThermalNightActivity", "Some Bluetooth permissions denied")
+                        ToastUtils.showShort("Some Bluetooth features may be limited")
+                    }
+                }
+
+                override fun onDenied(
+                    permissions: MutableList<String>,
+                    doNotAskAgain: Boolean
+                ) {
+                    if (doNotAskAgain) {
+                        if (BaseApplication.instance.isDomestic()) {
+                            ToastUtils.showShort("Bluetooth access denied - some features unavailable")
+                            return
+                        }
+                        TipDialog.Builder(this@IRThermalNightActivity)
+                            .setTitleMessage(getString(LibcoreR.string.app_tip))
+                            .setMessage("Bluetooth permissions are needed for enhanced thermal features. Please enable in settings.")
+                            .setPositiveListener(R.string.app_open) {
+                                AppUtils.launchAppDetailsSettings()
+                            }
+                            .setCancelListener(R.string.app_cancel) {
+                            }
+                            .setCanceled(true)
+                            .create().show()
+                    } else {
+                        ToastUtils.showShort("Bluetooth permissions denied")
                     }
                 }
             })
