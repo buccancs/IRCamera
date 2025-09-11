@@ -27,6 +27,7 @@ include(":component:thermal-lite")
 include(":component:pseudo")
 include(":component:user")
 include(":component:CommonComponent")
+include(":component:gsr-recording") // Backup GSR recording implementation
 
 // Active library modules
 include(":libapp")
