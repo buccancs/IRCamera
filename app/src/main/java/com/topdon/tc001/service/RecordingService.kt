@@ -113,9 +113,16 @@ class RecordingService : LifecycleService() {
         // Initialize recording controller
         recordingController = RecordingController(this, this)
         
-        // Initialize sensors
+        // Initialize sensors with permission validation
         lifecycleScope.launch {
             try {
+                // Validate critical permissions before sensor initialization
+                if (!validateRequiredPermissions()) {
+                    Log.e(TAG, "Required permissions not granted - cannot initialize sensors")
+                    stopSelf()
+                    return@launch
+                }
+                
                 val success = recordingController.initializeSensors()
                 isInitialized = success
                 
@@ -388,6 +395,45 @@ class RecordingService : LifecycleService() {
                 isRecording = recordingController.isRecording
             )
         }
+    }
+
+    /**
+     * Validate that all required permissions are granted for sensor operation.
+     * This is critical for Samsung devices which may fail silently without proper permissions.
+     */
+    private fun validateRequiredPermissions(): Boolean {
+        val requiredPermissions = listOf(
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.RECORD_AUDIO,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        
+        val missingPermissions = requiredPermissions.filter { permission ->
+            androidx.core.content.ContextCompat.checkSelfPermission(this, permission) != 
+                android.content.pm.PackageManager.PERMISSION_GRANTED
+        }
+        
+        if (missingPermissions.isNotEmpty()) {
+            Log.e(TAG, "Missing required permissions: ${missingPermissions.joinToString(", ")}")
+            Log.e(TAG, "These permissions are required for multi-modal recording:")
+            missingPermissions.forEach { permission ->
+                when (permission) {
+                    android.Manifest.permission.CAMERA -> 
+                        Log.e(TAG, "  - CAMERA: Required for RGB video/image recording")
+                    android.Manifest.permission.RECORD_AUDIO -> 
+                        Log.e(TAG, "  - RECORD_AUDIO: Required for video audio track")
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE -> 
+                        Log.e(TAG, "  - WRITE_EXTERNAL_STORAGE: Required for saving recording files")
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE -> 
+                        Log.e(TAG, "  - READ_EXTERNAL_STORAGE: Required for reading existing files")
+                }
+            }
+            return false
+        }
+        
+        Log.d(TAG, "All required permissions are granted")
+        return true
     }
 }
 

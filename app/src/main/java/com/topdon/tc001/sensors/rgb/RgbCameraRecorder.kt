@@ -87,6 +87,13 @@ class RgbCameraRecorder(
         try {
             Log.i(TAG, "Initializing RGB camera for sensor $sensorId")
             
+            // Log device information for Samsung-specific troubleshooting
+            Log.d(TAG, "Device: ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL} (SDK ${android.os.Build.VERSION.SDK_INT})")
+            val isSamsungDevice = android.os.Build.MANUFACTURER.equals("samsung", ignoreCase = true)
+            if (isSamsungDevice) {
+                Log.i(TAG, "Samsung device detected - using conservative camera binding strategy")
+            }
+            
             // Check camera permission - critical for Samsung devices
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 Log.e(TAG, "Camera permission not granted - this is required for RGB recording")
@@ -254,19 +261,52 @@ class RgbCameraRecorder(
             }
             
             // For Samsung devices, try progressive binding to avoid concurrent use-case issues
+            val isSamsungDevice = android.os.Build.MANUFACTURER.equals("samsung", ignoreCase = true)
+            
             try {
-                // First, try binding with just video and image capture (no preview to reduce load)
-                camera = cameraProvider.bindToLifecycle(
-                    lifecycleOwner,
-                    cameraSelector,
-                    videoCapture!!,
-                    imageCapture!!
-                )
-                Log.d(TAG, "Camera bound successfully without preview")
+                if (isSamsungDevice) {
+                    Log.d(TAG, "Samsung device - trying conservative binding approach")
+                    // For Samsung devices, start with video only to avoid resource conflicts
+                    camera = cameraProvider.bindToLifecycle(
+                        lifecycleOwner,
+                        cameraSelector,
+                        videoCapture!!
+                    )
+                    Log.d(TAG, "Samsung device: Camera bound with video only initially")
+                    
+                    // Try to add image capture if video binding succeeded
+                    try {
+                        cameraProvider.unbindAll()
+                        camera = cameraProvider.bindToLifecycle(
+                            lifecycleOwner,
+                            cameraSelector,
+                            videoCapture!!,
+                            imageCapture!!
+                        )
+                        Log.d(TAG, "Samsung device: Successfully added image capture")
+                    } catch (e: Exception) {
+                        Log.w(TAG, "Samsung device: Image capture not supported concurrently, using video only", e)
+                        camera = cameraProvider.bindToLifecycle(
+                            lifecycleOwner,
+                            cameraSelector,
+                            videoCapture!!
+                        )
+                        imageCapture = null // Disable image capture for compatibility
+                    }
+                } else {
+                    // Non-Samsung devices: try normal binding with both use cases
+                    camera = cameraProvider.bindToLifecycle(
+                        lifecycleOwner,
+                        cameraSelector,
+                        videoCapture!!,
+                        imageCapture!!
+                    )
+                    Log.d(TAG, "Non-Samsung device: Camera bound successfully with both video and image capture")
+                }
             } catch (e: Exception) {
-                Log.w(TAG, "Failed to bind with both video and image, trying video only", e)
+                Log.w(TAG, "Failed to bind camera with intended use cases, trying video only fallback", e)
                 
-                // If concurrent use-cases fail, try with video only (fallback for Samsung devices)
+                // Universal fallback: try with video only (works on most devices)
                 try {
                     camera = cameraProvider.bindToLifecycle(
                         lifecycleOwner,
