@@ -189,7 +189,7 @@ public class BluetoothManager implements EventObserver {
 
     @Override
     public void onConnectFailed(Device device, int failType) {
-        Log.e("bcf_ble", "" + device.getName());
+        Log.e("bcf_ble", "Connection failed: " + device.getName());
         EventBus.getDefault().post(device.getConnectionState());
     }
 
