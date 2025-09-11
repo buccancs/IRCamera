@@ -27,7 +27,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.topdon.lib.core.navigation.NavigationManager
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.*
 import com.elvishew.xlog.XLog
 import com.energy.iruvc.ircmd.IRCMD
@@ -80,7 +81,6 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.utils.ImageUtils
 import com.topdon.lib.core.utils.ScreenUtil
-import com.topdon.lib.core.view.MainTitleView
 import com.topdon.lib.core.utils.TemperatureUtil
 import com.topdon.lib.ui.dialog.ThermalInputDialog
 import com.topdon.lib.ui.dialog.TipGuideDialog
@@ -96,7 +96,6 @@ import com.topdon.menu.constant.TargetType
 import com.topdon.menu.constant.TempPointType
 import com.topdon.menu.constant.TwoLightType
 import com.topdon.module.thermal.ir.R
-import com.topdon.lib.core.R as LibcoreR
 import com.topdon.module.thermal.ir.adapter.CameraItemAdapter
 import com.topdon.module.thermal.ir.adapter.MeasureItemAdapter
 import com.topdon.module.thermal.ir.adapter.TargetItemAdapter
@@ -107,9 +106,11 @@ import com.topdon.module.thermal.ir.popup.SeekBarPopup
 import com.topdon.module.thermal.ir.repository.ConfigRepository
 import com.topdon.module.thermal.ir.utils.IRConfigData
 import com.topdon.module.thermal.ir.video.VideoRecordFFmpeg
+import com.topdon.module.thermal.ir.view.TimeDownView
 import com.topdon.module.thermal.ir.view.compass.SensorService
-// import com.topdon.pseudo.activity.PseudoSetActivity
+import com.topdon.pseudo.activity.PseudoSetActivity
 import com.topdon.pseudo.bean.CustomPseudoBean
+import kotlinx.android.synthetic.main.activity_thermal_ir_night.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.greenrobot.eventbus.EventBus
@@ -118,7 +119,7 @@ import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.roundToInt
 
 
-// Legacy ARouter route annotation - now using NavigationManager
+@Route(path = RouterConfig.IR_FRAME)
 open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     /**
@@ -197,22 +198,14 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     private var isRecordAudio = SaveSettingUtil.isRecordAudio
     private var isOpenTarget = SaveSettingUtil.isOpenTarget
     private var audioPosition: Int = 0
-    
-    // View references (migrated from synthetic views)
+    // View references with synthetic views
     protected lateinit var cameraView: com.infisense.usbir.view.CameraView
     protected lateinit var temperatureView: com.infisense.usbir.view.TemperatureView
-    private lateinit var spaceChart: View
-    private lateinit var clTrendOpen: ConstraintLayout
-    private lateinit var llTrendClose: LinearLayout
-    private lateinit var viewMenuFirst: com.topdon.menu.MenuFirstTabView
-    private lateinit var tvTempContent: TextView
     
     //指南针定义
     private var hasCompass = true
     private lateinit var compass: ICompass
     private lateinit var sensorService: SensorService
-    // Add missing compass view property - commented out as it doesn't exist in layout
-    // private lateinit var compassView: View
 
     override fun initContentView() = R.layout.activity_thermal_ir_night
 
@@ -360,38 +353,14 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        // Initialize camera view
-        cameraView = findViewById(R.id.cameraView)
-        temperatureView = findViewById(R.id.temperatureView)
-        // // titleView, thermalRecyclerNight, thermalLay, tvTypeInd, timeDownView already handled by lazy properties
-        
-        
-        // Use lazy properties instead of redundant findViewById calls
-        viewMenuFirst = findViewById(R.id.view_menu_first)
-        tvTempContent = findViewById(R.id.tv_temp_content)
-        compassView = findViewById(R.id.compassView)
-        val clSeekBar = findViewById<ConstraintLayout>(R.id.cl_seek_bar)
-        val viewChartTrend = findViewById<View>(R.id.view_chart_trend)
-        clTrendOpen = findViewById(R.id.cl_trend_open)
-        llTrendClose = findViewById(R.id.ll_trend_close)
-        val thermalText = findViewById<TextView>(R.id.thermal_text)
-        // thermalLay already handled by lazy property
-        val ivTrendClose = findViewById<ImageView>(R.id.iv_trend_close)
-        val ivTrendOpen = findViewById<ImageView>(R.id.iv_trend_open)
-        
-        // Missing findViewById declarations for synthetic views
-        // tvTypeInd already handled by lazy property
-        spaceChart = findViewById(R.id.space_chart)
-        
-        titleView.setLeftClickListener {
-            // timeDownView check commented out since view doesn't exist
-            // if (timeDownView.isRunning) {
-            //     return@setLeftClickListener
-            // }
+        title_view.setLeftClickListener {
+            if (time_down_view.isRunning) {
+                return@setLeftClickListener
+            }
             setResult(200)
             finish()
         }
-        titleView.setRight2ClickListener{
+        title_view.setRight2ClickListener{
             if (SupHelp.getInstance().loadOpenclSuccess){
                 switchAmplify()
             }else{
@@ -402,13 +371,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     .create().show()
             }
         }
-        titleView.setRightClickListener {
+        title_view.setRightClickListener {
             val config = ConfigRepository.readConfig(false)
             var text = ""
             for (tmp in IRConfigData.irConfigData(this@IRThermalNightActivity)){
                 if (config.radiation.toString() == tmp.value){
                     if (text.isEmpty()){
-                        text = "${resources.getString(LibcoreR.string.tc_temp_test_materials)} : "
+                        text = "${resources.getString(R.string.tc_temp_test_materials)} : "
                     }
                     text += "${tmp.name}/"
                 }
@@ -419,29 +388,30 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             EmissivityTipPopup(this@IRThermalNightActivity, false)
                 .setDataBean(config.environment,config.distance,config.radiation,text)
                 .build()
-                .showAsDropDown(titleView, 0, 0, Gravity.END)
+                .showAsDropDown(title_view, 0, 0, Gravity.END)
         }
-        tvTitleTemp.isSelected = true
-        tvTitleTemp.setOnClickListener {
+        tv_title_temp.isSelected = true
+        tv_title_temp.setOnClickListener {
             switchTs001Mode(true)
         }
-        tvTitleObserve.setOnClickListener {
+        tv_title_observe.setOnClickListener {
             switchTs001Mode(false)
         }
 
 
-        // viewCarDetect.findViewById<LinearLayout>(R.id.ll_car_detect_info) - resource not found
-        // LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo().description).show()
+        view_car_detect.findViewById<LinearLayout>(R.id.ll_car_detect_info).setOnClickListener {
+            LongTextDialog(this, SharedManager.getCarDetectInfo().item, SharedManager.getCarDetectInfo().description).show()
+        }
         BarUtils.setStatusBarColor(this, 0xff16131e.toInt())
         BarUtils.setNavBarColor(window, 0xff16131e.toInt())
         initRecycler()
-        viewMenuFirst.onTabClickListener = {
-            // ViewStub removed - resource not found
+        view_menu_first.onTabClickListener = {
+            ViewStubUtils.showViewStub(view_stub_camera, false, null)
             popupWindow?.dismiss()
             temperatureView.isEnabled = it.selectPosition == 1
             showTempRecyclerNight(it.isObserveMode, it.selectPosition)
         }
-        temperatureSeekbar.setIndicatorTextDecimalFormat("0.0")
+        temperature_seekbar.setIndicatorTextDecimalFormat("0.0")
         updateTemperatureSeekBar(false)//加锁
         isShowC = getTemperature() == 1
         temperatureView.setTextSize(saveSetBean.tempTextSize)
@@ -453,7 +423,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 if (!customPseudoBean.isUseCustomPseudo) {
                     //动态渲染模式
                     try {
-                        temperatureSeekbar.setRangeAndPro(
+                        temperature_seekbar.setRangeAndPro(
                             UnitTools.showUnitValue(editMinValue, isShowC),
                             UnitTools.showUnitValue(editMaxValue, isShowC),
                             realLeftValue,
@@ -469,7 +439,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         Log.e("温度图层更新失败", e.message.toString())
                     }
                     try {
-                        tvTempContent.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${
+                        tv_temp_content.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${
                             UnitTools.showC(
                                 min,
                                 isShowC
@@ -481,7 +451,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 } else {
                     //自定义渲染
                     try {
-                        tvTempContent.text = " Max:${UnitTools.showC(max, isShowC)}\n Min:${
+                        tv_temp_content.text = " Max:${UnitTools.showC(max, isShowC)}\n Min:${
                             UnitTools.showC(
                                 min,
                                 isShowC
@@ -494,7 +464,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                 try {
                     if (isVideo) {
                         cl_seek_bar.requestLayout()
-                        // cl_seek_bar.updateBitmap() - synthetic method removed
+                        cl_seek_bar.updateBitmap()
                     }
                 } catch (e: Exception) {
                     Log.w("伪彩条更新异常:", "${e.message}")
@@ -509,32 +479,32 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         }
         temperatureView.setOnTrendChangeListener {
             lifecycleScope.launch(Dispatchers.Main) {
-                if (clTrendOpen.isVisible) {
-                    // viewChartTrend.refresh(it) - synthetic method removed
+                if (cl_trend_open.isVisible) {
+                    view_chart_trend.refresh(it)
                 }
             }
         }
         temperatureView.setOnTrendAddListener {
             if (hasClickTrendDel) {
                 hasClickTrendDel = false
-                clTrendOpen.isVisible = true
-                llTrendClose.isVisible = false
+                cl_trend_open.isVisible = true
+                ll_trend_close.isVisible = false
             }
         }
         temperatureView.setOnTrendRemoveListener {
-            // viewChartTrend.setToEmpty() - synthetic method removed
+            view_chart_trend.setToEmpty()
         }
 
-        // thermalRecyclerNight.isVideoMode - synthetic property removed
-        // thermalRecyclerNight.fenceSelectType - synthetic property removed
-        // thermalRecyclerNight.isUnitF - synthetic property removed
-        // thermalRecyclerNight.setSettingRotate - synthetic method removed
-        // thermalRecyclerNight.setTempLevel - synthetic method removed
+        thermal_recycler_night.isVideoMode = SaveSettingUtil.isVideoMode //恢复拍照/录像状态
+        thermal_recycler_night.fenceSelectType = FenceType.FULL //初始选中全图
+        thermal_recycler_night.isUnitF = SharedManager.getTemperature() == 0 //温度档位单位
+        thermal_recycler_night.setSettingRotate(saveSetBean.rotateAngle) //选中当前的旋转角度
+        thermal_recycler_night.setTempLevel(temperatureMode) //选中当前的温度档位
 
         //判断字体颜色是否保存
-        // thermalRecyclerNight.setSettingSelected - synthetic method removed
+        thermal_recycler_night.setSettingSelected(SettingType.FONT, !saveSetBean.isTempTextDefault())
 
-        popTimeLay.visibility = View.GONE
+        pop_time_lay.visibility = View.GONE
         cameraPreview.visibility = View.INVISIBLE
         initOrientationEventListener()
         addTemperatureListener()
@@ -544,12 +514,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
         }
         if (ScreenTool.isIPad(this)) {
-            clSeekBar.setPadding(0, SizeUtils.dp2px(40f), 0, SizeUtils.dp2px(40f))
+            cl_seek_bar.setPadding(0, SizeUtils.dp2px(40f), 0, SizeUtils.dp2px(40f))
         }
         DragViewUtil.registerDragAction(zoomView)
         initCompass()
-        // distance_measure_view?.moveListener - synthetic property removed
-        // thermalText.text - it parameter removed
+        distance_measure_view?.moveListener = {
+            thermal_text.text = "刻度：${it / thermal_lay.measuredHeight * 256}"
+        }
         lifecycleScope.launch {
             delay(1000)
             if (!SharedManager.isHideEmissivityTips){
@@ -557,13 +528,13 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
             }
         }
 
-        ivTrendClose.setOnClickListener {
-            clTrendOpen.isVisible = false
-            llTrendClose.isVisible = true
+        iv_trend_close.setOnClickListener {
+            cl_trend_open.isVisible = false
+            ll_trend_close.isVisible = true
         }
-        ivTrendOpen.setOnClickListener {
-            clTrendOpen.isVisible = true
-            llTrendClose.isVisible = false
+        iv_trend_open.setOnClickListener {
+            cl_trend_open.isVisible = true
+            ll_trend_close.isVisible = false
         }
         startUSB(isRestart = false,false)
     }
@@ -969,19 +940,19 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
     }
 
     private fun updateTemperatureSeekBar(isEnabled: Boolean) {
-        temperatureSeekbar.isEnabled = isEnabled
-        // temperatureSeekbar.drawIndPath(isEnabled) // Method may not exist on RangeSeekBar
-        temperatureIvLock.setImageResource(if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock)
-        temperatureIvLock.contentDescription = if (isEnabled) "unlock" else "lock"
+        temperature_seekbar.isEnabled = isEnabled
+        temperature_seekbar.drawIndPath(isEnabled)
+        temperature_iv_lock.setImageResource(if (isEnabled) R.drawable.svg_pseudo_bar_unlock else R.drawable.svg_pseudo_bar_lock)
+        temperature_iv_lock.contentDescription = if (isEnabled) "unlock" else "lock"
         if (isEnabled) {
-            temperatureSeekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
-            temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
-            temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
-            temperatureSeekbar.invalidate()
+            temperature_seekbar.tempMode = RangeSeekBar.TEMP_MODE_CLOSE
+            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
+            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
+            temperature_seekbar.invalidate()
         } else {
-            temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0
-            temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0
-            temperatureSeekbar.invalidate()
+            temperature_seekbar.leftSeekBar.indicatorBackgroundColor = 0
+            temperature_seekbar.rightSeekBar.indicatorBackgroundColor = 0
+            temperature_seekbar.invalidate()
         }
     }
 
@@ -1396,10 +1367,10 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                         videoTimeClose()
                         delay(500)
                     }
-                    NavigationManager.getInstance()
+                    ARouter.getInstance()
                         .build(RouterConfig.IR_GALLERY_HOME)
                         .withInt(ExtraKeyConfig.DIR_TYPE, GalleryRepository.DirType.LINE.ordinal)
-                        .navigation(this@IRThermalNightActivity)
+                        .navigation()
                 }
             }
             2 -> {//更多菜单
@@ -2386,8 +2357,8 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
                     cameraItemAdapter?.listener = listener@{ position, _ ->
                         when (cameraItemAdapter!!.data[position].type) {
                             CameraItemBean.TYPE_SETTING -> {
-                                NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
-                                    .navigation(this@IRThermalNightActivity)
+                                ARouter.getInstance().build(RouterConfig.IR_CAMERA_SETTING)
+                                    .navigation(this)
                                 return@listener
                             }
 

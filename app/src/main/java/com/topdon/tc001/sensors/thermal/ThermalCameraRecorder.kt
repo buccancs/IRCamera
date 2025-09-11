@@ -22,21 +22,7 @@ import com.energy.iruvc.uvc.UVCCamera
 /**
  * Thermal Camera recorder using real IR Camera integration.
  * 
- * Implementation uses REAL IR Camera SDK for hardware integration.
- * No stubs or simulation - full vendor SDK integration as required.
- * 
- * Technical Specifications:
- * - Real IR Camera SDK for hardware interface
- * - Raw thermal frame data parsing and CSV export
- * - Nanosecond timestamp precision for synchronization
- * - Temperature calibration and radiometric data
- * - USB IR camera interface with vendor-specific protocols
- * 
- * Hardware Details:
- * - Uses existing IRUVCTC implementation for real hardware
- * - Parses IR camera-specific thermal data formats
- * - Outputs temperature matrices as CSV rows with timestamps
- * - Handles real thermal calibration and environmental compensation
+ * Implementation based on working CoderCaiSL/IRCamera with real IRUVCTC hardware integration.
  * 
  * @author IRCamera Android Sensor Node (Spoke)
  */
@@ -71,9 +57,9 @@ class ThermalCameraRecorder(
     private var _isRecording = AtomicBoolean(false)
     override val isRecording: Boolean get() = _isRecording.get()
 
-    // Real IR Camera SDK components (no simulation)
+    // Real IR Camera SDK components using IRUVCTC (working implementation)
     private var iruvctc: IRUVCTC? = null
-    private var uvcCamera: UVCCamera? = null
+    private var syncimage: SynchronizedBitmap? = null
     private var isIRCameraConnected = false
     
     // USB management for IR Camera
@@ -103,12 +89,12 @@ class ThermalCameraRecorder(
 
     override suspend fun initialize(): Boolean = withContext(Dispatchers.IO) {
         try {
-            Log.i(TAG, "Initializing real IR thermal camera using existing implementation for sensor $sensorId")
+            Log.i(TAG, "Initializing real IR thermal camera using IRUVCTC for sensor $sensorId")
             
             // Initialize USB manager for IR camera detection
             usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
             
-            // Initialize real IR camera using existing IRUVCTC implementation
+            // Initialize real IR camera using IRUVCTC (based on working implementation)
             val connectionSuccess = initializeRealIRCamera()
             
             if (!connectionSuccess) {
@@ -117,7 +103,7 @@ class ThermalCameraRecorder(
                 return@withContext false
             }
             
-            Log.i(TAG, "Real IR thermal camera initialized successfully using existing implementation")
+            Log.i(TAG, "Real IR thermal camera initialized successfully using IRUVCTC")
             emitStatus()
             return@withContext true
             
@@ -132,33 +118,36 @@ class ThermalCameraRecorder(
         try {
             Log.i(TAG, "Initializing real IR thermal camera hardware using IRUVCTC")
             
-            // Initialize USB manager for thermal camera detection
-            usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
-            val devices = usbManager?.deviceList
+            // Initialize synchronized bitmap for IRUVCTC (real implementation)
+            syncimage = SynchronizedBitmap()
             
-            // Look for Topdon TC001 or compatible thermal camera
-            var thermalDevice: UsbDevice? = null
-            devices?.values?.forEach { device ->
-                // Check for known thermal camera vendor/product IDs
-                if (isTopdonThermalCamera(device)) {
-                    thermalDevice = device
-                    Log.i(TAG, "Found Topdon thermal camera: ${device.deviceName}")
+            // Create IRUVCTC with proper parameters based on working implementation
+            val dataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
+            
+            // Create connection callback based on working implementation
+            val connectCallback = object : ConnectCallback {
+                override fun onCameraOpened(uvcCamera: UVCCamera) {
+                    Log.i(TAG, "Thermal camera opened successfully")
+                }
+                
+                override fun onIRCMDCreate(ircmd: IRCMD) {
+                    Log.i(TAG, "IRCMD created for thermal camera")
+                    isIRCameraConnected = true
                 }
             }
             
-            if (thermalDevice == null) {
-                Log.w(TAG, "No compatible thermal camera found")
-                return@withContext false
-            }
-            
-            // Initialize IRUVCTC with proper parameters for TC001
-            val syncBitmap = com.energy.iruvc.utils.SynchronizedBitmap()
-            val dataFlowMode = com.energy.iruvc.utils.CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
-            
-            // Create connection callback
-            val connectCallback = object : com.energy.iruvc.uvc.ConnectCallback {
-                override fun onConnectSuccess() {
-                    Log.i(TAG, "Thermal camera connected successfully")
+            // Create USB monitor callback based on working implementation
+            val usbMonitorCallback = object : USBMonitorCallback {
+                override fun onAttach() {
+                    Log.i(TAG, "USB thermal camera attached")
+                }
+                
+                override fun onGranted() {
+                    Log.i(TAG, "USB thermal camera permission granted")
+                }
+                
+                override fun onConnect() {
+                    Log.i(TAG, "USB thermal camera connected")
                     isIRCameraConnected = true
                     
                     // Start thermal data streaming
@@ -167,47 +156,42 @@ class ThermalCameraRecorder(
                     }
                 }
                 
-                override fun onConnectFail() {
-                    Log.e(TAG, "Thermal camera connection failed")
+                override fun onDisconnect() {
+                    Log.w(TAG, "USB thermal camera disconnected")
                     isIRCameraConnected = false
                 }
                 
-                override fun onDisconnect() {
-                    Log.w(TAG, "Thermal camera disconnected")
+                override fun onDettach() {
+                    Log.w(TAG, "USB thermal camera detached")
                     isIRCameraConnected = false
-                }
-            }
-            
-            // Create USB monitor callback
-            val usbMonitorCallback = object : com.infisense.usbir.utils.USBMonitorCallback {
-                override fun onConnected() {
-                    Log.i(TAG, "USB thermal camera monitoring connected")
                 }
                 
                 override fun onCancel() {
-                    Log.w(TAG, "USB thermal camera monitoring cancelled")
+                    Log.w(TAG, "USB thermal camera cancelled")
+                    isIRCameraConnected = false
                 }
             }
             
-            // Initialize IRUVCTC with thermal camera parameters
+            // Initialize IRUVCTC with thermal camera parameters (working implementation)
             iruvctc = IRUVCTC(
-                IR_CAMERA_WIDTH, // 256
-                IR_CAMERA_HEIGHT * 2, // 384 (256 image + 192 temperature)
+                IR_CAMERA_WIDTH * 2, // Camera width for thermal (256 * 2)
+                IR_CAMERA_HEIGHT * 2, // Camera height for thermal (192 * 2) 
                 context,
-                syncBitmap,
+                syncimage!!,
                 dataFlowMode,
                 connectCallback,
                 usbMonitorCallback
             )
             
-            // Set frame callback to receive thermal data
-            iruvctc?.setIFrameCallBackListener(object : IRUVCTC.IFrameCallBackListener {
-                override fun updateData() {
-                    if (_isRecording.get()) {
-                        processThermalFrame()
-                    }
+            // Set frame callback to receive thermal data (working implementation)
+            iruvctc?.setIFrameCallBackListener {
+                if (_isRecording.get()) {
+                    processThermalFrame()
                 }
-            })
+            }
+            
+            // Register USB device for thermal camera (working implementation)
+            iruvctc?.registerUSB()
             
             Log.i(TAG, "Real IR thermal camera initialized successfully")
             return@withContext true
