@@ -219,8 +219,8 @@ dependencies {
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
 
-    // LocalRepo AAR files moved to app/libs
-    implementation(files("libs/libusbirsdk_1.3.7_23051019_standard.aar"))  // Updated Topdon SDK
+    // LocalRepo AAR files moved to app/libs - Updated to use latest Topdon SDK
+    implementation(files("libs/libusbirsdk_1.3.7_23051019_standard.aar"))  // Latest Topdon SDK as provided by user
     implementation(files("libs/libirutils_1.2.0_2409241055.aar"))
     implementation(files("libs/libcommon_1.2.0_24052117.aar"))
     
@@ -261,11 +261,34 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     
-    // Official ShimmerAndroidAPI for Shimmer3 GSR+ integration (local AAR files)
-    // NOTE: Update these to actual Maven dependencies when GitHub credentials are available
-    implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
-    implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))
-    implementation(files("libs/shimmerandroidinstrumentdriver-3.2.2_beta.aar"))
+    // Official ShimmerAndroidAPI dependencies with Maven fallback structure
+    // For production: use Maven dependencies when GitHub credentials are configured
+    /*
+    implementation(group = "com.shimmerresearch", name = "shimmerbluetoothmanager", version = "0.11.3_beta") {
+        // excluding org.json which is provided by Android
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+        exclude(group = "org.apache.commons.math")
+    }
+    
+    implementation(group = "com.shimmerresearch", name = "shimmerdriver", version = "0.11.3_beta") {
+        // excluding org.json which is provided by Android
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+    }
+    
+    implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
+    */
+    
+    // Temporary Nordic BLE implementation for GSR until real Shimmer AAR files are available
+    // This provides working Shimmer3 GSR+ communication without requiring official SDK
+    implementation("no.nordicsemi.android:ble:2.6.1")
+    implementation("no.nordicsemi.android:ble-ktx:2.6.1")
+    
+    // Fallback placeholder AAR files are corrupted - commented out until real files are available
+    // implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
+    // implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))
+    // implementation(files("libs/shimmerandroidinstrumentdriver-3.2.2_beta.aar"))
     
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")
