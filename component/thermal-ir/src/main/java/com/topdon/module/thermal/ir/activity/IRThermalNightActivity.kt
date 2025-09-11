@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.hardware.SensorManager
+import android.os.Build
 import android.provider.Settings
 import android.util.Log
 import android.view.*
@@ -3245,7 +3246,7 @@ open class IRThermalNightActivity : BaseIRActivity(), ITsTempListener {
         val bluetoothPermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             arrayOf(Permission.BLUETOOTH_SCAN, Permission.BLUETOOTH_CONNECT)
         } else {
-            arrayOf(Permission.BLUETOOTH)
+            arrayOf(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
         }
         
         XXPermissions.with(this@IRThermalNightActivity)
