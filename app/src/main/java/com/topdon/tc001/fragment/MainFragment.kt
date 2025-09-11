@@ -430,26 +430,14 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
     }
 
     /**
-     * Show GSR Multi-modal Recording options for research purposes
+     * Launch GSR Multi-modal Recording for research purposes
      * Accessed via long-press on app title
      */
     private fun showGSROptions() {
-        TipDialog.Builder(requireContext())
-            .setTitleMessage("GSR Multi-modal Recording")
-            .setMessage("Choose GSR recording option:")
-            .setPositiveListener("Full Recording") {
-                // Launch full multi-modal recording interface
-                NavigationManager.getInstance()
-                    .build(RouterConfig.GSR_MULTI_MODAL)
-                    .navigation(requireContext())
-            }
-            .setCancelListener("GSR Demo") {
-                // Launch simple GSR demo
-                NavigationManager.getInstance()
-                    .build(RouterConfig.GSR_DEMO)
-                    .navigation(requireContext())
-            }
-            .create().show()
+        // Launch full multi-modal recording interface
+        NavigationManager.getInstance()
+            .build(RouterConfig.GSR_MULTI_MODAL)
+            .navigation(requireContext())
     }
 
     enum class ConnectType {

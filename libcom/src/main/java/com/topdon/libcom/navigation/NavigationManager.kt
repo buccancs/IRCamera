@@ -127,7 +127,6 @@ object NavigationManager {
 
             // GSR routes  
             RouterConfig.GSR_MULTI_MODAL -> getClassByName("com.topdon.tc001.gsr.MultiModalRecordingActivity")
-            RouterConfig.GSR_DEMO -> getClassByName("com.topdon.tc001.gsr.GSRDemoActivity")
 
             else -> {
                 throw IllegalArgumentException("Unknown route: $route")

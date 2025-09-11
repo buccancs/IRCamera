@@ -95,7 +95,6 @@ object RouterConfig {
 
     // GSR Multi-modal recording
     const val GSR_MULTI_MODAL = "/$GROUP_GSR/multimodal"
-    const val GSR_DEMO = "/$GROUP_GSR/demo"
 
     // TC001 Thermal Component Routes
     const val GALLERY = "/thermal/gallery"
