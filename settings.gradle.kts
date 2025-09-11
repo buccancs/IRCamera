@@ -10,7 +10,7 @@ dependencyResolutionManagement {
         maven { url = uri("https://maven.aliyun.com/repository/google") }
         // Consolidated local AAR files directories
         flatDir {
-            dirs("libir/libs", "libapp/libs", "app/libs", "libmatrix/libs", "BleModule/libs")
+            dirs("libir/libs", "libapp/libs", "app/libs")
         }
     }
 }
@@ -32,8 +32,6 @@ include(":component:user")
 include(":libapp")
 include(":libcom")
 include(":libir")
-include(":libmatrix")
 include(":libui")
 include(":libmenu")
-include(":BleModule")
 include(":RangeSeekBar")

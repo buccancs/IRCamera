@@ -17,8 +17,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import java.math.RoundingMode
 import com.blankj.utilcode.util.ScreenUtils
-import com.guide.zm04c.matrix.GuideInterface
-import com.guide.zm04c.matrix.IrSurfaceView
+// import com.guide.zm04c.matrix.GuideInterface // Removed - libmatrix module removed
+// import com.guide.zm04c.matrix.IrSurfaceView // Removed - libmatrix module removed
 // import com.tbruyelle.rxpermissions2.RxPermissions // Temporarily disabled - dependency not available
 // import com.topdon.lib.core.bean.tools.ScreenBean // Temporarily disabled - utility class
 import com.topdon.lib.core.tools.ToastTools
@@ -53,7 +53,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private val viewModel: ThermalViewModel by viewModels()
 
     protected var mIrSurfaceViewLayout: FrameLayout? = null
-    protected var mIrSurfaceView: IrSurfaceView? = null
+    // protected var mIrSurfaceView: IrSurfaceView? = null // Removed - libmatrix module removed
 
     private val msgLiveData by lazy { MutableLiveData<Int>() }
 
@@ -81,7 +81,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         imageView.y = maxY.toFloat()
     }
 
-    private var mGuideInterface: GuideInterface? = null
+    // private var mGuideInterface: GuideInterface? = null // Removed - libmatrix module removed
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -97,16 +97,16 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         mDisplayFrameLayout!!.visibility = View.GONE
         mFenceLayout!!.visibility = View.GONE
         mIrSurfaceViewLayout = requireView().findViewById(R.id.final_ir_layout)
-        mIrSurfaceView = IrSurfaceView(requireContext())
+        // mIrSurfaceView = IrSurfaceView(requireContext()) // Removed - libmatrix module removed
         val ifrSurfaceViewLayoutParams =
             FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER,
             )
-        mIrSurfaceView!!.layoutParams = ifrSurfaceViewLayoutParams
-        mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
-        mIrSurfaceViewLayout!!.addView(mIrSurfaceView)
+        // mIrSurfaceView!!.layoutParams = ifrSurfaceViewLayoutParams // Removed - libmatrix module removed
+        // mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f) // Removed - libmatrix module removed
+        // mIrSurfaceViewLayout!!.addView(mIrSurfaceView) // Removed - libmatrix module removed
         val screenWidth = ScreenUtils.getScreenWidth()
         val screenHeight = screenWidth * 192 / 256
         width = screenWidth
@@ -153,9 +153,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         initFence()
         // fragment
         onIrVideoStart()
-        mIrSurfaceView!!.post {
-            Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
-        }
+        // mIrSurfaceView!!.post { // Removed - libmatrix module removed
+        //     Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
+        // }
 
         msgLiveData.observe(this) { msg ->
             if (msg == 0) {
@@ -215,7 +215,8 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             } else {
                 true
             }
-        mGuideInterface = GuideInterface()
+        // mGuideInterface = GuideInterface() // Removed - libmatrix module removed
+        /*
         val ret =
             mGuideInterface!!.init(
                 requireContext(),
@@ -275,6 +276,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         } else {
             ToastTools.showShort("fragment")
         }
+        */ // Removed - libmatrix module removed
     }
 
     private fun rotateBitmap(
@@ -312,26 +314,30 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             } else {
                 false
             }
-        mGuideInterface!!.exit()
-        mGuideInterface = null
+        // mGuideInterface!!.exit() // Removed - libmatrix module removed
+        // mGuideInterface = null // Removed - libmatrix module removed
         ToastTools.showShort("fragment")
     }
 
     fun onLowRangeBtnClick(view: View?) {
+        /*
         if (mGuideInterface == null) {
             ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.setRange(1)
+        */ // Removed - libmatrix module removed
         ToastTools.showShort("SwitchfragmentNormal temperaturefragment")
     }
 
     fun onHighRangeBtnClick(view: View?) {
+        /*
         if (mGuideInterface == null) {
             ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.setRange(2)
+        */ // Removed - libmatrix module removed
         ToastTools.showShort("SwitchfragmentHigh temperaturefragment")
     }
 
@@ -339,10 +345,12 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
      * fragment
      */
     fun onTempBtnClick() {
+        /*
         if (mGuideInterface == null) {
             ToastTools.showShort("fragment")
             return
         }
+        */ // Removed - libmatrix module removed
         isDispLayTemp = !isDispLayTemp
         if (isDispLayTemp) {
             mDisplayFrameLayout!!.visibility = View.VISIBLE
@@ -396,11 +404,13 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
     fun onNucShutterClick(view: View?) {
+        /*
         if (mGuideInterface == null) {
             ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.nuc()
+        */ // Removed - libmatrix module removed
     }
 
 //    private fun showTipDialog(tip: String, type: Int) {
@@ -419,7 +429,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 //    }
 
     fun onLut(view: View) {
-        mIrSurfaceView!!.setOpenLut()
+        // mIrSurfaceView!!.setOpenLut() // Removed - libmatrix module removed
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -517,11 +527,13 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
      * fragment
      */
     private fun updatePalette(index: Int) {
+        /*
         if (mGuideInterface == null) {
             ToastTools.showShort("fragment")
             return
         }
         mGuideInterface!!.changePalette(index)
+        */ // Removed - libmatrix module removed
     }
 
     var fenceFlag = 0x000
@@ -627,14 +639,14 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     // Rotate
     private fun rotate() {
         rotateType = if (rotateType >= 3) 0 else rotateType + 1
-        mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
+        // mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f) // Removed - libmatrix module removed
         ToastTools.showShort("Rotate:${ThermalTool.getRotate(rotateType)}fragment")
     }
 
     // fragment
     private fun enhance() {
-        mIrSurfaceView!!.setOpenLut()
-        val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
+        // mIrSurfaceView!!.setOpenLut() // Removed - libmatrix module removed
+        // val saturation = mIrSurfaceView?.getSaturationValue() ?: 0 // Removed - libmatrix module removed
         // Note: SeekDialog functionality requires integration with dialog utility module
         /*
         SeekDialog.Builder(requireContext())
