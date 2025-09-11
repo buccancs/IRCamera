@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        // targetSdk = libs.versions.targetSdk.get().toInt()  // Deprecated in library modules
+        // targetSdk removed for library modules - only set in main app module per AGP 8.0+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -20,16 +21,8 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
-        }
-    }
-
-    // Configure single release variant for easier maintenance
-    androidComponents {
-        beforeVariants { variant ->
-            // Only enable release variant for single-developer maintenance
-            variant.enable = variant.buildType == "release"
         }
     }
 
@@ -41,63 +34,48 @@ android {
 
     kotlinOptions {
         jvmTarget = "17"
-        freeCompilerArgs +=
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=kotlinx.coroutines.FlowPreview",
-            )
+        freeCompilerArgs += listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        )
     }
 
     buildFeatures {
-        dataBinding = false
-        viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
     // Core library desugaring support
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    
     // Core Android dependencies
-    implementation("androidx.core:core-ktx:1.8.0")
-    implementation("androidx.appcompat:appcompat:1.5.0")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.lifecycle:lifecycle-service:2.5.1")
-    implementation("androidx.work:work-runtime-ktx:2.7.1")
-    implementation("com.google.code.gson:gson:2.9.1")
-
-    // Kotlin Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-
-    // CameraX for advanced camera integration
-    implementation("androidx.camera:camera-core:1.3.0")
-    implementation("androidx.camera:camera-camera2:1.3.0")
-    implementation("androidx.camera:camera-lifecycle:1.3.0")
-    implementation("androidx.camera:camera-video:1.3.0")
-    implementation("androidx.camera:camera-view:1.3.0")
-    implementation("androidx.camera:camera-extensions:1.3.0")
-
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation("androidx.lifecycle:lifecycle-service:2.7.0")
+    implementation(libs.work.runtime.ktx)
+    implementation("com.google.code.gson:gson:2.10.1")
+    
     // For CSV writing
     implementation("com.opencsv:opencsv:5.7.1")
-
-    // Official Shimmer Android API Integration - Latest v3.2.3Beta
+    
+    // Official Shimmer Android API Integration
     // JAR files from https://github.com/ShimmerEngineering/ShimmerAndroidAPI/releases
     implementation(files("libs/ShimmerBiophysicalProcessingLibrary_Rev_0_11.jar"))
     implementation(files("libs/AndroidBluetoothLibrary.jar"))
     implementation(files("libs/androidplot-core-0.5.0-release.jar"))
-
+    
     // Additional dependencies for Shimmer API compatibility
     implementation("com.google.guava:guava:20.0")
     implementation("java3d:vecmath:1.3.1")
     implementation("org.apache.commons:commons-lang3:3.12.0")
-
+    
     // BLE support for Shimmer3R and other modern devices
     implementation("com.github.Jasonchenlijian:FastBle:2.4.0")
-
-    // Testing
-    testImplementation(libs.junit)
+    
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:4.6.1")
-    androidTestImplementation(libs.test.ext.junit)
-    androidTestImplementation(libs.test.espresso.core)
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }

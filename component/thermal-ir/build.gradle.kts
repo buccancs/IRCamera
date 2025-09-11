@@ -118,6 +118,5 @@ dependencies {
     implementation("io.github.scwang90:refresh-layout-kernel:2.1.0")
     implementation("io.github.scwang90:refresh-header-classics:2.1.0")
     
-    // Enhanced unified BLE system integration for cross-modal coordination
-    implementation(project(":BleModule"))
+    // Removed BleModule dependency - module removed as unused
 }

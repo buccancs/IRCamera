@@ -1,12 +1,13 @@
 package com.topdon.gsr.model
 
-import org.junit.Assert.*
 import org.junit.Test
+import org.junit.Assert.*
 
 /**
  * Unit tests for GSR data models
  */
 class GSRModelsTest {
+
     @Test
     fun testGSRSampleCreation() {
         val timestamp = System.currentTimeMillis()
@@ -26,27 +27,24 @@ class GSRModelsTest {
 
     @Test
     fun testGSRSampleToCsvRow() {
-        val sample =
-            GSRSample(
-                timestamp = 1234567890L,
-                utcTimestamp = 1234567891L,
-                conductance = 12.345678,
-                resistance = 80.987654,
-                rawValue = 2048,
-                sampleIndex = 100L,
-                sessionId = "test_session",
-            )
+        val sample = GSRSample(
+            timestamp = 1234567890L,
+            utcTimestamp = 1234567891L,
+            conductance = 12.345678,
+            resistance = 80.987654,
+            sampleIndex = 100L,
+            sessionId = "test_session"
+        )
 
         val csvRow = sample.toCsvRow()
 
-        assertEquals(7, csvRow.size) // Updated to expect 7 fields (includes rawValue)
+        assertEquals(6, csvRow.size)
         assertEquals("1234567890", csvRow[0])
         assertEquals("1234567891", csvRow[1])
         assertEquals("12.345678", csvRow[2])
         assertEquals("80.987654", csvRow[3])
-        assertEquals("2048", csvRow[4]) // rawValue field
-        assertEquals("100", csvRow[5]) // sampleIndex field
-        assertEquals("test_session", csvRow[6]) // sessionId field
+        assertEquals("100", csvRow[4])
+        assertEquals("test_session", csvRow[5])
     }
 
     @Test
@@ -74,14 +72,13 @@ class GSRModelsTest {
         val sessionId = "test_session"
         val metadata = mapOf("camera" to "thermal", "frame" to "123")
 
-        val syncMark =
-            SyncMark(
-                timestamp = timestamp,
-                utcTimestamp = utcTimestamp,
-                eventType = eventType,
-                sessionId = sessionId,
-                metadata = metadata,
-            )
+        val syncMark = SyncMark(
+            timestamp = timestamp,
+            utcTimestamp = utcTimestamp,
+            eventType = eventType,
+            sessionId = sessionId,
+            metadata = metadata
+        )
 
         assertEquals(timestamp, syncMark.timestamp)
         assertEquals(utcTimestamp, syncMark.utcTimestamp)
@@ -101,13 +98,12 @@ class GSRModelsTest {
 
     @Test
     fun testSyncMarkEmptyMetadata() {
-        val syncMark =
-            SyncMark(
-                timestamp = 123L,
-                utcTimestamp = 124L,
-                eventType = "TEST",
-                sessionId = "test",
-            )
+        val syncMark = SyncMark(
+            timestamp = 123L,
+            utcTimestamp = 124L,
+            eventType = "TEST",
+            sessionId = "test"
+        )
 
         val csvRow = syncMark.toCsvRow()
         assertEquals("", csvRow[4]) // Empty metadata

@@ -27,7 +27,6 @@ class GSRRecorder(
     // Shimmer3 integration
     private val shimmerRecorder = ShimmerGSRRecorder(context, samplingRateHz)
     private val useShimmerDevice = true  // Set to false for simulated data only
-    
     companion object {
         private const val TAG = "GSRRecorder"
         private const val SESSIONS_DIR = "IRCamera_Sessions"
@@ -55,25 +54,6 @@ class GSRRecorder(
     private var syncMarksWriter: CSVWriter? = null
     
     private val listeners = mutableListOf<GSRRecordingListener>()
-    
-    /**
-     * Interface for listening to GSR recording events
-     */
-    interface GSRRecordingListener {
-        fun onRecordingStarted(sessionInfo: SessionInfo)
-        fun onRecordingStopped(sessionInfo: SessionInfo)
-        fun onSampleRecorded(sample: GSRSample)
-        fun onSyncMarkAdded(syncMark: SyncMark)
-        fun onError(error: String)
-    }
-    
-    fun addListener(listener: GSRRecordingListener) {
-        listeners.add(listener)
-    }
-    
-    fun removeListener(listener: GSRRecordingListener) {
-        listeners.remove(listener)
-    }
     
     /**
      * Initialize GSR recording system with Shimmer3 device detection
@@ -128,25 +108,49 @@ class GSRRecorder(
         })
     }
     
+    interface GSRRecordingListener {
+        fun onRecordingStarted(sessionInfo: SessionInfo)
+        fun onRecordingStopped(sessionInfo: SessionInfo)
+        fun onSampleRecorded(sample: GSRSample)
+        fun onSyncMarkAdded(syncMark: SyncMark)
+        fun onError(error: String)
+    }
+    
+    fun addListener(listener: GSRRecordingListener) {
+        listeners.add(listener)
+    }
+    
+    fun removeListener(listener: GSRRecordingListener) {
+        listeners.remove(listener)
+    }
+    
     /**
      * Start GSR recording session with Shimmer3 device or simulated data
      */
     suspend fun startRecording(sessionId: String, participantId: String? = null, studyName: String? = null): Boolean {
+        if (isRecording()) {
+            Log.w(TAG, "Recording already in progress")
+            return false
+        }
+        
+        return if (useShimmerDevice && shimmerRecorder.isDeviceConnected()) {
+            Log.i(TAG, "Starting Shimmer3 GSR recording for session: $sessionId")
+            shimmerRecorder.startRecording(sessionId)
+        } else {
+            Log.i(TAG, "Starting simulated GSR recording for session: $sessionId")
+            startSimulatedRecording(sessionId, participantId, studyName)
+        }
+    }
+    
+    /**
+     * Start simulated recording (fallback method)
+     */
+    private suspend fun startSimulatedRecording(sessionId: String, participantId: String? = null, studyName: String? = null): Boolean {
         if (isRecording.get()) {
             Log.w(TAG, "Recording already in progress")
             return false
         }
         
-        return if (useShimmerDevice) {
-            // Use Shimmer3 device
-            shimmerRecorder.startRecording(sessionId)
-        } else {
-            // Use simulated data
-            startSimulatedRecording(sessionId, participantId, studyName)
-        }
-    }
-    
-    private suspend fun startSimulatedRecording(sessionId: String, participantId: String?, studyName: String?): Boolean {
         try {
             // Create session directory
             sessionDirectory = createSessionDirectory(sessionId)
@@ -166,111 +170,56 @@ class GSRRecorder(
                 sessionId = sessionId,
                 startTime = System.currentTimeMillis(),
                 participantId = participantId,
-                studyName = studyName ?: "GSR_Study"
+                studyName = studyName
             )
             
             // Reset counters
             sampleIndex.set(0)
             isRecording.set(true)
             
-            // Start data generation coroutine for simulated data
+            // Start recording coroutine
             recordingJob = CoroutineScope(Dispatchers.IO).launch {
-                generateSimulatedGSRData()
+                recordingLoop()
             }
             
             currentSession?.let { session ->
                 listeners.forEach { it.onRecordingStarted(session) }
             }
             
-            Log.i(TAG, "Simulated GSR recording started: sessionId=$sessionId, samplingRate=${samplingRateHz}Hz")
+            Log.i(TAG, "GSR recording started: sessionId=$sessionId, samplingRate=${samplingRateHz}Hz")
             return true
             
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to start simulated recording", e)
+            Log.e(TAG, "Failed to start recording", e)
             cleanup()
             notifyError("Failed to start recording: ${e.message}")
             return false
         }
     }
     
-    private suspend fun generateSimulatedGSRData() {
-        val baseTime = System.currentTimeMillis()
-        
-        while (isRecording.get()) {
-            try {
-                val currentTime = System.currentTimeMillis()
-                val utcTime = TimeUtil.getUtcTimestamp()
-                val currentIndex = sampleIndex.getAndIncrement()
-                
-                currentSession?.let { session ->
-                    // Generate realistic GSR data with physiological patterns
-                    val timeOffset = currentIndex * sampleIntervalMs
-                    val baseFreq = timeOffset / 10000.0 // Slow base changes
-                    val breathingFreq = timeOffset / 2000.0 // Breathing-like pattern
-                    val noiseFreq = timeOffset / 500.0 // High-frequency noise
-                    
-                    // Simulate realistic GSR patterns (10-50 µS typical range)
-                    val conductance = 20.0 + 
-                                    Math.sin(baseFreq) * 10.0 + // Slow drift
-                                    Math.sin(breathingFreq) * 3.0 + // Breathing pattern
-                                    Math.sin(noiseFreq) * 1.0 + // Fine noise
-                                    Math.random() * 2.0 // Random variation
-                    
-                    // Ensure reasonable range and calculate resistance
-                    val finalConductance = Math.max(5.0, Math.min(50.0, conductance))
-                    val resistance = 1.0 / (finalConductance / 1000000.0) // Convert µS to kΩ
-                    
-                    val sample = GSRSample(
-                        timestamp = currentTime,
-                        utcTimestamp = utcTime,
-                        conductance = finalConductance,
-                        resistance = resistance,
-                        sampleIndex = currentIndex,
-                        sessionId = session.sessionId
-                    )
-                    
-                    // Write to CSV
-                    signalsWriter?.writeNext(sample.toCsvRow())
-                    if (currentIndex % 10 == 0L) { // Flush every 10 samples
-                        signalsWriter?.flush()
-                    }
-                    
-                    // Notify listeners
-                    listeners.forEach { it.onSampleRecorded(sample) }
-                }
-                
-                delay(sampleIntervalMs)
-                
-            } catch (e: Exception) {
-                if (currentCoroutineContext().isActive) {
-                    Log.e(TAG, "Error in simulated data generation", e)
-                    notifyError("Data generation error: ${e.message}")
-                }
-            }
-        }
-    }
-    
     /**
-     * Stop GSR recording session
+     * Stop GSR recording session (Shimmer3 or simulated)
      */
     fun stopRecording(): SessionInfo? {
-        if (!isRecording.get()) {
-            Log.w(TAG, "No recording in progress")
-            return currentSession
-        }
-        
-        isRecording.set(false)
-        
-        return if (useShimmerDevice) {
+        return if (useShimmerDevice && shimmerRecorder.isRecording()) {
+            Log.i(TAG, "Stopping Shimmer3 GSR recording")
             shimmerRecorder.stopRecording()
         } else {
             stopSimulatedRecording()
         }
     }
     
+    /**
+     * Stop simulated recording
+     */
     private fun stopSimulatedRecording(): SessionInfo? {
+        if (!isRecording.get()) {
+            Log.w(TAG, "No simulated recording in progress")
+            return currentSession
+        }
+        
+        isRecording.set(false)
         recordingJob?.cancel()
-        recordingJob = null
         
         currentSession?.let { session ->
             session.endTime = System.currentTimeMillis()
@@ -286,54 +235,71 @@ class GSRRecorder(
         cleanup()
         val completedSession = currentSession
         currentSession = null
+        
         return completedSession
+    }
     }
     
     /**
-     * Trigger a synchronization event
+     * Add synchronization mark during recording (Shimmer3 or simulated)
      */
-    fun triggerSyncEvent(eventType: String, metadata: String = ""): Boolean {
-        if (!isRecording.get()) return false
-        
-        return if (useShimmerDevice) {
-            shimmerRecorder.triggerSyncEvent(eventType, metadata)
+    fun addSyncMark(eventType: String, metadata: Map<String, String> = emptyMap()): Boolean {
+        return if (useShimmerDevice && shimmerRecorder.isRecording()) {
+            Log.d(TAG, "Adding sync mark to Shimmer recording: $eventType")
+            val metadataString = metadata.entries.joinToString(",") { "${it.key}=${it.value}" }
+            shimmerRecorder.triggerSyncEvent(eventType, metadataString)
         } else {
-            triggerSimulatedSyncEvent(eventType, metadata)
+            addSimulatedSyncMark(eventType, metadata)
         }
     }
     
-    private fun triggerSimulatedSyncEvent(eventType: String, metadata: String): Boolean {
-        try {
-            currentSession?.let { session ->
-                val syncMark = SyncMark(
-                    timestamp = System.currentTimeMillis(),
-                    utcTimestamp = TimeUtil.getUtcTimestamp(),
-                    eventType = eventType,
-                    sessionId = session.sessionId,
-                    metadata = if (metadata.isNotEmpty()) mapOf("data" to metadata) else emptyMap()
-                )
-                
-                // Write to CSV
-                syncMarksWriter?.writeNext(syncMark.toCsvRow())
-                syncMarksWriter?.flush()
-                
-                // Notify listeners
-                listeners.forEach { it.onSyncMarkAdded(syncMark) }
-                
-                Log.d(TAG, "Sync event recorded: $eventType")
-                return true
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error recording sync event", e)
-            notifyError("Error recording sync event: ${e.message}")
-        }
+    /**
+     * Add sync mark to simulated recording
+     */
+    private fun addSimulatedSyncMark(eventType: String, metadata: Map<String, String>): Boolean {
+        val session = currentSession ?: return false
         
-        return false
+        val syncMark = SyncMark(
+            timestamp = System.currentTimeMillis(),
+            utcTimestamp = TimeUtil.getUtcTimestamp(),
+            eventType = eventType,
+            sessionId = session.sessionId,
+            metadata = metadata
+        )
+        
+        session.syncMarks.add(syncMark)
+        
+        // Write to CSV immediately
+        syncMarksWriter?.writeNext(syncMark.toCsvRow())
+        syncMarksWriter?.flush()
+        
+        listeners.forEach { it.onSyncMarkAdded(syncMark) }
+        Log.d(TAG, "Simulated sync mark added: eventType=$eventType")
+        
+        return true
     }
+    
+    /**
+     * Get current recording status (Shimmer3 or simulated)
+     */
+    fun isRecording(): Boolean = 
+        (useShimmerDevice && shimmerRecorder.isRecording()) || isRecording.get()
+    
+    /**
+     * Get current session info
+     */
+    fun getCurrentSession(): SessionInfo? = currentSession
+    
+    /**
+     * Get session directory path
+     */
+    fun getSessionDirectory(): File? = sessionDirectory
     
     private fun createSessionDirectory(sessionId: String): File? {
         return try {
-            val externalStorage = Environment.getExternalStorageDirectory()
+            val externalStorage = context.getExternalFilesDir(null) 
+                ?: Environment.getExternalStorageDirectory()
+            
             val sessionsDir = File(externalStorage, SESSIONS_DIR)
             val sessionDir = File(sessionsDir, sessionId)
             
@@ -373,6 +339,48 @@ class GSRRecorder(
             Log.e(TAG, "Failed to initialize CSV writers", e)
             false
         }
+    }
+    
+    private suspend fun recordingLoop() {
+        Log.d(TAG, "Starting GSR recording loop at ${samplingRateHz}Hz")
+        
+        while (isRecording.get()) {
+            try {
+                val currentTime = System.currentTimeMillis()
+                val utcTime = TimeUtil.getUtcTimestamp()
+                val currentIndex = sampleIndex.getAndIncrement()
+                
+                currentSession?.let { session ->
+                    val sample = GSRSample.createSimulated(
+                        timestamp = currentTime,
+                        utcTimestamp = utcTime,
+                        sampleIndex = currentIndex,
+                        sessionId = session.sessionId
+                    )
+                    
+                    // Write to CSV
+                    signalsWriter?.writeNext(sample.toCsvRow())
+                    if (currentIndex % 10 == 0L) { // Flush every 10 samples to balance performance and data safety
+                        signalsWriter?.flush()
+                    }
+                    
+                    // Notify listeners
+                    listeners.forEach { it.onSampleRecorded(sample) }
+                }
+                
+                // Maintain precise sampling rate
+                delay(sampleIntervalMs)
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Error in recording loop", e)
+                if (isRecording.get()) { // Only notify if still supposed to be recording
+                    notifyError("Recording error: ${e.message}")
+                }
+                break
+            }
+        }
+        
+        Log.d(TAG, "GSR recording loop ended")
     }
     
     private fun saveSessionMetadata(session: SessionInfo) {
