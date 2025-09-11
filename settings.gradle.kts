@@ -22,7 +22,6 @@ include(":app")
 
 // Active sensor and recording modules 
 include(":component:thermal")
-include(":component:gsr-recording")
 include(":component:thermal-ir")
 include(":component:thermal-lite")
 include(":component:pseudo")

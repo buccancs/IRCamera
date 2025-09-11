@@ -205,7 +205,10 @@ dependencies {
     implementation(project(":component:thermal-ir"))   // Thermal IR resources needed by app
     implementation(project(":component:thermal-lite")) // Thermal Lite functionality
     implementation(project(":component:pseudo"))       // Pseudo color functionality needed by app
-    implementation(project(":component:gsr-recording"))
+    // ShimmerAndroidAPI - Official Shimmer Android API
+    // TODO: Download ShimmerAndroidAPI-v3.3.0.aar from https://github.com/ShimmerEngineering/ShimmerAndroidAPI/releases
+    // and place in app/libs/ directory, then uncomment the line below:
+    // implementation(files("libs/ShimmerAndroidAPI-v3.3.0.aar"))  // Official Shimmer API
     implementation(project(":component:user"))         // User module for MoreActivity and settings
     implementation(project(":libapp"))
     implementation(project(":libcom"))
