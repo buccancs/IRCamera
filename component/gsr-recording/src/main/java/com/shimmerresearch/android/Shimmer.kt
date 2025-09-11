@@ -9,6 +9,25 @@ import com.shimmerresearch.driver.ObjectCluster
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicBoolean
 
+/**
+ * Shimmer sensor wrapper for GSR data acquisition
+ */
+class Shimmer(private val context: Context, private val handler: Handler) {
+    
+    companion object {
+        private const val TAG = "Shimmer"
+        private const val MESSAGE_READ = 1
+        private const val SIMULATION_DATA_INTERVAL_MS = 50L
+    }
+    
+    private var realShimmerInstance: Any? = null
+    private var dataCallback: ((ObjectCluster) -> Unit)? = null
+    private val isStreaming = AtomicBoolean(false)
+    private var streamingJob: Job? = null
+    private var simulationJob: Job? = null
+    private var batteryLevel: Int = 85
+    private var sampleCount = 0L
+
     fun setDataCallback(callback: (ObjectCluster) -> Unit) {
         this.dataCallback = callback
     }
@@ -185,5 +204,12 @@ import java.util.concurrent.atomic.AtomicBoolean
                     }
                 }
             }
+    }
+    
+    /**
+     * Send message through handler for API compatibility
+     */
+    private fun sendMessage(what: Int, arg1: Int, arg2: Int, obj: Any) {
+        handler.obtainMessage(what, arg1, arg2, obj).sendToTarget()
     }
 }
