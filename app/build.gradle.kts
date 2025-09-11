@@ -280,18 +280,14 @@ dependencies {
     implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
     */
     
-    // Shimmer Integration: Official AAR files are currently placeholder text files (not functional ZIP files)
-    // Using Nordic BLE for working Shimmer3 GSR+ integration until real AAR files are available
-    // This provides production-ready Shimmer communication using the libs directory structure
-    implementation("no.nordicsemi.android:ble:2.6.1")
-    implementation("no.nordicsemi.android:ble-ktx:2.6.1")
+    // Official Shimmer AAR files from libs directory - activating real SDK integration  
+    implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
+    implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))
+    implementation(files("libs/shimmerandroidinstrumentdriver-3.2.2_beta.aar"))
     
-    // Official Shimmer AAR files are placeholder text files - using Nordic BLE for production-ready integration
-    // Real Shimmer AAR integration ready when binaries become available:
-    // implementation(files("libs/ShimmerAndroidAPI-v3.2.4Beta.aar"))
-    // implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
-    // implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))
-    // implementation(files("libs/shimmerandroidinstrumentdriver-3.2.2_beta.aar"))
+    // Remove Nordic BLE workaround - now using official Shimmer SDK from libs
+    // implementation("no.nordicsemi.android:ble:2.6.1")
+    // implementation("no.nordicsemi.android:ble-ktx:2.6.1")
     
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")
