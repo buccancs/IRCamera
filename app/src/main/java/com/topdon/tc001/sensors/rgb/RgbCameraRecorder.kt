@@ -87,30 +87,63 @@ class RgbCameraRecorder(
         try {
             Log.i(TAG, "Initializing RGB camera for sensor $sensorId")
             
-            // Check camera permission
+            // Check camera permission - critical for Samsung devices
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                emitError(ErrorType.PERMISSION_DENIED, "Camera permission not granted")
+                Log.e(TAG, "Camera permission not granted - this is required for RGB recording")
+                emitError(ErrorType.PERMISSION_DENIED, "Camera permission not granted. Please grant camera permission in app settings.")
                 return@withContext false
             }
             
-            // Initialize CameraX
+            // Additional permission checks for video recording
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                Log.w(TAG, "Audio permission not granted - video will be recorded without audio")
+            }
+            
+            // Initialize CameraX - handle potential provider initialization failures
             val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
-            cameraProvider = cameraProviderFuture.get()
+            try {
+                cameraProvider = cameraProviderFuture.get()
+                Log.d(TAG, "CameraX ProcessCameraProvider initialized successfully")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to get CameraProvider - camera hardware may not be available", e)
+                emitError(ErrorType.INITIALIZATION_FAILED, "Camera hardware initialization failed: ${e.message}")
+                return@withContext false
+            }
             
-            // Configure video capture
-            val recorder = Recorder.Builder()
-                .setQualitySelector(QualitySelector.from(Quality.FHD)) // 1080p
-                .build()
-            videoCapture = VideoCapture.withOutput(recorder)
+            if (cameraProvider == null) {
+                Log.e(TAG, "CameraProvider is null after initialization")
+                emitError(ErrorType.INITIALIZATION_FAILED, "Camera provider is not available")
+                return@withContext false
+            }
             
-            // Configure image capture
-            imageCapture = ImageCapture.Builder()
-                .setTargetResolution(targetImageResolution)
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                .setJpegQuality(95) // High quality for analysis
-                .build()
+            // Configure video capture with Samsung-compatible settings
+            try {
+                val recorder = Recorder.Builder()
+                    .setQualitySelector(QualitySelector.from(Quality.FHD)) // 1080p
+                    .build()
+                videoCapture = VideoCapture.withOutput(recorder)
+                Log.d(TAG, "Video capture configured successfully")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to configure video capture", e)
+                emitError(ErrorType.INITIALIZATION_FAILED, "Video capture configuration failed: ${e.message}")
+                return@withContext false
+            }
             
-            Log.i(TAG, "RGB camera initialized successfully")
+            // Configure image capture with conservative settings for Samsung compatibility
+            try {
+                imageCapture = ImageCapture.Builder()
+                    .setTargetResolution(targetImageResolution)
+                    .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                    .setJpegQuality(95) // High quality for analysis
+                    .build()
+                Log.d(TAG, "Image capture configured successfully")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to configure image capture", e)
+                emitError(ErrorType.INITIALIZATION_FAILED, "Image capture configuration failed: ${e.message}")
+                return@withContext false
+            }
+            
+            Log.i(TAG, "RGB camera initialized successfully for $sensorId")
             emitStatus()
             return@withContext true
             
@@ -135,16 +168,41 @@ class RgbCameraRecorder(
             videoFile = File(sessionDirectory, VIDEO_FILENAME)
             imagesDirectory = File(sessionDirectory, IMAGES_SUBDIRECTORY).apply { mkdirs() }
             
-            // Start video recording
-            val mediaStoreOutput = FileOutputOptions.Builder(videoFile!!).build()
-            recording = videoCapture?.output
-                ?.prepareRecording(context, mediaStoreOutput)
-                ?.start(ContextCompat.getMainExecutor(context)) { recordEvent ->
-                    handleVideoRecordEvent(recordEvent)
-                }
+            // Bind camera with both video and image capture - critical step for Samsung devices
+            val cameraBindSuccess = bindCamera()
+            if (!cameraBindSuccess) {
+                Log.e(TAG, "Failed to bind camera - cannot start recording")
+                return@withContext false
+            }
             
-            // Bind camera with both video and image capture
-            bindCamera()
+            // Validate camera binding was successful
+            if (camera == null) {
+                Log.e(TAG, "Camera is null after binding - recording cannot proceed")
+                emitError(ErrorType.RECORDING_FAILED, "Camera binding validation failed")
+                return@withContext false
+            }
+            
+            // Start video recording - validate videoCapture is available
+            val videoCapture = this@RgbCameraRecorder.videoCapture
+            if (videoCapture == null) {
+                Log.e(TAG, "VideoCapture is null - cannot start video recording")
+                emitError(ErrorType.RECORDING_FAILED, "Video capture not configured")
+                return@withContext false
+            }
+            
+            try {
+                val mediaStoreOutput = FileOutputOptions.Builder(videoFile!!).build()
+                recording = videoCapture.output
+                    .prepareRecording(context, mediaStoreOutput)
+                    .start(ContextCompat.getMainExecutor(context)) { recordEvent ->
+                        handleVideoRecordEvent(recordEvent)
+                    }
+                Log.d(TAG, "Video recording started successfully")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to start video recording", e)
+                emitError(ErrorType.RECORDING_FAILED, "Video recording start failed: ${e.message}")
+                return@withContext false
+            }
             
             // Start periodic image capture
             startImageCapture()
@@ -163,55 +221,133 @@ class RgbCameraRecorder(
         }
     }
 
-    private suspend fun bindCamera() = withContext(Dispatchers.Main) {
+    private suspend fun bindCamera(): Boolean = withContext(Dispatchers.Main) {
         try {
-            cameraProvider?.unbindAll()
+            Log.d(TAG, "Binding camera for RGB recording")
+            
+            // Validate prerequisites before binding
+            val cameraProvider = this@RgbCameraRecorder.cameraProvider
+            if (cameraProvider == null) {
+                Log.e(TAG, "CameraProvider is null - cannot bind camera")
+                emitError(ErrorType.INITIALIZATION_FAILED, "CameraProvider not initialized")
+                return@withContext false
+            }
+            
+            if (videoCapture == null || imageCapture == null) {
+                Log.e(TAG, "Camera use cases not configured - cannot bind camera")
+                emitError(ErrorType.INITIALIZATION_FAILED, "Camera use cases not configured")
+                return@withContext false
+            }
+            
+            // Unbind any existing use cases
+            cameraProvider.unbindAll()
+            Log.d(TAG, "Unbound all existing camera use cases")
             
             // Select back camera
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
             
-            // Create preview for monitoring (optional)
-            val preview = Preview.Builder()
-                .setTargetResolution(Size(1280, 720))
-                .build()
+            // Check if back camera is available
+            if (!cameraProvider.hasCamera(cameraSelector)) {
+                Log.e(TAG, "Back camera is not available on this device")
+                emitError(ErrorType.INITIALIZATION_FAILED, "Back camera not available")
+                return@withContext false
+            }
             
-            // Bind use cases
-            camera = cameraProvider?.bindToLifecycle(
-                lifecycleOwner,
-                cameraSelector,
-                preview,
-                videoCapture,
-                imageCapture
-            )
+            // For Samsung devices, try progressive binding to avoid concurrent use-case issues
+            try {
+                // First, try binding with just video and image capture (no preview to reduce load)
+                camera = cameraProvider.bindToLifecycle(
+                    lifecycleOwner,
+                    cameraSelector,
+                    videoCapture!!,
+                    imageCapture!!
+                )
+                Log.d(TAG, "Camera bound successfully without preview")
+            } catch (e: Exception) {
+                Log.w(TAG, "Failed to bind with both video and image, trying video only", e)
+                
+                // If concurrent use-cases fail, try with video only (fallback for Samsung devices)
+                try {
+                    camera = cameraProvider.bindToLifecycle(
+                        lifecycleOwner,
+                        cameraSelector,
+                        videoCapture!!
+                    )
+                    Log.w(TAG, "Camera bound with video only - image capture disabled for compatibility")
+                    // Disable image capture for this session
+                    imageCapture = null
+                } catch (fallbackException: Exception) {
+                    Log.e(TAG, "Failed to bind camera even with video only", fallbackException)
+                    emitError(ErrorType.INITIALIZATION_FAILED, "Camera binding failed: ${fallbackException.message}")
+                    return@withContext false
+                }
+            }
             
-            // Configure auto-focus and exposure
-            camera?.cameraControl?.enableTorch(false) // Ensure flash is off initially
+            val boundCamera = camera
+            if (boundCamera == null) {
+                Log.e(TAG, "Camera is null after successful binding - this shouldn't happen")
+                emitError(ErrorType.INITIALIZATION_FAILED, "Camera binding returned null")
+                return@withContext false
+            }
+            
+            // Configure camera controls
+            try {
+                boundCamera.cameraControl.enableTorch(false) // Ensure flash is off initially
+                Log.d(TAG, "Camera controls configured successfully")
+            } catch (e: Exception) {
+                Log.w(TAG, "Failed to configure camera controls, continuing anyway", e)
+            }
+            
+            Log.i(TAG, "Camera bound successfully for RGB recording")
+            return@withContext true
             
         } catch (e: Exception) {
             Log.e(TAG, "Failed to bind camera", e)
             emitError(ErrorType.INITIALIZATION_FAILED, "Camera binding failed: ${e.message}")
+            return@withContext false
         }
     }
 
     private fun startImageCapture() {
+        // Check if image capture is available (may be disabled for Samsung compatibility)
+        val imageCapture = this.imageCapture
+        if (imageCapture == null) {
+            Log.w(TAG, "Image capture disabled - running in video-only mode for device compatibility")
+            return
+        }
+        
         imageCapturJob = recordingScope.launch {
+            Log.d(TAG, "Starting periodic image capture at ${IMAGE_CAPTURE_INTERVAL_MS}ms intervals")
             while (_isRecording.get() && isActive) {
                 captureAnalysisFrame()
                 delay(IMAGE_CAPTURE_INTERVAL_MS)
             }
+            Log.d(TAG, "Image capture stopped")
         }
     }
 
     private suspend fun captureAnalysisFrame() {
         try {
+            // Validate image capture is available
+            val imageCapture = this.imageCapture
+            if (imageCapture == null) {
+                Log.w(TAG, "Image capture not available - skipping frame capture")
+                return
+            }
+            
+            // Validate images directory exists
+            val imagesDir = this.imagesDirectory
+            if (imagesDir == null || !imagesDir.exists()) {
+                Log.w(TAG, "Images directory not available - skipping frame capture")
+                return
+            }
+            
             val timestamp = System.nanoTime()
             val frameNumber = frameCount.incrementAndGet()
-            val imageFile = File(imagesDirectory, "frame_${frameNumber}_${timestamp}.jpg")
+            val imageFile = File(imagesDir, "frame_${frameNumber}_${timestamp}.jpg")
             
             val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile)
                 .build()
-            
-            val imageCapture = this.imageCapture ?: return
             
             withContext(Dispatchers.Main) {
                 imageCapture.takePicture(
@@ -219,12 +355,12 @@ class RgbCameraRecorder(
                     ContextCompat.getMainExecutor(context),
                     object : ImageCapture.OnImageSavedCallback {
                         override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                            Log.d(TAG, "Analysis frame saved: ${imageFile.name}")
+                            Log.d(TAG, "Analysis frame saved: ${imageFile.name} (${frameNumber})")
                             recordingScope.launch { emitStatus() }
                         }
                         
                         override fun onError(exception: ImageCaptureException) {
-                            Log.w(TAG, "Failed to capture analysis frame", exception)
+                            Log.w(TAG, "Failed to capture analysis frame ${frameNumber}: ${exception.message}", exception)
                         }
                     }
                 )
