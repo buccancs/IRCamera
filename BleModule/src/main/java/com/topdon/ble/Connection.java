@@ -43,7 +43,7 @@ public interface Connection {
      */
     int TIMEOUT_TYPE_CANNOT_CONNECT = 1;
     /**
-     * ，，[BluetoothGattCallback.onServicesDiscovered]
+     * Connection successful, but service discovery fails (i.e., [BluetoothGattCallback.onServicesDiscovered] is not called).
      */
     int TIMEOUT_TYPE_CANNOT_DISCOVER_SERVICES = 2;
 
