@@ -1,6 +1,7 @@
 package com.topdon.tc001
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
@@ -541,9 +542,12 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     private val pseudoSetResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK) {
-                val tmp =
+                val tmp = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, CustomPseudoBean::class.java)
+                } else {
+                    @Suppress("DEPRECATION")
                     it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN)
-                        ?: CustomPseudoBean()
+                } ?: CustomPseudoBean()
                 updateImageAndSeekbarColorList(tmp)
                 temperatureSeekbar.setColorList(tmp.getColorList(struct.isTC007())?.reversedArray())
                 temperatureSeekbar.setPlaces(tmp.getPlaceList())
@@ -648,10 +652,23 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
                                     .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
                                     .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
 
-                            intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_INFO)?.let {
+                            val reportInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO, Parcelable::class.java)
+                            } else {
+                                @Suppress("DEPRECATION")
+                                intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_INFO)
+                            }
+                            reportInfo?.let {
                                 navigationBuilder.withParcelable(ExtraKeyConfig.REPORT_INFO, it)
                             }
-                            intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_CONDITION)?.let {
+                            
+                            val reportCondition = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION, Parcelable::class.java)
+                            } else {
+                                @Suppress("DEPRECATION")
+                                intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_CONDITION)
+                            }
+                            reportCondition?.let {
                                 navigationBuilder.withParcelable(ExtraKeyConfig.REPORT_CONDITION, it)
                             }
                             intent.getParcelableArrayListExtra<Parcelable>(ExtraKeyConfig.REPORT_IR_LIST)?.let {
