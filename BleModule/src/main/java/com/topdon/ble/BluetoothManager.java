@@ -152,7 +152,7 @@ public class BluetoothManager implements EventObserver {
     }
 
     /**
-     * {@link Observe}，{@link RunOn}，{@link Tag}
+     * Use {@link Observe} to receive messages, {@link RunOn} to specify the main thread for method execution, and set {@link Tag} to prevent the method from not being found after obfuscation.
      */
     @Tag("onConnectionStateChanged")
     @Observe
