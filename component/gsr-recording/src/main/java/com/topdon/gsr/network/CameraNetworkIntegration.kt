@@ -10,6 +10,45 @@ import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
+/**
+ * Manages camera network integration for streaming RGB and thermal data
+ */
+class CameraNetworkIntegration(
+    private val context: Context,
+    private val networkClient: NetworkClient,
+    private val qosManager: QualityOfServiceManager
+) {
+    companion object {
+        private const val TAG = "CameraNetworkIntegration"
+        private const val RGB_STREAM_ID = "rgb_camera"
+        private const val THERMAL_STREAM_ID = "thermal_camera"
+        private const val MAX_FRAME_QUEUE_SIZE = 30
+        private const val FRAME_DROP_THRESHOLD = 0.8
+        private const val JPEG_QUALITY_HIGH = 85
+        private const val JPEG_QUALITY_MEDIUM = 70
+        private const val JPEG_QUALITY_LOW = 50
+    }
+
+    // State management
+    private val isRgbStreamingActive = AtomicBoolean(false)
+    private val isThermalStreamingActive = AtomicBoolean(false)
+    
+    // Frame counting
+    private val rgbFrameCount = AtomicLong(0)
+    private val thermalFrameCount = AtomicLong(0)
+    private val droppedFrameCount = AtomicLong(0)
+    
+    // Frame queues
+    private val rgbFrameQueue = ConcurrentLinkedQueue<RgbFrame>()
+    private val thermalFrameQueue = ConcurrentLinkedQueue<ThermalFrame>()
+    
+    // Coroutine scope for streaming operations
+    private val streamingJob = SupervisorJob()
+    private val streamingScope = CoroutineScope(Dispatchers.IO + streamingJob)
+
+    /**
+     * Process thermal frame and add to streaming queue
+     */
     fun processThermalFrame(
         thermalData: FloatArray,
         width: Int,
@@ -339,3 +378,40 @@ import java.util.concurrent.atomic.AtomicLong
             Log.d(TAG, "All camera streaming stopped")
         }
 }
+
+/**
+ * Data class representing an RGB frame
+ */
+data class RgbFrame(
+    val frameId: Long,
+    val timestamp: Long,
+    val jpegData: ByteArray,
+    val width: Int,
+    val height: Int
+)
+
+/**
+ * Data class representing a thermal frame
+ */
+data class ThermalFrame(
+    val frameId: Long,
+    val timestamp: Long,
+    val thermalData: FloatArray,
+    val width: Int,
+    val height: Int,
+    val minTemp: Float,
+    val maxTemp: Float
+)
+
+/**
+ * Data class for stream metrics
+ */
+data class StreamMetrics(
+    val streamId: String,
+    val isActive: Boolean,
+    val frameRate: Float,
+    val totalFrames: Long,
+    val droppedFrames: Long,
+    val queueSize: Int,
+    val avgLatency: Long
+)

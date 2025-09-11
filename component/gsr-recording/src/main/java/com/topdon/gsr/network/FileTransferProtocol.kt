@@ -9,7 +9,31 @@ import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
 
-    suspend fun queueFileTransfer(
+/**
+ * Handles file transfer protocol for sending files to PC Controller
+ */
+class FileTransferProtocol(
+    private val context: Context,
+    private val networkClient: NetworkClient
+) {
+    companion object {
+        private const val TAG = "FileTransferProtocol"
+        private const val CHUNK_SIZE = 8192
+        private const val MAX_CONCURRENT_TRANSFERS = 3
+        private const val RETRY_ATTEMPTS = 3
+    }
+
+    // Transfer management
+    private val activeTransfers = ConcurrentHashMap<String, TransferRequest>()
+    private val transferQueue = mutableListOf<TransferRequest>()
+    private val completedTransfers = AtomicLong(0)
+    
+    // Coroutine scope
+    private val transferScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+    /**
+     * Queue a file for transfer to PC Controller
+     */
         filePath: String,
         priority: TransferPriority = TransferPriority.NORMAL,
         sessionId: String,
@@ -120,8 +144,47 @@ import java.util.concurrent.atomic.AtomicLong
     }
 
     fun cleanup() {
-        transferJob.cancel()
+        transferScope.cancel()
         activeTransfers.clear()
         transferQueue.clear()
     }
+    
+    /**
+     * Generate transfer ID
+     */
+    private fun generateTransferId(filePath: String, sessionId: String): String {
+        val input = "$filePath-$sessionId-${System.currentTimeMillis()}"
+        return MessageDigest.getInstance("MD5").digest(input.toByteArray())
+            .joinToString("") { "%02x".format(it) }
+    }
 }
+
+/**
+ * Transfer priority levels
+ */
+enum class TransferPriority {
+    LOW, NORMAL, HIGH, URGENT
+}
+
+/**
+ * Transfer request data class
+ */
+data class TransferRequest(
+    val transferId: String,
+    val filePath: String,
+    val fileSize: Long,
+    val priority: TransferPriority,
+    val sessionId: String,
+    val metadata: Map<String, String>,
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+/**
+ * Transfer session data class
+ */
+data class TransferSession(
+    val request: TransferRequest,
+    val startTime: Long,
+    val bytesTransferred: Long = 0,
+    val isActive: Boolean = true
+)

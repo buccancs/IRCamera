@@ -7,7 +7,30 @@ import android.util.Log
 import kotlinx.coroutines.*
 import java.util.concurrent.ConcurrentHashMap
 
-    fun unregisterService() {
+/**
+ * Zeroconf/mDNS service for PC Controller discovery
+ */
+class ZeroconfDiscoveryService(private val context: Context) {
+    companion object {
+        private const val TAG = "ZeroconfDiscoveryService"
+        private const val SERVICE_TYPE = "_ircamera._tcp."
+        private const val SERVICE_NAME = "IRCamera-Hub"
+    }
+
+    // Service management
+    private val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
+    private val discoveredServices = ConcurrentHashMap<String, NsdServiceInfo>()
+    private var isRegistered = false
+    private var isDiscovering = false
+    
+    // Listeners
+    private var registrationListener: NsdManager.RegistrationListener? = null
+    private var discoveryListener: NsdManager.DiscoveryListener? = null
+    private var serviceEventListener: ServiceEventListener? = null
+
+    /**
+     * Unregister the service
+     */
         if (!isRegistered) return
 
         try {
@@ -167,8 +190,25 @@ import java.util.concurrent.ConcurrentHashMap
         stopDiscovery()
         unregisterService()
         discoveredServices.clear()
-        serviceListener = null
+        serviceEventListener = null
         discoveryListener = null
         registrationListener = null
     }
+
+    /**
+     * Set service event listener
+     */
+    fun setServiceEventListener(listener: ServiceEventListener) {
+        this.serviceEventListener = listener
+    }
+}
+
+/**
+ * Interface for service discovery events
+ */
+interface ServiceEventListener {
+    fun onServiceFound(serviceInfo: NsdServiceInfo)
+    fun onServiceLost(serviceInfo: NsdServiceInfo)
+    fun onDiscoveryStarted()
+    fun onDiscoveryStopped()
 }

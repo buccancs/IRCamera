@@ -16,7 +16,28 @@ import java.time.format.DateTimeFormatter
 import java.util.concurrent.ConcurrentHashMap
 import javax.net.ssl.*
 
-    private fun createTrustAllManager(): X509TrustManager {
+/**
+ * Network client for communication with PC Controller
+ */
+class NetworkClient(private val context: Context) {
+    companion object {
+        private const val TAG = "NetworkClient"
+        private const val DEFAULT_PORT = 8443
+        private const val CONNECTION_TIMEOUT_MS = 10000
+        private const val READ_TIMEOUT_MS = 30000
+    }
+
+    // Connection state
+    private var socket: SSLSocket? = null
+    private var isConnected = false
+    private val responseMap = ConcurrentHashMap<String, CompletableDeferred<JSONObject>>()
+    
+    // Coroutine scope
+    private val clientScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+    /**
+     * Create trust-all SSL manager for development
+     */
         return object : X509TrustManager {
             override fun checkClientTrusted(
                 chain: Array<X509Certificate>,
@@ -155,5 +176,22 @@ import javax.net.ssl.*
         controllerId: String,
     ): Boolean {
         return authManager.validateMessageAuthentication(message, controllerId)
+    }
+
+    /**
+     * Check if client is connected
+     */
+    fun isConnected(): Boolean = isConnected
+
+    /**
+     * Wait for response with timeout
+     */
+    suspend fun waitForResponse(messageType: String, timeoutMs: Long): JSONObject {
+        val deferred = CompletableDeferred<JSONObject>()
+        responseMap[messageType] = deferred
+        
+        return withTimeoutOrNull(timeoutMs) {
+            deferred.await()
+        } ?: throw TimeoutException("Response timeout for message type: $messageType")
     }
 }

@@ -10,7 +10,26 @@ import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
 
-    fun processPairingResponse(response: JSONObject): Boolean {
+/**
+ * Manages device authentication with PC Controller
+ */
+class DeviceAuthenticationManager(private val context: Context) {
+    companion object {
+        private const val TAG = "DeviceAuthenticationManager"
+        private const val PREFS_NAME = "device_auth"
+        private const val KEY_DEVICE_ID = "device_id"
+        private const val KEY_PAIRED_CONTROLLERS = "paired_controllers"
+        private const val KEY_AUTH_TOKENS = "auth_tokens"
+        private const val TOKEN_VALIDITY_HOURS = 24
+    }
+
+    private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val deviceId: String? = getOrCreateDeviceId()
+    private val authTokens = mutableMapOf<String, AuthToken>()
+
+    /**
+     * Process pairing response from PC Controller
+     */
         try {
             val success = response.getBoolean("success")
             val controllerId = response.getString("controller_id")
@@ -122,4 +141,48 @@ import java.util.*
      * Check if device is paired with specific controller
      */
     fun isPairedWith(controllerId: String): Boolean = controllerId in getPairedControllers()
+
+    /**
+     * Get or create device ID
+     */
+    private fun getOrCreateDeviceId(): String {
+        val existingId = prefs.getString(KEY_DEVICE_ID, null)
+        if (existingId != null) return existingId
+        
+        val newId = UUID.randomUUID().toString()
+        prefs.edit().putString(KEY_DEVICE_ID, newId).apply()
+        return newId
+    }
+
+    /**
+     * Get paired controllers
+     */
+    private fun getPairedControllers(): Set<String> {
+        val controllersJson = prefs.getString(KEY_PAIRED_CONTROLLERS, "[]")
+        return try {
+            val jsonArray = org.json.JSONArray(controllersJson!!)
+            (0 until jsonArray.length()).map { jsonArray.getString(it) }.toSet()
+        } catch (e: Exception) {
+            emptySet()
+        }
+    }
+
+    /**
+     * Store paired controllers
+     */
+    private fun storePairedControllers(controllers: Set<String>) {
+        val jsonArray = org.json.JSONArray()
+        controllers.forEach { jsonArray.put(it) }
+        prefs.edit().putString(KEY_PAIRED_CONTROLLERS, jsonArray.toString()).apply()
+    }
 }
+
+/**
+ * Data class for authentication token
+ */
+data class AuthToken(
+    val token: String,
+    val deviceId: String,
+    val issuedAt: Long,
+    val expiresAt: Long
+)

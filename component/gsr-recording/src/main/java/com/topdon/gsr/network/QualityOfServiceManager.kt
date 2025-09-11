@@ -11,7 +11,31 @@ import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
-    suspend fun startQoSMonitoring() =
+/**
+ * Manages network quality of service monitoring and adaptation
+ */
+class QualityOfServiceManager(private val context: Context) {
+    companion object {
+        private const val TAG = "QualityOfServiceManager"
+        private const val MONITORING_INTERVAL_MS = 5000L
+        private const val LATENCY_SAMPLE_SIZE = 10
+        private const val BANDWIDTH_SAMPLE_SIZE = 5
+    }
+
+    // Monitoring state
+    private val isMonitoring = AtomicBoolean(false)
+    private val totalDataTransferred = AtomicLong(0)
+    
+    // Metrics collection
+    private val latencySamples = ConcurrentLinkedQueue<Long>()
+    private val bandwidthSamples = ConcurrentLinkedQueue<Double>()
+    
+    // Coroutine scope
+    private val monitoringScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+    /**
+     * Start QoS monitoring
+     */
         withContext(Dispatchers.IO) {
             if (isMonitoring.getAndSet(true)) {
                 Log.w(TAG, "QoS monitoring already active")
@@ -367,7 +391,46 @@ import java.util.concurrent.atomic.AtomicLong
         normalPriorityQueue.clear()
         lowPriorityQueue.clear()
 
-        qosJob.cancel()
+        monitoringScope.cancel()
         Log.d(TAG, "QoS monitoring stopped")
     }
+
+    /**
+     * Get network quality metrics
+     */
+    fun getNetworkQualityMetrics(): NetworkQualityMetrics {
+        val avgLatency = latencySamples.average()
+        val avgBandwidth = bandwidthSamples.average()
+        
+        val tier = when {
+            avgLatency < 50 && avgBandwidth > 10.0 -> NetworkTier.EXCELLENT
+            avgLatency < 100 && avgBandwidth > 5.0 -> NetworkTier.HIGH
+            avgLatency < 200 && avgBandwidth > 2.0 -> NetworkTier.MEDIUM
+            else -> NetworkTier.LOW
+        }
+        
+        return NetworkQualityMetrics(
+            networkTier = tier,
+            avgLatency = avgLatency,
+            avgBandwidth = avgBandwidth,
+            packetLoss = 0.0 // Would be calculated from actual measurements
+        )
+    }
+
+    /**
+     * Network tier enumeration
+     */
+    enum class NetworkTier {
+        EXCELLENT, HIGH, MEDIUM, LOW
+    }
 }
+
+/**
+ * Network quality metrics data class
+ */
+data class NetworkQualityMetrics(
+    val networkTier: QualityOfServiceManager.NetworkTier,
+    val avgLatency: Double,
+    val avgBandwidth: Double,
+    val packetLoss: Double
+)

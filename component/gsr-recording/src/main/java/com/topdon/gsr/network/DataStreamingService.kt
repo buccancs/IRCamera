@@ -9,6 +9,40 @@ import org.json.JSONObject
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
 
+/**
+ * Service for streaming GSR and other sensor data to PC Controller
+ */
+class DataStreamingService(
+    private val context: Context,
+    private val networkClient: NetworkClient
+) {
+    companion object {
+        private const val TAG = "DataStreamingService"
+        private const val MAX_QUEUE_SIZE = 1000
+        private const val BATCH_SIZE = 10
+        private const val STREAM_INTERVAL_MS = 100L
+    }
+
+    // State management
+    private val isStreaming = AtomicBoolean(false)
+    private val isConnected = AtomicBoolean(false)
+    
+    // Data queues
+    private val gsrDataQueue = ConcurrentLinkedQueue<GSRSample>()
+    private val rgbMetadataQueue = ConcurrentLinkedQueue<RgbFrameMetadata>()
+    private val thermalMetadataQueue = ConcurrentLinkedQueue<ThermalFrameMetadata>()
+    
+    // Session tracking
+    private var currentSessionId: String? = null
+    private var eventListener: StreamingEventListener? = null
+    
+    // Coroutine management
+    private val streamingJob = SupervisorJob()
+    private val streamingScope = CoroutineScope(Dispatchers.IO + streamingJob)
+
+    /**
+     * Start streaming data to PC Controller
+     */
     suspend fun startStreaming(sessionId: String): Boolean =
         withContext(Dispatchers.IO) {
             if (isStreaming.get()) {
@@ -297,3 +331,36 @@ import java.util.concurrent.atomic.AtomicBoolean
         eventListener = null
     }
 }
+
+/**
+ * Interface for streaming event callbacks
+ */
+interface StreamingEventListener {
+    fun onStreamingStarted()
+    fun onStreamingStopped()
+    fun onDataSent(dataType: String, count: Int)
+    fun onError(error: String)
+}
+
+/**
+ * Data class for RGB frame metadata
+ */
+data class RgbFrameMetadata(
+    val frameId: Long,
+    val timestamp: Long,
+    val width: Int,
+    val height: Int,
+    val quality: Int
+)
+
+/**
+ * Data class for thermal frame metadata
+ */
+data class ThermalFrameMetadata(
+    val frameId: Long,
+    val timestamp: Long,
+    val width: Int,
+    val height: Int,
+    val minTemp: Float,
+    val maxTemp: Float
+)
