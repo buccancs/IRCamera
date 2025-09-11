@@ -14,6 +14,9 @@ class CompassProvider(private val context: Context) {
         val useTrueNorth = true
 
         var source = CompassSource.RotationVector
+        
+        // Debug logging to identify which version is running
+        android.util.Log.d("CompassProvider", "Using fixed CompassProvider implementation v2.0")
 
         // Handle if the available sources have changed (not likely)
         val allSources = getAvailableSources(context)
@@ -28,28 +31,31 @@ class CompassProvider(private val context: Context) {
         }
 
         // Use the most compatible compass implementation available
+        // Always using LegacyCompass to avoid ClassCastException
         val compass = when (source) {
             CompassSource.RotationVector -> {
-                // Fallback to LegacyCompass since RotationSensor doesn't implement ICompass
+                android.util.Log.d("CompassProvider", "Creating LegacyCompass for RotationVector")
                 LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
 
             CompassSource.GeomagneticRotationVector -> {
-                // Fallback to LegacyCompass since GeomagneticRotationSensor doesn't implement ICompass
+                android.util.Log.d("CompassProvider", "Creating LegacyCompass for GeomagneticRotationVector")
                 LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
 
             CompassSource.CustomMagnetometer -> {
-                // Fallback to LegacyCompass since GravityCompensatedCompass might not be available
+                android.util.Log.d("CompassProvider", "Creating LegacyCompass for CustomMagnetometer")
                 LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
 
             CompassSource.Orientation -> {
+                android.util.Log.d("CompassProvider", "Creating LegacyCompass for Orientation")
                 LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
         }
 
         // Return a wrapped compass with quality monitoring
+        android.util.Log.d("CompassProvider", "Wrapping compass with MagQualityCompassWrapper: ${compass.javaClass.simpleName}")
         return MagQualityCompassWrapper(
             compass,
             Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
