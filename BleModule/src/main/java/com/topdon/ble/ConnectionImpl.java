@@ -1224,7 +1224,7 @@ class ConnectionImpl implements Connection, ScanListener {
         return null;
     }
 
-    //uuid，Queue，
+    // Checks if the UUIDs exist. If so, enqueues the request. Otherwise, triggers a failure callback or notifies observers.
     private void checkUuidExistsAndEnqueue(GenericRequest request, int uuidNum) {
         boolean exists = false;
         if (uuidNum > 2) {
