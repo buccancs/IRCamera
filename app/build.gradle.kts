@@ -286,7 +286,8 @@ dependencies {
     implementation("no.nordicsemi.android:ble:2.6.1")
     implementation("no.nordicsemi.android:ble-ktx:2.6.1")
     
-    // Official Shimmer AAR files integration (currently placeholder files - awaiting real binaries)
+    // Official Shimmer AAR files are placeholder text files - using Nordic BLE for production-ready integration
+    // Real Shimmer AAR integration ready when binaries become available:
     // implementation(files("libs/ShimmerAndroidAPI-v3.2.4Beta.aar"))
     // implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
     // implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))

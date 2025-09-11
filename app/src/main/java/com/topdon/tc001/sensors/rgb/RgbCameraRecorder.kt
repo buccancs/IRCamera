@@ -40,7 +40,6 @@ import java.util.concurrent.atomic.AtomicLong
  */
 class RgbCameraRecorder(
     private val context: Context,
-    private val lifecycleOwner: LifecycleOwner,
     override val sensorId: String = "rgb_camera_1",
     private val targetVideoResolution: Size = Size(1920, 1080),
     private val targetImageResolution: Size = Size(4032, 3024), // Max resolution

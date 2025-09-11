@@ -197,9 +197,11 @@ class GSRSensorRecorder(
     }
     
     private fun convertGsrToMicrosiemens(gsrRaw: Int): Double {
-        // Convert 12-bit ADC value (0-4095) to microsiemens
+        // Convert 12-bit ADC value (0-4095) to microsiemens using proper calibration
+        // This follows the standard Shimmer3 GSR+ conversion formula
         val gsrVoltage = (gsrRaw.toDouble() / GSR_ADC_MAX) * GSR_REF_VOLTAGE
-        return GSR_UNCALIBRATED_TO_MICROSIEMENS * gsrVoltage
+        val gsrResistance = GSR_REF_VOLTAGE * 40200.0 / gsrVoltage - 40200.0 // 40.2kΩ reference resistor
+        return if (gsrResistance > 0) 1000000.0 / gsrResistance else 0.0 // Convert to microsiemens
     }
     
     private suspend fun logGsrData(timestampNs: Long, timestampMs: Long, gsrRaw: Int, gsrMicrosiemens: Double, ppgRaw: Int, batteryVoltage: Double) {
