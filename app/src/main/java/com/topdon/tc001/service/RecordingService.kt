@@ -400,14 +400,29 @@ class RecordingService : LifecycleService() {
     /**
      * Validate that all required permissions are granted for sensor operation.
      * This is critical for Samsung devices which may fail silently without proper permissions.
+     * Includes Bluetooth permissions required for Shimmer GSR sensor integration.
      */
     private fun validateRequiredPermissions(): Boolean {
-        val requiredPermissions = listOf(
+        val requiredPermissions = mutableListOf(
             android.Manifest.permission.CAMERA,
             android.Manifest.permission.RECORD_AUDIO,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.READ_EXTERNAL_STORAGE
         )
+        
+        // Add Bluetooth permissions for Shimmer GSR sensor (Android version-specific)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            requiredPermissions.addAll(listOf(
+                android.Manifest.permission.BLUETOOTH_SCAN,
+                android.Manifest.permission.BLUETOOTH_CONNECT
+            ))
+        } else {
+            requiredPermissions.addAll(listOf(
+                android.Manifest.permission.BLUETOOTH,
+                android.Manifest.permission.BLUETOOTH_ADMIN,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ))
+        }
         
         val missingPermissions = requiredPermissions.filter { permission ->
             androidx.core.content.ContextCompat.checkSelfPermission(this, permission) != 
@@ -427,6 +442,16 @@ class RecordingService : LifecycleService() {
                         Log.e(TAG, "  - WRITE_EXTERNAL_STORAGE: Required for saving recording files")
                     android.Manifest.permission.READ_EXTERNAL_STORAGE -> 
                         Log.e(TAG, "  - READ_EXTERNAL_STORAGE: Required for reading existing files")
+                    android.Manifest.permission.BLUETOOTH_SCAN -> 
+                        Log.e(TAG, "  - BLUETOOTH_SCAN: Required for discovering Shimmer GSR devices")
+                    android.Manifest.permission.BLUETOOTH_CONNECT -> 
+                        Log.e(TAG, "  - BLUETOOTH_CONNECT: Required for connecting to Shimmer GSR devices")
+                    android.Manifest.permission.BLUETOOTH -> 
+                        Log.e(TAG, "  - BLUETOOTH: Required for Shimmer GSR device communication (legacy)")
+                    android.Manifest.permission.BLUETOOTH_ADMIN -> 
+                        Log.e(TAG, "  - BLUETOOTH_ADMIN: Required for Shimmer GSR device management (legacy)")
+                    android.Manifest.permission.ACCESS_FINE_LOCATION -> 
+                        Log.e(TAG, "  - ACCESS_FINE_LOCATION: Required for BLE device discovery (Android < 12)")
                 }
             }
             return false

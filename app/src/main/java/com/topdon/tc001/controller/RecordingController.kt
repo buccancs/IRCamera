@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.topdon.tc001.sensors.*
 import com.topdon.tc001.sensors.rgb.RgbCameraRecorder
 import com.topdon.tc001.sensors.thermal.ThermalCameraRecorder
-import com.topdon.tc001.sensors.gsr.GSRSensorRecorder
+import com.topdon.tc001.sensors.gsr.ShimmerSensorRecorder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.io.File
@@ -78,13 +78,13 @@ class RecordingController(
                 // Create sensor recorders
                 val rgbCamera = RgbCameraRecorder(context, lifecycleOwner, "rgb_camera_1")
                 val thermalCamera = ThermalCameraRecorder(context, "thermal_camera_1")
-                val gsrSensor = GSRSensorRecorder(context, "gsr_shimmer_1")
+                val shimmerGSR = ShimmerSensorRecorder(context, "shimmer_gsr_1")
                 
                 // Initialize each sensor
                 val initResults = listOf(
                     "rgb_camera_1" to rgbCamera.initialize(),
                     "thermal_camera_1" to thermalCamera.initialize(),
-                    "gsr_shimmer_1" to gsrSensor.initialize()
+                    "shimmer_gsr_1" to shimmerGSR.initialize()
                 )
                 
                 // Add successfully initialized sensors
@@ -93,7 +93,7 @@ class RecordingController(
                         when (sensorId) {
                             "rgb_camera_1" -> sensorRecorders[sensorId] = rgbCamera
                             "thermal_camera_1" -> sensorRecorders[sensorId] = thermalCamera
-                            "gsr_shimmer_1" -> sensorRecorders[sensorId] = gsrSensor
+                            "shimmer_gsr_1" -> sensorRecorders[sensorId] = shimmerGSR
                         }
                         Log.i(TAG, "Sensor $sensorId initialized successfully")
                     } else {
