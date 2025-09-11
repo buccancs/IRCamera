@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 
 
 /**
- * {@link Device}，BLE，{@link Device}
+ * {@link Device} instance builder. When a BLE device is found, this builder is used to instantiate a {@link Device}.
  * <p>
  * date: 2021/8/12 00:07
  * author: bichuanfeng
