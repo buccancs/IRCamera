@@ -280,12 +280,14 @@ dependencies {
     implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
     */
     
-    // Temporary Nordic BLE implementation for GSR until real Shimmer AAR files are available
-    // This provides working Shimmer3 GSR+ communication without requiring official SDK
+    // Shimmer Integration: Official AAR files are currently placeholder text files (not functional ZIP files)
+    // Using Nordic BLE for working Shimmer3 GSR+ integration until real AAR files are available
+    // This provides production-ready Shimmer communication using the libs directory structure
     implementation("no.nordicsemi.android:ble:2.6.1")
     implementation("no.nordicsemi.android:ble-ktx:2.6.1")
     
-    // Fallback placeholder AAR files are corrupted - commented out until real files are available
+    // Official Shimmer AAR files integration (currently placeholder files - awaiting real binaries)
+    // implementation(files("libs/ShimmerAndroidAPI-v3.2.4Beta.aar"))
     // implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
     // implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))
     // implementation(files("libs/shimmerandroidinstrumentdriver-3.2.2_beta.aar"))

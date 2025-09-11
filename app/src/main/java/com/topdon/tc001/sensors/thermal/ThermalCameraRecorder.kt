@@ -429,8 +429,8 @@ class ThermalCameraRecorder(
      */
     fun getThermalCameraStatus(): String {
         return when {
-            isIRCameraConnected -> "IR Camera Connected (IRUVCTC)"
-            iruvctc != null -> "IR Camera Initializing"
+            isIRCameraConnected -> "IR Camera Connected (Latest Topdon SDK)"
+            ircamEngine != null -> "IR Camera Initializing"
             else -> "No Device Found"
         }
     }
@@ -445,7 +445,8 @@ class ThermalCameraRecorder(
             "resolution" to "${thermalResolution.first}x${thermalResolution.second}",
             "connection_status" to getThermalCameraStatus(),
             "recording_active" to _isRecording.get(),
-            "iruvctc_integration" to true,
+            "iruvctc_integration" to false, // Updated to latest Topdon SDK
+            "latest_topdon_sdk" to true,
             "camera_connected" to isIRCameraConnected,
             "data_file" to (thermalDataFile?.absolutePath ?: "Not recording"),
             "ambient_temperature" to ambientTemperature,
