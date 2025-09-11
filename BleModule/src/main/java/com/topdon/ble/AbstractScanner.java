@@ -110,7 +110,7 @@ abstract class AbstractScanner implements Scanner {
         });
     }
 
-    //，，
+    // If a device is already connected via the system's Bluetooth settings, it may not appear in scans. This method attempts to find such system-connected devices.
     @SuppressWarnings("all")
     private void getSystemConnectedDevices(Context context) {
         try {
