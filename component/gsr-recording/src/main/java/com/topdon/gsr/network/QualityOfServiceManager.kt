@@ -344,13 +344,10 @@ class QualityOfServiceManager(private val context: Context) {
      */
     fun getNetworkQualityMetrics(): NetworkQualityMetrics {
         return NetworkQualityMetrics(
-            bandwidth = currentBandwidth.get(),
-            latency = networkLatency.get(),
-            packetLoss = packetLossRate.get() / 100.0f,
             networkTier = currentNetworkTier,
-            recommendedBatchSize = adaptiveBatchSize,
-            recommendedCompression = compressionLevel,
-            congestionLevel = calculateBandwidthUtilization(),
+            avgLatency = networkLatency.get().toDouble(),
+            avgBandwidth = currentBandwidth.get().toDouble(),
+            packetLoss = packetLossRate.get().toDouble() / 100.0
         )
     }
 
@@ -398,32 +395,24 @@ class QualityOfServiceManager(private val context: Context) {
     }
 
     /**
-     * Get network quality metrics
-     */
-    fun getNetworkQualityMetrics(): NetworkQualityMetrics {
-        val avgLatency = latencySamples.average()
-        val avgBandwidth = bandwidthSamples.average()
-        
-        val tier = when {
-            avgLatency < 50 && avgBandwidth > 10.0 -> NetworkTier.EXCELLENT
-            avgLatency < 100 && avgBandwidth > 5.0 -> NetworkTier.HIGH
-            avgLatency < 200 && avgBandwidth > 2.0 -> NetworkTier.MEDIUM
-            else -> NetworkTier.LOW
-        }
-        
-        return NetworkQualityMetrics(
-            networkTier = tier,
-            avgLatency = avgLatency,
-            avgBandwidth = avgBandwidth,
-            packetLoss = 0.0 // Would be calculated from actual measurements
-        )
-    }
-
-    /**
      * Network tier enumeration
      */
     enum class NetworkTier {
         EXCELLENT, HIGH, MEDIUM, LOW
+    }
+
+    /**
+     * Data type enumeration for QoS prioritization
+     */
+    enum class DataType {
+        GSR_DATA, RGB_VIDEO, THERMAL_VIDEO, VIDEO_METADATA, SYNC_DATA, CONTROL_MESSAGE
+    }
+
+    /**
+     * Priority levels for data transmission
+     */
+    enum class Priority {
+        CRITICAL, HIGH, NORMAL, LOW
     }
 }
 

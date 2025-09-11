@@ -32,6 +32,11 @@ class CameraNetworkIntegration(
     // State management
     private val isRgbStreamingActive = AtomicBoolean(false)
     private val isThermalStreamingActive = AtomicBoolean(false)
+    private var currentSessionId: String? = null
+    
+    // Streaming jobs
+    private var rgbStreamingJob: Job? = null
+    private var thermalStreamingJob: Job? = null
     
     // Frame counting
     private val rgbFrameCount = AtomicLong(0)
@@ -100,7 +105,6 @@ class CameraNetworkIntegration(
             QualityOfServiceManager.NetworkTier.HIGH -> JPEG_QUALITY_HIGH
             QualityOfServiceManager.NetworkTier.MEDIUM -> JPEG_QUALITY_MEDIUM
             QualityOfServiceManager.NetworkTier.LOW -> JPEG_QUALITY_LOW
-            QualityOfServiceManager.NetworkTier.POOR -> JPEG_QUALITY_LOW
         }
     }
 
@@ -131,7 +135,7 @@ class CameraNetworkIntegration(
                 data = frame.imageData,
                 dataType = QualityOfServiceManager.DataType.VIDEO_METADATA,
                 priority = QualityOfServiceManager.Priority.HIGH,
-                sessionId = frame.sessionId,
+                sessionId = frame.sessionId ?: "unknown",
                 metadata =
                     mapOf(
                         "stream_id" to RGB_STREAM_ID,
@@ -233,9 +237,9 @@ class CameraNetworkIntegration(
             // Queue thermal data with normal priority
             qosManager.queueData(
                 data = compressedThermalData,
-                dataType = QualityOfServiceManager.DataType.THERMAL,
+                dataType = QualityOfServiceManager.DataType.THERMAL_VIDEO,
                 priority = QualityOfServiceManager.Priority.NORMAL,
-                sessionId = frame.sessionId,
+                sessionId = frame.sessionId ?: "unknown",
                 metadata =
                     mapOf(
                         "stream_id" to THERMAL_STREAM_ID,
@@ -387,7 +391,11 @@ data class RgbFrame(
     val timestamp: Long,
     val jpegData: ByteArray,
     val width: Int,
-    val height: Int
+    val height: Int,
+    val sessionId: String? = null,
+    val format: String = "JPEG",
+    val quality: Int = 85,
+    val imageData: ByteArray = jpegData
 )
 
 /**
@@ -400,7 +408,8 @@ data class ThermalFrame(
     val width: Int,
     val height: Int,
     val minTemp: Float,
-    val maxTemp: Float
+    val maxTemp: Float,
+    val sessionId: String? = null
 )
 
 /**

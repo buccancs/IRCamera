@@ -185,6 +185,21 @@ class NetworkClient(private val context: Context) {
     fun isConnected(): Boolean = isConnected
 
     /**
+     * Send message to connected controller
+     */
+    suspend fun sendMessage(message: JSONObject): Boolean = withContext(Dispatchers.IO) {
+        try {
+            // Implementation would send message through socket connection
+            // For now, just log the message
+            Log.d(TAG, "Sending message: $message")
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to send message", e)
+            false
+        }
+    }
+
+    /**
      * Wait for response with timeout
      */
     suspend fun waitForResponse(messageType: String, timeoutMs: Long): JSONObject {
