@@ -1,16 +1,37 @@
-""""""Test error handling in network operations"""
+"""Network layer test suite for IRCamera PC Controller."""
+
+import asyncio
+import time
+import unittest
+from unittest.mock import Mock, AsyncMock, patch
+
+from ircamera_pc.network.server import NetworkServer
+from ircamera_pc.network.protocol import MessageProtocol
+
+
+class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
+    """Tests for network server functionality."""
+
+    async def asyncSetUp(self):
+        """Set up test server instance."""
+        self.server = NetworkServer()
+        self.protocol = MessageProtocol()
+
+    async def asyncTearDown(self):
+        """Clean up server resources."""
+        if hasattr(self.server, 'stop'):
+            await self.server.stop()
+
+    async def test_error_handling(self):
+        """Test error handling in network operations."""
         await self.server.start()
 
         # Test invalid message processing
         try:
             mock_writer = Mock()
             await self.server._process_message({"invalid": "message"}, mock_writer)
-            # Should handle gracefully without crashing - method returns None
         except Exception:
-            # If it throws an exception, that's also acceptable error handling
             pass
-
-        # Test network errors - remove references to non-existent methods
 
     async def test_concurrent_connections(self):
         """Test handling multiple concurrent client connections"""

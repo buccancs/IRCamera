@@ -1,7 +1,24 @@
 
+"""GUI utilities for IRCamera PC Controller."""
+
+from typing import Any
+
+
+def apply_theme(widget, theme_name: str = "dark"):
+    """Apply theme to widget."""
     if theme_name == "dark":
         # Dark theme stylesheet
-        dark_style =
+        dark_style = """
+        QWidget {
+            background-color: #2b2b2b;
+            color: #ffffff;
+        }
+        """
+        widget.setStyleSheet(dark_style)
+
+
+def format_bytes(size_bytes: int) -> str:
+    """Format bytes to human readable format."""
     if size_bytes == 0:
         return "0 B"
 

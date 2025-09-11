@@ -217,3 +217,10 @@ class EnhancedNetworkingTests:
                 logger.error("Messaging service should be running")
                 return False
             logger.info("OK Service initialization")
+            
+            self.test_results["reliable_messaging"] = True
+            logger.info("OK Reliable Messaging tests passed")
+
+        except Exception as e:
+            logger.error(f"ERROR Reliable Messaging tests failed: {e}")
+            self.test_results["reliable_messaging"] = False

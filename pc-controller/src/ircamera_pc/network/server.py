@@ -1,4 +1,20 @@
 
+"""Network server module for IRCamera PC Controller."""
+
+import asyncio
+from typing import Dict, Any, Optional, List
+from ..utils.simple_logger import logger
+
+
+class NetworkServer:
+    """Main network server for handling device connections."""
+    
+    def __init__(self):
+        self._clients = {}
+        self._running = False
+    
+    async def broadcast_command(self, command: Dict[str, Any], target_devices: Optional[List[str]] = None) -> Dict[str, bool]:
+        """Broadcast command to connected devices."""
         results = {}
 
         devices_to_target = target_devices or list(self._clients.keys())

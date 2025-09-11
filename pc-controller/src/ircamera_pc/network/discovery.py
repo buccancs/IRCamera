@@ -31,7 +31,13 @@ except ImportError:
     except ImportError:
         # Enterprise fallback logger for testing environments
         class EnterpriseLogger:
+            def info(self, msg): print(f"INFO: {msg}")
+            def warning(self, msg): print(f"WARNING: {msg}")
+            def error(self, msg): print(f"ERROR: {msg}")
+        logger = EnterpriseLogger()
 
+    async def start_discovery(self):
+        """Start device discovery service."""
         if not self._check_zeroconf_available():
             logger.warning("Zeroconf not available, using fallback discovery")
             return await self._start_fallback_discovery()

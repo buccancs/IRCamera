@@ -36,7 +36,18 @@ from .widgets import (
 )
 
 class WindowState(Enum):
+    """Window state enumeration."""
+    READY = "ready"
+    RECORDING = "recording"
+    STOPPED = "stopped"
 
+
+class MainWindow(QMainWindow):
+    """Main application window."""
+    
+    def __init__(self, session_manager, network_server, time_sync_service, 
+                 gsr_ingestor=None, file_transfer_manager=None, camera_calibrator=None,
+                 bluetooth_manager=None, wifi_manager=None, admin_privileges_manager=None):
         super().__init__()
 
         # Core services

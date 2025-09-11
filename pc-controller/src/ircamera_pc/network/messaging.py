@@ -1,4 +1,21 @@
 
+"""Reliable messaging service for IRCamera PC Controller."""
+
+import asyncio
+from typing import Dict, Any, Optional, Callable
+from ..utils.simple_logger import logger
+
+
+class ReliableMessageService:
+    """Service for reliable message delivery between devices."""
+    
+    def __init__(self):
+        self.message_handlers = {}
+        self.transport = None
+        self.is_running = False
+    
+    def set_transport(self, transport):
+        """Set the transport layer for message delivery."""
         self.transport = transport
 
     def register_message_handler(
@@ -6,7 +23,7 @@
         message_type: str,
         handler: Callable[[Dict[str, Any]], Optional[Dict[str, Any]]],
     ):
-
+        """Register a handler for specific message types."""
         self.message_handlers[message_type] = handler
         logger.debug(f"Registered handler for message type: {message_type}")
 

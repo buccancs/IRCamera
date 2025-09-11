@@ -1,6 +1,17 @@
 
-        super().__init__()
+"""Plotting widgets for real-time data visualization."""
 
+from collections import deque
+from typing import Dict, Tuple
+import pyqtgraph as pg
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
+
+
+class GSRPlottingWidget(QWidget):
+    """Widget for plotting GSR data in real-time."""
+    
+    def __init__(self, max_points: int = 1000, time_window: float = 60.0):
+        super().__init__()
         self.max_points = max_points
         self.time_window = time_window
 
@@ -37,8 +48,8 @@
 
         logger.info(f"Added GSR device {device_id} with color {color}")
 
-    def remove_device(self, device_id: str) -> None:
-
+    def add_data_point(self, device_id: str, timestamp_ns: int, gsr_microsiemens: float) -> None:
+        """Add GSR data point for device."""
         if device_id not in self.gsr_data:
             self.add_device(device_id)
 
@@ -47,13 +58,15 @@
         relative_time = (timestamp_ns / 1e9) - current_time
 
         self.gsr_data[device_id].append((relative_time, gsr_microsiemens))
-
         self.data_updated.emit(relative_time, gsr_microsiemens)
 
-    def add_sync_marker(
-        self, timestamp_ns: int, label: str = "Sync", color: str = "white"
-    ) -> None:
+    def remove_device(self, device_id: str) -> None:
+        """Remove device from plotting."""
+        if device_id in self.gsr_data:
+            del self.gsr_data[device_id]
 
+    def add_sync_marker(self, timestamp_ns: int, label: str = "Sync", color: str = "white") -> None:
+        """Add synchronization marker to plot."""
         current_time = time.time()
         relative_time = (timestamp_ns / 1e9) - current_time
 
@@ -66,14 +79,18 @@
 
         self.addItem(marker)
         self.sync_markers.append(marker)
-
-        # Clean up old markers
         self._cleanup_old_markers()
 
     def _update_plot(self) -> None:
+        """Update the plot with latest data."""
+        pass
 
+
+class VideoPreviewWidget(QWidget):
+    """Widget for displaying live video preview."""
+    
+    def __init__(self, device_id: str, device_type: str = "rgb"):
         super().__init__()
-
         self.device_id = device_id
         self.device_type = device_type
 

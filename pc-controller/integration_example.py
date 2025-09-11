@@ -56,3 +56,21 @@ from ircamera_pc.network.server import NetworkServer
 
 try:
     import native_backend
+    NATIVE_BACKEND_AVAILABLE = True
+except ImportError:
+    NATIVE_BACKEND_AVAILABLE = False
+    print("Native backend not available - using Python fallback")
+
+
+def main():
+    """Main integration example."""
+    print("IRCamera PC Controller Integration Example")
+    
+    if NATIVE_BACKEND_AVAILABLE:
+        print("Using native backend for high performance")
+    else:
+        print("Using Python implementation")
+
+
+if __name__ == "__main__":
+    main()

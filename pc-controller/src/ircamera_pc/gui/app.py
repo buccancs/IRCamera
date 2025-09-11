@@ -1,12 +1,26 @@
 
+"""Main application module for IRCamera PC Controller."""
+
+import signal
+import sys
+from PyQt6.QtWidgets import QApplication
+from .main_window import MainWindow
+from ..utils.simple_logger import setup_logging
+
+
+class IRCameraApp:
+    """Main application class."""
+    
+    def __init__(self):
+        self.app = None
+        self.main_window = None
+    
+    def initialize(self):
+        """Initialize the application."""
         try:
-
             setup_logging()
-
             self.setup_qt_app()
-
             self.setup_event_loop_integration()
-
             signal.signal(signal.SIGINT, self._handle_signal)
             signal.signal(signal.SIGTERM, self._handle_signal)
 
