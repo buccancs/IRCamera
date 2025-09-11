@@ -280,14 +280,23 @@ dependencies {
     implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
     */
     
-    // Official Shimmer AAR files from libs directory - activating real SDK integration  
-    implementation(files("libs/shimmerbluetoothmanager-0.11.3_beta.aar"))
-    implementation(files("libs/shimmerdriver-0.11.3_beta.aar"))
-    implementation(files("libs/shimmerandroidinstrumentdriver-3.2.2_beta.aar"))
+    // Nordic BLE for Shimmer integration (temporary until Maven credentials are configured)
+    implementation("no.nordicsemi.android:ble:2.6.1")
+    implementation("no.nordicsemi.android:ble-ktx:2.6.1")
     
-    // Remove Nordic BLE workaround - now using official Shimmer SDK from libs
-    // implementation("no.nordicsemi.android:ble:2.6.1")
-    // implementation("no.nordicsemi.android:ble-ktx:2.6.1")
+    // Official Shimmer SDK Maven dependencies - commented until GitHub credentials are provided
+    /*
+    implementation(group = "com.shimmerresearch", name = "shimmerbluetoothmanager", version = "0.11.3_beta") {
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+        exclude(group = "org.apache.commons.math")
+    }
+    implementation(group = "com.shimmerresearch", name = "shimmerdriver", version = "0.11.3_beta") {
+        exclude(group = "io.netty")
+        exclude(group = "com.google.protobuf")
+    }
+    implementation(group = "com.shimmerresearch", name = "shimmerandroidinstrumentdriver", version = "3.2.2_beta", ext = "aar")
+    */
     
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")
