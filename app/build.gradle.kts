@@ -205,8 +205,6 @@ dependencies {
     implementation(project(":component:thermal-ir"))   // Thermal IR resources needed by app
     implementation(project(":component:thermal-lite")) // Thermal Lite functionality
     implementation(project(":component:pseudo"))       // Pseudo color functionality needed by app
-    // ShimmerAndroidAPI - Using Nordic BLE Library for Shimmer integration
-    // Note: Official ShimmerAndroidAPI v3.2.4Beta available but using Nordic BLE for better integration
     implementation(project(":component:user"))         // User module for MoreActivity and settings
     implementation(project(":libapp"))
     implementation(project(":libcom"))
@@ -263,9 +261,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     
-    // Nordic BLE Library for robust Bluetooth communication
-    implementation("no.nordicsemi.android:ble:2.6.1")
-    implementation("no.nordicsemi.android:ble-ktx:2.6.1")
+    // Official ShimmerAndroidAPI for Shimmer3 GSR+ integration  
+    implementation(files("libs/ShimmerAndroidAPI-v3.2.4Beta.aar"))
     
     // CameraX for RGB camera dual-stream capture
     implementation("androidx.camera:camera-camera2:1.3.1")
