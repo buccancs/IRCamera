@@ -4,23 +4,16 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.kylecorry.andromeda.sense.Sensors
-// import com.kylecorry.andromeda.sense.compass.FilterCompassWrapper // Temporarily disabled
-// import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass // Temporarily disabled
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
-import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
-import com.kylecorry.andromeda.sense.orientation.RotationSensor
-import com.kylecorry.sol.math.filters.MovingAverageFilter
 
 class CompassProvider(private val context: Context) {
 
-
     fun get(): ICompass {
-        val smoothing = 1
-        val useTrueNorth =  true
+        val useTrueNorth = true
 
-        var source =  CompassSource.RotationVector
+        var source = CompassSource.RotationVector
 
         // Handle if the available sources have changed (not likely)
         val allSources = getAvailableSources(context)
@@ -31,21 +24,24 @@ class CompassProvider(private val context: Context) {
         }
 
         if (!allSources.contains(source)) {
-            source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
+            source = allSources.firstOrNull() ?: CompassSource.Orientation
         }
 
+        // Use the most compatible compass implementation available
         val compass = when (source) {
             CompassSource.RotationVector -> {
-                RotationSensor(context, SensorService.MOTION_SENSOR_DELAY)
+                // Fallback to LegacyCompass since RotationSensor doesn't implement ICompass
+                LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
 
             CompassSource.GeomagneticRotationVector -> {
-                GeomagneticRotationSensor(context, SensorService.MOTION_SENSOR_DELAY)
+                // Fallback to LegacyCompass since GeomagneticRotationSensor doesn't implement ICompass
+                LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
 
             CompassSource.CustomMagnetometer -> {
-                // GravityCompensatedCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
-                RotationSensor(context, SensorService.MOTION_SENSOR_DELAY) // Fallback
+                // Fallback to LegacyCompass since GravityCompensatedCompass might not be available
+                LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
 
             CompassSource.Orientation -> {
@@ -53,39 +49,12 @@ class CompassProvider(private val context: Context) {
             }
         }
 
-        return compass as ICompass // Cast to ICompass for compatibility
+        // Return a wrapped compass with quality monitoring
+        return MagQualityCompassWrapper(
+            compass,
+            Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
+        )
     }
-
-//    fun getOrientationSensor(): IOrientationSensor? {
-//        // Note: This isn't used by the actual orientation sensors (they should use it)
-//        val useTrueNorth = prefs.useTrueNorth
-//
-//        var source = prefs.source
-//
-//        // Handle if the available sources have changed (not likely)
-//        val allSources = getAvailableSources(context)
-//
-//        // There were no compass sensors found
-//        if (allSources.isEmpty()){
-//            return NullOrientationSensor()
-//        }
-//
-//        if (!allSources.contains(source)) {
-//            source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
-//        }
-//
-//        // Note: Apply the smoothing / quality to the orientation sensor
-//        if (source == CompassSource.RotationVector){
-//            return RotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
-//        }
-//
-//        if (source == CompassSource.GeomagneticRotationVector){
-//            return GeomagneticRotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
-//        }
-//
-//        // Note: Construct this from existing sensors
-//        return null
-//    }
 
     companion object {
         /**
