@@ -29,7 +29,15 @@ class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
      */
     private var clientType: IRDeviceType? = null
 
-    override fun initView() {
+    override fun initContentLayoutId() = R.layout.activity_device_type
+
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+        initData()
+    }
+
+    private fun initView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter =
             MyAdapter(this).apply {
@@ -72,7 +80,7 @@ class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
             }
     }
 
-    override fun initData() {
+    private fun initData() {
     }
 
     override fun connected() {

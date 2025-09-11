@@ -205,6 +205,24 @@ class DevicePairingActivity : BaseBindingActivity<ActivityDevicePairingBinding>(
         }
     }
 
+    override fun onTimeSynchronized(offsetNanoseconds: Long) {
+        runOnUiThread {
+            binding.statusText.text = "Time synchronized (offset: ${offsetNanoseconds / 1_000_000}ms)"
+        }
+    }
+
+    override fun onDataStreamingStarted() {
+        runOnUiThread {
+            binding.statusText.text = "Data streaming started"
+        }
+    }
+
+    override fun onDataStreamingStopped() {
+        runOnUiThread {
+            binding.statusText.text = "Data streaming stopped"
+        }
+    }
+
     override fun onError(
         operation: String,
         error: String,

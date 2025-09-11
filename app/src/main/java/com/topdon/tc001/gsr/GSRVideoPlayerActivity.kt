@@ -82,12 +82,12 @@ class GSRVideoPlayerActivity : BaseBindingActivity<ActivityGsrVideoPlayerBinding
             // Video is ready to play
             mediaPlayer.setVideoScalingMode(android.media.MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
         }
-        videoView.setOnErrorListener { _, what, extra ->
+        binding.videoView.setOnErrorListener { _, what: Int, extra: Int ->
             Log.e(TAG, "Video playback error: what=$what, extra=$extra")
             false
         }
-        videoView.start()
-        videoView.requestFocus()
+        binding.videoView.start()
+        binding.videoView.requestFocus()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

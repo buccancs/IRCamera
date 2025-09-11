@@ -1147,7 +1147,7 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
     /* ****************************************  **************************************** */
     private Rect movingRect;
 
-    
+
     private enum RectMoveType { ALL, EDGE, CORNER }
     /**
      * ：-、4-、4-。
@@ -1160,8 +1160,8 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
      * ，.
      */
     private RectMoveEdge rectMoveEdge = RectMoveEdge.LEFT;
-    
-    
+
+
     private enum RectMoveCorner { LT, RT, RB, LB }
     /**
      * ，.

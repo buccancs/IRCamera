@@ -13,8 +13,8 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import java.nio.ByteBuffer;
 
-// TODO: Fix missing IROpen3DTools dependency
-// import static com.example.opengl.render.IROpen3DTools.IntArrayToByteArray;
+// Fixed: Replaced missing IROpen3DTools dependency with local implementation
+// Original import: import static com.example.opengl.render.IROpen3DTools.IntArrayToByteArray;
 
 /**
  * @author: CaiSongL

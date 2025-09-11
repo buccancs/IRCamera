@@ -132,10 +132,10 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
 
     private fun updateSelectedTemplateView() {
         selectedTemplate?.let { template ->
-            selectedTemplateContainer.visibility = View.VISIBLE
+            binding.selectedTemplateContainer.visibility = View.VISIBLE
 
-            selectedTemplateTitle.text = "${template.icon ?: "📊"} ${template.name}"
-            selectedTemplateDescription.text = template.description
+            binding.selectedTemplateTitle.text = "${template.icon ?: "📊"} ${template.name}"
+            binding.selectedTemplateDescription.text = template.description
 
             // Format template details
             val details =

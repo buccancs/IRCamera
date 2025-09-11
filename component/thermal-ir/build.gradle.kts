@@ -77,6 +77,7 @@ dependencies {
     implementation(project(":libmenu"))
     implementation(project(":component:pseudo"))
     implementation(project(":component:thermal"))
+    implementation(project(":component:user"))
     // Removed house dependency - module removed as unused
 
     // AAR dependencies as compileOnly for compilation but not packaging
@@ -116,4 +117,7 @@ dependencies {
     // SmartRefreshLayout for pull-to-refresh functionality
     implementation("io.github.scwang90:refresh-layout-kernel:2.1.0")
     implementation("io.github.scwang90:refresh-header-classics:2.1.0")
+    
+    // Enhanced unified BLE system integration for cross-modal coordination
+    implementation(project(":BleModule"))
 }
