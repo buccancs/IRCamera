@@ -336,10 +336,11 @@ class DataStreamingService(
  * Interface for streaming event callbacks
  */
 interface StreamingEventListener {
-    fun onStreamingStarted()
+    fun onStreamingStarted(sessionId: String)
     fun onStreamingStopped()
-    fun onDataSent(dataType: String, count: Int)
-    fun onError(error: String)
+    fun onBatchSent(count: Int, dataType: String)
+    fun onStreamingError(error: String)
+    fun onQueueFull(dataType: String, droppedCount: Int)
 }
 
 /**

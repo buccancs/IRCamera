@@ -14,6 +14,7 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeoutException
 import javax.net.ssl.*
 
 /**
@@ -34,6 +35,10 @@ class NetworkClient(private val context: Context) {
     
     // Coroutine scope
     private val clientScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    
+    // Network components
+    private val authManager = DeviceAuthenticationManager(context)
+    private val errorRecoveryManager = NetworkErrorRecoveryManager(context)
 
     /**
      * Create trust-all SSL manager for development
@@ -200,6 +205,28 @@ class NetworkClient(private val context: Context) {
     }
 
     /**
+     * Send binary data to connected controller
+     */
+    suspend fun sendBinaryData(data: ByteArray): Boolean = withContext(Dispatchers.IO) {
+        try {
+            if (!isConnected || socket == null) {
+                Log.e(TAG, "Cannot send binary data: not connected")
+                return@withContext false
+            }
+
+            val outputStream = socket!!.outputStream
+            outputStream.write(data)
+            outputStream.flush()
+            
+            Log.d(TAG, "Sent binary data: ${data.size} bytes")
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to send binary data", e)
+            false
+        }
+    }
+
+    /**
      * Wait for response with timeout
      */
     suspend fun waitForResponse(messageType: String, timeoutMs: Long): JSONObject {
@@ -210,4 +237,65 @@ class NetworkClient(private val context: Context) {
             deferred.await()
         } ?: throw TimeoutException("Response timeout for message type: $messageType")
     }
+
+    /**
+     * Connect to PC Controller
+     */
+    suspend fun connectToController(ipAddress: String, port: Int): Boolean = withContext(Dispatchers.IO) {
+        try {
+            if (isConnected) {
+                Log.w(TAG, "Already connected to a controller")
+                return@withContext true
+            }
+
+            Log.d(TAG, "Connecting to controller at $ipAddress:$port")
+            
+            // Create SSL socket
+            val sslContext = SSLContext.getInstance("TLS")
+            sslContext.init(null, arrayOf(createTrustAllTrustManager()), SecureRandom())
+            
+            val socketFactory = sslContext.socketFactory
+            socket = socketFactory.createSocket(ipAddress, port) as SSLSocket
+            socket?.apply {
+                soTimeout = READ_TIMEOUT_MS
+                keepAlive = true
+            }
+            
+            isConnected = true
+            Log.d(TAG, "Successfully connected to controller")
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to connect to controller", e)
+            isConnected = false
+            socket?.close()
+            socket = null
+            false
+        }
+    }
+
+    /**
+     * Disconnect from PC Controller
+     */
+    fun disconnect() {
+        try {
+            isConnected = false
+            socket?.close()
+            socket = null
+            responseMap.clear()
+            Log.d(TAG, "Disconnected from controller")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error during disconnect", e)
+        }
+    }
 }
+
+/**
+ * Controller information for pairing and connection
+ */
+data class ControllerInfo(
+    val ipAddress: String,
+    val port: Int = 8443,
+    val controllerId: String,
+    val name: String? = null,
+    val capabilities: List<String> = emptyList()
+)

@@ -16,13 +16,19 @@ class NetworkErrorRecoveryManager(private val context: Context) {
         private const val MAX_RETRY_DELAY_MS = 30000L
         private const val RAPID_FAILURE_WINDOW_MS = 60000L
         private const val MAX_RAPID_FAILURES = 5
+        private const val RAPID_FAILURE_THRESHOLD = 5
     }
 
     // Recovery state
     private val isRecovering = AtomicBoolean(false)
     private val currentRetryAttempt = AtomicInteger(0)
     private var lastFailureTime = 0L
-    private var rapidFailureCount = 0
+    private val rapidFailureCount = AtomicInteger(0)
+    private val reconnectionAttempts = AtomicInteger(0)
+    private val isRecoveryActive = AtomicBoolean(false)
+    private var lastKnownGoodController: String? = null
+    private var eventListener: RecoveryEventListener? = null
+    private var recoveryJob: Job = Job()
 
     /**
      * Calculate retry delay with exponential backoff
@@ -81,4 +87,44 @@ class NetworkErrorRecoveryManager(private val context: Context) {
         eventListener = null
         lastKnownGoodController = null
     }
+
+    /**
+     * Disable auto recovery
+     */
+    fun disableAutoRecovery() {
+        isRecoveryActive.set(false)
+        isRecovering.set(false)
+        Log.d(TAG, "Auto recovery disabled")
+    }
+
+    /**
+     * Enable auto recovery
+     */
+    fun enableAutoRecovery() {
+        isRecoveryActive.set(true)
+        Log.d(TAG, "Auto recovery enabled")
+    }
+
+    /**
+     * Set recovery event listener
+     */
+    fun setEventListener(listener: RecoveryEventListener?) {
+        this.eventListener = listener
+    }
+
+    /**
+     * Set last known good controller
+     */
+    fun setLastKnownGoodController(controllerId: String) {
+        this.lastKnownGoodController = controllerId
+    }
+}
+
+/**
+ * Interface for recovery event callbacks
+ */
+interface RecoveryEventListener {
+    fun onRecoveryStarted()
+    fun onRecoveryCompleted(success: Boolean)
+    fun onRecoveryAttempt(attempt: Int, maxAttempts: Int)
 }

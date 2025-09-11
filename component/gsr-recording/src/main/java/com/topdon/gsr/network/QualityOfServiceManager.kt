@@ -20,6 +20,8 @@ class QualityOfServiceManager(private val context: Context) {
         private const val MONITORING_INTERVAL_MS = 5000L
         private const val LATENCY_SAMPLE_SIZE = 10
         private const val BANDWIDTH_SAMPLE_SIZE = 5
+        private const val NETWORK_LATENCY_SAMPLES = 3
+        private const val PRIORITY_QUEUE_SIZE = 100
     }
 
     // Monitoring state
@@ -30,8 +32,18 @@ class QualityOfServiceManager(private val context: Context) {
     private val latencySamples = ConcurrentLinkedQueue<Long>()
     private val bandwidthSamples = ConcurrentLinkedQueue<Double>()
     
+    // Priority queues for data transmission
+    private val criticalQueue = ConcurrentLinkedQueue<QoSDataPacket>()
+    private val highPriorityQueue = ConcurrentLinkedQueue<QoSDataPacket>()
+    private val normalPriorityQueue = ConcurrentLinkedQueue<QoSDataPacket>()
+    private val lowPriorityQueue = ConcurrentLinkedQueue<QoSDataPacket>()
+    
+    // Network client reference
+    private lateinit var networkClient: NetworkClient
+    
     // Coroutine scope
     private val monitoringScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val qosScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     /**
      * Start QoS monitoring
@@ -52,6 +64,65 @@ class QualityOfServiceManager(private val context: Context) {
             startAdaptiveProcessing()
 
             startPriorityQueueProcessor()
+        }
+    }
+
+    /**
+     * Start bandwidth monitoring
+     */
+    private fun startBandwidthMonitoring() {
+        monitoringScope.launch {
+            while (isMonitoring.get()) {
+                val bandwidth = measureCurrentBandwidth()
+                addBandwidthSample(bandwidth)
+                delay(MONITORING_INTERVAL_MS)
+            }
+        }
+    }
+
+    /**
+     * Start latency monitoring
+     */
+    private fun startLatencyMonitoring() {
+        monitoringScope.launch {
+            while (isMonitoring.get()) {
+                val latency = measureNetworkLatency()
+                addLatencySample(latency)
+                delay(MONITORING_INTERVAL_MS)
+            }
+        }
+    }
+
+    /**
+     * Measure current bandwidth
+     */
+    private fun measureCurrentBandwidth(): Double {
+        val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifiInfo = wifiManager.connectionInfo
+        
+        return when {
+            wifiInfo.linkSpeed > 0 -> wifiInfo.linkSpeed.toDouble() * 125000.0 // Convert Mbps to bytes/sec
+            else -> measureCellularBandwidth().toDouble()
+        }
+    }
+
+    /**
+     * Add bandwidth sample
+     */
+    private fun addBandwidthSample(bandwidth: Double) {
+        bandwidthSamples.offer(bandwidth)
+        while (bandwidthSamples.size > BANDWIDTH_SAMPLE_SIZE) {
+            bandwidthSamples.poll()
+        }
+    }
+
+    /**
+     * Add latency sample
+     */
+    private fun addLatencySample(latency: Long) {
+        latencySamples.offer(latency)
+        while (latencySamples.size > LATENCY_SAMPLE_SIZE) {
+            latencySamples.poll()
         }
     }
 
@@ -405,14 +476,59 @@ class QualityOfServiceManager(private val context: Context) {
      * Data type enumeration for QoS prioritization
      */
     enum class DataType {
-        GSR_DATA, RGB_VIDEO, THERMAL_VIDEO, VIDEO_METADATA, SYNC_DATA, CONTROL_MESSAGE
+        GSR, THERMAL, VIDEO_METADATA, RGB_VIDEO, THERMAL_VIDEO, SYNC_DATA, CONTROL_MESSAGE
     }
 
     /**
      * Priority levels for data transmission
      */
-    enum class Priority {
-        CRITICAL, HIGH, NORMAL, LOW
+    enum class Priority(val level: Int) {
+        CRITICAL(4), HIGH(3), NORMAL(2), LOW(1)
+    }
+
+    /**
+     * Set network client reference
+     */
+    fun setNetworkClient(client: NetworkClient) {
+        this.networkClient = client
+    }
+}
+
+/**
+ * Data packet for QoS processing
+ */
+data class QoSDataPacket(
+    val data: ByteArray,
+    val dataType: QualityOfServiceManager.DataType,
+    val priority: QualityOfServiceManager.Priority,
+    val timestamp: Long,
+    val sessionId: String,
+    val metadata: Map<String, String> = emptyMap()
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as QoSDataPacket
+
+        if (!data.contentEquals(other.data)) return false
+        if (dataType != other.dataType) return false
+        if (priority != other.priority) return false
+        if (timestamp != other.timestamp) return false
+        if (sessionId != other.sessionId) return false
+        if (metadata != other.metadata) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = data.contentHashCode()
+        result = 31 * result + dataType.hashCode()
+        result = 31 * result + priority.hashCode()
+        result = 31 * result + timestamp.hashCode()
+        result = 31 * result + sessionId.hashCode()
+        result = 31 * result + metadata.hashCode()
+        return result
     }
 }
 

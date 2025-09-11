@@ -39,11 +39,61 @@ class ShimmerAPIBridge private constructor() {
 
         return GSRSample(
             timestamp = timestamp,
+            utcTimestamp = timestamp, // Use same timestamp for now - can be adjusted later for sync
             conductance = conductance,
             resistance = resistance,
-            rawValue = rawValue.toInt(),
+            sampleIndex = 0L, // This should be provided by the caller or managed by bridge
             sessionId = sessionId,
         )
+    }
+
+    /**
+     * Initialize Shimmer processing with fallback handling
+     */
+    private fun initializeShimmerProcessing() {
+        try {
+            // Attempt to initialize official Shimmer API
+            // This would use reflection to check for Shimmer libraries
+            setupEnhancedFallback() // For now, always use enhanced fallback
+        } catch (e: Exception) {
+            Log.w(TAG, "Official Shimmer API not available, using enhanced fallback", e)
+            setupEnhancedFallback()
+        }
+    }
+
+    /**
+     * Convert raw ADC value to resistance using Shimmer3 specifications
+     */
+    private fun convertToResistanceShimmer3(rawValue: Double): Double {
+        // Shimmer3 GSR conversion formula
+        // R = (Vref * R_ref / V_sensor) - R_ref
+        // Where:
+        // - Vref = 3.0V (reference voltage)
+        // - R_ref = 40.2kΩ (reference resistor)
+        // - V_sensor = (rawValue / 4095) * 3.0V (ADC conversion)
+        
+        val vRef = 3.0 // Reference voltage (V)
+        val rRef = 40.2 // Reference resistor (kΩ)
+        val maxAdcValue = 4095.0 // 12-bit ADC
+        
+        if (rawValue <= 0 || rawValue > maxAdcValue) {
+            return 0.0 // Invalid reading
+        }
+        
+        val vSensor = (rawValue / maxAdcValue) * vRef
+        
+        if (vSensor <= 0) {
+            return 0.0 // Invalid voltage
+        }
+        
+        val resistance = (vRef * rRef / vSensor) - rRef
+        
+        // Ensure resistance is within valid range (10kΩ to 4.7MΩ)
+        return when {
+            resistance < 10.0 -> 10.0
+            resistance > 4700.0 -> 4700.0
+            else -> resistance
+        }
     }
 
     fun getTechnicalSpecs(): Map<String, Any> =

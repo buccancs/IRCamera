@@ -128,6 +128,34 @@ class FileTransferProtocol(
         }
     }
 
+    /**
+     * Handle transfer error with cleanup and notification
+     */
+    private fun handleTransferError(session: TransferSession, error: Exception) {
+        Log.e(TAG, "Transfer error for ${session.request.transferId}: ${error.message}", error)
+        
+        try {
+            // Send error notification to PC Controller
+            val errorMessage = JSONObject().apply {
+                put("type", "file_transfer_error")
+                put("transfer_id", session.request.transferId)
+                put("error", error.message ?: "Unknown transfer error")
+                put("timestamp", System.currentTimeMillis())
+            }
+            
+            // Best effort to notify controller of error
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    networkClient.sendMessage(errorMessage)
+                } catch (e: Exception) {
+                    Log.w(TAG, "Failed to send error notification", e)
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Error while handling transfer error", e)
+        }
+    }
+
     suspend fun cancelTransfer(transferId: String): Boolean {
         val session = activeTransfers[transferId] ?: return false
 

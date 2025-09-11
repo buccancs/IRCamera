@@ -20,12 +20,15 @@ class DeviceAuthenticationManager(private val context: Context) {
         private const val KEY_DEVICE_ID = "device_id"
         private const val KEY_PAIRED_CONTROLLERS = "paired_controllers"
         private const val KEY_AUTH_TOKENS = "auth_tokens"
+        private const val KEY_PAIRING_PIN = "pairing_pin"
         private const val TOKEN_VALIDITY_HOURS = 24
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    private val deviceId: String? = getOrCreateDeviceId()
+    private val deviceId: String = getOrCreateDeviceId()
     private val authTokens = mutableMapOf<String, AuthToken>()
+    private var deviceToken: String? = null
+    private var authEventListener: AuthEventListener? = null
 
     /**
      * Process pairing response from PC Controller
@@ -91,7 +94,7 @@ class DeviceAuthenticationManager(private val context: Context) {
     private fun storePairedControllers(controllers: Set<String>) {
         val array = org.json.JSONArray()
         controllers.forEach { array.put(it) }
-        prefs.edit().putString(PREF_PAIRED_CONTROLLERS, array.toString()).apply()
+        prefs.edit().putString(KEY_PAIRED_CONTROLLERS, array.toString()).apply()
     }
 
     /**
@@ -112,7 +115,7 @@ class DeviceAuthenticationManager(private val context: Context) {
         val pairedControllers = getPairedControllers()
         pairedControllers.forEach { removeAuthToken(it) }
         storePairedControllers(emptySet())
-        prefs.edit().remove(PREF_PAIRING_PIN).apply()
+        prefs.edit().remove(KEY_PAIRING_PIN).apply()
         Log.d(TAG, "Cleared all pairing data")
     }
 
@@ -156,27 +159,129 @@ class DeviceAuthenticationManager(private val context: Context) {
     }
 
     /**
-     * Get paired controllers
+     * Generate pairing PIN
      */
-    private fun getPairedControllers(): Set<String> {
-        val controllersJson = prefs.getString(KEY_PAIRED_CONTROLLERS, "[]")
-        return try {
-            val jsonArray = org.json.JSONArray(controllersJson!!)
-            (0 until jsonArray.length()).map { jsonArray.getString(it) }.toSet()
-        } catch (e: Exception) {
-            emptySet()
+    fun generatePairingPin(): String {
+        val pin = (100000..999999).random().toString()
+        prefs.edit().putString(KEY_PAIRING_PIN, pin).apply()
+        return pin
+    }
+
+    /**
+     * Get current pairing PIN
+     */
+    fun getCurrentPairingPin(): String? {
+        return prefs.getString(KEY_PAIRING_PIN, null)
+    }
+
+    /**
+     * Create pairing request
+     */
+    fun createPairingRequest(): PairingRequest {
+        return PairingRequest(
+            deviceId = deviceId,
+            deviceName = getDeviceName(),
+            deviceType = "android_spoke",
+            pairingPin = getCurrentPairingPin() ?: generatePairingPin(),
+            timestamp = System.currentTimeMillis(),
+            capabilities = listOf("rgb", "thermal", "gsr")
+        )
+    }
+
+    /**
+     * Create authenticated message
+     */
+    fun createAuthenticatedMessage(messageType: String, data: JSONObject, controllerId: String): JSONObject {
+        val authToken = getAuthToken(controllerId)
+        return JSONObject().apply {
+            put("message_type", messageType)
+            put("controller_id", controllerId)
+            put("device_id", deviceId)
+            put("auth_token", authToken?.token)
+            put("timestamp", System.currentTimeMillis())
+            put("data", data)
         }
     }
 
     /**
-     * Store paired controllers
+     * Validate message authentication
      */
-    private fun storePairedControllers(controllers: Set<String>) {
-        val jsonArray = org.json.JSONArray()
-        controllers.forEach { jsonArray.put(it) }
-        prefs.edit().putString(KEY_PAIRED_CONTROLLERS, jsonArray.toString()).apply()
+    fun validateMessageAuthentication(message: JSONObject, controllerId: String): Boolean {
+        return try {
+            val authToken = getAuthToken(controllerId)
+            val messageToken = message.optString("auth_token")
+            authToken?.token == messageToken && !isTokenExpired(authToken)
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    /**
+     * Get auth token for controller
+     */
+    fun getAuthToken(controllerId: String): AuthToken? {
+        return authTokens[controllerId]
+    }
+
+    /**
+     * Store auth token
+     */
+    private fun storeAuthToken(controllerId: String, authToken: AuthToken) {
+        authTokens[controllerId] = authToken
+        // Store persistently
+        val tokensJson = JSONObject()
+        authTokens.forEach { (id, token) ->
+            tokensJson.put(id, JSONObject().apply {
+                put("token", token.token)
+                put("device_id", token.deviceId)
+                put("issued_at", token.issuedAt)
+                put("expires_at", token.expiresAt)
+                put("controller_id", token.controllerId)
+                put("permissions", org.json.JSONArray(token.permissions))
+            })
+        }
+        prefs.edit().putString(KEY_AUTH_TOKENS, tokensJson.toString()).apply()
+    }
+
+    /**
+     * Remove auth token
+     */
+    private fun removeAuthToken(controllerId: String) {
+        authTokens.remove(controllerId)
+        // Update persistent storage
+        val tokensJson = JSONObject()
+        authTokens.forEach { (id, token) ->
+            tokensJson.put(id, JSONObject().apply {
+                put("token", token.token)
+                put("device_id", token.deviceId)
+                put("issued_at", token.issuedAt)
+                put("expires_at", token.expiresAt)
+                put("controller_id", token.controllerId)
+                put("permissions", org.json.JSONArray(token.permissions))
+            })
+        }
+        prefs.edit().putString(KEY_AUTH_TOKENS, tokensJson.toString()).apply()
+    }
+
+    /**
+     * Check if token is expired
+     */
+    private fun isTokenExpired(authToken: AuthToken): Boolean {
+        return System.currentTimeMillis() > authToken.expiresAt
     }
 }
+
+/**
+ * Pairing request data class
+ */
+data class PairingRequest(
+    val deviceId: String,
+    val deviceName: String,
+    val deviceType: String,
+    val pairingPin: String,
+    val timestamp: Long,
+    val capabilities: List<String>
+)
 
 /**
  * Data class for authentication token
@@ -189,3 +294,11 @@ data class AuthToken(
     val controllerId: String,
     val permissions: List<String>
 )
+
+/**
+ * Auth event listener interface
+ */
+interface AuthEventListener {
+    fun onPairingCompleted(controllerId: String, success: Boolean)
+    fun onAuthTokenReceived(authToken: AuthToken)
+}
