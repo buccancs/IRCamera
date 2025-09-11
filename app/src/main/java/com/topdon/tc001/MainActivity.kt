@@ -68,107 +68,110 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
-// Legacy ARouter route annotation - now using NavigationManager
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickListener {
-    private val versionViewModel: VersionViewModel by viewModels()
-
-    private var checkPermissionType: Int = -1 // 0: initData, 1: Gallery, 2: connect method
-
-    // Activity operation
-    private fun logInfo() {
-        try {
-            val str = StringBuilder()
-            str.append("Info").append("\n")
-            str.append("FLAVOR: release").append("\n")
-            str.append("VERSION_CODE: ${BuildConfig.VERSION_CODE}").append("\n")
-            str.append("VERSION_NAME: ${BuildConfig.VERSION_NAME}").append("\n")
-            str.append("VERSION_DATE: ${BuildConfig.VERSION_DATE}").append("\n")
-            str.append("BRAND: ${Build.BRAND}").append("\n")
-            str.append("MODEL: ${Build.MODEL}").append("\n")
-            str.append("PRODUCT: ${Build.PRODUCT}").append("\n")
-            str.append("CPU_ABI: ${Build.CPU_ABI}").append("\n")
-            str.append("SDK_INT: ${Build.VERSION.SDK_INT}").append("\n")
-            str.append("RELEASE: ${Build.VERSION.RELEASE}").append("\n")
-            if (SharedManager.getHasShowClause()) {
-                XLog.i(str)
-            }
-        } catch (e: Exception) {
-            if (SharedManager.getHasShowClause()) {
-                XLog.e("log error: ${e.message}")
-            }
-        }
+    
+    private companion object {
+        private const val PERMISSION_INIT_DATA = 0
+        private const val PERMISSION_GALLERY = 1
+        private const val PERMISSION_CONNECT = 2
+        private const val DEFAULT_TAB_INDEX = 1
+        private const val OFFSCREEN_PAGE_LIMIT = 3
     }
+    
+    private val versionViewModel: VersionViewModel by viewModels()
+    private var checkPermissionType: Int = -1
 
+    private val hasShownClause: Boolean get() = SharedManager.getHasShowClause()
+    private val isConnected: Boolean get() = DeviceTools.isConnect()
+    private val webSocket = WebSocketProxy.getInstance()
+    
     override fun initView() {
-
-        if (!SharedManager.getHasShowClause()) {
-            NavigationManager.build(RouterConfig.CLAUSE).navigation(this)
-            finish()
+        if (!hasShownClause) {
+            navigateToClause()
             return
         }
 
+        setupApplication()
+        setupViewPager()
+        setupClickListeners()
+        initializeServices()
+        handleDeviceConnections()
+    }
+
+    private fun navigateToClause() {
+        NavigationManager.build(RouterConfig.CLAUSE).navigation(this)
+        finish()
+    }
+
+    private fun setupApplication() {
         logInfo()
         lifecycleScope.launch(Dispatchers.IO) {
             // Note: SupHelp AI upscaler integration is not included in this build
-            // SupHelp.getInstance().initAiUpScaler(Utils.getApp())
         }
-        binding.viewPage.offscreenPageLimit = 3
-        binding.viewPage.isUserInputEnabled = false
-        binding.viewPage.adapter = ViewPagerAdapter(this)
-        binding.viewPage.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    refreshTabSelect(position)
-                }
-            },
-        )
-        if (savedInstanceState == null) {
-            binding.viewPage.setCurrentItem(1, false)
-        }
-
-        binding.viewMinePoint.isVisible = !SharedManager.hasClickWinter
-
-        binding.clIconGallery.setOnClickListener(this)
-        binding.viewMain.setOnClickListener(this)
-        binding.clIconMine.setOnClickListener(this)
-        App.instance.initWebSocket()
         copyFile("SR.pb", File(filesDir, "SR.pb"))
         BaseApplication.instance.clearDb()
+    }
+
+    private fun setupViewPager() {
+        binding.viewPage.apply {
+            offscreenPageLimit = OFFSCREEN_PAGE_LIMIT
+            isUserInputEnabled = false
+            adapter = ViewPagerAdapter(this@MainActivity)
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) = refreshTabSelect(position)
+            })
+            if (savedInstanceState == null) {
+                setCurrentItem(DEFAULT_TAB_INDEX, false)
+            }
+        }
+        binding.viewMinePoint.isVisible = !SharedManager.hasClickWinter
+    }
+
+    private fun setupClickListeners() {
+        with(binding) {
+            clIconGallery.setOnClickListener(this@MainActivity)
+            viewMain.setOnClickListener(this@MainActivity)
+            clIconMine.setOnClickListener(this@MainActivity)
+        }
+    }
+
+    private fun initializeServices() {
+        App.instance.initWebSocket()
+        
         if (BaseApplication.instance.isDomestic()) {
             checkAppVersion(true)
         } else {
             versionViewModel.checkVersion()
         }
+    }
 
-        if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
-            // Activity operation，activity
-            if (DeviceTools.isConnect()) {
-                if (!WebSocketProxy.getInstance().isConnected()) {
-                    NavigationManager.build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, false)
-                        .navigation(this)
-                }
-            } else {
-                if (WebSocketProxy.getInstance().isTS004Connect()) {
+    private fun handleDeviceConnections() {
+        val noDevicesConnected = !SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007
+        
+        if (noDevicesConnected) {
+            when {
+                isConnected && !webSocket.isConnected() -> 
+                    navigateToThermal(RouterConfig.IR_MAIN, false)
+                webSocket.isTS004Connect() -> 
                     NavigationManager.build(RouterConfig.IR_MONOCULAR).navigation(this)
-                } else if (WebSocketProxy.getInstance().isTC007Connect()) {
-                    NavigationManager.build(RouterConfig.IR_MAIN)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
-                        .navigation(this)
-                }
+                webSocket.isTC007Connect() -> 
+                    navigateToThermal(RouterConfig.IR_MAIN, true)
             }
         }
 
-        if (DeviceTools.isConnect()) {
-            SharedManager.hasTcLine = true
-        }
-        if (WebSocketProxy.getInstance().isTS004Connect()) {
-            SharedManager.hasTS004 = true
-        }
-        if (WebSocketProxy.getInstance().isTC007Connect()) {
-            SharedManager.hasTC007 = true
-        }
-//        initLauncher()
+        updateConnectionFlags()
+    }
+
+    private fun navigateToThermal(route: String, isTC007: Boolean) {
+        NavigationManager.build(route)
+            .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+            .navigation(this)
+    }
+
+    private fun updateConnectionFlags() {
+        if (isConnected) SharedManager.hasTcLine = true
+        if (webSocket.isTS004Connect()) SharedManager.hasTS004 = true
+        if (webSocket.isTC007Connect()) SharedManager.hasTC007 = true
     }
 
     override fun onStart() {
@@ -421,52 +424,38 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     private fun getNeedPermissionList(): SparseArray<List<String>> {
-        val sparseArray = SparseArray<List<String>>()
-        sparseArray.append(R.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))
-        (
-            if (this.applicationInfo.targetSdkVersion >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else {
-                listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-            }
-        ).let {
-            sparseArray.append(R.string.permission_request_storage_app, it)
+        val cameraPermissions = listOf(Manifest.permission.CAMERA)
+        val storagePermissions = when {
+            applicationInfo.targetSdkVersion >= 33 -> listOf(
+                Permission.READ_MEDIA_VIDEO,
+                Permission.READ_MEDIA_IMAGES,
+                Permission.WRITE_EXTERNAL_STORAGE,
+            )
+            else -> listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
         }
-        return sparseArray
+        
+        return SparseArray<List<String>>().apply {
+            append(R.string.permission_request_camera_app, cameraPermissions)
+            append(R.string.permission_request_storage_app, storagePermissions)
+        }
     }
 
     private fun checkCameraPermission() {
-        if (!PermissionUtils.isVisualUser() &&
-            !XXPermissions.isGranted(
-                this,
-                getNeedPermissionList()[R.string.permission_request_camera_app],
-            )
-        ) {
-            if (BaseApplication.instance.isDomestic()) {
-                if (SharedManager.getMainPermissionsState()) {
-                    // Activity operation
-                    return
-                }
-                TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_camera_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
-                        initCameraPermission()
-                    }
-                    .create().show()
-            } else {
-                initCameraPermission()
-            }
+        val cameraPermissions = getNeedPermissionList()[R.string.permission_request_camera_app]
+        
+        if (PermissionUtils.isVisualUser() || XXPermissions.isGranted(this, cameraPermissions)) {
+            initCameraPermission()
+            return
+        }
+        
+        if (BaseApplication.instance.isDomestic()) {
+            if (SharedManager.getMainPermissionsState()) return
+            
+            TipDialog.Builder(this)
+                .setMessage(getString(R.string.permission_request_camera_app, CommUtils.getAppName()))
+                .setCancelListener(R.string.app_cancel)
+                .setPositiveListener(R.string.app_confirm) { initCameraPermission() }
+                .create().show()
         } else {
             initCameraPermission()
         }
@@ -614,18 +603,28 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
     private fun checkAppVersion(isShow: Boolean) {
         if (appVersionUtil == null) {
-            appVersionUtil =
-                AppVersionUtil(
-                    this,
-                    object : AppVersionUtil.DotIsShowListener {
-                        override fun isShow(show: Boolean) {
-                        }
-
-                        override fun version(version: String) {
-                        }
-                    },
-                )
+            appVersionUtil = AppVersionUtil(this, object : AppVersionUtil.DotIsShowListener {
+                override fun isShow(show: Boolean) {}
+                override fun version(version: String) {}
+            })
         }
         appVersionUtil?.checkVersion(isShow)
+    }
+
+    private fun logInfo() {
+        if (!hasShownClause) return
+        
+        try {
+            val info = buildString {
+                appendLine("App Info:")
+                appendLine("VERSION: ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
+                appendLine("BUILD DATE: ${BuildConfig.VERSION_DATE}")
+                appendLine("DEVICE: ${Build.BRAND} ${Build.MODEL}")
+                appendLine("ANDROID: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})")
+            }
+            XLog.i(info)
+        } catch (e: Exception) {
+            XLog.e("Failed to log app info: ${e.message}")
+        }
     }
 }

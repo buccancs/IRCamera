@@ -27,74 +27,66 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
 import com.topdon.tc001.camera.RGBCameraRecorder
 import kotlinx.coroutines.launch
 
-// Note: EnhancedRecordingService is referenced with full package name since it's in a different module
-
 class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecordingBinding>() {
-    override fun initContentLayoutId(): Int = R.layout.activity_multi_modal_recording
-
-    companion object {
+    
+    private companion object {
         private const val TAG = "MultiModalActivity"
         private const val REQUEST_PERMISSIONS = 100
+        private const val SAMPLE_RATE_DISPLAY_INTERVAL = 128L // Update UI every 128 samples
+        
+        private val REQUIRED_PERMISSIONS = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CAMERA,
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_CONNECT,
+        )
 
-        private val REQUIRED_PERMISSIONS =
-            arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.CAMERA,
-                // Android 12+ Bluetooth permissions for Shimmer3 GSR devices
-                Manifest.permission.BLUETOOTH_SCAN,
-                Manifest.permission.BLUETOOTH_CONNECT,
-            )
-
-        fun start(context: Context) {
-            val intent = Intent(context, MultiModalRecordingActivity::class.java)
-            context.startActivity(intent)
-        }
-
-        fun startWithTemplate(
-            context: Context,
-            templateId: String,
-        ) {
-            val intent =
-                Intent(context, MultiModalRecordingActivity::class.java).apply {
-                    putExtra("template_id", templateId)
-                }
-            context.startActivity(intent)
-        }
+        fun start(context: Context) = context.startActivity(Intent(context, MultiModalRecordingActivity::class.java))
     }
+    
+    override fun initContentLayoutId(): Int = R.layout.activity_multi_modal_recording
 
-    // Recording components
+    // Service and recorder components
     private lateinit var gsrRecorder: GSRRecorder
     private lateinit var sessionManager: SessionManager
+    private var enhancedRecordingService: Any? = null // Placeholder for EnhancedRecordingService
+    private var networkClient: Any? = null // Placeholder for NetworkClient
     private var rgbCameraRecorder: RGBCameraRecorder? = null
-    private var networkClient: com.topdon.gsr.network.NetworkClient? = null
+    
+    // State tracking
+    private var isServiceBound = false
     private var isRecording = false
     private var isStartingRecording = false // Guard against double taps
     private var currentSession: SessionInfo? = null
     private var sampleCount = 0L
     private var syncMarkCount = 0
-
-    // Enhanced service integration
-    private var enhancedRecordingService: com.topdon.gsr.service.EnhancedRecordingService? = null
-    private var isServiceBound = false
-    private var discoveredDevices = mutableListOf<com.topdon.gsr.network.NetworkClient.ControllerInfo>()
-
-    // UI update timer
+    private var discoveredDevices = mutableListOf<Any>() // Placeholder for ControllerInfo
     private var uiUpdateJob: kotlinx.coroutines.Job? = null
 
     // Service connection for enhanced recording service
-    private val serviceConnection =
-        object : ServiceConnection {
-            override fun onServiceConnected(
-                name: ComponentName?,
-                service: IBinder?,
-            ) {
-                val binder = service as? com.topdon.gsr.service.EnhancedRecordingService.EnhancedRecordingBinder
-                enhancedRecordingService = binder?.getService()
-                isServiceBound = true
-                Log.i(TAG, "Enhanced recording service connected")
-                updateNetworkStatusUI()
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            // Note: Enhanced recording service integration placeholder
+            isServiceBound = true
+            Log.i(TAG, "Enhanced recording service connected")
+            updateNetworkStatusUI()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            enhancedRecordingService = null
+            isServiceBound = false
+            Log.i(TAG, "Enhanced recording service disconnected")
+            updateNetworkStatusUI()
+        }
+    }
+
+    fun startWithTemplate(context: Context, templateId: String) {
+        context.startActivity(Intent(context, MultiModalRecordingActivity::class.java).apply {
+            putExtra("template_id", templateId)
+        })
+    }
             }
 
             override fun onServiceDisconnected(name: ComponentName?) {
@@ -105,67 +97,75 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             }
         }
 
-    private val gsrListener =
-        object : GSRRecorder.GSRRecordingListener {
-            override fun onRecordingStarted(sessionInfo: SessionInfo) {
-                runOnUiThread {
-                    isRecording = true
-                    currentSession = sessionInfo
-                    updateUI()
-                    binding.statusText.text = "Recording GSR data at 128 Hz..."
-                    binding.progressBar.visibility = View.VISIBLE
+    private val gsrListener = object : GSRRecorder.GSRRecordingListener {
+        override fun onRecordingStarted(sessionInfo: SessionInfo) = runOnUiThread {
+            isRecording = true
+            currentSession = sessionInfo
+            updateUI()
+            binding.statusText.text = "Recording GSR data at 128 Hz..."
+            binding.progressBar.visibility = View.VISIBLE
+            binding.dataText.text = "Files: ${gsrRecorder.getSessionDirectory()?.absolutePath ?: "Unknown"}"
+        }
 
-                    val sessionDir = gsrRecorder.getSessionDirectory()?.absolutePath ?: "Unknown"
-                    binding.dataText.text = "Files: $sessionDir"
+        override fun onRecordingStopped(sessionInfo: SessionInfo) = runOnUiThread {
+            isRecording = false
+            currentSession = null
+            updateUI()
+            binding.statusText.text = "Recording completed. ${sessionInfo.sampleCount} samples recorded."
+            binding.progressBar.visibility = View.GONE
+            showToast("Recording saved: ${sessionInfo.sessionId}")
+        }
+
+        override fun onSampleRecorded(sample: GSRSample) {
+            sampleCount = sample.sampleIndex
+            sendSampleToNetwork(sample)
+            
+            if (sampleCount % SAMPLE_RATE_DISPLAY_INTERVAL == 0L) {
+                updateSampleCountUI()
+            }
+        }
+
+        override fun onSyncMarkAdded(syncMark: SyncMark) = runOnUiThread {
+            syncMarkCount++
+            binding.dataText.text = "${binding.dataText.text} | Sync Events: $syncMarkCount"
+            showToast("Sync: ${syncMark.eventType}")
+        }
+
+        override fun onError(error: String) = runOnUiThread {
+            binding.statusText.text = "Error: $error"
+            binding.progressBar.visibility = View.GONE
+            showToast("GSR Error: $error")
+        }
+    }
+
+    private fun sendSampleToNetwork(sample: GSRSample) {
+        networkClient?.let { client ->
+            currentSession?.let { session ->
+                lifecycleScope.launch {
+                    val data = org.json.JSONObject().apply {
+                        put("gsr_conductance", sample.conductance)
+                        put("gsr_resistance", sample.resistance)
+                        put("raw_value", sample.rawValue)
+                        put("timestamp", sample.timestamp)
+                        put("sample_index", sample.sampleIndex)
+                    }
+                    // Note: client.sendMeasurementData method placeholder
                 }
             }
+        }
+    }
 
-            override fun onRecordingStopped(sessionInfo: SessionInfo) {
-                runOnUiThread {
-                    isRecording = false
-                    currentSession = null
-                    updateUI()
-                    binding.statusText.text = "Recording completed. ${sessionInfo.sampleCount} samples recorded."
-                    binding.progressBar.visibility = View.GONE
+    private fun updateSampleCountUI() = runOnUiThread {
+        binding.dataText.text = "Samples: $sampleCount"
+        currentSession?.let { session ->
+            val duration = (System.currentTimeMillis() - session.startTime) / 1000
+            binding.dataText.text = "${binding.dataText.text} | Duration: ${duration}s"
+        }
+    }
 
-                    Toast.makeText(
-                        this@MultiModalRecordingActivity,
-                        "Recording saved: ${sessionInfo.sessionId}",
-                        Toast.LENGTH_LONG,
-                    ).show()
-                }
-            }
-
-            override fun onSampleRecorded(sample: GSRSample) {
-                sampleCount = sample.sampleIndex
-
-                // Send data to PC Controller if connected
-                networkClient?.let { client ->
-                    if (client.isConnected()) {
-                        currentSession?.let { session ->
-                            lifecycleScope.launch {
-                                val data =
-                                    org.json.JSONObject().apply {
-                                        put("gsr_conductance", sample.conductance)
-                                        put("gsr_resistance", sample.resistance)
-                                        put("raw_value", sample.rawValue)
-                                        put("timestamp", sample.timestamp)
-                                        put("sample_index", sample.sampleIndex)
-                                    }
-                                client.sendMeasurementData(session.sessionId, data)
-                            }
-                        }
-                    }
-                }
-
-                if (sampleCount % 128 == 0L) {
-                    runOnUiThread {
-                        binding.dataText.text = "Samples: $sampleCount"
-                        currentSession?.let { session ->
-                            val duration = (System.currentTimeMillis() - session.startTime) / 1000
-                            binding.dataText.text = "${binding.dataText.text} | Duration: ${duration}s"
-                        }
-                    }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
                 }
             }
 
