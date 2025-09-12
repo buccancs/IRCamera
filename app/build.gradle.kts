@@ -66,6 +66,19 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            // Fast development build variant - optimized for iteration speed
+            isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            // Disable proguard for faster builds
+            proguardFiles.clear()
+            // Enable multidex for development
+            multiDexEnabled = true
+        }
+        
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
@@ -76,11 +89,11 @@ android {
         }
     }
     
-    // Configure single release variant for easier maintenance
+    // Development Build Optimization - Enable debug builds for faster iteration
     androidComponents {
         beforeVariants { variant ->
-            // Only enable release variant for single-developer maintenance
-            variant.enable = variant.buildType == "release"
+            // Enable both debug and release variants for development efficiency
+            variant.enable = variant.buildType == "debug" || variant.buildType == "release"
         }
     }
 
@@ -99,7 +112,11 @@ android {
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi", 
             "-opt-in=kotlinx.coroutines.FlowPreview",
-            "-Xjvm-default=all"
+            "-Xjvm-default=all",
+            // Development build optimizations for faster compilation
+            "-Xuse-k2",
+            "-Xskip-prerelease-check",
+            "-Xallow-any-scripts-in-source-roots"
         )
     }
 

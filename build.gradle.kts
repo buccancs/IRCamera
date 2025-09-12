@@ -25,6 +25,28 @@ buildscript {
     }
 }
 
+// Development build optimization - configure all subprojects with fast build settings
+allprojects {
+    // Apply common optimization to all modules
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            // Parallel compilation across all modules
+            jvmTarget = "17"
+            freeCompilerArgs += listOf(
+                "-Xuse-k2", 
+                "-Xskip-prerelease-check"
+            )
+        }
+    }
+    
+    // Enable parallel Java compilation across modules
+    tasks.withType<JavaCompile> {
+        options.isFork = true
+        options.forkOptions.jvmArgs = listOf("-Xmx2048m")
+        options.isIncremental = true
+    }
+}
+
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory.get().asFile)
 }

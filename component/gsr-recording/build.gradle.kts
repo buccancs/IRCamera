@@ -16,6 +16,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Fast development build variant
+            isMinifyEnabled = false
+            isJniDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -25,11 +30,11 @@ android {
         }
     }
     
-    // Configure single release variant for easier maintenance
+    // Development Build Optimization - Enable debug builds for faster iteration
     androidComponents {
         beforeVariants { variant ->
-            // Only enable release variant for single-developer maintenance
-            variant.enable = variant.buildType == "release"
+            // Enable both debug and release variants for development efficiency
+            variant.enable = variant.buildType == "debug" || variant.buildType == "release"
         }
     }
 

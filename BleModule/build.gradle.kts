@@ -11,6 +11,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Fast development build variant
+            isMinifyEnabled = false
+            isJniDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             buildConfigField("boolean", "DEBUG", "false")
@@ -25,7 +30,7 @@ android {
     androidComponents {
         beforeVariants { variant ->
             // Only enable release variants
-            variant.enable = variant.buildType == "release"
+            variant.enable = variant.buildType == "debug" || variant.buildType == "release"
         }
     }
     
