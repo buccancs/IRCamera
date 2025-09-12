@@ -276,7 +276,6 @@ class ShimmerSensorRecorder(
             emitError(ErrorType.SYNC_FAILED, "GSR sync marker failed: ${e.message}")
         }
     }
-    }
 
     override suspend fun cleanup() {
         try {
