@@ -14,6 +14,10 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.ConcurrentHashMap
 
+// DngCreator for proper DNG file creation (API 21+)
+import android.hardware.camera2.DngCreator
+import java.io.IOException
+
 /**
  * RAW Engine for 50MP DNG capture (Camera2-only)
  * 
@@ -157,9 +161,35 @@ class RawEngine(private val context: Context) {
         val dngFile = File(outputDir, "${sessionId}_raw_${timestamp}.dng")
         
         try {
-            // TODO: Implement DNG creation when DngCreator import is resolved
-            // For now, save as raw binary data
-            saveRawImageAsRaw(image)
+            // Implement DNG creation using DngCreator
+            val captureResult = pendingCaptureResults[image.timestamp]
+            if (captureResult != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                try {
+                    // Create DNG file with proper metadata
+                    val dngCreator = DngCreator(captureResult.first, captureResult.second)
+                    FileOutputStream(dngFile).use { outputStream ->
+                        dngCreator.writeImage(outputStream, image)
+                    }
+                    dngCreator.close()
+                    
+                    Log.d(TAG, "Successfully created DNG file: ${dngFile.name} (${image.width}x${image.height})")
+                } catch (e: IOException) {
+                    Log.e(TAG, "Failed to create DNG file, falling back to RAW binary", e)
+                    // Fallback to raw binary data
+                    saveRawImageAsRaw(image)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error creating DNG file, falling back to RAW binary", e)
+                    // Fallback to raw binary data
+                    saveRawImageAsRaw(image)
+                }
+                
+                // Clean up used capture result
+                pendingCaptureResults.remove(image.timestamp)
+            } else {
+                Log.w(TAG, "No capture result available for RAW image, saving as binary data")
+                // Fallback: save as raw binary data when no capture result is available
+                saveRawImageAsRaw(image)
+            }
             
             rawCaptureCount++
             Log.d(TAG, "Saved RAW image: ${dngFile.name} (${image.width}x${image.height})")

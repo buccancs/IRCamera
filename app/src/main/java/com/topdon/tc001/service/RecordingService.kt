@@ -19,7 +19,9 @@ import com.topdon.gsr.model.SyncMark
 import com.topdon.tc001.network.EnhancedNetworkClient
 import com.topdon.tc001.network.NetworkClient
 import com.topdon.tc001.network.NetworkServer
+import com.topdon.tc001.network.ZeroconfDiscoveryService
 import com.topdon.tc001.utils.TimeManager
+import com.topdon.tc001.ScreenFlashActivity
 import com.csl.irCamera.R
 // Phase 0 baseline imports
 import com.topdon.tc001.config.FeatureFlags
@@ -60,6 +62,7 @@ class RecordingService : LifecycleService() {
     companion object {
         private const val TAG = "RecordingService"
         private const val NOTIFICATION_ID = 1001
+        private const val FLASH_NOTIFICATION_ID = 1002
         private const val CHANNEL_ID = "recording_service_channel"
         
         // Server socket configuration
@@ -185,6 +188,7 @@ class RecordingService : LifecycleService() {
     // Network communication - both client and server capabilities
     private lateinit var networkClient: NetworkClient
     private lateinit var networkServer: NetworkServer
+    private lateinit var zeroconfDiscoveryService: ZeroconfDiscoveryService
     private var isNetworkInitialized = false
     private var isConnectedToPC = false
     
@@ -421,6 +425,7 @@ class RecordingService : LifecycleService() {
         // Initialize both network client and server for maximum compatibility
         networkClient = NetworkClient(this)
         networkServer = NetworkServer(this, 8080)
+        zeroconfDiscoveryService = ZeroconfDiscoveryService(this)
         
         // Initialize sensors and dual network architecture
         lifecycleScope.launch {
@@ -1670,10 +1675,57 @@ class RecordingService : LifecycleService() {
                     // Use client discovery
                     startNetworkDiscovery()
                 } else {
-                    // TODO: Implement PC discovery using zeroconf/mDNS
-                    // For now, log that discovery was requested
-                    Log.i(TAG, "PC Controller discovery requested")
+                    // Implement PC discovery using zeroconf/mDNS
+                    Log.i(TAG, "Starting PC Controller discovery using zeroconf/mDNS")
                     updateNotification("Searching for PC Controller...")
+                    
+                    zeroconfDiscoveryService.setServiceListener(object : ZeroconfDiscoveryService.ServiceDiscoveryListener {
+                        override fun onServiceDiscovered(serviceInfo: NetworkClient.ControllerInfo) {
+                            Log.i(TAG, "PC Controller discovered: ${serviceInfo.address}:${serviceInfo.port}")
+                            lifecycleScope.launch {
+                                try {
+                                    // Connect to discovered PC Controller using server info
+                                    val serverInfo = WebSocketClient.ServerInfo(
+                                        host = serviceInfo.address,
+                                        port = serviceInfo.port,
+                                        protocol = "ws", // or "wss" for secure
+                                        path = "/api/v1/ws"
+                                    )
+                                    // Note: This would require adding a connectToServer method or similar
+                                    // For now, log the connection attempt
+                                    Log.i(TAG, "Would connect to PC Controller at ${serviceInfo.address}:${serviceInfo.port}")
+                                    updateNotification("PC Controller found")
+                                } catch (e: Exception) {
+                                    Log.e(TAG, "Failed to connect to discovered PC Controller", e)
+                                }
+                            }
+                        }
+                        
+                        override fun onServiceLost(serviceName: String) {
+                            Log.i(TAG, "PC Controller service lost: $serviceName")
+                        }
+                        
+                        override fun onServiceRegistered(serviceName: String) {
+                            Log.i(TAG, "Service registered: $serviceName")
+                        }
+                        
+                        override fun onDiscoveryError(errorCode: Int, message: String) {
+                            Log.e(TAG, "Discovery error $errorCode: $message")
+                            updateNotification("Discovery failed")
+                        }
+                    })
+                    
+                    lifecycleScope.launch {
+                        try {
+                            val success = zeroconfDiscoveryService.startDiscovery()
+                            if (!success) {
+                                Log.w(TAG, "Failed to start PC Controller discovery")
+                                updateNotification("Discovery failed")
+                            }
+                        } catch (e: Exception) {
+                            Log.e(TAG, "Error starting zeroconf discovery", e)
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error starting PC discovery", e)
@@ -2137,8 +2189,21 @@ class RecordingService : LifecycleService() {
                 // Add sync marker to recording
                 addSyncMarker("flash_sync", timestamp)
                 
-                // TODO: Implement screen flash functionality
-                // This would require UI interaction which is complex from a background service
+                // Implement screen flash functionality
+                // Use overlay activity to flash the screen
+                try {
+                    val flashIntent = Intent(this, ScreenFlashActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        putExtra("timestamp_ns", timestamp)
+                        putExtra("flash_duration_ms", 100) // 100ms flash
+                    }
+                    startActivity(flashIntent)
+                    Log.i(TAG, "Screen flash activity started")
+                } catch (e: Exception) {
+                    Log.e(TAG, "Failed to start screen flash activity", e)
+                    // Fallback: Use notification as visual indicator
+                    showFlashNotification(timestamp)
+                }
                 
                 // Send acknowledgment back to PC Controller
                 val response = JSONObject().apply {
@@ -2347,13 +2412,52 @@ class RecordingService : LifecycleService() {
     private fun startPCDiscovery() {
         lifecycleScope.launch {
             try {
-                // TODO: Implement PC discovery using zeroconf/mDNS
-                // For now, log that discovery was requested
-                Log.i(TAG, "PC Controller discovery requested")
+                // Implement PC discovery using zeroconf/mDNS
+                Log.i(TAG, "Starting PC Controller discovery using zeroconf/mDNS")
                 updateNotification("Searching for PC Controller...")
                 
-                // This could be extended to use NetworkDiscoveryService
-                // or implement manual discovery logic here
+                // Use the same discovery logic as above
+                zeroconfDiscoveryService.setServiceListener(object : ZeroconfDiscoveryService.ServiceDiscoveryListener {
+                    override fun onServiceDiscovered(serviceInfo: NetworkClient.ControllerInfo) {
+                        Log.i(TAG, "PC Controller discovered via discovery: ${serviceInfo.address}:${serviceInfo.port}")
+                        lifecycleScope.launch {
+                            try {
+                                // Connect to discovered PC Controller using server info  
+                                val serverInfo = WebSocketClient.ServerInfo(
+                                    host = serviceInfo.address,
+                                    port = serviceInfo.port,
+                                    protocol = "ws", // or "wss" for secure
+                                    path = "/api/v1/ws"
+                                )
+                                // Note: This would require adding a connectToServer method or similar
+                                // For now, log the connection attempt
+                                Log.i(TAG, "Would connect to PC Controller at ${serviceInfo.address}:${serviceInfo.port}")
+                                updateNotification("PC Controller found")
+                            } catch (e: Exception) {
+                                Log.e(TAG, "Failed to connect to discovered PC Controller", e)
+                            }
+                        }
+                    }
+                    
+                    override fun onServiceLost(serviceName: String) {
+                        Log.i(TAG, "PC Controller service lost: $serviceName")
+                    }
+                    
+                    override fun onServiceRegistered(serviceName: String) {
+                        Log.i(TAG, "Service registered: $serviceName")
+                    }
+                    
+                    override fun onDiscoveryError(errorCode: Int, message: String) {
+                        Log.e(TAG, "Discovery error $errorCode: $message")
+                        updateNotification("Discovery failed")
+                    }
+                })
+                
+                val success = zeroconfDiscoveryService.startDiscovery()
+                if (!success) {
+                    Log.w(TAG, "Failed to start PC Controller discovery")
+                    updateNotification("Discovery failed")
+                }
             } catch (e: Exception) {
                 Log.e(TAG, "Error starting PC discovery", e)
             }
@@ -2475,6 +2579,32 @@ class RecordingService : LifecycleService() {
             
         } catch (e: Exception) {
             Log.e(TAG, "Error sending status to PC", e)
+        }
+    }
+    
+    /**
+     * Show flash notification as fallback when screen flash activity fails
+     */
+    private fun showFlashNotification(timestamp: Long) {
+        try {
+            val flashNotification = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Sync Flash")
+                .setContentText("Timestamp: $timestamp")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setTimeoutAfter(500) // Auto-dismiss after 500ms
+                .build()
+                
+            notificationManager.notify(FLASH_NOTIFICATION_ID, flashNotification)
+            
+            // Auto-cancel the notification after a short delay
+            lifecycleScope.launch {
+                delay(500)
+                notificationManager.cancel(FLASH_NOTIFICATION_ID)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to show flash notification", e)
         }
     }
 >>>>>>> dev

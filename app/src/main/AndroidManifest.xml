@@ -190,6 +190,14 @@
             android:exported="false"
             android:label="Device Pairing" />
             
+        <!-- Screen Flash Activity for synchronization -->
+        <activity
+            android:name="com.topdon.tc001.ScreenFlashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:noHistory="true" />
+            
         <!-- Multi-Modal Recording Service -->
         <service
             android:name="com.topdon.tc001.service.RecordingService"

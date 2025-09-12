@@ -230,7 +230,8 @@ class WebSocketClient(private val context: Context) {
     private fun startServerDiscovery() {
         if (!FeatureFlags.MDNS_ENABLE) {
             Log.w(TAG, "mDNS discovery disabled, trying manual connection")
-            // TODO: Try manual connection to common IP addresses
+            // Try manual connection to common IP addresses
+            tryManualConnection()
             return
         }
         
@@ -1532,5 +1533,40 @@ class WebSocketClient(private val context: Context) {
         }
         
         return results
+    }
+    
+    /**
+     * Try manual connection to common IP addresses when mDNS discovery is disabled
+     */
+    private fun tryManualConnection() {
+        scope.launch {
+            val commonAddresses = listOf(
+                "192.168.1.100",  // Common desktop IP
+                "192.168.0.100",  // Common desktop IP
+                "192.168.1.10",   // Common workstation IP
+                "192.168.0.10",   // Common workstation IP
+                "10.0.0.100",     // Corporate network
+                "172.16.0.100"    // Private network
+            )
+            
+            Log.i(TAG, "Trying manual connection to ${commonAddresses.size} common addresses")
+            
+            for (address in commonAddresses) {
+                try {
+                    Log.d(TAG, "Attempting connection to $address:$DEFAULT_PORT")
+                    if (connectToPC(address, DEFAULT_PORT)) {
+                        Log.i(TAG, "Successfully connected to PC at $address:$DEFAULT_PORT")
+                        return@launch
+                    }
+                } catch (e: Exception) {
+                    Log.d(TAG, "Failed to connect to $address: ${e.message}")
+                }
+                
+                // Small delay between attempts
+                delay(500)
+            }
+            
+            Log.w(TAG, "Manual connection attempts failed for all common addresses")
+        }
     }
 }

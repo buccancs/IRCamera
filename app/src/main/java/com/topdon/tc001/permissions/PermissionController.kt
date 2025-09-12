@@ -177,8 +177,12 @@ class PermissionController private constructor() {
         
         // Show rationale if provided and needed
         if (rationale != null && missing.any { ActivityCompat.shouldShowRequestPermissionRationale(activity, it) }) {
-            // TODO: Show rationale dialog, then proceed with permission request
-            Log.d(TAG, "Would show rationale: $rationale")
+            showPermissionRationaleDialog(activity, rationale, missing) {
+                // Proceed with permission request after rationale is shown
+                ActivityCompat.requestPermissions(activity, missing.toTypedArray(), requestCode)
+            }
+            deferred.await()
+            return@suspendCancellableCoroutine
         }
         
         // Request permissions
@@ -530,6 +534,45 @@ class PermissionController private constructor() {
             Manifest.permission.READ_MEDIA_IMAGES -> "Image access is required to manage captured thermal images."
             Manifest.permission.POST_NOTIFICATIONS -> "Notification access is needed to show recording status and alerts."
             else -> "This permission is required for app functionality."
+        }
+    }
+    
+    /**
+     * Show permission rationale dialog with detailed explanation
+     */
+    private fun showPermissionRationaleDialog(
+        activity: Activity,
+        rationale: String,
+        permissions: List<String>,
+        onContinue: () -> Unit
+    ) {
+        val permissionNames = permissions.map { getPermissionDisplayName(it) }.joinToString(", ")
+        val detailedRationale = buildString {
+            append(rationale)
+            append("\n\nRequired permissions:\n")
+            permissions.forEach { permission ->
+                append("• ${getPermissionDisplayName(permission)}: ${getPermissionRationale(permission)}\n")
+            }
+        }
+        
+        try {
+            android.app.AlertDialog.Builder(activity)
+                .setTitle("Permissions Required")
+                .setMessage(detailedRationale)
+                .setPositiveButton("Grant Permissions") { dialog, _ ->
+                    dialog.dismiss()
+                    onContinue()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                    // User cancelled - the request will time out
+                }
+                .setCancelable(false)
+                .show()
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to show permission rationale dialog", e)
+            // Fallback: proceed with permission request without dialog
+            onContinue()
         }
     }
 }

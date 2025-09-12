@@ -932,17 +932,36 @@ class GSRSensorRecorder(
                 
                 val shimmerRecorder = realShimmerGSRRecorder
                 if (shimmerRecorder != null) {
-                    // TODO: Implement device-specific connection logic
-                    // This would require extending ShimmerGSRRecorder to support device selection
-                    val success = shimmerRecorder.initializeDevice()
-                    if (success) {
-                        Log.i(TAG, "Successfully connected to Shimmer device: $deviceAddress")
-                        isShimmerConnected = true
-                    } else {
-                        Log.w(TAG, "Failed to connect to Shimmer device: $deviceAddress")
+                    // Implement device-specific connection logic using existing methods
+                    try {
+                        // Try to connect to specific device by address using initializeDevice
+                        val success = shimmerRecorder.initializeDevice(deviceAddress)
+                        if (success) {
+                            Log.i(TAG, "Successfully connected to Shimmer device: $deviceAddress")
+                            isShimmerConnected = true
+                            
+                            // Device is ready for recording
+                            Log.i(TAG, "Shimmer device configured and ready for GSR recording")
+                        } else {
+                            Log.w(TAG, "Failed to connect to specific Shimmer device: $deviceAddress")
+                            
+                            // Fallback: Try to connect to any available Shimmer device  
+                            Log.i(TAG, "Attempting fallback connection to any available Shimmer device")
+                            val fallbackSuccess = shimmerRecorder.initializeDevice()
+                            if (fallbackSuccess) {
+                                Log.i(TAG, "Successfully connected to fallback Shimmer device")
+                                isShimmerConnected = true
+                            } else {
+                                Log.w(TAG, "Failed to connect to any Shimmer device")
+                                isShimmerConnected = false
+                            }
+                        }
+                        success || isShimmerConnected
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error during device-specific connection", e)  
                         isShimmerConnected = false
+                        false
                     }
-                    success
                 } else {
                     Log.e(TAG, "Shimmer recorder not initialized")
                     false
