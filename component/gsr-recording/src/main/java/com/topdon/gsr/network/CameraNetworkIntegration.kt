@@ -105,6 +105,7 @@ class CameraNetworkIntegration(
             QualityOfServiceManager.NetworkTier.HIGH -> JPEG_QUALITY_HIGH
             QualityOfServiceManager.NetworkTier.MEDIUM -> JPEG_QUALITY_MEDIUM
             QualityOfServiceManager.NetworkTier.LOW -> JPEG_QUALITY_LOW
+            QualityOfServiceManager.NetworkTier.POOR -> JPEG_QUALITY_LOW
         }
     }
 

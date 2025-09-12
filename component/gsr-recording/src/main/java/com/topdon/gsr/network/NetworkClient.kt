@@ -353,6 +353,24 @@ class NetworkClient(private val context: Context) {
         // return the synchronized timestamp based on time sync with PC Controller
         return System.currentTimeMillis()
     }
+    
+    /**
+     * Get clock offset with PC Controller
+     */
+    fun getClockOffset(): Long {
+        // For now, return 0. In a full implementation, this would return
+        // the calculated clock offset from time synchronization
+        return 0L
+    }
+    
+    /**
+     * Broadcast message to all connected devices
+     */
+    suspend fun broadcastMessage(message: JSONObject) {
+        // For now, send to the currently connected controller
+        // In a full implementation, this would broadcast to all connected peers
+        sendMessage(message)
+    }
 }
 
 /**

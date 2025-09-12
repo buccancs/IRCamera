@@ -358,6 +358,13 @@ class DataStreamingService(
      * Check if streaming is active
      */
     fun isStreamingActive(): Boolean = isStreaming.get()
+    
+    /**
+     * Set event listener for streaming events
+     */
+    fun setEventListener(listener: StreamingEventListener?) {
+        this.eventListener = listener
+    }
 
     /**
      * Clean up resources
@@ -377,11 +384,11 @@ class DataStreamingService(
  * Interface for streaming event callbacks
  */
 interface StreamingEventListener {
-    fun onStreamingStarted(sessionId: String)
+    fun onStreamingStarted()
     fun onStreamingStopped()
-    fun onBatchSent(count: Int, dataType: String)
+    fun onBatchSent(batchSize: Int)
     fun onStreamingError(error: String)
-    fun onQueueFull(dataType: String, droppedCount: Int)
+    fun onQueueFull(dataType: String)
 }
 
 /**
@@ -458,3 +465,5 @@ data class ThermalFrameMetadata(
     val minTemp: Float,
     val maxTemp: Float
 )
+
+

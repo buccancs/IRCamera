@@ -24,7 +24,7 @@ class FileTransferProtocol(
     }
 
     // Transfer management
-    private val activeTransfers = ConcurrentHashMap<String, TransferRequest>()
+    private val activeTransfers = ConcurrentHashMap<String, TransferSession>()
     private val transferQueue = mutableListOf<TransferRequest>()
     private val completedTransfers = AtomicLong(0)
     
@@ -179,6 +179,139 @@ class FileTransferProtocol(
     }
     
     /**
+     * Process transfer queue
+     */
+    private fun processTransferQueue() {
+        transferScope.launch {
+            processTransferQueueAsync()
+        }
+    }
+    
+    /**
+     * Process transfer queue asynchronously
+     */
+    private suspend fun processTransferQueueAsync() {
+        synchronized(transferQueue) {
+            if (transferQueue.isEmpty()) return
+            
+            // Start transfers up to max concurrent limit
+            val activeCount = activeTransfers.size
+            val availableSlots = MAX_CONCURRENT_TRANSFERS - activeCount
+            
+            if (availableSlots > 0) {
+                val toStart = transferQueue.take(availableSlots)
+                transferQueue.removeAll(toStart)
+                
+                toStart.forEach { request ->
+                    transferScope.launch {
+                        startFileTransfer(request)
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Check resume capability for a transfer
+     */
+    private suspend fun checkResumeCapability(transferId: String): Long {
+        return try {
+            val checkMessage = JSONObject().apply {
+                put("type", "file_transfer_check_resume")
+                put("transfer_id", transferId)
+            }
+            
+            networkClient.sendMessage(checkMessage)
+            // In a real implementation, we'd wait for response
+            // For now, return 0 (no resume)
+            0L
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to check resume capability", e)
+            0L
+        }
+    }
+    
+    /**
+     * Initialize transfer
+     */
+    private suspend fun initializeTransfer(session: TransferSession) {
+        val initMessage = JSONObject().apply {
+            put("type", "file_transfer_init")
+            put("transfer_id", session.request.transferId)
+            put("file_path", session.request.filePath)
+            put("file_size", session.request.fileSize)
+            put("session_id", session.request.sessionId)
+            put("resume_offset", session.resumeOffset)
+        }
+        
+        networkClient.sendMessage(initMessage)
+        Log.d(TAG, "Transfer initialized: ${session.request.transferId}")
+    }
+    
+    /**
+     * Transfer file in chunks
+     */
+    private suspend fun transferFileInChunks(session: TransferSession) {
+        val file = File(session.request.filePath)
+        val buffer = ByteArray(CHUNK_SIZE)
+        
+        file.inputStream().use { inputStream ->
+            // Skip to resume offset if needed
+            inputStream.skip(session.resumeOffset)
+            
+            var chunkIndex = (session.resumeOffset / CHUNK_SIZE).toInt()
+            var bytesRead: Int
+            
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                val chunk = if (bytesRead < CHUNK_SIZE) {
+                    buffer.copyOf(bytesRead)
+                } else {
+                    buffer
+                }
+                
+                sendFileChunk(session, chunkIndex, chunk)
+                session.bytesTransferred += bytesRead
+                chunkIndex++
+            }
+        }
+    }
+    
+    /**
+     * Verify transfer integrity
+     */
+    private suspend fun verifyTransferIntegrity(session: TransferSession) {
+        val file = File(session.request.filePath)
+        val checksum = calculateFileChecksum(file)
+        
+        val verifyMessage = JSONObject().apply {
+            put("type", "file_transfer_verify")
+            put("transfer_id", session.request.transferId)
+            put("checksum", checksum)
+            put("file_size", file.length())
+        }
+        
+        networkClient.sendMessage(verifyMessage)
+        Log.d(TAG, "Transfer verification sent: ${session.request.transferId}")
+    }
+    
+    /**
+     * Calculate file checksum
+     */
+    private fun calculateFileChecksum(file: File): String {
+        val digest = MessageDigest.getInstance("MD5")
+        val buffer = ByteArray(8192)
+        
+        file.inputStream().use { inputStream ->
+            var bytesRead: Int
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                digest.update(buffer, 0, bytesRead)
+            }
+        }
+        
+        return digest.digest().joinToString("") { "%02x".format(it) }
+    }
+    
+    /**
      * Generate transfer ID
      */
     private fun generateTransferId(filePath: String, sessionId: String): String {
@@ -191,8 +324,8 @@ class FileTransferProtocol(
 /**
  * Transfer priority levels
  */
-enum class TransferPriority {
-    LOW, NORMAL, HIGH, URGENT
+enum class TransferPriority(val weight: Int) {
+    LOW(0), NORMAL(1), HIGH(2), URGENT(3)
 }
 
 /**
@@ -214,6 +347,7 @@ data class TransferRequest(
 data class TransferSession(
     val request: TransferRequest,
     val startTime: Long,
-    val bytesTransferred: Long = 0,
+    var bytesTransferred: Long = 0,
+    var resumeOffset: Long = 0,
     val isActive: Boolean = true
 )

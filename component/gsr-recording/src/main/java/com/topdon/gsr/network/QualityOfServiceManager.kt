@@ -22,11 +22,20 @@ class QualityOfServiceManager(private val context: Context) {
         private const val BANDWIDTH_SAMPLE_SIZE = 5
         private const val NETWORK_LATENCY_SAMPLES = 3
         private const val PRIORITY_QUEUE_SIZE = 100
+        private const val BANDWIDTH_MONITOR_INTERVAL = 5000L
+        private const val ADAPTIVE_BATCH_MAX = 50
+        private const val ADAPTIVE_BATCH_MIN = 5
+        private const val CONGESTION_THRESHOLD = 80
     }
 
     // Monitoring state
     private val isMonitoring = AtomicBoolean(false)
     private val totalDataTransferred = AtomicLong(0)
+    private var currentNetworkTier = NetworkTier.POOR
+    private var compressionLevel = CompressionLevel.MAXIMUM
+    private var currentBandwidth = 0L
+    private var networkLatency = 0L
+    private var adaptiveBatchSize = ADAPTIVE_BATCH_MIN
     
     // Metrics collection
     private val latencySamples = ConcurrentLinkedQueue<Long>()
@@ -411,18 +420,6 @@ class QualityOfServiceManager(private val context: Context) {
     }
 
     /**
-     * Get current network quality metrics
-     */
-    fun getNetworkQualityMetrics(): NetworkQualityMetrics {
-        return NetworkQualityMetrics(
-            networkTier = currentNetworkTier,
-            avgLatency = networkLatency.get().toDouble(),
-            avgBandwidth = currentBandwidth.get().toDouble(),
-            packetLoss = packetLossRate.get().toDouble() / 100.0
-        )
-    }
-
-    /**
      * Get total queue sizes for monitoring
      */
     fun getQueueStatistics(): QueueStatistics {
@@ -464,12 +461,32 @@ class QualityOfServiceManager(private val context: Context) {
         monitoringScope.cancel()
         Log.d(TAG, "QoS monitoring stopped")
     }
+    
+    /**
+     * Get current network quality metrics
+     */
+    fun getNetworkQualityMetrics(): NetworkQualityMetrics {
+        val avgLatency = if (latencySamples.isEmpty()) 0.0 else {
+            latencySamples.average()
+        }
+        
+        val avgBandwidth = if (bandwidthSamples.isEmpty()) 0.0 else {
+            bandwidthSamples.average()
+        }
+        
+        return NetworkQualityMetrics(
+            networkTier = currentNetworkTier,
+            avgLatency = avgLatency,
+            avgBandwidth = avgBandwidth,
+            packetLoss = 0.0 // Placeholder for packet loss calculation
+        )
+    }
 
     /**
      * Network tier enumeration
      */
     enum class NetworkTier {
-        EXCELLENT, HIGH, MEDIUM, LOW
+        EXCELLENT, HIGH, MEDIUM, LOW, POOR
     }
 
     /**
@@ -484,6 +501,13 @@ class QualityOfServiceManager(private val context: Context) {
      */
     enum class Priority(val level: Int) {
         CRITICAL(4), HIGH(3), NORMAL(2), LOW(1)
+    }
+    
+    /**
+     * Compression levels for adaptive compression
+     */
+    enum class CompressionLevel {
+        NONE, LOW, MEDIUM, HIGH, MAXIMUM
     }
 
     /**
