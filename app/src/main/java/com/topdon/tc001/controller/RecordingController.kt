@@ -1209,4 +1209,3 @@ data class SensorInfo(
     private suspend fun emitError(error: RecordingControllerError) {
         _errorFlow.emit(error)
     }
-}
