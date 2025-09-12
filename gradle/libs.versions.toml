@@ -1,7 +1,7 @@
 [versions]
 # Android Configuration
 compileSdk = "35"
-minSdk = "24"
+minSdk = "26"
 targetSdk = "34"
 versionCode = "1100"
 versionName = "1.10.000"
@@ -30,9 +30,9 @@ kotlin = "2.1.0"
 agp = "8.11.0"
 androidxCore = "1.12.0"
 androidxAppcompat = "1.6.1"
-fragmentKtx = "1.6.2"
+fragmentKtx = "1.8.9"
 androidxPreference = "1.2.1"
-material = "1.11.0"
+material = "1.13.0"
 multidex = "2.0.1"
 
 # Lifecycle
@@ -42,13 +42,13 @@ lifecycle = "2.7.0"
 room = "2.5.2"
 
 # Work Manager
-work = "2.9.0"
+work = "2.10.4"
 
 # Coroutines
 coroutines = "1.7.3"
 
 # Networking
-fastjson = "1.2.78"
+fastjson2 = "2.0.58"
 jsbridge = "1.0.4"
 retrofit = "2.10.0"
 okhttp = "4.11.0"
@@ -61,12 +61,12 @@ rxandroid = "2.1.1"
 arouter = "1.5.2"
 
 # RxLifecycle
-rxpermissions = "0.10.2"
+rxpermissions = "2.x.v0.9.3"
 rxlifecycle2 = "2.2.2"
 rxlifecycle3 = "3.1.0"
 
 # UI Libraries
-ucrop = "2.2.8"
+ucrop = "2.2.11-native"
 playAppUpdate = "2.1.0"
 immersionbar = "3.2.2"
 xpopup = "2.10.0"
@@ -81,7 +81,10 @@ nifty = "2.4.0"
 # Image Loading
 glide = "4.15.1"
 mnImageBrowser = "V3.1.2X"
-gsyVideoPlayer = "v8.6.0-release-jitpack"
+gsyVideoPlayer = "v11.1.0"
+
+# Shimmer GSR Sensor SDK
+shimmerAndroidApi = "1.0.0"
 
 # OpenGL
 opengl = "2.0.0"
@@ -104,7 +107,7 @@ lmsInternational = "3.90.009.0"
 lmsChina = "3.90.076"
 
 # FFmpeg
-ffmpeg = "5.0-1.5.7"
+ffmpeg = "7.1.1-1.5.12"
 
 # Third-party services
 wechatSdk = "6.8.0"
@@ -121,7 +124,7 @@ umengAnalytics = "9.8.8"
 # Testing
 junit = "4.13.2"
 testExtJunit = "1.1.5"
-testEspressoCore = "3.5.1"
+testEspressoCore = "3.7.0"
 
 # Google Services
 
@@ -160,7 +163,7 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
 # Networking
-fastjson = { group = "com.alibaba", name = "fastjson", version.ref = "fastjson" }
+fastjson2 = { group = "com.alibaba.fastjson2", name = "fastjson2", version.ref = "fastjson2" }
 jsbridge = { group = "com.github.lzyzsd", name = "jsbridge", version.ref = "jsbridge" }
 retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
@@ -202,7 +205,10 @@ nifty = { group = "com.nineoldandroids", name = "library", version.ref = "nifty"
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 mn-image-browser = { group = "com.github.maning0303", name = "MNImageBrowser", version.ref = "mnImageBrowser" }
-gsy-video-player = { group = "com.github.CarGuo", name = "GSYVideoPlayer", version.ref = "gsyVideoPlayer" }
+gsy-video-player = { group = "com.github.CarGuo.GSYVideoPlayer", name = "gsyVideoPlayer-java", version.ref = "gsyVideoPlayer" }
+
+# Shimmer GSR sensor integration
+# shimmer-android-api = { group = "com.shimmerresearch", name = "shimmer-android-api", version.ref = "shimmerAndroidApi" }
 
 # OpenGL
 opengl-android = { group = "org.khronos", name = "opengl-api", version.ref = "opengl" }

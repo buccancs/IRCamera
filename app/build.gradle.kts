@@ -108,29 +108,38 @@ android {
 
     packaging {
         resources {
-            merges +=
-                listOf(
-                    "META-INF/LICENSE-notice.md",
-                    "META-INF/LICENSE.md",
-                    "META-INF/proguard/androidx-annotations.pro",
-                    "META-INF/proguard/coroutines.pro",
-                )
-            pickFirsts +=
-                listOf(
-                    "META-INF/LICENSE.md",
-                    "META-INF/LICENSE-notice.md",
-                )
-            excludes +=
-                listOf(
-                    "META-INF/DEPENDENCIES",
-                    "META-INF/LICENSE",
-                    "META-INF/LICENSE.txt",
-                    "META-INF/license.txt",
-                    "META-INF/NOTICE",
-                    "META-INF/NOTICE.txt",
-                    "META-INF/notice.txt",
-                    "META-INF/ASL2.0",
-                )
+            merges += listOf(
+                "META-INF/LICENSE-notice.md",
+                "META-INF/LICENSE.md",
+                "META-INF/proguard/androidx-annotations.pro",
+                "META-INF/proguard/coroutines.pro"
+            )
+            pickFirsts += listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md"
+            )
+            excludes += listOf(
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/license.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt",
+                "META-INF/notice.txt",
+                "META-INF/ASL2.0",
+                // Exclude problematic baseline profiles to avoid INSTALL_BASELINE_PROFILE_FAILED
+                "META-INF/com.android.art/baseline.prof",
+                "META-INF/com.android.art/baseline.profm",
+                // Exclude duplicate Shimmer Bluetooth classes to avoid conflicts
+                "**/it/gerdavax/easybluetooth/**",
+                // Exclude duplicate Bluetooth classes from AndroidBluetoothLibrary
+                "**/android/bluetooth/IBluetoothDeviceCallback*",
+                // Exclude duplicate AndroidPlot classes  
+                "**/com/androidplot/**",
+                // Exclude duplicate Shimmer Biophysical Processing classes
+                "**/com/shimmerresearch/biophysicalprocessing/**",
+                "**/com/shimmerresearch/utilityfunctions/**"
+            )
         }
         jniLibs {
             useLegacyPackaging = true
@@ -189,11 +198,26 @@ android {
     // Removed obsolete dexOptions configuration
 }
 
-// Dependency resolution strategy to fix Guava conflicts and add ListenableFuture
+// Dependency resolution strategy to fix Guava conflicts and handle Shimmer SDK conflicts
 configurations.all {
     resolutionStrategy {
         force("com.google.guava:guava:31.1-android")
+        
+        // Handle Shimmer SDK conflicts with existing Bluetooth libraries
+        eachDependency {
+            if (requested.group == "it.gerdavax.easybluetooth") {
+                // Prefer existing project Bluetooth implementation over Shimmer's bundled version
+                useTarget("${project.group}:${project.name}:${project.version}")
+            }
+            // Resolve AndroidPlot conflicts by preferring newer version
+            if (requested.name == "androidplot-core") {
+                useVersion("0.5.0-release")
+            }
+        }
     }
+    
+    // Exclude duplicate classes at configuration level
+    exclude(group = "android.bluetooth", module = "IBluetoothDeviceCallback")
 }
 
 dependencies {
@@ -243,7 +267,7 @@ dependencies {
     ) // Required for iruvc classes in app module
 
     implementation(libs.jsbridge)
-    implementation(libs.fastjson)
+    implementation(libs.fastjson2)
     implementation(libs.ucrop)
     implementation(libs.play.app.update)
     implementation(libs.immersionbar)
@@ -255,50 +279,60 @@ dependencies {
 
     // UMeng - Simplified single implementation
     implementation(libs.umeng.common)
-
-    // Enhanced charting and data visualization
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("com.opencsv:opencsv:5.7.1")
-    implementation("com.google.code.gson:gson:2.10.1")
-
+    
+    // Enhanced charting and data visualization (provided by libui module)
+    implementation("com.opencsv:opencsv:5.12.0")
+    implementation("com.google.code.gson:gson:2.13.2")
+    
     // Enhanced networking and serialization for Hub-Spoke
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+    
     // Nordic BLE Library for robust Bluetooth communication
-    implementation("no.nordicsemi.android:ble:2.6.1")
-    implementation("no.nordicsemi.android:ble-ktx:2.6.1")
-
+    implementation("no.nordicsemi.android:ble:2.11.0")
+    implementation("no.nordicsemi.android:ble-ktx:2.11.0")
+    
+    // Official Shimmer Android SDK integration - Enhanced for production use
+    // Using existing AAR files for proven compatibility and reliability
+    implementation(files("libs/shimmerandroidinstrumentdriver-3.2.4_beta.aar"))
+    implementation(files("libs/shimmerdriver-0.11.5_beta.jar"))
+    implementation(files("libs/shimmerdriverpc-0.11.5_beta.jar"))  
+    implementation(files("libs/shimmerbluetoothmanager-0.11.5_beta.jar"))
+    
+    // Shimmer biophysical processing library for advanced GSR analysis
+    // Excluded - already provided by main Shimmer SDK AAR to avoid duplicate classes
+    // implementation(files("../component/gsr-recording/libs/ShimmerBiophysicalProcessingLibrary_Rev_0_11.jar"))
+    
     // CameraX for RGB camera dual-stream capture
-    implementation("androidx.camera:camera-camera2:1.3.1")
-    implementation("androidx.camera:camera-lifecycle:1.3.1")
-    implementation("androidx.camera:camera-video:1.3.1")
-    implementation("androidx.camera:camera-view:1.3.1")
-    implementation("androidx.camera:camera-extensions:1.3.1")
-
+    implementation("androidx.camera:camera-camera2:1.5.0")
+    implementation("androidx.camera:camera-lifecycle:1.5.0")
+    implementation("androidx.camera:camera-video:1.5.0")
+    implementation("androidx.camera:camera-view:1.5.0")
+    implementation("androidx.camera:camera-extensions:1.5.0")
+    
     // Comprehensive Testing Dependencies
     // Unit testing framework
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
     testImplementation("org.hamcrest:hamcrest:2.2")
 
     // Mocking framework
-    testImplementation("io.mockk:mockk:1.13.4")
-    testImplementation("io.mockk:mockk-android:1.13.4")
-
+    testImplementation("io.mockk:mockk:1.14.5")
+    testImplementation("io.mockk:mockk-android:1.14.5")
+    
     // Kotlin coroutines testing
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     // Android instrumented testing
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.7.0")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.7.0")
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
 
     // Robolectric for unit tests that need Android framework

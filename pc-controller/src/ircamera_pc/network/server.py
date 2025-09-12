@@ -2,19 +2,757 @@
 """Network server module for IRCamera PC Controller."""
 
 import asyncio
-from typing import Dict, Any, Optional, List
-from ..utils.simple_logger import logger
+import json
+import ssl
+import time
+import uuid
+from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
+from enum import Enum
+from typing import Any, Callable, Dict, List, Optional
+
+try:
+    from loguru import logger
+except ImportError:
+    from ..utils.simple_logger import logger
+
+from ..core.config import config
+from ..core.gsr_receiver import GSRReceiver
+from .protocol import (
+    ValidationError,
+    create_message,
+    get_protocol_manager,
+    validate_message,
+)
+from .security import SecurityManager
+from .discovery import NetworkDiscoveryService
+from .messaging import ReliableMessageService, MessageCallback, MessagePriority
+
+
+class DeviceState(Enum):
+    """Device connection states."""
+
+    DISCONNECTED = "disconnected"
+    CONNECTING = "connecting"
+    CONNECTED = "connected"
+    RECORDING = "recording"
+    ERROR = "error"
+
+
+class MessageType(Enum):
+    """Message types for device communication."""
+
+    # Device lifecycle
+    DEVICE_REGISTER = "device_register"
+    DEVICE_HEARTBEAT = "device_heartbeat"
+    DEVICE_STATUS = "device_status"
+
+    # Session control
+    SESSION_START = "session_start"
+    SESSION_STOP = "session_stop"
+    RECORDING_START = "recording_start"
+    RECORDING_STOP = "recording_stop"
+
+    # Synchronization
+    SYNC_MARK = "sync_mark"
+    SYNC_FLASH = "sync_flash"
+
+    # File transfer
+    FILE_TRANSFER_REQUEST = "file_transfer_request"
+    FILE_TRANSFER_COMPLETE = "file_transfer_complete"
+    
+    # GSR data streaming
+    GSR_STREAM_REGISTER = "stream_registration"
+    GSR_DATA = "gsr_data"
+    GSR_QUALITY_METRICS = "quality_metrics"
+    TIME_SYNC_REQUEST = "time_sync_request"
+    TIME_SYNC_RESPONSE = "time_sync_response"
+
+    # Responses
+    ACK = "ack"
+    ERROR = "error"
+
+
+@dataclass
+class DeviceInfo:
+    """Information about a connected device."""
+
+    device_id: str
+    device_type: str
+    capabilities: List[str]
+    ip_address: str
+    port: int
+    state: str = DeviceState.CONNECTED.value
+    last_heartbeat: Optional[str] = None
+    battery_level: Optional[int] = None
+    is_gsr_leader: bool = False
+    gsr_mode: str = "local"
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary."""
+        return asdict(self)
 
 
 class NetworkServer:
     """Main network server for handling device connections."""
     
     def __init__(self):
-        self._clients = {}
-        self._running = False
-    
-    async def broadcast_command(self, command: Dict[str, Any], target_devices: Optional[List[str]] = None) -> Dict[str, bool]:
-        """Broadcast command to connected devices."""
+        """Initialize enhanced network server."""
+        self._server: Optional[asyncio.Server] = None
+        self._secure_server: Optional[asyncio.Server] = None
+        self._clients: Dict[str, asyncio.StreamWriter] = {}
+        self._devices: Dict[str, DeviceInfo] = {}
+        self._message_handlers: Dict[str, Callable] = {}
+        self._heartbeat_task: Optional[asyncio.Task] = None
+        self._is_running = False
+
+        # Enhanced networking services
+        self._security_manager = SecurityManager()
+        self._discovery_service = NetworkDiscoveryService()
+        self._messaging_service = ReliableMessageService()
+        
+        # GSR data receiver for hub-spoke communication
+        self._gsr_receiver = GSRReceiver(config.get("gsr_receiver", {}))
+
+        # Protocol manager
+        self._protocol = get_protocol_manager()
+
+        # Configuration
+        transport_config = self._protocol.get_transport_config()
+        self._host = config.get(
+            "network.server_host", transport_config.get("host", "127.0.0.1")
+        )
+        self._port = config.get(
+            "network.server_port", transport_config.get("port", 8080)
+        )
+        self._secure_port = config.get(
+            "network.secure_port", self._port + 1
+        )
+        self._max_connections = config.get("network.max_connections", 8)
+
+        connection_config = transport_config.get("connection", {})
+        self._heartbeat_interval = config.get(
+            "network.heartbeat_interval",
+            connection_config.get("heartbeat_interval_s", 5),
+        )
+        self._connection_timeout = config.get(
+            "network.connection_timeout",
+            connection_config.get("timeout_s", 30),
+        )
+
+        # Get max message size from protocol
+        framing = transport_config.get("message_framing", {})
+        self._max_message_size = framing.get(
+            "max_message_size", 1024 * 1024
+        )  # 1MB default
+
+        # Event callbacks
+        self._on_device_connected: Optional[Callable] = None
+        self._on_device_disconnected: Optional[Callable] = None
+        self._on_device_status_update: Optional[Callable] = None
+
+        self._setup_message_handlers()
+        self._setup_enhanced_services()
+        protocol_version = self._protocol.get_protocol_info()["version"]
+        logger.info(f"Enhanced Network Server initialized with protocol {protocol_version}")
+
+    def _setup_enhanced_services(self) -> None:
+        """Set up enhanced networking services."""
+        # Configure messaging service transport
+        self._messaging_service.set_transport(self._send_message_to_device)
+        
+        # Register discovery listener
+        self._discovery_service.add_discovery_listener(self._on_device_discovered)
+        
+        # Register reliable message handlers
+        self._messaging_service.register_message_handler("session_start", self._handle_reliable_session_start)
+        self._messaging_service.register_message_handler("session_stop", self._handle_reliable_session_stop)
+        self._messaging_service.register_message_handler("sync_flash", self._handle_reliable_sync_flash)
+
+    def _setup_message_handlers(self) -> None:
+        """Set up message handlers for different message types."""
+        self._message_handlers = {
+            "device_register": self._handle_device_register,
+            "device_heartbeat": self._handle_device_heartbeat,
+            "device_status": self._handle_device_status,
+            "file_transfer_complete": self._handle_file_transfer_complete,
+            "time_sync_request": self._handle_time_sync_request,
+            "gsr_data_batch": self._handle_gsr_data_batch,
+            "gsr_leader_election": self._handle_gsr_leader_election,
+            # Enhanced GSR streaming handlers
+            "stream_registration": self._handle_gsr_stream_registration,
+            "gsr_data": self._handle_gsr_data_stream,
+            "quality_metrics": self._handle_gsr_quality_metrics,
+            "heartbeat": self._handle_gsr_heartbeat,
+            "stream_end": self._handle_gsr_stream_end,
+            # Enhanced message types
+            "device_auth": self._handle_device_auth,
+            "message_ack": self._handle_message_ack,
+            "message_nack": self._handle_message_nack,
+        }
+
+    async def start(self) -> bool:
+        """Start the enhanced network server with security and discovery."""
+        if self._is_running:
+            logger.warning("Network server is already running")
+            return True
+
+        try:
+            logger.info("Starting enhanced network server...")
+            
+            # Initialize security manager
+            if not self._security_manager.initialize():
+                logger.error("Failed to initialize security manager")
+                return False
+            
+            # Initialize messaging service
+            if not await self._messaging_service.initialize():
+                logger.error("Failed to initialize messaging service")
+                return False
+            
+            # Start discovery service
+            if not await self._discovery_service.start_discovery():
+                logger.warning("Discovery service failed to start - continuing without discovery")
+            
+            # Start GSR receiver for hub-spoke communication
+            await self._gsr_receiver.start()
+            logger.info("GSR receiver started for hub-spoke communication")
+            
+            # Start plaintext server
+            self._server = await asyncio.start_server(
+                self._handle_client,
+                self._host,
+                self._port,
+                limit=2**16,  # 64KB buffer
+            )
+            
+            # Start secure server with TLS
+            ssl_context = self._security_manager.create_ssl_context(for_client_auth=True)
+            self._secure_server = await asyncio.start_server(
+                self._handle_secure_client,
+                self._host,
+                self._secure_port,
+                ssl=ssl_context,
+                limit=2**16,  # 64KB buffer
+            )
+
+            # Start heartbeat monitoring
+            self._heartbeat_task = asyncio.create_task(self._monitor_heartbeats())
+
+            self._is_running = True
+
+            addr = self._server.sockets[0].getsockname()
+            secure_addr = self._secure_server.sockets[0].getsockname()
+            logger.info(f"Network server started on {addr[0]}:{addr[1]} (plaintext) and {secure_addr[0]}:{secure_addr[1]} (TLS)")
+            logger.info("Enhanced networking features: TLS encryption, mDNS discovery, reliable messaging")
+            
+            return True
+
+        except (OSError, ValueError, RuntimeError) as e:
+            logger.error(f"Failed to start network server: {e}")
+            await self.stop()
+            return False
+
+    async def stop(self) -> None:
+        """Stop the enhanced network server."""
+        if not self._is_running:
+            return
+
+        logger.info("Stopping enhanced network server...")
+        self._is_running = False
+
+        # Stop enhanced services
+        await self._messaging_service.shutdown()
+        await self._discovery_service.stop_discovery()
+        
+        # Stop GSR receiver
+        await self._gsr_receiver.stop()
+        logger.info("GSR receiver stopped")
+
+        # Cancel heartbeat monitoring
+        if self._heartbeat_task:
+            self._heartbeat_task.cancel()
+            try:
+                await self._heartbeat_task
+            except asyncio.CancelledError:
+                pass
+
+        # Close all client connections
+        for client in self._clients.values():
+            client.close()
+            await client.wait_closed()
+
+        self._clients.clear()
+
+        # Close servers
+        if self._server:
+            self._server.close()
+            await self._server.wait_closed()
+
+        if self._secure_server:
+            self._secure_server.close()
+            await self._secure_server.wait_closed()
+
+        logger.info("Enhanced network server stopped")
+        self._devices.clear()
+
+        # Close server
+        if self._server:
+            self._server.close()
+            await self._server.wait_closed()
+
+        logger.info("Network server stopped")
+
+    async def _handle_client(
+        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter, is_secure: bool = False
+    ) -> None:
+        """Handle new client connection."""
+        addr = writer.get_extra_info("peername")
+        connection_type = "secure" if is_secure else "plaintext"
+        logger.info(f"Client connected from {addr} ({connection_type})")
+
+        try:
+            while True:
+                # Read message length (4 bytes)
+                length_data = await reader.readexactly(4)
+                message_length = int.from_bytes(length_data, "big")
+
+                if message_length > self._max_message_size:
+                    logger.warning(
+                        f"Message too large from {addr}:" "{message_length} bytes"
+                    )
+                    break
+
+                # Read message data
+                message_data = await reader.readexactly(message_length)
+
+                try:
+                    message = json.loads(message_data.decode("utf-8"))
+                    await self._process_message(message, writer)
+
+                except json.JSONDecodeError as e:
+                    logger.warning(f"Invalid JSON from {addr}: {e}")
+                    await self._send_error(writer, "Invalid JSON format")
+
+        except asyncio.IncompleteReadError:
+            logger.debug(f"Client {addr} disconnected")
+        except (OSError, ValueError, RuntimeError) as e:
+            logger.error(f"Error handling client {addr}: {e}")
+        finally:
+            # Clean up client
+            device_id = None
+            for did, client in self._clients.items():
+                if client == writer:
+                    device_id = did
+                    break
+
+            if device_id:
+                await self._handle_device_disconnect(device_id)
+
+            writer.close()
+            await writer.wait_closed()
+
+    async def _process_message(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> None:
+        """Process incoming message from device using protocol validation."""
+        try:
+            # Validate message against protocol
+            if not validate_message(message, strict=False):
+                await self._send_error(writer, "Message validation failed")
+                return
+
+            message_type = message.get("message_type")
+            message_id = message.get("message_id", str(uuid.uuid4()))
+
+            if not message_type:
+                await self._send_error(writer, "Missing message_type field", message_id)
+                return
+
+            # Handle message using protocol-aware handlers
+            if message_type in self._message_handlers:
+                response = await self._message_handlers[message_type](message, writer)
+                if response:
+                    response["message_id"] = message_id
+                    await self._send_message(writer, response)
+            else:
+                logger.warning(f"Unknown message type: {message_type}")
+                await self._send_error(
+                    writer, f"Unknown message type: {message_type}", message_id
+                )
+
+        except ValidationError as e:
+            logger.warning(f"Protocol validation error: {e}")
+            await self._send_error(writer, f"Protocol validation error: {e}")
+        except (OSError, ValueError, RuntimeError) as e:
+            logger.error(f"Error processing message: {e}")
+            await self._send_error(writer, str(e))
+
+    async def _handle_device_register(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle device registration."""
+        try:
+            device_id = message.get("device_id")
+            device_type = message.get("device_type", "unknown")
+            capabilities = message.get("capabilities", [])
+
+            if not device_id:
+                return {
+                    "type": MessageType.ERROR.value,
+                    "error": "Missing device_id",
+                }
+
+            # Check connection limit
+            if len(self._devices) >= self._max_connections:
+                return {
+                    "type": MessageType.ERROR.value,
+                    "error": "Maximum connections exceeded",
+                }
+
+            # Get client address
+            addr = writer.get_extra_info("peername")
+
+            # Create device info
+            device_info = DeviceInfo(
+                device_id=device_id,
+                device_type=device_type,
+                capabilities=capabilities,
+                ip_address=addr[0],
+                port=addr[1],
+                last_heartbeat=datetime.now(timezone.utc).isoformat(),
+            )
+
+            # Determine GSR leader
+            if "gsr_sensor" in capabilities and not any(
+                d.is_gsr_leader for d in self._devices.values()
+            ):
+                device_info.is_gsr_leader = True
+                device_info.gsr_mode = config.get("gsr.default_mode", "local")
+                logger.info(f"Device {device_id} elected as GSR leader")
+
+            # Store device and client
+            self._devices[device_id] = device_info
+            self._clients[device_id] = writer
+
+            logger.info(
+                f"Device registered: {device_id} ({device_type})"
+                "with capabilities: {capabilities}"
+            )
+
+            # Notify callback
+            if self._on_device_connected:
+                self._on_device_connected(device_info)
+
+            return create_message("ack", ack_for="device_register", status="success")
+
+        except (OSError, ValueError, RuntimeError) as e:
+            logger.error(f"Error handling device registration: {e}")
+            return create_message(
+                "error",
+                error_code="RESOURCE_UNAVAILABLE",
+                error_message=str(e),
+            )
+
+    async def _handle_device_heartbeat(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle device heartbeat using protocol format."""
+        device_id = message.get("device_id")
+
+        if device_id in self._devices:
+            self._devices[device_id].last_heartbeat = datetime.now(
+                timezone.utc
+            ).isoformat()
+
+            # Update device status if provided
+            if "battery_level" in message:
+                self._devices[device_id].battery_level = message["battery_level"]
+
+            logger.debug(f"Heartbeat from {device_id}")
+            return create_message("ack", ack_for="device_heartbeat", status="success")
+
+        return create_message(
+            "error",
+            error_code="DEVICE_BUSY",
+            error_message="Device" "not registered",
+        )
+
+    async def _handle_device_status(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle device status update using protocol format."""
+        device_id = message.get("device_id")
+
+        if device_id in self._devices:
+            device = self._devices[device_id]
+
+            # Update status fields
+            if "status" in message:
+                device.state = message["status"]
+            if "battery_level" in message:
+                device.battery_level = message["battery_level"]
+
+            logger.debug(f"Status update from {device_id}: {message}")
+
+            # Notify callback
+            if self._on_device_status_update:
+                self._on_device_status_update(device)
+
+            return create_message("ack", ack_for="device_status", status="success")
+
+        return create_message(
+            "error",
+            error_code="DEVICE_BUSY",
+            error_message="Device" "not registered",
+        )
+
+    async def _handle_file_transfer_complete(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle file transfer completion notification"
+        "using protocol format."""
+        device_id = message.get("device_id")
+        transfer_id = message.get("transfer_id")
+        status = message.get("status")
+
+        logger.info(f"File transfer {status} from {device_id}: {transfer_id}")
+
+        return create_message("ack", ack_for="file_transfer_complete", status="success")
+
+    async def _handle_time_sync_request(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle time synchronization request using protocol format."""
+        message.get("device_id")
+        client_timestamp = message.get("client_timestamp")
+
+        server_timestamp = datetime.now(timezone.utc).isoformat()
+
+        return create_message(
+            "time_sync_response",
+            server_timestamp=server_timestamp,
+            client_timestamp=client_timestamp,
+            processing_delay_ms=1.0,
+        )  # Minimal processing delay
+
+    async def _handle_gsr_data_batch(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle GSR data batch using protocol format."""
+        device_id = message.get("device_id")
+        message.get("session_id")
+        data_points = message.get("data_points", [])
+
+        logger.debug(
+            f"Received GSR data batch from {device_id}: {len(data_points)} points"
+        )
+
+        # Forward to enhanced GSR data ingestion system
+        try:
+            from ..data import get_data_aggregator
+            
+            # Get the data aggregator instance for real-time processing
+            aggregator = get_data_aggregator()
+            
+            # Process each GSR data point with enhanced metadata
+            for point in data_points:
+                enhanced_point = {
+                    'device_id': device_id,
+                    'timestamp_ns': point.get('timestamp_ns'),
+                    'gsr_raw': point.get('gsr_raw'),
+                    'gsr_microsiemens': point.get('gsr_microsiemens'),
+                    'ppg_raw': point.get('ppg_raw'),
+                    'ppg_value': point.get('ppg_value'),
+                    'quality_score': point.get('quality_score', 100.0),
+                    'sync_marker': point.get('sync_marker', False),
+                    'session_metadata': {
+                        'network_latency_ms': self._calculate_network_latency(device_id),
+                        'reception_timestamp_ns': time.time_ns(),
+                        'data_integrity_hash': self._calculate_data_hash(point)
+                    }
+                }
+                
+                # Add to aggregator with device synchronization
+                await aggregator.add_gsr_data_point(enhanced_point)
+            
+            # Update real-time visualization if available
+            self._update_realtime_gsr_visualization(device_id, data_points)
+            
+            logger.info(f"Successfully processed {len(data_points)} GSR points from {device_id}")
+            
+        except ImportError:
+            logger.warning("Data aggregator not available, trying fallback GSR ingestor")
+            
+            # Fallback to GSR ingestor for processing
+            try:
+                from ..core.gsr_ingestor import GSRIngestor, GSRSample, GSRMode
+                
+                # Convert data points to GSR samples
+                gsr_samples = []
+                for point in data_points:
+                    sample = GSRSample(
+                        timestamp=point.get("timestamp", time.time()),
+                        value=point.get("value", 0.0),
+                        quality=point.get("quality", 100),
+                        device_id=device_id
+                    )
+                    gsr_samples.append(sample)
+                
+                # Get or create GSR ingestor instance
+                if not hasattr(self, "_gsr_ingestor"):
+                    self._gsr_ingestor = GSRIngestor()
+                
+                # Process the data batch
+                await self._gsr_ingestor.process_data_batch(
+                    session_id=message.get("session_id"),
+                    device_id=device_id,
+                    samples=gsr_samples
+                )
+                
+                logger.debug(f"Forwarded {len(gsr_samples)} GSR samples to ingestor")
+                
+            except Exception as e:
+                logger.warning(f"GSR ingestor also failed, storing data to buffer: {e}")
+                # Final fallback to simple storage
+                self._buffer_gsr_data(device_id, data_points)
+                
+        except Exception as e:
+            logger.error(f"Failed to process GSR data from {device_id}: {e}")
+            return create_message("ack", ack_for="gsr_data_batch", status="error", error=str(e))
+
+        return create_message("ack", ack_for="gsr_data_batch", status="success")
+
+    async def _handle_gsr_leader_election(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle GSR leader election using protocol format."""
+        device_id = message.get("device_id")
+        election_type = message.get("election_type")
+        priority_score = message.get("priority_score", 0)
+
+        logger.info(
+            f"GSR leader election from {device_id}: {election_type}"
+            "(score: {priority_score})"
+        )
+
+        if election_type == "candidate" and device_id in self._devices:
+            # Simple leader election - highest priority score wins
+            current_leader = None
+            for did, device in self._devices.items():
+                if device.is_gsr_leader:
+                    current_leader = device
+                    break
+
+            if not current_leader or priority_score > 0.8:  # High priority threshold
+                # Elect new leader
+                if current_leader:
+                    current_leader.is_gsr_leader = False
+
+                self._devices[device_id].is_gsr_leader = True
+                logger.info(f"New GSR leader elected: {device_id}")
+
+                return create_message(
+                    "gsr_leader_election",
+                    device_id="pc_controller",
+                    election_type="leader",
+                    priority_score=1.0,
+                )
+
+        return create_message("ack", ack_for="gsr_leader_election", status="success")
+
+    async def _handle_device_disconnect(self, device_id: str) -> None:
+        """Handle device disconnection."""
+        if device_id in self._devices:
+            device_info = self._devices[device_id]
+            device_info.state = DeviceState.DISCONNECTED.value
+
+            # Remove from active connections
+            self._clients.pop(device_id, None)
+
+            logger.info(f"Device disconnected: {device_id}")
+
+            # Notify callback
+            if self._on_device_disconnected:
+                self._on_device_disconnected(device_info)
+
+            # Handle GSR leader disconnection
+            if device_info.is_gsr_leader:
+                await self._handle_gsr_leader_disconnect(device_id)
+
+    async def _handle_gsr_leader_disconnect(self, device_id: str) -> None:
+        """Handle GSR leader disconnection by electing new leader."""
+        logger.warning(f"GSR leader {device_id} disconnected")
+
+        # Find new GSR leader
+        for did, device in self._devices.items():
+            if (
+                did != device_id
+                and device.state == DeviceState.CONNECTED.value
+                and "gsr_sensor" in device.capabilities
+            ):
+
+                device.is_gsr_leader = True
+                device.gsr_mode = config.get("gsr.default_mode", "local")
+
+                # Notify new leader
+                if did in self._clients:
+                    await self._send_message(
+                        self._clients[did],
+                        {
+                            "type": "gsr_leader_assignment",
+                            "is_leader": True,
+                            "mode": device.gsr_mode,
+                        },
+                    )
+
+                logger.info(f"New GSR leader elected: {did}")
+                break
+
+    async def _monitor_heartbeats(self) -> None:
+        """Monitor device heartbeats and handle timeouts."""
+        while self._is_running:
+            try:
+                current_time = datetime.now(timezone.utc)
+
+                for device_id, device in list(self._devices.items()):
+                    if not device.last_heartbeat:
+                        continue
+
+                    last_heartbeat = datetime.fromisoformat(
+                        device.last_heartbeat.replace("Z", "+00:00")
+                    )
+                    time_since_heartbeat = (
+                        current_time - last_heartbeat
+                    ).total_seconds()
+
+                    if time_since_heartbeat > self._connection_timeout:
+                        logger.warning(f"Device {device_id} heartbeat timeout")
+                        await self._handle_device_disconnect(device_id)
+
+                await asyncio.sleep(self._heartbeat_interval)
+
+            except asyncio.CancelledError:
+                break
+            except (OSError, ValueError, RuntimeError) as e:
+                logger.error(f"Error in heartbeat monitoring: {e}")
+                await asyncio.sleep(self._heartbeat_interval)
+
+    async def broadcast_command(
+        self,
+        command: Dict[str, Any],
+        target_devices: Optional[List[str]] = None,
+    ) -> Dict[str, bool]:
+        """
+        Broadcast command to devices.
+
+        Args:
+            command: Command to broadcast
+            target_devices: List of device IDs to target. If None, broadcasts to all.
+
+        Returns:
+            Dictionary mapping device_id to success status
+        """
         results = {}
 
         devices_to_target = target_devices or list(self._clients.keys())
@@ -163,11 +901,180 @@ class NetworkServer:
         # Limit buffer size to prevent memory issues
         max_buffer_size = 10000  # Keep last 10k points per device
         if len(self._gsr_data_buffer[device_id]) > max_buffer_size:
-            self._gsr_data_buffer[device_id] = self._gsr_data_buffer[device_id][
-                -max_buffer_size:
-            ]
+            self._gsr_data_buffer[device_id] = self._gsr_data_buffer[device_id][-max_buffer_size:]
+        
+        logger.debug(f"Buffered {len(data_points)} GSR points from {device_id}, buffer size: {len(self._gsr_data_buffer[device_id])}")
 
-        logger.debug(
-            f"Buffered {len(data_points)} GSR points from {device_id}, "
-            f"buffer size: {len(self._gsr_data_buffer[device_id])}"
-        )
+    # Enhanced GSR Streaming Handlers for Hub-Spoke Communication
+    
+    async def _handle_gsr_stream_registration(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle GSR stream registration from Android device"""
+        try:
+            device_id = message.get("device_id")
+            session_id = message.get("session_id")
+            stream_type = message.get("stream_type")
+            
+            if not all([device_id, session_id, stream_type]):
+                return {"message_type": "error", "error": "Missing required fields"}
+            
+            # Register with GSR receiver
+            success = await self._gsr_receiver.register_device_session(device_id, session_id)
+            
+            if success:
+                logger.info(f"Registered GSR stream: {device_id}/{session_id}")
+                return {
+                    "message_type": "ack",
+                    "status": "registered",
+                    "server_time": time.time()
+                }
+            else:
+                return {"message_type": "error", "error": "Registration failed"}
+                
+        except Exception as e:
+            logger.error(f"Error handling GSR stream registration: {e}")
+            return {"message_type": "error", "error": str(e)}
+    
+    async def _handle_gsr_data_stream(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Optional[Dict[str, Any]]:
+        """Handle real-time GSR data stream from Android device"""
+        try:
+            device_id = message.get("device_id")
+            session_id = message.get("session_id")
+            samples = message.get("samples", [])
+            
+            if not device_id or not samples:
+                logger.warning("Invalid GSR data stream message")
+                return None
+            
+            # Process GSR batch with receiver
+            success = await self._gsr_receiver.process_gsr_batch(device_id, session_id, samples)
+            
+            if success:
+                logger.debug(f"Processed GSR batch: {len(samples)} samples from {device_id}")
+            else:
+                logger.warning(f"Failed to process GSR batch from {device_id}")
+            
+            # No explicit response needed for streaming data
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error handling GSR data stream: {e}")
+            return None
+    
+    async def _handle_gsr_quality_metrics(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Optional[Dict[str, Any]]:
+        """Handle GSR quality metrics from Android device"""
+        try:
+            device_id = message.get("device_id")
+            session_id = message.get("session_id")
+            
+            if not device_id:
+                return None
+            
+            # Process quality metrics with receiver
+            success = await self._gsr_receiver.handle_quality_metrics(device_id, session_id, message)
+            
+            if success:
+                logger.debug(f"Processed quality metrics from {device_id}")
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error handling GSR quality metrics: {e}")
+            return None
+    
+    async def _handle_gsr_heartbeat(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Optional[Dict[str, Any]]:
+        """Handle GSR heartbeat from Android device"""
+        try:
+            device_id = message.get("device_id")
+            session_id = message.get("session_id")
+            
+            if not device_id:
+                return None
+            
+            # Process heartbeat with receiver
+            success = await self._gsr_receiver.handle_heartbeat(device_id, session_id, message)
+            
+            if success:
+                logger.debug(f"Processed GSR heartbeat from {device_id}")
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error handling GSR heartbeat: {e}")
+            return None
+    
+    async def _handle_gsr_stream_end(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle GSR stream end notification from Android device"""
+        try:
+            device_id = message.get("device_id")
+            session_id = message.get("session_id")
+            
+            if not all([device_id, session_id]):
+                return {"message_type": "error", "error": "Missing required fields"}
+            
+            # End session with GSR receiver
+            success = await self._gsr_receiver.end_session(device_id, session_id)
+            
+            if success:
+                logger.info(f"Ended GSR stream: {device_id}/{session_id}")
+                return {
+                    "message_type": "ack",
+                    "status": "stream_ended",
+                    "server_time": time.time()
+                }
+            else:
+                return {"message_type": "error", "error": "Failed to end stream"}
+                
+        except Exception as e:
+            logger.error(f"Error handling GSR stream end: {e}")
+            return {"message_type": "error", "error": str(e)}
+    
+    async def _handle_time_sync_request(
+        self, message: Dict[str, Any], writer: asyncio.StreamWriter
+    ) -> Dict[str, Any]:
+        """Handle time synchronization request from Android device"""
+        try:
+            client_timestamp = message.get("client_timestamp")
+            
+            if client_timestamp is None:
+                return {"message_type": "error", "error": "Missing client_timestamp"}
+            
+            # Server timestamp in nanoseconds
+            server_timestamp = time.time_ns()
+            
+            return {
+                "message_type": "time_sync_response",
+                "client_timestamp": client_timestamp,
+                "server_timestamp": server_timestamp,
+                "server_time": time.time()
+            }
+            
+        except Exception as e:
+            logger.error(f"Error handling time sync request: {e}")
+            return {"message_type": "error", "error": str(e)}
+    
+    def get_gsr_session_stats(self) -> Dict[str, Any]:
+        """Get GSR session statistics for monitoring"""
+        try:
+            return self._gsr_receiver.get_all_session_stats()
+        except Exception as e:
+            logger.error(f"Error getting GSR session stats: {e}")
+            return {}
+    
+    async def export_gsr_session_data(self, device_id: str, session_id: str, format: str = "csv") -> Optional[str]:
+        """Export GSR session data to file"""
+        try:
+            export_path = await self._gsr_receiver.export_session_data(device_id, session_id, format)
+            return str(export_path) if export_path else None
+        except Exception as e:
+            logger.error(f"Error exporting GSR session data: {e}")
+            return None

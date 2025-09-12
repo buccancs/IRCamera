@@ -23,6 +23,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 // Note: SupHelp library integration is not included in this build configuration
 import com.example.thermal_lite.activity.IRThermalLiteActivity
+import com.csl.irCamera.R
+import com.topdon.tc001.gsr.GSRQuickRecordingActivity
+import com.topdon.tc001.sensors.gsr.GSRSensorRecorder
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
@@ -280,6 +283,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     override fun initData() {
         checkPermissionType = 0
         checkCameraPermission()
+        
+        // Log that PC-to-Phone communication support is available
+        Log.i("MainActivity", "✅ PC-to-Phone communication integration available - RecordingService supports network control")
     }
 
     override fun onResume() {
@@ -610,21 +616,25 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         }
         appVersionUtil?.checkVersion(isShow)
     }
-
-    private fun logInfo() {
-        if (!hasShownClause) return
-        
-        try {
-            val info = buildString {
-                appendLine("App Info:")
-                appendLine("VERSION: ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
-                appendLine("BUILD DATE: ${BuildConfig.VERSION_DATE}")
-                appendLine("DEVICE: ${Build.BRAND} ${Build.MODEL}")
-                appendLine("ANDROID: ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})")
-            }
-            XLog.i(info)
-        } catch (e: Exception) {
-            XLog.e("Failed to log app info: ${e.message}")
+    
+    /**
+     * Launch GSR Quick Recording Activity
+     * This provides direct access to the GSR recording functionality from the main app
+     */
+    fun launchGSRRecording() {
+        // Check GSR permissions first
+        if (GSRSensorRecorder.hasRequiredPermissions(this)) {
+            GSRQuickRecordingActivity.start(this)
+        } else {
+            // Show permission explanation and launch settings if needed
+            TipDialog.Builder(this)
+                .setTitleMessage("GSR Recording Permissions")
+                .setMessage("GSR recording requires Bluetooth and location permissions. Enable them in settings?")
+                .setPositiveListener("Settings") {
+                    GSRQuickRecordingActivity.start(this)
+                }
+                .setCancelListener("Cancel") { }
+                .create().show()
         }
     }
 }
