@@ -87,7 +87,7 @@ internal class TargetAdapter : BaseMenuAdapter() {
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-onTargetListener?.invoke(data.targetType)
+            onTargetListener?.invoke(data.targetType)
         }
     }
 

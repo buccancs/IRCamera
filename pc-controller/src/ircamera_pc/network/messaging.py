@@ -1,19 +1,19 @@
-
 """Reliable messaging service for IRCamera PC Controller."""
 
 import asyncio
-from typing import Dict, Any, Optional, Callable
+from typing import Any, Callable, Dict, Optional
+
 from ..utils.simple_logger import logger
 
 
 class ReliableMessageService:
     """Service for reliable message delivery between devices."""
-    
+
     def __init__(self):
         self.message_handlers = {}
         self.transport = None
         self.is_running = False
-    
+
     def set_transport(self, transport):
         """Set the transport layer for message delivery."""
         self.transport = transport

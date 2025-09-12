@@ -3,8 +3,6 @@ package com.topdon.lib.core.navigation
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.Parcelable
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.tools.DeviceTools
 
@@ -218,4 +216,3 @@ object NavigationManager {
         }
     }
 }
-

@@ -22,6 +22,7 @@ from ircamera_pc.core.session_manager import SessionManager
 from ircamera_pc.data.aggregator import DataAggregator
 from ircamera_pc.network.server import NetworkServer
 
+
 class TestEndToEndIntegration(unittest.TestCase):
     """End-to-end integration tests for complete Hub-and-Spoke system"""
 
@@ -305,7 +306,10 @@ class TestEndToEndIntegration(unittest.TestCase):
                 }
 
                 # Mock file transfer request handling
-                response = {"status": "ready", "transfer_id": f"transfer_{transfer_counter}"}
+                response = {
+                    "status": "ready",
+                    "transfer_id": f"transfer_{transfer_counter}",
+                }
                 transfer_counter += 1
                 self.assertEqual(response["status"], "ready")
 
@@ -404,21 +408,14 @@ class TestEndToEndIntegration(unittest.TestCase):
 
         # Analyze quality trends (mock)
         quality_stats: Dict[str, Any] = {
-            "overall_sync_accuracy": {
-                "average_ms": 2.5,
-                "max_ms": 4.8,
-                "min_ms": 1.2
-            },
+            "overall_sync_accuracy": {"average_ms": 2.5, "max_ms": 4.8, "min_ms": 1.2},
             "data_loss_percentage": 0.1,
             "device_sync_health": 95.0,
             "network_performance": {
                 "average_latency_ms": 25.0,
-                "packet_loss_rate": 0.001
+                "packet_loss_rate": 0.001,
             },
-            "data_integrity": {
-                "completeness": 0.995,
-                "corruption_rate": 0.0001
-            }
+            "data_integrity": {"completeness": 0.995, "corruption_rate": 0.0001},
         }
 
         self.assertIsNotNone(quality_stats)
@@ -505,9 +502,11 @@ class TestEndToEndIntegration(unittest.TestCase):
                 corrupted_marker = "invalid json data"
 
                 try:
-                    from ..network.protocol import validate_message
                     # Try to parse as JSON first, then validate
                     import json
+
+                    from ..network.protocol import validate_message
+
                     parsed_data = json.loads(corrupted_marker)
                     processing_result = validate_message(parsed_data)
                 except Exception:
@@ -692,9 +691,12 @@ class TestEndToEndIntegration(unittest.TestCase):
             logger.info(f"Performance test '{scenario_name}': {results}")
 
         perf_stats = {
-            "messages_processed": sum(results.get("success_count", 0) for results in performance_results.values()),
+            "messages_processed": sum(
+                results.get("success_count", 0)
+                for results in performance_results.values()
+            ),
             "average_response_time_ms": 50.0,
-            "peak_throughput": 100.0
+            "peak_throughput": 100.0,
         }
         self.assertIsNotNone(perf_stats)
         self.assertIn("messages_processed", perf_stats)
@@ -783,6 +785,7 @@ class TestEndToEndIntegration(unittest.TestCase):
                 content += f"{timestamp},{value}\n"
 
         return content
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -30,6 +30,7 @@ except ImportError:
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
+
 class EnhancedNetworkingDemo:
     """Demonstrates enhanced networking features of the PC Controller."""
 
@@ -233,6 +234,7 @@ class EnhancedNetworkingDemo:
                 f"  Android: {node.service_name} at {node.ip_address}:{node.port}"
             )
 
+
 async def main():
     """Main demonstration function."""
     demo = EnhancedNetworkingDemo()
@@ -264,6 +266,7 @@ async def main():
         await demo.stop_demo()
 
     return 0
+
 
 if __name__ == "__main__":
 

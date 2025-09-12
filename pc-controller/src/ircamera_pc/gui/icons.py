@@ -4,6 +4,7 @@
 from pathlib import Path
 from typing import Any, Dict, List
 
+
 class IconRegistry:
     """Registry of available icons and their references."""
 
@@ -78,6 +79,7 @@ class IconRegistry:
             return [str(case) for case in use_cases]
         return []
 
+
 def get_project_icon_path(icon_name: str) -> Path:
     """Get the full path to an icon in the project structure."""
     android_path = IconRegistry.get_android_resource_path(icon_name)
@@ -86,6 +88,7 @@ def get_project_icon_path(icon_name: str) -> Path:
         project_root = Path(__file__).parent.parent.parent.parent
         return project_root / android_path
     return Path()
+
 
 # Icon usage documentation
 ICON_USAGE_GUIDE = """

@@ -14,6 +14,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+
 # Simple logger fallback
 class SimpleLogger:
     def info(self, msg):
@@ -28,7 +29,9 @@ class SimpleLogger:
     def error(self, msg):
         print(f"ERROR: {msg}")
 
+
 logger = SimpleLogger()
+
 
 # Mock config for testing
 class MockConfig:
@@ -43,6 +46,7 @@ class MockConfig:
             "version": "1.0.0",
         }
         return config_map.get(key, default)
+
 
 config = MockConfig()
 
@@ -61,6 +65,7 @@ except ImportError as e:
     logger.error(f"Import error: {e}")
     security_available = False
     messaging_available = False
+
 
 @pytest.mark.asyncio
 async def test_security_manager():
@@ -117,6 +122,7 @@ async def test_security_manager():
     except Exception as e:
         logger.error(f"SecurityManager test failed: {e}")
         return False
+
 
 @pytest.mark.asyncio
 async def test_reliable_messaging():
@@ -183,6 +189,7 @@ async def test_reliable_messaging():
         logger.error(f"ReliableMessageService test failed: {e}")
         return False
 
+
 async def main():
     """Run basic tests."""
     logger.info("=== Basic Enhanced Networking Tests ===")
@@ -214,6 +221,7 @@ async def main():
     else:
         logger.error(f"WARNING {total_tests - tests_passed} test(s) failed")
         return 1
+
 
 if __name__ == "__main__":
     try:

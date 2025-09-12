@@ -253,7 +253,7 @@ class BarPickView : View {
                         paint.measureText(
                             labelText,
                         ).toInt() + SizeUtils.dp2px(6f)
-                    )
+                        )
                 }
             val leftText = valueFormatListener.invoke(if (rotate == 0) min else max)
             val rightText = valueFormatListener.invoke(if (rotate == 0) max else min)

@@ -1,16 +1,15 @@
-
 """Time synchronization service for multi-device coordination."""
 
-import asyncio
 import statistics
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Dict, List, Optional
 
 try:
     import numpy as np
+
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False
@@ -20,6 +19,7 @@ from loguru import logger
 
 class SyncQuality(Enum):
     """Time synchronization quality levels."""
+
     UNKNOWN = "unknown"
     POOR = "poor"
     FAIR = "fair"
@@ -30,6 +30,7 @@ class SyncQuality(Enum):
 @dataclass
 class TimeSyncInfo:
     """Time synchronization information for a device."""
+
     device_id: str
     last_sync: Optional[datetime] = None
     offset_ms: float = 0.0
@@ -122,15 +123,15 @@ class TimeSyncService:
             self._device_sync[device_id] = TimeSyncInfo(device_id=device_id)
 
         sync_info = self._device_sync[device_id]
-        
+
         # Simplified sync logic - in real implementation this would
         # perform NTP-like handshake
-        current_time = time.time()
+        time.time()
         sync_info.last_sync = datetime.now(timezone.utc)
         sync_info.sync_count += 1
         sync_info.offset_ms = 0.0  # Placeholder
         sync_info.round_trip_ms = 10.0  # Placeholder
-        
+
         return sync_info
 
     def get_device_sync_info(self, device_id: str) -> Optional[TimeSyncInfo]:

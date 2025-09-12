@@ -1,5 +1,3 @@
-
-
 import logging
 import sys
 
@@ -12,6 +10,7 @@ logging.basicConfig(
         logging.FileHandler("ircamera_pc.log"),
     ],
 )
+
 
 class SimpleLogger:
     """Simple logger that mimics loguru interface."""
@@ -40,7 +39,9 @@ class SimpleLogger:
     def add(self, *args, **kwargs) -> None:
         """Add handler - no-op for simple logger."""
 
+
 logger = SimpleLogger()
+
 
 # Make it available at module level
 def debug(message: str, *args, **kwargs) -> None:

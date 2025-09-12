@@ -565,7 +565,6 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
     private fun plotData() {
         lifecycleScope.launch {
             try {
-
                 val progressDialog = createProgressDialog("Generating Plot", "Preparing GSR data visualization...")
                 progressDialog.show()
 
@@ -619,12 +618,12 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
             gsrEvents = gsrEvents,
             statistics = stats,
             metadata =
-                PlotMetadata(
-                    fileName = file.name,
-                    duration = timestamps.lastOrNull() ?: 0.0,
-                    samplingRate = calculateSamplingRate(),
-                    dataPoints = gsrDataPoints.size,
-                ),
+            PlotMetadata(
+                fileName = file.name,
+                duration = timestamps.lastOrNull() ?: 0.0,
+                samplingRate = calculateSamplingRate(),
+                dataPoints = gsrDataPoints.size,
+            ),
         )
     }
 

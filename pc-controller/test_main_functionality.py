@@ -12,8 +12,8 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ircamera_pc.network.discovery import NetworkDiscoveryService
 from ircamera_pc.network.messaging import MessagePriority, ReliableMessageService
-
 from ircamera_pc.network.security import SecurityManager
+
 
 async def test_basic_integration():
     """Test basic integration of networking components."""
@@ -124,10 +124,12 @@ async def test_basic_integration():
 
     return True
 
+
 async def main():
     """Run the integration test."""
     success = await test_basic_integration()
     return 0 if success else 1
+
 
 if __name__ == "__main__":
     try:

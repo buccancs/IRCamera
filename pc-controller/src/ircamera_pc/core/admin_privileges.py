@@ -1,4 +1,3 @@
-
 """Windows admin privileges management for privileged operations."""
 
 from __future__ import annotations
@@ -6,15 +5,16 @@ from __future__ import annotations
 import ctypes
 import logging
 import platform
-from enum import Enum
-from typing import Any, List, Optional, Callable
 from dataclasses import dataclass
+from enum import Enum
+from typing import Any, Callable, List, Optional
 
 logger = logging.getLogger(__name__)
 
 
 class PrivilegeLevel(Enum):
     """System privilege levels."""
+
     STANDARD = "standard"
     ELEVATED = "elevated"
     ADMINISTRATOR = "administrator"
@@ -23,6 +23,7 @@ class PrivilegeLevel(Enum):
 
 class ElevationResult(Enum):
     """Privilege elevation results."""
+
     SUCCESS = "success"
     FAILED = "failed"
     DENIED = "denied"
@@ -33,6 +34,7 @@ class ElevationResult(Enum):
 @dataclass
 class SystemPermissions:
     """System permission flags."""
+
     bluetooth_control: bool = False
     network_config: bool = False
     service_management: bool = False
@@ -58,7 +60,7 @@ class AdminPrivilegeManager:
         """Check if running with elevated privileges."""
         return self._current_privilege in [
             PrivilegeLevel.ELEVATED,
-            PrivilegeLevel.ADMINISTRATOR
+            PrivilegeLevel.ADMINISTRATOR,
         ]
 
     @property
@@ -224,6 +226,7 @@ class AdminPrivilegeManager:
     def _check_unix_privileges(self) -> PrivilegeLevel:
         """Check privilege level on Unix systems."""
         import os
+
         if os.geteuid() == 0:
             return PrivilegeLevel.ADMINISTRATOR
         else:
@@ -238,7 +241,7 @@ class AdminPrivilegeManager:
                 service_management=True,
                 registry_access=True,
                 hardware_access=True,
-                firewall_control=True
+                firewall_control=True,
             )
         else:
             self._permissions = SystemPermissions()
@@ -255,7 +258,7 @@ class AdminPrivilegeManager:
             ElevationResult.FAILED: "Elevation failed",
             ElevationResult.DENIED: "Elevation denied by user",
             ElevationResult.ALREADY_ELEVATED: "Already elevated",
-            ElevationResult.NOT_SUPPORTED: "Elevation not supported on this platform"
+            ElevationResult.NOT_SUPPORTED: "Elevation not supported on this platform",
         }
         return messages.get(result, "Unknown result")
 

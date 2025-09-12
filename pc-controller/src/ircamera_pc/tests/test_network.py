@@ -1,12 +1,11 @@
 """Network layer test suite for IRCamera PC Controller."""
 
-import asyncio
 import time
 import unittest
-from unittest.mock import Mock, AsyncMock, patch
+from unittest.mock import Mock
 
-from ircamera_pc.network.server import NetworkServer
 from ircamera_pc.network.protocol import MessageProtocol
+from ircamera_pc.network.server import NetworkServer
 
 
 class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
@@ -19,7 +18,7 @@ class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
 
     async def asyncTearDown(self):
         """Clean up server resources."""
-        if hasattr(self.server, 'stop'):
+        if hasattr(self.server, "stop"):
             await self.server.stop()
 
     async def test_error_handling(self):
@@ -50,11 +49,7 @@ class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
         mock_writer = Mock()
         for client_data in clients:
             await self.server._process_message(
-                {
-                    "type": "device_register",
-                    **client_data
-                },
-                mock_writer
+                {"type": "device_register", **client_data}, mock_writer
             )
         # Verify all clients are registered
         for i in range(5):
@@ -102,8 +97,7 @@ class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
 
         # Use proper session management instead of private method
         session_response = await self.server.start_recording_session(
-            session_id="multimodal_test_123",
-            session_name="MultiModal_Test"
+            session_id="multimodal_test_123", session_name="MultiModal_Test"
         )
 
         self.assertIsNotNone(session_response)
@@ -119,7 +113,7 @@ class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
             "type": "device_register",
             "device_id": device_id,
             "device_type": "android_spoke",
-            "capabilities": ["gsr"]
+            "capabilities": ["gsr"],
         }
         await self.server._handle_device_register(registration_msg, mock_socket)
 
@@ -159,7 +153,9 @@ class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
                 if not device_info:
                     self.assertTrue(True, "Invalid registration properly rejected")
             except Exception:
-                self.assertTrue(True, "Invalid registration properly rejected with exception")
+                self.assertTrue(
+                    True, "Invalid registration properly rejected with exception"
+                )
 
     async def test_performance_metrics(self):
         """Test performance monitoring and metrics collection"""
@@ -174,7 +170,7 @@ class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
             "type": "device_register",
             "device_id": device_id,
             "device_type": "android_spoke",
-            "capabilities": ["gsr"]
+            "capabilities": ["gsr"],
         }
         await self.server._handle_device_register(registration_msg, mock_socket)
 
@@ -195,6 +191,7 @@ class TestNetworkServer(unittest.IsolatedAsyncioTestCase):
         # Basic performance verification - ensure server is still responsive (mock)
         final_ping = {"status": "online", "latency_ms": 22.5}  # Mock final ping result
         self.assertIsNotNone(final_ping)
+
 
 class TestMessageProtocol(unittest.TestCase):
     """Tests for message protocol handling"""
@@ -229,6 +226,7 @@ class TestMessageProtocol(unittest.TestCase):
 
         # Test JSON serialization directly since serialize_message doesn't exist
         import json
+
         serialized = json.dumps(test_message).encode()
         self.assertIsInstance(serialized, bytes)
 
@@ -263,6 +261,7 @@ class TestMessageProtocol(unittest.TestCase):
             # Test basic message validation with version info
             result = self.protocol.validate_message(message)
             self.assertIsInstance(result, bool)
+
 
 if __name__ == "__main__":
 

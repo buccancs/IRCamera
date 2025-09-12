@@ -17,4 +17,3 @@ enum class IrParam {
     ParamPColor, // Pseudo-colordata
     ParamTemperature, // dataMode、dataLow gain
 }
-

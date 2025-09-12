@@ -1,15 +1,15 @@
 """GUI widgets for IRCamera PC Controller."""
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 
 class DeviceListWidget(QWidget):
     """Widget displaying connected devices."""
-    
+
     def __init__(self):
         super().__init__()
         self.setup_ui()
-    
+
     def setup_ui(self):
         """Setup the widget UI."""
         layout = QVBoxLayout()
@@ -20,11 +20,11 @@ class DeviceListWidget(QWidget):
 
 class SessionControlWidget(QWidget):
     """Widget for session control."""
-    
+
     def __init__(self):
         super().__init__()
         self.setup_ui()
-    
+
     def setup_ui(self):
         """Setup the widget UI."""
         layout = QVBoxLayout()
@@ -35,11 +35,11 @@ class SessionControlWidget(QWidget):
 
 class StatusDisplayWidget(QWidget):
     """Widget for status display."""
-    
+
     def __init__(self):
         super().__init__()
         self.setup_ui()
-    
+
     def setup_ui(self):
         """Setup the widget UI."""
         layout = QVBoxLayout()

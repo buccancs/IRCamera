@@ -168,7 +168,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
     override fun onDraw(canvas: Canvas) {
         if (orientation == 0) {
             super.onDraw(canvas)
-} else {
+        } else {
             canvas?.let {
                 it.rotate(90f)
                 it.translate(-paddingStart.toFloat(), -width.toFloat() + paddingEnd)

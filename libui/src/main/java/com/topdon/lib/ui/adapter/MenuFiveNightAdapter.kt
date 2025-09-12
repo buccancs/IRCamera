@@ -114,7 +114,7 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
         val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
         val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
         val info: TextView = itemView.findViewById(UiR.id.item_menu_tab_info_text)

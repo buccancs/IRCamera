@@ -1,6 +1,5 @@
 package com.topdon.lib.core.db.entity
 
-import android.content.Context
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey

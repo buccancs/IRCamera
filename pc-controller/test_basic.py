@@ -13,6 +13,7 @@ from pathlib import Path
 src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
 
+
 def test_basic_functionality():
     """Test basic functionality without external dependencies."""
     print("TESTING Testing IRCamera PC Controller Core Components")
@@ -159,6 +160,7 @@ def test_basic_functionality():
         # Clean up
         shutil.rmtree(temp_dir, ignore_errors=True)
         print(f"\nCLEAN Cleaned up temporary directory: {temp_dir}")
+
 
 if __name__ == "__main__":
     success = test_basic_functionality()

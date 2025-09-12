@@ -44,7 +44,7 @@ class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
                     ScreenUtil.getScreenWidth(
                         context,
                     ) * if (ScreenUtil.isPortrait(context)) 0.8 else 0.45
-                ).toInt()
+                    ).toInt()
             layoutParams.height = LayoutParams.WRAP_CONTENT
             it.attributes = layoutParams
         }

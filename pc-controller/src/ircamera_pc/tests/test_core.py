@@ -6,15 +6,14 @@ Basic test suite for core functionality validation.
 
 import shutil
 import tempfile
-from datetime import datetime
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pytest
 
 from ..core.config import ConfigManager
 from ..core.session import SessionManager, SessionState
 from ..core.timesync import TimeSyncService
-from ..network.server import DeviceInfo, NetworkServer
+
 
 class TestConfigManager:
     """Tests for ConfigManager."""
@@ -41,6 +40,7 @@ class TestConfigManager:
 
         # Test default values
         assert config_manager.get("nonexistent.key", "default") == "default"
+
 
 class TestSessionManager:
     """Tests for SessionManager."""
@@ -120,6 +120,7 @@ class TestSessionManager:
         # Try to create second session while first is active
         with pytest.raises(ValueError, match="another session is active"):
             self.session_manager.create_session("session2")
+
 
 class TestTimeSyncService:
     """Tests for TimeSyncService."""

@@ -6,6 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+
 def test_imports():
     """Test that all new components can be imported."""
     print("Testing imports...")
@@ -29,6 +30,7 @@ def test_imports():
     except Exception as e:
         print(f"FAIL Import failed: {e}")
         return False
+
 
 def test_data_aggregation():
     """Test the data aggregation engine."""
@@ -84,6 +86,7 @@ def test_data_aggregation():
         print(f"FAIL Data aggregation test failed: {e}")
         return False
 
+
 def test_plotting_widgets():
     """Test the plotting widgets (without actually displaying)."""
     print("\nTesting plotting widgets...")
@@ -114,6 +117,7 @@ def test_plotting_widgets():
     except Exception as e:
         print(f"FAIL Plotting widgets test failed: {e}")
         return False
+
 
 def test_native_backend_structure():
     """Test that native backend structure is in place."""
@@ -148,6 +152,7 @@ def test_native_backend_structure():
     except Exception as e:
         print(f"FAIL Native backend structure test failed: {e}")
         return False
+
 
 def test_gui_widgets():
     """Test the enhanced GUI widgets."""
@@ -195,6 +200,7 @@ def test_gui_widgets():
         print(f"FAIL Enhanced GUI widgets test failed: {e}")
         return False
 
+
 def main():
     """Run all tests."""
     print("=== PC Controller Components Test Suite ===\n")
@@ -227,6 +233,7 @@ def main():
     else:
         print("ERROR Some tests failed. Check the output above for details.")
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(main())

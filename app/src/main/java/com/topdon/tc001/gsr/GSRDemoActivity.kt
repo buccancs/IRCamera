@@ -78,7 +78,7 @@ class GSRDemoActivity : BaseBindingActivity<ActivityGsrDemoBinding>() {
                                     (
                                         System.currentTimeMillis() -
                                             (gsrRecorder.getCurrentSession()?.startTime ?: System.currentTimeMillis())
-                                    ) / 1000
+                                        ) / 1000
                                 append("Recording Duration: ${duration}s")
                             }
                     }
@@ -104,7 +104,6 @@ class GSRDemoActivity : BaseBindingActivity<ActivityGsrDemoBinding>() {
         }
 
     override fun initView() {
-
         binding.startButton.setOnClickListener { startRecording() }
         binding.stopButton.setOnClickListener { stopRecording() }
         binding.syncButton.setOnClickListener { triggerSyncEvent() }
@@ -144,7 +143,6 @@ class GSRDemoActivity : BaseBindingActivity<ActivityGsrDemoBinding>() {
             val success = gsrRecorder.addSyncMark("DEMO_SYNC_EVENT", metadataJson)
 
             if (success) {
-
                 Log.d(TAG, "Demo sync event triggered successfully")
             } else {
                 Log.w(TAG, "Failed to trigger demo sync event")

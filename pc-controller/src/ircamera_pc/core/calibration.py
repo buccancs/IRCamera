@@ -4,14 +4,14 @@
 from __future__ import annotations
 
 import logging
-import os
-from typing import List, Optional, Tuple, Dict, Any
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
 try:
     import cv2
+
     OPENCV_AVAILABLE = True
 except ImportError:
     OPENCV_AVAILABLE = False
@@ -22,7 +22,9 @@ logger = logging.getLogger(__name__)
 class CameraCalibrator:
     """Camera calibration using chessboard patterns."""
 
-    def __init__(self, pattern_size: Tuple[int, int] = (9, 6), square_size: float = 1.0) -> None:
+    def __init__(
+        self, pattern_size: Tuple[int, int] = (9, 6), square_size: float = 1.0
+    ) -> None:
         """Initialize calibrator with chessboard parameters."""
         if not OPENCV_AVAILABLE:
             raise ImportError("OpenCV is required for camera calibration")
@@ -62,7 +64,11 @@ class CameraCalibrator:
 
             if success and corners is not None:
                 # Refine corner positions
-                criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+                criteria = (
+                    cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER,
+                    30,
+                    0.001,
+                )
                 corners = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
 
             return success, corners
@@ -72,9 +78,7 @@ class CameraCalibrator:
             return False, None
 
     def calibrate_camera(
-        self, 
-        images: List[np.ndarray], 
-        image_size: Optional[Tuple[int, int]] = None
+        self, images: List[np.ndarray], image_size: Optional[Tuple[int, int]] = None
     ) -> Tuple[bool, Dict[str, Any]]:
         """Perform camera calibration using multiple images."""
         if not OPENCV_AVAILABLE:
@@ -87,7 +91,7 @@ class CameraCalibrator:
         # Collect object and image points
         object_points = []
         image_points = []
-        
+
         if image_size is None:
             image_size = (images[0].shape[1], images[0].shape[0])
 
@@ -116,7 +120,9 @@ class CameraCalibrator:
                     projected_points, _ = cv2.projectPoints(
                         object_points[i], rvecs[i], tvecs[i], camera_matrix, dist_coeffs
                     )
-                    error = cv2.norm(image_points[i], projected_points, cv2.NORM_L2) / len(projected_points)
+                    error = cv2.norm(
+                        image_points[i], projected_points, cv2.NORM_L2
+                    ) / len(projected_points)
                     total_error += error
 
                 mean_error = total_error / len(object_points)
@@ -130,12 +136,12 @@ class CameraCalibrator:
                     "image_size": image_size,
                     "valid_images": valid_images,
                     "pattern_size": self.pattern_size,
-                    "square_size": self.square_size
+                    "square_size": self.square_size,
                 }
 
                 logger.info(f"Camera calibration successful with {valid_images} images")
                 logger.info(f"Reprojection error: {mean_error:.4f}")
-                
+
                 return True, calibration_data
 
         except Exception as e:
@@ -143,7 +149,9 @@ class CameraCalibrator:
 
         return False, {}
 
-    def undistort_image(self, image: np.ndarray, calibration_data: Dict[str, Any]) -> Optional[np.ndarray]:
+    def undistort_image(
+        self, image: np.ndarray, calibration_data: Dict[str, Any]
+    ) -> Optional[np.ndarray]:
         """Undistort image using calibration data."""
         if not OPENCV_AVAILABLE:
             return None
@@ -151,7 +159,7 @@ class CameraCalibrator:
         try:
             camera_matrix = calibration_data["camera_matrix"]
             dist_coeffs = calibration_data["distortion_coefficients"]
-            
+
             undistorted = cv2.undistort(image, camera_matrix, dist_coeffs)
             return undistorted
 
@@ -159,7 +167,9 @@ class CameraCalibrator:
             logger.error(f"Image undistortion failed: {e}")
             return None
 
-    def save_calibration(self, calibration_data: Dict[str, Any], filepath: Path) -> bool:
+    def save_calibration(
+        self, calibration_data: Dict[str, Any], filepath: Path
+    ) -> bool:
         """Save calibration data to file."""
         try:
             np.savez(
@@ -170,7 +180,7 @@ class CameraCalibrator:
                 image_size=calibration_data["image_size"],
                 valid_images=calibration_data["valid_images"],
                 pattern_size=calibration_data["pattern_size"],
-                square_size=calibration_data["square_size"]
+                square_size=calibration_data["square_size"],
             )
             logger.info(f"Calibration data saved to {filepath}")
             return True
@@ -194,7 +204,7 @@ class CameraCalibrator:
                 "image_size": tuple(data["image_size"]),
                 "valid_images": int(data["valid_images"]),
                 "pattern_size": tuple(data["pattern_size"]),
-                "square_size": float(data["square_size"])
+                "square_size": float(data["square_size"]),
             }
 
             logger.info(f"Calibration data loaded from {filepath}")

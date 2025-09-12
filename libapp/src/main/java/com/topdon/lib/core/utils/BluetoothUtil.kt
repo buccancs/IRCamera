@@ -7,13 +7,7 @@ import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import androidx.activity.ComponentActivity
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.tools.PermissionTool
@@ -34,7 +28,7 @@ object BluetoothUtil {
                 context.getSystemService(
                     Context.BLUETOOTH_SERVICE,
                 ) as BluetoothManager
-            ).adapter
+                ).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
             XLog.e("utility-utility")
@@ -65,7 +59,7 @@ object BluetoothUtil {
                 context.getSystemService(
                     Context.BLUETOOTH_SERVICE,
                 ) as BluetoothManager
-            ).adapter
+                ).adapter
         val btLeScanner: BluetoothLeScanner? = btAdapter.bluetoothLeScanner
         if (btLeScanner == null) {
             XLog.w("utility-utility")

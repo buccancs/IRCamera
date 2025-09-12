@@ -1,21 +1,22 @@
-
 """Bluetooth device management with async discovery and connection handling."""
 
 from __future__ import annotations
 
 import asyncio
 import logging
-from typing import Dict, List, Optional, Callable, Any
 from dataclasses import dataclass
+from typing import Any, Callable, Dict, Optional
 
 try:
-    import bluetooth
+    pass
+
     BLUETOOTH_AVAILABLE = True
 except ImportError:
     BLUETOOTH_AVAILABLE = False
 
 try:
     from PyQt6.QtCore import QTimer
+
     PYQT_AVAILABLE = True
 except ImportError:
     PYQT_AVAILABLE = False
@@ -28,6 +29,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class BluetoothDevice:
     """Bluetooth device information."""
+
     address: str
     name: str
     rssi: Optional[int] = None
@@ -45,7 +47,7 @@ class BluetoothManager(BaseManager):
         self._devices: Dict[str, BluetoothDevice] = {}
         self._scanning = False
         self._scan_timer: Optional[QTimer] = None
-        
+
         if PYQT_AVAILABLE:
             self._scan_timer = QTimer()
             self._scan_timer.timeout.connect(self._timer_scan)
@@ -88,7 +90,9 @@ class BluetoothManager(BaseManager):
         if self._signal_callback:
             self._signal_callback(signal_name, *args)
 
-    def start_scanning(self, duration: int = 10, continuous: bool = False, interval: int = 30) -> None:
+    def start_scanning(
+        self, duration: int = 10, continuous: bool = False, interval: int = 30
+    ) -> None:
         """Start scanning for Bluetooth devices."""
         if not self.is_available:
             self._emit_signal("error_occurred", "scan", "Bluetooth not available")
@@ -110,7 +114,7 @@ class BluetoothManager(BaseManager):
         """Stop device scanning."""
         if self._scan_timer:
             self._scan_timer.stop()
-        
+
         self._scanning = False
         logger.info("Stopped Bluetooth device scanning")
 
@@ -127,11 +131,11 @@ class BluetoothManager(BaseManager):
         try:
             # Simulate device discovery (replace with actual Bluetooth scanning)
             await asyncio.sleep(1)  # Simulated scan time
-            
+
             # In real implementation, would use bluetooth.discover_devices()
             logger.info("Bluetooth device scan completed")
             self._emit_signal("scan_completed", len(self._devices))
-            
+
         except Exception as e:
             self._handle_error("scan", f"Device scan failed: {e}", e)
         finally:
@@ -164,7 +168,7 @@ class BluetoothManager(BaseManager):
             logger.info(f"Connected to Bluetooth device: {device.name}")
             self._emit_signal("device_connected", device)
             return True
-            
+
         except Exception as e:
             self._handle_error("connection", f"Failed to connect to {address}: {e}", e)
             return False
@@ -181,9 +185,11 @@ class BluetoothManager(BaseManager):
             logger.info(f"Disconnected from Bluetooth device: {device.name}")
             self._emit_signal("device_disconnected", device)
             return True
-            
+
         except Exception as e:
-            self._handle_error("disconnection", f"Failed to disconnect from {address}: {e}", e)
+            self._handle_error(
+                "disconnection", f"Failed to disconnect from {address}: {e}", e
+            )
             return False
             return True
 

@@ -23,39 +23,17 @@ Features Demonstrated:
     * Cross-platform compatibility
 """
 
-import argparse
 import sys
-import time
 from pathlib import Path
-from typing import Any, Dict, Optional
 
-import numpy as np
-from PyQt6.QtCore import QTimer, pyqtSignal
-from PyQt6.QtWidgets import (
-    QApplication,
-    QHBoxLayout,
-    QMainWindow,
-    QPushButton,
-    QVBoxLayout,
-    QWidget,
-)
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 # Local imports - moved after sys.path setup
-from ircamera_pc.core.session import SessionManager
-from ircamera_pc.core.timesync import TimeSyncService
-from ircamera_pc.data import DataAggregationEngine
-from ircamera_pc.gui.plotting_widgets import MultiModalDashboard
-from ircamera_pc.gui.widgets import (
-    DeviceListWidget,
-    SessionControlWidget,
-    StatusDisplayWidget,
-)
-from ircamera_pc.network.server import NetworkServer
 
 try:
-    import native_backend
+    pass
+
     NATIVE_BACKEND_AVAILABLE = True
 except ImportError:
     NATIVE_BACKEND_AVAILABLE = False
@@ -65,7 +43,7 @@ except ImportError:
 def main():
     """Main integration example."""
     print("IRCamera PC Controller Integration Example")
-    
+
     if NATIVE_BACKEND_AVAILABLE:
         print("Using native backend for high performance")
     else:

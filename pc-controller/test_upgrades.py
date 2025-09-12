@@ -18,6 +18,7 @@ from ircamera_pc.network.protocol import (
 )
 from ircamera_pc.network.server import NetworkServer
 
+
 def test_protocol_manager():
     """Test protocol manager functionality."""
     print("Testing Protocol Manager...")
@@ -37,6 +38,7 @@ def test_protocol_manager():
     assert "sync_flash" in message_types
 
     print(f"OK Protocol manager loaded {len(message_types)} message types")
+
 
 def test_message_creation():
     """Test message creation and validation."""
@@ -68,6 +70,7 @@ def test_message_creation():
 
     print("OK Message creation and validation working")
 
+
 def test_network_server():
     """Test network server initialization."""
     print("Testing Network Server...")
@@ -92,6 +95,7 @@ def test_network_server():
 
     print("OK Network server initialized with protocol support")
 
+
 def test_session_manager():
     """Test session manager."""
     print("Testing Session Manager...")
@@ -109,6 +113,7 @@ def test_session_manager():
     assert current.session_id == session.session_id
 
     print("OK Session manager working")
+
 
 async def test_protocol_message_flow():
     """Test complete message flow."""
@@ -142,6 +147,7 @@ async def test_protocol_message_flow():
 
     print(f"OK All {len(messages)} protocol messages validated successfully")
 
+
 def main():
     """Run all tests."""
     print("=" * 60)
@@ -174,6 +180,7 @@ def main():
 
         traceback.print_exc()
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

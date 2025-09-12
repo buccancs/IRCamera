@@ -1,14 +1,10 @@
-
-
 import asyncio
 import socket
-from dataclasses import dataclass
 from datetime import datetime
-from enum import Enum
-from typing import TYPE_CHECKING, Callable, Dict, List, Optional, cast
+from typing import TYPE_CHECKING, Dict, List, Optional
 
 if TYPE_CHECKING:
-    from ..core.config import ConfigManager
+    pass
 
 try:
     from zeroconf import ServiceInfo, Zeroconf
@@ -31,9 +27,15 @@ except ImportError:
     except ImportError:
         # Enterprise fallback logger for testing environments
         class EnterpriseLogger:
-            def info(self, msg): print(f"INFO: {msg}")
-            def warning(self, msg): print(f"WARNING: {msg}")
-            def error(self, msg): print(f"ERROR: {msg}")
+            def info(self, msg):
+                print(f"INFO: {msg}")
+
+            def warning(self, msg):
+                print(f"WARNING: {msg}")
+
+            def error(self, msg):
+                print(f"ERROR: {msg}")
+
         logger = EnterpriseLogger()
 
     async def start_discovery(self):
@@ -339,6 +341,7 @@ except ImportError:
 
         except Exception as e:
             logger.error(f"Error processing lost device: {e}")
+
 
 class ServiceBrowserHandler:
     """Handler for service browser events."""

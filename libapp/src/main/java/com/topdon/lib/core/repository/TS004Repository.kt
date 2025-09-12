@@ -1,10 +1,8 @@
 package com.topdon.lib.core.repository
 
 import android.net.Network
-import com.blankj.utilcode.util.EncryptUtils
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -14,12 +12,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
-import java.util.Calendar
-import java.util.Locale
-import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 object TS004Repository {

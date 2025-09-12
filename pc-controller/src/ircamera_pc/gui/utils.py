@@ -1,7 +1,5 @@
-
 """GUI utilities for IRCamera PC Controller."""
 
-from typing import Any
 
 
 class LogHandler(QObject):
@@ -72,14 +70,18 @@ def setup_logging() -> LogHandler:
     def gui_sink(record):
         try:
             # Handle both dict and Record object formats
-            if hasattr(record, 'level'):
+            if hasattr(record, "level"):
                 level = record.level.name
                 message = record.message
                 timestamp = record.time.strftime("%H:%M:%S")
             else:
                 level = record.get("level", {}).get("name", "INFO")
                 message = record.get("message", "")
-                timestamp = record.get("time", "").strftime("%H:%M:%S") if record.get("time") else ""
+                timestamp = (
+                    record.get("time", "").strftime("%H:%M:%S")
+                    if record.get("time")
+                    else ""
+                )
             gui_handler.log_message.emit(level, message, timestamp)
         except Exception:
             # Fallback for any formatting issues
@@ -134,6 +136,7 @@ def format_bytes(size_bytes: int) -> str:
 
     return f"{size_float:.1f} PB"
 
+
 def format_duration(seconds: float) -> str:
 
     total_seconds = int(seconds)
@@ -145,6 +148,7 @@ def format_duration(seconds: float) -> str:
         return f"{hours:02d}:{minutes:02d}:{secs:02d}"
     else:
         return f"{minutes:02d}:{secs:02d}"
+
 
 def get_status_color(status: str) -> str:
 
@@ -158,6 +162,7 @@ def get_status_color(status: str) -> str:
         return "orange"
     else:
         return "gray"
+
 
 def validate_session_name(name: str) -> tuple[bool, str]:
 
@@ -175,6 +180,7 @@ def validate_session_name(name: str) -> tuple[bool, str]:
             return False, f"Session name cannot contain '{char}'"
 
     return True, ""
+
 
 def confirm_action(parent, title: str, message: str) -> bool:
 

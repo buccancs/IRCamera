@@ -152,31 +152,31 @@ class EnhancedNetworkingExample(private val context: Context) {
                 targetPort = targetPort,
                 messageType = "measurement_start",
                 content =
-                    JSONObject().apply {
-                        put("session_id", "demo_session_123")
-                        put("sensors", listOf("gsr", "thermal", "visual"))
-                    },
+                JSONObject().apply {
+                    put("session_id", "demo_session_123")
+                    put("sensors", listOf("gsr", "thermal", "visual"))
+                },
                 priority = ReliableMessageService.MessagePriority.CRITICAL,
                 callback =
-                    object : ReliableMessageService.MessageCallback {
-                        override fun onAcknowledged(messageId: String) {
-                            Log.i(TAG, "✓ Message acknowledged: $messageId")
-                        }
+                object : ReliableMessageService.MessageCallback {
+                    override fun onAcknowledged(messageId: String) {
+                        Log.i(TAG, "✓ Message acknowledged: $messageId")
+                    }
 
-                        override fun onFailed(
-                            messageId: String,
-                            error: String,
-                        ) {
-                            Log.e(TAG, "✗ Message failed: $messageId - $error")
-                        }
+                    override fun onFailed(
+                        messageId: String,
+                        error: String,
+                    ) {
+                        Log.e(TAG, "✗ Message failed: $messageId - $error")
+                    }
 
-                        override fun onRetrying(
-                            messageId: String,
-                            attempt: Int,
-                        ) {
-                            Log.w(TAG, "↻ Retrying message: $messageId (attempt $attempt)")
-                        }
-                    },
+                    override fun onRetrying(
+                        messageId: String,
+                        attempt: Int,
+                    ) {
+                        Log.w(TAG, "↻ Retrying message: $messageId (attempt $attempt)")
+                    }
+                },
             )
 
         Log.i(TAG, "Sent reliable message with ID: $messageId")

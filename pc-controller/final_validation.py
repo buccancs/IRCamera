@@ -9,6 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+
 def test_imports_and_basic_functionality() -> bool:
     """Test that all core modules import and basic functionality works."""
     print("ANALYZE Testing imports and basic functionality...")
@@ -57,6 +58,7 @@ def test_imports_and_basic_functionality() -> bool:
         traceback.print_exc()
         return False
 
+
 def test_android_build() -> bool:
     """Test that Android build is successful."""
     print("\nDEVICE Testing Android build...")
@@ -88,6 +90,7 @@ def test_android_build() -> bool:
     except Exception as e:
         print(f"ERROR Android build error: {e}")
         return False
+
 
 def test_python_tests() -> bool:
     """Run Python test suite."""
@@ -130,6 +133,7 @@ def test_python_tests() -> bool:
         print(f"ERROR Python test error: {e}")
         return False
 
+
 def main() -> int:
     """Run all validation tests."""
     print("START Starting Final Validation for IRCamera PC Controller")
@@ -170,6 +174,7 @@ def main() -> int:
         print("Please review the output above for details")
 
     return 0 if all_passed else 1
+
 
 if __name__ == "__main__":
     sys.exit(main())

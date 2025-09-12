@@ -493,7 +493,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             itemView.layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-}
+    }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)

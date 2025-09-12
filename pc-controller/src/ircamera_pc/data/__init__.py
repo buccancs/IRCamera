@@ -1,6 +1,5 @@
 """Data processing and aggregation module."""
 
-import json
 import threading
 import time
 from collections import deque
@@ -10,13 +9,15 @@ from queue import Queue
 from typing import Any, Dict, List, Optional, Tuple
 
 try:
-    import h5py
+    pass
+
     HDF5_AVAILABLE = True
 except ImportError:
     HDF5_AVAILABLE = False
 
 try:
-    import pandas as pd
+    pass
+
     PANDAS_AVAILABLE = True
 except ImportError:
     PANDAS_AVAILABLE = False
@@ -27,6 +28,7 @@ from loguru import logger
 @dataclass
 class SyncEvent:
     """Synchronization event for temporal alignment."""
+
     timestamp_ns: int
     event_type: str
     source_device: str
@@ -36,11 +38,14 @@ class SyncEvent:
 @dataclass
 class DataStream:
     """Data stream container for device data."""
+
     device_id: str
     stream_type: str
     sample_rate: float
     start_timestamp_ns: int
-    data_buffer: deque[Tuple[int, Any]] = field(default_factory=lambda: deque(maxlen=10000))
+    data_buffer: deque[Tuple[int, Any]] = field(
+        default_factory=lambda: deque(maxlen=10000)
+    )
     total_samples: int = 0
     dropped_samples: int = 0
     is_active: bool = True
@@ -49,6 +54,7 @@ class DataStream:
 @dataclass
 class AggregationStats:
     """Statistics for data aggregation."""
+
     total_devices: int = 0
     data_rate_mbps: float = 0.0
     sync_quality_percent: float = 0.0
@@ -107,10 +113,10 @@ class DataAggregationEngine:
             return
 
         self.is_running.clear()
-        
+
         if self.aggregation_thread:
             self.aggregation_thread.join(timeout=5.0)
-            
+
         if self.hdf5_file:
             self.hdf5_file.close()
             self.hdf5_file = None

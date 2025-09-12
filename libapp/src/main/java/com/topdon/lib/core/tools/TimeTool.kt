@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.topdon.lib.core.utils.CommUtils
 import java.io.File
-import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.*
 

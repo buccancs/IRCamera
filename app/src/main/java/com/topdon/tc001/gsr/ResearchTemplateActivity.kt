@@ -186,7 +186,6 @@ class ResearchTemplateActivity : BaseBindingActivity<ActivityResearchTemplateBin
     }
 
     private fun startRecordingWithTemplate(template: ResearchTemplate) {
-
         val intent =
             Intent(this, MultiModalRecordingActivity::class.java).apply {
                 putExtra("template_id", template.id)

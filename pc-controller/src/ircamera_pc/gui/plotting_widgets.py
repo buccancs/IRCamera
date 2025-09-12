@@ -1,15 +1,15 @@
-
 """Plotting widgets for real-time data visualization."""
 
 from collections import deque
 from typing import Dict, Tuple
+
 import pyqtgraph as pg
-from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QVBoxLayout, QWidget
 
 
 class GSRPlottingWidget(QWidget):
     """Widget for plotting GSR data in real-time."""
-    
+
     def __init__(self, max_points: int = 1000, time_window: float = 60.0):
         super().__init__()
         self.max_points = max_points
@@ -48,7 +48,9 @@ class GSRPlottingWidget(QWidget):
 
         logger.info(f"Added GSR device {device_id} with color {color}")
 
-    def add_data_point(self, device_id: str, timestamp_ns: int, gsr_microsiemens: float) -> None:
+    def add_data_point(
+        self, device_id: str, timestamp_ns: int, gsr_microsiemens: float
+    ) -> None:
         """Add GSR data point for device."""
         if device_id not in self.gsr_data:
             self.add_device(device_id)
@@ -65,7 +67,9 @@ class GSRPlottingWidget(QWidget):
         if device_id in self.gsr_data:
             del self.gsr_data[device_id]
 
-    def add_sync_marker(self, timestamp_ns: int, label: str = "Sync", color: str = "white") -> None:
+    def add_sync_marker(
+        self, timestamp_ns: int, label: str = "Sync", color: str = "white"
+    ) -> None:
         """Add synchronization marker to plot."""
         current_time = time.time()
         relative_time = (timestamp_ns / 1e9) - current_time
@@ -83,12 +87,11 @@ class GSRPlottingWidget(QWidget):
 
     def _update_plot(self) -> None:
         """Update the plot with latest data."""
-        pass
 
 
 class VideoPreviewWidget(QWidget):
     """Widget for displaying live video preview."""
-    
+
     def __init__(self, device_id: str, device_type: str = "rgb"):
         super().__init__()
         self.device_id = device_id
@@ -219,6 +222,7 @@ class VideoPreviewWidget(QWidget):
         if device_id in self.video_widgets:
             return self.video_widgets[device_id].get_fps()
         return 0.0
+
 
 class DataAggregationWidget(QWidget):
     """

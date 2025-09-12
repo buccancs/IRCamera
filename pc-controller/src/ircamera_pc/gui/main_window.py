@@ -1,12 +1,10 @@
-
-
 import asyncio
 from datetime import datetime
 from enum import Enum
 from typing import Dict, Optional
 
 from loguru import logger
-from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
     QGroupBox,
@@ -23,9 +21,8 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from ..core.session import SessionManager, SessionState
-from ..core.timesync import TimeSyncService
-from ..network.server import DeviceInfo, NetworkServer
+from ..core.session import SessionState
+from ..network.server import DeviceInfo
 from .widgets import (
     BluetoothControlWidget,
     DeviceListWidget,
@@ -35,8 +32,10 @@ from .widgets import (
     WiFiControlWidget,
 )
 
+
 class WindowState(Enum):
     """Window state enumeration."""
+
     READY = "ready"
     RECORDING = "recording"
     STOPPED = "stopped"
@@ -44,10 +43,19 @@ class WindowState(Enum):
 
 class MainWindow(QMainWindow):
     """Main application window."""
-    
-    def __init__(self, session_manager, network_server, time_sync_service, 
-                 gsr_ingestor=None, file_transfer_manager=None, camera_calibrator=None,
-                 bluetooth_manager=None, wifi_manager=None, admin_privileges_manager=None):
+
+    def __init__(
+        self,
+        session_manager,
+        network_server,
+        time_sync_service,
+        gsr_ingestor=None,
+        file_transfer_manager=None,
+        camera_calibrator=None,
+        bluetooth_manager=None,
+        wifi_manager=None,
+        admin_privileges_manager=None,
+    ):
         super().__init__()
 
         # Core services
@@ -506,9 +514,9 @@ class MainWindow(QMainWindow):
         )
 
         # Only update buttons if they exist and are not None
-        if hasattr(self, 'sync_flash_btn') and self.sync_flash_btn is not None:
+        if hasattr(self, "sync_flash_btn") and self.sync_flash_btn is not None:
             self.sync_flash_btn.setEnabled(can_sync)
-        if hasattr(self, 'sync_mark_btn') and self.sync_mark_btn is not None:
+        if hasattr(self, "sync_mark_btn") and self.sync_mark_btn is not None:
             self.sync_mark_btn.setEnabled(can_sync)
 
     # Event handlers

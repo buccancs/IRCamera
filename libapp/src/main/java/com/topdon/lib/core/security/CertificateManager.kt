@@ -31,7 +31,6 @@ class CertificateManager(private val context: Context) {
      */
     fun initialize(): Boolean {
         return try {
-
             deviceKeyStore = KeyStore.getInstance(KEY_STORE_TYPE)
             deviceKeyStore?.load(null, null)
 
@@ -83,7 +82,6 @@ class CertificateManager(private val context: Context) {
      */
     fun validateDeviceCertificate(certificate: X509Certificate): Boolean {
         return try {
-
             val subject = certificate.subjectDN.name
             val issuer = certificate.issuerDN.name
 
@@ -164,7 +162,6 @@ class CertificateManager(private val context: Context) {
             }
 
             override fun getAcceptedIssuers(): Array<X509Certificate> {
-
                 return deviceKeyStore?.let { ks ->
                     val aliases = ks.aliases()
                     val certificates = mutableListOf<X509Certificate>()

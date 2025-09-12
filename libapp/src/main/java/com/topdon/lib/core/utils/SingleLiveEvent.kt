@@ -1,7 +1,6 @@
 package com.topdon.lib.core.utils
 
 import androidx.annotation.MainThread
-import androidx.annotation.Nullable
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer

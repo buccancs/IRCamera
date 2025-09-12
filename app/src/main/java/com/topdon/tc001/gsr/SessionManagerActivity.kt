@@ -61,7 +61,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
 
     private fun initializeViews() {
         private fun initializeViews() {
-
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "Session Manager"
         }
@@ -85,7 +84,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
         }
 
         private fun setupSearchAndFilter() {
-
             binding.searchView.setOnQueryTextListener(
                 object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -134,7 +132,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
                 try {
                     val loadedSessions =
                         withContext(Dispatchers.IO) {
-
                             val activeSessions = sessionManager.getActiveSessions()
                             val historicalSessions = loadHistoricalSessions()
 
@@ -302,7 +299,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
                         }
 
                     if (success) {
-
                         if (sessionManager.isSessionActive(session.sessionId)) {
                             sessionManager.completeSession(session.sessionId)
                         }
@@ -331,7 +327,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
         private suspend fun deleteSessionFiles(session: SessionInfo): Boolean {
             return withContext(Dispatchers.IO) {
                 try {
-
                     val sessionDir = File(getExternalFilesDir(null), "recordings/${session.sessionId}")
                     if (sessionDir.exists()) {
                         sessionDir.deleteRecursively()
@@ -352,7 +347,6 @@ class SessionManagerActivity : BaseBindingActivity<ActivitySessionManagerBinding
         }
 
         private fun exportSession(session: SessionInfo) {
-
             SessionExportActivity.startActivity(this, session.sessionId)
         }
 

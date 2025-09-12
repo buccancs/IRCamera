@@ -10,11 +10,11 @@ from typing import Any, Dict, List, Optional
 
 from loguru import logger
 
-from .config import config
 
 
 class GSRQuality(IntEnum):
     """GSR signal quality enumeration."""
+
     POOR = 0
     FAIR = 25
     GOOD = 50
@@ -24,6 +24,7 @@ class GSRQuality(IntEnum):
 
 class GSRMode(Enum):
     """GSR recording mode enumeration."""
+
     CONTINUOUS = "continuous"
     TRIGGERED = "triggered"
     CALIBRATION = "calibration"
@@ -32,6 +33,7 @@ class GSRMode(Enum):
 @dataclass
 class GSRSample:
     """Individual GSR sample data."""
+
     timestamp: float
     value: float
     raw_adc: int
@@ -54,6 +56,7 @@ class GSRSample:
 @dataclass
 class GSRDataSet:
     """GSR dataset for a recording session."""
+
     session_id: str
     device_id: str
     mode: GSRMode
@@ -80,13 +83,13 @@ class GSRDataSet:
         """Compute quality statistics for the dataset."""
         if not self.samples:
             return {}
-        
+
         qualities = [s.quality.value for s in self.samples]
         return {
             "min": min(qualities),
             "max": max(qualities),
             "mean": sum(qualities) / len(qualities),
-            "count": len(qualities)
+            "count": len(qualities),
         }
 
     def to_dict(self) -> Dict[str, Any]:

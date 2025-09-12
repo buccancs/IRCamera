@@ -1,4 +1,3 @@
-
 """Session management module for the PC Controller."""
 
 import json
@@ -19,6 +18,7 @@ from .config import config
 
 class SessionState(Enum):
     """Session state enumeration."""
+
     IDLE = "idle"
     ACTIVE = "active"
     RECORDING = "recording"
@@ -30,6 +30,7 @@ class SessionState(Enum):
 @dataclass
 class SessionMetadata:
     """Session metadata container."""
+
     session_id: str
     name: str
     state: str
@@ -78,18 +79,14 @@ class SessionManager:
         logger.debug(f"Data root directory ensured: {self._data_root}")
 
     def create_session(
-        self,
-        name: Optional[str] = None,
-        description: Optional[str] = None
+        self, name: Optional[str] = None, description: Optional[str] = None
     ) -> SessionMetadata:
         """Create a new recording session."""
         if self._current_session and self._current_session.state in [
             SessionState.ACTIVE.value,
             SessionState.RECORDING.value,
         ]:
-            raise ValueError(
-                "Cannot create new session: another session is active"
-            )
+            raise ValueError("Cannot create new session: another session is active")
 
         # Generate session ID and name
         session_id = str(uuid.uuid4())

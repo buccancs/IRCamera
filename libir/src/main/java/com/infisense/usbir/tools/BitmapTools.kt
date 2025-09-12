@@ -46,7 +46,6 @@ object BitmapTools {
                         imageBytes[i * 4] = grey.toByte()
                         imageBytes[i * 4 + 1] = grey.toByte()
                         imageBytes[i * 4 + 2] = grey.toByte()
-
                     }
                 }
             } else {

@@ -1,9 +1,8 @@
 """WiFi management module for network operations."""
 
 import subprocess
-import time
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from loguru import logger
 
@@ -11,6 +10,7 @@ from loguru import logger
 @dataclass
 class WiFiNetwork:
     """WiFi network information."""
+
     ssid: str
     bssid: str
     frequency: int
@@ -34,12 +34,9 @@ class WiFiManager:
             # Simplified network scanning - in real implementation
             # this would use proper WiFi APIs
             result = subprocess.run(
-                ["iwlist", "scan"], 
-                capture_output=True, 
-                text=True, 
-                timeout=30
+                ["iwlist", "scan"], capture_output=True, text=True, timeout=30
             )
-            
+
             if result.returncode == 0:
                 networks = self._parse_scan_output(result.stdout)
                 self._available_networks = networks
@@ -47,7 +44,7 @@ class WiFiManager:
             else:
                 logger.error(f"WiFi scan failed: {result.stderr}")
                 return []
-                
+
         except (subprocess.TimeoutExpired, FileNotFoundError) as e:
             logger.error(f"WiFi scan error: {e}")
             return []
@@ -55,7 +52,7 @@ class WiFiManager:
     def _parse_scan_output(self, output: str) -> List[WiFiNetwork]:
         """Parse WiFi scan output."""
         networks: List[WiFiNetwork] = []
-        
+
         # Simplified parsing - in real implementation this would
         # properly parse iwlist output
         lines = output.split("\n")
@@ -68,10 +65,10 @@ class WiFiManager:
                     bssid="00:00:00:00:00:00",
                     frequency=2400,
                     signal_strength=-50,
-                    security="WPA2"
+                    security="WPA2",
                 )
                 networks.append(network)
-        
+
         return networks
 
     def get_current_network(self) -> Optional[WiFiNetwork]:

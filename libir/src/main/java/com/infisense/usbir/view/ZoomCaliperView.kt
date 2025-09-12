@@ -59,7 +59,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
                 context,
                 R.drawable.svg_ic_target_horizontal_person_green,
             ) as? BitmapDrawable
-        )?.bitmap
+            )?.bitmap
             ?: return // Early return if bitmap is null
 //        pxBitmapHeight = originalBitmap.height.toFloat()
         originalBitmapWidth = originalBitmap.width.toFloat()
@@ -356,7 +356,7 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
                 context,
                 targetIcon,
             ) as? BitmapDrawable
-        )?.bitmap ?: return
+            )?.bitmap ?: return
         (mTextureView as ImageView).setImageBitmap(originalBitmap)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

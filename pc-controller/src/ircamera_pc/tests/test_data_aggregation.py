@@ -21,6 +21,7 @@ from ircamera_pc.data.exporter import DataExporter, ExportFormat
 from ircamera_pc.data.processor import DataProcessor
 from ircamera_pc.data.validator import DataValidator
 
+
 class TestDataAggregator(unittest.TestCase):
     """Comprehensive tests for DataAggregator functionality"""
 
@@ -245,6 +246,7 @@ class TestDataAggregator(unittest.TestCase):
         memory_stats = self.aggregator.get_memory_statistics()
         self.assertIsNotNone(memory_stats)
 
+
 class TestDataExporter(unittest.TestCase):
     """Tests for data export functionality"""
 
@@ -370,6 +372,7 @@ class TestDataExporter(unittest.TestCase):
         exported_files = os.listdir(output_dir)
         self.assertEqual(len(exported_files), 3)
 
+
 class TestDataProcessor(unittest.TestCase):
     """Tests for data processing and analysis"""
 
@@ -489,6 +492,7 @@ class TestDataProcessor(unittest.TestCase):
         self.assertGreaterEqual(value, min_val)
         self.assertLessEqual(value, max_val)
 
+
 class TestDataValidator(unittest.TestCase):
     """Tests for data validation functionality"""
 
@@ -590,6 +594,7 @@ class TestDataValidator(unittest.TestCase):
 
         result = self.validator.validate_sync_markers(invalid_markers)
         self.assertFalse(result["unique_ids"])
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

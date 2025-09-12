@@ -44,7 +44,7 @@ class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialo
                     ScreenUtil.getScreenWidth(
                         context,
                     ) * if (ScreenUtil.isPortrait(context)) 0.3 else 0.15
-                ).toInt()
+                    ).toInt()
             layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             it.attributes = layoutParams
         }

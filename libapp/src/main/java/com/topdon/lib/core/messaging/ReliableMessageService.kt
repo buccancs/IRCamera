@@ -4,19 +4,17 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.*
 import org.json.JSONObject
-import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicLong
 
 /**
  * Service for reliable message delivery with acknowledgments and retry logic
  */
 class ReliableMessageService(private val context: Context) {
-    
+
     companion object {
         private const val TAG = "ReliableMessageService"
     }
-    
+
     private val messageScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val pendingMessages = ConcurrentHashMap<String, PendingMessage>()
     private val messageHandlers = ConcurrentHashMap<String, suspend (JSONObject) -> Unit>()
@@ -30,4 +28,3 @@ class ReliableMessageService(private val context: Context) {
         Log.i(TAG, "Reliable messaging service shutdown")
     }
 }
-

@@ -43,7 +43,6 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
     }
 
     private fun setupGSRChart() {
-
         binding.gsrChart.apply {
             description =
                 Description().apply {
@@ -102,7 +101,6 @@ class GSRPlotActivity : BaseBindingActivity<ActivityGsrPlotBinding>() {
     }
 
     private fun setupPPGChart() {
-
         ppgChart.apply {
             description =
                 Description().apply {

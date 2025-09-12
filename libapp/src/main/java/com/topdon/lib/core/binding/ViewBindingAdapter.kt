@@ -1,6 +1,5 @@
 package com.topdon.lib.core.binding
 
-import android.content.res.TypedArray
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable

@@ -11,12 +11,13 @@ from typing import Any, Callable, Dict, List, Optional
 
 from loguru import logger
 
-from .config import config
+
 
 class TransferStatus(Enum):
     """Transfer job status enumeration."""
+
     PENDING = "pending"
-    IN_PROGRESS = "in_progress" 
+    IN_PROGRESS = "in_progress"
     PAUSED = "paused"
     COMPLETED = "completed"
     FAILED = "failed"
@@ -25,6 +26,7 @@ class TransferStatus(Enum):
 
 class FileType(Enum):
     """File type enumeration."""
+
     RGB_VIDEO = "rgb_video"
     RGB_IMAGES = "rgb_images"
     THERMAL_DATA = "thermal_data"
@@ -36,6 +38,7 @@ class FileType(Enum):
 @dataclass
 class FileManifest:
     """File manifest for transfer operations."""
+
     file_id: str
     filename: str
     size_bytes: int
@@ -49,6 +52,7 @@ class FileManifest:
 @dataclass
 class TransferJob:
     """Transfer job tracking data."""
+
     job_id: str
     manifest: FileManifest
     local_path: Path
@@ -126,7 +130,9 @@ class FileTransferManager:
             f"Chunk size: {self.chunk_size} bytes, Maxconcurrent: {self.max_concurrent}"
         )
 
-    def add_progress_callback(self, callback: Callable[[str, float, float], None]) -> None:
+    def add_progress_callback(
+        self, callback: Callable[[str, float, float], None]
+    ) -> None:
         """Add progress callback for transfer updates."""
         self.progress_callbacks.append(callback)
 
@@ -223,7 +229,9 @@ class FileTransferManager:
             logger.error(f"Failed to pause transfer {job_id}: {e}")
             return False
 
-    async def _read_file_chunk(self, job: "TransferJob", offset: int, size: int) -> bytes:
+    async def _read_file_chunk(
+        self, job: "TransferJob", offset: int, size: int
+    ) -> bytes:
         """Read file chunk from device."""
         try:
             # Real network communication to read file chunk from Android device
@@ -316,7 +324,7 @@ class FileTransferManager:
             job.status = TransferStatus.IN_PROGRESS
             job.start_time = time.time()
             self.concurrent_transfers += 1
-            
+
             # Start transfer in background task
             asyncio.create_task(self._perform_transfer(job))
 
@@ -327,31 +335,33 @@ class FileTransferManager:
             remaining = job.manifest.size_bytes - job.resume_offset
             while remaining > 0 and job.status == TransferStatus.IN_PROGRESS:
                 chunk_size = min(self.chunk_size, remaining)
-                chunk_data = await self._read_file_chunk(job, job.resume_offset, chunk_size)
-                
+                chunk_data = await self._read_file_chunk(
+                    job, job.resume_offset, chunk_size
+                )
+
                 # Write chunk to local file
                 with open(job.local_path, "ab") as f:
                     f.write(chunk_data)
-                
+
                 job.bytes_transferred += len(chunk_data)
                 job.resume_offset += len(chunk_data)
                 remaining -= len(chunk_data)
-                
+
                 await self._update_progress(job)
-            
+
             if remaining == 0:
                 job.status = TransferStatus.COMPLETED
                 job.end_time = time.time()
                 if self.verify_checksums:
                     await self._verify_file_integrity(job)
-                
+
                 # Move to completed jobs
                 self.completed_jobs[job.job_id] = job
                 del self.active_jobs[job.job_id]
-                
+
             self.concurrent_transfers -= 1
             await self._start_next_transfer()  # Start next queued transfer
-            
+
         except Exception as e:
             job.status = TransferStatus.FAILED
             job.error_message = str(e)

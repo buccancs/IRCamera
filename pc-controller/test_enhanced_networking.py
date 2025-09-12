@@ -9,19 +9,16 @@ Tests all the enhanced networking components:
 - Network Server integration
 """
 
-import asyncio
 import sys
 import tempfile
-import uuid
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ircamera_pc.network.discovery import DeviceType, NetworkDiscoveryService
-from ircamera_pc.network.messaging import MessagePriority, ReliableMessageService
+from ircamera_pc.network.messaging import ReliableMessageService
 from ircamera_pc.network.security import SecurityManager
-from ircamera_pc.network.server import NetworkServer
 
 try:
     from loguru import logger
@@ -30,6 +27,7 @@ except ImportError:
 
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
+
 
 class EnhancedNetworkingTests:
     """Comprehensive test suite for enhanced networking features."""
@@ -64,7 +62,9 @@ class EnhancedNetworkingTests:
 
             with patch.object(SecurityManager, "__init__", self._mock_security_init):
                 security_manager = SecurityManager()
-                security_manager.cert_dir = Path(self.temp_dir) if self.temp_dir else Path.cwd()
+                security_manager.cert_dir = (
+                    Path(self.temp_dir) if self.temp_dir else Path.cwd()
+                )
                 security_manager.ca_cert_path = (
                     security_manager.cert_dir / "ca_cert.pem"
                 )
@@ -217,7 +217,7 @@ class EnhancedNetworkingTests:
                 logger.error("Messaging service should be running")
                 return False
             logger.info("OK Service initialization")
-            
+
             self.test_results["reliable_messaging"] = True
             logger.info("OK Reliable Messaging tests passed")
 

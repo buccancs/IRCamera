@@ -58,7 +58,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.13.2")
     
     // Enhanced BLE Module with Nordic BLE backend
-    implementation(project(":BleModule"))
+    // implementation(project(":BleModule")) // Commented out temporarily during rebase
     
     // Kotlin Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")

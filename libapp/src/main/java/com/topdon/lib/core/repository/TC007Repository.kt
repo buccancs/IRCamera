@@ -3,25 +3,17 @@ package com.topdon.lib.core.repository
 import android.graphics.Point
 import android.graphics.Rect
 import android.net.Network
-import com.blankj.utilcode.util.EncryptUtils
 import com.elvishew.xlog.XLog
 import com.google.gson.Gson
 import com.topdon.lib.core.http.converter.StringConverterFactory
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
-import java.io.FileInputStream
-import java.util.Calendar
-import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 object TC007Repository {

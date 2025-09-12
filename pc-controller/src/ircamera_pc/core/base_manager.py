@@ -1,4 +1,3 @@
-
 """Base manager class for common functionality."""
 
 from __future__ import annotations
@@ -9,6 +8,7 @@ from typing import Any, Dict, Optional
 
 try:
     from PyQt6.QtCore import QObject, pyqtSignal
+
     PYQT_AVAILABLE = True
     BaseClass = QObject
 except ImportError:
@@ -74,7 +74,7 @@ class BaseManager(BaseClass, ABC):
         """Handle and log errors."""
         self._last_error = message
         error_details = f"{error_type}: {message}"
-        
+
         if exception:
             error_details = f"{error_details} - {exception}"
             logger.error(error_details, exc_info=True)
@@ -87,12 +87,10 @@ class BaseManager(BaseClass, ABC):
     @abstractmethod
     def initialize(self) -> bool:
         """Initialize the manager."""
-        pass
 
     @abstractmethod
     def cleanup(self) -> None:
         """Cleanup manager resources."""
-        pass
 
     def __repr__(self) -> str:
         """String representation."""
