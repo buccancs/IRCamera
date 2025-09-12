@@ -123,7 +123,7 @@ class NetworkClient(private val context: Context) {
     /**
      * Get authentication token for controller
      */
-    fun getAuthToken(controllerId: String): DeviceAuthenticationManager.AuthToken? {
+    fun getAuthToken(controllerId: String): AuthToken? {
         return authManager.getAuthToken(controllerId)
     }
 

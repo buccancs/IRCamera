@@ -228,8 +228,8 @@ class QualityOfServiceManager(private val context: Context) {
      * Adapt streaming parameters based on network conditions
      */
     private fun adaptParameters() {
-        val bandwidth = currentBandwidth.get()
-        val latency = networkLatency.get()
+        val bandwidth = currentBandwidth
+        val latency = networkLatency
         val utilization = calculateBandwidthUtilization()
 
         // Adjust batch size based on network conditions
@@ -253,7 +253,7 @@ class QualityOfServiceManager(private val context: Context) {
      * Calculate current bandwidth utilization
      */
     private fun calculateBandwidthUtilization(): Float {
-        val availableBandwidth = currentBandwidth.get()
+        val availableBandwidth = currentBandwidth
         if (availableBandwidth <= 0) return 1.0f
 
         val usedBandwidth = calculateCurrentUsage()

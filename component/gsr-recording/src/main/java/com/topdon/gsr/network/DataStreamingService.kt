@@ -73,7 +73,7 @@ class DataStreamingService(
                 // Notify PC Controller that streaming started
                 val success = networkClient.startDataStreaming()
                 if (success) {
-                    eventListener?.onStreamingStarted(sessionId)
+                    eventListener?.onStreamingStarted()
                     Log.i(TAG, "Data streaming started for session: $sessionId")
                     true
                 } else {
@@ -126,7 +126,7 @@ class DataStreamingService(
         if (thermalQueue.size >= MAX_QUEUE_SIZE) {
             val dropped = minOf(BATCH_SIZE, thermalQueue.size / 2)
             repeat(dropped) { thermalQueue.poll() }
-            eventListener?.onQueueFull("Thermal", dropped)
+            eventListener?.onQueueFull("Thermal")
             Log.w(TAG, "Thermal queue full, dropped $dropped samples")
         }
 
@@ -142,7 +142,7 @@ class DataStreamingService(
         if (videoMetadataQueue.size >= MAX_QUEUE_SIZE) {
             val dropped = minOf(BATCH_SIZE, videoMetadataQueue.size / 2)
             repeat(dropped) { videoMetadataQueue.poll() }
-            eventListener?.onQueueFull("VideoMetadata", dropped)
+            eventListener?.onQueueFull("VideoMetadata")
             Log.w(TAG, "Video metadata queue full, dropped $dropped samples")
         }
 
@@ -189,7 +189,7 @@ class DataStreamingService(
         if (batch.isNotEmpty()) {
             val batchData = createGSRBatchJson(batch)
             if (sendBatchWithRetry(batchData, "gsr")) {
-                eventListener?.onBatchSent(batch.size, "GSR")
+                eventListener?.onBatchSent(batch.size)
             }
         }
     }
@@ -203,7 +203,7 @@ class DataStreamingService(
         if (batch.isNotEmpty()) {
             val batchData = createThermalBatchJson(batch)
             if (sendBatchWithRetry(batchData, "thermal")) {
-                eventListener?.onBatchSent(batch.size, "Thermal")
+                eventListener?.onBatchSent(batch.size)
             }
         }
     }
@@ -217,7 +217,7 @@ class DataStreamingService(
         if (batch.isNotEmpty()) {
             val batchData = createVideoMetadataBatchJson(batch)
             if (sendBatchWithRetry(batchData, "video_metadata")) {
-                eventListener?.onBatchSent(batch.size, "VideoMetadata")
+                eventListener?.onBatchSent(batch.size)
             }
         }
     }

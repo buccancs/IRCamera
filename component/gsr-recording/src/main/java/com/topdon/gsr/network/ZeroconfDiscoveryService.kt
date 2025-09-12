@@ -237,7 +237,7 @@ class ZeroconfDiscoveryService(private val context: Context) {
             override fun onServiceLost(service: NsdServiceInfo) {
                 Log.i(TAG, "Service lost: ${service.serviceName}")
                 discoveredServices.remove(service.serviceName)
-                serviceEventListener?.onServiceLost(service.serviceName)
+                serviceEventListener?.onControllerLost(service.serviceName)
             }
 
             override fun onDiscoveryStopped(serviceType: String) {
@@ -260,43 +260,6 @@ class ZeroconfDiscoveryService(private val context: Context) {
             ) {
                 Log.e(TAG, "Discovery failed to stop: $serviceType, error: $errorCode")
                 serviceEventListener?.onDiscoveryError(errorCode, "Failed to stop discovery")
-            }
-        }
-    }
-
-    private fun createResolveListener(): NsdManager.ResolveListener {
-        return object : NsdManager.ResolveListener {
-            override fun onResolveFailed(
-                serviceInfo: NsdServiceInfo,
-                errorCode: Int,
-            ) {
-                Log.e(TAG, "Resolve failed: ${serviceInfo.serviceName}, error: $errorCode")
-            }
-
-            override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
-                Log.i(TAG, "Service resolved: ${serviceInfo.serviceName} at ${serviceInfo.host}:${serviceInfo.port}")
-
-                discoveredServices[serviceInfo.serviceName] = serviceInfo
-
-                // Notify listener
-                try {
-                    val host = serviceInfo.host?.hostAddress ?: return
-                    val port = serviceInfo.port
-                    val deviceName = serviceInfo.serviceName
-                    val capabilities = emptyList<String>() // Capabilities not available in basic NSD
-
-                    val controllerInfo = ControllerInfo(
-                        ipAddress = host,
-                        port = port,
-                        controllerId = deviceName,
-                        name = deviceName,
-                        capabilities = capabilities,
-                    )
-
-                    serviceEventListener?.onControllerDiscovered(controllerInfo)
-                } catch (e: Exception) {
-                    Log.w(TAG, "Failed to parse resolved service", e)
-                }
             }
         }
     }
