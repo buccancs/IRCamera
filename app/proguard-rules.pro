@@ -93,6 +93,20 @@
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 
+# MethodHandle API compatibility rules (Phase 0-4 implementation)
+-keep class java.lang.invoke.** { *; }
+-dontwarn java.lang.invoke.**
+-keep class kotlin.jvm.internal.** { *; }
+
+# Enhanced Kotlin compatibility
+-keep class kotlin.** { *; }
+-keep class kotlinx.coroutines.** { *; }
+-dontwarn kotlinx.coroutines.**
+
+# Network client compatibility (Phase 0-4 implementation)
+-keep class com.topdon.tc001.network.** { *; }
+-keep class com.topdon.gsr.network.** { *; }
+
 # ====================================================
 # Performance optimization rules
 # ====================================================

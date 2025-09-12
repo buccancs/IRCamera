@@ -55,7 +55,7 @@ import kotlin.math.abs
 
                 if (bestOffset != null && successCount > 0) {
                     // Apply the best clock offset
-                    clockOffsetNs.set(bestOffset)
+                    clockOffsetNs.set(bestOffset!!)
                     lastSyncTimestamp.set(getCurrentTimestampNs())
                     syncQualityMs.set(bestRtt / 1_000_000)
                     isTimeSynced = true
