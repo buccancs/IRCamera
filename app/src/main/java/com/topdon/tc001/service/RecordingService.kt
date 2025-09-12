@@ -19,9 +19,7 @@ import com.topdon.gsr.model.SyncMark
 import com.topdon.tc001.network.EnhancedNetworkClient
 import com.topdon.tc001.network.NetworkClient
 import com.topdon.tc001.network.NetworkServer
-import com.topdon.tc001.network.ZeroconfDiscoveryService
 import com.topdon.tc001.utils.TimeManager
-import com.topdon.tc001.ScreenFlashActivity
 import com.csl.irCamera.R
 // Phase 0 baseline imports
 import com.topdon.tc001.config.FeatureFlags
@@ -62,7 +60,6 @@ class RecordingService : LifecycleService() {
     companion object {
         private const val TAG = "RecordingService"
         private const val NOTIFICATION_ID = 1001
-        private const val FLASH_NOTIFICATION_ID = 1002
         private const val CHANNEL_ID = "recording_service_channel"
         
         // Server socket configuration
@@ -179,16 +176,13 @@ class RecordingService : LifecycleService() {
     // Service binding
     private val binder = RecordingServiceBinder()
     
-    // Recording controller with enhanced coordination
+    // Recording controller
     private lateinit var recordingController: RecordingController
-    private lateinit var sensorCoordinator: com.topdon.tc001.controller.SensorCoordinator
     private var isInitialized = false
-    private var isCoordinatorInitialized = false
     
     // Network communication - both client and server capabilities
     private lateinit var networkClient: NetworkClient
     private lateinit var networkServer: NetworkServer
-    private lateinit var zeroconfDiscoveryService: ZeroconfDiscoveryService
     private var isNetworkInitialized = false
     private var isConnectedToPC = false
     
@@ -229,171 +223,7 @@ class RecordingService : LifecycleService() {
         fun getService(): RecordingService = this@RecordingService
         fun getRecordingController(): RecordingController = recordingController
         fun getNetworkServer(): NetworkServer = networkServer
-        fun getSensorCoordinator(): com.topdon.tc001.controller.SensorCoordinator = 
-            if (::sensorCoordinator.isInitialized) sensorCoordinator 
-            else throw IllegalStateException("SensorCoordinator not initialized")
-            
         fun isConnectedToPC(): Boolean = isConnectedToPC
-    }
-    
-    /**
-     * Enhanced sensor initialization using Phase 5 SensorCoordinator
-     */
-    private suspend fun initializeEnhancedSensorCoordination(): Boolean {
-        return try {
-            Log.i(TAG, "Initializing enhanced sensor coordination (Phase 5)")
-            
-            // Initialize the new SensorCoordinator
-            sensorCoordinator = com.topdon.tc001.controller.SensorCoordinator(this)
-            
-            // Monitor coordination events
-            lifecycleScope.launch {
-                sensorCoordinator.coordinationEvents.collect { event ->
-                    handleCoordinationEvent(event)
-                }
-            }
-            
-            // Monitor sensor statuses
-            lifecycleScope.launch {
-                sensorCoordinator.sensorStatuses.collect { statuses ->
-                    handleSensorStatusUpdate(statuses)
-                }
-            }
-            
-            // Initialize all sensors
-            val success = sensorCoordinator.initializeAllSensors()
-            isCoordinatorInitialized = success
-            
-            if (success) {
-                Log.i(TAG, "Enhanced sensor coordination initialized successfully")
-            } else {
-                Log.w(TAG, "Enhanced sensor coordination initialization failed")
-            }
-            
-            success
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to initialize enhanced sensor coordination", e)
-            false
-        }
-    }
-    
-    /**
-     * Handle coordination events from SensorCoordinator
-     */
-    private suspend fun handleCoordinationEvent(event: com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent) {
-        when (event) {
-            is com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent.InitializationStarted -> {
-                Log.i(TAG, "Sensor initialization started")
-                updateForegroundNotification("Initializing sensors...")
-            }
-            is com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent.SensorInitialized -> {
-                Log.i(TAG, "Sensor ${event.sensorId} initialized: ${event.success}")
-            }
-            is com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent.AllSensorsReady -> {
-                Log.i(TAG, "All sensors ready for recording")
-                updateForegroundNotification("Ready for recording")
-            }
-            is com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent.RecordingStarted -> {
-                Log.i(TAG, "Coordinated recording started")
-                updateForegroundNotification("Recording in progress...")
-            }
-            is com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent.RecordingStopped -> {
-                Log.i(TAG, "Coordinated recording stopped")
-                updateForegroundNotification("Recording stopped")
-            }
-            is com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent.SensorError -> {
-                Log.w(TAG, "Sensor error: ${event.sensorId} - ${event.error}")
-                // Could trigger recovery mechanisms here
-            }
-            is com.topdon.tc001.controller.SensorCoordinator.CoordinationEvent.SyncMarkerDistributed -> {
-                Log.d(TAG, "Sync marker distributed: ${event.eventType} at ${event.timestamp}")
-            }
-            else -> {
-                Log.d(TAG, "Coordination event: $event")
-            }
-        }
-    }
-    
-    /**
-     * Handle sensor status updates
-     */
-    private fun handleSensorStatusUpdate(statuses: Map<String, com.topdon.tc001.controller.SensorCoordinator.SensorStatus>) {
-        val healthySensors = statuses.values.count { it.isHealthy }
-        val totalSensors = statuses.size
-        val recordingSensors = statuses.values.count { it.isRecording }
-        
-        Log.d(TAG, "Sensor status: $healthySensors/$totalSensors healthy, $recordingSensors recording")
-        
-        // Check for critical sensor failures
-        val failedSensors = statuses.values.filter { !it.isHealthy && it.errorMessage != null }
-        if (failedSensors.isNotEmpty()) {
-            Log.w(TAG, "Failed sensors detected: ${failedSensors.map { "${it.sensorId}: ${it.errorMessage}" }}")
-        }
-    }
-    
-    /**
-     * Enhanced recording start with coordination
-     */
-    private suspend fun startEnhancedRecording(sessionDirectory: String): Boolean {
-        return try {
-            if (!isCoordinatorInitialized) {
-                Log.w(TAG, "Sensor coordinator not initialized")
-                return false
-            }
-            
-            val sessionDir = java.io.File(sessionDirectory)
-            if (!sessionDir.exists()) {
-                sessionDir.mkdirs()
-            }
-            
-            Log.i(TAG, "Starting enhanced coordinated recording")
-            val success = sensorCoordinator.startCoordinatedRecording(sessionDir)
-            
-            if (success) {
-                currentSessionDirectory = sessionDirectory
-                recordingStartTime = System.currentTimeMillis()
-                Log.i(TAG, "Enhanced recording started successfully")
-            } else {
-                Log.e(TAG, "Failed to start enhanced recording")
-            }
-            
-            success
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "Error starting enhanced recording", e)
-            false
-        }
-    }
-    
-    /**
-     * Enhanced recording stop with coordination
-     */
-    private suspend fun stopEnhancedRecording(): Boolean {
-        return try {
-            if (!isCoordinatorInitialized) {
-                Log.w(TAG, "Sensor coordinator not initialized")
-                return false
-            }
-            
-            Log.i(TAG, "Stopping enhanced coordinated recording")
-            val success = sensorCoordinator.stopCoordinatedRecording()
-            
-            if (success) {
-                val duration = System.currentTimeMillis() - recordingStartTime
-                Log.i(TAG, "Enhanced recording stopped successfully, duration: ${duration}ms")
-                currentSessionDirectory = null
-                recordingStartTime = 0
-            } else {
-                Log.e(TAG, "Failed to stop enhanced recording")
-            }
-            
-            success
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "Error stopping enhanced recording", e) 
-            false
-        }
     }
 
     override fun onCreate() {
@@ -425,7 +255,6 @@ class RecordingService : LifecycleService() {
         // Initialize both network client and server for maximum compatibility
         networkClient = NetworkClient(this)
         networkServer = NetworkServer(this, 8080)
-        zeroconfDiscoveryService = ZeroconfDiscoveryService(this)
         
         // Initialize sensors and dual network architecture
         lifecycleScope.launch {
@@ -1675,57 +1504,10 @@ class RecordingService : LifecycleService() {
                     // Use client discovery
                     startNetworkDiscovery()
                 } else {
-                    // Implement PC discovery using zeroconf/mDNS
-                    Log.i(TAG, "Starting PC Controller discovery using zeroconf/mDNS")
+                    // TODO: Implement PC discovery using zeroconf/mDNS
+                    // For now, log that discovery was requested
+                    Log.i(TAG, "PC Controller discovery requested")
                     updateNotification("Searching for PC Controller...")
-                    
-                    zeroconfDiscoveryService.setServiceListener(object : ZeroconfDiscoveryService.ServiceDiscoveryListener {
-                        override fun onServiceDiscovered(serviceInfo: NetworkClient.ControllerInfo) {
-                            Log.i(TAG, "PC Controller discovered: ${serviceInfo.address}:${serviceInfo.port}")
-                            lifecycleScope.launch {
-                                try {
-                                    // Connect to discovered PC Controller using server info
-                                    val serverInfo = WebSocketClient.ServerInfo(
-                                        host = serviceInfo.address,
-                                        port = serviceInfo.port,
-                                        protocol = "ws", // or "wss" for secure
-                                        path = "/api/v1/ws"
-                                    )
-                                    // Note: This would require adding a connectToServer method or similar
-                                    // For now, log the connection attempt
-                                    Log.i(TAG, "Would connect to PC Controller at ${serviceInfo.address}:${serviceInfo.port}")
-                                    updateNotification("PC Controller found")
-                                } catch (e: Exception) {
-                                    Log.e(TAG, "Failed to connect to discovered PC Controller", e)
-                                }
-                            }
-                        }
-                        
-                        override fun onServiceLost(serviceName: String) {
-                            Log.i(TAG, "PC Controller service lost: $serviceName")
-                        }
-                        
-                        override fun onServiceRegistered(serviceName: String) {
-                            Log.i(TAG, "Service registered: $serviceName")
-                        }
-                        
-                        override fun onDiscoveryError(errorCode: Int, message: String) {
-                            Log.e(TAG, "Discovery error $errorCode: $message")
-                            updateNotification("Discovery failed")
-                        }
-                    })
-                    
-                    lifecycleScope.launch {
-                        try {
-                            val success = zeroconfDiscoveryService.startDiscovery()
-                            if (!success) {
-                                Log.w(TAG, "Failed to start PC Controller discovery")
-                                updateNotification("Discovery failed")
-                            }
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Error starting zeroconf discovery", e)
-                        }
-                    }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error starting PC discovery", e)
@@ -2189,21 +1971,8 @@ class RecordingService : LifecycleService() {
                 // Add sync marker to recording
                 addSyncMarker("flash_sync", timestamp)
                 
-                // Implement screen flash functionality
-                // Use overlay activity to flash the screen
-                try {
-                    val flashIntent = Intent(this, ScreenFlashActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        putExtra("timestamp_ns", timestamp)
-                        putExtra("flash_duration_ms", 100) // 100ms flash
-                    }
-                    startActivity(flashIntent)
-                    Log.i(TAG, "Screen flash activity started")
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to start screen flash activity", e)
-                    // Fallback: Use notification as visual indicator
-                    showFlashNotification(timestamp)
-                }
+                // TODO: Implement screen flash functionality
+                // This would require UI interaction which is complex from a background service
                 
                 // Send acknowledgment back to PC Controller
                 val response = JSONObject().apply {
@@ -2412,52 +2181,13 @@ class RecordingService : LifecycleService() {
     private fun startPCDiscovery() {
         lifecycleScope.launch {
             try {
-                // Implement PC discovery using zeroconf/mDNS
-                Log.i(TAG, "Starting PC Controller discovery using zeroconf/mDNS")
+                // TODO: Implement PC discovery using zeroconf/mDNS
+                // For now, log that discovery was requested
+                Log.i(TAG, "PC Controller discovery requested")
                 updateNotification("Searching for PC Controller...")
                 
-                // Use the same discovery logic as above
-                zeroconfDiscoveryService.setServiceListener(object : ZeroconfDiscoveryService.ServiceDiscoveryListener {
-                    override fun onServiceDiscovered(serviceInfo: NetworkClient.ControllerInfo) {
-                        Log.i(TAG, "PC Controller discovered via discovery: ${serviceInfo.address}:${serviceInfo.port}")
-                        lifecycleScope.launch {
-                            try {
-                                // Connect to discovered PC Controller using server info  
-                                val serverInfo = WebSocketClient.ServerInfo(
-                                    host = serviceInfo.address,
-                                    port = serviceInfo.port,
-                                    protocol = "ws", // or "wss" for secure
-                                    path = "/api/v1/ws"
-                                )
-                                // Note: This would require adding a connectToServer method or similar
-                                // For now, log the connection attempt
-                                Log.i(TAG, "Would connect to PC Controller at ${serviceInfo.address}:${serviceInfo.port}")
-                                updateNotification("PC Controller found")
-                            } catch (e: Exception) {
-                                Log.e(TAG, "Failed to connect to discovered PC Controller", e)
-                            }
-                        }
-                    }
-                    
-                    override fun onServiceLost(serviceName: String) {
-                        Log.i(TAG, "PC Controller service lost: $serviceName")
-                    }
-                    
-                    override fun onServiceRegistered(serviceName: String) {
-                        Log.i(TAG, "Service registered: $serviceName")
-                    }
-                    
-                    override fun onDiscoveryError(errorCode: Int, message: String) {
-                        Log.e(TAG, "Discovery error $errorCode: $message")
-                        updateNotification("Discovery failed")
-                    }
-                })
-                
-                val success = zeroconfDiscoveryService.startDiscovery()
-                if (!success) {
-                    Log.w(TAG, "Failed to start PC Controller discovery")
-                    updateNotification("Discovery failed")
-                }
+                // This could be extended to use NetworkDiscoveryService
+                // or implement manual discovery logic here
             } catch (e: Exception) {
                 Log.e(TAG, "Error starting PC discovery", e)
             }
@@ -2581,32 +2311,6 @@ class RecordingService : LifecycleService() {
             Log.e(TAG, "Error sending status to PC", e)
         }
     }
-    
-    /**
-     * Show flash notification as fallback when screen flash activity fails
-     */
-    private fun showFlashNotification(timestamp: Long) {
-        try {
-            val flashNotification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Sync Flash")
-                .setContentText("Timestamp: $timestamp")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                .setTimeoutAfter(500) // Auto-dismiss after 500ms
-                .build()
-                
-            notificationManager.notify(FLASH_NOTIFICATION_ID, flashNotification)
-            
-            // Auto-cancel the notification after a short delay
-            lifecycleScope.launch {
-                delay(500)
-                notificationManager.cancel(FLASH_NOTIFICATION_ID)
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to show flash notification", e)
-        }
-    }
 >>>>>>> dev
 }
 
@@ -2618,4 +2322,3 @@ data class SessionInfo(
     val startTime: Long,
     val isRecording: Boolean
 )
->>>>>>> dev
