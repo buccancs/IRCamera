@@ -240,9 +240,6 @@ dependencies {
     implementation(project(":libui"))
     implementation(project(":libmenu"))               // Menu resources needed by app
     
-    // Enhanced BLE Module with Nordic BLE backend for systematic harmonization
-    implementation(project(":BleModule"))
-
     // ARouter configuration
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)

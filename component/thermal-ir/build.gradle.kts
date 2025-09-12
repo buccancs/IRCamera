@@ -145,9 +145,6 @@ dependencies {
     implementation("io.github.scwang90:refresh-layout-kernel:2.1.1")
     implementation("io.github.scwang90:refresh-header-classics:2.1.1")
     
-    // Enhanced unified BLE system integration for cross-modal coordination
-    implementation(project(":BleModule"))
-    
     // LocalBroadcastManager support (deprecated but still needed for legacy code)
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 }
