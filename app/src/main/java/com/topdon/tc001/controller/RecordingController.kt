@@ -108,7 +108,6 @@ class RecordingController(
                         }
                     }
                 )
-                )
                 
                 val initResults = initJobs.awaitAll()
                 

@@ -71,14 +71,11 @@ class RecordingService : LifecycleService() {
         const val ACTION_START_RECORDING = "com.topdon.tc001.START_RECORDING"
         const val ACTION_STOP_RECORDING = "com.topdon.tc001.STOP_RECORDING"
         const val ACTION_ADD_SYNC_MARKER = "com.topdon.tc001.ADD_SYNC_MARKER"
-<<<<<<< HEAD
         const val ACTION_START_SERVER = "com.topdon.tc001.START_SERVER"
         const val ACTION_STOP_SERVER = "com.topdon.tc001.STOP_SERVER"
-=======
         const val ACTION_CONNECT_PC = "com.topdon.tc001.CONNECT_PC"
         const val ACTION_DISCONNECT_PC = "com.topdon.tc001.DISCONNECT_PC"
         const val ACTION_START_DISCOVERY = "com.topdon.tc001.START_DISCOVERY"
->>>>>>> dev
         
         // Extras
         const val EXTRA_SESSION_DIRECTORY = "session_directory"
@@ -1504,13 +1501,134 @@ class RecordingService : LifecycleService() {
                     // Use client discovery
                     startNetworkDiscovery()
                 } else {
-                    // TODO: Implement PC discovery using zeroconf/mDNS
-                    // For now, log that discovery was requested
-                    Log.i(TAG, "PC Controller discovery requested")
-                    updateNotification("Searching for PC Controller...")
+                    // Implement PC discovery using zeroconf/mDNS service discovery
+                    discoverPCController()
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error starting PC discovery", e)
+            }
+        }
+    }
+    
+    /**
+     * Discover PC Controller using NSD (Network Service Discovery) - Android's implementation of mDNS/Zeroconf
+     */
+    private suspend fun discoverPCController() {
+        withContext(Dispatchers.IO) {
+            try {
+                updateNotification("Discovering PC Controller via mDNS...")
+                
+                val nsdManager = getSystemService(Context.NSD_SERVICE) as NsdManager
+                val serviceType = "_physio-hub._tcp"
+                
+                val discoveryListener = object : NsdManager.DiscoveryListener {
+                    override fun onStartDiscoveryFailed(serviceType: String?, errorCode: Int) {
+                        Log.e(TAG, "Discovery failed to start: $errorCode")
+                    }
+                    
+                    override fun onStopDiscoveryFailed(serviceType: String?, errorCode: Int) {
+                        Log.e(TAG, "Discovery failed to stop: $errorCode")
+                    }
+                    
+                    override fun onDiscoveryStarted(serviceType: String?) {
+                        Log.d(TAG, "Service discovery started for: $serviceType")
+                    }
+                    
+                    override fun onDiscoveryStopped(serviceType: String?) {
+                        Log.d(TAG, "Service discovery stopped")
+                    }
+                    
+                    override fun onServiceFound(serviceInfo: NsdServiceInfo?) {
+                        serviceInfo?.let { info ->
+                            Log.d(TAG, "Service found: ${info.serviceName}")
+                            if (info.serviceName.contains("PhysioHub") || info.serviceName.contains("PC-Controller")) {
+                                // Resolve the service to get IP and port
+                                nsdManager.resolveService(info, object : NsdManager.ResolveListener {
+                                    override fun onResolveFailed(serviceInfo: NsdServiceInfo?, errorCode: Int) {
+                                        Log.e(TAG, "Resolve failed: $errorCode")
+                                    }
+                                    
+                                    override fun onServiceResolved(serviceInfo: NsdServiceInfo?) {
+                                        serviceInfo?.let { resolved ->
+                                            val host = resolved.host?.hostAddress ?: return
+                                            val port = resolved.port
+                                            Log.i(TAG, "PC Controller discovered at $host:$port")
+                                            
+                                            lifecycleScope.launch {
+                                                // Attempt connection to discovered PC
+                                                connectToPCController(host, port)
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    
+                    override fun onServiceLost(serviceInfo: NsdServiceInfo?) {
+                        Log.d(TAG, "Service lost: ${serviceInfo?.serviceName}")
+                    }
+                }
+                
+                nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryListener)
+                
+                // Fallback to common IP discovery after 10 seconds
+                delay(10000)
+                Log.i(TAG, "mDNS discovery timeout, trying common addresses...")
+                tryCommonPCAddresses()
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Error during PC discovery", e)
+                tryCommonPCAddresses()
+            }
+        }
+    }
+    
+    /**
+     * Fallback method to try common PC Controller addresses
+     */
+    private suspend fun tryCommonPCAddresses() {
+        val commonAddresses = listOf(
+            "192.168.1.100:8080",
+            "192.168.0.100:8080", 
+            "10.0.0.100:8080",
+            "127.0.0.1:8080"
+        )
+        
+        for (address in commonAddresses) {
+            try {
+                val parts = address.split(":")
+                if (parts.size == 2) {
+                    val host = parts[0]
+                    val port = parts[1].toInt()
+                    
+                    Log.d(TAG, "Trying PC Controller at $host:$port")
+                    connectToPCController(host, port)
+                    break // Stop on first successful connection
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, "Failed to connect to $address: ${e.message}")
+            }
+        }
+    }
+    
+    /**
+     * Attempt connection to PC Controller at specified address
+     */
+    private suspend fun connectToPCController(host: String, port: Int) {
+        withContext(Dispatchers.IO) {
+            try {
+                updateNotification("Connecting to PC Controller at $host:$port...")
+                
+                // Initialize network client with discovered address
+                if (!isNetworkInitialized) {
+                    initializeNetworking()
+                }
+                
+                networkClient?.connectToServer(host, port)
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to connect to PC Controller at $host:$port", e)
             }
         }
     }
@@ -1971,8 +2089,8 @@ class RecordingService : LifecycleService() {
                 // Add sync marker to recording
                 addSyncMarker("flash_sync", timestamp)
                 
-                // TODO: Implement screen flash functionality
-                // This would require UI interaction which is complex from a background service
+                // Implement screen flash functionality using Intent to launch flash activity
+                triggerScreenFlash()
                 
                 // Send acknowledgment back to PC Controller
                 val response = JSONObject().apply {
@@ -2181,13 +2299,9 @@ class RecordingService : LifecycleService() {
     private fun startPCDiscovery() {
         lifecycleScope.launch {
             try {
-                // TODO: Implement PC discovery using zeroconf/mDNS
-                // For now, log that discovery was requested
-                Log.i(TAG, "PC Controller discovery requested")
-                updateNotification("Searching for PC Controller...")
+                // Implement PC discovery using zeroconf/mDNS via the previously implemented method
+                discoverPCController()
                 
-                // This could be extended to use NetworkDiscoveryService
-                // or implement manual discovery logic here
             } catch (e: Exception) {
                 Log.e(TAG, "Error starting PC discovery", e)
             }
@@ -2311,7 +2425,24 @@ class RecordingService : LifecycleService() {
             Log.e(TAG, "Error sending status to PC", e)
         }
     }
->>>>>>> dev
+    
+    /**
+     * Trigger screen flash for synchronization purposes
+     * Launches a dedicated activity that flashes the screen white
+     */
+    private fun triggerScreenFlash() {
+        try {
+            val flashIntent = Intent(this, ScreenFlashActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                putExtra("timestamp_ns", System.nanoTime())
+                putExtra("flash_duration_ms", 500L)
+            }
+            startActivity(flashIntent)
+            Log.d(TAG, "Screen flash activity launched for sync")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error triggering screen flash", e)
+        }
+    }
 }
 
 /**
