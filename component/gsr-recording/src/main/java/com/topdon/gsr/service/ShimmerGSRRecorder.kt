@@ -31,6 +31,17 @@ class ShimmerGSRRecorder(
     private val context: Context,
     private val samplingRateHz: Int = 128,
 ) {
+    
+    /**
+     * Information about discovered Shimmer devices
+     */
+    data class ShimmerDeviceInfo(
+        val name: String,
+        val address: String,
+        val bondState: Int,
+        val isPaired: Boolean,
+        val isConnected: Boolean
+    )
     companion object {
         private const val TAG = "ShimmerGSRRecorder"
         private const val SESSIONS_DIR = "IRCamera_Sessions"
@@ -102,7 +113,143 @@ class ShimmerGSRRecorder(
     }
 
     /**
-     * Initialize Shimmer device connection
+     * Enhanced device connection with automatic retry and recovery
+     */
+    suspend fun initializeDeviceWithRetry(
+        deviceAddress: String? = null,
+        maxRetries: Int = 3,
+        retryDelayMs: Long = 2000
+    ): Boolean = withContext(Dispatchers.IO) {
+        var attempts = 0
+        var lastError: String? = null
+        
+        while (attempts < maxRetries) {
+            attempts++
+            Log.i(TAG, "Attempting device connection (attempt $attempts/$maxRetries)")
+            
+            try {
+                if (initializeDevice(deviceAddress)) {
+                    Log.i(TAG, "Device connected successfully on attempt $attempts")
+                    return@withContext true
+                }
+                lastError = "Connection failed"
+            } catch (e: Exception) {
+                lastError = e.message ?: "Unknown error"
+                Log.w(TAG, "Connection attempt $attempts failed: $lastError")
+            }
+            
+            if (attempts < maxRetries) {
+                Log.i(TAG, "Retrying connection in ${retryDelayMs}ms...")
+                delay(retryDelayMs)
+            }
+        }
+        
+        val errorMsg = "Failed to connect after $maxRetries attempts. Last error: $lastError"
+        Log.e(TAG, errorMsg)
+        notifyError(errorMsg)
+        return@withContext false
+    }
+    
+    /**
+     * Enhanced device discovery with comprehensive error handling
+     */
+    suspend fun discoverShimmerDevices(): List<ShimmerDeviceInfo> = withContext(Dispatchers.IO) {
+        val devices = mutableListOf<ShimmerDeviceInfo>()
+        
+        try {
+            // Check Bluetooth availability
+            val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+            bluetoothAdapter = bluetoothManager.adapter
+            
+            if (bluetoothAdapter == null) {
+                notifyError("Bluetooth not supported on this device")
+                return@withContext emptyList()
+            }
+            
+            if (!bluetoothAdapter!!.isEnabled) {
+                notifyError("Bluetooth is disabled. Please enable Bluetooth to discover Shimmer devices.")
+                return@withContext emptyList()
+            }
+            
+            // Check permissions
+            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                notifyError("BLUETOOTH_CONNECT permission not granted")
+                return@withContext emptyList()
+            }
+            
+            // Get paired devices
+            val pairedDevices = bluetoothAdapter!!.bondedDevices
+            pairedDevices?.forEach { device ->
+                if (device.name?.contains("Shimmer", ignoreCase = true) == true) {
+                    devices.add(
+                        ShimmerDeviceInfo(
+                            name = device.name ?: "Unknown Shimmer",
+                            address = device.address,
+                            bondState = device.bondState,
+                            isPaired = true,
+                            isConnected = device.address == shimmerDevice?.getBluetoothAddress()
+                        )
+                    )
+                }
+            }
+            
+            Log.i(TAG, "Discovered ${devices.size} Shimmer devices")
+            return@withContext devices
+            
+        } catch (e: SecurityException) {
+            val errorMsg = "Security exception during device discovery: ${e.message}"
+            Log.e(TAG, errorMsg)
+            notifyError(errorMsg)
+            return@withContext emptyList()
+        } catch (e: Exception) {
+            val errorMsg = "Error during device discovery: ${e.message}"
+            Log.e(TAG, errorMsg)
+            notifyError(errorMsg)
+            return@withContext emptyList()
+        }
+    }
+    
+    /**
+     * Enhanced connection monitoring with automatic reconnection
+     */
+    private var connectionMonitorJob: Job? = null
+    
+    fun startConnectionMonitoring() {
+        connectionMonitorJob?.cancel()
+        connectionMonitorJob = CoroutineScope(Dispatchers.IO).launch {
+            while (isActive) {
+                try {
+                    if (isRecording.get() && !isDeviceConnected.get()) {
+                        Log.w(TAG, "Device disconnected during recording, attempting reconnection...")
+                        notifyError("GSR device disconnected during recording")
+                        
+                        // Attempt to reconnect
+                        val reconnected = initializeDeviceWithRetry(maxRetries = 2, retryDelayMs = 1000)
+                        if (reconnected) {
+                            Log.i(TAG, "Device reconnected successfully")
+                            // Resume streaming
+                            shimmerDevice?.startStreaming()
+                        } else {
+                            Log.e(TAG, "Failed to reconnect device")
+                            // Continue recording with simulated data or stop recording
+                            notifyError("Unable to reconnect GSR device. Consider stopping recording.")
+                        }
+                    }
+                    delay(5000) // Check every 5 seconds
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error in connection monitoring", e)
+                }
+            }
+        }
+    }
+    
+    fun stopConnectionMonitoring() {
+        connectionMonitorJob?.cancel()
+        connectionMonitorJob = null
+    }
+
+    /**
+     * Initialize Shimmer device connection (base implementation)
      */
     suspend fun initializeDevice(deviceAddress: String? = null): Boolean =
         withContext(Dispatchers.IO) {
