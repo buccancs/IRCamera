@@ -3,7 +3,6 @@
 import secrets
 
 
-
 class SecurityManager:
     """Manages security and authentication."""
 

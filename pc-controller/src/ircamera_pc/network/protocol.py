@@ -4,7 +4,6 @@ import json
 from typing import Any, Dict, Optional
 
 
-
 class MessageProtocol:
     """Handles message protocol validation and processing."""
 

@@ -3,7 +3,6 @@
 import asyncio
 
 
-
 class NetworkUtils:
     """Network utility functions."""
 

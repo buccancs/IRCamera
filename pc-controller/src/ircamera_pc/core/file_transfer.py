@@ -12,7 +12,6 @@ from typing import Any, Callable, Dict, List, Optional
 from loguru import logger
 
 
-
 class TransferStatus(Enum):
     """Transfer job status enumeration."""
 

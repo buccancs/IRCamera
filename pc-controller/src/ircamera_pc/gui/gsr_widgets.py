@@ -11,7 +11,6 @@ import sys
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
-
 try:
     # Import PyQtGraph for real-time plotting
     from PyQt6.QtCore import Qt, QTimer

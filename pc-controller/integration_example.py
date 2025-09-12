@@ -26,7 +26,6 @@ Features Demonstrated:
 import sys
 from pathlib import Path
 
-
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 # Local imports - moved after sys.path setup

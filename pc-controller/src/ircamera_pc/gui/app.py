@@ -3,7 +3,6 @@
 import signal
 import sys
 
-
 from ..utils.simple_logger import setup_logging
 
 

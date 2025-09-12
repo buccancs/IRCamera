@@ -1,7 +1,6 @@
 """GUI utilities for IRCamera PC Controller."""
 
 
-
 class LogHandler(QObject):
     """Custom log handler that emits Qt signals for GUI integration."""
 
