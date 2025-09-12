@@ -134,14 +134,14 @@ class ShimmerSensorRecorder(
             shimmerDevice = Shimmer(mainHandler, context)
 
             shimmerDevice?.let { device ->
-                // Set up data callback
+                // Set up data callback using correct API method
                 device.setDataCallback { objectCluster ->
                     if (_isRecording.get()) {
                         handleShimmerData(objectCluster)
                     }
                 }
 
-                // Set up connection callback
+                // Set up connection callback using correct API method
                 device.setConnectionCallback { connectionState ->
                     handleConnectionStateChange(connectionState)
                 }
@@ -275,6 +275,7 @@ class ShimmerSensorRecorder(
             Log.w(TAG, "Failed to add Shimmer GSR sync marker", e)
             emitError(ErrorType.SYNC_FAILED, "GSR sync marker failed: ${e.message}")
         }
+    }
     }
 
     override suspend fun cleanup() {
@@ -507,13 +508,13 @@ class ShimmerSensorRecorder(
         return try {
             // Try to extract raw GSR data first (12-bit ADC as mandated)
             val rawData = objectCluster.getFormatClusterValue("GSR", "RAW")
-            if (rawData?.data != null && rawData.data > 0) {
+            if (rawData != null && rawData.data > 0) {
                 return rawData.data
             }
 
             // Try calibrated GSR data and reverse-convert to approximate raw
             val conductanceData = objectCluster.getFormatClusterValue("GSR_Conductance", "CAL")
-            if (conductanceData?.data != null && conductanceData.data > 0) {
+            if (conductanceData != null && conductanceData.data > 0) {
                 // Reverse conversion from microsiemens to approximate raw ADC value
                 return (conductanceData.data / 100.0) * ADC_MAX_VALUE
             }
