@@ -26,6 +26,7 @@ import com.topdon.gsr.service.SessionManager
 import com.topdon.gsr.util.TimeUtil
 import com.topdon.lib.core.ktbase.BaseBindingActivity
 import com.topdon.tc001.camera.RGBCameraRecorder
+import com.topdon.tc001.permissions.PermissionController
 import kotlinx.coroutines.launch
 
 // Enhanced unified BLE integration for comprehensive cross-modal coordination
@@ -83,6 +84,9 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     private var currentSession: SessionInfo? = null
     private var sampleCount = 0L
     private var syncMarkCount = 0
+    
+    // Enhanced permission controller for comprehensive runtime permission handling
+    private val permissionController = PermissionController.getInstance()
     
     // Enhanced unified BLE management for cross-modal coordination
     private var unifiedBleManager: UnifiedBleManager? = null
@@ -410,75 +414,82 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
         // rgbCameraRecorder?.initialize() // Skipped since rgbCameraRecorder is null
         gsrRecorder.addListener(gsrListener)
 
-        // Check permissions
-        if (!hasRequiredPermissions()) {
-            requestPermissions()
+        // Check permissions with enhanced controller
+        lifecycleScope.launch {
+            if (!permissionController.areAllPermissionsGranted(this@MultiModalRecordingActivity)) {
+                requestPermissionsWithController()
+            }
         }
     }
 
-    private fun hasRequiredPermissions(): Boolean {
-        val basePermissions =
-            arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.RECORD_AUDIO,
-                // Critical: Camera permission for RGB video recording
-                Manifest.permission.CAMERA,
+    /**
+     * Enhanced permission handling with comprehensive PermissionController
+     */
+    private suspend fun requestPermissionsWithController() {
+        try {
+            binding.statusText.text = "Requesting permissions for multi-sensor recording..."
+            
+            // Request all permissions at once
+            val result = permissionController.requestPermissions(
+                activity = this,
+                permissions = PermissionController.ALL_REQUIRED_PERMISSIONS,
+                rationale = "This app requires camera, microphone, Bluetooth, and storage permissions to record multi-sensor data including video, GSR from Shimmer devices, and thermal imaging."
             )
-
-        // Check base permissions
-        val baseGranted =
-            basePermissions.all { permission ->
-                ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
-            }
-
-        // Check Android 12+ Bluetooth permissions for Shimmer3 GSR devices
-        val bluetoothGranted =
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-                val bluetoothPermissions =
-                    arrayOf(
-                        Manifest.permission.BLUETOOTH_SCAN,
-                        Manifest.permission.BLUETOOTH_CONNECT,
-                    )
-                bluetoothPermissions.all { permission ->
-                    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+            
+            if (result.granted) {
+                binding.statusText.text = "All permissions granted. Multi-sensor recording ready."
+                
+                // Check battery optimization
+                if (!permissionController.isBatteryOptimizationDisabled(this)) {
+                    binding.statusText.append("\n\nNote: For best recording performance, consider disabling battery optimization.")
                 }
             } else {
-                // Legacy Bluetooth permissions
-                ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED
+                handlePermissionDenial(result)
             }
-
-        return baseGranted && bluetoothGranted
+        } catch (e: Exception) {
+            Log.e(TAG, "Error requesting permissions", e)
+            binding.statusText.text = "Error requesting permissions. Please check manually in settings."
+        }
     }
-
-    private fun requestPermissions() {
-        val permissionsToRequest =
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-                // Android 12+ permissions including Camera and Bluetooth for Shimmer3 GSR devices
-                arrayOf(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.RECORD_AUDIO,
-                    // Critical: Camera permission for RGB video recording
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                )
-            } else {
-                // Legacy permissions including Camera
-                arrayOf(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.RECORD_AUDIO,
-                    // Critical: Camera permission for RGB video recording
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_ADMIN,
-                )
+    
+    /**
+     * Handle permission denial with user-friendly explanations
+     */
+    private fun handlePermissionDenial(result: PermissionController.PermissionResult) {
+        val deniedPermissionNames = result.deniedPermissions.map { 
+            permissionController.getPermissionDisplayName(it) 
+        }
+        
+        binding.statusText.text = "Some permissions were denied: ${deniedPermissionNames.joinToString(", ")}"
+        
+        if (result.permanentlyDenied.isNotEmpty()) {
+            val permanentlyDeniedNames = result.permanentlyDenied.map {
+                permissionController.getPermissionDisplayName(it)
             }
-
-        ActivityCompat.requestPermissions(this, permissionsToRequest, REQUEST_PERMISSIONS)
+            
+            Toast.makeText(
+                this,
+                "Permanently denied permissions: ${permanentlyDeniedNames.joinToString(", ")}. Please enable in app settings.",
+                Toast.LENGTH_LONG
+            ).show()
+            
+            // Offer to open settings
+            binding.statusText.append("\n\nTap here to open app settings")
+            binding.statusText.setOnClickListener {
+                permissionController.openAppSettings(this)
+            }
+        } else if (result.shouldShowRationale.isNotEmpty()) {
+            // Show rationale for permissions that can be re-requested
+            val rationaleText = result.shouldShowRationale.joinToString("\n") { permission ->
+                "• ${permissionController.getPermissionDisplayName(permission)}: ${permissionController.getPermissionRationale(permission)}"
+            }
+            
+            Toast.makeText(
+                this,
+                "Permission explanation:\n$rationaleText",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -487,43 +498,16 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
         grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_PERMISSIONS) {
-            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-                binding.statusText.text = "All permissions granted. GSR recording with Shimmer3 devices ready."
-            } else {
-                binding.statusText.text = "Permissions required for GSR recording and Shimmer3 device access."
-                val missingPermissions = mutableListOf<String>()
-
-                // Check which specific permissions are missing
-                permissions.forEachIndexed { index, permission ->
-                    if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
-                        when (permission) {
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            -> missingPermissions.add("Storage")
-                            Manifest.permission.RECORD_AUDIO -> missingPermissions.add("Audio")
-                            Manifest.permission.BLUETOOTH_SCAN,
-                            Manifest.permission.BLUETOOTH_CONNECT,
-                            Manifest.permission.BLUETOOTH,
-                            Manifest.permission.BLUETOOTH_ADMIN,
-                            -> missingPermissions.add("Bluetooth (for Shimmer3 GSR)")
-                        }
-                    }
-                }
-
-                Toast.makeText(
-                    this,
-                    "Missing permissions: ${missingPermissions.joinToString(", ")}",
-                    Toast.LENGTH_LONG,
-                ).show()
-            }
-        }
+        
+        // Delegate to PermissionController for consistent handling
+        permissionController.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     private fun toggleRecording() {
-        if (!hasRequiredPermissions()) {
-            requestPermissions()
+        if (!permissionController.areAllPermissionsGranted(this)) {
+            lifecycleScope.launch {
+                requestPermissionsWithController()
+            }
             return
         }
 
