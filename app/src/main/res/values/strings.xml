@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IRCamera</string>
+    <string name="thermal_camera_title">Thermal Camera Recorder</string>
+    <string name="recording_start">Start Recording</string>
+    <string name="recording_stop">Stop Recording</string>
+    <string name="camera_permission_required">Camera permission is required</string>
+    <string name="storage_permission_required">Storage permission is required</string>
+    <string name="usb_permission_required">USB permission is required for thermal camera</string>
+</resources>
