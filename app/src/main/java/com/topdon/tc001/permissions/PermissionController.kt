@@ -2,8 +2,11 @@ package com.topdon.tc001.permissions
 
 import android.Manifest
 import android.app.Activity
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
@@ -230,7 +233,7 @@ class PermissionController private constructor() {
     }
     
     /**
-     * Request USB device permission
+     * Enhanced USB device permission handling with hot-plug support
      */
     suspend fun requestUsbPermission(
         context: Context,
@@ -244,10 +247,195 @@ class PermissionController private constructor() {
             return@suspendCancellableCoroutine
         }
         
-        // TODO: Implement USB permission request with PendingIntent
-        // For now, return false to indicate permission not available
-        Log.w(TAG, "USB permission not granted for device: ${device.deviceName}")
-        continuation.resume(false)
+        try {
+            val requestCode = requestCodeCounter++
+            val intent = Intent("${context.packageName}.USB_PERMISSION_REQUEST")
+            
+            val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.getBroadcast(
+                    context, 
+                    requestCode, 
+                    intent, 
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            } else {
+                PendingIntent.getBroadcast(
+                    context, 
+                    requestCode, 
+                    intent, 
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
+            
+            // Create a temporary broadcast receiver for this specific request
+            val receiver = object : android.content.BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    val device = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableExtra(UsbManager.EXTRA_DEVICE, UsbDevice::class.java)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)
+                    }
+                    
+                    val permission = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
+                    
+                    Log.d(TAG, "USB permission response: granted=$permission for device=${device?.deviceName}")
+                    
+                    // Unregister the receiver
+                    try {
+                        context.unregisterReceiver(this)
+                    } catch (e: Exception) {
+                        Log.w(TAG, "Error unregistering USB permission receiver", e)
+                    }
+                    
+                    continuation.resume(permission)
+                }
+            }
+            
+            // Register the receiver
+            val filter = IntentFilter("${context.packageName}.USB_PERMISSION_REQUEST")
+            context.registerReceiver(receiver, filter)
+            
+            // Handle cancellation
+            continuation.invokeOnCancellation {
+                try {
+                    context.unregisterReceiver(receiver)
+                } catch (e: Exception) {
+                    Log.w(TAG, "Error unregistering USB permission receiver on cancellation", e)
+                }
+            }
+            
+            // Request permission
+            usbManager.requestPermission(device, pendingIntent)
+            Log.d(TAG, "USB permission requested for device: ${device.deviceName}")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error requesting USB permission", e)
+            continuation.resume(false)
+        }
+    }
+    
+    /**
+     * Discover connected USB thermal cameras (Topdon TC001/TC001 Plus)
+     */
+    fun discoverThermalCameras(context: Context): List<ThermalCameraInfo> {
+        val cameras = mutableListOf<ThermalCameraInfo>()
+        
+        try {
+            val usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
+            val deviceList = usbManager.deviceList
+            
+            deviceList.values.forEach { device ->
+                if (isThermalCamera(device)) {
+                    val hasPermission = usbManager.hasPermission(device)
+                    val cameraInfo = ThermalCameraInfo(
+                        device = device,
+                        name = device.productName ?: "Thermal Camera",
+                        vendorId = device.vendorId,
+                        productId = device.productId,
+                        hasPermission = hasPermission,
+                        isConnected = hasPermission // Assume connected if we have permission
+                    )
+                    cameras.add(cameraInfo)
+                    Log.d(TAG, "Found thermal camera: ${cameraInfo.name} (${device.deviceName}), hasPermission=$hasPermission")
+                }
+            }
+            
+            Log.i(TAG, "Discovered ${cameras.size} thermal cameras")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error discovering thermal cameras", e)
+        }
+        
+        return cameras
+    }
+    
+    /**
+     * Check if USB device is a supported thermal camera
+     */
+    private fun isThermalCamera(device: UsbDevice): Boolean {
+        // Topdon TC001 and TC001 Plus device IDs from the manifest
+        return when {
+            // TC001 variants
+            device.vendorId == 0x0BDA && device.productId == 0x5840 -> true
+            device.vendorId == 0x0BDA && device.productId == 0x5830 -> true
+            // Additional thermal cameras
+            device.vendorId == 13428 && device.productId == 17185 -> true
+            // UVC thermal cameras
+            device.deviceClass == 14 -> true
+            // Additional UVC devices
+            device.deviceClass == 239 && device.deviceSubclass == 2 -> true
+            else -> {
+                // Log unknown devices for debugging
+                Log.d(TAG, "Unknown USB device: vendorId=${device.vendorId}, productId=${device.productId}, class=${device.deviceClass}")
+                false
+            }
+        }
+    }
+    
+    /**
+     * Information about discovered thermal cameras
+     */
+    data class ThermalCameraInfo(
+        val device: UsbDevice,
+        val name: String,
+        val vendorId: Int,
+        val productId: Int,
+        val hasPermission: Boolean,
+        val isConnected: Boolean
+    )
+    
+    /**
+     * Handle thermal camera hot-plug events
+     */
+    fun handleThermalCameraHotPlug(
+        context: Context,
+        onCameraAttached: (ThermalCameraInfo) -> Unit,
+        onCameraDetached: (ThermalCameraInfo) -> Unit
+    ) {
+        val intentFilter = IntentFilter().apply {
+            addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
+            addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
+        }
+        
+        val receiver = object : android.content.BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val device = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent.getParcelableExtra(UsbManager.EXTRA_DEVICE, UsbDevice::class.java)
+                } else {
+                    @Suppress("DEPRECATION")
+                    intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)
+                }
+                
+                device?.let {
+                    if (isThermalCamera(it)) {
+                        val usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
+                        val cameraInfo = ThermalCameraInfo(
+                            device = it,
+                            name = it.productName ?: "Thermal Camera",
+                            vendorId = it.vendorId,
+                            productId = it.productId,
+                            hasPermission = usbManager.hasPermission(it),
+                            isConnected = intent.action == UsbManager.ACTION_USB_DEVICE_ATTACHED
+                        )
+                        
+                        when (intent.action) {
+                            UsbManager.ACTION_USB_DEVICE_ATTACHED -> {
+                                Log.i(TAG, "Thermal camera attached: ${cameraInfo.name}")
+                                onCameraAttached(cameraInfo)
+                            }
+                            UsbManager.ACTION_USB_DEVICE_DETACHED -> {
+                                Log.i(TAG, "Thermal camera detached: ${cameraInfo.name}")
+                                onCameraDetached(cameraInfo)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        context.registerReceiver(receiver, intentFilter)
+        Log.d(TAG, "Thermal camera hot-plug monitoring started")
     }
     
     /**

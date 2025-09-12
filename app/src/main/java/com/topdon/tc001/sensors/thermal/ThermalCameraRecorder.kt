@@ -249,30 +249,76 @@ class ThermalCameraRecorder(
         Log.i(TAG, "Requesting USB permission for thermal camera device: ${device.productName}")
         
         try {
-            // Use the existing DeviceTools infrastructure directly
-            // The DeviceTools.requestUsb() method handles the activity context properly
-            
-            // First, try to get activity from context 
-            val activity = getActivityFromContext(context)
-            
-            if (activity != null) {
-                Log.i(TAG, "Using Activity context for USB permission request")
-                DeviceTools.requestUsb(activity, 0, device)
-                Log.i(TAG, "USB permission request sent via DeviceTools.requestUsb()")
-            } else {
-                Log.w(TAG, "No Activity context available, using EventBus permission request")
-                // Use EventBus to trigger permission request through the main activity
-                EventBus.getDefault().post(DevicePermissionEvent(device))
-                Log.i(TAG, "USB permission request sent via DevicePermissionEvent")
+            // Enhanced USB permission request with fallback strategies
+            recordingScope.launch {
+                val permissionController = com.topdon.tc001.permissions.PermissionController.getInstance()
+                
+                try {
+                    // First, try the new enhanced permission controller
+                    val granted = permissionController.requestUsbPermission(context, device)
+                    
+                    if (granted) {
+                        Log.i(TAG, "USB permission granted via PermissionController")
+                        hasUsbPermission = true
+                        
+                        // Initialize the thermal camera now that we have permission
+                        val success = initializeRealThermalCamera(device)
+                        if (success) {
+                            isIRCameraConnected = true
+                            isSimulationMode = false
+                            Log.i(TAG, "Thermal camera initialized successfully after permission grant")
+                        } else {
+                            Log.w(TAG, "Failed to initialize thermal camera despite permission grant")
+                            fallbackToSimulation("Thermal camera initialization failed after permission grant")
+                        }
+                    } else {
+                        Log.w(TAG, "USB permission denied via PermissionController, trying legacy method")
+                        requestUsbPermissionLegacy(device)
+                    }
+                } catch (e: Exception) {
+                    Log.w(TAG, "PermissionController USB request failed, trying legacy method", e)
+                    requestUsbPermissionLegacy(device)
+                }
             }
             
         } catch (e: Exception) {
             Log.e(TAG, "Failed to request USB permission for thermal camera", e)
-            // Fall back to simulation mode if permission request fails
-            isSimulationMode = true
-            recordingScope.launch {
-                emitError(ErrorType.DEVICE_ERROR, "USB permission request failed - using simulation mode: ${e.message}")
+            fallbackToSimulation("USB permission request failed: ${e.message}")
+        }
+    }
+    
+    /**
+     * Legacy USB permission request method using DeviceTools
+     */
+    private fun requestUsbPermissionLegacy(device: UsbDevice) {
+        try {
+            // Use the existing DeviceTools infrastructure directly
+            val activity = getActivityFromContext(context)
+            
+            if (activity != null) {
+                Log.i(TAG, "Using Activity context for legacy USB permission request")
+                DeviceTools.requestUsb(activity, 0, device)
+                Log.i(TAG, "Legacy USB permission request sent via DeviceTools.requestUsb()")
+            } else {
+                Log.w(TAG, "No Activity context available, using EventBus permission request")
+                // Use EventBus to trigger permission request through the main activity
+                EventBus.getDefault().post(DevicePermissionEvent(device))
+                Log.i(TAG, "Legacy USB permission request sent via DevicePermissionEvent")
             }
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Legacy USB permission request failed", e)
+            fallbackToSimulation("Legacy USB permission request failed: ${e.message}")
+        }
+    }
+    
+    /**
+     * Fallback to simulation mode with proper error reporting
+     */
+    private fun fallbackToSimulation(reason: String) {
+        isSimulationMode = true
+        recordingScope.launch {
+            emitError(ErrorType.DEVICE_ERROR, "Using simulation mode - $reason")
         }
     }
     
