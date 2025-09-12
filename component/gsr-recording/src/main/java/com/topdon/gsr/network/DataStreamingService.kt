@@ -120,6 +120,22 @@ class DataStreamingService(
         }
     }
 
+    /**
+     * Queue GSR sample for streaming
+     */
+    fun queueGSRSample(sample: GSRSample) {
+        if (!isStreaming.get()) return
+
+        if (gsrDataQueue.size >= MAX_QUEUE_SIZE) {
+            val dropped = minOf(BATCH_SIZE, gsrDataQueue.size / 2)
+            repeat(dropped) { gsrDataQueue.poll() }
+            eventListener?.onQueueFull("GSR")
+            Log.w(TAG, "GSR queue full, dropped $dropped samples")
+        }
+
+        gsrDataQueue.offer(sample)
+    }
+
     fun queueThermalSample(sample: ThermalSample) {
         if (!isStreaming.get()) return
 
