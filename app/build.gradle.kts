@@ -186,11 +186,15 @@ android {
     // Removed obsolete dexOptions configuration
 }
 
-// Dependency resolution strategy to fix Guava conflicts and add ListenableFuture
+// Dependency resolution strategy to fix conflicts and prioritize project dependencies
 configurations.all {
     resolutionStrategy {
         force("com.google.guava:guava:31.1-android")
+        // Prefer project versions over Shimmer SDK embedded versions
+        preferProjectModules()
     }
+    // Exclude conflicting classes from Shimmer SDK
+    exclude(group = "com.androidplot", module = "androidplot-core")
 }
 
 

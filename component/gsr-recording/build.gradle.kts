@@ -86,9 +86,9 @@ dependencies {
     
     // Official Shimmer Android API Integration - Latest v3.2.3Beta
     // JAR files from https://github.com/ShimmerEngineering/ShimmerAndroidAPI/releases
-    implementation(files("libs/ShimmerBiophysicalProcessingLibrary_Rev_0_11.jar"))
-    implementation(files("libs/AndroidBluetoothLibrary.jar"))
-    implementation(files("libs/androidplot-core-0.5.0-release.jar"))
+    // implementation(files("libs/ShimmerBiophysicalProcessingLibrary_Rev_0_11.jar")) // Commented out - conflicts with official Shimmer SDK in app module
+    // implementation(files("libs/AndroidBluetoothLibrary.jar")) // Commented out - conflicts with official Shimmer SDK in app module
+    // implementation(files("libs/androidplot-core-0.5.0-release.jar")) // Commented out - conflicts with official Shimmer SDK in app module
     
     // Additional dependencies for Shimmer API compatibility
     implementation("com.google.guava:guava:20.0")
