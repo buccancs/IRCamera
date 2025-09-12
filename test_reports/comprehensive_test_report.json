@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-09-12 00:16:03",
+  "total_duration": 0.23121404647827148,
+  "summary": {
+    "total_suites": 5,
+    "passed": 0,
+    "failed": 5,
+    "average_coverage": null
+  },
+  "results": [
+    {
+      "name": "android_unit_tests",
+      "passed": false,
+      "duration": 0.0011777877807617188,
+      "coverage": null,
+      "details": "/bin/sh: 1: ./gradlew: not found\n"
+    },
+    {
+      "name": "pc_unit_tests",
+      "passed": false,
+      "duration": 0.017307043075561523,
+      "coverage": null,
+      "details": "/usr/bin/python: No module named pytest\n"
+    },
+    {
+      "name": "cross_platform_tests",
+      "passed": false,
+      "duration": 0.1373603343963623,
+      "coverage": null,
+      "details": "Traceback (most recent call last):\n  File \"/home/runner/work/IRCamera/IRCamera/pc-controller/integration_example.py\", line 31, in <module>\n    import numpy as np\nModuleNotFoundError: No module named 'numpy'\n"
+    },
+    {
+      "name": "vendor_sdk_validation",
+      "passed": false,
+      "duration": 0.0010001659393310547,
+      "coverage": null,
+      "details": "/bin/sh: 1: ./gradlew: not found\n"
+    },
+    {
+      "name": "system_validation",
+      "passed": false,
+      "duration": 0.07393002510070801,
+      "coverage": null,
+      "details": "=== PC Controller Components Test Suite ===\n\nTesting imports...\n\u2717 Import failed: No module named 'loguru'\n\nTesting native backend structure...\n\u2717 Native backend directory missing\n\nTesting data aggregation engine...\n\u2717 Data aggregation test failed: No module named 'h5py'\n\nTesting plotting widgets...\n\u2717 Plotting widgets test failed: No module named 'PyQt6'\n\nTesting enhanced GUI widgets...\n\u2717 Enhanced GUI widgets test failed: No module named 'PyQt6'\n\n=== Test Results Summary ===\nImports................"
+    }
+  ]
+}

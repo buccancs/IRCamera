@@ -1,0 +1,100 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+static def getDayStr() {
+    return new Date().format('yyMMdd')
+}
+
+android {
+    compileSdk rootProject.ext.android.compileSdk
+    
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdk rootProject.ext.android.minSdk
+        targetSdk rootProject.ext.android.targetSdk
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        ndkVersion rootProject.ext.android.ndkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        
+        ndk {
+            abiFilters "arm64-v8a"
+        }
+
+        buildConfigField "String", "VERSION_DATE", "\"${getDayStr()}\""
+        buildConfigField "int", "ENV_TYPE", "0"
+        buildConfigField("String", "SOFT_CODE", "\"${rootProject.ext.softCode.topInfrared}\"")
+        buildConfigField("String", "APP_KEY", "\"${rootProject.ext.appKey.topInfrared}\"")
+        buildConfigField("String", "APP_SECRET", "\"${rootProject.ext.appSecret.topInfrared}\"")
+        
+        setProperty("archivesBaseName", "IRCamera-v${versionName}")
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    
+    buildFeatures{
+        dataBinding = true
+    }
+    
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'META-INF/LICENSE.md'
+        pickFirst 'META-INF/LICENSE-notice.md'
+        doNotStrip "**/*.so"
+    }
+}
+
+dependencies {
+    // Core Android libraries
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    
+    // For CSV writing
+    implementation 'com.opencsv:opencsv:5.7.1'
+    
+    // USB and camera support
+    implementation 'androidx.camera:camera-core:1.2.3'
+    implementation 'androidx.camera:camera-camera2:1.2.3'
+    implementation 'androidx.camera:camera-lifecycle:1.2.3'
+    implementation 'androidx.camera:camera-view:1.2.3'
+    
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:4.6.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
