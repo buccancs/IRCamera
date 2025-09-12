@@ -42,7 +42,7 @@ include(":app")
 
 // Active sensor and recording modules 
 include(":component:thermal")
-// include(":component:thermal-ir")        // Temporarily disabled due to GSYVideoPlayer dependency issues
+// include(":component:thermal-ir")        // Re-disabled due to compilation issues, resources copied to app instead
 // include(":component:thermal-lite")      // Temporarily disabled due to dependency on thermal-ir
 include(":component:pseudo")
 include(":component:user")

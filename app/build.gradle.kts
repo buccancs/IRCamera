@@ -208,7 +208,7 @@ dependencies {
     
     // Core consolidated modules
     implementation(project(":component:thermal"))      // Consolidated thermal functionality
-    // implementation(project(":component:thermal-ir"))   // Thermal IR resources needed by app - temporarily disabled due to dependency issues
+    // implementation(project(":component:thermal-ir"))   // Thermal IR resources copied to app instead due to compilation issues
     // implementation(project(":component:thermal-lite")) // Thermal Lite functionality - temporarily disabled due to dependency on thermal-ir
     implementation(project(":component:pseudo"))       // Pseudo color functionality needed by app
     implementation(project(":component:user"))         // User module for MoreActivity and settings
@@ -268,7 +268,15 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     // GSR Recording backup module with complete Shimmer SDK implementation
-    implementation(project(":component:gsr-recording"))
+    implementation(project(":component:gsr-recording")) {
+        // Exclude conflicting legacy JARs to prevent duplicate classes with official Shimmer SDK
+        exclude(group = "com.shimmerresearch", module = "shimmerbluetoothmanager")
+        exclude(group = "com.shimmerresearch", module = "shimmerdriver")
+        exclude(group = "com.shimmerresearch", module = "shimmerandroidinstrumentdriver")
+        exclude(group = "*", module = "AndroidBluetoothLibrary")
+        exclude(group = "*", module = "ShimmerBiophysicalProcessingLibrary_Rev_0_11")
+        exclude(group = "*", module = "androidplot-core-0.5.0-release")
+    }
     
     // Nordic BLE Library for robust Bluetooth communication
     implementation("no.nordicsemi.android:ble:2.11.0")

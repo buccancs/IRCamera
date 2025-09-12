@@ -104,14 +104,14 @@ dependencies {
     // Image browser library
     implementation(libs.mn.image.browser)
     
-    // GSY VideoPlayer for video playback - using standard version
-    implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v11.1.0") {
-        exclude(group = "androidx.media3", module = "media3-cast")
-        exclude(group = "androidx.media3", module = "media3-session")
-        exclude(group = "androidx.media3", module = "media3-ui")
-        exclude(group = "com.google.android.gms", module = "play-services-cast-framework")
-        exclude(group = "com.aliyun.sdk.android", module = "AliyunPlayer")
-    }
+    // GSY VideoPlayer for video playback - temporarily disabled due to dependency resolution issues
+    // implementation("com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v11.1.0") {
+    //     exclude(group = "androidx.media3", module = "media3-cast")
+    //     exclude(group = "androidx.media3", module = "media3-session")
+    //     exclude(group = "androidx.media3", module = "media3-ui")
+    //     exclude(group = "com.google.android.gms", module = "play-services-cast-framework")
+    //     exclude(group = "com.aliyun.sdk.android", module = "AliyunPlayer")
+    // }
     
     // SmartRefreshLayout for pull-to-refresh functionality
     implementation("io.github.scwang90:refresh-layout-kernel:2.1.1")

@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_CCFFFFFF">#CCFFFFFF</color>
     <color name="c_bg_white">#FF16131E</color>
+    
+    <!-- Missing colors from thermal-ir component -->
+    <color name="temp_font_title_item_color">#7Dffffff</color>
+    <color name="tab_text">#666666</color>
 </resources>
