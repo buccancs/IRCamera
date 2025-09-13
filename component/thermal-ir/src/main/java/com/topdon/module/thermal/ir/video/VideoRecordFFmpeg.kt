@@ -270,7 +270,7 @@ class VideoRecordFFmpeg(
  paint.textSize = SizeUtils.sp2px(6f).toFloat()
  paint.isDither = true
  paint.isFilterBitmap = true
- paint.getTextBounds("", 0, "".length, rectText)
+ paint.getTextBounds("Sample", 0, "Sample".length, rectText)
  }
 
  var startTime: Long = 0L
