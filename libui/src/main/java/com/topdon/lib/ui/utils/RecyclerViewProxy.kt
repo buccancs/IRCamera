@@ -64,7 +64,7 @@ class RecyclerViewProxy(val layoutManager: RecyclerView.LayoutManager) {
     }
 
     /**
-     * Removes the specified andrecycleallviews from the system.
+     * Removes and recycles all views from the system.
      */
     fun removeAndRecycleAllViews(recycler: RecyclerView.Recycler?) {
         layoutManager.removeAndRecycleAllViews(recycler!!)
@@ -150,7 +150,7 @@ class RecyclerViewProxy(val layoutManager: RecyclerView.LayoutManager) {
     }
 
     /**
-     * Removes the specified allviews from the system.
+     * Removes all views from the system.
      */
     fun removeAllViews() {
         layoutManager.removeAllViews()

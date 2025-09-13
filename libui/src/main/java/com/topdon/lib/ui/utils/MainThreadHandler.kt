@@ -27,7 +27,7 @@ object MainThreadHandler {
     }
 
     /**
-     * Removes the specified  from the system.
+     * Removes the specified runnable from the system.
      */
     fun remove(r: Runnable?) {
         handler.removeCallbacks(r!!)
