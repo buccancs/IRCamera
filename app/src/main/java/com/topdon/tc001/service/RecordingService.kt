@@ -82,7 +82,10 @@ class RecordingService : LifecycleService() {
         fun getService(): RecordingService = this@RecordingService
         fun getRecordingController(): RecordingController = recordingController
         fun getNetworkServer(): NetworkServer = networkServer
+        fun getNetworkClient(): NetworkClient = networkClient
         fun isConnectedToPC(): Boolean = isConnectedToPC.get()
+        fun getServerStatus(): String = if (networkServer.isRunning()) "Running" else "Stopped"
+        fun getConnectedClients(): Int = if (networkServer.isClientConnected()) 1 else 0
     }
 
     override fun onCreate() {
@@ -173,10 +176,10 @@ class RecordingService : LifecycleService() {
             FeatureFlags.initialize(this)
             
             // Initialize structured logger
-            structuredLogger = StructuredLogger(this)
+            structuredLogger = StructuredLogger.getInstance(this)
             
             // Initialize crash-safe supervisor
-            crashSafeSupervisor = CrashSafeSupervisor(this)
+            crashSafeSupervisor = CrashSafeSupervisor.getInstance(this)
             
             Log.i(TAG, "Phase 0 baseline components initialized")
         } catch (e: Exception) {
@@ -253,7 +256,7 @@ class RecordingService : LifecycleService() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("IRCamera Recording")
             .setContentText(message)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setOngoing(true)
             .build()
 
@@ -305,13 +308,15 @@ class RecordingService : LifecycleService() {
             override fun onSyncFlash(durationMs: Int) {
                 Log.i(TAG, "Sync flash request: ${durationMs}ms")
                 lifecycleScope.launch {
-                    recordingController.triggerSyncFlash(durationMs)
+                    recordingController.addSyncMarker("sync_flash", System.nanoTime(), 
+                        mapOf("duration_ms" to durationMs.toString()))
                 }
             }
 
             override fun onTimeSynchronized(offsetNanoseconds: Long) {
                 Log.i(TAG, "Time synchronized with PC, offset: ${offsetNanoseconds}ns")
-                TimeManager.setClockOffset(offsetNanoseconds)
+                // TODO: Handle time synchronization - TimeManager doesn't have setClockOffset method
+                // Consider using TimeManager.synchronizeWithPC or similar approach
             }
 
             override fun onDataStreamingStarted() {
@@ -369,7 +374,8 @@ class RecordingService : LifecycleService() {
                 }
                 "sync_flash" -> {
                     val duration = message.getInt("duration_ms")
-                    recordingController.triggerSyncFlash(duration)
+                    recordingController.addSyncMarker("sync_flash", System.nanoTime(), 
+                        mapOf("duration_ms" to duration.toString()))
                 }
                 "get_status" -> {
                     sendStatusToPC()

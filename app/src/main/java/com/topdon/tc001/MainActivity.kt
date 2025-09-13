@@ -889,7 +889,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 StructuredLogger.LogLevel.ERROR,
                 "MainActivity",
                 "networking_initialization_failed",
-                mapOf("error" to e.message)
+                mapOf("error" to (e.message ?: "Unknown error"))
             )
             updateConnectionStatus(ConnectionStatus.ERROR)
             showNetworkError("Network initialization failed: ${e.message}")
@@ -937,7 +937,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                     StructuredLogger.LogLevel.ERROR,
                     "WebSocketClient",
                     "supervision_error",
-                    mapOf("error" to e.message)
+                    mapOf("error" to (e.message ?: "Unknown error"))
                 )
                 
                 updateConnectionStatus(ConnectionStatus.ERROR)
@@ -1124,7 +1124,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             )
             
             // Start recording through the service
-            recordingService?.getRecordingController()?.startRecording()
+            recordingService?.getRecordingController()?.let { controller ->
+                lifecycleScope.launch {
+                    controller.startRecording("remote_session_$sessionId")
+                }
+            }
             
             Toast.makeText(this, "Remote recording started: $sessionId", Toast.LENGTH_LONG).show()
             
@@ -1134,7 +1138,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 StructuredLogger.LogLevel.ERROR,
                 "RemoteControl",
                 "session_start_error",
-                mapOf("error" to e.message)
+                mapOf("error" to (e.message ?: "Unknown error"))
             )
         }
     }
@@ -1162,7 +1166,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 StructuredLogger.LogLevel.ERROR,
                 "RemoteControl",
                 "session_stop_error",
-                mapOf("error" to e.message)
+                mapOf("error" to (e.message ?: "Unknown error"))
             )
         }
     }
@@ -1326,7 +1330,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
      * Enhanced PC connection with better error handling
      */
     fun connectToPC(ipAddress: String, port: Int = 8080) {
-        if (networkClient == null) {
+        if (recordingService?.getNetworkClient() == null) {
             showNetworkError("Network client not initialized")
             return
         }
@@ -1338,6 +1342,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             try {
                 withContext(Dispatchers.IO) {
                     // Try both secure and non-secure connections
+                    val networkClient = recordingService?.getNetworkClient()
                     var success = networkClient?.connectToController(ipAddress, port, true) ?: false
                     
                     if (!success) {
@@ -1423,14 +1428,15 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         return withContext(Dispatchers.IO) {
             try {
                 // Strategy 1: Try last known controllers
+                val networkClient = recordingService?.getNetworkClient()
                 val controllers = networkClient?.getDiscoveredControllers()
                 if (!controllers.isNullOrEmpty()) {
                     for (controller in controllers) {
                         Log.i(TAG, "Reconnection attempt to ${controller.ipAddress}")
-                        val success = networkClient?.connectToController(
+                        val success = networkClient.connectToController(
                             controller.ipAddress, 
                             controller.port
-                        ) ?: false
+                        )
                         
                         if (success) {
                             return@withContext true
@@ -1439,14 +1445,15 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 }
                 
                 // Strategy 2: Start fresh discovery
+                val networkClient = recordingService?.getNetworkClient()
                 networkClient?.startDiscovery { discoverySuccess ->
                     if (discoverySuccess) {
-                        val newControllers = networkClient?.getDiscoveredControllers()
+                        val newControllers = networkClient.getDiscoveredControllers()
                         if (!newControllers.isNullOrEmpty()) {
                             // Try connecting to first discovered controller
                             lifecycleScope.launch {
                                 val controller = newControllers.first()
-                                networkClient?.connectToController(
+                                networkClient.connectToController(
                                     controller.ipAddress, 
                                     controller.port
                                 ) { connectSuccess ->
@@ -1729,6 +1736,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 try {
                     val success = withContext(Dispatchers.IO) {
                         // Try secure first, then non-secure
+                        val networkClient = recordingService?.getNetworkClient()
                         networkClient?.connectToController(ip, 8080, true) ?: false ||
                         networkClient?.connectToController(ip, 8080, false) ?: false
                     }
@@ -1785,7 +1793,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 StructuredLogger.LogLevel.ERROR,
                 "MainActivity",
                 "networking_cleanup_error",
-                mapOf("error" to e.message)
+                mapOf("error" to (e.message ?: "Unknown error"))
             )
         }
         
