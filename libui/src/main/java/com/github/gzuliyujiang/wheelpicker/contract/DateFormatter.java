@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -14,7 +14,7 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 日期显示文本格式化接口
+ * 日期Show/Display文本format化interface
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/14 19:55
@@ -22,26 +22,26 @@ package com.github.gzuliyujiang.wheelpicker.contract;
 public interface DateFormatter {
 
     /**
-     * 格式化年份
+     * format化年份
      *
      * @param year 年份数字
-     * @return 格式化后最终显示的年份字符串
+     * @return format化后最终Show/Display的年份字符串
      */
     String formatYear(int year);
 
     /**
-     * 格式化月份
+     * format化月份
      *
      * @param month 月份数字
-     * @return 格式化后最终显示的月份字符串
+     * @return format化后最终Show/Display的月份字符串
      */
     String formatMonth(int month);
 
     /**
-     * 格式化日子
+     * format化日子
      *
      * @param day 日子数字
-     * @return 格式化后最终显示的日子字符串
+     * @return format化后最终Show/Display的日子字符串
      */
     String formatDay(int day);
 

@@ -5,17 +5,29 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.ui.bean.ColorSelectBean
 import com.topdon.lib.ui.databinding.UiItemColorSelectBinding
 import com.topdon.lib.ui.R as UiR
 
+/**
+ * Custom Color select view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * ColorSelectAdapter provides data binding between data source and UI components.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<ColorSelectAdapter.ItemView>() {
     var listener: ((code: Int, color: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
 
+    /**
+     * Executes selected functionality.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
@@ -35,11 +47,12 @@ class ColorSelectAdapter(val context: Context) : RecyclerView.Adapter<ColorSelec
         parent: ViewGroup,
         viewType: Int,
     ): ItemView {
-        val binding = UiItemColorSelectBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
+        val binding =
+            UiItemColorSelectBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false,
+            )
         return ItemView(binding)
     }
 

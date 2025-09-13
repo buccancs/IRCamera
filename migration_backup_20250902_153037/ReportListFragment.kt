@@ -26,19 +26,19 @@ import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseFragment
 import com.topdon.lms.sdk.weiget.TToast
+import java.io.File
 import kotlinx.android.synthetic.main.fragment_report_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.io.File
 
 /**
- * 报告列表.
+ * report列表.
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
+ * 需要传递parameter：
+ * - [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007（不使用，透传）
  *
  * Created by LCG on 2024/8/20.
  */
@@ -80,7 +80,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
         }
         adapter.onMoreClickListener = { position, v ->
             ThreePickPopup(requireContext(), arrayListOf(R.string.app_rename, R.string.report_delete)) {
-                if (it == 0) {//重命名
+                if (it == 0) { // 重命名
                     val houseReport: HouseReport = adapter.dataList[position] as HouseReport
                     InputTextDialog(requireContext(), houseReport.name) { newName ->
                         if (houseReport.name != newName) {
@@ -90,7 +90,7 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
                             adapter.notifyItemChanged(position)
                         }
                     }.show()
-                } else {//删除
+                } else { // delete
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(R.string.monitor_report_delete))
                         .setMessage(R.string.report_delete_tips)
@@ -123,7 +123,6 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
         tv_add.setOnClickListener(this)
         cl_del.setOnClickListener(this)
 
-
         tabViewModel.isEditModeLD.observe(viewLifecycleOwner) {
             adapter.isEditMode = it
             cl_del.isVisible = it
@@ -143,6 +142,9 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    /**
+     * onDetectCreate function implementation.
+     */
     fun onDetectCreate(event: HouseReportAddEvent) {
         viewModel.queryAll()
     }
@@ -152,21 +154,22 @@ internal class ReportListFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_add -> {//添加
+            tv_add -> { // add
                 val intent = Intent(requireContext(), DetectAddActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false)
                 startActivity(intent)
             }
-            cl_del -> {//批量删除
+            cl_del -> { // 批量delete
                 if (adapter.selectIndexList.isNotEmpty()) {
                     TipDialog.Builder(requireContext())
                         .setTitleMessage(getString(R.string.monitor_report_delete))
                         .setMessage(R.string.report_delete_tips)
                         .setCancelListener(R.string.app_cancel)
                         .setPositiveListener(R.string.thermal_delete) {
-                            val resultArray: Array<HouseReport> = Array(adapter.selectIndexList.size) {
-                                adapter.dataList[adapter.selectIndexList[it]] as HouseReport
-                            }
+                            val resultArray: Array<HouseReport> =
+                                Array(adapter.selectIndexList.size) {
+                                    adapter.dataList[adapter.selectIndexList[it]] as HouseReport
+                                }
                             viewModel.deleteMore(*resultArray)
                             tabViewModel.isEditModeLD.value = false
                             TToast.shortToast(requireContext(), R.string.test_results_delete_success)

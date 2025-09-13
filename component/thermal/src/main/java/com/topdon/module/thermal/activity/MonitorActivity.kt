@@ -13,6 +13,10 @@ import com.topdon.module.thermal.fragment.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
+/**
+ * Monitor activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class MonitorActivity : BaseActivity(), View.OnClickListener {
     companion object {
         const val STATS_START = 101
@@ -22,8 +26,8 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     var MONITOR_ACTION = STATS_START
 
-    private var selectType = 1 // 选取点类型(点 线 面)
-    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取点
+    private var selectType = 1 // 选取pointtype(point line area)
+    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取point
 
     override fun initContentView() = R.layout.activity_monitor
 
@@ -96,7 +100,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         motionBtn.visibility = View.GONE
     }
 
-    // 秒
+秒
     fun updateTime(time: Long) {
         val ss = time % 60
         val mm = time / 60 % 60

@@ -52,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_complete" />
 
-        <!-- 完成 -->
+        <!-- complete -->
         <TextView
             android:id="@+id/tv_complete"
             android:layout_width="0dp"

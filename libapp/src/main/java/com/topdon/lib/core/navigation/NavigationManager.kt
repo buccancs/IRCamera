@@ -16,10 +16,19 @@ object NavigationManager {
     /**
      * Navigation builder class for fluent API
      */
+/**
+ * NavigationBuilder manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     class NavigationBuilder(private val route: String) {
         private val extras = Bundle()
         private var requestCode: Int? = null
 
+    /**
+     * Executes withstring functionality.
+     */
         fun withString(
             key: String,
             value: String,
@@ -27,6 +36,9 @@ object NavigationManager {
             extras.putString(key, value)
         }
 
+    /**
+     * Executes withboolean functionality.
+     */
         fun withBoolean(
             key: String,
             value: Boolean,
@@ -34,6 +46,9 @@ object NavigationManager {
             extras.putBoolean(key, value)
         }
 
+    /**
+     * Executes withint functionality.
+     */
         fun withInt(
             key: String,
             value: Int,
@@ -41,6 +56,9 @@ object NavigationManager {
             extras.putInt(key, value)
         }
 
+    /**
+     * Executes withfloat functionality.
+     */
         fun withFloat(
             key: String,
             value: Float,
@@ -48,6 +66,9 @@ object NavigationManager {
             extras.putFloat(key, value)
         }
 
+    /**
+     * Executes withlong functionality.
+     */
         fun withLong(
             key: String,
             value: Long,
@@ -55,6 +76,9 @@ object NavigationManager {
             extras.putLong(key, value)
         }
 
+    /**
+     * Executes withparcelable functionality.
+     */
         fun withParcelable(
             key: String,
             value: Parcelable,
@@ -62,6 +86,9 @@ object NavigationManager {
             extras.putParcelable(key, value)
         }
 
+    /**
+     * Executes withparcelablearraylist functionality.
+     */
         fun withParcelableArrayList(
             key: String,
             value: ArrayList<out Parcelable>,
@@ -69,11 +96,17 @@ object NavigationManager {
             extras.putParcelableArrayList(key, value)
         }
 
+    /**
+     * Executes withextras functionality.
+     */
         fun withExtras(bundle: Bundle) =
             apply {
                 extras.putAll(bundle)
             }
 
+    /**
+     * Executes navigation functionality.
+     */
         fun navigation(
             context: Context,
             requestCode: Int? = null,

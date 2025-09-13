@@ -25,6 +25,9 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 object TC007Repository {
+    /**
+     * Executes any functionality.
+     */
     private fun Any.toBody(): RequestBody = Gson().toJson(this).toRequestBody()
 
     var netWork: Network? = null
@@ -33,10 +36,10 @@ object TC007Repository {
     private fun getOKHttpClient(timeout: Long): OkHttpClient {
         val builder =
             OkHttpClient.Builder()
-                .retryOnConnectionFailure(false) // 不重试
-                .connectTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 群中决定接口统一超时15秒
-                .readTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 群中决定接口统一超时15秒
-                .writeTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 群中决定接口统一超时15秒
+                .retryOnConnectionFailure(false) 
+                .connectTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 群中决定interface统一超时15秒
+                .readTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 群中决定interface统一超时15秒
+                .writeTimeout(timeout, TimeUnit.SECONDS) // 2024-5-29 TS004 群中决定interface统一超时15秒
                 .addInterceptor(OKLogInterceptor(true))
         netWork?.socketFactory?.let {
             builder.socketFactory(it)
@@ -55,7 +58,7 @@ object TC007Repository {
             .create(TC007Service::class.java)
 
     /**
-     * 获取产品信息
+     * Get/Retrieve产品info
      */
     suspend fun getProductInfo(): ProductBean? =
         withContext(Dispatchers.IO) {
@@ -67,7 +70,7 @@ object TC007Repository {
         }
 
     /**
-     * 获取设备电池信息
+     * Get/Retrievedevice电池info
      */
     suspend fun getBatteryInfo(): BatteryInfo? =
         withContext(Dispatchers.IO) {
@@ -79,7 +82,7 @@ object TC007Repository {
         }
 
     /**
-     * 同步时间.
+     * Synchronize时间.
      */
     suspend fun syncTime(): Boolean =
         withContext(Dispatchers.IO) {
@@ -99,7 +102,7 @@ object TC007Repository {
         }
 
     /**
-     * 执行固件升级.
+     * 执行firmwareUpgrade.
      */
     suspend fun updateFirmware(file: File): Boolean =
         withContext(Dispatchers.IO) {
@@ -110,7 +113,7 @@ object TC007Repository {
                 }
 
                 var status = getTC007Service().getUpgradeStatus().Data?.Status
-                while (status == 0 || status == 1 || status == 2) { // 文档跟实际值对不上
+                while (status == 0 || status == 1 || status == 2) { 
                     delay(1000)
                     status = getTC007Service().getUpgradeStatus().Data?.Status
                 }
@@ -123,7 +126,7 @@ object TC007Repository {
 
     private suspend fun sendUpgradeFile(file: File): Boolean =
         withContext(Dispatchers.IO) {
-            val pageSize = 1024 * 1024 * 10 // 10M每包
+            val pageSize = 1024 * 1024 * 10 
             var fileInputStream: FileInputStream? = null
             try {
                 fileInputStream = FileInputStream(file)
@@ -131,7 +134,7 @@ object TC007Repository {
                 var result = true
                 var packNum = 0
                 var hasReadCount = 0
-                var byteArray = ByteArray(pageSize) // 10M每包
+                var byteArray = ByteArray(pageSize) 
                 val totalPackNum = (file.length() / (pageSize) + (if (file.length() % (pageSize) > 0) 1 else 0)).toInt()
                 val md5 = EncryptUtils.encryptMD5File2String(file).lowercase(Locale.ROOT)
 
@@ -143,14 +146,14 @@ object TC007Repository {
                         val body = byteArray.toRequestBody("application/octet-stream".toMediaTypeOrNull())
                         val part = MultipartBody.Part.createFormData("zipFile", "zipFile", body)
                         val code = getTC007Service(30).sendUpgradeFile(file.name, packNum, totalPackNum, md5, part).Code
-                        if (code == 400805) { // 已在升级中
+                        if (code == 400805) { 
                             return@withContext true
                         }
-                        if (code != 200) { // 200是成功
+                        if (code != 200) { 
                             result = false
                         }
                         hasReadCount = 0
-                        byteArray = ByteArray(pageSize) // 10M每包
+                        byteArray = ByteArray(pageSize) 
                     }
                     readCount = fileInputStream.read(byteArray, hasReadCount, byteArray.size - hasReadCount)
                 }
@@ -162,10 +165,10 @@ object TC007Repository {
                     val body = lastArray.toRequestBody("application/octet-stream".toMediaTypeOrNull())
                     val part = MultipartBody.Part.createFormData("zipFile", "zipFile", body)
                     val code = getTC007Service(30).sendUpgradeFile(file.name, packNum, totalPackNum, md5, part).Code
-                    if (code == 400805) { // 已在升级中
+                    if (code == 400805) { 
                         return@withContext true
                     }
-                    if (code != 200) { // 200是成功
+                    if (code != 200) { 
                         result = false
                     }
                 }
@@ -179,7 +182,7 @@ object TC007Repository {
         }
 
     /**
-     * 恢复出厂设置
+     * Restore出厂settings
      */
     suspend fun resetToFactory(): Boolean =
         withContext(Dispatchers.IO) {
@@ -191,7 +194,7 @@ object TC007Repository {
         }
 
     /**
-     * 执行锅盖标定
+     * 执行锅盖calibration
      */
     suspend fun correction(): Boolean =
         withContext(Dispatchers.IO) {
@@ -203,7 +206,7 @@ object TC007Repository {
         }
 
     /**
-     * 获取测温属性参数
+     * Get/Retrievetemperature measurementpropertyparameter
      */
     suspend fun getEnvAttr(): EnvAttr? =
         withContext(Dispatchers.IO) {
@@ -215,9 +218,9 @@ object TC007Repository {
         }
 
     /**
-     * 设置温度单位是否为摄氏度
+     * settingstemperature单位是否为摄氏度
      * @param isCelsius true-摄氏度 false-华氏度
-     * @param Level 测温档位,0:高增益 1:低增益 3:自动切换
+     * @param Level temperature measurement档位,0:高gain 1:低gain 3:自动switch
      */
     suspend fun setEnvAttr(
         isCelsius: Boolean,
@@ -227,9 +230,9 @@ object TC007Repository {
             try {
                 val paramMap: HashMap<String, Any> = HashMap()
                 paramMap["TempUnit"] = if (isCelsius) 0 else 2 // 0-摄氏度 1-开尔文 2-华氏度
-                paramMap["Level"] = Level // 0:高增益 1:低增益 3:自动切换
-                paramMap["Fps"] = 12 // 测温帧率,范围[0,采集帧率],默认12,最高支持12帧
-                paramMap["OsdMode"] = 1 // 测温信息叠加方式，0:视频编码前叠加 1:码流信息叠加(编码后预览时叠加) 2:无叠加
+                paramMap["Level"] = Level // 0:高gain 1:低gain 3:自动switch
+                paramMap["Fps"] = 12 // temperature measurement帧率,range[0,采集帧率],默认12,maximum支持12帧
+                paramMap["OsdMode"] = 1 // temperature measurementinfo叠加方式，0:videoencoding前叠加 1:码流info叠加(encoding后预览时叠加) 2:无叠加
                 paramMap["DistanceUnit"] = 0 // 距离单位，0:米 1:英尺
                 getTC007Service().setEnvAttr(paramMap.toBody()).isSuccess()
             } catch (_: Exception) {
@@ -238,9 +241,9 @@ object TC007Repository {
         }
 
     /**
-     * 设置温度修正参数
-     * @param environment 环境温度，单位摄氏度
-     * @param distance 测温距离，单位米
+     * settingstemperature修正parameter
+     * @param environment 环境temperature，单位摄氏度
+     * @param distance temperature measurement距离，单位米
      * @param radiation 发射率 `[0.01,1]`
      */
     suspend fun setIRConfig(
@@ -263,7 +266,7 @@ object TC007Repository {
         }
 
     /**
-     * 清除所有点、线、面.
+     * Clear所有point、line、area.
      */
     suspend fun clearAllTemp(): Boolean =
         withContext(Dispatchers.IO) {
@@ -279,16 +282,15 @@ object TC007Repository {
         }
 
     /**
-     * 切换全局测温开关状态
+     * switch全局temperature measurement开关state
      */
     suspend fun getTempFrame(): Boolean =
         withContext(Dispatchers.IO) {
             try {
                 val data = getTC007Service().getTempFrame()
-                if (data.isSuccess())
-                    {
-                        tempFrameParam = data.Data
-                    }
+                if (data.isSuccess()) {
+                    tempFrameParam = data.Data
+                }
                 data.isSuccess()
             } catch (_: Exception) {
                 false
@@ -296,28 +298,26 @@ object TC007Repository {
         }
 
     /**
-     * 设置全局测温开启或关闭.
+     * settings全局temperature measurement开启或Close.
      */
     suspend fun setTempFrame(boolean: Boolean): Boolean =
         withContext(Dispatchers.IO) {
             try {
-                if (tempFrameParam != null)
-                    {
-                        tempFrameParam!!.FrameLow.Enable = boolean
-                        tempFrameParam!!.FrameCenter.Enable = boolean
-                        tempFrameParam!!.FrameHigh.Enable = boolean
-                        getTC007Service().setTempFrame(tempFrameParam!!.toBody()).isSuccess()
-                    } else
-                    {
-                        false
-                    }
+                if (tempFrameParam != null) {
+                    tempFrameParam!!.FrameLow.Enable = boolean
+                    tempFrameParam!!.FrameCenter.Enable = boolean
+                    tempFrameParam!!.FrameHigh.Enable = boolean
+                    getTC007Service().setTempFrame(tempFrameParam!!.toBody()).isSuccess()
+                } else {
+                    false
+                }
             } catch (_: Exception) {
                 false
             }
         }
 
     /**
-     * 设置测温点列表.
+     * settingstemperature measurementpoint列表.
      */
     suspend fun setTempPointList(pointList: List<Point>): Boolean =
         withContext(Dispatchers.IO) {
@@ -333,7 +333,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置测温线列表.
+     * settingstemperature measurementline列表.
      */
     suspend fun setTempLineList(lineList: List<Point>): Boolean =
         withContext(Dispatchers.IO) {
@@ -351,7 +351,7 @@ object TC007Repository {
         }
 
     /**
-     * 设置测温面列表.
+     * settingstemperature measurementarea列表.
      */
     suspend fun setTempRectList(rectList: List<Rect>): Boolean =
         withContext(Dispatchers.IO) {
@@ -374,20 +374,20 @@ object TC007Repository {
             try {
                 getTC007Service().getPhoto()
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
 
     /**
-     * 设置图像模式
+     * settingsimagemode
      */
     suspend fun setMode(mode: Int): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
             try {
                 getTC007Service().setMode(mode)
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
@@ -403,14 +403,13 @@ object TC007Repository {
 
     suspend fun setRatio(data: Any?): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
-            if (data == null)
-                {
-                    return@withContext null
-                }
+            if (data == null) {
+                return@withContext null
+            }
             try {
                 getTC007Service().setRatio(data.toBody())
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
@@ -426,56 +425,52 @@ object TC007Repository {
 
     suspend fun setRegistration(data: Any?): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
-            if (data == null)
-                {
-                    return@withContext null
-                }
+            if (data == null) {
+                return@withContext null
+            }
             try {
                 getTC007Service().setRegistration(data.toBody())
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
 
     suspend fun setPallete(data: Any?): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
-            if (data == null)
-                {
-                    return@withContext null
-                }
+            if (data == null) {
+                return@withContext null
+            }
             try {
                 getTC007Service().setPallete(data.toBody())
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
 
     suspend fun setParam(data: Any?): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
-            if (data == null)
-                {
-                    return@withContext null
-                }
+            if (data == null) {
+                return@withContext null
+            }
             try {
                 getTC007Service().setParam(data.toBody())
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
 
     suspend fun setFont(data: Any?): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
-            if (data == null)
-                {
-                    return@withContext null
-                }
+            if (data == null) {
+                return@withContext null
+            }
             try {
                 getTC007Service().setFont(data.toBody())
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
@@ -485,21 +480,20 @@ object TC007Repository {
             try {
                 getTC007Service().setCorrection()
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }
 
     suspend fun setIsotherm(data: Any?): TC007Response<Any?>? =
         withContext(Dispatchers.IO) {
-            if (data == null)
-                {
-                    return@withContext null
-                }
+            if (data == null) {
+                return@withContext null
+            }
             try {
                 getTC007Service().setIsotherm(data.toBody())
             } catch (e: Exception) {
-                XLog.e("请求异常：${e?.message}")
+                XLog.e("请求exception：${e?.message}")
                 null
             }
         }

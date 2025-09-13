@@ -20,29 +20,33 @@ import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
 import com.infisense.usbir.utils.TempUtil
 
 /**
- * 海康点线面温度图层 View.
+海康pointlineareatemperature图层 View.
  *
  * Created by LCG on 2024/12/19.
  */
+/**
+ * Custom Temperature hik view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class TemperatureHikView : TemperatureBaseView {
     /**
-     * 要绘制的温度信息
+要drawing的temperatureinfo
      */
     @Volatile
     private var tempInfo = TempInfo()
 
     /**
-     * 计算温度的工具类.
+calculationtemperature的工具class.
      */
     private var libIRTemp = LibIRTemp()
+
     /**
-     * 计算温度的线程.
+calculationtemperature的line程.
      */
     private var calculateThread: CalculateThread? = null
 
-
     /**
-     * 热成像画面逆时针旋转角度，取值 0、90、180、270，默认 270
+thermal imaging画area逆时针rotation角度，取值 0、90、180、270，默认 270
      */
     @Volatile
     var rotateAngle: Int = 270
@@ -53,41 +57,43 @@ class TemperatureHikView : TemperatureBaseView {
         }
 
     /**
-     * 温度变更事件监听，温度单位均为 **摄氏度**
+temperature变更EventListener，temperature单位均为 **摄氏度**
      */
     @Volatile
     var onTempChangeListener: ((min: Float, max: Float) -> Unit)? = null
 
     /**
-     * 趋势图直线对应的温度数据变更监听，单位摄氏度.
+趋势图直line对应的temperaturedata变更Listener，单位摄氏度.
      */
     var onTrendChangeListener: ((tempList: List<Float>) -> Unit)? = null
 
     /**
-     * 测温结果回调，单位均为摄氏度.
+temperature measurement结果Callback，单位均为摄氏度.
      */
     var onTempResultListener: ((tempInfo: TempInfo) -> Unit)? = null
 
-
     /**
-     * 当尚未经过 onMeasure 调用添加点时，保存要添加的以 温度尺寸 为坐标的点，在 onMeasure 阶段添加。
+当尚未经过 onMeasure 调用addpoint时，save要add的以 temperature scale寸 为坐标的point，在 onMeasure 阶段add。
      */
     private var wantAddPoint: Point? = null
+
     /**
-     * 当尚未经过 onMeasure 调用添加点时，保存要添加的以 温度尺寸 为坐标的线，在 onMeasure 阶段添加。
+当尚未经过 onMeasure 调用addpoint时，save要add的以 temperature scale寸 为坐标的line，在 onMeasure 阶段add。
      */
     private var wantAddLine: Line? = null
+
     /**
-     * 当尚未经过 onMeasure 调用添加点时，保存要添加的以 温度尺寸 为坐标的面，在 onMeasure 阶段添加。
+当尚未经过 onMeasure 调用addpoint时，save要add的以 temperature scale寸 为坐标的area，在 onMeasure 阶段add。
      */
     private var wantAddRect: Rect? = null
+
     /**
-     * 添加一个以 温度尺寸 为坐标的点
+add一个以 temperature scale寸 为坐标的point
      */
     fun addSourcePoint(point: Point) {
         if (xScale > 0 && yScale > 0) {
             synchronized(this) {
-                if (pointList.size == maxCount) {//新增时已达最大数量
+                if (pointList.size == maxCount) { // 新增时已达最大数量
                     pointList.removeAt(0)
                 }
                 pointList.add(Point((point.x * xScale).toInt(), (point.y * yScale).toInt()))
@@ -97,15 +103,16 @@ class TemperatureHikView : TemperatureBaseView {
             wantAddPoint = point
         }
     }
+
     /**
-     * 添加一个以 温度尺寸 为坐标的线
+add一个以 temperature scale寸 为坐标的line
      */
     fun addSourceLine(line: Line) {
         if (xScale > 0 && yScale > 0) {
             val start = Point((line.start.x * xScale).toInt(), (line.start.y * yScale).toInt())
             val end = Point((line.end.x * xScale).toInt(), (line.end.y * yScale).toInt())
             synchronized(this) {
-                if (lineList.size == maxCount) {//新增时已达最大数量
+                if (lineList.size == maxCount) { // 新增时已达最大数量
                     lineList.removeAt(0)
                 }
                 lineList.add(Line(start, end))
@@ -115,8 +122,9 @@ class TemperatureHikView : TemperatureBaseView {
             wantAddLine = line
         }
     }
+
     /**
-     * 添加一个以 温度尺寸 为坐标的面
+add一个以 temperature scale寸 为坐标的area
      */
     fun addSourceRect(rect: Rect) {
         if (xScale > 0 && yScale > 0) {
@@ -125,7 +133,7 @@ class TemperatureHikView : TemperatureBaseView {
             val top = (rect.top * yScale).toInt()
             val bottom = (rect.bottom * yScale).toInt()
             synchronized(this) {
-                if (rectList.size == maxCount) {//新增时已达最大数量
+                if (rectList.size == maxCount) { // 新增时已达最大数量
                     rectList.removeAt(0)
                 }
                 rectList.add(Rect(left, top, right, bottom))
@@ -136,28 +144,28 @@ class TemperatureHikView : TemperatureBaseView {
         }
     }
 
-
     /**
-     * 用于温度及画面旋转参数的尺寸.
+用于temperature及画arearotationparameter的尺寸.
      */
     private val imageRes = LibIRProcess.ImageRes_t()
 
     /**
-     * 上一次执行温度数组回调的时间戳，用于控制 1 秒回调 1 次.
+上一次执行temperaturearrayCallback的时间戳，用于控制 1 秒Callback 1 次.
      */
     private var beforeTime: Long = 0
 
-
     /**
-     * 未旋转前的温度数组.
+未rotation前的temperaturearray.
      */
     private val sourceTempArray = ByteArray(256 * 192 * 2)
+
     /**
-     * 旋转后的温度数组，趋势图要用，而 [libIRTemp] 又没提供方法读取里面的数据，只好再搞一份
+rotation后的temperaturearray，趋势图要用，而 [libIRTemp] 又没提供method读取里area的data，只好再搞一份
      */
     private val rotateTempArray = ByteArray(256 * 192 * 2)
+
     /**
-     * 刷新温度数据
+refreshtemperaturedata
      */
     fun refreshTemp(newData: ByteArray) {
         val currentTime: Long = System.currentTimeMillis()
@@ -169,7 +177,7 @@ class TemperatureHikView : TemperatureBaseView {
                 90 -> LibIRProcess.rotateLeft90(sourceTempArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, rotateTempArray)
                 180 -> LibIRProcess.rotate180(sourceTempArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, rotateTempArray)
                 270 -> LibIRProcess.rotateRight90(sourceTempArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_Y14, rotateTempArray)
-                else  -> System.arraycopy(sourceTempArray, 0, rotateTempArray, 0, rotateTempArray.size)
+                else -> System.arraycopy(sourceTempArray, 0, rotateTempArray, 0, rotateTempArray.size)
             }
 
             libIRTemp.setTempData(rotateTempArray)
@@ -179,14 +187,18 @@ class TemperatureHikView : TemperatureBaseView {
         }
     }
 
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         imageRes.width = 256.toChar()
         imageRes.height = 192.toChar()
         setImageSize(192, 256)
@@ -195,12 +207,18 @@ class TemperatureHikView : TemperatureBaseView {
         }
     }
 
-    override fun setImageSize(imageWidth: Int, imageHeight: Int) {
+    override fun setImageSize(
+        imageWidth: Int,
+        imageHeight: Int,
+    ) {
         super.setImageSize(imageWidth, imageHeight)
         libIRTemp = LibIRTemp(imageWidth, imageHeight)
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+    ) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         wantAddPoint?.let {
             addSourcePoint(it)
@@ -218,10 +236,10 @@ class TemperatureHikView : TemperatureBaseView {
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
-        //由于历史遗留，2D编辑与热成像的中心点逻辑不一致
-        //2D编辑中心点跟随全图设置，全图开则开，全图关则关；热成像中心点为开启全图或有点、线、面则显示
-        //产品没明确定义中心点的逻辑，这里先照着热成像来做
-        //中心点
+由于历史遗留，2D编辑与thermal imaging的centerpoint逻辑不一致
+2D编辑centerpoint跟随full imageset，full image开则开，full image关则关；thermal imagingcenterpoint为enabledfull image或有point、line、area则display
+产品没明确定义centerpoint的逻辑，这里先照着thermal imaging来做
+centerpoint
         if (isShowFull || pointList.isNotEmpty() || lineList.isNotEmpty() || rectList.isNotEmpty()) {
             drawPoint(canvas, Point(width / 2, height / 2))
             tempInfo.center?.let {
@@ -229,7 +247,7 @@ class TemperatureHikView : TemperatureBaseView {
             }
         }
 
-        //全图最低、最高温
+full imageminimum、最high temperature
         if (isShowFull) {
             tempInfo.full?.let {
                 val minX: Int = (it.minTemperaturePixel.x * xScale).toInt()
@@ -244,7 +262,7 @@ class TemperatureHikView : TemperatureBaseView {
             }
         }
 
-        //点
+point
         for (i in pointList.indices) {
             val point: Point = pointList[i]
             drawPoint(canvas, point)
@@ -255,7 +273,7 @@ class TemperatureHikView : TemperatureBaseView {
         }
         operatePoint?.let { drawPoint(canvas, it) }
 
-        //线
+line
         for (i in lineList.indices) {
             drawLine(canvas, lineList[i])
             if (i < tempInfo.lineResults.size) {
@@ -272,7 +290,7 @@ class TemperatureHikView : TemperatureBaseView {
         }
         operateLine?.let { drawLine(canvas, it) }
 
-        //面
+area
         for (i in rectList.indices) {
             drawRect(canvas, rectList[i])
             if (i < tempInfo.rectResults.size) {
@@ -289,7 +307,7 @@ class TemperatureHikView : TemperatureBaseView {
         }
         operateRect?.let { drawRect(canvas, it) }
 
-        //趋势图
+趋势图
         trendLine?.let {
             drawLine(canvas, it)
             drawTrendText(canvas, it)
@@ -310,7 +328,7 @@ class TemperatureHikView : TemperatureBaseView {
     }
 
     /**
-     * 执行温度计算的线程.
+执行temperaturecalculation的line程.
      */
     private inner class CalculateThread : HandlerThread("Calculate Thread") {
         private val mainHandler = Handler(Looper.getMainLooper())
@@ -351,8 +369,8 @@ class TemperatureHikView : TemperatureBaseView {
                     try {
                         trendResult = libIRTemp.getTemperatureOfLine(Line(startPoint, endPoint))
                     } catch (_: IllegalArgumentException) {
-                        //当 View 尺寸变更就会导致 xScale、yScale 变更，而已绘制的点线面坐标还是未变更前的坐标
-                        //以 旧坐标及新 scale 去计算温度坐标的话，就有可能超出温度坐标范围从而抛出异常，这里捕获
+当 View 尺寸变更就会导致 xScale、yScale 变更，而已drawing的pointlinearea坐标还是未变更前的坐标
+以 旧坐标及新 scale 去calculationtemperature坐标的话，就有可能超出temperature坐标range从而抛出exception，这里捕获
                     }
 
                     val tempList: List<Float> = TempUtil.getLineTemps(startPoint, endPoint, rotateTempArray, imageWidth)
@@ -368,40 +386,42 @@ class TemperatureHikView : TemperatureBaseView {
                     try {
                         pointResultList.add(libIRTemp.getTemperatureOfPoint(sourcePoint))
                     } catch (_: IllegalArgumentException) {
-                        //当 View 尺寸变更就会导致 xScale、yScale 变更，而已绘制的点线面坐标还是未变更前的坐标
-                        //以 旧坐标及新 scale 去计算温度坐标的话，就有可能超出温度坐标范围从而抛出异常，这里捕获
+当 View 尺寸变更就会导致 xScale、yScale 变更，而已drawing的pointlinearea坐标还是未变更前的坐标
+以 旧坐标及新 scale 去calculationtemperature坐标的话，就有可能超出temperature坐标range从而抛出exception，这里捕获
                     }
                 }
 
                 val lineList: List<Line> = getLineListSafe()
                 val lineResultList: ArrayList<TemperatureSampleResult> = ArrayList(lineList.size)
                 for (line in lineList) {
-                    val sourceLine = Line(
-                        Point((line.start.x / xScale).toInt(), (line.start.y / yScale).toInt()),
-                        Point((line.end.x / xScale).toInt(), (line.end.y / yScale).toInt())
-                    )
+                    val sourceLine =
+                        Line(
+                            Point((line.start.x / xScale).toInt(), (line.start.y / yScale).toInt()),
+                            Point((line.end.x / xScale).toInt(), (line.end.y / yScale).toInt()),
+                        )
                     try {
                         lineResultList.add(libIRTemp.getTemperatureOfLine(sourceLine))
                     } catch (_: IllegalArgumentException) {
-                        //当 View 尺寸变更就会导致 xScale、yScale 变更，而已绘制的点线面坐标还是未变更前的坐标
-                        //以 旧坐标及新 scale 去计算温度坐标的话，就有可能超出温度坐标范围从而抛出异常，这里捕获
+当 View 尺寸变更就会导致 xScale、yScale 变更，而已drawing的pointlinearea坐标还是未变更前的坐标
+以 旧坐标及新 scale 去calculationtemperature坐标的话，就有可能超出temperature坐标range从而抛出exception，这里捕获
                     }
                 }
 
                 val rectList: List<Rect> = getRectListSafe()
                 val rectResultList: ArrayList<TemperatureSampleResult> = ArrayList(rectList.size)
                 for (rect in rectList) {
-                    val sourceRect = Rect(
-                        (rect.left / xScale).toInt(),
-                        (rect.top / yScale).toInt(),
-                        (rect.right / xScale).toInt(),
-                        (rect.bottom / yScale).toInt()
-                    )
+                    val sourceRect =
+                        Rect(
+                            (rect.left / xScale).toInt(),
+                            (rect.top / yScale).toInt(),
+                            (rect.right / xScale).toInt(),
+                            (rect.bottom / yScale).toInt(),
+                        )
                     try {
                         rectResultList.add(libIRTemp.getTemperatureOfRect(sourceRect))
                     } catch (_: IllegalArgumentException) {
-                        //当 View 尺寸变更就会导致 xScale、yScale 变更，而已绘制的点线面坐标还是未变更前的坐标
-                        //以 旧坐标及新 scale 去计算温度坐标的话，就有可能超出温度坐标范围从而抛出异常，这里捕获
+当 View 尺寸变更就会导致 xScale、yScale 变更，而已drawing的pointlinearea坐标还是未变更前的坐标
+以 旧坐标及新 scale 去calculationtemperature坐标的话，就有可能超出temperature坐标range从而抛出exception，这里捕获
                     }
                 }
 
@@ -427,9 +447,13 @@ class TemperatureHikView : TemperatureBaseView {
     }
 
     /**
-     * 点线面全图等温度计算结果信息封装，坐标采用 View 坐标，单位均为摄氏度
+pointlineareafull image等temperaturecalculation结果info封装，坐标采用 View 坐标，单位均为摄氏度
      */
-    data class TempInfo(
+/**
+ * Temp info utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
+data class TempInfo(
         val center: TemperatureSampleResult? = null,
         val full: TemperatureSampleResult? = null,
         val trend: TemperatureSampleResult? = null,

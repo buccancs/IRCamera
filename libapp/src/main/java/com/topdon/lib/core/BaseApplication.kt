@@ -52,17 +52,16 @@ abstract class BaseApplication : Application() {
     var tau_data_L: ByteArray? = null
 
     var activitys = arrayListOf<Activity>()
-    var hasOtgShow = false // otg提示只出现一次
-
+    var hasOtgShow = false 
     /**
-     * 获取软件编码.
+     * Get/Retrievesoftwareencoding.
      */
     abstract fun getSoftWareCode(): String
 
     /**
      * 是否国内渠道。
      *
-     * 国内渠道一些逻辑不同，如国内渠道可以应用内升级，权限申请前有提示弹窗等。
+     * 国内渠道一些逻辑不同，如国内渠道可以应用内Upgrade，Permission申请前有tip弹窗等。
      * 根据 2024/8/27 邮件结论，“热视界和电小搭其实没有形成销售，可以不用维护。”
      * @return true-国内渠道 false-非国内渠道
      */
@@ -81,9 +80,9 @@ abstract class BaseApplication : Application() {
         }
     }
 
-    open fun initWebSocket()  {
+    open fun initWebSocket() {
         connectWebSocket()
-        // 注册网络变更广播 - using modern network callback for Android 10+
+        // Registernetwork变更广播 - using modern network callback for Android 10+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkRequest =
@@ -121,45 +120,50 @@ abstract class BaseApplication : Application() {
         }
     }
 
+    /**
+     * Establishes connection to external resource.
+     */
     private fun connectWebSocket() {
         val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
-        Log.i("WebSocket", "当前连接 Wifi SSID: $ssid")
+        Log.i("WebSocket", "currentconnection Wifi SSID: $ssid")
         if (ssid.startsWith(DeviceConfig.TS004_NAME_START)) {
             SharedManager.hasTS004 = true
             WebSocketProxy.getInstance().startWebSocket(ssid)
         } else if (ssid.startsWith(DeviceConfig.TC007_NAME_START)) {
             SharedManager.hasTC007 = true
             WebSocketProxy.getInstance().startWebSocket(ssid)
-        } else
-            {
-                NetWorkUtils.switchNetwork(true)
-            }
+        } else {
+            NetWorkUtils.switchNetwork(true)
+        }
     }
 
+    /**
+     * Establishes connection to external resource.
+     */
     fun disconnectWebSocket() {
         Log.i("WebSocket", "disconnectWebSocket()")
         WebSocketProxy.getInstance().stopWebSocket()
     }
 
     /**
-     * 解析socket消息
+     * parsingsocketmessage
      * @param msgJson
      */
     private fun parserSocketMessage(msgJson: String) {
         if (TextUtils.isEmpty(msgJson)) return
         EventBus.getDefault().post(SocketMsgEvent(msgJson))
 
-        if (SharedManager.is04AutoSync) { // 自动保存到手机开启
+        if (SharedManager.is04AutoSync) { 
             when (SocketCmdUtil.getCmdResponse(msgJson)) {
-                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { // 拍照事件
+                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { 
                     autoSaveNewest(false)
                 }
 
-                WsCmdConstants.AR_COMMAND_VRECORD -> { // 开始或结束录像事件
+                WsCmdConstants.AR_COMMAND_VRECORD -> { 
                     try {
                         val data: JSONObject = JSONObject(msgJson).getJSONObject("data")
                         val enable: Boolean = data.getBoolean("enable")
-                        if (!enable) { // 结束才同步
+                        if (!enable) { 
                             autoSaveNewest(true)
                         }
                     } catch (_: Exception) {
@@ -169,6 +173,9 @@ abstract class BaseApplication : Application() {
         }
     }
 
+    /**
+     * Executes autosavenewest functionality.
+     */
     private fun autoSaveNewest(isVideo: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             val fileList: List<FileBean>? = TS004Repository.getNewestFile(if (isVideo) 1 else 0)
@@ -215,13 +222,13 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * 设置webview的android9以上系统的多进程兼容性处理
+     * settingswebview的android9以上系统的多process兼容性processing
      */
     @RequiresApi(api = 28)
     open fun webviewSetPath(context: Context?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             val processName = getProcessName(context)
-            if (!applicationContext.packageName.equals(processName)) { // 判断不等于默认进程名称
+            if (!applicationContext.packageName.equals(processName)) { 
                 WebView.setDataDirectorySuffix(processName!!)
             }
         }
@@ -238,7 +245,7 @@ abstract class BaseApplication : Application() {
         return null
     }
 
-    // 清除无用数据
+    
     fun clearDb() {
         GlobalScope.launch(Dispatchers.Default) {
             try {
@@ -262,7 +269,7 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * 退出所有
+     * Exit所有
      */
     fun exitAll() {
         hasOtgShow = false

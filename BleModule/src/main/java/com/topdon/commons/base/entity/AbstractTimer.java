@@ -23,12 +23,12 @@ public abstract class AbstractTimer {
     }
 
     /**
-     * 回调
+     * Callback
      */
     public abstract void onTick();
 
     /**
-     * 开始
+     * start
      */
     public synchronized final void start(long delay, long period) {
         if (timer == null) {

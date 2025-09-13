@@ -14,7 +14,6 @@ import com.topdon.ble.BuildConfig;
 public class LLog {
     private static boolean isDebug = BuildConfig.DEBUG;
 
-
     public static void d(String tag, String value) {
         XLog.tag(tag).d(value);
 //        if (isDebug) {
@@ -43,7 +42,6 @@ public class LLog {
 //        }
     }
 
-
     /**
      * 最大一次打印长度
      */
@@ -53,7 +51,7 @@ public class LLog {
      * 适应最大长度打印
      *
      * @param tag 标志
-     * @param msg 信息
+     * @param msg info
      */
     public static void LogMaxPrint(String tag, String msg) {
         if (msg.length() > MAX_LENGTH) {

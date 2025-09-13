@@ -21,7 +21,6 @@ public final class FSize extends ObjectPool.Poolable{
         pool.setReplenishPercentage(0.5f);
     }
 
-
     protected ObjectPool.Poolable instantiate(){
         return new FSize(0,0);
     }

@@ -5,15 +5,15 @@ import java.util.*
 
 object UnitTools {
     /**
-     * 温度显示
+     * temperatureShow/Display
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showC(float: Float): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
             } else {
                 // 华氏度
@@ -23,9 +23,9 @@ object UnitTools {
     }
 
     /**
-     * 温度显示
+     * temperatureShow/Display
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showC(
@@ -34,7 +34,7 @@ object UnitTools {
     ): String {
         val str =
             if (isC) {
-                // 温度
+                // temperature
                 "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
             } else {
                 // 华氏度
@@ -44,7 +44,7 @@ object UnitTools {
     }
 
     /**
-     * 温度区间
+     * temperature区间
      */
     @JvmStatic
     fun showIntervalC(
@@ -53,7 +53,7 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 "$min~$max°C"
             } else {
                 // 华氏度
@@ -65,7 +65,7 @@ object UnitTools {
     }
 
     /**
-     * 配置温度区间
+     * configurationtemperature区间
      */
     @JvmStatic
     fun showConfigC(
@@ -74,7 +74,7 @@ object UnitTools {
     ): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 "($min~$max°C)"
             } else {
                 // 华氏度
@@ -86,15 +86,15 @@ object UnitTools {
     }
 
     /**
-     * 温度显示单位
+     * temperatureShow/Display单位
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showUnit(): String {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 "°C"
             } else {
                 // 华氏度
@@ -104,15 +104,15 @@ object UnitTools {
     }
 
     /**
-     * 温度显示单位
+     * temperatureShow/Display单位
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showUnitValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 value
             } else {
                 // 华氏度
@@ -122,22 +122,21 @@ object UnitTools {
     }
 
     /**
-     * 温度显示单位
+     * temperatureShow/Display单位
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showUnitValue(
         value: Float,
         showC: Boolean,
     ): Float {
-        if (value == Float.MAX_VALUE || value == Float.MIN_VALUE)
-            {
-                return value
-            }
+        if (value == Float.MAX_VALUE || value == Float.MIN_VALUE) {
+            return value
+        }
         val str =
             if (showC) {
-                // 温度
+                // temperature
                 value
             } else {
                 // 华氏度
@@ -149,7 +148,7 @@ object UnitTools {
     /**
      * 统一转成摄氏度
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showToCValue(
@@ -158,7 +157,7 @@ object UnitTools {
     ): Float {
         val str =
             if (isShowC) {
-                // 温度
+                // temperature
                 value
             } else {
                 // 华氏度
@@ -170,13 +169,13 @@ object UnitTools {
     /**
      * 统一转成摄氏度
      *
-     * @param float 温度
+     * @param float temperature
      */
     @JvmStatic
     fun showToCValue(value: Float): Float {
         val str =
             if (SharedManager.getTemperature() == 1) {
-                // 温度
+                // temperature
                 value
             } else {
                 // 华氏度
@@ -194,16 +193,16 @@ object UnitTools {
 
     /**
      * 转摄氏度
-     * 使用浮点型,防止华氏度转摄氏度精度丢失
+     * 使用浮point型,防止华氏度转摄氏度精度丢失
      */
     fun toC(value: Float): Float {
         return (value - 32.0f) / 1.8000f
     }
 
     /**
-     * 输入摄氏度，返回保留1位小数不带单位字符的 String.
+     * 输入摄氏度，Return保留1位小数不带单位字符的 String.
      *
-     * @param float 温度值，单位摄氏度
+     * @param float temperature值，单位摄氏度
      */
     @JvmStatic
     fun showNoUnit(float: Float): String {
@@ -217,9 +216,9 @@ object UnitTools {
     }
 
     /**
-     * 输入摄氏度，返回保留1位小数带单位字符的 String.
+     * 输入摄氏度，Return保留1位小数带单位字符的 String.
      *
-     * @param float 温度值，单位摄氏度
+     * @param float temperature值，单位摄氏度
      */
     @JvmStatic
     fun showWithUnit(float: Float): String {

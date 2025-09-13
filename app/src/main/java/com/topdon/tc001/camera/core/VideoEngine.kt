@@ -11,11 +11,10 @@ import java.io.File
  * Supports concurrent 4K video + RAW capture with optimized settings
  */
 class VideoEngine {
-    
     companion object {
         private const val TAG = "VideoEngine"
     }
-    
+
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording = false
     private var isPrepared = false
@@ -88,14 +87,13 @@ class VideoEngine {
             Log.i(TAG, "Bitrate: ${settings.bitRate / 1_000_000}Mbps, Audio: ${settings.audioEnabled}")
             
             return mediaRecorder?.surface
-            
         } catch (e: Exception) {
             Log.e(TAG, "Failed to prepare MediaRecorder", e)
             release()
             return null
         }
     }
-    
+
     /**
      * Apply Samsung S22 specific optimizations
      */
@@ -144,7 +142,7 @@ class VideoEngine {
                 Log.e(TAG, "MediaRecorder not prepared")
                 return false
             }
-            
+
             mediaRecorder?.start()
             isRecording = true
             
@@ -156,13 +154,12 @@ class VideoEngine {
             }
             
             true
-            
         } catch (e: Exception) {
             Log.e(TAG, "Failed to start video recording", e)
             false
         }
     }
-    
+
     /**
      * Stop video recording with proper finalization
      */
@@ -185,7 +182,7 @@ class VideoEngine {
             null
         }
     }
-    
+
     /**
      * Release MediaRecorder resources
      */
@@ -204,12 +201,12 @@ class VideoEngine {
             Log.e(TAG, "Error releasing MediaRecorder", e)
         }
     }
-    
+
     /**
      * Check if currently recording
      */
     fun isRecording(): Boolean = isRecording
-    
+
     /**
      * Check if prepared for recording
      */

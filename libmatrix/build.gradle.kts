@@ -42,7 +42,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    
+
     // Configure single release variant for easier maintenance
     androidComponents {
         beforeVariants { variant ->
@@ -67,7 +67,7 @@ android {
             version = "3.18.1"
         }
     }
-    */
+     */
 
     ndkVersion = libs.versions.ndkVersion.get()
 
@@ -85,7 +85,7 @@ dependencies {
     // Core library desugaring support
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(project(":libapp"))
-    
+
     // Test dependencies for Robolectric testing
     testImplementation("org.robolectric:robolectric:4.10.3")
     testImplementation("junit:junit:4.13.2")
@@ -93,5 +93,4 @@ dependencies {
     testImplementation("androidx.test:core:1.5.0")
     testImplementation("androidx.test.ext:junit:1.1.5")
     testImplementation("androidx.test.espresso:espresso-core:3.7.0")
-
 }

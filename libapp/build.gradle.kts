@@ -35,8 +35,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    
-    // Enable both debug and release variants for comprehensive development testing
     androidComponents {
         beforeVariants { variant ->
             // Enable all build variants to support both development and production workflows
@@ -49,18 +47,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
-    
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-            freeCompilerArgs.addAll(listOf(
+
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs +=
+            listOf(
                 "-opt-in=kotlin.RequiresOptIn",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=kotlinx.coroutines.FlowPreview"
-            ))
-        }
+                "-opt-in=kotlinx.coroutines.FlowPreview",
+            )
     }
-    
+
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
@@ -77,48 +74,50 @@ android {
             jniLibs.srcDirs("src/main/jniLibs")
         }
     }
-    
+
     packaging {
         jniLibs {
             // Enhanced native library conflict resolution
             pickFirsts += listOf("**/libc++_shared.so")
             // Exclude FFmpeg and other libraries that cause stripping issues
-            excludes += listOf(
-                "**/libavcodec.so",     // FFmpeg libraries with stripping issues
-                "**/libavdevice.so", 
-                "**/libavfilter.so",
-                "**/libavformat.so",
-                "**/libavutil.so",
-                "**/libjniavcodec.so",
-                "**/libjniavdevice.so",
-                "**/libjniavfilter.so", 
-                "**/libjniavformat.so",
-                "**/libjniavutil.so",
-                "**/libjniswresample.so",
-                "**/libjniswscale.so",
-                "**/libswresample.so",
-                "**/libswscale.so"
-            )
+            excludes +=
+                listOf(
+                    "**/libavcodec.so", // FFmpeg libraries with stripping issues
+                    "**/libavdevice.so",
+                    "**/libavfilter.so",
+                    "**/libavformat.so",
+                    "**/libavutil.so",
+                    "**/libjniavcodec.so",
+                    "**/libjniavdevice.so",
+                    "**/libjniavfilter.so",
+                    "**/libjniavformat.so",
+                    "**/libjniavutil.so",
+                    "**/libjniswresample.so",
+                    "**/libjniswscale.so",
+                    "**/libswresample.so",
+                    "**/libswscale.so",
+                )
             // Keep debug symbols for remaining libraries
             keepDebugSymbols += listOf("**/*.so")
         }
         resources {
-            excludes += listOf(
-                "META-INF/DEPENDENCIES",
-                "META-INF/LICENSE",
-                "META-INF/LICENSE.txt", 
-                "META-INF/NOTICE",
-                "META-INF/NOTICE.txt"
-            )
+            excludes +=
+                listOf(
+                    "META-INF/DEPENDENCIES",
+                    "META-INF/LICENSE",
+                    "META-INF/LICENSE.txt",
+                    "META-INF/NOTICE",
+                    "META-INF/NOTICE.txt",
+                )
         }
     }
 }
 
-//kotlin {
+// kotlin {
 //    experimental {
 //        coroutines 'enable'
 //    }
-//}
+// }
 
 dependencies {
     // Core library desugaring support
@@ -167,7 +166,7 @@ dependencies {
     api(libs.lottie)
 
     api(libs.brvah)
-    // Commented out problematic refresh layout dependency  
+    // Commented out problematic refresh layout dependency
     // api(libs.refresh.layout.kernel)
     // api(libs.refresh.header.classics) // Temporary comment out
     // api(libs.refresh.header.material) // Temporary comment out
@@ -187,18 +186,18 @@ dependencies {
     // JavaCV
     api(libs.javacv)
     api(libs.javacpp)
-    
+
     // Add unified BLE module for comprehensive Shimmer Nordic and Topdon BLE support
     api(project(":BleModule"))
-    
+
     // Compile-time access to LMS SDK classes without packaging in AAR
     // The app module provides the actual implementation
     compileOnly(files("../shared/libs/lms_international-3.90.009.0.aar"))
-    
+
     // NOTE: All local AAR dependencies MUST be handled at the app level due to AGP 8.0+ restrictions
     // Library modules cannot include local AAR files when building AARs
     // Classes from LMS SDK and other AARs will be available transitively from the app module
-    
+
     // The following dependencies are now handled by the app module:
     // - lms_international-3.90.009.0.aar (LMS SDK) - using compileOnly above for compilation
     // - abtest-1.0.1.aar

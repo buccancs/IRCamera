@@ -8,7 +8,7 @@
     android:paddingBottom="20dp"
     tools:background="#16131e">
 
-    <!-- 标题 -->
+    <!-- Title -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_title"
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:gravity="center_vertical"
             android:textSize="15sp"
             android:textColor="#FFBA42"
-            tools:text="这是一个标题"
+            tools:text="这是一个title"
             android:background="@drawable/bg_corners_top_10_solid_20_ff"
             app:layout_constraintDimensionRatio="335:49"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 分割线 -->
+    <!-- 分割line -->
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
@@ -40,24 +40,24 @@
         android:background="@drawable/shape_stroke_1_5b5961_dash_5"
         android:visibility="gone" />
 
-    <!-- 最高温 -->
+    <!-- maximum温 -->
     <include
         layout="@layout/item_report_ir_input"
         android:id="@+id/cl_max" />
 
-    <!-- 最低温 -->
+    <!-- minimum温 -->
     <include
         layout="@layout/item_report_ir_input"
         android:id="@+id/cl_min"
         android:visibility="gone" />
 
-    <!-- 平均温 -->
+    <!-- average温 -->
     <include
         layout="@layout/item_report_ir_input"
         android:id="@+id/cl_average"
         android:visibility="gone" />
 
-    <!-- 注释 -->
+    <!-- comment -->
     <include
         layout="@layout/item_report_ir_input"
         android:id="@+id/cl_explain" />

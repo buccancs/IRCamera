@@ -1,7 +1,5 @@
 package com.topdon.ble.callback;
 
-
-
 import com.topdon.ble.Request;
 
 /**
@@ -10,10 +8,10 @@ import com.topdon.ble.Request;
  */
 public interface NotificationChangeCallback extends RequestFailedCallback {
     /**
-     * 通知开关变化 / Indication开关变化
+     * notification开关变化 / Indication开关变化
      *
      * @param request   请求
-     * @param isEnabled 开启或关闭
+     * @param isEnabled 开启或Close
      */
     void onNotificationChanged(Request request, boolean isEnabled);
 }

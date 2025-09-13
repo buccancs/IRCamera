@@ -5,7 +5,6 @@ import android.hardware.usb.UsbDevice;
 import com.energy.iruvc.ircmd.IRCMD;
 import com.energy.iruvc.usb.USBMonitor;
 
-
 /**
  * @ProjectName: ANDROID_IRUVC_SDK
  * @Package: com.infisense.usbdual.utils

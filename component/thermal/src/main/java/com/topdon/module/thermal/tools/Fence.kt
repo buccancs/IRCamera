@@ -2,6 +2,10 @@ package com.topdon.module.thermal.tools
 
 import android.util.Log
 
+/**
+ * Fence utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateType: Int = 0) {
     var scale = 0f
 
@@ -21,7 +25,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取线坐标
+getline坐标
      */
     fun getSinglePoint(start: IntArray): ArrayList<IntArray> {
         val startPoint: IntArray = start
@@ -35,7 +39,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取点坐标序号
+getpoint坐标序号
      */
     fun getPointIndex(start: IntArray): ArrayList<Int> {
         val lineList = getSinglePoint(start)
@@ -43,7 +47,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取线坐标
+getline坐标
      */
     fun getLinePoint(
         start: IntArray,
@@ -78,7 +82,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取线坐标序号
+getline坐标序号
      */
     fun getLineIndex(
         start: IntArray,
@@ -89,7 +93,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取面积坐标点
+getarea积坐标point
      */
     fun getAreaPoint(
         start: IntArray,
@@ -109,7 +113,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-     * 获取面积坐标序号
+getarea积坐标序号
      */
     fun getAreaIndex(
         start: IntArray,

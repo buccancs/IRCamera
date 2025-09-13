@@ -8,7 +8,7 @@
     android:layout_marginEnd="20dp"
     android:orientation="vertical">
 
-    <!-- 红外数据 -->
+    <!-- infraredData -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_image"
         android:layout_width="match_parent"
@@ -84,35 +84,35 @@
         tools:visibility="visible"
         layout="@layout/item_report_ir_show" />
 
-    <!-- 点1 -->
+    <!-- point1 -->
     <include
         android:id="@+id/cl_point1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 点2 -->
+    <!-- point2 -->
     <include
         android:id="@+id/cl_point2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 点3 -->
+    <!-- point3 -->
     <include
         android:id="@+id/cl_point3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 点4 -->
+    <!-- point4 -->
     <include
         android:id="@+id/cl_point4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 点5 -->
+    <!-- point5 -->
     <include
         android:id="@+id/cl_point5"
         android:layout_width="match_parent"
@@ -120,35 +120,35 @@
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
 
-    <!-- 线1 -->
+    <!-- line1 -->
     <include
         android:id="@+id/cl_line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 线2 -->
+    <!-- line2 -->
     <include
         android:id="@+id/cl_line2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 线3 -->
+    <!-- line3 -->
     <include
         android:id="@+id/cl_line3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 线4 -->
+    <!-- line4 -->
     <include
         android:id="@+id/cl_line4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 线5 -->
+    <!-- line5 -->
     <include
         android:id="@+id/cl_line5"
         android:layout_width="match_parent"
@@ -156,35 +156,35 @@
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
 
-    <!-- 面1 -->
+    <!-- area1 -->
     <include
         android:id="@+id/cl_rect1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 面2 -->
+    <!-- area2 -->
     <include
         android:id="@+id/cl_rect2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 面3 -->
+    <!-- area3 -->
     <include
         android:id="@+id/cl_rect3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 面4 -->
+    <!-- area4 -->
     <include
         android:id="@+id/cl_rect4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         layout="@layout/item_report_ir_show" />
-    <!-- 面5 -->
+    <!-- area5 -->
     <include
         android:id="@+id/cl_rect5"
         android:layout_width="match_parent"

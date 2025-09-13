@@ -3,7 +3,7 @@ package com.infisense.usbir.utils;
 public final class PseudocolorModeTable {
 
     /**
-     * 白热数据
+     * white hotdata
      */
     public final static int[][] pseudocolorMapTableOfBAIRE = new int[][]{
             {0, 0, 0}, {1, 1, 1}, {2, 2, 2}, {3, 3, 3},

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -72,9 +72,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     private void init(Activity activity) {
         this.activity = activity;
         setOwnerActivity(activity);
-        //触摸屏幕取消窗体
+        //Touch屏幕Cancel窗体
         setCanceledOnTouchOutside(false);
-        //按返回键取消窗体
+        //按Return键Cancel窗体
         setCancelable(false);
         super.setOnShowListener(this);
         super.setOnDismissListener(this);
@@ -155,7 +155,6 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     public final void setBackgroundColor(@ColorInt int color) {
         setBackgroundColor(CornerRound.No, color);
     }
-
 
     public final void setBackgroundColor(@CornerRound int cornerRound, @ColorInt int color) {
         setBackgroundColor(cornerRound, 20, color);

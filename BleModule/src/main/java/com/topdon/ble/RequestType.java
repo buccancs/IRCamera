@@ -1,14 +1,14 @@
 package com.topdon.ble;
 
 /**
- * 请求类型
+ * 请求type
  * <p>
  * date: 2019/8/9 22:10
  * author: bichuanfeng
  */
 public enum RequestType {
     /**
-     * 开关通知
+     * 开关notification
      */
     SET_NOTIFICATION,
     /**
@@ -32,15 +32,15 @@ public enum RequestType {
      */
     WRITE_CHARACTERISTIC,
     /**
-     * 修改最大传输单元
+     * modify最大传输单元
      */
     CHANGE_MTU,
     /**
-     * 读物物理层发送器和接收器
+     * 读物物理层Send器和Receive器
      */
     READ_PHY,
     /**
-     * 设置物理层发送器和接收器偏好
+     * settings物理层Send器和Receive器偏好
      */
     SET_PREFERRED_PHY
 }

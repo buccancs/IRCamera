@@ -745,7 +745,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
                 // draw the marker
                 mMarker.draw(canvas, pos[0], pos[1]);
             }catch (Exception exception){
-                Log.e("测试",exception.getMessage());
+                Log.e("Test",exception.getMessage());
             }
         }
     }
@@ -942,7 +942,6 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * ################ ################ ################ ################
      */
     /** BELOW THIS ONLY GETTERS AND SETTERS */
-
 
     /**
      * Returns the object representing all x-labels, this method can be used to
@@ -1472,8 +1471,6 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * @return returns true on success, false on error
      */
     public boolean saveToPath(String title, String pathOnSD) {
-
-
 
         Bitmap b = getChartBitmap();
 

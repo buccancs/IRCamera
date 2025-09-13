@@ -32,12 +32,11 @@ import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.lib.core.utils.PermissionUtils
 import com.topdon.lms.sdk.LMS
-import com.topdon.module.thermal.ir.BuildConfig
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.dialog.HomeGuideDialog
+import com.topdon.module.thermal.ir.fragment.AbilityFragment
 import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.fragment.IRThermalFragment
-import com.topdon.module.thermal.ir.fragment.AbilityFragment
 import com.topdon.module.thermal.ir.fragment.PDFListFragment
 import kotlinx.android.synthetic.main.activity_ir_main.*
 import kotlinx.coroutines.delay
@@ -47,17 +46,16 @@ import org.greenrobot.eventbus.EventBus
 /**
  * 插件式 或 TC007 首页.
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * 需要传递parameter：
+ * - [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
  *
  * Created by LCG on 2024/4/18.
  */
 @Route(path = RouterConfig.IR_MAIN)
 class IRMainActivity : BaseActivity(), View.OnClickListener {
-
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * 从上一界area传递过来的，当前是否为 TC007 devicetype.
+     * true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -74,11 +72,13 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         view_page.offscreenPageLimit = 5
         view_page.isUserInputEnabled = false
         view_page.adapter = ViewPagerAdapter(this, isTC007)
-        view_page.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                refreshTabSelect(position)
-            }
-        })
+        view_page.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    refreshTabSelect(position)
+                }
+            },
+        )
         view_page.setCurrentItem(2, false)
 
         cl_icon_monitor.setOnClickListener(this)
@@ -144,16 +144,16 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_icon_monitor -> {//监控
+            cl_icon_monitor -> { // 监控
                 view_page.setCurrentItem(0, false)
             }
-            cl_icon_gallery -> {//图库
+            cl_icon_gallery -> { // 图库
                 checkStoragePermission()
             }
-            view_main_thermal -> {//首页
+            view_main_thermal -> { // 首页
                 view_page.setCurrentItem(2, false)
             }
-            cl_icon_report -> {//报告
+            cl_icon_report -> { // report
                 if (LMS.getInstance().isLogin) {
                     view_page.setCurrentItem(3, false)
                 } else {
@@ -165,15 +165,15 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            cl_icon_mine -> {//我的
+            cl_icon_mine -> { // 我的
                 view_page.setCurrentItem(4, false)
             }
         }
     }
 
     /**
-     * 刷新 5 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 4]`
+     * refresh 5 个 tab 的selectedstate
+     * @param index 当前selected哪个 tab，`[0, 4]`
      */
     private fun refreshTabSelect(index: Int) {
         iv_icon_monitor.isSelected = false
@@ -206,10 +206,10 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示操作指引弹框.
+     * Show/Display操作指引弹框.
      */
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) {//已看过或不再提示
+        if (SharedManager.homeGuideStep == 0) { // 已看过或不再tip
             return
         }
 
@@ -261,38 +261,39 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                //界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
-                //而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
+                // 界areaswitch及temperature监控历史列表load均需要时间，所以需要等待1000毫秒再去refresh背景
+                // 而若等待1000毫秒太过久，界area会非模糊1000毫秒，所以先refresh一次背景占位
                 delay(100)
                 guideDialog.blurBg(cl_root)
             }
         }
     }
 
-
     private fun checkStoragePermission() {
         val permissionList: List<String> =
-            if (this.applicationInfo.targetSdkVersion >= 34){
+            if (this.applicationInfo.targetSdkVersion >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (this.applicationInfo.targetSdkVersion >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (this.applicationInfo.targetSdkVersion == 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,
                     Permission.WRITE_EXTERNAL_STORAGE,
                 )
-            } else if (this.applicationInfo.targetSdkVersion >= 34){
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
-            listOf(
-                Permission.READ_MEDIA_VIDEO,
-                Permission.READ_MEDIA_IMAGES,
-                Permission.WRITE_EXTERNAL_STORAGE
-            )
-        } else {
-            listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-        }
+            } else {
+                listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
+            }
 
         if (!XXPermissions.isGranted(this, permissionList)) {
             if (BaseApplication.instance.isDomestic()) {
@@ -312,62 +313,71 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 动态申请权限
+     * 动态申请Permission
      */
     private fun initStoragePermission(permissionList: List<String>) {
-        if (PermissionUtils.isVisualUser()){
-            view_page.setCurrentItem(1, false)
-            return
-        }
+        if (PermissionUtils.isVisualUser())
+            {
+                view_page.setCurrentItem(1, false)
+                return
+            }
         XXPermissions.with(this)
             .permission(permissionList)
-            .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                    if (allGranted) {
-                        view_page.setCurrentItem(1, false)
+            .request(
+                object : OnPermissionCallback {
+                    override fun onGranted(
+                        permissions: MutableList<String>,
+                        allGranted: Boolean,
+                    ) {
+                        if (allGranted) {
+                            view_page.setCurrentItem(1, false)
+                        }
                     }
-                }
 
-                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                    if (doNotAskAgain) {
-                        //拒绝授权并且不再提醒
-                        TipDialog.Builder(this@IRMainActivity)
-                            .setTitleMessage(getString(R.string.app_tip))
-                            .setMessage(getString(R.string.app_album_content))
-                            .setPositiveListener(R.string.app_open) {
-                                AppUtils.launchAppDetailsSettings()
-                            }
-                            .setCancelListener(R.string.app_cancel) {
-                            }
-                            .setCanceled(true)
-                            .create().show()
+                    override fun onDenied(
+                        permissions: MutableList<String>,
+                        doNotAskAgain: Boolean,
+                    ) {
+                        if (doNotAskAgain) {
+                            // 拒绝Authorization并且不再提醒
+                            TipDialog.Builder(this@IRMainActivity)
+                                .setTitleMessage(getString(R.string.app_tip))
+                                .setMessage(getString(R.string.app_album_content))
+                                .setPositiveListener(R.string.app_open) {
+                                    AppUtils.launchAppDetailsSettings()
+                                }
+                                .setCancelListener(R.string.app_cancel) {
+                                }
+                                .setCanceled(true)
+                                .create().show()
+                        }
                     }
-                }
-            })
+                },
+            )
     }
-
-
 
     private class ViewPagerAdapter(activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) {//图库
+            if (position == 1) { // 图库
                 return IRGalleryTabFragment().apply {
-                    arguments = Bundle().also {
-                        val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal
-                        it.putBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false)
-                        it.putBoolean(ExtraKeyConfig.HAS_BACK_ICON, false)
-                        it.putInt(ExtraKeyConfig.DIR_TYPE, dirType)
-                    }
+                    arguments =
+                        Bundle().also {
+                            val dirType = if (isTC007) DirType.TC007.ordinal else DirType.LINE.ordinal
+                            it.putBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false)
+                            it.putBoolean(ExtraKeyConfig.HAS_BACK_ICON, false)
+                            it.putInt(ExtraKeyConfig.DIR_TYPE, dirType)
+                        }
                 }
             } else {
-                val fragment = when (position) {
-                    0 -> AbilityFragment()
-                    2 -> IRThermalFragment()
-                    3 -> PDFListFragment()
-                    else -> ARouter.getInstance().build(RouterConfig.TC_MORE).navigation() as Fragment
-                }
+                val fragment =
+                    when (position) {
+                        0 -> AbilityFragment()
+                        2 -> IRThermalFragment()
+                        3 -> PDFListFragment()
+                        else -> ARouter.getInstance().build(RouterConfig.TC_MORE).navigation() as Fragment
+                    }
                 fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
                 return fragment
             }

@@ -35,7 +35,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    
+
     // Configure single release variant for easier maintenance
     androidComponents {
         beforeVariants { variant ->
@@ -51,13 +51,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
-        freeCompilerArgs += listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=kotlinx.coroutines.FlowPreview"
-        )
+        freeCompilerArgs +=
+            listOf(
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=kotlinx.coroutines.FlowPreview",
+            )
     }
-    
+
     lint {
         // Ignore errors in embedded third-party libraries
         disable += listOf("WrongThread")
@@ -70,17 +71,17 @@ android {
 dependencies {
     // Core library desugaring support
     coreLibraryDesugaring(libs.desugar.jdk.libs)
-    
+
     // Project dependencies
     implementation(project(":libapp"))
-    implementation(project(":libmenu"))  // Required for menu references in widget files
-    
+    implementation(project(":libmenu")) // Required for menu references in widget files
+
     // Add unified BLE module for comprehensive Shimmer Nordic and Topdon BLE support
     implementation(project(":BleModule"))
 
     // Use shared UI bundle instead of individual dependencies
     implementation(libs.bundles.ui.common)
-    
+
     // Smart Refresh Layout for LoadingFooter - temporarily commented out due to jitpack.io issues
     // implementation(libs.bundles.smart.refresh)
 }

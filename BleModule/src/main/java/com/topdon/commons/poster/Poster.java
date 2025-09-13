@@ -8,14 +8,14 @@ import androidx.annotation.NonNull;
  */
 interface Poster {
     /**
-     * 将要执行的任务加入队列
+     * 将要执行的task加入queue
      * 
-     * @param runnable 要执行的任务
+     * @param runnable 要执行的task
      */
     void enqueue(@NonNull Runnable runnable);
 
     /**
-     * 清除队列任务
+     * Clearqueuetask
      */
     void clear();
 }

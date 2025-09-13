@@ -19,6 +19,9 @@ import kotlinx.android.synthetic.main.item_new_version.tv_new_version
 import java.util.*
 
 @Route(path = RouterConfig.VERSION)
+/**
+ * VersionActivity class for thermal imaging functionality.
+ */
 class VersionActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView() = R.layout.activity_version
 
@@ -74,20 +77,24 @@ class VersionActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private var appVersionUtil: AppVersionUtil?=null
+    private var appVersionUtil: AppVersionUtil? = null
+
     private fun checkAppVersion(isShow: Boolean) {
         if (appVersionUtil == null) {
-            appVersionUtil = AppVersionUtil(this, object : AppVersionUtil.DotIsShowListener {
-                override fun isShow(show: Boolean) {
-                    cl_new_version.visibility = View.VISIBLE
-                }
+            appVersionUtil =
+                AppVersionUtil(
+                    this,
+                    object : AppVersionUtil.DotIsShowListener {
+                        override fun isShow(show: Boolean) {
+                            cl_new_version.visibility = View.VISIBLE
+                        }
 
-                override fun version(version: String) {
-                    tv_new_version.text = "$version"
-                }
-            })
+                        override fun version(version: String) {
+                            tv_new_version.text = "$version"
+                        }
+                    },
+                )
         }
         appVersionUtil?.checkVersion(isShow)
     }
-
 }

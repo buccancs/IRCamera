@@ -39,7 +39,6 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
      */
     protected float mXMin = Float.MAX_VALUE;
 
-
     /**
      * Creates a new DataSet object with the given values (entries) it represents. Also, a
      * label that describes the DataSet can be specified. The label can also be

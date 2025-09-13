@@ -1,49 +1,44 @@
 package com.topdon.module.user.activity
 
-import android.os.Build
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.elvishew.xlog.XLog
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.bean.event.TS004ResetEvent
-import com.topdon.lib.core.common.SaveSettingUtil
-import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.ConfirmSelectDialog
+import com.topdon.lib.core.dialog.FirmwareUpDialog
 import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.http.tool.DownloadTool
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.utils.Constants
 import com.topdon.lib.core.viewmodel.FirmwareViewModel
-import com.topdon.lms.sdk.LMS
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.user.R
-import com.topdon.lib.core.R as RCore
 import com.topdon.module.user.dialog.DownloadProDialog
 import com.topdon.module.user.dialog.FirmwareInstallDialog
-import com.topdon.lib.core.dialog.FirmwareUpDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.text.DecimalFormat
+import com.topdon.lib.core.R as RCore
 
 /**
- * TS004 的 “更多” 页面.
+TS004 的 “更多” 页area.
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class MoreActivity : BaseActivity(), View.OnClickListener {
-
     private val firmwareViewModel: FirmwareViewModel by viewModels()
-    
+
     // View references
     private lateinit var settingDeviceInformation: View
     private lateinit var settingTisr: View
@@ -68,7 +63,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         settingAutoSave = findViewById(R.id.setting_auto_save)
         itemSettingBottomText = findViewById(R.id.item_setting_bottom_text)
         tvUpgradePoint = findViewById(R.id.tv_upgrade_point)
-        
+
         settingDeviceInformation.setOnClickListener(this)
         settingTisr.setOnClickListener(this)
         settingStorageSpace.setOnClickListener(this)
@@ -77,10 +72,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         settingDisconnect.setOnClickListener(this)
         settingAutoSave.setOnClickListener(this)
 
-        /*if (Build.VERSION.SDK_INT < 29) {//低于 Android10
+if (Build.VERSION.SDK_INT < 29) {//低于 Android10
             settingVersion.isVisible = false
         }*/
-        // 2024-5-30 09:16 TS004项目APP沟通群决定，3.30版本先把固件升级隐藏
+2024-5-30 09:16 TS004项目APP沟通群决定，3.30version先把firmwareUpgradehide
         settingVersion.isVisible = false
     }
 
@@ -90,7 +85,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
-            if (it == null) {//请求成功但没有固件升级包，即已是最新
+            if (it == null) { // 请求success但没有firmwareUpgrade包，即已是最新
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -105,40 +100,40 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            settingDeviceInformation -> {//设备信息
+            settingDeviceInformation -> { // deviceinfo
                 NavigationManager.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
-            settingTisr -> {//设置超分
+            settingTisr -> { // settings超分
                 NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
-            settingAutoSave -> {//自动保存到手机
+            settingAutoSave -> { // 自动save到手机
                 NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
-            settingStorageSpace -> {//TS004储存空间
+            settingStorageSpace -> { // TS004储存空间
                 NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            settingVersion -> {//固件版本
-                //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
+            settingVersion -> { // firmwareversion
+由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处comment强制Login逻辑
 //                if (LMS.getInstance().isLogin) {
-                    val firmwareData = firmwareViewModel.firmwareDataLD.value
-                    if (firmwareData != null) {
-                        showFirmwareUpDialog(firmwareData)
-                    } else {
-                        XLog.i("TS004 固件升级 - 点击查询")
-                        showCameraLoading()
-                        firmwareViewModel.queryFirmware(true)
-                    }
+                val firmwareData = firmwareViewModel.firmwareDataLD.value
+                if (firmwareData != null) {
+                    showFirmwareUpDialog(firmwareData)
+                } else {
+                    XLog.i("TS004 firmwareUpgrade - click查询")
+                    showCameraLoading()
+                    firmwareViewModel.queryFirmware(true)
+                }
 //                } else {
 //                    LMS.getInstance().activityLogin()
 //                }
             }
-            settingReset -> {//恢复出厂设置
+            settingReset -> { // Restore出厂settings
                 restoreFactory()
             }
-            settingDisconnect -> {//断开连接
+            settingDisconnect -> { // disconnectconnection
                 NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
@@ -147,7 +142,7 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示固件升级提示弹框.
+displayfirmwareUpgradetip弹框.
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(this)
@@ -156,42 +151,44 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-            //由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释下载逻辑
-            //downloadFirmware(firmwareData)
+由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处commentDownload逻辑
+            // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
         dialog.show()
     }
 
-    private fun getFileSizeStr(size: Long): String = if (size < 1024) {
-        "${size}B"
-    } else if (size < 1024 * 1024) {
-        DecimalFormat("#.0").format(size.toDouble() / 1024) + "KB"
-    } else if (size < 1024 * 1024 * 1024) {
-        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024) + "MB"
-    } else {
-        DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024 / 1024) + "GB"
-    }
+    private fun getFileSizeStr(size: Long): String =
+        if (size < 1024) {
+            "${size}B"
+        } else if (size < 1024 * 1024) {
+            DecimalFormat("#.0").format(size.toDouble() / 1024) + "KB"
+        } else if (size < 1024 * 1024 * 1024) {
+            DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024) + "MB"
+        } else {
+            DecimalFormat("#.0").format(size.toDouble() / 1024 / 1024 / 1024) + "GB"
+        }
 
     /**
-     * 下载指定固件升级包
+Download指定firmwareUpgrade包
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {
-            XLog.d("TS004 固件升级 - 开始下载固件升级包")
+            XLog.d("TS004 firmwareUpgrade - startDownloadfirmwareUpgrade包")
             val progressDialog = DownloadProDialog(this@MoreActivity)
             progressDialog.show()
 
             val file = FileConfig.getFirmwareFile("TS004${firmwareData.version}.zip")
-            val isSuccess = DownloadTool.download(firmwareData.downUrl, file) { current, total ->
-                progressDialog.refreshProgress(current, total)
-            }
+            val isSuccess =
+                DownloadTool.download(firmwareData.downUrl, file) { current, total ->
+                    progressDialog.refreshProgress(current, total)
+                }
             progressDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 固件升级 - 固件升级包下载成功，即将开始安装")
+                XLog.d("TS004 firmwareUpgrade - firmwareUpgrade包Downloadsuccess，即将startInstall")
                 installFirmware(file)
             } else {
-                XLog.w("TS004 固件升级 - 固件升级包下载失败!")
+                XLog.w("TS004 firmwareUpgrade - firmwareUpgrade包Downloadfailed!")
                 showReDownloadDialog(firmwareData)
             }
         }
@@ -199,19 +196,19 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
 
     private fun installFirmware(file: File) {
         lifecycleScope.launch {
-            XLog.d("TS004 固件升级 - 开始安装固件升级包")
+            XLog.d("TS004 firmwareUpgrade - startInstallfirmwareUpgrade包")
             val installDialog = FirmwareInstallDialog(this@MoreActivity)
             installDialog.show()
 
             val isSuccess = TS004Repository.updateFirmware(file)
             installDialog.dismiss()
             if (isSuccess) {
-                XLog.d("TS004 固件升级 - 固件升级包发送往 TS004 成功，即将断开连接")
+                XLog.d("TS004 firmwareUpgrade - firmwareUpgrade包Send往 TS004 success，即将disconnectconnection")
                 (application as BaseApplication).disconnectWebSocket()
                 NavigationManager.getInstance().build(RouterConfig.MAIN).navigation(this@MoreActivity)
                 finish()
             } else {
-                XLog.w("TS004 固件升级 - 固件升级包发送往 TS004 失败!")
+                XLog.w("TS004 firmwareUpgrade - firmwareUpgrade包Send往 TS004 failed!")
                 showReInstallDialog(file)
             }
         }
@@ -268,9 +265,9 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
     private fun resetAll() {
         showLoadingDialog(RCore.string.ts004_reset_tip3)
         lifecycleScope.launch {
-            XLog.i("准备调用恢复出厂设置接口")
+            XLog.i("准备调用Restore出厂settingsinterface")
             val isSuccess = TS004Repository.getResetAll()
-            XLog.i("恢复出厂设置接口调用 ${if (isSuccess) "成功" else "失败"}")
+            XLog.i("Restore出厂settingsinterface调用 ${if (isSuccess) "success" else "failed"}")
             if (isSuccess) {
                 TToast.shortToast(this@MoreActivity, RCore.string.ts004_reset_tip4)
                 (application as BaseApplication).disconnectWebSocket()

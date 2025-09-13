@@ -6,9 +6,9 @@ package com.topdon.lib.ui.utils
  */
 internal object CenterItemUtils {
     fun getMinDifferItem(itemHeights: List<CenterViewItem>): CenterViewItem {
-        var minItem = itemHeights[0] // 默认第一个是最小差值
+        var minItem = itemHeights[0] 
         for (i in itemHeights.indices) {
-            // 遍历获取最小差值
+            // 遍历Get/Retrieve最小差值
             if (itemHeights[i].differ <= minItem.differ) {
                 minItem = itemHeights[i]
             }
@@ -16,8 +16,19 @@ internal object CenterItemUtils {
         return minItem
     }
 
+    
+/**
+ * Custom Center view item view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * CenterViewItem implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     class CenterViewItem
-    // 当前Item索引
-    // 当前item和居中位置的差值
+    
+    
     (var position: Int, var differ: Int)
 }

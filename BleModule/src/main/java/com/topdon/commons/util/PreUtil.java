@@ -23,7 +23,7 @@ public class PreUtil {
     private static PreUtil instance;
 
     /**
-     * 构造方法
+     * constructormethod
      *
      * @param context
      */
@@ -32,7 +32,7 @@ public class PreUtil {
     }
 
     /**
-     * 构造方法
+     * constructormethod
      *
      * @param context
      * @param shareName
@@ -43,7 +43,7 @@ public class PreUtil {
     }
 
     /**
-     * 得到单例模式的PreferencesManager对象
+     * 得到Singletonmode的PreferencesManager对象
      *
      * @param context 上下文
      * @return
@@ -53,10 +53,10 @@ public class PreUtil {
     }
 
     /**
-     * 得到单例模式的PreferencesManager对象
+     * 得到Singletonmode的PreferencesManager对象
      *
      * @param context   上下文
-     * @param shareName 文件名称
+     * @param shareName filename
      * @return
      */
     public static PreUtil getInstance(Context context,
@@ -138,7 +138,7 @@ public class PreUtil {
     }
 
     /**
-     * 直接存放对象，反射将根据对象的属性作为key，并将对应的值保存。
+     * 直接存放对象，反射将根据对象的property作为key，并将对应的值save。
      *
      * @param t
      */
@@ -258,7 +258,7 @@ public class PreUtil {
     }
 
     /**
-     * 获取整个对象，跟put(T t)对应使用， 利用反射得到对象的属性，然后从preferences获取
+     * Get/Retrieve整个对象，跟put(T t)对应使用， 利用反射得到对象的property，然后从preferencesGet/Retrieve
      *
      * @param cls
      * @return

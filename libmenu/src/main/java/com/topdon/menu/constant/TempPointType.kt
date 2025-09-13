@@ -1,23 +1,30 @@
 package com.topdon.menu.constant
 
 /**
- * 观测模式-菜单5-高低温点 菜单类型.
+ * Observation mode - Menu 5 - High/low temperature points menu type.
  *
  * Created by LCG on 2024/11/29.
  */
+
+/**
+ * Type definition for temppoint classification.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 enum class TempPointType {
     /**
-     * 高温点
+     * High temperature point
      */
     HIGH,
 
     /**
-     * 低温点
+     * Low temperature point
      */
     LOW,
 
     /**
-     * 删除
+     * delete
      */
     DELETE,
 }

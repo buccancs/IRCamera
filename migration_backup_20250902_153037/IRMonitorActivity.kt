@@ -8,18 +8,19 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.ui.dialog.MonitorSelectDialog
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.bean.SelectPositionBean
-import com.topdon.module.thermal.ir.event.MonitorSaveEvent
 import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import kotlinx.android.synthetic.main.activity_ir_monitor.*
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 选取区域监听
+ * 选取regionListener
  */
 @Route(path = RouterConfig.IR_THERMAL_MONITOR)
+/**
+ * IRMonitorActivity class for thermal imaging functionality.
+ */
 class IRMonitorActivity : BaseActivity(), View.OnClickListener {
-
-    private var selectIndex: SelectPositionBean? = null//选取点
+    private var selectIndex: SelectPositionBean? = null // 选取point
 
     override fun initContentView() = R.layout.activity_ir_monitor
 
@@ -29,7 +30,6 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
-
     }
 
     override fun onClick(v: View?) {
@@ -60,7 +60,7 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
                         .create().show()
                     return
                 }
-                //开始温度监听
+                // starttemperatureListener
                 ARouter.getInstance().build(RouterConfig.IR_MONITOR_CHART)
                     .withParcelable("select", selectIndex)
                     .navigation(this)
@@ -69,6 +69,9 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * select function implementation.
+     */
     fun select(selectIndex: SelectPositionBean?) {
         this.selectIndex = selectIndex
     }
@@ -82,6 +85,4 @@ class IRMonitorActivity : BaseActivity(), View.OnClickListener {
         super.disConnected()
         finish()
     }
-
-
 }

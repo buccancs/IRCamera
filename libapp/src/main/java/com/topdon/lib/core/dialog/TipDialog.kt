@@ -14,9 +14,15 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipBinding
 
 /**
- * 提示窗
+ * tip窗
  * create by fylder on 2018/6/15
  **/
+/**
+ * TipDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class TipDialog : Dialog {
     constructor(context: Context) : super(context)
 
@@ -26,6 +32,12 @@ class TipDialog : Dialog {
     override fun onBackPressed() {
     }
 
+/**
+ * Builder manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     class Builder(private val context: Context) {
         var dialog: TipDialog? = null
 
@@ -97,10 +109,16 @@ class TipDialog : Dialog {
             return this
         }
 
+    /**
+     * Executes dismiss functionality.
+     */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
+    /**
+     * Creates and configures a new  instance.
+     */
         fun create(): TipDialog {
             if (dialog == null) {
                 dialog = TipDialog(context, R.style.InfoDialog)
@@ -111,7 +129,7 @@ class TipDialog : Dialog {
             val isPortrait = context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
             val widthPixels = context.resources.displayMetrics.widthPixels
             val lp = dialog!!.window!!.attributes
-            lp.width = (widthPixels * if (isPortrait) 0.85 else 0.35).toInt() // 设置宽度
+            lp.width = (widthPixels * if (isPortrait) 0.85 else 0.35).toInt() 
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -136,7 +154,7 @@ class TipDialog : Dialog {
                 binding.dialogTipCancelBtn.visibility = View.GONE
                 binding.dialogTipCancelBtn.text = ""
             }
-            // msg
+            
             if (message != null) {
                 binding.dialogTipMsgText.visibility = View.VISIBLE
                 binding.dialogTipMsgText.setText(message, TextView.BufferType.NORMAL)
@@ -144,7 +162,7 @@ class TipDialog : Dialog {
                 binding.dialogTipMsgText.visibility = View.GONE
             }
 
-            // msg
+            
             if (titleMessage != null) {
                 binding.dialogTipTitleMsgText.visibility = View.VISIBLE
                 binding.dialogTipTitleMsgText.setText(titleMessage, TextView.BufferType.NORMAL)

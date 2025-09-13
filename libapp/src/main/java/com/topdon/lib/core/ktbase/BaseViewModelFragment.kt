@@ -17,6 +17,9 @@ abstract class BaseViewModelFragment<VM : BaseViewModel> : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    /**
+     * Initializes the component with default configuration.
+     */
     private fun initVM() {
         providerVMClass()?.let {
             viewModel = ViewModelProvider(this).get(it)

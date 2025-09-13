@@ -19,7 +19,7 @@ public class DatabaseContext extends ContextWrapper {
     
     /**
      * @param base 上下文
-     * @param dbDir 数据库文件要存放的目录
+     * @param dbDir data库file要存放的目录
      */
     public DatabaseContext(Context base, @NonNull File dbDir) {
         super(base);

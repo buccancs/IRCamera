@@ -8,15 +8,21 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuEditBinding
 
 /**
- * 2D编辑页面所用底部菜单栏.
+ * Bottom menu bar for 2D editing interface.
  *
- * 点线面、伪彩、设置、伪彩条
- */
-class MenuEditView : FrameLayout, View.OnClickListener {
+ * Handles point/line/area measurement, pseudo color, settings, and pseudo color bar operations. */
 
+/**
+ * Custom Menu edit view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities. */
+/**
+ * MenuEditView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0 */
+class MenuEditView : FrameLayout, View.OnClickListener {
     /**
-     * 伪彩条图标当前是否处于选中状态
-     */
+ * Whether the pseudo color bar icon is currently in selected state */
     var isBarSelect: Boolean
         get() = binding.ivMenu4.isSelected
         set(value) {
@@ -25,15 +31,12 @@ class MenuEditView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 0-点线面、1-伪彩颜色、2-设置 菜单点击事件监听.
-     */
+ * Menu click event listener: 0-point/line/area, 1-pseudo color, 2-settings. */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
+
     /**
-     * 伪彩条图标点击事件监听.
-     */
+ * Pseudo color bar icon click event listener. */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
-
-
 
     private lateinit var binding: ViewMenuEditBinding
 
@@ -43,7 +46,12 @@ class MenuEditView : FrameLayout, View.OnClickListener {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int): super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         if (isInEditMode) {
             LayoutInflater.from(context).inflate(R.layout.view_menu_edit, this, true)
         } else {
@@ -55,12 +63,8 @@ class MenuEditView : FrameLayout, View.OnClickListener {
         }
     }
 
-
-
-
     /**
-     * 当前选中那个 tab，取值 `[0,2]`
-     */
+ * Currently selected tab index, range `[0,2]` */
     private var selectPosition = -1
         set(value) {
             if (field != value) {

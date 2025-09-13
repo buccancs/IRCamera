@@ -3,29 +3,32 @@ package com.topdon.menu.adapter
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.topdon.menu.R as MenuR
 import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.TempPointType
 
 /**
- * 观测模式-菜单5-高低温点 菜单所用 Adapter，按旧逻辑存在全部未选择的状态。
+ * Observation mode - menu 5 - high/low temperature point menu adapter. Following old logic, there exists a state where all are unselected.
  *
- * - 高温点、低温点 互相独立，可多选
- * - {高温点、低温点} 与 删除 互斥
+ * - High temperature point and low temperature point are independent, support multi-selection
+ * - {High temperature point, low temperature point} mutually exclusive with delete
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempPointAdapter : BaseMenuAdapter() {
     /**
-     * 观测模式-菜单5-高低温点 点击事件监听.
+     * Observation mode - Menu 5 - High/Low temperature points click event listener.
      */
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * 设置 高温点 或 低稳点 的选中状态。
+     * Settings high temperature point or low temperature point selected state.
      */
-    fun setSelected(tempPointType: TempPointType, isSelected: Boolean) {
+    fun setSelected(
+        tempPointType: TempPointType,
+        isSelected: Boolean,
+    ) {
         for (i in dataArray.indices) {
             if (dataArray[i].tempPointType == tempPointType) {
                 dataArray[i].isSelected = isSelected
@@ -36,8 +39,8 @@ internal class TempPointAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * 清除所有菜单的选中状态。
-     * 这里维持原有逻辑，后续考虑是否直接给选中删除得了。
+     * Clear all menu selected state.
+     * Maintain original logic here, consider whether to directly delete selected items later.
      */
     fun clearAllSelect() {
         for (data in dataArray) {
@@ -46,14 +49,17 @@ internal class TempPointAdapter : BaseMenuAdapter() {
         notifyDataSetChanged()
     }
 
+    private val dataArray: Array<Data> =
+        arrayOf(
+            Data(R.string.main_tab_second_high_temperature_point, MenuR.drawable.selector_menu2_temp_point_1, TempPointType.HIGH),
+            Data(R.string.main_tab_second_low_temperature_point, MenuR.drawable.selector_menu2_temp_point_2, TempPointType.LOW),
+            Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, TempPointType.DELETE),
+        )
 
-    private val dataArray: Array<Data> = arrayOf(
-        Data(R.string.main_tab_second_high_temperature_point, MenuR.drawable.selector_menu2_temp_point_1, TempPointType.HIGH),
-        Data(R.string.main_tab_second_low_temperature_point, MenuR.drawable.selector_menu2_temp_point_2, TempPointType.LOW),
-        Data(R.string.thermal_delete, MenuR.drawable.selector_menu2_del, TempPointType.DELETE),
-    )
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         val data: Data = dataArray[position]
         holder.binding.ivIcon.setImageResource(data.drawableId)
         holder.binding.tvText.setText(data.stringId)
@@ -61,7 +67,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
             if (data.tempPointType == TempPointType.DELETE) {
-                if (!data.isSelected) {//选中时再次删除没卵用，未选中时才处理
+                if (!data.isSelected) { // deleting when already selected is useless, only process when unselected
                     for (temp in dataArray) {
                         temp.isSelected = temp.tempPointType == TempPointType.DELETE
                     }
@@ -72,7 +78,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
-                if (data.isSelected) {//选中高温点、低温点时要把“删除”设为未选中；取消选中时不耦合删除
+                if (data.isSelected) { // when high/low temperature points are selected, set "delete" to unselected; when canceling selection, do not couple with delete
                     for (i in dataArray.indices) {
                         if (dataArray[i].tempPointType == TempPointType.DELETE && dataArray[i].isSelected) {
                             dataArray[i].isSelected = false
@@ -87,6 +93,10 @@ internal class TempPointAdapter : BaseMenuAdapter() {
 
     override fun getItemCount(): Int = dataArray.size
 
+/**
+ * Custom Data view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     data class Data(
         @StringRes val stringId: Int,
         @DrawableRes val drawableId: Int,

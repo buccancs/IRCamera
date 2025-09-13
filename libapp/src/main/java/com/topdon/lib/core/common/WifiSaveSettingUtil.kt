@@ -11,29 +11,29 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * wifi设备的保存专属
+ * wifidevice的saved专属
  *
- * 当前类封装受“保存设置开关”影响的配置项，
+ * currentclass封装受“savedsettings开关”影响的configuration项，
  *
- * [SharedManager] 保存不受“保存设置开关”影响的配置项.
+ * [SharedManager] saved不受“savedsettings开关”影响的configuration项.
  */
 object WifiSaveSettingUtil {
     /**
-     * 保存设置开关使用的 SharedPreferences 名称.
+     * savedsettings开关使用的 SharedPreferences name.
      */
     private const val SP_NAME = "WifiSaveSettingUtil"
 
     /**
-     * 插件类别
+     * 插件class别
      */
     const val TYPE_PLUG = 0
     const val TYPE_WIFI = 1
 
     /**
-     * 保存设置开关关闭时，要将所有影响的配置项重置为默认项.
+     * savedsettings开关close时，要将所有影响的configuration项reset为默认项.
      */
     fun reset() {
-        // 热成像测温观测模式共有
+        // thermal imagingtemperature measurementobservationmode共有
         isMeasureTempMode = true
         isVideoMode = false
         isAutoShutter = true
@@ -44,7 +44,7 @@ object WifiSaveSettingUtil {
         pseudoColorMode = 3
         rotateAngle = DeviceConfig.S_ROTATE_ANGLE
 
-        // 测温模式独有
+        // temperature measurementmode独有
         isOpenPseudoBar = true
         isOpenTwoLight = false
         twoLightAlpha = 50
@@ -53,7 +53,7 @@ object WifiSaveSettingUtil {
         temperatureMode = CameraItemBean.TYPE_TMP_C
         alarmBean = AlarmBean()
 
-        // 观测模式独有
+        
         isOpenCompass = false
         isOpenHighPoint = false
         isOpenLowPoint = false
@@ -88,7 +88,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 是否开启保存设置开关，默认关闭.
+     * 是否开启savedsettings开关，默认close.
      */
     var isSaveSetting: Boolean
         get() = SPUtils.getInstance(SP_NAME).getBoolean("isSaveSetting", true)
@@ -97,7 +97,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像是否处于测温模式，默认测温模式 true-测温 false-观测
+     * thermal imaging是否处于temperature measurementmode，默认temperature measurementmode true-temperature measurement false-observation
      */
     var isMeasureTempMode: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isMeasureTempMode", true) else true
@@ -108,7 +108,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像是否选择录像模式，默认拍照 true-录像 false-拍照
+     * thermal imaging是否selectionrecordingmode，默认capture true-recording false-capture
      */
     var isVideoMode: Boolean
         get() =
@@ -125,7 +125,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像是否打开自动快门，默认打开 true-打开 false-关闭
+     * thermal imaging是否Open自动快门，默认Open true-Open false-close
      */
     var isAutoShutter: Boolean
         get() =
@@ -142,7 +142,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像录像是否同时使用麦克风录制音频，默认关闭 true-开启 false-关闭
+     * thermal imagingrecording是否同时使用麦克风recording音频，默认close true-开启 false-close
      */
     var isRecordAudio: Boolean
         get() =
@@ -159,7 +159,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像是否开启镜像，默认关闭即不镜像 true-镜像 false-不镜像
+     * thermal imaging是否开启镜像，默认close即不镜像 true-镜像 false-不镜像
      */
     var isOpenMirror: Boolean
         get() =
@@ -176,7 +176,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 延迟拍照或延时录制的延时秒数，单位秒，默认0秒即不延迟.
+     * delayedcapture或延时recording的延时秒数，单位秒，默认0秒即不delayed.
      */
     var delayCaptureSecond: Int
         get() =
@@ -193,7 +193,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像对比度，取值范围`[0,255]`，默认 128
+     * thermal imagingcontrast，取值range`[0,255]`，默认 128
      */
     var contrastValue: Int
         get() =
@@ -210,7 +210,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像伪彩模式，取值为伪彩枚举值，默认铁红
+     * thermal imagingpseudo colormode，取值为pseudo colorenum值，默认iron red
      */
     var pseudoColorMode: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("pseudoColorMode", 3) else 3
@@ -221,7 +221,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像画面逆时针旋转角度，取值 0、90、180、270，默认 [DeviceConfig.S_ROTATE_ANGLE]
+     * thermal imaging画area逆时针rotation angle，取值 0、90、180、270，默认 [DeviceConfig.S_ROTATE_ANGLE]
      */
     var rotateAngle: Int
         get() =
@@ -238,7 +238,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-是否开启伪彩条，默认开启 true-开启 false-关闭
+     * thermal imaging-temperature measurementmode-是否开启pseudo color条，默认开启 true-开启 false-close
      */
     var isOpenPseudoBar: Boolean
         get() =
@@ -255,7 +255,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-是否开启双光，默认关闭 true-开启 false-关闭
+     * thermal imaging-temperature measurementmode-是否开启dual light，默认close true-开启 false-close
      */
     var isOpenTwoLight: Boolean
         get() =
@@ -272,7 +272,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-双光开启时融合度，取值`[0,100]`，0表示完全不透明，100表示完全透明，默认 50%
+     * thermal imaging-temperature measurementmode-dual light开启时fusion度，取值`[0,100]`，0表示完全不透明，100表示完全透明，默认 50%
      */
     var twoLightAlpha: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("twoLightAlpha", 50) else 50
@@ -283,7 +283,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-锐度(细节增强等级)，取值范围`[0,4]`，默认为 2
+     * thermal imaging-temperature measurementmode-锐度(细节Enhance等级)，取值range`[0,4]`，默认为 2
      */
     var ddeConfig: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("ddeConfig", 2) else 2
@@ -294,7 +294,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-温度字体颜色值，默认白色.
+     * thermal imaging-temperature measurementmode-temperaturefontcolor值，默认白色.
      */
     var tempTextColor: Int
         get() =
@@ -311,7 +311,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-温度字体颜色值，默认14sp.
+     * thermal imaging-temperature measurementmode-temperaturefontcolor值，默认14sp.
      */
     var tempTextSize: Int
         get() =
@@ -328,9 +328,9 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-测温模式-温度档位，默认常温，取值
+     * thermal imaging-temperature measurementmode-temperature level，默认normal temperature，取值
      *
-     * 常温 ([CameraItemBean.TYPE_TMP_C] = 1）
+     * normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）
      *
      * 高温 ([CameraItemBean.TYPE_TMP_H] = 0)
      *
@@ -351,7 +351,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     *热成像-测温模式-温度报警相关设置项.
+     *thermal imaging-temperature measurementmode-temperature报警相关settings项.
      */
     var alarmBean: AlarmBean
         get() =
@@ -368,7 +368,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-是否开启指南针，默认关闭 true-开启 false-关闭
+     * thermal imaging-observationmode-是否开启指南针，默认close true-开启 false-close
      */
     var isOpenCompass: Boolean
         get() =
@@ -385,7 +385,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-是否开启高温点，默认关闭 true-开启 false-关闭
+     * thermal imaging-observationmode-是否开启高温point，默认close true-开启 false-close
      */
     var isOpenHighPoint: Boolean
         get() =
@@ -402,7 +402,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-是否开启低温点，默认关闭 true-开启 false-关闭
+     * thermal imaging-observationmode-是否开启低温point，默认close true-开启 false-close
      */
     var isOpenLowPoint: Boolean
         get() =
@@ -419,15 +419,15 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-选中AI追踪类型，默认未选中，取值
+     * thermal imaging-observationmode-selectedAI追踪type，默认未selected，取值
      *
-     * 未选中 ([ObserveBean.TYPE_NONE] = -1)
+     * 未selected ([ObserveBean.TYPE_NONE] = -1)
      *
-     * 动态识别 ([ObserveBean.TYPE_DYN_R] = 0)
+     * dynamic recognition ([ObserveBean.TYPE_DYN_R] = 0)
      *
-     * 高温源 ([ObserveBean.TYPE_TMP_H_S] = 1)
+     * high temperature source ([ObserveBean.TYPE_TMP_H_S] = 1)
      *
-     * 低温源 ([ObserveBean.TYPE_TMP_L_S] = 2)
+     * low temperature source ([ObserveBean.TYPE_TMP_L_S] = 2)
      */
     var aiTraceType: Int
         get() =
@@ -444,7 +444,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-是否开启标靶，默认关闭 true-开启 false-关闭
+     * thermal imaging-observationmode-target-是否开启target，默认close true-开启 false-close
      */
     var isOpenTarget: Boolean
         get() =
@@ -461,15 +461,15 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶测量模式，默认人，取值
+     * thermal imaging-observationmode-target-targetmeasurement mode，默认human，取值
      *
-     * 人 ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
+     * human ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
      *
-     * 羊 ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
+     * sheep ([ObserveBean.TYPE_MEASURE_SHEEP] = 11)
      *
-     * 狗 ([ObserveBean.TYPE_MEASURE_DOG] = 12)
+     * dog ([ObserveBean.TYPE_MEASURE_DOG] = 12)
      *
-     * 鸟 ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
+     * bird ([ObserveBean.TYPE_MEASURE_BIRD] = 13)
      */
     var targetMeasureMode: Int
         get() =
@@ -488,7 +488,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶类型，默认横向，取值
+     * thermal imaging-observationmode-target-targettype，默认横向，取值
      *
      * 横向 ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
      *
@@ -513,7 +513,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 热成像-观测模式-标靶-标靶颜色，默认绿色，取值
+     * thermal imaging-observationmode-target-targetcolor，默认绿色，取值
      *
      * 绿色 ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
      *
@@ -542,7 +542,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 报告-作者名称，默认值 App 名称.
+     * report-作者name，默认值 App name.
      */
     var reportAuthorName: String
         get() =
@@ -559,7 +559,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 报告-水印内容，默认值 App 名称.
+     * report-watermark内容，默认值 App name.
      */
     var reportWatermarkText: String
         get() =
@@ -576,7 +576,7 @@ object WifiSaveSettingUtil {
         }
 
     /**
-     * 报告-环境湿度千分比，默认值500，取值`[0, 1000]`
+     * report-环境湿度千分比，默认值500，取值`[0, 1000]`
      */
     var reportHumidity: Int
         get() =

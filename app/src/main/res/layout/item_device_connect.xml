@@ -17,7 +17,7 @@
         android:paddingBottom="12dp"
         android:textSize="16sp"
         android:textColor="#ffffff"
-        tools:text="有线连接"
+        tools:text="有lineconnection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +53,7 @@
         android:textColor="@color/device_connect_name"
         android:maxLines="2"
         android:ellipsize="end"
-        tools:text="有线设备"
+        tools:text="有linedevice"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_image"

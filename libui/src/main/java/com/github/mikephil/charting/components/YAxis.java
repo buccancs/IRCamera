@@ -399,7 +399,6 @@ public class YAxis extends AxisBase {
         mUseAutoScaleRestrictionMax = isEnabled;
     }
 
-
     @Override
     public void calculate(float dataMin, float dataMax) {
 

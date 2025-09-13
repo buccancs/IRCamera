@@ -1,10 +1,10 @@
 package com.topdon.module.thermal.ir.video
 
 import android.graphics.Bitmap
-import com.topdon.lib.core.utils.BitmapUtils
 import com.infisense.usbir.view.CameraView
 import com.infisense.usbir.view.TemperatureView
 import com.topdon.lib.core.config.FileConfig
+import com.topdon.lib.core.utils.BitmapUtils
 import com.topdon.module.thermal.ir.video.media.Encoder
 import com.topdon.module.thermal.ir.video.media.MP4Encoder
 import io.reactivex.Observable
@@ -15,14 +15,13 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * 硬编码
- * bitmap -> mp4
+ * Video record media utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
  */
 class VideoRecordMedia(
     private var cameraView: CameraView,
-    private var temperatureView: TemperatureView
+    private var temperatureView: TemperatureView,
 ) : VideoRecord() {
-
     private lateinit var exportDisposable: Disposable
     private var encoder: Encoder = MP4Encoder()
     private var isRunning = false
@@ -34,15 +33,13 @@ class VideoRecordMedia(
         encoder.setFrameDelay(25)
         width = 480
         height = width * cameraView.height / cameraView.width
-        //宽高不能出现奇数
+宽高不能出现奇数
         if (height % 2 == 1) {
             height -= 1
         }
     }
 
-
     override fun startRecord() {
-
         val downloadDir = FileConfig.lineGalleryDir
         val exportedFile = File(downloadDir, "${Date().time}.mp4")
         if (exportedFile.exists()) {
@@ -50,21 +47,22 @@ class VideoRecordMedia(
         }
         encoder.setOutputFilePath(exportedFile.path)
 //        if (bitmap == null) {
-//            Log.w("123", "录制准备失败")
+Log.w("123", "recording准备failed")
 //            return
 //        }
         encoder.setOutputSize(width, height)
         encoder.startEncode()
         isRunning = true
-        //默认帧率20,间隔50ms一帧
-        exportDisposable = Observable.interval(50, TimeUnit.MILLISECONDS)
-            .map {
-                createBitmapFromView()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                encoder.addFrame(it)
-            }
+默认frame率20,间隔50ms一frame
+        exportDisposable =
+            Observable.interval(50, TimeUnit.MILLISECONDS)
+                .map {
+                    createBitmapFromView()
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    encoder.addFrame(it)
+                }
     }
 
     override fun startRecord(fileDir: String) {
@@ -85,24 +83,25 @@ class VideoRecordMedia(
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap = cameraView.bitmap
         if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
-            // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
-            cameraViewBitmap = BitmapUtils.mergeBitmap(
-                cameraViewBitmap,
-                temperatureView.regionAndValueBitmap,
-                0,
-                0
-            )
+gettemperature图层的data，包括pointline框，temperature值等，重新合成bitmap
+            cameraViewBitmap =
+                BitmapUtils.mergeBitmap(
+                    cameraViewBitmap,
+                    temperatureView.regionAndValueBitmap,
+                    0,
+                    0,
+                )
         }
-        val dstBitmap = if (cameraViewBitmap != null) {
-            Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
-        } else {
-            Bitmap.createBitmap(
-                width,
-                height,
-                Bitmap.Config.ARGB_8888
-            )
-        }
+        val dstBitmap =
+            if (cameraViewBitmap != null) {
+                Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
+            } else {
+                Bitmap.createBitmap(
+                    width,
+                    height,
+                    Bitmap.Config.ARGB_8888,
+                )
+            }
         return dstBitmap
     }
-
 }

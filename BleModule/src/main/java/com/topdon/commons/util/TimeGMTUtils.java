@@ -12,14 +12,13 @@ import java.util.TimeZone;
 
 /**
  * @Desc
- * @ClassName 时间工具类
+ * @ClassName 时间工具class
  * @Email 616862466@qq.com
  * @Author 子墨
  * @Date 2022/12/13 21:57
  */
 
 public class TimeGMTUtils {
-
 
     /**
      * 判断是否在夏令时
@@ -41,7 +40,7 @@ public class TimeGMTUtils {
     }
 
     /**
-     * 消息时间转换
+     * message时间conversion
      *
      * @param time 2022-11-01 20:50:13 GMT时间
      * @return String
@@ -73,7 +72,7 @@ public class TimeGMTUtils {
 
     /**
      * 将字符串转为时间戳
-     * GMT转换中国Asia/Shanhai时间戳
+     * GMTconversion中国Asia/Shanhai时间戳
      *
      * @param dateString 2022-07-13 09:58:09
      * @param pattern    yyyy-MM-dd HH:mm:ss

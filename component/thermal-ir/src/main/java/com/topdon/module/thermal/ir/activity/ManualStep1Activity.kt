@@ -2,7 +2,6 @@ package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
 import android.widget.TextView
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.event.ManualFinishBean
@@ -10,12 +9,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 双光校正 - 第1步.
+dual light校正 - 第1步.
  * Created by LCG on 2023/12/29.
  */
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * Manual step1 activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class ManualStep1Activity : BaseActivity() {
-
     // View declarations
     private lateinit var tvManual: TextView
 
@@ -24,7 +26,7 @@ class ManualStep1Activity : BaseActivity() {
     override fun initView() {
         // Initialize views
         tvManual = findViewById(R.id.tv_manual)
-        
+
         tvManual.setOnClickListener {
             startActivity(Intent(this, ManualStep2Activity::class.java))
         }

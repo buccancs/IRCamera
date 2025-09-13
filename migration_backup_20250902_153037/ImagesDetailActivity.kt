@@ -11,11 +11,11 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import kotlinx.android.synthetic.main.activity_images_detail.*
 
 /**
- * 多张图片详情.
+ * 多张image详情.
  *
  * 需要传递：
- * - [ExtraKeyConfig.CURRENT_ITEM] - 当前要查看的图片在图片列表中的 index
- * - [ExtraKeyConfig.IMAGE_PATH_LIST] - 要查看的图片在本地绝对路径列表
+ * - [ExtraKeyConfig.CURRENT_ITEM] - 当前要查看的image在image列表中的 index
+ * - [ExtraKeyConfig.IMAGE_PATH_LIST] - 要查看的image在本地绝对path列表
  *
  * Created by LCG on 2024/8/27.
  */
@@ -25,11 +25,13 @@ class ImagesDetailActivity : BaseActivity() {
     override fun initView() {
         val imageList: List<String> = intent.getStringArrayListExtra(ExtraKeyConfig.IMAGE_PATH_LIST) ?: return
         view_pager2.adapter = MyAdapter(imageList)
-        view_pager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                title_view.setTitleText("${position + 1}/${imageList.size}")
-            }
-        })
+        view_pager2.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    title_view.setTitleText("${position + 1}/${imageList.size}")
+                }
+            },
+        )
         view_pager2.setCurrentItem(intent.getIntExtra(ExtraKeyConfig.CURRENT_ITEM, 0), false)
     }
 
@@ -37,15 +39,20 @@ class ImagesDetailActivity : BaseActivity() {
     }
 
     private class MyAdapter(private val imageList: List<String>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int,
+        ): ViewHolder {
             val imageView = ImageView(parent.context)
             imageView.scaleType = ImageView.ScaleType.FIT_CENTER
             imageView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             return ViewHolder(imageView)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(
+            holder: ViewHolder,
+            position: Int,
+        ) {
             Glide.with(holder.imageView).load(imageList[position]).into(holder.imageView)
         }
 

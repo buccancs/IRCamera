@@ -27,7 +27,7 @@ public class ZoomableDraggableView extends View {
     private float focusX, focusY;
     private float lastX, lastY;
 
-    //原始图片
+    //原始image
     private Bitmap originalBitmap;
     private int imageWidth;
     private int imageHeight;
@@ -66,7 +66,6 @@ public class ZoomableDraggableView extends View {
         originalBitmapWidth = originalBitmap.getWidth();
         originalBitmapHeight = originalBitmap.getHeight();
     }
-
 
     public void setImageSize(int imageWidth, int imageHeight) {
         this.imageWidth = imageWidth;
@@ -136,7 +135,7 @@ public class ZoomableDraggableView extends View {
             lastX = e2.getX();
             lastY = e2.getY();
 
-            // 将滚动距离根据缩放因子进行调整
+            // 将滚动距离根据Scale因子进行Adjust
             deltaX /= scaleFactor;
             deltaY /= scaleFactor;
 

@@ -1,7 +1,5 @@
 package com.topdon.ble.callback;
 
-
-
 import com.topdon.ble.Request;
 
 /**
@@ -10,7 +8,7 @@ import com.topdon.ble.Request;
  */
 public interface ReadRssiCallback extends RequestFailedCallback {
     /**
-     * 读取到设备的信号强度
+     * 读取到device的信号强度
      *
      * @param request 请求
      * @param rssi    信号强度

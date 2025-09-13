@@ -10,10 +10,9 @@ import kotlin.experimental.and
  * created by liuhongwei gd02527 on 2018年07月27日
  */
 class BaseDataTypeConvertUtils private constructor() {
-
     companion object {
         private val TAG = BaseDataTypeConvertUtils::class.java.simpleName
-        private var df: DecimalFormat ?= null
+        private var df: DecimalFormat? = null
 
         fun convertShort2LittleEndianByteArr(value: Short): ByteArray {
             val shortByteArray = ByteArray(2)
@@ -29,7 +28,10 @@ class BaseDataTypeConvertUtils private constructor() {
             return shortByteArray
         }
 
-        private fun convertShortArr2ByteArr(valueArr: ShortArray, convert: (Short) -> ByteArray): ByteArray {
+        private fun convertShortArr2ByteArr(
+            valueArr: ShortArray,
+            convert: (Short) -> ByteArray,
+        ): ByteArray {
             val valueByteArr = ByteArray(valueArr.size * 2)
             for (i in 0 until valueArr.size) {
                 val dat = convert(valueArr[i])
@@ -65,7 +67,7 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * 将float格式化为只带有一位小数的字符串
+         * 将floatformat化为只带有一位小数的字符串
          *
          * @param number
          * @return
@@ -73,7 +75,7 @@ class BaseDataTypeConvertUtils private constructor() {
         fun float2StrWithOneDecimal(number: Float): String {
             try {
                 val pattern = "0.0"
-                if(df == null) {
+                if (df == null) {
                     val enlocale = Locale("en", "US")
                     df = NumberFormat.getNumberInstance(enlocale) as DecimalFormat
                 }
@@ -82,13 +84,13 @@ class BaseDataTypeConvertUtils private constructor() {
             } catch (e: Exception) {
                 val newNumber = Math.round(number * 10) / 10f
                 val str = newNumber.toString()
-                Logger.e(TAG,"float2StrWithOneDecimal number = " + number + " str = " + str);
-                return str;
+                Logger.e(TAG, "float2StrWithOneDecimal number = " + number + " str = " + str)
+                return str
             }
         }
 
         /**
-         * 将float格式化为只带有一位小数的字符串
+         * 将floatformat化为只带有一位小数的字符串
          *
          * @param number
          * @return
@@ -96,7 +98,7 @@ class BaseDataTypeConvertUtils private constructor() {
         fun float2StrWithTwoDecimal(number: Float): String {
             try {
                 val pattern = "0.00"
-                if(df == null) {
+                if (df == null) {
                     val enlocale = Locale("en", "US")
                     df = NumberFormat.getNumberInstance(enlocale) as DecimalFormat
                 }
@@ -105,19 +107,22 @@ class BaseDataTypeConvertUtils private constructor() {
             } catch (e: Exception) {
                 val newNumber = Math.round(number * 100) / 100f
                 val str = newNumber.toString()
-                Logger.e(TAG,"float2StrWithTwoDecimal number = " + number + " str = " + str);
-                return str;
+                Logger.e(TAG, "float2StrWithTwoDecimal number = " + number + " str = " + str)
+                return str
             }
         }
 
         /**
-         * 将float格式化为字符串
+         * 将floatformat化为字符串
          *
-         * @param number 需要格式化的float字符串
+         * @param number 需要format化的float字符串
          * @param df     DecimalFormat
          * @return
          */
-        fun float2Str(number: Float, df: DecimalFormat): String {
+        fun float2Str(
+            number: Float,
+            df: DecimalFormat,
+        ): String {
             return df.format(number.toDouble())
         }
     }
@@ -125,5 +130,4 @@ class BaseDataTypeConvertUtils private constructor() {
     init {
         throw AssertionError("cannot be instantiated")
     }
-
 }

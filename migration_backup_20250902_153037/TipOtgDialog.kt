@@ -15,18 +15,18 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_tip_otg.view.*
 
-
 /**
- * 提示窗
+ * tip窗
  * create by fylder on 2018/6/15
  **/
 class TipOtgDialog : Dialog {
-
-
     constructor(context: Context) : super(context)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
+    /**
+     * Builder class for thermal imaging functionality.
+     */
     class Builder {
         var dialog: TipOtgDialog? = null
         private var context: Context? = null
@@ -47,49 +47,86 @@ class TipOtgDialog : Dialog {
             this.context = context
         }
 
+        /**
+         * setMessage function implementation.
+         */
         fun setMessage(message: String): Builder {
             this.message = message
             return this
         }
 
-        fun setMessage(@StringRes message: Int): Builder {
+        /**
+         * setMessage function implementation.
+         */
+        fun setMessage(
+            @StringRes message: Int,
+        ): Builder {
             this.message = context!!.getString(message)
             return this
         }
 
+        /**
+         * setPositiveListener function implementation.
+         */
         fun setPositiveListener(
             @StringRes strRes: Int,
-            event: ((check: Boolean) -> Unit)? = null
+            event: ((check: Boolean) -> Unit)? = null,
         ): Builder {
             return setPositiveListener(context!!.getString(strRes), event)
         }
 
-        fun setPositiveListener(str: String, event: ((check: Boolean) -> Unit)? = null): Builder {
+        /**
+         * setPositiveListener function implementation.
+         */
+        fun setPositiveListener(
+            str: String,
+            event: ((check: Boolean) -> Unit)? = null,
+        ): Builder {
             this.positiveStr = str
             this.positiveEvent = event
             return this
         }
 
-        fun setCancelListener(@StringRes strRes: Int, event: (() -> Unit)? = null): Builder {
+        /**
+         * setCancelListener function implementation.
+         */
+        fun setCancelListener(
+            @StringRes strRes: Int,
+            event: (() -> Unit)? = null,
+        ): Builder {
             return setCancelListener(context!!.getString(strRes), event)
         }
 
-        fun setCancelListener(str: String, event: (() -> Unit)? = null): Builder {
+        /**
+         * setCancelListener function implementation.
+         */
+        fun setCancelListener(
+            str: String,
+            event: (() -> Unit)? = null,
+        ): Builder {
             this.cancelStr = str
             this.cancelEvent = event
             return this
         }
 
+        /**
+         * setCanceled function implementation.
+         */
         fun setCanceled(canceled: Boolean): Builder {
             this.canceled = canceled
             return this
         }
 
+        /**
+         * dismiss function implementation.
+         */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
-
+        /**
+         * create function implementation.
+         */
         fun create(): TipOtgDialog {
             if (dialog == null) {
                 dialog = TipOtgDialog(context!!, R.style.InfoDialog)
@@ -103,18 +140,18 @@ class TipOtgDialog : Dialog {
             cancelBtn = view.dialog_tip_cancel_btn
             dialog!!.addContentView(
                 view,
-                LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT),
             )
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    //竖屏
+                    // 竖屏
                     0.85
                 } else {
-                    //横屏
+                    // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() //设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // settings宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -142,7 +179,7 @@ class TipOtgDialog : Dialog {
                 cancelBtn.visibility = View.GONE
                 cancelBtn.text = ""
             }
-            //msg
+            // msg
             if (message != null) {
                 messageText.visibility = View.VISIBLE
                 messageText.setText(message, TextView.BufferType.NORMAL)
@@ -154,5 +191,4 @@ class TipOtgDialog : Dialog {
             return dialog as TipOtgDialog
         }
     }
-
 }

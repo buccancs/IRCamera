@@ -7,10 +7,13 @@ import android.util.AttributeSet
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 
-class WatermarkView: View {
-
+/**
+ * Custom Watermark view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+class WatermarkView : View {
     /**
-     * 水印文字.
+     * Watermark text content for display.
      */
     var watermarkText: String? = null
         set(value) {
@@ -21,7 +24,6 @@ class WatermarkView: View {
     private val marginTop = SizeUtils.dp2px(220f).toFloat()
 
     private val textPaint: TextPaint = TextPaint()
-
 
     constructor(context: Context) : this(context, null)
 

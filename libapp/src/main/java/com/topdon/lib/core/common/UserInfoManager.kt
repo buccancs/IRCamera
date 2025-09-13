@@ -6,6 +6,12 @@ import android.text.TextUtils
  * create by fylder on 2018/6/14
  **/
 
+/**
+ * UserInfoManager manages and coordinates related functionality and resources.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class UserInfoManager {
     companion object {
         @Volatile
@@ -24,13 +30,13 @@ class UserInfoManager {
     }
 
     /**
-     * 是否登录（判断token是否有值来处理登录情况）
-     * token在-1的情况下为游客访问，不算登录
+     * 是否Login（判断token是否有值来processingLogin情况）
+     * token在-1的情况下为游客访问，不算Login
      */
     fun isLogin(): Boolean {
         val token = SharedManager.getToken()
         return if (TextUtils.equals("-1", token)) {
-            // 游客模式认为没有登录
+            
             false
         } else {
             !TextUtils.isEmpty(token)
@@ -38,7 +44,7 @@ class UserInfoManager {
     }
 
     /**
-     * 登录保存用户信息
+     * LoginsavedUserinfo
      */
     fun login(
         token: String,
@@ -56,7 +62,7 @@ class UserInfoManager {
     }
 
     /**
-     * 退出注销用户信息
+     * ExitUnregisterUserinfo
      */
     fun logout() {
         SharedManager.setToken("")

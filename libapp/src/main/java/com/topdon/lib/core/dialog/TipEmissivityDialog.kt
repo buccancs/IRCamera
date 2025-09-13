@@ -17,7 +17,7 @@ import com.topdon.lib.core.tools.UnitTools
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 发射率的提示弹窗
+ * 发射率的tip弹窗
  */
 class TipEmissivityDialog : Dialog {
     constructor(context: Context) : super(context)
@@ -117,14 +117,12 @@ class TipEmissivityDialog : Dialog {
             val tvEnvironmentValue = binding.tvEnvironmentValue
             val tvDistanceValue = binding.tvDistanceValue
 
-            if (text.isNotEmpty())
-                {
-                    tvEmissivityMaterials.text = text
-                    tvEmissivityMaterials.visibility = View.VISIBLE
-                } else
-                {
-                    tvEmissivityMaterials.visibility = View.GONE
-                }
+            if (text.isNotEmpty()) {
+                tvEmissivityMaterials.text = text
+                tvEmissivityMaterials.visibility = View.VISIBLE
+            } else {
+                tvEmissivityMaterials.visibility = View.GONE
+            }
             tvEmissivity.text = "${context?.getString(R.string.thermal_config_radiation)}: ${
                 NumberTools.to02(radiation)}"
             tvEnvironmentValue.text = UnitTools.showC(environment)
@@ -147,7 +145,7 @@ class TipEmissivityDialog : Dialog {
                     // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // settings宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.tools.GlideLoader
 import com.topdon.module.thermal.R
 
+/**
+ * Custom Gallery view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class GalleryAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: OnItemClickListener? = null
@@ -37,12 +41,12 @@ class GalleryAdapter(val context: Context) :
         if (holder is ItemView) {
             GlideLoader.load(holder.img, datas[position])
             holder.lay.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
+                Log.w("123", "file: ${datas[position]}")
                 listener?.onClick(position, datas[position])
             }
             holder.lay.setOnLongClickListener(
                 View.OnLongClickListener {
-                    Log.w("123", "文件: ${datas[position]}")
+                    Log.w("123", "file: ${datas[position]}")
                     listener?.onLongClick(position, datas[position])
                     return@OnLongClickListener true
                 },
@@ -59,6 +63,10 @@ class GalleryAdapter(val context: Context) :
         val img = itemView.findViewById<ImageView>(R.id.item_gallery_img)
     }
 
+/**
+ * Custom On item click listener view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     interface OnItemClickListener {
         fun onClick(
             index: Int,

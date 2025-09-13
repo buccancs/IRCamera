@@ -1,34 +1,34 @@
-//package com.topdon.module.thermal.activity.temp
+// package com.topdon.module.thermal.activity.temp
 //
-//import android.util.Log
-//import androidx.lifecycle.lifecycleScope
-//import com.alibaba.android.arouter.facade.annotation.Route
-//import com.github.aachartmodel.aainfographics.aachartcreator.*
-//import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAScrollablePlotArea
-//import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
-//import com.topdon.lib.core.config.RouterConfig
-//import com.topdon.lib.core.ktbase.BaseActivity
-//import com.topdon.module.thermal.R
-//import kotlinx.android.synthetic.main.activity_chart.*
-//import kotlinx.coroutines.delay
-//import kotlinx.coroutines.flow.collect
-//import kotlinx.coroutines.flow.flow
-//import kotlinx.coroutines.flow.map
-//import kotlinx.coroutines.launch
-//import kotlin.math.sin
+// import android.util.Log
+// import androidx.lifecycle.lifecycleScope
+// import com.alibaba.android.arouter.facade.annotation.Route
+// import com.github.aachartmodel.aainfographics.aachartcreator.*
+// import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAScrollablePlotArea
+// import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
+// import com.topdon.lib.core.config.RouterConfig
+// import com.topdon.lib.core.ktbase.BaseActivity
+// import com.topdon.module.thermal.R
+// import kotlinx.android.synthetic.main.activity_chart.*
+// import kotlinx.coroutines.delay
+// import kotlinx.coroutines.flow.collect
+// import kotlinx.coroutines.flow.flow
+// import kotlinx.coroutines.flow.map
+// import kotlinx.coroutines.launch
+// import kotlin.math.sin
 //
-//@Route(path = RouterConfig.CHART)
-//class ChartActivity : BaseActivity() {
+// @Route(path = RouterConfig.CHART)
+// class ChartActivity : BaseActivity() {
 //
 //    override fun initContentView() = R.layout.activity_chart
 //
 //    override fun initView() {
 //        setTitleText("图表")
-//        //初始数据
+//        //初始data
 //        aa_chart_view.aa_drawChartWithChartOptions(
 //            configureSpecialStyleMarkerOfSingleDataElementChart().aa_toAAOptions()
 //        )
-//        //动态更新
+//        //动态update
 //        lifecycleScope.launch {
 //            flow {
 //                repeat(40) {
@@ -67,14 +67,14 @@
 //    private fun configureSpecialStyleMarkerOfSingleDataElementChart(): AAChartModel {
 //        return AAChartModel()
 //            .chartType(AAChartType.Spline)
-//            .title("监测记录")
+//            .title("监测Record")
 //            .subtitle("2021-10-20")
 //            .titleStyle(AAStyle.Companion.style("#FFFFFF"))
 //            .subtitleStyle(AAStyle.Companion.style(color = "#FFFFFF", fontSize = 12f))
 //            .backgroundColor("#3598E8")
 //            .yAxisTitle("")
 //            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)//坐标点是否显示值
+//            .dataLabelsEnabled(false)//坐标point是否Show/Display值
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
 //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))
@@ -104,4 +104,4 @@
 //                )
 //            )
 //    }
-//}
+// }

@@ -10,13 +10,13 @@ import android.view.View
 import androidx.annotation.ColorInt
 
 /**
- * 颜色选择自定义 View.
+ * 颜色selection自定义 View.
  * 只支持在已经定死的 120 种颜色中拾取一种.
  */
 class ColorSelectView : View {
     companion object {
         /**
-         * 选中描边宽度，单位 dp.
+         * selected描边宽度，单位 dp.
          */
         private const val DEFAULT_STROKE_WIDTH = 3
 
@@ -91,7 +91,7 @@ class ColorSelectView : View {
         }
 
     /**
-     * 颜色拾取事件监听.
+     * 颜色拾取EventListener.
      */
     var onSelectListener: ((color: Int) -> Unit)? = null
 
@@ -109,16 +109,16 @@ class ColorSelectView : View {
         invalidate()
     }
 
-    private var currentRow: Int = -1 // 当前选中行
-    private var currentColumn: Int = -1 // 当前选中列
+    private var currentRow: Int = -1 // 当前selected行
+    private var currentColumn: Int = -1 // 当前selected列
 
     private val widthPixels: Int // 屏幕宽度
-    private val density: Float // 屏幕缩放等级，用于dp与px转换
+    private val density: Float // 屏幕Scale等级，用于dp与pxconversion
     private val strokeWidth: Int // 描边宽度，单位px
 
     private val path = Path()
-    private val itemPaint = Paint() // 未选中画笔
-    private val itemSelectPaint = Paint() // 选中描边效果画笔
+    private val itemPaint = Paint() // 未selected画笔
+    private val itemSelectPaint = Paint() // selected描边效果画笔
     private val strokePaint = Paint() // 整体描边效果画笔
 
     constructor(context: Context) : this(context, null)

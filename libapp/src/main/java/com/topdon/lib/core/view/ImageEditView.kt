@@ -32,7 +32,7 @@ class ImageEditView : View {
         private const val HALF_PAINT_WIDTH = 3
 
         /**
-         * 箭头等边三角形边长，照钉钉截图估算，线宽3，边长16，故而视为画笔宽度5倍.
+         * 箭头等边三角形边长，照钉钉截图估算，line宽3，边长16，故而视为画笔宽度5倍.
          */
         private const val ARROW_WIDTH = 30
 
@@ -60,7 +60,7 @@ class ImageEditView : View {
     }
 
     /**
-     * 当前绘制的类型，默认圆形.
+     * 当前绘制的type，默认圆形.
      */
     var type: Type = Type.CIRCLE
 
@@ -97,12 +97,12 @@ class ImageEditView : View {
     private var hasEditData = false
 
     /**
-     * 保存背景图片的 Bitmap.
+     * save背景image的 Bitmap.
      */
     private var bgBitmap: Bitmap? = null
 
     /**
-     * 保存当前绘制编辑内容的 Bitmap.
+     * save当前绘制编辑内容的 Bitmap.
      */
     private var editBitmap: Bitmap? = null
 
@@ -111,7 +111,7 @@ class ImageEditView : View {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
 
     /**
-     * 绘制三角形的路径.
+     * 绘制三角形的path.
      */
     private val path = Path()
 
@@ -220,8 +220,8 @@ class ImageEditView : View {
                 paint.style = Paint.Style.FILL
                 path.reset()
 
-                if (downX == currentX) { // 垂直于X轴的直线
-                    // 由于直线有一定的宽度，而三角形顶点为一个点，此处绘制的直线往后退一点
+                if (downX == currentX) { // 垂直于X轴的直line
+                    // 由于直line有一定的宽度，而三角形顶point为一个point，此处绘制的直line往后退一point
                     val endY = if (downY > currentY) currentY + PAINT_WIDTH else (currentY - PAINT_WIDTH)
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), currentX.toFloat(), endY.toFloat(), paint)
 
@@ -236,8 +236,8 @@ class ImageEditView : View {
                     path.lineTo(x2, y)
                     path.close()
                     canvas?.drawPath(path, paint)
-                } else if (downY == currentY) { // 垂直于Y轴的直线
-                    // 由于直线有一定的宽度，而三角形顶点为一个点，此处绘制的直线往后退一点
+                } else if (downY == currentY) { // 垂直于Y轴的直line
+                    // 由于直line有一定的宽度，而三角形顶point为一个point，此处绘制的直line往后退一point
                     val endX = if (downX > currentX) currentX + PAINT_WIDTH else (currentX - PAINT_WIDTH)
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX.toFloat(), currentY.toFloat(), paint)
 
@@ -253,14 +253,14 @@ class ImageEditView : View {
                     path.close()
                     canvas?.drawPath(path, paint)
                 } else {
-                    // 有两条直线：
-                    // y = k1 * x + b1 是用户绘制的直线，称为直线1
-                    // y = k2 * x + b2 是垂直于直线1且过三角形交点的直线，称为直线2
+                    // 有两条直line：
+                    // y = k1 * x + b1 是User绘制的直line，称为直line1
+                    // y = k2 * x + b2 是垂直于直line1且过三角形交point的直line，称为直line2
                     val k1: Float = (downY - currentY).toFloat() / (downX - currentX).toFloat()
                     val b1: Float = downY - k1 * downX
                     val a1: Float = -b1 / k1
 
-                    // 由于直线有一定的宽度，而三角形顶点为一个点，此处绘制的直线往后退一点
+                    // 由于直line有一定的宽度，而三角形顶point为一个point，此处绘制的直line往后退一point
                     val backWidth = PAINT_WIDTH
                     val endY: Float =
                         if (k1 > 0) {
@@ -281,7 +281,7 @@ class ImageEditView : View {
                     val endX = (endY - b1) / k1
                     canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX, endY, paint)
 
-                    // 计算两条直线的交点 x,y
+                    // calculation两条直line的交point x,y
                     val triangleH: Float = (ARROW_WIDTH / 2) * sqrt(3f)
                     val y: Float =
                         if (k1 > 0) {

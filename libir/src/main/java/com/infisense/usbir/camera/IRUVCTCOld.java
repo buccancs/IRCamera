@@ -29,7 +29,7 @@
 //
 ///**
 // * device -> bytes
-// * 红外出图核心工具类
+// * infrared出图核心工具class
 // */
 //public class IRUVCTC {
 //
@@ -44,18 +44,18 @@
 //    private byte[] image;
 //    private byte[] temperature;
 //    private SynchronizedBitmap syncimage;
-//    // 设备PID白名单
+//    // devicePID白名单
 //    private int pids[] = {0x5840, 0x3901, 0x5830, 0x5838};
 //    public boolean auto_gain_switch = false;
 //    private boolean auto_over_portect = false;
 //    /**
-//     * 自动增益切换
+//     * 自动gainswitch
 //     */
 //    private LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
 //    private LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
 //    private int count = 0;
 //    private int rotate = 0;
-//    long timeLog = 0L;//记录时间
+//    long timeLog = 0L;//Record时间
 //
 //    private byte[] imageTemp = null;
 //    private byte[] temperatureTemp = null;
@@ -81,7 +81,7 @@
 //        init(cameraHeight, cameraWidth, context);
 //
 //
-//        // 注意：USBMonitor的所有回调函数都是运行在线程中的
+//        // 注意：USBMonitor的所有Callbackfunction都是运行在line程中的
 //        mUSBMonitor = new USBMonitor(context, new USBMonitor.OnDeviceConnectListener() {
 //
 //            // called by checking usb device
@@ -136,28 +136,28 @@
 //
 //            @Override
 //            public void onCancel(UsbDevice device) {
-//                //在usb permission获取无效时触发
+//                //在usb permissionGet/Retrieve无效时触发
 //                XLog.tag(TAG).w("onCancel");
 //
 //            }
 //        });
 //        // auto gain switch parameter
-//        gain_switch_param.above_pixel_prop = 0.1f;    //用于high -> low gain,设备像素总面积的百分比
-//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高增益向低增益切换的触发温度
-//        gain_switch_param.below_pixel_prop = 0.95f;   //用于low -> high gain,设备像素总面积的百分比
-//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//用于low -> high gain,低增益向高增益切换的触发温度
-//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //连续满足触发条件帧数超过该阈值会触发自动增益切换(假设出图速度为15帧每秒，则5 * 15大概为5秒)
-//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//触发自动增益切换之后，会间隔该阈值的帧数不进行增益切换监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
+//        gain_switch_param.above_pixel_prop = 0.1f;    //用于high -> low gain,device像素总area积的百分比
+//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高gain向低gainswitch的触发temperature
+//        gain_switch_param.below_pixel_prop = 0.95f;   //用于low -> high gain,device像素总area积的百分比
+//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//用于low -> high gain,低gain向高gainswitch的触发temperature
+//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //continuous满足触发条件帧数超过该阈值会触发自动gainswitch(假设出图速度为15帧每秒，则5 * 15大概为5秒)
+//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//触发自动gainswitch之后，会间隔该阈值的帧数不进行gainswitch监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
 //        //over_portect parameter
 //        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4);
 //        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4);
 //        float pixel_above_prop = 0.02f;         //0-1
 //
-//        // 监听读取设备红外数据
+//        // Listener读取deviceinfrareddata
 //        iFrameCallback = frame -> {
-//            Log.d(TAG, "frame: " + "刷新："+(System.currentTimeMillis()-updateTime));
+//            Log.d(TAG, "frame: " + "refresh："+(System.currentTimeMillis()-updateTime));
 //            updateTime = System.currentTimeMillis();
-//            // 测试帧率，可以根据实际需要决定是否保留
+//            // Test帧率，可以根据实际需要决定是否保留
 //            if (count++ >= 25) {
 //                count = 1;
 //                Log.d(TAG, "frame: " + frame.length);
@@ -173,13 +173,13 @@
 //                    return;
 //                }
 //                /**
-//                 * copy红外数据到image数组中
-//                 * 出图的frame数组中前半部分是红外数据，后半部分是温度数据，
-//                 * 例如256*384分辨率的设备，前面的256*192是红外数据，后面的256*192是温度数据，
-//                 * 其中的数据是旋转90度的，需要旋转回来。
+//                 * copyinfrareddata到imagearray中
+//                 * 出图的framearray中前半部分是infrareddata，后半部分是temperaturedata，
+//                 * 例如256*384分辨率的device，前area的256*192是infrareddata，后area的256*192是temperaturedata，
+//                 * 其中的data是旋转90度的，需要旋转回来。
 //                 */
 //                if (imageEditTemp != null && imageEditTemp.length >= length) {
-//                    //部分场景不需要保存帧数据
+//                    //部分场景不需要saved帧data
 //                    System.arraycopy(frame, 0, imageEditTemp, 0, length);
 //                }
 //                System.arraycopy(frame, 0, image, 0, length / 2);
@@ -187,10 +187,10 @@
 //                imageRes.height = (char) (cameraHeight / 2);
 //                imageRes.width = (char) cameraWidth;
 ////                Libirprocess.rotate_right_90(frame, imageRes, Libirprocess.IRPROC_SRC_FMT_Y14, imageEditTemp);
-////                //获取原始温度数据
+////                //Get/Retrieve原始temperaturedata
 ////                System.arraycopy(frame, length / 2, temperatureSrc, 0, length / 2);
 //
-////                //保存测试数据
+////                //savedTestdata
 ////                countTemp++;
 ////                if (countTemp == 100) {
 ////                    imageTemp = new byte[length / 2];
@@ -222,7 +222,7 @@
 //                    // 0
 //                    System.arraycopy(frame, length / 2, temperature, 0, length / 2);
 //                }
-//                // 自动增益切换，不生效的话请您的设备是否支持自动增益切换
+//                // 自动gainswitch，不effective的话请您的device是否支持自动gainswitch
 //                if (auto_gain_switch) {
 //                    Libircmd.auto_gain_switch(temperature, imageRes, auto_gain_switch_info, gain_switch_param, uvcCamera.nativePtr);
 //                }
@@ -261,7 +261,7 @@
 //    }
 //
 //    /**
-//     * 判断是否是红外设备，请把您的设备的PID添加进设备PID白名单
+//     * 判断是否是infrareddevice，请把您的device的PIDadd进devicePID白名单
 //     *
 //     * @param devpid
 //     * @return
@@ -354,11 +354,11 @@
 //        try {
 //            XLog.tag(TAG).w("start");
 //            uvcCamera.setOpenStatus(true);
-//            uvcCamera.setFrameCallback(iFrameCallback); //注册监听事件
+//            uvcCamera.setFrameCallback(iFrameCallback); //RegisterListenerEvent
 //            //uvcCamera.setgetframemode(uvcCamera.GET_FRAME_ASYNC);
 //            //default sync mode for some devices  Lost-Packet
 //            //uvcCamera.DEFAULT_BANDWIDTH=0.3f;//hub
-//            uvcCamera.startPreview(); //开始读取数据
+//            uvcCamera.startPreview(); //start读取data
 //            new Thread(() -> {
 //                try {
 //                    Thread.sleep(100);
@@ -371,13 +371,13 @@
 //                    if (syncimage.type == 1) {
 //                        Libircmd.tiny1b_shutter_manual(uvcCamera.nativePtr);
 //                    } else {
-//                        //源码设置快门
+//                        //源码settings快门
 //                        Libircmd.ooc_b_update(Libircmd.B_UPDATE, uvcCamera.nativePtr);
 //                    }
 //                }
 //            }).start();
 //        }catch (Exception e){
-//            Log.w("红外sdk异常", e.getMessage());
+//            Log.w("infraredsdkexception", e.getMessage());
 //        }
 //
 //    }
@@ -413,10 +413,10 @@
 ////                    Log.w("123", "aLong" + aLong);
 //////                    if (isRun) {
 //////                        if (timeLog != 0 && System.currentTimeMillis() - timeLog > 1000) {
-//////                            //通知超时
+//////                            //notification超时
 //////                            EventBus.getDefault().post(new DeviceConnectEvent(false, null));
-//////                            XLog.w("超过1s没数据采集,退出界面");
-////////                ToastTools.INSTANCE.showShort("超过1s没数据采集,退出界面");
+//////                            XLog.w("超过1s没data采集,Exit界area");
+////////                ToastTools.INSTANCE.showShort("超过1s没data采集,Exit界area");
 //////                        }
 //////                        timeLog = System.currentTimeMillis();
 //////                    }

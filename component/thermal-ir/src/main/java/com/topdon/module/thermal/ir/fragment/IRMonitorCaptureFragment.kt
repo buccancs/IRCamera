@@ -6,10 +6,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.airbnb.lottie.LottieAnimationView
-import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseFragment
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.socket.WebSocketProxy
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.tools.ToastTools
@@ -17,19 +17,16 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 
 /**
- * 温度监控-实时（即生成温度监控）.
- *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * I r monitor capture fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
  */
 class IRMonitorCaptureFragment : BaseFragment() {
-
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+从上一interface传递过来的，当前是否为 TC007 devicetype.
+true-TC007 false-其他插件式device
      */
     private var isTC007 = false
-    
+
     // View properties
     private lateinit var animationView: LottieAnimationView
     private lateinit var viewStart: View
@@ -40,12 +37,12 @@ class IRMonitorCaptureFragment : BaseFragment() {
 
     override fun initView() {
         isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
-        
+
         animationView = requireView().findViewById(R.id.animation_view)
         viewStart = requireView().findViewById(R.id.view_start)
         ivIcon = requireView().findViewById(R.id.iv_icon)
         tvStart = requireView().findViewById(R.id.tv_start)
-        
+
         animationView.setAnimation(if (isTC007) "TC007AnimationJSON.json" else "TDAnimationJSON.json")
 
         viewStart.setOnClickListener {
@@ -57,13 +54,15 @@ class IRMonitorCaptureFragment : BaseFragment() {
                 }
             } else {
                 if (DeviceTools.isConnect()) {
-                    if (DeviceTools.isTC001LiteConnect()){
-                        NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
-                    } else if (DeviceTools.isHikConnect()) {
+                    if (DeviceTools.isTC001LiteConnect())
+                        {
+                            NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+                        } else if (DeviceTools.isHikConnect()) {
                         NavigationManager.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
-                    } else{
-                        startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
-                    }
+                    } else
+                        {
+                            startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
+                        }
                 } else {
                     ToastTools.showShort(R.string.device_connect_tip)
                 }
@@ -82,7 +81,7 @@ class IRMonitorCaptureFragment : BaseFragment() {
     }
 
     /**
-     * 刷新连接状态
+refreshconnectionstate
      */
     private fun refreshUI(isConnect: Boolean) {
         animationView.isVisible = !isConnect

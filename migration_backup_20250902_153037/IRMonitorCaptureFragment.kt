@@ -14,16 +14,15 @@ import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 import kotlinx.android.synthetic.main.fragment_ir_monitor_capture.*
 
 /**
- * 温度监控-实时（即生成温度监控）.
+ * temperature监控-实时（即生成temperature监控）.
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * 需要传递parameter：
+ * - [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
  */
 class IRMonitorCaptureFragment : BaseFragment() {
-
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * 从上一界area传递过来的，当前是否为 TC007 devicetype.
+     * true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -42,13 +41,15 @@ class IRMonitorCaptureFragment : BaseFragment() {
                 }
             } else {
                 if (DeviceTools.isConnect()) {
-                    if (DeviceTools.isTC001LiteConnect()){
-                        ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
-                    } else if (DeviceTools.isHikConnect()) {
+                    if (DeviceTools.isTC001LiteConnect())
+                        {
+                            ARouter.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+                        } else if (DeviceTools.isHikConnect()) {
                         ARouter.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
-                    } else{
-                        startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
-                    }
+                    } else
+                        {
+                            startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
+                        }
                 } else {
                     ToastTools.showShort(R.string.device_connect_tip)
                 }
@@ -67,7 +68,7 @@ class IRMonitorCaptureFragment : BaseFragment() {
     }
 
     /**
-     * 刷新连接状态
+     * refreshconnectionstate
      */
     private fun refreshUI(isConnect: Boolean) {
         animation_view.isVisible = !isConnect

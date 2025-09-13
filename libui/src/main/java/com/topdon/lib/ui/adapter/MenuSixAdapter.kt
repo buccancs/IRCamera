@@ -14,30 +14,51 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("看起来是旧版 2D 编辑的菜单，根本没使用了")
+/**
+ * Custom Menu six view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+@Deprecated("看起来是旧版 2D 编辑的menu，根本没使用了")
+/**
+ * MenuSixAdapter provides data binding between data source and UI components.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
-    private var colorEnable = false // 伪彩条
-    private var contrastEnable = false // 对比度
-    private var ddeEnable = false // 细节
-
+    private var colorEnable = false // pseudo color条
+    private var contrastEnable = false 
+    private var ddeEnable = false 
+    /**
+     * Executes selected functionality.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes encolor functionality.
+     */
     fun enColor(colorEnable: Boolean) {
         this.colorEnable = colorEnable
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes encontrast functionality.
+     */
     fun enContrast(param: Boolean) {
         this.contrastEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes endde functionality.
+     */
     fun enDde(param: Boolean) {
         this.ddeEnable = param
         notifyDataSetChanged()
@@ -94,7 +115,7 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    // 状态变化
+    
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

@@ -7,16 +7,16 @@ import androidx.core.content.ContextCompat
 import com.topdon.lib.core.BaseApplication
 
 /**
- * des: 统一处理android 14的权限
- * author: CaiSongL
- * date: 2024/9/9 9:45
- **/
+ * Unified handling of Android 14 permissions
+ * Author: CaiSongL
+ * Date: 2024/9/9 9:45
+ */
 object PermissionUtils {
     /**
-     * android 14是否授权了部分读取权限
+     * Check if Android 14 has granted partial read permissions
      * @return Boolean
      */
-    fun isVisualUser(): Boolean  {
+    fun isVisualUser(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
             ContextCompat.checkSelfPermission(
                 BaseApplication.instance,
@@ -24,7 +24,10 @@ object PermissionUtils {
             ) == PERMISSION_GRANTED
     }
 
-    fun hasCameraPermission(): Boolean  {
+    /**
+     * Executes hascamerapermission functionality.
+     */
+    fun hasCameraPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
             BaseApplication.instance,
             android.Manifest.permission.CAMERA,

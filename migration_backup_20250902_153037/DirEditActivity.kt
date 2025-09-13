@@ -89,11 +89,14 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         }
         viewModel.queryById(intent.getLongExtra(ExtraKeyConfig.DETECT_ID, 0))
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                showExitTipsDialog()
-            }
-        })
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    showExitTipsDialog()
+                }
+            },
+        )
     }
 
     override fun initData() {
@@ -102,7 +105,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             iv_exit -> showExitTipsDialog()
-            iv_save -> {//保存
+            iv_save -> { // save
                 val houseDetect: HouseDetect = viewModel.detectLD.value ?: return
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -116,14 +119,14 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            view_select_all -> {//全选、取消全选
+            view_select_all -> { // 全选、Cancel全选
                 adapter.isSelectAll = !adapter.isSelectAll
             }
-            view_copy -> {//复制
+            view_copy -> { // copy
                 adapter.copySelect()
                 TToast.shortToast(this@DirEditActivity, R.string.ts004_copy_success)
             }
-            view_del -> {//删除
+            view_del -> { // delete
                 TipDialog.Builder(this)
                     .setTitleMessage(getString(R.string.tips_del_item_title))
                     .setMessage(R.string.tips_del_item_content)
@@ -138,7 +141,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
                     }
                     .create().show()
             }
-            tv_add -> {//新增默认目录
+            tv_add -> { // 新增默认目录
                 recycler_view.isVisible = true
                 cl_bottom.isVisible = true
                 cl_empty.isVisible = false
@@ -155,7 +158,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 显示退出不保存提示弹框
+     * Show/DisplayExit不savetip弹框
      */
     private fun showExitTipsDialog() {
         TipDialog.Builder(this)
@@ -174,11 +177,18 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
             dataList = newList
         }
 
-        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+        ): Int {
             return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0)
         }
 
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder,
+        ): Boolean {
             val fromPosition = viewHolder.bindingAdapterPosition
             val toPosition = target.bindingAdapterPosition
             if (fromPosition < toPosition) {
@@ -194,7 +204,10 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
             return true
         }
 
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        override fun onSwiped(
+            viewHolder: RecyclerView.ViewHolder,
+            direction: Int,
+        ) {
         }
     }
 
@@ -202,21 +215,22 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         var dataList: ArrayList<DirDetect> = ArrayList(0)
 
         /**
-         * 当前已选中的数量.
+         * 当前已selected的数量.
          */
         private var selectCount = 0
+
         /**
          * 当前是否已全选 true-已全选 false-未全选
          */
         var isSelectAll: Boolean
             get() = selectCount == dataList.size && dataList.size > 0
             set(value) {
-                if (value) {//->全选
+                if (value) { // ->全选
                     selectCount = dataList.size
                     for (dir in dataList) {
                         dir.hasSelect = true
                     }
-                } else {//全选->取消全选
+                } else { // 全选->Cancel全选
                     selectCount = 0
                     for (dir in dataList) {
                         dir.hasSelect = false
@@ -227,7 +241,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
             }
 
         /**
-         * 一个 item 选中或取消选中事件监听.
+         * 一个 item selected或CancelselectedEventListener.
          */
         var onSelectChangeListener: ((selectSize: Int) -> Unit)? = null
 
@@ -237,7 +251,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         }
 
         /**
-         * 删除选中的目录.
+         * deleteselected的目录.
          */
         fun delSelect() {
             selectCount = 0
@@ -256,7 +270,7 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
         }
 
         /**
-         * 复制选中的目录.
+         * copyselected的目录.
          */
         fun copySelect() {
             selectCount *= 2
@@ -274,11 +288,17 @@ class DirEditActivity : BaseActivity(), View.OnClickListener {
             onSelectChangeListener?.invoke(selectCount)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int,
+        ): ViewHolder {
             return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_edit_dir, parent, false))
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(
+            holder: ViewHolder,
+            position: Int,
+        ) {
             holder.itemView.iv_select.isSelected = dataList[position].hasSelect
             holder.itemView.et_input_name.setText(dataList[position].dirName)
         }

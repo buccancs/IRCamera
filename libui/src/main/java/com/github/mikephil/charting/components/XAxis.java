@@ -116,9 +116,8 @@ public class XAxis extends AxisBase {
         return mAvoidFirstLastClipping;
     }
 
-
     /**
-     * 是否要跳过第1个标签的绘制.
+     * 是否要跳过第1个tag的绘制.
      */
     private boolean isJumpFirstLabel = true;
 

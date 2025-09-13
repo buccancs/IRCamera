@@ -10,20 +10,20 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.topdon.lib.core.bean.GalleryTitle
+import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.bean.event.ReportCreateEvent
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
 import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.repository.GalleryRepository.DirType
 import com.topdon.lib.core.tools.FileTools.getUri
 import com.topdon.lib.core.tools.ToastTools
-import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.repository.GalleryRepository.DirType
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.adapter.GalleryAdapter
-import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.utils.Constants.IS_REPORT_FIRST
 import com.topdon.lms.sdk.weiget.TToast
+import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.ir.adapter.GalleryAdapter
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryViewModel
 import kotlinx.android.synthetic.main.activity_report_pick_img.*
 import org.greenrobot.eventbus.EventBus
@@ -32,20 +32,19 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * 生成报告图片拾取.
+ * 生成reportimage拾取.
  *
- * 需要传递参数：
+ * 需要传递parameter：
  * - 是否 TC007: [ExtraKeyConfig.IS_TC007] 进入目录不同
- * - [ExtraKeyConfig.REPORT_INFO] - 报告信息
+ * - [ExtraKeyConfig.REPORT_INFO] - reportinfo
  * - [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
- * - [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应数据列表
+ * - [ExtraKeyConfig.REPORT_IR_LIST] - 当前已add的image对应data列表
  */
 @Route(path = RouterConfig.REPORT_PICK_IMG)
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
-
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * 从上一界area传递过来的，当前是否为 TC007 devicetype.
+     * true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -77,7 +76,12 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
                 TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_success)
                 adapter.isEditMode = false
                 EventBus.getDefault().post(GalleryDelEvent())
-                MediaScannerConnection.scanFile(this, arrayOf(if (isTC007) FileConfig.tc007GalleryDir else FileConfig.lineGalleryDir), null, null)
+                MediaScannerConnection.scanFile(
+                    this,
+                    arrayOf(if (isTC007) FileConfig.tc007GalleryDir else FileConfig.lineGalleryDir),
+                    null,
+                    null,
+                )
                 viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
             } else {
                 TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_failed)
@@ -92,7 +96,6 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
-
     }
 
     override fun onBackPressed() {
@@ -106,7 +109,9 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     private fun setEditMode(isEditMode: Boolean) {
         adapter.isEditMode = isEditMode
         group_bottom.isVisible = isEditMode
-        title_view.setTitleText(if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery))
+        title_view.setTitleText(
+            if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery),
+        )
         title_view.setLeftDrawable(if (isEditMode) R.drawable.svg_x_cc else R.drawable.ic_back_white_svg)
         title_view.setLeftClickListener {
             if (isEditMode) {
@@ -140,17 +145,18 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(this, spanCount)
-        //动态设置span
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
+        // 动态settingsspan
+        gridLayoutManager.spanSizeLookup =
+            object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
+                }
             }
-        }
         ir_gallery_recycler.adapter = adapter
         ir_gallery_recycler.layoutManager = gridLayoutManager
 
         adapter.onLongEditListener = {
-            // adapter 里面的切换编辑太乱了，先这么顶着
+            // adapter 里area的switch编辑太乱了，先这么顶着
             group_bottom.isVisible = true
             title_view.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
             title_view.setLeftDrawable(R.drawable.svg_x_cc)
@@ -170,7 +176,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         adapter.itemClickCallback = {
             val data = adapter.dataList[it]
             val fileName = data.name.substringBeforeLast(".")
-            val irPath = "${FileConfig.lineIrGalleryDir}/${fileName}.ir"
+            val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"
             if (File(irPath).exists()) {
                 ARouter.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
                     .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
@@ -191,10 +197,12 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         val deleteList = adapter.buildSelectList()
         if (deleteList.size > 0) {
             TipDialog.Builder(this)
-                .setMessage(getString(
+                .setMessage(
+                    getString(
                         R.string.tip_delete_chosen,
-                        deleteList.size
-                    ))
+                        deleteList.size,
+                    ),
+                )
                 .setPositiveListener(R.string.app_confirm) {
                     viewModel.delete(deleteList, if (isTC007) DirType.TC007 else DirType.LINE, true)
                 }.setCancelListener(R.string.app_cancel)
@@ -236,4 +244,3 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
         startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
     }
 }
-

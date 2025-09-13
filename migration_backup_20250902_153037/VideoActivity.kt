@@ -14,10 +14,8 @@ import com.topdon.module.thermal.R
 import kotlinx.android.synthetic.main.activity_video.*
 import java.io.File
 
-
 @Route(path = RouterConfig.VIDEO)
 class VideoActivity : BaseActivity() {
-
     companion object {
         const val KEY_PATH = "video_path"
     }
@@ -39,21 +37,21 @@ class VideoActivity : BaseActivity() {
     }
 
     private fun previewVideo(path: String) {
-        Log.w("123", "打开文件:$path")
+        Log.w("123", "Openfile:$path")
         val file = File(path.replace("//", "/"))
-        Log.i("123", "打开文件file:$file")
-        val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            val authority = "${packageName}.fileprovider"
-            FileProvider.getUriForFile(this, authority, file)
-        } else {
-            Uri.fromFile(file)
-        }
-        Log.w("123", "打开文件uri:$uri")
+        Log.i("123", "Openfilefile:$file")
+        val uri: Uri =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val authority = "$packageName.fileprovider"
+                FileProvider.getUriForFile(this, authority, file)
+            } else {
+                Uri.fromFile(file)
+            }
+        Log.w("123", "Openfileuri:$uri")
         val videoView = video_play
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))
         videoView.start()
         videoView.requestFocus()
     }
-
 }

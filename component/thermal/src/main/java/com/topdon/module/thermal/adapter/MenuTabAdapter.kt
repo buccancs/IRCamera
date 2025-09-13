@@ -10,6 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
 
+/**
+ * Custom Menu tab view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class MenuTabAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: OnItemClickListener? = null
@@ -28,14 +32,14 @@ class MenuTabAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
-    // 拍摄
+拍摄
     private val firstMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg,
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7002_svg,
         )
 
-    // 选框
+选框
     private val secondMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal6001,
@@ -46,27 +50,27 @@ class MenuTabAdapter(val context: Context) :
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7004,
         )
 
-    // 选框
+选框
     private val secondMenusStr =
         arrayListOf(
-            "点",
-            "线",
-            "面",
-            "添加",
+            "point",
+            "line",
+            "area",
+            "add",
             "全图",
-            "删除",
+            "delete",
         )
 
-    // 选框
+选框
     private val fourthMenusStr =
         arrayListOf(
             "旋转",
-            "增强",
+            "Enhance",
             "画中画",
             "色带",
         )
 
-    // 色彩 - Using available resources as placeholders
+色彩 - Using available resources as placeholders
     private val thirdMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal5003,
@@ -81,7 +85,7 @@ class MenuTabAdapter(val context: Context) :
             com.topdon.lib.ui.R.drawable.ic_menu_thermal6003_svg,
         )
 
-    // 设置 - Using available resources as placeholders
+set - Using available resources as placeholders
     private val fourthMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg,
@@ -164,6 +168,10 @@ class MenuTabAdapter(val context: Context) :
         }
     }
 
+/**
+ * Custom Base item view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     open class BaseItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var lay: View
         lateinit var img: ImageView
@@ -186,6 +194,10 @@ class MenuTabAdapter(val context: Context) :
         }
     }
 
+/**
+ * Custom On item click listener view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     interface OnItemClickListener {
         fun onClick(index: Int)
     }

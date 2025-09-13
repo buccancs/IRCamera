@@ -571,7 +571,6 @@ public abstract class AxisBase extends ComponentBase {
         return mGridDashPathEffect;
     }
 
-
     /**
      * Enables the axis line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.

@@ -33,7 +33,7 @@
         android:textColor="#99E8E8EB"
         android:visibility="gone"
         tools:visibility="gone"
-        tools:text="未连接"
+        tools:text="未connection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

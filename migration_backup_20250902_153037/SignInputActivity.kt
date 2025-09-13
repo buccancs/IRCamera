@@ -16,15 +16,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * 电子签名界面.
+ * 电子签名界area.
  *
  * 需要传递：
  * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-检测师签名 false-房主签名
  *
- * 返回：
+ * Return：
  * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-检测师签名 false-房主签名
- * - [ExtraKeyConfig.RESULT_PATH_WHITE] - 白色画笔版签名图片在本地的绝对路径.
- * - [ExtraKeyConfig.RESULT_PATH_BLACK] - 黑色画笔版签名图片在本地的绝对路径.
+ * - [ExtraKeyConfig.RESULT_PATH_WHITE] - 白色画笔版签名image在本地的绝对path.
+ * - [ExtraKeyConfig.RESULT_PATH_BLACK] - 黑色画笔版签名image在本地的绝对path.
  *
  * Created by LCG on 2024/8/28.
  */
@@ -34,7 +34,17 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
     override fun initContentView(): Int = R.layout.activity_sign_input
 
     override fun initView() {
-        title_view.setTitleText(if (intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, false)) R.string.inspector_signature else R.string.house_owner_signature)
+        title_view.setTitleText(
+            if (intent.getBooleanExtra(
+                    ExtraKeyConfig.IS_PICK_INSPECTOR,
+                    false,
+                )
+            ) {
+                R.string.inspector_signature
+            } else {
+                R.string.house_owner_signature
+            },
+        )
 
         cl_save.setOnClickListener(this)
         cl_clear.setOnClickListener(this)
@@ -49,7 +59,7 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_save -> {//保存
+            cl_save -> { // save
                 if (!sign_view.hasSign) {
                     ToastUtils.showShort(getString(R.string.house_sign_finish_tips))
                     return
@@ -75,7 +85,10 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
 
                     withContext(Dispatchers.Main) {
                         val resultIntent = Intent()
-                        resultIntent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, false))
+                        resultIntent.putExtra(
+                            ExtraKeyConfig.IS_PICK_INSPECTOR,
+                            intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, false),
+                        )
                         resultIntent.putExtra(ExtraKeyConfig.RESULT_PATH_WHITE, whiteFile.absolutePath)
                         resultIntent.putExtra(ExtraKeyConfig.RESULT_PATH_BLACK, blackFile.absolutePath)
                         setResult(RESULT_OK, resultIntent)
@@ -84,7 +97,7 @@ class SignInputActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            cl_clear -> {//重签
+            cl_clear -> { // 重签
                 sign_view.clear()
             }
         }

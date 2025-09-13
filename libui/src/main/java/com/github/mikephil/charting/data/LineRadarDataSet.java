@@ -42,7 +42,6 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
      */
     private boolean mDrawFilled = false;
 
-
     public LineRadarDataSet(List<T> yVals, String label) {
         super(yVals, label);
     }

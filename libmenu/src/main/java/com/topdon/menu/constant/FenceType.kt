@@ -1,26 +1,33 @@
 package com.topdon.menu.constant
 
 /**
- * 点、线、面、全图、趋势图(可选)、删除 菜单类型.
+ * Point, line, area, full image, trend chart (optional), delete menu type.
  *
  * Created by LCG on 2024/11/18.
  */
+
+/**
+ * Type definition for fence classification.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 enum class FenceType {
-    /** 点 */
+    /** Point */
     POINT,
 
-    /** 线 */
+    /** Line */
     LINE,
 
-    /** 面 */
+    /** Area */
     RECT,
 
-    /** 全图 */
+    /** Full image */
     FULL,
 
-    /** 趋势图 */
+    /** Trend chart */
     TREND,
 
-    /** 删除 */
+    /** Delete */
     DEL,
 }

@@ -80,7 +80,6 @@ public class PieData extends ChartData<IPieDataSet> {
         for (int i = 0; i < getDataSet().getEntryCount(); i++)
             sum += getDataSet().getEntryForIndex(i).getY();
 
-
         return sum;
     }
 }

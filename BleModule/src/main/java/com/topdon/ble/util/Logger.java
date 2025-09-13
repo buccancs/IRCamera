@@ -10,11 +10,11 @@ public interface Logger {
      */
     int TYPE_GENERAL = 0;
     /**
-     * 搜索状态
+     * Searchstate
      */
     int TYPE_SCAN_STATE = 1;
     /**
-     * 连接状态
+     * connectionstate
      */
     int TYPE_CONNECTION_STATE = 2;
     /**
@@ -34,7 +34,7 @@ public interface Logger {
      */
     int TYPE_MTU_CHANGED = 6;
     /**
-     * 请求失败
+     * 请求failed
      */
     int TYPE_REQUEST_FAILED = 7;
     int TYPE_DESCRIPTOR_READ = 8;
@@ -44,31 +44,31 @@ public interface Logger {
     int TYPE_PHY_CHANGE = 12;
 
     /**
-     * 打印日志
+     * 打印Log
      *
-     * @param priority 日志级别。{@link android.util.Log#DEBUG}等
-     * @param type     日志类型。{@link #TYPE_CONNECTION_STATE}等
-     * @param msg      日志内容
+     * @param priority Log级别。{@link android.util.Log#DEBUG}等
+     * @param type     Logtype。{@link #TYPE_CONNECTION_STATE}等
+     * @param msg      Log内容
      */
     void log(int priority, int type, String msg);
 
     /**
-     * 打印日志
+     * 打印Log
      *
-     * @param priority 日志级别。{@link android.util.Log#DEBUG}等
-     * @param type     日志类型。{@link #TYPE_CONNECTION_STATE}等
-     * @param msg      日志内容
-     * @param th       异常
+     * @param priority Log级别。{@link android.util.Log#DEBUG}等
+     * @param type     Logtype。{@link #TYPE_CONNECTION_STATE}等
+     * @param msg      Log内容
+     * @param th       exception
      */
     void log(int priority, int type, String msg, Throwable th);
     
     /**
-     * 日志输出控制
+     * Log输出控制
      */
     void setEnabled(boolean isEnabled);
 
     /**
-     * 日志输出是否使能
+     * Log输出是否使能
      */
     boolean isEnabled();
 }

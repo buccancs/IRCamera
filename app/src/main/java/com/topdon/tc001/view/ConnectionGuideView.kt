@@ -69,7 +69,7 @@ class ConnectionGuideView : LinearLayout {
     }
 
     fun getCompoundDrawables(content: String) {
-        var mContent = "$content  " // 插入空格是为了后面替换图片
+        var mContent = "$content  " // 插入空格是为了后area替换image
         val spannableString = SpannableString(mContent)
         val drawable = context.getDrawable(UiR.drawable.ic_connection_press_tip)
         drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)

@@ -64,7 +64,6 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
 
     private boolean mDrawCircleHole = true;
 
-
     public LineDataSet(List<Entry> yVals, String label) {
         super(yVals, label);
 
@@ -146,7 +145,6 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     public float getCubicIntensity() {
         return mCubicIntensity;
     }
-
 
     /**
      * Sets the radius of the drawn circles.

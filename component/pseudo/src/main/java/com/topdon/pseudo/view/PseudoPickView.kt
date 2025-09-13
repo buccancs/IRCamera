@@ -19,35 +19,43 @@ import com.topdon.pseudo.R
 import kotlin.math.abs
 
 /**
- * 自定义伪彩设置页面中，那个支持最多 7 个圆形色块滑来滑去的 View.
+// 自定义pseudo-colorset页area中，那个支持最多 7 个圆形color block滑来滑去的 View.
  *
- * 提供方法：
- * - [reset] 将当前状态重置为指定颜色值及位置
- * - [refreshColor] 将当前选中的圆形色块设置为指定颜色
- * - [add] 添加一个圆形色块
- * - [del] 删除当前选中圆形色块
- * - [isCurrentOnlyLimit] 判断当前选中圆形色块是不是：(最左 || 最右) && 唯一
+// 提供method：
+- [reset] 将当前statereset为指定color value及位置
+- [refreshColor] 将当前selected的圆形color blockset为指定颜色
+- [add] add一个圆形color block
+- [del] delete当前selected圆形color block
+- [isCurrentOnlyLimit] 判断当前selected圆形color block是不是：(最左 || 最右) && 唯一
  *
  * Created by LCG on 2024/10/15.
  */
 class PseudoPickView : View {
     companion object {
         @CheckResult
-        private fun IntArray.add(index: Int, element: Int): IntArray {
+        private fun IntArray.add(
+            index: Int,
+            element: Int,
+        ): IntArray {
             val newArray = IntArray(this.size + 1)
             System.arraycopy(this, 0, newArray, 0, index)
             newArray[index] = element
             System.arraycopy(this, index, newArray, index + 1, this.size - index)
             return newArray
         }
+
         @CheckResult
-        private fun FloatArray.add(index: Int, element: Float): FloatArray {
+        private fun FloatArray.add(
+            index: Int,
+            element: Float,
+        ): FloatArray {
             val newArray = FloatArray(this.size + 1)
             System.arraycopy(this, 0, newArray, 0, index)
             newArray[index] = element
             System.arraycopy(this, index, newArray, index + 1, this.size - index)
             return newArray
         }
+
         @CheckResult
         private fun IntArray.removeAt(index: Int): IntArray {
             val newArray = IntArray(this.size - 1)
@@ -55,6 +63,7 @@ class PseudoPickView : View {
             System.arraycopy(this, index + 1, newArray, index, this.size - index - 1)
             return newArray
         }
+
         @CheckResult
         private fun FloatArray.removeAt(index: Int): FloatArray {
             val newArray = FloatArray(this.size - 1)
@@ -65,53 +74,56 @@ class PseudoPickView : View {
     }
 
     /**
-     * 绘制渐变条所用的 Paint.
+drawing渐变条所用的 Paint.
      */
     private val barPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     /**
-     * 绘制渐变条下面圆形色块所用的 Pint.
+drawing渐变条下area圆形color block所用的 Pint.
      */
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     /**
-     * 圆形色块选中时三角形 Drawable.
+// 圆形color blockselected时三角形 Drawable.
      */
     private val selectYesDrawable: Drawable
+
     /**
-     * 圆形色块未选中时三角形 Drawable.
+// 圆形color block未selected时三角形 Drawable.
      */
     private val selectNotDrawable: Drawable
 
-
     /**
-     * 选中色块变更事件监听.
+selectedcolor block变更EventListener.
      */
     var onSelectChangeListener: ((selectIndex: Int) -> Unit)? = null
 
-
     /**
-     * 当前选中的圆形色块在列表中的 index.
+// 当前selected的圆形color block在列表中的 index.
      */
     var selectIndex = 0
+
     /**
-     * 由于需求为完全重叠的多个圆形色块，只生效最上方的圆形色块，该数组保存原始的颜色数组.
-     * 按 place 排序，若 place 相同则 zAltitude 越大的越靠后.
-     * size 与 [actualColors]、[zAltitudes]、[places] 一致。
+// 由于需求为完全重叠的多个圆形color block，只生效最上方的圆形color block，该arraysave原始的颜色array.
+// 按 place Sort，若 place 相同则 zAltitude 越大的越靠后.
+size 与 [actualColors]、[zAltitudes]、[places] 一致。
      */
     var sourceColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
+
     /**
-     * 由于需求为完全重叠的多个圆形色块，只生效最上方的圆形色块，该数组保存实际生效的颜色数组.
+// 由于需求为完全重叠的多个圆形color block，只生效最上方的圆形color block，该arraysave实际生效的颜色array.
      */
     var actualColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
+
     /**
-     * 每个圆形色块对应的 z 轴海拔数组，用来在重叠时判断哪个圆形色块在上面。
+// 每个圆形color block对应的 z 轴altitudearray，用来在重叠时判断哪个圆形color block在上area。
      */
     var zAltitudes: IntArray = intArrayOf(0, 0, 0)
+
     /**
-     * 每个圆形色块对应的位置数组.
+// 每个圆形color block对应的位置array.
      */
     var places: FloatArray = floatArrayOf(0f, 0.5f, 1f)
-
 
     constructor(context: Context) : this(context, null)
 
@@ -119,7 +131,12 @@ class PseudoPickView : View {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes:Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
         selectYesDrawable = ContextCompat.getDrawable(context, R.drawable.svg_pseudo_triangle_select)!!
         selectNotDrawable = ContextCompat.getDrawable(context, R.drawable.svg_pseudo_triangle_not_select)!!
         selectYesDrawable.setBounds(0, 0, SizeUtils.dp2px(16f), SizeUtils.dp2px(10f))
@@ -127,13 +144,18 @@ class PseudoPickView : View {
     }
 
     /**
-     * 将当前状态重置为指定颜色值及位置的配置.
-     * @param selectIndex 当前选中的圆形色块 index
-     * @param colors 每个圆形色块颜色数组
-     * @param zAltitudes 每个圆形色块对应的 z 轴海拔数组
-     * @param places 每个圆形色块对应的位置数组
+// 将当前statereset为指定color value及位置的configuration.
+@param selectIndex 当前selected的圆形color block index
+@param colors 每个圆形color block颜色array
+@param zAltitudes 每个圆形color block对应的 z 轴altitudearray
+@param places 每个圆形color block对应的位置array
      */
-    fun reset(selectIndex: Int, colors: IntArray, zAltitudes: IntArray, places: FloatArray) {
+    fun reset(
+        selectIndex: Int,
+        colors: IntArray,
+        zAltitudes: IntArray,
+        places: FloatArray,
+    ) {
         this.selectIndex = selectIndex
         this.sourceColors = colors
         this.zAltitudes = zAltitudes
@@ -145,9 +167,11 @@ class PseudoPickView : View {
     }
 
     /**
-     * 将当前选中的圆颜色值设置为指定颜色
+// 将当前selected的圆color valueset为指定颜色
      */
-    fun refreshColor(@ColorInt color: Int) {
+    fun refreshColor(
+        @ColorInt color: Int,
+    ) {
         sourceColors[selectIndex] = color
         actualColors[selectIndex] = color
         refreshActualColors()
@@ -156,26 +180,28 @@ class PseudoPickView : View {
     }
 
     /**
-     * 需求要添加时颜色按 绿、黑、白、紫 循环，用该变量控制.
+// 需求要add时颜色按 绿、黑、白、紫 循环，用该variable控制.
      */
     private var addCount = 0
+
     /**
-     * 添加一个圆形色块
+add一个圆形color block
      */
     fun add() {
-        if (sourceColors.size >= 7) {//最多7个圆形色块
+        if (sourceColors.size >= 7) { // 最多7个圆形色块
             return
         }
         addCount++
         if (addCount > 4) {
             addCount = 1
         }
-        val addColor: Int = when (addCount) {
-            1 -> 0xff00ff00.toInt()
-            2 -> 0xff000000.toInt()
-            3 -> 0xffffffff.toInt()
-            else -> 0xff982abc.toInt()
-        }
+        val addColor: Int =
+            when (addCount) {
+                1 -> 0xff00ff00.toInt()
+                2 -> 0xff000000.toInt()
+                3 -> 0xffffffff.toInt()
+                else -> 0xff982abc.toInt()
+            }
         var addIndex = 0
         for (i in places.size - 1 downTo 1) {
             val place = places[i]
@@ -200,13 +226,13 @@ class PseudoPickView : View {
     }
 
     /**
-     * 删除当前选中圆形色块.
+delete当前selected圆形color block.
      */
     fun del() {
         if (sourceColors.size <= 3) {
             return
         }
-        if (isCurrentOnlyLimit()) {//仅有的最左最右不允许删除
+        if (isCurrentOnlyLimit()) { // 仅有的最左最右不允许delete
             return
         }
 
@@ -226,11 +252,11 @@ class PseudoPickView : View {
     }
 
     /**
-     * 判断当前选中圆形色块是不是：(最左 || 最右) && 唯一
+// 判断当前selected圆形color block是不是：(最左 || 最右) && 唯一
      */
     fun isCurrentOnlyLimit(): Boolean {
         val place: Float = places[selectIndex]
-        if (place == 0f || place == 1f) {//是最左或最右，接下来看看是不是唯一
+        if (place == 0f || place == 1f) { // 是最左或最右，接下来看看是不是唯一
             for (i in places.indices) {
                 if (i != selectIndex && places[i] == place) {
                     return false
@@ -242,7 +268,7 @@ class PseudoPickView : View {
     }
 
     /**
-     * 当任意圆形色块颜色、位置、z 轴高度变更时，刷新实际生效的颜色数组.
+// 当任意圆形color block颜色、位置、z 轴高度变更时，refresh实际生效的颜色array.
      */
     private fun refreshActualColors() {
         if (actualColors.size != sourceColors.size) {
@@ -257,7 +283,7 @@ class PseudoPickView : View {
     }
 
     /**
-     * 根据指定的 place 计算对应的 ZAltitude.
+// 根据指定的 place calculation对应的 ZAltitude.
      */
     private fun calculateZAltitude(place: Float): Int {
         var result = 0
@@ -270,34 +296,40 @@ class PseudoPickView : View {
         return result
     }
 
-
-
-
     /**
-     * 渐变条 Rect.
+// 渐变条 Rect.
      */
     private val barRect = RectF()
+
     /**
-     * 渐变条下面圆形色块选中时半径，单位 px.
+// 渐变条下area圆形color blockselected时半径，单位 px.
      */
     private val selectRadius: Int = SizeUtils.dp2px(12f)
 
     @SuppressLint("DrawAllocation")
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+    ) {
         val widthSize: Int = MeasureSpec.getSize(widthMeasureSpec)
-        barRect.set(selectRadius.toFloat(), 0f, (widthSize - selectRadius).toFloat(), ((widthSize - selectRadius * 2) * 30 / 311f).toInt().toFloat())
+        barRect.set(
+            selectRadius.toFloat(),
+            0f,
+            (widthSize - selectRadius).toFloat(),
+            ((widthSize - selectRadius * 2) * 30 / 311f).toInt().toFloat(),
+        )
         barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
 
-        // 2dp 为渐变条与三角形间距
+        // 2dp spacing between gradient bar and triangle
         val wantHeight: Int = barRect.height().toInt() + SizeUtils.dp2px(2f) + selectNotDrawable.bounds.height() + selectRadius * 2
 
-        //宽度为 UNSPECIFIED 的情况目前不存在，不考虑；高度不为 wrap_content 的情况也不存在，不考虑
+        // Width UNSPECIFIED case currently does not exist, not considered; height not wrap_content case also does not exist, not considered
         setMeasuredDimension(widthSize, wantHeight)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        //绘制伪彩条
+        // Drawing pseudo-color bar
         val barRadius = SizeUtils.dp2px(4f).toFloat()
         canvas.drawRoundRect(barRect.left, 0f, barRect.right, barRect.bottom, barRadius, barRadius, barPaint)
 
@@ -311,7 +343,7 @@ class PseudoPickView : View {
             minZAltitude = minZAltitude.coerceAtMost(altitude)
             maxZAltitude = maxZAltitude.coerceAtLeast(altitude)
         }
-        for (altitude in minZAltitude .. maxZAltitude) {
+        for (altitude in minZAltitude..maxZAltitude) {
             for (i in zAltitudes.indices) {
                 if (zAltitudes[i] == altitude) {
                     val x: Float = barRect.left + barRect.width() * places[i]
@@ -335,19 +367,21 @@ class PseudoPickView : View {
         }
     }
 
-
     /**
-     * Touch Down 时 x 轴坐标，用于计算滑动距离，从而判断是否触发滑动。
+Touch Down 时 x 轴坐标，用于calculationSwipe距离，从而判断是否触发Swipe。
      */
     private var downX = 0
+
     /**
-     * 是否需要接手 Touch 事件.
+// 是否需要接手 Touch Event.
      */
     private var handleTouch = false
+
     /**
-     * 当前选中的滑块是否可拖动，唯一的最左或最右不可滑动。
+// 当前selected的滑块是否可拖动，唯一的最左或最右不可Swipe。
      */
     private var canDrag = false
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event == null) {
@@ -359,11 +393,11 @@ class PseudoPickView : View {
                 canDrag = false
                 downX = event.x.toInt()
 
-                //找出点击范围内海拔最高的圆形色块 index
+// 找出clickrange内altitudemaximum的圆形color block index
                 var targetIndex = -1
                 for (i in places.indices) {
                     val centerX: Int = (barRect.left + barRect.width() * places[i]).toInt()
-                    if (downX >= centerX - selectRadius && downX <= centerX + selectRadius) {//在该圆形色块范围内
+                    if (downX >= centerX - selectRadius && downX <= centerX + selectRadius) { // 在该圆形色块range内
                         if (targetIndex == -1) {
                             targetIndex = i
                             continue
@@ -388,13 +422,13 @@ class PseudoPickView : View {
                     parent.requestDisallowInterceptTouchEvent(true)
                     val oldPlace: Float = places[selectIndex]
                     val newPlace: Float = (x - barRect.left) / barRect.width()
-                    if (newPlace == oldPlace) {//没变化，不用往下处理了
+                    if (newPlace == oldPlace) { // 没变化，不用往下processing了
                         return handleTouch
                     }
                     val currentColor: Int = sourceColors[selectIndex]
                     val oldIndex: Int = selectIndex
                     var newIndex: Int = selectIndex
-                    if (oldPlace < newPlace) {//从左往右移
+                    if (oldPlace < newPlace) { // 从左往右移
                         for (i in places.indices) {
                             if (places[i] <= newPlace) {
                                 newIndex = i
@@ -402,7 +436,7 @@ class PseudoPickView : View {
                                 break
                             }
                         }
-                    } else {//从右往左移
+                    } else { // 从右往左移
                         for (i in places.size - 1 downTo 0) {
                             val place = places[i]
                             if (place > newPlace) {

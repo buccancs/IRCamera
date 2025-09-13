@@ -7,16 +7,15 @@ import com.topdon.commons.observer.Observer;
 
 import java.util.UUID;
 
-
 /**
- * 各种事件。蓝牙状态，连接状态，读取到特征值，写入结果回调等等
+ * 各种Event。bluetoothstate，connectionstate，读取到特征值，写入结果Callback等等
  * <p>
  * date: 2021/8/12 13:15
  * author: bichuanfeng
  */
 public interface EventObserver extends Observer {
     /**
-     * 蓝牙开关状态变化
+     * bluetooth开关state变化
      *
      * @param state {@link BluetoothAdapter#STATE_OFF}等
      */
@@ -27,7 +26,7 @@ public interface EventObserver extends Observer {
      * 读取到特征值
      *
      * @param request 请求
-     * @param value   读取到的数据
+     * @param value   读取到的data
      */
     default void onCharacteristicRead(Request request, byte[] value) {
     }
@@ -35,26 +34,26 @@ public interface EventObserver extends Observer {
     /**
      * 特征值变化
      *
-     * @param device         设备
-     * @param service        服务UUID
+     * @param device         device
+     * @param service        serviceUUID
      * @param characteristic 特征UUID
-     * @param value          数据
+     * @param value          data
      */
     default void onCharacteristicChanged(Device device, UUID service, UUID characteristic,
                                          byte[] value) {
     }
 
     /**
-     * 成功写入特征值
+     * success写入特征值
      *
      * @param request 请求
-     * @param value   写入的数据
+     * @param value   写入的data
      */
     default void onCharacteristicWrite(Request request, byte[] value) {
     }
 
     /**
-     * 读取到设备的信号强度
+     * 读取到device的信号强度
      *
      * @param request 请求
      * @param rssi    信号强度
@@ -66,16 +65,16 @@ public interface EventObserver extends Observer {
      * 读取到描述符值
      *
      * @param request 请求
-     * @param value   读取到的数据
+     * @param value   读取到的data
      */
     default void onDescriptorRead(Request request, byte[] value) {
     }
 
     /**
-     * 通知开关变化 / Indication开关变化
+     * notification开关变化 / Indication开关变化
      *
      * @param request   请求
-     * @param isEnabled 开启或关闭
+     * @param isEnabled 开启或Close
      */
     default void onNotificationChanged(Request request, boolean isEnabled) {
     }
@@ -91,43 +90,43 @@ public interface EventObserver extends Observer {
 
     /**
      * @param request 请求
-     * @param txPhy   物理层发送器偏好。{@link BluetoothDevice#PHY_LE_1M_MASK}等
-     * @param rxPhy   物理层接收器偏好。{@link BluetoothDevice#PHY_LE_1M_MASK}等
+     * @param txPhy   物理层Send器偏好。{@link BluetoothDevice#PHY_LE_1M_MASK}等
+     * @param rxPhy   物理层Receive器偏好。{@link BluetoothDevice#PHY_LE_1M_MASK}等
      */
     default void onPhyChange(Request request, int txPhy, int rxPhy) {
     }
 
     /**
-     * 请求失败
+     * 请求failed
      *
      * @param request  请求
-     * @param failType 失败类型。{@link Connection#REQUEST_FAIL_TYPE_GATT_IS_NULL}等
-     * @param value    请求时带的数据，可能为null
+     * @param failType failedtype。{@link Connection#REQUEST_FAIL_TYPE_GATT_IS_NULL}等
+     * @param value    请求时带的data，可能为null
      */
     default void onRequestFailed(Request request, int failType, Object value) {
     }
 
     /**
-     * 连接状态变化
+     * connectionstate变化
      *
-     * @param device 设备。状态{@link Device#getConnectionState()}，可能的值{@link ConnectionState#CONNECTED}等
+     * @param device device。state{@link Device#getConnectionState()}，可能的值{@link ConnectionState#CONNECTED}等
      */
     default void onConnectionStateChanged(Device device) {
     }
 
     /**
-     * 连接失败
+     * connectionfailed
      *
-     * @param device   设备
-     * @param failType 失败类型。{@link Connection#CONNECT_FAIL_TYPE_MAXIMUM_RECONNECTION}等
+     * @param device   device
+     * @param failType failedtype。{@link Connection#CONNECT_FAIL_TYPE_MAXIMUM_RECONNECTION}等
      */
     default void onConnectFailed(Device device, int failType) {
     }
 
     /**
-     * 连接超时
+     * connection超时
      *
-     * @param device 设备
+     * @param device device
      * @param type   原因。{@link Connection#TIMEOUT_TYPE_CANNOT_CONNECT}
      */
     default void onConnectTimeout(Device device, int type) {

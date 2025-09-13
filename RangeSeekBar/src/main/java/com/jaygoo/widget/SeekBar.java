@@ -28,12 +28,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.DecimalFormat;
 
-
 /**
  * ================================================
  * 作    者：JayGoo
  * 版    本：
- * 创建日期：2018/5/8
+ * create日期：2018/5/8
  * 描    述:
  * ================================================
  */
@@ -57,11 +56,11 @@ public class SeekBar {
 
     private int indicatorShowMode;
 
-    //进度提示背景的高度，宽度如果是0的话会自适应调整
+    //进度tip背景的高度，宽度如果是0的话会自适应Adjust
     //Progress prompted the background height, width,
     private int indicatorHeight;
     private int indicatorWidth;
-    //进度提示背景与按钮之间的距离
+    //进度tip背景与button之间的距离
     //The progress indicates the distance between the background and the button
     private int indicatorMargin;
     private int indicatorDrawableId;
@@ -157,7 +156,7 @@ public class SeekBar {
     }
 
     /**
-     * 初始化进度提示的背景
+     * initialization进度tip的背景
      */
     private void initBitmap() {
         setIndicatorDrawableId(indicatorDrawableId);
@@ -166,7 +165,7 @@ public class SeekBar {
     }
 
     /**
-     * 计算每个按钮的位置和尺寸
+     * calculation每个button的位置和尺寸
      * Calculates the position and size of each button
      *
      * @param x position x
@@ -180,7 +179,6 @@ public class SeekBar {
         top = y - getThumbHeight() / 2;
         bottom = y + getThumbHeight() / 2;
     }
-
 
     public void scaleThumb() {
         scaleThumbWidth = (int) getThumbScaleWidth();
@@ -205,7 +203,7 @@ public class SeekBar {
     }
 
     /**
-     * 绘制按钮和提示背景和文字
+     * 绘制button和tip背景和text
      * Draw buttons and tips for background and text
      *
      * @param canvas Canvas
@@ -231,10 +229,9 @@ public class SeekBar {
         canvas.restore();
     }
 
-
     /**
-     * 绘制按钮
-     * 如果没有图片资源，则绘制默认按钮
+     * 绘制button
+     * 如果没有image资源，则绘制默认button
      * <p>
      * draw the thumb button
      * If there is no image resource, draw the default button
@@ -250,7 +247,7 @@ public class SeekBar {
     }
 
     /**
-     * 格式化提示文字
+     * format化tiptext
      * format the indicator text
      *
      * @param text2Draw
@@ -448,7 +445,6 @@ public class SeekBar {
             indicatorBitmap = BitmapFactory.decodeResource(getResources(), indicatorDrawableId);
         }
     }
-
 
     public int getIndicatorArrowSize() {
         return indicatorArrowSize;
@@ -670,7 +666,6 @@ public class SeekBar {
     public void setTypeface(Typeface typeFace) {
         paint.setTypeface(typeFace);
     }
-
 
     /**
      * when you touch or move, the thumb will scale, default not scale

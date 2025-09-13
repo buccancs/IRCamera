@@ -14,21 +14,27 @@ import retrofit2.http.Query
  *
  * Created by LCG on 2024/4/28.
  */
+/**
+ * TC007Service provides background service functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 interface TC007Service {
     /**
-     * 获取产品信息
+     * Get/Retrieve产品info
      */
     @GET("/v1/system/product/info/dj")
     suspend fun getProductInfo(): TC007Response<ProductBean>
 
     /**
-     * 获取设备电池信息
+     * Get/Retrievedevice电池info
      */
     @GET("/v1/system/local/battery")
     suspend fun getBatteryInfo(): TC007Response<BatteryInfo>
 
     /**
-     * 同步时间.
+     * Synchronize时间.
      */
     @PUT("/v1/system/local/time")
     suspend fun syncTime(
@@ -36,7 +42,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 固件升级-上传固件升级包
+     * firmwareUpgrade-UploadfirmwareUpgrade包
      */
     @Multipart
     @POST("/v1/system/upgrade/package?reset=true")
@@ -49,31 +55,31 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 查询固件升级状态.
+     * 查询firmwareUpgradestate.
      */
     @GET("/v1/system/upgrade/status")
     suspend fun getUpgradeStatus(): TC007Response<TC07UpgradeStatus>
 
     /**
-     * 恢复出厂设置
+     * Restore出厂settings
      */
     @PUT("/v1/system/magic/factory")
     suspend fun resetToFactory(): TC007Response<Boolean>
 
     /**
-     * 执行锅盖标定
+     * 执行锅盖calibration
      */
     @PUT("/v1/camera/videoin/thermal/lid")
     suspend fun correction(): TC007Response<Any?>
 
     /**
-     * 获取测温属性参数
+     * Get/Retrievetemperature measurementpropertyparameter
      */
     @GET("/v1/thermal/env/attribute?default=false")
     suspend fun getEnvAttr(): TC007Response<EnvAttr>
 
     /**
-     * 设置测温属性参数
+     * settingstemperature measurementpropertyparameter
      */
     @PUT("/v1/thermal/env/attribute?default=false")
     suspend fun setEnvAttr(
@@ -81,7 +87,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置温度修正参数
+     * settingstemperature修正parameter
      */
     @PUT("/v1/thermal/env/target")
     suspend fun setIRConfig(
@@ -92,7 +98,7 @@ interface TC007Service {
     suspend fun getTempFrame(): TC007Response<TempFrameParam>
 
     /**
-     * 设置整帧测温（中心点、全图最高温、全图最低温）
+     * settings整帧temperature measurement（centerpoint、全图maximum温、全图minimum温）
      */
     @POST("/v1/thermal/temp/frame")
     suspend fun setTempFrame(
@@ -100,7 +106,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置测温点
+     * settingstemperature measurementpoint
      */
     @POST("/v1/thermal/temp/point")
     suspend fun setTempPoint(
@@ -108,7 +114,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置测温线
+     * settingstemperature measurementline
      */
     @POST("/v1/thermal/temp/line")
     suspend fun setTempLine(
@@ -116,7 +122,7 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 设置测温面
+     * settingstemperature measurementarea
      */
     @POST("/v1/thermal/temp/rectangle")
     suspend fun setTempRect(
@@ -130,8 +136,8 @@ interface TC007Service {
     suspend fun getPhoto(): TC007Response<PhotoBean>
 
     /**
-     * 设置图像模式
-     * 0：红外；1：可见光；2：画中画；3：双光融合；4：细节增强
+     * settingsimagemode
+     * 0：infrared；1：visible light；2：画中画；3：dual lightfusion；4：细节Enhance
      */
     @PUT("/v1/camera/videoin/mode")
     suspend fun setMode(
@@ -158,7 +164,7 @@ interface TC007Service {
         @Body requestBody: RequestBody,
     ): TC007Response<Any?>
 
-    // 双光配准
+    // dual lightregistration
     @GET("/v1/camera/videoin/registration")
     suspend fun getRegistration(
         @Query("chn") mode: Int,
@@ -171,17 +177,17 @@ interface TC007Service {
     ): TC007Response<Any?>
 
     /**
-     * 获取测温属性参数
+     * Get/Retrievetemperature measurementpropertyparameter
      * chn
      * integer
-     * 视频通道
+     * video通道
      * 可选
      * 示例值:
      * 1
      * default
      * string
      * 可选
-     * true：默认配置；false：当前配置
+     * true：默认configuration；false：当前configuration
      * 示例值:
      * false
      */

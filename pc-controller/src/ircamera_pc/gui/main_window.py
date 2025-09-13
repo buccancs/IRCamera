@@ -316,7 +316,8 @@ class MainWindow(QMainWindow):
     def _setup_network_callbacks(self) -> None:
         """Set up WebSocket server event callbacks - Phase 1 implementation."""
         # WebSocket server handles callbacks through message handlers internally
-        # For now, we'll implement basic device tracking through the server's client management
+        # For now,
+            we'll implement basic device tracking through the server's client management
         logger.info("WebSocket server callbacks configured")
 
     def _setup_system_integration_callbacks(self) -> None:
@@ -348,7 +349,8 @@ class MainWindow(QMainWindow):
                 )
             )
             self.bluetooth_manager.device_disconnected.connect(
-                lambda addr, reason: self.bluetooth_control_widget.set_connection_status(
+                lambda addr,
+                    reason: self.bluetooth_control_widget.set_connection_status(
                     addr, False
                 )
             )
@@ -443,7 +445,9 @@ class MainWindow(QMainWindow):
         """Update all display components."""
         try:
             # Update device count - WebSocket server clients
-            connected_clients = len(self.websocket_server.clients) if self.websocket_server else 0
+            connected_clients = (
+                len(self.websocket_server.clients) if self.websocket_server else 0
+            )
             self.devices_label.setText(f"Devices: {connected_clients}")
 
             # Update device list
@@ -500,7 +504,9 @@ class MainWindow(QMainWindow):
         """Update UI component enabled/disabled"
         "state based on current state."""
         current_session = self.session_manager.get_current_session()
-        has_devices = len(self.websocket_server.clients) > 0 if self.websocket_server else False
+        has_devices = (
+            len(self.websocket_server.clients) > 0 if self.websocket_server else False
+        )
 
         # Update session control state
         if self.session_control_widget:
@@ -515,9 +521,9 @@ class MainWindow(QMainWindow):
         )
 
         # Only update buttons if they exist and are not None
-        if hasattr(self, 'sync_flash_btn') and self.sync_flash_btn is not None:
+        if hasattr(self, "sync_flash_btn") and self.sync_flash_btn is not None:
             self.sync_flash_btn.setEnabled(can_sync)
-        if hasattr(self, 'sync_mark_btn') and self.sync_mark_btn is not None:
+        if hasattr(self, "sync_mark_btn") and self.sync_mark_btn is not None:
             self.sync_mark_btn.setEnabled(can_sync)
 
     # Event handlers
@@ -547,13 +553,17 @@ class MainWindow(QMainWindow):
             # Send session start command to all connected clients via WebSocket
             if self.websocket_server:
                 import asyncio
+
                 from ..network.protocol import create_message
-                
-                session_message = create_message("session_start", {
-                    "session_id": current_session.session_id,
-                    "timestamp": time.time()
-                })
-                
+
+                session_message = create_message(
+                    "session_start",
+                    {
+                        "session_id": current_session.session_id,
+                        "timestamp": time.time(),
+                    },
+                )
+
                 asyncio.create_task(
                     self.websocket_server._broadcast_message(session_message)
                 )
@@ -579,13 +589,17 @@ class MainWindow(QMainWindow):
             # Send session stop command to all connected clients via WebSocket
             if self.websocket_server:
                 import asyncio
+
                 from ..network.protocol import create_message
-                
-                session_message = create_message("session_stop", {
-                    "session_id": current_session.session_id,
-                    "timestamp": time.time()
-                })
-                
+
+                session_message = create_message(
+                    "session_stop",
+                    {
+                        "session_id": current_session.session_id,
+                        "timestamp": time.time(),
+                    },
+                )
+
                 asyncio.create_task(
                     self.websocket_server._broadcast_message(session_message)
                 )
@@ -633,29 +647,30 @@ class MainWindow(QMainWindow):
 
     def _on_sync_flash_clicked(self) -> None:
         """Handle sync flash button click."""
-        # Send sync flash to all connected clients via WebSocket
-        if self.websocket_server:
-            import asyncio
-            from ..network.protocol import create_message
-            
-            sync_message = create_message("sync_flash_trigger", {
-                "duration_ms": 500,
-                "timestamp": time.time()
-            })
-            
-            asyncio.create_task(
-                self.websocket_server._broadcast_message(sync_message)
-            )
+        try:
+            # Send sync flash to all connected clients via WebSocket
+            if self.websocket_server:
+                import asyncio
 
-            # Add sync event to session
-            current_session = self.session_manager.get_current_session()
-            if current_session:
-                self.session_manager.add_sync_event("flash")
+                from ..network.protocol import create_message
 
-            self.sync_flash_triggered.emit()
+                sync_message = create_message(
+                    "sync_flash_trigger", {"duration_ms": 500, "timestamp": time.time()}
+                )
 
-            logger.info("Sync flash sent to all devices")
-            self._add_log_message("Sync flash sent to all devices")
+                asyncio.create_task(
+                    self.websocket_server._broadcast_message(sync_message)
+                )
+
+                # Add sync event to session
+                current_session = self.session_manager.get_current_session()
+                if current_session:
+                    self.session_manager.add_sync_event("flash")
+
+                self.sync_flash_triggered.emit()
+
+                logger.info("Sync flash sent to all devices")
+                self._add_log_message("Sync flash sent to all devices")
 
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error sending sync flash: {e}")
@@ -672,30 +687,34 @@ class MainWindow(QMainWindow):
             if not ok or not description.strip():
                 return
 
-        # Send sync mark to all connected clients via WebSocket  
-        if self.websocket_server:
-            import asyncio
-            from ..network.protocol import create_message
-            
-            mark_message = create_message("sync_mark", {
-                "mark_type": "manual_mark",
-                "description": description,
-                "timestamp": time.time()
-            })
-            
-            asyncio.create_task(
-                self.websocket_server._broadcast_message(mark_message)
-            )
+            # Send sync mark to all connected clients via WebSocket
+            if self.websocket_server:
+                import asyncio
 
-            # Add sync event to session
-            current_session = self.session_manager.get_current_session()
-            if current_session:
-                self.session_manager.add_sync_event(
-                    "manual_mark", {"description": description}
+                from ..network.protocol import create_message
+
+                mark_message = create_message(
+                    "sync_mark",
+                    {
+                        "mark_type": "manual_mark",
+                        "description": description,
+                        "timestamp": time.time(),
+                    },
                 )
 
-            logger.info(f"Sync mark added: {description}")
-            self._add_log_message(f"Sync mark added: {description}")
+                asyncio.create_task(
+                    self.websocket_server._broadcast_message(mark_message)
+                )
+
+                # Add sync event to session
+                current_session = self.session_manager.get_current_session()
+                if current_session:
+                    self.session_manager.add_sync_event(
+                        "manual_mark", {"description": description}
+                    )
+
+                logger.info(f"Sync mark added: {description}")
+                self._add_log_message(f"Sync mark added: {description}")
 
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Error adding sync mark: {e}")
@@ -705,7 +724,9 @@ class MainWindow(QMainWindow):
         """Handle device selection in list - WebSocket client."""
         if self.websocket_server and device_id in self.websocket_server.clients:
             client = self.websocket_server.clients[device_id]
-            logger.debug(f"WebSocket client selected: {device_id} ({client.device_type})")
+            logger.debug(
+                f"WebSocket client selected: {device_id} ({client.device_type})"
+            )
 
     # Network event handlers
     def _on_device_connected(self, device_info: DeviceInfo) -> None:

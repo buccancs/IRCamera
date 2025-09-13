@@ -16,12 +16,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * 图片加载
+ * imageload
  * Created by fylder on 2018/6/23.
  */
 object GlideLoader {
     /**
-     * 图像默认图
+     * image默认图
      */
     private fun getPhotoOptions(): RequestOptions {
         val multi = MultiTransformation(CenterCrop(), RoundedCorners(SizeUtils.dp2px(6f)))
@@ -31,7 +31,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆形图片
+     * 圆形image
      */
     fun loadCircle(
         img: ImageView,
@@ -45,7 +45,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆形图片
+     * 圆形image
      */
     fun loadCircle(
         img: ImageView,
@@ -59,7 +59,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆形图片
+     * 圆形image
      */
     fun loadCircle(
         img: ImageView,
@@ -73,7 +73,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆形图片
+     * 圆形image
      */
     fun loadCircle(
         img: ImageView,
@@ -87,7 +87,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆形图片
+     * 圆形image
      */
     fun loadCircle(
         img: ImageView,
@@ -104,7 +104,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆角形图片
+     * 圆角形image
      */
     fun loadRounded(
         img: ImageView,
@@ -117,7 +117,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆角形图片
+     * 圆角形image
      */
     fun loadRounded(
         img: ImageView,
@@ -130,7 +130,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆角形图片
+     * 圆角形image
      */
     fun loadRounded(
         img: ImageView,
@@ -143,7 +143,7 @@ object GlideLoader {
     }
 
     /**
-     * 圆角形图片
+     * 圆角形image
      */
     fun loadRounded(
         img: ImageView,
@@ -156,7 +156,7 @@ object GlideLoader {
     }
 
     /**
-     * 加载图片
+     * loadimage
      */
     fun load(
         img: ImageView,
@@ -178,7 +178,7 @@ object GlideLoader {
     }
 
     /**
-     * 加载图片
+     * loadimage
      */
     fun loadGallery(
         img: ImageView,
@@ -200,7 +200,7 @@ object GlideLoader {
     }
 
     /**
-     * 加载图片
+     * loadimage
      */
     fun loadFit(
         img: ImageView,
@@ -222,7 +222,7 @@ object GlideLoader {
     }
 
     /**
-     * 加载图片
+     * loadimage
      */
     fun load(
         img: ImageView,

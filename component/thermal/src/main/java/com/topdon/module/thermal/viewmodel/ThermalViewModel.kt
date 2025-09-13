@@ -2,9 +2,13 @@ package com.topdon.module.thermal.viewmodel
 
 import com.topdon.lib.core.ktbase.BaseViewModel
 
+/**
+ * Custom Thermal view model view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class ThermalViewModel : BaseViewModel() {
     /**
-     * 修改yuv温度上下限的数据
+modifyyuvtemperature上下限的data
      * white:82 FF
      * black:82 00
      */

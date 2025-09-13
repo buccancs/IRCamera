@@ -13,16 +13,22 @@ import com.topdon.lib.core.databinding.DialogConfirmSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * TS004 远端图库删除提示弹框.
+ * TS004 远端图库deletetip弹框.
  *
  * Created by LCG on 2024/2/29.
+ */
+/**
+ * ConfirmSelectDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
     var onConfirmClickListener: ((isSelect: Boolean) -> Unit)? = null
     private lateinit var binding: DialogConfirmSelectBinding
 
     /**
-     * 是否显示顶部信息图标，默认不显示.
+     * 是否Show/Display顶部info图标，默认不Show/Display.
      */
     fun setShowIcon(isShowIcon: Boolean) {
         binding.ivIcon.isVisible = isShowIcon
@@ -39,7 +45,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否显示提示文字及选中效果，默认不显示.
+     * 是否Show/Displaytiptext及selected效果，默认不Show/Display.
      */
     fun setShowMessage(isShowMessage: Boolean) {
         binding.rlMessage.isVisible = isShowMessage
@@ -52,14 +58,14 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否显示取消按钮，默认显示且默认文字为“取消”.
+     * 是否Show/DisplayCancelbutton，默认Show/Display且默认text为“Cancel”.
      */
     fun setShowCancel(isShowCancel: Boolean) {
         binding.tvCancel.isVisible = isShowCancel
     }
 
     /**
-     * 设置取消按钮文字，默认为“取消”.
+     * settingsCancelbuttontext，默认为“Cancel”.
      */
     fun setCancelText(
         @StringRes cancelRes: Int,
@@ -68,7 +74,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 设置确认按钮文字，默认为“删除"
+     * settingsConfirmbuttontext，默认为“delete"
      */
     fun setConfirmText(
         @StringRes confirmRes: Int,
@@ -98,13 +104,13 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.rlMessage -> { // 选中状态
+            binding.rlMessage -> { 
                 binding.ivSelect.isSelected = !binding.ivSelect.isSelected
             }
-            binding.tvCancel -> { // 取消
+            binding.tvCancel -> { 
                 dismiss()
             }
-            binding.tvConfirm -> { // 确认
+            binding.tvConfirm -> { 
                 dismiss()
                 onConfirmClickListener?.invoke(binding.ivSelect.isSelected)
             }

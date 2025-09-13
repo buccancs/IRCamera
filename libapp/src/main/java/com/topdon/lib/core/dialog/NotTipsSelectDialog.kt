@@ -10,9 +10,15 @@ import com.topdon.lib.core.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 与 TipDialog 类似，不过多了个 “不再提示” 选中效果的提示弹窗.
+ * 与 TipDialog class似，不过多了个 “不再tip” selected效果的tip弹窗.
  *
  * Created by LCG on 2024/10/26.
+ */
+/**
+ * NotTipsSelectDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     @StringRes
@@ -29,7 +35,7 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 点击 “我知道了” 事件监听.
+     * click “我知道了” EventListener.
      */
     fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
         onConfirmListener = l

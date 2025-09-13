@@ -112,12 +112,12 @@
         app:layout_constraintTop_toBottomOf="@id/title_view"
         app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay">
 
-        <!-- 红外出图图层 -->
+        <!-- infrared出图图层 -->
         <com.infisense.usbir.view.CameraView
             android:id="@+id/cameraView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <!-- 双光融合图层 native camera use -->
+        <!-- dual lightfusion图层 native camera use -->
         <SurfaceView
             android:id="@+id/dualTextureViewNativeCamera"
             android:layout_width="match_parent"
@@ -129,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />
-        <!-- 温度图层 -->
+        <!-- temperature图层 -->
         <com.infisense.usbir.view.TemperatureView
             android:id="@+id/temperatureView"
             android:layout_width="match_parent"
@@ -247,7 +247,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
 
-    <!-- 伪彩条 -->
+    <!-- pseudo color条 -->
     <com.topdon.lib.ui.widget.BitmapConstraintLayout
         android:id="@+id/cl_seek_bar"
         android:layout_width="wrap_content"
@@ -356,7 +356,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay" />
 
-    <!-- 拍照-更多 5 选项菜单 -->
+    <!-- 拍照-更多 5 OptionMenu -->
     <ViewStub
         android:id="@+id/view_stub_camera"
         android:layout_width="0dp"

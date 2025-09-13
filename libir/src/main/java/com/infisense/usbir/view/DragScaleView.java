@@ -43,7 +43,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     protected Paint paint = new Paint();
 
     /**
-     * 初始化获取屏幕宽高
+     * initializeGet/Retrieve屏幕宽高
      */
     protected void initScreenW_H() {
         screenHeight = ScreenUtil.getScreenHeight(getContext()) - 40;
@@ -91,14 +91,14 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
             dragDirection = getDirection(v, (int) event.getX(),
                     (int) event.getY());
         }
-        // 处理拖动事件
+        // processing拖动Event
         delDrag(v, event, action);
         invalidate();
         return false;
     }
 
     /**
-     * 处理拖动事件
+     * processing拖动Event
      *
      * @param v
      * @param event
@@ -122,7 +122,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
                     case TOP: // 上边缘
                         top(v, dy);
                         break;
-                    case CENTER: // 点击中心-->>移动
+                    case CENTER: // clickcenter-->>移动
                         center(v, dx, dy);
                         break;
                     case LEFT_BOTTOM: // 左下
@@ -155,7 +155,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为中心->>移动
+     * Touchpoint为center->>移动
      *
      * @param v
      * @param dx
@@ -186,7 +186,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为上边缘
+     * Touchpoint为上边缘
      *
      * @param v
      * @param dy
@@ -202,7 +202,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为下边缘
+     * Touchpoint为下边缘
      *
      * @param v
      * @param dy
@@ -218,7 +218,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为右边缘
+     * Touchpoint为右边缘
      *
      * @param v
      * @param dx
@@ -234,7 +234,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 触摸点为左边缘
+     * Touchpoint为左边缘
      *
      * @param v
      * @param dx
@@ -250,7 +250,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 获取触摸点flag
+     * Get/RetrieveTouchpointflag
      *
      * @param v
      * @param x
@@ -290,7 +290,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 获取截取宽度
+     * Get/Retrieve截取宽度
      *
      * @return
      */
@@ -299,7 +299,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     }
 
     /**
-     * 获取截取高度
+     * Get/Retrieve截取高度
      *
      * @return
      */

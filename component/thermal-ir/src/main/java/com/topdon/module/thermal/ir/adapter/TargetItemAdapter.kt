@@ -13,6 +13,10 @@ import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
 import com.topdon.lib.ui.R as UiR
 
+/**
+ * Custom Target item view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
@@ -27,19 +31,25 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         return selected
     }
 
-    private val secondBean = arrayListOf(
-        ColorBean(UiR.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
-        ColorBean(UiR.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
-        ColorBean(UiR.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
-    )
+    private val secondBean =
+        arrayListOf(
+            ColorBean(UiR.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
+            ColorBean(UiR.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
+            ColorBean(UiR.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
+        )
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.itme_target_mode, parent, false)
         return ItemView(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         if (holder is ItemView) {
             val bean = secondBean[position]
             holder.img.setImageResource(bean.res)
@@ -51,8 +61,11 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
             holder.name.text = bean.name
             holder.name.isSelected = bean.code == selected
             holder.name.setTextColor(
-                if (position == selected) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.font_third_color)
+                if (position == selected) {
+                    ContextCompat.getColor(context, R.color.white)
+                } else {
+                    ContextCompat.getColor(context, R.color.font_third_color)
+                },
             )
         }
     }
@@ -66,7 +79,7 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
         val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
 //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+val canSeeCount = itemCount.toFloat() //一屏Visible的 item 数量，目前都是全都display完
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams((with * 0.95).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 29 / 375f).toInt()

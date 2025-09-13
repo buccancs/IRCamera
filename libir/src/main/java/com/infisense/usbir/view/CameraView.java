@@ -18,7 +18,7 @@ import com.infisense.usbdual.Const;
 import com.infisense.usbir.utils.OpencvTools;
 
 /**
- * 红外图像展示控件，可以为TextureView或SurfaceView
+ * infraredimage展示控件，可以为TextureView或SurfaceView
  */
 public class CameraView extends TextureView {
     private String TAG = "CameraView";
@@ -28,7 +28,7 @@ public class CameraView extends TextureView {
     private Thread cameraThread;
     private Canvas canvas = null;
     /**
-     * 画面中心的十字交叉线绘制
+     * 画areacenter的十字交叉line绘制
      */
     private Paint paint;
     private int cross_len = 20;
@@ -36,13 +36,12 @@ public class CameraView extends TextureView {
      * 帧率展示
      */
     private Paint greenPaint;
-    private boolean drawLine = true;//是否画中心十字架
+    private boolean drawLine = true;//是否画center十字架
     public int productType = Const.TYPE_IR;
     private int irWidth = 192;
     private int irHeight = 256;
 
     private boolean isOpenAmplify = false;
-
 
     public boolean isOpenAmplify() {
         return isOpenAmplify;
@@ -76,16 +75,16 @@ public class CameraView extends TextureView {
         paint = new Paint();  //画笔
         paint = new Paint(Paint.FILTER_BITMAP_FLAG);
 //        paint = new Paint();  //画笔
-        paint.setStrokeWidth(2);  //设置线宽。单位为像素
+        paint.setStrokeWidth(2);  //settingsline宽。单位为像素
         paint.setAntiAlias(true); //抗锯齿
         paint.setDither(true);    //防抖动
-        paint.setColor(Color.WHITE);  //画笔颜色
+        paint.setColor(Color.WHITE);  //画笔color
         //
         greenPaint = new Paint();
         greenPaint.setStrokeWidth(6);
         greenPaint.setTextSize(56);
         greenPaint.setColor(Color.GREEN);
-        // 线程中绘制画面
+        // line程中绘制画area
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -106,20 +105,20 @@ public class CameraView extends TextureView {
                             if (canvas == null) {
                                 continue;
                             }
-                            // 画面中心的十字交叉线绘制
-                            paint.setStrokeWidth(2);  //设置线宽。单位为像素
+                            // 画areacenter的十字交叉line绘制
+                            paint.setStrokeWidth(2);  //settingsline宽。单位为像素
                             paint.setAntiAlias(true); //抗锯齿
                             paint.setDither(true);    //防抖动
-                            paint.setColor(Color.WHITE);  //画笔颜色
+                            paint.setColor(Color.WHITE);  //画笔color
                             /**
-                             * 图片缩放，这里简单的使用getWidth()作为宽，getHeight()作为高，可能会出现画面拉伸情况，
-                             * 实际使用的时候请参考设备的宽高按照设备的图像尺寸做等比例缩放
+                             * imageScale，这里简单的使用getWidth()作为宽，getHeight()作为高，可能会出现画area拉伸情况，
+                             * 实际使用的时候请参考device的宽高按照device的image尺寸做等比例Scale
                              */
                             Bitmap mScaledBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
                             canvas.drawBitmap(mScaledBitmap, 0, 0, null);
 
                             /**
-                             * 画面中心的十字交叉线绘制
+                             * 画areacenter的十字交叉line绘制
                              */
                             if (drawLine){
                                 canvas.drawLine(getWidth() / 2 - cross_len, getHeight() / 2,
@@ -175,9 +174,7 @@ public class CameraView extends TextureView {
             return sBitmap;
         }
     }
-    /**
-     *
-     */
+    
     public void start() {
         cameraThread = new Thread(runnable);
         cameraThread.start();
@@ -190,14 +187,11 @@ public class CameraView extends TextureView {
             canvas.drawLine(getWidth() / 2f, getHeight() / 2f - cross_len,
                     getWidth() / 2f, getHeight() / 2f + cross_len, paint);
         }catch (Exception e){
-            Log.e(TAG,"点异常:"+e.getMessage());
+            Log.e(TAG,"pointexception:"+e.getMessage());
         }
     }
 
-
-    /**
-     *
-     */
+    
     public void stop() {
         try {
             if (cameraThread != null){
@@ -209,7 +203,4 @@ public class CameraView extends TextureView {
         }
     }
 }
-
-
-
 

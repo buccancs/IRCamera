@@ -76,7 +76,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp">
 
-            <!-- 报告信息 -->
+            <!-- ReportInformation -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_report_info"
                 android:layout_width="0dp"
@@ -89,7 +89,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <!-- 报告信息 -->
+                <!-- ReportInformation -->
                 <TextView
                     android:id="@+id/tv_report_info_title"
                     android:layout_width="0dp"
@@ -106,7 +106,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- 报告名称 -->
+                <!-- Reportname -->
                 <TextView
                     android:id="@+id/tv_report_name"
                     android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_report_name" />
 
-                <!-- 作者名称 -->
+                <!-- 作者name -->
                 <TextView
                     android:id="@+id/tv_report_author"
                     android:layout_width="wrap_content"
@@ -180,7 +180,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_report_author" />
 
-                <!-- 报告日期 -->
+                <!-- ReportDate -->
                 <TextView
                     android:id="@+id/tv_report_date_title"
                     android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_report_date_title" />
 
-                <!-- 报告地点 -->
+                <!-- Report地point -->
                 <TextView
                     android:id="@+id/tv_report_place"
                     android:layout_width="wrap_content"
@@ -273,7 +273,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/et_report_place"
                     app:layout_constraintRight_toRightOf="@id/et_report_place" />
 
-                <!-- 水印 -->
+                <!-- watermark -->
                 <TextView
                     android:id="@+id/tv_report_watermark"
                     android:layout_width="wrap_content"
@@ -385,7 +385,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ambient_humidity" />
 
-                <!-- 环境温度 -->
+                <!-- 环境temperature -->
                 <TextView
                     android:id="@+id/tv_ambient_temperature"
                     android:layout_width="0dp"
@@ -466,7 +466,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_emissivity" />
 
-                <!-- 测试距离 -->
+                <!-- TestDistance -->
                 <TextView
                     android:id="@+id/tv_test_distance"
                     android:layout_width="wrap_content"

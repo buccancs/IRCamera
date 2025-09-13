@@ -454,7 +454,6 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      */
     /** DOING THE MATH BELOW ;-) */
 
-
     /**
      * Determines the center point between two pointer touch points.
      *

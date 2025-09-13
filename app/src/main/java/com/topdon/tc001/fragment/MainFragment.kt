@@ -65,7 +65,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             showGSROptions()
             true
         }
-        
+
         // Add prominent GSR access button for research features
         binding.fabGsrRecording.setOnClickListener {
             showGSROptions()
@@ -139,7 +139,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                    // 要是当前已connection TS004、TC007，切到流量上，不然LoginRegister意见反馈那些没网
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(true)
                     }
@@ -200,7 +200,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.tvConnectDevice, binding.ivAdd -> { // 添加设备
+            binding.tvConnectDevice, binding.ivAdd -> { // adddevice
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
 //                NavigationManager.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
 //                    .navigation()
@@ -212,7 +212,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
         if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) { // 心跳
-            if (!adapter.hasConnectTC007) { // 当前连接的不是 TC007
+            if (!adapter.hasConnectTC007) { // 当前connection的不是 TC007
                 return
             }
             try {
@@ -225,7 +225,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
     private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-         * 有线设备当前是否已连接.
+         * 有linedevice当前是否已connection.
          */
         var hasConnectLine: Boolean = false
             set(value) {
@@ -234,7 +234,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TS004 当前是否已连接.
+         * TS004 当前是否已connection.
          */
         var hasConnectTS004: Boolean = false
             set(value) {
@@ -243,7 +243,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TC007 当前是否已连接.
+         * TC007 当前是否已connection.
          */
         var hasConnectTC007: Boolean = false
             set(value) {
@@ -252,7 +252,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
             }
 
         /**
-         * TC007 设备电池信息.
+         * TC007 device电池info.
          */
         var tc007Battery: BatteryInfo? = null
             set(value) {
@@ -329,7 +329,7 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
                 ivBg.setOnLongClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        // 只有离线设备才能长按删除
+                        // 只有离linedevice才能长按delete
                         val deviceType = getConnectType(position)
                         when (deviceType) {
                             ConnectType.LINE -> {
@@ -511,13 +511,15 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
         // For now, show a placeholder dialog with implementation details
         TipDialog.Builder(requireContext())
             .setTitleMessage("Dual-Mode Camera Integration")
-            .setMessage("Enhanced RGBCameraRecorder with:\n\n" +
+            .setMessage(
+                "Enhanced RGBCameraRecorder with:\n\n" +
                     "• RAW 50MP capture at ~15fps\n" +
                     "• 4K video at 30/60fps\n" +
                     "• Fast session switching (~200ms)\n" +
                     "• Samsung S22 optimizations\n" +
                     "• CameraModeSelector UI\n\n" +
-                    "Implementation ready for integration.")
+                    "Implementation ready for integration.",
+            )
             .setPositiveListener("Got it") { }
             .create().show()
     }
