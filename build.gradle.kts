@@ -33,7 +33,6 @@ allprojects {
             // Parallel compilation across all modules
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
             freeCompilerArgs.addAll(listOf(
-                "-Xuse-k2", 
                 "-Xskip-prerelease-check"
             ))
         }

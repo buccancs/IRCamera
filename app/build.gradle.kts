@@ -104,20 +104,21 @@ android {
         isCoreLibraryDesugaringEnabled = true
     }
     
-    kotlinOptions {
-        jvmTarget = "17"
-        apiVersion = "1.9"
-        languageVersion = "1.9"
-        freeCompilerArgs += listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi", 
-            "-opt-in=kotlinx.coroutines.FlowPreview",
-            "-Xjvm-default=all",
-            // Development build optimizations for faster compilation
-            "-Xuse-k2",
-            "-Xskip-prerelease-check",
-            "-Xallow-any-scripts-in-source-roots"
-        )
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+            languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+            freeCompilerArgs.addAll(listOf(
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi", 
+                "-opt-in=kotlinx.coroutines.FlowPreview",
+                "-Xjvm-default=all",
+                // Development build optimizations for faster compilation
+                "-Xskip-prerelease-check",
+                "-Xallow-any-scripts-in-source-roots"
+            ))
+        }
     }
 
     java {
