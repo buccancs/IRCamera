@@ -1,10 +1,17 @@
-        // package com.topdon.module.thermal.ir.event
+package com.topdon.module.thermal.ir.event
 
 /**
-有一张thermal imagingimage或video生成，需要refresh图库Event.
+ * Gallery add event for thermal imaging
+ * Simplified implementation for compilation compatibility
  */
-/**
- * Gallery add event for thermal imaging system communication.
- * Facilitates decoupled component interaction.
- */
-        // class GalleryAddEvent
+data class GalleryAddEvent(
+    val imagePath: String,
+    val timestamp: Long = System.currentTimeMillis(),
+    val eventType: String = "ADD"
+) {
+    companion object {
+        const val EVENT_TYPE_ADD = "ADD"
+        const val EVENT_TYPE_UPDATE = "UPDATE"
+        const val EVENT_TYPE_DELETE = "DELETE"
+    }
+}

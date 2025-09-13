@@ -118,7 +118,7 @@ class AlgorithmImageActivity : AppCompatActivity() {
                     256,
                     192,
                     baseTemperatureBytes,
-        // nextTemperatureBytes,
+                    nextTemperatureBytes, // Re-enabled this parameter
                     ImageColorTools.matToByteArrayBy4(image),
                 )
             val im = Mat(192, 256, CvType.CV_8UC4)
