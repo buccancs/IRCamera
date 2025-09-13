@@ -79,9 +79,9 @@ public class ImageColorTools {
         long startTimeAll = System.currentTimeMillis();
         int j = 0;
         int imageDstLength = imageDst.length;
-遍历pixel point，Filtertemperature threshold
+        // 遍历pixel point，Filtertemperature threshold
         for (int index = 0; index < imageDstLength; ) {
-temperatureconversion formula
+            // temperatureconversion formula
             float temperature0 = (temperature[j] & 0xff) + (temperature[j + 1] & 0xff) * 256;
             temperature0 = (float) (temperature0 / 64 - 273.15);
             if (temperature0 >= customMinTemp && temperature0 <= customMaxTemp) {

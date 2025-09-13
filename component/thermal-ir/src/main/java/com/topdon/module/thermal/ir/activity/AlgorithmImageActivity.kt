@@ -1,20 +1,20 @@
-        // package com.topdon.module.thermal.ir.activity
+package com.topdon.module.thermal.ir.activity
 
-        // import android.os.Bundle
-        // import android.util.Log
-        // import android.view.View
-        // import android.widget.ImageView
-        // import android.widget.TextView
-        // import androidx.appcompat.app.AppCompatActivity
-        // import com.example.open3d.JNITool
-        // import com.topdon.module.thermal.ir.R
-        // import com.topdon.module.thermal.ir.utils.ImageColorTools
-        // import org.opencv.core.CvType
-        // import org.opencv.core.Mat
-        // import org.opencv.imgproc.Imgproc
-        // import org.opencv.imgproc.Imgproc.*
-        // import java.io.IOException
-        // import java.io.InputStream
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.open3d.JNITool
+import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.ir.utils.ImageColorTools
+import org.opencv.core.CvType
+import org.opencv.core.Mat
+import org.opencv.imgproc.Imgproc
+import org.opencv.imgproc.Imgproc.*
+import java.io.IOException
+import java.io.InputStream
 
 /**
  * @author: CaiSongL
@@ -24,72 +24,72 @@
  * Algorithm image activity for thermal imaging interface.
  * Manages UI interactions and thermal data display.
  */
-        // class AlgorithmImageActivity : AppCompatActivity() {
-        // override fun onCreate(savedInstanceState: Bundle?) {
-        // super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_image_color)
+class AlgorithmImageActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_image_color)
         val imageView = findViewById<ImageView>(R.id.img)
         val imgARGB = findViewById<ImageView>(R.id.img_argb)
         val imageView2 = findViewById<ImageView>(R.id.img2)
         val tvTime = findViewById<TextView>(R.id.tv_time)
         val assetManager = assets
         var inputStream: InputStream? = null
-        // inputStream =
+        // inputStream = 
         // try {
-        // assetManager.open("1698484000787_100.ir")
-            } catch (e: IOException) {
-        // throw RuntimeException(e)
-            }
+        //     assetManager.open("1698484000787_100.ir")
+        // } catch (e: IOException) {
+        //     throw RuntimeException(e)
+        // }
         var buffer = ByteArray(0)
-        buffer =
+        // buffer = 
         // try {
-        // ByteArray(inputStream!!.available())
-            } catch (e: IOException) {
-        // throw RuntimeException(e)
-            }
+        //     ByteArray(inputStream!!.available())
+        // } catch (e: IOException) {
+        //     throw RuntimeException(e)
+        // }
         // try {
-        // inputStream?.read(buffer)
-        // inputStream?.close()
-        } catch (e: IOException) {
-        // throw RuntimeException(e)
-        }
+        //     inputStream?.read(buffer)
+        //     inputStream?.close()
+        // } catch (e: IOException) {
+        //     throw RuntimeException(e)
+        // }
         val time = System.currentTimeMillis()
         // tvTime.text = "耗时：" + (System.currentTimeMillis() - time) + "/"
         // imageView.setImageBitmap(
-            ImageColorTools.adjustPhotoRotation(
-                ImageColorTools.testImage(
-                    buffer,
-                ),
-                90,
-            ),
-        )
+        //     ImageColorTools.adjustPhotoRotation(
+        //         ImageColorTools.testImage(
+        //             buffer,
+        //         ),
+        //         90,
+        //     ),
+        // )
         var bufferB = ByteArray(0)
-        // inputStream =
+        // inputStream = 
         // try {
-        // assetManager.open("1698484006539_100.ir")
-            } catch (e: IOException) {
-        // throw RuntimeException(e)
-            }
-        bufferB =
+        //     assetManager.open("1698484006539_100.ir")
+        // } catch (e: IOException) {
+        //     throw RuntimeException(e)
+        // }
+        // bufferB = 
         // try {
-        // ByteArray(inputStream!!.available())
-            } catch (e: IOException) {
-        // throw RuntimeException(e)
-            }
+        //     ByteArray(inputStream!!.available())
+        // } catch (e: IOException) {
+        //     throw RuntimeException(e)
+        // }
         // try {
-        // inputStream?.read(bufferB)
-        // inputStream?.close()
-        } catch (e: IOException) {
-        // throw RuntimeException(e)
-        }
+        //     inputStream?.read(bufferB)
+        //     inputStream?.close()
+        // } catch (e: IOException) {
+        //     throw RuntimeException(e)
+        // }
         // imageView2.setImageBitmap(
-            ImageColorTools.adjustPhotoRotation(
-                ImageColorTools.testImage(
-                    bufferB,
-                ),
-                90,
-            ),
-        )
+        //     ImageColorTools.adjustPhotoRotation(
+        //         ImageColorTools.testImage(
+        //             bufferB,
+        //         ),
+        //         90,
+        //     ),
+        // )
         val mat = JNITool.diff2firstFrameU1(buffer, bufferB)
         val im = Mat(192, 256, CvType.CV_8UC3)
         // im.put(0, 0, mat)

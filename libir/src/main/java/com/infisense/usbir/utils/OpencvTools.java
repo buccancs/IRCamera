@@ -37,6 +37,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.example.suplib.wrapper.SupHelp;
+import com.infisense.usbir.utils.SupRUtils;
 import com.topdon.lib.core.BaseApplication;
 
 import org.opencv.android.Utils;
