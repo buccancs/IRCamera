@@ -45,7 +45,7 @@ import java.io.File
 import com.topdon.lib.core.R as LibR
 
 /**
-\1插件式device、TC007 图片详情
+\1device、TC007 
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -54,18 +54,18 @@ import com.topdon.lib.core.R as LibR
  */
 class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     /**
-\1从上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
+\1interface， TC007 device.
+\1true-TC007 false-device
      */
     private var isTC007 = false
 
     /**
-\1当前展示图片在列表中的 position
+\1 position
      */
     private var position = 0
 
     /**
-\1从上一interface传递过来的，当前展示的图片列表.
+\1interface，.
      */
     private lateinit var dataList: ArrayList<GalleryBean>
 
@@ -209,7 +209,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-\1导出为 excel 时的进度条弹窗.
+\1 excel .
      */
     private var progressDialog: ProgressDialog? = null
     private var excelName: String = ""
@@ -221,26 +221,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
         progressDialog?.show()
 
         excelName = dataList[position].name.substringBeforeLast(".")
-        val irPath = "${FileConfig.lineIrGalleryDir}/$excelName.ir"
-        if (!File(irPath).exists()) {
-            ToastTools.showShort(getString(LibR.string.album_report_on_edit))
-            progressDialog?.dismiss()
-            return
-        }
-        irViewModel.initData(irPath)
-    }
-
-    override fun onClick(v: View?) {
-        when (v) {
-            findViewById<LinearLayout>(R.id.ll_ir_edit_2D) -> {
-\12d编辑
-                actionEditOrReport(false)
-            }
-
-            findViewById<LinearLayout>(R.id.ll_ir_edit_3D) -> {
-\1跳转到3D
-                val data = dataList[position]
-                val fileName = data.name.substringBeforeLast(".")
+        val irPath = "${FileConfig.lineIrGalleryDir}/$excelName.ir"Test Data".")
                 val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"
                 if (!File(irPath).exists()) {
                     ToastTools.showShort(LibR.string.album_report_on_edit)
@@ -253,10 +234,10 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
                     withContext(Dispatchers.IO) {
                         val file = File(irPath)
                         if (!file.exists()) {
-                            XLog.w("IR文件不存在: ${file.absolutePath}")
+                            XLog.w("Test Data")
                             return@withContext
                         }
-                        XLog.w("IR文件: ${file.absolutePath}")
+                        XLog.w("Test Data")
                         val bytes = file.readBytes()
                         val headLenBytes = ByteArray(2)
                         System.arraycopy(bytes, 0, headLenBytes, 0, 2)
@@ -277,7 +258,7 @@ class IRGalleryDetail01Activity : BaseActivity(), View.OnClickListener {
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_report) -> {
-\1报告
+\1Text
                 actionEditOrReport(true)
             }
 

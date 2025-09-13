@@ -63,13 +63,13 @@ public abstract class LineScatterCandleRadarRenderer extends BarLineScatterCandl
             c.drawPath(mHighlightLinePath, mHighlightPaint);
         }
 
-        //chart 绘制highlight辅助点  -------- start --------
+        //chart highlight  -------- start --------
 
-        //内部圆
+        //
         mHighlightDotPaint.setColor(Color.rgb(243, 129, 47));
         mHighlightDotPaint.setStyle(Paint.Style.FILL);
         c.drawCircle(x, y, SizeUtils.dp2px(4f), mHighlightDotPaint);
-        //外部圆
+        //
         mHighlightDotPaint.setColor(Color.argb(80, 255, 255, 255));
         mHighlightDotPaint.setStyle(Paint.Style.STROKE);
         c.drawCircle(x, y, SizeUtils.dp2px(5f), mHighlightDotPaint);

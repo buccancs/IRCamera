@@ -23,9 +23,9 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AppHolder implements Application.ActivityLifecycleCallbacks {
-    //正在运行的Activity
+    //Activity
     private final List<RunningActivity> runningActivities = new CopyOnWriteArrayList<>();
-    //是否完全Exit
+    //Exit
     private boolean isCompleteExit = false;
     private Application application;
     private Looper mainLooper;
@@ -33,7 +33,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
     private AppHolder() {
         mainLooper = Looper.getMainLooper();
-        //尝试Get/Retrieveapplication
+        //Get/Retrieveapplication
         application = tryGetApplication();
         if (application != null) {
             application.registerActivityLifecycleCallbacks(this);
@@ -143,7 +143,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     
     public static void initialize(@NonNull Application application) {
         Objects.requireNonNull(application, "application is null");
-        //如果自动Get/Retrieve的和传入的不是同一个Application，重新Register生命周期Listener
+        //Get/RetrieveApplication，RegisterListener
         if (Holder.INSTANCE.application != null && Holder.INSTANCE.application != application) {
             Holder.INSTANCE.application.unregisterActivityLifecycleCallbacks(Holder.INSTANCE);
             application.registerActivityLifecycleCallbacks(Holder.INSTANCE);
@@ -180,7 +180,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * 程序是否在前台运行
+     * 
      */
     public boolean isAppOnForeground() {
         ActivityManager am = (ActivityManager) application.getSystemService(Context.ACTIVITY_SERVICE);
@@ -198,7 +198,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return false;
     }
     
-    //数组是否包含某元素
+    //
     private boolean contains(Object[] array, Object obj) {
         if (array != null && array.length > 0) {
             for (Object o : array) {
@@ -211,11 +211,11 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
         
     /**
-     * finish掉Activity
+     * finishActivity
      */
     public void finish(String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
-        Collections.reverse(list);//倒序，后开的先finish
+        Collections.reverse(list);//，finish
         for (RunningActivity runningActivity : list) {
             Activity activity = runningActivity.weakActivity.get();
             if (activity != null) {
@@ -228,13 +228,13 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * finish掉除参数外的所有Activity
+     * finishActivity
      *
-     * @param classNames 此Activity的类名，如果是null将finish所有Activity
+     * @param classNames Activity，nullfinishActivity
      */
     public void finishAllWithout(@Nullable String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
-        Collections.reverse(list);//倒序，后开的先finish
+        Collections.reverse(list);//，finish
         for (RunningActivity runningActivity : list) {
             Activity activity = runningActivity.weakActivity.get();
             if (activity != null) {
@@ -247,20 +247,20 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * finish掉所有Activity
+     * finishActivity
      */
     public void finishAll() {
         finishAllWithout(null);
     }
 
     /**
-     * 退回到指定Activity
+     * Activity
      *
-     * @param className 完整类名
+     * @param className 
      */
     public void backTo(String className) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
-        Collections.reverse(list);//倒序，后开的先finish
+        Collections.reverse(list);//，finish
         for (RunningActivity runningActivity : list) {
             Activity activity = runningActivity.weakActivity.get();
             if (activity != null) {
@@ -299,12 +299,12 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * finish所有Activity后杀死进程
+     * finishActivity
      */
     public void completeExit() {
         isCompleteExit = true;
         List<RunningActivity> list = new ArrayList<>(runningActivities);
-        Collections.reverse(list);//倒序，后开的先finish
+        Collections.reverse(list);//，finish
         for (RunningActivity runningActivity : list) {
             Activity activity = runningActivity.weakActivity.get();
             if (activity != null) {

@@ -37,10 +37,10 @@ import java.util.LinkedHashMap;
 public class ImageThreadTC extends Thread {
 
 
-    public static final int TYPE_AI_C = -1;//不开启
-    public static final int TYPE_AI_D = 0;//动态检测
-    public static final int TYPE_AI_H = 1;//high temperature source检测
-    public static final int TYPE_AI_L = 2;//low temperature source检测
+    public static final int TYPE_AI_C = -1;//
+    public static final int TYPE_AI_D = 0;//
+    public static final int TYPE_AI_H = 1;//high temperature source
+    public static final int TYPE_AI_L = 2;//low temperature source
 
     private byte[] imgTmp;
     private String TAG = "ImageThread";
@@ -51,13 +51,13 @@ public class ImageThreadTC extends Thread {
     private int imageHeight;
     private byte[] imageSrc;
     private byte[] temperatureSrc;
-    private boolean rotate; // 屏幕旋转
+    private boolean rotate; // 
     //
     private CommonParams.DataFlowMode dataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT;
     private byte[] imageYUV422;
     private byte[] imageARGB;
     private byte[] imageDst;
-    public byte[] imageTemp;//艾睿需要的测试数据，处理完可以删除
+    public byte[] imageTemp;//，
 
     private byte[] imageY8;
     private float max = Float.MAX_VALUE;
@@ -179,8 +179,8 @@ public class ImageThreadTC extends Thread {
                         LibIRProcess.convertYuyvMapToARGBPseudocolor(imageSrc, imageHeight * imageWidth, PseudocodeUtils.INSTANCE.changePseudocodeModeByOld(pseudocolorMode), imageARGB);
                     }
                     /*
-                     * 经过转换之后的infrared数据
-                     * 其中的数据是旋转90度的，需要旋转回来,infrared旋转的逻辑放在这里处理。
+                     * infrared
+                     * 90，,infrared。
                      */
                     if (rotateInt == 270) {
                         LibIRProcess.ImageRes_t imageRes = new LibIRProcess.ImageRes_t();
@@ -205,7 +205,7 @@ public class ImageThreadTC extends Thread {
                     }
                     irImageHelp.customPseudoColor(imageDst,temperatureSrc,imageWidth,imageHeight);
                     /*
-                     * 等温尺处理,展示pseudo color的温度range内信息
+                     * ,pseudo colorrange
                      */
                     irImageHelp.setPseudoColorMaxMin(imageDst,temperatureSrc,max,min,imageWidth,imageHeight);
                 }
@@ -235,7 +235,7 @@ public class ImageThreadTC extends Thread {
                     imageDst = grayData;
                 }else if (typeAi == TYPE_AI_D) {
                     int firstTime = 0;
-                    //静态闯入算法
+                    //
                     if (firstFrame == null || firstTemp == null) {
                         firstFrame = new byte[imageDst.length];
                         firstTemp = new byte[temperatureSrc.length];
@@ -256,10 +256,10 @@ public class ImageThreadTC extends Thread {
                                 imageDst = grayData;
                                 firstTime++;
                             } catch (Throwable e) {
-                                Log.e("静态闯入异常：", e.getMessage());
+                                Log.e("Test Data", e.getMessage());
                             }
                         } else {
-                            //相似度不同，则代表手机抖动
+                            //，
                             System.arraycopy(imageDst, 0, firstFrame, 0, imageDst.length);
                             System.arraycopy(temperatureSrc, 0, firstTemp, 0, temperatureSrc.length);
                         }
@@ -271,7 +271,7 @@ public class ImageThreadTC extends Thread {
                             (rotateInt == 270 || rotateInt == 90) ? imageWidth  : imageHeight ,
                             amplifyRotateArray);
                 }
-//                    Log.e("图像总处理耗时：", String.valueOf(System.currentTimeMillis() - startImageTime));
+//                    Log.e("：", String.valueOf(System.currentTimeMillis() - startImageTime));
             }
 
             synchronized (syncimage.viewLock) {
@@ -296,7 +296,7 @@ public class ImageThreadTC extends Thread {
             try {
                 SystemClock.sleep(20);
             } catch (Exception e) {
-                XLog.e("Image Threadrefresh异常: " + e.getMessage());
+                XLog.e("Test Data" + e.getMessage());
             }
         }
         Log.i(TAG, "ImageThread exit");

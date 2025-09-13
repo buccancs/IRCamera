@@ -65,26 +65,7 @@ public class MoveImageView extends ImageView {
                 Log.d(TAG, "ACTION_UP");
                 break;
             case MotionEvent.ACTION_CANCEL:
-                Log.d(TAG, "ACTION_CANCEL");
-                break;
-
-        }
-        return true;
-    }
-    private static final int MIN_CLICK_DELAY_TIME = 100;
-    private static long lastClickTime;
-
-\1最多70毫秒执行一次move
-    public static boolean delayMoveTime() {
-        boolean flag = false;
-        long curClickTime = System.currentTimeMillis();
-        if ((curClickTime - lastClickTime) < MIN_CLICK_DELAY_TIME) {
-            flag = false;
-        } else {
-            flag = true;
-            lastClickTime = System.currentTimeMillis();
-        }
-        Log.d(TAG, "ACTION_MOVE isFastClick flag : " + flag);
+                Log.d(TAG, "ACTION_CANCEL"Test Data"ACTION_MOVE isFastClick flag : " + flag);
         return flag;
     }
 

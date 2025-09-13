@@ -16,37 +16,37 @@ import androidx.fragment.app.FragmentActivity
 import com.topdon.lib.core.R
 
 /**
- * 使用 DataBinding 的基础 DialogFragment.
+ *  DataBinding  DialogFragment.
  *
  * Created by LCG on 2024/10/14.
  */
 abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment() {
     /**
-     * 在 [onDestroyView] 要将 binding 置为 null，
-     * 而将 binding 声明为可为 null 类型使用太过麻烦，使用该变量做一重包装避免该问题.
+     *  [onDestroyView]  binding  null，
+     *  binding  null ，.
      */
     private var _binding: B? = null
 
     /**
-     * 注意：由于 Fragment 存在时间比其视图长，binding 将在 [onDestroyView] 置为 null.
+     * ： Fragment ，binding  [onDestroyView]  null.
      *
-     * 仅可在 [onCreateView] 与 [onDestroyView] 之间访问.
+     *  [onCreateView]  [onDestroyView] .
      */
     protected val binding: B get() = _binding!!
 
     /**
-     * 子类实现该方法，返回使用 DataBinding 的 layout 资源 Id.
+     * ， DataBinding  layout  Id.
      */
     @LayoutRes
     protected abstract fun initContentLayoutId(): Int
 
     /**
-     * 子类实现该方法，执行 onViewCreated 之后的初始化逻辑.
+     * ， onViewCreated .
      */
     protected abstract fun initView(savedInstanceState: Bundle?)
 
     /**
-     * 对话框 [Dialog.setCanceledOnTouchOutside] 的值.
+     *  [Dialog.setCanceledOnTouchOutside] .
      */
     var isCanceledOnTouchOutSide: Boolean = true
         set(value) {
@@ -55,13 +55,13 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
         }
 
     /**
-     * 子类可重写该方法，执行 onCreateDialog 阶段创建 Dialog 后的相关设置.
+     * ， onCreateDialog  Dialog .
      */
     protected open fun afterDialogCreate(layoutParams: WindowManager.LayoutParams) {
     }
 
     /**
-     * 子类可重写该方法，返回 Dialog 要使用的 themeResId.
+     * ， Dialog  themeResId.
      */
     @StyleRes
     protected open fun getDialogThemeResId(): Int = R.style.base_dialog

@@ -16,10 +16,10 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * ================================================
- * 作    者：JayGoo
- * 版    本：
- * 创建日期：2018/5/10
- * 描    述:
+ *     ：JayGoo
+ *     ：
+ * ：2018/5/10
+ *     :
  * ================================================
  */
 public class VerticalRangeSeekBar extends DefRangeSeekBar {
@@ -92,10 +92,10 @@ public class VerticalRangeSeekBar extends DefRangeSeekBar {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         /*
-         * onMeasure传入的widthMeasureSpec和heightMeasureSpec不是一般的尺寸数值，而是将模式和尺寸组合在一起的数值
-         * MeasureSpec.EXACTLY 是精确尺寸
-         * MeasureSpec.AT_MOST 是最大尺寸
-         * MeasureSpec.UNSPECIFIED 是未指定尺寸
+         * onMeasurewidthMeasureSpecheightMeasureSpec，
+         * MeasureSpec.EXACTLY 
+         * MeasureSpec.AT_MOST 
+         * MeasureSpec.UNSPECIFIED 
          */
 
         if (widthMode == MeasureSpec.EXACTLY) {
@@ -137,7 +137,7 @@ public class VerticalRangeSeekBar extends DefRangeSeekBar {
                 if (TextUtils.isEmpty(text2Draw)) continue;
                 paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
                 paint.setColor(getTickMarkTextColor());
-                //平分Show/Display
+                //Show/Display
                 float x;
                 if (getTickMarkMode() == TRICK_MARK_MODE_OTHER) {
                     if (getTickMarkGravity() == TICK_MARK_GRAVITY_RIGHT) {
@@ -153,7 +153,7 @@ public class VerticalRangeSeekBar extends DefRangeSeekBar {
                     if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (getSeekBarMode() == SEEKBAR_MODE_RANGE)) {
                         paint.setColor(getTickMarkInRangeTextColor());
                     }
-                    //按实际比例Show/Display
+                    //Show/Display
                     x = getProgressLeft() + getProgressWidth() * (num - getMinProgress()) / (getMaxProgress() - getMinProgress())
                             - tickMarkTextRect.width() / 2f;
                 }

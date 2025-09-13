@@ -13,18 +13,18 @@ import java.util.UUID;
  */
 public class StringUtils {
     /**
-     * 生成一个uuid字符串，不带短杠
+     * uuid，
      */
     public static String randomUuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
     /**
-     * 补零
+     * 
      *
-     * @param src       原字符串
-     * @param targetLen 目标长度
-     * @param head      补前面还是后面
+     * @param src       
+     * @param targetLen 
+     * @param head      
      */
     public static String fillZero(String src, int targetLen, boolean head) {
         if (src == null) return null;
@@ -40,47 +40,47 @@ public class StringUtils {
     }
 
     /**
-     * 数字转16进制字符串，不足2位自动补零
+     * 16，2
      */
     public static String toHex(int num) {
         return fillZero(Integer.toHexString(num), 2, true);
     }
 
     /**
-     * 数字转16进制字符串，不足2位自动补零
+     * 16，2
      */
     public static String toHex(long num) {
         return fillZero(Long.toHexString(num), 2, true);
     }
 
     /**
-     * 数字转2进制字符串，不足8位自动补零
+     * 2，8
      */
     public static String toBinary(int num) {
         return fillZero(Integer.toBinaryString(num), 8, true);
     }
 
     /**
-     * 数字转2进制字符串，不足8位自动补零
+     * 2，8
      */
     public static String toBinary(long num) {
         return fillZero(Long.toBinaryString(num), 8, true);
     }
 
     /**
-     * byte数组转换成16进制字符串
+     * byte16
      *
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @return bytesnullnull，bytes0""，
      */
     public static String toHex(byte[] bytes) {
         return toHex(bytes, " ");
     }
 
     /**
-     * byte数组转换成16进制字符串
+     * byte16
      *
-     * @param separator 用来分隔的字符串
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @param separator 
+     * @return bytesnullnull，bytes0""，
      */
     public static String toHex(byte[] bytes, String separator) {
         if (bytes == null) {
@@ -108,19 +108,19 @@ public class StringUtils {
     }
 
     /**
-     * byte数组转换成2进制字符串
+     * byte2
      *
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @return bytesnullnull，bytes0""，
      */
     public static String toBinary(byte[] bytes) {
         return toBinary(bytes, " ");
     }
 
     /**
-     * byte数组转换成2进制字符串
+     * byte2
      *
-     * @param separator 用来分隔的字符串
-     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
+     * @param separator 
+     * @return bytesnullnull，bytes0""，
      */
     public static String toBinary(byte[] bytes, String separator) {
         if (bytes == null) {
@@ -149,21 +149,21 @@ public class StringUtils {
     }
 
     /**
-     * 使用java正则表达式去掉小数点后多余的0，如最后一位是.则去掉
+     * java0，.
      */
     public static String subZeroAndDot(String number) {
         if (TextUtils.isEmpty(number)) return number;
         if (number.indexOf(".") > 0) {
-            number = number.replace("0+?$", "");//去掉多余的0  
-            number = number.replace("[.]$", "");//如最后一位是.则去掉  
+            number = number.replace("0+?$", "");//0  
+            number = number.replace("[.]$", "");//.  
         }
         return number;
     }
 
     /**
-     * 格式00:00:00
+     * 00:00:00
      *
-     * @param duration 时长，单位：秒
+     * @param duration ，：
      */
     @NonNull
     public static String toDuration(int duration) {
@@ -171,9 +171,9 @@ public class StringUtils {
     }
 
     /**
-     * 将时长转换成指定格式的字符串
+     * 
      *
-     * @param duration 时长，单位：秒
+     * @param duration ，：
      */
     @NonNull
     public static String toDuration(int duration, String format) {
@@ -185,10 +185,10 @@ public class StringUtils {
     }
 
     /**
-     * 进16进制字符串转换成字节数组
+     * 16
      *
-     * @param hexStr    16进制的字符串
-     * @param separator 字符串字节间的分隔符
+     * @param hexStr    16
+     * @param separator 
      */
     public static byte[] toByteArray(String hexStr, String separator) {
         String s = hexStr.replaceAll(separator, "");

@@ -80,9 +80,9 @@ data class HouseRepPreviewAlbumItemBean(
 )
 
 /**
-\1需要传递：
-\1- [ExtraKeyConfig.IS_REPORT] - true-查看报告即查看 false-查看检测即生成
-\1- [ExtraKeyConfig.LONG_ID] - 房屋检测Id(生成时)  房屋报告Id(查看时）
+\1：
+\1- [ExtraKeyConfig.IS_REPORT] - true- false-
+\1- [ExtraKeyConfig.LONG_ID] - Id()  Id(）
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -117,7 +117,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
     private lateinit var rcyFloor: androidx.recyclerview.widget.RecyclerView
 
     /**
-\1true-查看报告即查看 false-查看检测即生成
+\1true- false-
      */
     private var isReport = false
     private var houseReport = HouseReport()
@@ -148,111 +148,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
         tvCost = findViewById(R.id.tv_cost)
         rcyFloor = findViewById(R.id.rcy_floor)
 
-        showLoadingDialog("")
-        isReport = intent.getBooleanExtra(ExtraKeyConfig.IS_REPORT, false)
-        tvSave.isEnabled = false
-        rlyInspectorSignature.isEnabled = !isReport
-        rlyHouseOwnerSignature.isEnabled = !isReport
-        tvSave.text = if (isReport) getString(R.string.battery_share) else getString(R.string.finalize_and_save)
-        toolbarBackImg.setOnClickListener(this)
-        tvSave.setOnClickListener(this)
-        rlyInspectorSignature.setOnClickListener(this)
-        rlyHouseOwnerSignature.setOnClickListener(this)
-
-        if (clSign.isShown)
-            {
-                val mAppBarChildAt: View = layAppbar.getChildAt(0)
-                val mAppBarParams = mAppBarChildAt.layoutParams as AppBarLayout.LayoutParams
-                mAppBarParams.scrollFlags = 0
-            }
-
-        // Disabled - ViewModels from removed house module
-        // detectViewModel.detectLD.observe(this) {
-        //     tvSave.isEnabled = it != null
-        //     if (it != null) {
-        //         houseReport = it.toHouseReport()
-        //         mPreviewBean = convertDataModel(houseReport)
-        //         setAdapter()
-        //     }
-        //     dismissLoadingDialog()
-        // }
-        // reportViewModel.reportLD.observe(this) {
-        //     tvSave.isEnabled = it != null
-        //     if (it != null) {
-        //         houseReport = it
-        //         mPreviewBean = convertDataModel(it)
-        //         setAdapter()
-        //     }
-        //     dismissLoadingDialog()
-        // }
-
-        // Disabled - ViewModels from removed house module
-\1if (isReport) {//查看报告
-        //     reportViewModel.queryById(intent.getLongExtra(ExtraKeyConfig.LONG_ID, 0))
-\1} else {//生成报告
-        //     detectViewModel.queryById(intent.getLongExtra(ExtraKeyConfig.LONG_ID, 0))
-        // }
-
-        // Temporary stub - disable save functionality without ViewModels
-        tvSave.isEnabled = false
-        dismissLoadingDialog()
-    }
-
-    override fun initData() {
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        setAvatorChange()
-    }
-
-    private fun setAvatorChange() {
-        layAppbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-\1verticalOffset始终为0以下的负数
-            val percent = abs(verticalOffset * 1.0f) / appBarLayout.totalScrollRange
-            layToolbar.setBackgroundColor(changeAlpha(getColor(R.color.color_23202E), percent))
-        }
-    }
-
-    private fun changeAlpha(
-        color: Int,
-        fraction: Float,
-    ): Int {
-        val red = Color.red(color)
-        val green = Color.green(color)
-        val blue = Color.blue(color)
-        val alpha = (Color.alpha(color) * fraction).toInt()
-        return Color.argb(alpha, red, green, blue)
-    }
-
-    override fun onClick(v: View?) {
-        when (v) {
-            toolbarBackImg -> {
-                finish()
-            }
-
-            rlyInspectorSignature -> {
-                // Disabled - SignInputActivity from removed house module
-                // var intent = Intent(this, SignInputActivity::class.java)
-                // intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, true)
-                // startActivityForResult(intent, 1000)
-            }
-
-            rlyHouseOwnerSignature -> {
-                // Disabled - SignInputActivity from removed house module
-                // var intent = Intent(this, SignInputActivity::class.java)
-                // intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, false)
-                // startActivityForResult(intent, 1001)
-            }
-
-            tvSave -> {
-                if (isReport) { // 分享
-                    lifecycleScope.launch {
-                        showLoadingDialog()
-                        // Disabled - PDFUtil from removed house module
-                        // PDFUtil.delAllPDF(this@ReportPreviewActivity)
-                        // val pdfUri: Uri? = PDFUtil.savePDF(this@ReportPreviewActivity, houseReport)
-                        dismissLoadingDialog()
-
-                        // Disabled PDF functionality - house module removed
-                        TToast.shortToast(this@ReportPreviewActivity, "PDF sharing disabled - house module removed")
+        showLoadingDialog(""Test Data"PDF sharing disabled - house module removed")
 
                         // Original PDF sharing code commented out:
                         // if (pdfUri != null) {
@@ -263,7 +159,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
                         //     startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
                         // }
                     }
-                } else { // 定稿并保存
+                } else { // 
                     if (houseReport.inspectorWhitePath.isEmpty() || houseReport.houseOwnerWhitePath.isEmpty()) {
                         if (clSign.bottom + layAppbar.height > llSave.top) {
                             layAppbar.setExpanded(false, true)
@@ -272,59 +168,7 @@ class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
                         TToast.shortToast(this, R.string.pdf_sign_tips)
                         return
                     }
-                    showLoadingDialog("")
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        val currentTime = System.currentTimeMillis()
-                        houseReport.createTime = currentTime
-                        houseReport.updateTime = currentTime
-                        AppDatabase.getInstance().houseReportDao().insert(houseReport)
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            dismissLoadingDialog()
-                            TToast.shortToast(this@ReportPreviewActivity, R.string.pdf_saved_tips)
-                            // Disabled - HouseReportAddEvent from removed house module
-                            // EventBus.getDefault().post(HouseReportAddEvent())
-                            finish()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?,
-    ) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            val whitePath = data?.getStringExtra(ExtraKeyConfig.RESULT_PATH_WHITE) ?: return
-            val blackPath = data.getStringExtra(ExtraKeyConfig.RESULT_PATH_BLACK) ?: return
-            when (requestCode) {
-                1000 -> {
-\1检测师签名
-                    Glide.with(this).load(whitePath).into(ivInspectorSignature)
-                    houseReport.inspectorWhitePath = whitePath
-                    houseReport.inspectorBlackPath = blackPath
-                }
-
-                1001 -> {
-\1房主签名
-                    Glide.with(this).load(whitePath).into(ivHouseOwnerSignature)
-                    houseReport.houseOwnerWhitePath = whitePath
-                    houseReport.houseOwnerBlackPath = blackPath
-                }
-            }
-        }
-    }
-
-    private fun convertDataModel(houseReport: HouseReport): HouseRepPreviewBean {
-        var houseRepPreviewBean = HouseRepPreviewBean()
-        houseRepPreviewBean.housePhoto = houseReport.imagePath
-        houseRepPreviewBean.houseAddress = houseReport.address
-        houseRepPreviewBean.houseName = houseReport.name
-        houseRepPreviewBean.detectTime =
-            "${getString(R.string.detect_time)}${": "}${TimeTool.formatDetectTime(houseReport.detectTime)}"
+                    showLoadingDialog(""Test Data"${getString(R.string.detect_time)}${": "}${TimeTool.formatDetectTime(houseReport.detectTime)}"
         houseRepPreviewBean.inspectorName = houseReport.inspectorName
         houseRepPreviewBean.houseYear =
             if (houseReport.year == null) "--" else "${houseReport.year?.toString()}${getString(R.string.year)}"

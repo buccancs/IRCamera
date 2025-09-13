@@ -10,15 +10,15 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * savedsettings开关牵扯面太广，分布太乱，统一封装使用.
+ * savedsettings，，.
  *
- * current类封装受“savedsettings开关”影响的configuration项，
+ * current“savedsettings”configuration，
  *
- * [SharedManager] saved不受“savedsettings开关”影响的configuration项.
+ * [SharedManager] saved“savedsettings”configuration.
  */
 object SaveSettingUtil {
     /**
-     * savedsettings开关使用的 SharedPreferences 名称.
+     * savedsettings SharedPreferences .
      */
     private const val SP_NAME = "SaveSettingUtil"
 
@@ -33,29 +33,29 @@ object SaveSettingUtil {
     const val FusionTypeMeanFusion = 2
 
     /**
-     * 单infrared
+     * infrared
      */
-    const val FusionTypeIROnly = 1 // 单独infrared
+    const val FusionTypeIROnly = 1 // infrared
 
     /**
-     * 单visible light
+     * visible light
      */
-    const val FusionTypeVLOnly = 0 // 单独visible light
+    const val FusionTypeVLOnly = 0 // visible light
 
     /**
      * picture-in-picture
      */
-    const val FusionTypeTC007Fusion = 7 // tc007的picture-in-picture
+    const val FusionTypeTC007Fusion = 7 // tc007picture-in-picture
 
     const val FusionTypeHSLFusion = 3
     const val FusionTypeScreenFusion = 5
     const val FusionTypeIROnlyNoFusion = 6
 
     /**
-     * savedsettings开关close时，要将所有影响的configuration项reset为默认项.
+     * savedsettingsclose，configurationreset.
      */
     fun reset() {
-        // 热成像temperature measurementobservation模式共有
+        // temperature measurementobservation
         isMeasureTempMode = true
         isVideoMode = false
         isAutoShutter = true
@@ -66,7 +66,7 @@ object SaveSettingUtil {
         pseudoColorMode = 3
         rotateAngle = DeviceConfig.S_ROTATE_ANGLE
 
-        // temperature measurement模式独有
+        // temperature measurement
         isOpenPseudoBar = true
         isOpenTwoLight = false
         twoLightAlpha = 50
@@ -75,7 +75,7 @@ object SaveSettingUtil {
         temperatureMode = CameraItemBean.TYPE_TMP_C
         alarmBean = AlarmBean()
 
-        // observation模式独有
+        // observation
         isOpenCompass = false
         isOpenHighPoint = false
         isOpenLowPoint = false
@@ -93,7 +93,7 @@ object SaveSettingUtil {
     }
 
     /**
-     * 是否开启savedsettings开关，默认close.
+     * savedsettings，close.
      */
     var isSaveSetting: Boolean
         get() = SPUtils.getInstance(SP_NAME).getBoolean("isSaveSetting", true)
@@ -102,7 +102,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否处于temperature measurement模式，默认temperature measurement模式 true-temperature measurement false-observation
+     * temperature measurement，temperature measurement true-temperature measurement false-observation
      */
     var isMeasureTempMode: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isMeasureTempMode", true) else true
@@ -113,7 +113,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 是否开启超分
+     * 
      */
     var isOpenAmplify: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenAmplify", false) else false
@@ -122,7 +122,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否选择recording模式，默认capture true-recording false-capture
+     * recording，capture true-recording false-capture
      */
     var isVideoMode: Boolean
         get() =
@@ -139,7 +139,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否打开自动快门，默认打开 true-打开 false-close
+     * ， true- false-close
      */
     var isAutoShutter: Boolean
         get() =
@@ -156,7 +156,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像recording是否同时使用麦克风录制音频，默认close true-开启 false-close
+     * recording，close true- false-close
      */
     var isRecordAudio: Boolean
         get() =
@@ -173,7 +173,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * delayedcapture或延时录制的延时秒数，单位秒，默认0秒即不delayed.
+     * delayedcapture，，0delayed.
      */
     var delayCaptureSecond: Int
         get() =
@@ -196,7 +196,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-temperature measurement模式-是否开启dual light，默认close true-开启 false-close
+     * -temperature measurement-dual light，close true- false-close
      */
     var isOpenTwoLight: Boolean
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenTwoLight", false) else false
@@ -207,7 +207,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-temperature measurement模式-dual light开启时fusion度，取值`[0,100]`，0表示完全不透明，100表示完全透明，默认 50%
+     * -temperature measurement-dual lightfusion，`[0,100]`，0，100， 50%
      */
     var twoLightAlpha: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("twoLightAlpha", 50) else 50
@@ -218,7 +218,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像pseudo color模式，取值为pseudo color枚举值，默认iron red
+     * pseudo color，pseudo color，iron red
      */
     var pseudoColorMode: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("pseudoColorMode", 3) else 3
@@ -229,7 +229,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-temperature measurement模式-是否开启pseudo color条，默认开启 true-开启 false-close
+     * -temperature measurement-pseudo color， true- false-close
      */
     var isOpenPseudoBar: Boolean
         get() =
@@ -246,7 +246,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像对比度，取值range`[0,255]`，默认 128
+     * ，range`[0,255]`， 128
      */
     var contrastValue: Int
         get() =
@@ -263,7 +263,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-temperature measurement模式-锐度(细节增强等级)，取值range`[0,4]`，默认为 2
+     * -temperature measurement-()，range`[0,4]`， 2
      */
     var ddeConfig: Int
         get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("ddeConfig", 2) else 2
@@ -274,7 +274,7 @@ object SaveSettingUtil {
         }
 
     /**
-     *热成像-temperature measurement模式-温度报警相关settings项.
+     *-temperature measurement-settings.
      */
     var alarmBean: AlarmBean
         get() =
@@ -291,7 +291,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像画面逆时针rotation angle，取值 0、90、180、270，默认 [DeviceConfig.S_ROTATE_ANGLE]
+     * rotation angle， 0、90、180、270， [DeviceConfig.S_ROTATE_ANGLE]
      */
     var rotateAngle: Int
         get() =
@@ -308,7 +308,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像是否开启镜像，默认close即不镜像 true-镜像 false-不镜像
+     * ，close true- false-
      */
     var isOpenMirror: Boolean
         get() =
@@ -325,7 +325,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-是否开启指南针，默认close true-开启 false-close
+     * -observation-，close true- false-close
      */
     var isOpenCompass: Boolean
         get() =
@@ -342,7 +342,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-temperature measurement模式-温度fontcolor值，默认白色.
+     * -temperature measurement-fontcolor，.
      */
     var tempTextColor: Int
         get() =
@@ -359,7 +359,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-temperature measurement模式-温度fontcolor值，默认14sp.
+     * -temperature measurement-fontcolor，14sp.
      */
     var tempTextSize: Int
         get() =
@@ -376,13 +376,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-temperature measurement模式-temperature level，默认normal temperature，取值
+     * -temperature measurement-temperature level，normal temperature，
      *
      * normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）
      *
-     * 高温 ([CameraItemBean.TYPE_TMP_H] = 0)
+     *  ([CameraItemBean.TYPE_TMP_H] = 0)
      *
-     * 自动 ([CameraItemBean.TYPE_TMP_ZD] = -1)
+     *  ([CameraItemBean.TYPE_TMP_ZD] = -1)
      */
     var temperatureMode: Int
         get() =
@@ -399,7 +399,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-是否开启高温点，默认close true-开启 false-close
+     * -observation-，close true- false-close
      */
     var isOpenHighPoint: Boolean
         get() =
@@ -416,7 +416,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-是否开启低温点，默认close true-开启 false-close
+     * -observation-，close true- false-close
      */
     var isOpenLowPoint: Boolean
         get() =
@@ -433,9 +433,9 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-selectedAI追踪类型，默认未selected，取值
+     * -observation-selectedAI，selected，
      *
-     * 未selected ([ObserveBean.TYPE_NONE] = -1)
+     * selected ([ObserveBean.TYPE_NONE] = -1)
      *
      * dynamic recognition ([ObserveBean.TYPE_DYN_R] = 0)
      *
@@ -458,7 +458,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-target-是否开启target，默认close true-开启 false-close
+     * -observation-target-target，close true- false-close
      */
     var isOpenTarget: Boolean
         get() =
@@ -475,7 +475,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-target-targetmeasurement mode，默认human，取值
+     * -observation-target-targetmeasurement mode，human，
      *
      * human ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
      *
@@ -502,13 +502,13 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-target-target类型，默认横向，取值
+     * -observation-target-target，，
      *
-     * 横向 ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
+     *  ([ObserveBean.TYPE_TARGET_HORIZONTAL] = 15)
      *
-     * 竖向 ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
+     *  ([ObserveBean.TYPE_TARGET_VERTICAL] = 16)
      *
-     * 圆形 ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
+     *  ([ObserveBean.TYPE_TARGET_CIRCLE] = 17)
      */
     var targetType: Int
         get() =
@@ -527,17 +527,17 @@ object SaveSettingUtil {
         }
 
     /**
-     * 热成像-observation模式-target-targetcolor，默认绿色，取值
+     * -observation-target-targetcolor，，
      *
-     * 绿色 ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
+     *  ([ObserveBean.TYPE_TARGET_COLOR_GREEN] = 20)
      *
-     * 红色 ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
+     *  ([ObserveBean.TYPE_TARGET_COLOR_RED] = 21)
      *
-     * 蓝色 ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
+     *  ([ObserveBean.TYPE_TARGET_COLOR_BLUE] = 22)
      *
-     * 黑色 ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
+     *  ([ObserveBean.TYPE_TARGET_COLOR_BLACK] = 23)
      *
-     * 白色 ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
+     *  ([ObserveBean.TYPE_TARGET_COLOR_WHITE] = 24)
      */
     var targetColorType: Int
         get() =
@@ -556,7 +556,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-作者名称，默认值 App 名称.
+     * -， App .
      */
     var reportAuthorName: String
         get() =
@@ -573,7 +573,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-watermark内容，默认值 App 名称.
+     * -watermark， App .
      */
     var reportWatermarkText: String
         get() =
@@ -590,7 +590,7 @@ object SaveSettingUtil {
         }
 
     /**
-     * 报告-环境湿度千分比，默认值500，取值`[0, 1000]`
+     * -，500，`[0, 1000]`
      */
     var reportHumidity: Int
         get() =

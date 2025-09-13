@@ -43,9 +43,9 @@ class VideoActivity : BaseActivity() {
     }
 
     private fun previewVideo(path: String) {
-        Log.w("123", "打开文件:$path")
+        Log.w("123", "Test Data")
         val file = File(path.replace("//", "/"))
-        Log.i("123", "打开文件file:$file")
+        Log.i("123", "Test Data")
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "$packageName.fileprovider"
@@ -53,7 +53,7 @@ class VideoActivity : BaseActivity() {
             } else {
                 Uri.fromFile(file)
             }
-        Log.w("123", "打开文件uri:$uri")
+        Log.w("123", "Test Data")
         val videoView = findViewById<VideoView>(R.id.video_play)
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))

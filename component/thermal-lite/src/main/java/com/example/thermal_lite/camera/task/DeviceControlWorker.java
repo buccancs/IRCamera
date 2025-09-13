@@ -41,34 +41,7 @@ public class DeviceControlWorker {
                     mEventQueue.poll();
                     //call back connect result
                     mDeviceState = task.getDeviceState();
-                    Log.d(TAG, "DeviceControlWorker do state : " + mDeviceState);
-                    if (mDeviceControlCallback != null) {
-\1防止重复回调
-                        if (mDeviceState != previousState) {
-                            if (mDeviceState == DeviceState.OPEN) {
-                                mDeviceControlCallback.onConnected();
-                            } else if (mDeviceState == DeviceState.CLOSED) {
-                                mDeviceControlCallback.onDisconnected();
-                            } else if (mDeviceState == DeviceState.RESUMED) {
-                                mDeviceState = DeviceState.OPEN;
-                                mDeviceControlCallback.onResumed();
-                            } else if (mDeviceState == DeviceState.PAUSED) {
-                                mDeviceControlCallback.onPaused();
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-    /**
-     * start worker thread
-     */
-    public void startWork() {
-        Log.d(TAG, "startWork");
+                    Log.d(TAG, "DeviceControlWorker do state : "Test Data"startWork");
         if (mThread == null) {
             mThread = new Thread(mRunnable);
             mThread.start();

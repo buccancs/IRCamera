@@ -33,11 +33,11 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRE
  * //                       `=---='
  * //
  * //    .............................................
- * //             佛祖保佑             永无BUG
+ * //                          BUG
  * =====================================================
- * 作    者：JayGoo
- * 创建日期：2019-06-05
- * 描    述:
+ *     ：JayGoo
+ * ：2019-06-05
+ *     :
  * =====================================================
  */
 public class DefVerticalSeekBar extends SeekBar {

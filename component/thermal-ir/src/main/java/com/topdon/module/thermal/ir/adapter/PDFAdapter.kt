@@ -42,41 +42,7 @@ class PDFAdapter : BaseQuickAdapter<ReportData.Records?, BaseViewHolder>, LoadMo
                 GlideLoader.loadP(baseViewHolder.getView(R.id.img_content), url)
             }
             baseViewHolder.setText(R.id.item_pdf_title, item?.reportContent?.report_info?.report_name + "")
-            baseViewHolder.setText(R.id.item_pdf_content, it.uploadTime + "")
-            addChildClickViewIds(R.id.item_message_lay)
-            val view = baseViewHolder.itemView.findViewById<View>(R.id.tv_del)
-            baseViewHolder.itemView.findViewById<View>(R.id.item_message_lay).setOnClickListener {
-                jumpDetailListener?.invoke(item, data.indexOf(item))
-            }
-            view.setOnClickListener {
-                delListener?.invoke(item, data.indexOf(item))
-            }
-        }
-    }
-
-    override fun setNewInstance(list: MutableList<ReportData.Records?>?) {
-        list?.let {
-            updateTime(it)
-        }
-        super.setNewInstance(list)
-    }
-
-    override fun addData(newData: Collection<ReportData.Records?>) {
-        this.data.addAll(newData)
-        updateTime(this.data)
-        notifyItemRangeInserted(this.data.size - newData.size + headerLayoutCount, newData.size)
-        compatibilityDataSizeChanged(newData.size)
-    }
-
-    private fun updateTime(dataList: MutableList<ReportData.Records?>)  {
-        for (i in 0 until dataList.size) {
-            dataList[i]?.isShowTitleTime = false
-            if (i == 0)
-                {
-                    dataList[i]?.isShowTitleTime = true
-                } else {
-\1上一次
-                val lastTimes = dataList[i - 1]?.uploadTime?.split(" ")
+            baseViewHolder.setText(R.id.item_pdf_content, it.uploadTime + ""Test Data" ")
                 val times = dataList[i]?.uploadTime?.split(" ")
                 if (lastTimes?.size!! > 1 && times?.size!! > 1)
                     {

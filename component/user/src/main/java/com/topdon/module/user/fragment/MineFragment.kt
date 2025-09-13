@@ -55,15 +55,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
-\1公共set页，即公共 “我的”
-\1[MoreActivity] - TS004 “我的”
-\1[MoreFragment] - 插件式 “我的”
+\1set， “”
+\1[MoreActivity] - TS004 “”
+\1[MoreFragment] -  “”
  *
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
     /**
-\1onResume() 阶段是否需要刷新登录状态相关 UI.
+\1onResume()  UI.
      */
     private var isNeedRefreshLogin = false
 
@@ -107,19 +107,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         settingElectronicManual.setOnClickListener(this)
         settingFaq.setOnClickListener(this)
         settingFeedback.setOnClickListener(this)
-        settingItemUnit.setOnClickListener(this) // 温度单温
+        settingItemUnit.setOnClickListener(this) // 
         dragCustomerView.setOnClickListener(this)
 
         viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) { // 国内版
+        if (BaseApplication.instance.isDomestic()) { // 
             // Language selection removed - English only
         }
 
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-\1要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+\1Text TS004、TC007，Text，Text
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(false)
                     }
@@ -154,7 +154,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            ivWinter -> { // 冬季特辑入口
+            ivWinter -> { // 
                 viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
@@ -184,7 +184,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingElectronicManual -> { // 电子说明书
+            settingElectronicManual -> { // 
                 NavigationManager.getInstance().build(
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
@@ -194,7 +194,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            settingFeedback -> { // 意见反馈
+            settingFeedback -> { // 
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -211,62 +211,25 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingItemUnit -> { // 温度单位
+            settingItemUnit -> { // 
                 NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            settingItemVersion -> { // 版本
+            settingItemVersion -> { // 
                 NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            settingItemClear -> { // 清除缓存，实际已隐藏
+            settingItemClear -> { // ，
                 clearCache()
             }
-            dragCustomerView -> { // 客服
+            dragCustomerView -> { // 
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 // ZohoSalesIQ functionality disabled - dependency not available
                 if (!TextUtils.isEmpty(sn)) {
                     // ZohoSalesIQ.Visitor.addInfo("SN", sn)
                 }
-                // ZohoSalesIQ.Visitor.addInfo("Model", "Topinfrared")
-                // ZohoSalesIQ.Chat.show()
-            }
-        }
-    }
-
-    private fun loginAction() {
-        isNeedRefreshLogin = true
-\1activityLogin()回调不可靠，但必然触发onResume()
-        val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
-        LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
-    }
-
-    private fun checkLoginResult() {
-        if (LMS.getInstance().isLogin) {
-\1登录successful
-            LMS.getInstance().getUserInfo { userinfo: CommonBean ->
-                try {
-                    val json = userinfo.data
-                    val infoData = Gson().fromJson(json, ResponseUserInfo::class.java)
-                    UserInfoManager.getInstance().login(
-                        token = LMS.getInstance().token,
-                        userId = infoData.topdonId,
-                        phone = infoData.phone,
-                        email = infoData.email,
-                        nickname = infoData.userName,
-                        headUrl = infoData.avatar,
-                    )
-
-\1updateui
-                    changeLoginStyle()
-                } catch (e: Exception) {
-                    XLog.e(" 登录异常: ${e.message}")
-                }
-            }
-        } else {
-\1登录failed
-            XLog.e(" 登录失败")
+                // ZohoSalesIQ.Visitor.addInfo("Model", "Topinfrared"Test Data" Text: ${e.message}"Test Data" Text")
             changeLoginStyle()
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 
         }
     }
 
@@ -320,12 +283,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             settingUserLay.visibility = View.GONE
             val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
             tvEmail.text = ""
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 
         }
     }
 
     /**
-\1清除buffer
+\1buffer
      */
     private fun clearCache() {
         lifecycleScope.launch {
@@ -335,7 +298,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("清除缓存异常: ${e.message}")
+                    XLog.w("Test Data")
                 }
                 delay(1000)
             }

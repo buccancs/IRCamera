@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present human<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -44,9 +44,9 @@ import androidx.annotation.StyleRes;
 import com.topdon.lib.ui.R;
 
 /**
- * 屏幕底部弹出对话框
+ * 
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author （1032694760@qq.com）
  * @since 2017/4/12
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -72,9 +72,9 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     private void init(Activity activity) {
         this.activity = activity;
         setOwnerActivity(activity);
-        //Touch屏幕Cancel窗体
+        //TouchCancel
         setCanceledOnTouchOutside(false);
-        //按Return键Cancel窗体
+        //ReturnCancel
         setCancelable(false);
         super.setOnShowListener(this);
         super.setOnDismissListener(this);
@@ -88,7 +88,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
             window.getDecorView().setPadding(0, 0, 0, 0);
         }
         onInit(null);
-        // 调用create或show才能触发onCreate
+        // createshowonCreate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             super.create();
         } else {
@@ -97,7 +97,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     }
 
     /**
-     * @deprecated 使用 {@link #onInit(Bundle)} 代替
+     * @deprecated  {@link #onInit(Bundle)} 
      */
     @Deprecated
     @CallSuper
@@ -132,7 +132,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
     protected abstract View createContentView();
 
     /**
-     * @deprecated 使用 {@link #initView()}  代替
+     * @deprecated  {@link #initView()}  
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated

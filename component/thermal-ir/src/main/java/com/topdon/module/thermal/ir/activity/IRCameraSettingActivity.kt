@@ -37,7 +37,7 @@ import java.util.*
 import com.topdon.lib.core.R as LibR
 
 /**
-\1camera属性值set
+\1cameraset
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
@@ -74,7 +74,7 @@ class IRCameraSettingActivity : BaseActivity() {
         productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
         if (isTC007())
             {
-                watermarkBean = SharedManager.wifiWatermarkBean // TC007只有水印
+                watermarkBean = SharedManager.wifiWatermarkBean // TC007
                 continuousBean = SharedManager.continuousBean
             } else
             {
@@ -104,214 +104,10 @@ class IRCameraSettingActivity : BaseActivity() {
             SharedManager.continuousBean = continuousBean
         }
         barPickViewTime.valueFormatListener = {
-            (it / 10).toString() + if (it % 10 == 0) "" else ("." + (it % 10).toString())
-        }
-
-        barPickViewCount.setProgressAndRefresh(continuousBean.count)
-        barPickViewCount.onStopTrackingTouch = { progress, _ ->
-            continuousBean.count = progress
-            SharedManager.continuousBean = continuousBean
-        }
-
-        switchTime.isChecked = watermarkBean.isAddTime
-        switchWatermark.isChecked = watermarkBean.isOpen
-        switchDelay.isChecked = continuousBean.isOpen
-
-        clDelayMore.isVisible = continuousBean.isOpen
-        clWatermarkMore.isVisible = watermarkBean.isOpen
-        clShowEp.isVisible = watermarkBean.isOpen
-
-        tvTimeShow.text = TimeTool.getNowTime()
-        tvTimeShow.isVisible = watermarkBean.isAddTime
-
-        tvAddress.inputType = InputType.TYPE_NULL
-        if (TextUtils.isEmpty(watermarkBean.address))
-            {
-                tvAddress.visibility = View.GONE
-            } else
-            {
-                tvAddress.visibility = View.VISIBLE
-                tvAddress.text = watermarkBean.address
-            }
-        edTitle.setText(watermarkBean.title)
-        edAddress.setText(watermarkBean.address)
-        tvTitleShow.text = watermarkBean.title
-        switchDelay.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
-                {
-                    clDelayMore.visibility = View.VISIBLE
-                } else
-                {
-                    clDelayMore.visibility = View.GONE
-                }
-            continuousBean.isOpen = isChecked
-            SharedManager.continuousBean = continuousBean
-        }
-        switchWatermark.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
-                {
-                    clWatermarkMore.visibility = View.VISIBLE
-                    clShowEp.visibility = View.VISIBLE
-                } else
-                {
-                    clWatermarkMore.visibility = View.GONE
-                    clShowEp.visibility = View.GONE
-                }
-            watermarkBean.isOpen = isChecked
-        }
-        switchTime.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
-                {
-                    tvTimeShow.text = TimeTool.getNowTime()
-                    tvTimeShow.visibility = View.VISIBLE
-                } else
-                {
-                    tvTimeShow.visibility = View.GONE
-                }
-            watermarkBean.isAddTime = isChecked
-        }
-        edTitle.addTextChangedListener(
-            object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int,
-                ) {
-                }
-
-                override fun onTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int,
-                ) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    watermarkBean.title = edTitle.text.toString()
-                    tvTitleShow.text = watermarkBean.title
-                }
-            },
-        )
-        edAddress.addTextChangedListener(
-            object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int,
-                ) {
-                }
-
-                override fun onTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int,
-                ) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    watermarkBean.address = edAddress.text.toString()
-                    tvAddress.text = watermarkBean.address
-                    if (!watermarkBean.address.isNullOrEmpty())
-                        {
-                            tvAddress.visibility = View.VISIBLE
-                        } else
-                        {
-                            tvAddress.visibility = View.GONE
-                        }
-                }
-            },
-        )
-        imgLocation.setOnClickListener(
-            object : SingleClickListener() {
-                override fun onSingleClick() {
-                    checkStoragePermission()
-                }
-            },
-        )
-\1TC007device不需要延迟拍照
-        lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
+            (it / 10).toString() + if (it % 10 == 0) "" else ("."Test Data"TC007")
     }
 
-    fun isTC007(): Boolean {
-        return productName.contains("TC007")
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun getLocation(): String? {
-\11.get位置管理器
-        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-
-\12.get位置提供器，GPS或是NetWork
-        val providers = locationManager?.getProviders(true)
-        locationProvider =
-            if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-\1如果是GPS
-                LocationManager.GPS_PROVIDER
-            } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-\1如果是Network
-                LocationManager.NETWORK_PROVIDER
-            } else {
-                return null
-            }
-        var location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (location == null)
-            {
-                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            }
-        return if (location == null)
-            {
-                null
-            } else
-            {
-                getAddress(location)
-            }
-    }
-
-    var locationListener: LocationListener =
-        object : LocationListener {
-\1Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
-            override fun onStatusChanged(
-                provider: String,
-                status: Int,
-                extras: Bundle,
-            ) {
-                Toast.makeText(
-                    this@IRCameraSettingActivity,
-                    provider,
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }
-
-\1Provider被enable时触发此函数，比如GPS被打开
-            override fun onProviderEnabled(provider: String) {
-                Toast.makeText(
-                    this@IRCameraSettingActivity,
-                    "GPS打开",
-                    Toast.LENGTH_SHORT,
-                ).show()
-                getLocation()
-            }
-
-\1Provider被disable时触发此函数，比如GPS被disabled
-            override fun onProviderDisabled(provider: String) {
-                Toast.makeText(
-                    this@IRCameraSettingActivity,
-                    "GPS关闭",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }
-
-\1当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
-            override fun onLocationChanged(location: Location) {
-                if (location != null) {
-\1如果位置发生变化，重新display地理位置经纬度
-                    Toast.makeText(
-                        this@IRCameraSettingActivity,
-                        location.longitude.toString() + " " +
+    @SuppressLint("MissingPermission"Test Data"GPSText"Test Data"GPSText"Test Data" " +
                             location.latitude + "",
                         Toast.LENGTH_SHORT,
                     ).show()
@@ -327,25 +123,7 @@ class IRCameraSettingActivity : BaseActivity() {
         for (provider in providers) {
             val l: Location = locationManager!!.getLastKnownLocation(provider) ?: continue
             if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
-                // Found best last known location: %s", l);
-                bestLocation = l
-            }
-        }
-        return bestLocation
-    }
-
-\1getaddress信息:城市、街道等信息
-    private fun getAddress(location: Location?): String {
-        var result: List<Address?>? = null
-        try {
-            if (location != null) {
-                val gc = Geocoder(this, Locale.getDefault())
-                result =
-                    gc.getFromLocation(
-                        location.latitude,
-                        location.longitude, 1,
-                    )
-                Log.v("TAG", "获取地址信息：$result")
+                // Found best last known location: %s"Test Data"TAG", "Test Data")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -441,7 +219,7 @@ class IRCameraSettingActivity : BaseActivity() {
                         never: Boolean,
                     ) {
                         if (never) {
-\1如果是被永久拒绝就跳转到应用权限系统set页面
+\1TextsetText
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(LibR.string.app_location_content))

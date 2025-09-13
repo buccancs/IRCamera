@@ -219,11 +219,11 @@ public class XAxisRenderer extends AxisRenderer {
                         x += width / 2;
                     }
                 }
-                //chart 绘制刻度文本  -------- start --------
+                //chart   -------- start --------
 
                 if (i == 0 && mXAxis.isJumpFirstLabel()) {
-                    //不是哥们，你好歹好个参数来saved要不要绘制啊，查了我半天结果是因为你这里给跳过了
-                    //起始刻度不需要绘制
+                    //，saved，
+                    //
                     continue;
                 }
 
@@ -265,7 +265,7 @@ public class XAxisRenderer extends AxisRenderer {
         gridLinePath.reset();
 
         for (int i = 0; i < positions.length; i += 2) {
-            //chart 绘制刻度线   -------- start --------
+            //chart    -------- start --------
 
             if (i == 0) {
                 continue;

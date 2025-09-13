@@ -42,11 +42,11 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
     private final IIRFrameCallback irFrameCallback;
     public SurfaceView cameraview;
     public boolean isRun = true;
-    // 帧率展示
+    // 
     public int count = 0;
     private long timestart = 0;
     private double fps = 0;
-    //开启自动gainswitch将auto_gain_switch和auto_gain_switch_running同时改为true
+    //gainswitchauto_gain_switchauto_gain_switch_runningtrue
     public boolean auto_gain_switch = false;
     public boolean auto_gain_switch_running = true;
     public boolean auto_over_protect = false;
@@ -62,7 +62,7 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
     private Bitmap mScaledBitmap;
     private Handler handler;
 
-    // 是否使用IRISP算法集成
+    // IRISP
     private boolean isUseIRISP = false;
 
     private SurfaceNativeWindow mSurfaceNativeWindow;
@@ -70,19 +70,19 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
 
     private DualCameraParams.FusionType mCurrentFusionType;
     private boolean firstFrame = false;
-    private byte[] irRGBAData;//原始infrared数据 192 *256
-    private byte[] preIrData;//预处理infrared原始数据 192 *256 * 2
-    private byte[] preTempData;//预处理温度原始数据 192 *256 * 2
-    private byte[] preIrARGBData;//预处理后infraredARGB数据 192 * 256 * 4
-    public byte[] frameData = new byte[FRAME_LEN];//原始全部数据
+    private byte[] irRGBAData;//infrared 192 *256
+    private byte[] preIrData;//infrared 192 *256 * 2
+    private byte[] preTempData;// 192 *256 * 2
+    private byte[] preIrARGBData;//infraredARGB 192 * 256 * 4
+    public byte[] frameData = new byte[FRAME_LEN];//
 
     public byte[] frameIrAndTempData = new byte[192 * 256 * 4];
 
-    public int rotate = 180; //镜头颠倒了，所以初始颠倒个180度
+    public int rotate = 180; //，180
 
     private volatile boolean isOpenAmplify = false;
-    private final byte[] amplifyMixRotateArray;//fusion的数据 640 * MULTIPLE * 480 * MULTIPLE
-    private final byte[] amplifyIRRotateArray;//单infrared的数据 256 * MULTIPLE * 192 * MULTIPLE
+    private final byte[] amplifyMixRotateArray;//fusion 640 * MULTIPLE * 480 * MULTIPLE
+    private final byte[] amplifyIRRotateArray;//infrared 256 * MULTIPLE * 192 * MULTIPLE
 
     public static final int MULTIPLE = 2;
 
@@ -155,7 +155,7 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
         ConcreateDualBuilder concreateDualBuilder = new ConcreateDualBuilder();
         dualUVCCamera = concreateDualBuilder
                 .setDualType(DualType.USB_DUAL)
-                // 需要注意宽高的顺序
+                // 
                 .setIRSize(Const.IR_WIDTH, Const.IR_HEIGHT)
                 .setVLSize(Const.VL_WIDTH, Const.VL_HEIGHT)
                 .setDualSize(Const.DUAL_HEIGHT, Const.DUAL_WIDTH)
@@ -164,9 +164,9 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
                 .setDeviceStyle(CommonParams.DeviceStyle.ALL_IN_ONE)
                 .setUseDualGPU(false)
                 /**
-                 * 开始多线程处理fusion
-                 * 在CPU低性能平台上，建议close多线程
-                 * setUseDualGPU 为true GPU无效
+                 * fusion
+                 * CPU，close
+                 * setUseDualGPU true GPU
                  */
                 .setMultiThreadHandleDualEnable(false)
                 .build();
@@ -185,57 +185,57 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
         mSurfaceNativeWindow = new SurfaceNativeWindow();
 
         /**
-         * 同时打开防灼烧和自动gainswitch后，如果想修改防灼烧和自动gainswitch的触发优先级，可以通过修改下面的触发参数实现
+         * gainswitch，gainswitch，
          */
-        // 自动gainswitch参数auto gain switch parameter
-        gain_switch_param.above_pixel_prop = 0.1f;    //用于high -> low gain,设备像素总面积的百分比
-        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高gain向低gainswitch的触发温度
-        gain_switch_param.below_pixel_prop = 0.95f;   //用于low -> high gain,设备像素总面积的百分比
-        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//用于low -> high gain,低gain向高gainswitch的触发温度
-        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //continuous满足触发条件帧数超过该阈值会触发自动gainswitch(假设出图速度为15帧每秒，则5 * 15大概为5秒)
-        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//触发自动gainswitch之后，会间隔该阈值的帧数不进行gainswitch监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-        // 防灼烧参数over_portect parameter
-        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); //低gain下触发防灼烧的温度
-        int high_gain_over_temp_data = (int) ((110 + 273.15) * 16 * 4); //高gain下触发防灼烧的温度
-        float pixel_above_prop = 0.02f;//设备像素总面积的百分比
-        int switch_frame_cnt = 7 * 15;//continuous满足触发条件超过该阈值会触发防灼烧(假设出图速度为15帧每秒，则7 * 15大概为7秒)
-        int close_frame_cnt = 10 * 15;//触发防灼烧之后，经过该阈值的帧数之后会解除防灼烧(假设出图速度为15帧每秒，则10 * 15大概为10秒)
+        // gainswitchauto gain switch parameter
+        gain_switch_param.above_pixel_prop = 0.1f;    //high -> low gain,
+        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //high -> low gain,gaingainswitch
+        gain_switch_param.below_pixel_prop = 0.95f;   //low -> high gain,
+        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//low -> high gain,gaingainswitch
+        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //continuousgainswitch(15，5 * 155)
+        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//gainswitch，gainswitch(15，7 * 157)
+        // over_portect parameter
+        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); //gain
+        int high_gain_over_temp_data = (int) ((110 + 273.15) * 16 * 4); //gain
+        float pixel_above_prop = 0.02f;//
+        int switch_frame_cnt = 7 * 15;//continuous(15，7 * 157)
+        int close_frame_cnt = 10 * 15;//，(15，10 * 1510)
 
         LibIRProcess.ImageRes_t imageRes = new LibIRProcess.ImageRes_t();
         imageRes.height = (char) (192);
         imageRes.width = (char) 256;
 
         irRGBAData = new byte[irSize * 4];
-        preIrData = new byte[irSize * 2];//预处理infrared原始数据 192 *256 * 2
-        preTempData = new byte[irSize * 2];//预处理温度原始数据 192 *256 * 2
-        preIrARGBData = new byte[irSize * 2 * 2];;//预处理后infraredARGB数据 192 * 256 * 4
+        preIrData = new byte[irSize * 2];//infrared 192 *256 * 2
+        preTempData = new byte[irSize * 2];// 192 *256 * 2
+        preIrARGBData = new byte[irSize * 2 * 2];;//infraredARGB 192 * 256 * 4
         iFrameCallback = new IFrameCallback() {
             /**
-             * frame 所有数据集合 (CPU)
-             * frame 长度 dualwidth * dualHeight * 4 + irWidth * irHeight * 2 + irWidth * irHeight * 2 + dualwidth *
+             * frame  (CPU)
+             * frame  dualwidth * dualHeight * 4 + irWidth * irHeight * 2 + irWidth * irHeight * 2 + dualwidth *
              * dualHeight * 2 + vlWidth * vlHeight * 3 + dualwidth * dualHeight * 4
-             * 数据流按顺序依次为
-             * mixData fusion数据，格式ARGB，长度dualwidth * dualHeight * 4
-             * irData 原始infrared数据，格式Y16，长度irWidth * irHeight * 2
-             * tempData 原始温度数据，格式Y16，长度irWidth * irHeight * 2
-             * remapTempData fusion图像尺寸一致的温度数据 格式YUV422 dualwidth * dualHeight * 2
-             * vlData 原始visible light数据 格式RGB24 vlWidth * vlHeight * 3
-             * vlARGBData fusion图像尺寸一致的visible light数据 dualwidth * dualHeight * 4（仅picture-in-picture模式回调数据）
-             * picture-in-picture模式ScreenFusion:mixData 为单infrared数据，格式ARGB，长度dualwidth * dualHeight * 4
-             * fusion模式为IROnlyNoFusion, 只会返回irData和tempData,数据位置不变
+             * 
+             * mixData fusion，ARGB，dualwidth * dualHeight * 4
+             * irData infrared，Y16，irWidth * irHeight * 2
+             * tempData ，Y16，irWidth * irHeight * 2
+             * remapTempData fusion YUV422 dualwidth * dualHeight * 2
+             * vlData visible light RGB24 vlWidth * vlHeight * 3
+             * vlARGBData fusionvisible light dualwidth * dualHeight * 4（picture-in-picture）
+             * picture-in-pictureScreenFusion:mixData infrared，ARGB，dualwidth * dualHeight * 4
+             * fusionIROnlyNoFusion, irDatatempData,
              */
             /**
-             * frame 所有数据集合 (GPU)
-             * frame 长度 dualwidth * dualHeight * 4 + irWidth * irHeight * 2 + irWidth * irHeight * 2 + dualwidth *
+             * frame  (GPU)
+             * frame  dualwidth * dualHeight * 4 + irWidth * irHeight * 2 + irWidth * irHeight * 2 + dualwidth *
              * dualHeight * 2 + vlWidth * vlHeight * 4
-             * 数据流按顺序依次为
-             * mixData fusion数据，格式ARGB，长度dualwidth * dualHeight * 4
-             * irData 原始infrared数据，格式Y16，长度irWidth * irHeight * 2
-             * tempData 原始温度数据，格式Y16，长度irWidth * irHeight * 2
-             * remapTempData fusion图像尺寸一致的温度数据 格式YUV422 dualwidth * dualHeight * 2
-             * vlData 原始visible light数据 格式ARGB vlWidth * vlHeight * 4
-             * picture-in-picture模式ScreenFusion:mixData 为单infrared数据，格式ARGB，长度dualwidth * dualHeight * 4
-             * fusion模式为IROnlyNoFusion, 只会返回irData和tempData,数据位置不变
+             * 
+             * mixData fusion，ARGB，dualwidth * dualHeight * 4
+             * irData infrared，Y16，irWidth * irHeight * 2
+             * tempData ，Y16，irWidth * irHeight * 2
+             * remapTempData fusion YUV422 dualwidth * dualHeight * 2
+             * vlData visible light ARGB vlWidth * vlHeight * 4
+             * picture-in-pictureScreenFusion:mixData infrared，ARGB，dualwidth * dualHeight * 4
+             * fusionIROnlyNoFusion, irDatatempData,
              */
             @Override
             public void onFrame(byte[] frame) {
@@ -246,7 +246,7 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
                     Log.d(TAG, "RESTART_USB");
                     return;
                 }
-                // 帧率展示
+                // 
                 count++;
                 if (count == 100) {
                     count = 0;
@@ -268,17 +268,17 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
 
                 System.arraycopy(frame, fusionLength + irSize * 4 + Const.DUAL_WIDTH * Const.DUAL_HEIGHT * 2, vlData,
                         0, vlSize);
-                System.arraycopy(frame, 0, frameData, 0, FRAME_LEN); //无损数据
-                //合并原始infrared数据和原始温度数据
+                System.arraycopy(frame, 0, frameData, 0, FRAME_LEN); //
+                //infrared
                 System.arraycopy(frame, dualCameraWidth*dualCameraHeight*4, frameIrAndTempData, 0, frameIrAndTempData.length);
 
-                //picture-in-picture模式ScreenFusion:mixData 为单infrared数据，格式ARGB，长度dualwidth * dualHeight * 4
+                //picture-in-pictureScreenFusion:mixData infrared，ARGB，dualwidth * dualHeight * 4
 //                if (mCurrentFusionType == DualCameraParams.FusionType.ScreenFusion) {
 //                    System.arraycopy(frame, fusionLength + irSize * 4 + remapTempSize + vlSize, vlARGBData, 0,
 //                            fusionLength);
 //                }
 
-                //如果是IROnlyNoFusion模式, 此时infrared数据和温度为原始数据，长度都为256*192
+                //IROnlyNoFusion, infrared，256*192
                 if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion) {
                     for (OnFrameCallback onFrameCallback : onFrameCallbacks) {
                         onFrameCallback.onFame(mixData, normalTempData, fps);
@@ -349,8 +349,8 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
 //                    }).start();
 //
 //                }
-                //请不要旋转图像测试
-                // 自动gainswitch，不effective的话请您的设备是否支持自动gainswitch
+                //
+                // gainswitch，effectivegainswitch
                 if (dataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
                     System.arraycopy(frame, fusionLength + irSize * 2, normalTempData, 0, irSize * 2);
                     if (auto_gain_switch && auto_gain_switch_running) {
@@ -371,7 +371,7 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
                                     }
                                 });
                     }
-                    // 防灼烧保护
+                    // 
                     if (auto_over_protect) {
                         USBMonitorManager.getInstance().getIrcmd().avoidOverexposure(false, gainStatus,
                                 normalTempData, imageRes, low_gain_over_temp_data, high_gain_over_temp_data,
@@ -400,9 +400,9 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
      */
     public void startPreview() {
         /**
-         * setIrDataPreHandleEnable 开启后
-         * 必须settingssetIrFrameCallback
-         * 同时setFusion(HSLFusion)模式不effective, 等温尺相关接口setIsothermal,pseudo color，自定义pseudo color相关接口setPseudocolor, setCustomPseudocolor不effective
+         * setIrDataPreHandleEnable 
+         * settingssetIrFrameCallback
+         * setFusion(HSLFusion)effective, setIsothermal,pseudo color，pseudo colorsetPseudocolor, setCustomPseudocoloreffective
          */
         switchIrPreDataHandleEnable(true);
         dualUVCCamera.setFrameCallback(iFrameCallback);
@@ -439,7 +439,7 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
     public Bitmap getScaledBitmap() {
         if (isOpenAmplify){
             if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion){
-                //单infrared模式
+                //infrared
                 supIROlyNoFusionBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(amplifyIRRotateArray, 0,
                         supIROlyNoFusionBitmap.getWidth() * supIROlyNoFusionBitmap.getHeight() * 4));
                 mScaledBitmap = Bitmap.createScaledBitmap(supIROlyNoFusionBitmap,

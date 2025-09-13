@@ -28,21 +28,21 @@ import com.topdon.menu.R as MenuR
  * Custom Menu four night view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("旧的settingsmenu，已重构过了")
+@Deprecated("Test Data")
 @SuppressLint("NotifyDataSetChanged")
 class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
 
-    private var colorEnable = false // pseudo color条
-    private var contrastEnable = false // 对比度
-    private var ddeEnable = false // 细节
-    private var alarmEnable = false // 预警
+    private var colorEnable = false // pseudo color
+    private var contrastEnable = false // 
+    private var ddeEnable = false // 
+    private var alarmEnable = false // 
     private var textColorEnable = false // font
-    private var mirrorEnable = false // 镜像
+    private var mirrorEnable = false // 
     private var waterMarkEnable = false // watermark
-    private var compassEnable = false // 指南针
+    private var compassEnable = false // 
 
-    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE // 校对默认角度0
+    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE // 0
 
     fun selectRotate(rotateAngle: Int) {
         this.rotateAngle = rotateAngle
@@ -90,13 +90,13 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     /**
-     * 不知道干嘛的
-     * 参数 [Constants.IR_TEMPERATURE_MODE] = 1 temperature measurement模式   pseudo color条、对比度、锐度、warning、旋转、font、镜像
-     * 参数 [Constants.IR_TCPLUS_MODE] = 5 dual light设备        pseudo color条、对比度、锐度、warning、旋转、font、
-     * 参数 [Constants.IR_TEMPERATURE_LITE] = 7 Lite设备  pseudo color条、对比度、warning、旋转、font、镜像
-     * 参数 [Constants.IR_TC007_MODE] = 6 TC007          pseudo color条、对比度、锐度、warning、font、镜像
-     * else - 2D编辑menu                                  warning、font、watermark
-     * 参数 [Constants.IR_OBSERVE_MODE] = 2 observation模式  指南针、旋转、镜像、对比度
+     * 
+     *  [Constants.IR_TEMPERATURE_MODE] = 1 temperature measurement   pseudo color、、、warning、、font、
+     *  [Constants.IR_TCPLUS_MODE] = 5 dual light        pseudo color、、、warning、、font、
+     *  [Constants.IR_TEMPERATURE_LITE] = 7 Lite  pseudo color、、warning、、font、
+     *  [Constants.IR_TC007_MODE] = 6 TC007          pseudo color、、、warning、font、
+     * else - 2Dmenu                                  warning、font、watermark
+     *  [Constants.IR_OBSERVE_MODE] = 2 observation  、、、
      */
     fun setShowMenuFour(modeType: Int) {
         fourBean.clear()
@@ -358,7 +358,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         @SuppressLint("RecyclerView") position: Int,
     ) {
         if (holder is ItemView) {
-            // updateswitchTab的item宽度
+            // updateswitchTabitem
             updateViewWidth(holder.itemView, holder.img)
             val bean = fourBean[position]
             holder.name.text = bean.name
@@ -432,7 +432,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         }
     }
 
-    // state变化
+    // state
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,
@@ -461,8 +461,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
             itemView.layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-//        if (fourBean.size <= 4) {  //item少于4个，每个占1/4
-//            val canSeeCount = fourBean.size //一屏占4个
+//        if (fourBean.size <= 4) {  //item4，1/4
+//            val canSeeCount = fourBean.size //4
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
 //            itemView.layoutParams =
 //                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -471,8 +471,8 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.width = imageSize
 //            layoutParams.height = imageSize
 //            itemMenu.layoutParams = layoutParams
-//        } else {    //item大于4个，每屏4.5个item
-//            val canSeeCount = 4.5 //一屏占4个
+//        } else {    //item4，4.5item
+//            val canSeeCount = 4.5 //4
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams =
 //                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)

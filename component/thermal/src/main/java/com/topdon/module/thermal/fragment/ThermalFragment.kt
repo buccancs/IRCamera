@@ -63,7 +63,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     override fun initContentView() = R.layout.fragment_thermal
 
-\1settemperature展示的位置
+\1settemperatureText
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -80,7 +80,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         val y1 = y * ph / rawHeight
         val maxX = x1 - imageView.width / 2
         val maxY = y1 - imageView.height / 2
-\1Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
+\1Log.w("123", "Test Data")
         imageView.x = maxX.toFloat()
         imageView.y = maxY.toFloat()
     }
@@ -89,7 +89,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        rotateType = 3 // 默认旋转270度
+        rotateType = 3 // 270
         mCenterTextView = requireView().findViewById(R.id.temp_display)
         mMaxTextView = requireView().findViewById(R.id.max_temp_display)
         mMinTextView = requireView().findViewById(R.id.min_temp_display)
@@ -153,9 +153,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             cameraLayoutParams!!.height = irSurfaceViewHeight
             mFenceLayout!!.layoutParams = cameraLayoutParams
         }
-\1初始选取范围
+\1Text
         initFence()
-\1初始image
+\1Textimage
         onIrVideoStart()
         mIrSurfaceView!!.post {
             Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
@@ -168,9 +168,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         mCenterTextView!!.visibility = View.VISIBLE
                         mMaxTextView!!.visibility = View.VISIBLE
                         mMinTextView!!.visibility = View.VISIBLE
-                        mCenterTextView!!.text = "中心温 $mCenter"
-                        mMaxTextView!!.text = "最高温 $mMaxTemp"
-                        mMinTextView!!.text = "最低温 $mMinTemp"
+                        mCenterTextView!!.text = "Test Data"
+                        mMaxTextView!!.text = "Test Data"
+                        mMinTextView!!.text = "Test Data"
                         maxImg!!.visibility = View.GONE
                         minImg!!.visibility = View.GONE
                     }
@@ -178,7 +178,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         mCenterTextView!!.visibility = View.VISIBLE
                         mMaxTextView!!.visibility = View.GONE
                         mMinTextView!!.visibility = View.GONE
-                        mCenterTextView!!.text = "温度 $mMaxTemp"
+                        mCenterTextView!!.text = "Test Data"
                         maxImg!!.visibility = View.GONE
                         minImg!!.visibility = View.GONE
                     }
@@ -186,9 +186,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         mCenterTextView!!.visibility = View.VISIBLE
                         mMaxTextView!!.visibility = View.VISIBLE
                         mMinTextView!!.visibility = View.VISIBLE
-                        mCenterTextView!!.text = "中心温 $mCenter"
-                        mMaxTextView!!.text = "最高温 $mMaxTemp"
-                        mMinTextView!!.text = "最低温 $mMinTemp"
+                        mCenterTextView!!.text = "Test Data"
+                        mMaxTextView!!.text = "Test Data"
+                        mMinTextView!!.text = "Test Data"
                         maxImg!!.visibility = View.VISIBLE
                         minImg!!.visibility = View.VISIBLE
                         maxImg?.let { setViewPosition(it, maxIndex) }
@@ -209,12 +209,12 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
     /**
-\1enabled视频流
+\1enabled
      */
     fun onIrVideoStart() {
         mIsIrVideoStart =
             if (mIsIrVideoStart) {
-                ToastTools.showShort("视频流已开启")
+                ToastTools.showShort("Test Data")
                 return
             } else {
                 true
@@ -228,14 +228,14 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         yuv: ByteArray,
                         temp: FloatArray,
                     ) {
-\1刷新image
+\1Textimage
                         if (mIrBitmap == null) {
                             mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
                         }
                         if (upValue > downValue) {
                             viewModel.yuvArea(yuv, temp, upValue, downValue)
                         }
-                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // 视频转码yuv
+                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // yuv
 //                mIrBitmap = mIrBitmap?.let { rotateBitmap(it, 90f) }
                         try {
                             mIrSurfaceView!!.doDraw(mIrBitmap, mGuideInterface!!.getImageStatus())
@@ -251,15 +251,15 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                         }
                         val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
                         try {
-\1选取区域
-\1calculation选取指定点
+\1Text
+\1calculationText
                             val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                             val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
                             maxIndex = maxTempIndex
                             minIndex = minTempIndex
-\1rotation后的temperaturearray
+\1rotationTexttemperaturearray
                             val rotateData = ArrayUtils.matrixRotate(srcData = temp, rotateType)
-\1calculation出temperature
+\1calculationTexttemperature
                             val bigDecimal = BigDecimal.valueOf(rotateData[centerIndex].toDouble())
                             val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
                             val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
@@ -268,16 +268,16 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
                             mMinTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            Log.e(TAG, "提取温度异常:${e.message}")
+                            Log.e(TAG, "Test Data")
                         }
                     }
                 },
             )
 
         if (ret == 5) {
-            Log.w("123", "视频流开启完成")
+            Log.w("123", "Test Data")
         } else {
-            ToastTools.showShort("视频流开启失败")
+            ToastTools.showShort("Test Data")
         }
     }
 
@@ -306,37 +306,37 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     }
 
     /**
-\1停止视频流
+\1
      */
     fun onIrVideoStop() {
         mIsIrVideoStart =
             if (!mIsIrVideoStart) {
-                ToastTools.showShort("视频流已停止")
+                ToastTools.showShort("Test Data")
                 return
             } else {
                 false
             }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        ToastTools.showShort("视频流停止完成")
+        ToastTools.showShort("Test Data")
     }
 
     fun onLowRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
+            ToastTools.showShort("Test Data")
             return
         }
         mGuideInterface!!.setRange(1)
-        ToastTools.showShort("切换到常温档成功")
+        ToastTools.showShort("Test Data")
     }
 
     fun onHighRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
+            ToastTools.showShort("Test Data")
             return
         }
         mGuideInterface!!.setRange(2)
-        ToastTools.showShort("切换到高温档成功")
+        ToastTools.showShort("Test Data")
     }
 
     /**
@@ -344,7 +344,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
      */
     fun onTempBtnClick() {
         if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
+            ToastTools.showShort("Test Data")
             return
         }
         isDispLayTemp = !isDispLayTemp
@@ -371,9 +371,9 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     private fun addLimit() {
         ThermalInputDialog.Builder(requireContext())
-            .setMessage("请设置温度限值")
+            .setMessage("Test Data")
             .setPositiveListener(LibUiR.string.app_confirm) { up, down, _, _ ->
-                ToastTools.showShort("设置上限:$up, 下限:$down")
+                ToastTools.showShort("Test Data")
                 upValue = up
                 downValue = down
             }
@@ -381,10 +381,10 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             .create().show()
     }
 
-\1***************************************专家模式**********************************************
+\1***************************************Text**********************************************
 
     /**
-\1专家模式
+\1
      */
     fun onExpertModeClick(view: View?) {
         System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
@@ -401,7 +401,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     fun onNucShutterClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
+            ToastTools.showShort("Test Data")
             return
         }
         mGuideInterface!!.nuc()
@@ -428,191 +428,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun action(event: ThermalActionEvent) {
-        Log.w("123", "event:${event.action}")
-        when (event.action) {
-            1001 -> {
-\1拍照
-                ToastTools.showShort("拍照")
-                picture()
-            }
-            1002 -> {
-\1录制
-                ToastTools.showShort("录制")
-                video()
-            }
-            2001 -> {
-\1添加点
-                clearFenceUI()
-                addPoint()
-            }
-            2002 -> {
-\1添加线
-                clearFenceUI()
-                addLine()
-            }
-            2003 -> {
-\1添加围栏
-                clearFenceUI()
-                addFence()
-            }
-            2004 -> {
-\1添加temperature
-//                onTempBtnClick()
-                addLimit()
-            }
-            2006 -> {
-\1清除还原
-                clearFence()
-            }
-            in 3000..3010 -> {
-\1setpseudo-color
-                setColor(event.action)
-            }
-            4001 -> {
-\1rotation
-                rotate()
-                clearFence()
-            }
-            4002 -> {
-\1image增强
-                enhance()
-            }
-            4003 -> {
-\1image增强
-                camera()
-            }
-            in 5000..5010 -> {
-\1全屏
-                ToastTools.showShort("全屏")
-            }
-        }
-    }
-
-\1复位
-    private fun clearFence() {
-        clearFenceUI()
-\1temperature限值
-        upValue = 0f
-        downValue = 0f
-        selectType = 0
-    }
-
-    private fun clearFenceUI() {
-        mFenceLayout!!.visibility = View.GONE
-        fenceFlag = 0x000
-        selectIndex.clear()
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).clear()
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).clear()
-        requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).clear()
-    }
-
-    /**
-\1setpseudo-color
-     */
-    private fun setColor(action: Int) {
-        var type: Int = action % 3000 - 1
-        if (type < 0 || type > 10) {
-            type = 0
-        }
-        updatePalette(type) // 默认2
-    }
-
-    /**
-\1色带
-     */
-    private fun updatePalette(index: Int) {
-        if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
-            return
-        }
-        mGuideInterface!!.changePalette(index)
-    }
-
-    var fenceFlag = 0x000
-
-    private fun addPoint() {
-        showFence(1)
-    }
-
-    private fun addLine() {
-        showFence(2)
-    }
-
-    private fun addFence() {
-        showFence(3)
-    }
-
-\1display点线面布局
-    private fun showFence(index: Int) {
-        if (fenceFlag.getIndex(index) == 0) {
-            fenceFlag = 1.shl(4 * (index - 1)) // 设置001 or 010 or 100
-            mFenceLayout!!.visibility = View.VISIBLE
-            requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
-        } else {
-            fenceFlag = 0x000
-            mFenceLayout!!.visibility = View.GONE
-        }
-    }
-
-    private var selectType = 0
-    private var selectIndex: ArrayList<Int> = arrayListOf()
-
-    private fun initFence() {
-        requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).listener =
-            object : FencePointView.CallBack {
-                override fun callback(
-                    startPoint: IntArray,
-                    srcRect: IntArray,
-                ) {
-\1get点
-                    selectType = 1
-                    selectIndex =
-                        Fence(srcRect = srcRect, rotateType = rotateType).getPointIndex(startPoint)
-                }
-            }
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).listener =
-            object : FenceLineView.CallBack {
-                override fun callback(
-                    startPoint: IntArray,
-                    endPoint: IntArray,
-                    srcRect: IntArray,
-                ) {
-\1get线
-                    selectType = 2
-                    selectIndex =
-                        Fence(srcRect = srcRect, rotateType = rotateType)
-                            .getLineIndex(startPoint, endPoint)
-                }
-            }
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).listener =
-            object : FenceView.CallBack {
-                override fun callback(
-                    startPoint: IntArray,
-                    endPoint: IntArray,
-                    srcRect: IntArray,
-                ) {
-\1get面
-                    selectType = 3
-                    selectIndex =
-                        Fence(srcRect = srcRect, rotateType = rotateType)
-                            .getAreaIndex(startPoint, endPoint)
-                }
-            }
-    }
-
-    private fun picture() {
-//        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        // Note: ScreenShotUtils functionality requires integration with screenshot utility module
-        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
-    }
-
-    var isVideoRunning = false
-
-    private fun video() {
-        if (isVideoRunning) {
-            Log.w("123", "正在录制")
+        Log.w("123", "event:${event.action}"Test Data"Text"Test Data"Text"Test Data"Text"Test Data"Text"Test Data"123", "Test Data")
             return
         }
         // Note: FileConfig.galleryPath requires integration with file configuration module
@@ -626,10 +442,10 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
     private fun rotate() {
         rotateType = if (rotateType >= 3) 0 else rotateType + 1
         mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
-        ToastTools.showShort("旋转:${ThermalTool.getRotate(rotateType)}度")
+        ToastTools.showShort("Test Data")
     }
 
-\1image增强
+\1imageText
     private fun enhance() {
         mIrSurfaceView!!.setOpenLut()
         val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
@@ -639,11 +455,11 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
             .setMessage(LibUiR.string.thermal_enhance)
             .setSaturation(saturation)
             .setPositiveListener(LibUiR.string.app_confirm) { value: Int ->
-                mIrSurfaceView?.setSaturationValue(value)//设置对比度
+                mIrSurfaceView?.setSaturationValue(value)//
             }
             .setListener { value: Int ->
-\1实时监听
-\1mIrSurfaceView?.setSaturationValue(value)//set对比度
+\1
+\1mIrSurfaceView?.setSaturationValue(value)//set
             }.create().show()
          */
     }
@@ -671,39 +487,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
         }
     }
 
-    @SuppressLint("CheckResult")
-    private fun camera() {
-        // Note: RxPermissions dependency requires integration with reactive permissions module
-        // RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
-        //     .subscribe { granted: Boolean ->
-        if (isRunCamera) {
-\1disabled
-            requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.GONE
-            isRunCamera = false
-        } else {
-\1打开
-            requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.VISIBLE
-            val tempCameraView = requireView().findViewById<com.topdon.lib.ui.camera.CameraView>(R.id.temp_camera_view)
-            tempCameraView.post {
-                tempCameraView.openCamera()
-                isRunCamera = true
-            }
-        }
-        //     }
-    }
-
-    override fun size(): Int = 5 * 60
-
-    override fun next(): Bitmap {
-        return if (mIrBitmap == null) {
-            Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
-        } else {
-            mIrBitmap!!
-        }
-    }
-
-    override fun progress(progress: Float) {
-        Log.w("123", "progress:$progress")
+    @SuppressLint("CheckResult"Test Data"123", "progress:$progress")
         isVideoRunning = progress > 0 || progress < 100
     }
 }

@@ -8,7 +8,7 @@ internal object CenterItemUtils {
     fun getMinDifferItem(itemHeights: List<CenterViewItem>): CenterViewItem {
         var minItem = itemHeights[0] 
         for (i in itemHeights.indices) {
-            // 遍历Get/Retrieve最小差值
+            // Get/Retrieve
             if (itemHeights[i].differ <= minItem.differ) {
                 minItem = itemHeights[i]
             }

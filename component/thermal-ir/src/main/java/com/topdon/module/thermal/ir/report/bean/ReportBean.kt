@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
-\1一份报告.
+\1.
  */
 /**
  * Report data model for thermal imaging information.

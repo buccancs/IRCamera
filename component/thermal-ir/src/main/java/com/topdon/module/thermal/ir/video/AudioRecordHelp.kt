@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference
 import java.nio.ShortBuffer
 
 /**
-\1音频采集并且与视频合并一起
+\1
  * @author: CaiSongL
  * @date: 2023/3/28
  */
@@ -97,7 +97,7 @@ object AudioUtilHolder {
                 }
             audioRecord!!.startRecording()
             /**
-\1音频进行循环编码
+\1
              */
             try {
                 while (runAudioThread) {
@@ -105,13 +105,13 @@ object AudioUtilHolder {
                     if (recordingAudio) {
                         if (bufferReadResult > 0) {
                             audioData?.limit(bufferReadResult)
-                            Log.w("音频采集", bufferReadResult.toString() + "//" + bufferReadResult)
+                            Log.w("Test Data", bufferReadResult.toString() + "//" + bufferReadResult)
                             recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS,
                                 audioData,
                             )
-\1Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
+\1Log.w("Test Data",""+recorder?.get()?.frameNumber)
                         }
                     } else
                         {
@@ -126,9 +126,9 @@ object AudioUtilHolder {
                             Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
                         }
                 }
-\1Log.w("停止采集",""+recorder?.get()?.frameNumber)
+\1Log.w("Test Data",""+recorder?.get()?.frameNumber)
             } catch (e: Exception) {
-                XLog.e("采集容器异常")
+                XLog.e("Test Data")
             }
         }
     }

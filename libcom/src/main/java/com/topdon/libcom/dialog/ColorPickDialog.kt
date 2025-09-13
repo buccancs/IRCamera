@@ -18,7 +18,7 @@ import com.topdon.libcom.R
 import com.topdon.libcom.util.ColorUtils
 
 /**
- * 颜色拾取弹框.
+ * .
  *
  * Created by chenggeng.lin on 2023/12/18.
  */
@@ -29,7 +29,7 @@ class ColorPickDialog(
     var textSizeIsDP: Boolean = false,
 ) : Dialog(context, com.topdon.lib.core.R.style.InfoDialog), View.OnClickListener {
     /**
-     * 颜色值拾取EventListener.
+     * EventListener.
      */
     var onPickListener: ((color: Int, textSize: Int) -> Unit)? = null
 
@@ -82,7 +82,7 @@ class ColorPickDialog(
                             rightValue: Float,
                             isFromUser: Boolean,
                         ) {
-                            var text = "标准"
+                            var text = "Test Data"
                             text =
                                 if (leftValue <= 0)
                                     {
@@ -151,7 +151,7 @@ class ColorPickDialog(
         when (v) {
             rootView.findViewById<View>(R.id.rl_close) -> dismiss()
 
-            rootView.findViewById<View>(R.id.tv_save) -> { // 保存
+            rootView.findViewById<View>(R.id.tv_save) -> { // 
                 dismiss()
                 onPickListener?.invoke(color, textSize)
             }
@@ -196,7 +196,7 @@ class ColorPickDialog(
     }
 
     /**
-     * 将 6 个固定的颜色按钮重置为未选中状态.
+     *  6 .
      */
     private fun unSelect6Color() {
         rootView.findViewById<View>(R.id.view_color1).isSelected = false

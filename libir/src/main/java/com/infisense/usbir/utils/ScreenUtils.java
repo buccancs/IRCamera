@@ -26,7 +26,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获得屏幕高度
+     * 
      *
      * @param context
      * @return
@@ -40,7 +40,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获得屏幕宽度
+     * 
      *
      * @param context
      * @return
@@ -54,7 +54,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获得state栏的高度
+     * state
      *
      * @param context
      * @return
@@ -75,7 +75,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取current屏幕截图，包含state栏
+     * current，state
      *
      * @param activity
      * @return
@@ -95,14 +95,14 @@ public class ScreenUtils {
     }
 
     /**
-     * 得到设备的dpi
+     * dpi
      */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
     /**
-     * 获取current屏幕截图，不包含state栏
+     * current，state
      *
      * @param activity
      * @return
@@ -127,7 +127,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取 虚拟按键的高度
+     *  
      *
      * @param context
      * @return
@@ -140,7 +140,7 @@ public class ScreenUtils {
         return totalHeight - contentHeight;
     }
 
-    //获取屏幕原始尺寸高度，包括虚拟功能键高度
+    //，
     public static int getDpi(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -161,7 +161,7 @@ public class ScreenUtils {
     }
 
     /**
-     * dp转px
+     * dppx
      * 16dp - 48px
      * 17dp - 51px
      */
@@ -171,7 +171,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 屏幕密度比例
+     * 
      */
     public static float getScreenDendity(Context context) {
         return context.getResources().getDisplayMetrics().density;//3
@@ -179,10 +179,10 @@ public class ScreenUtils {
 
     /**
      * @param info
-     * @setIcon settings对话框图标
-     * @setTitle settings对话框标题
-     * @setMessage settings对话框消息提示
-     * setXXX方法返回Dialog对象，因此可以链式settings属性
+     * @setIcon settings
+     * @setTitle settings
+     * @setMessage settings
+     * setXXXDialog，settings
      */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
         final AlertDialog.Builder normalDialog =
@@ -198,12 +198,12 @@ public class ScreenUtils {
                         dismissListener.onDismiss();
                     }
                 });
-        // 显示
+        // 
         return normalDialog.show();
     }
 
     /**
-     * 获取出图的帧率
+     * 
      *
      * @return
      */

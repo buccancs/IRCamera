@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present human<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -14,20 +14,20 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 时间选择接口
+ * 
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author （1032694760@qq.com）
  * @since 2019/5/14 19:58
  */
 public interface OnTimeMeridiemSelectedListener {
 
     /**
-     * 时间选择回调
+     * 
      *
-     * @param hour           时
-     * @param minute         分
-     * @param second         秒
-     * @param isAnteMeridiem 是否上午
+     * @param hour           
+     * @param minute         
+     * @param second         
+     * @param isAnteMeridiem 
      */
     void onTimeSelected(int hour, int minute, int second, boolean isAnteMeridiem);
 

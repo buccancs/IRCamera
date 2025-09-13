@@ -47,18 +47,18 @@ import java.util.*
 import com.topdon.lib.core.R as LibR
 
 /**
-\1生成报告第1步（共2步）.
+\11（2）.
  *
-\1需要传递
-\1- 是否 TC007: [ExtraKeyConfig.IS_TC007] （ambient temperature、emissivity等不同）
-\1- 当前编辑的图片绝对路径: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （本interface不使用，透传）
-\1- 当前编辑的图片点线面full imagetemperaturedata: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本interface不使用，透传）
+\1
+\1-  TC007: [ExtraKeyConfig.IS_TC007] （ambient temperature、emissivity）
+\1- : [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （interface，）
+\1- full imagetemperaturedata: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （interface，）
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     /**
-\1从上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
+\1interface， TC007 device.
+\1true-TC007 false-device
      */
     private var isTC007 = false
     private var locationManager: LocationManager? = null
@@ -163,9 +163,9 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun readConfig() {
-        var environment = 30f // 环境温度
-        var distance = 0.25f // 测试距离
-        var radiation = 0.95f // 发射率
+        var environment = 30f // 
+        var distance = 0.25f // 
+        var radiation = 0.95f // 
         val config = ConfigRepository.readConfig(isTC007)
         distance = config.distance
         radiation = config.radiation
@@ -185,10 +185,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv_report_date -> { // 报告日期
+            R.id.tv_report_date -> { // 
                 selectTime()
             }
-            R.id.tv_preview -> { // 预览
+            R.id.tv_preview -> { // 
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
@@ -196,7 +196,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
             }
-            R.id.tv_next -> { // 下一步
+            R.id.tv_next -> { // 
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
@@ -217,49 +217,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getLocation(): String? {
-\11.get位置管理器
-        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-
-\12.get位置提供器，GPS或是NetWork
-        val providers = locationManager?.getProviders(true)
-        locationProvider =
-            if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-\1如果是GPS
-                LocationManager.GPS_PROVIDER
-            } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-\1如果是Network
-                LocationManager.NETWORK_PROVIDER
-            } else {
-                return null
-            }
-        var location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (location == null)
-            {
-                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            }
-        return if (location == null)
-            {
-                null
-            } else
-            {
-                getAddress(location)
-            }
-    }
-
-\1getaddress信息:城市、街道等信息
-    private fun getAddress(location: Location?): String {
-        var result: List<Address?>? = null
-        try {
-            if (location != null) {
-                val gc = Geocoder(this, Locale.getDefault())
-                result =
-                    gc.getFromLocation(
-                        location.latitude,
-                        location.longitude, 1,
-                    )
-                Log.v("TAG", "获取地址信息：$result")
+    @SuppressLint("MissingPermission"Test Data"TAG", "Test Data")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -329,12 +287,12 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-\1当前set的报告日期时间戳.
+\1set.
      */
     private var startTime = 0L
 
     /**
-\1display时间拾取弹窗
+\1display
      */
     private fun selectTime() {
         val picker = DatimePicker(this)
@@ -343,70 +301,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
             val timeStr = "$year-$month-$day $hour:$minute:$second"
             val pattern = "yyyy-MM-dd HH:mm:ss"
             val time: Long = SimpleDateFormat(pattern, Locale.getDefault()).parse(timeStr, ParsePosition(0)).time
-            tvReportDate.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm")
-            startTime = time
-        }
-
-        val startTimeEntity = DatimeEntity()
-        startTimeEntity.date = DateEntity.target(2020, 1, 1)
-        startTimeEntity.time = TimeEntity.target(0, 0, 0)
-
-        val endTimeEntity = DatimeEntity.yearOnFuture(10)
-        if (startTime == 0L) {
-\1set当前时间
-            picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
-        } else {
-\1set上一次选中时间
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = startTime
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH) + 1
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-            val hours = calendar.get(Calendar.HOUR_OF_DAY)
-            val minutes = calendar.get(Calendar.MINUTE)
-            val seconds = calendar.get(Calendar.SECOND)
-            val timeEntity = DatimeEntity()
-            timeEntity.date = DateEntity.target(year, month, day)
-            timeEntity.time = TimeEntity.target(hours, minutes, seconds)
-            picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, timeEntity)
-        }
-        picker.show()
-    }
-
-    private fun checkLocationPermission() {
-        if (!XXPermissions.isGranted(this, permissionList)) {
-            if (BaseApplication.instance.isDomestic()) {
-                TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_location_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
-                        initLocationPermission()
-                    }
-                    .create().show()
-            } else {
-                initLocationPermission()
-            }
-        } else {
-            initLocationPermission()
-        }
-    }
-
-    private fun initLocationPermission() {
-\1定位
-        XXPermissions.with(this@ReportCreateFirstActivity)
-            .permission(
-                permissionList,
-            ).request(
-                object : OnPermissionCallback {
-                    override fun onGranted(
-                        permissions: MutableList<String>,
-                        all: Boolean,
-                    ) {
-                        if (all)
-                            {
-                                showLoadingDialog(R.string.get_current_address)
-                                lifecycleScope.launch {
-                                    var addressText: String? = ""
+            tvReportDate.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm"Test Data""
                                     withContext(Dispatchers.IO) {
                                         addressText = getLocation()
                                     }
@@ -434,7 +329,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         never: Boolean,
                     ) {
                         if (never) {
-\1如果是被永久拒绝就跳转到应用权限系统set页面
+\1TextsetText
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_location_content))

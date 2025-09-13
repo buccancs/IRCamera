@@ -5,7 +5,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.R
 
-\1连接device
+\1Textdevice
 // Legacy ARouter route annotation - now using NavigationManager
 /**
  * Connect activity for thermal imaging interface.
@@ -22,10 +22,10 @@ class ConnectActivity : BaseActivity() {
         val bluetoothBtn = findViewById<TextView>(R.id.bluetooth_btn)
         val isDeviceConnected = DeviceTools.isConnect()
         if (!isDeviceConnected) {
-\1未连接
+\1Text
             bluetoothBtn.text = getString(R.string.app_no_connect)
         } else {
-\1已连接
+\1Text
             bluetoothBtn.text = getString(R.string.app_connect)
         }
     }

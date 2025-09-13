@@ -38,7 +38,7 @@ public class MyMarkerView extends MarkerView {
     @SuppressLint("DefaultLocale")
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        int index = highlight.getDataIndex();//曲线序号
+        int index = highlight.getDataIndex();//
         ThermalEntity data = (ThermalEntity) e.getData();
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
@@ -49,13 +49,13 @@ public class MyMarkerView extends MarkerView {
             String thermalMaxStr = NumberTools.INSTANCE.to02(data.getThermalMax());
             String thermalMinStr = NumberTools.INSTANCE.to02(data.getThermalMin());
             if (index == 0) {
-                str.append("温度:").append(thermalStr);
+                str.append("Test Data").append(thermalStr);
             } else if (index == 1) {
-                str.append("最高温度:").append(thermalMaxStr);
-                str.append(System.getProperty("line.separator")).append("最低温度:").append(thermalMinStr);
+                str.append("Test Data").append(thermalMaxStr);
+                str.append(System.getProperty("line.separator")).append("Test Data").append(thermalMinStr);
             } else {
-                str.append("最高温度:").append(thermalMaxStr);
-                str.append(System.getProperty("line.separator")).append("最低温度:").append(thermalMinStr);
+                str.append("Test Data").append(thermalMaxStr);
+                str.append(System.getProperty("line.separator")).append("Test Data").append(thermalMinStr);
             }
             tvContent.setText(str.toString());
             timeText.setText(TimeTool.INSTANCE.showTimeSecond(data.getCreateTime()));

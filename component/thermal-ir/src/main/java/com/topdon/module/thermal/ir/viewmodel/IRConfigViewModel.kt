@@ -18,7 +18,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     val configLiveData = SingleLiveEvent<ModelBean>()
 
     /**
-\1读取configurationdata
+\1configurationdata
      */
     fun getConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -27,7 +27,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-\1update默认parameter中的ambient temperature，单位摄氏度。
+\1updateparameterambient temperature，。
      */
     fun updateDefaultEnvironment(
         isTC007: Boolean,
@@ -42,7 +42,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-\1update默认parameter中的距离，单位不详。
+\1updateparameter，。
      */
     fun updateDefaultDistance(
         isTC007: Boolean,
@@ -57,7 +57,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-\1update默认parameter中的emissivity。
+\1updateparameteremissivity。
      */
     fun updateDefaultRadiation(
         isTC007: Boolean,
@@ -72,7 +72,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-\1增加一个自定义模式
+\1
      */
     fun addConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -92,8 +92,8 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-\1选择模式
-\1@param id 0:默认模式   > 0 采用自定义模式
+\1
+\1@param id 0:   > 0 
      */
     fun checkConfig(
         isTC007: Boolean,
@@ -111,8 +111,8 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-\1删除自定义模式
-\1@param id 自定义模式 id
+\1
+\1@param id  id
      */
     fun deleteConfig(
         isTC007: Boolean,
@@ -124,7 +124,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
             for (i in modelBean.myselfModel.indices) {
                 val dataBean = modelBean.myselfModel[i]
                 if (dataBean.id == id) {
-                    if (dataBean.use) { // 删除当前正在使用的自定义模式，变更为使用默认模式
+                    if (dataBean.use) { // ，
                         modelBean.defaultModel.use = true
                     }
                     modelBean.myselfModel.removeAt(i)
@@ -133,7 +133,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
                 }
             }
 
-\1BUG 28055 提的问题，删除后要把后面名称往前补，虽然实际使用非常怪，先按 BUG 改吧
+\1BUG 28055 Text，Text，Text，Text BUG Text
             if (removeAt < modelBean.myselfModel.size) {
                 for (i in removeAt until modelBean.myselfModel.size) {
                     val dataBean = modelBean.myselfModel[i]
@@ -148,7 +148,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-\1update一项自定义parameter.
+\1updateparameter.
      */
     fun updateCustom(
         isTC007: Boolean,

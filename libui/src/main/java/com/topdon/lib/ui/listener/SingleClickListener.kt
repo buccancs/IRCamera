@@ -3,7 +3,7 @@ package com.topdon.lib.ui.listener
 import android.view.View
 
 /**
- * 防止重复clickEvent
+ * clickEvent
  * @author: CaiSongL
  * @date: 2020/5/14 16:01
  */

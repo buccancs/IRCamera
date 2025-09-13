@@ -25,7 +25,7 @@ object DeviceConfig {
     const val HIK_PRODUCT_ID = 258
 
     /**
-     * 判断该 UsbDevice 是否为TC、TS插件式设备.
+     *  UsbDevice TC、TS.
      */
     fun UsbDevice.isTcTsDevice(): Boolean {
         return (productId == TOPDON_PRODUCT_ID && vendorId == TOPDON_VENDOR_ID) ||
@@ -53,7 +53,7 @@ object DeviceConfig {
 //    const val SKU = "TDBT006A11"
 //    const val SN = "BT006AAG100001"
 
-    // 横屏 TC003校对默认角度0 默认竖屏false initializesettingsinitDataIR()
+    //  TC0030 false initializesettingsinitDataIR()
     const val ROTATE_ANGLE = 0
     const val IS_PORTRAIT = false
 

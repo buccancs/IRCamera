@@ -15,7 +15,7 @@
         android:layout_marginEnd="20dp"
         android:paddingBottom="32dp">
 
-        <!-- Report名称 -->
+        <!-- Report -->
         <TextView
             android:id="@+id/tv_report_name"
             android:layout_width="0dp"
@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 作者 -->
+        
         <TextView
             android:id="@+id/tv_report_author"
             android:layout_width="0dp"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="#ffffff"
-            tools:text="深圳市南山区前海"
+            tools:text=""
             app:layout_constraintStart_toEndOf="@id/iv_report_place"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_report_date" />
@@ -80,7 +80,7 @@
             app:constraint_referenced_ids="iv_report_place,tv_report_place" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 检测条件 -->
+    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_report_condition"
         android:layout_width="match_parent"
@@ -109,7 +109,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 环境温度 -->
+        
         <TextView
             android:id="@+id/tv_ambient_temperature_title"
             android:layout_width="0dp"
@@ -158,7 +158,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_ambient_temperature_title" />
 
-        <!-- 环境湿度 -->
+        
         <TextView
             android:id="@+id/tv_ambient_humidity_title"
             android:layout_width="0dp"
@@ -256,7 +256,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_test_distance_title" />
 
-        <!-- 发射率 -->
+        
         <TextView
             android:id="@+id/tv_emissivity_title"
             android:layout_width="0dp"

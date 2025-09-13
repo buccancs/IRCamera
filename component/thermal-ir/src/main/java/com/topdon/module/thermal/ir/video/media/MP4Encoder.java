@@ -27,8 +27,8 @@ import java.nio.ByteBuffer;
 
 public class MP4Encoder extends Encoder {
 
-    private static final int BIT_RATE = 600000;//码率2000000
-    private static final int FRAME_RATE = 20;//帧数
+    private static final int BIT_RATE = 600000;//2000000
+    private static final int FRAME_RATE = 20;//
     private static final int I_FRAME_INTERVAL = 5;
     private static final long ONE_SEC = 1000000;
     private static final String TAG = MP4Encoder.class.getSimpleName();
@@ -221,8 +221,8 @@ public class MP4Encoder extends Encoder {
     }
 
     /**
-\1COLOR_FormatYUV420SemiPlanar 默认
-\1COLOR_FormatYUV420Planar     个例使用
+\1COLOR_FormatYUV420SemiPlanar 
+\1COLOR_FormatYUV420Planar     
      */
     private int getColorFormat() {
         if ("GOOGLE".equalsIgnoreCase(Build.BRAND) && "PIXEL 4".equalsIgnoreCase(Build.MODEL)) {

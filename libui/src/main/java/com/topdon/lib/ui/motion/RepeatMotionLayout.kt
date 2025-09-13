@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 /**
- * 闪烁效果
+ * 
  */
 
 /**
@@ -37,10 +37,10 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     )
 
     /**
-     * 开始闪烁
+     * 
      */
     fun startTransition() {
-//        Log.w("123", "开始闪烁")
+//        Log.w("123", "")
         if (!isAdd) {
             addTransitionListener(this)
             isAdd = true

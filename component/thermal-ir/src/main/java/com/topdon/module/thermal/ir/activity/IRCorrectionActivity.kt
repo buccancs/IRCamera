@@ -11,12 +11,12 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
-\1锅盖矫正
+\1
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
-\1需要传递parameter：
-\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+\1parameter：
+\1- [ExtraKeyConfig.IS_TC007] - device TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionActivity : BaseActivity() {

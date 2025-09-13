@@ -35,19 +35,19 @@ import com.topdon.lib.core.R as LibR
 import com.topdon.lib.ui.R as UiR
 
 /**
-\1生成报告图片拾取.
+\1.
  *
-\1需要传递parameter：
-\1- 是否 TC007: [ExtraKeyConfig.IS_TC007] 进入目录不同
-\1- [ExtraKeyConfig.REPORT_INFO] - 报告信息
-\1- [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
-\1- [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应data列表
+\1parameter：
+\1-  TC007: [ExtraKeyConfig.IS_TC007] 
+\1- [ExtraKeyConfig.REPORT_INFO] - 
+\1- [ExtraKeyConfig.REPORT_CONDITION] - 
+\1- [ExtraKeyConfig.REPORT_IR_LIST] - data
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     /**
-\1从上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
+\1interface， TC007 device.
+\1true-TC007 false-device
      */
     private var isTC007 = false
 
@@ -138,61 +138,7 @@ class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
             }
         }
         titleView.setRightDrawable(if (isEditMode) 0 else UiR.drawable.ic_toolbar_check_svg)
-        titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
-        titleView.setRightClickListener {
-            if (isEditMode) {
-                adapter.selectAll()
-            } else {
-                setEditMode(true)
-            }
-        }
-    }
-
-    override fun onClick(v: View?) {
-        when (v) {
-            clShare -> {
-                shareImage()
-            }
-            clDelete -> {
-                deleteImage()
-            }
-        }
-    }
-
-    private fun initRecycler() {
-        val spanCount = 3
-        val gridLayoutManager = GridLayoutManager(this, spanCount)
-\1动态setspan
-        gridLayoutManager.spanSizeLookup =
-            object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
-                }
-            }
-        irGalleryRecycler.adapter = adapter
-        irGalleryRecycler.layoutManager = gridLayoutManager
-
-        adapter.onLongEditListener = {
-\1adapter 里面的切换编辑太乱了，先这么顶着
-            groupBottom.isVisible = true
-            titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
-            titleView.setLeftDrawable(0) // Note: Add appropriate drawable for cancel/back action
-            titleView.setLeftClickListener {
-                setEditMode(false)
-            }
-            titleView.setRightDrawable(0)
-            titleView.setRightText(getString(R.string.report_select_all))
-            titleView.setRightClickListener {
-                adapter.selectAll()
-            }
-        }
-
-        adapter.selectCallback = {
-            titleView.setTitleText(getString(R.string.chosen_item, it.size))
-        }
-        adapter.itemClickCallback = {
-            val data = adapter.dataList[it]
-            val fileName = data.name.substringBeforeLast(".")
+        titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else ""Test Data".")
             val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"
             if (File(irPath).exists()) {
                 val navigation =

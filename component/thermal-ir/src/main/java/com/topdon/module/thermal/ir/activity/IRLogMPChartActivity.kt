@@ -40,7 +40,7 @@ class IRLogMPChartActivity : BaseActivity() {
     private val viewModel: IRMonitorViewModel by viewModels()
 
     /**
-\1从上一interface传递过来的，当前查看的监控记录开始时间戳.
+\1interface，.
      */
     private var startTime = 0L
 
@@ -75,7 +75,7 @@ class IRLogMPChartActivity : BaseActivity() {
                 val chartView = findViewById<com.topdon.module.thermal.ir.view.ChartLogView>(R.id.log_chart_time_chart)
                 chartView.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                XLog.e("刷新图表异常:${e.message}")
+                XLog.e("Test Data")
             }
         }
 
@@ -114,47 +114,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                                     val shareIntent = Intent()
                                                     shareIntent.action = Intent.ACTION_SEND
                                                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
-                                                    shareIntent.type = "application/xlsx"
-                                                    startActivity(Intent.createChooser(shareIntent, getString(LibR.string.battery_share)))
-                                                }
-                                            }
-                                        } else {
-                                            ToastTools.showShort(LibR.string.scan_ble_tip_authorize)
-                                        }
-                                    }
-
-                                    override fun onDenied(
-                                        permissions: MutableList<String>,
-                                        doNotAskAgain: Boolean,
-                                    ) {
-                                        if (doNotAskAgain) {
-\1拒绝授权并且不再提醒
-                                            if (BaseApplication.instance.isDomestic())
-                                                {
-                                                    ToastUtils.showShort(getString(LibR.string.app_storage_content))
-                                                    return
-                                                }
-                                            TipDialog.Builder(this@IRLogMPChartActivity)
-                                                .setTitleMessage(getString(LibR.string.app_tip))
-                                                .setMessage(getString(LibR.string.app_storage_content))
-                                                .setPositiveListener(LibR.string.app_open) {
-                                                    AppUtils.launchAppDetailsSettings()
-                                                }
-                                                .setCancelListener(LibR.string.app_cancel) {
-                                                }
-                                                .setCanceled(true)
-                                                .create().show()
-                                        }
-                                    }
-                                },
-                            )
-                    }
-                }.setCancelListener(LibR.string.app_cancel) {
-                }
-                .setCanceled(true)
-                .create().show()
-        }
-        findViewById<TextView>(R.id.tv_save_path)?.text = getString(LibR.string.temp_export_path) + ": " + FileConfig.excelDir
+                                                    shareIntent.type = "application/xlsx"Test Data": " + FileConfig.excelDir
         viewModel.queryDetail(startTime)
     }
 

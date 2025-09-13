@@ -69,34 +69,7 @@ public class ImageColorTools {
         int[] colorList = new int[]{
                 Color.parseColor("#ff0000"),
                 Color.parseColor("#00ff00"),
-                Color.parseColor("#0000ff")};
-        Imgproc.cvtColor(imageMat, imageMat, Imgproc.COLOR_YUV2GRAY_YUYV);
-//        Imgproc.cvtColor(imageMat, imageMat, Imgproc.COLOR_GRAY2BGRA);
-        byte[] imageDst = matToByteArrayBy4(imageMat);
-        double srcValue = 0.1f;
-        long time = System.currentTimeMillis();
-        Mat imageColor = new Mat(192, 256, CvType.CV_8UC3, new Scalar(255, 255, 255));
-        long startTimeAll = System.currentTimeMillis();
-        int j = 0;
-        int imageDstLength = imageDst.length;
-\1遍历pixel point，过滤temperature threshold
-        for (int index = 0; index < imageDstLength; ) {
-\1temperatureconversion formula
-            float temperature0 = (temperature[j] & 0xff) + (temperature[j + 1] & 0xff) * 256;
-            temperature0 = (float) (temperature0 / 64 - 273.15);
-            if (temperature0 >= customMinTemp && temperature0 <= customMaxTemp) {
-                int[] rgb = getOneColorByTempEx(customMaxTemp,customMinTemp,temperature0,colorList);
-                if (rgb!=null){
-                    imageDst[index] = (byte) rgb[0];
-                    imageDst[index + 1] = (byte) rgb[1];
-                    imageDst[index + 2] = (byte) rgb[2];
-                }
-            }
-            imageDst[index + 3] = (byte) 255;
-            index += 4;
-            j += 2;
-        }
-\1Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+                Color.parseColor("#0000ff"Test Data"Text：",System.currentTimeMillis() - time+"//");
         // Convert OpenCV Mat to Android Bitmap
         Bitmap outputBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888);
         outputBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst));
@@ -199,7 +172,7 @@ public class ImageColorTools {
                 }
             }
         }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+        Log.e("Test Data",System.currentTimeMillis() - time+"//");
 //        Imgproc.cvtColor(imageColor, imageColor, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageColor);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageColor.width(),
@@ -294,7 +267,7 @@ public class ImageColorTools {
 //                }
 //            }
 //        }
-        Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+        Log.e("Test Data",System.currentTimeMillis() - time+"//");
 //        Imgproc.cvtColor(imageMat, imageMat, Imgproc.COLOR_BGR2RGBA);
 //        byte[] imageDst = matToByteArray(imageMat);
 //        Bitmap outputBitmap = Bitmap.createBitmap(imageMat.width(),

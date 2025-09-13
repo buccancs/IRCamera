@@ -24,15 +24,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
-\1生成报告第2步（共2步）.
+\12（2）.
  *
-\1需要传递
-\1- 必选：是否 TC007: [ExtraKeyConfig.IS_TC007] 透传，再次拾取图片时进入目录不同，上传报告parameter不同
-\1- 必选：当前编辑的图片绝对路径 [ExtraKeyConfig.FILE_ABSOLUTE_PATH]
-\1- 必选：当前编辑的图片点线面full imagetemperaturedata [ExtraKeyConfig.IMAGE_TEMP_BEAN]
-\1- 必选：报告信息 [ExtraKeyConfig.REPORT_INFO]
-\1- 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
-\1- 可选：当前已确认的图片信息列表 [ExtraKeyConfig.REPORT_IR_LIST]
+\1
+\1- ： TC007: [ExtraKeyConfig.IS_TC007] ，，parameter
+\1- ： [ExtraKeyConfig.FILE_ABSOLUTE_PATH]
+\1- ：full imagetemperaturedata [ExtraKeyConfig.IMAGE_TEMP_BEAN]
+\1- ： [ExtraKeyConfig.REPORT_INFO]
+\1- ： [ExtraKeyConfig.REPORT_CONDITION]
+\1- ： [ExtraKeyConfig.REPORT_IR_LIST]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -63,17 +63,17 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
     private val reportTempViewRect5: ReportIRInputView by lazy { findViewById(R.id.report_temp_view_rect5) }
 
     /**
-\1当前已添加的图片信息列表.
+\1.
      */
     private var reportIRList: ArrayList<ReportIRBean> = ArrayList(0)
 
     /**
-\1从上一interface传递过来的，添加的图片绝对路径.
+\1interface，.
      */
     private var currentFilePath: String = ""
 
     /**
-\1从上一interface传递过来的，当前编辑的图片点线面full imagetemperaturedata
+\1interface，full imagetemperaturedata
      */
     private var imageTempBean: ImageTempBean? = null
 
@@ -186,7 +186,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tvAddImage -> { // 添加图片
+            tvAddImage -> { // 
                 if (reportIRList.size >= 9) {
                     ToastUtils.showShort(R.string.album_report_max_image_tips)
                     return
@@ -205,7 +205,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                         .navigation(this)
                 }
             }
-            tvPreview -> { // 预览
+            tvPreview -> { // 
                 val appLanguage = ConstantLanguages.ENGLISH
                 val sdkVersion = "1.2.8_23050619"
                 val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
@@ -243,8 +243,8 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-\1构建报告点线面data列表.
-\1@param type 1-点 2-线 3-面
+\1data.
+\1@param type 1- 2- 3-
      */
     private fun buildReportTempBeanList(type: Int): ArrayList<ReportTempBean> {
         val size =
@@ -257,7 +257,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
         for (i in 0 until size) {
             val reportTempView =
                 when (type) {
-                    1 -> { // 点
+                    1 -> { // 
                         when (i) {
                             0 -> reportTempViewPoint1
                             1 -> reportTempViewPoint2
@@ -266,7 +266,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                             else -> reportTempViewPoint5
                         }
                     }
-                    2 -> { // 线
+                    2 -> { // 
                         when (i) {
                             0 -> reportTempViewLine1
                             1 -> reportTempViewLine2
@@ -275,7 +275,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                             else -> reportTempViewLine5
                         }
                     }
-                    else -> { // 面
+                    else -> { // 
                         when (i) {
                             0 -> reportTempViewRect1
                             1 -> reportTempViewRect2
@@ -284,7 +284,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             val reportTempBean =
-                if (type == 1) { // 点的数据封装不太一样
+                if (type == 1) { // 
                     ReportTempBean(
                         if ((reportTempView as? ReportIRInputView)?.getMaxInput()?.isNotEmpty() == true) (reportTempView as ReportIRInputView).getMaxInput() + UnitTools.showUnit() else "",
                         if ((reportTempView as? ReportIRInputView)?.isSwitchMaxCheck() == true && (reportTempView as ReportIRInputView).getMaxInput().isNotEmpty()) 1 else 0,

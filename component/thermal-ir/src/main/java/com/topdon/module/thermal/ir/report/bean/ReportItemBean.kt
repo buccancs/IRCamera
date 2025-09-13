@@ -5,7 +5,7 @@ import com.blankj.utilcode.util.GsonUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
-\1从服务器接口返回的，一页报告信息中的一条报告信息.
+\1，.
  */
 /**
  * Report item data model for thermal imaging information.
@@ -14,9 +14,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ReportItemBean(
     val testReportId: String?,
-    val testInfo: String?, // 上传的 JSON
+    val testInfo: String?, //  JSON
     val testTime: String?,
-    val uploadTime: String?, // 上传时间
+    val uploadTime: String?, // 
     val sn: String?,
     val url: String?,
     val status: Int?,

@@ -8,16 +8,16 @@ import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.MenuType
 
 /**
- * temperature measurement模式-menu6-high/low temperature档 menuAdapter used for，single selection且必须selected其中一个.
+ * temperature measurement-menu6-high/low temperature menuAdapter used for，single selectionselected.
  *
- * 低温档(高gain)、高温档(低gain)、auto switch
+ * (gain)、(gain)、auto switch
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     /**
-     * 是否使用Fahrenheit作为单位
+     * Fahrenheit
      *
      * true-Fahrenheit false-Celsius
      */
@@ -30,7 +30,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * currentselected的level code.
+     * currentselectedlevel code.
      *
      * Due to legacy constraints (saved in SharedPreferences), the code values are:
      * - Auto switch: -1
@@ -89,7 +89,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * 将指定 Celsius°C 转换为 Fahrenheit°F
+     *  Celsius°C  Fahrenheit°F
      */
     private fun c2f(cValue: Int): Int = (cValue * 1.8f + 32).toInt()
 

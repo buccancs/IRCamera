@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 自定义HeaderView
+ * HeaderView
  */
 /**
  * Custom Header view for thermal imaging display.

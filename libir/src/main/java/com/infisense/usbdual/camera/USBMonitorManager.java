@@ -27,10 +27,10 @@ public class USBMonitorManager {
     private UVCCamera mUvcCamera;
     private IRCMD mIrcmd;
     private CommonParams.DataFlowMode mDefaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT;
-    // 模组支持的高低gain模式
+    // gain
     private CommonParams.GainMode gainMode = CommonParams.GainMode.GAIN_MODE_HIGH_LOW;
     private boolean isUseIRISP;
-    // 是否使用GPU方案
+    // GPU
     private boolean isUseGPU = true;
     private int cameraWidth;
     private int cameraHeight;
@@ -46,10 +46,10 @@ public class USBMonitorManager {
     private short[] kt_low = new short[1201];
     private short[] bt_high = new short[1201];
     private short[] bt_low = new short[1201];
-    private boolean isGetNucFromFlash; // 是否从coreFlash中读取的nuc数据，会影响到temperature measurement修正的资源释放
-    // current的gainstate
+    private boolean isGetNucFromFlash; // coreFlashnuc，temperature measurement
+    // currentgainstate
     private CommonParams.GainStatus gainStatus = CommonParams.GainStatus.HIGH_GAIN;
-    // core温度
+    // core
     private int[] curVtemp = new int[1];
 
     private List<OnUSBConnectListener> mOnUSBConnectListeners = new ArrayList<>();
@@ -88,7 +88,7 @@ public class USBMonitorManager {
     }
 
     /**
-     * @param pid                 需要initialize的设备的pid
+     * @param pid                 initializepid
      * @param isUseIRISP
      * @param defaultDataFlowMode
      */
@@ -98,16 +98,16 @@ public class USBMonitorManager {
         this.mDefaultDataFlowMode = defaultDataFlowMode;
         if (defaultDataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
             /**
-             * 图像+温度
+             * +
              */
-            cameraWidth = 256; // 传感器的原始宽度
-            cameraHeight = 384; // 传感器的原始高度
+            cameraWidth = 256; // 
+            cameraHeight = 384; // 
         } else {
             /**
-             * 图像
+             * 
              */
-            cameraWidth = 256;// 传感器的原始宽度
-            cameraHeight = 192;// 传感器的原始高度
+            cameraWidth = 256;// 
+            cameraHeight = 192;// 
         }
         if (mUSBMonitor == null) {
             mUSBMonitor = new USBMonitor(Utils.getApp(),
@@ -119,8 +119,8 @@ public class USBMonitorManager {
                             Log.w(TAG, "USBMonitorManager-onAttach-getProductId = " + device.getProductId());
                             Log.w(TAG, "USBMonitorManager-onAttach-mPid = " + mPid);
                             /**
-                             * USBMonitor会同时响应所有的UVC设备，
-                             * 需要根据自己的initializepid判断自己需要initialize的设备
+                             * USBMonitorUVC，
+                             * initializepidinitialize
                              */
                             if (device.getProductId() != mPid) {
                                 return;
@@ -210,8 +210,8 @@ public class USBMonitorManager {
                 .setUVCType(UVCType.USB_UVC)
                 .build();
         /**
-         * 调整带宽
-         * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要configuration对应的带宽
+         * 
+         * ，，，configuration
          */
         mUvcCamera.setDefaultBandwidth(1f);
     }
@@ -223,7 +223,7 @@ public class USBMonitorManager {
         if (mUvcCamera == null) {
             initUVCCamera();
         }
-        // uvc开启
+        // uvc
         mUvcCamera.openUVCCamera(ctrlBlock);
     }
 
@@ -243,15 +243,15 @@ public class USBMonitorManager {
 
     public void handleUSBConnect(USBMonitor.UsbControlBlock ctrlBlock) {
         openUVCCamera(ctrlBlock);
-        // 获取设备的分辨率list
+        // list
         List<CameraSize> previewList = getAllSupportedSize();
-        // 可以根据获取到的分辨率list，来区分不同的模组，从而改变不同的cmd参数来调用不同的SDK
+        // list，，cmdSDK
         initIRCMD(previewList);
-        // 根据设备的分辨率list，这里可以动态的settings模组的宽高(这里作为示例，用的是从外部传入的方式)
+        // list，settings(，)
         if (mDefaultDataFlowMode == CommonParams.DataFlowMode.TNR_OUTPUT) {
             isTempReplacedWithTNREnabled = mIrcmd.isTempReplacedWithTNREnabled(DeviceType.P2);
             Log.i(TAG, "startPreview->isTempReplacedWithTNREnabled = " + isTempReplacedWithTNREnabled);
-            //P2模组固件3.06版本后, TNR数据无需停图再出图，TNR数据在256*384数据的下半部分，顶替之前的温度数据
+            //P23.06, TNR，TNR256*384，
             if (isTempReplacedWithTNREnabled) {
                 cameraWidth = 256;
                 cameraHeight = 384;
@@ -268,7 +268,7 @@ public class USBMonitorManager {
     }
 
     /**
-     * 获取支持的分辨率list
+     * list
      *
      * @return
      */
@@ -286,7 +286,7 @@ public class USBMonitorManager {
 
     /**
      * init IRCMD
-     * 可以根据获取到的分辨率list，来区分不同的模组，从而改变不同的cmd参数来调用不同的SDK
+     * list，，cmdSDK
      *
      * @param previewList
      */
@@ -308,14 +308,14 @@ public class USBMonitorManager {
     }
 
     /**
-     * 之前的openUVCCamera方法中传入的都是默认值，这里需要根据实际传入对应的值
+     * openUVCCamera，
      *
      * @param cameraWidth
      * @param cameraHeight
      */
     private int setPreviewSize(int cameraWidth, int cameraHeight) {
         int result = -1;
-        //有时候可能上电后不稳定或者模组没插稳，setUSBPreviewSize会settings失败，这里可以捕获异常，提示用户重新插拔模组，重启app
+        //，setUSBPreviewSizesettings，，，app
         try {
             if (mUvcCamera != null) {
                 result = mUvcCamera.setUSBPreviewSize(cameraWidth, cameraHeight);
@@ -342,7 +342,7 @@ public class USBMonitorManager {
         mUvcCamera.setOpenStatus(true);
         mUvcCamera.onStartPreview();
         if (isTempReplacedWithTNREnabled) {
-            //从isp出图switch到正常复合数据出图，需要调用y16_start_preview Y16_MODE_TEMPERATURE,将下半部分的数据从TNRswitch到温度
+            //ispswitch，y16_start_preview Y16_MODE_TEMPERATURE,TNRswitch
             if (mIrcmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                     CommonParams.StartPreviewSource.SOURCE_SENSOR,
                     25, CommonParams.StartPreviewMode.VOC_DVP_MODE,
@@ -354,9 +354,9 @@ public class USBMonitorManager {
                 }
             }
         } else {
-            //根据业务逻辑自行处理
-            //第一次进入app，可不调用stopPreview，去掉sleep 2000ms
-            //如果没有中间出图的逻辑，无需重新出图，可不调用stopPreview，去掉sleep 2000ms
+            //
+            //app，stopPreview，sleep 2000ms
+            //，，stopPreview，sleep 2000ms
             if (mIrcmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
                     CommonParams.StartPreviewSource.SOURCE_SENSOR,
                     25, CommonParams.StartPreviewMode.VOC_DVP_MODE,

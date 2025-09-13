@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 动态申请权限
+ * 
  * 
  * date: 2019/8/6 15:33
  * author: chuanfeng.bi
@@ -47,8 +47,8 @@ public class PermissionsRequester {
     }
 
     /**
-     * 开始检查并申请权限
-     * @param permissions 需要申请的权限
+     * 
+     * @param permissions 
      */
     public void checkAndRequest(@NonNull List<String> permissions) {
         if (checking) {
@@ -116,7 +116,7 @@ public class PermissionsRequester {
         }
     }
 
-    //获取权限集中需要申请权限的列表
+    //
     private List<String> findDeniedPermissions(List<String> permissions) {
         List<String> needRequestPermissionList = new ArrayList<>();
         Activity activity = this.activity != null ? this.activity : fragment.getActivity();
@@ -165,8 +165,8 @@ public class PermissionsRequester {
     
     public interface Callback {
         /**
-         * 请求结果
-         * @param refusedPermissions 被拒绝的权限集合。size == 0时，表明申请的权限全部允许了
+         * 
+         * @param refusedPermissions 。size == 0，
          */
         void onRequestResult(List<String> refusedPermissions);
     }

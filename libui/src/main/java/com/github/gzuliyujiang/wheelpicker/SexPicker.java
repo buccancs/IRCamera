@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present human<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -29,16 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 性别选择器
+ * 
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author （1032694760@qq.com）
  * @since 2019/6/23 11:48
  */
 @SuppressWarnings("WeakerAccess")
 public class SexPicker extends OptionPicker {
-    public static String JSON = "[{\"id\":0,\"name\":\"保密\",\"english\":\"Secrecy\"},\n" +
-            "{\"id\":1,\"name\":\"男\",\"english\":\"Male\"},\n" +
-            "{\"id\":2,\"name\":\"女\",\"english\":\"Female\"}]";
+    public static String JSON = "[{\"id\":0,\"name\":\"Test Data",\"english\":\"Secrecy\"},\n" +
+            "{\"id\":1,\"name\":\"Test Data",\"english\":\"Male\"},\n" +
+            "{\"id\":2,\"name\":\"Test Data",\"english\":\"Female\"}]";
     private boolean includeSecrecy;
 
     public SexPicker(Activity activity) {

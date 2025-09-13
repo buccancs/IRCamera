@@ -42,8 +42,8 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
 
         private IFrameCallback iFrameCallback = new IFrameCallback() {
             /**
-             * frame里面是有两帧图像的，前面是fusion之后的图像，是ARGB格式，占4个字节;
-             * 后面是infrared和温度的图像，infrared和温度的图像是YUV422格式，占2个字节
+             * frame，fusion，ARGB，4;
+             * infrared，infraredYUV422，2
              */
 
             @Override
@@ -121,7 +121,7 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
         }
 
         /**
-         * closedual light预览
+         * closedual light
          */
         public void stopPreview() {
             dualUVCCamera.setFrameCallback(null);

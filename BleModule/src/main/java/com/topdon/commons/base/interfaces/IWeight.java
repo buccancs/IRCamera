@@ -6,7 +6,7 @@ package com.topdon.commons.base.interfaces;
  */
 public interface IWeight {
     /**
-     * Get/Retrieve权重
+     * Get/Retrieve
      */
     Integer getWeight();
 }

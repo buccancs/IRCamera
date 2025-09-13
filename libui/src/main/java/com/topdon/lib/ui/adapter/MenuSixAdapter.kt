@@ -18,14 +18,14 @@ import com.topdon.menu.R as MenuR
  * Custom Menu six view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("看起来是旧版 2D 编辑的menu，根本没使用了")
+@Deprecated("Test Data")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
-    private var colorEnable = false // pseudo color条
-    private var contrastEnable = false // 对比度
-    private var ddeEnable = false // 细节
+    private var colorEnable = false // pseudo color
+    private var contrastEnable = false // 
+    private var ddeEnable = false // 
 
     fun selected(index: Int) {
         selected = index
@@ -98,7 +98,7 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    // state变化
+    // state
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

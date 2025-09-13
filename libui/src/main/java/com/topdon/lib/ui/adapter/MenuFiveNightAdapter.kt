@@ -21,7 +21,7 @@ import com.topdon.menu.R as MenuR
  * Custom Menu five night view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("旧的temperature levelmenu，已重构过了")
+@Deprecated("Test Data")
 /**
  * MenuFiveNightAdapter provides data binding between data source and UI components.
  *
@@ -128,7 +128,7 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏Visible的 item quantity，目前都是全都Show/Display完
+//            val canSeeCount = itemCount.toFloat() //Visible item quantity，Show/Display
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

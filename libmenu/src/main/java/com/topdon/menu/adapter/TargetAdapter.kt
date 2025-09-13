@@ -8,14 +8,14 @@ import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.TargetType
 
 /**
- * observation模式-menu4-target menuAdapter used for.
+ * observation-menu4-target menuAdapter used for.
  *
- * measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)、删除(DELETE)、帮助(HELP)
+ * measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)、(DELETE)、(HELP)
  *
- * - measurement mode(MODE)、target(STYLE) 捆绑，要么都selected，要么都不selected，与 删除(DELETE) 互斥
- * - 删除(DELETE) 与 {measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)} 互斥
- * - targetcolor(COLOR) effective且未处于删除亮，color为默认绿色或处于删除不亮，丢给上层维护这个state
- * - 帮助(HELP) 显示弹框亮，close弹框不亮，丢给上层维护这个state
+ * - measurement mode(MODE)、target(STYLE) ，selected，selected， (DELETE) 
+ * - (DELETE)  {measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)} 
+ * - targetcolor(COLOR) effective，color，state
+ * - (HELP) ，close，state
  *
  * Created by LCG on 2024/11/28.
  */
@@ -27,8 +27,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
     var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 
     /**
-     * settingsspecified option的selectedstate.
-     * 对于一些互斥的selected取消selected操作，由于legacy现在先不改动，丢给上层去维护这个互斥state.
+     * settingsspecified optionselectedstate.
+     * selectedselected，legacy，state.
      */
     fun setSelected(
         targetType: TargetType,
@@ -87,8 +87,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            // targetcolor以effective才视为highlightselected的，Maintain original code logic here，
-            // menu的selectedrefreshleave to upper-layer listener to handle，consider changes later when time permits
+            // targetcoloreffectivehighlightselected，Maintain original code logic here，
+            // menuselectedrefreshleave to upper-layer listener to handle，consider changes later when time permits
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

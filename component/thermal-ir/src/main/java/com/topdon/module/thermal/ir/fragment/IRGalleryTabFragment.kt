@@ -22,28 +22,28 @@ import com.topdon.lib.core.R as LibCoreR
 import com.topdon.lib.ui.R as UiR
 
 /**
-\1图库 Tab 页，下分图片和视频.
+\1 Tab ，.
  *
-\1需要传递parameter：
-\1- [ExtraKeyConfig.HAS_BACK_ICON] - 图库是否有返回箭头，默认 false
-\1- [ExtraKeyConfig.CAN_SWITCH_DIR] - 图库是否可切换 有线device、TS004、TC007 目录，默认 true
-\1- [ExtraKeyConfig.DIR_TYPE] - 进入图库时初始的目录类型 具体取值由 [DirType] 定义
+\1parameter：
+\1- [ExtraKeyConfig.HAS_BACK_ICON] - ， false
+\1- [ExtraKeyConfig.CAN_SWITCH_DIR] -  device、TS004、TC007 ， true
+\1- [ExtraKeyConfig.DIR_TYPE] -   [DirType] 
  *
  * Created by chenggeng.lin on 2023/11/14.
  */
 class IRGalleryTabFragment : BaseFragment() {
     /**
-\1从上一interface传递过来的，图库是否有返回箭头
+\1interface，
      */
     private var hasBackIcon = false
 
     /**
-\1从上一interface传递过来的，图库是否可切换 有线device、TS004、TC007 目录
+\1interface， device、TS004、TC007 
      */
     private var canSwitchDir = true
 
     /**
-\1从上一interface传递过来的，进入图库时初始的目录类型
+\1interface，
      */
     private var currentDirType = DirType.LINE
 
@@ -101,9 +101,9 @@ class IRGalleryTabFragment : BaseFragment() {
         titleView.setTitleText(if (canSwitchDir) "" else getString(R.string.app_gallery))
         titleView.setLeftDrawable(if (hasBackIcon) R.drawable.ic_back_white_svg else 0)
         titleView.setLeftClickListener {
-            if (viewModel.isEditModeLD.value == true) { // 当前为编辑状态，退出编辑
+            if (viewModel.isEditModeLD.value == true) { // ，
                 viewModel.isEditModeLD.value = false
-            } else { // 当前为非编辑状态，退出页面
+            } else { // ，
                 if (hasBackIcon) {
                     requireActivity().finish()
                 }
@@ -111,9 +111,9 @@ class IRGalleryTabFragment : BaseFragment() {
         }
         titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
         titleView.setRightClickListener {
-            if (viewModel.isEditModeLD.value == true) { // 当前为编辑状态，全选
+            if (viewModel.isEditModeLD.value == true) { // ，
                 viewModel.selectAllIndex.value = viewPager2.currentItem
-            } else { // 当前为非编辑状态，进入编辑
+            } else { // ，
                 viewModel.isEditModeLD.value = true
             }
         }

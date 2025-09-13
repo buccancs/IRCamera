@@ -46,9 +46,9 @@ abstract class BaseFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden) {
-            // 不在最前端显示 相当于调用了onPause();
-        } else { // 在最前端显示 相当于调用了onResume();
-            // 网络数据刷新
+            //  onPause();
+        } else { //  onResume();
+            // 
             initData()
         }
     }
@@ -59,12 +59,12 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * 新版 LMS 风格的加载中弹框.
+     *  LMS .
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * 显示 LMS 风格的加载中弹框.
+     *  LMS .
      */
     fun showLoadingDialog(
         @StringRes resId: Int = 0,
@@ -77,7 +77,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * 显示 LMS 风格的加载中弹框.
+     *  LMS .
      */
     fun showLoadingDialog(text: CharSequence) {
         if (loadingDialog == null) {
@@ -88,7 +88,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
-     * 关闭 LMS 风格的加载中弹框.
+     *  LMS .
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()

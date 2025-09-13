@@ -11,13 +11,13 @@ import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.SizeUtils
 
 /**
- * RecyclerView 的 BindingAdapter.
+ * RecyclerView  BindingAdapter.
  *
  * Created by LCG on 2024/11/5.
  */
 object ViewBindingAdapter {
     /**
-     * 为 view 的 background 添加或移除 selectableItemBackground 效果.
+     *  view  background  selectableItemBackground .
      */
     @JvmStatic
     @BindingAdapter("bgEffect")
@@ -46,10 +46,10 @@ object ViewBindingAdapter {
                     drawableList.add(effectDrawable)
                 }
             } else {
-                if (drawableList.size == layerCount) { // 本来就没有 hint
+                if (drawableList.size == layerCount) { //  hint
                     return
                 }
-                if (drawableList.isEmpty()) { // 只有1个且为 hint，移除
+                if (drawableList.isEmpty()) { // 1 hint，
                     view.background = null
                     return
                 }
@@ -83,9 +83,9 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 将指定 view 的 background 填充colorsettings为指定color值.
+     *  shape  view  background colorsettingscolor.
      *
-     * 注意：最好搭配其他 bgXXX 一起settings，只需要settingscolor的话用原生的 android:background 不是更好？
+     * ： bgXXX settings，settingscolor android:background ？
      */
     @JvmStatic
     @BindingAdapter("bgColor")
@@ -99,14 +99,14 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background settings圆角，单位**dp**.
+     *  shape  view  background settings，**dp**.
      *
-     * 注意：最好搭配其他 bgXXX 一起settings，否则光有圆角没color就相当于没settings。
-     * @param bgCorners 4个角的圆角值，单位dp
-     * @param bgCornersLT left-top 的圆角值，优先使用该值，单位dp
-     * @param bgCornersRT right-top 的圆角值，优先使用该值，单位dp
-     * @param bgCornersLB left-bottom 的圆角值，优先使用该值，单位dp
-     * @param bgCornersRB right-bottom 的圆角值，优先使用该值，单位dp
+     * ： bgXXX settings，colorsettings。
+     * @param bgCorners 4，dp
+     * @param bgCornersLT left-top ，，dp
+     * @param bgCornersRT right-top ，，dp
+     * @param bgCornersLB left-bottom ，，dp
+     * @param bgCornersRB right-bottom ，，dp
      */
     @JvmStatic
     @BindingAdapter(value = ["bgCorners", "bgCornersLT", "bgCornersRT", "bgCornersLB", "bgCornersRB"], requireAll = false)
@@ -131,9 +131,9 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background settings描边.
-     * @param width 描边宽度，单位dp
-     * @param color 描边color值
+     *  shape  view  background settings.
+     * @param width ，dp
+     * @param color color
      */
     @JvmStatic
     @BindingAdapter(value = ["bgStrokeWidth", "bgStrokeColor"], requireAll = false)
@@ -148,7 +148,7 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background settings渐变color值.
+     *  shape  view  background settingscolor.
      */
     @JvmStatic
     @BindingAdapter(value = ["bgStartColor", "bgCenterColor", "bgEndColor"], requireAll = false)
@@ -164,11 +164,11 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background settings指定类型渐变参数.
-     * @param angle 线性渐变：渐变角度，必须为 45 的倍数，0为从左到右 90为从上到下 -90或270为从下到上
-     * @param radius 放射渐变：直径百分比
-     * @param centerX 放射渐变或扫描渐变：中心点X轴百分比
-     * @param centerY 放射渐变或扫描渐变：中心点Y轴百分比
+     *  shape  view  background settings.
+     * @param angle ：， 45 ，0 90 -90270
+     * @param radius ：
+     * @param centerX ：X
+     * @param centerY ：Y
      */
     @JvmStatic
     @BindingAdapter(value = ["bgAngle", "bgRadius", "bgCenterX", "bgCenterY"], requireAll = false)
@@ -213,15 +213,15 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 从指定 view 的 background 中Get/Retrieve GradientDrawable.
+     *  view  background Get/Retrieve GradientDrawable.
      *
-     * 若指定 view 的 background 为 GradientDrawable，则直接Return；
+     *  view  background  GradientDrawable，Return；
      *
-     * 若指定 view 的 background 为 ColorDrawable，Return新的相应color的 GradientDrawable；
+     *  view  background  ColorDrawable，Returncolor GradientDrawable；
      *
-     * 若指定 view 的 background 为 LayerDrawable，则查找 background id 的 GradientDrawable；
+     *  view  background  LayerDrawable， background id  GradientDrawable；
      *
-     * 其他情况新建 GradientDrawable 并Return。
+     *  GradientDrawable Return。
      */
     @JvmStatic
     /**
@@ -247,8 +247,8 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 如果 view 此前的 background 已settings bgEffect，则使用 bgDrawable Build包含 bgEffect 的 LayerDrawable；
-     * 否则直接Return bgDrawable
+     *  view  background settings bgEffect， bgDrawable Build bgEffect  LayerDrawable；
+     * Return bgDrawable
      */
     @JvmStatic
     /**

@@ -28,8 +28,8 @@ fun View.invisible()  {
 }
 
 /**
- * Hideview，带有渐隐动画效果。
- * @param duration 毫秒，动画持续时长，默认500毫秒。
+ * Hideview，。
+ * @param duration ，，500。
  */
 fun View?.goneAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.GONE
@@ -42,8 +42,8 @@ fun View?.goneAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * 占位Hideview，带有渐隐动画效果。
- * @param duration 毫秒，动画持续时长，默认500毫秒。
+ * Hideview，。
+ * @param duration ，，500。
  */
 fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.INVISIBLE
@@ -56,9 +56,9 @@ fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * Show/Displayview，带有渐显动画效果。
+ * Show/Displayview，。
  *
- * @param duration 毫秒，动画持续时长，默认500毫秒。
+ * @param duration ，，500。
  */
 fun View?.visibleAlphaAnimation(duration: Long = 500L) {
     this?.visibility = View.VISIBLE

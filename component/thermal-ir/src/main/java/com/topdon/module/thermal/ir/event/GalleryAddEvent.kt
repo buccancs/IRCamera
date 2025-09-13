@@ -1,7 +1,7 @@
 package com.topdon.module.thermal.ir.event
 
 /**
-\1有一张thermal imaging图片或视频生成，需要刷新图库事件.
+\1thermal imaging，.
  */
 /**
  * Gallery add event for thermal imaging system communication.

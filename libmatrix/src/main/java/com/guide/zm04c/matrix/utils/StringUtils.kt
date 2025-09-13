@@ -48,11 +48,11 @@ class StringUtils {
         }
 
         /**
-         * 根据字体大小Return字符串需要的宽高数组，int[]{宽,高}
+         * Return，int[]{,}
          *
          * @param str
          * @param textSizePxVal
-         * @return int[] 索引0代表宽，索引1代表高
+         * @return int[] 0，1
          */
         public fun getStringSize(
             str: String,

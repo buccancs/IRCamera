@@ -26,8 +26,8 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     var MONITOR_ACTION = STATS_START
 
-    private var selectType = 1 // 选取点类型(点 线 面)
-    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取点
+    private var selectType = 1 // (  )
+    private var selectIndex: ArrayList<Int> = arrayListOf() // 
 
     override fun initContentView() = R.layout.activity_monitor
 
@@ -74,37 +74,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
             }
             findViewById<Button>(R.id.motion_start_btn) -> {
                 NavigationManager.getInstance().build(RouterConfig.MONITOR_CHART)
-                    .withInt("type", selectType)
-                    .navigation(this)
-                finish()
-            }
-        }
-    }
-
-    fun select(
-        selectType: Int,
-        selectIndex: ArrayList<Int>,
-    ) {
-        findViewById<Button>(R.id.motion_start_btn).isEnabled = true
-        this.selectType = selectType
-        this.selectIndex = selectIndex
-    }
-
-    private fun updateUI() {
-        val motionStartBtn = findViewById<Button>(R.id.motion_start_btn)
-        val motionLogBtn = findViewById<Button>(R.id.motion_log_btn)
-        val motionBtn = findViewById<Button>(R.id.motion_btn)
-        motionStartBtn.isEnabled = false
-        motionStartBtn.visibility = View.VISIBLE
-        motionLogBtn.visibility = View.GONE
-        motionBtn.visibility = View.GONE
-    }
-
-\1秒
-    fun updateTime(time: Long) {
-        val ss = time % 60
-        val mm = time / 60 % 60
-        val ssStr = String.format("%02d", ss)
+                    .withInt("type"Test Data"%02d", ss)
         val mmStr = String.format("%02d", mm)
         findViewById<Button>(R.id.motion_start_btn).text = "$mmStr:$ssStr"
     }

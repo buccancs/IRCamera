@@ -38,10 +38,10 @@ import kotlinx.coroutines.launch
 import com.topdon.lib.core.R as LibR
 
 /**
-\1temperature correction（即setambient temperature、temperature measurement距离、emissivity）
+\1temperature correction（setambient temperature、temperature measurement、emissivity）
  *
-\1需要传递parameter：
-\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+\1parameter：
+\1- [ExtraKeyConfig.IS_TC007] - device TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -50,8 +50,8 @@ import com.topdon.lib.core.R as LibR
  */
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
     /**
-\1从上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
+\1interface， TC007 device.
+\1true-TC007 false-device
      */
     private var isTC007 = false
 
@@ -93,150 +93,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         }
         adapter.onDeleteListener = {
             TipDialog.Builder(this)
-                .setMessage(getString(LibR.string.tip_config_delete, "${getString(LibR.string.thermal_custom_mode)}${it.name}"))
-                .setPositiveListener(LibR.string.app_confirm) {
-                    viewModel.deleteConfig(isTC007, it.id)
-                }
-                .setCancelListener(LibR.string.app_cancel)
-                .create().show()
-        }
-        adapter.onUpdateListener = {
-            viewModel.updateCustom(isTC007, it)
-        }
-        adapter.onAddListener =
-            View.OnClickListener {
-                TipDialog.Builder(this)
-                    .setMessage(LibR.string.tip_myself_model)
-                    .setPositiveListener(LibR.string.app_confirm) {
-                        viewModel.addConfig(isTC007)
-                    }
-                    .setCancelListener(LibR.string.app_cancel)
-                    .create().show()
-            }
-
-        val itemDecoration = MyItemDecoration(this)
-        itemDecoration.wholeBottom = 20f
-
-        recyclerView.addItemDecoration(itemDecoration)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
-
-        viewModel.configLiveData.observe(this) {
-\1先只刷新默认的configuration，等操作指引display完再刷新自定义configuration
-            tvDefaultTempValue.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
-            tvDefaultDisValue.text = NumberTools.to02(it.defaultModel.distance)
-            tvDefaultEmValue.text = NumberTools.to02(it.defaultModel.radiation)
-            ivDefaultSelector.isSelected = true
-
-            showGuideDialog(it)
-
-            if (isTC007 && WebSocketProxy.getInstance().isTC007Connect()) {
-                lifecycleScope.launch {
-                    val config = ConfigRepository.readConfig(true)
-                    TC007Repository.setIRConfig(config.environment, config.distance, config.radiation)
-                }
-            }
-        }
-        viewModel.getConfig(isTC007)
-    }
-
-    override fun initData() {
-    }
-
-    /**
-\1display操作指引弹框.
-     */
-    private fun showGuideDialog(modelBean: ModelBean) {
-        val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
-        val llRoot = findViewById<android.widget.LinearLayout>(R.id.ll_root)
-
-        if (SharedManager.configGuideStep == 0) { // 已看过或不再提示
-            ivDefaultSelector.isSelected = modelBean.defaultModel.use
-            adapter.refresh(modelBean.myselfModel)
-            return
-        }
-        val guideDialog = ConfigGuideDialog(this, isTC007, modelBean.defaultModel)
-        guideDialog.setOnDismissListener {
-            if (Build.VERSION.SDK_INT >= 31) {
-                window?.decorView?.setRenderEffect(null)
-            }
-            ivDefaultSelector.isSelected = modelBean.defaultModel.use
-            adapter.refresh(modelBean.myselfModel)
-        }
-        guideDialog.show()
-
-        if (Build.VERSION.SDK_INT >= 31) {
-            window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
-        } else {
-            lifecycleScope.launch {
-\1interface刷新需要时间，所以需要等待100毫秒再去刷新背景
-                delay(100)
-                guideDialog.blurBg(llRoot)
-            }
-        }
-    }
-
-    override fun onClick(v: View?) {
-        val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
-        val viewDefaultTempBg = findViewById<android.view.View>(R.id.view_default_temp_bg)
-        val viewDefaultDisBg = findViewById<android.view.View>(R.id.view_default_dis_bg)
-        val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
-
-        when (v) {
-            ivDefaultSelector -> { // 默认模式-选中
-                viewModel.checkConfig(isTC007, 0)
-            }
-            viewDefaultTempBg -> { // 默认模式-环境温度
-                IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
-                    .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
-                    .setConfirmListener {
-                        viewModel.updateDefaultEnvironment(isTC007, UnitTools.showToCValue(it))
-                    }
-                    .show()
-            }
-            viewDefaultDisBg -> { // 默认模式-测温距离
-                IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
-                    .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
-                    .setConfirmListener {
-                        viewModel.updateDefaultDistance(isTC007, it)
-                    }
-                    .show()
-            }
-            tvDefaultEmValue -> { // 默认模式-发射率
-                IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
-                    .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
-                    .setConfirmListener {
-                        viewModel.updateDefaultRadiation(isTC007, it)
-                    }
-                    .show()
-            }
-        }
-    }
-
-    private class ConfigAdapter(val context: Context, val isTC007: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private val dataList: ArrayList<DataBean> = ArrayList()
-
-        /**
-\1item（一项自定义configuration）选中事件监听.
-         */
-        var onSelectListener: ((id: Int) -> Unit)? = null
-
-        /**
-\1item（一项自定义configuration）删除件监听.
-         */
-        var onDeleteListener: ((bean: DataBean) -> Unit)? = null
-
-        /**
-\1item（一项自定义configuration）变更事件监听.
-         */
-        var onUpdateListener: ((bean: DataBean) -> Unit)? = null
-
-        /**
-\1添加事件监听.
-         */
-        var onAddListener: View.OnClickListener? = null
-
-        @SuppressLint("NotifyDataSetChanged")
+                .setMessage(getString(LibR.string.tip_config_delete, "${getString(LibR.string.thermal_custom_mode)}${it.name}"Test Data"NotifyDataSetChanged")
         fun refresh(newList: List<DataBean>) {
             dataList.clear()
             dataList.addAll(newList)

@@ -7,21 +7,21 @@ import com.topdon.lms.sdk.LMS;
 import java.io.File;
 
 /**
- * @Desc 在APPlication 调用setFileName方法 传入文件名路径 区分APP
+ * @Desc APPlication setFileName  APP
  * @ClassName FolderUtil
  * @Email 616862466@qq.com
- * @Author 子墨
+ * @Author 
  * @Date 2022/9/27 11:55
  */
 
 public class FolderUtil {
     public static String mPath = "/data/user/0/com.topdon.diag.artidiag/files";
     public static String mUserId;
-    public static String fileName; //在APPlication 传入文件名路径 区分APP
+    public static String fileName; //APPlication  APP
     public static String tdartsSn;
 
     /**
-     * 获取文件名
+     * 
      *
      * @return String
      */
@@ -30,9 +30,9 @@ public class FolderUtil {
     }
 
     /**
-     * 区分应用文件名称
+     * 
      *
-     * @param mfileName 名称("/TopDon/AD200/")
+     * @param mfileName ("/TopDon/AD200/")
      */
     public static void setFileName(String mfileName) {
         fileName = mfileName;
@@ -66,15 +66,15 @@ public class FolderUtil {
     }
 
     /**
-     * 出事下载车型软件
+     * 
      */
     public static void initFilePath() {
         String basePath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
         String downPath = basePath + "Download/";
-        Log.e("bcf", fileName + "--下载路径初始化--" + downPath);
+        Log.e("bcf", fileName + "Test Data" + downPath);
         File file = new File(downPath);
         if (!file.exists()) {
-            Log.e("bcf", fileName + "---下载路径初始化创建 ");
+            Log.e("bcf", fileName + "Test Data");
             file.mkdirs();
         }
     }
@@ -229,13 +229,13 @@ public class FolderUtil {
 //                log9File.mkdirs();
             }
 
-            //上传反馈日志
+            //
             File feedbackLog = new File(mPath + fileName + mUserId + "/FeedbackLog/");
             if (!feedbackLog.exists()) {
                 feedbackLog.mkdirs();
             }
 
-            //autovin临时路径
+            //autovin
             File autovinLog = new File(mPath + fileName + mUserId + "/autovinLog/");
             if (!autovinLog.exists()) {
                 autovinLog.mkdirs();
@@ -254,7 +254,7 @@ public class FolderUtil {
     }
 
     /**
-     * 获取Tdarts根目录路径
+     * Tdarts
      *
      * @return str
      */
@@ -275,7 +275,7 @@ public class FolderUtil {
     }
 
     /**
-     * 获取Tdarts sn下车型软件包路径
+     * Tdarts sn
      *
      * @return str
      */
@@ -370,7 +370,7 @@ public class FolderUtil {
     }
 
     /**
-     * 获取反馈日志路径
+     * 
      *
      * @return string
      */
@@ -395,7 +395,7 @@ public class FolderUtil {
     }
 
     /**
-     * 获取软件下载路径
+     * 
      *
      * @return str
      */

@@ -1,7 +1,7 @@
 package com.topdon.lib.ui
 
 /**
- * app全局公共参数
+ * app
  * @author: CaiSongL
  * @date: 2023/12/22 11:08
  */

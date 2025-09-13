@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present human<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -14,18 +14,18 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 单项条目选择接口
+ * 
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author （1032694760@qq.com）
  * @since 2019/5/14 20:00
  */
 public interface OnOptionSelectedListener {
 
     /**
-     * 单项条目选择回调
+     * 
      *
-     * @param position selected项的index
-     * @param item     selected项的内容
+     * @param position selectedindex
+     * @param item     selected
      */
     void onOptionSelected(int position, Object item);
 

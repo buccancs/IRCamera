@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present human<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -18,79 +18,79 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 /**
- * 提供二级或三级联动数据
+ * 
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author （1032694760@qq.com）
  * @since 2019/6/17 11:27
  */
 public interface LinkageProvider {
     int INDEX_NO_FOUND = -1;
 
     /**
-     * 是否展示第一级
+     * 
      *
-     * @return Returntrue表示展示第一级
+     * @return Returntrue
      */
     boolean firstLevelVisible();
 
     /**
-     * 是否展示第三级
+     * 
      *
-     * @return Returntrue表示展示第三级
+     * @return Returntrue
      */
     boolean thirdLevelVisible();
 
     /**
-     * 提供第一级数据
+     * 
      *
-     * @return 第一级数据
+     * @return 
      */
     @NonNull
     List<?> provideFirstData();
 
     /**
-     * 根据第一级数据联动第二级数据
+     * 
      *
-     * @param firstIndex 第一级数据index
-     * @return 第二级数据
+     * @param firstIndex index
+     * @return 
      */
     @NonNull
     List<?> linkageSecondData(int firstIndex);
 
     /**
-     * 根据第一二级数据联动第三级数据
+     * 
      *
-     * @param firstIndex  第一级数据index
-     * @param secondIndex 第二级数据index
-     * @return 第三级数据
+     * @param firstIndex  index
+     * @param secondIndex index
+     * @return 
      */
     @NonNull
     List<?> linkageThirdData(int firstIndex, int secondIndex);
 
     /**
-     * 根据第一数据值查找其index
+     * index
      *
-     * @param firstValue 第一级数据值
-     * @return 第一级数据index
+     * @param firstValue 
+     * @return index
      */
     int findFirstIndex(Object firstValue);
 
     /**
-     * 根据第二数据值查找其index
+     * index
      *
-     * @param firstIndex  第一级数据index
-     * @param secondValue 第二级数据值
-     * @return 第二级数据index
+     * @param firstIndex  index
+     * @param secondValue 
+     * @return index
      */
     int findSecondIndex(int firstIndex, Object secondValue);
 
     /**
-     * 根据第三数据值查找其index
+     * index
      *
-     * @param firstIndex  第一级数据index
-     * @param secondIndex 第二级数据index
-     * @param thirdValue  第三级数据值
-     * @return 第三级数据index
+     * @param firstIndex  index
+     * @param secondIndex index
+     * @param thirdValue  
+     * @return index
      */
     int findThirdIndex(int firstIndex, int secondIndex, Object thirdValue);
 

@@ -22,9 +22,9 @@ class GuideInterface {
     private val IR_HEIGHT = 192
     private val HEAD_SIZE = 64
     private val IR_SIZE = IR_WIDTH * IR_HEIGHT // 49152
-    private val YUV_SIZE = IR_SIZE * 2 // 98304 2byte = 1像素点
+    private val YUV_SIZE = IR_SIZE * 2 // 98304 2byte = 1
     private val PARAM_SIZE = 512
-    private val TEMP_MATRIX_SIZE = IR_SIZE * 4 // 196608 4byte = 1温度点
+    private val TEMP_MATRIX_SIZE = IR_SIZE * 4 // 196608 4byte = 1
     private val FRAME_SIZE = HEAD_SIZE + YUV_SIZE + PARAM_SIZE + TEMP_MATRIX_SIZE // 295488
     private val MAX_BULK_TRANSFER_SIZE = 16384
     private var mGuideUsbManager: GuideUsbManager? = null
@@ -33,13 +33,13 @@ class GuideInterface {
     private val mUsbReadbuffer = ByteArray(MAX_BULK_TRANSFER_SIZE)
     private val mFrame = ByteArray(FRAME_SIZE)
 
-    // 图像数据：YUV422(UYVY)
+    // ：YUV422(UYVY)
     private val mYuv = ByteArray(YUV_SIZE)
 
-    // 参数行数据
+    // 
     private val mParam = ByteArray(PARAM_SIZE)
 
-    // 温度矩阵数据：
+    // ：
     private val mTempMatrixByte = ByteArray(TEMP_MATRIX_SIZE)
     private val mTempMatrixFloat = FloatArray(IR_SIZE)
     private var mIrDataCallback: IrDataCallback? = null
@@ -61,7 +61,7 @@ class GuideInterface {
     }
 
     /**
-     * 读取数据
+     * 
      */
     private fun startUsbBufferWriteThread() {
         mWriteThreadFlag = true
@@ -69,7 +69,7 @@ class GuideInterface {
             Thread {
                 d(TAG, "write thread start")
                 while (mWriteThreadFlag) {
-                    val length: Int = mGuideUsbManager!!.read(mUsbReadbuffer) // 读取红外设备传回的图像信息
+                    val length: Int = mGuideUsbManager!!.read(mUsbReadbuffer) // 
                     if (length > 0) {
                         mUsbBuffer!!.write(mUsbReadbuffer, 0, length)
                     } else {
@@ -89,7 +89,7 @@ class GuideInterface {
     var startTime = 0L
 
     /**
-     * 分析数据,并回调响应
+     * ,
      */
     private fun startUsbBufferReadThread() {
         mReadThreadFlag = true
@@ -116,7 +116,7 @@ class GuideInterface {
                                 mTempMatrixByte.size,
                             )
                         }
-                        mNativeGuideCore!!.toFloatTempMatrix(mTempMatrixFloat, mTempMatrixByte) // 温度解析
+                        mNativeGuideCore!!.toFloatTempMatrix(mTempMatrixFloat, mTempMatrixByte) // 
 //                    if (startTime == 0L) {
 //                        startTime = System.currentTimeMillis()
 //                    }
@@ -130,7 +130,7 @@ class GuideInterface {
 //                        )
 //                    }
                         if (mIrDataCallback != null) {
-                            mIrDataCallback!!.processIrData(mYuv, mTempMatrixFloat) // 回调图片信息和温度矩阵
+                            mIrDataCallback!!.processIrData(mYuv, mTempMatrixFloat) // 
                         }
                     } else {
 //                        Logger.d(TAG, "read Frame failed");
@@ -257,7 +257,7 @@ class GuideInterface {
     }
 
     /**
-     * 设置亮度
+     * 
      */
     fun setBright(bright: Int) {
         if (mGuideUsbManager == null) {
@@ -278,7 +278,7 @@ class GuideInterface {
     }
 
     /**
-     * 设置对比度
+     * 
      */
     fun setContrast(contrast: Int) {
         if (mGuideUsbManager == null) {

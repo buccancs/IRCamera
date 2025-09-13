@@ -66,7 +66,7 @@ abstract class AbstractScanner implements Scanner {
         scanListeners.remove(listener);
     }
 
-    //位置服务是否开户
+    //
     private boolean isLocationEnabled(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -81,10 +81,10 @@ abstract class AbstractScanner implements Scanner {
         }
     }
 
-    //检查是否有定位权限
+    //
     private boolean noLocationPermission(Context context) {
         int sdkVersion = context.getApplicationInfo().targetSdkVersion;
-        if (sdkVersion >= 29) {//target sdk版本在29以上的需要精确定位权限才能搜索到蓝牙设备
+        if (sdkVersion >= 29) {//target sdk29
             return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED;
         } else {
             return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -92,33 +92,33 @@ abstract class AbstractScanner implements Scanner {
         }
     }
 
-    //检查是否有蓝牙权限
+    //
     private boolean noBluetoothPermission(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // API 31+ 需要新的蓝牙权限
+            // API 31+ 
             return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
                    ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED;
         } else {
-            // API 30及以下使用旧的蓝牙权限
+            // API 30
             return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED ||
                    ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED;
         }
     }
 
-    //检查是否有蓝牙连接权限 - 用于访问设备属性
+    // - 
     private boolean hasBluetoothConnectPermission(Context context) {
         if (context == null) return false;
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // API 31+ 需要 BLUETOOTH_CONNECT 权限来访问设备属性
+            // API 31+  BLUETOOTH_CONNECT 
             return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
         } else {
-            // API 30及以下使用旧的蓝牙权限
+            // API 30
             return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED;
         }
     }
 
-    //处理搜索回调
+    //
     void handleScanCallback(final boolean start, final Device device, final boolean isConnectedBySys,
                             final int errorCode, final String errorMsg) {
         mainHandler.post(() -> {
@@ -136,7 +136,7 @@ abstract class AbstractScanner implements Scanner {
         });
     }
 
-    //如果系统已配对连接，那么是无法搜索到的，所以尝试获取已连接的设备
+    //，，
     @SuppressWarnings("all")
     private void getSystemConnectedDevices(Context context) {
         try {
@@ -156,7 +156,7 @@ abstract class AbstractScanner implements Scanner {
             }
         } catch (Exception ignore) {
         }
-        //遍历支持的，获取所有连接的
+        //，
         for (int i = 1; i <= 21; i++) {
             try {
                 getSystemConnectedDevices(context, i);
@@ -234,7 +234,7 @@ abstract class AbstractScanner implements Scanner {
         }
         String name = deviceName == null ? "" : deviceName;
         if (configuration.rssiLowLimit <= rssi) {
-            //通过构建器实例化Device
+            //Device
             Device dev = deviceCreator.create(device, result);
             if (dev != null) {
                 dev.name = TextUtils.isEmpty(dev.getName()) ? name : dev.getName();
@@ -332,7 +332,7 @@ abstract class AbstractScanner implements Scanner {
 
     private final Runnable stopScanRunnable = () -> stopScan(false);
 
-    //蓝牙是否开启
+    //
     private boolean isBtEnabled() {
         if (bluetoothAdapter.isEnabled()) {
             try {
@@ -362,17 +362,17 @@ abstract class AbstractScanner implements Scanner {
     }
 
     /**
-     * 是否可搜索
+     * 
      */
     protected abstract boolean isReady();
     
     /**
-     * 执行搜索
+     * 
      */
     protected abstract void performStartScan();
 
     /**
-     * 执行停止搜索
+     * 
      */
     protected abstract void performStopScan();
 }

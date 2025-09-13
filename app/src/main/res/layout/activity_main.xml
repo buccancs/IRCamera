@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <!-- 图Library -->
+            <!-- Library -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_icon_gallery"
                 android:layout_width="0dp"
@@ -122,7 +122,7 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- 我的 -->
+            
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_icon_mine"
                 android:layout_width="0dp"

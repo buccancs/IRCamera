@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present human<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -30,9 +30,9 @@ import com.topdon.lib.ui.R;
 import java.util.Calendar;
 
 /**
- * 日期时间选择器
+ * 
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author （1032694760@qq.com）
  * @since 2021/6/5 18:21
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -43,7 +43,7 @@ public class YearPicker extends ModalDialog {
     public YearPicker(@NonNull Activity activity, @Nullable Integer year) {
         super(activity);
 
-        //initialize年份range及currentselected年份
+        //initializerangecurrentselected
         int nowYear = Calendar.getInstance().get(Calendar.YEAR);
         DatimeEntity startTimeEntity = new DatimeEntity();
         startTimeEntity.setDate(DateEntity.target(nowYear - 1000, 1, 1));
@@ -51,12 +51,12 @@ public class YearPicker extends ModalDialog {
         defaultEntity.setDate(DateEntity.target(year == null ? nowYear : year, 1, 1));
         wheelLayout.setRange(startTimeEntity, DatimeEntity.now(), defaultEntity);
 
-        wheelLayout.setCurtainEnabled(true);//selected栏是否有背景color
-        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       //selected栏背景color
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//selected文字color
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      //未selected文字color
+        wheelLayout.setCurtainEnabled(true);//selectedcolor
+        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       //selectedcolor
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//selectedcolor
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      //selectedcolor
 
-        wheelLayout.setResetWhenLinkage(false, false);//他娘的不知道什么鬼，连个注释都没有
+        wheelLayout.setResetWhenLinkage(false, false);//，
 
     }
 

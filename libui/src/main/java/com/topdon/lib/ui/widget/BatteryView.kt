@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
 /**
- * TC007 电池电量图标.
+ * TC007 .
  *
  * Created by LCG on 2024/5/22.
  */
@@ -24,7 +24,7 @@ import androidx.appcompat.widget.AppCompatImageView
  */
 class BatteryView : AppCompatImageView {
     /**
-     * current电量
+     * current
      */
     var battery = -1
         set(value) {
@@ -33,7 +33,7 @@ class BatteryView : AppCompatImageView {
         }
 
     /**
-     * current是否充电中
+     * current
      */
     var isCharging = false
         set(value) {
@@ -74,19 +74,19 @@ class BatteryView : AppCompatImageView {
                     MeasureSpec.EXACTLY -> setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt().coerceAtMost(heightSize))
                     MeasureSpec.AT_MOST -> {
                         if (widthSize < 58) {
-                            if (heightSize < 30) { // 宽✘ 高✘
+                            if (heightSize < 30) { // ✘ ✘
                                 if ((widthSize * 30 / 58f).toInt() <= heightSize) {
                                     setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt())
                                 } else {
                                     setMeasuredDimension((heightSize * 58 / 30f).toInt(), heightSize)
                                 }
-                            } else { // 宽✘ 高✔
+                            } else { // ✘ ✔
                                 setMeasuredDimension(widthSize, (widthSize * 30 / 58f).toInt())
                             }
                         } else {
-                            if (heightSize < 30) { // 宽✔ 高✘
+                            if (heightSize < 30) { // ✔ ✘
                                 setMeasuredDimension((heightSize * 58 / 30f).toInt(), heightSize)
-                            } else { // 宽✔ 高✔
+                            } else { // ✔ ✔
                                 setMeasuredDimension(58, 30)
                             }
                         }

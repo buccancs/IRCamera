@@ -30,9 +30,9 @@ object IRCmdTool {
 
         val oemInfo = ByteArray(512)
         val snData = ByteArray(256)
-        val dispData = ByteArray(5) // 配准参数
+        val dispData = ByteArray(5) // 
         irCmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
-        XLog.w("机芯数据加载成功", "数据读取完成:")
+        XLog.w("Test Data", "Test Data")
         val calibrationData = ByteArray(calibrationDataSize)
         val productTypeData = ByteArray(2)
         System.arraycopy(oemInfo, 0, calibrationData, 0, calibrationData.size)
@@ -57,9 +57,9 @@ object IRCmdTool {
                 {
                     dispNumber = -20
                 }
-            XLog.w("配准信息:", "" + dispNumber)
+            XLog.w("Test Data", "" + dispNumber)
         } catch (e: Exception) {
-            XLog.w("配准数据异常")
+            XLog.w("Test Data")
         }
         val snList = String(snData).split(";")
         val snStr =
@@ -84,13 +84,7 @@ object IRCmdTool {
                 `is` = am.open("dual_calibration_parameters2.bin")
                 length = `is`.available()
                 if (`is`.read(parameters) != length) {
-                    Log.e(TAG, "read file fail ")
-                }
-                parameters[length] = 1
-\1先从buffer中查找是否有save的对齐data，没有用initializedata
-                val alignByte = SharedManager.getManualData(snStr)
-                System.arraycopy(alignByte, 0, parameters, calibrationDataSize + 1, alignByte.size)
-                XLog.w("机芯没存在校正数据，请联系厂商确认")
+                    Log.e(TAG, "read file fail "Test Data"Text，Text")
             } catch (e: IOException) {
                 e.printStackTrace()
             } finally {
@@ -132,10 +126,10 @@ object IRCmdTool {
     }
 
     /**
-\1set距离 unit:cnt(128cnt = 1m, 默认值: 0.25 * 128 = 32)
+\1set unit:cnt(128cnt = 1m, : 0.25 * 128 = 32)
      * @param value 0 ~ 25600
      *
-\1现有sdk在setTPD_PROP_DISTANCE抛异常
+\1sdksetTPD_PROP_DISTANCE
      */
     fun setTpdDis(
         irCmd: IRCMD?,
@@ -146,7 +140,7 @@ object IRCmdTool {
     }
 
     /**
-\1set对比度
+\1set
      * @param value 0 ~ 255
      */
     fun setLevelContrast(
@@ -158,7 +152,7 @@ object IRCmdTool {
     }
 
     /**
-\1set锐化
+\1set
      * @param value 0 ~ 4
      *
      */
@@ -179,7 +173,7 @@ object IRCmdTool {
     }
 
     /**
-\1set自动gain
+\1setgain
      */
     fun setLevelAgc(
         irCmd: IRCMD?,
@@ -195,8 +189,8 @@ object IRCmdTool {
     }
 
     /**
-\1查询gain模式
-\1@return 1:高gain(常温)    0:低gain(high temperature)
+\1gain
+\1@return 1:gain()    0:gain(high temperature)
      */
     fun getTpdGainSel(irCmd: IRCMD?): Int {
         val result = queryTpdParam(irCmd = irCmd, params = CommonParams.PropTPDParams.TPD_PROP_GAIN_SEL)
@@ -208,8 +202,8 @@ object IRCmdTool {
     }
 
     /**
-\1setgain模式
-\1@param value 1:高gain(常温)    0:低gain(high temperature)
+\1setgain
+\1@param value 1:gain()    0:gain(high temperature)
      */
     fun setTpdGainSel(
         irCmd: IRCMD?,
@@ -225,7 +219,7 @@ object IRCmdTool {
     }
 
     /**
-\1查询Tpd
+\1Tpd
      */
     fun queryTpdParam(
         irCmd: IRCMD?,
@@ -237,7 +231,7 @@ object IRCmdTool {
     }
 
     /**
-\1查询Image
+\1Image
      */
     fun queryImageParam(
         irCmd: IRCMD?,
@@ -259,7 +253,7 @@ object IRCmdTool {
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("设置参数异常[${params.name}]: ${e.message}")
+            XLog.w("Test Data")
             0
         }
     }
@@ -275,14 +269,14 @@ object IRCmdTool {
         return try {
             irCmd?.setPropImageParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("设置参数异常[${params.name}]: ${e.message}")
+            XLog.w("Test Data")
             0
         }
     }
 
     /**
-\1配准
-\1水平移动
+\1
+\1
      * @param value (-20 ~ 60)
      */
     fun setDisp(
@@ -297,13 +291,13 @@ object IRCmdTool {
                 -1 // Return error
             }
         } catch (e: Exception) {
-            XLog.w("设置配准异常[$value]: ${e.message}")
+            XLog.w("Test Data")
             0
         }
     }
 
     /**
-\1@param moveX 在当前基础上要再偏移的数值
+\1@param moveX 
      */
     fun setAlignTranslate(
         dualView: BaseDualView?,
@@ -324,7 +318,7 @@ object IRCmdTool {
     }
 
     /**
-\1打快门
+\1
      */
     fun shutter(
         irCmd: IRCMD?,
@@ -333,13 +327,13 @@ object IRCmdTool {
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-\1执行这段
+\1Text
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-\1自动快门
+\1
      */
     fun autoShutter(
         irCmd: IRCMD?,
@@ -350,9 +344,9 @@ object IRCmdTool {
     }
 
     /**
-\1enabled等温尺
-\1@param highC temperature上限，单位摄氏度
-\1@param lowC temperature下限，单位摄氏度
+\1enabled
+\1@param highC temperature，
+\1@param lowC temperature，
      */
     fun setIsoColorOpen(
         dualUVCCamera: DualUVCCamera?,
@@ -360,10 +354,10 @@ object IRCmdTool {
         lowC: Float,
     ) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.ON)
-        val normalHighTemp = (highC + 273).toDouble() // 单位k
-        val normalLowTemp = (lowC + 273).toDouble() // 单位k
-        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // 高温向上取整
-        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // 低温向下取整
+        val normalHighTemp = (highC + 273).toDouble() // k
+        val normalLowTemp = (lowC + 273).toDouble() // k
+        val highTemp = ceil(normalHighTemp * 16 * 4).toInt() // 
+        val lowTemp = floor(normalLowTemp * 16 * 4).toInt() // 
         val highData = ByteArray(2)
         highData[0] = highTemp.toByte()
         highData[1] = (highTemp shr 8).toByte()
@@ -372,30 +366,30 @@ object IRCmdTool {
         lowData[1] = (lowTemp shr 8).toByte()
         val tempHFin = (highData[0].toInt() and 0x00ff) + (highData[1].toInt() and 0x00ff shl 8)
         val tempLFin = (lowData[0].toInt() and 0x00ff) + (lowData[1].toInt() and 0x00ff shl 8)
-        dualUVCCamera?.setTempL(tempLFin) // 低温 - convert to Int
-        dualUVCCamera?.setTempH(tempHFin) // 高温 - convert to Int
+        dualUVCCamera?.setTempL(tempLFin) //  - convert to Int
+        dualUVCCamera?.setTempH(tempHFin) //  - convert to Int
     }
 
     /**
-\1disabled等温尺
+\1disabled
      */
     fun setIsoColorClose(dualUVCCamera: DualUVCCamera?) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.OFF)
     }
 
     /**
-\1amplification(仅对thermal imaging有效)
-\1ZoomScaleStep.ZOOM_STEP1: 2级倍率
-\1ZoomScaleStep.ZOOM_STEP2: 4级倍率
-\1ZoomScaleStep.ZOOM_STEP3: 8级倍率
-\1ZoomScaleStep.ZOOM_STEP4: 16级倍率
+\1amplification(thermal imaging)
+\1ZoomScaleStep.ZOOM_STEP1: 2
+\1ZoomScaleStep.ZOOM_STEP2: 4
+\1ZoomScaleStep.ZOOM_STEP3: 8
+\1ZoomScaleStep.ZOOM_STEP4: 16
      */
     fun setZoomUp(irCmd: IRCMD?) {
         irCmd?.zoomCenterUp(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)
     }
 
     /**
-\1缩小
+\1
      */
     fun setZoomDown(irCmd: IRCMD?) {
         irCmd?.zoomCenterDown(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)

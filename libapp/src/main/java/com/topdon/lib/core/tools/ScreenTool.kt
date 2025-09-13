@@ -9,7 +9,7 @@ import kotlin.math.sqrt
 
 object ScreenTool {
     /**
-     * 折叠屏
+     * 
      */
     fun isLandPhone(): Boolean {
         val displayMetrics: DisplayMetrics = Utils.getApp().resources.displayMetrics

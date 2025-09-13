@@ -8,7 +8,7 @@ import java.util.regex.Pattern
 
 class InputTextFilterTool {
     /**
-     * 设置editText过滤器
+     * editText
      *
      * @param editText
      */
@@ -19,12 +19,12 @@ class InputTextFilterTool {
         if (oldFiltersLength > 0) {
             System.arraycopy(oldFilters, 0, newFilters, 0, oldFiltersLength)
         }
-        // 添加新的过滤规则
+        // 
         newFilters[oldFiltersLength] = mInputFilter
         editText.filters = newFilters
     }
 
-    // 过滤表情
+    // 
     private var mInputFilter: InputFilter =
         object : InputFilter {
             //        Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
@@ -44,7 +44,7 @@ class InputTextFilterTool {
             ): CharSequence? {
                 val emojiMatcher = emoji.matcher(source)
                 if (emojiMatcher.find()) {
-                    Log.w("123", "不支持输入表情")
+                    Log.w("123", "Test Data")
                     return ""
                 }
                 return null

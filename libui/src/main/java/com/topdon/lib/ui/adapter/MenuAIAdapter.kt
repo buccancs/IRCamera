@@ -16,7 +16,7 @@ import com.topdon.menu.R as MenuR
  * Custom Menu a i view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("旧的high/low temperature源menu，已重构过了")
+@Deprecated("Test Data")
 /**
  * MenuAIAdapter provides data binding between data source and UI components.
  *
@@ -25,7 +25,7 @@ import com.topdon.menu.R as MenuR
  */
 class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<MenuAIAdapter.ItemView>() {
     /**
-     * currentselected的选项 code.
+     * currentselected code.
      *
      * Due to legacy constraints (saved in SharedPreferences), the code values are:
      * - Nothing selected: -1

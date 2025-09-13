@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present human<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -38,9 +38,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 日期滚轮控件
+ * 
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+ * @author （1032694760@qq.com）
  * @since 2021/6/5 16:12
  */
 @SuppressWarnings("unused")
@@ -103,7 +103,7 @@ public class DateWheelLayout extends BaseWheelLayout {
         spaceStartView = findViewById(R.id.wheel_picker_date_start_view);
         spaceEndView = findViewById(R.id.wheel_picker_date_end_view);
 
-        //settings高度
+        //settings
         post(new Runnable() {
             @Override
             public void run() {
@@ -252,14 +252,14 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     /**
-     * settings日期时间range
+     * settingsrange
      */
     public void setRange(DateEntity startValue, DateEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
     /**
-     * settings日期时间range
+     * settingsrange
      */
     public void setRange(DateEntity startValue, DateEntity endValue, DateEntity defaultValue) {
         if (startValue == null) {
@@ -400,22 +400,22 @@ public class DateWheelLayout extends BaseWheelLayout {
 
     private void changeMonth(int year) {
         final int min, max;
-        //开始年份和结束年份相同（即只有一个年份，这种情况建议使用月日模式）
+        //（，）
         if (startValue.getYear() == endValue.getYear()) {
             min = Math.min(startValue.getMonth(), endValue.getMonth());
             max = Math.max(startValue.getMonth(), endValue.getMonth());
         }
-        //current所选年份和开始年份相同
+        //current
         else if (year == startValue.getYear()) {
             min = startValue.getMonth();
             max = 12;
         }
-        //current所选年份和结束年份相同
+        //current
         else if (year == endValue.getYear()) {
             min = 1;
             max = endValue.getMonth();
         }
-        //current所选年份在开始年份和结束年份之间
+        //current
         else {
             min = 1;
             max = 12;
@@ -433,18 +433,18 @@ public class DateWheelLayout extends BaseWheelLayout {
 
     private void changeDay(int year, int month) {
         final int min, max;
-        //开始年月及结束年月相同情况
+        //
         if (year == startValue.getYear() && month == startValue.getMonth()
                 && year == endValue.getYear() && month == endValue.getMonth()) {
             min = startValue.getDay();
             max = endValue.getDay();
         }
-        //开始年月相同情况
+        //
         else if (year == startValue.getYear() && month == startValue.getMonth()) {
             min = startValue.getDay();
             max = getTotalDaysInMonth(year, month);
         }
-        //结束年月相同情况
+        //
         else if (year == endValue.getYear() && month == endValue.getMonth()) {
             min = 1;
             max = endValue.getDay();
@@ -463,7 +463,7 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     /**
-     * 根据年份及月份获取每月的天数，类似于{@link java.util.Calendar#getActualMaximum(int)}
+     * ，{@link java.util.Calendar#getActualMaximum(int)}
      */
     private int getTotalDaysInMonth(int year, int month) {
         switch (month) {
@@ -474,20 +474,20 @@ public class DateWheelLayout extends BaseWheelLayout {
             case 8:
             case 10:
             case 12:
-                // 大月月份为31天
+                // 31
                 return 31;
             case 4:
             case 6:
             case 9:
             case 11:
-                // 小月月份为30天
+                // 30
                 return 30;
             case 2:
-                // 二月需要判断是否闰年
+                // 
                 if (year <= 0) {
                     return 29;
                 }
-                // 是否闰年：能被4整除但不能被100整除；能被400整除；
+                // ：4100；400；
                 boolean isLeap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
                 if (isLeap) {
                     return 29;

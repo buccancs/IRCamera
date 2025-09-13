@@ -34,8 +34,8 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
-\1需要传递
-\1- 是否 TC007: [ExtraKeyConfig.IS_TC007]
+\1
+\1-  TC007: [ExtraKeyConfig.IS_TC007]
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
  */
@@ -51,8 +51,8 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private val fragmentPdfRecycler: RecyclerView by lazy { findViewById(R.id.fragment_pdf_recycler) }
 
     /**
-\1从上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
+\1interface， TC007 device.
+\1true-TC007 false-device
      */
     private var isTC007 = false
 
@@ -84,7 +84,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             }
             it?.let { data ->
                 if (page == 1) {
-\1刷新
+\1Text
                     if (data.code == LMS.SUCCESS)
                         {
                             reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
@@ -127,7 +127,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private fun initRecycler() {
         fragmentPdfRecycler.layoutManager = LinearLayoutManager(this)
         fragmentPdfRecyclerLay.setOnRefreshListener {
-\1刷新
+\1Text
             page = 1
             viewModel.getReportData(isTC007, page)
         }
@@ -135,7 +135,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-\1load更多
+\1loadText
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = { item, position ->
@@ -171,7 +171,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                                         if (file.exists()) {
                                             file.delete()
                                         }
-                                        Log.w("删除成功", response.toString())
+                                        Log.w("Test Data", response.toString())
                                     }
 
                                     override fun onFail(exception: Exception?) {

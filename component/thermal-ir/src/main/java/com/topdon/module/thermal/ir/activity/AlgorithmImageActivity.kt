@@ -54,7 +54,7 @@ class AlgorithmImageActivity : AppCompatActivity() {
             throw RuntimeException(e)
         }
         val time = System.currentTimeMillis()
-        tvTime.text = "耗时：" + (System.currentTimeMillis() - time) + "/"
+        tvTime.text = "Test Data" + (System.currentTimeMillis() - time) + "/"
         imageView.setImageBitmap(
             ImageColorTools.adjustPhotoRotation(
                 ImageColorTools.testImage(
@@ -66,76 +66,18 @@ class AlgorithmImageActivity : AppCompatActivity() {
         var bufferB = ByteArray(0)
         inputStream =
             try {
-                assetManager.open("1698484006539_100.ir")
-            } catch (e: IOException) {
-                throw RuntimeException(e)
-            }
-        bufferB =
-            try {
-                ByteArray(inputStream!!.available())
-            } catch (e: IOException) {
-                throw RuntimeException(e)
-            }
-        try {
-            inputStream?.read(bufferB)
-            inputStream?.close()
-        } catch (e: IOException) {
-            throw RuntimeException(e)
-        }
-        imageView2.setImageBitmap(
-            ImageColorTools.adjustPhotoRotation(
-                ImageColorTools.testImage(
-                    bufferB,
-                ),
-                90,
-            ),
-        )
-        val mat = JNITool.diff2firstFrameU1(buffer, bufferB)
-        val im = Mat(192, 256, CvType.CV_8UC3)
-        im.put(0, 0, mat)
-        val bitmap = ImageColorTools.matToBitmap(im)
-        imgARGB.setImageBitmap(ImageColorTools.adjustPhotoRotation(bitmap, 90))
-        findViewById<View>(R.id.btn).setOnClickListener {
-            val baseTemperatureBytes = ByteArray(192 * 256 * 2)
-            val nextTemperatureBytes = ByteArray(192 * 256 * 2)
-            val nextImageBytes = ByteArray(192 * 256 * 2)
-\1get上一frame的temperaturedata
-            System.arraycopy(buffer, 1024 + baseTemperatureBytes.size, baseTemperatureBytes, 0, baseTemperatureBytes.size)
-\1get下一frame的temperaturedata
-            System.arraycopy(bufferB, 1024 + nextTemperatureBytes.size, nextTemperatureBytes, 0, nextTemperatureBytes.size)
-\1get下一frame的imagedata
-            System.arraycopy(bufferB, 1024, nextImageBytes, 0, nextImageBytes.size)
-\1转成3通道data
-            val resMat = Mat(192, 256, CvType.CV_8UC2)
-            resMat.put(0, 0, nextImageBytes)
-            Imgproc.cvtColor(resMat, resMat, Imgproc.COLOR_YUV2GRAY_YUYV)
-            val image = Mat()
-            applyColorMap(resMat, image, 15)
-            Imgproc.cvtColor(image, image, Imgproc.COLOR_BGR2RGBA)
-            val startTime = System.currentTimeMillis()
-            val matByteArray =
-                JNITool.diff2firstFrameByTempWH(
-                    256,
-                    192,
-                    baseTemperatureBytes,
-                    nextTemperatureBytes,
-                    ImageColorTools.matToByteArrayBy4(image),
-                )
-            val im = Mat(192, 256, CvType.CV_8UC4)
-            im.put(0, 0, matByteArray)
-            val bitmap = ImageColorTools.matToBitmap(im)
-            Log.e("Test耗时：", "diff2firstFrameByTemp ： ${System.currentTimeMillis() - startTime}")
+                assetManager.open("1698484006539_100.ir"Test Data"TestText：", "diff2firstFrameByTemp ： ${System.currentTimeMillis() - startTime}")
             imgARGB.setImageBitmap(ImageColorTools.adjustPhotoRotation(bitmap, 90))
         }
         findViewById<View>(R.id.btn_u4).setOnClickListener {
             val baseImageBytes = ByteArray(192 * 256 * 2)
             val nextImageBytes = ByteArray(192 * 256 * 2)
-\1get上一frame的imagedata
+\1getTextframeTextimagedata
             System.arraycopy(buffer, 1024, baseImageBytes, 0, baseImageBytes.size)
-\1get下一frame的imagedata
+\1getTextframeTextimagedata
             System.arraycopy(bufferB, 1024, nextImageBytes, 0, nextImageBytes.size)
 
-\1转成4通道data
+\1Text4Textdata
             val resMat = Mat(192, 256, CvType.CV_8UC2)
             resMat.put(0, 0, nextImageBytes)
             Imgproc.cvtColor(resMat, resMat, Imgproc.COLOR_YUV2GRAY_YUYV)
@@ -143,7 +85,7 @@ class AlgorithmImageActivity : AppCompatActivity() {
             applyColorMap(resMat, nextImage, 15)
             Imgproc.cvtColor(nextImage, nextImage, Imgproc.COLOR_BGR2RGBA)
 
-\1转成4通道data
+\1Text4Textdata
             val baseMat = Mat(192, 256, CvType.CV_8UC2)
             baseMat.put(0, 0, baseImageBytes)
             Imgproc.cvtColor(baseMat, baseMat, Imgproc.COLOR_YUV2GRAY_YUYV)

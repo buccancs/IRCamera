@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 自定义FooterView
+ * FooterView
  */
 /**
  * Custom Loading view for thermal imaging display.

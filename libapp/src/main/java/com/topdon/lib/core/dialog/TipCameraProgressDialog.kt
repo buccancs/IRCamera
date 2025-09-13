@@ -10,7 +10,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 提示窗
+ * 
  * create by fylder on 2018/6/15
  **/
 class TipCameraProgressDialog : Dialog {
@@ -51,13 +51,13 @@ class TipCameraProgressDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // 
                     0.52
                 } else {
-                    // 横屏
+                    // 
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 
             dialog!!.window!!.attributes = lp
             dialog!!.setCanceledOnTouchOutside(canceleable)
             dialog!!.setCancelable(canceleable)
@@ -67,7 +67,7 @@ class TipCameraProgressDialog : Dialog {
     }
 
     /**
-     * 提交回调
+     * 
      */
     interface OnClickListener {
         fun onClick(dialog: DialogInterface)

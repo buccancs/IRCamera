@@ -7,7 +7,7 @@ import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 
 /**
- * observation模式-menu2-high/low temperature源menu Adapter used for，single selection可全不selected.
+ * observation-menu2-high/low temperaturemenu Adapter used for，single selectionselected.
  *
  * dynamic recognition、high temperature source、low temperature source
  *
@@ -16,7 +16,7 @@ import com.topdon.menu.R as MenuR
 @SuppressLint("NotifyDataSetChanged")
 internal class TempSourceAdapter : BaseMenuAdapter() {
     /**
-     * currentselected的选项 code.
+     * currentselected code.
      *
      * Due to legacy constraints (saved in SharedPreferences), the code values are:
      * - Nothing selected: -1

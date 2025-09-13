@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * 解决LiveData粘性Event
+ * LiveDataEvent
  * Created by jzh on 2020-12-28.
  */
 /**

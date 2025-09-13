@@ -25,7 +25,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-\1get线坐标
+\1get
      */
     fun getSinglePoint(start: IntArray): ArrayList<IntArray> {
         val startPoint: IntArray = start
@@ -39,7 +39,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-\1get点坐标序号
+\1get
      */
     fun getPointIndex(start: IntArray): ArrayList<Int> {
         val lineList = getSinglePoint(start)
@@ -47,7 +47,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-\1get线坐标
+\1get
      */
     fun getLinePoint(
         start: IntArray,
@@ -82,7 +82,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-\1get线坐标序号
+\1get
      */
     fun getLineIndex(
         start: IntArray,
@@ -93,7 +93,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-\1get面积坐标点
+\1get
      */
     fun getAreaPoint(
         start: IntArray,
@@ -113,7 +113,7 @@ class Fence(var w: Int = 256, var h: Int = 192, val srcRect: IntArray, rotateTyp
     }
 
     /**
-\1get面积坐标序号
+\1get
      */
     fun getAreaIndex(
         start: IntArray,

@@ -8,9 +8,9 @@ import android.view.SurfaceView
 import com.blankj.utilcode.util.ScreenUtils
 
 class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
-    private var mHolder: SurfaceHolder? = null // 用于控制SurfaceView
-    private var mCanvas: Canvas? = null // 声明一张画布
-    private val p: Paint by lazy { Paint() } // 声明一支画笔
+    private var mHolder: SurfaceHolder? = null // SurfaceView
+    private var mCanvas: Canvas? = null // 
+    private val p: Paint by lazy { Paint() } // 
     private val mMatrix: Matrix by lazy { Matrix() }
     private var openLut = false
 
@@ -39,8 +39,8 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     private fun init() {
-        mHolder = holder // 获得SurfaceHolder对象
-        mHolder?.addCallback(this) // 为SurfaceView添加状态监听
+        mHolder = holder // SurfaceHolder
+        mHolder?.addCallback(this) // SurfaceView
         mHolder?.setFormat(PixelFormat.TRANSPARENT)
         p.alpha = 0xff
         mMatrix.setScale(1.0f, 1.0f)
@@ -84,7 +84,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 mMatrix.postScale(sca, sca)
             }
             270f -> {
-                // 矩阵转换
+                // 
                 val sca = ScreenUtils.getScreenWidth() / h
                 mMatrix.setRotate(rotate, 0f, 0f)
                 mMatrix.postTranslate(0f, w)
@@ -98,7 +98,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 自定义画图方法
+     * 
      */
     fun doDraw(
         bitmap: Bitmap?,
@@ -109,16 +109,16 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 return@doDraw
             }
 
-            mCanvas = mHolder?.lockCanvas() // 获得画布对象，开始对画布画图
+            mCanvas = mHolder?.lockCanvas() // ，
 
             try {
                 mCanvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 //                mCanvas?.drawBitmap(bitmap, mMatrix, p)
                 if (openLut) {
-                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f) // 对比度
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance) // 修改色彩矩阵
+                    mColorMatrixEnhance.setSaturation(saturation * 0.01f * 2.5f + 1f) // 
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrixEnhance) // 
                 } else {
-                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix) // 恢复色彩矩阵
+                    p.colorFilter = ColorMatrixColorFilter(mColorMatrix) // 
                 }
                 mCanvas?.drawBitmap(bitmap, mMatrix, p)
             } catch (e: Exception) {
@@ -127,7 +127,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
                 val surface = mHolder!!.surface
                 if (mCanvas != null && mHolder != null && surface != null && surface.isValid) {
                     try {
-                        mHolder?.unlockCanvasAndPost(mCanvas) // 完成画画，把画布显示在屏幕上
+                        mHolder?.unlockCanvasAndPost(mCanvas) // ，
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -136,7 +136,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         }
     }
 
-    // 生成色彩矩阵
+    // 
     private var mColorMatrix =
         ColorMatrix(
             floatArrayOf(
@@ -147,7 +147,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
             ),
         )
 
-    // 生成色彩矩阵
+    // 
     private var mColorMatrixLut =
         ColorMatrix(
             floatArrayOf(
@@ -159,7 +159,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
         )
     private val n = 1f
 
-    // 生成色彩矩阵
+    // 
     private var mColorMatrixEnhance =
         ColorMatrix(
 //        floatArrayOf(
@@ -176,7 +176,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
             ),
         )
 
-    private var saturation = 0 // 对比度 0~100
+    private var saturation = 0 //  0~100
 
     fun setOpenLut() {
 //        openLut = !openLut
@@ -184,7 +184,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 设置对比度
+     * 
      * @param saturation 0 ~ 100
      */
     fun setSaturationValue(saturation: Int) {
@@ -202,7 +202,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 当SurfaceView创建的时候，调用此函数
+     * SurfaceView，
      */
     override fun surfaceCreated(holder: SurfaceHolder) {
         isPrepare = true
@@ -213,7 +213,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 当SurfaceView的视图发生改变的时候，调用此函数
+     * SurfaceView，
      */
     override fun surfaceChanged(
         holder: SurfaceHolder,
@@ -225,7 +225,7 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
     }
 
     /**
-     * 当SurfaceView销毁的时候，调用此函数
+     * SurfaceView，
      */
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         synchronized(this) {

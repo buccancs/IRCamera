@@ -4,13 +4,13 @@ import android.graphics.Bitmap
 import android.media.MediaCodecInfo.CodecCapabilities.*
 
 /**
-\1COLOR_FormatYUV420Planar             正常
+\1COLOR_FormatYUV420Planar             
  *
-\1COLOR_FormatYUV420SemiPlanar         个例有花屏
+\1COLOR_FormatYUV420SemiPlanar         
  *
-\1COLOR_FormatYUV420PackedSemiPlanar   个例有花屏
+\1COLOR_FormatYUV420PackedSemiPlanar   
  *
-\1COLOR_FormatYUV420PackedPlanar       个例有花屏
+\1COLOR_FormatYUV420PackedPlanar       
  *
  */
 object EncodeYuvTools {

@@ -363,7 +363,7 @@ class MenuSecondView : FrameLayout {
         binding.cameraMenuView.setToRecord(false)
     }
 
-    // *****************************************  temperature measurement模式-menu2-point/line/area  *****************************************
+    // *****************************************  temperature measurement-menu2-point/line/area  *****************************************
 
     /**
      * Temperature measurement mode - Menu 2 - Point/Line/Area currently selected menu type, null indicates all unselected.
@@ -374,7 +374,7 @@ class MenuSecondView : FrameLayout {
             fenceAdapter.selectType = value
         }
 
-    // *****************************************  temperature measurement模式-menu3-dual light  *****************************************
+    // *****************************************  temperature measurement-menu3-dual light  *****************************************
     /**
      * Currently selected dual light type
      * - Single light: Should not use this property
@@ -402,7 +402,7 @@ class MenuSecondView : FrameLayout {
         twoLightAdapter.setSelected(twoLightType, isSelected)
     }
 
-    // **********************************  temperature measurement模式-menu4-pseudo color/observation模式-menu3-pseudo color  **********************************
+    // **********************************  temperature measurement-menu4-pseudo color/observation-menu3-pseudo color  **********************************
 
     /**
      * Select specified pseudo color in pseudo color menu based on pseudo color code. If unsupported code is passed, results in all unselected state。
@@ -412,7 +412,7 @@ class MenuSecondView : FrameLayout {
         colorAdapter.selectCode = code
     }
 
-    // **********************************  temperature measurement模式-menu5-settings or observation模式-menu6-settings  **********************************
+    // **********************************  temperature measurement-menu5-settings or observation-menu6-settings  **********************************
 
     /**
      * Set the selection state of specified option in settings menu
@@ -434,7 +434,7 @@ class MenuSecondView : FrameLayout {
         settingObAdapter.rotateAngle = rotateAngle
     }
 
-    // *****************************************  temperature measurement模式-menu6-high/low temperature档  *****************************************
+    // *****************************************  temperature measurement-menu6-high/low temperature  *****************************************
 
     /**
      * Whether temperature level uses Fahrenheit as unit
@@ -459,7 +459,7 @@ class MenuSecondView : FrameLayout {
         tempLevelAdapter.selectCode = code
     }
 
-    // *****************************************  observation模式-menu2-high/low temperature源  *****************************************
+    // *****************************************  observation-menu2-high/low temperature  *****************************************
 
     /**
      * Set Observation mode - Menu 2 - High/Low temperature source selection.
@@ -474,7 +474,7 @@ class MenuSecondView : FrameLayout {
         tempSourceAdapter.selectCode = code
     }
 
-    // *****************************************  observation模式-menu4-target  *****************************************
+    // *****************************************  observation-menu4-target  *****************************************
 
     /**
      * Set selection state of specified option in Observation mode - Menu 4 - Target
@@ -499,7 +499,7 @@ class MenuSecondView : FrameLayout {
         targetAdapter.setTargetMode(modeCode)
     }
 
-    // *****************************************  observation模式-menu5-high/low temperature点  *****************************************
+    // *****************************************  observation-menu5-high/low temperature  *****************************************
 
     /**
      * Set selection state of high temperature point or low temperature point in Observation mode - Menu 5 - High/Low temperature points menu。

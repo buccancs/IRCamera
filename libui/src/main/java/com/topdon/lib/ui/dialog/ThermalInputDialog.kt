@@ -32,7 +32,7 @@ import com.topdon.lib.ui.databinding.DialogThermalInputBinding
 import java.math.BigDecimal
 
 /**
- * 提示窗
+ * 
  * create by fylder on 2018/6/15
  **/
 
@@ -47,7 +47,7 @@ import java.math.BigDecimal
  * @since 1.0
  */
 class ThermalInputDialog : Dialog {
-    private var action = 100 // 100:初始温度输入界面     201: 温度上限color选择界面   301: 温度下限color选择界面
+    private var action = 100 // 100:     201: color   301: color
 
     constructor(context: Context) : super(context)
 
@@ -293,7 +293,7 @@ class ThermalInputDialog : Dialog {
             dialog!!.setCanceledOnTouchOutside(canceled)
             successBtn.setOnClickListener {
                 if (binding.colorPickerViewLay.isVisible) {
-                    // 选取color,Return上一步
+                    // color,Return
                     binding.colorPickerViewLay.visibility = View.GONE
                     binding.dialogInputLay.visibility = View.VISIBLE
                     messageText.text = message
@@ -402,7 +402,7 @@ class ThermalInputDialog : Dialog {
                         fromUser: Boolean,
                     ) {
                         if ("#${envelope.hexCode}" != "#FFFFFFFF") {
-                            // 非presetcolor,复位preset参数
+                            // presetcolor,preset
                             adapter.selected(-1)
                             selectColor = 0
                         }

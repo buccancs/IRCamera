@@ -8,10 +8,10 @@ import com.topdon.ble.Request;
  */
 public interface NotificationChangeCallback extends RequestFailedCallback {
     /**
-     * 通知开关变化 / Indication开关变化
+     *  / Indication
      *
-     * @param request   请求
-     * @param isEnabled 开启或Close
+     * @param request   
+     * @param isEnabled Close
      */
     void onNotificationChanged(Request request, boolean isEnabled);
 }

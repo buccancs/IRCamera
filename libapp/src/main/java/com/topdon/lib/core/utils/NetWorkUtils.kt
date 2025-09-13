@@ -58,11 +58,11 @@ object NetWorkUtils {
         listener: ((network: Network?) -> Unit)? = null,
     ) {
         netWorkListener = listener
-        if (Build.VERSION.SDK_INT < 29) { // 低于 Android10
+        if (Build.VERSION.SDK_INT < 29) { //  Android10
             val request =
                 NetworkRequest.Builder()
                     .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // 不需要能访问 internet
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) //  internet
                     .build()
             val callback =
                 object : ConnectivityManager.NetworkCallback() {
@@ -178,7 +178,7 @@ object NetWorkUtils {
         isWifi: Boolean,
         listener: ((network: Network?) -> Unit)? = null,
     ) {
-        if (Build.VERSION.SDK_INT < 29) { // 低于 Android10
+        if (Build.VERSION.SDK_INT < 29) { //  Android10
             return
         }
         if (isWifi) {
@@ -186,7 +186,7 @@ object NetWorkUtils {
             if (networkCapabilities != null &&
                 networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
             ) {
-                XLog.i("已经是wifi,跳过")
+                XLog.i("Test Data")
                 return
             }
         }
@@ -199,7 +199,7 @@ object NetWorkUtils {
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)
-                    XLog.i("switch到 ${if (isWifi) "WIFI" else "流量"} onAvailable()")
+                    XLog.i("Test Data"WIFI" else "Test Data"} onAvailable()")
                     if (isWifi) {
                         TS004Repository.netWork = network
                     }
@@ -211,7 +211,7 @@ object NetWorkUtils {
                 override fun onUnavailable() {
                     super.onUnavailable()
                     connectivityManager.unregisterNetworkCallback(this)
-                    XLog.w("switch到 ${if (isWifi) "WIFI" else "流量"} onUnavailable()")
+                    XLog.w("Test Data"WIFI" else "Test Data"} onUnavailable()")
                     listener?.invoke(null)
                 }
             },
