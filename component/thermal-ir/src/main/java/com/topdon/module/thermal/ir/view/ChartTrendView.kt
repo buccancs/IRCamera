@@ -113,8 +113,8 @@ class ChartTrendView : LineChart {
  }
 
  /**
-\1datadata
-\1@param tempList temperatureValue，Unit
+ * Refreshes chart data based on the provided temperature list.
+ * @param tempList List of temperature values in Celsius.
  */
  fun refresh(tempList: List<Float>) {
  if (tempList.isEmpty()) {
