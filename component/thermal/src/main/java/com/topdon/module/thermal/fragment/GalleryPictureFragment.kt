@@ -52,7 +52,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                     path: String,
                 ) {
                     TipDialog.Builder(requireContext()).setMessage("exportimage")
-                        .setPositiveListener("分享") {
+                        .setPositiveListener("分// 享") {
                             share(path)
                         }
                         .create().show()
@@ -69,7 +69,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     /**
-// 分享image // TODO: Review this line
+// 分享image
      */
     fun share(path: String) {
         val file = File(path)
@@ -84,7 +84,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                 Uri.fromFile(file)
             }
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent = Intent.createChooser(intent, "分享image")
+        intent = Intent.createChooser(intent, "分// 享image")
         startActivity(intent)
     }
 

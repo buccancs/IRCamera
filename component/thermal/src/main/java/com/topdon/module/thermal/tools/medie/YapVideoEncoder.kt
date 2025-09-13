@@ -1,4 +1,4 @@
-@file:Suppress(names = ["DEPRECATION", "SpellCheckingInspection"])
+    // @file:Suppress(names = ["DEPRECATION", "SpellCheckingInspection"])
 
 package com.topdon.module.thermal.tools.medie
 

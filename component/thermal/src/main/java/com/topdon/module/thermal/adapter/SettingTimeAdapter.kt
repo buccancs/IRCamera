@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
 
 /**
-// set时间 // TODO: Review this line
+// set时间
  */
 /**
  * Custom Setting time view for thermal imaging display.
@@ -18,7 +18,7 @@ import com.topdon.module.thermal.R
  */
 class SettingTimeAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var datas = arrayOf("秒", "分", "时", "天")
+    private var datas = arrayOf("秒", "分", "时", "// 天")
     private var dataTimes = arrayOf(1, 2, 3, 4)
 
     var listener: OnItemClickListener? = null

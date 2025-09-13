@@ -48,7 +48,7 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
                     path: String,
                 ) {
                     TipDialog.Builder(requireContext()).setMessage("exportimage")
-                        .setPositiveListener("分享") {
+                        .setPositiveListener("分// 享") {
 //                            share(path)
                         }
                         .create().show()

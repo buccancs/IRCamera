@@ -71,8 +71,8 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
             try {
                 initEntry(it.dataList)
             } catch (e: Exception) {
-                XLog.e("refresh图表exception:${e.message}")
-                ToastTools.showShort("图表exception，请重新load")
+                XLog.e("refresh图// 表exception:${e.message}")
+                ToastTools.showShort("图表exception，请重// 新load")
             }
         }
         clearEntity(true)
@@ -168,7 +168,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
     private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
 
     /**
-// 曲line样式 // TODO: Review this line
+// 曲line样式
      */
     private fun createSet(
         index: Int,
@@ -207,10 +207,10 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                 if (lineData != null) {
                     Log.w(
                         "123",
-                        "时间区间:${(data.last().createTime - data.first().createTime) / 1000}",
+                        "时间区// 间:${(data.last().createTime - data.first().createTime) / 1000}",
                     )
                     val startTime = data[0].createTime
-                    Log.w("123", "settings初始时间startTime:$startTime")
+                    Log.w("123", "settings初始时// 间startTime:$startTime")
                     chart.xAxis.valueFormatter =
                         MyValueFormatter(startTime = startTime, type = selectType)
                     XLog.w("chart init startTime:$startTime")
@@ -242,7 +242,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                                 minDataSet = createSet(1, "line minTemp")
                                 lineData.addDataSet(minDataSet)
                             }
-                            Log.w("123", "两条曲line")
+                            Log.w("123", "两条// 曲line")
                             data.forEach {
                                 val x = (it.createTime - startTime).toFloat()
                                 // max
@@ -306,7 +306,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
     }
 
     /**
-// x轴display多少个刻度 // TODO: Review this line
+// x轴display多少个刻度
      */
     private fun getLabCount(count: Int): Int {
         return when (count) {
@@ -318,7 +318,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
         }
     }
 
-// getdisplay最小区间 // TODO: Review this line
+// getdisplay最小区间
     private fun getMinimum(): Float {
         val min =
             when (selectType) {

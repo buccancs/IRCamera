@@ -39,7 +39,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
-// temperature监控 // TODO: Review this line
+// temperature监控
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -85,8 +85,8 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         initChart()
         initRecycler()
         viewModel.resultLiveData.observe(this) {
-// 查询到历史data // TODO: Review this line
-            Log.w("123", "查询到历史data:${it.dataList.size}")
+// 查询到历史data
+            Log.w("123", "查询到历// 史data:${it.dataList.size}")
             resultVol(it)
         }
         lifecycleScope.launch {
@@ -143,7 +143,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     }
                 }
             }
-// 时间间隔 // TODO: Review this line
+// 时间间隔
         adapter.listener =
             object : SettingCheckAdapter.OnItemClickListener {
                 override fun onClick(
@@ -175,13 +175,13 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
     var rotateType = 3
 
     /**
-// enabledvideo流 // TODO: Review this line
+// enabledvideo流
      */
     private fun onIrVideoStart() {
         // Temporarily disabled - guide interface not available
         /*
         mIsIrVideoStart = if (mIsIrVideoStart) {
-            ToastUtils.showShort("video流已开启")
+            ToastUtils.showShort("video流已开// 启")
             return
         } else {
             true
@@ -190,7 +190,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         val ret = mGuideInterface!!.init(this, object : GuideInterface.IrDataCallback {
             override fun processIrData(yuv: ByteArray, temp: FloatArray) {
                 try {
-// 选取region // TODO: Review this line
+// 选取region
                     val centerTempIndex: Int = 256 * (192 / 2) + 256 / 2
                     val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                     val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
@@ -204,18 +204,18 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
                     bean.createTime = System.currentTimeMillis()
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Log.e(TAG, "提取temperatureexception:${e.message}")
+                    Log.e(TAG, "提// 取temperatureexception:${e.message}")
                 }
             }
 
         })
 
         if (ret == 5) {
-            Log.w("123", "video流开启complete")
+            Log.w("123", "video流开// 启complete")
             recordThermal()//startRecord
         } else {
-ToastUtils.showShort("video流enabledfailed")
-            Log.w("123", "video流开启failed")
+ToastUtils.showShort("video// 流enabledfailed")
+            Log.w("123", "video流开// 启failed")
             mGuideInterface = null
             mIsIrVideoStart = false
         }
@@ -223,20 +223,20 @@ ToastUtils.showShort("video流enabledfailed")
     }
 
     /**
-// stopvideo流 // TODO: Review this line
+// stopvideo流
      */
     private fun onIrVideoStop() {
         // Temporarily disabled - guide interface not available
         /*
         mIsIrVideoStart = if (!mIsIrVideoStart) {
-            Log.w("123", "video流已stop")
+            Log.w("123", "video流// 已stop")
             return
         } else {
             false
         }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        Log.w("123", "video流stopcomplete")
+        Log.w("123", "video// 流stopcomplete")
          */
     }
 
@@ -249,7 +249,7 @@ ToastUtils.showShort("video流enabledfailed")
     var startTime = 0L
 
     /**
-// 循环Listener-datasave // TODO: Review this line
+// 循环Listener-datasave
      */
     private fun recordThermal() {
         recordTask =
@@ -275,10 +275,10 @@ ToastUtils.showShort("video流enabledfailed")
                         }
                         delay(timeMillis)
                     } else {
-                        Log.w("123", "当前不可update")
+                        Log.w("123", "当前不// 可update")
                     }
                 }
-                Log.w("123", "stopRecord, data量:$time")
+                Log.w("123", "stopRecord, data// 量:$time")
             }
     }
 
@@ -339,24 +339,24 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
     }
 
     /**
-// 分classprocessingupdate图表data // TODO: Review this line
+// 分classprocessingupdate图表data
      */
     private fun updateChart() {
         ++pointIndex
         when (selectTimeType) {
             1 -> {
-// 秒 // TODO: Review this line
+// 秒
                 addPointToChart(bean)
             }
             2 -> {
-// 分 // TODO: Review this line
+// 分
                 val addTime = 2 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 2) + addTime) {
                     queryLog(3)
                 }
             }
             3 -> {
-// 时 // TODO: Review this line
+// 时
                 val addTime = 2 * 60 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 3) + addTime) {
                     queryLog(3)
@@ -373,7 +373,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
     }
 
     /**
-// 秒update图表data // TODO: Review this line
+// 秒update图表data
      */
     private fun addPointToChart(bean: ThermalBean) {
         synchronized(chart) {
@@ -391,7 +391,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                 var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
                 if (volDataSet == null) {
                     startTime = data.createTime
-                    Log.w("123", "settings初始时间startTime:$startTime")
+                    Log.w("123", "settings初始时// 间startTime:$startTime")
                     chart.xAxis.valueFormatter = MyValueFormatter(startTime = startTime)
                 }
                 val x = (data.createTime - startTime).toFloat()
@@ -405,10 +405,10 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         val entity = Entry(x, data.thermal)
                         entity.data = data
                         volDataSet.addEntry(entity)
-                        Log.w("123", "add一个data:$entity")
+                        Log.w("123", "add一// 个data:$entity")
                     }
                     "line" -> {
-// 第一条line // TODO: Review this line
+// 第一条line
                         if (volDataSet == null) {
                             volDataSet = createSet("red")
                             lineData.addDataSet(volDataSet)
@@ -418,7 +418,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         entity.data = data
                         volDataSet.addEntry(entity)
 
-// 第二条line // TODO: Review this line
+// 第二条line
                         var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
                         if (secondDataSet == null) {
                             secondDataSet = createSet("blue")
@@ -429,7 +429,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         secondDataSet.addEntry(secondEntity)
                     }
                     else -> {
-// 第一条line // TODO: Review this line
+// 第一条line
                         if (volDataSet == null) {
                             volDataSet = createSet("red")
                             lineData.addDataSet(volDataSet)
@@ -438,7 +438,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         entity.data = data
                         volDataSet.addEntry(entity)
 
-// 第二条line // TODO: Review this line
+// 第二条line
                         var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
                         if (secondDataSet == null) {
                             secondDataSet = createSet("blue")
@@ -461,7 +461,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                 }
                 return@synchronized
             } catch (e: Exception) {
-                Log.e("123", "adddata时exception:${e.message}")
+                Log.e("123", "adddata// 时exception:${e.message}")
                 return@synchronized
             }
         }
@@ -475,7 +475,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
     private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
 
     /**
-// 曲line样式 // TODO: Review this line
+// 曲line样式
      */
     private fun createSet(label: String): LineDataSet {
         val set = LineDataSet(null, label)
@@ -515,15 +515,19 @@ set.fillDrawable = fillColor//set填充颜色渐变
     }
 
     /**
-查询历史电压data(等待bluetooth传输历史Recordend后触发)
-时间区间: 现在时间 => 倒退到startEvent
+// 查询历史电压data(等待bluetooth传输历史Recordend后
+触// 发)
+// 时间区间: 现在时间 => 倒
+退// 到startEvent
      *
      * @param action
-0: 初始查询
-1: refresh查询
-2: switch查询
-3: Listener查询
-4: load历史data后查询
+// 0: 初始
+查// 询
+1: refresh查// 询
+2: switch查// 询
+3: Listener查// 询
+// 4: load历史data后
+查// 询
      */
     private fun queryLog(action: Int) {
         startMonitor = false
@@ -549,12 +553,12 @@ set.fillDrawable = fillColor//set填充颜色渐变
             // 图表无data需要update
             addEntity(bean.dataList)
         } else if (bean.dataList.size > 0 && latestTime < bean.dataList.last().createTime) {
-// 有新data再update // TODO: Review this line
+            // 有新data再update
             addEntity(bean.dataList)
         }
     }
 
-// 整体refresh // TODO: Review this line
+// 整体refresh
     private fun addEntity(data: ArrayList<ThermalEntity>) {
         clearEntity(data.size == 0)
         if (data.size == 0) {
@@ -585,10 +589,10 @@ set.fillDrawable = fillColor//set填充颜色渐变
                     val entity = Entry(x, it.thermal)
                     entity.data = it
                     volDataSet.addEntry(entity)
-                    Log.w("123", "add一个data:$entity")
+                    Log.w("123", "add一// 个data:$entity")
                 }
                 "line" -> {
-// 第一条line // TODO: Review this line
+// 第一条line
                     if (volDataSet == null) {
                         volDataSet = createSet("red")
                         lineData.addDataSet(volDataSet)
@@ -598,7 +602,7 @@ set.fillDrawable = fillColor//set填充颜色渐变
                     entity.data = it
                     volDataSet.addEntry(entity)
 
-// 第二条line // TODO: Review this line
+// 第二条line
                     var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
                     if (secondDataSet == null) {
                         secondDataSet = createSet("blue")
@@ -609,7 +613,7 @@ set.fillDrawable = fillColor//set填充颜色渐变
                     secondDataSet.addEntry(secondEntity)
                 }
                 else -> {
-// 第一条line // TODO: Review this line
+// 第一条line
                     if (volDataSet == null) {
                         volDataSet = createSet("red")
                         lineData.addDataSet(volDataSet)
@@ -618,7 +622,7 @@ set.fillDrawable = fillColor//set填充颜色渐变
                     entity.data = it
                     volDataSet.addEntry(entity)
 
-// 第二条line // TODO: Review this line
+// 第二条line
                     var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
                     if (secondDataSet == null) {
                         secondDataSet = createSet("blue")
@@ -630,7 +634,7 @@ set.fillDrawable = fillColor//set填充颜色渐变
                 }
             }
         }
-        Log.w("123", "曲linedata:${volDataSet.entryCount}个")
+        Log.w("123", "曲linedata:${volDataSet.entryCount}// 个")
         lineData.notifyDataChanged()
         chart.notifyDataSetChanged()
         chart.setVisibleXRangeMinimum(getMinimum()) // settingsShow/DisplayX轴区间大小
@@ -664,7 +668,7 @@ set.fillDrawable = fillColor//set填充颜色渐变
     }
 
     /**
-// x轴display多少个刻度 // TODO: Review this line
+// x轴display多少个刻度
      */
     private fun getLabCount(count: Int): Int {
         return when (count) {
@@ -676,7 +680,7 @@ set.fillDrawable = fillColor//set填充颜色渐变
         }
     }
 
-// getdisplay最小区间 // TODO: Review this line
+// getdisplay最小区间
     private fun getMinimum(): Float {
         val min =
             when (selectTimeType) {
@@ -689,7 +693,7 @@ set.fillDrawable = fillColor//set填充颜色渐变
         return min
     }
 
-getdisplay最大区间，以最小区间的50倍
+    // get display最大区间，以最小区间的50倍
     private fun getMaximum(): Float {
         return getMinimum() * 50f
     }
