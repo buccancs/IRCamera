@@ -290,6 +290,35 @@ class NetworkServer(
     fun isClientConnected(): Boolean = isClientConnected.get()
 
     /**
+     * Send message to connected PC client
+     */
+    suspend fun sendMessage(message: JSONObject): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                if (!isClientConnected.get() || outputStream == null) {
+                    Log.w(TAG, "Cannot send message - no PC client connected")
+                    return@withContext false
+                }
+
+                val messageJson = message.toString()
+                val messageBytes = messageJson.toByteArray(Charsets.UTF_8)
+
+                // Send 4-byte length header + message (matches PC test script protocol)
+                outputStream?.writeInt(messageBytes.size)
+                outputStream?.write(messageBytes)
+                outputStream?.flush()
+
+                Log.d(TAG, "Sent message to PC: $messageJson")
+                return@withContext true
+
+            } catch (e: Exception) {
+                Log.e(TAG, "Error sending message to PC", e)
+                return@withContext false
+            }
+        }
+    }
+
+    /**
      * Clean up server resources
      */
     suspend fun cleanup() {

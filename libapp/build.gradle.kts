@@ -36,10 +36,10 @@ android {
         }
     }
     
-    // Development Build Optimization - Enable debug builds for faster iteration
+    // Enable both debug and release variants for comprehensive development testing
     androidComponents {
         beforeVariants { variant ->
-            // Enable both debug and release variants for development efficiency
+            // Enable all build variants to support both development and production workflows
             variant.enable = variant.buildType == "debug" || variant.buildType == "release"
         }
     }
