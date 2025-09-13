@@ -320,10 +320,10 @@ class PseudoPickView : View {
         )
         barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
 
-\12dp 为渐变条与三角形间距
+// 2dp spacing between gradient bar and triangle
         val wantHeight: Int = barRect.height().toInt() + SizeUtils.dp2px(2f) + selectNotDrawable.bounds.height() + selectRadius * 2
 
-\1宽度为 UNSPECIFIED 的情况目前不存在，不考虑；高度不为 wrap_content 的情况也不存在，不考虑
+// Width as UNSPECIFIED case does not exist currently, not considered; height not as wrap_content case also does not exist, not considered
         setMeasuredDimension(widthSize, wantHeight)
     }
 
@@ -393,7 +393,7 @@ class PseudoPickView : View {
                 canDrag = false
                 downX = event.x.toInt()
 
-\1找出点击范围内altitude最高的圆形color block index
+// Find the circular color block index with highest altitude within click range
                 var targetIndex = -1
                 for (i in places.indices) {
                     val centerX: Int = (barRect.left + barRect.width() * places[i]).toInt()

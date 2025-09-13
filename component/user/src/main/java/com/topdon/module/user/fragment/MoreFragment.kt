@@ -208,7 +208,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 ).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
             }
             settingVersion -> { // TC007固件升级
-\1由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
+// Due to dual channel solution issues, V3.30 temporarily uses built-in firmware upgrade package in apk, comment out forced login logic here
 //               if (LMS.getInstance().isLogin) {
                 val firmwareData = firmwareViewModel.firmwareDataLD.value
                 if (firmwareData != null) {
@@ -272,7 +272,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-\1由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释下载逻辑
+            // Due to dual channel solution issues, V3.30 temporarily uses built-in firmware upgrade package in apk, comment out download logic
             // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
