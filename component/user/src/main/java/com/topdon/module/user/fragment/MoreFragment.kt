@@ -291,7 +291,7 @@ displayfirmwareUpgradetip弹框.
         }
 
     /**
-Download指定firmwareUpgrade包
+// Download指定firmwareUpgrade包 // TODO: Review this line
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {

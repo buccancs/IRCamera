@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
 /**
-横向的指南针View
+// 横向的指南针View // TODO: Review this line
  */
 /**
  * Custom Linear compass view for thermal imaging display.
@@ -158,12 +158,12 @@ class LinearCompassView : View {
         drawCompassLine()
     }
 
-drawing背景
+// drawing背景 // TODO: Review this line
     private fun drawBackGround() {
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
     }
 
-drawing角度
+// drawing角度 // TODO: Review this line
     private fun drawAzimuthArrow() {
         if (!showAzimuthArrow) {
             return
@@ -175,12 +175,12 @@ drawing角度
 
 drawingmarkerline
     private fun drawCompassLine() {
-calculation指南针的line有几等份
+// calculation指南针的line有几等份 // TODO: Review this line
 //        val values = getValuesBetween(getRawMinimum(), getRawMaximum(), 5f).map { it.toInt() }
         drawCompass()
         val bottomHeight = height * 7 / 10f
         canvas.drawLine(0f, (bottomHeight - 1), width.toFloat(), bottomHeight, shortLinePaint)
-在中间位置drawing标志line
+// 在中间位置drawing标志line // TODO: Review this line
         canvas.drawLine(
             width / 2f + markerSize / 2,
             height * (3 / 10f),
@@ -209,7 +209,7 @@ calculation指南针的line有几等份
         getValuesBetween(getRawMinimum(), getRawMaximum(), 5f).map {
             it.toInt()
         }.toMutableList().forEach {
-calculation实际X的坐标
+// calculation实际X的坐标 // TODO: Review this line
             val x = toPixel(it.toFloat())
 
 最短：15度 最长：90度 起始pointx坐标
@@ -219,7 +219,7 @@ calculation实际X的坐标
                     it % 15 == 0 -> (4 / 10f) * height
                     else -> (5 / 10f) * height
                 }
-起始pointy
+// 起始pointy // TODO: Review this line
             val bottomHeight = height * 7 / 10f
 
 drawingmarkerline
@@ -228,7 +228,7 @@ drawingmarkerline
                 else -> canvas.drawLine(x, lineHeight, x, bottomHeight, shortLinePaint)
             }
 
-drawing底部方位文本
+// drawing底部方位文本 // TODO: Review this line
             if (it % 45 == 0) {
                 val coord = getPositionText(it)
                 canvas.drawText(coord, realX(coord, x, positionPaint), realY(coord, height - 2f, positionPaint), positionPaint)

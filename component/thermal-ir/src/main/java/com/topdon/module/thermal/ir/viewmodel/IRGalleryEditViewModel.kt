@@ -38,7 +38,7 @@ class IRGalleryEditViewModel : BaseViewModel() {
     }
 
     /**
-get尾部info
+// get尾部info // TODO: Review this line
      */
 
     fun getTailData(bytes: ByteArray)  {

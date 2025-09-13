@@ -60,13 +60,13 @@ add了日期title的用于display的列表.
     }
 
     /**
-Paginationload时已successfulload的页数
+// Paginationload时已successfulload的页数 // TODO: Review this line
      */
     var hasLoadPage = 0
 
     /**
 一页请求data列表.
-null-请求failed
+// null-请求failed // TODO: Review this line
      */
     val pageListLD: MutableLiveData<ArrayList<GalleryBean>?> = MutableLiveData()
 

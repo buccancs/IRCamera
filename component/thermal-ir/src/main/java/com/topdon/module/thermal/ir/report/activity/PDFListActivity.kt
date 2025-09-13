@@ -34,7 +34,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
-需要传递
+// 需要传递 // TODO: Review this line
 - 是否 TC007: [ExtraKeyConfig.IS_TC007]
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
@@ -135,7 +135,7 @@ refresh
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-load更多
+// load更多 // TODO: Review this line
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = { item, position ->

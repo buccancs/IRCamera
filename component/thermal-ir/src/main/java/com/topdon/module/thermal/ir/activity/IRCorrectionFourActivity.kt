@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  *
-锅盖矫正
+// 锅盖矫正 // TODO: Review this line
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
@@ -57,7 +57,7 @@ class IRCorrectionFourActivity : BaseActivity() {
 
         val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
         timeDownView.postDelayed({
-start矫正
+// start矫正 // TODO: Review this line
             if (timeDownView.downTimeWatcher == null)
                 {
                     timeDownView.setOnTimeDownListener(

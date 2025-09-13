@@ -142,7 +142,7 @@ thermal imagingdevicesn,可作为唯一id，此sn并非艾睿烧录的，是内�
 
     protected var isrun = false
 
-是否使用IRISPalgorithm集成
+// 是否使用IRISPalgorithm集成 // TODO: Review this line
     protected val isUseIRISP = false
 
     protected var fullScreenlayoutParams: FrameLayout.LayoutParams? = null
@@ -302,7 +302,7 @@ loadpseudo-color，虽然用不上这个pseudo-color，但是sdk限制必须init
                 CommonParams.PseudoColorUsbDualType.WHITE_HOT_MODE,
                 psedocolor!![0],
             )
-这里可以setinitializefusionmode
+// 这里可以setinitializefusionmode // TODO: Review this line
             setFusion(mCurrentFusionType)
             `is`.close()
         } catch (e: IOException) {
@@ -330,7 +330,7 @@ loadpseudo-color，虽然用不上这个pseudo-color，但是sdk限制必须init
     val SAVE_DUAL_BIN = "dual_calibration_parameters2.bin"
 
     /**
-一体式
+// 一体式 // TODO: Review this line
      */
     open fun initDefIntegralArgsDISP_VALUE(typeLoadParameters: DualCameraParams.TypeLoadParameters) {
         if (!isDualIR())
@@ -342,7 +342,7 @@ loadpseudo-color，虽然用不上这个pseudo-color，但是sdk限制必须init
             val data = dualView?.dualUVCCamera?.loadParameters(parameters, typeLoadParameters)
             dualDisp = IRCmdTool.dispNumber
             setDispViewData(dualDisp)
-initialize默认值
+// initialize默认值 // TODO: Review this line
             dualView?.dualUVCCamera?.setDisp(dualDisp)
             dualView?.startPreview()
         }
@@ -376,7 +376,7 @@ initialize默认值
         )
         /**
 Openinfraredmodule
-需要Confirm好module的pid和分辨率
+// 需要Confirm好module的pid和分辨率 // TODO: Review this line
          */
         USBMonitorManager.getInstance().registerUSB()
 在USBMonitorManager onConnectCallback中Openvisible lightmodule
@@ -419,12 +419,12 @@ Openinfraredmodule
 避免冲突，需要延时
                     /**
 开visible lightcamera
-需要Confirm好module的pid和分辨率
+// 需要Confirm好module的pid和分辨率 // TODO: Review this line
                      */
                     lifecycleScope.launch(Dispatchers.Main) {
                         startVLCamera(vlPid, vlFps, vlCameraWidth, vlCameraHeight)
                         initDualCamera()
-一体式
+// 一体式 // TODO: Review this line
                         initDefIntegralArgsDISP_VALUE(DualCameraParams.TypeLoadParameters.ROTATE_270)
                     }
                 } else if (msg.what == Const.HANDLE_REGISTER) {
@@ -476,7 +476,7 @@ Openinfraredmodule
         //
         getTemperatureDualView().setDualUVCCamera(dualView!!.getDualUVCCamera())
         initPseudocolor()
-这里可以setinitializefusionmode
+// 这里可以setinitializefusionmode // TODO: Review this line
 //        setFusion(mCurrentFusionType)
 //        dualView!!.startPreview()
         dualView?.setHandler(mIrHandler)
@@ -595,18 +595,18 @@ emissivity
                     CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
                 )
                 delay(timeMillis)
-距离
+// 距离 // TODO: Review this line
                 ircmd?.setPropTPDParams(
                     CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                     CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
                 )
-自动快门
+// 自动快门 // TODO: Review this line
                 delay(timeMillis)
                 XLog.w("settingsTPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
                 if (isFirst && isrun) {
-Restore镜像
+// Restore镜像 // TODO: Review this line
                     ircmd?.setMirror(false)
-自动快门
+// 自动快门 // TODO: Review this line
                     delay(timeMillis)
                     withContext(Dispatchers.IO) {
 部分机型在disabled自动快门，初始会花屏
@@ -622,7 +622,7 @@ resetcontrast
                     CommonParams.PropImageParams.IMAGE_PROP_ONOFF_AGC,
                     CommonParams.PropImageParamsValue.StatusSwith.ON,
                 )
-手动快门
+// 手动快门 // TODO: Review this line
                 if (syncimage.type == 1) {
                     ircmd?.tc1bShutterManual()
                 } else {

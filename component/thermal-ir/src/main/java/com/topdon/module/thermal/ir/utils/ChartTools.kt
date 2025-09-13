@@ -66,7 +66,7 @@ object ChartTools {
         return tempList
     }
 
-X数值scaling
+// X数值scaling // TODO: Review this line
     fun scale(type: Int): Long {
         return when (type) {
             1 -> 1 * 1000 // s
@@ -77,7 +77,7 @@ X数值scaling
         }
     }
 
-getdisplay最小区间
+// getdisplay最小区间 // TODO: Review this line
     fun getMinimum(type: Int): Float {
         val min =
             when (type) {
@@ -96,7 +96,7 @@ getdisplay最大区间，以最小区间的50倍
     }
 
     /**
-setY轴range
+// setY轴range // TODO: Review this line
      */
     fun setY(chart: LineChart) {
         var maxVol = 0f
@@ -143,7 +143,7 @@ setY轴range
     }
 
     /**
-setX轴刻度
+// setX轴刻度 // TODO: Review this line
      */
     fun setX(
         chart: LineChart,
@@ -159,7 +159,7 @@ chart.xAxis.setLabelCount(5, false) // 3point ok
     }
 
     /**
-x轴display多少个刻度
+// x轴display多少个刻度 // TODO: Review this line
      */
     private fun getLabCount(count: Int): Int {
         return when {

@@ -34,7 +34,7 @@ class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDi
     }
 
     /**
-refresh进度值
+// refresh进度值 // TODO: Review this line
      */
     fun refreshProgress(
         current: Long,

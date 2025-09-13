@@ -57,7 +57,7 @@ import java.math.RoundingMode
 import com.topdon.lib.core.R as LibR
 
 /**
-temperature实时监控
+// temperature实时监控 // TODO: Review this line
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -321,10 +321,10 @@ start每隔1秒Record一个temperaturedata到data库.
     private var rotateAngle = 270
 
     /**
-初始data
+// 初始data // TODO: Review this line
      *
-不做imageupdate
-去掉cameraView
+// 不做imageupdate // TODO: Review this line
+// 去掉cameraView // TODO: Review this line
      * syncimage.valid = true
      */
     private fun initDataIR() {
@@ -344,7 +344,7 @@ start每隔1秒Record一个temperaturedata到data库.
         temperatureView.setSyncimage(syncimage)
         temperatureView.setTemperature(temperatureBytes)
         setViewLay()
-某些特定客户的特殊device需要使用该Commanddisabledsensor
+// 某些特定客户的特殊device需要使用该Commanddisabledsensor // TODO: Review this line
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) // Open5V
             Log.w("123", "Open5V")
@@ -364,7 +364,7 @@ start每隔1秒Record一个temperaturedata到data库.
     }
 
     /**
-image信号processing
+// image信号processing // TODO: Review this line
      */
     private fun startISP() {
         try {
@@ -399,7 +399,7 @@ image信号processing
                             "ConnectCallback->onIRCMDCreate",
                         )
                         this@IRMonitorChartActivity.ircmd = ircmd
-需要等IRCMDinitializecomplete之后才可以调用
+// 需要等IRCMDinitializecomplete之后才可以调用 // TODO: Review this line
 //                    ircmd.setPseudoColor(
 //                        CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                        PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode))
@@ -415,11 +415,11 @@ image信号processing
                         Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                         gainStatus =
                             if (value[0] == 1) {
-当前core为高gain
+// 当前core为高gain // TODO: Review this line
                                 CommonParams.GainStatus.HIGH_GAIN
-等效大气透过率表
+// 等效大气透过率表 // TODO: Review this line
                             } else {
-当前core为低gain
+// 当前core为低gain // TODO: Review this line
                                 CommonParams.GainStatus.LOW_GAIN
                             }
                     }
@@ -479,12 +479,12 @@ emissivity
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
             )
             delay(timeMillis)
-距离
+// 距离 // TODO: Review this line
             ircmd!!.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
-自动快门
+// 自动快门 // TODO: Review this line
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -606,7 +606,7 @@ area
     }
 
     /**
-单point修正过程
+// 单point修正过程 // TODO: Review this line
      */
     private fun tempCorrect(
         temp: Float,
@@ -614,7 +614,7 @@ area
         tempInfo: Long,
     ): Float {
         if (!isTS001) {
-不是ts001不需要修正
+// 不是ts001不需要修正 // TODO: Review this line
             return temp
         }
         if (ts_data_H == null || ts_data_L == null) {
@@ -659,7 +659,7 @@ area
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-准备image
+// 准备image // TODO: Review this line
                 showCameraLoading()
             }
             101 -> {

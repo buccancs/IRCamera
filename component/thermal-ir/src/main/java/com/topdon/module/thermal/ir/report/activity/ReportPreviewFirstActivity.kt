@@ -12,7 +12,7 @@ import com.topdon.lib.ui.R as UiR
 /**
 生成report第1步的预览interface.
  *
-需要传递
+// 需要传递 // TODO: Review this line
 - 必选：reportinfo [ExtraKeyConfig.REPORT_INFO]
 - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
  */

@@ -233,12 +233,12 @@ export为 excel 时的进度条弹窗.
     override fun onClick(v: View?) {
         when (v) {
             findViewById<LinearLayout>(R.id.ll_ir_edit_2D) -> {
-2d编辑
+// 2d编辑 // TODO: Review this line
                 actionEditOrReport(false)
             }
 
             findViewById<LinearLayout>(R.id.ll_ir_edit_3D) -> {
-跳转到3D
+// 跳转到3D // TODO: Review this line
                 val data = dataList[position]
                 val fileName = data.name.substringBeforeLast(".")
                 val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"

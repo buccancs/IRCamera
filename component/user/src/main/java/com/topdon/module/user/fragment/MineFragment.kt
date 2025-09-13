@@ -119,7 +119,7 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-要是当前已connection TS004、TC007，切到流量上，不然LoginRegister意见反馈那些没网
+                    // If currently connected to TS004/TC007, switch to mobile data to avoid network issues for login/register/feedback
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(false)
                     }
@@ -184,7 +184,7 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
                     loginAction()
                 }
             }
-            settingElectronicManual -> { // 电子description书
+            // settingElectronicManual -> { // 电子description书 // TODO: Review this comment
                 NavigationManager.getInstance().build(
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())

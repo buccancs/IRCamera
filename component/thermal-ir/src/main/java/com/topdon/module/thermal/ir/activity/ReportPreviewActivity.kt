@@ -205,7 +205,7 @@ if (isReport) {//查看report
 
     private fun setAvatorChange() {
         layAppbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-verticalOffset始终为0以下的负数
+// verticalOffset始终为0以下的负数 // TODO: Review this line
             val percent = abs(verticalOffset * 1.0f) / appBarLayout.totalScrollRange
             layToolbar.setBackgroundColor(changeAlpha(getColor(R.color.color_23202E), percent))
         }
@@ -302,14 +302,14 @@ verticalOffset始终为0以下的负数
             val blackPath = data.getStringExtra(ExtraKeyConfig.RESULT_PATH_BLACK) ?: return
             when (requestCode) {
                 1000 -> {
-检测师签名
+// 检测师签名 // TODO: Review this line
                     Glide.with(this).load(whitePath).into(ivInspectorSignature)
                     houseReport.inspectorWhitePath = whitePath
                     houseReport.inspectorBlackPath = blackPath
                 }
 
                 1001 -> {
-房主签名
+// 房主签名 // TODO: Review this line
                     Glide.with(this).load(whitePath).into(ivHouseOwnerSignature)
                     houseReport.houseOwnerWhitePath = whitePath
                     houseReport.houseOwnerBlackPath = blackPath

@@ -221,7 +221,7 @@ high/low gain 1:低gain 0: 高gain
     private lateinit var viewMenuFirst: com.topdon.menu.MenuFirstTabView
     private lateinit var tvTempContent: TextView
 
-指南针定义
+// 指南针定义 // TODO: Review this line
     private var hasCompass = true
     private lateinit var compass: ICompass
     private lateinit var sensorService: SensorService
@@ -477,7 +477,7 @@ IOS 搞成pointdelete后再次drawing趋势图才自动弹出折line图，还得
                 realRightValue = UnitTools.showUnitValue(max, isShowC)
                 this@IRThermalNightActivity.runOnUiThread {
                     if (!customPseudoBean.isUseCustomPseudo) {
-动态renderingmode
+// 动态renderingmode // TODO: Review this line
                         try {
                             temperatureSeekbar.setRangeAndPro(
                                 UnitTools.showUnitValue(editMinValue, isShowC),
@@ -505,7 +505,7 @@ IOS 搞成pointdelete后再次drawing趋势图才自动弹出折line图，还得
                             Log.e("temperature图层updatefailed", e.message.toString())
                         }
                     } else {
-自定义rendering
+// 自定义rendering // TODO: Review this line
                         try {
                             tvTempContent.text = " Max:${UnitTools.showC(max, isShowC)}\n Min:${
                                 UnitTools.showC(
@@ -615,17 +615,17 @@ disabledsetmenu的 PopupWindow
 
         stopIfVideoing() // end正在执行的录像
 
-end正在执行的连续拍照
+// end正在执行的连续拍照 // TODO: Review this line
         isAutoCamera = false
         autoJob?.cancel()
 
-end正在执行的延迟拍照
+// end正在执行的延迟拍照 // TODO: Review this line
         // if (timeDownView.isRunning) {
         //     timeDownView.cancel()
         //     updateDelayView()
         // }
 
-reset等温尺
+// reset等温尺 // TODO: Review this line
         setDefLimit()
         updateTemperatureSeekBar(false) // 加锁
 
@@ -640,7 +640,7 @@ disabled AI algorithm(动态识别、high temperature源、low temperature源)
             imageThread?.typeAi = aiConfig
             thermalRecyclerNight // setTempSource - synthetic method removed
 
-disabled标靶
+// disabled标靶 // TODO: Review this line
             // thermalRecyclerNight.setTargetSelected - synthetic method removed
             // thermalRecyclerNight.setTargetSelected - synthetic method removed
             // thermalRecyclerNight.setTargetSelected - synthetic method removed
@@ -651,7 +651,7 @@ disabled标靶
             targetColorType = ObserveBean.TYPE_TARGET_COLOR_GREEN
             // zoomView.hideView - synthetic method removed
 
-disabled指南针
+// disabled指南针 // TODO: Review this line
             saveSetBean.isOpenCompass = false
             // thermalRecyclerNight.setSettingSelected - synthetic method removed
             compassView?.visibility = View.GONE
@@ -675,7 +675,7 @@ Clearhigh temperaturepoint、low temperaturepoint
             // thermalRecyclerNight.clearTempPointSelect() - synthetic method removed
             // thermalRecyclerNight.fenceSelectType - synthetic property removed
 
-警示是否Open
+// 警示是否Open // TODO: Review this line
             alarmBean = SaveSettingUtil.alarmBean
             imageThread?.alarmBean = alarmBean
             if (alarmBean.isHighOpen || alarmBean.isLowOpen) {
@@ -686,7 +686,7 @@ Clearhigh temperaturepoint、low temperaturepoint
                 AlarmHelp.getInstance(this).updateData(null, null, null)
             }
         } else { // temperature measurement->观测
-disabled画中画
+// disabled画中画 // TODO: Review this line
             if (isOpenPreview) {
                 isOpenPreview = false
                 cameraPreview.closeCamera()
@@ -707,12 +707,12 @@ Clearpoint、line、area、full image、趋势图
 switch到low temperaturemode
             switchTempGain(isLow = true, false)
 
-switch到动态识别
+// switch到动态识别 // TODO: Review this line
             aiConfig = SaveSettingUtil.aiTraceType
             imageThread?.typeAi = aiConfig
             thermalRecyclerNight // setTempSource - synthetic method removed
 
-指南针是否Open
+// 指南针是否Open // TODO: Review this line
             saveSetBean.isOpenCompass = SaveSettingUtil.isOpenCompass
             // thermalRecyclerNight.setSettingSelected - synthetic method removed
 
@@ -727,7 +727,7 @@ switch到动态识别
             thermalRecyclerNight.setTempPointSelect(TempPointType.HIGH, SaveSettingUtil.isOpenHighPoint)
             thermalRecyclerNight.setTempPointSelect(TempPointType.LOW, SaveSettingUtil.isOpenLowPoint)
 
-标靶是否Open
+// 标靶是否Open // TODO: Review this line
             targetMeasureMode = SaveSettingUtil.targetMeasureMode
             targetStyle = SaveSettingUtil.targetType
             targetColorType = SaveSettingUtil.targetColorType
@@ -737,7 +737,7 @@ switch到动态识别
 disabledpseudo-color bar
             cl_seek_bar.visibility = View.GONE
 
-弹出观测modedescriptiontip框
+// 弹出观测modedescriptiontip框 // TODO: Review this line
             if (SharedManager.isTipObservePhoto) {
                 TipObserveDialog.Builder(this)
                     .setTitle(R.string.app_tip)
@@ -748,13 +748,13 @@ disabledpseudo-color bar
                     .create().show()
             }
 
-disabledtemperature报警
+// disabledtemperature报警 // TODO: Review this line
             alarmBean = AlarmBean()
             imageThread?.alarmBean = alarmBean
             AlarmHelp.getInstance(this).updateData(null, null, null)
         }
 
-disabled自定义rendering
+// disabled自定义rendering // TODO: Review this line
         customPseudoBean.isUseCustomPseudo = false
         customPseudoBean.saveToShared()
         updateImageAndSeekbarColorList(customPseudoBean)
@@ -763,14 +763,14 @@ disabled自定义rendering
 resetpseudo-color
             setPColor(3)
 
-reset延时拍照
+// reset延时拍照 // TODO: Review this line
             cameraDelaySecond = DELAY_TIME_0
             if (cameraItemAdapter != null) {
                 cameraItemAdapter!!.data[0].time = DELAY_TIME_0
                 cameraItemAdapter!!.notifyItemChanged(0)
             }
 
-reset录音开关
+// reset录音开关 // TODO: Review this line
             isRecordAudio = false
             videoRecord?.updateAudioState(false)
             if (cameraItemAdapter != null) {
@@ -778,7 +778,7 @@ reset录音开关
                 cameraItemAdapter!!.notifyItemChanged(3)
             }
 
-reset自动快门
+// reset自动快门 // TODO: Review this line
             isAutoShutter = true
             ircmd?.setAutoShutter(isAutoShutter)
             if (cameraItemAdapter != null) {
@@ -786,7 +786,7 @@ reset自动快门
                 cameraItemAdapter!!.notifyItemChanged(1)
             }
 
-reset拍照recordingmode为拍照
+// reset拍照recordingmode为拍照 // TODO: Review this line
             SaveSettingUtil.isVideoMode = false
             thermalRecyclerNight.switchToCamera()
 
@@ -798,7 +798,7 @@ reset锐度（细节）
             saveSetBean.ddeConfig = 2
             ircmd?.setPropDdeLevel(saveSetBean.ddeConfig)
 
-resetrotation角度
+// resetrotation角度 // TODO: Review this line
             saveSetBean.rotateAngle = DeviceConfig.S_ROTATE_ANGLE
             updateRotateAngle(saveSetBean.rotateAngle)
 
@@ -808,10 +808,10 @@ resetfont color及大小
             temperatureView.setLinePaintColor(saveSetBean.tempTextColor)
             temperatureView.setTextSize(saveSetBean.tempTextSize)
 
-reset标靶-scaling
+// reset标靶-scaling // TODO: Review this line
             zoomConfig = 1
 
-reset镜像
+// reset镜像 // TODO: Review this line
             saveSetBean.isOpenMirror = false
             // thermalRecyclerNight.setSettingSelected - synthetic method removed
             ircmd?.setMirror(saveSetBean.isOpenMirror)
@@ -822,12 +822,12 @@ reset镜像
         thermalRecyclerNight.selectPosition(if (isToTemp) 0 else 10)
         viewMenuFirst.isObserveMode = !isToTemp
 
-指南针displaystate改变
+// 指南针displaystate改变 // TODO: Review this line
         updateCompass()
 
         /**
 因高low temperatureswitch必须等待4秒，如果有switch高low temperature，dismissCameraLoading不在此执行，
-需在等待4秒后执行
+// 需在等待4秒后执行 // TODO: Review this line
          */
         if (!isTempShowDialog) {
             dismissCameraLoading()
@@ -893,7 +893,7 @@ reset镜像
             }
         }
 
-update自定义pseudo-color的颜色的property值
+// update自定义pseudo-color的颜色的property值 // TODO: Review this line
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
             temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
@@ -1096,7 +1096,7 @@ Clearlimitset
     }
 
     /**
-270竖正向
+// 270竖正向 // TODO: Review this line
      */
     open fun setRotate(rotateInt: Int) {
         imageThread?.setRotate(rotateInt)
@@ -1494,7 +1494,7 @@ AI-动态识别、high temperature源、low temperature源之间switch
     }
 
     /**
-进入延迟UI
+// 进入延迟UI // TODO: Review this line
      */
     private fun updateDelayView() {
         try {
@@ -1759,7 +1759,7 @@ watermarkmenu只有 2D 编辑才有
         }
     }
 
-当前selected的mode
+// 当前selected的mode // TODO: Review this line
 
     /**
 标靶measurementtype：人、羊、狗、鸟
@@ -1820,7 +1820,7 @@ display标靶measurementmode（人、羊、狗、鸟） PopupWindow.
 //        popupWindow?.setOnDismissListener {
 //            thermalRecyclerNight.modeStats = 620
 //        }
-在控件上方display
+// 在控件上方display // TODO: Review this line
         popupWindow?.showAsDropDown(thermalLay, 0, getPopupWindowY(contentHeight), Gravity.NO_GRAVITY)
         curTargetStyle = 1
     }
@@ -1866,7 +1866,7 @@ display标靶风格selection PopupWindow
 //        popupWindow?.setOnDismissListener {
 //            thermalRecyclerNight.targetStats = 600
 //        }
-在控件上方display
+// 在控件上方display // TODO: Review this line
         popupWindow?.showAsDropDown(
             thermalLay,
             0,
@@ -1903,7 +1903,7 @@ display标靶风格selection PopupWindow
     private var cameraAlpha = SaveSettingUtil.twoLightAlpha
 
     /**
-displayfusion度set弹框
+// displayfusion度set弹框 // TODO: Review this line
      */
     private fun showBlendExtentPopup() {
         val seekBarPopup = SeekBarPopup(this, true)
@@ -1945,14 +1945,14 @@ displayfusion度set弹框
     fun irEvent(event: IRMsgEvent) {
         if (event.code == MsgCode.RESTART_USB) {
             isOnRestart = true
-坏frame
+// 坏frame // TODO: Review this line
             startUSB(isRestart = true, true)
             ToastUtils.showShort("出现坏帧")
         }
     }
 
     /**
-初始data
+// 初始data // TODO: Review this line
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -1974,14 +1974,14 @@ displayfusion度set弹框
         cameraView.bitmap = bitmap
         temperatureView.setSyncimage(syncimage)
         temperatureView.setTemperature(temperatureBytes)
-initialize观测-动态追踪
+// initialize观测-动态追踪 // TODO: Review this line
         thermalRecyclerNight // setTempSource - synthetic method removed
         setViewLay(defaultIsPortrait)
 初始全局temperature measurement
         temperatureView.post {
             if (!temperaturerun) {
                 temperaturerun = true
-需等待renderingcomplete再display
+// 需等待renderingcomplete再display // TODO: Review this line
                 temperatureView.visibility = View.VISIBLE
                 if (!isTS001 || SaveSettingUtil.isMeasureTempMode) {
                     temperatureView.postDelayed({
@@ -2034,7 +2034,7 @@ initialize观测-动态追踪
     }
 
     /**
-image信号processing
+// image信号processing // TODO: Review this line
      */
     open fun startISP() {
         try {
@@ -2092,7 +2092,7 @@ image信号processing
 
                     override fun onIRCMDCreate(ircmd: IRCMD) {
                         this@IRThermalNightActivity.ircmd = ircmd
-需要等IRCMDinitializecomplete之后才可以调用
+// 需要等IRCMDinitializecomplete之后才可以调用 // TODO: Review this line
                         isConfigWait = false
                     }
                 },
@@ -2127,7 +2127,7 @@ image信号processing
         }
         iruvc?.isFirstFrame = true
         iruvc?.setiFirstFrameListener {
-第一framedata
+// 第一framedata // TODO: Review this line
             this@IRThermalNightActivity.runOnUiThread {
 第一次进入，还会执行高低low temperatureswitch，这里没必要dismissCameraLoading
 从第二次start，需要执行dismiss，否则dialog不消失
@@ -2136,7 +2136,7 @@ image信号processing
                     isOnRestart = false
                 }
             }
-使用Toast来displayexceptioninfo
+// 使用Toast来displayexceptioninfo // TODO: Review this line
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     setTsBin()
@@ -2149,7 +2149,7 @@ image信号processing
     private var nuc_table_low = ShortArray(8192)
     private var gainStatus = CommonParams.GainStatus.HIGH_GAIN
 
-setTS001的temperature校正
+// setTS001的temperature校正 // TODO: Review this line
     private fun setTsBin() {
         ircmd?.let {
             val getSnBytes = ByteArray(16)
@@ -2178,11 +2178,11 @@ setTS001的temperature校正
                 Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                 gainStatus =
                     if (value[0] == 1) {
-当前core为高gain
+// 当前core为高gain // TODO: Review this line
                         CommonParams.GainStatus.HIGH_GAIN
-等效大气透过率表
+// 等效大气透过率表 // TODO: Review this line
                     } else {
-当前core为低gain
+// 当前core为低gain // TODO: Review this line
                         CommonParams.GainStatus.LOW_GAIN
                     }
                 if (nuc_table_low == null) {
@@ -2212,7 +2212,7 @@ setTS001的temperature校正
     }
 
     /**
-单point修正过程
+// 单point修正过程 // TODO: Review this line
      */
     private fun tempCorrect(
         temp: Float,
@@ -2220,7 +2220,7 @@ setTS001的temperature校正
         tempInfo: Long,
     ): Float {
         if (!isTS001) {
-不是ts001不需要修正
+// 不是ts001不需要修正 // TODO: Review this line
             return temp
         }
         if (ts_data_H == null || ts_data_L == null) {
@@ -2335,7 +2335,7 @@ pseudo-color bardisplay
             Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
 
-某些特定客户的特殊device需要使用该Commanddisabledsensor
+// 某些特定客户的特殊device需要使用该Commanddisabledsensor // TODO: Review this line
 //        if (Usbcontorl.isload) {
 Usbcontorl.usb3803_mode_setting(0) //disabled5V
 //        }
@@ -2422,7 +2422,7 @@ modify自定义pseudo-colorproperty，抽出method，方便dual lightinterface�
             .launchIn(scope)
     }
 
-拍照中间button
+// 拍照中间button // TODO: Review this line
     @SuppressLint("CheckResult")
     private fun centerCamera() {
         storageRequestType = 0
@@ -2462,7 +2462,7 @@ modify自定义pseudo-colorproperty，抽出method，方便dual lightinterface�
 
     private var isAutoShutter: Boolean = SaveSettingUtil.isAutoShutter
 
-拍照右边button
+// 拍照右边button // TODO: Review this line
     private fun settingCamera() {
         showCameraSetting = !showCameraSetting
         if (showCameraSetting) {
@@ -2533,7 +2533,7 @@ modify自定义pseudo-colorproperty，抽出method，方便dual lightinterface�
                             cameraItemAdapter!!.data[position].isSel = false
                             cameraItemAdapter!!.notifyItemChanged(position)
                         }
-手动快门
+// 手动快门 // TODO: Review this line
                         if (syncimage.type == 1) {
                             ircmd?.tc1bShutterManual()
                         } else {
@@ -2544,7 +2544,7 @@ modify自定义pseudo-colorproperty，抽出method，方便dual lightinterface�
                     }
 
                     CameraItemBean.TYPE_ZDKM -> {
-自动快门
+// 自动快门 // TODO: Review this line
                         isAutoShutter = !isAutoShutter
                         SaveSettingUtil.isAutoShutter = isAutoShutter
                         cameraItemAdapter!!.data[position].isSel = !cameraItemAdapter!!.data[position].isSel
@@ -2587,7 +2587,7 @@ enabled超分button，则取原始image的超分进行processing四倍
             }
     }
 
-拍照
+// 拍照 // TODO: Review this line
     private fun camera() {
         lifecycleScope.launch(Dispatchers.Default) {
             launch(Dispatchers.Main) {
@@ -2595,7 +2595,7 @@ enabled超分button，则取原始image的超分进行processing四倍
             }
             try {
                 synchronized(syncimage.dataLock) {
-get展示imageinfo的图层data
+// get展示imageinfo的图层data // TODO: Review this line
                     var cameraViewBitmap: Bitmap? =
                         if (isOpenAmplify) {
                             OpencvTools.supImageFourExToBitmap(getCameraViewBitmap())
@@ -2605,7 +2605,7 @@ get展示imageinfo的图层data
 visible light
                     if (isOpenPreview) {
                         cameraViewBitmap = BitmapUtils.mergeBitmapByView(cameraViewBitmap, cameraPreview.getBitmap(), cameraPreview)
-画中画原图save
+// 画中画原图save // TODO: Review this line
                         cameraPreview.getBitmap()?.let {
                             ImageUtils.saveImageToApp(it)
                         }
@@ -2631,7 +2631,7 @@ Mergepseudo-color bar
                         seekBarBitmap.recycle()
                     }
 
-Merge指南针
+// Merge指南针 // TODO: Review this line
                     val compassBitmap: Bitmap? =
                         if (compassView?.visibility == VISIBLE) {
                             compassView?.drawToBitmap()
@@ -2664,7 +2664,7 @@ gettemperature图层的data，包括pointline框，temperature值等，重新合
                     ) {
                         cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionAndValueBitmap, 0, 0)
                     }
-add汽车检测
+// add汽车检测 // TODO: Review this line
                     if (layCarDetectPrompt.isVisible)
                         {
                             cameraViewBitmap =
@@ -2748,7 +2748,7 @@ addwatermark
     protected var videoRecord: VideoRecordFFmpeg? = null
 
     /**
-initializevideo采集component
+// initializevideo采集component // TODO: Review this line
      */
     open fun initVideoRecordFFmpeg() {
         videoRecord =
@@ -2914,7 +2914,7 @@ display细节(锐度) set PopupWindow
 //IMAGE_PROP_LEVEL_TNR (0~3) 时域降噪(默认2) 看不出
 
     /**
-自动gain
+// 自动gain // TODO: Review this line
 IMAGE_PROP_MODE_AGC: 默认2
 IMAGE_PROP_ONOFF_AGC: 默认1
      */
@@ -2967,21 +2967,21 @@ emissivity
                     CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
                 )
                 delay(timeMillis)
-距离
+// 距离 // TODO: Review this line
                 ircmd?.setPropTPDParams(
                     CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                     CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
                 )
 sethigh temperature、low temperature
                 setTemperatureMode(temperatureMode, false)
-自动快门
+// 自动快门 // TODO: Review this line
                 delay(timeMillis)
                 XLog.w("settingsTPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
                 if (isFirst && isrun) {
-Restore镜像
+// Restore镜像 // TODO: Review this line
                     // thermalRecyclerNight.setSettingSelected - synthetic method removed
                     ircmd?.setMirror(saveSetBean.isOpenMirror)
-自动快门
+// 自动快门 // TODO: Review this line
                     delay(timeMillis)
                     withContext(Dispatchers.IO) {
 部分机型在disabled自动快门，初始会花屏
@@ -2992,7 +2992,7 @@ Restore镜像
                     }
 set锐度（细节）
                     ircmd?.setPropDdeLevel(saveSetBean.ddeConfig)
-复位contrast
+// 复位contrast // TODO: Review this line
                     ircmd?.setContrast(saveSetBean.contrastValue)
                     if (SaveSettingUtil.isSaveSetting) {
                         XLog.i("configuration中的mode为：${if (SaveSettingUtil.isMeasureTempMode) "temperature measurement" else "观测"}mode")
@@ -3010,7 +3010,7 @@ set锐度（细节）
                     CommonParams.PropImageParamsValue.StatusSwith.ON,
                 )
                 printSN()
-手动快门
+// 手动快门 // TODO: Review this line
                 if (syncimage.type == 1) {
                     ircmd?.tc1bShutterManual()
                 } else {
@@ -3105,7 +3105,7 @@ disabledcamera
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-准备image
+// 准备image // TODO: Review this line
                 showCameraLoading()
             }
 
@@ -3172,7 +3172,7 @@ Recorddeviceinfo
     }
 
     /**
-方位改变Listener
+// 方位改变Listener // TODO: Review this line
      */
     private fun onCompassUpdate(): Boolean {
         val azimuthTxt = formatDegrees(compass.bearing.value, replace360 = true)
@@ -3226,7 +3226,7 @@ Recorddeviceinfo
                     ) {
                         try {
                             if (allGranted) {
-画中画enabled
+// 画中画enabled // TODO: Review this line
                                 thermalRecyclerNight.setTwoLightSelected(TwoLightType.P_IN_P, true)
                                 cameraPreview.visibility = View.VISIBLE
                                 cameraPreview?.setCameraAlpha(cameraAlpha / 100.0f)
@@ -3256,7 +3256,7 @@ Recorddeviceinfo
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_camera_content))
@@ -3322,7 +3322,7 @@ Recorddeviceinfo
                     ) {
                         try {
                             if (allGranted) {
-录音enabled
+// 录音enabled // TODO: Review this line
                                 isRecordAudio = true
                                 SaveSettingUtil.isRecordAudio = isRecordAudio
                                 videoRecord?.updateAudioState(true)
@@ -3341,7 +3341,7 @@ Recorddeviceinfo
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_microphone_content))
@@ -3379,7 +3379,7 @@ Recorddeviceinfo
                                 val setting = SharedManager.continuousBean
                                 if (setting.isOpen) {
                                     if (!isAutoCamera) {
-连续拍照
+// 连续拍照 // TODO: Review this line
                                         autoJob =
                                             countDownCoroutines(
                                                 setting.count,
@@ -3417,7 +3417,7 @@ recordingvideo
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_storage_content))

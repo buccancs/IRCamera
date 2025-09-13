@@ -84,7 +84,7 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
             l.form = Legend.LegendForm.CIRCLE
             l.textColor = textColor
             l.isEnabled = false // Hide曲linetag
-x轴
+// x轴 // TODO: Review this line
             val xAxis = this.xAxis
             xAxis.textColor = textColor
             xAxis.setDrawGridLines(false) // 竖向格line
@@ -96,7 +96,7 @@ x轴
             xAxis.granularity = 1f
             xAxis.isGranularityEnabled = true // 重复值不Show/Display
             xAxis.textSize = 8f
-y轴
+// y轴 // TODO: Review this line
             val leftAxis = this.axisLeft
             leftAxis.textColor = textColor // y轴文本颜色
             leftAxis.axisLineColor = 0x00000000 // y轴颜色
@@ -114,7 +114,7 @@ y轴
     private var startTime = 0L
 
     /**
-秒update图表data
+// 秒update图表data // TODO: Review this line
 @param timeType 时分秒
      *
      */
@@ -155,7 +155,7 @@ y轴
                         Log.w("123", "add一个data:$entity")
                     }
                     2 -> {
-第一条line
+// 第一条line // TODO: Review this line
                         if (volDataSet == null) {
                             volDataSet = createSet(0, "line max temp")
                             lineData.addDataSet(volDataSet)
@@ -165,7 +165,7 @@ y轴
                         entity.data = bean
                         volDataSet.addEntry(entity)
 
-第二条line
+// 第二条line // TODO: Review this line
                         var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
                         if (secondDataSet == null) {
                             secondDataSet = createSet(1, "line min temp")
@@ -176,7 +176,7 @@ y轴
                         secondDataSet.addEntry(secondEntity)
                     }
                     else -> {
-第一条line
+// 第一条line // TODO: Review this line
                         if (volDataSet == null) {
                             volDataSet = createSet(0, "fence max temp")
                             lineData.addDataSet(volDataSet)
@@ -185,7 +185,7 @@ y轴
                         entity.data = bean
                         volDataSet.addEntry(entity)
 
-第二条line
+// 第二条line // TODO: Review this line
                         var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
                         if (secondDataSet == null) {
                             secondDataSet = createSet(1, "fence min temp")
@@ -203,7 +203,7 @@ y轴
                 setVisibleXRangeMaximum(ChartTools.getMaximum(type = timeType)) // settingsShow/DisplayX轴区间大小
                 ChartTools.setX(this, timeType)
 //                ChartTools.setY(this)
-结尾point出现在interface才移动最新data
+// 结尾point出现在interface才移动最新data // TODO: Review this line
                 if ((highestVisibleX + ChartTools.getMinimum(timeType) / 2f) > xChartMax) {
                     moveViewToX(xChartMax) // 移动到最右端
                 }
@@ -238,7 +238,7 @@ y轴
         )
 
     /**
-曲line样式
+// 曲line样式 // TODO: Review this line
      */
     private fun createSet(
         index: Int,
@@ -295,7 +295,7 @@ y轴
         scaleX: Float,
         scaleY: Float,
     ) {
-scaling时disabled
+// scaling时disabled // TODO: Review this line
         highlightValue(null)
     }
 

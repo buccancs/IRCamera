@@ -26,7 +26,7 @@ import com.topdon.lib.ui.R as UiR
  */
 object IRImageUtil {
     /**
-伽马contrast
+// 伽马contrast // TODO: Review this line
 @param contrast      contrast 1: 复位  0: Enhance   2: 减弱变灰
 @param brightness    brightness
      */
@@ -65,7 +65,7 @@ object IRImageUtil {
     }
 
     /**
-伽马曲line
+// 伽马曲line // TODO: Review this line
      * https://www.cnblogs.com/AlgrithmsRookie/p/13212369.html
 @param a     [0 ~ 1]交界point
 @param gamma 变化强度
@@ -85,7 +85,7 @@ object IRImageUtil {
     }
 
     /**
-锐化
+// 锐化 // TODO: Review this line
      * @param sharpen [1,3,5]
      *
 kernel_size  锐化程度,set是奇正数

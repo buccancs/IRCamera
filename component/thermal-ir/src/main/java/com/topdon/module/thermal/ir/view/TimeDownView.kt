@@ -46,7 +46,7 @@ public class TimeDownView : AppCompatTextView {
     }
 
     /**
-start计时
+// start计时 // TODO: Review this line
      *
      * @param seconds
      */
@@ -73,7 +73,7 @@ start计时
     }
 
     /**
-倒计时enabledmethod
+// 倒计时enabledmethod // TODO: Review this line
      *
 @param downCount     倒计时总数
 @param lastDown      display的倒计时的最后一个数
@@ -166,7 +166,7 @@ interface DownTimeWatcher {
     var downTimeWatcher: DownTimeWatcher? = null
 
     /**
-Listener倒计时的变化
+// Listener倒计时的变化 // TODO: Review this line
      * @param downTimeWatcher
      */
     fun setOnTimeDownListener(downTimeWatcher: DownTimeWatcher?) {
@@ -186,7 +186,7 @@ Listener倒计时的变化
 Log.e("Test","//handleMessage"+downCount+"//"+lastDown);
                 if (downCount >= lastDown - 1) {
                     drawTextFlag = DRAW_TEXT_YES // 默认绘制
-未到end时
+// 未到end时 // TODO: Review this line
                     if (downCount >= lastDown) {
                         text = downCount.toString() + ""
                         startDefaultAnimate()
@@ -195,7 +195,7 @@ Log.e("Test","//handleMessage"+downCount+"//"+lastDown);
                         }
                     } else if (downCount == lastDown - 1) { // 若lastDown为0，downCount == -1时是倒计时真正end之时。
 倒计时end，虽然setText()method触发onDraw，但override使之不进行drawing
-set不drawingmarker
+// set不drawingmarker // TODO: Review this line
                         if (afterDownDimissFlag == AFTER_LAST_TIME_DIMISS) {
                             drawTextFlag = DRAW_TEXT_NO
                         }
@@ -232,14 +232,14 @@ set不drawingmarker
     private var afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
 
     /**
-set倒计时end后text不消失
+// set倒计时end后text不消失 // TODO: Review this line
      */
     fun setAfterDownNoDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_NODIMISS
     }
 
     /**
-set倒计时end后text消失
+// set倒计时end后text消失 // TODO: Review this line
      */
     fun setAferDownDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
@@ -247,13 +247,13 @@ set倒计时end后text消失
 
     var startDefaultAnimFlag = true
 
-disabled默认动画
+// disabled默认动画 // TODO: Review this line
     fun closeDefaultAnimate() {
         animationSet?.reset()
         startDefaultAnimFlag = false
     }
 
-enabled默认动画
+// enabled默认动画 // TODO: Review this line
     private fun startDefaultAnimate() {
         if (startDefaultAnimFlag) {
             animation?.start()

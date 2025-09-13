@@ -145,13 +145,13 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                         }
                     CameraPreviewManager.getInstance().setColorList(null, null, false, 0f, 0f)
                     CameraPreviewManager.getInstance().alarmBean = null
-自动快门
+// 自动快门 // TODO: Review this line
                     IRTool.setAutoShutter(true)
 initializecontrast
                     IRTool.basicGlobalContrastLevelSet((50).toInt())
-镜像
+// 镜像 // TODO: Review this line
                     IRTool.basicMirrorAndFlipStatusSet(false)
-initialize锐度
+// initialize锐度 // TODO: Review this line
                     IRTool.basicImageDetailEnhanceLevelSet(50)
                     CameraPreviewManager.getInstance()?.setLimit(
                         Float.MAX_VALUE, Float.MIN_VALUE,
@@ -159,7 +159,7 @@ initialize锐度
                     ) // 自定义颜色
                     shutterHandler = Handler(Looper.getMainLooper())
 
-定义快门操作
+// 定义快门操作 // TODO: Review this line
                     fun takePicture() {
                         shutterCount++
                         try {
@@ -189,7 +189,7 @@ gainmodeinitialize
     }
 
     /**
-start锅盖矫正流程
+// start锅盖矫正流程 // TODO: Review this line
      */
     suspend fun autoStart(): Boolean  {
         return IRTool.autoStart()
@@ -241,7 +241,7 @@ area
         showTask?.cancel()
     }
 
-get选取point
+// get选取point // TODO: Review this line
     private fun updateTemp(type: Int) {
         var result: SelectPositionBean? = null
         val contentRectF = RectF(0f, 0f, 192f, 256f)
@@ -333,7 +333,7 @@ get选取point
         }
 
     /**
-initializeUSBconnection相关class
+// initializeUSBconnection相关class // TODO: Review this line
      */
     private fun initUSBMonitorManager() {
         USBMonitorManager.getInstance().init()
@@ -358,7 +358,7 @@ initializeUSBconnection相关class
                     createNew: Boolean,
                 ) {
                     this@IRMonitorLiteFragment.ctrlBlock = ctrlBlock
-USBconnectionsuccessful后
+// USBconnectionsuccessful后 // TODO: Review this line
                     DeviceControlManager.getInstance().handleStartPreview(ctrlBlock)
                 }
 
@@ -381,7 +381,7 @@ USBconnectionsuccessful后
     }
 
     private fun initPreviewManager() {
-initialize预览相关的class
+// initialize预览相关的class // TODO: Review this line
         config = ConfigRepository.readConfig(false)
         CameraPreviewManager.getInstance().init(cameraView, mLiteHandler)
         CameraPreviewManager.getInstance().imageRotate = RotateDegree.DEGREE_270
@@ -420,7 +420,7 @@ calculation画area的宽高，避免被拉伸变形
             lifecycleScope.launch {
                 if (!temperaturerun) {
                     temperaturerun = true
-需等待renderingcomplete再display
+// 需等待renderingcomplete再display // TODO: Review this line
                     temperatureView.visibility = View.VISIBLE
                     delay(1000)
                     temperatureView.setImageSize(mPreviewHeight, mPreviewWidth, this@IRMonitorLiteFragment)

@@ -63,7 +63,7 @@ class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
 
     override fun initContentView() = R.layout.fragment_thermal
 
-settemperature展示的位置
+// settemperature展示的位置 // TODO: Review this line
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -153,9 +153,9 @@ Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
             cameraLayoutParams!!.height = irSurfaceViewHeight
             mFenceLayout!!.layoutParams = cameraLayoutParams
         }
-初始选取range
+// 初始选取range // TODO: Review this line
         initFence()
-初始image
+// 初始image // TODO: Review this line
         onIrVideoStart()
         mIrSurfaceView!!.post {
             Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
@@ -209,7 +209,7 @@ Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
     }
 
     /**
-enabledvideo流
+// enabledvideo流 // TODO: Review this line
      */
     fun onIrVideoStart() {
         mIsIrVideoStart =
@@ -251,15 +251,15 @@ refreshimage
                         }
                         val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
                         try {
-选取region
-calculation选取指定point
+// 选取region // TODO: Review this line
+// calculation选取指定point // TODO: Review this line
                             val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                             val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
                             maxIndex = maxTempIndex
                             minIndex = minTempIndex
-rotation后的temperaturearray
+// rotation后的temperaturearray // TODO: Review this line
                             val rotateData = ArrayUtils.matrixRotate(srcData = temp, rotateType)
-calculation出temperature
+// calculation出temperature // TODO: Review this line
                             val bigDecimal = BigDecimal.valueOf(rotateData[centerIndex].toDouble())
                             val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
                             val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
@@ -306,7 +306,7 @@ calculation出temperature
     }
 
     /**
-stopvideo流
+// stopvideo流 // TODO: Review this line
      */
     fun onIrVideoStop() {
         mIsIrVideoStart =
@@ -384,7 +384,7 @@ temperaturedisplay
 ***************************************专家mode**********************************************
 
     /**
-专家mode
+// 专家mode // TODO: Review this line
      */
     fun onExpertModeClick(view: View?) {
         System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
@@ -431,7 +431,7 @@ temperaturedisplay
         Log.w("123", "event:${event.action}")
         when (event.action) {
             1001 -> {
-拍照
+// 拍照 // TODO: Review this line
                 ToastTools.showShort("拍照")
                 picture()
             }
@@ -451,7 +451,7 @@ addline
                 addLine()
             }
             2003 -> {
-add围栏
+// add围栏 // TODO: Review this line
                 clearFenceUI()
                 addFence()
             }
@@ -461,7 +461,7 @@ addtemperature
                 addLimit()
             }
             2006 -> {
-Clear还原
+// Clear还原 // TODO: Review this line
                 clearFence()
             }
             in 3000..3010 -> {
@@ -482,16 +482,16 @@ imageEnhance
                 camera()
             }
             in 5000..5010 -> {
-全屏
+// 全屏 // TODO: Review this line
                 ToastTools.showShort("全屏")
             }
         }
     }
 
-复位
+// 复位 // TODO: Review this line
     private fun clearFence() {
         clearFenceUI()
-temperature限值
+// temperature限值 // TODO: Review this line
         upValue = 0f
         downValue = 0f
         selectType = 0
@@ -518,7 +518,7 @@ setpseudo-color
     }
 
     /**
-色带
+// 色带 // TODO: Review this line
      */
     private fun updatePalette(index: Int) {
         if (mGuideInterface == null) {
@@ -542,7 +542,7 @@ setpseudo-color
         showFence(3)
     }
 
-displaypointlinearea布局
+// displaypointlinearea布局 // TODO: Review this line
     private fun showFence(index: Int) {
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) // settings001 or 010 or 100
@@ -642,7 +642,7 @@ imageEnhance
                 mIrSurfaceView?.setSaturationValue(value)//settingscontrast
             }
             .setListener { value: Int ->
-实时Listener
+// 实时Listener // TODO: Review this line
 mIrSurfaceView?.setSaturationValue(value)//setcontrast
             }.create().show()
          */

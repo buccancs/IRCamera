@@ -28,12 +28,12 @@ class EmissivityView : View {
     }
 
     /**
-是否顶部对齐
+// 是否顶部对齐 // TODO: Review this line
      */
     var isAlignTop = false
 
     /**
-是否需要drawing顶部横line
+// 是否需要drawing顶部横line // TODO: Review this line
      */
     var drawTopLine = false
 
@@ -103,7 +103,7 @@ initialize layoutList
             )
         }
 
-calculation最大高度
+// calculation最大高度 // TODO: Review this line
         var maxHeight = 0
         for (layout in layoutList) {
             maxHeight = maxHeight.coerceAtLeast(layout.height)

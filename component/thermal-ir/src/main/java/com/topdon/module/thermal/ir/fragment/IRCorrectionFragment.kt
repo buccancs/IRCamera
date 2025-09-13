@@ -93,7 +93,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-初始data
+// 初始data // TODO: Review this line
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -117,7 +117,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
         setViewLay()
-某些特定客户的特殊device需要使用该Commanddisabledsensor
+// 某些特定客户的特殊device需要使用该Commanddisabledsensor // TODO: Review this line
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) // Open5V
             Log.w("123", "Open5V")
@@ -127,7 +127,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-image信号processing
+// image信号processing // TODO: Review this line
      */
     private fun startISP() {
         try {
@@ -162,7 +162,7 @@ image信号processing
                                 "ConnectCallback->onIRCMDCreate",
                             )
                             this@IRCorrectionFragment.ircmd = ircmd
-需要等IRCMDinitializecomplete之后才可以调用
+// 需要等IRCMDinitializecomplete之后才可以调用 // TODO: Review this line
 //                        ircmd.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                            PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
                         }
@@ -265,7 +265,7 @@ Restoreconfiguration
                 params.height = params.width * imageHeight / imageWidth
                 thermalLay.layoutParams = params
             } else {
-横屏
+// 横屏 // TODO: Review this line
                 val params = thermalLay.layoutParams
                 params.height = thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
@@ -278,7 +278,7 @@ Restoreconfiguration
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-准备image
+// 准备image // TODO: Review this line
                 showLoadingDialog()
             }
             101 -> {
@@ -314,12 +314,12 @@ emissivity
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
             )
             delay(timeMillis)
-距离
+// 距离 // TODO: Review this line
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
-自动快门
+// 自动快门 // TODO: Review this line
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -379,12 +379,12 @@ emissivity
     suspend fun autoStart() {
         withContext(Dispatchers.IO) {
 ToastUtils.showShort("taskstart")
-锅盖start
+// 锅盖start // TODO: Review this line
 1 锅盖calibrationstart
 2 disabled自动快门
             CalibrationTools.autoShutter(irCmd = ircmd, false)
             XLog.w("锅盖矫正：" + "锅盖calibrationstart")
-常温
+// 常温 // TODO: Review this line
 3 手动打快门Command
 //            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
 XLog.w("锅盖矫正："+"手动打快门Command")
@@ -417,7 +417,7 @@ XLog.w("锅盖矫正："+"手动打快门Command")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
 17 Open自动快门
             CalibrationTools.autoShutter(irCmd = ircmd, true)
-锅盖end
+// 锅盖end // TODO: Review this line
             XLog.w("锅盖矫正：" + "锅盖end")
         }
     }

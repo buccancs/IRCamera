@@ -71,7 +71,7 @@ import java.util.concurrent.atomic.AtomicReference
 import com.topdon.lib.core.R as LibcoreR
 
 /**
-软编吗
+// 软编吗 // TODO: Review this line
  * bitmap -> mp4
  *
 avcodec.AV_CODEC_ID_MPEG4 //playback正常
@@ -104,7 +104,7 @@ class VideoRecordFFmpeg(
         const val AUDIO_CHANNELS = 1
 
         /**
-memory检测
+// memory检测 // TODO: Review this line
          */
         fun canStartVideoRecord(
             context: Context,
@@ -233,7 +233,7 @@ avcodec.AV_CODEC_ID_H264 不能拖拽进度条
             XLog.i("使用videoencodingAV_CODEC_ID_H264")
             avcodec.AV_CODEC_ID_H264
         } else {
-默认type
+// 默认type // TODO: Review this line
             XLog.i("使用videoencodingAV_CODEC_ID_MPEG4")
             avcodec.AV_CODEC_ID_MPEG4
         }
@@ -241,17 +241,17 @@ avcodec.AV_CODEC_ID_H264 不能拖拽进度条
 
     init {
         if ((cameraView.parent as ViewGroup).height > (cameraView.parent as ViewGroup).width) {
-竖屏
+// 竖屏 // TODO: Review this line
             width = 480
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         } else {
-横屏
+// 横屏 // TODO: Review this line
             width = 640
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         }
-宽高不能出现奇数
+// 宽高不能出现奇数 // TODO: Review this line
         if (height % 2 == 1) {
             height -= 1
         }
@@ -367,7 +367,7 @@ avcodec.AV_CODEC_ID_H264 不能拖拽进度条
                                     if (!canStartVideoRecord(cameraView.context, exportedFile)) {
                                         exportDisposable?.dispose()
                                         stopVideoRecordListener?.invoke(false)
-recording的video超出大小容量限制
+// recording的video超出大小容量限制 // TODO: Review this line
                                         return@Consumer
                                     }
                                     queTime = System.currentTimeMillis()
@@ -402,7 +402,7 @@ thermal imaging录像限制60分钟
                                     for (i in 0 until tmpAudioData!!.capacity()) {
                                         tmpAudioData!!.put(i, 1.toShort())
                                     }
-使用当前时间戳
+// 使用当前时间戳 // TODO: Review this line
                                     if (currentTimestamp > (recorder?.timestamp ?: 0)) {
                                         recorder!!.timestamp = currentTimestamp
                                     }
@@ -464,7 +464,7 @@ thermal imaging录像限制60分钟
             image: IplImage?,
             image2: IplImage?,
         ): IplImage? {
-未使用
+// 未使用 // TODO: Review this line
             return null
         }
     }
@@ -495,7 +495,7 @@ thermal imaging录像限制60分钟
     }
 
     /**
-memory检测
+// memory检测 // TODO: Review this line
      */
     fun canStartVideoRecord(videoFile: File?): Boolean {
         val canStart =
@@ -596,8 +596,8 @@ Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 
     }
 
     /**
-cameraViewBitmap是屏幕控件的实际宽高
-dstBitmap转成video输出的
+// cameraViewBitmap是屏幕控件的实际宽高 // TODO: Review this line
+// dstBitmap转成video输出的 // TODO: Review this line
      */
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap: Bitmap
@@ -669,7 +669,7 @@ Log.e("image对象processing耗时-彩条",""+(System.currentTimeMillis() - star
                         carView?.drawToBitmap(), 0, 0,
                     )
             }
-指南针
+// 指南针 // TODO: Review this line
         compassView?.let {
             if (it.isVisible) {
                 try {
@@ -688,7 +688,7 @@ Log.w("image对象processing耗时-指南针", "${System.currentTimeMillis() - s
             }
         }
 
-画中画
+// 画中画 // TODO: Review this line
         cameraPreview?.let {
             if (it.isVisible) {
                 val newBitmap: Bitmap? =
@@ -739,9 +739,9 @@ addwatermark
         address: String,
         time: String?,
     ): Bitmap {
-create一样大小的image
+// create一样大小的image // TODO: Review this line
         val newBmp = Bitmap.createBitmap(bmp.width, bmp.height, Bitmap.Config.ARGB_8888)
-create画布
+// create画布 // TODO: Review this line
         val canvas = Canvas(newBmp)
         canvas.drawBitmap(bmp, 0f, 0f, null) // 绘制原始image
         canvas.save()

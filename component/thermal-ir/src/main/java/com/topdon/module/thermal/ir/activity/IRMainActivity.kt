@@ -320,7 +320,7 @@ interfaceswitch及temperature监控历史列表load均需要时间，所以需�
     }
 
     /**
-动态申请Permission
+// 动态申请Permission // TODO: Review this line
      */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser())
@@ -346,7 +346,7 @@ interfaceswitch及temperature监控历史列表load均需要时间，所以需�
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                             TipDialog.Builder(this@IRMainActivity)
                                 .setTitleMessage(getString(LibR.string.app_tip))
                                 .setMessage(getString(LibR.string.app_album_content))

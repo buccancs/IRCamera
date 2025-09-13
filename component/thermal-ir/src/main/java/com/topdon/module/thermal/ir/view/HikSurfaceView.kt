@@ -30,13 +30,13 @@ import java.nio.ByteBuffer
 class HikSurfaceView : SurfaceView {
     companion object {
         /**
-超分amplification倍数
+// 超分amplification倍数 // TODO: Review this line
          */
         private const val MULTIPLE = 2
     }
 
     /**
-是否enabled超分
+// 是否enabled超分 // TODO: Review this line
      */
     var isOpenAmplify: Boolean = false
         set(value) {
@@ -81,7 +81,7 @@ temperature报警用来outline的工具class.
     private val irImageHelp = IRImageHelp()
 
     /**
-refresh自定义renderingconfiguration
+// refresh自定义renderingconfiguration // TODO: Review this line
      */
     fun refreshCustomPseudo(it: DataBean) {
         // Temporarily disabled - pseudo component dependency
@@ -95,7 +95,7 @@ refresh自定义renderingconfiguration
     private var pseudoType: PseudoColorType = PseudoColorType.PSEUDO_3
 
     /**
-set当前使用的pseudo-color代号
+// set当前使用的pseudo-color代号 // TODO: Review this line
      *
 1-White Hot 3-Iron Red 4-Rainbow 1 5-Rainbow 2 6-Rainbow 3 7-Red Hot 8-Hot Iron 9-Rainbow 4 10-Rainbow 5 11-Black Hot
      */
@@ -173,11 +173,11 @@ raw data的宽高，即不应用rotation的宽高
 自定义rendering时使用white hotpseudo-color，当置灰mode时range外直接不用改
         val pseudo: PseudoColorType = if (irImageHelp.getColorList() == null) pseudoType else PseudoColorType.PSEUDO_1
         LibIRProcess.convertYuyvMapToARGBPseudocolor(yuvArray, (sourceWidth * sourceHeight).toLong(), pseudo, sourceArgbArray)
-自定义rendering
+// 自定义rendering // TODO: Review this line
         irImageHelp.customPseudoColor(sourceArgbArray, tempArray, sourceWidth, sourceHeight)
-等温尺
+// 等温尺 // TODO: Review this line
         irImageHelp.setPseudoColorMaxMin(sourceArgbArray, tempArray, limitTempMax, limitTempMin, sourceWidth, sourceHeight)
-temperature报警outline或矩形
+// temperature报警outline或矩形 // TODO: Review this line
         val newArray = irImageHelp.contourDetection(alarmBean, sourceArgbArray, tempArray, sourceWidth, sourceHeight) ?: sourceArgbArray
 rotation
         when (rotateAngle) {
@@ -186,7 +186,7 @@ rotation
             270 -> LibIRProcess.rotateRight90(newArray, imageRes, IRPROCSRCFMTType.IRPROC_SRC_FMT_ARGB8888, rotateArgbArray)
             else -> System.arraycopy(newArray, 0, rotateArgbArray, 0, rotateArgbArray.size)
         }
-超分
+// 超分 // TODO: Review this line
         if (isOpenAmplify) {
             val width: Int = if (rotateAngle == 90 || rotateAngle == 270) sourceWidth else sourceHeight
             val height: Int = if (rotateAngle == 90 || rotateAngle == 270) sourceHeight else sourceWidth

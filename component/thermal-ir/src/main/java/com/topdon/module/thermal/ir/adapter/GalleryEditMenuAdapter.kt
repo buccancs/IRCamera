@@ -104,7 +104,7 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-state变化
+// state变化 // TODO: Review this line
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

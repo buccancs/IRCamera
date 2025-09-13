@@ -56,7 +56,7 @@ class ChartTrendView : LineChart {
         legend.textColor = textColor
         legend.isEnabled = false // Hide曲linetag
 
-x轴
+// x轴 // TODO: Review this line
         val xAxis = this.xAxis
         xAxis.textColor = textColor
         xAxis.setDrawGridLines(false) // 竖向格line
@@ -84,7 +84,7 @@ x轴
                 }
             }
 
-y轴
+// y轴 // TODO: Review this line
         val leftAxis = this.axisLeft
         leftAxis.textColor = textColor // y轴文本颜色
         leftAxis.axisLineColor = 0x00000000 // y轴颜色
@@ -113,7 +113,7 @@ y轴
     }
 
     /**
-根据指定的datarefresh折line图data
+// 根据指定的datarefresh折line图data // TODO: Review this line
 @param tempList temperature值列表，单位摄氏度
      */
     fun refresh(tempList: List<Float>) {

@@ -20,7 +20,7 @@ object IRTool {
     const val TAG: String = "IRTool"
 
     /**
-自动快门开关
+// 自动快门开关 // TODO: Review this line
      */
     fun setAutoShutter(isAutoShutter: Boolean)  {
         val basicAutoFFCStatusSet: IrcmdError? =
@@ -39,7 +39,7 @@ object IRTool {
     }
 
     /**
-手动打快门
+// 手动打快门 // TODO: Review this line
      */
     fun setOneShutter()  {
         val basicFFCUpdate = DeviceIrcmdControlManager.getInstance().ircmdEngine?.basicFFCUpdate()
@@ -104,7 +104,7 @@ contrast：parameter是0-100
     }
 
     /**
-set镜像
+// set镜像 // TODO: Review this line
      */
     fun basicMirrorAndFlipStatusSet(openMirror: Boolean)  {
 setimage镜像或翻转 PASS
@@ -121,7 +121,7 @@ setimage镜像或翻转 PASS
     }
 
     /**
-一次complete的锅盖calibration流程
+// 一次complete的锅盖calibration流程 // TODO: Review this line
      * https://alidocs.dingtalk.com/i/p/QqWXwywDMb9xKG31/docs/14lgGw3P8vL0P2qbu7OR39d5V5daZ90D
 Setp1：插上module出图并确保当前module达到热稳定state，一般需要预热3-5分钟。
 预热complete后，移动module至calibration靶area前，靠近但不接触靶area。靶area的成像覆盖全部视场、 无杂散光进入为最佳)；
@@ -176,7 +176,7 @@ high/low gainmode下各做一组锅盖calibration，如此module的锅盖calibra
     }
 
     /**
-enabledcore内部环境variable修正
+// enabledcore内部环境variable修正 // TODO: Review this line
      */
     fun advEnvCorrectSwitchSet(open: Boolean)  {
         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -190,7 +190,7 @@ enabledcore内部环境variable修正
     }
 
     /**
-core校正的
+// core校正的 // TODO: Review this line
 反射率：range:1~16384
      */
     fun advEnvCorrectEMSSet(value: Int)  {
@@ -199,7 +199,7 @@ core校正的
     }
 
     /**
-core校正的
+// core校正的 // TODO: Review this line
 反射temperature(units:Celsius)：range:233~373
      */
     fun advEnvCorrectTUSet(value: Int)  {
@@ -246,7 +246,7 @@ getgainstate PASS
     }
 
     /**
-set场景mode三
+// set场景mode三 // TODO: Review this line
      */
     fun setMode()  {
 //        val professionModeSetResult = DeviceIrcmdControlManager.getInstance().ircmdEngine

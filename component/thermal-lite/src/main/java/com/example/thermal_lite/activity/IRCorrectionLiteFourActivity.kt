@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  *
-锅盖矫正
+// 锅盖矫正 // TODO: Review this line
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
@@ -61,7 +61,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
         }
 
         binding.timeDownView.postDelayed({
-start矫正
+// start矫正 // TODO: Review this line
             if (binding.timeDownView.downTimeWatcher == null)
                 {
                     binding.timeDownView.setOnTimeDownListener(

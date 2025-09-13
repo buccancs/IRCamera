@@ -162,7 +162,7 @@ true-TC007 false-其他插件式device
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(this, spanCount)
-动态setspan
+// 动态setspan // TODO: Review this line
         gridLayoutManager.spanSizeLookup =
             object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {

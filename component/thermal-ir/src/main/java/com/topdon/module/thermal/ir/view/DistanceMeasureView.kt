@@ -48,7 +48,7 @@ class DistanceMeasureView : View {
         linePaint!!.color = Color.GREEN
         linePaint!!.strokeWidth = 4f
         linePaint!!.style = Paint.Style.STROKE
-set虚line的间隔长度和line条长度
+// set虚line的间隔长度和line条长度 // TODO: Review this line
         val intervals = floatArrayOf(10f, 10f)
         linePaint!!.pathEffect = DashPathEffect(intervals, 0f)
     }
@@ -69,7 +69,7 @@ calculation初始位置，使得两条line居中，间隔20dp
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-drawing两条水平line
+// drawing两条水平line // TODO: Review this line
         canvas.drawLine(50f, line1Y, (width - 50).toFloat(), line1Y, linePaint!!)
         canvas.drawLine(50f, line2Y, (width - 50).toFloat(), line2Y, linePaint!!)
     }
@@ -86,7 +86,7 @@ drawing两条水平line
                     newY = height.toFloat()
                 }
 
-根据Touch位置updateline的位置
+// 根据Touch位置updateline的位置 // TODO: Review this line
                 if (Math.abs(newY - line1Y) < Math.abs(newY - line2Y)) {
                     val abs = line1Y - newY
                     line1Y = newY
@@ -96,7 +96,7 @@ drawing两条水平line
                     line2Y = newY
                     line1Y -= abs
                 }
-update距离
+// update距离 // TODO: Review this line
                 distance = Math.abs(line2Y - line1Y)
                 invalidate()
                 moveListener?.invoke(distance)

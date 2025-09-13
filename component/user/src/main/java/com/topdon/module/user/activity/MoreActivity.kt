@@ -1,5 +1,6 @@
 package com.topdon.module.user.activity
 
+import android.os.Build
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -72,10 +73,10 @@ class MoreActivity : BaseActivity(), View.OnClickListener {
         settingDisconnect.setOnClickListener(this)
         settingAutoSave.setOnClickListener(this)
 
-if (Build.VERSION.SDK_INT < 29) {//低于 Android10
+        if (Build.VERSION.SDK_INT < 29) { // Lower than Android 10
             settingVersion.isVisible = false
-        }*/
-2024-5-30 09:16 TS004项目APP沟通群决定，3.30version先把firmwareUpgradehide
+        }
+        // 2024-5-30 09:16 TS004 project APP communication group decision, hide firmware upgrade in v3.30
         settingVersion.isVisible = false
     }
 
@@ -115,14 +116,15 @@ if (Build.VERSION.SDK_INT < 29) {//低于 Android10
             settingStorageSpace -> { // TS004储存空间
                 NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            settingVersion -> { // firmwareversion
-由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处comment强制Login逻辑
+            settingVersion -> { // firmware version
+                // Due to dual-channel solution issues, V3.30 temporarily uses built-in firmware upgrade package
+                // Commented out forced login logic
 //                if (LMS.getInstance().isLogin) {
                 val firmwareData = firmwareViewModel.firmwareDataLD.value
                 if (firmwareData != null) {
                     showFirmwareUpDialog(firmwareData)
                 } else {
-                    XLog.i("TS004 firmwareUpgrade - click查询")
+                    XLog.i("TS004 firmware upgrade - click query")
                     showCameraLoading()
                     firmwareViewModel.queryFirmware(true)
                 }
@@ -151,7 +153,8 @@ displayfirmwareUpgradetip弹框.
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处commentDownload逻辑
+            // Due to dual-channel solution issues, V3.30 temporarily uses built-in firmware upgrade package
+            // Commented out download logic
             // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
@@ -170,7 +173,7 @@ displayfirmwareUpgradetip弹框.
         }
 
     /**
-Download指定firmwareUpgrade包
+// Download指定firmwareUpgrade包 // TODO: Review this line
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {

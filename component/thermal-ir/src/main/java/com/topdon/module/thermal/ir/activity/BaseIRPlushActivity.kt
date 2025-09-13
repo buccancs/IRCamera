@@ -95,7 +95,7 @@ thermal imagingdevicesn,可作为唯一id，此sn并非艾睿烧录的，是内�
     private var dualCameraWidth = 480
     private var dualCameraHeight = 640
 
-是否使用IRISPalgorithm集成
+// 是否使用IRISPalgorithm集成 // TODO: Review this line
     private val isUseIRISP = false
 
     private var psedocolor: Array<ByteArray>? = null
@@ -164,7 +164,7 @@ defaultDataFlowMode 是 image+temperature，故而 SDK Return的sensor原始宽�
             }
         /**
 Openinfraredmodule
-需要Confirm好module的pid和分辨率
+// 需要Confirm好module的pid和分辨率 // TODO: Review this line
          */
         USBMonitorManager.getInstance().registerUSB()
 在USBMonitorManager onConnectCallback中Openvisible lightmodule
@@ -191,12 +191,12 @@ Openinfraredmodule
 避免冲突，需要延时
                     /**
 开visible lightcamera
-需要Confirm好module的pid和分辨率
+// 需要Confirm好module的pid和分辨率 // TODO: Review this line
                      */
                     lifecycleScope.launch(Dispatchers.Main) {
                         startVLCamera(vlPid, vlFps, vlCameraWidth, vlCameraHeight)
                         initDualCamera()
-一体式
+// 一体式 // TODO: Review this line
                         initDefIntegralArgsDISPValue(DualCameraParams.TypeLoadParameters.ROTATE_270)
                     }
                 } else if (msg.what == Const.HANDLE_REGISTER) {
@@ -226,7 +226,7 @@ Openinfraredmodule
     }
 
     /**
-一体式
+// 一体式 // TODO: Review this line
      */
     private fun initDefIntegralArgsDISPValue(typeLoadParameters: DualCameraParams.TypeLoadParameters) {
         if (!isDualIR())
@@ -238,7 +238,7 @@ Openinfraredmodule
             val data = dualView?.dualUVCCamera?.loadParameters(parameters, typeLoadParameters)
             dualDisp = IRCmdTool.dispNumber
             setDispViewData(dualDisp)
-initialize默认值
+// initialize默认值 // TODO: Review this line
             dualView?.dualUVCCamera?.setDisp(dualDisp)
             dualView?.startPreview()
         }
@@ -267,7 +267,7 @@ initialize默认值
         getTemperatureDualView().setDualUVCCamera(dualView!!.getDualUVCCamera())
         initPseudoColor()
         initAmplify(true)
-这里可以setinitializefusionmode
+// 这里可以setinitializefusionmode // TODO: Review this line
 //        setFusion(mCurrentFusionType)
 //        dualView!!.startPreview()
         dualView?.setHandler(mIrHandler)
@@ -290,7 +290,7 @@ loadpseudo-color，虽然用不上这个pseudo-color，但是sdk限制必须init
                 CommonParams.PseudoColorUsbDualType.WHITE_HOT_MODE,
                 psedocolor!![0],
             )
-这里可以setinitializefusionmode
+// 这里可以setinitializefusionmode // TODO: Review this line
             setFusion(mCurrentFusionType)
             inputStream.close()
         } catch (e: IOException) {

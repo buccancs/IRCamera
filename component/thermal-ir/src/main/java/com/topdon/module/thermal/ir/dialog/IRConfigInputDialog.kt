@@ -29,7 +29,7 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
     /**
-set输入框默认值
+// set输入框默认值 // TODO: Review this line
      */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value

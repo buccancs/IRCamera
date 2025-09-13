@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
-X轴文本format
+// X轴文本format // TODO: Review this line
  */
 /**
  * I r my value formatter utility class for thermal imaging operations.

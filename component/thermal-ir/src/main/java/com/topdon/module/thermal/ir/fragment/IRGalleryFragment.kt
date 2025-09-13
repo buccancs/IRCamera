@@ -43,7 +43,7 @@ import java.io.File
 import com.topdon.lib.core.R as LibR
 
 /**
-图库
+// 图库 // TODO: Review this line
  */
 /**
  * I r gallery fragment for thermal imaging components.
@@ -196,7 +196,7 @@ class IRGalleryFragment : BaseFragment() {
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(requireActivity(), spanCount)
-动态setspan
+// 动态setspan // TODO: Review this line
         gridLayoutManager.spanSizeLookup =
             object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {

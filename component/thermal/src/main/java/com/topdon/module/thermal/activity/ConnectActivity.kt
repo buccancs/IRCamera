@@ -22,10 +22,10 @@ class ConnectActivity : BaseActivity() {
         val bluetoothBtn = findViewById<TextView>(R.id.bluetooth_btn)
         val isDeviceConnected = DeviceTools.isConnect()
         if (!isDeviceConnected) {
-未connection
+// 未connection // TODO: Review this line
             bluetoothBtn.text = getString(R.string.app_no_connect)
         } else {
-已connection
+// 已connection // TODO: Review this line
             bluetoothBtn.text = getString(R.string.app_connect)
         }
     }

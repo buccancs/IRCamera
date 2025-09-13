@@ -12,7 +12,7 @@ import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus
 
 /**
-选取regionListener
+// 选取regionListener // TODO: Review this line
  */
 /**
  * I r monitor activity for thermal imaging interface.

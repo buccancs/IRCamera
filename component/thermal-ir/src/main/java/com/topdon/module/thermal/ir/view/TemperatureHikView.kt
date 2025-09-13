@@ -30,7 +30,7 @@ import com.infisense.usbir.utils.TempUtil
  */
 class TemperatureHikView : TemperatureBaseView {
     /**
-要drawing的temperatureinfo
+// 要drawing的temperatureinfo // TODO: Review this line
      */
     @Volatile
     private var tempInfo = TempInfo()
@@ -307,7 +307,7 @@ area
         }
         operateRect?.let { drawRect(canvas, it) }
 
-趋势图
+// 趋势图 // TODO: Review this line
         trendLine?.let {
             drawLine(canvas, it)
             drawTrendText(canvas, it)

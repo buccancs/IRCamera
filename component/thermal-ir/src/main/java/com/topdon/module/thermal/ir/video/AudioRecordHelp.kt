@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference
 import java.nio.ShortBuffer
 
 /**
-音频采集并且与videoMerge一起
+// 音频采集并且与videoMerge一起 // TODO: Review this line
  * @author: CaiSongL
  * @date: 2023/3/28
  */
@@ -97,7 +97,7 @@ object AudioUtilHolder {
                 }
             audioRecord!!.startRecording()
             /**
-音频进行循环encoding
+// 音频进行循环encoding // TODO: Review this line
              */
             try {
                 while (runAudioThread) {

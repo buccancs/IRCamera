@@ -169,7 +169,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_electronic_manual -> { // 电子description书
+            // setting_electronic_manual -> { // 电子description书 // TODO: Review this comment
                 ARouter.getInstance().build(
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())

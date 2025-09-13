@@ -63,7 +63,7 @@ getmatrixdata里的最大值的序列(在选取region内)-原matrix
         selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
-无指定region
+// 无指定region // TODO: Review this line
             var maxIndex = 0
             for (i in 1 until data.size - 1) {
                 if (data[i] > data[maxIndex]) {
@@ -252,7 +252,7 @@ matrix顺时针rotation180°
 
     /**
 matrix顺时针rotation270°
-getrotation后的arraydata
+// getrotation后的arraydata // TODO: Review this line
      */
     private fun matrixRotate270(srcData: FloatArray): FloatArray {
         val row = 192

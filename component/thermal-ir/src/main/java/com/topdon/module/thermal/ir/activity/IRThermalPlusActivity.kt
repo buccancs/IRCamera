@@ -100,13 +100,13 @@ findViewById<TextView>(R.id.toolbar_title)?.text = "dual lightdevice"
         data: Int,
     ) {
         if (action == -1 || action == 1) {
-移动
+// 移动 // TODO: Review this line
             lifecycleScope.launch(Dispatchers.IO) {
                 dualDisp = data
                 dualView?.dualUVCCamera!!.setDisp(data)
             }
         } else {
-确定
+// 确定 // TODO: Review this line
             val oemInfo = ByteArray(1024)
             ircmd?.oemRead(CommonParams.ProductType.P2, oemInfo)
             val dataStr = data.toString()
@@ -115,7 +115,7 @@ findViewById<TextView>(R.id.toolbar_title)?.text = "dual lightdevice"
 //            SharedManager.setIrDualDisp(dualDisp)
             if (result == 0)
                 {
-disabled控件
+// disabled控件 // TODO: Review this line
                     // if (thermalSteeringView.isVisible) {
                     //    thermalSteeringView.visibility = View.GONE
                     thermalRecyclerNight.setTwoLightSelected(TwoLightType.CORRECT, false)
@@ -248,7 +248,7 @@ dual light的rotation角度不同
         System.arraycopy(irFrame, preIrData.size, preTempData, 0, preTempData.size)
         if (irImageHelp.getColorList() != null)
             {
-转成grayscale图进行自定义pseudo-colorfusionprocessing
+// 转成grayscale图进行自定义pseudo-colorfusionprocessing // TODO: Review this line
                 LibIRProcess.convertYuyvMapToARGBPseudocolor(
                     preIrData,
                     (Const.IR_WIDTH * Const.IR_HEIGHT).toLong(),
@@ -312,7 +312,7 @@ temperature监控的轮廓检测，dual light的原始image不管rotation如何�
     }
 
     /**
-initializevideo采集component
+// initializevideo采集component // TODO: Review this line
      */
     override fun initVideoRecordFFmpeg() {
         videoRecord =

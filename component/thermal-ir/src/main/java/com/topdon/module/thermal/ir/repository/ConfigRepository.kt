@@ -31,7 +31,7 @@ object ConfigRepository {
     }
 
     /**
-读取selected的configurationinfo
+// 读取selected的configurationinfo // TODO: Review this line
      */
     fun readConfig(isTC007: Boolean): DataBean {
         val config = read(isTC007)

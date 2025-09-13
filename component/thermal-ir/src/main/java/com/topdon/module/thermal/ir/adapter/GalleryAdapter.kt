@@ -15,7 +15,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 
 /**
-photo或video
+// photo或video // TODO: Review this line
  */
 /**
  * Custom Gallery view for thermal imaging display.

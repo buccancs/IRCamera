@@ -37,7 +37,7 @@ import java.util.*
 import com.topdon.lib.core.R as LibR
 
 /**
-cameraproperty值set
+// cameraproperty值set // TODO: Review this line
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
@@ -232,7 +232,7 @@ class IRCameraSettingActivity : BaseActivity() {
                 }
             },
         )
-TC007device不需要延迟拍照
+// TC007device不需要延迟拍照 // TODO: Review this line
         lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
@@ -249,10 +249,10 @@ TC007device不需要延迟拍照
         val providers = locationManager?.getProviders(true)
         locationProvider =
             if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-如果是GPS
+// 如果是GPS // TODO: Review this line
                 LocationManager.GPS_PROVIDER
             } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-如果是Network
+// 如果是Network // TODO: Review this line
                 LocationManager.NETWORK_PROVIDER
             } else {
                 return null
@@ -441,7 +441,7 @@ getaddressinfo:城市、街道等info
                         never: Boolean,
                     ) {
                         if (never) {
-如果是被永久拒绝就跳转到应用Permission系统set页area
+// 如果是被永久拒绝就跳转到应用Permission系统set页area // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(LibR.string.app_location_content))

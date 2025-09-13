@@ -158,7 +158,7 @@ setcontrast
     }
 
     /**
-set锐化
+// set锐化 // TODO: Review this line
      * @param value 0 ~ 4
      *
      */
@@ -179,7 +179,7 @@ set锐化
     }
 
     /**
-set自动gain
+// set自动gain // TODO: Review this line
      */
     fun setLevelAgc(
         irCmd: IRCMD?,
@@ -195,7 +195,7 @@ set自动gain
     }
 
     /**
-查询gainmode
+// 查询gainmode // TODO: Review this line
 @return 1:高gain(常温)    0:低gain(high temperature)
      */
     fun getTpdGainSel(irCmd: IRCMD?): Int {
@@ -225,7 +225,7 @@ setgainmode
     }
 
     /**
-查询Tpd
+// 查询Tpd // TODO: Review this line
      */
     fun queryTpdParam(
         irCmd: IRCMD?,
@@ -237,7 +237,7 @@ setgainmode
     }
 
     /**
-查询Image
+// 查询Image // TODO: Review this line
      */
     fun queryImageParam(
         irCmd: IRCMD?,
@@ -282,7 +282,7 @@ setimageparameter
 
     /**
 registration
-水平移动
+// 水平移动 // TODO: Review this line
      * @param value (-20 ~ 60)
      */
     fun setDisp(
@@ -324,7 +324,7 @@ registration
     }
 
     /**
-打快门
+// 打快门 // TODO: Review this line
      */
     fun shutter(
         irCmd: IRCMD?,
@@ -333,13 +333,13 @@ registration
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-执行这段
+// 执行这段 // TODO: Review this line
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-自动快门
+// 自动快门 // TODO: Review this line
      */
     fun autoShutter(
         irCmd: IRCMD?,
@@ -350,7 +350,7 @@ registration
     }
 
     /**
-enabled等温尺
+// enabled等温尺 // TODO: Review this line
 @param highC temperature上限，单位摄氏度
 @param lowC temperature下限，单位摄氏度
      */
@@ -377,7 +377,7 @@ enabled等温尺
     }
 
     /**
-disabled等温尺
+// disabled等温尺 // TODO: Review this line
      */
     fun setIsoColorClose(dualUVCCamera: DualUVCCamera?) {
         dualUVCCamera?.setIsothermal(DualCameraParams.IsothermalState.OFF)
@@ -395,7 +395,7 @@ ZoomScaleStep.ZOOM_STEP4: 16级倍率
     }
 
     /**
-缩小
+// 缩小 // TODO: Review this line
      */
     fun setZoomDown(irCmd: IRCMD?) {
         irCmd?.zoomCenterDown(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.ZoomScaleStep.ZOOM_STEP2)

@@ -150,7 +150,7 @@ area
     }
 
     /**
-初始data
+// 初始data // TODO: Review this line
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -171,7 +171,7 @@ area
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
         setViewLay()
-某些特定客户的特殊device需要使用该Commanddisabledsensor
+// 某些特定客户的特殊device需要使用该Commanddisabledsensor // TODO: Review this line
         if (Usbcontorl.isload) {
             Usbcontorl.usb3803_mode_setting(1) // Open5V
             Log.w("123", "Open5V")
@@ -180,14 +180,14 @@ area
         temperatureView.post {
             if (!temperaturerun) {
                 temperaturerun = true
-需等待renderingcomplete再display
+// 需等待renderingcomplete再display // TODO: Review this line
                 temperatureView.visibility = View.VISIBLE
             }
         }
     }
 
     /**
-image信号processing
+// image信号processing // TODO: Review this line
      */
     private fun startISP() {
         try {
@@ -221,12 +221,12 @@ image信号processing
                             "ConnectCallback->onIRCMDCreate",
                         )
                         this@IRMonitorThermalFragment.ircmd = ircmd
-reset镜像为非镜像
+// reset镜像为非镜像 // TODO: Review this line
                         ircmd.setPropImageParams(
                             CommonParams.PropImageParams.IMAGE_PROP_SEL_MIRROR_FLIP,
                             CommonParams.PropImageParamsValue.MirrorFlipType.NO_MIRROR_FLIP,
                         )
-需要等IRCMDinitializecomplete之后才可以调用
+// 需要等IRCMDinitializecomplete之后才可以调用 // TODO: Review this line
 //                    ircmd?.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.PseudoColorType.PSEUDO_1)
                         val fwBuildVersionInfoBytes = ByteArray(50)
                         ircmd?.getDeviceInfo(
@@ -240,11 +240,11 @@ reset镜像为非镜像
                         Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                         gainStatus =
                             if (value[0] == 1) {
-当前core为高gain
+// 当前core为高gain // TODO: Review this line
                                 CommonParams.GainStatus.HIGH_GAIN
-等效大气透过率表
+// 等效大气透过率表 // TODO: Review this line
                             } else {
-当前core为低gain
+// 当前core为低gain // TODO: Review this line
                                 CommonParams.GainStatus.LOW_GAIN
                             }
                     }
@@ -327,7 +327,7 @@ Restoreconfiguration
         } catch (e: InterruptedException) {
             Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
-某些特定客户的特殊device需要使用该Commanddisabledsensor
+// 某些特定客户的特殊device需要使用该Commanddisabledsensor // TODO: Review this line
 //        if (Usbcontorl.isload) {
 Usbcontorl.usb3803_mode_setting(0) //disabled5V
 //        }
@@ -362,7 +362,7 @@ Usbcontorl.usb3803_mode_setting(0) //disabled5V
             }
     }
 
-get选取point
+// get选取point // TODO: Review this line
     private fun updateTemp(type: Int) {
         var result: SelectPositionBean? = null
         val contentRectF = RectF(0f, 0f, 192f, 256f)
@@ -425,7 +425,7 @@ get选取point
                 params.height = params.width * imageHeight / imageWidth
                 thermalLay.layoutParams = params
             } else {
-横屏
+// 横屏 // TODO: Review this line
                 val params = thermalLay.layoutParams
                 params.height = thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
@@ -438,7 +438,7 @@ get选取point
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-准备image
+// 准备image // TODO: Review this line
                 showLoadingDialog()
             }
             101 -> {
@@ -476,12 +476,12 @@ emissivity
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
             )
             delay(timeMillis)
-距离
+// 距离 // TODO: Review this line
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
-自动快门
+// 自动快门 // TODO: Review this line
             delay(timeMillis)
             iruvc?.let {
 部分机型在disabled自动快门，初始会花屏
@@ -524,12 +524,12 @@ emissivity
     }
 
     fun startCoverStsSwitchReady(): Int  {
-锅盖calibration-准备
+// 锅盖calibration-准备 // TODO: Review this line
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
 
     fun startCoverStsSwitch(): Int  {
-锅盖calibration-准备
+// 锅盖calibration-准备 // TODO: Review this line
         ircmd?.rmCoverAutoCalc(CommonParams.RMCoverAutoCalcType.GAIN_1)
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
@@ -545,7 +545,7 @@ emissivity
     }
 
     /**
-单point修正过程
+// 单point修正过程 // TODO: Review this line
      */
     private fun tempCorrect(
         temp: Float,

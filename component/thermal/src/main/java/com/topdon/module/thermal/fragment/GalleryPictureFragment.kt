@@ -69,7 +69,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     /**
-分享image
+// 分享image // TODO: Review this line
      */
     fun share(path: String) {
         val file = File(path)

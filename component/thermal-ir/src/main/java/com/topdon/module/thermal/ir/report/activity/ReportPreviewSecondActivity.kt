@@ -44,7 +44,7 @@ import com.topdon.lib.ui.R as UiR
 /**
 生成report第2步的预览interface.
  *
-需要传递
+// 需要传递 // TODO: Review this line
 - 是否 TC007: [ExtraKeyConfig.IS_TC007]
 - 一份report所有info [ExtraKeyConfig.REPORT_BEAN]
  */

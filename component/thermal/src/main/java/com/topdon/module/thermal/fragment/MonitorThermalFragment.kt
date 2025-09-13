@@ -58,7 +58,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private val msgLiveData by lazy { MutableLiveData<Int>() }
 
-settemperature展示的位置
+// settemperature展示的位置 // TODO: Review this line
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -148,9 +148,9 @@ Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
 
 Log.i("123", "modify后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
         }
-初始选取range
+// 初始选取range // TODO: Review this line
         initFence()
-初始image
+// 初始image // TODO: Review this line
         onIrVideoStart()
         mIrSurfaceView!!.post {
             Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
@@ -177,7 +177,7 @@ Log.i("123", "modify后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}
     }
 
     /**
-enabledvideo流
+// enabledvideo流 // TODO: Review this line
      */
     fun onIrVideoStart() {
         mIsIrVideoStart =
@@ -216,7 +216,7 @@ refreshimage
                         }
                         val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
                         try {
-选取region
+// 选取region // TODO: Review this line
                             val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                             val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
                             maxIndex = maxTempIndex
@@ -271,7 +271,7 @@ ToastUtils.showShort("video流enabledfailed")
     }
 
     /**
-stopvideo流
+// stopvideo流 // TODO: Review this line
      */
     fun onIrVideoStop() {
         mIsIrVideoStart =
@@ -334,7 +334,7 @@ temperaturedisplay
 ***************************************专家mode**********************************************
 
     /**
-专家mode
+// 专家mode // TODO: Review this line
      */
     fun onExpertModeClick(view: View?) {
         System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
@@ -381,7 +381,7 @@ temperaturedisplay
         Log.w("123", "event:${event.action}")
         when (event.action) {
             1001 -> {
-拍照
+// 拍照 // TODO: Review this line
                 ToastUtils.showShort("拍照")
                 picture()
             }
@@ -399,7 +399,7 @@ addline
                 addLine()
             }
             2003 -> {
-add围栏
+// add围栏 // TODO: Review this line
                 addFence()
             }
             2004 -> {
@@ -407,7 +407,7 @@ addtemperature
                 onTempBtnClick()
             }
             2006 -> {
-Clear还原
+// Clear还原 // TODO: Review this line
                 clearFence()
             }
             in 3000..3010 -> {
@@ -415,7 +415,7 @@ setpseudo-color
                 setColor(event.action)
             }
             in 5000..5010 -> {
-全屏
+// 全屏 // TODO: Review this line
                 full()
             }
             10001 -> {
@@ -447,7 +447,7 @@ setpseudo-color
     }
 
     /**
-色带
+// 色带 // TODO: Review this line
      */
     private fun updatePalette(index: Int) {
         if (mGuideInterface == null) {
@@ -474,7 +474,7 @@ setpseudo-color
         type = "fence"
     }
 
-displaypointlinearea布局
+// displaypointlinearea布局 // TODO: Review this line
     private fun showFence(index: Int) {
         if (fenceFlag.getIndex(index) == 0) {
             fenceFlag = 1.shl(4 * (index - 1)) // settings001 or 010 or 100

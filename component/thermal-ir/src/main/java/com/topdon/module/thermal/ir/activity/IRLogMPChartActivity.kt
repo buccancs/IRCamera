@@ -128,7 +128,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                         doNotAskAgain: Boolean,
                                     ) {
                                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                                             if (BaseApplication.instance.isDomestic())
                                                 {
                                                     ToastUtils.showShort(getString(LibR.string.app_storage_content))

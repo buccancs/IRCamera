@@ -135,7 +135,7 @@ true-TC007 false-其他插件式device
     }
 
     /**
-主动检测connectiondevice
+// 主动检测connectiondevice // TODO: Review this line
      */
     private fun checkConnect() {
         if (DeviceTools.isConnect(isAutoRequest = false)) {
@@ -199,7 +199,7 @@ true-TC007 false-其他插件式device
                                         doNotAskAgain: Boolean,
                                     ) {
                                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                                             context?.let {
                                                 TipDialog.Builder(it)
                                                     .setTitleMessage(getString(R.string.app_tip))
@@ -305,7 +305,7 @@ targetSdk高于27且android os为10
     }
 
     /**
-动态申请Permission
+// 动态申请Permission // TODO: Review this line
      */
     private fun initStoragePermission(permissionList: List<String>) {
     }

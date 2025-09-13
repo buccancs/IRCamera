@@ -100,7 +100,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         motionBtn.visibility = View.GONE
     }
 
-秒
+// 秒 // TODO: Review this line
     fun updateTime(time: Long) {
         val ss = time % 60
         val mm = time / 60 % 60

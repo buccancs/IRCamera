@@ -7,7 +7,7 @@ import com.topdon.lib.core.common.SharedManager
 import com.topdon.module.user.databinding.ActivityUnitBinding
 
 /**
-temperature单位switch
+// temperature单位switch // TODO: Review this line
  */
 class UnitActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUnitBinding

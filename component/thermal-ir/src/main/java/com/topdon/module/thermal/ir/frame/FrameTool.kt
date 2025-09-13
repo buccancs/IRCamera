@@ -290,7 +290,7 @@ class FrameTool {
     }
 
     /**
-目标尺寸
+// 目标尺寸 // TODO: Review this line
      */
     private fun getDstImageRes(rotate: ImageParams): LibIRProcess.ImageRes_t {
         val dstImageRes = LibIRProcess.ImageRes_t() // 目标尺寸

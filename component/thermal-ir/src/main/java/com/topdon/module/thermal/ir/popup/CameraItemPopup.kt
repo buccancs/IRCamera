@@ -29,7 +29,7 @@ thermal imaging 拍照/录像 menu.
 @SuppressLint("SetTextI18n")
 class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
     /**
-手动快门是否处于selectedstate
+// 手动快门是否处于selectedstate // TODO: Review this line
      */
     var isShutterSelect: Boolean
         get() = binding.ivShutter.isSelected
@@ -38,7 +38,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
         }
 
     /**
-录音开关是否处于selectedstate
+// 录音开关是否处于selectedstate // TODO: Review this line
      */
     var isAudioSelect: Boolean
         get() = binding.ivAudio.isSelected

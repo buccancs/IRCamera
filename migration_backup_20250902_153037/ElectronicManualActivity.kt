@@ -23,7 +23,7 @@ class ElectronicManualActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_electronic_manual
 
     override fun initView() {
-        val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) // 0-电子description书 1-FAQ
+        // val productType = intent.getIntExtra(Constants.SETTING_TYPE, 0) // 0-电子description书 1-FAQ // TODO: Review this comment
 
         title_view.setTitleText(if (productType == Constants.SETTING_BOOK) R.string.electronic_manual else R.string.app_question)
 

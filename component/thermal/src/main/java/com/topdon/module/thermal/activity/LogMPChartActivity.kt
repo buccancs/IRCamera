@@ -168,7 +168,7 @@ switchtype
     private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
 
     /**
-曲line样式
+// 曲line样式 // TODO: Review this line
      */
     private fun createSet(
         index: Int,
@@ -306,7 +306,7 @@ set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hi
     }
 
     /**
-x轴display多少个刻度
+// x轴display多少个刻度 // TODO: Review this line
      */
     private fun getLabCount(count: Int): Int {
         return when (count) {
@@ -318,7 +318,7 @@ x轴display多少个刻度
         }
     }
 
-getdisplay最小区间
+// getdisplay最小区间 // TODO: Review this line
     private fun getMinimum(): Float {
         val min =
             when (selectType) {

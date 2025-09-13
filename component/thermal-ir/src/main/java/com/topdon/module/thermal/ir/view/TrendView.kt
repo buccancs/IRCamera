@@ -22,7 +22,7 @@ import kotlin.math.min
  */
 class TrendView : FrameLayout {
     /**
-展开趋势图
+// 展开趋势图 // TODO: Review this line
      */
     fun expand() {
         binding.clOpen.isVisible = true
@@ -30,7 +30,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-收起趋势图
+// 收起趋势图 // TODO: Review this line
      */
     fun close() {
         binding.clOpen.isVisible = false
@@ -38,7 +38,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-根据指定的datarefresh折line图data
+// 根据指定的datarefresh折line图data // TODO: Review this line
 @param tempList temperature值列表，单位摄氏度
      */
     fun refreshChart(tempList: List<Float>) {
@@ -48,7 +48,7 @@ class TrendView : FrameLayout {
     }
 
     /**
-将折line图clear
+// 将折line图clear // TODO: Review this line
      */
     fun setToEmpty() {
         binding.viewChartTrend.setToEmpty()

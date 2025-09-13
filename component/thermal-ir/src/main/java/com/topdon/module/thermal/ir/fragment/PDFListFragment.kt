@@ -152,7 +152,7 @@ refresh
     }
 
     /**
-是否已调用过load初始data
+// 是否已调用过load初始data // TODO: Review this line
      */
     private var hasLoadData = false
 
@@ -257,7 +257,7 @@ refresh
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-load更多
+// load更多 // TODO: Review this line
             viewModel.getReportData(isTC007, ++page)
         }
 

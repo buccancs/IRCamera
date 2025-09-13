@@ -83,7 +83,7 @@ class ManualStep2Activity :
     private val mVlCameraHeight = 720
 
     /**
-fusion分辨率
+// fusion分辨率 // TODO: Review this line
      */
     private val mDualWidth = 480
     private val mDualHeight = 640
@@ -92,7 +92,7 @@ fusion分辨率
     private var sId: String = ""
 
     /**
-手动registration的initializeparameter
+// 手动registration的initializeparameter // TODO: Review this line
      */
     private val INIT_ALIGN_DATA = floatArrayOf(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f)
     private var alignScaleX = 0f // 图和屏幕Scale比
@@ -145,7 +145,7 @@ loadregistrationparameter
             View.OnClickListener {
                 if (!canOperate)
                     {
-拍照
+// 拍照 // TODO: Review this line
                         takePhoto()
                         ivTakePhoto?.setText(R.string.app_ok)
                         tvTips.text = getString(R.string.dual_light_correction_tips_3)
@@ -266,7 +266,7 @@ initializepseudo-color
 setinitializefusionmode,一般selectionLPYFusion
         mDualView!!.dualUVCCamera.setFusion(DualCameraParams.FusionType.LPYFusion)
 
-Open自动快门逻辑
+// Open自动快门逻辑 // TODO: Review this line
         USBMonitorDualManager.getInstance().ircmd.setPropAutoShutterParameter(
             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
@@ -328,7 +328,7 @@ loadpseudo-color
                 mPseudoColors[3],
             )
 
-这里可以setinitializepseudo-color
+// 这里可以setinitializepseudo-color // TODO: Review this line
             mDualView!!.dualUVCCamera.setPseudocolor(CommonParams.PseudoColorUsbDualType.IRONBOW_MODE)
             `is`.close()
         } catch (e: IOException) {
@@ -345,7 +345,7 @@ loadpseudo-color
             val parameters = IRCmdTool.getDualBytes(USBMonitorDualManager.getInstance().ircmd)
             val data = mDualView!!.dualUVCCamera.loadParameters(parameters, typeLoadParameters)
             dualDisp = IRCmdTool.dispNumber
-initialize默认值
+// initialize默认值 // TODO: Review this line
             mDualView?.dualUVCCamera?.setDisp(dualDisp)
             mDualView?.startPreview()
             Log.e("coredataloadsuccess", "initializationcomplete:")
@@ -445,7 +445,7 @@ initialize默认值
     var userStop = false
 
     /**
-stop预览
+// stop预览 // TODO: Review this line
      */
     private fun dualStop() {
         userStop = true
@@ -472,7 +472,7 @@ stop预览
             dualStopWithAlign()
             return
         }
-stop预览
+// stop预览 // TODO: Review this line
         dualStop()
     }
 
@@ -493,10 +493,10 @@ stop预览
     }
 
     /**
-拍照功能
+// 拍照功能 // TODO: Review this line
      */
     private fun takePhoto() {
-拍照
+// 拍照 // TODO: Review this line
         if (mDualView != null) {
             canOperate = true
             mDualView!!.stopPreview()
@@ -511,7 +511,7 @@ stop预览
     }
 
     /**
-processing移动data
+// processing移动data // TODO: Review this line
      */
     private fun handleMove(
         preX: Float,
@@ -537,7 +537,7 @@ processing移动data
     }
 
     /**
-processing角度data
+// processing角度data // TODO: Review this line
      */
     private fun handleAngle(angle: Float) {
         if (!canOperate) {
@@ -608,7 +608,7 @@ stopcalibration
         private const val MIN_CLICK_DELAY_TIME = 100
         private var lastClickTime: Long = 0
 
-最多70毫秒执行一次move
+// 最多70毫秒执行一次move // TODO: Review this line
         fun delayMoveTime(): Boolean {
             var flag = false
             val curClickTime = System.currentTimeMillis()

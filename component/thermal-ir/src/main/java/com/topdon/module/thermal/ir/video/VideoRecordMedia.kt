@@ -33,7 +33,7 @@ class VideoRecordMedia(
         encoder.setFrameDelay(25)
         width = 480
         height = width * cameraView.height / cameraView.width
-宽高不能出现奇数
+// 宽高不能出现奇数 // TODO: Review this line
         if (height % 2 == 1) {
             height -= 1
         }

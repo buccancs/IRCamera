@@ -583,7 +583,7 @@ line移动方式：整体移动、仅变更头、仅变更尾。
                 val y: Int = event.y.correct(height)
                 val line: Line = (if (isTrend) operateTrend else operateLine) ?: Line(Point(), Point())
                 if ((line.start.x / xScale).toInt() != (line.end.x / xScale).toInt() || (line.start.y / yScale).toInt() != (line.end.y / yScale).toInt()) {
-只有画出来的结果不是一个point才生效
+// 只有画出来的结果不是一个point才生效 // TODO: Review this line
                     if (isAddAction || abs(x - downX) > DELETE_TOLERANCE || abs(y - downY) > DELETE_TOLERANCE) {
                         if (isTrend) {
                             trendLine = line
@@ -836,7 +836,7 @@ area移动方式：clickarea内部-整体移动、clickarea4条边-边移动、c
                 if ((rect.left / xScale).toInt() != (rect.right / xScale).toInt() &&
                     (rect.top / yScale).toInt() != (rect.bottom / yScale).toInt()
                 ) {
-画出来的结果不是一条line才生效
+// 画出来的结果不是一条line才生效 // TODO: Review this line
                     if (isAddAction || abs(x - downX) > DELETE_TOLERANCE || abs(y - downY) > DELETE_TOLERANCE) {
                         synchronized(this) {
                             rectList.add(rect)

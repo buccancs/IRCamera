@@ -453,7 +453,7 @@ switch到high temperature档
                 realRightValue = UnitTools.showUnitValue(max, isShowC)
                 this@IRThermalLiteActivity.runOnUiThread {
                     if (!customPseudoBean.isUseCustomPseudo) {
-动态renderingmode
+// 动态renderingmode // TODO: Review this line
                         try {
                             binding.temperatureSeekbar.setRangeAndPro(
                                 UnitTools.showUnitValue(editMinValue, isShowC),
@@ -476,7 +476,7 @@ switch到high temperature档
                             Log.e("temperature图层updatefailed", e.message.toString())
                         }
                     } else {
-自定义rendering
+// 自定义rendering // TODO: Review this line
                         try {
                             binding.tvTempContent.text = " Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
                         } catch (e: Exception) {
@@ -724,7 +724,7 @@ modify自定义pseudo-colorproperty，抽出method，方便dual lightinterface�
         CameraPreviewManager.getInstance()?.setColorList(colorList, places, isUseGray, customMaxTemp, customMinTemp)
     }
 
-update自定义pseudo-color的颜色的property值
+// update自定义pseudo-color的颜色的property值 // TODO: Review this line
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
             binding.temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
@@ -863,7 +863,7 @@ watermarkmenu只有 2D 编辑才有
     }
 
     /**
-displayfusion度set弹框
+// displayfusion度set弹框 // TODO: Review this line
      */
     private fun showBlendExtentPopup() {
         val seekBarPopup = SeekBarPopup(this, true)
@@ -886,7 +886,7 @@ displayfusion度set弹框
     }
 
     /**
-统一在此处processingdevice端的parameterset
+// 统一在此处processingdevice端的parameterset // TODO: Review this line
      */
     private fun setConfigForIr(
         type: IrParam,
@@ -912,11 +912,11 @@ high/low gainswitch
                 }
             }
             IrParam.ParamPColor -> {
-pseudo-color样式
+// pseudo-color样式 // TODO: Review this line
                 CameraPreviewManager.getInstance().setPseudocolorMode(data as Int)
             }
             IrParam.ParamAlarm -> {
-预警
+// 预警 // TODO: Review this line
                 CameraPreviewManager.getInstance().alarmBean = alarmBean
                 SaveSettingUtil.alarmBean = alarmBean
                 AlarmHelp.getInstance(this).updateData(
@@ -981,7 +981,7 @@ disabledcamera
                     ) {
                         try {
                             if (allGranted) {
-画中画enabled
+// 画中画enabled // TODO: Review this line
                                 binding.thermalRecyclerNight.setTwoLightSelected(TwoLightType.P_IN_P, true)
                                 binding.cameraPreview.visibility = View.VISIBLE
                                 binding.cameraPreview?.setCameraAlpha(cameraAlpha / 100.0f)
@@ -1011,7 +1011,7 @@ disabledcamera
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(com.topdon.module.thermal.ir.R.string.app_camera_content))
@@ -1073,7 +1073,7 @@ disabledcamera
                 else -> RotateDegree.DEGREE_180
             }
         CameraPreviewManager.getInstance().imageRotate = imageRotate
-initialize预览相关的class
+// initialize预览相关的class // TODO: Review this line
         CameraPreviewManager.getInstance().init(binding.cameraView, mLiteHandler)
 
         CameraPreviewManager.getInstance().setOnTempDataChangeCallback { data ->
@@ -1162,7 +1162,7 @@ initialize预览相关的class
             lifecycleScope.launch {
                 if (!temperaturerun) {
                     temperaturerun = true
-需等待renderingcomplete再display
+// 需等待renderingcomplete再display // TODO: Review this line
                     binding.temperatureView?.visibility = View.VISIBLE
                     delay(1000)
                     binding.temperatureView?.temperatureRegionMode = REGION_MODE_CENTER // 全屏temperature measurement
@@ -1172,7 +1172,7 @@ initialize预览相关的class
     }
 
     /**
-initializeUSBconnection相关class
+// initializeUSBconnection相关class // TODO: Review this line
      */
     private fun initUSBMonitorManager() {
         USBMonitorManager.getInstance().init()
@@ -1197,7 +1197,7 @@ initializeUSBconnection相关class
                     createNew: Boolean,
                 ) {
                     this@IRThermalLiteActivity.ctrlBlock = ctrlBlock
-USBconnectionsuccessful后
+// USBconnectionsuccessful后 // TODO: Review this line
                     DeviceControlManager.getInstance().handleStartPreview(ctrlBlock)
                 }
 
@@ -1255,7 +1255,7 @@ displaytemperature报警set弹框.
     }
 
     /**
-色带
+// 色带 // TODO: Review this line
      */
     private fun addLimit() {
     }
@@ -1449,7 +1449,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
         }
     }
 
-拍照右边button
+// 拍照右边button // TODO: Review this line
     private fun settingCamera() {
         showCameraSetting = !showCameraSetting
         if (showCameraSetting) {
@@ -1519,14 +1519,14 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                                     cameraItemAdapter!!.data[position].isSel = false
                                     cameraItemAdapter!!.notifyItemChanged(position)
                                 }
-手动快门
+// 手动快门 // TODO: Review this line
                                 IRTool.setOneShutter()
                                 ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.app_Manual_Shutter)
                                 return@listener
                             }
 
                             CameraItemBean.TYPE_ZDKM -> {
-自动快门
+// 自动快门 // TODO: Review this line
                                 isAutoShutter = !isAutoShutter
                                 SaveSettingUtil.isAutoShutter = isAutoShutter
                                 cameraItemAdapter!!.data[position].isSel = !cameraItemAdapter!!.data[position].isSel
@@ -1612,7 +1612,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                     ) {
                         try {
                             if (allGranted) {
-录音enabled
+// 录音enabled // TODO: Review this line
                                 isRecordAudio = true
                                 SaveSettingUtil.isRecordAudio = isRecordAudio
                                 videoRecord?.updateAudioState(true)
@@ -1631,7 +1631,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(com.topdon.module.thermal.ir.R.string.app_microphone_content))
@@ -1654,7 +1654,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
     }
 
     /**
-进入延迟UI
+// 进入延迟UI // TODO: Review this line
      */
     fun updateDelayView() {
         try {
@@ -1688,7 +1688,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                                 val setting = SharedManager.continuousBean
                                 if (setting.isOpen) {
                                     if (!isAutoCamera) {
-连续拍照
+// 连续拍照 // TODO: Review this line
                                         autoJob =
                                             countDownCoroutines(
                                                 setting.count,
@@ -1726,7 +1726,7 @@ recordingvideo
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+// 拒绝Authorization并且不再提醒 // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_storage_content))
@@ -1775,12 +1775,12 @@ recordingvideo
             }
             try {
                 synchronized(syncimage.dataLock) {
-get展示imageinfo的图层data
+// get展示imageinfo的图层data // TODO: Review this line
                     var cameraViewBitmap: Bitmap? = getCameraViewBitmap()
 visible light
                     if (isOpenPreview) {
                         cameraViewBitmap = BitmapUtils.mergeBitmapByView(cameraViewBitmap, binding.cameraPreview.getBitmap(), binding.cameraPreview)
-画中画原图save
+// 画中画原图save // TODO: Review this line
                         binding.cameraPreview.getBitmap()?.let {
                             ImageUtils.saveImageToApp(it)
                         }
@@ -1833,7 +1833,7 @@ add汽车检测 - disabled due to missing layout
                     cameraViewBitmap?.let {
                         name = ImageUtils.save(bitmap = it)
                     }
-m256的module相对p2的rotation角度不一样
+// m256的module相对p2的rotation角度不一样 // TODO: Review this line
                     val basicGainGetValue = IntArray(1)
                     val basicGainGet: IrcmdError =
                         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -1886,7 +1886,7 @@ m256的module相对p2的rotation角度不一样
     }
 
     /**
-initializevideo采集component
+// initializevideo采集component // TODO: Review this line
      */
     private fun initVideoRecordFFmpeg() {
         videoRecord =
@@ -1970,7 +1970,7 @@ startrecording
     }
 
     /**
-初始data
+// 初始data // TODO: Review this line
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -2009,7 +2009,7 @@ startrecording
                 IRTool.setAutoShutter(false)
 initializecontrast
                 IRTool.basicGlobalContrastLevelSet((saveSetBean.contrastValue / 255f * 100).toInt())
-镜像
+// 镜像 // TODO: Review this line
                 IRTool.basicMirrorAndFlipStatusSet(saveSetBean.isOpenMirror)
                 binding.thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
                 CameraPreviewManager.getInstance()?.setLimit(
@@ -2021,7 +2021,7 @@ gainmodeinitialize
                 withContext(Dispatchers.IO) {
                     IRTool.basicGainSet(temperatureMode)
                 }
-自动快门
+// 自动快门 // TODO: Review this line
                 delay(30 * 1000)
                 IRTool.setAutoShutter(isAutoShutter)
                 XLog.i("moduleconfigurationRestoresuccess")

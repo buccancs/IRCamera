@@ -32,14 +32,14 @@ class MenuTabAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
-拍摄
+// 拍摄 // TODO: Review this line
     private val firstMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg,
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7002_svg,
         )
 
-选框
+// 选框 // TODO: Review this line
     private val secondMenus =
         arrayListOf<Int>(
             com.topdon.lib.ui.R.drawable.ic_menu_thermal6001,
@@ -50,7 +50,7 @@ class MenuTabAdapter(val context: Context) :
             com.topdon.lib.ui.R.drawable.ic_menu_thermal7004,
         )
 
-选框
+// 选框 // TODO: Review this line
     private val secondMenusStr =
         arrayListOf(
             "point",
@@ -61,7 +61,7 @@ class MenuTabAdapter(val context: Context) :
             "delete",
         )
 
-选框
+// 选框 // TODO: Review this line
     private val fourthMenusStr =
         arrayListOf(
             "旋转",

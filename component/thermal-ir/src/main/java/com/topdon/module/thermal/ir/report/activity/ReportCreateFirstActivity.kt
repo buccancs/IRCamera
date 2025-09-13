@@ -49,7 +49,7 @@ import com.topdon.lib.core.R as LibR
 /**
 生成report第1步（共2步）.
  *
-需要传递
+// 需要传递 // TODO: Review this line
 - 是否 TC007: [ExtraKeyConfig.IS_TC007] （ambient temperature、emissivity等不同）
 - 当前编辑的image绝对path: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （本interface不使用，透传）
 - 当前编辑的imagepointlineareafull imagetemperaturedata: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本interface不使用，透传）
@@ -226,10 +226,10 @@ true-TC007 false-其他插件式device
         val providers = locationManager?.getProviders(true)
         locationProvider =
             if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-如果是GPS
+// 如果是GPS // TODO: Review this line
                 LocationManager.GPS_PROVIDER
             } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-如果是Network
+// 如果是Network // TODO: Review this line
                 LocationManager.NETWORK_PROVIDER
             } else {
                 return null
@@ -334,7 +334,7 @@ getaddressinfo:城市、街道等info
     private var startTime = 0L
 
     /**
-display时间拾取弹窗
+// display时间拾取弹窗 // TODO: Review this line
      */
     private fun selectTime() {
         val picker = DatimePicker(this)
@@ -353,10 +353,10 @@ display时间拾取弹窗
 
         val endTimeEntity = DatimeEntity.yearOnFuture(10)
         if (startTime == 0L) {
-set当前时间
+// set当前时间 // TODO: Review this line
             picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
         } else {
-set上一次selected时间
+// set上一次selected时间 // TODO: Review this line
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = startTime
             val year = calendar.get(Calendar.YEAR)
@@ -392,7 +392,7 @@ set上一次selected时间
     }
 
     private fun initLocationPermission() {
-定位
+// 定位 // TODO: Review this line
         XXPermissions.with(this@ReportCreateFirstActivity)
             .permission(
                 permissionList,
@@ -434,7 +434,7 @@ set上一次selected时间
                         never: Boolean,
                     ) {
                         if (never) {
-如果是被永久拒绝就跳转到应用Permission系统set页area
+// 如果是被永久拒绝就跳转到应用Permission系统set页area // TODO: Review this line
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_location_content))

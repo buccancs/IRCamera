@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
 生成report第2步（共2步）.
  *
-需要传递
+// 需要传递 // TODO: Review this line
 - 必选：是否 TC007: [ExtraKeyConfig.IS_TC007] 透传，再次拾取image时进入目录不同，Uploadreportparameter不同
 - 必选：当前编辑的image绝对path [ExtraKeyConfig.FILE_ABSOLUTE_PATH]
 - 必选：当前编辑的imagepointlineareafull imagetemperaturedata [ExtraKeyConfig.IMAGE_TEMP_BEAN]

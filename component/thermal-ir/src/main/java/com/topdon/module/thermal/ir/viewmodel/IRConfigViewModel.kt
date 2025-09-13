@@ -18,7 +18,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     val configLiveData = SingleLiveEvent<ModelBean>()
 
     /**
-读取configurationdata
+// 读取configurationdata // TODO: Review this line
      */
     fun getConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -72,7 +72,7 @@ update默认parameter中的emissivity。
     }
 
     /**
-增加一个自定义mode
+// 增加一个自定义mode // TODO: Review this line
      */
     fun addConfig(isTC007: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -111,7 +111,7 @@ selectionmode
     }
 
     /**
-delete自定义mode
+// delete自定义mode // TODO: Review this line
 @param id 自定义mode id
      */
     fun deleteConfig(

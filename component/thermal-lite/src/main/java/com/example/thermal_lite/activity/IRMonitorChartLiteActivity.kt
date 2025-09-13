@@ -41,7 +41,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
-temperature实时监控
+// temperature实时监控 // TODO: Review this line
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRMonitorChartLiteActivity : BaseActivity(), ITsTempListener {
@@ -236,7 +236,7 @@ start每隔1秒Record一个temperaturedata到data库.
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-准备image
+// 准备image // TODO: Review this line
                 showCameraLoading()
             }
             101 -> {
