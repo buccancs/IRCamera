@@ -1,390 +1,364 @@
-        // package com.topdon.module.thermal.ir.activity
+package com.topdon.module.thermal.ir.activity
 
-        // import android.annotation.SuppressLint
-        // import android.location.*
-        // import android.os.Bundle
-        // import android.text.Editable
-        // import android.text.InputType
-        // import android.text.TextUtils
-        // import android.text.TextWatcher
-        // import android.util.Log
-        // import android.view.View
-        // import android.widget.EditText
-        // import android.widget.Switch
-        // import android.widget.TextView
-        // import android.widget.Toast
-        // import androidx.core.view.isVisible
-        // import androidx.lifecycle.lifecycleScope
-        // import com.blankj.utilcode.util.ToastUtils
-        // import com.hjq.permissions.OnPermissionCallback
-        // import com.hjq.permissions.Permission
-        // import com.hjq.permissions.XXPermissions
-        // import com.topdon.lib.core.BaseApplication
-        // import com.topdon.lib.core.bean.ContinuousBean
-        // import com.topdon.lib.core.bean.WatermarkBean
-        // import com.topdon.lib.core.common.SharedManager
-        // import com.topdon.lib.core.dialog.TipDialog
-        // import com.topdon.lib.core.ktbase.BaseActivity
-        // import com.topdon.lib.core.tools.TimeTool
-        // import com.topdon.lib.core.utils.CommUtils
-        // import com.topdon.lib.ui.listener.SingleClickListener
-        // import com.topdon.lib.ui.widget.BarPickView
-        // import com.topdon.module.thermal.ir.R
-        // import kotlinx.coroutines.Dispatchers
-        // import kotlinx.coroutines.launch
-        // import kotlinx.coroutines.withContext
-        // import java.util.*
-        // import com.topdon.lib.core.R as LibR
+import android.annotation.SuppressLint
+import android.location.*
+import android.os.Bundle
+import android.text.Editable
+import android.text.InputType
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ToastUtils
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
+import com.topdon.lib.core.BaseApplication
+import com.topdon.lib.core.bean.ContinuousBean
+import com.topdon.lib.core.bean.WatermarkBean
+import com.topdon.lib.core.common.SharedManager
+import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.dialog.TipDialog
+import com.topdon.lib.core.ktbase.BaseActivity
+import com.topdon.lib.core.tools.TimeTool
+import com.topdon.lib.core.utils.CommUtils
+import com.topdon.lib.ui.listener.SingleClickListener
+import com.topdon.module.thermal.ir.R
+import kotlinx.android.synthetic.main.activity_ir_camera_setting.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 /**
-// cameraproperty值set // TODO: Review this line
+ * 摄像头property值settings
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
-// Legacy ARouter route annotation - now using NavigationManager
-/**
- * I r camera setting activity for thermal imaging interface.
- * Manages UI interactions and thermal data display.
- */
-        // class IRCameraSettingActivity : BaseActivity() {
-        // companion object {
-        // const val KEY_PRODUCT_TYPE = "key_product_type"
+@Route(path = RouterConfig.IR_CAMERA_SETTING)
+class IRCameraSettingActivity : BaseActivity() {
+    companion object {
+        const val KEY_PRODUCT_TYPE = "key_product_type"
     }
 
-        // private var locationManager: LocationManager? = null
-        // private var locationProvider: String? = null
+    private var locationManager: LocationManager? = null
+    private var locationProvider: String? = null
 
-    // View references
-        // private lateinit var tvAddress: TextView
-        // private lateinit var edAddress: EditText
+    private var watermarkBean: WatermarkBean = SharedManager.watermarkBean
+    private var continuousBean: ContinuousBean = SharedManager.continuousBean
+    private var productName = ""
 
-        // private var watermarkBean: WatermarkBean = SharedManager.watermarkBean
-        // private var continuousBean: ContinuousBean = SharedManager.continuousBean
-        // private var productName = ""
-
-        // private val permissionList =
-        // listOf(
+    private val permissionList =
+        listOf(
             Permission.ACCESS_FINE_LOCATION,
             Permission.ACCESS_COARSE_LOCATION,
         )
 
-        // override fun initContentView(): Int = R.layout.activity_ir_camera_setting
+    override fun initContentView(): Int = R.layout.activity_ir_camera_setting
 
-        // override fun initView() {
-        // productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
-        // if (isTC007())
+    override fun initView() {
+        productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
+        if (isTC007())
             {
-        // watermarkBean = SharedManager.wifiWatermarkBean // TC007只有watermark
-        // continuousBean = SharedManager.continuousBean
+                watermarkBean = SharedManager.wifiWatermarkBean // TC007只有watermark
+                continuousBean = SharedManager.continuousBean
             } else
             {
-        // watermarkBean = SharedManager.watermarkBean
-        // continuousBean = SharedManager.continuousBean
+                watermarkBean = SharedManager.watermarkBean
+                continuousBean = SharedManager.continuousBean
             }
 
-        val barPickViewTime = findViewById<BarPickView>(R.id.bar_pick_view_time)
-        val barPickViewCount = findViewById<BarPickView>(R.id.bar_pick_view_count)
-        val switchTime = findViewById<Switch>(R.id.switch_time)
-        val switchWatermark = findViewById<Switch>(R.id.switch_watermark)
-        val switchDelay = findViewById<Switch>(R.id.switch_delay)
-        val clDelayMore = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_delay_more)
-        val clWatermarkMore = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_watermark_more)
-        val clShowEp = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_show_ep)
-        val tvTimeShow = findViewById<TextView>(R.id.tv_time_show)
-        // tvAddress = findViewById(R.id.tv_address)
-        val edTitle = findViewById<EditText>(R.id.ed_title)
-        // edAddress = findViewById(R.id.ed_address)
-        val tvTitleShow = findViewById<android.widget.TextView>(R.id.tv_title_show)
-        val imgLocation = findViewById<android.widget.ImageView>(R.id.img_location)
-        val lyAuto = findViewById<android.widget.LinearLayout>(R.id.ly_auto)
-
-        barPickViewTime.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
-        barPickViewTime.onStopTrackingTouch = { progress, _ ->
-        // continuousBean.continuaTime = progress.toLong() * 100
+        bar_pick_view_time.setProgressAndRefresh((continuousBean.continuaTime / 100).toInt())
+        bar_pick_view_time.onStopTrackingTouch = { progress, _ ->
+            continuousBean.continuaTime = progress.toLong() * 100
             SharedManager.continuousBean = continuousBean
         }
-        barPickViewTime.valueFormatListener = {
-        // (it / 10).toString() + if (it % 10 == 0) "" else ("." + (it % 10).toString())
+        bar_pick_view_time.valueFormatListener = {
+            (it / 10).toString() + if (it % 10 == 0) "" else ("." + (it % 10).toString())
         }
 
-        barPickViewCount.setProgressAndRefresh(continuousBean.count)
-        barPickViewCount.onStopTrackingTouch = { progress, _ ->
-        // continuousBean.count = progress
+        bar_pick_view_count.setProgressAndRefresh(continuousBean.count)
+        bar_pick_view_count.onStopTrackingTouch = { progress, _ ->
+            continuousBean.count = progress
             SharedManager.continuousBean = continuousBean
         }
 
-        // switchTime.isChecked = watermarkBean.isAddTime
-        // switchWatermark.isChecked = watermarkBean.isOpen
-        // switchDelay.isChecked = continuousBean.isOpen
+        switch_time.isChecked = watermarkBean.isAddTime
+        switch_watermark.isChecked = watermarkBean.isOpen
+        switch_delay.isChecked = continuousBean.isOpen
 
-        // clDelayMore.isVisible = continuousBean.isOpen
-        // clWatermarkMore.isVisible = watermarkBean.isOpen
-        // clShowEp.isVisible = watermarkBean.isOpen
+        cl_delay_more.isVisible = continuousBean.isOpen
+        cl_watermark_more.isVisible = watermarkBean.isOpen
+        cl_show_ep.isVisible = watermarkBean.isOpen
 
-        // tvTimeShow.text = TimeTool.getNowTime()
-        // tvTimeShow.isVisible = watermarkBean.isAddTime
+        tv_time_show.text = TimeTool.getNowTime()
+        tv_time_show.isVisible = watermarkBean.isAddTime
 
-        // tvAddress.inputType = InputType.TYPE_NULL
-        // if (TextUtils.isEmpty(watermarkBean.address))
+        tv_address.inputType = InputType.TYPE_NULL
+        if (TextUtils.isEmpty(watermarkBean.address))
             {
-        // tvAddress.visibility = View.GONE
+                tv_address.visibility = View.GONE
             } else
             {
-        // tvAddress.visibility = View.VISIBLE
-        // tvAddress.text = watermarkBean.address
+                tv_address.visibility = View.VISIBLE
+                tv_address.text = watermarkBean.address
             }
-        // edTitle.setText(watermarkBean.title)
-        // edAddress.setText(watermarkBean.address)
-        // tvTitleShow.text = watermarkBean.title
-        // switchDelay.setOnCheckedChangeListener { _, isChecked ->
-        // if (isChecked)
+        ed_title.setText(watermarkBean.title)
+        ed_address.setText(watermarkBean.address)
+        tv_title_show.text = watermarkBean.title
+        switch_delay.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked)
                 {
-        // clDelayMore.visibility = View.VISIBLE
+                    cl_delay_more.visibility = View.VISIBLE
                 } else
                 {
-        // clDelayMore.visibility = View.GONE
+                    cl_delay_more.visibility = View.GONE
                 }
-        // continuousBean.isOpen = isChecked
+            continuousBean.isOpen = isChecked
             SharedManager.continuousBean = continuousBean
         }
-        // switchWatermark.setOnCheckedChangeListener { _, isChecked ->
-        // if (isChecked)
+        switch_watermark.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked)
                 {
-        // clWatermarkMore.visibility = View.VISIBLE
-        // clShowEp.visibility = View.VISIBLE
+                    cl_watermark_more.visibility = View.VISIBLE
+                    cl_show_ep.visibility = View.VISIBLE
                 } else
                 {
-        // clWatermarkMore.visibility = View.GONE
-        // clShowEp.visibility = View.GONE
+                    cl_watermark_more.visibility = View.GONE
+                    cl_show_ep.visibility = View.GONE
                 }
-        // watermarkBean.isOpen = isChecked
+            watermarkBean.isOpen = isChecked
         }
-        // switchTime.setOnCheckedChangeListener { _, isChecked ->
-        // if (isChecked)
+        switch_time.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked)
                 {
-        // tvTimeShow.text = TimeTool.getNowTime()
-        // tvTimeShow.visibility = View.VISIBLE
+                    tv_time_show.text = TimeTool.getNowTime()
+                    tv_time_show.visibility = View.VISIBLE
                 } else
                 {
-        // tvTimeShow.visibility = View.GONE
+                    tv_time_show.visibility = View.GONE
                 }
-        // watermarkBean.isAddTime = isChecked
+            watermarkBean.isAddTime = isChecked
         }
-        // edTitle.addTextChangedListener(
-        // object : TextWatcher {
-        // override fun beforeTextChanged(
-        // s: CharSequence?,
-        // start: Int,
-        // count: Int,
-        // after: Int,
+        ed_title.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int,
                 ) {
                 }
 
-        // override fun onTextChanged(
-        // s: CharSequence?,
-        // start: Int,
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
                     before: Int,
-        // count: Int,
+                    count: Int,
                 ) {
                 }
 
-        // override fun afterTextChanged(s: Editable?) {
-        // watermarkBean.title = edTitle.text.toString()
-        // tvTitleShow.text = watermarkBean.title
+                override fun afterTextChanged(s: Editable?) {
+                    watermarkBean.title = ed_title.text.toString()
+                    tv_title_show.text = watermarkBean.title
                 }
             },
         )
-        // edAddress.addTextChangedListener(
-        // object : TextWatcher {
-        // override fun beforeTextChanged(
-        // s: CharSequence?,
-        // start: Int,
-        // count: Int,
-        // after: Int,
+        ed_address.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int,
                 ) {
                 }
 
-        // override fun onTextChanged(
-        // s: CharSequence?,
-        // start: Int,
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
                     before: Int,
-        // count: Int,
+                    count: Int,
                 ) {
                 }
 
-        // override fun afterTextChanged(s: Editable?) {
-        // watermarkBean.address = edAddress.text.toString()
-        // tvAddress.text = watermarkBean.address
-        // if (!watermarkBean.address.isNullOrEmpty())
+                override fun afterTextChanged(s: Editable?) {
+                    watermarkBean.address = ed_address.text.toString()
+                    tv_address.text = watermarkBean.address
+                    if (!watermarkBean.address.isNullOrEmpty())
                         {
-        // tvAddress.visibility = View.VISIBLE
+                            tv_address.visibility = View.VISIBLE
                         } else
                         {
-        // tvAddress.visibility = View.GONE
+                            tv_address.visibility = View.GONE
                         }
                 }
             },
         )
-        // imgLocation.setOnClickListener(
-        // object : SingleClickListener() {
-        // override fun onSingleClick() {
-        // checkStoragePermission()
+        img_location.setOnClickListener(
+            object : SingleClickListener() {
+                override fun onSingleClick() {
+                    checkStoragePermission()
                 }
             },
         )
-// TC007device不需要延迟拍照 // TODO: Review this line
-        // lyAuto.visibility = if (isTC007()) View.GONE else View.VISIBLE
+        // TC007device不需要延迟拍照
+        ly_auto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
     fun isTC007(): Boolean {
-        // return productName.contains("TC007")
+        return productName.contains("TC007")
     }
 
     @SuppressLint("MissingPermission")
-        // private fun getLocation(): String? {
-1.get位置管理器
-        // locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+    private fun getLocation(): String? {
+        // 1.Get/Retrieve位置管理器
+        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-2.get位置提供器，GPS或是NetWork
+        // 2.Get/Retrieve位置提供器，GPS或是NetWork
         val providers = locationManager?.getProviders(true)
-        // locationProvider =
-        // if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-// 如果是GPS // TODO: Review this line
+        locationProvider =
+            if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
+                // 如果是GPS
                 LocationManager.GPS_PROVIDER
             } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-// 如果是Network // TODO: Review this line
+                // 如果是Network
                 LocationManager.NETWORK_PROVIDER
             } else {
-        // return null
+                return null
             }
         var location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        // if (location == null)
+        if (location == null)
             {
-        // location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             }
-        // return if (location == null)
+        return if (location == null)
             {
-        // null
+                null
             } else
             {
-        // getAddress(location)
+                getAddress(location)
             }
     }
 
     var locationListener: LocationListener =
-        // object : LocationListener {
-Provider的state在可用、暂时不可用和无service三个state直接switch时触发此function
-        // override fun onStatusChanged(
-        // provider: String,
-        // status: Int,
-        // extras: Bundle,
+        object : LocationListener {
+            // Provider的state在可用、暂时不可用和无service三个state直接switch时触发此function
+            override fun onStatusChanged(
+                provider: String,
+                status: Int,
+                extras: Bundle,
             ) {
                 Toast.makeText(
-        // this@IRCameraSettingActivity,
-        // provider,
+                    this@IRCameraSettingActivity,
+                    provider,
                     Toast.LENGTH_SHORT,
-        // ).show()
+                ).show()
             }
 
-Provider被enable时触发此function，比如GPS被Open
-        // override fun onProviderEnabled(provider: String) {
+            // Provider被enable时触发此function，比如GPS被Open
+            override fun onProviderEnabled(provider: String) {
                 Toast.makeText(
-        // this@IRCameraSettingActivity,
-        // "GPSOpen",
+                    this@IRCameraSettingActivity,
+                    "GPSOpen",
                     Toast.LENGTH_SHORT,
-        // ).show()
-        // getLocation()
+                ).show()
+                getLocation()
             }
 
-Provider被disable时触发此function，比如GPS被disabled
-        // override fun onProviderDisabled(provider: String) {
+            // Provider被disable时触发此function，比如GPS被Close
+            override fun onProviderDisabled(provider: String) {
                 Toast.makeText(
-        // this@IRCameraSettingActivity,
-        // "GPSClose",
+                    this@IRCameraSettingActivity,
+                    "GPSClose",
                     Toast.LENGTH_SHORT,
-        // ).show()
+                ).show()
             }
 
-        // 当坐标改变时触发此function，如果Provider传进相同的坐标，它就不会被触发
-        // override fun onLocationChanged(location: Location) {
-        // if (location != null) {
-如果位置发生变化，重新display地理位置经纬度
+            // 当坐标改变时触发此function，如果Provider传进相同的坐标，它就不会被触发
+            override fun onLocationChanged(location: Location) {
+                if (location != null) {
+                    // 如果位置发生变化，重新Show/Display地理位置经纬度
                     Toast.makeText(
-        // this@IRCameraSettingActivity,
-        // location.longitude.toString() + " " +
-        // location.latitude + "",
+                        this@IRCameraSettingActivity,
+                        location.longitude.toString() + " " +
+                            location.latitude + "",
                         Toast.LENGTH_SHORT,
-        // ).show()
+                    ).show()
                 }
             }
         }
 
     @SuppressLint("MissingPermission")
-        // private fun getLastKnownLocation(): Location? {
-        // locationManager = applicationContext.getSystemService(LOCATION_SERVICE) as LocationManager
+    private fun getLastKnownLocation(): Location? {
+        locationManager = applicationContext.getSystemService(LOCATION_SERVICE) as LocationManager
         val providers: List<String> = locationManager!!.getProviders(true)
         var bestLocation: Location? = null
         for (provider in providers) {
             val l: Location = locationManager!!.getLastKnownLocation(provider) ?: continue
-        // if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
+            if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
                 // Found best last known location: %s", l);
                 bestLocation = l
             }
         }
-        // return bestLocation
+        return bestLocation
     }
 
-        // getaddressinfo:城市、街道等info
-        // private fun getAddress(location: Location?): String {
+    // Get/Retrieve地址info:城市、街道等info
+    private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
-        // try {
-        // if (location != null) {
+        try {
+            if (location != null) {
                 val gc = Geocoder(this, Locale.getDefault())
-        // result =
-        // gc.getFromLocation(
-        // location.latitude,
-        // location.longitude, 1,
+                result =
+                    gc.getFromLocation(
+                        location.latitude,
+                        location.longitude, 1,
                     )
                 Log.v("TAG", "Get/Retrieve地址info：$result")
             }
         } catch (e: Exception) {
-        // e.printStackTrace()
+            e.printStackTrace()
         }
         var str = ""
-        // if (result != null && result.isNotEmpty())
+        if (result != null && result.isNotEmpty())
             {
-        // result?.get(0)?.let {
-        // str += getNullString(it.adminArea)
-        // if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea)))
+                result?.get(0)?.let {
+                    str += getNullString(it.adminArea)
+                    if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea)))
                         {
-        // str += getNullString(it.subAdminArea)
+                            str += getNullString(it.subAdminArea)
                         }
-        // if (!str.contains(getNullString(it.locality)))
+                    if (!str.contains(getNullString(it.locality)))
                         {
-        // str += getNullString(it.locality)
+                            str += getNullString(it.locality)
                         }
-        // if (!str.contains(getNullString(it.subLocality)))
+                    if (!str.contains(getNullString(it.subLocality)))
                         {
-        // str += getNullString(it.subLocality)
+                            str += getNullString(it.subLocality)
                         }
                 }
             }
-        // return str
+        return str
     }
 
-        // private fun getNullString(str: String?): String  {
-        // return if (str.isNullOrEmpty())
+    private fun getNullString(str: String?): String  {
+        return if (str.isNullOrEmpty())
             {
                 ""
             } else
             {
-        // str
+                str
             }
     }
 
-        // override fun onPause() {
-        // super.onPause()
-        // if (isTC007())
+    override fun onPause() {
+        super.onPause()
+        if (isTC007())
             {
                 SharedManager.wifiWatermarkBean = watermarkBean
             } else
@@ -393,94 +367,94 @@ Provider被disable时触发此function，比如GPS被disabled
             }
     }
 
-        // override fun onDestroy() {
-        // super.onDestroy()
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
-        // override fun initData() {
+    override fun initData() {
     }
 
-        // private fun initLocationPermission() {
-        // XXPermissions.with(this@IRCameraSettingActivity)
-        // .permission(
-        // permissionList,
-        // ).request(
-        // object : OnPermissionCallback {
-        // override fun onGranted(
-        // permissions: MutableList<String>,
-        // all: Boolean,
+    private fun initLocationPermission() {
+        XXPermissions.with(this@IRCameraSettingActivity)
+            .permission(
+                permissionList,
+            ).request(
+                object : OnPermissionCallback {
+                    override fun onGranted(
+                        permissions: MutableList<String>,
+                        all: Boolean,
                     ) {
-        // if (all)
+                        if (all)
                             {
-        // showLoadingDialog(LibR.string.get_current_address)
-        // lifecycleScope.launch {
+                                showLoadingDialog(R.string.get_current_address)
+                                lifecycleScope.launch {
                                     var addressText: String? = ""
-        // withContext(Dispatchers.IO) {
-        // addressText = getLocation()
+                                    withContext(Dispatchers.IO) {
+                                        addressText = getLocation()
                                     }
-        // dismissLoadingDialog()
-        // if (addressText == null)
+                                    dismissLoadingDialog()
+                                    if (addressText == null)
                                         {
-                                            ToastUtils.showShort(LibR.string.get_Location_failed)
+                                            ToastUtils.showShort(R.string.get_Location_failed)
                                         } else
                                         {
-        // watermarkBean.address = addressText as String
-        // edAddress.setText(addressText)
-        // tvAddress.visibility = View.VISIBLE
-        // tvAddress.setText(addressText)
+                                            watermarkBean.address = addressText as String
+                                            ed_address.setText(addressText)
+                                            tv_address.visibility = View.VISIBLE
+                                            tv_address.setText(addressText)
                                         }
                                 }
                             } else
                             {
-                                ToastUtils.showShort(LibR.string.scan_ble_tip_authorize)
+                                ToastUtils.showShort(R.string.scan_ble_tip_authorize)
                             }
                     }
 
-        // override fun onDenied(
-        // permissions: MutableList<String>,
-        // never: Boolean,
+                    override fun onDenied(
+                        permissions: MutableList<String>,
+                        never: Boolean,
                     ) {
-        // if (never) {
-// 如果是被永久拒绝就跳转到应用Permission系统set页area // TODO: Review this line
-        // if (BaseApplication.instance.isDomestic())
+                        if (never) {
+                            // 如果是被永久拒绝就跳转到应用Permission系统settings页area
+                            if (BaseApplication.instance.isDomestic())
                                 {
-                                    ToastUtils.showShort(getString(LibR.string.app_location_content))
+                                    ToastUtils.showShort(getString(R.string.app_location_content))
                                 } else
                                 {
                                     TipDialog.Builder(this@IRCameraSettingActivity)
-        // .setTitleMessage(getString(LibR.string.app_tip))
-        // .setMessage(getString(LibR.string.app_location_content))
-        // .setPositiveListener(LibR.string.app_open) {
-        // XXPermissions.startPermissionActivity(this@IRCameraSettingActivity, permissions)
+                                        .setTitleMessage(getString(R.string.app_tip))
+                                        .setMessage(getString(R.string.app_location_content))
+                                        .setPositiveListener(R.string.app_open) {
+                                            XXPermissions.startPermissionActivity(this@IRCameraSettingActivity, permissions)
                                         }
-        // .setCancelListener(LibR.string.app_cancel) {
+                                        .setCancelListener(R.string.app_cancel) {
                                         }
-        // .setCanceled(true)
-        // .create().show()
+                                        .setCanceled(true)
+                                        .create().show()
                                 }
                         } else {
-                            ToastUtils.showShort(LibR.string.scan_ble_tip_authorize)
+                            ToastUtils.showShort(R.string.scan_ble_tip_authorize)
                         }
                     }
                 },
             )
     }
 
-        // private fun checkStoragePermission() {
-        // if (!XXPermissions.isGranted(this, permissionList)) {
-        // if (BaseApplication.instance.isDomestic()) {
+    private fun checkStoragePermission() {
+        if (!XXPermissions.isGranted(this, permissionList)) {
+            if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-        // .setMessage(getString(LibR.string.permission_request_location_app, CommUtils.getAppName()))
-        // .setCancelListener(LibR.string.app_cancel)
-        // .setPositiveListener(LibR.string.app_confirm) {
-        // initLocationPermission()
+                    .setMessage(getString(R.string.permission_request_location_app, CommUtils.getAppName()))
+                    .setCancelListener(R.string.app_cancel)
+                    .setPositiveListener(R.string.app_confirm) {
+                        initLocationPermission()
                     }
-        // .create().show()
+                    .create().show()
             } else {
-        // initLocationPermission()
+                initLocationPermission()
             }
         } else {
-        // initLocationPermission()
+            initLocationPermission()
         }
     }
 }

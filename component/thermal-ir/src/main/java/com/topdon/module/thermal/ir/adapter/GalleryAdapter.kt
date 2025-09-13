@@ -1,203 +1,198 @@
-        // package com.topdon.module.thermal.ir.adapter
+package com.topdon.module.thermal.ir.adapter
 
-        // import android.annotation.SuppressLint
-        // import android.view.LayoutInflater
-        // import android.view.View
-        // import android.view.ViewGroup
-        // import android.widget.ImageView
-        // import android.widget.TextView
-        // import androidx.core.view.isVisible
-        // import androidx.recyclerview.widget.RecyclerView
-        // import com.topdon.lib.core.bean.GalleryBean
-        // import com.topdon.lib.core.bean.GalleryTitle
-        // import com.topdon.lib.core.tools.GlideLoader
-        // import com.topdon.lib.core.tools.TimeTool
-        // import com.topdon.module.thermal.ir.R
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
+import com.topdon.lib.core.bean.GalleryBean
+import com.topdon.lib.core.bean.GalleryTitle
+import com.topdon.lib.core.tools.GlideLoader
+import com.topdon.lib.core.tools.TimeTool
+import com.topdon.module.thermal.ir.R
+import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*
+import kotlinx.android.synthetic.main.item_gallery_lay.view.*
 
 /**
-// photo或video // TODO: Review this line
- */
-/**
- * Custom Gallery view for thermal imaging display.
- * Provides specialized rendering and interaction capabilities.
+ * photo或video
  */
 @SuppressLint("NotifyDataSetChanged")
-        // class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        // companion object {
-        // private const val TYPE_HEAD = 0
-        // private const val TYPE_DATA = 1
+class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    companion object {
+        private const val TYPE_HEAD = 0
+        private const val TYPE_DATA = 1
     }
 
     /**
-        // 当前display的data列表，包含有title item.
+     * 当前Show/Display的data列表，包含有title item.
      */
     val dataList: ArrayList<GalleryBean> = ArrayList()
 
     /**
-编辑mode下，当前selected的 position 列表.
+     * 编辑mode下，当前selected的 position 列表.
      */
     val selectList: ArrayList<Int> = ArrayList()
 
     /**
-是否为 TS004 远端mode，处于该mode会有Download图标.
+     * 是否为 TS004 远端mode，处于该mode会有Download图标.
      */
     var isTS004Remote = false
-        // set(value) {
-        // if (field != value) {
+        set(value) {
+            if (field != value) {
                 field = value
-        // notifyDataSetChanged()
+                notifyDataSetChanged()
             }
         }
 
     /**
-        // 当前是否处于编辑mode.
+     * 当前是否处于编辑mode.
      */
     var isEditMode = false
-        // set(value) {
-        // if (field != value) {
+        set(value) {
+            if (field != value) {
                 field = value
-        // if (!value) {
-        // selectList.clear()
-        // selectCallback?.invoke(selectList)
+                if (!value) {
+                    selectList.clear()
+                    selectCallback?.invoke(selectList)
                 }
-        // notifyDataSetChanged()
+                notifyDataSetChanged()
             }
         }
 
     /**
-非编辑mode下 item 长按进入编辑modeEventListener.
+     * 非编辑mode下 item 长按进入编辑modeEventListener.
      */
     var onLongEditListener: (() -> Unit)? = null
 
     /**
-        // selected数量变更Callback.
-        // data 当前selected的 item position 列表
+     * selected数量变更Callback.
+     * data 当前selected的 item position 列表
      */
     var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
 
     /**
-非编辑mode时，item clickEventListener.
+     * 非编辑mode时，item clickEventListener.
      */
     var itemClickCallback: ((position: Int) -> Unit)? = null
 
     fun refreshList(newList: List<GalleryBean>) {
-        // dataList.clear()
-        // dataList.addAll(newList)
-        // notifyDataSetChanged()
+        dataList.clear()
+        dataList.addAll(newList)
+        notifyDataSetChanged()
     }
 
     fun buildSelectList(): ArrayList<GalleryBean> {
         val resultList: ArrayList<GalleryBean> = ArrayList()
-        // selectList.forEach {
-        // resultList.add(dataList[it])
+        selectList.forEach {
+            resultList.add(dataList[it])
         }
-        // return resultList
+        return resultList
     }
 
     fun selectAll() {
         var dataCount = 0
-        // dataList.forEach {
-        // if (it !is GalleryTitle) {
-        // dataCount++
+        dataList.forEach {
+            if (it !is GalleryTitle) {
+                dataCount++
             }
         }
-        // if (selectList.size >= dataCount) {
-        // selectList.clear()
+        if (selectList.size >= dataCount) {
+            selectList.clear()
         } else {
-        // selectList.clear()
+            selectList.clear()
             for (i in 0 until dataList.size) {
-        // if (dataList[i] !is GalleryTitle) {
-        // selectList.add(i)
+                if (dataList[i] !is GalleryTitle) {
+                    selectList.add(i)
                 }
             }
         }
-        // selectCallback?.invoke(selectList)
-        // notifyDataSetChanged()
+        selectCallback?.invoke(selectList)
+        notifyDataSetChanged()
     }
 
-        // override fun getItemViewType(position: Int): Int {
-        // return if (dataList[position] is GalleryTitle) {
+    override fun getItemViewType(position: Int): Int {
+        return if (dataList[position] is GalleryTitle) {
             TYPE_HEAD
         } else {
             TYPE_DATA
         }
     }
 
-        // override fun onCreateViewHolder(
-        // parent: ViewGroup,
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
         viewType: Int,
     ): RecyclerView.ViewHolder {
-        // return if (viewType == TYPE_HEAD) {
+        return if (viewType == TYPE_HEAD) {
             ItemHeadView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_head_lay, parent, false))
         } else {
             ItemView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_lay, parent, false))
         }
     }
 
-        // override fun onBindViewHolder(
-        // holder: RecyclerView.ViewHolder,
-        // position: Int,
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
     ) {
         val data = dataList[position]
-        // if (holder is ItemView) {
-        // GlideLoader.load(holder.img, data.thumb)
-        // if (data.name.uppercase().endsWith(".MP4")) {
-        // holder.info.text = TimeTool.showVideoTime(data.duration)
-        // holder.ivVideoTime.isVisible = true
+        if (holder is ItemView) {
+            GlideLoader.load(holder.img, data.thumb)
+            if (data.name.uppercase().endsWith(".MP4")) {
+                holder.info.text = TimeTool.showVideoTime(data.duration)
+                holder.itemView.iv_video_time.isVisible = true
             } else {
-        // holder.info.text = ""
-        // holder.ivVideoTime.isVisible = false
+                holder.info.text = ""
+                holder.itemView.iv_video_time.isVisible = false
             }
 
-        // holder.ivHasDownload.isVisible = isTS004Remote && data.hasDownload
+            holder.itemView.iv_has_download.isVisible = isTS004Remote && data.hasDownload
 
-        // holder.ivCheck.isVisible = isEditMode
-        // holder.ivCheck.isSelected = selectList.contains(position)
+            holder.itemView.iv_check.isVisible = isEditMode
+            holder.itemView.iv_check.isSelected = selectList.contains(position)
 
-        // holder.img.setOnClickListener {
-        // if (isEditMode) {
-        // if (selectList.contains(position)) {
-        // selectList.remove(position)
+            holder.img.setOnClickListener {
+                if (isEditMode) {
+                    if (selectList.contains(position)) {
+                        selectList.remove(position)
                     } else {
-        // selectList.add(position)
+                        selectList.add(position)
                     }
-        // selectCallback?.invoke(selectList)
+                    selectCallback?.invoke(selectList)
 
-        // holder.ivCheck.isSelected = selectList.contains(position)
+                    holder.itemView.iv_check.isSelected = selectList.contains(position)
                 } else {
-        // itemClickCallback?.invoke(position)
+                    itemClickCallback?.invoke(position)
                 }
             }
-        // holder.img.setOnLongClickListener {
-        // if (!isEditMode) {
-        // selectList.add(position)
-        // selectCallback?.invoke(selectList)
-        // holder.ivCheck.isVisible = true
-        // holder.ivCheck.isSelected = true
-        // isEditMode = true
-        // onLongEditListener?.invoke()
+            holder.img.setOnLongClickListener {
+                if (!isEditMode) {
+                    selectList.add(position)
+                    selectCallback?.invoke(selectList)
+                    holder.itemView.iv_check.isVisible = true
+                    holder.itemView.iv_check.isSelected = true
+                    isEditMode = true
+                    onLongEditListener?.invoke()
                 }
-        // return@setOnLongClickListener true
+                return@setOnLongClickListener true
             }
         } else if (holder is ItemHeadView) {
-        // holder.name.text = TimeTool.showDateType(data.timeMillis, 4)
-        // holder.name.setTextColor(0x80ffffff.toInt())
+            holder.name.text = TimeTool.showDateType(data.timeMillis, 4)
+            holder.name.setTextColor(0x80ffffff.toInt())
         }
     }
 
-        // override fun getItemCount(): Int {
-        // return dataList.size
+    override fun getItemCount(): Int {
+        return dataList.size
     }
 
-        // inner class ItemHeadView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.item_gallery_head_text)
+    inner class ItemHeadView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val name: TextView = itemView.item_gallery_head_text
     }
 
-        // inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img: ImageView = itemView.findViewById(R.id.item_gallery_img)
-        val info: TextView = itemView.findViewById(R.id.item_gallery_text)
-        val ivVideoTime: ImageView = itemView.findViewById(R.id.iv_video_time)
-        val ivHasDownload: ImageView = itemView.findViewById(R.id.iv_has_download)
-        val ivCheck: ImageView = itemView.findViewById(R.id.iv_check)
+    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val img: ImageView = itemView.item_gallery_img
+        val info: TextView = itemView.item_gallery_text
     }
 }
