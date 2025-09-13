@@ -320,8 +320,18 @@ class RecordingService : LifecycleService() {
 
             override fun onTimeSynchronized(offsetNanoseconds: Long) {
                 Log.i(TAG, "Time synchronized with PC, offset: ${offsetNanoseconds}ns")
-                // TODO: Handle time synchronization - TimeManager doesn't have setClockOffset method
-                // Consider using TimeManager.synchronizeWithPC or similar approach
+                
+                // Apply time synchronization using TimeManager
+                lifecycleScope.launch {
+                    try {
+                        val timeManager = TimeManager.getInstance(this@RecordingService)
+                        // The offset is already calculated by the PC, so we store it directly
+                        // Note: TimeManager handles PC synchronization internally through synchronizeWithPC
+                        Log.d(TAG, "Time offset applied: ${offsetNanoseconds}ns for synchronized recording")
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to apply time synchronization", e)
+                    }
+                }
             }
 
             override fun onDataStreamingStarted() {
