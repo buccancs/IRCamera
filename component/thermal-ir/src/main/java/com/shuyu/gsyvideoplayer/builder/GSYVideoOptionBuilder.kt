@@ -1,12 +1,12 @@
-        // package com.shuyu.gsyvideoplayer.builder
+package com.shuyu.gsyvideoplayer.builder
 
-        // import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 
 /**
  * G s y video option builder utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-        // class GSYVideoOptionBuilder {
+class GSYVideoOptionBuilder {
     fun setVideoAllCallBack(callback: Any?): GSYVideoOptionBuilder = this
 
     fun setRotateViewAuto(auto: Boolean): GSYVideoOptionBuilder = this
@@ -27,7 +27,7 @@
 
     fun build(player: GSYVideoPlayer): GSYVideoOptionBuilder = this
 
-        // companion object {
+    companion object {
         @JvmStatic
         fun create(): GSYVideoOptionBuilder = GSYVideoOptionBuilder()
     }
