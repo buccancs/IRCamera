@@ -426,6 +426,8 @@ class RgbCameraRecorder(
             throw e
         }
     }
+    
+    private fun hasCameraPermission(): Boolean {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
     

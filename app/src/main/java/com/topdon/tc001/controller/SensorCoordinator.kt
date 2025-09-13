@@ -280,14 +280,14 @@ class SensorCoordinator(
                 if (success) {
                     activeSensors[sensorInfo.sensorId] = sensorRecorder
                     Log.i(TAG, "Sensor ${sensorInfo.sensorId} initialized successfully")
-                    return@try true
+                    true
                 } else {
                     Log.w(TAG, "Sensor ${sensorInfo.sensorId} initialization failed")
-                    return@try false
+                    false
                 }
             } else {
                 Log.e(TAG, "Failed to create sensor recorder for ${sensorInfo.sensorId}")
-                return@try false
+                false
             }
             
         } catch (e: Exception) {
