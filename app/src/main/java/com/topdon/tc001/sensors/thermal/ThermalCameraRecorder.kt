@@ -691,7 +691,7 @@ class ThermalCameraRecorder(
     
     
     private suspend fun generateTestThermalFrame(): ThermalFrameData? = withContext(Dispatchers.IO) {
-        return@withContext try {
+        try {
             // Generate a simple test thermal data matrix to verify simulation mode works
             val temperatureMatrix = Array(thermalResolution.second) { FloatArray(thermalResolution.first) }
             var minTemp = Float.MAX_VALUE

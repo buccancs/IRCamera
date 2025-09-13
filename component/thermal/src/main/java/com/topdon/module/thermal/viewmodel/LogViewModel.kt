@@ -36,10 +36,10 @@ class LogViewModel : BaseViewModel() {
                 var endTime = 0L
                 when (selectType) {
                     0 -> {
-                        Log.w("123", "查询// 秒")
-                        // 秒
+                        Log.w("123", "Query seconds")
+                        // Seconds
                         endTime = Date().time
-                        startTime = endTime - 7200 * 1000L // 2小时
+                        startTime = endTime - 7200 * 1000L // 2 hours
                         Log.w("123", "query startTime:$startTime, endTime:$endTime")
                         dataList =
                             AppDatabase.getInstance().thermalDao()
@@ -51,7 +51,7 @@ class LogViewModel : BaseViewModel() {
                         Log.w("123", "data size: ${dataList.size}")
                     }
                     1 -> {
-                        // 分
+                        // Minutes
                         endTime = Date().time
                         startTime = endTime - 7200 * 60 * 1000L
                         dataList =
@@ -63,7 +63,7 @@ class LogViewModel : BaseViewModel() {
                                 ) as ArrayList<ThermalEntity>
                     }
                     2 -> {
-                        // 时
+                        // Hours
                         endTime = Date().time
                         startTime = endTime - 7200 * 60 * 60 * 1000L
                         dataList =
@@ -75,7 +75,7 @@ class LogViewModel : BaseViewModel() {
                                 ) as ArrayList<ThermalEntity>
                     }
                     else -> {
-// 天
+// days
                         dataList =
                             AppDatabase.getInstance().thermalDao()
                                 .getAllThermalByDate(SharedManager.getUserId()) as ArrayList<ThermalEntity>
@@ -92,9 +92,9 @@ class LogViewModel : BaseViewModel() {
     }
 
     /**
-// 第一项实时图表的历史Record查询
-// 查询历史电压data(等待bluetooth传输历史Recordend后触发)
-// 时间区间: 现在时间 => 倒退到startEvent
+// First item real-time chart historical record query
+// Query historical voltage data (triggered after Bluetooth transfer historical record ends)
+// Time interval: current time => rollback to start event
      */
     suspend fun queryLogThermals(
         selectTimeType: Int,
@@ -104,16 +104,16 @@ class LogViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val userId = SharedManager.getUserId()
             val bean = ChartList()
-// 查询之前先Synchronizedata
+// Synchronize data before querying
             val job = async { syncVol(selectTimeType) }
             job.await()
             syncRun = false // Synchronizeend
             val startLogTime =
                     when (selectTimeType) {
-                        1 -> System.currentTimeMillis() - 2 * 60 * 60 * 1000L // 秒(2小时)
-                        2 -> System.currentTimeMillis() - 5 * 24 * 60 * 60 * 1000L // 分(5天)
-                        3 -> System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000L // 时(30天)
-                        4 -> System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000L // 天(1年)
+                        1 -> System.currentTimeMillis() - 2 * 60 * 60 * 1000L // seconds (2 hours)
+                        2 -> System.currentTimeMillis() - 5 * 24 * 60 * 60 * 1000L // 分(5days)
+                        3 -> System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000L // 时(30days)
+                        4 -> System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000L // days(1年)
                         else -> System.currentTimeMillis() - 2 * 60 * 60 * 1000L
                 }
             
@@ -126,8 +126,8 @@ class LogViewModel : BaseViewModel() {
                         .queryByTimeMax(userId, startLogTime, endLogTime)  
                     bean.minVol = AppDatabase.getInstance().thermalDao()
                         .queryByTimeMin(userId, startLogTime, endLogTime)
-                    Log.w("chart", "电// 压data:${bean.dataList.size}")
-                    Log.w("chart", "电// 压datamax vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", "voltage data:${bean.dataList.size}")
+                    Log.w("chart", "voltage datamax vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                     val resultList =
                         AppDatabase.getInstance().thermalMinDao()
@@ -162,8 +162,8 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime,
                             )
-                    Log.w("chart", "电// 压data:${bean.dataList.size}")
-                    Log.w("chart", "电// 压datamax vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", "voltage data:${bean.dataList.size}")
+                    Log.w("chart", "voltage datamax vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                     val resultList =
                         AppDatabase.getInstance().thermalHourDao()
@@ -198,8 +198,8 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime,
                             )
-                    Log.w("chart", "电// 压data:${bean.dataList.size}")
-                    Log.w("chart", "电// 压datamax vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", "voltage data:${bean.dataList.size}")
+                    Log.w("chart", "voltage datamax vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
                     val resultList =
                         AppDatabase.getInstance().thermalDayDao()
@@ -234,8 +234,8 @@ class LogViewModel : BaseViewModel() {
                                 startTime = startLogTime,
                                 endTime = endLogTime,
                             )
-                    Log.w("chart", "电// 压data:${bean.dataList.size}")
-                    Log.w("chart", "电// 压datamax vol:${bean.maxVol},min vol:${bean.minVol}")
+                    Log.w("chart", "voltage data:${bean.dataList.size}")
+                    Log.w("chart", "voltage datamax vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
             }
             bean.action = action
@@ -249,9 +249,9 @@ class LogViewModel : BaseViewModel() {
     }
 
     /**
-// 第二项历史Record查询
-// 查询历史电压data(等待bluetooth传输历史Recordend后触发)
-// 时间区间: 初始时间 => 推进到endEvent
+// Second item historical record query
+// Query historical voltage data (triggered after Bluetooth transfer historical record ends)
+// Time interval: initial time => advance to end event
      */
     suspend fun queryLogVolsByStartTime(
         type: Int = 3,
@@ -266,25 +266,25 @@ class LogViewModel : BaseViewModel() {
                         else -> "fence"
                     }
                 val bean = ChartList()
-// 查询之前先Synchronizedata
+// Synchronize data before querying
                 val job = async { syncVol(selectTimeType) }
                 job.await()
                 syncRun = false // Synchronizeend
                 val startLogTime =
                     when (selectTimeType) {
-                        1 -> System.currentTimeMillis() - 2 * 60 * 60 * 1000L // 秒(2小时)
-                        2 -> System.currentTimeMillis() - 5 * 24 * 60 * 60 * 1000L // 分(5天)
-                        3 -> System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000L // 时(30天)
-                        4 -> System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000L // 天(1年)
+                        1 -> System.currentTimeMillis() - 2 * 60 * 60 * 1000L // seconds (2 hours)
+                        2 -> System.currentTimeMillis() - 5 * 24 * 60 * 60 * 1000L // 分(5days)
+                        3 -> System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000L // 时(30days)
+                        4 -> System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000L // days(1年)
                         else -> System.currentTimeMillis() - 2 * 60 * 60 * 1000L
                     }
                     when (selectTimeType) {
                         /**
 7200data
-// 秒:2小时
-// 分:5天
-// 时:300天
-// 天:20年
+// seconds: 2 hours
+// 分:5days
+// 时:300days
+// days:20年
                          */
 
 //                else -> startLogTime + 7200 * 1000L
@@ -314,7 +314,7 @@ class LogViewModel : BaseViewModel() {
                                     startTime = startLogTime,
                                     endTime = endLogTime,
                                 )
-                        Log.w("chart", "电// 压data:${bean.dataList.size}")
+                        Log.w("chart", "voltage data:${bean.dataList.size}")
                     }
                         val resultList =
                             AppDatabase.getInstance().thermalMinDao()
@@ -350,7 +350,7 @@ class LogViewModel : BaseViewModel() {
                                     startTime = startLogTime,
                                     endTime = endLogTime,
                                 )
-                        Log.w("chart", "电// 压data:${bean.dataList.size}")
+                        Log.w("chart", "voltage data:${bean.dataList.size}")
                     }
                         val resultList =
                             AppDatabase.getInstance().thermalHourDao()
@@ -386,7 +386,7 @@ class LogViewModel : BaseViewModel() {
                                     startTime = startLogTime,
                                     endTime = endLogTime,
                                 )
-                        Log.w("chart", "电// 压data:${bean.dataList.size}")
+                        Log.w("chart", "voltage data:${bean.dataList.size}")
                     }
                         val resultList =
                             AppDatabase.getInstance().thermalDayDao()
@@ -422,21 +422,21 @@ class LogViewModel : BaseViewModel() {
                                     startTime = startLogTime,
                                     endTime = endLogTime,
                                 )
-                        Log.w("chart", "电// 压data:${bean.dataList.size}")
+                        Log.w("chart", "voltage data:${bean.dataList.size}")
                     }
                 }
                 delay(500)
                 resultLiveData.postValue(bean)
             } catch (e: Exception) {
-                XLog.e("data查// 询exception:${e.message}")
+                XLog.e("data query exception:${e.message}")
                 resultLiveData.postValue(ChartList())
             }
         }
     }
 
     /**
-// @param type 1:秒 2:分 3:时 
-4:// 天
+// @param type 1:seconds 2:minutes 3:hours 
+4:// days
      */
     private fun getNewVolData(
         data: List<ThermalEntity>,
@@ -448,7 +448,7 @@ class LogViewModel : BaseViewModel() {
         for (i in data.indices) {
             if (i == 0) {
                 if (i == data.size - 1) {
-// 默认整个区间
+// Default entire interval
                     addData(data, newData, 0, endIndex)
                 }
             } else {
@@ -456,32 +456,32 @@ class LogViewModel : BaseViewModel() {
                 val currencyTime = TimeTool.showDateType(data[i].createTime, type)
                 val previewTime = TimeTool.showDateType(data[i - 1].createTime, type)
                 if (i == data.size - 1) {
-// 最后一个值
+// Last value
                     if (currencyTime != previewTime) {
-// 同时calculation上一个区间和当前最后一个区间
-// 最后上一个区间
+// Calculate both previous interval and current last interval
+// Last previous interval
                         endIndex = i - 1
                         addData(data, newData, startIndex, endIndex)
                         startIndex = i
-// 最后一个区间
+// Last interval
                         endIndex = i
                         addData(data, newData, startIndex, endIndex)
                     } else {
                         endIndex = i
                         if (newData.size == 0) {
-// 默认整个区间
+// Default entire interval
                             addData(data, newData, 0, endIndex)
                         } else {
-// 最后一个区间
+// Last interval
                             addData(data, newData, startIndex, endIndex)
                         }
                     }
                 } else {
                     if (currencyTime != previewTime) {
-// calculation上一个区间
+// Calculate previous interval
                         endIndex = i - 1
                         addData(data, newData, startIndex, endIndex)
-// 新时间段
+// New time period
                         startIndex = i
                     }
                 }
@@ -490,7 +490,7 @@ class LogViewModel : BaseViewModel() {
         return newData
     }
 
-// calculationaverage值
+// Calculate average value
     private fun addData(
         data: List<ThermalEntity>,
         newData: ArrayList<ThermalEntity>,
@@ -507,9 +507,9 @@ class LogViewModel : BaseViewModel() {
             tempMin += data[x].thermalMin
         }
         // Note: tempVol:0f startIndex:2 endIndex:1 can result in vol:NaN
-        tempVolEntity.thermal = temp / (endIndex - startIndex + 1) // 区间电压average值
-        tempVolEntity.thermalMax = tempMax / (endIndex - startIndex + 1) // 区间电压average值
-        tempVolEntity.thermalMin = tempMin / (endIndex - startIndex + 1) // 区间电压average值
+        tempVolEntity.thermal = temp / (endIndex - startIndex + 1) // Interval voltage average value
+        tempVolEntity.thermalMax = tempMax / (endIndex - startIndex + 1) // Interval voltage average value
+        tempVolEntity.thermalMin = tempMin / (endIndex - startIndex + 1) // Interval voltage average value
         newData.add(tempVolEntity)
     }
 
@@ -518,32 +518,32 @@ class LogViewModel : BaseViewModel() {
 
     /**
 Synchronizedata
-// 最早时间: 1609430400000 (2021-1-1 00:00:00)
+// Earliest time: 1609430400000 (2021-1-1 00:00:00)
      *
-// 1. 查询saveRecord的最新
-时// 间
-// 2. get要update的时间段data[最新data ~ 最新一个时间区间的起始point]
-// 3. 秒data转分data的average值
-// 4. add到分data库
-// 5. delete多余的data
+// 1. Query latest saved record
+time
+// 2. Get time period data to update [latest data ~ start point of latest time interval]
+// 3. Convert second data to minute data average values
+// 4. Add to minute database
+// 5. Delete excess data
      */
     private suspend fun syncVol(selectTimeType: Int) {
         Log.i("chart", "syncVol: $syncRun")
         if (syncRun) {
-// 有task正在执行
+// Task is currently executing
             return
         }
         Log.i("chart", "syncVol start")
         if (selectTimeType == 1) {
-// 秒data不用processing
+// Second data doesn't need processing
             return
         }
         syncRun = true
         val userId = SharedManager.getUserId()
-// 查询saveRecord的最新时间
+// Query latest saved record time
         when (selectTimeType) {
                 val minuteTime = TimeTool.timeToMinute(System.currentTimeMillis(), 2)
-// Check最新时间段有没有dataSynchronize
+// Check最New time period有没有dataSynchronize
                 val minuteVolLatestList =
                     AppDatabase.getInstance().thermalMinDao()
                         .queryByTime(
@@ -552,13 +552,13 @@ Synchronizedata
                             endTime = System.currentTimeMillis(),
                         )
                 if (minuteVolLatestList.isNotEmpty()) {
-                    Log.w("chart", "最新时间段已经有Record，不需// 要Synchronizeupdate")
+                    Log.w("chart", "最New time period已经有Record，不需// 要Synchronizeupdate")
                     return
                 }
                 val maxTime =
                     AppDatabase.getInstance().thermalMinDao().queryMaxTime(userId = userId)
                 Log.w("chart", "minute latest time: $maxTime, ${TimeTool.showDateType(maxTime)}")
-// get要update的时间段data
+// Get time period data to update
                 val secondVolList =
                     AppDatabase.getInstance().thermalDao()
                         .queryByTime(
@@ -570,13 +570,13 @@ Synchronizedata
                 if (secondVolList.size > 0) {
                     val startTime = TimeTool.showDateType(secondVolList.first().createTime)
                     val endTime = TimeTool.showDateType(secondVolList.last().createTime)
-                    Log.w("chart", "要processing${secondVolList.size}// 个data, start:$startTime, end:$endTime")
+                    Log.w("chart", "To process${secondVolList.size}//  data entries, start:$startTime, end:$endTime")
                 } else {
-                    Log.w("chart", "// 无dataprocessing")
+                    Log.w("chart", "No data to process")
                 }
-// 秒data转分data的average值
+// Convert second data to minute data average values
                 val minVolList = getNewVolData(secondVolList, 2)
-// add到分data库
+// Add to minute database
                 minVolList.forEach {
                     val bean = ThermalMinuteEntity()
                     try {
@@ -587,7 +587,7 @@ Synchronizedata
                         bean.thermalMin = it.thermalMin
                         bean.info = it.info
                         bean.type = it.type
-                        bean.createTime = TimeTool.timeToMinute(it.createTime, 2) // Adjust精确到分
+                        bean.createTime = TimeTool.timeToMinute(it.createTime, 2) // Adjust to minute precision
                         bean.updateTime = System.currentTimeMillis()
                         AppDatabase.getInstance().thermalMinDao().insert(bean)
                     } catch (e: Exception) {
@@ -600,18 +600,18 @@ Synchronizedata
                     bean.thermal = 0f
                     bean.thermalMax = 0f
                     bean.thermalMin = 0f
-                    bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 2) // Adjust精确到分
+                    bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 2) // Adjust to minute precision
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalMinDao().insert(bean)
                 } catch (e: Exception) {
                     XLog.e("insert error:${e.message}")
                 }
-// delete多余的data
+// Delete excess data
                 AppDatabase.getInstance().thermalMinDao()
                     .deleteRepeatVol(userId)
             }
                 val hourTime = TimeTool.timeToMinute(System.currentTimeMillis(), 3)
-// Check最新时间段有没有dataSynchronize
+// Check最New time period有没有dataSynchronize
                 val hourVolLatestList =
                     AppDatabase.getInstance().thermalHourDao()
                         .queryByTime(
@@ -620,13 +620,13 @@ Synchronizedata
                             endTime = System.currentTimeMillis(),
                         )
                 if (hourVolLatestList.isNotEmpty()) {
-                    Log.w("chart", "最新时间段已经有Record，不需// 要Synchronizeupdate")
+                    Log.w("chart", "最New time period已经有Record，不需// 要Synchronizeupdate")
                     return
                 }
                 val maxTime =
                     AppDatabase.getInstance().thermalHourDao().queryMaxTime(userId = userId)
                 Log.w("chart", "hour latest  time: $maxTime, ${TimeTool.showDateType(maxTime)}")
-// get要update的时间段data
+// Get time period data to update
                 val secondVolList =
                     AppDatabase.getInstance().thermalDao()
                         .queryByTime(
@@ -637,13 +637,13 @@ Synchronizedata
                 if (secondVolList.size > 0) {
                     val startTime = TimeTool.showDateType(secondVolList.first().createTime)
                     val endTime = TimeTool.showDateType(secondVolList.last().createTime)
-                    Log.w("chart", "要processing${secondVolList.size}// 个data, start:$startTime, end:$endTime")
+                    Log.w("chart", "To process${secondVolList.size}//  data entries, start:$startTime, end:$endTime")
                 } else {
-                    Log.w("chart", "// 无dataprocessing")
+                    Log.w("chart", "No data to process")
                 }
-// 秒data转分data的average值
+// Convert second data to minute data average values
                 val hourVolList = getNewVolData(secondVolList, 3)
-// add到分data库
+// Add to minute database
                 hourVolList.forEach {
                     val bean = ThermalHourEntity()
                     bean.userId = it.userId
@@ -653,7 +653,7 @@ Synchronizedata
                     bean.thermalMin = it.thermalMin
                     bean.info = it.info
                     bean.type = it.type
-                    bean.createTime = TimeTool.timeToMinute(it.createTime, 3) // Adjust精确到分
+                    bean.createTime = TimeTool.timeToMinute(it.createTime, 3) // Adjust to minute precision
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalHourDao().insert(bean)
                 }
@@ -662,15 +662,15 @@ Synchronizedata
                 bean.thermal = 0f
                 bean.thermalMax = 0f
                 bean.thermalMin = 0f
-                bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 3) // Adjust精确到分
+                bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 3) // Adjust to minute precision
                 bean.updateTime = System.currentTimeMillis()
                 AppDatabase.getInstance().thermalHourDao().insert(bean)
-// delete多余的data
+// Delete excess data
                 AppDatabase.getInstance().thermalHourDao().deleteRepeatVol(userId)
             }
                 val todayStartTime =
-                    TimeTool.timeToMinute(System.currentTimeMillis(), 4) // 天只update到今天凌晨的data
-// Check今天有没有dataSynchronize
+                    TimeTool.timeToMinute(System.currentTimeMillis(), 4) // days只update到今days凌晨的data
+// Check今days有没有dataSynchronize
                 val todayVolLatestList =
                     AppDatabase.getInstance().thermalDayDao()
                         .queryByTime(
@@ -679,14 +679,14 @@ Synchronizedata
                             endTime = System.currentTimeMillis(),
                         )
                 if (todayVolLatestList.isNotEmpty()) {
-// 今天已经有Record，description已经Synchronize到今天，不需要Synchronizeupdate
-                    // Log.w("chart", "今天已经有Record，不需要Synchronizeupdate")
+// 今days已经有Record，description已经Synchronize到今days，不需要Synchronizeupdate
+                    // Log.w("chart", "今days已经有Record，不需要Synchronizeupdate")
                     return
                 }
                 val maxTime =
                     AppDatabase.getInstance().thermalDayDao().queryMaxTime(userId = userId)
                 Log.w("chart", "day latest time: $maxTime, ${TimeTool.showDateType(maxTime)}")
-// get要update的时间段data
+// Get time period data to update
                 val secondVolList =
                     AppDatabase.getInstance().thermalDao()
                         .queryByTime(
@@ -694,16 +694,16 @@ Synchronizedata
                             startTime = maxTime,
                             endTime = todayStartTime,
                         ) as ArrayList<ThermalEntity>
-// 秒data转分data的average值
+                // Convert second data to minute data average values
                 if (secondVolList.size > 0) {
                     val startTime = TimeTool.showDateType(secondVolList.first().createTime)
                     val endTime = TimeTool.showDateType(secondVolList.last().createTime)
-                    Log.w("chart", "要processing${secondVolList.size}// 个data, start:$startTime, end:$endTime")
+                    Log.w("chart", "Processing ${secondVolList.size} data entries, start:$startTime, end:$endTime")
                 } else {
-                    Log.w("chart", "// 无dataprocessing")
+                    Log.w("chart", "No data to process")
                 }
                 val dayVolList = getNewVolData(secondVolList, 4)
-// add到分data库
+                // Add to day data database
                 dayVolList.forEach {
                     val bean = ThermalDayEntity()
                     bean.userId = it.userId
@@ -713,12 +713,12 @@ Synchronizedata
                     bean.thermalMin = it.thermalMin
                     bean.info = it.info
                     bean.type = it.type
-                    bean.createTime = TimeTool.timeToMinute(it.createTime, 4) // Adjust精确到分
+                    bean.createTime = TimeTool.timeToMinute(it.createTime, 4) // Adjust to minute precision
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalDayDao().insert(bean)
-// Update only until today midnight
+                    // Update only until today midnight
                 }
-// Today's thermal values are not checked yet, cannot average results, add placeholder data (0f), use updateTime to judge synchronized to latest time point
+                // Today's thermal values are not checked yet, cannot average results, add placeholder data (0f), use updateTime to judge synchronized to latest time point
                 val bean = ThermalDayEntity()
                 bean.userId = userId
                 bean.thermal = 0f
@@ -727,7 +727,7 @@ Synchronizedata
                 bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 4) // Adjust to minute precision
                 bean.updateTime = System.currentTimeMillis()
                 AppDatabase.getInstance().thermalDayDao().insert(bean)
-// Delete excess data
+                // Delete excess data
                 AppDatabase.getInstance().thermalDayDao().deleteRepeatVol(userId)
             }
         }
