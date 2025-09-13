@@ -1,15 +1,16 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
     id("kotlin-parcelize")
 }
 
-kapt {
-    // Support for Kotlin 2.0+ in kapt
-    correctErrorTypes = true
-    useBuildCache = true
-    includeCompileClasspath = false
+// KSP (Kotlin Symbol Processing) configuration - modern replacement for kapt
+// Full compatibility with Kotlin 2.1.0 and better performance
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.expandProjection", "true")
 }
 
 android {

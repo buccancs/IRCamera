@@ -1,20 +1,17 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
     id("kotlin-parcelize") // Use modern kotlin-parcelize instead of kotlin-android-extensions for Parcelable
 }
 
-kapt {
-    arguments {
-        // Removed AROUTER_MODULE_NAME - migrating to NavigationManager
-        arg("room.schemaLocation", "$projectDir/schemas")
-        arg("room.incremental", "true")
-        arg("room.expandProjection", "true")
-    }
-    // Enable Kotlin 2.1.0 compatibility
-    correctErrorTypes = true
-    useBuildCache = true
+// KSP (Kotlin Symbol Processing) configuration - modern replacement for kapt
+// Full compatibility with Kotlin 2.1.0 and better performance
+ksp {
+    // Removed AROUTER_MODULE_NAME - migrating to NavigationManager
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.expandProjection", "true")
 }
 
 android {

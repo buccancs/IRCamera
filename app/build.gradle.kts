@@ -4,13 +4,16 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt")
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-    }
+// KSP (Kotlin Symbol Processing) configuration - modern replacement for kapt
+// Full compatibility with Kotlin 2.1.0 and better performance
+ksp {
+    arg("AROUTER_MODULE_NAME", project.name)
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.expandProjection", "true")
 }
 
 val buildDayStr = SimpleDateFormat("yyMMdd", Locale.getDefault()).format(Date())
@@ -263,7 +266,7 @@ dependencies {
 
     // ARouter configuration
     implementation(libs.arouter.api)
-    kapt(libs.arouter.compiler)
+    ksp(libs.arouter.compiler)
 
     // LocalRepo AAR files moved to app/libs
     implementation(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"))

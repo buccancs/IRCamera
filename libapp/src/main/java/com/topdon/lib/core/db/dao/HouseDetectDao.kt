@@ -158,7 +158,7 @@ abstract class HouseDetectDao {
      */
     @Transaction
     open fun copyDir(
-        dirList: ArrayList<DirDetect>,
+        dirList: List<DirDetect>,
         position: Int,
     ): DirDetect {
         // 复制位置后面所有目录 position 需偏移一位
@@ -187,7 +187,7 @@ abstract class HouseDetectDao {
      */
     @Transaction
     open fun copyItem(
-        itemList: ArrayList<ItemDetect>,
+        itemList: List<ItemDetect>,
         position: Int,
     ): ItemDetect {
         // 复制位置后面所有项目 position 需偏移一位
