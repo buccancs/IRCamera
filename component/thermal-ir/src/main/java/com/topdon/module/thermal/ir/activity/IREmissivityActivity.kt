@@ -1,19 +1,19 @@
-package com.topdon.module.thermal.ir.activity
+        // package com.topdon.module.thermal.ir.activity
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.core.tools.UnitTools
-import com.topdon.lib.ui.widget.MyItemDecoration
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.view.EmissivityView
-import com.topdon.lib.core.R as LibR
+        // import android.content.Context
+        // import android.view.LayoutInflater
+        // import android.view.View
+        // import android.view.ViewGroup
+        // import android.widget.TextView
+        // import androidx.recyclerview.widget.LinearLayoutManager
+        // import androidx.recyclerview.widget.RecyclerView
+        // import com.blankj.utilcode.util.SizeUtils
+        // import com.topdon.lib.core.ktbase.BaseActivity
+        // import com.topdon.lib.core.tools.UnitTools
+        // import com.topdon.lib.ui.widget.MyItemDecoration
+        // import com.topdon.module.thermal.ir.R
+        // import com.topdon.module.thermal.ir.view.EmissivityView
+        // import com.topdon.lib.core.R as LibR
 
 /**
 常用材料emissivity.
@@ -24,83 +24,83 @@ import com.topdon.lib.core.R as LibR
  * I r emissivity activity for thermal imaging interface.
  * Manages UI interactions and thermal data display.
  */
-class IREmissivityActivity : BaseActivity() {
-    override fun initContentView(): Int = R.layout.activity_ir_emissivity
+        // class IREmissivityActivity : BaseActivity() {
+        // override fun initContentView(): Int = R.layout.activity_ir_emissivity
 
-    override fun initView() {
+        // override fun initView() {
         val dataArray: Array<ItemBean> = buildDataArray()
         val tvTitle = findViewById<TextView>(R.id.tv_title)
         val emissivityView = findViewById<EmissivityView>(R.id.emissivity_view)
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         val clTitle = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.cl_title)
 
-        tvTitle.text = dataArray[0].name
-        emissivityView.refreshText(dataArray[0].buildTextList(this))
+        // tvTitle.text = dataArray[0].name
+        // emissivityView.refreshText(dataArray[0].buildTextList(this))
 
         val itemDecoration = MyItemDecoration(this)
-        itemDecoration.wholeBottom = 20f
+        // itemDecoration.wholeBottom = 20f
 
         val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = MyAdapter(this, dataArray)
-        recyclerView.addItemDecoration(itemDecoration)
-        recyclerView.addOnScrollListener(MyOnScrollListener(clTitle, layoutManager, dataArray))
+        // recyclerView.layoutManager = layoutManager
+        // recyclerView.adapter = MyAdapter(this, dataArray)
+        // recyclerView.addItemDecoration(itemDecoration)
+        // recyclerView.addOnScrollListener(MyOnScrollListener(clTitle, layoutManager, dataArray))
     }
 
-    override fun initData() {
+        // override fun initData() {
     }
 
-    private class MyOnScrollListener(val titleView: View, val layoutManager: LinearLayoutManager, val dataArray: Array<ItemBean>) : RecyclerView.OnScrollListener() {
+        // private class MyOnScrollListener(val titleView: View, val layoutManager: LinearLayoutManager, val dataArray: Array<ItemBean>) : RecyclerView.OnScrollListener() {
         /**
-当前展示的title在列表中的 position
+        // 当前展示的title在列表中的 position
          */
-        private var currentPosition: Int = 0
+        // private var currentPosition: Int = 0
 
         /**
-titletext
+        // titletext
          */
-        private val tvTitle: TextView = titleView.findViewById(R.id.tv_title)
+        // private val tvTitle: TextView = titleView.findViewById(R.id.tv_title)
 
-        override fun onScrolled(
-            recyclerView: RecyclerView,
-            dx: Int,
-            dy: Int,
+        // override fun onScrolled(
+        // recyclerView: RecyclerView,
+        // dx: Int,
+        // dy: Int,
         ) {
             val seeFirstPosition = layoutManager.findFirstVisibleItemPosition()
-            if (seeFirstPosition == RecyclerView.NO_POSITION) {
-                return
+        // if (seeFirstPosition == RecyclerView.NO_POSITION) {
+        // return
             }
-            if (seeFirstPosition == currentPosition) {
-                return
+        // if (seeFirstPosition == currentPosition) {
+        // return
             }
 
-            if (dataArray[seeFirstPosition].isTitle) { // 往上顶，将下一目录的title顶到顶部了
-                currentPosition = seeFirstPosition
-                tvTitle.text = dataArray[currentPosition].name
-                titleView.translationY = 0f
+        // if (dataArray[seeFirstPosition].isTitle) { // 往上顶，将下一目录的title顶到顶部了
+        // currentPosition = seeFirstPosition
+        // tvTitle.text = dataArray[currentPosition].name
+        // titleView.translationY = 0f
             } else {
 // 在Visiblerange内查找当前目录最后一个项目 // TODO: Review this line
                 val seeLastPosition = layoutManager.findLastVisibleItemPosition()
                 var nextTitlePosition = -1
                 for (i in seeFirstPosition..seeLastPosition) {
-                    if (dataArray[i].isTitle) {
-                        nextTitlePosition = i
+        // if (dataArray[i].isTitle) {
+        // nextTitlePosition = i
                         break
                     }
                 }
-                if (nextTitlePosition < 0) {
-当滑得非常快时，dataArray[seeFirstPosition].isTitle == true 判断分支未必触发，这里兜底
-                    currentPosition = findTitlePosition(seeFirstPosition)
-                    tvTitle.text = dataArray[currentPosition].name
-                    titleView.translationY = 0f
+        // if (nextTitlePosition < 0) {
+        // 当滑得非常快时，dataArray[seeFirstPosition].isTitle == true 判断分支未必触发，这里兜底
+        // currentPosition = findTitlePosition(seeFirstPosition)
+        // tvTitle.text = dataArray[currentPosition].name
+        // titleView.translationY = 0f
                 } else {
                     val nextTitleView: View = layoutManager.findViewByPosition(nextTitlePosition) ?: return
-                    if (nextTitleView.top <= titleView.height) {
-                        currentPosition = findTitlePosition(seeFirstPosition)
-                        tvTitle.text = dataArray[currentPosition].name
-                        titleView.translationY = -(titleView.height - nextTitleView.top).toFloat()
+        // if (nextTitleView.top <= titleView.height) {
+        // currentPosition = findTitlePosition(seeFirstPosition)
+        // tvTitle.text = dataArray[currentPosition].name
+        // titleView.translationY = -(titleView.height - nextTitleView.top).toFloat()
                     } else {
-                        titleView.translationY = 0f
+        // titleView.translationY = 0f
                     }
                 }
             }
@@ -109,102 +109,102 @@ titletext
         /**
 从指定 position 处，往上遍历查找该 position 对应的 title position.
          */
-        private fun findTitlePosition(position: Int): Int {
+        // private fun findTitlePosition(position: Int): Int {
             for (i in position downTo 0) {
-                if (dataArray[i].isTitle) {
-                    return i
+        // if (dataArray[i].isTitle) {
+        // return i
                 }
             }
-            return 0
+        // return 0
         }
     }
 
-    private class MyAdapter(val context: Context, val dataArray: Array<ItemBean>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        override fun getItemViewType(position: Int): Int = if (dataArray[position].isTitle) 0 else 1
+        // private class MyAdapter(val context: Context, val dataArray: Array<ItemBean>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        // override fun getItemViewType(position: Int): Int = if (dataArray[position].isTitle) 0 else 1
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
+        // override fun onCreateViewHolder(
+        // parent: ViewGroup,
             viewType: Int,
         ): RecyclerView.ViewHolder {
-            return if (viewType == 0) { // title
+        // return if (viewType == 0) { // title
                 TitleViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_emissivity_title, parent, false))
             } else { // 内容
                 val emissivityView = EmissivityView(context)
-                emissivityView.setPadding(SizeUtils.dp2px(12f), 0, SizeUtils.dp2px(12f), 0)
+        // emissivityView.setPadding(SizeUtils.dp2px(12f), 0, SizeUtils.dp2px(12f), 0)
                 ValueViewHolder(emissivityView)
             }
         }
 
-        override fun onBindViewHolder(
-            holder: RecyclerView.ViewHolder,
-            position: Int,
+        // override fun onBindViewHolder(
+        // holder: RecyclerView.ViewHolder,
+        // position: Int,
         ) {
             val itemBean: ItemBean = dataArray[position]
-            if (holder is TitleViewHolder) {
-                holder.itemView.findViewById<TextView>(R.id.tv_title).text = itemBean.name
+        // if (holder is TitleViewHolder) {
+        // holder.itemView.findViewById<TextView>(R.id.tv_title).text = itemBean.name
                 val emissivityView = holder.itemView.findViewById<EmissivityView>(R.id.emissivity_view)
-                emissivityView.isAlignTop = true
-                emissivityView.drawTopLine = true
-                emissivityView.refreshText(itemBean.buildTextList(context))
+        // emissivityView.isAlignTop = true
+        // emissivityView.drawTopLine = true
+        // emissivityView.refreshText(itemBean.buildTextList(context))
             } else if (holder is ValueViewHolder) {
-                holder.emissivityView.refreshText(itemBean.buildTextList(context))
+        // holder.emissivityView.refreshText(itemBean.buildTextList(context))
             }
         }
 
-        override fun getItemCount(): Int = dataArray.size
+        // override fun getItemCount(): Int = dataArray.size
 
-        private class TitleViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView)
+        // private class TitleViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView)
 
-        private class ValueViewHolder(val emissivityView: EmissivityView) : RecyclerView.ViewHolder(emissivityView)
+        // private class ValueViewHolder(val emissivityView: EmissivityView) : RecyclerView.ViewHolder(emissivityView)
     }
 
     /**
 // 一项emissivitydata封装 // TODO: Review this line
-@param isTitle true-title false-内容
-@param name name，如铝、氧化钢等
-@param minTemp minimumtemperature，单位摄氏度
-@param maxTemp maximumtemperature，单位摄氏度
-@param emStr emissivitytext
+        // @param isTitle true-title false-内容
+        // @param name name，如铝、氧化钢等
+        // @param minTemp minimumtemperature，单位摄氏度
+        // @param maxTemp maximumtemperature，单位摄氏度
+        // @param emStr emissivitytext
      */
-    private data class ItemBean(
+        // private data class ItemBean(
         val isTitle: Boolean = false,
         val name: String,
         val minTemp: Int? = null,
         val maxTemp: Int? = null,
         val emStr: String? = null,
     ) {
-        private var textList: ArrayList<String> = ArrayList(3)
+        // private var textList: ArrayList<String> = ArrayList(3)
 
         fun buildTextList(context: Context): ArrayList<String> {
-            if (textList.isEmpty()) {
-                if (isTitle) {
-                    textList.add(context.getString(LibR.string.material_label))
-                    textList.add(context.getString(LibR.string.material_temp, UnitTools.showUnit()))
-                    textList.add(context.getString(LibR.string.thermal_config_radiation))
+        // if (textList.isEmpty()) {
+        // if (isTitle) {
+        // textList.add(context.getString(LibR.string.material_label))
+        // textList.add(context.getString(LibR.string.material_temp, UnitTools.showUnit()))
+        // textList.add(context.getString(LibR.string.thermal_config_radiation))
                 } else {
-                    textList.add(name)
-                    if (minTemp != null || maxTemp != null) {
-                        if (minTemp == null || maxTemp == null || minTemp == maxTemp) {
-                            textList.add(UnitTools.showNoUnit((minTemp ?: maxTemp)!!.toFloat()))
+        // textList.add(name)
+        // if (minTemp != null || maxTemp != null) {
+        // if (minTemp == null || maxTemp == null || minTemp == maxTemp) {
+        // textList.add(UnitTools.showNoUnit((minTemp ?: maxTemp)!!.toFloat()))
                         } else {
-                            textList.add(UnitTools.showNoUnit(minTemp.toFloat()) + "~" + UnitTools.showNoUnit(maxTemp.toFloat()))
+        // textList.add(UnitTools.showNoUnit(minTemp.toFloat()) + "~" + UnitTools.showNoUnit(maxTemp.toFloat()))
                         }
                     } else {
-                        if (emStr != null) {
-                            textList.add("-")
+        // if (emStr != null) {
+        // textList.add("-")
                         }
                     }
-                    if (emStr != null) {
-                        textList.add(emStr)
+        // if (emStr != null) {
+        // textList.add(emStr)
                     }
                 }
             }
-            return textList
+        // return textList
         }
     }
 
-    private fun buildDataArray(): Array<ItemBean> =
-        arrayOf(
+        // private fun buildDataArray(): Array<ItemBean> =
+        // arrayOf(
 // 金属 // TODO: Review this line
             ItemBean(true, getString(LibR.string.material_metal)),
 // 铝 // TODO: Review this line
@@ -235,10 +235,10 @@ titletext
             ItemBean(name = getString(LibR.string.material_process_cast_iron), minTemp = 20, emStr = "0.44"),
             ItemBean(name = getString(LibR.string.material_full_rusty_surface), minTemp = 20, emStr = "0.69"),
             ItemBean(
-                name = getString(LibR.string.material_cast_iron_oxidation, UnitTools.showWithUnit(600f)),
-                minTemp = 19,
-                maxTemp = 600,
-                emStr = "0.64～0.78",
+        // name = getString(LibR.string.material_cast_iron_oxidation, UnitTools.showWithUnit(600f)),
+        // minTemp = 19,
+        // maxTemp = 600,
+        // emStr = "0.64～0.78",
             ),
             ItemBean(name = getString(LibR.string.material_e_iron_oxide), minTemp = 125, maxTemp = 520, emStr = "0.78～0.82"),
             ItemBean(name = getString(LibR.string.material_iron_oxide), minTemp = 500, maxTemp = 1200, emStr = "0.85～0.89"),
@@ -275,10 +275,10 @@ titletext
             ItemBean(name = getString(LibR.string.material_nickel_chromium_alloy_line), minTemp = 50, maxTemp = 1000, emStr = "0.65～0.79"),
             ItemBean(name = getString(LibR.string.material_nickel_chromium_alloy), minTemp = 50, maxTemp = 1040, emStr = "0.64～0.76"),
             ItemBean(
-                name = getString(LibR.string.material_nickel_chromium_heat_resistance),
-                minTemp = 50,
-                maxTemp = 500,
-                emStr = "0.95～0.98",
+        // name = getString(LibR.string.material_nickel_chromium_heat_resistance),
+        // minTemp = 50,
+        // maxTemp = 500,
+        // emStr = "0.95～0.98",
             ),
 // 银 // TODO: Review this line
             ItemBean(name = getString(LibR.string.material_silver)),

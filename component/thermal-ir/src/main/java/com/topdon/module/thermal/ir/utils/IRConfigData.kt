@@ -1,7 +1,7 @@
-package com.topdon.module.thermal.ir.utils
+        // package com.topdon.module.thermal.ir.utils
 
-import android.content.Context
-import com.topdon.lib.core.R as LibcoreR
+        // import android.content.Context
+        // import com.topdon.lib.core.R as LibcoreR
 
 /**
  * des:
@@ -12,10 +12,10 @@ import com.topdon.lib.core.R as LibcoreR
  * I r config data utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-data class IRConfigData(val name: String, val value: String) {
-    companion object {
+        // data class IRConfigData(val name: String, val value: String) {
+        // companion object {
         fun irConfigData(context: Context): ArrayList<IRConfigData> =
-            arrayListOf(
+        // arrayListOf(
                 IRConfigData(name = context.resources.getString(LibcoreR.string.reference_item1), value = "0.95"),
                 IRConfigData(name = context.resources.getString(LibcoreR.string.reference_item2), value = "0.94"),
                 IRConfigData(name = context.resources.getString(LibcoreR.string.reference_item3), value = "0.75"),
@@ -31,22 +31,22 @@ data class IRConfigData(val name: String, val value: String) {
 根据指定的emissivity，拼接与该emissivity对应的材料text并Return.
          */
         fun getTextByEmissivity(
-            context: Context,
-            emissivity: Float,
+        // context: Context,
+        // emissivity: Float,
         ): String {
             val stringBuilder = StringBuilder()
             for (data in irConfigData(context)) {
-                if (emissivity.toString() == data.value) {
-                    if (stringBuilder.isEmpty()) {
-                        stringBuilder.append(context.getString(LibcoreR.string.tc_temp_test_materials)).append(" : ")
+        // if (emissivity.toString() == data.value) {
+        // if (stringBuilder.isEmpty()) {
+        // stringBuilder.append(context.getString(LibcoreR.string.tc_temp_test_materials)).append(" : ")
                     }
-                    stringBuilder.append(data.name).append("/")
+        // stringBuilder.append(data.name).append("/")
                 }
             }
-            if (stringBuilder.isNotEmpty()) {
-                stringBuilder.deleteCharAt(stringBuilder.length - 1)
+        // if (stringBuilder.isNotEmpty()) {
+        // stringBuilder.deleteCharAt(stringBuilder.length - 1)
             }
-            return stringBuilder.toString()
+        // return stringBuilder.toString()
         }
     }
 }

@@ -1,14 +1,14 @@
-package com.topdon.module.thermal.ir.activity
+        // package com.topdon.module.thermal.ir.activity
 
-import android.content.Intent
-import android.graphics.Color
-import android.view.View
-import android.view.WindowManager
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.blankj.utilcode.util.CollectionUtils
-import com.bumptech.glide.Glide
-import com.google.android.material.appbar.AppBarLayout
+        // import android.content.Intent
+        // import android.graphics.Color
+        // import android.view.View
+        // import android.view.WindowManager
+        // import androidx.lifecycle.lifecycleScope
+        // import androidx.recyclerview.widget.LinearLayoutManager
+        // import com.blankj.utilcode.util.CollectionUtils
+        // import com.bumptech.glide.Glide
+        // import com.google.android.material.appbar.AppBarLayout
 // Removed house module imports - module removed as unused
 // import com.topdon.house.activity.SignInputActivity
 // import com.topdon.house.event.HouseReportAddEvent
@@ -19,24 +19,24 @@ import com.google.android.material.appbar.AppBarLayout
 // import com.topdon.lib.core.bean.HouseRepPreviewBean
 // import com.topdon.lib.core.bean.HouseRepPreviewItemBean
 // import com.topdon.lib.core.bean.HouseRepPreviewProjectItemBean
-import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.db.AppDatabase
-import com.topdon.lib.core.db.entity.HouseReport
-import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.core.tools.TimeTool
-import com.topdon.lms.sdk.weiget.TToast
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.adapter.ReportPreviewAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.math.abs
+        // import com.topdon.lib.core.config.ExtraKeyConfig
+        // import com.topdon.lib.core.db.AppDatabase
+        // import com.topdon.lib.core.db.entity.HouseReport
+        // import com.topdon.lib.core.ktbase.BaseActivity
+        // import com.topdon.lib.core.tools.TimeTool
+        // import com.topdon.lms.sdk.weiget.TToast
+        // import com.topdon.module.thermal.ir.R
+        // import com.topdon.module.thermal.ir.adapter.ReportPreviewAdapter
+        // import kotlinx.coroutines.Dispatchers
+        // import kotlinx.coroutines.launch
+        // import kotlin.math.abs
 
 // Temporary data class stubs to resolve compilation issues
 /**
  * Custom House rep preview view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-data class HouseRepPreviewBean(
+        // data class HouseRepPreviewBean(
     var itemBeans: ArrayList<HouseRepPreviewItemBean>? = null,
     var housePhoto: String = "",
     var houseAddress: String = "",
@@ -54,7 +54,7 @@ data class HouseRepPreviewBean(
  * Custom House rep preview item view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-data class HouseRepPreviewItemBean(
+        // data class HouseRepPreviewItemBean(
     var projectItemBeans: ArrayList<HouseRepPreviewProjectItemBean>? = null,
     var albumItemBeans: ArrayList<HouseRepPreviewAlbumItemBean>? = null,
     var itemName: String = "",
@@ -64,7 +64,7 @@ data class HouseRepPreviewItemBean(
  * Custom House rep preview project item view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-data class HouseRepPreviewProjectItemBean(
+        // data class HouseRepPreviewProjectItemBean(
     var projectName: String = "",
     var state: String = "",
     var remark: String = "",
@@ -74,7 +74,7 @@ data class HouseRepPreviewProjectItemBean(
  * Custom House rep preview album item view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-data class HouseRepPreviewAlbumItemBean(
+        // data class HouseRepPreviewAlbumItemBean(
     var photoPath: String = "",
     var title: String = "",
 )
@@ -89,81 +89,81 @@ data class HouseRepPreviewAlbumItemBean(
  * Report preview activity for thermal imaging interface.
  * Manages UI interactions and thermal data display.
  */
-class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
+        // class ReportPreviewActivity : BaseActivity(), View.OnClickListener {
     // Disabled - ViewModels from removed house module
     // private val detectViewModel: DetectViewModel by viewModels()
     // private val reportViewModel: ReportViewModel by viewModels()
 
     // View declarations
-    private lateinit var tvSave: android.widget.TextView
-    private lateinit var rlyInspectorSignature: android.widget.RelativeLayout
-    private lateinit var rlyHouseOwnerSignature: android.widget.RelativeLayout
-    private lateinit var toolbarBackImg: android.widget.ImageView
-    private lateinit var clSign: androidx.constraintlayout.widget.ConstraintLayout
-    private lateinit var layAppbar: com.google.android.material.appbar.AppBarLayout
-    private lateinit var layToolbar: androidx.appcompat.widget.Toolbar
-    private lateinit var llSave: android.widget.LinearLayout
-    private lateinit var scrollView: androidx.core.widget.NestedScrollView
-    private lateinit var ivHeaderBg: android.widget.ImageView
-    private lateinit var tvAddress: android.widget.TextView
-    private lateinit var tvHouseName: android.widget.TextView
-    private lateinit var tvDetectTime: android.widget.TextView
-    private lateinit var ivInspectorSignature: android.widget.ImageView
-    private lateinit var ivHouseOwnerSignature: android.widget.ImageView
-    private lateinit var tvInspector: android.widget.TextView
-    private lateinit var tvBuildYear: android.widget.TextView
-    private lateinit var tvArea: android.widget.TextView
-    private lateinit var tvCost: android.widget.TextView
-    private lateinit var rcyFloor: androidx.recyclerview.widget.RecyclerView
+        // private lateinit var tvSave: android.widget.TextView
+        // private lateinit var rlyInspectorSignature: android.widget.RelativeLayout
+        // private lateinit var rlyHouseOwnerSignature: android.widget.RelativeLayout
+        // private lateinit var toolbarBackImg: android.widget.ImageView
+        // private lateinit var clSign: androidx.constraintlayout.widget.ConstraintLayout
+        // private lateinit var layAppbar: com.google.android.material.appbar.AppBarLayout
+        // private lateinit var layToolbar: androidx.appcompat.widget.Toolbar
+        // private lateinit var llSave: android.widget.LinearLayout
+        // private lateinit var scrollView: androidx.core.widget.NestedScrollView
+        // private lateinit var ivHeaderBg: android.widget.ImageView
+        // private lateinit var tvAddress: android.widget.TextView
+        // private lateinit var tvHouseName: android.widget.TextView
+        // private lateinit var tvDetectTime: android.widget.TextView
+        // private lateinit var ivInspectorSignature: android.widget.ImageView
+        // private lateinit var ivHouseOwnerSignature: android.widget.ImageView
+        // private lateinit var tvInspector: android.widget.TextView
+        // private lateinit var tvBuildYear: android.widget.TextView
+        // private lateinit var tvArea: android.widget.TextView
+        // private lateinit var tvCost: android.widget.TextView
+        // private lateinit var rcyFloor: androidx.recyclerview.widget.RecyclerView
 
     /**
-true-查看report即查看 false-查看检测即生成
+        // true-查看report即查看 false-查看检测即生成
      */
-    private var isReport = false
-    private var houseReport = HouseReport()
-    private var mPreviewBean: HouseRepPreviewBean? = null
+        // private var isReport = false
+        // private var houseReport = HouseReport()
+        // private var mPreviewBean: HouseRepPreviewBean? = null
 
-    override fun initContentView() = R.layout.activity_report_preview
+        // override fun initContentView() = R.layout.activity_report_preview
 
-    override fun initView() {
+        // override fun initView() {
         // Initialize views
-        tvSave = findViewById(R.id.tv_save)
-        rlyInspectorSignature = findViewById(R.id.rly_inspector_signature)
-        rlyHouseOwnerSignature = findViewById(R.id.rly_house_owner_signature)
-        toolbarBackImg = findViewById(R.id.toolbar_back_img)
-        clSign = findViewById(R.id.cl_sign)
-        layAppbar = findViewById(R.id.lay_appbar)
-        layToolbar = findViewById(R.id.lay_toolbar)
-        llSave = findViewById(R.id.ll_save)
-        scrollView = findViewById(R.id.scroll_view)
-        ivHeaderBg = findViewById(R.id.iv_header_bg)
-        tvAddress = findViewById(R.id.tv_address)
-        tvHouseName = findViewById(R.id.tv_house_name)
-        tvDetectTime = findViewById(R.id.tv_detect_time)
-        ivInspectorSignature = findViewById(R.id.iv_inspector_signature)
-        ivHouseOwnerSignature = findViewById(R.id.iv_house_owner_signature)
-        tvInspector = findViewById(R.id.tv_inspector)
-        tvBuildYear = findViewById(R.id.tv_build_year)
-        tvArea = findViewById(R.id.tv_area)
-        tvCost = findViewById(R.id.tv_cost)
-        rcyFloor = findViewById(R.id.rcy_floor)
+        // tvSave = findViewById(R.id.tv_save)
+        // rlyInspectorSignature = findViewById(R.id.rly_inspector_signature)
+        // rlyHouseOwnerSignature = findViewById(R.id.rly_house_owner_signature)
+        // toolbarBackImg = findViewById(R.id.toolbar_back_img)
+        // clSign = findViewById(R.id.cl_sign)
+        // layAppbar = findViewById(R.id.lay_appbar)
+        // layToolbar = findViewById(R.id.lay_toolbar)
+        // llSave = findViewById(R.id.ll_save)
+        // scrollView = findViewById(R.id.scroll_view)
+        // ivHeaderBg = findViewById(R.id.iv_header_bg)
+        // tvAddress = findViewById(R.id.tv_address)
+        // tvHouseName = findViewById(R.id.tv_house_name)
+        // tvDetectTime = findViewById(R.id.tv_detect_time)
+        // ivInspectorSignature = findViewById(R.id.iv_inspector_signature)
+        // ivHouseOwnerSignature = findViewById(R.id.iv_house_owner_signature)
+        // tvInspector = findViewById(R.id.tv_inspector)
+        // tvBuildYear = findViewById(R.id.tv_build_year)
+        // tvArea = findViewById(R.id.tv_area)
+        // tvCost = findViewById(R.id.tv_cost)
+        // rcyFloor = findViewById(R.id.rcy_floor)
 
-        showLoadingDialog("")
-        isReport = intent.getBooleanExtra(ExtraKeyConfig.IS_REPORT, false)
-        tvSave.isEnabled = false
-        rlyInspectorSignature.isEnabled = !isReport
-        rlyHouseOwnerSignature.isEnabled = !isReport
-        tvSave.text = if (isReport) getString(R.string.battery_share) else getString(R.string.finalize_and_save)
-        toolbarBackImg.setOnClickListener(this)
-        tvSave.setOnClickListener(this)
-        rlyInspectorSignature.setOnClickListener(this)
-        rlyHouseOwnerSignature.setOnClickListener(this)
+        // showLoadingDialog("")
+        // isReport = intent.getBooleanExtra(ExtraKeyConfig.IS_REPORT, false)
+        // tvSave.isEnabled = false
+        // rlyInspectorSignature.isEnabled = !isReport
+        // rlyHouseOwnerSignature.isEnabled = !isReport
+        // tvSave.text = if (isReport) getString(R.string.battery_share) else getString(R.string.finalize_and_save)
+        // toolbarBackImg.setOnClickListener(this)
+        // tvSave.setOnClickListener(this)
+        // rlyInspectorSignature.setOnClickListener(this)
+        // rlyHouseOwnerSignature.setOnClickListener(this)
 
-        if (clSign.isShown)
+        // if (clSign.isShown)
             {
                 val mAppBarChildAt: View = layAppbar.getChildAt(0)
                 val mAppBarParams = mAppBarChildAt.layoutParams as AppBarLayout.LayoutParams
-                mAppBarParams.scrollFlags = 0
+        // mAppBarParams.scrollFlags = 0
             }
 
         // Disabled - ViewModels from removed house module
@@ -187,69 +187,69 @@ true-查看report即查看 false-查看检测即生成
         // }
 
         // Disabled - ViewModels from removed house module
-if (isReport) {//查看report
+        // if (isReport) {//查看report
         //     reportViewModel.queryById(intent.getLongExtra(ExtraKeyConfig.LONG_ID, 0))
 } else {//生成report
         //     detectViewModel.queryById(intent.getLongExtra(ExtraKeyConfig.LONG_ID, 0))
         // }
 
         // Temporary stub - disable save functionality without ViewModels
-        tvSave.isEnabled = false
-        dismissLoadingDialog()
+        // tvSave.isEnabled = false
+        // dismissLoadingDialog()
     }
 
-    override fun initData() {
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        setAvatorChange()
+        // override fun initData() {
+        // window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        // setAvatorChange()
     }
 
-    private fun setAvatorChange() {
-        layAppbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+        // private fun setAvatorChange() {
+        // layAppbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
 // verticalOffset始终为0以下的负数 // TODO: Review this line
             val percent = abs(verticalOffset * 1.0f) / appBarLayout.totalScrollRange
-            layToolbar.setBackgroundColor(changeAlpha(getColor(R.color.color_23202E), percent))
+        // layToolbar.setBackgroundColor(changeAlpha(getColor(R.color.color_23202E), percent))
         }
     }
 
-    private fun changeAlpha(
-        color: Int,
+        // private fun changeAlpha(
+        // color: Int,
         fraction: Float,
     ): Int {
         val red = Color.red(color)
         val green = Color.green(color)
         val blue = Color.blue(color)
         val alpha = (Color.alpha(color) * fraction).toInt()
-        return Color.argb(alpha, red, green, blue)
+        // return Color.argb(alpha, red, green, blue)
     }
 
-    override fun onClick(v: View?) {
-        when (v) {
-            toolbarBackImg -> {
+        // override fun onClick(v: View?) {
+        // when (v) {
+        // toolbarBackImg -> {
                 finish()
             }
 
-            rlyInspectorSignature -> {
+        // rlyInspectorSignature -> {
                 // Disabled - SignInputActivity from removed house module
                 // var intent = Intent(this, SignInputActivity::class.java)
                 // intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, true)
                 // startActivityForResult(intent, 1000)
             }
 
-            rlyHouseOwnerSignature -> {
+        // rlyHouseOwnerSignature -> {
                 // Disabled - SignInputActivity from removed house module
                 // var intent = Intent(this, SignInputActivity::class.java)
                 // intent.putExtra(ExtraKeyConfig.IS_PICK_INSPECTOR, false)
                 // startActivityForResult(intent, 1001)
             }
 
-            tvSave -> {
-                if (isReport) { // 分享
-                    lifecycleScope.launch {
-                        showLoadingDialog()
+        // tvSave -> {
+        // if (isReport) { // 分享
+        // lifecycleScope.launch {
+        // showLoadingDialog()
                         // Disabled - PDFUtil from removed house module
                         // PDFUtil.delAllPDF(this@ReportPreviewActivity)
                         // val pdfUri: Uri? = PDFUtil.savePDF(this@ReportPreviewActivity, houseReport)
-                        dismissLoadingDialog()
+        // dismissLoadingDialog()
 
                         // Disabled PDF functionality - house module removed
                         TToast.shortToast(this@ReportPreviewActivity, "PDF sharing disabled - house module removed")
@@ -264,22 +264,22 @@ if (isReport) {//查看report
                         // }
                     }
                 } else { // 定稿并save
-                    if (houseReport.inspectorWhitePath.isEmpty() || houseReport.houseOwnerWhitePath.isEmpty()) {
-                        if (clSign.bottom + layAppbar.height > llSave.top) {
-                            layAppbar.setExpanded(false, true)
-                            scrollView.smoothScrollTo(0, clSign.top)
+        // if (houseReport.inspectorWhitePath.isEmpty() || houseReport.houseOwnerWhitePath.isEmpty()) {
+        // if (clSign.bottom + layAppbar.height > llSave.top) {
+        // layAppbar.setExpanded(false, true)
+        // scrollView.smoothScrollTo(0, clSign.top)
                         }
                         TToast.shortToast(this, R.string.pdf_sign_tips)
-                        return
+        // return
                     }
-                    showLoadingDialog("")
-                    lifecycleScope.launch(Dispatchers.IO) {
+        // showLoadingDialog("")
+        // lifecycleScope.launch(Dispatchers.IO) {
                         val currentTime = System.currentTimeMillis()
-                        houseReport.createTime = currentTime
-                        houseReport.updateTime = currentTime
-                        AppDatabase.getInstance().houseReportDao().insert(houseReport)
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            dismissLoadingDialog()
+        // houseReport.createTime = currentTime
+        // houseReport.updateTime = currentTime
+        // AppDatabase.getInstance().houseReportDao().insert(houseReport)
+        // lifecycleScope.launch(Dispatchers.Main) {
+        // dismissLoadingDialog()
                             TToast.shortToast(this@ReportPreviewActivity, R.string.pdf_saved_tips)
                             // Disabled - HouseReportAddEvent from removed house module
                             // EventBus.getDefault().post(HouseReportAddEvent())
@@ -291,89 +291,89 @@ if (isReport) {//查看report
         }
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?,
+        // override fun onActivityResult(
+        // requestCode: Int,
+        // resultCode: Int,
+        // data: Intent?,
     ) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
+        // super.onActivityResult(requestCode, resultCode, data)
+        // if (resultCode == RESULT_OK) {
             val whitePath = data?.getStringExtra(ExtraKeyConfig.RESULT_PATH_WHITE) ?: return
             val blackPath = data.getStringExtra(ExtraKeyConfig.RESULT_PATH_BLACK) ?: return
-            when (requestCode) {
+        // when (requestCode) {
                 1000 -> {
 // 检测师签名 // TODO: Review this line
-                    Glide.with(this).load(whitePath).into(ivInspectorSignature)
-                    houseReport.inspectorWhitePath = whitePath
-                    houseReport.inspectorBlackPath = blackPath
+        // Glide.with(this).load(whitePath).into(ivInspectorSignature)
+        // houseReport.inspectorWhitePath = whitePath
+        // houseReport.inspectorBlackPath = blackPath
                 }
 
                 1001 -> {
 // 房主签名 // TODO: Review this line
-                    Glide.with(this).load(whitePath).into(ivHouseOwnerSignature)
-                    houseReport.houseOwnerWhitePath = whitePath
-                    houseReport.houseOwnerBlackPath = blackPath
+        // Glide.with(this).load(whitePath).into(ivHouseOwnerSignature)
+        // houseReport.houseOwnerWhitePath = whitePath
+        // houseReport.houseOwnerBlackPath = blackPath
                 }
             }
         }
     }
 
-    private fun convertDataModel(houseReport: HouseReport): HouseRepPreviewBean {
+        // private fun convertDataModel(houseReport: HouseReport): HouseRepPreviewBean {
         var houseRepPreviewBean = HouseRepPreviewBean()
-        houseRepPreviewBean.housePhoto = houseReport.imagePath
-        houseRepPreviewBean.houseAddress = houseReport.address
-        houseRepPreviewBean.houseName = houseReport.name
-        houseRepPreviewBean.detectTime =
-            "${getString(R.string.detect_time)}${": "}${TimeTool.formatDetectTime(houseReport.detectTime)}"
-        houseRepPreviewBean.inspectorName = houseReport.inspectorName
-        houseRepPreviewBean.houseYear =
-            if (houseReport.year == null) "--" else "${houseReport.year?.toString()}${getString(R.string.year)}"
-        houseRepPreviewBean.houseArea =
-            if (houseReport.houseSpace.isEmpty()) "--" else "${houseReport.houseSpace} ${houseReport.getSpaceUnitStr()}"
-        houseRepPreviewBean.expenses =
-            if (houseReport.cost.isEmpty()) "--" else "${resources.getStringArray(R.array.currency)[houseReport.costUnit]} ${houseReport.cost}"
-        houseRepPreviewBean.itemBeans = ArrayList<HouseRepPreviewItemBean>()
-        houseReport.dirList.forEachIndexed { _, dirReport ->
+        // houseRepPreviewBean.housePhoto = houseReport.imagePath
+        // houseRepPreviewBean.houseAddress = houseReport.address
+        // houseRepPreviewBean.houseName = houseReport.name
+        // houseRepPreviewBean.detectTime =
+        // "${getString(R.string.detect_time)}${": "}${TimeTool.formatDetectTime(houseReport.detectTime)}"
+        // houseRepPreviewBean.inspectorName = houseReport.inspectorName
+        // houseRepPreviewBean.houseYear =
+        // if (houseReport.year == null) "--" else "${houseReport.year?.toString()}${getString(R.string.year)}"
+        // houseRepPreviewBean.houseArea =
+        // if (houseReport.houseSpace.isEmpty()) "--" else "${houseReport.houseSpace} ${houseReport.getSpaceUnitStr()}"
+        // houseRepPreviewBean.expenses =
+        // if (houseReport.cost.isEmpty()) "--" else "${resources.getStringArray(R.array.currency)[houseReport.costUnit]} ${houseReport.cost}"
+        // houseRepPreviewBean.itemBeans = ArrayList<HouseRepPreviewItemBean>()
+        // houseReport.dirList.forEachIndexed { _, dirReport ->
             var itemBean = HouseRepPreviewItemBean()
-            itemBean.itemName = dirReport.dirName
+        // itemBean.itemName = dirReport.dirName
             var count = dirReport.goodCount + dirReport.warnCount + dirReport.dangerCount
-            itemBean.projectItemBeans = ArrayList<HouseRepPreviewProjectItemBean>()
-            itemBean.albumItemBeans = ArrayList<HouseRepPreviewAlbumItemBean>()
+        // itemBean.projectItemBeans = ArrayList<HouseRepPreviewProjectItemBean>()
+        // itemBean.albumItemBeans = ArrayList<HouseRepPreviewAlbumItemBean>()
 
-            dirReport.itemList.forEachIndexed { _, itemReport ->
+        // dirReport.itemList.forEachIndexed { _, itemReport ->
                 var projectItemBean = HouseRepPreviewProjectItemBean()
-                projectItemBean.projectName = itemReport.itemName
-                projectItemBean.state = itemReport.state.toString()
-                projectItemBean.remark = itemReport.inputText
-                if (itemReport.state > 0 || itemReport.inputText.isNotEmpty()) {
-                    itemBean.projectItemBeans?.add(projectItemBean)
+        // projectItemBean.projectName = itemReport.itemName
+        // projectItemBean.state = itemReport.state.toString()
+        // projectItemBean.remark = itemReport.inputText
+        // if (itemReport.state > 0 || itemReport.inputText.isNotEmpty()) {
+        // itemBean.projectItemBeans?.add(projectItemBean)
                 }
 
-                if (itemReport.getImageSize() > 0) {
+        // if (itemReport.getImageSize() > 0) {
                     var albumItemBean: HouseRepPreviewAlbumItemBean? = null
-                    if (itemReport.image1.isNotEmpty()) {
-                        albumItemBean = HouseRepPreviewAlbumItemBean()
-                        albumItemBean.photoPath = itemReport.image1
-                        albumItemBean.title = itemReport.itemName
-                        itemBean.albumItemBeans?.add(albumItemBean)
+        // if (itemReport.image1.isNotEmpty()) {
+        // albumItemBean = HouseRepPreviewAlbumItemBean()
+        // albumItemBean.photoPath = itemReport.image1
+        // albumItemBean.title = itemReport.itemName
+        // itemBean.albumItemBeans?.add(albumItemBean)
                     }
-                    if (itemReport.image2.isNotEmpty()) {
-                        albumItemBean = HouseRepPreviewAlbumItemBean()
-                        albumItemBean.photoPath = itemReport.image2
-                        albumItemBean.title = itemReport.itemName
-                        itemBean.albumItemBeans?.add(albumItemBean)
+        // if (itemReport.image2.isNotEmpty()) {
+        // albumItemBean = HouseRepPreviewAlbumItemBean()
+        // albumItemBean.photoPath = itemReport.image2
+        // albumItemBean.title = itemReport.itemName
+        // itemBean.albumItemBeans?.add(albumItemBean)
                     }
-                    if (itemReport.image3.isNotEmpty()) {
-                        albumItemBean = HouseRepPreviewAlbumItemBean()
-                        albumItemBean.photoPath = itemReport.image3
-                        albumItemBean.title = itemReport.itemName
-                        itemBean.albumItemBeans?.add(albumItemBean)
+        // if (itemReport.image3.isNotEmpty()) {
+        // albumItemBean = HouseRepPreviewAlbumItemBean()
+        // albumItemBean.photoPath = itemReport.image3
+        // albumItemBean.title = itemReport.itemName
+        // itemBean.albumItemBeans?.add(albumItemBean)
                     }
-                    if (itemReport.image4.isNotEmpty()) {
-                        albumItemBean = HouseRepPreviewAlbumItemBean()
-                        albumItemBean.photoPath = itemReport.image4
-                        albumItemBean.title = itemReport.itemName
-                        itemBean.albumItemBeans?.add(albumItemBean)
+        // if (itemReport.image4.isNotEmpty()) {
+        // albumItemBean = HouseRepPreviewAlbumItemBean()
+        // albumItemBean.photoPath = itemReport.image4
+        // albumItemBean.title = itemReport.itemName
+        // itemBean.albumItemBeans?.add(albumItemBean)
                     }
                 }
             }
@@ -381,47 +381,47 @@ if (isReport) {//查看report
             var isEmpty =
                 CollectionUtils.isEmpty(itemBean.projectItemBeans) &&
                     CollectionUtils.isEmpty(
-                        itemBean.albumItemBeans,
+        // itemBean.albumItemBeans,
                     )
-            if (CollectionUtils.isNotEmpty(itemBean.projectItemBeans)) {
-                itemBean.projectItemBeans?.add(0, HouseRepPreviewProjectItemBean())
+        // if (CollectionUtils.isNotEmpty(itemBean.projectItemBeans)) {
+        // itemBean.projectItemBeans?.add(0, HouseRepPreviewProjectItemBean())
             }
-            if (!isEmpty) {
-                houseRepPreviewBean.itemBeans?.add(itemBean)
+        // if (!isEmpty) {
+        // houseRepPreviewBean.itemBeans?.add(itemBean)
             }
         }
-        houseRepPreviewBean.inspectorWhitePath = houseReport.inspectorWhitePath
-        houseRepPreviewBean.houseOwnerWhitePath = houseReport.houseOwnerWhitePath
-        return houseRepPreviewBean
+        // houseRepPreviewBean.inspectorWhitePath = houseReport.inspectorWhitePath
+        // houseRepPreviewBean.houseOwnerWhitePath = houseReport.houseOwnerWhitePath
+        // return houseRepPreviewBean
     }
 
-    private fun setAdapter() {
-        mPreviewBean?.let {
-            Glide.with(this).load(it.housePhoto).into(ivHeaderBg)
-            tvAddress.text = it.houseAddress
-            tvHouseName.text = it.houseName
-            tvDetectTime.text = it.detectTime
-            tvInspector.text = it.inspectorName
-            tvBuildYear.text = it.houseYear
-            tvArea.text = it.houseArea
-            tvCost.text = it.expenses
+        // private fun setAdapter() {
+        // mPreviewBean?.let {
+        // Glide.with(this).load(it.housePhoto).into(ivHeaderBg)
+        // tvAddress.text = it.houseAddress
+        // tvHouseName.text = it.houseName
+        // tvDetectTime.text = it.detectTime
+        // tvInspector.text = it.inspectorName
+        // tvBuildYear.text = it.houseYear
+        // tvArea.text = it.houseArea
+        // tvCost.text = it.expenses
 
-            rcyFloor.layoutManager = LinearLayoutManager(this)
+        // rcyFloor.layoutManager = LinearLayoutManager(this)
             val reportPreviewAdapter =
                 ReportPreviewAdapter(
-                    this,
-                    it.itemBeans?.map { itemBean ->
+        // this,
+        // it.itemBeans?.map { itemBean ->
                         // Convert local HouseRepPreviewItemBean to libapp HouseRepPreviewItemBean
-                        com.topdon.lib.core.bean.HouseRepPreviewItemBean().apply {
+        // com.topdon.lib.core.bean.HouseRepPreviewItemBean().apply {
                             // Map properties as needed - this is a simplified conversion
                         }
                     } ?: emptyList(),
                 )
-            rcyFloor.isNestedScrollingEnabled = false
-            rcyFloor.adapter = reportPreviewAdapter
+        // rcyFloor.isNestedScrollingEnabled = false
+        // rcyFloor.adapter = reportPreviewAdapter
 
-            Glide.with(this).load(it.inspectorWhitePath).into(ivInspectorSignature)
-            Glide.with(this).load(it.houseOwnerWhitePath).into(ivHouseOwnerSignature)
+        // Glide.with(this).load(it.inspectorWhitePath).into(ivInspectorSignature)
+        // Glide.with(this).load(it.houseOwnerWhitePath).into(ivHouseOwnerSignature)
         }
     }
 }

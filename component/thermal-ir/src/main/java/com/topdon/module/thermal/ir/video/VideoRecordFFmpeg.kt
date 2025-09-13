@@ -1,113 +1,113 @@
-package com.topdon.module.thermal.ir.video
+        // package com.topdon.module.thermal.ir.video
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
-import android.media.AudioFormat
-import android.media.AudioRecord
-import android.media.AudioRecord.RECORDSTATE_RECORDING
-import android.media.MediaRecorder
-import android.media.MediaScannerConnection
-import android.os.Build
-import android.text.Layout
-import android.text.StaticLayout
-import android.text.TextPaint
-import android.text.TextUtils
-import android.util.Log
-import android.view.TextureView
-import android.view.View
-import android.view.View.VISIBLE
-import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.view.drawToBitmap
-import androidx.core.view.isVisible
-import com.blankj.utilcode.util.SDCardUtils
-import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.StringUtils.getString
-import com.blankj.utilcode.util.ThreadUtils
-import com.blankj.utilcode.util.Utils
-import com.elvishew.xlog.XLog
-import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
-import com.infisense.usbir.view.CameraView
-import com.infisense.usbir.view.TemperatureView
-import com.topdon.lib.core.common.SharedManager
-import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.tools.TimeTool
-import com.topdon.lib.core.utils.BitmapUtils
-import com.topdon.lib.ui.camera.CameraPreView
-import com.topdon.lib.ui.widget.BitmapConstraintLayout
-import com.topdon.lib.ui.widget.LiteSurfaceView
-import com.topdon.libcom.view.TempLayout
-import com.topdon.module.thermal.ir.view.HikSurfaceView
-import com.topdon.module.thermal.ir.view.TemperatureHikView
-import com.topdon.module.thermal.ir.view.compass.LinearCompassView
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import org.bytedeco.ffmpeg.global.avcodec
-import org.bytedeco.javacv.FFmpegFrameRecorder
-import org.bytedeco.javacv.Frame
-import org.bytedeco.javacv.FrameFilter
-import org.bytedeco.opencv.opencv_core.IplImage
-import java.io.File
-import java.nio.ByteBuffer
-import java.nio.ShortBuffer
-import java.util.Date
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicReference
-import com.topdon.lib.core.R as LibcoreR
+        // import android.Manifest
+        // import android.annotation.SuppressLint
+        // import android.content.Context
+        // import android.content.pm.PackageManager
+        // import android.graphics.Bitmap
+        // import android.graphics.Canvas
+        // import android.graphics.Color
+        // import android.graphics.Paint
+        // import android.graphics.Rect
+        // import android.media.AudioFormat
+        // import android.media.AudioRecord
+        // import android.media.AudioRecord.RECORDSTATE_RECORDING
+        // import android.media.MediaRecorder
+        // import android.media.MediaScannerConnection
+        // import android.os.Build
+        // import android.text.Layout
+        // import android.text.StaticLayout
+        // import android.text.TextPaint
+        // import android.text.TextUtils
+        // import android.util.Log
+        // import android.view.TextureView
+        // import android.view.View
+        // import android.view.View.VISIBLE
+        // import android.view.ViewGroup
+        // import androidx.core.app.ActivityCompat
+        // import androidx.core.view.drawToBitmap
+        // import androidx.core.view.isVisible
+        // import com.blankj.utilcode.util.SDCardUtils
+        // import com.blankj.utilcode.util.SizeUtils
+        // import com.blankj.utilcode.util.StringUtils.getString
+        // import com.blankj.utilcode.util.ThreadUtils
+        // import com.blankj.utilcode.util.Utils
+        // import com.elvishew.xlog.XLog
+        // import com.infisense.usbdual.camera.DualViewWithExternalCameraCommonApi
+        // import com.infisense.usbir.view.CameraView
+        // import com.infisense.usbir.view.TemperatureView
+        // import com.topdon.lib.core.common.SharedManager
+        // import com.topdon.lib.core.config.FileConfig
+        // import com.topdon.lib.core.dialog.TipDialog
+        // import com.topdon.lib.core.tools.TimeTool
+        // import com.topdon.lib.core.utils.BitmapUtils
+        // import com.topdon.lib.ui.camera.CameraPreView
+        // import com.topdon.lib.ui.widget.BitmapConstraintLayout
+        // import com.topdon.lib.ui.widget.LiteSurfaceView
+        // import com.topdon.libcom.view.TempLayout
+        // import com.topdon.module.thermal.ir.view.HikSurfaceView
+        // import com.topdon.module.thermal.ir.view.TemperatureHikView
+        // import com.topdon.module.thermal.ir.view.compass.LinearCompassView
+        // import io.reactivex.Observable
+        // import io.reactivex.disposables.Disposable
+        // import io.reactivex.functions.Consumer
+        // import io.reactivex.schedulers.Schedulers
+        // import kotlinx.coroutines.CoroutineScope
+        // import kotlinx.coroutines.Dispatchers
+        // import kotlinx.coroutines.delay
+        // import kotlinx.coroutines.launch
+        // import org.bytedeco.ffmpeg.global.avcodec
+        // import org.bytedeco.javacv.FFmpegFrameRecorder
+        // import org.bytedeco.javacv.Frame
+        // import org.bytedeco.javacv.FrameFilter
+        // import org.bytedeco.opencv.opencv_core.IplImage
+        // import java.io.File
+        // import java.nio.ByteBuffer
+        // import java.nio.ShortBuffer
+        // import java.util.Date
+        // import java.util.concurrent.Executors
+        // import java.util.concurrent.TimeUnit
+        // import java.util.concurrent.atomic.AtomicReference
+        // import com.topdon.lib.core.R as LibcoreR
 
 /**
 // 软编吗 // TODO: Review this line
  * bitmap -> mp4
  *
-avcodec.AV_CODEC_ID_MPEG4 //playback正常
-avcodec.AV_CODEC_ID_H264 //不能拖拽进度条
+        // avcodec.AV_CODEC_ID_MPEG4 //playback正常
+        // avcodec.AV_CODEC_ID_H264 //不能拖拽进度条
  */
 /**
  * Custom Video record f fmpeg view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
 @SuppressLint("MissingPermission")
-class VideoRecordFFmpeg(
-    private val cameraView: View,
-    private val cameraPreview: CameraPreView?,
-    private val temperatureView: View?,
-    private val isRecordTemp: Boolean,
-    private val thermalPseudoBarView: BitmapConstraintLayout?,
-    private val tempBg: TempLayout?,
-    private val compassView: LinearCompassView? = null, // 指南针
-    private val dualView: DualViewWithExternalCameraCommonApi? = null, // dual light
-    private val isTC007: Boolean = false,
-    private val carView: View? = null,
+        // class VideoRecordFFmpeg(
+        // private val cameraView: View,
+        // private val cameraPreview: CameraPreView?,
+        // private val temperatureView: View?,
+        // private val isRecordTemp: Boolean,
+        // private val thermalPseudoBarView: BitmapConstraintLayout?,
+        // private val tempBg: TempLayout?,
+        // private val compassView: LinearCompassView? = null, // 指南针
+        // private val dualView: DualViewWithExternalCameraCommonApi? = null, // dual light
+        // private val isTC007: Boolean = false,
+        // private val carView: View? = null,
 ) : VideoRecord() {
-    companion object {
-        const val TAG = "VideoRecordFFmpeg"
-        const val FORMAT = "mp4"
-        const val RATE = 25
-        const val VIDEO_BITRATE = 1500000
+        // companion object {
+        // const val TAG = "VideoRecordFFmpeg"
+        // const val FORMAT = "mp4"
+        // const val RATE = 25
+        // const val VIDEO_BITRATE = 1500000
         var VIDEO_CODEC = avcodec.AV_CODEC_ID_MPEG4
-        const val SAMPLE_AUDIO_RETE_INHZ = 44100
-        const val AUDIO_CHANNELS = 1
+        // const val SAMPLE_AUDIO_RETE_INHZ = 44100
+        // const val AUDIO_CHANNELS = 1
 
         /**
 // memory检测 // TODO: Review this line
          */
         fun canStartVideoRecord(
-            context: Context,
+        // context: Context,
             videoFile: File? = null,
         ): Boolean {
             val canStart =
@@ -117,57 +117,57 @@ class VideoRecordFFmpeg(
                             ?: 0
                     )
                 ) > (500L * 1000 * 1000)
-            if (!canStart) {
+        // if (!canStart) {
                 ThreadUtils.runOnUiThread {
                     TipDialog.Builder(context)
-                        .setTitleMessage(getString(LibcoreR.string.app_tip))
-                        .setMessage(LibcoreR.string.album_report_aleart)
-                        .setPositiveListener(LibcoreR.string.app_confirm) {
+        // .setTitleMessage(getString(LibcoreR.string.app_tip))
+        // .setMessage(LibcoreR.string.album_report_aleart)
+        // .setPositiveListener(LibcoreR.string.app_confirm) {
                         }
-                        .setCanceled(true)
-                        .create().show()
+        // .setCanceled(true)
+        // .create().show()
                 }
             }
-            return canStart
+        // return canStart
         }
     }
 
-    private var alphaPaint: Paint? = null
+        // private var alphaPaint: Paint? = null
 
     @Volatile
-    private var isBitmapChangeTime: Long = 0L
-    private var audioDisposable: Disposable? = null
-    private var bitmapDisposable: Disposable? = null
-    private var recorder: FFmpegFrameRecorder? = null
-    private var exportDisposable: Disposable? = null
+        // private var isBitmapChangeTime: Long = 0L
+        // private var audioDisposable: Disposable? = null
+        // private var bitmapDisposable: Disposable? = null
+        // private var recorder: FFmpegFrameRecorder? = null
+        // private var exportDisposable: Disposable? = null
 
     @Volatile
-    private var isRunning = false
-    private var exportedFile: File? = null
+        // private var isRunning = false
+        // private var exportedFile: File? = null
 
-    private var width = 640
-    private var height = 480
+        // private var width = 640
+        // private var height = 480
 
     @Volatile
-    private var openAudioRecord = true
-    private var bufferSize = 0
+        // private var openAudioRecord = true
+        // private var bufferSize = 0
 
-    private var audioRecord: AudioRecord? = null
-    private var audioData: ShortBuffer? = null
-    private var tmpAudioData: ShortBuffer? = null
-    private var bufferReadResult: Int = 0
+        // private var audioRecord: AudioRecord? = null
+        // private var audioData: ShortBuffer? = null
+        // private var tmpAudioData: ShortBuffer? = null
+        // private var bufferReadResult: Int = 0
     var stopVideoRecordListener: ((shoVideoTip: Boolean) -> Unit)? = null
     val bitmapExecutor = Executors.newScheduledThreadPool(1)
     val recordExecutor = Executors.newScheduledThreadPool(1)
     val audioExecutor = Executors.newScheduledThreadPool(1)
     val paint = TextPaint(Paint.ANTI_ALIAS_FLAG)
-    private var rectText = Rect() // 得到text占用宽高， 单位：像素
-    private val pix20 = SizeUtils.dp2px(20f)
-    private val pix10 = SizeUtils.dp2px(10f)
-    private val pix6 = SizeUtils.dp2px(6f)
-    private val pixArray = ByteArray(width * height * 4)
-    private val bufferRef: AtomicReference<ByteBuffer> =
-        AtomicReference(ByteBuffer.allocate(pixArray.size))
+        // private var rectText = Rect() // 得到text占用宽高， 单位：像素
+        // private val pix20 = SizeUtils.dp2px(20f)
+        // private val pix10 = SizeUtils.dp2px(10f)
+        // private val pix6 = SizeUtils.dp2px(6f)
+        // private val pixArray = ByteArray(width * height * 4)
+        // private val bufferRef: AtomicReference<ByteBuffer> =
+        // AtomicReference(ByteBuffer.allocate(pixArray.size))
 
     //    fun readByteBuffer(): ByteBuffer? {
 //        synchronized(lock) {
@@ -185,15 +185,15 @@ class VideoRecordFFmpeg(
 //            bitmap.recycle()
 //        }
 //    }
-    private fun readByteBuffer(): ByteBuffer? {
-        return bufferRef.get()?.duplicate()
+        // private fun readByteBuffer(): ByteBuffer? {
+        // return bufferRef.get()?.duplicate()
     }
 
-    private fun setBitmap(bitmap: Bitmap) {
+        // private fun setBitmap(bitmap: Bitmap) {
         val byteCount = bitmap.byteCount
         val newPixels = ByteBuffer.allocate(byteCount)
         bitmap.copyPixelsToBuffer(newPixels)
-        newPixels.flip()
+        // newPixels.flip()
         bitmap.recycle()
         bufferRef.set(newPixels)
     }
@@ -223,196 +223,196 @@ class VideoRecordFFmpeg(
 
     /**
      *
-avcodec.AV_CODEC_ID_MPEG4 playback正常
-avcodec.AV_CODEC_ID_H264 不能拖拽进度条
+        // avcodec.AV_CODEC_ID_MPEG4 playback正常
+        // avcodec.AV_CODEC_ID_H264 不能拖拽进度条
      *
-个别机型使用H264encoding无法Openvideo,优先使用AV_CODEC_ID_MPEG4
+        // 个别机型使用H264encoding无法Openvideo,优先使用AV_CODEC_ID_MPEG4
      */
-    private fun getVideoCodec(): Int {
-        return if (Build.BRAND == "motorola" && Build.MODEL == "XT2201-2") {
-            XLog.i("使用videoencodingAV_CODEC_ID_H264")
-            avcodec.AV_CODEC_ID_H264
+        // private fun getVideoCodec(): Int {
+        // return if (Build.BRAND == "motorola" && Build.MODEL == "XT2201-2") {
+        // XLog.i("使用videoencodingAV_CODEC_ID_H264")
+        // avcodec.AV_CODEC_ID_H264
         } else {
 // 默认type // TODO: Review this line
-            XLog.i("使用videoencodingAV_CODEC_ID_MPEG4")
-            avcodec.AV_CODEC_ID_MPEG4
+        // XLog.i("使用videoencodingAV_CODEC_ID_MPEG4")
+        // avcodec.AV_CODEC_ID_MPEG4
         }
     }
 
-    init {
-        if ((cameraView.parent as ViewGroup).height > (cameraView.parent as ViewGroup).width) {
+        // init {
+        // if ((cameraView.parent as ViewGroup).height > (cameraView.parent as ViewGroup).width) {
 // 竖屏 // TODO: Review this line
-            width = 480
-            height =
-                width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
+        // width = 480
+        // height =
+        // width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         } else {
 // 横屏 // TODO: Review this line
-            width = 640
-            height =
-                width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
+        // width = 640
+        // height =
+        // width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         }
 // 宽高不能出现奇数 // TODO: Review this line
-        if (height % 2 == 1) {
-            height -= 1
+        // if (height % 2 == 1) {
+        // height -= 1
         }
         VIDEO_CODEC = getVideoCodec()
         bufferSize =
-            AudioRecord.getMinBufferSize(
+        // AudioRecord.getMinBufferSize(
                 SAMPLE_AUDIO_RETE_INHZ,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
+        // AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
             )
-        audioRecord =
-            AudioRecord(
+        // audioRecord =
+        // AudioRecord(
                 MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+        // AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
             )
-        paint.color = Color.WHITE // 白色半透明
-        paint.textSize = SizeUtils.sp2px(6f).toFloat()
-        paint.isDither = true
-        paint.isFilterBitmap = true
-        paint.getTextBounds("占位高度文本", 0, "占位高度文本".length, rectText)
+        // paint.color = Color.WHITE // 白色半透明
+        // paint.textSize = SizeUtils.sp2px(6f).toFloat()
+        // paint.isDither = true
+        // paint.isFilterBitmap = true
+        // paint.getTextBounds("占位高度文本", 0, "占位高度文本".length, rectText)
     }
 
     var startTime: Long = 0L
 
-    override fun startRecord() {
-        startRecord(FileConfig.lineGalleryDir)
+        // override fun startRecord() {
+        // startRecord(FileConfig.lineGalleryDir)
     }
 
-    override fun startRecord(downloadDir: String) {
-        try {
-            exportedFile = File(downloadDir, "${Date().time}.mp4")
-            if (exportedFile!!.exists()) {
-                exportedFile!!.delete()
+        // override fun startRecord(downloadDir: String) {
+        // try {
+        // exportedFile = File(downloadDir, "${Date().time}.mp4")
+        // if (exportedFile!!.exists()) {
+        // exportedFile!!.delete()
             }
-            recorder =
+        // recorder =
                 FFmpegFrameRecorder(
-                    exportedFile!!.absolutePath, width, height,
-                    AUDIO_CHANNELS,
+        // exportedFile!!.absolutePath, width, height,
+        // AUDIO_CHANNELS,
                 )
-            recorder!!.format = FORMAT
-            recorder!!.frameRate = RATE.toDouble()
-            recorder!!.videoBitrate = VIDEO_BITRATE
+        // recorder!!.format = FORMAT
+        // recorder!!.frameRate = RATE.toDouble()
+        // recorder!!.videoBitrate = VIDEO_BITRATE
 //            recorder!!.audioBitrate = VIDEO_BITRATE
-            recorder!!.videoCodec = VIDEO_CODEC
+        // recorder!!.videoCodec = VIDEO_CODEC
 //            recorder!!.setAudioOption("itsoffset",(1000L * 200L).toString())
-            recorder!!.sampleRate = SAMPLE_AUDIO_RETE_INHZ
+        // recorder!!.sampleRate = SAMPLE_AUDIO_RETE_INHZ
 //            recorder!!.pixelFormat = avutil.AV_PIX_FMT_YUV420P
 //            recorder!!.audioChannels = 1
 //            recorder!!.setVideoOption("preset", "ultrafast")
-            recorder!!.timestamp = 0L
-            recorder!!.start()
-            isRunning = true
-            isBitmapChangeTime = System.currentTimeMillis()
-            if (openAudioRecord &&
-                ActivityCompat.checkSelfPermission(
-                    cameraView.context,
+        // recorder!!.timestamp = 0L
+        // recorder!!.start()
+        // isRunning = true
+        // isBitmapChangeTime = System.currentTimeMillis()
+        // if (openAudioRecord &&
+        // ActivityCompat.checkSelfPermission(
+        // cameraView.context,
                     Manifest.permission.RECORD_AUDIO,
                 )
                 == PackageManager.PERMISSION_GRANTED
             ) {
-                startAudioRecording()
+        // startAudioRecording()
             }
 
-            if (audioData == null) {
-                audioData = ShortBuffer.allocate(bufferSize / 2)
+        // if (audioData == null) {
+        // audioData = ShortBuffer.allocate(bufferSize / 2)
             }
-            if (tmpAudioData == null) {
-                tmpAudioData = ShortBuffer.allocate((bufferSize / 2))
+        // if (tmpAudioData == null) {
+        // tmpAudioData = ShortBuffer.allocate((bufferSize / 2))
             }
             val recordSchedulers = Schedulers.from(recordExecutor)
             val bitmapSchedulers = Schedulers.from(bitmapExecutor)
-            setBitmap(createBitmapFromView())
+        // setBitmap(createBitmapFromView())
             val fTime = 1000L / RATE
             bitmapDisposable =
                 Observable.interval(fTime, TimeUnit.MILLISECONDS)
-                    .observeOn(bitmapSchedulers)
-                    .subscribe(
+        // .observeOn(bitmapSchedulers)
+        // .subscribe(
                         Consumer {
                             val tmp = createBitmapFromView()
-                            tmp?.let {
-                                setBitmap(it)
+        // tmp?.let {
+        // setBitmap(it)
                             }
                         },
                         Consumer {
                             Log.e("image对象recordingexception", "${it.message}")
                         },
                     )
-            if (audioRecord == null) {
-                audioRecord =
-                    AudioRecord(
+        // if (audioRecord == null) {
+        // audioRecord =
+        // AudioRecord(
                         MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                        AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+        // AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
                     )
             }
-            startTime = System.currentTimeMillis()
+        // startTime = System.currentTimeMillis()
             val i = 0
-            exportDisposable =
+        // exportDisposable =
                 Observable.interval(fTime, TimeUnit.MILLISECONDS)
-                    .observeOn(recordSchedulers)
-                    .subscribe(
+        // .observeOn(recordSchedulers)
+        // .subscribe(
                         Consumer {
-                            try {
+        // try {
                                 val currentTimestamp = 1000L * (System.currentTimeMillis() - startTime)
                                 val frame = Frame(width, height, Frame.DEPTH_BYTE, 4)
                                 frame.image[0] = readByteBuffer()
                                 val t = 1000L * (System.currentTimeMillis() - startTime)
-                                if (t > (recorder?.timestamp ?: 0)) {
-                                    recorder!!.timestamp = t
+        // if (t > (recorder?.timestamp ?: 0)) {
+        // recorder!!.timestamp = t
                                 }
-                                recorder!!.record(frame)
+        // recorder!!.record(frame)
                                 frame.close()
-                                if (System.currentTimeMillis() - queTime > 60 * 1000) {
+        // if (System.currentTimeMillis() - queTime > 60 * 1000) {
 间隔1分钟，校验下剩余空间
-                                    if (!canStartVideoRecord(cameraView.context, exportedFile)) {
-                                        exportDisposable?.dispose()
-                                        stopVideoRecordListener?.invoke(false)
+        // if (!canStartVideoRecord(cameraView.context, exportedFile)) {
+        // exportDisposable?.dispose()
+        // stopVideoRecordListener?.invoke(false)
 // recording的video超出大小容量限制 // TODO: Review this line
-                                        return@Consumer
+        // return@Consumer
                                     }
                                     queTime = System.currentTimeMillis()
                                 }
-                                recorder?.timestamp?.let {
-                                    if (it / 1000 > 60 * 60 * 1000) {
-thermal imaging录像限制60分钟
-                                        exportDisposable?.dispose()
-                                        stopVideoRecordListener?.invoke(true)
-                                        return@Consumer
+        // recorder?.timestamp?.let {
+        // if (it / 1000 > 60 * 60 * 1000) {
+        // thermal imaging录像限制60分钟
+        // exportDisposable?.dispose()
+        // stopVideoRecordListener?.invoke(true)
+        // return@Consumer
                                     }
                                 }
-                                if (audioRecord == null) {
-                                    return@Consumer
+        // if (audioRecord == null) {
+        // return@Consumer
                                 }
                                 val audioTime = System.currentTimeMillis()
-                                if (openAudioRecord) {
+        // if (openAudioRecord) {
                                     bufferReadResult =
-                                        audioRecord?.read(audioData!!.array(), 0, audioData!!.capacity())
+        // audioRecord?.read(audioData!!.array(), 0, audioData!!.capacity())
                                             ?: 0
-                                    if (bufferReadResult > 0) {
-                                        audioData?.limit(bufferReadResult)
-                                        if (currentTimestamp > (recorder?.timestamp ?: 0)) {
-                                            recorder!!.timestamp = currentTimestamp
+        // if (bufferReadResult > 0) {
+        // audioData?.limit(bufferReadResult)
+        // if (currentTimestamp > (recorder?.timestamp ?: 0)) {
+        // recorder!!.timestamp = currentTimestamp
                                         }
-                                        recorder?.recordSamples(
+        // recorder?.recordSamples(
                                             SAMPLE_AUDIO_RETE_INHZ,
-                                            AUDIO_CHANNELS, audioData,
+        // AUDIO_CHANNELS, audioData,
                                         )
                                     }
                                 } else {
                                     for (i in 0 until tmpAudioData!!.capacity()) {
-                                        tmpAudioData!!.put(i, 1.toShort())
+        // tmpAudioData!!.put(i, 1.toShort())
                                     }
 // 使用当前时间戳 // TODO: Review this line
-                                    if (currentTimestamp > (recorder?.timestamp ?: 0)) {
-                                        recorder!!.timestamp = currentTimestamp
+        // if (currentTimestamp > (recorder?.timestamp ?: 0)) {
+        // recorder!!.timestamp = currentTimestamp
                                     }
-                                    recorder?.recordSamples(
+        // recorder?.recordSamples(
                                         SAMPLE_AUDIO_RETE_INHZ,
-                                        AUDIO_CHANNELS, tmpAudioData,
+        // AUDIO_CHANNELS, tmpAudioData,
                                     )
                                 }
 //                        Log.w(
-"image大小",
+        // "image大小",
 //                            "${System.currentTimeMillis() - time}======${frame.image.size}//${bufferSize}//${(recorder?.timestamp!! / 1000000L)}"
 //                        )
                             } catch (e: Exception) {
@@ -425,68 +425,68 @@ thermal imaging录像限制60分钟
                     )
         } catch (e: Exception) {
 //            stopRecord()
-            exportDisposable?.dispose()
-            stopVideoRecordListener?.invoke(false)
-            XLog.e("recordingexception")
-            e.printStackTrace()
+        // exportDisposable?.dispose()
+        // stopVideoRecordListener?.invoke(false)
+        // XLog.e("recordingexception")
+        // e.printStackTrace()
         }
     }
 
-    private class FrameInterpolationFilter(private val interpolationFactor: Int) :
+        // private class FrameInterpolationFilter(private val interpolationFactor: Int) :
         FrameFilter() {
-        private var previousFrame: Frame? = null
+        // private var previousFrame: Frame? = null
 
-        override fun start() {
-            previousFrame = null
+        // override fun start() {
+        // previousFrame = null
         }
 
-        override fun stop() {
-            previousFrame = null
+        // override fun stop() {
+        // previousFrame = null
         }
 
-        override fun push(frame: Frame) {
-            previousFrame = frame.clone()
+        // override fun push(frame: Frame) {
+        // previousFrame = frame.clone()
         }
 
-        override fun pull(): Frame? {
-            if (previousFrame == null) {
-                return null
+        // override fun pull(): Frame? {
+        // if (previousFrame == null) {
+        // return null
             }
             val interpolatedFrame = previousFrame!!.clone()
-            interpolatedFrame.timestamp += (1.0 / interpolationFactor).toLong()
-            return interpolatedFrame
+        // interpolatedFrame.timestamp += (1.0 / interpolationFactor).toLong()
+        // return interpolatedFrame
         }
 
-        override fun release() {
+        // override fun release() {
         }
 
         fun filter(
-            image: IplImage?,
-            image2: IplImage?,
+        // image: IplImage?,
+        // image2: IplImage?,
         ): IplImage? {
 // 未使用 // TODO: Review this line
-            return null
+        // return null
         }
     }
 
     fun startAudioRecording() {
-        audioRecord =
-            AudioRecord(
+        // audioRecord =
+        // AudioRecord(
                 MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+        // AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
             )
-        audioRecord!!.startRecording()
+        // audioRecord!!.startRecording()
     }
 
     fun stopAudioRecording() {
-        try {
-            if (RECORDSTATE_RECORDING == audioRecord?.recordingState) {
-                audioRecord?.stop()
-                audioRecord?.release()
-                audioRecord =
-                    AudioRecord(
+        // try {
+        // if (RECORDSTATE_RECORDING == audioRecord?.recordingState) {
+        // audioRecord?.stop()
+        // audioRecord?.release()
+        // audioRecord =
+        // AudioRecord(
                         MediaRecorder.AudioSource.MIC, SAMPLE_AUDIO_RETE_INHZ,
-                        AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+        // AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
                     )
             }
         } catch (e: Exception) {
@@ -506,91 +506,91 @@ thermal imaging录像限制60分钟
                 )
             ) > (500L * 1000 * 1000)
 Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
-        if (!canStart) {
+        // if (!canStart) {
             ThreadUtils.runOnUiThread {
                 TipDialog.Builder(cameraView.context)
-                    .setTitleMessage(getString(LibcoreR.string.app_tip))
-                    .setMessage(LibcoreR.string.album_report_aleart)
-                    .setPositiveListener(LibcoreR.string.app_confirm) {
+        // .setTitleMessage(getString(LibcoreR.string.app_tip))
+        // .setMessage(LibcoreR.string.album_report_aleart)
+        // .setPositiveListener(LibcoreR.string.app_confirm) {
                     }
-                    .setCanceled(true)
-                    .create().show()
+        // .setCanceled(true)
+        // .create().show()
             }
         }
-        return canStart
+        // return canStart
     }
 
     var queTime = 0L
 
-    override fun stopRecord() {
+        // override fun stopRecord() {
         CoroutineScope(Dispatchers.IO).launch {
-            if (isRunning) {
-                try {
-                    launch(Dispatchers.Main) {
-                        exportDisposable?.let {
-                            if (!it.isDisposed) {
-                                it.dispose()
+        // if (isRunning) {
+        // try {
+        // launch(Dispatchers.Main) {
+        // exportDisposable?.let {
+        // if (!it.isDisposed) {
+        // it.dispose()
                             }
                         }
                         bitmapDisposable?.let {
-                            if (!it.isDisposed) {
-                                it.dispose()
+        // if (!it.isDisposed) {
+        // it.dispose()
                             }
                         }
-                        if (RECORDSTATE_RECORDING == audioRecord?.recordingState) {
-                            audioRecord?.stop()
-                            audioRecord?.release()
-                            audioRecord = null
+        // if (RECORDSTATE_RECORDING == audioRecord?.recordingState) {
+        // audioRecord?.stop()
+        // audioRecord?.release()
+        // audioRecord = null
                         }
                         bitmapRecycle()
-                        audioDisposable?.let {
-                            if (!it.isDisposed) {
-                                it.dispose()
+        // audioDisposable?.let {
+        // if (!it.isDisposed) {
+        // it.dispose()
                             }
                         }
 //                        AudioRecordHelp.getInstance().stopAudioRecording()
                     }
                     bitmapExecutor.shutdown()
-                    recordExecutor.shutdown()
-                    audioExecutor.shutdown()
-                    delay(500)
-                    recorder?.stop()
-                    delay(300)
-                    refreshAlbum()
+        // recordExecutor.shutdown()
+        // audioExecutor.shutdown()
+        // delay(500)
+        // recorder?.stop()
+        // delay(300)
+        // refreshAlbum()
                 } catch (e: Exception) {
-                    XLog.e("捕获stoprecordingvideo" + e.message)
+        // XLog.e("捕获stoprecordingvideo" + e.message)
                 }
             }
-            isRunning = false
+        // isRunning = false
         }
     }
 
-    private fun bitmapRecycle() {
-        tempBitmap?.let {
-            if (!it.isRecycled) {
-                it.recycle()
+        // private fun bitmapRecycle() {
+        // tempBitmap?.let {
+        // if (!it.isRecycled) {
+        // it.recycle()
             }
-            tempBitmap = null
+        // tempBitmap = null
         }
-        cameraBitmap?.let {
-            if (!it.isRecycled) {
-                it.recycle()
+        // cameraBitmap?.let {
+        // if (!it.isRecycled) {
+        // it.recycle()
             }
-            cameraBitmap = null
+        // cameraBitmap = null
         }
     }
 
-    override fun updateAudioState(openAudioRecord: Boolean) {
-        if (this@VideoRecordFFmpeg.openAudioRecord == openAudioRecord) {
-            return
+        // override fun updateAudioState(openAudioRecord: Boolean) {
+        // if (this@VideoRecordFFmpeg.openAudioRecord == openAudioRecord) {
+        // return
         }
-        try {
-            if (openAudioRecord && isRunning) {
-                startAudioRecording()
+        // try {
+        // if (openAudioRecord && isRunning) {
+        // startAudioRecording()
             } else {
-                stopAudioRecording()
+        // stopAudioRecording()
             }
-            this@VideoRecordFFmpeg.openAudioRecord = openAudioRecord
+        // this@VideoRecordFFmpeg.openAudioRecord = openAudioRecord
         } catch (_: Exception) {
         }
     }
@@ -599,86 +599,86 @@ Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 
 // cameraViewBitmap是屏幕控件的实际宽高 // TODO: Review this line
 // dstBitmap转成video输出的 // TODO: Review this line
      */
-    private fun createBitmapFromView(): Bitmap {
+        // private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap: Bitmap
 
-        when (cameraView) {
-            is CameraView -> cameraViewBitmap = if (dualView == null) cameraView.scaledBitmap else dualView.scaledBitmap
-            is TextureView -> {
-                cameraViewBitmap = Bitmap.createBitmap(cameraView.width, cameraView.height, Bitmap.Config.ARGB_8888)
-                cameraView.getBitmap(cameraViewBitmap)
+        // when (cameraView) {
+        // is CameraView -> cameraViewBitmap = if (dualView == null) cameraView.scaledBitmap else dualView.scaledBitmap
+        // is TextureView -> {
+        // cameraViewBitmap = Bitmap.createBitmap(cameraView.width, cameraView.height, Bitmap.Config.ARGB_8888)
+        // cameraView.getBitmap(cameraViewBitmap)
             }
-            is LiteSurfaceView -> cameraViewBitmap = cameraView.scaleBitmap()
-            is HikSurfaceView -> cameraViewBitmap = cameraView.getScaleBitmap()
-            else -> cameraViewBitmap = Bitmap.createBitmap(cameraView.width, cameraView.height, Bitmap.Config.ARGB_8888)
+        // is LiteSurfaceView -> cameraViewBitmap = cameraView.scaleBitmap()
+        // is HikSurfaceView -> cameraViewBitmap = cameraView.getScaleBitmap()
+        // else -> cameraViewBitmap = Bitmap.createBitmap(cameraView.width, cameraView.height, Bitmap.Config.ARGB_8888)
         }
 
-        when (temperatureView) {
-            is TemperatureView -> {
-                if (isRecordTemp) {
-                    if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionBitmap, 0, 0)
+        // when (temperatureView) {
+        // is TemperatureView -> {
+        // if (isRecordTemp) {
+        // if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
+        // cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionBitmap, 0, 0)
                     }
                 } else {
-                    if (temperatureView.temperatureRegionMode == TemperatureView.REGION_MODE_RESET) {
-                        cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionBitmap, 0, 0)
+        // if (temperatureView.temperatureRegionMode == TemperatureView.REGION_MODE_RESET) {
+        // cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, temperatureView.regionBitmap, 0, 0)
                     }
                 }
             }
-            is TemperatureHikView -> {
-                temperatureView.draw(Canvas(cameraViewBitmap))
+        // is TemperatureHikView -> {
+        // temperatureView.draw(Canvas(cameraViewBitmap))
             }
         }
 
-pseudo-color bar
-        if (thermalPseudoBarView?.visibility == VISIBLE) {
-            try {
-                thermalPseudoBarView?.viewBitmap?.let {
+        // pseudo-color bar
+        // if (thermalPseudoBarView?.visibility == VISIBLE) {
+        // try {
+        // thermalPseudoBarView?.viewBitmap?.let {
 Log.w("image对象processing耗时-彩条大小",it.byteCount.toString())
-                    cameraViewBitmap =
-                        BitmapUtils.mergeBitmap(
-                            cameraViewBitmap,
-                            it,
-                            cameraViewBitmap!!.width - it.width,
-                            (cameraViewBitmap!!.height - it.height) / 2,
+        // cameraViewBitmap =
+        // BitmapUtils.mergeBitmap(
+        // cameraViewBitmap,
+        // it,
+        // cameraViewBitmap!!.width - it.width,
+        // (cameraViewBitmap!!.height - it.height) / 2,
                         )
                 }
 Log.w("image对象processing耗时-彩条",""+(System.currentTimeMillis() - startTime))
             } catch (e: Exception) {
-Log.e("image对象processing耗时-彩条",""+(System.currentTimeMillis() - startTime))
+        Log.e("image对象processing耗时-彩条",""+(System.currentTimeMillis() - startTime))
             }
         }
-        if (true == tempBg?.isVisible) {
-            if (alphaPaint == null) {
-                alphaPaint = Paint()
+        // if (true == tempBg?.isVisible) {
+        // if (alphaPaint == null) {
+        // alphaPaint = Paint()
             }
-            alphaPaint?.alpha = (tempBg!!.animatorAlpha * 255).toInt()
-            cameraViewBitmap =
-                BitmapUtils.mergeBitmapAlpha(
-                    cameraViewBitmap,
-                    tempBg!!.drawToBitmap(), alphaPaint,
+        // alphaPaint?.alpha = (tempBg!!.animatorAlpha * 255).toInt()
+        // cameraViewBitmap =
+        // BitmapUtils.mergeBitmapAlpha(
+        // cameraViewBitmap,
+        // tempBg!!.drawToBitmap(), alphaPaint,
                     0,
                     0,
                 )
         }
-        if (carView?.isVisible == true)
+        // if (carView?.isVisible == true)
             {
-                cameraViewBitmap =
-                    BitmapUtils.mergeBitmap(
-                        cameraViewBitmap,
-                        carView?.drawToBitmap(), 0, 0,
+        // cameraViewBitmap =
+        // BitmapUtils.mergeBitmap(
+        // cameraViewBitmap,
+        // carView?.drawToBitmap(), 0, 0,
                     )
             }
 // 指南针 // TODO: Review this line
-        compassView?.let {
-            if (it.isVisible) {
-                try {
+        // compassView?.let {
+        // if (it.isVisible) {
+        // try {
                     val bitmap = it.curBitmap
-                    cameraViewBitmap =
-                        BitmapUtils.mergeBitmap(
-                            cameraViewBitmap,
+        // cameraViewBitmap =
+        // BitmapUtils.mergeBitmap(
+        // cameraViewBitmap,
                             bitmap,
-                            ((cameraView.parent as ViewGroup).width - it.width) / 2,
+        // ((cameraView.parent as ViewGroup).width - it.width) / 2,
                             SizeUtils.dp2px(20f),
                         )
                 } catch (e: Exception) {
@@ -689,79 +689,79 @@ Log.w("image对象processing耗时-指南针", "${System.currentTimeMillis() - s
         }
 
 // 画中画 // TODO: Review this line
-        cameraPreview?.let {
-            if (it.isVisible) {
+        // cameraPreview?.let {
+        // if (it.isVisible) {
                 val newBitmap: Bitmap? =
-                    BitmapUtils.mergeBitmapByView(
-                        cameraViewBitmap,
-                        it.getBitmap(),
-                        it,
+        // BitmapUtils.mergeBitmapByView(
+        // cameraViewBitmap,
+        // it.getBitmap(),
+        // it,
                     )
-                if (newBitmap != null) {
-                    cameraViewBitmap = newBitmap
+        // if (newBitmap != null) {
+        // cameraViewBitmap = newBitmap
                 }
             }
         }
 
         var dstBitmap =
-            if (cameraViewBitmap != null) {
-                Bitmap.createScaledBitmap(cameraViewBitmap!!, width, height, true)
+        // if (cameraViewBitmap != null) {
+        // Bitmap.createScaledBitmap(cameraViewBitmap!!, width, height, true)
             } else {
-                Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        // Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             }
 
-addwatermark
+        // addwatermark
         val watermarkBean =
-            if (isTC007)
+        // if (isTC007)
                 {
                     SharedManager.wifiWatermarkBean
                 } else {
                 SharedManager.watermarkBean
             }
-        if (watermarkBean.isOpen) {
-            dstBitmap =
-                drawCenterLable(
-                    dstBitmap!!,
-                    watermarkBean.title,
-                    watermarkBean.address,
-                    if (watermarkBean.isAddTime) TimeTool.getNowTime() else "",
+        // if (watermarkBean.isOpen) {
+        // dstBitmap =
+        // drawCenterLable(
+        // dstBitmap!!,
+        // watermarkBean.title,
+        // watermarkBean.address,
+        // if (watermarkBean.isAddTime) TimeTool.getNowTime() else "",
                 )!!
         }
-        return dstBitmap
+        // return dstBitmap
     }
 
-    private var cameraBitmap: Bitmap? = null
-    private var tempBitmap: Bitmap? = null
+        // private var cameraBitmap: Bitmap? = null
+        // private var tempBitmap: Bitmap? = null
 
     fun drawCenterLable(
         bmp: Bitmap,
-        title: String,
-        address: String,
-        time: String?,
+        // title: String,
+        // address: String,
+        // time: String?,
     ): Bitmap {
 // create一样大小的image // TODO: Review this line
         val newBmp = Bitmap.createBitmap(bmp.width, bmp.height, Bitmap.Config.ARGB_8888)
 // create画布 // TODO: Review this line
         val canvas = Canvas(newBmp)
-        canvas.drawBitmap(bmp, 0f, 0f, null) // 绘制原始image
-        canvas.save()
+        // canvas.drawBitmap(bmp, 0f, 0f, null) // 绘制原始image
+        // canvas.save()
         val beginX = pix10.toDouble() // 45度角度值是1.414
         var beginY = (bmp.height - pix10).toDouble()
-        paint.getTextBounds("占位高度文本", 0, "占位高度文本".length, rectText)
-        if (!TextUtils.isEmpty(time)) {
+        // paint.getTextBounds("占位高度文本", 0, "占位高度文本".length, rectText)
+        // if (!TextUtils.isEmpty(time)) {
             beginY = beginY - (rectText.bottom - rectText.top)
-            canvas.drawText(time!!, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
+        // canvas.drawText(time!!, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
             beginY -= pix6.toDouble()
         }
-        if (!TextUtils.isEmpty(address)) {
+        // if (!TextUtils.isEmpty(address)) {
             val textHeight = (rectText.bottom - rectText.top)
-            paint.getTextBounds(address, 0, address.length, rectText)
-            if (rectText.width() > bmp.width - pix20) {
+        // paint.getTextBounds(address, 0, address.length, rectText)
+        // if (rectText.width() > bmp.width - pix20) {
 字符太长，进行换行processing
                 val staticLayout =
                     StaticLayout(
-                        address,
-                        paint,
+        // address,
+        // paint,
                         bmp.width - pix20,
                         Layout.Alignment.ALIGN_NORMAL,
                         1.0f,
@@ -769,25 +769,25 @@ addwatermark
                         false,
                     )
                 beginY = beginY - (textHeight + SizeUtils.dp2px(1f)) * staticLayout.lineCount
-                canvas.save()
-                canvas.translate(beginX.toInt().toFloat(), (beginY.toInt() - textHeight).toFloat())
-                staticLayout.draw(canvas)
-                canvas.restore()
+        // canvas.save()
+        // canvas.translate(beginX.toInt().toFloat(), (beginY.toInt() - textHeight).toFloat())
+        // staticLayout.draw(canvas)
+        // canvas.restore()
             } else {
                 beginY = beginY - textHeight
-                canvas.drawText(address, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
+        // canvas.drawText(address, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
             }
             beginY -= pix6.toDouble()
         }
-        if (!TextUtils.isEmpty(title)) {
+        // if (!TextUtils.isEmpty(title)) {
             val textHeight = rectText.bottom - rectText.top
-            paint.getTextBounds(title, 0, title.length, rectText)
-            if (rectText.width() > bmp.width - pix20) {
+        // paint.getTextBounds(title, 0, title.length, rectText)
+        // if (rectText.width() > bmp.width - pix20) {
 字符太长，进行换行processing
                 val staticLayout =
                     StaticLayout(
-                        title,
-                        paint,
+        // title,
+        // paint,
                         bmp.width - pix20,
                         Layout.Alignment.ALIGN_NORMAL,
                         1.0f,
@@ -795,25 +795,25 @@ addwatermark
                         false,
                     )
                 beginY = beginY - textHeight * staticLayout.lineCount
-                canvas.save()
-                canvas.translate(beginX.toInt().toFloat(), (beginY.toInt() - textHeight).toFloat())
-                staticLayout.draw(canvas)
-                canvas.restore()
+        // canvas.save()
+        // canvas.translate(beginX.toInt().toFloat(), (beginY.toInt() - textHeight).toFloat())
+        // staticLayout.draw(canvas)
+        // canvas.restore()
             } else {
                 beginY = beginY - textHeight
-                canvas.drawText(title, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
+        // canvas.drawText(title, beginX.toInt().toFloat(), beginY.toInt().toFloat(), paint)
             }
             beginY -= pix6.toDouble()
         }
-        canvas.restore()
-        if (!bmp.isRecycled) {
+        // canvas.restore()
+        // if (!bmp.isRecycled) {
             bmp.recycle()
         }
-        return newBmp
+        // return newBmp
     }
 
-    private fun refreshAlbum() {
-        exportedFile?.let {
+        // private fun refreshAlbum() {
+        // exportedFile?.let {
             MediaScannerConnection.scanFile(Utils.getApp(), arrayOf(it.toString()), null, null)
         }
     }

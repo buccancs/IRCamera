@@ -1,14 +1,14 @@
-package com.topdon.module.thermal.ir.view
+        // package com.topdon.module.thermal.ir.view
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.*
-import android.util.AttributeSet
-import com.energy.iruvc.sdkisp.LibIRTemp
-import com.energy.iruvc.utils.Line
-import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
-import com.infisense.usbir.view.ITsTempListener
-import java.lang.ref.WeakReference
+        // import android.annotation.SuppressLint
+        // import android.content.Context
+        // import android.graphics.*
+        // import android.util.AttributeSet
+        // import com.energy.iruvc.sdkisp.LibIRTemp
+        // import com.energy.iruvc.utils.Line
+        // import com.infisense.usbir.utils.TempDrawHelper.Companion.correct
+        // import com.infisense.usbir.view.ITsTempListener
+        // import java.lang.ref.WeakReference
 
 /**
 2D 编辑 pointlineareatemperature图层 View.
@@ -17,21 +17,21 @@ import java.lang.ref.WeakReference
  * Custom Temperature edit view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-class TemperatureEditView : TemperatureBaseView {
-    override var mode: Mode
-        get() = super.mode
-        set(value) {
-            super.mode = value
-            if (mode == Mode.CLEAR) {
-                tempListData.pointTemps.clear()
-                tempListData.lineTemps.clear()
-                tempListData.rectangleTemps.clear()
+        // class TemperatureEditView : TemperatureBaseView {
+        // override var mode: Mode
+        // get() = super.mode
+        // set(value) {
+        // super.mode = value
+        // if (mode == Mode.CLEAR) {
+        // tempListData.pointTemps.clear()
+        // tempListData.lineTemps.clear()
+        // tempListData.rectangleTemps.clear()
                 for (i in 0 until 3) {
                     val tmp = irtemp.TemperatureSampleResult()
-                    tmp.type = -99
-                    tempListData.pointTemps.add(tmp)
-                    tempListData.lineTemps.add(tmp)
-                    tempListData.rectangleTemps.add(tmp)
+        // tmp.type = -99
+        // tempListData.pointTemps.add(tmp)
+        // tempListData.lineTemps.add(tmp)
+        // tempListData.rectangleTemps.add(tmp)
                 }
             }
         }
@@ -40,7 +40,7 @@ class TemperatureEditView : TemperatureBaseView {
  * Temperature list utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-class TemperatureList {
+        // class TemperatureList {
         var pointTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
         var lineTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
         var rectangleTemps = arrayListOf<LibIRTemp.TemperatureSampleResult>()
@@ -48,216 +48,216 @@ class TemperatureList {
 
     var tempListData = TemperatureList()
 
-    private var irtemp: LibIRTemp = LibIRTemp()
-    private var irTempData: ByteArray = byteArrayOf()
+        // private var irtemp: LibIRTemp = LibIRTemp()
+        // private var irTempData: ByteArray = byteArrayOf()
     var fullInfo: LibIRTemp.TemperatureSampleResult? = null
 
     /**
 是否displaypointlinearea名字.
      */
     var isShowName = false
-        set(value) {
+        // set(value) {
             field = value
-            invalidate()
+        // invalidate()
         }
 
-    private var iTsTempListenerWeakReference: WeakReference<ITsTempListener>? = null
+        // private var iTsTempListenerWeakReference: WeakReference<ITsTempListener>? = null
 
     fun setITsTempListener(listener: ITsTempListener) {
-        iTsTempListenerWeakReference = WeakReference(listener)
+        // iTsTempListenerWeakReference = WeakReference(listener)
     }
 
-    private fun getTSTemp(temp: Float): Float = iTsTempListenerWeakReference?.get()?.tempCorrectByTs(temp) ?: temp
+        // private fun getTSTemp(temp: Float): Float = iTsTempListenerWeakReference?.get()?.tempCorrectByTs(temp) ?: temp
 
-    constructor(context: Context) : this(context, null)
+        // constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+        // constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+        // constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-        defStyleRes,
+        // constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        // context,
+        // attrs,
+        // defStyleAttr,
+        // defStyleRes,
     ) {
-        tempListData.pointTemps.clear()
-        tempListData.lineTemps.clear()
-        tempListData.rectangleTemps.clear()
+        // tempListData.pointTemps.clear()
+        // tempListData.lineTemps.clear()
+        // tempListData.rectangleTemps.clear()
         for (i in 0 until 3) {
             val tmp = irtemp.TemperatureSampleResult()
-            tmp.type = -99
-            tempListData.pointTemps.add(tmp)
-            tempListData.lineTemps.add(tmp)
-            tempListData.rectangleTemps.add(tmp)
+        // tmp.type = -99
+        // tempListData.pointTemps.add(tmp)
+        // tempListData.lineTemps.add(tmp)
+        // tempListData.rectangleTemps.add(tmp)
         }
     }
 
-    override fun setImageSize(
-        imageWidth: Int,
-        imageHeight: Int,
+        // override fun setImageSize(
+        // imageWidth: Int,
+        // imageHeight: Int,
     ) {
-        super.setImageSize(imageWidth, imageHeight)
-        irtemp = LibIRTemp(imageWidth, imageHeight)
+        // super.setImageSize(imageWidth, imageHeight)
+        // irtemp = LibIRTemp(imageWidth, imageHeight)
     }
 
     fun setData(bytes: ByteArray) {
-        irTempData = bytes
-        irtemp.setTempData(irTempData)
+        // irTempData = bytes
+        // irtemp.setTempData(irTempData)
         fullInfo = irtemp.getTemperatureOfRect(Rect(0, 0, imageWidth, imageHeight))
     }
 
     @SuppressLint("DrawAllocation")
-    override fun onDraw(canvas: Canvas) {
-drawingpoint
+        // override fun onDraw(canvas: Canvas) {
+// Drawing point
         for (i in pointList.indices) {
             val result = drawOnePoint(canvas, pointList[i], i) ?: continue
-            tempListData.pointTemps[i] = result
+        // tempListData.pointTemps[i] = result
         }
-        operatePoint?.let { drawOnePoint(canvas, it, pointList.size + 1) }
+        // operatePoint?.let { drawOnePoint(canvas, it, pointList.size + 1) }
 
-drawingline
+// Drawing line
         for (i in lineList.indices) {
             val result = drawOneLine(canvas, lineList[i], i) ?: continue
-            tempListData.lineTemps[i] = result
+        // tempListData.lineTemps[i] = result
         }
-        operateLine?.let { drawOneLine(canvas, it, lineList.size + 1) }
+        // operateLine?.let { drawOneLine(canvas, it, lineList.size + 1) }
 
-drawingarea
+// Drawing area
         for (i in rectList.indices) {
             val result = drawOneRect(canvas, rectList[i], i) ?: continue
-            tempListData.rectangleTemps[i] = result
+        // tempListData.rectangleTemps[i] = result
         }
-        operateRect?.let { drawOneRect(canvas, it, rectList.size + 1) }
+        // operateRect?.let { drawOneRect(canvas, it, rectList.size + 1) }
 
-        if (isShowFull) {
+        // if (isShowFull) {
             fullInfo?.let {
                 val maxX: Int = (it.maxTemperaturePixel.x * xScale).correct(width)
                 val maxY: Int = (it.maxTemperaturePixel.y * yScale).correct(height)
-                drawCircle(canvas, maxX, maxY, true)
-                drawTempText(canvas, maxX, maxY, getTSTemp(it.maxTemperature))
+        // drawCircle(canvas, maxX, maxY, true)
+        // drawTempText(canvas, maxX, maxY, getTSTemp(it.maxTemperature))
 
                 val minX: Int = (it.minTemperaturePixel.x * xScale).correct(width)
                 val minY: Int = (it.minTemperaturePixel.y * yScale).correct(height)
-                drawCircle(canvas, minX, minY, false)
-                drawTempText(canvas, minX, minY, getTSTemp(it.minTemperature))
+        // drawCircle(canvas, minX, minY, false)
+        // drawTempText(canvas, minX, minY, getTSTemp(it.minTemperature))
             }
 
             val centerX = width / 2
             val centerY = height / 2
             val centerResult = irtemp.getTemperatureOfPoint(Point(imageWidth / 2, imageHeight / 2))
-            drawPoint(canvas, Point(centerX, centerY))
-            drawTempText(canvas, centerX, centerY, getTSTemp(centerResult.maxTemperature))
+        // drawPoint(canvas, Point(centerX, centerY))
+        // drawTempText(canvas, centerX, centerY, getTSTemp(centerResult.maxTemperature))
         }
     }
 
     /**
-drawing一个十字架、实心圆、temperaturetext、pointname.
-@param point 以 View 尺寸为坐标系的point
+        // drawing一个十字架、实心圆、temperaturetext、pointname.
+        // @param point 以 View 尺寸为坐标系的point
      */
-    private fun drawOnePoint(
-        canvas: Canvas,
-        point: Point,
-        index: Int,
+        // private fun drawOnePoint(
+        // canvas: Canvas,
+        // point: Point,
+        // index: Int,
     ): LibIRTemp.TemperatureSampleResult? {
         val result =
-            try {
-                irtemp.getTemperatureOfPoint(Point((point.x / xScale).toInt(), (point.y / yScale).toInt()))
+        // try {
+        // irtemp.getTemperatureOfPoint(Point((point.x / xScale).toInt(), (point.y / yScale).toInt()))
             } catch (_: IllegalArgumentException) {
-当 View 尺寸变更就会导致 xScale、yScale 变更，而已drawing的pointlinearea坐标还是未变更前的坐标
-以 旧坐标及新 scale 去calculationtemperature坐标的话，就有可能超出temperature坐标range从而抛出exception，这里捕获
-                return null
+// When View size changes, xScale and yScale change, but existing drawing coordinates remain unchanged
+// Using old coordinates with new scale to calculate temperature coordinates may exceed range and throw exception
+        // return null
             }
-        drawPoint(canvas, point)
-        drawCircle(canvas, point.x, point.y, true)
-        drawTempText(canvas, point.x, point.y, getTSTemp(result.maxTemperature))
-        if (isShowName) {
-            drawPointName(canvas, "P${index + 1}", point)
+        // drawPoint(canvas, point)
+        // drawCircle(canvas, point.x, point.y, true)
+        // drawTempText(canvas, point.x, point.y, getTSTemp(result.maxTemperature))
+        // if (isShowName) {
+        // drawPointName(canvas, "P${index + 1}", point)
         }
-        return result
+        // return result
     }
 
     /**
-drawing一条line段、高low temperature实心圆、高low temperaturetemperaturetext、linename.
-@param line 以 View 尺寸为坐标系的line
+        // drawing一条line段、高low temperature实心圆、高low temperaturetemperaturetext、linename.
+        // @param line 以 View 尺寸为坐标系的line
      */
-    private fun drawOneLine(
-        canvas: Canvas,
-        line: Line,
-        index: Int,
+        // private fun drawOneLine(
+        // canvas: Canvas,
+        // line: Line,
+        // index: Int,
     ): LibIRTemp.TemperatureSampleResult? {
-        drawLine(canvas, line)
+        // drawLine(canvas, line)
 
         val tempStartX: Int = (line.start.x / xScale).toInt()
         val tempStartY: Int = (line.start.y / yScale).toInt()
         val tempStopX: Int = (line.end.x / xScale).toInt()
         val tempStopY: Int = (line.end.y / yScale).toInt()
-        if (tempStartX == tempStopX && tempStartY == tempStopY) {
-            return null
+        // if (tempStartX == tempStopX && tempStartY == tempStopY) {
+        // return null
         }
 
         val result =
-            try {
-                irtemp.getTemperatureOfLine(Line(Point(tempStartX, tempStartY), Point(tempStopX, tempStopY)))
+        // try {
+        // irtemp.getTemperatureOfLine(Line(Point(tempStartX, tempStartY), Point(tempStopX, tempStopY)))
             } catch (_: IllegalArgumentException) {
-当 View 尺寸变更就会导致 xScale、yScale 变更，而已drawing的pointlinearea坐标还是未变更前的坐标
-以 旧坐标及新 scale 去calculationtemperature坐标的话，就有可能超出temperature坐标range从而抛出exception，这里捕获
-                return null
+// When View size changes, xScale and yScale change, but existing drawing coordinates remain unchanged
+// Using old coordinates with new scale to calculate temperature coordinates may exceed range and throw exception
+        // return null
             }
         val maxX: Int = (result.maxTemperaturePixel.x * xScale).correct(width)
         val maxY: Int = (result.maxTemperaturePixel.y * yScale).correct(height)
         val minX: Int = (result.minTemperaturePixel.x * xScale).correct(width)
         val minY: Int = (result.minTemperaturePixel.y * yScale).correct(height)
-        drawCircle(canvas, maxX, maxY, true)
-        drawCircle(canvas, minX, minY, false)
-        drawTempText(canvas, maxX, maxY, getTSTemp(result.maxTemperature))
-        drawTempText(canvas, minX, minY, getTSTemp(result.minTemperature))
+        // drawCircle(canvas, maxX, maxY, true)
+        // drawCircle(canvas, minX, minY, false)
+        // drawTempText(canvas, maxX, maxY, getTSTemp(result.maxTemperature))
+        // drawTempText(canvas, minX, minY, getTSTemp(result.minTemperature))
 
-        if (isShowName) {
-            drawLineName(canvas, "L${index + 1}", line)
+        // if (isShowName) {
+        // drawLineName(canvas, "L${index + 1}", line)
         }
-        return result
+        // return result
     }
 
     /**
-drawing一个矩形、高low temperature实心圆、高low temperaturetemperaturetext、areaname.
-@param rect 以 View 尺寸为坐标系的line
+        // drawing一个矩形、高low temperature实心圆、高low temperaturetemperaturetext、areaname.
+        // @param rect 以 View 尺寸为坐标系的line
      */
-    private fun drawOneRect(
-        canvas: Canvas,
-        rect: Rect,
-        index: Int,
+        // private fun drawOneRect(
+        // canvas: Canvas,
+        // rect: Rect,
+        // index: Int,
     ): LibIRTemp.TemperatureSampleResult? {
-        drawRect(canvas, rect)
+        // drawRect(canvas, rect)
 
-rect 里的data在 touch Event已processing过了，left < right, top < bottom
+        // rect 里的data在 touch Event已processing过了，left < right, top < bottom
         val left = (rect.left / xScale).toInt()
         val top = (rect.top / yScale).toInt()
         val right = (rect.right / xScale).toInt()
         val bottom = (rect.bottom / yScale).toInt()
-        if (left == right || top == bottom) {
-            return null
+        // if (left == right || top == bottom) {
+        // return null
         }
         val result =
-            try {
-                irtemp.getTemperatureOfRect(Rect(left, top, right, bottom))
+        // try {
+        // irtemp.getTemperatureOfRect(Rect(left, top, right, bottom))
             } catch (_: IllegalArgumentException) {
-当 View 尺寸变更就会导致 xScale、yScale 变更，而已drawing的pointlinearea坐标还是未变更前的坐标
-以 旧坐标及新 scale 去calculationtemperature坐标的话，就有可能超出temperature坐标range从而抛出exception，这里捕获
-                return null
+// When View size changes, xScale and yScale change, but existing drawing coordinates remain unchanged
+// Using old coordinates with new scale to calculate temperature coordinates may exceed range and throw exception
+        // return null
             }
         val maxX: Int = (result.maxTemperaturePixel.x * xScale).correct(width)
         val maxY: Int = (result.maxTemperaturePixel.y * yScale).correct(height)
         val minX: Int = (result.minTemperaturePixel.x * xScale).correct(width)
         val minY: Int = (result.minTemperaturePixel.y * yScale).correct(height)
-        drawCircle(canvas, maxX, maxY, true)
-        drawCircle(canvas, minX, minY, false)
-        drawTempText(canvas, maxX, maxY, getTSTemp(result.maxTemperature))
-        drawTempText(canvas, minX, minY, getTSTemp(result.minTemperature))
+        // drawCircle(canvas, maxX, maxY, true)
+        // drawCircle(canvas, minX, minY, false)
+        // drawTempText(canvas, maxX, maxY, getTSTemp(result.maxTemperature))
+        // drawTempText(canvas, minX, minY, getTSTemp(result.minTemperature))
 
-        if (isShowName) {
-            drawRectName(canvas, "R${index + 1}", rect)
+        // if (isShowName) {
+        // drawRectName(canvas, "R${index + 1}", rect)
         }
-        return result
+        // return result
     }
 }

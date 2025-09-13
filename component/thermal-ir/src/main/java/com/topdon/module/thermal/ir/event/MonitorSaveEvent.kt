@@ -1,4 +1,4 @@
-package com.topdon.module.thermal.ir.event
+        // package com.topdon.module.thermal.ir.event
 
 /**
  * @author: CaiSongL
@@ -8,4 +8,4 @@ package com.topdon.module.thermal.ir.event
  * Monitor save event for thermal imaging system communication.
  * Facilitates decoupled component interaction.
  */
-class MonitorSaveEvent
+        // class MonitorSaveEvent

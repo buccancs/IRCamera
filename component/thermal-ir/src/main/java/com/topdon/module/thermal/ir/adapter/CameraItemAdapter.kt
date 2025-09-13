@@ -1,11 +1,11 @@
-package com.topdon.module.thermal.ir.adapter
+        // package com.topdon.module.thermal.ir.adapter
 
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.topdon.lib.core.bean.CameraItemBean
-import com.topdon.lib.ui.listener.SingleClickListener
-import com.topdon.lib.ui.widget.CountDownView
-import com.topdon.module.thermal.ir.R
+        // import com.chad.library.adapter.base.BaseQuickAdapter
+        // import com.chad.library.adapter.base.viewholder.BaseViewHolder
+        // import com.topdon.lib.core.bean.CameraItemBean
+        // import com.topdon.lib.ui.listener.SingleClickListener
+        // import com.topdon.lib.ui.widget.CountDownView
+        // import com.topdon.module.thermal.ir.R
 
 /**
  * @author: CaiSongL
@@ -15,44 +15,44 @@ import com.topdon.module.thermal.ir.R
  * Camera item adapter for thermal imaging data presentation.
  * Manages data binding and view recycling for efficient display.
  */
-class CameraItemAdapter(
-    data: MutableList<CameraItemBean>? = null,
+        // class CameraItemAdapter(
+        // data: MutableList<CameraItemBean>? = null,
 ) : BaseQuickAdapter<CameraItemBean, BaseViewHolder>(R.layout.item_camera, data) {
     var listener: ((index: Int, item: CameraItemBean) -> Unit)? = null
 
-    override fun convert(
-        holder: BaseViewHolder,
-        item: CameraItemBean,
+        // override fun convert(
+        // holder: BaseViewHolder,
+        // item: CameraItemBean,
     ) {
-        holder.setVisible(R.id.img, true)
-        holder.setGone(R.id.count_down_view, true)
-        holder?.itemView?.setOnClickListener(
-            object : SingleClickListener() {
-                override fun onSingleClick() {
-                    listener?.invoke(data.indexOf(item), item)
+        // holder.setVisible(R.id.img, true)
+        // holder.setGone(R.id.count_down_view, true)
+        // holder?.itemView?.setOnClickListener(
+        // object : SingleClickListener() {
+        // override fun onSingleClick() {
+        // listener?.invoke(data.indexOf(item), item)
                 }
             },
         )
-        when (item.type) {
+        // when (item.type) {
             CameraItemBean.TYPE_DELAY -> {
-                holder.setImageResource(R.id.img, R.drawable.svg_camera_delay_0)
-                if (CameraItemBean.DELAY_TIME_0 == item.time)
+        // holder.setImageResource(R.id.img, R.drawable.svg_camera_delay_0)
+        // if (CameraItemBean.DELAY_TIME_0 == item.time)
                     {
-                        holder.setVisible(R.id.img, true)
-                        holder.setGone(R.id.count_down_view, true)
+        // holder.setVisible(R.id.img, true)
+        // holder.setGone(R.id.count_down_view, true)
                     } else
                     {
-                        holder.setVisible(R.id.img, false)
-                        holder.setGone(R.id.count_down_view, false)
+        // holder.setVisible(R.id.img, false)
+        // holder.setGone(R.id.count_down_view, false)
                         val countDownView = holder.getView<CountDownView>(R.id.count_down_view)
-                        holder.setGone(R.id.count_down_view, false)
-                        countDownView.setCountdownTime(item.time)
+        // holder.setGone(R.id.count_down_view, false)
+        // countDownView.setCountdownTime(item.time)
                     }
             }
             CameraItemBean.TYPE_ZDKM -> {
-                holder.setImageResource(
+        // holder.setImageResource(
                     R.id.img,
-                    if (item.isSel) {
+        // if (item.isSel) {
                         R.drawable.svg_camera_auto_select_yes
                     } else {
                         R.drawable.svg_camera_auto_select_not
@@ -60,9 +60,9 @@ class CameraItemAdapter(
                 )
             }
             CameraItemBean.TYPE_SDKM -> {
-                holder.setImageResource(
+        // holder.setImageResource(
                     R.id.img,
-                    if (item.isSel) {
+        // if (item.isSel) {
                         R.drawable.svg_camera_shutter_select_yes
                     } else {
                         R.drawable.svg_camera_shutter_select_not
@@ -70,17 +70,17 @@ class CameraItemAdapter(
                 )
             }
             CameraItemBean.TYPE_AUDIO -> {
-                holder.setImageResource(
+        // holder.setImageResource(
                     R.id.img,
-                    if (item.isSel) {
+        // if (item.isSel) {
                         R.drawable.svg_camera_audio_select_yes
                     } else {
                         R.drawable.svg_camera_audio_select_not
                     },
                 )
             }
-            else -> {
-                holder.setImageResource(R.id.img, R.drawable.svg_camera_setting)
+        // else -> {
+        // holder.setImageResource(R.id.img, R.drawable.svg_camera_setting)
             }
         }
     }

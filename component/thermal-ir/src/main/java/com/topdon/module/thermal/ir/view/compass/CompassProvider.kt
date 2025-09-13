@@ -1,20 +1,20 @@
-package com.topdon.module.thermal.ir.view.compass
+        // package com.topdon.module.thermal.ir.view.compass
 
-import android.content.Context
-import android.hardware.Sensor
-import com.kylecorry.andromeda.sense.Sensors
+        // import android.content.Context
+        // import android.hardware.Sensor
+        // import com.kylecorry.andromeda.sense.Sensors
 // import com.kylecorry.andromeda.sense.compass.FilterCompassWrapper // Temporarily disabled
 // import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass // Temporarily disabled
-import com.kylecorry.andromeda.sense.compass.ICompass
-import com.kylecorry.andromeda.sense.compass.LegacyCompass
-import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
-import com.kylecorry.andromeda.sense.orientation.RotationSensor
+        // import com.kylecorry.andromeda.sense.compass.ICompass
+        // import com.kylecorry.andromeda.sense.compass.LegacyCompass
+        // import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
+        // import com.kylecorry.andromeda.sense.orientation.RotationSensor
 
 /**
  * Compass provider utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-class CompassProvider(private val context: Context) {
+        // class CompassProvider(private val context: Context) {
     fun get(): ICompass {
         val smoothing = 1
         val useTrueNorth = true
@@ -25,23 +25,23 @@ class CompassProvider(private val context: Context) {
         val allSources = getAvailableSources(context)
 
         // There were no compass sensors found
-        if (allSources.isEmpty())
+        // if (allSources.isEmpty())
             {
-                return NullCompass()
+        // return NullCompass()
             }
 
-        if (!allSources.contains(source)) {
-            source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
+        // if (!allSources.contains(source)) {
+        // source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
         }
 
         val compass =
-            when (source) {
+        // when (source) {
                 CompassSource.RotationVector -> {
                     RotationSensor(context, SensorService.MOTION_SENSOR_DELAY)
                 }
 
                 CompassSource.GeomagneticRotationVector -> {
-                    GeomagneticRotationSensor(context, SensorService.MOTION_SENSOR_DELAY)
+        // GeomagneticRotationSensor(context, SensorService.MOTION_SENSOR_DELAY)
                 }
 
                 CompassSource.CustomMagnetometer -> {
@@ -54,7 +54,7 @@ class CompassProvider(private val context: Context) {
                 }
             }
 
-        return compass as ICompass // Cast to ICompass for compatibility
+        // return compass as ICompass // Cast to ICompass for compatibility
     }
 
 //    fun getOrientationSensor(): IOrientationSensor? {
@@ -88,31 +88,31 @@ class CompassProvider(private val context: Context) {
 //        return null
 //    }
 
-    companion object {
+        // companion object {
         /**
          * Returns the available compass sources in order of quality
          */
         fun getAvailableSources(context: Context): List<CompassSource> {
             val sources = mutableListOf<CompassSource>()
 
-            if (Sensors.hasSensor(context, Sensor.TYPE_ROTATION_VECTOR)) {
-                sources.add(CompassSource.RotationVector)
+        // if (Sensors.hasSensor(context, Sensor.TYPE_ROTATION_VECTOR)) {
+        // sources.add(CompassSource.RotationVector)
             }
 
-            if (Sensors.hasSensor(context, Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR)) {
-                sources.add(CompassSource.GeomagneticRotationVector)
+        // if (Sensors.hasSensor(context, Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR)) {
+        // sources.add(CompassSource.GeomagneticRotationVector)
             }
 
-            if (Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
-                sources.add(CompassSource.CustomMagnetometer)
+        // if (Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
+        // sources.add(CompassSource.CustomMagnetometer)
             }
 
             @Suppress("DEPRECATION")
-            if (Sensors.hasSensor(context, Sensor.TYPE_ORIENTATION)) {
-                sources.add(CompassSource.Orientation)
+        // if (Sensors.hasSensor(context, Sensor.TYPE_ORIENTATION)) {
+        // sources.add(CompassSource.Orientation)
             }
 
-            return sources
+        // return sources
         }
     }
 }

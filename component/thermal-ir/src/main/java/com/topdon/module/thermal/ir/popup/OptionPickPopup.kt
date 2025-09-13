@@ -1,21 +1,21 @@
-package com.topdon.module.thermal.ir.popup
+        // package com.topdon.module.thermal.ir.popup
 
-import android.content.Context
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
-import android.widget.PopupWindow
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.SizeUtils
-import com.topdon.lib.core.view.MyTextView
-import com.topdon.module.thermal.ir.R
+        // import android.content.Context
+        // import android.view.Gravity
+        // import android.view.LayoutInflater
+        // import android.view.View
+        // import android.view.ViewGroup
+        // import android.view.ViewGroup.LayoutParams
+        // import android.widget.PopupWindow
+        // import android.widget.TextView
+        // import androidx.recyclerview.widget.LinearLayoutManager
+        // import androidx.recyclerview.widget.RecyclerView
+        // import com.blankj.utilcode.util.SizeUtils
+        // import com.topdon.lib.core.view.MyTextView
+        // import com.topdon.module.thermal.ir.R
 
 /**
-option拾取 PopupWindow.
+        // option拾取 PopupWindow.
  *
  * Created by LCG on 2024/1/5.
  */
@@ -23,24 +23,24 @@ option拾取 PopupWindow.
  * Custom Option pick popup view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-class OptionPickPopup(
-    private val context: Context,
-    private val strArray: Array<String>,
-    private val resIdArray: Array<Int>? = null,
+        // class OptionPickPopup(
+        // private val context: Context,
+        // private val strArray: Array<String>,
+        // private val resIdArray: Array<Int>? = null,
 ) : PopupWindow() {
     // View references using findViewById
-    private val recyclerView: RecyclerView by lazy { contentView.findViewById(R.id.recycler_view) }
+        // private val recyclerView: RecyclerView by lazy { contentView.findViewById(R.id.recycler_view) }
 
-    companion object {
+        // companion object {
         /**
-optiontext大小，单位 ***sp***
+        // optiontext大小，单位 ***sp***
          */
-        private const val TEXT_SIZE_SP: Float = 14f
+        // private const val TEXT_SIZE_SP: Float = 14f
 
         /**
-optiontext顶部或底部 padding，单位 ***dp***
+        // optiontext顶部或底部 padding，单位 ***dp***
          */
-        private const val TEXT_PADDING: Float = 7f
+        // private const val TEXT_PADDING: Float = 7f
     }
 
     /**
@@ -48,9 +48,9 @@ optiontext顶部或底部 padding，单位 ***dp***
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
-    init {
+        // init {
         val textView = TextView(context)
-        textView.textSize = TEXT_SIZE_SP
+        // textView.textSize = TEXT_SIZE_SP
 
         val fontMetrics = textView.paint.fontMetricsInt
 
@@ -59,74 +59,74 @@ optiontext顶部或底部 padding，单位 ***dp***
         val contentHeight = SizeUtils.dp2px(14f) + itemHeight * canSeeItem
         val contentWidth = (contentHeight * 120f / 81f).toInt()
 
-        contentView = LayoutInflater.from(context).inflate(R.layout.popup_option_pick, null)
-        width = contentWidth
-        height = contentHeight
+        // contentView = LayoutInflater.from(context).inflate(R.layout.popup_option_pick, null)
+        // width = contentWidth
+        // height = contentHeight
 
-        isOutsideTouchable = true
+        // isOutsideTouchable = true
 
         val adapter = MyAdapter()
-        adapter.onItemClickListener = {
-            dismiss()
-            onPickListener?.invoke(it, strArray[it])
+        // adapter.onItemClickListener = {
+        // dismiss()
+        // onPickListener?.invoke(it, strArray[it])
         }
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        // recyclerView.adapter = adapter
+        // recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     fun show(anchor: View) {
         val locationArray = IntArray(2)
-        anchor.getLocationInWindow(locationArray)
+        // anchor.getLocationInWindow(locationArray)
 
         val x = locationArray[0] + anchor.width - width + SizeUtils.dp2px(5f)
 
-        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) { // 在 anchor 底部放得下
-            showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
+        // if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) { // 在 anchor 底部放得下
+        // showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
         } else { // 下area放不下就放上area吧
-            showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
+        // showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
         }
     }
 
-    private inner class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+        // private inner class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-item clickEventListener.
+        // item clickEventListener.
          */
         var onItemClickListener: ((position: Int) -> Unit)? = null
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
+        // override fun onCreateViewHolder(
+        // parent: ViewGroup,
             viewType: Int,
         ): ViewHolder {
             val textView = MyTextView(context)
-            textView.textSize = TEXT_SIZE_SP
-            textView.setDrawableHeightPx(SizeUtils.sp2px(18f))
-            textView.setTextColor(0xffffffff.toInt())
-            textView.setPadding(SizeUtils.dp2px(14f), SizeUtils.dp2px(TEXT_PADDING), SizeUtils.dp2px(14f), SizeUtils.dp2px(TEXT_PADDING))
-            textView.compoundDrawablePadding = SizeUtils.dp2px(10f)
-            textView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-            return ViewHolder(textView)
+        // textView.textSize = TEXT_SIZE_SP
+        // textView.setDrawableHeightPx(SizeUtils.sp2px(18f))
+        // textView.setTextColor(0xffffffff.toInt())
+        // textView.setPadding(SizeUtils.dp2px(14f), SizeUtils.dp2px(TEXT_PADDING), SizeUtils.dp2px(14f), SizeUtils.dp2px(TEXT_PADDING))
+        // textView.compoundDrawablePadding = SizeUtils.dp2px(10f)
+        // textView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        // return ViewHolder(textView)
         }
 
-        override fun onBindViewHolder(
-            holder: ViewHolder,
-            position: Int,
+        // override fun onBindViewHolder(
+        // holder: ViewHolder,
+        // position: Int,
         ) {
-            holder.textView.text = strArray[position]
-            if (resIdArray != null && position < resIdArray.size) {
-                holder.textView.setOnlyDrawableStart(resIdArray[position])
+        // holder.textView.text = strArray[position]
+        // if (resIdArray != null && position < resIdArray.size) {
+        // holder.textView.setOnlyDrawableStart(resIdArray[position])
             } else {
-                holder.textView.setOnlyDrawableStart(0)
+        // holder.textView.setOnlyDrawableStart(0)
             }
         }
 
-        override fun getItemCount(): Int = strArray.size
+        // override fun getItemCount(): Int = strArray.size
 
-        inner class ViewHolder(val textView: MyTextView) : RecyclerView.ViewHolder(textView) {
-            init {
-                textView.setOnClickListener {
+        // inner class ViewHolder(val textView: MyTextView) : RecyclerView.ViewHolder(textView) {
+        // init {
+        // textView.setOnClickListener {
                     val position = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        onItemClickListener?.invoke(position)
+        // if (position != RecyclerView.NO_POSITION) {
+        // onItemClickListener?.invoke(position)
                     }
                 }
             }

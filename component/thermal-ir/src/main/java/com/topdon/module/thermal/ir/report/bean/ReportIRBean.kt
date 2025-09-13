@@ -1,7 +1,7 @@
-package com.topdon.module.thermal.ir.report.bean
+        // package com.topdon.module.thermal.ir.report.bean
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+        // import android.os.Parcelable
+        // import kotlinx.android.parcel.Parcelize
 
 /**
 一张image对应的datainfo.
@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
  * Encapsulates thermal measurement and configuration data.
  */
 @Parcelize
-data class ReportIRBean(
+        // data class ReportIRBean(
     var picture_id: String, // Uploadservice器后interfaceReturn的imageId
     var picture_url: String, // Uploadservice器后interfaceReturn的imageURL
     val full_graph_data: ReportTempBean?, // 全图data

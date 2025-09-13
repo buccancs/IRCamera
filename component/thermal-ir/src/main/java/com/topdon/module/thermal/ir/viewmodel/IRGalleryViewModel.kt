@@ -44,7 +44,7 @@ add了日期title的用于display的列表.
             val sourceList: ArrayList<GalleryBean> = GalleryRepository.loadAllReportImg(dirType)
             sourceListLD.postValue(sourceList)
 
-插入日期 item
+            // Insert date item
             val showList: ArrayList<GalleryBean> = ArrayList(sourceList.size)
             var beforeTime = 0L
             for (galleryBean in sourceList) {
@@ -60,13 +60,13 @@ add了日期title的用于display的列表.
     }
 
     /**
-// Paginationload时已successfulload的页数 // TODO: Review this line
+Paginationload时已successfulload的页数
      */
     var hasLoadPage = 0
 
     /**
 一页请求data列表.
-// null-请求failed // TODO: Review this line
+null-请求failed
      */
     val pageListLD: MutableLiveData<ArrayList<GalleryBean>?> = MutableLiveData()
 
@@ -85,7 +85,7 @@ add了日期title的用于display的列表.
                     hasLoadPage++
                 }
 
-插入日期 item
+                // Insert date item
                 var beforeTime = if (sourceList.isEmpty()) 0 else TimeTool.timeToMinute(sourceList.last().timeMillis, 4)
                 for (galleryBean in pageList) {
                     val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)

@@ -1,6 +1,6 @@
-package com.topdon.module.thermal.ir.event
+        // package com.topdon.module.thermal.ir.event
 
-import com.topdon.lib.core.repository.GalleryRepository.DirType
+        // import com.topdon.lib.core.repository.GalleryRepository.DirType
 
 /**
 图库目录switchEvent.
@@ -9,4 +9,4 @@ import com.topdon.lib.core.repository.GalleryRepository.DirType
  * Gallery dir change event for thermal imaging system communication.
  * Facilitates decoupled component interaction.
  */
-data class GalleryDirChangeEvent(val dirType: DirType)
+        // data class GalleryDirChangeEvent(val dirType: DirType)

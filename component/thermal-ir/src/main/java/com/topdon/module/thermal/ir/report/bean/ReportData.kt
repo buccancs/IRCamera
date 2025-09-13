@@ -1,6 +1,6 @@
-package com.topdon.module.thermal.ir.report.bean
+        // package com.topdon.module.thermal.ir.report.bean
 
-import com.blankj.utilcode.util.GsonUtils
+        // import com.blankj.utilcode.util.GsonUtils
 
 /**
  * @author: CaiSongL
@@ -11,11 +11,11 @@ import com.blankj.utilcode.util.GsonUtils
  * @author: CaiSongL
  * @date: 2023/5/12 17:44
  */
-class ReportData {
+        // class ReportData {
     /**
      * code : 2000
      * data : {"total":0,"current":1,"hitCount":false,"pages":0,"size":10,"optimizeCountSql":true,"records":[],"searchCount":true,"orders":[]}
-msg : 操作successful
+        // msg : 操作successful
      * serverTime : 2023-05-13 06:54:10
      */
     var code = 0
@@ -27,7 +27,7 @@ msg : 操作successful
  * Data data model for thermal imaging information.
  * Encapsulates thermal measurement and configuration data.
  */
-class DataBean {
+        // class DataBean {
         /**
          * total : 0
          * current : 1
@@ -53,7 +53,7 @@ class DataBean {
  * Records utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-class Records {
+        // class Records {
         var testReportId: String? = null
         var testTime: String? = null
         var testInfo: String? = null
@@ -62,11 +62,11 @@ class Records {
         var status: String? = null
         var isShowTitleTime: Boolean = false
         var reportContent: ReportBean? = null
-            get() {
-                if (field == null) {
+        // get() {
+        // if (field == null) {
                     field = GsonUtils.fromJson(testInfo, ReportBean::class.java)
                 }
-                return field
+        // return field
             }
     }
 }

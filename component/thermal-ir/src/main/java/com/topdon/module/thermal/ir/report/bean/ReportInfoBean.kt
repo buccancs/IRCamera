@@ -1,20 +1,20 @@
-package com.topdon.module.thermal.ir.report.bean
+        // package com.topdon.module.thermal.ir.report.bean
 
-import android.os.Parcelable
-import com.topdon.lib.core.utils.CommUtils
-import kotlinx.android.parcel.Parcelize
+        // import android.os.Parcelable
+        // import com.topdon.lib.core.utils.CommUtils
+        // import kotlinx.android.parcel.Parcelize
 
 /**
-reportinfo.
+        // reportinfo.
  *
-report由 3 部Group成：reportinfo、检测条件、infrareddata.
+        // report由 3 部Group成：reportinfo、检测条件、infrareddata.
  */
 /**
  * Report info data model for thermal imaging information.
  * Encapsulates thermal measurement and configuration data.
  */
 @Parcelize
-data class ReportInfoBean(
+        // data class ReportInfoBean(
     val report_name: String?, // reportname
     val report_author: String?, // 作者name
     val is_report_author: Int, // 是否Show/Display作者name，0、不Show/Display 1、Show/Display

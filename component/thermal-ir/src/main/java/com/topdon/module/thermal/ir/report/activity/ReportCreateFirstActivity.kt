@@ -1,50 +1,50 @@
-package com.topdon.module.thermal.ir.report.activity
+        // package com.topdon.module.thermal.ir.report.activity
 
-import android.annotation.SuppressLint
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
-import android.text.TextUtils
-import android.util.Log
-import android.view.View
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.lifecycleScope
-import com.blankj.utilcode.util.TimeUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.github.gzuliyujiang.wheelpicker.DatimePicker
-import com.github.gzuliyujiang.wheelpicker.entity.DateEntity
-import com.github.gzuliyujiang.wheelpicker.entity.DatimeEntity
-import com.github.gzuliyujiang.wheelpicker.entity.TimeEntity
-import com.hjq.permissions.OnPermissionCallback
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
-import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.bean.event.ReportCreateEvent
-import com.topdon.lib.core.common.SaveSettingUtil
-import com.topdon.lib.core.config.ExtraKeyConfig
-import com.topdon.lib.core.config.RouterConfig
-import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.lib.core.navigation.NavigationManager
-import com.topdon.lib.core.tools.NumberTools
-import com.topdon.lib.core.tools.UnitTools
-import com.topdon.lib.core.utils.CommUtils
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.report.bean.ImageTempBean
-import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
-import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
-import com.topdon.module.thermal.ir.repository.ConfigRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
-import java.text.ParsePosition
-import java.text.SimpleDateFormat
-import java.util.*
-import com.topdon.lib.core.R as LibR
+        // import android.annotation.SuppressLint
+        // import android.location.Address
+        // import android.location.Geocoder
+        // import android.location.Location
+        // import android.location.LocationManager
+        // import android.text.TextUtils
+        // import android.util.Log
+        // import android.view.View
+        // import androidx.core.view.isVisible
+        // import androidx.core.widget.addTextChangedListener
+        // import androidx.lifecycle.lifecycleScope
+        // import com.blankj.utilcode.util.TimeUtils
+        // import com.blankj.utilcode.util.ToastUtils
+        // import com.github.gzuliyujiang.wheelpicker.DatimePicker
+        // import com.github.gzuliyujiang.wheelpicker.entity.DateEntity
+        // import com.github.gzuliyujiang.wheelpicker.entity.DatimeEntity
+        // import com.github.gzuliyujiang.wheelpicker.entity.TimeEntity
+        // import com.hjq.permissions.OnPermissionCallback
+        // import com.hjq.permissions.Permission
+        // import com.hjq.permissions.XXPermissions
+        // import com.topdon.lib.core.BaseApplication
+        // import com.topdon.lib.core.bean.event.ReportCreateEvent
+        // import com.topdon.lib.core.common.SaveSettingUtil
+        // import com.topdon.lib.core.config.ExtraKeyConfig
+        // import com.topdon.lib.core.config.RouterConfig
+        // import com.topdon.lib.core.dialog.TipDialog
+        // import com.topdon.lib.core.ktbase.BaseActivity
+        // import com.topdon.lib.core.navigation.NavigationManager
+        // import com.topdon.lib.core.tools.NumberTools
+        // import com.topdon.lib.core.tools.UnitTools
+        // import com.topdon.lib.core.utils.CommUtils
+        // import com.topdon.module.thermal.ir.R
+        // import com.topdon.module.thermal.ir.report.bean.ImageTempBean
+        // import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
+        // import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
+        // import com.topdon.module.thermal.ir.repository.ConfigRepository
+        // import kotlinx.coroutines.Dispatchers
+        // import kotlinx.coroutines.launch
+        // import kotlinx.coroutines.withContext
+        // import org.greenrobot.eventbus.Subscribe
+        // import org.greenrobot.eventbus.ThreadMode
+        // import java.text.ParsePosition
+        // import java.text.SimpleDateFormat
+        // import java.util.*
+        // import com.topdon.lib.core.R as LibR
 
 /**
 生成report第1步（共2步）.
@@ -55,127 +55,127 @@ import com.topdon.lib.core.R as LibR
 - 当前编辑的imagepointlineareafull imagetemperaturedata: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本interface不使用，透传）
  */
 // Legacy ARouter route annotation - now using NavigationManager
-class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
+        // class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     /**
 从上一interface传递过来的，当前是否为 TC007 devicetype.
-true-TC007 false-其他插件式device
+        // true-TC007 false-其他插件式device
      */
-    private var isTC007 = false
-    private var locationManager: LocationManager? = null
-    private var locationProvider: String? = null
+        // private var isTC007 = false
+        // private var locationManager: LocationManager? = null
+        // private var locationProvider: String? = null
 
     // Views - using findViewById pattern
-    private val etReportName: android.widget.EditText by lazy { findViewById(R.id.et_report_name) }
-    private val etReportAuthor: android.widget.EditText by lazy { findViewById(R.id.et_report_author) }
-    private val switchReportAuthor: android.widget.Switch by lazy { findViewById(R.id.switch_report_author) }
-    private val tvReportDate: android.widget.TextView by lazy { findViewById(R.id.tv_report_date) }
-    private val switchReportDate: android.widget.Switch by lazy { findViewById(R.id.switch_report_date) }
-    private val etReportPlace: android.widget.EditText by lazy { findViewById(R.id.et_report_place) }
-    private val switchReportPlace: android.widget.Switch by lazy { findViewById(R.id.switch_report_place) }
-    private val etReportWatermark: android.widget.EditText by lazy { findViewById(R.id.et_report_watermark) }
-    private val switchReportWatermark: android.widget.Switch by lazy { findViewById(R.id.switch_report_watermark) }
-    private val etAmbientTemperature: android.widget.EditText by lazy { findViewById(R.id.et_ambient_temperature) }
-    private val tipSeekHumidity: com.topdon.lib.ui.widget.TipsSeekBar by lazy { findViewById(R.id.tip_seek_humidity) }
-    private val switchAmbientHumidity: android.widget.Switch by lazy { findViewById(R.id.switch_ambient_humidity) }
-    private val switchAmbientTemperature: android.widget.Switch by lazy { findViewById(R.id.switch_ambient_temperature) }
-    private val tipSeekEmissivity: com.topdon.lib.ui.widget.TipsSeekBar by lazy { findViewById(R.id.tip_seek_emissivity) }
-    private val switchEmissivity: android.widget.Switch by lazy { findViewById(R.id.switch_emissivity) }
-    private val etTestDistance: android.widget.EditText by lazy { findViewById(R.id.et_test_distance) }
-    private val switchTestDistance: android.widget.Switch by lazy { findViewById(R.id.switch_test_distance) }
+        // private val etReportName: android.widget.EditText by lazy { findViewById(R.id.et_report_name) }
+        // private val etReportAuthor: android.widget.EditText by lazy { findViewById(R.id.et_report_author) }
+        // private val switchReportAuthor: android.widget.Switch by lazy { findViewById(R.id.switch_report_author) }
+        // private val tvReportDate: android.widget.TextView by lazy { findViewById(R.id.tv_report_date) }
+        // private val switchReportDate: android.widget.Switch by lazy { findViewById(R.id.switch_report_date) }
+        // private val etReportPlace: android.widget.EditText by lazy { findViewById(R.id.et_report_place) }
+        // private val switchReportPlace: android.widget.Switch by lazy { findViewById(R.id.switch_report_place) }
+        // private val etReportWatermark: android.widget.EditText by lazy { findViewById(R.id.et_report_watermark) }
+        // private val switchReportWatermark: android.widget.Switch by lazy { findViewById(R.id.switch_report_watermark) }
+        // private val etAmbientTemperature: android.widget.EditText by lazy { findViewById(R.id.et_ambient_temperature) }
+        // private val tipSeekHumidity: com.topdon.lib.ui.widget.TipsSeekBar by lazy { findViewById(R.id.tip_seek_humidity) }
+        // private val switchAmbientHumidity: android.widget.Switch by lazy { findViewById(R.id.switch_ambient_humidity) }
+        // private val switchAmbientTemperature: android.widget.Switch by lazy { findViewById(R.id.switch_ambient_temperature) }
+        // private val tipSeekEmissivity: com.topdon.lib.ui.widget.TipsSeekBar by lazy { findViewById(R.id.tip_seek_emissivity) }
+        // private val switchEmissivity: android.widget.Switch by lazy { findViewById(R.id.switch_emissivity) }
+        // private val etTestDistance: android.widget.EditText by lazy { findViewById(R.id.et_test_distance) }
+        // private val switchTestDistance: android.widget.Switch by lazy { findViewById(R.id.switch_test_distance) }
 
     // Chart start time view not found in current layout - commented out for now
     // private val chartStartTime: android.widget.TextView by lazy { findViewById(R.id.chart_start_time) }
-    private val tvAmbientTemperature: android.widget.TextView by lazy { findViewById(R.id.tv_ambient_temperature) }
-    private val tvEmissivity: android.widget.TextView by lazy { findViewById(R.id.tv_emissivity) }
+        // private val tvAmbientTemperature: android.widget.TextView by lazy { findViewById(R.id.tv_ambient_temperature) }
+        // private val tvEmissivity: android.widget.TextView by lazy { findViewById(R.id.tv_emissivity) }
 
-    override fun initContentView() = R.layout.activity_report_create_first
+        // override fun initContentView() = R.layout.activity_report_create_first
 
-    private val permissionList =
-        listOf(
+        // private val permissionList =
+        // listOf(
             Permission.ACCESS_FINE_LOCATION,
             Permission.ACCESS_COARSE_LOCATION,
         )
 
     @SuppressLint("SetTextI18n")
-    override fun initView() {
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+        // override fun initView() {
+        // isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        etReportName.setText("TC${TimeUtils.millis2String(System.currentTimeMillis(), "yyyyMMdd_HHmm")}")
-        etReportAuthor.setText(SaveSettingUtil.reportAuthorName)
-        tvReportDate.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy.MM.dd HH:mm")
-        etReportWatermark.setText(SaveSettingUtil.reportWatermarkText)
-        tvAmbientTemperature.text = getString(R.string.thermal_config_environment) + "(${UnitTools.showUnit()})"
-        tvEmissivity.text = getString(R.string.album_report_emissivity) + "(0~1)"
+        // etReportName.setText("TC${TimeUtils.millis2String(System.currentTimeMillis(), "yyyyMMdd_HHmm")}")
+        // etReportAuthor.setText(SaveSettingUtil.reportAuthorName)
+        // tvReportDate.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy.MM.dd HH:mm")
+        // etReportWatermark.setText(SaveSettingUtil.reportWatermarkText)
+        // tvAmbientTemperature.text = getString(R.string.thermal_config_environment) + "(${UnitTools.showUnit()})"
+        // tvEmissivity.text = getString(R.string.album_report_emissivity) + "(0~1)"
 
-        etReportAuthor.addTextChangedListener {
+        // etReportAuthor.addTextChangedListener {
             SaveSettingUtil.reportAuthorName = it?.toString() ?: ""
         }
-        etReportWatermark.addTextChangedListener {
+        // etReportWatermark.addTextChangedListener {
             SaveSettingUtil.reportWatermarkText = it?.toString() ?: ""
         }
 
-        switchReportAuthor.setOnCheckedChangeListener { _, isChecked ->
-            etReportAuthor.isVisible = isChecked
+        // switchReportAuthor.setOnCheckedChangeListener { _, isChecked ->
+        // etReportAuthor.isVisible = isChecked
         }
-        switchReportDate.setOnCheckedChangeListener { _, isChecked ->
-            tvReportDate.isVisible = isChecked
+        // switchReportDate.setOnCheckedChangeListener { _, isChecked ->
+        // tvReportDate.isVisible = isChecked
         }
-        switchReportPlace.setOnCheckedChangeListener { _, isChecked ->
-            etReportPlace.isVisible = isChecked
+        // switchReportPlace.setOnCheckedChangeListener { _, isChecked ->
+        // etReportPlace.isVisible = isChecked
         }
-        switchReportWatermark.setOnCheckedChangeListener { _, isChecked ->
-            etReportWatermark.isVisible = isChecked
+        // switchReportWatermark.setOnCheckedChangeListener { _, isChecked ->
+        // etReportWatermark.isVisible = isChecked
         }
-        switchAmbientHumidity.setOnCheckedChangeListener { _, isChecked ->
-            tipSeekHumidity.isVisible = isChecked
+        // switchAmbientHumidity.setOnCheckedChangeListener { _, isChecked ->
+        // tipSeekHumidity.isVisible = isChecked
         }
-        switchAmbientTemperature.setOnCheckedChangeListener { _, isChecked ->
-            etAmbientTemperature.isVisible = isChecked
+        // switchAmbientTemperature.setOnCheckedChangeListener { _, isChecked ->
+        // etAmbientTemperature.isVisible = isChecked
         }
-        switchEmissivity.setOnCheckedChangeListener { _, isChecked ->
-            tipSeekEmissivity.isVisible = isChecked
+        // switchEmissivity.setOnCheckedChangeListener { _, isChecked ->
+        // tipSeekEmissivity.isVisible = isChecked
         }
-        switchTestDistance.setOnCheckedChangeListener { _, isChecked ->
-            etTestDistance.isVisible = isChecked
+        // switchTestDistance.setOnCheckedChangeListener { _, isChecked ->
+        // etTestDistance.isVisible = isChecked
         }
-        tipSeekHumidity.progress = SaveSettingUtil.reportHumidity
-        tipSeekHumidity.onStopTrackingTouch = {
+        // tipSeekHumidity.progress = SaveSettingUtil.reportHumidity
+        // tipSeekHumidity.onStopTrackingTouch = {
             SaveSettingUtil.reportHumidity = it
         }
-        tipSeekHumidity.valueFormatListener = {
-            if (it % 10 == 0) "${it / 10}%" else "${it / 10}.${it % 10}%"
+        // tipSeekHumidity.valueFormatListener = {
+        // if (it % 10 == 0) "${it / 10}%" else "${it / 10}.${it % 10}%"
         }
-        tipSeekEmissivity.valueFormatListener = {
-            when (it) {
+        // tipSeekEmissivity.valueFormatListener = {
+        // when (it) {
                 0 -> "0"
                 100 -> "1"
-                else -> if (it < 10) "0.0$it" else "0.$it"
+        // else -> if (it < 10) "0.0$it" else "0.$it"
             }
         }
 
-        tvReportDate.setOnClickListener(this)
+        // tvReportDate.setOnClickListener(this)
         findViewById<android.widget.TextView>(R.id.tv_preview).setOnClickListener(this)
         findViewById<android.widget.TextView>(R.id.tv_next).setOnClickListener(this)
         findViewById<android.widget.ImageView>(R.id.img_location).setOnClickListener(this)
 
-        readConfig()
+        // readConfig()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun readConfig() {
+        // private fun readConfig() {
         var environment = 30f // 环境temperature
         var distance = 0.25f // Test距离
         var radiation = 0.95f // 发射率
         val config = ConfigRepository.readConfig(isTC007)
-        distance = config.distance
-        radiation = config.radiation
-        environment = config.environment
-        etAmbientTemperature.setText(NumberTools.to01(UnitTools.showUnitValue(environment)))
-        etTestDistance.setText(NumberTools.to02(distance) + "m")
-        tipSeekEmissivity.progress = (radiation * 100).toInt()
+        // distance = config.distance
+        // radiation = config.radiation
+        // environment = config.environment
+        // etAmbientTemperature.setText(NumberTools.to01(UnitTools.showUnitValue(environment)))
+        // etTestDistance.setText(NumberTools.to02(distance) + "m")
+        // tipSeekEmissivity.progress = (radiation * 100).toInt()
     }
 
-    override fun initData() {
+        // override fun initData() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -183,182 +183,182 @@ true-TC007 false-其他插件式device
         finish()
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
+        // override fun onClick(v: View?) {
+        // when (v?.id) {
             R.id.tv_report_date -> { // report日期
-                selectTime()
+        // selectTime()
             }
             R.id.tv_preview -> { // 预览
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
-                    .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
-                    .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
-                    .navigation(this)
+        // .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
+        // .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
+        // .navigation(this)
             }
             R.id.tv_next -> { // 下一步
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
                 val fileAbsolutePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)
-                if (fileAbsolutePath != null && imageTempBean != null) {
+        // if (fileAbsolutePath != null && imageTempBean != null) {
                     NavigationManager.getInstance().build(RouterConfig.REPORT_CREATE_SECOND)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                        .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                        .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)
-                        .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
-                        .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
-                        .navigation(this)
+        // .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+        // .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+        // .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, imageTempBean)
+        // .withParcelable(ExtraKeyConfig.REPORT_INFO, reportInfoBean)
+        // .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
+        // .navigation(this)
                 }
             }
             R.id.img_location -> {
-                checkLocationPermission()
+        // checkLocationPermission()
             }
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation(): String? {
+        // private fun getLocation(): String? {
 1.get位置管理器
-        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        // locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
 2.get位置提供器，GPS或是NetWork
         val providers = locationManager?.getProviders(true)
-        locationProvider =
-            if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
+        // locationProvider =
+        // if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
 // 如果是GPS // TODO: Review this line
                 LocationManager.GPS_PROVIDER
             } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
 // 如果是Network // TODO: Review this line
                 LocationManager.NETWORK_PROVIDER
             } else {
-                return null
+        // return null
             }
         var location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (location == null)
+        // if (location == null)
             {
-                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        // location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             }
-        return if (location == null)
+        // return if (location == null)
             {
-                null
+        // null
             } else
             {
-                getAddress(location)
+        // getAddress(location)
             }
     }
 
-getaddressinfo:城市、街道等info
-    private fun getAddress(location: Location?): String {
+        // getaddressinfo:城市、街道等info
+        // private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
-        try {
-            if (location != null) {
+        // try {
+        // if (location != null) {
                 val gc = Geocoder(this, Locale.getDefault())
-                result =
-                    gc.getFromLocation(
-                        location.latitude,
-                        location.longitude, 1,
+        // result =
+        // gc.getFromLocation(
+        // location.latitude,
+        // location.longitude, 1,
                     )
                 Log.v("TAG", "Get/Retrieve地址info：$result")
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+        // e.printStackTrace()
         }
         var str = ""
-        if (result != null && result.isNotEmpty())
+        // if (result != null && result.isNotEmpty())
             {
-                result?.get(0)?.let {
-                    str += getNullString(it.adminArea)
-                    if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea)))
+        // result?.get(0)?.let {
+        // str += getNullString(it.adminArea)
+        // if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea)))
                         {
-                            str += getNullString(it.subAdminArea)
+        // str += getNullString(it.subAdminArea)
                         }
-                    if (!str.contains(getNullString(it.locality)))
+        // if (!str.contains(getNullString(it.locality)))
                         {
-                            str += getNullString(it.locality)
+        // str += getNullString(it.locality)
                         }
-                    if (!str.contains(getNullString(it.subLocality)))
+        // if (!str.contains(getNullString(it.subLocality)))
                         {
-                            str += getNullString(it.subLocality)
+        // str += getNullString(it.subLocality)
                         }
                 }
             }
-        return str
+        // return str
     }
 
-    private fun getNullString(str: String?): String  {
-        return if (str.isNullOrEmpty())
+        // private fun getNullString(str: String?): String  {
+        // return if (str.isNullOrEmpty())
             {
                 ""
             } else
             {
-                str
+        // str
             }
     }
 
-    private fun buildReportInfo(): ReportInfoBean =
+        // private fun buildReportInfo(): ReportInfoBean =
         ReportInfoBean(
-            etReportName.text.toString(),
-            etReportAuthor.text.toString(),
-            if (switchReportAuthor.isChecked && etReportAuthor.text.isNotEmpty()) 1 else 0,
-            tvReportDate.text.toString(),
-            if (switchReportDate.isChecked) 1 else 0,
-            etReportPlace.text.toString(),
-            if (switchReportPlace.isChecked && etReportPlace.text.isNotEmpty()) 1 else 0,
-            etReportWatermark.text.toString(),
-            if (switchReportWatermark.isChecked && etReportWatermark.text.isNotEmpty()) 1 else 0,
+        // etReportName.text.toString(),
+        // etReportAuthor.text.toString(),
+        // if (switchReportAuthor.isChecked && etReportAuthor.text.isNotEmpty()) 1 else 0,
+        // tvReportDate.text.toString(),
+        // if (switchReportDate.isChecked) 1 else 0,
+        // etReportPlace.text.toString(),
+        // if (switchReportPlace.isChecked && etReportPlace.text.isNotEmpty()) 1 else 0,
+        // etReportWatermark.text.toString(),
+        // if (switchReportWatermark.isChecked && etReportWatermark.text.isNotEmpty()) 1 else 0,
         )
 
-    private fun buildReportCondition(): ReportConditionBean {
+        // private fun buildReportCondition(): ReportConditionBean {
         val temperature =
-            try {
-                "${etAmbientTemperature.text.toString().toFloat()}${UnitTools.showUnit()}"
+        // try {
+        // "${etAmbientTemperature.text.toString().toFloat()}${UnitTools.showUnit()}"
             } catch (ignore: NumberFormatException) {
-                null
+        // null
             }
-        return ReportConditionBean(
-            tipSeekHumidity.valueText,
-            if (switchAmbientHumidity.isChecked) 1 else 0,
-            temperature,
-            if (switchAmbientTemperature.isChecked && temperature != null) 1 else 0,
-            tipSeekEmissivity.valueText,
-            if (switchEmissivity.isChecked) 1 else 0,
-            etTestDistance.text.toString(),
-            if (switchTestDistance.isChecked && etTestDistance.text.isNotEmpty()) 1 else 0,
+        // return ReportConditionBean(
+        // tipSeekHumidity.valueText,
+        // if (switchAmbientHumidity.isChecked) 1 else 0,
+        // temperature,
+        // if (switchAmbientTemperature.isChecked && temperature != null) 1 else 0,
+        // tipSeekEmissivity.valueText,
+        // if (switchEmissivity.isChecked) 1 else 0,
+        // etTestDistance.text.toString(),
+        // if (switchTestDistance.isChecked && etTestDistance.text.isNotEmpty()) 1 else 0,
         )
     }
 
     /**
-当前set的report日期时间戳.
+        // 当前set的report日期时间戳.
      */
-    private var startTime = 0L
+        // private var startTime = 0L
 
     /**
 // display时间拾取弹窗 // TODO: Review this line
      */
-    private fun selectTime() {
+        // private fun selectTime() {
         val picker = DatimePicker(this)
-        picker.setTitle(R.string.chart_start_time)
-        picker.setOnDatimePickedListener { year, month, day, hour, minute, second ->
+        // picker.setTitle(R.string.chart_start_time)
+        // picker.setOnDatimePickedListener { year, month, day, hour, minute, second ->
             val timeStr = "$year-$month-$day $hour:$minute:$second"
             val pattern = "yyyy-MM-dd HH:mm:ss"
             val time: Long = SimpleDateFormat(pattern, Locale.getDefault()).parse(timeStr, ParsePosition(0)).time
-            tvReportDate.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm")
-            startTime = time
+        // tvReportDate.text = TimeUtils.millis2String(time, "yyyy.MM.dd HH:mm")
+        // startTime = time
         }
 
         val startTimeEntity = DatimeEntity()
-        startTimeEntity.date = DateEntity.target(2020, 1, 1)
-        startTimeEntity.time = TimeEntity.target(0, 0, 0)
+        // startTimeEntity.date = DateEntity.target(2020, 1, 1)
+        // startTimeEntity.time = TimeEntity.target(0, 0, 0)
 
         val endTimeEntity = DatimeEntity.yearOnFuture(10)
-        if (startTime == 0L) {
+        // if (startTime == 0L) {
 // set当前时间 // TODO: Review this line
-            picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
+        // picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
         } else {
 // set上一次selected时间 // TODO: Review this line
             val calendar = Calendar.getInstance()
-            calendar.timeInMillis = startTime
+        // calendar.timeInMillis = startTime
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH) + 1
             val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -366,61 +366,61 @@ getaddressinfo:城市、街道等info
             val minutes = calendar.get(Calendar.MINUTE)
             val seconds = calendar.get(Calendar.SECOND)
             val timeEntity = DatimeEntity()
-            timeEntity.date = DateEntity.target(year, month, day)
-            timeEntity.time = TimeEntity.target(hours, minutes, seconds)
-            picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, timeEntity)
+        // timeEntity.date = DateEntity.target(year, month, day)
+        // timeEntity.time = TimeEntity.target(hours, minutes, seconds)
+        // picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, timeEntity)
         }
-        picker.show()
+        // picker.show()
     }
 
-    private fun checkLocationPermission() {
-        if (!XXPermissions.isGranted(this, permissionList)) {
-            if (BaseApplication.instance.isDomestic()) {
+        // private fun checkLocationPermission() {
+        // if (!XXPermissions.isGranted(this, permissionList)) {
+        // if (BaseApplication.instance.isDomestic()) {
                 TipDialog.Builder(this)
-                    .setMessage(getString(R.string.permission_request_location_app, CommUtils.getAppName()))
-                    .setCancelListener(R.string.app_cancel)
-                    .setPositiveListener(R.string.app_confirm) {
-                        initLocationPermission()
+        // .setMessage(getString(R.string.permission_request_location_app, CommUtils.getAppName()))
+        // .setCancelListener(R.string.app_cancel)
+        // .setPositiveListener(R.string.app_confirm) {
+        // initLocationPermission()
                     }
-                    .create().show()
+        // .create().show()
             } else {
-                initLocationPermission()
+        // initLocationPermission()
             }
         } else {
-            initLocationPermission()
+        // initLocationPermission()
         }
     }
 
-    private fun initLocationPermission() {
+        // private fun initLocationPermission() {
 // 定位 // TODO: Review this line
-        XXPermissions.with(this@ReportCreateFirstActivity)
-            .permission(
-                permissionList,
-            ).request(
-                object : OnPermissionCallback {
-                    override fun onGranted(
-                        permissions: MutableList<String>,
-                        all: Boolean,
+        // XXPermissions.with(this@ReportCreateFirstActivity)
+        // .permission(
+        // permissionList,
+        // ).request(
+        // object : OnPermissionCallback {
+        // override fun onGranted(
+        // permissions: MutableList<String>,
+        // all: Boolean,
                     ) {
-                        if (all)
+        // if (all)
                             {
-                                showLoadingDialog(R.string.get_current_address)
-                                lifecycleScope.launch {
+        // showLoadingDialog(R.string.get_current_address)
+        // lifecycleScope.launch {
                                     var addressText: String? = ""
-                                    withContext(Dispatchers.IO) {
-                                        addressText = getLocation()
+        // withContext(Dispatchers.IO) {
+        // addressText = getLocation()
                                     }
-                                    dismissLoadingDialog()
-                                    if (addressText == null)
+        // dismissLoadingDialog()
+        // if (addressText == null)
                                         {
                                             TipDialog.Builder(this@ReportCreateFirstActivity)
-                                                .setMessage(LibR.string.get_Location_failed)
-                                                .setPositiveListener(R.string.app_ok)
-                                                .setCanceled(false)
-                                                .create().show()
+        // .setMessage(LibR.string.get_Location_failed)
+        // .setPositiveListener(R.string.app_ok)
+        // .setCanceled(false)
+        // .create().show()
                                         } else
                                         {
-                                            etReportPlace.setText(addressText)
+        // etReportPlace.setText(addressText)
                                         }
                                 }
                             } else
@@ -429,27 +429,27 @@ getaddressinfo:城市、街道等info
                             }
                     }
 
-                    override fun onDenied(
-                        permissions: MutableList<String>,
-                        never: Boolean,
+        // override fun onDenied(
+        // permissions: MutableList<String>,
+        // never: Boolean,
                     ) {
-                        if (never) {
+        // if (never) {
 // 如果是被永久拒绝就跳转到应用Permission系统set页area // TODO: Review this line
-                            if (BaseApplication.instance.isDomestic())
+        // if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_location_content))
-                                    return
+        // return
                                 }
                             TipDialog.Builder(this@ReportCreateFirstActivity)
-                                .setTitleMessage(getString(R.string.app_tip))
-                                .setMessage(getString(R.string.app_location_content))
-                                .setPositiveListener(R.string.app_open) {
-                                    XXPermissions.startPermissionActivity(this@ReportCreateFirstActivity, permissions)
+        // .setTitleMessage(getString(R.string.app_tip))
+        // .setMessage(getString(R.string.app_location_content))
+        // .setPositiveListener(R.string.app_open) {
+        // XXPermissions.startPermissionActivity(this@ReportCreateFirstActivity, permissions)
                                 }
-                                .setCancelListener(R.string.app_cancel) {
+        // .setCancelListener(R.string.app_cancel) {
                                 }
-                                .setCanceled(true)
-                                .create().show()
+        // .setCanceled(true)
+        // .create().show()
                         } else {
                             ToastUtils.showShort(R.string.scan_ble_tip_authorize)
                         }

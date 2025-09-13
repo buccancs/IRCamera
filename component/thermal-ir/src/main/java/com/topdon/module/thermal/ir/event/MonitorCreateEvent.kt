@@ -1,4 +1,4 @@
-package com.topdon.module.thermal.ir.event
+        // package com.topdon.module.thermal.ir.event
 
 /**
 一项新的temperature监控datacreateEvent.
@@ -7,4 +7,4 @@ package com.topdon.module.thermal.ir.event
  * Monitor create event for thermal imaging system communication.
  * Facilitates decoupled component interaction.
  */
-class MonitorCreateEvent
+        // class MonitorCreateEvent

@@ -1,16 +1,16 @@
-package com.topdon.module.thermal.ir.activity
+        // package com.topdon.module.thermal.ir.activity
 
-import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
-import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.ktbase.BaseActivity
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
-import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
-import com.topdon.module.thermal.ir.view.TimeDownView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.greenrobot.eventbus.EventBus
+        // import android.os.Bundle
+        // import androidx.lifecycle.lifecycleScope
+        // import com.topdon.lib.core.dialog.TipDialog
+        // import com.topdon.lib.core.ktbase.BaseActivity
+        // import com.topdon.module.thermal.ir.R
+        // import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
+        // import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
+        // import com.topdon.module.thermal.ir.view.TimeDownView
+        // import kotlinx.coroutines.Dispatchers
+        // import kotlinx.coroutines.launch
+        // import org.greenrobot.eventbus.EventBus
 
 /**
  *
@@ -23,68 +23,68 @@ import org.greenrobot.eventbus.EventBus
  * I r correction four activity for thermal imaging interface.
  * Manages UI interactions and thermal data display.
  */
-class IRCorrectionFourActivity : BaseActivity() {
+        // class IRCorrectionFourActivity : BaseActivity() {
     val time = 60
 
-    override fun initContentView(): Int = R.layout.activity_ir_correction_four
+        // override fun initContentView(): Int = R.layout.activity_ir_correction_four
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        // override fun onCreate(savedInstanceState: Bundle?) {
+        // super.onCreate(savedInstanceState)
         findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view).setLeftClickListener {
             TipDialog.Builder(this)
-                .setTitleMessage(getString(com.topdon.lib.core.R.string.app_tip))
-                .setMessage(com.topdon.lib.core.R.string.tips_cancel_correction)
-                .setPositiveListener(com.topdon.lib.core.R.string.app_yes) {
+        // .setTitleMessage(getString(com.topdon.lib.core.R.string.app_tip))
+        // .setMessage(com.topdon.lib.core.R.string.tips_cancel_correction)
+        // .setPositiveListener(com.topdon.lib.core.R.string.app_yes) {
                     EventBus.getDefault().post(CorrectionFinishEvent())
                     finish()
-                }.setCancelListener(com.topdon.lib.core.R.string.app_no) {
+        // }.setCancelListener(com.topdon.lib.core.R.string.app_no) {
                 }
-                .create().show()
+        // .create().show()
         }
 
         val irFragment =
-            if (savedInstanceState == null) {
+        // if (savedInstanceState == null) {
                 IRCorrectionFragment()
             } else {
-                supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRCorrectionFragment
+        // supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRCorrectionFragment
             }
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, irFragment)
-                .commit()
+        // if (savedInstanceState == null) {
+        // supportFragmentManager.beginTransaction()
+        // .setReorderingAllowed(true)
+        // .add(R.id.fragment_container_view, irFragment)
+        // .commit()
         }
 
         val timeDownView = findViewById<TimeDownView>(R.id.time_down_view)
-        timeDownView.postDelayed({
+        // timeDownView.postDelayed({
 // start矫正 // TODO: Review this line
-            if (timeDownView.downTimeWatcher == null)
+        // if (timeDownView.downTimeWatcher == null)
                 {
-                    timeDownView.setOnTimeDownListener(
-                        object : TimeDownView.DownTimeWatcher {
-                            override fun onTime(num: Int) {
-                                if (num == 50)
+        // timeDownView.setOnTimeDownListener(
+        // object : TimeDownView.DownTimeWatcher {
+        // override fun onTime(num: Int) {
+        // if (num == 50)
                                     {
-                                        lifecycleScope.launch(Dispatchers.IO) {
-                                            irFragment.autoStart()
+        // lifecycleScope.launch(Dispatchers.IO) {
+        // irFragment.autoStart()
                                         }
                                     }
                             }
 
-                            override fun onLastTime(num: Int) {
+        // override fun onLastTime(num: Int) {
                             }
 
-                            override fun onLastTimeFinish(num: Int) {
-                                try {
-                                    if (!this@IRCorrectionFourActivity.isFinishing)
+        // override fun onLastTimeFinish(num: Int) {
+        // try {
+        // if (!this@IRCorrectionFourActivity.isFinishing)
                                         {
                                             TipDialog.Builder(this@IRCorrectionFourActivity)
-                                                .setMessage(com.topdon.lib.core.R.string.correction_complete)
-                                                .setPositiveListener(com.topdon.lib.core.R.string.app_confirm) {
+        // .setMessage(com.topdon.lib.core.R.string.correction_complete)
+        // .setPositiveListener(com.topdon.lib.core.R.string.app_confirm) {
                                                     EventBus.getDefault().post(CorrectionFinishEvent())
                                                     finish()
                                                 }
-                                                .create().show()
+        // .create().show()
                                         }
                                 } catch (e: Exception) {
                                 }
@@ -92,43 +92,43 @@ class IRCorrectionFourActivity : BaseActivity() {
                         },
                     )
                 }
-            timeDownView.downSecond(time, false)
+        // timeDownView.downSecond(time, false)
         }, 2000)
     }
 
-    override fun initView() {
+        // override fun initView() {
     }
 
-    override fun onBackPressed() {
+        // override fun onBackPressed() {
         TipDialog.Builder(this)
-            .setTitleMessage(getString(com.topdon.lib.core.R.string.app_tip))
-            .setMessage(com.topdon.lib.core.R.string.tips_cancel_correction)
-            .setPositiveListener(com.topdon.lib.core.R.string.app_yes) {
+        // .setTitleMessage(getString(com.topdon.lib.core.R.string.app_tip))
+        // .setMessage(com.topdon.lib.core.R.string.tips_cancel_correction)
+        // .setPositiveListener(com.topdon.lib.core.R.string.app_yes) {
                 EventBus.getDefault().post(CorrectionFinishEvent())
-                super.onBackPressed()
-            }.setCancelListener(com.topdon.lib.core.R.string.app_no) {
+        // super.onBackPressed()
+        // }.setCancelListener(com.topdon.lib.core.R.string.app_no) {
             }
-            .create().show()
+        // .create().show()
     }
 
-    override fun disConnected() {
-        super.disConnected()
+        // override fun disConnected() {
+        // super.disConnected()
         findViewById<TimeDownView>(R.id.time_down_view).cancel()
         EventBus.getDefault().post(CorrectionFinishEvent())
         finish()
     }
 
-    override fun onStop() {
-        super.onStop()
+        // override fun onStop() {
+        // super.onStop()
         EventBus.getDefault().post(CorrectionFinishEvent())
         finish()
     }
 
-    override fun initData() {
+        // override fun initData() {
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+        // override fun onDestroy() {
+        // super.onDestroy()
         findViewById<TimeDownView>(R.id.time_down_view).cancel()
     }
 }

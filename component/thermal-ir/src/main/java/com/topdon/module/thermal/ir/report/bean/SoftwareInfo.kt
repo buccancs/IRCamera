@@ -1,17 +1,17 @@
-package com.topdon.module.thermal.ir.report.bean
+        // package com.topdon.module.thermal.ir.report.bean
 
-import android.os.Build
-import android.os.Parcelable
-import com.topdon.lib.core.BaseApplication
-import com.topdon.lib.core.tools.AppLanguageUtils
-import kotlinx.android.parcel.Parcelize
+        // import android.os.Build
+        // import android.os.Parcelable
+        // import com.topdon.lib.core.BaseApplication
+        // import com.topdon.lib.core.tools.AppLanguageUtils
+        // import kotlinx.android.parcel.Parcelize
 
 /**
  * Software info utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
 @Parcelize
-data class SoftwareInfo(
+        // data class SoftwareInfo(
     val app_language: String, // APP语言
     val sdk_version: String, // SDKversion
 ) : Parcelable {

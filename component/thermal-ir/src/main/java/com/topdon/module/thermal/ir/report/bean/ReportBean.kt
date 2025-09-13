@@ -1,7 +1,7 @@
-package com.topdon.module.thermal.ir.report.bean
+        // package com.topdon.module.thermal.ir.report.bean
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+        // import android.os.Parcelable
+        // import kotlinx.android.parcel.Parcelize
 
 /**
 一份report.
@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
  * Encapsulates thermal measurement and configuration data.
  */
 @Parcelize
-data class ReportBean(
+        // data class ReportBean(
     val software_info: SoftwareInfo,
     val report_info: ReportInfoBean,
     val detection_condition: ReportConditionBean,

@@ -1,7 +1,7 @@
-package com.topdon.module.thermal.ir.video.media
+        // package com.topdon.module.thermal.ir.video.media
 
-import android.graphics.Bitmap
-import android.media.MediaCodecInfo.CodecCapabilities.*
+        // import android.graphics.Bitmap
+        // import android.media.MediaCodecInfo.CodecCapabilities.*
 
 /**
 COLOR_FormatYUV420Planar             正常
@@ -13,61 +13,61 @@ COLOR_FormatYUV420PackedSemiPlanar   个例有花屏
 COLOR_FormatYUV420PackedPlanar       个例有花屏
  *
  */
-object EncodeYuvTools {
+        // object EncodeYuvTools {
     fun getNV12(
-        inputWidth: Int,
-        inputHeight: Int,
-        scaled: Bitmap?,
-        colorFormat: Int = COLOR_FormatYUV420SemiPlanar,
+        // inputWidth: Int,
+        // inputHeight: Int,
+        // scaled: Bitmap?,
+        // colorFormat: Int = COLOR_FormatYUV420SemiPlanar,
     ): ByteArray {
         val argb = IntArray(inputWidth * inputHeight)
-        scaled!!.getPixels(argb, 0, inputWidth, 0, 0, inputWidth, inputHeight)
+        // scaled!!.getPixels(argb, 0, inputWidth, 0, 0, inputWidth, inputHeight)
         val yuv = ByteArray(inputWidth * inputHeight * 3 / 2)
-        when (colorFormat) {
+        // when (colorFormat) {
             COLOR_FormatYUV420SemiPlanar ->
-                encodeYUV420SP(
-                    yuv,
-                    argb,
-                    inputWidth,
-                    inputHeight,
+        // encodeYUV420SP(
+        // yuv,
+        // argb,
+        // inputWidth,
+        // inputHeight,
                 )
             COLOR_FormatYUV420Planar ->
-                encodeYUV420P(
-                    yuv,
-                    argb,
-                    inputWidth,
-                    inputHeight,
+        // encodeYUV420P(
+        // yuv,
+        // argb,
+        // inputWidth,
+        // inputHeight,
                 )
             COLOR_FormatYUV420PackedSemiPlanar ->
-                encodeYUV420PSP(
-                    yuv,
-                    argb,
-                    inputWidth,
-                    inputHeight,
+        // encodeYUV420PSP(
+        // yuv,
+        // argb,
+        // inputWidth,
+        // inputHeight,
                 )
             COLOR_FormatYUV420PackedPlanar ->
-                encodeYUV420PP(
-                    yuv,
-                    argb,
-                    inputWidth,
-                    inputHeight,
+        // encodeYUV420PP(
+        // yuv,
+        // argb,
+        // inputWidth,
+        // inputHeight,
                 )
-            else ->
-                encodeYUV420SP(
-                    yuv,
-                    argb,
-                    inputWidth,
-                    inputHeight,
+        // else ->
+        // encodeYUV420SP(
+        // yuv,
+        // argb,
+        // inputWidth,
+        // inputHeight,
                 )
         }
-        return yuv
+        // return yuv
     }
 
-    private fun encodeYUV420SP(
-        yuv420sp: ByteArray,
-        argb: IntArray,
-        width: Int,
-        height: Int,
+        // private fun encodeYUV420SP(
+        // yuv420sp: ByteArray,
+        // argb: IntArray,
+        // width: Int,
+        // height: Int,
     ) {
         val frameSize = width * height
         var yIndex = 0
@@ -82,48 +82,48 @@ object EncodeYuvTools {
                 val y = (66 * r + 129 * g + 25 * b + 128 shr 8) + 16
                 val u = (112 * r - 94 * g - 18 * b + 128 shr 8) + 128
                 val v = (-38 * r - 74 * g + 112 * b + 128 shr 8) + 128
-                yuv420sp[yIndex++] =
+        // yuv420sp[yIndex++] =
                     (
-                        if (y < 0) {
+        // if (y < 0) {
                             0
                         } else if (y > 255) {
                             255
                         } else {
-                            y
+        // y
                         }
-                    ).toByte()
-                if (j % 2 == 0 && index % 2 == 0) {
-                    yuv420sp[uvIndex++] =
+        // ).toByte()
+        // if (j % 2 == 0 && index % 2 == 0) {
+        // yuv420sp[uvIndex++] =
                         (
-                            if (v < 0) {
+        // if (v < 0) {
                                 0
                             } else if (v > 255) {
                                 255
                             } else {
                                 v
                             }
-                        ).toByte()
-                    yuv420sp[uvIndex++] =
+        // ).toByte()
+        // yuv420sp[uvIndex++] =
                         (
-                            if (u < 0) {
+        // if (u < 0) {
                                 0
                             } else if (u > 255) {
                                 255
                             } else {
-                                u
+        // u
                             }
-                        ).toByte()
+        // ).toByte()
                 }
-                index++
+        // index++
             }
         }
     }
 
-    private fun encodeYUV420P(
-        yuv420sp: ByteArray,
-        argb: IntArray,
-        width: Int,
-        height: Int,
+        // private fun encodeYUV420P(
+        // yuv420sp: ByteArray,
+        // argb: IntArray,
+        // width: Int,
+        // height: Int,
     ) {
         val frameSize = width * height
         var yIndex = 0
@@ -139,48 +139,48 @@ object EncodeYuvTools {
                 val y = (66 * r + 129 * g + 25 * b + 128 shr 8) + 16
                 val u = (112 * r - 94 * g - 18 * b + 128 shr 8) + 128
                 val v = (-38 * r - 74 * g + 112 * b + 128 shr 8) + 128
-                yuv420sp[yIndex++] =
+        // yuv420sp[yIndex++] =
                     (
-                        if (y < 0) {
+        // if (y < 0) {
                             0
                         } else if (y > 255) {
                             255
                         } else {
-                            y
+        // y
                         }
-                    ).toByte()
-                if (j % 2 == 0 && index % 2 == 0) {
-                    yuv420sp[vIndex++] =
+        // ).toByte()
+        // if (j % 2 == 0 && index % 2 == 0) {
+        // yuv420sp[vIndex++] =
                         (
-                            if (u < 0) {
+        // if (u < 0) {
                                 0
                             } else if (u > 255) {
                                 255
                             } else {
-                                u
+        // u
                             }
-                        ).toByte()
-                    yuv420sp[uIndex++] =
+        // ).toByte()
+        // yuv420sp[uIndex++] =
                         (
-                            if (v < 0) {
+        // if (v < 0) {
                                 0
                             } else if (v > 255) {
                                 255
                             } else {
                                 v
                             }
-                        ).toByte()
+        // ).toByte()
                 }
-                index++
+        // index++
             }
         }
     }
 
-    private fun encodeYUV420PSP(
-        yuv420sp: ByteArray,
-        argb: IntArray,
-        width: Int,
-        height: Int,
+        // private fun encodeYUV420PSP(
+        // yuv420sp: ByteArray,
+        // argb: IntArray,
+        // width: Int,
+        // height: Int,
     ) {
         var yIndex = 0
         var index = 0
@@ -193,51 +193,51 @@ object EncodeYuvTools {
                 val y = (66 * r + 129 * g + 25 * b + 128 shr 8) + 16
                 val u = (112 * r - 94 * g - 18 * b + 128 shr 8) + 128
                 val v = (-38 * r - 74 * g + 112 * b + 128 shr 8) + 128
-                yuv420sp[yIndex++] =
+        // yuv420sp[yIndex++] =
                     (
-                        if (y < 0) {
+        // if (y < 0) {
                             0
                         } else if (y > 255) {
                             255
                         } else {
-                            y
+        // y
                         }
-                    ).toByte()
-                if (j % 2 == 0 && index % 2 == 0) {
-                    yuv420sp[yIndex + 1] =
+        // ).toByte()
+        // if (j % 2 == 0 && index % 2 == 0) {
+        // yuv420sp[yIndex + 1] =
                         (
-                            if (v < 0) {
+        // if (v < 0) {
                                 0
                             } else if (v > 255) {
                                 255
                             } else {
                                 v
                             }
-                        ).toByte()
-                    yuv420sp[yIndex + 3] =
+        // ).toByte()
+        // yuv420sp[yIndex + 3] =
                         (
-                            if (u < 0) {
+        // if (u < 0) {
                                 0
                             } else if (u > 255) {
                                 255
                             } else {
-                                u
+        // u
                             }
-                        ).toByte()
+        // ).toByte()
                 }
-                if (index % 2 == 0) {
-                    yIndex++
+        // if (index % 2 == 0) {
+        // yIndex++
                 }
-                index++
+        // index++
             }
         }
     }
 
-    private fun encodeYUV420PP(
-        yuv420sp: ByteArray,
-        argb: IntArray,
-        width: Int,
-        height: Int,
+        // private fun encodeYUV420PP(
+        // yuv420sp: ByteArray,
+        // argb: IntArray,
+        // width: Int,
+        // height: Int,
     ) {
         var yIndex = 0
         var vIndex = yuv420sp.size / 2
@@ -251,74 +251,74 @@ object EncodeYuvTools {
                 val y = (66 * r + 129 * g + 25 * b + 128 shr 8) + 16
                 val u = (112 * r - 94 * g - 18 * b + 128 shr 8) + 128
                 val v = (-38 * r - 74 * g + 112 * b + 128 shr 8) + 128
-                if (j % 2 == 0 && index % 2 == 0) { // 0
-                    yuv420sp[yIndex++] =
+        // if (j % 2 == 0 && index % 2 == 0) { // 0
+        // yuv420sp[yIndex++] =
                         (
-                            if (y < 0) {
+        // if (y < 0) {
                                 0
                             } else if (y > 255) {
                                 255
                             } else {
-                                y
+        // y
                             }
-                        ).toByte()
-                    yuv420sp[yIndex + 1] =
+        // ).toByte()
+        // yuv420sp[yIndex + 1] =
                         (
-                            if (v < 0) {
+        // if (v < 0) {
                                 0
                             } else if (v > 255) {
                                 255
                             } else {
                                 v
                             }
-                        ).toByte()
-                    yuv420sp[vIndex + 1] =
+        // ).toByte()
+        // yuv420sp[vIndex + 1] =
                         (
-                            if (u < 0) {
+        // if (u < 0) {
                                 0
                             } else if (u > 255) {
                                 255
                             } else {
-                                u
+        // u
                             }
-                        ).toByte()
-                    yIndex++
+        // ).toByte()
+        // yIndex++
                 } else if (j % 2 == 0 && index % 2 == 1) { // 1
-                    yuv420sp[yIndex++] =
+        // yuv420sp[yIndex++] =
                         (
-                            if (y < 0) {
+        // if (y < 0) {
                                 0
                             } else if (y > 255) {
                                 255
                             } else {
-                                y
+        // y
                             }
-                        ).toByte()
+        // ).toByte()
                 } else if (j % 2 == 1 && index % 2 == 0) { // 2
-                    yuv420sp[vIndex++] =
+        // yuv420sp[vIndex++] =
                         (
-                            if (y < 0) {
+        // if (y < 0) {
                                 0
                             } else if (y > 255) {
                                 255
                             } else {
-                                y
+        // y
                             }
-                        ).toByte()
+        // ).toByte()
                     vIndex++
                 } else if (j % 2 == 1 && index % 2 == 1) { // 3
-                    yuv420sp[vIndex++] =
+        // yuv420sp[vIndex++] =
                         (
-                            if (y < 0) {
+        // if (y < 0) {
                                 0
                             } else if (y > 255) {
                                 255
                             } else {
-                                y
+        // y
                             }
-                        ).toByte()
+        // ).toByte()
                 }
-                index++
+        // index++
             }
         }
     }

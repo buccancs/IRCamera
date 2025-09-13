@@ -1,14 +1,14 @@
-package com.topdon.module.thermal.ir.video
+        // package com.topdon.module.thermal.ir.video
 
-import android.annotation.SuppressLint
-import android.media.AudioFormat
-import android.media.AudioRecord
-import android.media.MediaRecorder
-import android.util.Log
-import com.elvishew.xlog.XLog
-import org.bytedeco.javacv.FFmpegFrameRecorder
-import java.lang.ref.WeakReference
-import java.nio.ShortBuffer
+        // import android.annotation.SuppressLint
+        // import android.media.AudioFormat
+        // import android.media.AudioRecord
+        // import android.media.MediaRecorder
+        // import android.util.Log
+        // import com.elvishew.xlog.XLog
+        // import org.bytedeco.javacv.FFmpegFrameRecorder
+        // import java.lang.ref.WeakReference
+        // import java.nio.ShortBuffer
 
 /**
 // 音频采集并且与videoMerge一起 // TODO: Review this line
@@ -19,156 +19,156 @@ import java.nio.ShortBuffer
  * Audio record help utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-class AudioRecordHelp private constructor() {
-    private var audioRecord: AudioRecord? = null
-    private var audioRecordRunnable: AudioRecordRunnable? = null
-    private var audioThread: Thread? = null
+        // class AudioRecordHelp private constructor() {
+        // private var audioRecord: AudioRecord? = null
+        // private var audioRecordRunnable: AudioRecordRunnable? = null
+        // private var audioThread: Thread? = null
 
     @Volatile
-    private var recordingAudio = false
-    private var startTime: Long = 0
+        // private var recordingAudio = false
+        // private var startTime: Long = 0
 
     @Volatile
     var runAudioThread = true
     var audioData: ShortBuffer? = null
     var bufferReadResult: Int = 0
     val bufferSize: Int =
-        AudioRecord.getMinBufferSize(
+        // AudioRecord.getMinBufferSize(
             VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
-            AudioFormat.CHANNEL_IN_MONO,
-            AudioFormat.ENCODING_PCM_16BIT,
+        // AudioFormat.CHANNEL_IN_MONO,
+        // AudioFormat.ENCODING_PCM_16BIT,
         )
     var type: Int = 0
-    private var startRecordTime: Long = 0L
+        // private var startRecordTime: Long = 0L
 
 /**
  * Audio util holder utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-object AudioUtilHolder {
+        // object AudioUtilHolder {
         val INSTANCE = AudioRecordHelp()
     }
 
     @SuppressLint("MissingPermission")
     fun startRecording(
-        recorder: FFmpegFrameRecorder,
-        startRecordTime: Long,
+        // recorder: FFmpegFrameRecorder,
+        // startRecordTime: Long,
     ) {
-        this.startRecordTime = startRecordTime
-        type = 1
-        initRecorder(recorder)
-        if (audioRecord == null)
+        // this.startRecordTime = startRecordTime
+        // type = 1
+        // initRecorder(recorder)
+        // if (audioRecord == null)
             {
-                audioRecord =
-                    AudioRecord(
+        // audioRecord =
+        // AudioRecord(
                         MediaRecorder.AudioSource.MIC, VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
-                        AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+        // AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
                     )
             }
-        try {
-            startTime = System.currentTimeMillis()
-            audioThread!!.start()
+        // try {
+        // startTime = System.currentTimeMillis()
+        // audioThread!!.start()
         } catch (e: Exception) {
-            e.printStackTrace()
+        // e.printStackTrace()
         }
     }
 
-    private fun initRecorder(recorder: FFmpegFrameRecorder) {
-        audioRecordRunnable = AudioRecordRunnable(recorder)
-        audioThread = Thread(audioRecordRunnable)
+        // private fun initRecorder(recorder: FFmpegFrameRecorder) {
+        // audioRecordRunnable = AudioRecordRunnable(recorder)
+        // audioThread = Thread(audioRecordRunnable)
 //        audioThread?.priority = THREAD_PRIORITY_URGENT_AUDIO
-        runAudioThread = true
+        // runAudioThread = true
     }
 
-    internal inner class AudioRecordRunnable(recorder: FFmpegFrameRecorder) : Runnable {
-        private val recorder: WeakReference<FFmpegFrameRecorder> = WeakReference(recorder)
+        // internal inner class AudioRecordRunnable(recorder: FFmpegFrameRecorder) : Runnable {
+        // private val recorder: WeakReference<FFmpegFrameRecorder> = WeakReference(recorder)
 
         @SuppressLint("MissingPermission")
-        override fun run() {
+        // override fun run() {
 //            Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO)
-            if (audioRecord == null)
+        // if (audioRecord == null)
                 {
-                    return
+        // return
                 }
             // Audio
-            if (audioData == null)
+        // if (audioData == null)
                 {
-                    audioData = ShortBuffer.allocate(bufferSize)
+        // audioData = ShortBuffer.allocate(bufferSize)
                 }
-            audioRecord!!.startRecording()
+        // audioRecord!!.startRecording()
             /**
 // 音频进行循环encoding // TODO: Review this line
              */
-            try {
-                while (runAudioThread) {
+        // try {
+        // while (runAudioThread) {
                     bufferReadResult = audioRecord!!.read(audioData!!.array(), 0, audioData!!.capacity())
-                    if (recordingAudio) {
-                        if (bufferReadResult > 0) {
-                            audioData?.limit(bufferReadResult)
+        // if (recordingAudio) {
+        // if (bufferReadResult > 0) {
+        // audioData?.limit(bufferReadResult)
                             Log.w("音频采集", bufferReadResult.toString() + "//" + bufferReadResult)
-                            recorder?.get()?.recordSamples(
+        // recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS,
-                                audioData,
+        // audioData,
                             )
 Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
                         }
                     } else
                         {
                             for (i in 0 until bufferSize) {
-                                audioData!!.put(i, 0)
+        // audioData!!.put(i, 0)
                             }
-                            recorder?.get()?.recordSamples(
+        // recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS,
-                                audioData,
+        // audioData,
                             )
                             Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
                         }
                 }
 Log.w("stop采集",""+recorder?.get()?.frameNumber)
             } catch (e: Exception) {
-                XLog.e("采集容器exception")
+        // XLog.e("采集容器exception")
             }
         }
     }
 
-    public fun updateAudioRecordingState(boolean: Boolean)  {
-        recordingAudio = boolean
+        // public fun updateAudioRecordingState(boolean: Boolean)  {
+        // recordingAudio = boolean
     }
 
     fun stopAudioRecording() {
-        type = 2
-        if (!runAudioThread)
+        // type = 2
+        // if (!runAudioThread)
             {
-                return
+        // return
             }
-        runAudioThread = false
-        try {
-            audioThread?.interrupt()
+        // runAudioThread = false
+        // try {
+        // audioThread?.interrupt()
         } catch (e: InterruptedException) {
-            e.printStackTrace()
+        // e.printStackTrace()
         }
-        audioRecord?.stop()
-        audioRecord?.release()
-        audioRecord = null
-        audioRecordRunnable = null
-        audioThread = null
-        recordingAudio = false
+        // audioRecord?.stop()
+        // audioRecord?.release()
+        // audioRecord = null
+        // audioRecordRunnable = null
+        // audioThread = null
+        // recordingAudio = false
     }
 
     fun stopRecording()  {
-        if (!runAudioThread)
+        // if (!runAudioThread)
             {
-                return
+        // return
             }
     }
 
-    companion object {
-        private val LOG_TAG = AudioRecordHelp::class.java.name
+        // companion object {
+        // private val LOG_TAG = AudioRecordHelp::class.java.name
 
         fun getInstance(): AudioRecordHelp {
-            return AudioUtilHolder.INSTANCE
+        // return AudioUtilHolder.INSTANCE
         }
     }
 }

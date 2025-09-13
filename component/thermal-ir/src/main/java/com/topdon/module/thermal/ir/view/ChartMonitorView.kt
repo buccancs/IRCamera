@@ -1,89 +1,89 @@
-package com.topdon.module.thermal.ir.view
+        // package com.topdon.module.thermal.ir.view
 
-import android.content.Context
-import android.graphics.Color
-import android.os.Handler
-import android.os.Looper
-import android.util.AttributeSet
-import android.util.Log
-import android.view.MotionEvent
-import androidx.core.content.ContextCompat
-import com.blankj.utilcode.util.SizeUtils
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.listener.ChartTouchListener
-import com.github.mikephil.charting.listener.OnChartGestureListener
-import com.topdon.lib.core.db.entity.ThermalEntity
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
-import com.topdon.module.thermal.ir.chart.YValueFormatter
-import com.topdon.module.thermal.ir.utils.ChartTools
-import com.topdon.lib.core.R as LibR
-import com.topdon.module.thermal.R as ThermalR
+        // import android.content.Context
+        // import android.graphics.Color
+        // import android.os.Handler
+        // import android.os.Looper
+        // import android.util.AttributeSet
+        // import android.util.Log
+        // import android.view.MotionEvent
+        // import androidx.core.content.ContextCompat
+        // import com.blankj.utilcode.util.SizeUtils
+        // import com.github.mikephil.charting.charts.LineChart
+        // import com.github.mikephil.charting.components.Legend
+        // import com.github.mikephil.charting.components.XAxis
+        // import com.github.mikephil.charting.components.YAxis
+        // import com.github.mikephil.charting.data.Entry
+        // import com.github.mikephil.charting.data.LineData
+        // import com.github.mikephil.charting.data.LineDataSet
+        // import com.github.mikephil.charting.listener.ChartTouchListener
+        // import com.github.mikephil.charting.listener.OnChartGestureListener
+        // import com.topdon.lib.core.db.entity.ThermalEntity
+        // import com.topdon.module.thermal.ir.R
+        // import com.topdon.module.thermal.ir.chart.IRMyValueFormatter
+        // import com.topdon.module.thermal.ir.chart.YValueFormatter
+        // import com.topdon.module.thermal.ir.utils.ChartTools
+        // import com.topdon.lib.core.R as LibR
+        // import com.topdon.module.thermal.R as ThermalR
 
 /**
  * Custom Chart monitor view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-class ChartMonitorView : LineChart, OnChartGestureListener {
-    private val mHandler by lazy { Handler(Looper.getMainLooper()) }
+        // class ChartMonitorView : LineChart, OnChartGestureListener {
+        // private val mHandler by lazy { Handler(Looper.getMainLooper()) }
 
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle,
+        // constructor(context: Context) : this(context, null)
+        // constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+        // constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
+        // context,
+        // attrs,
+        // defStyle,
     ) {
-        initChart()
+        // initChart()
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        mHandler.removeCallbacksAndMessages(null)
+        // override fun onDetachedFromWindow() {
+        // super.onDetachedFromWindow()
+        // mHandler.removeCallbacksAndMessages(null)
     }
 
-    private val textColor by lazy { ContextCompat.getColor(context, LibR.color.chart_text) }
-    private val axisChartColors by lazy { ContextCompat.getColor(context, LibR.color.chart_axis) }
-    private val axisLine by lazy { ContextCompat.getColor(context, LibR.color.circle_white) }
+        // private val textColor by lazy { ContextCompat.getColor(context, LibR.color.chart_text) }
+        // private val axisChartColors by lazy { ContextCompat.getColor(context, LibR.color.chart_axis) }
+        // private val axisLine by lazy { ContextCompat.getColor(context, LibR.color.circle_white) }
 
     // MPChart
-    private fun initChart() {
-        synchronized(this) {
-            this.setTouchEnabled(true)
-            this.onChartGestureListener = this
-            this.isDragEnabled = true
-            this.setDrawGridBackground(false)
-            this.description = null // 图标描述文本
-            this.setBackgroundResource(LibR.color.chart_bg)
-            this.setScaleEnabled(true) // Scale
-            this.setPinchZoom(false) // Disable后，可以分别在x轴和y轴上进行Scale
-            this.isDoubleTapToZoomEnabled = false // 双击不可Scale
-            this.isScaleYEnabled = false // 禁止Y轴Scale
-            this.isScaleXEnabled = true // 禁止X轴Scale
-            this.setExtraOffsets(
+        // private fun initChart() {
+        // synchronized(this) {
+        // this.setTouchEnabled(true)
+        // this.onChartGestureListener = this
+        // this.isDragEnabled = true
+        // this.setDrawGridBackground(false)
+        // this.description = null // 图标描述文本
+        // this.setBackgroundResource(LibR.color.chart_bg)
+        // this.setScaleEnabled(true) // Scale
+        // this.setPinchZoom(false) // Disable后，可以分别在x轴和y轴上进行Scale
+        // this.isDoubleTapToZoomEnabled = false // 双击不可Scale
+        // this.isScaleYEnabled = false // 禁止Y轴Scale
+        // this.isScaleXEnabled = true // 禁止X轴Scale
+        // this.setExtraOffsets(
                 0f,
                 0f,
                 SizeUtils.dp2px(8f).toFloat(),
                 SizeUtils.dp2px(4f).toFloat(),
             ) // 图表region偏移
-            setNoDataText(context.getString(ThermalR.string.lms_http_code998))
-            setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
+        // setNoDataText(context.getString(ThermalR.string.lms_http_code998))
+        // setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
             val mv = MyMarkerView(context, R.layout.marker_lay)
-            mv.chartView = this
-            marker = mv // settingsclick坐标Show/Displaytip框
+        // mv.chartView = this
+        // marker = mv // settingsclick坐标Show/Displaytip框
             val data = LineData()
-            data.setValueTextColor(textColor)
-            this.data = data
+        // data.setValueTextColor(textColor)
+        // this.data = data
             val l = this.legend
-            l.form = Legend.LegendForm.CIRCLE
-            l.textColor = textColor
-            l.isEnabled = false // Hide曲linetag
+        // l.form = Legend.LegendForm.CIRCLE
+        // l.textColor = textColor
+        // l.isEnabled = false // Hide曲linetag
 // x轴 // TODO: Review this line
             val xAxis = this.xAxis
             xAxis.textColor = textColor
@@ -98,140 +98,140 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
             xAxis.textSize = 8f
 // y轴 // TODO: Review this line
             val leftAxis = this.axisLeft
-            leftAxis.textColor = textColor // y轴文本颜色
-            leftAxis.axisLineColor = 0x00000000 // y轴颜色
-            leftAxis.setDrawGridLines(true) // 横向格line
-            leftAxis.gridColor = axisChartColors // y轴网格颜色
-            leftAxis.gridLineWidth = 1.5f
-            leftAxis.setLabelCount(6, true)
-            leftAxis.valueFormatter = YValueFormatter() // settings小数point一位
-            leftAxis.textSize = 8f
+        // leftAxis.textColor = textColor // y轴文本颜色
+        // leftAxis.axisLineColor = 0x00000000 // y轴颜色
+        // leftAxis.setDrawGridLines(true) // 横向格line
+        // leftAxis.gridColor = axisChartColors // y轴网格颜色
+        // leftAxis.gridLineWidth = 1.5f
+        // leftAxis.setLabelCount(6, true)
+        // leftAxis.valueFormatter = YValueFormatter() // settings小数point一位
+        // leftAxis.textSize = 8f
 
-            this.axisRight.isEnabled = false
+        // this.axisRight.isEnabled = false
         }
     }
 
-    private var startTime = 0L
+        // private var startTime = 0L
 
     /**
 // 秒update图表data // TODO: Review this line
-@param timeType 时分秒
+        // @param timeType 时分秒
      *
      */
     fun addPointToChart(
         bean: ThermalEntity,
-        timeType: Int = 1,
-        selectType: Int = 1,
+        // timeType: Int = 1,
+        // selectType: Int = 1,
     ) {
-        synchronized(this) {
-            try {
-                if (bean.createTime == 0L) {
+        // synchronized(this) {
+        // try {
+        // if (bean.createTime == 0L) {
                     Log.w("123", "createTime = 0L, bean:$bean")
-                    return
+        // return
                 }
                 val lineData: LineData = this.data
                 var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
-                if (volDataSet == null) {
-                    startTime = bean.createTime
+        // if (volDataSet == null) {
+        // startTime = bean.createTime
                     xAxis.valueFormatter =
                         IRMyValueFormatter(startTime = startTime, type = timeType)
                 }
                 val x =
                     ChartTools.getChartX(
                         x = bean.createTime,
-                        startTime = startTime,
-                        type = timeType,
-                    ).toFloat()
-                when (selectType) {
+        // startTime = startTime,
+        // type = timeType,
+        // ).toFloat()
+        // when (selectType) {
                     1 -> {
-                        if (volDataSet == null) {
+        // if (volDataSet == null) {
                             volDataSet = createSet(0, "point temp")
-                            lineData.addDataSet(volDataSet)
+        // lineData.addDataSet(volDataSet)
                             Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                         }
                         val entity = Entry(x, bean.thermal)
-                        entity.data = bean
+        // entity.data = bean
                         volDataSet.addEntry(entity)
                         Log.w("123", "add一个data:$entity")
                     }
                     2 -> {
 // 第一条line // TODO: Review this line
-                        if (volDataSet == null) {
+        // if (volDataSet == null) {
                             volDataSet = createSet(0, "line max temp")
-                            lineData.addDataSet(volDataSet)
+        // lineData.addDataSet(volDataSet)
                             Log.w("123", "volDataSet.entryCount:${volDataSet.entryCount}")
                         }
                         val entity = Entry(x, bean.thermalMax)
-                        entity.data = bean
+        // entity.data = bean
                         volDataSet.addEntry(entity)
 
 // 第二条line // TODO: Review this line
                         var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
-                        if (secondDataSet == null) {
-                            secondDataSet = createSet(1, "line min temp")
-                            lineData.addDataSet(secondDataSet)
+        // if (secondDataSet == null) {
+        // secondDataSet = createSet(1, "line min temp")
+        // lineData.addDataSet(secondDataSet)
                         }
                         val secondEntity = Entry(x, bean.thermalMin)
-                        secondEntity.data = bean
-                        secondDataSet.addEntry(secondEntity)
+        // secondEntity.data = bean
+        // secondDataSet.addEntry(secondEntity)
                     }
-                    else -> {
+        // else -> {
 // 第一条line // TODO: Review this line
-                        if (volDataSet == null) {
+        // if (volDataSet == null) {
                             volDataSet = createSet(0, "fence max temp")
-                            lineData.addDataSet(volDataSet)
+        // lineData.addDataSet(volDataSet)
                         }
                         val entity = Entry(x, bean.thermalMax)
-                        entity.data = bean
+        // entity.data = bean
                         volDataSet.addEntry(entity)
 
 // 第二条line // TODO: Review this line
                         var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
-                        if (secondDataSet == null) {
-                            secondDataSet = createSet(1, "fence min temp")
-                            lineData.addDataSet(secondDataSet)
+        // if (secondDataSet == null) {
+        // secondDataSet = createSet(1, "fence min temp")
+        // lineData.addDataSet(secondDataSet)
                         }
                         val secondEntity = Entry(x, bean.thermalMin)
-                        secondEntity.data = bean
-                        secondDataSet.addEntry(secondEntity)
+        // secondEntity.data = bean
+        // secondDataSet.addEntry(secondEntity)
                     }
                 }
 
-                lineData.notifyDataChanged()
-                notifyDataSetChanged()
-                setVisibleXRangeMinimum(ChartTools.getMinimum(type = timeType) / 2) // settingsShow/DisplayX轴区间大小
-                setVisibleXRangeMaximum(ChartTools.getMaximum(type = timeType)) // settingsShow/DisplayX轴区间大小
+        // lineData.notifyDataChanged()
+        // notifyDataSetChanged()
+        // setVisibleXRangeMinimum(ChartTools.getMinimum(type = timeType) / 2) // settingsShow/DisplayX轴区间大小
+        // setVisibleXRangeMaximum(ChartTools.getMaximum(type = timeType)) // settingsShow/DisplayX轴区间大小
                 ChartTools.setX(this, timeType)
 //                ChartTools.setY(this)
 // 结尾point出现在interface才移动最新data // TODO: Review this line
-                if ((highestVisibleX + ChartTools.getMinimum(timeType) / 2f) > xChartMax) {
-                    moveViewToX(xChartMax) // 移动到最右端
+        // if ((highestVisibleX + ChartTools.getMinimum(timeType) / 2f) > xChartMax) {
+        // moveViewToX(xChartMax) // 移动到最右端
                 }
-                if (volDataSet.entryCount == 10) {
+        // if (volDataSet.entryCount == 10) {
                     zoom(100f, 1f, xChartMax, 0f)
                 }
-                return@synchronized
+        // return@synchronized
             } catch (e: Exception) {
                 Log.e("123", "adddata时exception:${e.message}")
-                return@synchronized
+        // return@synchronized
             }
         }
     }
 
-    private val bgChartColors =
-        intArrayOf(
+        // private val bgChartColors =
+        // intArrayOf(
             R.drawable.bg_chart_fill,
             R.drawable.bg_chart_fill2,
             R.drawable.bg_chart_fill3,
         )
-    private val lineChartColors =
-        intArrayOf(
+        // private val lineChartColors =
+        // intArrayOf(
             LibR.color.chart_line_max,
             LibR.color.chart_line_min,
             LibR.color.chart_line_center,
         )
-    private val linePointColors =
-        intArrayOf(
+        // private val linePointColors =
+        // intArrayOf(
             LibR.color.chart_point_max,
             LibR.color.chart_point_min,
             LibR.color.chart_point_center,
@@ -240,69 +240,69 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
     /**
 // 曲line样式 // TODO: Review this line
      */
-    private fun createSet(
-        index: Int,
-        label: String,
+        // private fun createSet(
+        // index: Int,
+        // label: String,
     ): LineDataSet {
         val set = LineDataSet(null, label)
-        set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-        set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index]) // settings填充颜色渐变
-        set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(context, lineChartColors[index]) // 曲line颜色
-        set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index]) // 坐标圆心颜色
-        set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index])) // 坐标颜色
-        set.valueTextColor = Color.WHITE
-        set.lineWidth = 2f
-        set.circleRadius = 1f // 坐标point半径
-        set.fillAlpha = 200
-        set.valueTextSize = 10f
-        set.setDrawValues(false) // settings是否Show/Display坐标值文本
-        return set
+        // set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+        // set.setDrawFilled(false)
+        // set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index]) // settings填充颜色渐变
+        // set.axisDependency = YAxis.AxisDependency.LEFT
+        // set.color = ContextCompat.getColor(context, lineChartColors[index]) // 曲line颜色
+        // set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index]) // 坐标圆心颜色
+        // set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index])) // 坐标颜色
+        // set.valueTextColor = Color.WHITE
+        // set.lineWidth = 2f
+        // set.circleRadius = 1f // 坐标point半径
+        // set.fillAlpha = 200
+        // set.valueTextSize = 10f
+        // set.setDrawValues(false) // settings是否Show/Display坐标值文本
+        // return set
     }
 
-    override fun onChartGestureStart(
-        me: MotionEvent?,
-        lastPerformedGesture: ChartTouchListener.ChartGesture?,
+        // override fun onChartGestureStart(
+        // me: MotionEvent?,
+        // lastPerformedGesture: ChartTouchListener.ChartGesture?,
     ) {
     }
 
-    override fun onChartGestureEnd(
-        me: MotionEvent?,
-        lastPerformedGesture: ChartTouchListener.ChartGesture?,
+        // override fun onChartGestureEnd(
+        // me: MotionEvent?,
+        // lastPerformedGesture: ChartTouchListener.ChartGesture?,
     ) {
     }
 
-    override fun onChartLongPressed(me: MotionEvent?) {
+        // override fun onChartLongPressed(me: MotionEvent?) {
     }
 
-    override fun onChartDoubleTapped(me: MotionEvent?) {
+        // override fun onChartDoubleTapped(me: MotionEvent?) {
     }
 
-    override fun onChartSingleTapped(me: MotionEvent?) {
+        // override fun onChartSingleTapped(me: MotionEvent?) {
     }
 
-    override fun onChartFling(
-        me1: MotionEvent?,
-        me2: MotionEvent?,
+        // override fun onChartFling(
+        // me1: MotionEvent?,
+        // me2: MotionEvent?,
         velocityX: Float,
         velocityY: Float,
     ) {
     }
 
-    override fun onChartScale(
-        me: MotionEvent?,
-        scaleX: Float,
-        scaleY: Float,
+        // override fun onChartScale(
+        // me: MotionEvent?,
+        // scaleX: Float,
+        // scaleY: Float,
     ) {
 // scaling时disabled // TODO: Review this line
-        highlightValue(null)
+        // highlightValue(null)
     }
 
-    override fun onChartTranslate(
-        me: MotionEvent?,
-        dX: Float,
-        dY: Float,
+        // override fun onChartTranslate(
+        // me: MotionEvent?,
+        // dX: Float,
+        // dY: Float,
     ) {
     }
 }

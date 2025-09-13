@@ -1,63 +1,63 @@
-package com.topdon.module.thermal.ir.adapter
+        // package com.topdon.module.thermal.ir.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+        // import android.annotation.SuppressLint
+        // import android.content.Context
+        // import android.view.LayoutInflater
+        // import android.view.View
+        // import android.view.ViewGroup
+        // import android.widget.ImageView
+        // import android.widget.TextView
+        // import androidx.recyclerview.widget.RecyclerView
+        // import com.bumptech.glide.Glide
 // Removed house module import - module removed as unused
 // import com.topdon.house.activity.ImagesDetailActivity
-import com.topdon.lib.core.bean.HouseRepPreviewAlbumItemBean
-import com.topdon.module.thermal.ir.R
+        // import com.topdon.lib.core.bean.HouseRepPreviewAlbumItemBean
+        // import com.topdon.module.thermal.ir.R
 
 /**
  * Custom Report preview album view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
 @SuppressLint("NotifyDataSetChanged")
-class ReportPreviewAlbumAdapter(
-    private val cxt: Context,
-    private var dataList: List<HouseRepPreviewAlbumItemBean>,
+        // class ReportPreviewAlbumAdapter(
+        // private val cxt: Context,
+        // private var dataList: List<HouseRepPreviewAlbumItemBean>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var jumpListener: ((item: HouseRepPreviewAlbumItemBean, position: Int) -> Unit)? = null
 
-    override fun getItemViewType(position: Int): Int {
-        return position
+        // override fun getItemViewType(position: Int): Int {
+        // return position
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
+        // override fun onCreateViewHolder(
+        // parent: ViewGroup,
         viewType: Int,
     ): RecyclerView.ViewHolder {
-        return ItemView(
+        // return ItemView(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_report_album_child, parent, false),
+        // .inflate(R.layout.item_report_album_child, parent, false),
         )
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
+        // override fun onBindViewHolder(
+        // holder: RecyclerView.ViewHolder,
+        // position: Int,
     ) {
         val bean = dataList[position]
-        if (holder is ItemView) {
-            Glide.with(cxt).load(bean.photoPath).into(holder.rivPhoto)
-            holder.tvName.text = bean.title
-            holder.rivPhoto.setOnClickListener {
+        // if (holder is ItemView) {
+        // Glide.with(cxt).load(bean.photoPath).into(holder.rivPhoto)
+        // holder.tvName.text = bean.title
+        // holder.rivPhoto.setOnClickListener {
                 jumpListener?.invoke(bean, position)
             }
         }
     }
 
-    override fun getItemCount(): Int {
-        return dataList.size
+        // override fun getItemCount(): Int {
+        // return dataList.size
     }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rivPhoto: ImageView = itemView.findViewById(R.id.riv_photo)
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
     }

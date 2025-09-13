@@ -1,6 +1,6 @@
-package com.topdon.module.thermal.ir.frame
+        // package com.topdon.module.thermal.ir.frame
 
-enum class ImageParams(val value: Int) {
+        // enum class ImageParams(val value: Int) {
     ROTATE_0(0),
     ROTATE_90(1),
     ROTATE_180(2),

@@ -1,4 +1,4 @@
-package com.topdon.module.thermal.ir.event
+        // package com.topdon.module.thermal.ir.event
 
 /**
  * des:
@@ -9,4 +9,4 @@ package com.topdon.module.thermal.ir.event
  * Image gallery event for thermal imaging system communication.
  * Facilitates decoupled component interaction.
  */
-class ImageGalleryEvent
+        // class ImageGalleryEvent

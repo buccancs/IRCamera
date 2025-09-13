@@ -1,12 +1,12 @@
-package com.topdon.module.thermal.ir.activity
+        // package com.topdon.module.thermal.ir.activity
 
-import android.graphics.Bitmap
-import com.topdon.lib.core.ktbase.BasePickImgActivity
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.fragment.IRMonitorThermalFragment
+        // import android.graphics.Bitmap
+        // import com.topdon.lib.core.ktbase.BasePickImgActivity
+        // import com.topdon.module.thermal.ir.R
+        // import com.topdon.module.thermal.ir.fragment.IRMonitorThermalFragment
 
 /**
-des:单光infrared拍照
+        // des:单光infrared拍照
  * author: CaiSongL
  * date: 2024/8/24 18:10
  **/
@@ -15,28 +15,28 @@ des:单光infrared拍照
  * Image pick i r activity for thermal imaging interface.
  * Manages UI interactions and thermal data display.
  */
-class ImagePickIRActivity : BasePickImgActivity() {
+        // class ImagePickIRActivity : BasePickImgActivity() {
     var irFragment: IRMonitorThermalFragment? = null
 
-    override fun initView() {
-        irFragment =
-            if (savedInstanceState == null) {
+        // override fun initView() {
+        // irFragment =
+        // if (savedInstanceState == null) {
                 IRMonitorThermalFragment.newInstance(true)
             } else {
-                supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRMonitorThermalFragment
+        // supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRMonitorThermalFragment
             }
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, irFragment!!)
-                .commit()
+        // if (savedInstanceState == null) {
+        // supportFragmentManager.beginTransaction()
+        // .setReorderingAllowed(true)
+        // .add(R.id.fragment_container_view, irFragment!!)
+        // .commit()
         }
     }
 
-    override suspend fun getPickBitmap(): Bitmap? {
-        return irFragment?.getBitmap() ?: null
+        // override suspend fun getPickBitmap(): Bitmap? {
+        // return irFragment?.getBitmap() ?: null
     }
 
-    override fun initData() {
+        // override fun initData() {
     }
 }

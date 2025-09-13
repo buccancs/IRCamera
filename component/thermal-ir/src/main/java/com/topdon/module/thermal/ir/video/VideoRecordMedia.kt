@@ -1,107 +1,107 @@
-package com.topdon.module.thermal.ir.video
+        // package com.topdon.module.thermal.ir.video
 
-import android.graphics.Bitmap
-import com.infisense.usbir.view.CameraView
-import com.infisense.usbir.view.TemperatureView
-import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.utils.BitmapUtils
-import com.topdon.module.thermal.ir.video.media.Encoder
-import com.topdon.module.thermal.ir.video.media.MP4Encoder
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import java.io.File
-import java.util.*
-import java.util.concurrent.TimeUnit
+        // import android.graphics.Bitmap
+        // import com.infisense.usbir.view.CameraView
+        // import com.infisense.usbir.view.TemperatureView
+        // import com.topdon.lib.core.config.FileConfig
+        // import com.topdon.lib.core.utils.BitmapUtils
+        // import com.topdon.module.thermal.ir.video.media.Encoder
+        // import com.topdon.module.thermal.ir.video.media.MP4Encoder
+        // import io.reactivex.Observable
+        // import io.reactivex.android.schedulers.AndroidSchedulers
+        // import io.reactivex.disposables.Disposable
+        // import java.io.File
+        // import java.util.*
+        // import java.util.concurrent.TimeUnit
 
 /**
  * Video record media utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
-class VideoRecordMedia(
-    private var cameraView: CameraView,
-    private var temperatureView: TemperatureView,
+        // class VideoRecordMedia(
+        // private var cameraView: CameraView,
+        // private var temperatureView: TemperatureView,
 ) : VideoRecord() {
-    private lateinit var exportDisposable: Disposable
-    private var encoder: Encoder = MP4Encoder()
-    private var isRunning = false
+        // private lateinit var exportDisposable: Disposable
+        // private var encoder: Encoder = MP4Encoder()
+        // private var isRunning = false
 
     var width = 480
     var height = 640
 
-    init {
-        encoder.setFrameDelay(25)
-        width = 480
-        height = width * cameraView.height / cameraView.width
+        // init {
+        // encoder.setFrameDelay(25)
+        // width = 480
+        // height = width * cameraView.height / cameraView.width
 // 宽高不能出现奇数 // TODO: Review this line
-        if (height % 2 == 1) {
-            height -= 1
+        // if (height % 2 == 1) {
+        // height -= 1
         }
     }
 
-    override fun startRecord() {
+        // override fun startRecord() {
         val downloadDir = FileConfig.lineGalleryDir
         val exportedFile = File(downloadDir, "${Date().time}.mp4")
-        if (exportedFile.exists()) {
-            exportedFile.delete()
+        // if (exportedFile.exists()) {
+        // exportedFile.delete()
         }
-        encoder.setOutputFilePath(exportedFile.path)
+        // encoder.setOutputFilePath(exportedFile.path)
 //        if (bitmap == null) {
 Log.w("123", "recording准备failed")
 //            return
 //        }
-        encoder.setOutputSize(width, height)
-        encoder.startEncode()
-        isRunning = true
+        // encoder.setOutputSize(width, height)
+        // encoder.startEncode()
+        // isRunning = true
 默认frame率20,间隔50ms一frame
-        exportDisposable =
+        // exportDisposable =
             Observable.interval(50, TimeUnit.MILLISECONDS)
-                .map {
-                    createBitmapFromView()
+        // .map {
+        // createBitmapFromView()
                 }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    encoder.addFrame(it)
+        // .observeOn(AndroidSchedulers.mainThread())
+        // .subscribe {
+        // encoder.addFrame(it)
                 }
     }
 
-    override fun startRecord(fileDir: String) {
+        // override fun startRecord(fileDir: String) {
     }
 
-    override fun stopRecord() {
-        if (isRunning) {
-            encoder.stopEncode()
-            exportDisposable.dispose()
+        // override fun stopRecord() {
+        // if (isRunning) {
+        // encoder.stopEncode()
+        // exportDisposable.dispose()
         }
-        isRunning = false
+        // isRunning = false
     }
 
-    override fun updateAudioState(audioRecord: Boolean) {
+        // override fun updateAudioState(audioRecord: Boolean) {
         // Note: Audio state update functionality not yet implemented
     }
 
-    private fun createBitmapFromView(): Bitmap {
+        // private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap = cameraView.bitmap
-        if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
-gettemperature图层的data，包括pointline框，temperature值等，重新合成bitmap
-            cameraViewBitmap =
-                BitmapUtils.mergeBitmap(
-                    cameraViewBitmap,
-                    temperatureView.regionAndValueBitmap,
+        // if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
+        // gettemperature图层的data，包括pointline框，temperature值等，重新合成bitmap
+        // cameraViewBitmap =
+        // BitmapUtils.mergeBitmap(
+        // cameraViewBitmap,
+        // temperatureView.regionAndValueBitmap,
                     0,
                     0,
                 )
         }
         val dstBitmap =
-            if (cameraViewBitmap != null) {
-                Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
+        // if (cameraViewBitmap != null) {
+        // Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
             } else {
-                Bitmap.createBitmap(
-                    width,
-                    height,
-                    Bitmap.Config.ARGB_8888,
+        // Bitmap.createBitmap(
+        // width,
+        // height,
+        // Bitmap.Config.ARGB_8888,
                 )
             }
-        return dstBitmap
+        // return dstBitmap
     }
 }
