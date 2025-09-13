@@ -738,18 +738,18 @@ Synchronizedata
                     bean.createTime = TimeTool.timeToMinute(it.createTime, 4) // Adjust精确到分
                     bean.updateTime = System.currentTimeMillis()
                     AppDatabase.getInstance().thermalDayDao().insert(bean)
-// 此处只update到今天凌晨
+// Update only until today midnight
                 }
-// 今天的电压值还没Checkend，不能出average值结果，并值add一个无效data(0f)，用updateTime来判断已Synchronize到最新的时间节point
+// Today's thermal values are not checked yet, cannot average results, add placeholder data (0f), use updateTime to judge synchronized to latest time point
                 val bean = ThermalDayEntity()
                 bean.userId = userId
                 bean.thermal = 0f
                 bean.thermalMax = 0f
                 bean.thermalMin = 0f
-                bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 4) // Adjust精确到分
+                bean.createTime = TimeTool.timeToMinute(System.currentTimeMillis(), 4) // Adjust to minute precision
                 bean.updateTime = System.currentTimeMillis()
                 AppDatabase.getInstance().thermalDayDao().insert(bean)
-// delete多余的data
+// Delete excess data
                 AppDatabase.getInstance().thermalDayDao().deleteRepeatVol(userId)
             }
         }
@@ -757,10 +757,10 @@ Synchronizedata
         Log.w("chart", "syncVol end")
     }
 
-/**
- * Chart list utility class for thermal imaging operations.
- * Provides helper functions and common functionality.
- */
+    /**
+     * Chart list utility class for thermal imaging operations.
+     * Provides helper functions and common functionality.
+     */
     data class ChartList(
         var dataList: ArrayList<ThermalEntity> = arrayListOf(),
         var maxVol: Float = 0f,
