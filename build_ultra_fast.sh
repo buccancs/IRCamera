@@ -1,50 +1,37 @@
 #!/bin/bash
 
-# Ultra-fast build optimization for development
-# Targets sub-30 second builds for rapid iteration
+echo "🚀 Ultra-fast development build script"
+echo "========================================"
 
-echo "🚀 Ultra-Fast Build Optimization Script"
-echo "Target: <30 seconds for debug builds"
+# Set build start time
+start_time=$(date +%s)
 
-# Step 1: Configure ultra-fast build settings
-cat > gradle.properties.fast << 'EOF'
-# Ultra-fast development build configuration
-org.gradle.jvmargs=-Xmx12g -XX:MaxMetaspaceSize=3g -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32m
-org.gradle.parallel=true
-org.gradle.caching=true
-org.gradle.daemon=true
-org.gradle.workers.max=20
-org.gradle.configuration-cache=true
-android.useAndroidX=true
-android.enableJetifier=true
-ksp.incremental=true
-ksp.use.k2=true
-android.enableR8.fullMode=false
-android.nonTransitiveRClass=true
-android.nonFinalResIds=true
-org.gradle.vfs.watch=true
-kotlin.incremental=true
-kotlin.parallel.tasks.in.project=true
-org.gradle.console=plain
-EOF
+# Set optimal JVM options for maximum performance
+export GRADLE_OPTS="-Xmx8g -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:+UseStringDeduplication"
 
-# Step 2: Backup current config and apply ultra-fast
-cp gradle.properties gradle.properties.backup
-cp gradle.properties.fast gradle.properties
+# Build only debug variant with minimal checks
+echo "🔨 Building debug APK with optimizations..."
+./gradlew :app:assembleDebug \
+    --no-daemon \
+    --console=plain \
+    --parallel \
+    --build-cache \
+    --configuration-cache \
+    -x lint \
+    -x test \
+    -x connectedCheck \
+    2>&1 | tee build_ultra_fast.log
 
-# Step 3: Clean build artifacts selectively
-echo "Cleaning build artifacts..."
-rm -rf .gradle/configuration-cache/
-./gradlew clean --no-daemon >/dev/null 2>&1
+# Calculate build time
+end_time=$(date +%s)
+build_time=$((end_time - start_time))
 
-# Step 4: Build only essential modules for validation
-echo "Building core modules only..."
-time ./gradlew :app:assembleDebug --parallel --no-daemon --build-cache
-
-# Step 5: Restore original config if needed
-if [ "$1" = "--restore" ]; then
-    cp gradle.properties.backup gradle.properties
-    echo "Original gradle.properties restored"
+if [ $? -eq 0 ]; then
+    echo "✅ Ultra-fast build completed successfully in ${build_time} seconds!"
+    echo "📱 APK location: app/build/outputs/apk/debug/app-debug.apk"
+    ls -lh app/build/outputs/apk/debug/app-debug.apk 2>/dev/null || echo "❌ APK not found"
+else
+    echo "❌ Build failed in ${build_time} seconds"
+    echo "📋 Check build_ultra_fast.log for details"
+    exit 1
 fi
-
-echo "Build optimization complete!"
