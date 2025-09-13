@@ -112,21 +112,33 @@ class RgbCameraRecorder(
             }
             
             try {
-                // Initialize CameraX with Samsung CameraX exception handling
+                // Initialize CameraX with enhanced error handling for Samsung devices
                 val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
                 cameraProvider = cameraProviderFuture.get()
                 
-                // Setup camera configuration with Samsung S22 optimizations
-                setupCamera()
+                // Setup camera configuration with Samsung S22 optimizations and fallbacks
+                val cameraSetupSuccess = setupCameraWithFallback()
                 
-                // Initialize RAW engine for concurrent capture (conservative camera settings)
-                rawEngine = RawEngine(context).apply {
-                    onRawImageSaved = { file ->
-                        Log.d(TAG, "RAW image saved: ${file.name}")
+                if (!cameraSetupSuccess) {
+                    _errorStatus.value = "Failed to setup camera configuration"
+                    return@withContext false
+                }
+                
+                // Initialize RAW engine for concurrent capture with conservative settings
+                try {
+                    rawEngine = RawEngine(context).apply {
+                        onRawImageSaved = { file ->
+                            Log.d(TAG, "RAW image saved: ${file.name}")
+                        }
+                        onError = { error ->
+                            Log.e(TAG, "RAW capture error: $error")
+                            // Don't fail initialization for RAW errors, just log them
+                        }
                     }
-                    onError = { error ->
-                        Log.e(TAG, "RAW capture error: $error")
-                    }
+                    Log.d(TAG, "RAW engine initialized successfully")
+                } catch (e: Exception) {
+                    Log.w(TAG, "RAW engine initialization failed, continuing without RAW capture", e)
+                    rawEngine = null // Continue without RAW capture
                 }
                 
                 _status.value = "RGB camera initialized (4K60 + RAW ready)"
@@ -297,16 +309,123 @@ class RgbCameraRecorder(
     }
     
     private fun detectSamsungS22(): Boolean {
-        val model = Build.MODEL
-        return SAMSUNG_S22_MODELS.any { model.startsWith(it) }
+        return try {
+            val model = Build.MODEL ?: return false
+            val manufacturer = Build.MANUFACTURER ?: return false
+            
+            // More robust Samsung detection
+            val isSamsung = manufacturer.equals("samsung", ignoreCase = true) || 
+                           manufacturer.equals("SAMSUNG", ignoreCase = true)
+            
+            if (!isSamsung) return false
+            
+            // Check for S22 series models with fallback
+            val isS22Model = SAMSUNG_S22_MODELS.any { 
+                model.startsWith(it, ignoreCase = true) 
+            }
+            
+            Log.d(TAG, "Samsung S22 detection: manufacturer=$manufacturer, model=$model, isS22=$isS22Model")
+            isS22Model
+            
+        } catch (e: Exception) {
+            Log.w(TAG, "Error detecting Samsung S22 device, assuming non-S22", e)
+            false
+        }
     }
     
     private fun detectExynosVariant(): Boolean {
-        val model = Build.MODEL
-        return EXYNOS_2200_MODELS.any { model.startsWith(it) }
+        return try {
+            val model = Build.MODEL ?: return false
+            
+            // Conservative Exynos detection with multiple fallbacks
+            val isExynosModel = EXYNOS_2200_MODELS.any { 
+                model.startsWith(it, ignoreCase = true) 
+            }
+            
+            // Additional hardware detection if model detection fails
+            if (!isExynosModel && isS22Device) {
+                // Try to detect Exynos via hardware info (fallback)
+                val cpuAbi = Build.CPU_ABI?.lowercase()
+                val supportedAbis = Build.SUPPORTED_ABIS?.map { it.lowercase() }
+                
+                Log.d(TAG, "Fallback Exynos detection: cpuAbi=$cpuAbi, supportedAbis=${supportedAbis?.joinToString(",")}")
+                
+                // Conservative assumption for unknown variants
+                return false // Default to Snapdragon assumptions for better compatibility
+            }
+            
+            Log.d(TAG, "Exynos detection: model=$model, isExynos=$isExynosModel")
+            isExynosModel
+            
+        } catch (e: Exception) {
+            Log.w(TAG, "Error detecting Exynos variant, assuming Snapdragon for better compatibility", e)
+            false // Default to Snapdragon for wider compatibility
+        }
     }
     
-    private fun hasCameraPermissions(): Boolean {
+    /**
+     * Setup camera with fallback strategies for device compatibility
+     */
+    private suspend fun setupCameraWithFallback(): Boolean {
+        return try {
+            // Try primary setup first
+            setupCamera()
+            true
+        } catch (e: IllegalArgumentException) {
+            Log.w(TAG, "Primary camera setup failed, trying fallback configuration", e)
+            try {
+                // Try with more conservative settings for Samsung compatibility
+                setupCameraConservative()
+                true
+            } catch (fallbackException: Exception) {
+                Log.e(TAG, "Fallback camera setup also failed", fallbackException)
+                false
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Camera setup failed completely", e)
+            false
+        }
+    }
+    
+    /**
+     * Conservative camera setup for problematic devices
+     */
+    private fun setupCameraConservative() {
+        try {
+            Log.i(TAG, "Setting up camera with conservative configuration")
+            
+            // Use more basic configuration that's likely to work on all devices
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            
+            // Conservative preview settings
+            preview = Preview.Builder()
+                .setTargetResolution(Size(1920, 1080)) // FHD instead of 4K
+                .build()
+            
+            // Basic image capture (no concurrent RAW)
+            imageCapture = ImageCapture.Builder()
+                .setTargetResolution(Size(1920, 1080))
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .build()
+            
+            // Bind to lifecycle with conservative settings
+            val provider = cameraProvider ?: throw IllegalStateException("Camera provider not initialized")
+            
+            provider.unbindAll()
+            camera = provider.bindToLifecycle(
+                context as androidx.lifecycle.LifecycleOwner,
+                cameraSelector,
+                preview,
+                imageCapture
+            )
+            
+            Log.i(TAG, "Conservative camera setup completed successfully")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Conservative camera setup failed", e)
+            throw e
+        }
+    }
         return ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
     

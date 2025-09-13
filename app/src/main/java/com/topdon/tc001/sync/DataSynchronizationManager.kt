@@ -234,7 +234,73 @@ class DataSynchronizationManager(
         }
     }
     
-    // Additional methods would be included here...
+    /**
+     * Stop the current synchronization session
+     */
+    suspend fun stopSession(): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                if (!isActiveSession) {
+                    Log.w(TAG, "No active session to stop")
+                    return@withContext true
+                }
+                
+                Log.i(TAG, "Stopping data synchronization session")
+                
+                // Log session end event
+                logSessionEvent("session_end", mapOf(
+                    "session_duration_ms" to (System.currentTimeMillis() - (sessionStartTime?.wallClockMs ?: 0)),
+                    "total_sync_markers" to syncMarkerCounter.get()
+                ))
+                
+                // Cancel sync marker distribution
+                syncMarkerJob?.cancel()
+                
+                // Close log writers
+                timingLogWriter?.close()
+                syncEventsWriter?.close()
+                
+                isActiveSession = false
+                sessionStartTime = null
+                
+                Log.i(TAG, "Data synchronization session stopped successfully")
+                return@withContext true
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to stop synchronization session", e)
+                return@withContext false
+            }
+        }
+    }
+    
+    /**
+     * Get session statistics
+     */
+    fun getSessionStats(): SessionStats? {
+        val sessionStart = sessionStartTime ?: return null
+        val currentTime = System.currentTimeMillis()
+        
+        return SessionStats(
+            sessionId = sessionStart.sessionId,
+            startTime = sessionStart.wallClockMs,
+            duration = currentTime - sessionStart.wallClockMs,
+            syncMarkerCount = syncMarkerCounter.get(),
+            syncQuality = timeManager.getSyncQuality(),
+            isActive = isActiveSession
+        )
+    }
+    
+    /**
+     * Session statistics data class
+     */
+    data class SessionStats(
+        val sessionId: String,
+        val startTime: Long,
+        val duration: Long,
+        val syncMarkerCount: Long,
+        val syncQuality: com.topdon.tc001.utils.SyncQuality,
+        val isActive: Boolean
+    )
     
     /**
      * Clean up synchronization manager
@@ -257,26 +323,154 @@ class DataSynchronizationManager(
         distributedMarkers.clear()
     }
     
-    // Private helper methods would be included here...
-    
+    /**
+     * Initialize session logging
+     */
     private suspend fun initializeSessionLogging() {
-        // Implementation details...
+        try {
+            val sessionDir = sessionDirectory ?: throw IllegalStateException("No session directory")
+            
+            // Initialize timing log writer
+            val timingLogFile = File(sessionDir, TIMING_LOG_FILENAME)
+            timingLogWriter = FileWriter(timingLogFile)
+            
+            // Initialize sync events CSV writer
+            val syncEventsFile = File(sessionDir, SYNC_EVENTS_FILENAME)
+            syncEventsWriter = FileWriter(syncEventsFile)
+            
+            // Write CSV header for sync events
+            syncEventsWriter?.write("marker_id,event_type,session_id,timestamp_ns,monotonic_ns,wall_clock_ms,metadata\n")
+            
+            Log.d(TAG, "Session logging initialized")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to initialize session logging", e)
+        }
     }
     
+    /**
+     * Log session event to timing log
+     */
     private suspend fun logSessionEvent(eventType: String, metadata: Map<String, Any>) {
-        // Implementation details...
+        try {
+            val timestamp = generateTimestamp()
+            val sessionStart = sessionStartTime ?: return
+            
+            val eventData = mapOf(
+                "event_type" to eventType,
+                "session_id" to sessionStart.sessionId,
+                "timestamp_ns" to timestamp.synchronizedNs,
+                "wall_clock_ms" to timestamp.wallClockMs,
+                "session_elapsed_ms" to timestamp.sessionElapsedMs,
+                "metadata" to metadata
+            )
+            
+            // Write to timing log (JSON format)
+            val jsonLine = buildString {
+                append("{")
+                eventData.entries.joinTo(this, ",") { (key, value) ->
+                    when (value) {
+                        is String -> "\"$key\":\"$value\""
+                        is Map<*, *> -> "\"$key\":{${value.entries.joinTo(StringBuilder(), ",") { (k, v) -> "\"$k\":\"$v\"" }}}"
+                        else -> "\"$key\":$value"
+                    }
+                }
+                append("}\n")
+            }
+            
+            timingLogWriter?.write(jsonLine)
+            timingLogWriter?.flush()
+            
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to log session event", e)
+        }
     }
     
+    /**
+     * Log sync event to CSV file
+     */
     private suspend fun logSyncEvent(event: SyncMarkerEvent) {
-        // Implementation details...
+        try {
+            val csvLine = buildString {
+                append("${event.markerId},")
+                append("\"${event.eventType}\",")
+                append("\"${event.sessionId}\",")
+                append("${event.timestampNs},")
+                append("${event.monotonicNs},")
+                append("${event.wallClockMs},")
+                append("\"${event.metadata.entries.joinToString(";") { "${it.key}=${it.value}" }}\"\n")
+            }
+            
+            syncEventsWriter?.write(csvLine)
+            syncEventsWriter?.flush()
+            
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to log sync event", e)
+        }
     }
     
+    /**
+     * Start periodic sync marker distribution
+     */
     private fun startSyncMarkerDistribution() {
-        // Implementation details...
+        syncMarkerJob?.cancel()
+        syncMarkerJob = syncScope.launch {
+            while (isActive && isActiveSession) {
+                try {
+                    // Distribute periodic sync marker
+                    distributeSyncMarker("periodic_sync", mapOf(
+                        "interval_ms" to SYNC_MARKER_INTERVAL_MS,
+                        "marker_count" to syncMarkerCounter.get()
+                    ))
+                    
+                    // Update timing quality assessment
+                    updateTimingQuality()
+                    
+                    delay(SYNC_MARKER_INTERVAL_MS)
+                    
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error in sync marker distribution", e)
+                    delay(1000) // Brief delay before retry
+                }
+            }
+        }
     }
     
+    /**
+     * Update timing quality assessment
+     */
     private suspend fun updateTimingQuality() {
-        // Implementation details...
+        try {
+            val sessionStart = sessionStartTime ?: return
+            val currentTime = System.currentTimeMillis()
+            val sessionDuration = currentTime - sessionStart.wallClockMs
+            
+            // Get current sync quality from TimeManager
+            val currentSyncQuality = timeManager.getSyncQuality()
+            
+            // Estimate timing drift based on sync quality degradation
+            val initialQuality = sessionStart.syncQuality.qualityMs ?: 0.0
+            val currentQualityValue = currentSyncQuality.qualityMs ?: 0.0
+            val estimatedDrift = kotlin.math.abs(currentQualityValue - initialQuality)
+            
+            val quality = TimingQuality(
+                sessionDurationMs = sessionDuration,
+                syncQuality = currentSyncQuality,
+                markerCount = syncMarkerCounter.get(),
+                estimatedDriftMs = estimatedDrift,
+                isQualityAcceptable = estimatedDrift < MAX_TIMING_DRIFT_MS
+            )
+            
+            _timingQuality.value = quality
+            
+            // Log quality warning if drift is excessive
+            if (!quality.isQualityAcceptable) {
+                Log.w(TAG, "Timing quality degraded: drift=${estimatedDrift}ms exceeds threshold=${MAX_TIMING_DRIFT_MS}ms")
+            }
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating timing quality", e)
+        }
     }
 }
 

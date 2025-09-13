@@ -29,13 +29,13 @@ buildscript {
 allprojects {
     // Apply common optimization to all modules
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
+        compilerOptions {
             // Parallel compilation across all modules
-            jvmTarget = "17"
-            freeCompilerArgs += listOf(
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            freeCompilerArgs.addAll(listOf(
                 "-Xuse-k2", 
                 "-Xskip-prerelease-check"
-            )
+            ))
         }
     }
     

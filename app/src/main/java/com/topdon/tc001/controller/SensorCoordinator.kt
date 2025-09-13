@@ -267,25 +267,67 @@ class SensorCoordinator(
     }
     
     /**
-     * Initialize a specific sensor
+     * Initialize a specific sensor with actual implementation
      */
     private suspend fun initializeSensor(sensorInfo: SensorInfo): Boolean {
         return try {
             Log.d(TAG, "Initializing sensor: ${sensorInfo.sensorId}")
             
-            // Note: This is a placeholder - actual sensor initialization would depend on
-            // having proper sensor instances available. The current structure has some
-            // architectural challenges that would need to be resolved.
-            
-            // For now, simulate successful initialization for sensors with permissions
-            delay(COORDINATION_DELAY_MS) // Simulate initialization time
-            
-            Log.i(TAG, "Sensor ${sensorInfo.sensorId} initialized successfully")
-            true
+            // Create and initialize the actual sensor recorder
+            val sensorRecorder = createSensorRecorder(sensorInfo)
+            if (sensorRecorder != null) {
+                val success = sensorRecorder.initialize()
+                if (success) {
+                    activeSensors[sensorInfo.sensorId] = sensorRecorder
+                    Log.i(TAG, "Sensor ${sensorInfo.sensorId} initialized successfully")
+                    return@try true
+                } else {
+                    Log.w(TAG, "Sensor ${sensorInfo.sensorId} initialization failed")
+                    return@try false
+                }
+            } else {
+                Log.e(TAG, "Failed to create sensor recorder for ${sensorInfo.sensorId}")
+                return@try false
+            }
             
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize sensor ${sensorInfo.sensorId}", e)
             false
+        }
+    }
+    
+    /**
+     * Create the appropriate sensor recorder based on sensor info
+     */
+    private fun createSensorRecorder(sensorInfo: SensorInfo): SensorRecorder? {
+        return try {
+            when (sensorInfo.sensorId) {
+                "thermal_camera_1" -> {
+                    com.topdon.tc001.sensors.thermal.ThermalCameraRecorder(
+                        context = context,
+                        sensorId = sensorInfo.sensorId
+                    )
+                }
+                "gsr_shimmer_1" -> {
+                    com.topdon.tc001.sensors.gsr.GSRRecorder(
+                        context = context,
+                        sensorId = sensorInfo.sensorId
+                    )
+                }
+                "rgb_camera_1" -> {
+                    com.topdon.tc001.sensors.rgb.RgbCameraRecorder(
+                        context = context,
+                        sensorId = sensorInfo.sensorId
+                    )
+                }
+                else -> {
+                    Log.w(TAG, "Unknown sensor type: ${sensorInfo.sensorId}")
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating sensor recorder for ${sensorInfo.sensorId}", e)
+            null
         }
     }
     
@@ -351,14 +393,29 @@ class SensorCoordinator(
                 
                 Log.i(TAG, "Starting coordinated recording to: ${sessionDirectory.absolutePath}")
                 
-                // This would coordinate the actual sensor start
-                delay(COORDINATION_DELAY_MS)
+                // Create session directories for each sensor
+                val sessionDirectoryPath = sessionDirectory.absolutePath
                 
-                _coordinationStatus.value = CoordinationStatus.RECORDING
-                _coordinationEvents.emit(CoordinationEvent.RecordingStarted)
+                // Start all sensors simultaneously
+                val startResults = startAllSensorsInParallel(sessionDirectoryPath)
                 
-                Log.i(TAG, "Coordinated recording started successfully")
-                return@withContext true
+                // Check results
+                val successfulStarts = startResults.count { it.value }
+                val totalSensors = startResults.size
+                
+                Log.i(TAG, "Coordinated recording start complete: $successfulStarts/$totalSensors sensors started")
+                
+                if (successfulStarts > 0) {
+                    _coordinationStatus.value = CoordinationStatus.RECORDING
+                    _coordinationEvents.emit(CoordinationEvent.RecordingStarted)
+                    Log.i(TAG, "Coordinated recording started successfully")
+                    return@withContext true
+                } else {
+                    _coordinationStatus.value = CoordinationStatus.ERROR
+                    _isCoordinating.set(false)
+                    Log.e(TAG, "Failed to start any sensors")
+                    return@withContext false
+                }
                 
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to start coordinated recording", e)
@@ -366,6 +423,42 @@ class SensorCoordinator(
                 _isCoordinating.set(false)
                 return@withContext false
             }
+        }
+    }
+    
+    /**
+     * Start all active sensors in parallel
+     */
+    private suspend fun startAllSensorsInParallel(sessionDirectory: String): Map<String, Boolean> {
+        return withContext(Dispatchers.IO) {
+            val startResults = mutableMapOf<String, Boolean>()
+            
+            // Create start jobs for all active sensors
+            val startJobs = activeSensors.values.map { sensor ->
+                async {
+                    try {
+                        val success = withTimeout(SYNC_TIMEOUT_MS) {
+                            sensor.startRecording(sessionDirectory)
+                        }
+                        startResults[sensor.sensorId] = success
+                        Log.d(TAG, "Sensor ${sensor.sensorId} start result: $success")
+                        success
+                    } catch (e: TimeoutCancellationException) {
+                        Log.w(TAG, "Timeout starting sensor ${sensor.sensorId}")
+                        startResults[sensor.sensorId] = false
+                        false
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error starting sensor ${sensor.sensorId}", e)
+                        startResults[sensor.sensorId] = false
+                        false
+                    }
+                }
+            }
+            
+            // Wait for all start operations
+            startJobs.awaitAll()
+            
+            startResults
         }
     }
     
@@ -384,8 +477,14 @@ class SensorCoordinator(
                 
                 Log.i(TAG, "Stopping coordinated recording")
                 
-                // This would coordinate the actual sensor stop
-                delay(COORDINATION_DELAY_MS)
+                // Stop all sensors simultaneously
+                val stopResults = stopAllSensorsInParallel()
+                
+                // Check results
+                val successfulStops = stopResults.count { it.value }
+                val totalSensors = stopResults.size
+                
+                Log.i(TAG, "Coordinated recording stop complete: $successfulStops/$totalSensors sensors stopped")
                 
                 _coordinationStatus.value = CoordinationStatus.READY
                 _isCoordinating.set(false)
@@ -403,22 +502,84 @@ class SensorCoordinator(
     }
     
     /**
+     * Stop all active sensors in parallel
+     */
+    private suspend fun stopAllSensorsInParallel(): Map<String, Boolean> {
+        return withContext(Dispatchers.IO) {
+            val stopResults = mutableMapOf<String, Boolean>()
+            
+            // Create stop jobs for all active sensors
+            val stopJobs = activeSensors.values.map { sensor ->
+                async {
+                    try {
+                        val success = withTimeout(SYNC_TIMEOUT_MS) {
+                            sensor.stopRecording()
+                        }
+                        stopResults[sensor.sensorId] = success
+                        Log.d(TAG, "Sensor ${sensor.sensorId} stop result: $success")
+                        success
+                    } catch (e: TimeoutCancellationException) {
+                        Log.w(TAG, "Timeout stopping sensor ${sensor.sensorId}")
+                        stopResults[sensor.sensorId] = false
+                        false
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error stopping sensor ${sensor.sensorId}", e)
+                        stopResults[sensor.sensorId] = false
+                        false
+                    }
+                }
+            }
+            
+            // Wait for all stop operations
+            stopJobs.awaitAll()
+            
+            stopResults
+        }
+    }
+    
+    /**
      * Distribute sync marker to all active sensors
      */
     suspend fun distributeSyncMarker(eventType: String, metadata: String = ""): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                val timestamp = System.currentTimeMillis()
+                val timestamp = System.nanoTime()
                 
                 Log.d(TAG, "Distributing sync marker: $eventType at $timestamp")
                 
-                // This would send sync markers to all active sensors
-                delay(50) // Simulate distribution delay
+                // Create metadata map
+                val metadataMap = if (metadata.isNotEmpty()) {
+                    mapOf("event_metadata" to metadata, "distributor" to "SensorCoordinator")
+                } else {
+                    mapOf("distributor" to "SensorCoordinator")
+                }
                 
-                _coordinationEvents.emit(CoordinationEvent.SyncMarkerDistributed(timestamp, eventType))
+                // Send sync markers to all active sensors in parallel
+                val syncJobs = activeSensors.values.map { sensor ->
+                    async {
+                        try {
+                            sensor.addSyncMarker(eventType, timestamp, metadataMap)
+                            Log.d(TAG, "Sync marker sent to ${sensor.sensorId}")
+                            true
+                        } catch (e: Exception) {
+                            Log.e(TAG, "Failed to send sync marker to ${sensor.sensorId}", e)
+                            false
+                        }
+                    }
+                }
                 
-                Log.d(TAG, "Sync marker distributed successfully")
-                return@withContext true
+                // Wait for all sync operations
+                val results = syncJobs.awaitAll()
+                val successCount = results.count { it }
+                
+                if (successCount > 0) {
+                    _coordinationEvents.emit(CoordinationEvent.SyncMarkerDistributed(timestamp, eventType))
+                    Log.d(TAG, "Sync marker distributed to $successCount/${activeSensors.size} sensors successfully")
+                    return@withContext true
+                } else {
+                    Log.w(TAG, "Failed to distribute sync marker to any sensors")
+                    return@withContext false
+                }
                 
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to distribute sync marker", e)
