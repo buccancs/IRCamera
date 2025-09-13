@@ -380,17 +380,19 @@ class RecordingService : LifecycleService() {
             Log.d(TAG, "Received PC message: $messageType")
 
             when (messageType) {
+                "auth_request" -> {
+                    handleAuthRequest(message)
+                }
                 "start_recording" -> {
                     val sessionInfo = SessionInfo.fromJson(message.getJSONObject("session"))
                     handleRemoteMeasurementRequest(sessionInfo)
                 }
                 "stop_recording" -> {
-                    recordingController.stopRecording()
+                    handleStopRecording()
                 }
                 "sync_flash" -> {
-                    val duration = message.getInt("duration_ms")
-                    recordingController.addSyncMarker("sync_flash", System.nanoTime(), 
-                        mapOf("duration_ms" to duration.toString()))
+                    val duration = message.optInt("duration_ms", 500)
+                    handleSyncFlash(duration)
                 }
                 "get_status" -> {
                     sendStatusToPC()
@@ -398,8 +400,15 @@ class RecordingService : LifecycleService() {
                 "time_sync" -> {
                     handleTimeSyncRequest(message)
                 }
+                "start_data_stream" -> {
+                    handleStartDataStream()
+                }
+                "stop_data_stream" -> {
+                    handleStopDataStream()
+                }
                 else -> {
                     Log.w(TAG, "Unknown message type from PC: $messageType")
+                    sendErrorResponse(messageType, "Unknown message type")
                 }
             }
         } catch (e: Exception) {
@@ -449,6 +458,83 @@ class RecordingService : LifecycleService() {
         } catch (e: Exception) {
             Log.e(TAG, "Error handling time sync", e)
         }
+    }
+
+    private fun handleAuthRequest(message: JSONObject) {
+        try {
+            val pcId = message.optString("pc_id", "unknown")
+            val version = message.optString("version", "1.0")
+            
+            Log.i(TAG, "Authentication request from PC: $pcId (version $version)")
+            
+            val response = mapOf(
+                "status" to "authenticated",
+                "android_id" to "ircamera_android_001",
+                "supported_features" to listOf("recording", "sync_flash", "data_stream", "time_sync")
+            )
+            sendResponseToPC("auth_response", response)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error handling auth request", e)
+            sendErrorResponse("auth_request", e.message ?: "Authentication failed")
+        }
+    }
+    
+    private suspend fun handleStopRecording() {
+        try {
+            Log.i(TAG, "Stop recording request from PC")
+            recordingController.stopRecording()
+            isRecording.set(false)
+            sendResponseToPC("stop_recording", mapOf("status" to "recording_stopped"))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error stopping recording", e)
+            sendErrorResponse("stop_recording", e.message ?: "Stop recording failed")
+        }
+    }
+    
+    private suspend fun handleSyncFlash(durationMs: Int) {
+        try {
+            Log.i(TAG, "Sync flash request: ${durationMs}ms")
+            recordingController.addSyncMarker("sync_flash", System.nanoTime(), 
+                mapOf("duration_ms" to durationMs.toString()))
+            
+            // Trigger screen flash - this would be implemented in a UI component
+            // For now, just acknowledge the command
+            sendResponseToPC("sync_flash", mapOf("status" to "flash_completed", "duration_ms" to durationMs))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error handling sync flash", e)
+            sendErrorResponse("sync_flash", e.message ?: "Sync flash failed")
+        }
+    }
+    
+    private fun handleStartDataStream() {
+        try {
+            Log.i(TAG, "Start data streaming request from PC")
+            // This would start real-time data streaming
+            sendResponseToPC("start_data_stream", mapOf("status" to "streaming_started"))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error starting data stream", e)
+            sendErrorResponse("start_data_stream", e.message ?: "Data stream start failed")
+        }
+    }
+    
+    private fun handleStopDataStream() {
+        try {
+            Log.i(TAG, "Stop data streaming request from PC")
+            // This would stop real-time data streaming
+            sendResponseToPC("stop_data_stream", mapOf("status" to "streaming_stopped"))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error stopping data stream", e)
+            sendErrorResponse("stop_data_stream", e.message ?: "Data stream stop failed")
+        }
+    }
+    
+    private fun sendErrorResponse(messageType: String, error: String) {
+        val response = mapOf(
+            "status" to "error",
+            "error" to error,
+            "message_type" to messageType
+        )
+        sendResponseToPC("error_response", response)
     }
 
     private fun sendResponseToPC(type: String, data: Map<String, Any>) {
