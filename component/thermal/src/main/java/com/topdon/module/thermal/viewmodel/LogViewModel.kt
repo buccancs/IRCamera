@@ -542,6 +542,7 @@ time
         val userId = SharedManager.getUserId()
 // Query latest saved record time
         when (selectTimeType) {
+            2 -> { // Minute data processing
                 val minuteTime = TimeTool.timeToMinute(System.currentTimeMillis(), 2)
 // Check最New time period有没有dataSynchronize
                 val minuteVolLatestList =
@@ -610,6 +611,7 @@ time
                 AppDatabase.getInstance().thermalMinDao()
                     .deleteRepeatVol(userId)
             }
+            3 -> { // Hour data processing
                 val hourTime = TimeTool.timeToMinute(System.currentTimeMillis(), 3)
 // Check最New time period有没有dataSynchronize
                 val hourVolLatestList =
@@ -668,6 +670,7 @@ time
 // Delete excess data
                 AppDatabase.getInstance().thermalHourDao().deleteRepeatVol(userId)
             }
+            4 -> { // Day data processing
                 val todayStartTime =
                     TimeTool.timeToMinute(System.currentTimeMillis(), 4) // days只update到今days凌晨的data
 // Check今days有没有dataSynchronize

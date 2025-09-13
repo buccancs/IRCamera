@@ -196,7 +196,7 @@ Log.i("123", "modify// 后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.heig
                         yuv: ByteArray,
                         temp: FloatArray,
                     ) {
-refreshimage
+                        // Refresh image processing
                         if (mIrBitmap == null) {
                             mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
                         }
@@ -386,16 +386,16 @@ temperaturedisplay
                 picture()
             }
             1002 -> {
-recording
+                // Recording functionality
                 ToastUtils.showShort("recording")
                 video()
             }
             2001 -> {
-addpoint
+                // Add point functionality
                 addPoint()
             }
             2002 -> {
-addline
+                // Add line functionality
                 addLine()
             }
             2003 -> {
@@ -403,7 +403,7 @@ addline
                 addFence()
             }
             2004 -> {
-addtemperature
+                // Add temperature functionality
                 onTempBtnClick()
             }
             2006 -> {
@@ -411,7 +411,7 @@ addtemperature
                 clearFence()
             }
             in 3000..3010 -> {
-setpseudo-color
+                // Set pseudo-color functionality
                 setColor(event.action)
             }
             in 5000..5010 -> {
