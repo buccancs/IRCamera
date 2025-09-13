@@ -406,7 +406,13 @@ class Camera2System(
             val frameRate = if (caps.supports4k60) 60 else 30
             
             // Prepare MediaRecorder
-            val recorderSurface = videoEngine.prepare(videoFile, videoSize, frameRate, DEFAULT_BITRATE, true)
+            val videoSettings = VideoEngine.VideoSettings(
+                resolution = videoSize,
+                frameRate = frameRate,
+                bitRate = DEFAULT_BITRATE,
+                audioEnabled = true
+            )
+            val recorderSurface = videoEngine.prepare(videoFile, videoSettings)
                 ?: return@withContext false
             
             // Reconfigure session to include recorder surface

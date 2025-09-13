@@ -449,8 +449,8 @@ class DataSynchronizationManager(
             val currentSyncQuality = timeManager.getSyncQuality()
             
             // Estimate timing drift based on sync quality degradation
-            val initialQuality = sessionStart.syncQuality.qualityMs ?: 0.0
-            val currentQualityValue = currentSyncQuality.qualityMs ?: 0.0
+            val initialQuality = (sessionStart.syncQuality.qualityMs ?: 0L).toDouble()
+            val currentQualityValue = (currentSyncQuality.qualityMs ?: 0L).toDouble()
             val estimatedDrift = kotlin.math.abs(currentQualityValue - initialQuality)
             
             val quality = TimingQuality(

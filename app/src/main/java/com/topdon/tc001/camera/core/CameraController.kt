@@ -190,12 +190,7 @@ class CameraController(private val context: Context) {
         
         val sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION) ?: 0
         
-        return DeviceCaps(
-            supportsRaw = supportsRaw,
-            rawSize = rawSize,
-            supports4k60 = supports4k60,
-            sensorOrientation = sensorOrientation
-        )
+        return DeviceCaps.detect(context, cameraId)
     }
     
     private val stateCallback = object : CameraDevice.StateCallback() {

@@ -99,6 +99,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     // PC-to-phone control networking - Phase 1 WebSocket implementation
     private var webSocketClient: WebSocketClient? = null
     private var recordingService: RecordingService? = null
+    private var serviceBinder: RecordingService.RecordingServiceBinder? = null
     private var isServiceBound = false
     private var connectionStatus: ConnectionStatus = ConnectionStatus.DISCONNECTED
     
@@ -121,6 +122,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             val binder = service as RecordingService.RecordingServiceBinder
+            serviceBinder = binder
             recordingService = binder.getService()
             isServiceBound = true
             Log.i(TAG, "Recording service connected")
@@ -131,6 +133,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         
         override fun onServiceDisconnected(name: ComponentName?) {
             recordingService = null
+            serviceBinder = null
             isServiceBound = false
             Log.i(TAG, "Recording service disconnected")
         }
@@ -1124,7 +1127,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             )
             
             // Start recording through the service
-            recordingService?.getRecordingController()?.let { controller ->
+            serviceBinder?.getRecordingController()?.let { controller ->
                 lifecycleScope.launch {
                     controller.startRecording("remote_session_$sessionId")
                 }
@@ -1156,7 +1159,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             )
             
             // Stop recording through the service
-            recordingService?.getRecordingController()?.stopRecording()
+            serviceBinder?.getRecordingController()?.stopRecording()
             
             Toast.makeText(this, "Remote recording stopped", Toast.LENGTH_LONG).show()
             
@@ -1224,7 +1227,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             }
             
             // Start recording via service
-            RecordingService.startRecording(this, sessionDir.absolutePath)
+            serviceBinder?.getRecordingController()?.let { controller ->
+                lifecycleScope.launch {
+                    controller.startRecording(sessionDir.absolutePath)
+                }
+            }
             
             Toast.makeText(this, 
                 "Remote recording started: ${sessionInfo.studyName}", 
@@ -1251,7 +1258,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             
             // Add sync marker to recording if active
             lifecycleScope.launch {
-                recordingService?.getRecordingController()?.addSyncMarker("pc_sync_flash", System.nanoTime())
+                serviceBinder?.getRecordingController()?.addSyncMarker("pc_sync_flash", System.nanoTime())
             }
             
             // Restore original background after duration
@@ -1330,7 +1337,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
      * Enhanced PC connection with better error handling
      */
     fun connectToPC(ipAddress: String, port: Int = 8080) {
-        if (recordingService?.getNetworkClient() == null) {
+        if (serviceBinder?.getNetworkClient() == null) {
             showNetworkError("Network client not initialized")
             return
         }
@@ -1342,7 +1349,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             try {
                 withContext(Dispatchers.IO) {
                     // Try both secure and non-secure connections
-                    val networkClient = recordingService?.getNetworkClient()
+                    val networkClient = serviceBinder?.getNetworkClient()
                     var success = networkClient?.connectToController(ipAddress, port, true) ?: false
                     
                     if (!success) {
@@ -1428,7 +1435,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         return withContext(Dispatchers.IO) {
             try {
                 // Strategy 1: Try last known controllers
-                val networkClient = recordingService?.getNetworkClient()
+                val networkClient = serviceBinder?.getNetworkClient()
                 val controllers = networkClient?.getDiscoveredControllers()
                 if (!controllers.isNullOrEmpty()) {
                     for (controller in controllers) {
@@ -1445,7 +1452,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 }
                 
                 // Strategy 2: Start fresh discovery
-                val networkClient = recordingService?.getNetworkClient()
                 networkClient?.startDiscovery { discoverySuccess ->
                     if (discoverySuccess) {
                         val newControllers = networkClient.getDiscoveredControllers()
@@ -1521,19 +1527,16 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         sb.append("Service Bound: $isServiceBound\n")
         if (isServiceBound && recordingService != null) {
             try {
-                val recordingController = recordingService?.getRecordingController()
+                val recordingController = serviceBinder?.getRecordingController()
                 val summary = recordingController?.getSensorStatusSummary()
                 sb.append("Recording Status: $summary\n")
                 
                 // Add server socket status
-                val serverStatus = recordingService?.getServerStatus()
+                val serverStatus = serviceBinder?.getServerStatus()
                 sb.append("Server Socket: $serverStatus\n")
                 
-                val connectedClients = recordingService?.getConnectedClients()
-                sb.append("Connected PC Clients: ${connectedClients?.size ?: 0}\n")
-                connectedClients?.forEach { client ->
-                    sb.append("  - $client\n")
-                }
+                val connectedClients = serviceBinder?.getConnectedClients()
+                sb.append("Connected PC Clients: $connectedClients\n")
                 
             } catch (e: Exception) {
                 sb.append("Recording Status: Error - ${e.message}\n")
@@ -1736,7 +1739,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 try {
                     val success = withContext(Dispatchers.IO) {
                         // Try secure first, then non-secure
-                        val networkClient = recordingService?.getNetworkClient()
+                        val networkClient = serviceBinder?.getNetworkClient()
                         networkClient?.connectToController(ip, 8080, true) ?: false ||
                         networkClient?.connectToController(ip, 8080, false) ?: false
                     }
@@ -1780,7 +1783,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             webSocketClient = null
             
             // Stop server socket
-            RecordingService.stopServer(this)
+            serviceBinder?.stopServer()
             
             if (isServiceBound) {
                 unbindService(serviceConnection)

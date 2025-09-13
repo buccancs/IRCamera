@@ -80,12 +80,17 @@ class RecordingService : LifecycleService() {
     
     inner class RecordingServiceBinder : Binder() {
         fun getService(): RecordingService = this@RecordingService
-        fun getRecordingController(): RecordingController = recordingController
-        fun getNetworkServer(): NetworkServer = networkServer
-        fun getNetworkClient(): NetworkClient = networkClient
+        fun getRecordingController(): RecordingController? = if (::recordingController.isInitialized) recordingController else null
+        fun getNetworkServer(): NetworkServer? = if (::networkServer.isInitialized) networkServer else null
+        fun getNetworkClient(): NetworkClient? = if (::networkClient.isInitialized) networkClient else null
         fun isConnectedToPC(): Boolean = isConnectedToPC.get()
-        fun getServerStatus(): String = if (networkServer.isRunning()) "Running" else "Stopped"
-        fun getConnectedClients(): Int = if (networkServer.isClientConnected()) 1 else 0
+        fun getServerStatus(): String = if (::networkServer.isInitialized && networkServer.isRunning()) "Running" else "Stopped"
+        fun getConnectedClients(): Int = if (::networkServer.isInitialized && networkServer.isClientConnected()) 1 else 0
+        fun stopServer() {
+            if (::networkServer.isInitialized) {
+                lifecycleScope.launch { networkServer.stop() }
+            }
+        }
     }
 
     override fun onCreate() {
