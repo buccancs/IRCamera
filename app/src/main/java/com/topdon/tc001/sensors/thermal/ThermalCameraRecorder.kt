@@ -609,7 +609,7 @@ class ThermalCameraRecorder(
                     
                     // Log progress every 30 frames for debugging
                     if (frameCount.get() % 30 == 0L) {
-                        Log.d(TAG, "Simulation mode: generated ${frameCount.get()} thermal frames (${String.format("%.1f", frameCount.get() / (thermalFrameRate * (System.nanoTime() - recordingStartTime) / 1_000_000_000.0))})s")
+                        Log.d(TAG, "Simulation mode: generated ${frameCount.get()} thermal frames (${String.format("%.1f", frameCount.get() / (thermalFrameRate * (System.nanoTime() - recordingStartTime) / 1_000_000_000.0))}s")
                     }
                     
                     delay(frameInterval) // Maintain proper frame rate
