@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * messageRelease者、被Observer
+ * 消息发布者、被观察者
  * <p>
  * date: 2019/8/3 13:14
  * author: chuanfeng.bi
@@ -27,8 +27,8 @@ public final class Observable {
     private final ObserverMethodHelper helper;
 
     /**
-     * @param posterDispatcher            method分发者
-     * @param isObserveAnnotationRequired 是否强制使用{@link Observe}注解才会收到被Observer的message。强制使用的话，性能会好一些
+     * @param posterDispatcher            方法分发者
+     * @param isObserveAnnotationRequired 是否强制使用{@link Observe}注解才会收到被观察者的消息。强制使用的话，性能会好一些
      */
     public Observable(@NonNull PosterDispatcher posterDispatcher, boolean isObserveAnnotationRequired) {
         this.posterDispatcher = posterDispatcher;
@@ -36,16 +36,16 @@ public final class Observable {
     }
 
     /**
-     * method分发者
+     * 方法分发者
      */
     public PosterDispatcher getPosterDispatcher() {
         return posterDispatcher;
     }
 
     /**
-     * 将Observeradd到Register集合里
+     * 将观察者添加到注册集合里
      *
-     * @param observer 需要Register的Observer
+     * @param observer 需要注册的观察者
      */
     public void registerObserver(@NonNull Observer observer) {
         Objects.requireNonNull(observer, "observer can't be null");
@@ -70,9 +70,9 @@ public final class Observable {
     }
 
     /**
-     * 查询Observer是否Register
+     * 查询观察者是否注册
      *
-     * @param observer 要查询的Observer
+     * @param observer 要查询的观察者
      */
     public boolean isRegistered(@NonNull Observer observer) {
         synchronized (observerInfos) {
@@ -86,9 +86,9 @@ public final class Observable {
     }
 
     /**
-     * 将Observer从Register集合里移除
+     * 将观察者从注册集合里移除
      *
-     * @param observer 需要CancelRegister的Observer
+     * @param observer 需要取消注册的观察者
      */
     public void unregisterObserver(@NonNull Observer observer) {
         synchronized (observerInfos) {
@@ -103,7 +103,7 @@ public final class Observable {
     }
 
     /**
-     * 将所有Observer从Register集合中移除
+     * 将所有观察者从注册集合中移除
      */
     public void unregisterAll() {
         synchronized (observerInfos) {
@@ -126,19 +126,19 @@ public final class Observable {
     }
 
     /**
-     * notification所有ObserverEvent变化
+     * 通知所有观察者事件变化
      *
-     * @param methodName 要调用Observer的method名
-     * @param parameters methodparameterinfo对
+     * @param methodName 要调用观察者的方法名
+     * @param parameters 方法参数信息对
      */
     public void notifyObservers(@NonNull String methodName, @Nullable MethodInfo.Parameter... parameters) {
         notifyObservers(new MethodInfo(methodName, parameters));
     }
 
     /**
-     * notification所有ObserverEvent变化
+     * 通知所有观察者事件变化
      *
-     * @param info methodinfo实例
+     * @param info 方法信息实例
      */
     public void notifyObservers(@NonNull MethodInfo info) {
         List<ObserverInfo> infos = getObserverInfos();

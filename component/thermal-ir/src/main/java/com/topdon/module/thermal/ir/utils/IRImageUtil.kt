@@ -26,9 +26,9 @@ import com.topdon.lib.ui.R as UiR
  */
 object IRImageUtil {
     /**
-伽马contrast
-@param contrast      contrast 1: 复位  0: Enhance   2: 减弱变灰
-@param brightness    brightness
+\1伽马对比度
+\1@param contrast      对比度 1: 复位  0: 增强   2: 减弱变灰
+\1@param brightness    亮度
      */
     fun showContrast(
         imageView: ImageView,
@@ -50,10 +50,10 @@ object IRImageUtil {
             lookUpTable.put(0, 0, lookUpTableData)
             val srcMat = Utils.loadResource(com.blankj.utilcode.util.Utils.getApp(), UiR.drawable.ic_main_menu_battery) // BGR
             val dstMat = Mat()
-            Core.LUT(srcMat, lookUpTable, dstMat) // contrast
-            Core.add(dstMat, Scalar(brightness, brightness, brightness), dstMat) // brightness
+            Core.LUT(srcMat, lookUpTable, dstMat) // 对比度
+            Core.add(dstMat, Scalar(brightness, brightness, brightness), dstMat) // 亮度
             val resultMat = Mat()
-            Imgproc.cvtColor(dstMat, resultMat, Imgproc.COLOR_BGR2RGBA) // android对应imageformat
+            Imgproc.cvtColor(dstMat, resultMat, Imgproc.COLOR_BGR2RGBA) // android对应图像格式
             val bitmap = Bitmap.createBitmap(resultMat.size().width.toInt(), resultMat.size().height.toInt(), Bitmap.Config.ARGB_8888)
             Utils.matToBitmap(resultMat, bitmap)
             imageView.setImageBitmap(bitmap)
@@ -65,10 +65,10 @@ object IRImageUtil {
     }
 
     /**
-伽马曲line
+\1伽马曲线
      * https://www.cnblogs.com/AlgrithmsRookie/p/13212369.html
-@param a     [0 ~ 1]交界point
-@param gamma 变化强度
+\1@param a     [0 ~ 1]交界点
+\1@param gamma 变化强度
      */
     private fun lutGamma(
         @FloatRange(from = 0.0, to = 1.0) x: Double,
@@ -85,10 +85,10 @@ object IRImageUtil {
     }
 
     /**
-锐化
+\1锐化
      * @param sharpen [1,3,5]
      *
-kernel_size  锐化程度,set是奇正数
+\1kernel_size  锐化程度,set是奇正数
      */
     private fun showSharpen(
         imageView: ImageView,
@@ -112,8 +112,8 @@ kernel_size  锐化程度,set是奇正数
         Core.convertScaleAbs(dstMat, absDst)
         Log.w("123", "convertScaleAbs absDst: $absDst")
         val preMat = Mat()
-        Core.addWeighted(srcMat, 1.0, absDst, sharpen, 0.0, preMat) // fusion
-        Imgproc.cvtColor(preMat, dstMat, Imgproc.COLOR_BGR2RGBA) // android对应imageformat
+        Core.addWeighted(srcMat, 1.0, absDst, sharpen, 0.0, preMat) // 融合
+        Imgproc.cvtColor(preMat, dstMat, Imgproc.COLOR_BGR2RGBA) // android对应图像格式
         val bitmap = Bitmap.createBitmap(dstMat.size().width.toInt(), dstMat.size().height.toInt(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(dstMat, bitmap)
         imageView.setImageBitmap(bitmap)

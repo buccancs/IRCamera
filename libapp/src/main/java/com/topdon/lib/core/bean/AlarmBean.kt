@@ -73,7 +73,7 @@ data class AlarmBean(
             .array()
 
     /**
-     * 判断temperature报警是否开启
+     * 判断温度报警是否开启
      */
     fun isOpen(): Boolean = isHighOpen || isLowOpen
 }

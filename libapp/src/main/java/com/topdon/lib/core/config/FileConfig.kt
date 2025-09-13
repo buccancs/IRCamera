@@ -10,8 +10,8 @@ import java.io.File
 
 object FileConfig {
     /**
-     * Get/Retrieve房屋检测cache目录下指定file.
-     * 注意，不执行子filecreate逻辑，若有需要需自行create.
+     * 获取房屋检测缓存目录下指定文件.
+     * 注意，不执行子文件创建逻辑，若有需要需自行创建.
      */
     fun getDetectImageDir(
         context: Context,
@@ -30,8 +30,8 @@ object FileConfig {
     }
 
     /**
-     * Get/Retrieve房屋检测-签名imagecache目录.
-     * 注意，不执行子filecreate逻辑，若有需要需自行create.
+     * 获取房屋检测-签名图片缓存目录.
+     * 注意，不执行子文件创建逻辑，若有需要需自行创建.
      */
     fun getSignImageDir(
         context: Context,
@@ -50,12 +50,12 @@ object FileConfig {
     }
 
     /**
-     * firmwareUpgrade包Install目录.
+     * 固件升级包安装目录.
      */
     fun getFirmwareFile(filename: String): File = File(Utils.getApp().getExternalFilesDir("firmware"), filename)
 
     /**
-     * imagereportpath.
+     * 图片报告路径.
      */
     @JvmStatic
     fun getPdfDir(): String {
@@ -73,7 +73,7 @@ object FileConfig {
     }
 
     /**
-     * temperature监控export Excel 目录.
+     * 温度监控导出 Excel 目录.
      */
     @JvmStatic
     val excelDir: String
@@ -106,7 +106,7 @@ object FileConfig {
         }
 
     /**
-     * 老 APP TC001 图库目录，仅用于相册Migration
+     * 老 APP TC001 图库目录，仅用于相册迁移
      */
     @JvmStatic
     val oldTc001GalleryDir: String
@@ -128,7 +128,7 @@ object FileConfig {
         }
 
     /**
-     * 有linedevice 图库目录
+     * 有线设备 图库目录
      */
     @JvmStatic
     val lineGalleryDir: String
@@ -173,7 +173,7 @@ object FileConfig {
         }
 
     /**
-     * 有linedevice 手机本地图库temperaturedata目录
+     * 有线设备 手机本地图库温度数据目录
      */
     @JvmStatic
     val lineIrGalleryDir: String
@@ -188,7 +188,7 @@ object FileConfig {
         }
 
     /**
-     * TC007 手机本地图库temperaturedata目录
+     * TC007 手机本地图库温度数据目录
      */
     @JvmStatic
     val tc007IrGalleryDir: String
@@ -203,7 +203,7 @@ object FileConfig {
         }
 
     /**
-     * 外部storage/Documents/APPname/house
+     * 外部存储/Documents/APP名称/house
      */
     @JvmStatic
     val documentsDir: String

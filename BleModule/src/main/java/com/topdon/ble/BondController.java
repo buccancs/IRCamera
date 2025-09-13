@@ -10,7 +10,7 @@ public interface BondController {
     /**
      * 配对控制
      * 
-     * @param device device
+     * @param device 设备
      */
     boolean accept(Device device);
 }

@@ -18,12 +18,6 @@ import java.io.InputStream
 import java.io.OutputStream
 
 object GalleryRepository {
-/**
- * Type definition for dir classification.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
     enum class DirType {
         LINE,
         TC007,
@@ -31,9 +25,6 @@ object GalleryRepository {
         TS004_REMOTE,
     }
 
-    /**
-     * Executes copysourdir functionality.
-     */
     private fun copySourDir(
         sourceDir: File,
         targetDir: File,
@@ -52,7 +43,7 @@ object GalleryRepository {
             if (!targetDir.exists()) {
                 targetDir.mkdirs()
             }
-            
+            // 遍历要复制该目录下的全部文件
             fileList?.forEach {
                 val path = sourceDir.absolutePath + File.separator + it.name
                 copyPictureFile(path, targetDir.absolutePath + File.separator + it.name)
@@ -63,9 +54,6 @@ object GalleryRepository {
         }
     }
 
-    /**
-     * Executes copypicturefile functionality.
-     */
     private fun copyPictureFile(
         oldPath: String,
         newPath: String,
@@ -87,7 +75,7 @@ object GalleryRepository {
     }
 
     /**
-     * 读取本地图库指定devicetype的最新file
+     * 读取本地图库指定设备类型的最新文件
      */
     fun readLatest(dirType: DirType): String {
         var firstPath = ""
@@ -96,7 +84,7 @@ object GalleryRepository {
             val dirFile = File(path)
             if (dirFile.isDirectory) {
                 val files = dirFile.listFiles()!!
-                
+                // 按时间倒序
                 files.sortByDescending {
                     it.lastModified()
                 }
@@ -106,16 +94,16 @@ object GalleryRepository {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            XLog.e("读取图库failed: ${e.message}")
+            XLog.e("读取图库失败: ${e.message}")
             return ""
         }
         return firstPath
     }
 
     /**
-     * Paginationload
-     * @param pageNum 页码，从1start
-     * @param pageCount 每页data条数
+     * 分页加载
+     * @param pageNum 页码，从1开始
+     * @param pageCount 每页数据条数
      */
     suspend fun loadByPage(
         isVideo: Boolean,
@@ -147,7 +135,7 @@ object GalleryRepository {
                         }
                     }
                 } catch (e: Exception) {
-                    XLog.e("读取图库failed: ${e.message}")
+                    XLog.e("读取图库失败: ${e.message}")
                 }
             }
 
@@ -156,7 +144,7 @@ object GalleryRepository {
     }
 
     /**
-     * 仅供生成report使用的，load所有指定devicetype的image.
+     * 仅供生成报告使用的，加载所有指定设备类型的图片.
      */
     suspend fun loadAllReportImg(dirType: DirType): ArrayList<GalleryBean> =
         withContext(Dispatchers.IO) {
@@ -172,13 +160,13 @@ object GalleryRepository {
                     }
                 }
             } catch (e: Exception) {
-                XLog.e("读取图库failed: ${e.message}")
+                XLog.e("读取图库失败: ${e.message}")
             }
             return@withContext resultList
         }
 
     /**
-     * load本地所有指定type的image或video列表.
+     * 加载本地所有指定类型的图片或视频列表.
      */
     private fun loadAllLocale(
         isVideo: Boolean,
@@ -211,7 +199,7 @@ object GalleryRepository {
                 resultList.add(it)
             }
         }
-        
+        // 按时间倒序
         resultList.sortByDescending {
             it.lastModified()
         }
@@ -219,16 +207,16 @@ object GalleryRepository {
     }
 
     /**
-     * 使用 MediaStore API 而不是 File load本地所有指定type的image或video列表.
+     * 使用 MediaStore API 而不是 File 加载本地所有指定类型的图片或视频列表.
      */
     private fun loadAllLocaleByMediaStore(dirType: DirType): Array<out File> {
         val tc001Files: MutableList<File> = ArrayList()
-        
+        // 定义查询的列
         val projection =
             arrayOf(
                 MediaStore.Images.Media.DATA,
             )
-        // 定义查询条件，指定目标file夹path
+        // 定义查询条件，指定目标文件夹路径
         val selection = MediaStore.Images.Media.DATA + " LIKE ?"
         val path =
             when (dirType) {
@@ -237,9 +225,9 @@ object GalleryRepository {
                 else -> "%DCIM/TS004%"
             }
         val selectionArgs = arrayOf(path)
-        // Get/RetrieveMediaStore ContentResolver
+        // 获取MediaStore ContentResolver
         val contentResolver: ContentResolver = Utils.getApp().contentResolver
-        
+        // 查询媒体库
         val queryUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val cursor =
             contentResolver.query(

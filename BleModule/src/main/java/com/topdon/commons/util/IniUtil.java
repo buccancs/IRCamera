@@ -15,6 +15,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
+/**
+ *
+ */
 public class IniUtil {
     private static String NAME = "Link";
     private static final String LINK = "link";
@@ -47,9 +50,9 @@ public class IniUtil {
     }
 
     /**
-     * Get/Retrieve车型名字
+     * 获取车型名字
      *
-     * @param path 车型path
+     * @param path 车型路径
      * @return String
      */
     public static String getVehicleName(String path) {
@@ -61,15 +64,16 @@ public class IniUtil {
         return readFileInfo(path + "/Diag.ini");
     }
 
+
     /**
-     * 读取file
+     * 读取文件
      *
-     * @param path path
+     * @param path 路径
      */
     private static String readFileInfo(String path) {
         String name = "";
         File file = new File(path);
-        //如果path是传递过来的parameter，可以做一个非目录的判断
+        //如果path是传递过来的参数，可以做一个非目录的判断
         if (file.isDirectory()) {
             LLog.d("TestFile", "The File doesn't not exist.");
         } else {
@@ -95,6 +99,7 @@ public class IniUtil {
         }
         return name;
     }
+
 
     public static String getVersion(String path, String name) {
         File file = new File(path + "/Diag.ini");
@@ -142,8 +147,9 @@ public class IniUtil {
         return "";
     }
 
+
     /**
-     * Get/Retrieve保养type
+     * 获取保养类型
      *
      * @param path
      * @param name
@@ -301,8 +307,9 @@ public class IniUtil {
         }
     }
 
+
     /**
-     * Get/Retrieve保养type
+     * 获取保养类型
      *
      * @param path
      * @param name

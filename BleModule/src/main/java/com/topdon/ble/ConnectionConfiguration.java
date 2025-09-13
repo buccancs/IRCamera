@@ -3,6 +3,7 @@ package com.topdon.ble;
 import android.bluetooth.BluetoothDevice;
 import android.os.Build;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -47,7 +48,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * connectionsuccess后延时多久start执行发现service
+     * 连接成功后延时多久开始执行发现服务
      */
     public ConnectionConfiguration setDiscoverServicesDelayMillis(int discoverServicesDelayMillis) {
         this.discoverServicesDelayMillis = discoverServicesDelayMillis;
@@ -55,7 +56,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * connection超时时长
+     * 连接超时时长
      */
     public ConnectionConfiguration setConnectTimeoutMillis(int connectTimeoutMillis) {
         if (requestTimeoutMillis >= 1000) {
@@ -83,7 +84,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 不经过Search，直接使用之间的MAC地址connection的次数，重连达到此次数后，RestoreSearch到device再进行connection
+     * 不经过搜索，直接使用之间的MAC地址连接的次数，重连达到此次数后，恢复搜索到设备再进行连接
      */
     public ConnectionConfiguration setReconnectImmediatelyMaxTimes(int reconnectImmediatelyMaxTimes) {
         this.reconnectImmediatelyMaxTimes = reconnectImmediatelyMaxTimes;
@@ -99,7 +100,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 双模bluetooth的传输mode
+     * 双模蓝牙的传输模式
      *
      * @param transport {@link BluetoothDevice#TRANSPORT_AUTO}其中之一
      */
@@ -110,7 +111,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 物理层的mode
+     * 物理层的模式
      */
     @RequiresApi(Build.VERSION_CODES.O)
     public ConnectionConfiguration setPhy(int phy) {
@@ -119,7 +120,7 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * 自动重连时，Search次数与间隔的对应关系，first：已尝试次数，second：间隔，单位为毫秒。如Search了1次，间隔2秒，Search了5次，间隔30秒等
+     * 自动重连时，搜索次数与间隔的对应关系，first：已尝试次数，second：间隔，单位为毫秒。如搜索了1次，间隔2秒，搜索了5次，间隔30秒等
      */
     public ConnectionConfiguration setScanIntervalPairsInAutoReconnection(List<Pair<Integer, Integer>> parameters) {
         Inspector.requireNonNull(parameters, "parameters can't be null");
@@ -129,11 +130,11 @@ public class ConnectionConfiguration {
     }
 
     /**
-     * settings默认的写特征configuration
+     * 设置默认的写特征配置
      *
-     * @param service        特征所在的serviceUUID
+     * @param service        特征所在的服务UUID
      * @param characteristic 特征的UUID
-     * @param options        configuration
+     * @param options        配置
      */
     public ConnectionConfiguration setDefaultWriteOptions(UUID service, UUID characteristic, WriteOptions options) {
         Inspector.requireNonNull(service, "service can't be null");

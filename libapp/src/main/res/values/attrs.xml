@@ -38,7 +38,7 @@
         <attr name="leftTextColor" format="reference|color" />
         <attr name="rightTextColor" format="reference|color" />
         <attr name="isInitLeft" format="boolean" />   <!-- 是否将左侧 View Settings为返回箭头 -->
-        <attr name="isTitleCenter" format="boolean" /><!-- Titletext是否居中 true-居中 false-居左 -->
+        <attr name="isTitleCenter" format="boolean" /><!-- Title文字是否居中 true-居中 false-居左 -->
     </declare-styleable>
 
     <!-- Loading dots attributes -->

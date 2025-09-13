@@ -6,7 +6,7 @@ import android.os.Looper;
 import java.lang.ref.WeakReference;
 
 /**
- * @Desc Handle软引用工具class
+ * @Desc Handle软引用工具类
  * @ClassName WeakReferenceHandler
  * @Email 616862466@qq.com
  * @Author 子墨

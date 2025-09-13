@@ -25,18 +25,18 @@ import com.topdon.lib.core.R as RCore // For drawable resources from libapp
 import com.topdon.lib.ui.R as RUi // For string resources from libui
 
 /**
-// 颜色mode（自定义rendering）setinterface.
+\1颜色模式（自定义rendering）setinterface.
  *
-// 需要传递
-- [ExtraKeyConfig.IS_TC007] - 是否set TC007 的自定义rendering
-- [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义rendering相关set项.（可选，不传则从 SharedPreferences 中读取configuration.）
+\1需要传递
+\1- [ExtraKeyConfig.IS_TC007] - 是否set TC007 的自定义rendering
+\1- [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义rendering相关set项.（可选，不传则从 SharedPreferences 中读取configuration.）
  *
-// Return result
-- [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义rendering相关set项.
+\1返回 result
+\1- [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义rendering相关set项.
  */
 class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     /**
-// 从上一interface传递过来的，自定义rendering相关set项.
+\1从上一interface传递过来的，自定义rendering相关set项.
      */
     private lateinit var customPseudoBean: CustomPseudoBean
 
@@ -147,7 +147,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
-        // Load temperature configuration
+\1loadtemperatureconfiguration
         etMaxTemp.setText(UnitTools.showNoUnit(customPseudoBean.maxTemp))
         etMinTemp.setText(UnitTools.showNoUnit(customPseudoBean.minTemp))
         tvMaxTempUnit.text = UnitTools.showUnit()
@@ -155,7 +155,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
         switchColorType(customPseudoBean.isColorCustom)
 
-        // Load custom color configuration
+\1load自定义颜色configuration
         pseudoPickView.onSelectChangeListener = {
             reset6CustomColor()
             colorSelectView.reset()
@@ -178,7 +178,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
             customPseudoBean.getCustomPlaces(),
         )
 
-        // Load recommended color configuration
+\1load推荐颜色configuration
         viewRecommendColor1.background = buildRectDrawableArray(ColorRecommend.colorList1)
         viewRecommendColor2.background = buildRectDrawableArray(ColorRecommend.colorList2)
         viewRecommendColor3.background = buildRectDrawableArray(ColorRecommend.getColorByIndex(isTC007, 2))
@@ -280,14 +280,14 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 pseudoPickView.refreshColor(0xffffffff.toInt())
             }
 
-            ivCustomAdd -> { // 颜色-自定义-add
+            ivCustomAdd -> { // 颜色-自定义-添加
                 pseudoPickView.add()
             }
-            ivCustomDel -> { // 颜色-自定义-delete
+            ivCustomDel -> { // 颜色-自定义-删除
                 pseudoPickView.del()
             }
 
-            viewRecommendBgColor1 -> { // 颜色-推荐-iron red
+            viewRecommendBgColor1 -> { // 颜色-推荐-铁红
                 switchRecommendColorIndex(0)
             }
             viewRecommendBgColor2 -> { // 颜色-推荐-黑红
@@ -303,7 +303,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 switchRecommendColorIndex(4)
             }
 
-            clOverGrey -> { // grayscale渐变
+            clOverGrey -> { // 灰度渐变
                 switchUseGray(true)
             }
             clOverColor -> { // 等色
@@ -356,7 +356,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 setResult(RESULT_OK, resultIntent)
                 finish()
             }
-            tvCancel -> { // Cancel
+            tvCancel -> { // 取消
                 setResult(RESULT_CANCELED)
                 finish()
             }
@@ -364,8 +364,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-// 在 动态rendering 与 自定义 之间switch.
-@param isToCustom true-switch到自定义 false-switch到动态rendering
+\1在 动态rendering 与 自定义 之间切换.
+\1@param isToCustom true-切换到自定义 false-切换到动态rendering
      */
     private fun switchDynamicCustom(isToCustom: Boolean) {
         customPseudoBean.isUseCustomPseudo = isToCustom
@@ -381,8 +381,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-// 在自定义rendering-颜色set中的 自定义 与 推荐 之间switch.
-@param isToCustom true-switch到自定义 false-switch到推荐
+\1在自定义rendering-颜色set中的 自定义 与 推荐 之间切换.
+\1@param isToCustom true-切换到自定义 false-切换到推荐
      */
     private fun switchColorType(isToCustom: Boolean) {
         customPseudoBean.isColorCustom = isToCustom
@@ -395,7 +395,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-// 将自定义颜色set中，6个预设color valuereset为均未selectedstate.
+\1将自定义颜色set中，6个预设color value重置为均未选中状态.
      */
     private fun reset6CustomColor() {
         viewCustomColor1.isSelected = false
@@ -407,8 +407,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-switch 推荐颜色 中的 5 个option.
-@param 0-iron red 1-黑红 2-自然 3-岩浆 4-辉金
+\1切换 推荐颜色 中的 5 个option.
+\1@param 0-铁红 1-黑红 2-自然 3-岩浆 4-辉金
      */
     private fun switchRecommendColorIndex(index: Int) {
         when (customPseudoBean.customRecommendIndex) {

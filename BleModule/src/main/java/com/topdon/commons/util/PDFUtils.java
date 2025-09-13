@@ -11,7 +11,7 @@ package com.topdon.commons.util;
 public class PDFUtils {
 
     /**
-     * processingPDF特殊符号打不开的问题
+     * 处理PDF特殊符号打不开的问题
      * //+，空格，/，?，%，#，&，=
      *
      * @param name pdfname

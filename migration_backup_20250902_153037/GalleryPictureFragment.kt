@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_gallery_picture.*
 import java.io.File
 
 /**
- * image
+ * 图片
  */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -47,7 +47,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                     index: Int,
                     path: String,
                 ) {
-                    TipDialog.Builder(requireContext()).setMessage("exportimage")
+                    TipDialog.Builder(requireContext()).setMessage("导出图片")
                         .setPositiveListener("分享") {
                             share(path)
                         }
@@ -65,13 +65,13 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     /**
-     * 分享image
+     * 分享图片
      */
     fun share(path: String) {
         val file = File(path)
         var intent = Intent()
-        intent.action = Intent.ACTION_SEND // settings分享行为
-        intent.type = "image/*" // settings分享内容的type
+        intent.action = Intent.ACTION_SEND // 设置分享行为
+        intent.type = "image/*" // 设置分享内容的类型
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "${requireContext().packageName}.fileprovider"
@@ -80,15 +80,15 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                 Uri.fromFile(file)
             }
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent = Intent.createChooser(intent, "分享image")
+        intent = Intent.createChooser(intent, "分享图片")
         startActivity(intent)
     }
 
     fun previewPicture(path: String) {
         val imageEngine = GlideImageEngine()
         MNImageBrowser.with(context) // 当前位置
-            .setCurrentPosition(0) // image引擎
-            .setImageEngine(imageEngine) // image集合
+            .setCurrentPosition(0) // 图片引擎
+            .setImageEngine(imageEngine) // 图片集合
             .setImageUrl(path)
             .show()
     }

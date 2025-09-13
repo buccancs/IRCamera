@@ -32,7 +32,7 @@ import com.topdon.lib.core.R as LibR
 class PdfViewModel : BaseViewModel() {
     val listData = MutableLiveData<ReportData?>()
 
-getreport列表
+\1get报告列表
     fun getReportData(
         isTC007: Boolean,
         page: Int,
@@ -82,7 +82,7 @@ getreport列表
                     result?.msg = p0?.message
                     result?.code = -1
                     downLatch.countDown()
-                    TLog.e("bcf", "Get/Retrievereport列表failed：" + p0?.message)
+                    TLog.e("bcf", "获取报告列表失败：" + p0?.message)
                 }
 
                 override fun onFail(

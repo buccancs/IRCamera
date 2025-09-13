@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * 日期时间data实体。
+ * 日期时间数据实体。
  * <pre>
  *     时间单位换算：
  *         // 1分 = 60秒

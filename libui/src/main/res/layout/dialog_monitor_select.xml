@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-        <!-- point -->
+        <!-- 点 -->
         <TextView
             android:id="@+id/tv_point"
             android:layout_width="0dp"
@@ -61,7 +61,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_point"
             app:layout_constraintBottom_toBottomOf="@id/tv_point" />
 
-        <!-- line -->
+        <!-- 线 -->
         <TextView
             android:id="@+id/tv_line"
             android:layout_width="0dp"
@@ -90,7 +90,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_line"
             app:layout_constraintBottom_toBottomOf="@id/tv_line" />
 
-        <!-- area -->
+        <!-- 面 -->
         <TextView
             android:id="@+id/tv_rect"
             android:layout_width="0dp"

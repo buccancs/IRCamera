@@ -11,13 +11,13 @@ import java.util.UUID;
  */
 public interface Request {
     /**
-     * device
+     * 设备
      */
     @NonNull
     Device getDevice();
 
     /**
-     * 请求type
+     * 请求类型
      */
     @NonNull
     RequestType getType();
@@ -29,7 +29,7 @@ public interface Request {
     String getTag();
 
     /**
-     * serviceUUID
+     * 服务UUID
      */
     @Nullable
     UUID getService();
@@ -49,7 +49,7 @@ public interface Request {
     /**
      * 执行请求
      *
-     * @param connection 请求执行的connection
+     * @param connection 请求执行的连接
      */
     void execute(Connection connection);
 }

@@ -25,7 +25,7 @@
         android:drawablePadding="6dp"
         android:drawableEnd="@drawable/svg_triangle_down_ff"
         android:visibility="gone"
-        tools:text="有linedevice"
+        tools:text="有线设备"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/title_view"

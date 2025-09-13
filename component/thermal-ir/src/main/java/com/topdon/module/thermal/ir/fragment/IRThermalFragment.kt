@@ -32,8 +32,8 @@ import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
  */
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
     /**
-从上一interface传递过来的，当前是否为 TC007 devicetype.
-true-TC007 false-其他插件式device
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -83,7 +83,7 @@ true-TC007 false-其他插件式device
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-要是当前已connection TS004、TC007，切到流量上，不然LoginRegister意见反馈那些没网
+\1要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(true)
                     } else
@@ -135,14 +135,14 @@ true-TC007 false-其他插件式device
     }
 
     /**
-主动检测connectiondevice
+\1主动检测连接device
      */
     private fun checkConnect() {
         if (DeviceTools.isConnect(isAutoRequest = false)) {
             connected()
         } else {
             disConnected()
-            if (DeviceTools.findUsbDevice() != null) { // 找到device,但不能connection
+            if (DeviceTools.findUsbDevice() != null) { // 找到设备,但不能连接
                 showConnectTip()
             }
         }
@@ -168,7 +168,7 @@ true-TC007 false-其他插件式device
             }
             tvMainEnter -> {
                 if (!DeviceTools.isConnect()) {
-没有接入device不需要tip，有系统Authorizationtip框
+\1没有接入device不需要提示，有系统授权提示框
                     if (DeviceTools.findUsbDevice() == null) {
                         activity?.let {
                             TipDialog.Builder(it)
@@ -199,7 +199,7 @@ true-TC007 false-其他插件式device
                                         doNotAskAgain: Boolean,
                                     ) {
                                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+\1拒绝授权并且不再提醒
                                             context?.let {
                                                 TipDialog.Builder(it)
                                                     .setTitleMessage(getString(R.string.app_tip))
@@ -219,12 +219,12 @@ true-TC007 false-其他插件式device
                     }
                 }
             }
-            cl07ConnectTips -> { // TC007 connectiontip
+            cl07ConnectTips -> { // TC007 连接提示
                 NavigationManager.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
                     .navigation(requireContext())
             }
-            tv07Connect -> { // TC007 connectiondevice
+            tv07Connect -> { // TC007 连接设备
                 NavigationManager.getInstance()
                     .build(RouterConfig.IR_DEVICE_ADD)
                     .withBoolean("isTS004", false)
@@ -237,9 +237,9 @@ true-TC007 false-其他插件式device
 
     private var isCancelUpdateVersion = false
 
-针对android10 usbconnection问题,提供android 27version
+\1针对android10 usb连接问题,提供android 27版本
     private fun showConnectTip() {
-targetSdk高于27且android os为10
+\1targetSdk高于27且android os为10
         if (requireContext().applicationInfo.targetSdkVersion >= Build.VERSION_CODES.P &&
             Build.VERSION.SDK_INT == Build.VERSION_CODES.Q
         ) {
@@ -305,7 +305,7 @@ targetSdk高于27且android os为10
     }
 
     /**
-动态申请Permission
+\1动态申请权限
      */
     private fun initStoragePermission(permissionList: List<String>) {
     }

@@ -47,7 +47,7 @@ class SettingCheckAdapter(val context: Context) :
                 holder.btn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
             }
             holder.btn.setOnClickListener {
-                Log.w("123", "file: ${datas[position]}")
+                Log.w("123", "文件: ${datas[position]}")
                 listener?.onClick(position, dataTimes[position])
             }
         }

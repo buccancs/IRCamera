@@ -127,16 +127,16 @@ object Logger {
         }
     }
 
-    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // Logfile在sdcard中的path
+    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // 日志文件在sdcard中的路径
 
-    private val MYLOGFILEName = "Log.txt" // 本class输出的Logfilename
+    private val MYLOGFILEName = "Log.txt" // 本类输出的日志文件名称
 
-    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // Log的输出format
+    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // 日志的输出格式
 
-    private val logfile = SimpleDateFormat("yyyy-MM-dd") // Logfileformat
+    private val logfile = SimpleDateFormat("yyyy-MM-dd") // 日志文件格式
 
     /**
-     * OpenLogfile并写入Log
+     * 打开日志文件并写入日志
      * @param mylogtype
      * @param tag
      * @param text
@@ -144,7 +144,7 @@ object Logger {
     fun f(
         tag: String,
         text: String,
-    ) { // 新建或OpenLogfile
+    ) { // 新建或打开日志文件
         val nowtime = Date()
         val needWriteFiel = logfile.format(nowtime)
         val needWriteMessage = myLogSdf.format(nowtime) + "    " + "    " + tag + "    " + text
@@ -160,7 +160,7 @@ object Logger {
             }
         }
         try {
-            val filerWriter = FileWriter(file, true) // 后area这个parameter代表是不是要接上file中原来的data，不进行覆盖
+            val filerWriter = FileWriter(file, true) // 后面这个参数代表是不是要接上文件中原来的数据，不进行覆盖
             val bufWriter = BufferedWriter(filerWriter)
             bufWriter.write(needWriteMessage)
             bufWriter.newLine()

@@ -12,21 +12,15 @@ import com.topdon.lib.core.databinding.DialogFirmwareUpBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * firmwareUpgrade有新versiontip弹框.
+ * 固件升级有新版本提示弹框.
  * Created by LCG on 2024/3/4.
- */
-/**
- * FirmwareUpDialog displays modal dialog interface for user interaction.
- *
- * @author IRCamera Development Team
- * @since 1.0
  */
 class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
     private var _binding: DialogFirmwareUpBinding? = null
     private val binding get() = _binding!!
 
     /**
-     * titletext，如 "发现新version V3.50"
+     * 标题文字，如 "发现新版本 V3.50"
      */
     var titleStr: CharSequence?
         get() = binding.tvTitle.text
@@ -35,7 +29,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * file大小text，如 "大小: 239.6MB"
+     * 文件大小文字，如 "大小: 239.6MB"
      */
     var sizeStr: CharSequence?
         get() = binding.tvSize.text
@@ -44,7 +38,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * Upgrade内容，一般直接扔从interface拿到的东西
+     * 升级内容，一般直接扔从接口拿到的东西
      */
     var contentStr: CharSequence?
         get() = binding.tvContent.text
@@ -53,7 +47,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * 是否Show/Display底部device重启tip，目前仅firmwareUpgrade需要Show/Display，默认Hide(Gone).
+     * 是否显示底部设备重启提示，目前仅固件升级需要显示，默认隐藏(Gone).
      */
     var isShowRestartTips: Boolean
         get() = binding.tvRestartTips.isVisible
@@ -62,7 +56,7 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * 是否Show/DisplayCancelbutton，默认Show/Display.
+     * 是否显示取消按钮，默认显示.
      */
     var isShowCancel: Boolean
         get() = binding.tvCancel.isVisible
@@ -71,12 +65,12 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
         }
 
     /**
-     * CancelclickEventListener.
+     * 取消点击事件监听.
      */
     var onCancelClickListener: (() -> Unit)? = null
 
     /**
-     * updateclickEventListener.
+     * 更新点击事件监听.
      */
     var onConfirmClickListener: (() -> Unit)? = null
 
@@ -100,11 +94,11 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.tvCancel -> { 
+            binding.tvCancel -> { // 取消
                 dismiss()
                 onCancelClickListener?.invoke()
             }
-            binding.tvConfirm -> { 
+            binding.tvConfirm -> { // 确认
                 dismiss()
                 onConfirmClickListener?.invoke()
             }

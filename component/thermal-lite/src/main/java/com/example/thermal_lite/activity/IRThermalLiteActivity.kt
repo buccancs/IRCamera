@@ -128,7 +128,7 @@ import org.greenrobot.eventbus.EventBus
 import kotlin.math.abs
 
 /**
-TC007 出图页area.
+\1TC007 出图页面.
  *
  * Created by LCG on 2024/4/28.
  */
@@ -163,13 +163,13 @@ class IRThermalLiteActivity : BaseIRActivity(), ITsTempListener, ILiteListener {
     private var pseudoColorMode = SaveSettingUtil.pseudoColorMode
 
     /**
-dual light-fusion度、set-contrast PopupWindow，用于在click其他操作时关掉.
+\1双光-fusion度、set-对比度 PopupWindow，用于在点击其他操作时关掉.
      */
     private var popupWindow: PopupWindow? = null
 
     private var tempAlarmSetDialog: TempAlarmSetDialog? = null
     private var alarmBean = SaveSettingUtil.alarmBean
-    private var temperatureMode: Int = SaveSettingUtil.temperatureMode // 高低gain
+    private var temperatureMode: Int = SaveSettingUtil.temperatureMode // 高低增益
 
     private var upColor = 0
     private var downColor = 0
@@ -188,7 +188,7 @@ dual light-fusion度、set-contrast PopupWindow，用于在click其他操作时�
     private var correctRotate = 0 // 矫正角度
 
     @Volatile
-    private var temperatureBytes = ByteArray(imageWidth * imageHeight * 2) // temperaturedata
+    private var temperatureBytes = ByteArray(imageWidth * imageHeight * 2) // 温度数据
     private var temperaturerun = false
     private var isShowC: Boolean = false
     private var customPseudoBean = CustomPseudoBean.loadFromShared()
@@ -199,18 +199,18 @@ dual light-fusion度、set-contrast PopupWindow，用于在click其他操作时�
     private val dstTempBytes = ByteArray(192 * 256 * 2)
 
     /**
-是否switchtemperature measurement-high temperature、low temperature，并且需要在高low temperatureswitch中判断dialog的display和hide
+\1是否切换temperature measurement-high temperature、low temperature，并且需要在高low temperature切换中判断dialog的display和hide
      */
     @Volatile
     private var isTempShowDialog = false
 
-high/low gain 1:低gain 0: 高gain
+\1high/low gain 1:低gain 0: 高gain
     private var gainSelChar = -2
 
     private var storageRequestType = 0
     private var autoJob: Job? = null
     var isAutoCamera = false
-    var isOpenPreview = false // cameravisible lightstate
+    var isOpenPreview = false // 相机可见光状态
     private var flow: Job? = null
     private var ctrlBlock: USBMonitor.UsbControlBlock? = null
     private var cameraAlpha = SaveSettingUtil.twoLightAlpha
@@ -240,7 +240,7 @@ high/low gain 1:低gain 0: 高gain
                         )
                         == PackageManager.PERMISSION_GRANTED,
             ),
-            CameraItemBean("settings", CameraItemBean.TYPE_SETTING),
+            CameraItemBean("设置", CameraItemBean.TYPE_SETTING),
         )
     }
     private var cameraItemAdapter: CameraItemAdapter? = null
@@ -294,7 +294,7 @@ high/low gain 1:低gain 0: 高gain
     }
 
     /**
-IOS 搞成pointdelete后再次drawing趋势图才自动弹出折line图，还得搞个variable跟着一起卷。
+\1IOS 搞成点删除后再次drawing趋势图才自动弹出折线图，还得搞个变量跟着一起卷。
      */
     private var hasClickTrendDel = true
 
@@ -373,10 +373,10 @@ IOS 搞成pointdelete后再次drawing趋势图才自动弹出折line图，还得
             }
         }
 
-        binding.thermalRecyclerNight.isVideoMode = SaveSettingUtil.isVideoMode // Restore拍照/录像state
-        binding.thermalRecyclerNight.fenceSelectType = FenceType.FULL // 初始selected全图
-        binding.thermalRecyclerNight.isUnitF = SharedManager.getTemperature() == 0 // temperature档位单位
-        binding.thermalRecyclerNight.setTempLevel(temperatureMode) // selected当前的temperature档位
+        binding.thermalRecyclerNight.isVideoMode = SaveSettingUtil.isVideoMode // 恢复拍照/录像状态
+        binding.thermalRecyclerNight.fenceSelectType = FenceType.FULL // 初始选中全图
+        binding.thermalRecyclerNight.isUnitF = SharedManager.getTemperature() == 0 // 温度档位单位
+        binding.thermalRecyclerNight.setTempLevel(temperatureMode) // 选中当前的温度档位
         binding.thermalRecyclerNight.onCameraClickListener = {
             setCamera(it)
         }
@@ -409,7 +409,7 @@ IOS 搞成pointdelete后再次drawing趋势图才自动弹出折line图，还得
             temperatureMode = it
             setConfigForIr(IrParam.ParamTemperature, temperatureMode)
             if (it == CameraItemBean.TYPE_TMP_H && SharedManager.isTipHighTemp) {
-switch到high temperature档
+\1切换到high temperature档
                 val message =
                     SpanBuilder(getString(com.topdon.module.thermal.ir.R.string.tc_high_temp_test_tips1))
                         .appendDrawable(this@IRThermalLiteActivity, com.topdon.module.thermal.ir.R.drawable.svg_title_temp, SizeUtils.sp2px(24f))
@@ -453,7 +453,7 @@ switch到high temperature档
                 realRightValue = UnitTools.showUnitValue(max, isShowC)
                 this@IRThermalLiteActivity.runOnUiThread {
                     if (!customPseudoBean.isUseCustomPseudo) {
-动态renderingmode
+\1动态rendering模式
                         try {
                             binding.temperatureSeekbar.setRangeAndPro(
                                 UnitTools.showUnitValue(editMinValue, isShowC),
@@ -468,19 +468,19 @@ switch到high temperature档
                                 ) // 自定义颜色
                             }
                         } catch (e: Exception) {
-                            Log.e("temperature图层updatefailed", e.message.toString())
+                            Log.e("温度图层更新失败", e.message.toString())
                         }
                         try {
                             binding.tvTempContent.text = "Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
                         } catch (e: Exception) {
-                            Log.e("temperature图层updatefailed", e.message.toString())
+                            Log.e("温度图层更新失败", e.message.toString())
                         }
                     } else {
-自定义rendering
+\1自定义rendering
                         try {
                             binding.tvTempContent.text = " Max:${UnitTools.showC(max, isShowC)}\nMin:${UnitTools.showC(min, isShowC)}"
                         } catch (e: Exception) {
-                            Log.e("temperature图层updatefailed", e.message.toString())
+                            Log.e("温度图层更新失败", e.message.toString())
                         }
                     }
                     try {
@@ -489,12 +489,12 @@ switch到high temperature档
                             binding.clSeekBar.updateBitmap()
                         }
                     } catch (e: Exception) {
-                        Log.w("pseudo color条updateexception:", "${e.message}")
+                        Log.w("伪彩条更新异常:", "${e.message}")
                     }
                     try {
                         AlarmHelp.getInstance(application).alarmData(max, min, binding.tempBg)
                     } catch (e: Exception) {
-                        Log.e("temperature图层updatefailed", e.message.toString())
+                        Log.e("温度图层更新失败", e.message.toString())
                     }
                 }
             }
@@ -512,7 +512,7 @@ switch到high temperature档
         }
 //
 //        handler = Handler(Looper.getMainLooper())
-// 定义快门操作
+\1// 定义快门操作
 //        fun takePicture() {
 //            shutterCount++
 //            try {
@@ -520,16 +520,16 @@ switch到high temperature档
 //            }catch (e : Exception){
 //            }
 //        }
-// create Runnable，每5秒执行一次
+\1// create Runnable，每5秒执行一次
 //        shutterRunnable = object : Runnable {
 //            override fun run() {
-if (shutterCount < 4) { // 确保只执行前40秒的操作（8次）
-handler?.postDelayed(this, 5000L) // 延迟5秒后再次执行
+\1if (shutterCount < 4) { // 确保只执行前40秒的操作（8次）
+\1handler?.postDelayed(this, 5000L) // 延迟5秒后再次执行
 //                    takePicture()
 //                }
 //            }
 //        }
-// starttask
+\1// 开始任务
 //        handler?.postDelayed(shutterRunnable!!,5000L)
         initOrientationEventListener()
 
@@ -708,7 +708,7 @@ handler?.postDelayed(this, 5000L) // 延迟5秒后再次执行
         }
 
     /**
-modify自定义pseudo-colorproperty，抽出method，方便dual lightinterface进行override
+\1修改自定义pseudo-color属性，抽出方法，方便双光interface进行重写
      * @param colorList IntArray?
      * @param isUseGray Boolean
      * @param customMaxTemp Float
@@ -724,7 +724,7 @@ modify自定义pseudo-colorproperty，抽出method，方便dual lightinterface�
         CameraPreviewManager.getInstance()?.setColorList(colorList, places, isUseGray, customMaxTemp, customMinTemp)
     }
 
-update自定义pseudo-color的颜色的property值
+\1update自定义pseudo-color的颜色的属性值
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
             binding.temperatureSeekbar.setColorList(customPseudoBean.getColorList()?.reversedArray())
@@ -763,7 +763,7 @@ update自定义pseudo-color的颜色的property值
     }
 
     /**
-maximum最low temperature复原
+\1最高最low temperature复原
      */
     private fun setDefLimit() {
         editMaxValue = Float.MAX_VALUE
@@ -798,15 +798,15 @@ maximum最low temperature复原
             TwoLightType.P_IN_P -> { // 画中画
                 cameraPreviewConfig(true)
             }
-            TwoLightType.BLEND_EXTENT -> { // fusion度
-                if (!isOpenPreview && isSelected) { // 未Open画中画时自动Open画中画
+            TwoLightType.BLEND_EXTENT -> { // 融合度
+                if (!isOpenPreview && isSelected) { // 未打开画中画时自动打开画中画
                     cameraPreviewConfig(false)
                 }
                 if (isSelected) {
                     showBlendExtentPopup()
                 }
             }
-            else -> { // 其他不用processing，不是dual lightdevice
+            else -> { // 其他不用处理，不是双光设备
             }
         }
     }
@@ -817,18 +817,18 @@ maximum最low temperature复原
     ) {
         popupWindow?.dismiss()
         when (type) {
-            SettingType.PSEUDO_BAR -> { // pseudo color条
+            SettingType.PSEUDO_BAR -> { // 伪彩条
                 saveSetBean.isOpenPseudoBar = !saveSetBean.isOpenPseudoBar
                 binding.clSeekBar.isVisible = saveSetBean.isOpenPseudoBar
                 binding.thermalRecyclerNight.setSettingSelected(SettingType.PSEUDO_BAR, saveSetBean.isOpenPseudoBar)
             }
-            SettingType.CONTRAST -> { // contrast
+            SettingType.CONTRAST -> { // 对比度
                 if (!isSelected) {
                     showContrastPopup()
                 }
             }
             SettingType.DETAIL -> {
-Lite 没有细节(锐度) set
+\1Lite 没有细节(锐度) set
             }
             SettingType.ALARM -> { // 预警
                 showTempAlarmSetDialog()
@@ -854,16 +854,16 @@ Lite 没有细节(锐度) set
                 binding.thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
             }
             SettingType.COMPASS -> { // 指南针
-Lite 没有观测mode自然没有指南针
+\1Lite 没有观测模式自然没有指南针
             }
             SettingType.WATERMARK -> {
-watermarkmenu只有 2D 编辑才有
+\1watermarkmenu只有 2D 编辑才有
             }
         }
     }
 
     /**
-displayfusion度set弹框
+\1displayfusion度set弹框
      */
     private fun showBlendExtentPopup() {
         val seekBarPopup = SeekBarPopup(this, true)
@@ -886,7 +886,7 @@ displayfusion度set弹框
     }
 
     /**
-统一在此处processingdevice端的parameterset
+\1统一在此处processingdevice端的parameterset
      */
     private fun setConfigForIr(
         type: IrParam,
@@ -894,7 +894,7 @@ displayfusion度set弹框
     )  {
         when (type) {
             IrParam.ParamTemperature -> {
-high/low gainswitch
+\1high/low gain切换
                 lifecycleScope.launch {
                     if (temperatureMode == CameraItemBean.TYPE_TMP_C)
                         {
@@ -912,11 +912,11 @@ high/low gainswitch
                 }
             }
             IrParam.ParamPColor -> {
-pseudo-color样式
+\1pseudo-color样式
                 CameraPreviewManager.getInstance().setPseudocolorMode(data as Int)
             }
             IrParam.ParamAlarm -> {
-预警
+\1预警
                 CameraPreviewManager.getInstance().alarmBean = alarmBean
                 SaveSettingUtil.alarmBean = alarmBean
                 AlarmHelp.getInstance(this).updateData(
@@ -931,12 +931,12 @@ pseudo-color样式
     }
 
     /**
-switch 画中画 enabled或disabled state
+\1切换 画中画 enabled或disabled 状态
      */
     private fun cameraPreviewConfig(needShowTip: Boolean) {
         if (!CheckDoubleClick.isFastDoubleClick()) {
             if (isOpenPreview) {
-disabledcamera
+\1disabled相机
                 isOpenPreview = false
                 binding.cameraPreview.closeCamera()
                 binding.thermalRecyclerNight.setTwoLightSelected(TwoLightType.P_IN_P, false)
@@ -981,7 +981,7 @@ disabledcamera
                     ) {
                         try {
                             if (allGranted) {
-画中画enabled
+\1画中画enabled
                                 binding.thermalRecyclerNight.setTwoLightSelected(TwoLightType.P_IN_P, true)
                                 binding.cameraPreview.visibility = View.VISIBLE
                                 binding.cameraPreview?.setCameraAlpha(cameraAlpha / 100.0f)
@@ -1011,7 +1011,7 @@ disabledcamera
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+\1拒绝授权并且不再提醒
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(com.topdon.module.thermal.ir.R.string.app_camera_content))
@@ -1073,7 +1073,7 @@ disabledcamera
                 else -> RotateDegree.DEGREE_180
             }
         CameraPreviewManager.getInstance().imageRotate = imageRotate
-initialize预览相关的class
+\1initialize预览相关的类
         CameraPreviewManager.getInstance().init(binding.cameraView, mLiteHandler)
 
         CameraPreviewManager.getInstance().setOnTempDataChangeCallback { data ->
@@ -1157,22 +1157,22 @@ initialize预览相关的class
         binding.clSeekBar.requestLayout()
         binding.clSeekBar.updateBitmap()
 
-初始全局temperature measurement
+\1初始全局temperature measurement
         binding.temperatureView.post {
             lifecycleScope.launch {
                 if (!temperaturerun) {
                     temperaturerun = true
-需等待renderingcomplete再display
+\1需等待rendering完成再display
                     binding.temperatureView?.visibility = View.VISIBLE
                     delay(1000)
-                    binding.temperatureView?.temperatureRegionMode = REGION_MODE_CENTER // 全屏temperature measurement
+                    binding.temperatureView?.temperatureRegionMode = REGION_MODE_CENTER // 全屏测温
                 }
             }
         }
     }
 
     /**
-initializeUSBconnection相关class
+\1initializeUSB连接相关类
      */
     private fun initUSBMonitorManager() {
         USBMonitorManager.getInstance().init()
@@ -1197,7 +1197,7 @@ initializeUSBconnection相关class
                     createNew: Boolean,
                 ) {
                     this@IRThermalLiteActivity.ctrlBlock = ctrlBlock
-USBconnectionsuccessful后
+\1USB连接successful后
                     DeviceControlManager.getInstance().handleStartPreview(ctrlBlock)
                 }
 
@@ -1239,7 +1239,7 @@ USBconnectionsuccessful后
     }
 
     /**
-displaytemperature报警set弹框.
+\1displaytemperature报警set弹框.
      */
     private fun showTempAlarmSetDialog() {
         if (tempAlarmSetDialog == null) {
@@ -1255,13 +1255,13 @@ displaytemperature报警set弹框.
     }
 
     /**
-色带
+\1色带
      */
     private fun addLimit() {
     }
 
     /**
-displaycontrastset PopupWindow
+\1display对比度set PopupWindow
      */
     private fun showContrastPopup() {
         binding.thermalRecyclerNight.setSettingSelected(SettingType.CONTRAST, true)
@@ -1280,7 +1280,7 @@ displaycontrastset PopupWindow
     }
 
     private fun updateRotateAngle(rotateAngle: Int) {
-Clearlimitset
+\1清除limitset
         CameraPreviewManager.getInstance().setLimit(
             editMaxValue,
             editMinValue,
@@ -1304,7 +1304,7 @@ Clearlimitset
             CameraPreviewManager.getInstance().imageRotate = imageRotate
             initCameraSize()
             delay(100)
-            binding.thermalRecyclerNight.fenceSelectType = FenceType.FULL // 初始selected全图
+            binding.thermalRecyclerNight.fenceSelectType = FenceType.FULL // 初始选中全图
             binding.thermalRecyclerNight.setSettingRotate(rotateAngle)
         }
     }
@@ -1314,8 +1314,8 @@ Clearlimitset
         setConfigForIr(IrParam.ParamPColor, code)
         binding.temperatureSeekbar.setPseudocode(pseudoColorMode)
         /**
-setpseudo-color【set pseudocolor】
-firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
+\1setpseudo-color【set pseudocolor】
+\1固件机芯实现(部分pseudo-color为预留,set后可能无效果)
          */
         SaveSettingUtil.pseudoColorMode = pseudoColorMode
         binding.thermalRecyclerNight.setPseudoColor(code)
@@ -1327,15 +1327,15 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
     ) {
         binding.temperatureView.isEnabled = true
         when (fenceType) {
-            FenceType.POINT -> { // point
+            FenceType.POINT -> { // 点
                 binding.temperatureView.visibility = View.VISIBLE
                 binding.temperatureView.temperatureRegionMode = REGION_MODE_POINT
             }
-            FenceType.LINE -> { // line
+            FenceType.LINE -> { // 线
                 binding.temperatureView.visibility = View.VISIBLE
                 binding.temperatureView.temperatureRegionMode = REGION_MODE_LINE
             }
-            FenceType.RECT -> { // area
+            FenceType.RECT -> { // 面
                 binding.temperatureView.visibility = View.VISIBLE
                 binding.temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
             }
@@ -1354,13 +1354,13 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                 }
                 binding.temperatureView.visibility = View.VISIBLE
                 binding.temperatureView.temperatureRegionMode = REGION_NODE_TREND
-                if (!spaceChart.isVisible) { // 当前趋势图如果已Show/Display着的话，则不去更改
+                if (!spaceChart.isVisible) { // 当前趋势图如果已显示着的话，则不去更改
                     spaceChart.isVisible = true
                     binding.clTrendOpen.isVisible = false
                     binding.llTrendClose.isVisible = true
                 }
             }
-            FenceType.DEL -> { // delete
+            FenceType.DEL -> { // 删除
                 hasClickTrendDel = true
                 binding.temperatureView.clear()
                 binding.temperatureView.visibility = View.INVISIBLE
@@ -1373,13 +1373,13 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
     }
 
     /**
-延时拍照延时秒数，0表示disabled.
+\1延时拍照延时秒数，0表示disabled.
      */
     private var cameraDelaySecond: Int = SaveSettingUtil.delayCaptureSecond
 
     /**
-第 1 个menu-拍照录像 各个操作的clickEventListener.
-@param actionCode: 0-拍照/录像  1-图库  2-更多menu  3-switch到拍照  4-switch到录像
+\1第 1 个menu-拍照录像 各个操作的点击事件监听.
+\1@param actionCode: 0-拍照/录像  1-图库  2-更多menu  3-切换到拍照  4-切换到录像
      */
     private fun setCamera(actionCode: Int) {
         when (actionCode) {
@@ -1435,21 +1435,21 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                         .navigation(this@IRThermalLiteActivity)
                 }
             }
-            2 -> { // 更多menu
+            2 -> { // 更多菜单
                 settingCamera()
             }
-            3 -> { // switch到拍照
+            3 -> { // 切换到拍照
                 autoJob?.cancel()
                 SaveSettingUtil.isVideoMode = false
             }
-            4 -> { // switch到录像
+            4 -> { // 切换到录像
                 autoJob?.cancel()
                 SaveSettingUtil.isVideoMode = true
             }
         }
     }
 
-拍照右边button
+\1拍照右边按钮
     private fun settingCamera() {
         showCameraSetting = !showCameraSetting
         if (showCameraSetting) {
@@ -1519,14 +1519,14 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                                     cameraItemAdapter!!.data[position].isSel = false
                                     cameraItemAdapter!!.notifyItemChanged(position)
                                 }
-手动快门
+\1手动快门
                                 IRTool.setOneShutter()
                                 ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.app_Manual_Shutter)
                                 return@listener
                             }
 
                             CameraItemBean.TYPE_ZDKM -> {
-自动快门
+\1自动快门
                                 isAutoShutter = !isAutoShutter
                                 SaveSettingUtil.isAutoShutter = isAutoShutter
                                 cameraItemAdapter!!.data[position].isSel = !cameraItemAdapter!!.data[position].isSel
@@ -1556,7 +1556,9 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
         }
     }
 
-    
+    /**
+     *
+     */
     fun updateVideoDelayView()  {
         try {
             if (binding.timeDownView.isRunning) {
@@ -1565,7 +1567,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                 }
             }
         } catch (e: Exception) {
-            Log.e("line程", e.message.toString())
+            Log.e("线程", e.message.toString())
         }
     }
 
@@ -1612,7 +1614,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                     ) {
                         try {
                             if (allGranted) {
-录音enabled
+\1录音enabled
                                 isRecordAudio = true
                                 SaveSettingUtil.isRecordAudio = isRecordAudio
                                 videoRecord?.updateAudioState(true)
@@ -1622,7 +1624,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                                 ToastUtils.showShort(com.topdon.module.thermal.ir.R.string.scan_ble_tip_authorize)
                             }
                         } catch (e: Exception) {
-                            Log.e("录音启动failed", "" + e.message)
+                            Log.e("录音启动失败", "" + e.message)
                         }
                     }
 
@@ -1631,7 +1633,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+\1拒绝授权并且不再提醒
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(com.topdon.module.thermal.ir.R.string.app_microphone_content))
@@ -1654,7 +1656,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
     }
 
     /**
-进入延迟UI
+\1进入延迟UI
      */
     fun updateDelayView() {
         try {
@@ -1668,7 +1670,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                 }
             }
         } catch (e: Exception) {
-            Log.e("line程", e.message.toString())
+            Log.e("线程", e.message.toString())
         }
     }
 
@@ -1688,7 +1690,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                                 val setting = SharedManager.continuousBean
                                 if (setting.isOpen) {
                                     if (!isAutoCamera) {
-连续拍照
+\1连续拍照
                                         autoJob =
                                             countDownCoroutines(
                                                 setting.count,
@@ -1713,7 +1715,7 @@ firmwarecoreimplementation(部分pseudo-color为预留,set后可能无效果)
                                     camera()
                                 }
                             } else {
-recordingvideo
+\1录制视频
                                 video()
                             }
                         } else {
@@ -1726,7 +1728,7 @@ recordingvideo
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+\1拒绝授权并且不再提醒
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_storage_content))
@@ -1775,23 +1777,23 @@ recordingvideo
             }
             try {
                 synchronized(syncimage.dataLock) {
-get展示imageinfo的图层data
+\1get展示image信息的图层data
                     var cameraViewBitmap: Bitmap? = getCameraViewBitmap()
-visible light
+\1可见光
                     if (isOpenPreview) {
                         cameraViewBitmap = BitmapUtils.mergeBitmapByView(cameraViewBitmap, binding.cameraPreview.getBitmap(), binding.cameraPreview)
-画中画原图save
+\1画中画原图save
                         binding.cameraPreview.getBitmap()?.let {
                             ImageUtils.saveImageToApp(it)
                         }
                     }
 
-gettemperature图层的data，包括pointline框，temperature值等，重新合成bitmap
+\1gettemperature图层的data，包括点线框，temperature值等，重新合成bitmap
                     if (binding.temperatureView.temperatureRegionMode != REGION_MODE_CLEAN) {
                         cameraViewBitmap = BitmapUtils.mergeBitmap(cameraViewBitmap, binding.temperatureView.regionAndValueBitmap, 0, 0)
                     }
 
-Mergepseudo-color bar
+\1合并pseudo-color bar
                     val isShowPseudoBar = binding.clSeekBar.visibility == VISIBLE
                     if (isShowPseudoBar) {
                         val seekBarBitmap = binding.clSeekBar.drawToBitmap()
@@ -1804,7 +1806,7 @@ Mergepseudo-color bar
                             )
                         seekBarBitmap.recycle()
                     }
-addwatermark
+\1添加watermark
                     val watermarkBean = SharedManager.watermarkBean
                     if (watermarkBean.isOpen) {
                         cameraViewBitmap =
@@ -1822,7 +1824,7 @@ addwatermark
                                     },
                             )
                     }
-add汽车检测 - disabled due to missing layout
+\1添加汽车检测 - disabled due to missing layout
                     // if (binding.layCarDetectPrompt.isVisible){
                     //     cameraViewBitmap = BitmapUtils.mergeBitmap(
                     //         cameraViewBitmap,
@@ -1833,7 +1835,7 @@ add汽车检测 - disabled due to missing layout
                     cameraViewBitmap?.let {
                         name = ImageUtils.save(bitmap = it)
                     }
-m256的module相对p2的rotation角度不一样
+\1m256的模组相对p2的rotation角度不一样
                     val basicGainGetValue = IntArray(1)
                     val basicGainGet: IrcmdError =
                         DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
@@ -1886,7 +1888,7 @@ m256的module相对p2的rotation角度不一样
     }
 
     /**
-initializevideo采集component
+\1initialize视频采集组件
      */
     private fun initVideoRecordFFmpeg() {
         videoRecord =
@@ -1904,7 +1906,7 @@ initializevideo采集component
 
     private fun video() {
         if (!isVideo) {
-startrecording
+\1开始录制
             initVideoRecordFFmpeg()
             if (!videoRecord!!.canStartVideoRecord(null)) {
                 return
@@ -1944,7 +1946,7 @@ startrecording
     }
 
     /**
-如果正在进行录像，则stop录像.
+\1如果正在进行录像，则停止录像.
      */
     private fun stopIfVideoing() {
         if (isVideo) {
@@ -1970,7 +1972,7 @@ startrecording
     }
 
     /**
-初始data
+\1初始data
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -2007,9 +2009,9 @@ startrecording
                 }
                 delay(500)
                 IRTool.setAutoShutter(false)
-initializecontrast
+\1initialize对比度
                 IRTool.basicGlobalContrastLevelSet((saveSetBean.contrastValue / 255f * 100).toInt())
-镜像
+\1镜像
                 IRTool.basicMirrorAndFlipStatusSet(saveSetBean.isOpenMirror)
                 binding.thermalRecyclerNight.setSettingSelected(SettingType.MIRROR, saveSetBean.isOpenMirror)
                 CameraPreviewManager.getInstance()?.setLimit(
@@ -2017,14 +2019,14 @@ initializecontrast
                     upColor, downColor,
                 )
                 delay(2000)
-gainmodeinitialize
+\1gain模式initialize
                 withContext(Dispatchers.IO) {
                     IRTool.basicGainSet(temperatureMode)
                 }
-自动快门
+\1自动快门
                 delay(30 * 1000)
                 IRTool.setAutoShutter(isAutoShutter)
-                XLog.i("moduleconfigurationRestoresuccess")
+                XLog.i("模组配置恢复成功")
             }
     }
 
@@ -2064,7 +2066,7 @@ gainmodeinitialize
                         popTimeText.text = TimeTool.showVideoTime(it * 1000L)
                     }
                     if (it == time - 1) {
-stop
+\1停止
                         video()
                     }
                 }
@@ -2162,7 +2164,7 @@ stop
             DeviceControlManager.getInstance().release()
             CameraPreviewManager.getInstance().releaseSource()
         } catch (e: Exception) {
-            XLog.e("$TAG:litedestroyexception-${e.message}")
+            XLog.e("$TAG:lite销毁异常-${e.message}")
         }
         SystemClock.sleep(100)
     }
@@ -2214,7 +2216,7 @@ stop
                     return temp!!
                 }
 
-getgainstate PASS
+\1getgain状态 PASS
             if (System.currentTimeMillis() - basicGainGetTime > 5000L)
                 {
                     try {
@@ -2222,7 +2224,7 @@ getgainstate PASS
                             DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
                                 ?.basicGainGet(basicGainGetValue)
                     } catch (e: Exception) {
-                        XLog.e("gainGet/Retrievefailed")
+                        XLog.e("增益获取失败")
                     }
                     basicGainGetTime = System.currentTimeMillis()
                 }
@@ -2255,7 +2257,7 @@ getgainstate PASS
                     "distance = " + params_array[4] + " hum = " + params_array[5] + " basicGain = " + basicGainGetValue[0],
             )
         } catch (e: Exception) {
-            XLog.e("$TAG--temperature修正exception：${e.message}")
+            XLog.e("$TAG--温度修正异常：${e.message}")
         } finally {
             return tempNew ?: 0f
         }

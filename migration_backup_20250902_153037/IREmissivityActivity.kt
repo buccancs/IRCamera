@@ -45,12 +45,12 @@ class IREmissivityActivity : BaseActivity() {
 
     private class MyOnScrollListener(val titleView: View, val layoutManager: LinearLayoutManager, val dataArray: Array<ItemBean>) : RecyclerView.OnScrollListener() {
         /**
-         * 当前展示的title在列表中的 position
+         * 当前展示的标题在列表中的 position
          */
         private var currentPosition: Int = 0
 
         /**
-         * titletext
+         * 标题文字
          */
         private val tvTitle: TextView = titleView.findViewById(R.id.tv_title)
 
@@ -67,12 +67,12 @@ class IREmissivityActivity : BaseActivity() {
                 return
             }
 
-            if (dataArray[seeFirstPosition].isTitle) { // 往上顶，将下一目录的title顶到顶部了
+            if (dataArray[seeFirstPosition].isTitle) { // 往上顶，将下一目录的标题顶到顶部了
                 currentPosition = seeFirstPosition
                 tvTitle.text = dataArray[currentPosition].name
                 titleView.translationY = 0f
             } else {
-                // 在Visiblerange内查找当前目录最后一个项目
+                // 在可见范围内查找当前目录最后一个项目
                 val seeLastPosition = layoutManager.findLastVisibleItemPosition()
                 var nextTitlePosition = -1
                 for (i in seeFirstPosition..seeLastPosition) {
@@ -119,7 +119,7 @@ class IREmissivityActivity : BaseActivity() {
             parent: ViewGroup,
             viewType: Int,
         ): RecyclerView.ViewHolder {
-            return if (viewType == 0) { // title
+            return if (viewType == 0) { // 标题
                 TitleViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_emissivity_title, parent, false))
             } else { // 内容
                 val emissivityView = EmissivityView(context)
@@ -151,12 +151,12 @@ class IREmissivityActivity : BaseActivity() {
     }
 
     /**
-     * 一项发射率data封装
-     * @param isTitle true-title false-内容
-     * @param name name，如铝、氧化钢等
-     * @param minTemp minimumtemperature，单位摄氏度
-     * @param maxTemp maximumtemperature，单位摄氏度
-     * @param emStr 发射率text
+     * 一项发射率数据封装
+     * @param isTitle true-标题 false-内容
+     * @param name 名称，如铝、氧化钢等
+     * @param minTemp 最低温度，单位摄氏度
+     * @param maxTemp 最高温度，单位摄氏度
+     * @param emStr 发射率文字
      */
     private data class ItemBean(
         val isTitle: Boolean = false,
@@ -314,7 +314,7 @@ class IREmissivityActivity : BaseActivity() {
             ItemBean(name = getString(R.string.material_crystal_tube_plastic_seal), emStr = "0.80～0.90"),
             ItemBean(name = getString(R.string.material_crystal_tube_metal), emStr = "0.30～0.40"),
             ItemBean(name = getString(R.string.material_diode), emStr = "0.89～0.90"),
-            // 传输line圈
+            // 传输线圈
             ItemBean(name = getString(R.string.material_transmission_coil)),
             ItemBean(name = getString(R.string.material_pulse_transmission_coil), emStr = "0.91～0.92"),
             ItemBean(name = getString(R.string.material_flat_white_layer_coil), emStr = "0.88～0.93"),

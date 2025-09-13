@@ -10,7 +10,7 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * 检测 或 report 所属的一项项目.
+ * 检测 或 报告 所属的一项项目.
  *
  * Created by LCG on 2024/8/19.
  */
@@ -19,7 +19,7 @@ open class ItemBase {
     var id: Long = 0
 
     /**
-     * 所对应的检测或report目录 Id
+     * 所对应的检测或报告目录 Id
      */
     @ColumnInfo(index = true)
     open var parentId: Long = 0
@@ -37,37 +37,37 @@ open class ItemBase {
     var itemName: String = ""
 
     /**
-     * state 0-未selection 1-没问题 2-需维修 3-需更换
+     * 状态 0-未选择 1-没问题 2-需维修 3-需更换
      */
     @ColumnInfo
     var state: Int = 0
 
     /**
-     * User输入字符，""表示未输入
+     * 用户输入字符，""表示未输入
      */
     @ColumnInfo
     var inputText: String = ""
 
     /**
-     * UserUpload的image1在本地绝对path
+     * 用户上传的图片1在本地绝对路径
      */
     @ColumnInfo
     var image1: String = ""
 
     /**
-     * UserUpload的image2在本地绝对path
+     * 用户上传的图片2在本地绝对路径
      */
     @ColumnInfo
     var image2: String = ""
 
     /**
-     * UserUpload的image3在本地绝对path
+     * 用户上传的图片3在本地绝对路径
      */
     @ColumnInfo
     var image3: String = ""
 
     /**
-     * UserUpload的image4在本地绝对path
+     * 用户上传的图片4在本地绝对路径
      */
     @ColumnInfo
     var image4: String = ""
@@ -77,7 +77,7 @@ open class ItemBase {
     override fun hashCode(): Int = id.toInt()
 
     /**
-     * Get/Retrieve state 对应的text描述.
+     * 获取 state 对应的文字描述.
      */
     fun getStateStr(context: Context): String =
         when (state) {
@@ -137,7 +137,7 @@ open class ItemBase {
     }
 
     /**
-     * delete指定位置的一张image.
+     * 删除指定位置的一张图片.
      * @param imageNum `[1,4]`
      */
     fun delOneImage(imageNum: Int) {
@@ -217,7 +217,7 @@ class ItemDetect() : ItemBase() {
     override var parentId: Long = 0
 
     /**
-     * 该目录是否已selected，仅用于项目编辑界area.
+     * 该目录是否已选中，仅用于项目编辑界面.
      */
     @Ignore
     var hasSelect = false
@@ -229,12 +229,12 @@ class ItemDetect() : ItemBase() {
     var dirDetect = DirDetect()
 
     /**
-     * 在当前项目名后add 3 个字符：(1)，然后若超出 50 个字符则截取 [0,51)
+     * 在当前项目名后添加 3 个字符：(1)，然后若超出 50 个字符则截取 [0,51)
      */
     fun copyName(): String = "$itemName(1)"
 
     /**
-     * Return一个 id 为 0，parentId、position、itemName 为指定值，其余property完全一致的新对象.
+     * 返回一个 id 为 0，parentId、position、itemName 为指定值，其余属性完全一致的新对象.
      */
     fun copyOne(
         parentId: Long = this.parentId,
@@ -258,7 +258,7 @@ class ItemDetect() : ItemBase() {
     }
 
     /**
-     * 将当前检测 item conversion为report item，注意 id、parent reset为 0.
+     * 将当前检测 item 转换为报告 item，注意 id、parent 重置为 0.
      */
     fun toItemReport(): ItemReport {
         val itemReport = ItemReport()
@@ -277,7 +277,7 @@ class ItemDetect() : ItemBase() {
 
     companion object {
         /**
-         * 根据指定的默认目录位置，Get/Retrieve对应的默认项目列表.
+         * 根据指定的默认目录位置，获取对应的默认项目列表.
          */
         fun buildDefaultItemList(
             parentId: Long,
@@ -378,7 +378,7 @@ class ItemDetect() : ItemBase() {
 }
 
 /**
- * report所属的一项项目.
+ * 报告所属的一项项目.
  */
 @Entity(
     foreignKeys = [
@@ -393,7 +393,7 @@ class ItemDetect() : ItemBase() {
 )
 class ItemReport : ItemBase() {
     /**
-     * 所对应的report目录 Id
+     * 所对应的报告目录 Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0

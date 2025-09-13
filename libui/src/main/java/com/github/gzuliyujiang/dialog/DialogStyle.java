@@ -17,7 +17,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 弹窗样式enum
+ * 弹窗样式枚举
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2021/9/16 15:31

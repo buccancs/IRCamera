@@ -11,7 +11,7 @@ import retrofit2.http.Url
  */
 interface DownloadApiService {
     /**
-     * Downloadfile.
+     * 下载文件.
      */
     @GET
     @Streaming

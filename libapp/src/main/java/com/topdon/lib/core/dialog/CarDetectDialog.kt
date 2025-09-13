@@ -22,7 +22,7 @@ import com.topdon.lib.core.databinding.ItemCarDetectChildLayoutBinding
 import com.topdon.lib.core.databinding.ItemCarDetectLayoutBinding
 
 /**
- * 汽车检测type拾取弹框.
+ * 汽车检测类型拾取弹框.
  */
 /**
  * CarDetectDialog displays modal dialog interface for user interaction.

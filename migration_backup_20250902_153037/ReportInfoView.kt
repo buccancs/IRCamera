@@ -12,7 +12,7 @@ import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 import kotlinx.android.synthetic.main.view_report_info.view.*
 
 /**
- * reportinfo - 预览 View.
+ * 报告信息 - 预览 View.
  */
 class ReportInfoView : LinearLayout {
     constructor(context: Context) : this(context, null)
@@ -24,7 +24,7 @@ class ReportInfoView : LinearLayout {
     }
 
     /**
-     * 根据指定的reportinforefresh对应 View.
+     * 根据指定的报告信息刷新对应 View.
      */
     fun refreshInfo(reportInfoBean: ReportInfoBean?) {
         tv_report_name.text = reportInfoBean?.report_name
@@ -40,7 +40,7 @@ class ReportInfoView : LinearLayout {
     }
 
     /**
-     * 根据指定的检测条件inforefresh对应 View.
+     * 根据指定的检测条件信息刷新对应 View.
      */
     fun refreshCondition(conditionBean: ReportConditionBean?) {
         cl_report_condition.isVisible = conditionBean?.is_ambient_humidity == 1 ||

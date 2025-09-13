@@ -48,12 +48,12 @@ class MenuTabAdapter(val context: Context) :
     // 选框
     private val secondMenusStr =
         arrayListOf(
-            "point",
-            "line",
-            "area",
-            "add",
+            "点",
+            "线",
+            "面",
+            "添加",
             "全图",
-            "delete",
+            "删除",
         )
 
     // 选框
@@ -80,7 +80,7 @@ class MenuTabAdapter(val context: Context) :
             R.drawable.ic_menu_thermal3010,
         )
 
-    // settings
+    // 设置
     private val fourthMenus =
         arrayListOf(
             R.drawable.ic_menu_thermal4001_svg,

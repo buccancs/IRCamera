@@ -93,7 +93,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * Listener USB connectionstate
+     * 监听 USB 连接状态
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getConnectState(event: DeviceConnectEvent) {
@@ -111,9 +111,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    /**
-     * Callback method triggered when socketconnectstate occurs.
-     */
     fun onSocketConnectState(event: SocketStateEvent) {
         Log.d("onSocketConnectState", "${event.isConnect}")
         if (event.isConnect) {
@@ -130,12 +127,12 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 新版 LMS 风格的load中弹框.
+     * 新版 LMS 风格的加载中弹框.
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * 真是醉了，一个load中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
+     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
      */
     fun showLoadingDialog(
         @StringRes resId: Int = R.string.tip_loading,
@@ -143,9 +140,6 @@ abstract class BaseActivity : AppCompatActivity() {
         showLoadingDialog(getString(resId))
     }
 
-    /**
-     * Executes showloadingdialog functionality.
-     */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog(this)
@@ -155,7 +149,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 真是醉了，一个load中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
+     * 真是醉了，一个加载中的弹框现在就有 3 种，不管了，继续加，理论上后续都要改成这个.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
@@ -163,9 +157,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private var cameraDialog: TipCameraProgressDialog? = null
 
-    /**
-     * Executes showcameraloading functionality.
-     */
     fun showCameraLoading() {
         if (cameraDialog != null && cameraDialog!!.isShowing) {
             return
@@ -181,21 +172,18 @@ abstract class BaseActivity : AppCompatActivity() {
                 cameraDialog?.show()
             }
         } catch (e: Exception) {
-            // 临时捕获方案，后area需求complete后再追踪Optimize
-            Log.e("临时processing方案", e.message.toString())
+            // 临时捕获方案，后面需求完成后再追踪优化
+            Log.e("临时处理方案", e.message.toString())
         }
     }
 
-    /**
-     * Executes dismisscameraloading functionality.
-     */
     fun dismissCameraLoading() {
         if (cameraDialog != null && cameraDialog!!.isShowing) {
             cameraDialog?.dismiss()
         }
     }
 
-    
+    // 同步登录信息
     private fun synLogin() {
         if (this::class.java.simpleName == "MainActivity") {
             LMS.getInstance().syncUserInfo()
@@ -218,7 +206,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         } else {
             if (UserInfoManager.getInstance().isLogin()) {
-                // 账号已Exit,本地Loginstate,需Exit操作
+                // 账号已退出,本地登录状态,需退出操作
                 UserInfoManager.getInstance().logout()
             }
         }

@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 单项selection器
+ * 单项选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @see com.github.gzuliyujiang.wheelview.contract.TextProvider
@@ -60,8 +60,8 @@ public class OptionPicker extends ModalDialog {
         wheelLayout = new OptionWheelLayout(activity);
         wheelLayout.setCurtainEnabled(true);//selected栏是否有背景color
         wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       //selected栏背景color
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//selectedtextcolor
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      //未selectedtextcolor
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//selected文字color
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      //未selected文字color
         return wheelLayout;
     }
 

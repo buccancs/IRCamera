@@ -24,12 +24,6 @@ import com.topdon.lib.core.tools.UnitTools
  * author: CaiSongL
  * date: 2024/4/7 14:59
  **/
-/**
- * EmissivityTipPopup manages camera operations and image capture functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
 class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
     private lateinit var binding: LayoutPopupTipEmissivityBinding
 
@@ -78,9 +72,6 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
         return this
     }
 
-    /**
-     * Executes build functionality.
-     */
     fun build(): PopupWindow {
         if (popupWindow == null) {
             binding.tvEnvironmentTitle.text = context.getString(R.string.thermal_config_environment) + ":"
@@ -110,7 +101,7 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 isFocusable = true
                 isOutsideTouchable = true
                 isTouchable = true
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) 
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // 必要时可以替换为其他Drawable
             }
             binding.dialogTipSuccessBtn.setOnClickListener {
                 NavigationManager.build(RouterConfig.IR_SETTING)
@@ -119,20 +110,14 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 dismiss()
             }
         }
-        // settingsPopupWindow的其他property和Listener器...
+        // 设置PopupWindow的其他属性和监听器...
         return popupWindow!!
     }
 
-    /**
-     * Executes show functionality.
-     */
     fun show(anchorView: View) {
         popupWindow?.showAtLocation(anchorView, Gravity.CENTER, -SizeUtils.dp2px(10f), 0)
     }
 
-    /**
-     * Executes dismiss functionality.
-     */
     fun dismiss() {
         popupWindow?.dismiss()
         closeEvent?.invoke(checkBox?.isChecked ?: false)

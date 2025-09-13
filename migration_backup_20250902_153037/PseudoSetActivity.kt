@@ -18,18 +18,18 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * 颜色mode（自定义渲染）settings界area.
+ * 颜色模式（自定义渲染）设置界面.
  *
  * 需要传递
- * - [ExtraKeyConfig.IS_TC007] - 是否settings TC007 的自定义渲染
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关settings项.（可选，不传则从 SharedPreferences 中读取configuration.）
+ * - [ExtraKeyConfig.IS_TC007] - 是否设置 TC007 的自定义渲染
+ * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关设置项.（可选，不传则从 SharedPreferences 中读取配置.）
  *
- * Return result
- * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关settings项.
+ * 返回 result
+ * - [ExtraKeyConfig.CUSTOM_PSEUDO_BEAN] - 自定义渲染相关设置项.
  */
 class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     /**
-     * 从上一界area传递过来的，自定义渲染相关settings项.
+     * 从上一界面传递过来的，自定义渲染相关设置项.
      */
     private lateinit var customPseudoBean: CustomPseudoBean
 
@@ -40,7 +40,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
         customPseudoBean = intent.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN) ?: CustomPseudoBean.loadFromShared(isTC007)
         switchDynamicCustom(customPseudoBean.isUseCustomPseudo)
 
-        // loadtemperatureconfiguration
+        // 加载温度配置
         et_max_temp.setText(UnitTools.showNoUnit(customPseudoBean.maxTemp))
         et_min_temp.setText(UnitTools.showNoUnit(customPseudoBean.minTemp))
         tv_max_temp_unit.text = UnitTools.showUnit()
@@ -48,7 +48,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
 
         switchColorType(customPseudoBean.isColorCustom)
 
-        // load自定义颜色configuration
+        // 加载自定义颜色配置
         pseudo_pick_view.onSelectChangeListener = {
             reset6CustomColor()
             color_select_view.reset()
@@ -71,7 +71,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
             customPseudoBean.getCustomPlaces(),
         )
 
-        // load推荐颜色configuration
+        // 加载推荐颜色配置
         view_recommend_color1.background = buildRectDrawableArray(ColorRecommend.colorList1)
         view_recommend_color2.background = buildRectDrawableArray(ColorRecommend.colorList2)
         view_recommend_color3.background = buildRectDrawableArray(ColorRecommend.getColorByIndex(isTC007, 2))
@@ -173,14 +173,14 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 pseudo_pick_view.refreshColor(0xffffffff.toInt())
             }
 
-            iv_custom_add -> { // 颜色-自定义-add
+            iv_custom_add -> { // 颜色-自定义-添加
                 pseudo_pick_view.add()
             }
-            iv_custom_del -> { // 颜色-自定义-delete
+            iv_custom_del -> { // 颜色-自定义-删除
                 pseudo_pick_view.del()
             }
 
-            view_recommend_bg_color1 -> { // 颜色-推荐-iron red
+            view_recommend_bg_color1 -> { // 颜色-推荐-铁红
                 switchRecommendColorIndex(0)
             }
             view_recommend_bg_color2 -> { // 颜色-推荐-黑红
@@ -196,7 +196,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 switchRecommendColorIndex(4)
             }
 
-            cl_over_grey -> { // grayscale渐变
+            cl_over_grey -> { // 灰度渐变
                 switchUseGray(true)
             }
             cl_over_color -> { // 等色
@@ -249,7 +249,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
                 setResult(RESULT_OK, resultIntent)
                 finish()
             }
-            tv_cancel -> { // Cancel
+            tv_cancel -> { // 取消
                 setResult(RESULT_CANCELED)
                 finish()
             }
@@ -257,8 +257,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 在 动态渲染 与 自定义 之间switch.
-     * @param isToCustom true-switch到自定义 false-switch到动态渲染
+     * 在 动态渲染 与 自定义 之间切换.
+     * @param isToCustom true-切换到自定义 false-切换到动态渲染
      */
     private fun switchDynamicCustom(isToCustom: Boolean) {
         customPseudoBean.isUseCustomPseudo = isToCustom
@@ -274,8 +274,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 在自定义渲染-颜色settings中的 自定义 与 推荐 之间switch.
-     * @param isToCustom true-switch到自定义 false-switch到推荐
+     * 在自定义渲染-颜色设置中的 自定义 与 推荐 之间切换.
+     * @param isToCustom true-切换到自定义 false-切换到推荐
      */
     private fun switchColorType(isToCustom: Boolean) {
         customPseudoBean.isColorCustom = isToCustom
@@ -288,7 +288,7 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 将自定义颜色settings中，6个预设颜色值reset为均未selectedstate.
+     * 将自定义颜色设置中，6个预设颜色值重置为均未选中状态.
      */
     private fun reset6CustomColor() {
         view_custom_color1.isSelected = false
@@ -300,8 +300,8 @@ class PseudoSetActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * switch 推荐颜色 中的 5 个选项.
-     * @param 0-iron red 1-黑红 2-自然 3-岩浆 4-辉金
+     * 切换 推荐颜色 中的 5 个选项.
+     * @param 0-铁红 1-黑红 2-自然 3-岩浆 4-辉金
      */
     private fun switchRecommendColorIndex(index: Int) {
         when (customPseudoBean.customRecommendIndex) {

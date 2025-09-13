@@ -27,8 +27,8 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * 房屋检测首页.
  *
- * 需要传递parameter：
- * - [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007（不使用，透传）
+ * 需要传递参数：
+ * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
  *
  * Created by LCG on 2024/8/20.
  */
@@ -84,7 +84,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
                 override fun onPageSelected(position: Int) {
                     if (position == 0) { // 检测
                         iv_edit.isEnabled = !detectViewModel.detectListLD.value.isNullOrEmpty()
-                    } else { // report
+                    } else { // 报告
                         iv_edit.isEnabled = !reportViewModel.reportListLD.value.isNullOrEmpty()
                     }
                 }
@@ -100,7 +100,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDetectCreate(event: HouseReportAddEvent) {
-        // 有新report被create时，切到report页
+        // 有新报告被创建时，切到报告页
         view_pager2.currentItem = 1
     }
 
@@ -110,7 +110,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
             iv_edit -> { // 编辑
                 tabViewModel.isEditModeLD.value = true
             }
-            iv_add -> { // add
+            iv_add -> { // 添加
                 val newIntent = Intent(this, DetectAddActivity::class.java)
                 newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                 startActivity(newIntent)

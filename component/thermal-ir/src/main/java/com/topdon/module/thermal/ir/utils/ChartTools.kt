@@ -17,12 +17,12 @@ object ChartTools {
         rotate: Int,
     ): List<Float> {
         val tempList: ArrayList<Float> = ArrayList()
-        if (point1 == point2) { // 搞毛啊，两个相同的point
+        if (point1 == point2) { // 搞毛啊，两个相同的点
             return tempList
         }
 
         val pointList: ArrayList<Point> = ArrayList()
-        if (point1.x == point2.x) { // 垂直于 X 轴的直line
+        if (point1.x == point2.x) { // 垂直于 X 轴的直线
             val startY = point1.y.coerceAtMost(point2.y)
             val endY = point1.y.coerceAtLeast(point2.y)
             for (i in startY..endY) {
@@ -31,13 +31,13 @@ object ChartTools {
         } else {
             val k = (point1.y - point2.y).toFloat() / (point1.x - point2.x).toFloat()
             val b = point1.y - k * point1.x
-            if (abs(k) <= 1) { // x轴正整数point较多
+            if (abs(k) <= 1) { // x轴正整数点较多
                 val startX = point1.x.coerceAtMost(point2.x)
                 val endX = point1.x.coerceAtLeast(point2.x)
                 for (i in startX..endX) {
                     pointList.add(Point(i, (k * i + b).toInt()))
                 }
-            } else { // y轴正整数point较多
+            } else { // y轴正整数点较多
                 if (k >= 0) { // 左上到右下
                     val startY = point1.y.coerceAtMost(point2.y)
                     val endY = point1.y.coerceAtLeast(point2.y)
@@ -66,7 +66,7 @@ object ChartTools {
         return tempList
     }
 
-X数值scaling
+\1X数值scaling
     fun scale(type: Int): Long {
         return when (type) {
             1 -> 1 * 1000 // s
@@ -77,7 +77,7 @@ X数值scaling
         }
     }
 
-getdisplay最小区间
+\1getdisplay最小区间
     fun getMinimum(type: Int): Float {
         val min =
             when (type) {
@@ -90,13 +90,13 @@ getdisplay最小区间
         return min
     }
 
-getdisplay最大区间，以最小区间的50倍
+\1getdisplay最大区间，以最小区间的50倍
     fun getMaximum(type: Int): Float {
         return getMinimum(type) * 50f
     }
 
     /**
-setY轴range
+\1setY轴范围
      */
     fun setY(chart: LineChart) {
         var maxVol = 0f
@@ -143,23 +143,23 @@ setY轴range
     }
 
     /**
-setX轴刻度
+\1setX轴刻度
      */
     fun setX(
         chart: LineChart,
         type: Int,
     ) {
-true保证有刻度数量不变,Swipe要false
+\1true保证有刻度数量不变,滑动要false
         val xLen = chart.xChartMax - chart.xChartMin
 //        Log.w("chart", "xLen: $xLen")
 //        chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), getLabCount(xLen.toInt()) < 3)
-chart.xAxis.setLabelCount(5, false) // 3point ok
+\1chart.xAxis.setLabelCount(5, false) // 3点 ok
 //        chart.xAxis.setLabelCount(5, true) //
         chart.xAxis.setLabelCount(getLabCount(xLen.toInt()), xLen <= 3)
     }
 
     /**
-x轴display多少个刻度
+\1x轴display多少个刻度
      */
     private fun getLabCount(count: Int): Int {
         return when {

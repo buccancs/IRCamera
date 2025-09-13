@@ -17,7 +17,7 @@
         android:paddingBottom="11dp"
         android:textSize="16sp"
         android:textColor="#ffffff"
-        tools:text="有lineconnection"
+        tools:text="有线连接"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

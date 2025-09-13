@@ -17,7 +17,7 @@ import com.blankj.utilcode.util.SizeUtils
  */
 object ViewBindingAdapter {
     /**
-     * 为 view 的 background add或移除 selectableItemBackground 效果.
+     * 为 view 的 background 添加或移除 selectableItemBackground 效果.
      */
     @JvmStatic
     @BindingAdapter("bgEffect")
@@ -164,11 +164,11 @@ object ViewBindingAdapter {
     }
 
     /**
-     * 使用矩形 shape 为指定 view 的 background settings指定type渐变parameter.
-     * @param angle line性渐变：渐变角度，必须为 45 的倍数，0为从左到右 90为从上到下 -90或270为从下到上
+     * 使用矩形 shape 为指定 view 的 background settings指定类型渐变参数.
+     * @param angle 线性渐变：渐变角度，必须为 45 的倍数，0为从左到右 90为从上到下 -90或270为从下到上
      * @param radius 放射渐变：直径百分比
-     * @param centerX 放射渐变或扫描渐变：centerpointX轴百分比
-     * @param centerY 放射渐变或扫描渐变：centerpointY轴百分比
+     * @param centerX 放射渐变或扫描渐变：中心点X轴百分比
+     * @param centerY 放射渐变或扫描渐变：中心点Y轴百分比
      */
     @JvmStatic
     @BindingAdapter(value = ["bgAngle", "bgRadius", "bgCenterX", "bgCenterY"], requireAll = false)

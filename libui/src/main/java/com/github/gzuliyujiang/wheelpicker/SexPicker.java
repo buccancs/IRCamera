@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 性别selection器
+ * 性别选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/6/23 11:48

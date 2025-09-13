@@ -25,7 +25,7 @@ import com.github.gzuliyujiang.wheelpicker.impl.BirthdayFormatter;
 import java.util.Calendar;
 
 /**
- * 出生日期selection器
+ * 出生日期选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/14 14:31

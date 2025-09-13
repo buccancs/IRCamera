@@ -61,50 +61,50 @@ class ChartMonitorView : LineChart, OnChartGestureListener {
             this.setDrawGridBackground(false)
             this.description = null // 图标描述文本
             this.setBackgroundResource(LibR.color.chart_bg)
-            this.setScaleEnabled(true) // Scale
-            this.setPinchZoom(false) // Disable后，可以分别在x轴和y轴上进行Scale
-            this.isDoubleTapToZoomEnabled = false // 双击不可Scale
-            this.isScaleYEnabled = false // 禁止Y轴Scale
-            this.isScaleXEnabled = true // 禁止X轴Scale
+            this.setScaleEnabled(true) // 缩放
+            this.setPinchZoom(false) // 禁用后，可以分别在x轴和y轴上进行缩放
+            this.isDoubleTapToZoomEnabled = false // 双击不可缩放
+            this.isScaleYEnabled = false // 禁止Y轴缩放
+            this.isScaleXEnabled = true // 禁止X轴缩放
             this.setExtraOffsets(
                 0f,
                 0f,
                 SizeUtils.dp2px(8f).toFloat(),
                 SizeUtils.dp2px(4f).toFloat(),
-            ) // 图表region偏移
+            ) // 图表区域偏移
             setNoDataText(context.getString(ThermalR.string.lms_http_code998))
             setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
             val mv = MyMarkerView(context, R.layout.marker_lay)
             mv.chartView = this
-            marker = mv // settingsclick坐标Show/Displaytip框
+            marker = mv // 设置点击坐标显示提示框
             val data = LineData()
             data.setValueTextColor(textColor)
             this.data = data
             val l = this.legend
             l.form = Legend.LegendForm.CIRCLE
             l.textColor = textColor
-            l.isEnabled = false // Hide曲linetag
-x轴
+            l.isEnabled = false // 隐藏曲线标签
+\1x轴
             val xAxis = this.xAxis
             xAxis.textColor = textColor
-            xAxis.setDrawGridLines(false) // 竖向格line
+            xAxis.setDrawGridLines(false) // 竖向格线
             xAxis.gridColor = axisChartColors // x轴网格颜色
             xAxis.axisLineColor = 0x00000000 // x轴颜色
             xAxis.setAvoidFirstLastClipping(true)
             xAxis.isEnabled = true
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1f
-            xAxis.isGranularityEnabled = true // 重复值不Show/Display
+            xAxis.isGranularityEnabled = true // 重复值不显示
             xAxis.textSize = 8f
-y轴
+\1y轴
             val leftAxis = this.axisLeft
             leftAxis.textColor = textColor // y轴文本颜色
             leftAxis.axisLineColor = 0x00000000 // y轴颜色
-            leftAxis.setDrawGridLines(true) // 横向格line
+            leftAxis.setDrawGridLines(true) // 横向格线
             leftAxis.gridColor = axisChartColors // y轴网格颜色
             leftAxis.gridLineWidth = 1.5f
             leftAxis.setLabelCount(6, true)
-            leftAxis.valueFormatter = YValueFormatter() // settings小数point一位
+            leftAxis.valueFormatter = YValueFormatter() // 设置小数点一位
             leftAxis.textSize = 8f
 
             this.axisRight.isEnabled = false
@@ -114,8 +114,8 @@ y轴
     private var startTime = 0L
 
     /**
-秒update图表data
-@param timeType 时分秒
+\1秒update图表data
+\1@param timeType 时分秒
      *
      */
     fun addPointToChart(
@@ -130,7 +130,7 @@ y轴
                     return
                 }
                 val lineData: LineData = this.data
-                var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
+                var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
                 if (volDataSet == null) {
                     startTime = bean.createTime
                     xAxis.valueFormatter =
@@ -152,10 +152,10 @@ y轴
                         val entity = Entry(x, bean.thermal)
                         entity.data = bean
                         volDataSet.addEntry(entity)
-                        Log.w("123", "add一个data:$entity")
+                        Log.w("123", "添加一个数据:$entity")
                     }
                     2 -> {
-第一条line
+\1第一条线
                         if (volDataSet == null) {
                             volDataSet = createSet(0, "line max temp")
                             lineData.addDataSet(volDataSet)
@@ -165,8 +165,8 @@ y轴
                         entity.data = bean
                         volDataSet.addEntry(entity)
 
-第二条line
-                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+\1第二条线
+                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                         if (secondDataSet == null) {
                             secondDataSet = createSet(1, "line min temp")
                             lineData.addDataSet(secondDataSet)
@@ -176,7 +176,7 @@ y轴
                         secondDataSet.addEntry(secondEntity)
                     }
                     else -> {
-第一条line
+\1第一条线
                         if (volDataSet == null) {
                             volDataSet = createSet(0, "fence max temp")
                             lineData.addDataSet(volDataSet)
@@ -185,8 +185,8 @@ y轴
                         entity.data = bean
                         volDataSet.addEntry(entity)
 
-第二条line
-                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+\1第二条线
+                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                         if (secondDataSet == null) {
                             secondDataSet = createSet(1, "fence min temp")
                             lineData.addDataSet(secondDataSet)
@@ -199,11 +199,11 @@ y轴
 
                 lineData.notifyDataChanged()
                 notifyDataSetChanged()
-                setVisibleXRangeMinimum(ChartTools.getMinimum(type = timeType) / 2) // settingsShow/DisplayX轴区间大小
-                setVisibleXRangeMaximum(ChartTools.getMaximum(type = timeType)) // settingsShow/DisplayX轴区间大小
+                setVisibleXRangeMinimum(ChartTools.getMinimum(type = timeType) / 2) // 设置显示X轴区间大小
+                setVisibleXRangeMaximum(ChartTools.getMaximum(type = timeType)) // 设置显示X轴区间大小
                 ChartTools.setX(this, timeType)
 //                ChartTools.setY(this)
-结尾point出现在interface才移动最新data
+\1结尾点出现在interface才移动最新data
                 if ((highestVisibleX + ChartTools.getMinimum(timeType) / 2f) > xChartMax) {
                     moveViewToX(xChartMax) // 移动到最右端
                 }
@@ -212,7 +212,7 @@ y轴
                 }
                 return@synchronized
             } catch (e: Exception) {
-                Log.e("123", "adddata时exception:${e.message}")
+                Log.e("123", "添加数据时异常:${e.message}")
                 return@synchronized
             }
         }
@@ -238,7 +238,7 @@ y轴
         )
 
     /**
-曲line样式
+\1曲线样式
      */
     private fun createSet(
         index: Int,
@@ -247,17 +247,17 @@ y轴
         val set = LineDataSet(null, label)
         set.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
         set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index]) // settings填充颜色渐变
+        set.fillDrawable = ContextCompat.getDrawable(context, bgChartColors[index]) // 设置填充颜色渐变
         set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(context, lineChartColors[index]) // 曲line颜色
+        set.color = ContextCompat.getColor(context, lineChartColors[index]) // 曲线颜色
         set.circleHoleColor = ContextCompat.getColor(context, linePointColors[index]) // 坐标圆心颜色
         set.setCircleColor(ContextCompat.getColor(context, lineChartColors[index])) // 坐标颜色
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
-        set.circleRadius = 1f // 坐标point半径
+        set.circleRadius = 1f // 坐标点半径
         set.fillAlpha = 200
         set.valueTextSize = 10f
-        set.setDrawValues(false) // settings是否Show/Display坐标值文本
+        set.setDrawValues(false) // 设置是否显示坐标值文本
         return set
     }
 
@@ -295,7 +295,7 @@ y轴
         scaleX: Float,
         scaleY: Float,
     ) {
-scaling时disabled
+\1scaling时disabled
         highlightValue(null)
     }
 

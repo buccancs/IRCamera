@@ -145,7 +145,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    // 要是当前已connection TS004、TC007，切到流量上，不然LoginRegister意见反馈那些没网
+                    // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(true)
                     }
@@ -209,7 +209,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_connect_device, iv_add -> { // adddevice
+            tv_connect_device, iv_add -> { // 添加设备
                 startActivity(Intent(requireContext(), DeviceTypeActivity::class.java))
 //                ARouter.getInstance().build(RoutePath.UsbIrModule.PAGE_IR_MAIN_ACTIVITY)
 //                    .navigation()
@@ -221,7 +221,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSocketMsgEvent(event: SocketMsgEvent) {
         if (SocketCmdUtil.getCmdResponse(event.text) == WsCmdConstants.APP_EVENT_HEART_BEATS) { // 心跳
-            if (!adapter.hasConnectTC007) { // 当前connection的不是 TC007
+            if (!adapter.hasConnectTC007) { // 当前连接的不是 TC007
                 return
             }
             try {
@@ -234,7 +234,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
     private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-         * 有linedevice当前是否已connection.
+         * 有线设备当前是否已连接.
          */
         var hasConnectLine: Boolean = false
             set(value) {
@@ -243,7 +243,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
 
         /**
-         * TS004 当前是否已connection.
+         * TS004 当前是否已连接.
          */
         var hasConnectTS004: Boolean = false
             set(value) {
@@ -252,7 +252,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
 
         /**
-         * TC007 当前是否已connection.
+         * TC007 当前是否已连接.
          */
         var hasConnectTC007: Boolean = false
             set(value) {
@@ -261,7 +261,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
 
         /**
-         * TC007 device电池info.
+         * TC007 设备电池信息.
          */
         var tc007Battery: BatteryInfo? = null
             set(value) {
@@ -377,7 +377,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 rootView.iv_bg.setOnLongClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        // 只有离linedevice才能长按delete
+                        // 只有离线设备才能长按删除
                         val deviceType = getConnectType(position)
                         when (deviceType) {
                             ConnectType.LINE -> {

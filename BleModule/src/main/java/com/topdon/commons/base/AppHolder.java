@@ -228,9 +228,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * finish掉除parameter外的所有Activity
+     * finish掉除参数外的所有Activity
      *
-     * @param classNames 此Activity的class名，如果是null将finish所有Activity
+     * @param classNames 此Activity的类名，如果是null将finish所有Activity
      */
     public void finishAllWithout(@Nullable String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -256,7 +256,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     /**
      * 退回到指定Activity
      *
-     * @param className 完整class名
+     * @param className 完整类名
      */
     public void backTo(String className) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -299,7 +299,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * finish所有Activity后杀死process
+     * finish所有Activity后杀死进程
      */
     public void completeExit() {
         isCompleteExit = true;

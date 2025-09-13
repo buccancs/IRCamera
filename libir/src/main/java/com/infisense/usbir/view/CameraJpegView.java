@@ -65,7 +65,7 @@ public class CameraJpegView extends TextureView {
                             canvas.drawBitmap(mScaledBitmap, 0, 0, null);
 
                             Paint paint = new Paint();  //画笔
-                            paint.setStrokeWidth(2);  //settingsline宽。单位为像素
+                            paint.setStrokeWidth(2);  //settings线宽。单位为像素
                             paint.setAntiAlias(true); //抗锯齿
                             paint.setColor(Color.WHITE);  //画笔color
 

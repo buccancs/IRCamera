@@ -11,7 +11,7 @@ public interface ReadDescriptorCallback extends RequestFailedCallback {
      * 读取到描述符值
      *
      * @param request 请求
-     * @param value   读取到的data
+     * @param value   读取到的数据
      */
     void onDescriptorRead(Request request, byte[] value);
 }

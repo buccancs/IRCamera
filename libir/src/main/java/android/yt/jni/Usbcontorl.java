@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Usbjni是framework提供的jniinterface，必须保持class名不变，由inheritanceclassimplementationsoload判断。
+ * Usbjni是framework提供的jni接口，必须保持类名不变，由继承类实现so加载判断。
  */
 public class Usbcontorl extends Usbjni {
 
@@ -19,7 +19,7 @@ public class Usbcontorl extends Usbjni {
             try {
                 reader = new BufferedReader(new FileReader(file));
                 String tempString = null;
-                // 一次读入一行，直到读入null为fileend
+                // 一次读入一行，直到读入null为文件结束
                 while ((tempString = reader.readLine()) != null) {
                     // Show/Display行号
                     if (tempString.contains("libusb3803_hub.so")) {

@@ -9,16 +9,16 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class ReportTempBean(
-    val max_temperature: String?, // 带单位符号的maximum温，单位跟随Userconfiguration
-    val is_max_temperature: Int, // 是否Show/Displaymaximum温
-    val min_temperature: String?, // 带单位符号的minimum温，单位跟随Userconfiguration
-    val is_min_temperature: Int, // 是否Show/Displayminimum温
-    val comment: String?, // comment
-    val is_comment: Int, // 是否Show/Displaycomment
-    val mean_temperature: String? = null, // 带单位符号的average温，单位跟随Userconfiguration
-    val is_mean_temperature: Int = 0, // 是否Show/Displayaverage温
-    val temperature: String? = null, // 带单位符号的pointtemperature，单位跟随Userconfiguration
-    val is_temperature: Int = 0, // 是否Show/Displaypointtemperature
+    val max_temperature: String?, // 带单位符号的最高温，单位跟随用户配置
+    val is_max_temperature: Int, // 是否显示最高温
+    val min_temperature: String?, // 带单位符号的最低温，单位跟随用户配置
+    val is_min_temperature: Int, // 是否显示最低温
+    val comment: String?, // 注释
+    val is_comment: Int, // 是否显示注释
+    val mean_temperature: String? = null, // 带单位符号的平均温，单位跟随用户配置
+    val is_mean_temperature: Int = 0, // 是否显示平均温
+    val temperature: String? = null, // 带单位符号的点温度，单位跟随用户配置
+    val is_temperature: Int = 0, // 是否显示点温度
 ) : Parcelable {
     constructor(temperature: String?, is_temperature: Int, comment: String?, is_comment: Int) : this(
         null,

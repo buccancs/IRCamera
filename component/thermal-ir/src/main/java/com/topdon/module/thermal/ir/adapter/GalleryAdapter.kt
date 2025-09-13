@@ -15,7 +15,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 
 /**
-photo或video
+\1照片或视频
  */
 /**
  * Custom Gallery view for thermal imaging display.
@@ -29,17 +29,17 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     /**
-当前display的data列表，包含有title item.
+\1当前display的data列表，包含有title item.
      */
     val dataList: ArrayList<GalleryBean> = ArrayList()
 
     /**
-编辑mode下，当前selected的 position 列表.
+\1编辑模式下，当前选中的 position 列表.
      */
     val selectList: ArrayList<Int> = ArrayList()
 
     /**
-是否为 TS004 远端mode，处于该mode会有Download图标.
+\1是否为 TS004 远端模式，处于该模式会有下载图标.
      */
     var isTS004Remote = false
         set(value) {
@@ -50,7 +50,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-当前是否处于编辑mode.
+\1当前是否处于编辑模式.
      */
     var isEditMode = false
         set(value) {
@@ -65,18 +65,18 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-非编辑mode下 item 长按进入编辑modeEventListener.
+\1非编辑模式下 item 长按进入编辑模式事件监听.
      */
     var onLongEditListener: (() -> Unit)? = null
 
     /**
-selected数量变更Callback.
-data 当前selected的 item position 列表
+\1选中数量变更回调.
+\1data 当前选中的 item position 列表
      */
     var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
 
     /**
-非编辑mode时，item clickEventListener.
+\1非编辑模式时，item 点击事件监听.
      */
     var itemClickCallback: ((position: Int) -> Unit)? = null
 

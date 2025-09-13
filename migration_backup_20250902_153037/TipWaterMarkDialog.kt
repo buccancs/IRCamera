@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.dialog_tip_watermark.view.*
 import java.util.*
 
 /**
- * 2D-编辑 watermark
+ * 2D-编辑 水印
  */
 class TipWaterMarkDialog : Dialog {
     constructor(context: Context) : super(context)
@@ -116,7 +116,7 @@ class TipWaterMarkDialog : Dialog {
                     // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -198,7 +198,7 @@ class TipWaterMarkDialog : Dialog {
                             never: Boolean,
                         ) {
                             if (never) {
-                                // 如果是被永久拒绝就跳转到应用Permission系统settings页area
+                                // 如果是被永久拒绝就跳转到应用权限系统设置页面
                                 if (BaseApplication.instance.isDomestic())
                                     {
                                         ToastUtils.showShort(R.string.app_location_content)
@@ -245,10 +245,10 @@ class TipWaterMarkDialog : Dialog {
 
         @SuppressLint("MissingPermission")
         private fun getLocation(): String? {
-            // 1.Get/Retrieve位置管理器
+            // 1.获取位置管理器
             locationManager = context!!.getSystemService(RxAppCompatActivity.LOCATION_SERVICE) as LocationManager
 
-            // 2.Get/Retrieve位置提供器，GPS或是NetWork
+            // 2.获取位置提供器，GPS或是NetWork
             val providers = locationManager?.getProviders(true)
             locationProvider =
                 if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
@@ -274,7 +274,7 @@ class TipWaterMarkDialog : Dialog {
                 }
         }
 
-        // Get/Retrieve地址info:城市、街道等info
+        // 获取地址信息:城市、街道等信息
         private fun getAddress(location: Location?): String {
             var result: List<Address?>? = null
             try {
@@ -285,7 +285,7 @@ class TipWaterMarkDialog : Dialog {
                             location.latitude,
                             location.longitude, 1,
                         )
-                    Log.v("TAG", "Get/Retrieve地址info：$result")
+                    Log.v("TAG", "获取地址信息：$result")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -6,7 +6,7 @@ package com.infisense.usbir.utils;
 public class HexUtils {
 
     /**
-     * 将字节arrayconversion成十六进制的字符串
+     * 将字节array转换成十六进制的字符串
      * @return
      */
     public static String binaryToHexString(byte[] bytes) {

@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 选项selection器
+ * 选项选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/6/23 11:48

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.dialog_ir_config_input.*
 import java.lang.NumberFormatException
 
 /**
- * temperature修正 环境temperature、temperature measurement距离、发射率 modify值时输入弹框.
+ * 温度修正 环境温度、测温距离、发射率 修改值时输入弹框.
  *
  * Created by LCG on 2024/10/24.
  */
@@ -24,7 +24,7 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
     /**
-     * settings输入框默认值
+     * 设置输入框默认值
      */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
@@ -32,7 +32,7 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     }
 
     /**
-     * settingsConfirmclickEventListener.
+     * 设置确认点击事件监听.
      */
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
@@ -100,12 +100,12 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
 
     enum class Type {
         /**
-         * 环境temperature
+         * 环境温度
          */
         TEMP,
 
         /**
-         * temperature measurement距离
+         * 测温距离
          */
         DIS,
 

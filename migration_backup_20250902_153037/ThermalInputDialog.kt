@@ -32,11 +32,11 @@ import kotlinx.android.synthetic.main.dialog_thermal_input.view.*
 import java.math.BigDecimal
 
 /**
- * tip窗
+ * 提示窗
  * create by fylder on 2018/6/15
  **/
 class ThermalInputDialog : Dialog {
-    private var action = 100 // 100:初始temperature输入界area     201: temperature上限颜色selection界area   301: temperature下限颜色selection界area
+    private var action = 100 // 100:初始温度输入界面     201: 温度上限颜色选择界面   301: 温度下限颜色选择界面
 
     constructor(context: Context) : super(context)
 
@@ -226,7 +226,7 @@ class ThermalInputDialog : Dialog {
                     view.dialog_down_color.visibility = View.VISIBLE
                 }
             messageText.text = message
-            // initialization颜色
+            // 初始化颜色
             if (maxColor != 0) upColor = maxColor
             if (minColor != 0) downColor = minColor
             upUnit.text = UnitTools.showUnit()
@@ -255,7 +255,7 @@ class ThermalInputDialog : Dialog {
                     // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -375,7 +375,7 @@ class ThermalInputDialog : Dialog {
                         fromUser: Boolean,
                     ) {
                         if ("#${envelope.hexCode}" != "#FFFFFFFF") {
-                            // 非预设颜色,复位预设parameter
+                            // 非预设颜色,复位预设参数
                             adapter.selected(-1)
                             selectColor = 0
                         }

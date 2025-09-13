@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.TimeUtils
 
 /**
- * 房屋检测 - 检测与report都有的栏位.
+ * 房屋检测 - 检测与报告都有的栏位.
  *
  * Created by LCG on 2024/1/15.
  */
@@ -16,7 +16,7 @@ open class HouseBase {
     var id: Long = 0
 
     /**
-     * reportname
+     * 报告名称
      */
     @ColumnInfo
     var name: String = ""
@@ -34,7 +34,7 @@ open class HouseBase {
     var address: String = ""
 
     /**
-     * 房屋image在本地绝对path
+     * 房屋图片在本地绝对路径
      */
     @ColumnInfo
     var imagePath: String = ""
@@ -46,13 +46,13 @@ open class HouseBase {
     var year: Int? = null
 
     /**
-     * 建筑area积.
+     * 建筑面积.
      */
     @ColumnInfo
     var houseSpace: String = ""
 
     /**
-     * 建筑area积单位 0-英亩 1-平方米 2-公顷
+     * 建筑面积单位 0-英亩 1-平方米 2-公顷
      */
     @ColumnInfo
     var houseSpaceUnit: Int = 0
@@ -70,19 +70,19 @@ open class HouseBase {
     var costUnit: Int = 0
 
     /**
-     * 该检测或report由Userselection的“检测时间”时间戳，单位毫秒
+     * 该检测或报告由用户选择的“检测时间”时间戳，单位毫秒
      */
     @ColumnInfo
     var detectTime: Long = 0
 
     /**
-     * 该检测或reportcreate时间戳，单位毫秒
+     * 该检测或报告创建时间戳，单位毫秒
      */
     @ColumnInfo
     var createTime: Long = 0
 
     /**
-     * 该检测或reportupdate时间戳，单位毫秒
+     * 该检测或报告更新时间戳，单位毫秒
      */
     @ColumnInfo
     var updateTime: Long = 0
@@ -92,7 +92,7 @@ open class HouseBase {
     override fun hashCode(): Int = id.toInt()
 
     /**
-     * Get/Retrieve房屋area积单位.
+     * 获取房屋面积单位.
      */
     fun getSpaceUnitStr(): String =
         when (houseSpaceUnit) {
@@ -102,7 +102,7 @@ open class HouseBase {
         }
 
     /**
-     * Get/Retrieve检测费用货币单位.
+     * 获取检测费用货币单位.
      */
     fun getCostUnitStr(): String =
         when (costUnit) {
@@ -118,7 +118,7 @@ open class HouseBase {
         }
 
     /**
-     * Get/Retrieve该report对应的 PDF filename
+     * 获取该报告对应的 PDF 文件名称
      */
     fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
@@ -135,7 +135,7 @@ class HouseDetect : HouseBase() {
     var dirList: ArrayList<DirDetect> = ArrayList()
 
     /**
-     * Return一个 id 为 0，nameadd (1)，其余property完全一致的新对象.
+     * 返回一个 id 为 0，名称添加 (1)，其余属性完全一致的新对象.
      */
     fun copyOne(): HouseDetect {
         val newDetect = HouseDetect()
@@ -186,36 +186,36 @@ class HouseDetect : HouseBase() {
 }
 
 /**
- * 房屋检测 - 一项report.
+ * 房屋检测 - 一项报告.
  */
 @Entity
 class HouseReport : HouseBase() {
     /**
-     * 检测师签名image（白色笔刷版）在本地绝对path
+     * 检测师签名图片（白色笔刷版）在本地绝对路径
      */
     @ColumnInfo
     var inspectorWhitePath: String = ""
 
     /**
-     * 检测师签名image（黑色笔刷版）在本地绝对path
+     * 检测师签名图片（黑色笔刷版）在本地绝对路径
      */
     @ColumnInfo
     var inspectorBlackPath: String = ""
 
     /**
-     * 房主签名image（白色笔刷版）在本地绝对path
+     * 房主签名图片（白色笔刷版）在本地绝对路径
      */
     @ColumnInfo
     var houseOwnerWhitePath: String = ""
 
     /**
-     * 房主签名image（黑色笔刷版）在本地绝对path
+     * 房主签名图片（黑色笔刷版）在本地绝对路径
      */
     @ColumnInfo
     var houseOwnerBlackPath: String = ""
 
     /**
-     * 该report下的目录列表
+     * 该报告下的目录列表
      */
     @Ignore
     var dirList: ArrayList<DirReport> = ArrayList()

@@ -16,7 +16,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_tip_otg.view.*
 
 /**
- * tip窗
+ * 提示窗
  * create by fylder on 2018/6/15
  **/
 class TipOtgDialog : Dialog {
@@ -151,7 +151,7 @@ class TipOtgDialog : Dialog {
                     // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

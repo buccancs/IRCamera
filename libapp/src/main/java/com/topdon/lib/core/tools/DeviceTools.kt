@@ -19,13 +19,13 @@ import com.topdon.lib.core.utils.ByteUtils.toHexString
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 先Get/RetrievePermission
+ * 先获取权限
  */
 object DeviceTools {
     /**
-     * 判断当前是否已connection 插件式device 且有Permission.
-     * 若已connection且有Permission默认不Send已connectionEvent.
-     * 若已connection但无Permission默认触发Permission申请.
+     * 判断当前是否已连接 插件式设备 且有权限.
+     * 若已连接且有权限默认不发送已连接事件.
+     * 若已连接但无权限默认触发权限申请.
      */
     fun isConnect(
         isSendConnectEvent: Boolean = false,
@@ -36,13 +36,13 @@ object DeviceTools {
         for (usbDevice in deviceList.values) {
             if (usbDevice.isTcTsDevice()) {
                 return if (usbManager.hasPermission(usbDevice)) {
-                    XLog.i("device已connection且有Permission")
+                    XLog.i("设备已连接且有权限")
                     if (isSendConnectEvent) {
                         EventBus.getDefault().post(DeviceConnectEvent(true, usbDevice))
                     }
                     true
                 } else {
-                    XLog.w("device已connection但无Permission")
+                    XLog.w("设备已连接但无权限")
                     if (isAutoRequest) {
                         EventBus.getDefault().post(DevicePermissionEvent(usbDevice))
                     }
@@ -60,16 +60,16 @@ object DeviceTools {
             if (usbDevice.isTcTsDevice()) {
                 val productID = usbDevice.productId.toBytes(2).toHexString()
                 val vendorID = usbDevice.vendorId.toBytes(2).toHexString()
-                XLog.i("找到一个usbdevice productId:$productID, vendorId:$vendorID, deviceName:${usbDevice.deviceName}")
+                XLog.i("找到一个usb设备 productId:$productID, vendorId:$vendorID, deviceName:${usbDevice.deviceName}")
                 return usbDevice
             }
         }
-        XLog.i("检索到${deviceList.size}个device, 没有符合Customizeusbdevice")
+        XLog.i("检索到${deviceList.size}个设备, 没有符合定制usb设备")
         return null
     }
 
     /**
-     * 判断当前是否已connection TC001 Plus 且有Permission.
+     * 判断当前是否已连接 TC001 Plus 且有权限.
      */
     fun isTC001PlusConnect(): Boolean {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -88,7 +88,7 @@ object DeviceTools {
     }
 
     /**
-     * 判断是否connection了TC001 Lite 且有Permission
+     * 判断是否连接了TC001 Lite 且有权限
      */
     fun isTC001LiteConnect(): Boolean {
         val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -102,7 +102,7 @@ object DeviceTools {
     }
 
     /**
-     * 判断海康 256 是否已connection
+     * 判断海康 256 是否已连接
      */
     fun isHikConnect(): Boolean {
         val usbManager: UsbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -115,10 +115,10 @@ object DeviceTools {
     }
 
     /**
-     * Get/RetrieveusbPermission
+     * 获取usb权限
      *
      * UsbManager.requestPermission
-     * 在android 10无法弹出Authorization框
+     * 在android 10无法弹出授权框
      * targetSdk 27
      */
     fun requestUsb(
@@ -131,6 +131,6 @@ object DeviceTools {
         val flag = PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         val pendingIntent = PendingIntent.getBroadcast(activity, requestCode, intent, flag)
         usbManager.requestPermission(device, pendingIntent)
-        XLog.i("申请usbPermission")
+        XLog.i("申请usb权限")
     }
 }

@@ -87,7 +87,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     }
 
     /**
-     * Delayed WebView display to resolve white screen flashing issue
+     * 为解决闪缩白屏问题，延时打开webView
      */
     private fun delayShowWebView() {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -116,7 +116,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     private fun initWeb(url: String) {
         binding.policyWeb.visibility = android.view.View.INVISIBLE
         val webSettings: android.webkit.WebSettings = binding.policyWeb.settings
-        webSettings.javaScriptEnabled = true // settings支持javascript
+        webSettings.javaScriptEnabled = true // 设置支持javascript
 
         binding.policyWeb.webViewClient =
             object : android.webkit.WebViewClient() {
@@ -167,11 +167,11 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     }
 
     /**
-     * processing富文本
+     * 处理富文本
      *
      * @param bodyHTML body
      * @param fontColor 需要改变的字体颜色
-     * @param backgroundColor modify字体颜色
+     * @param backgroundColor 修改字体颜色
      * @return String
      */
     fun getHtmlData(
@@ -190,7 +190,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
         text: String,
         requestUrl: String,
     ) {
-        XLog.w("声明interfaceexception,Open默认链接")
+        XLog.w("声明接口异常,打开默认链接")
         loadHttp(binding.policyWeb)
         delayShowWebView()
     }
@@ -199,7 +199,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
         reloadCount--
         when (themeType) {
             1 -> {
-                // Userserviceprotocol
+                // 用户服务协议
                 view.loadUrl(
                     "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=21",
                 )
@@ -213,14 +213,14 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
             }
 
             3 -> {
-                // 第三方component
+                // 第三方组件
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }
     }
 
     /**
-     * load默认protocol网址(英文版)
+     * 加载默认协议网址(英文版)
      */
     fun loadHttp(view: android.webkit.WebView) {
         reloadCount--
@@ -229,7 +229,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:///android_asset/web/services_agreement_default_inside_china.html")
                 } else {
-                    // Userserviceprotocol
+                    // 用户服务协议
                     view.loadUrl("file:///android_asset/web/services_agreement_default.html")
                 }
             }
@@ -244,7 +244,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
             }
 
             3 -> {
-                // 第三方component
+                // 第三方组件
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }

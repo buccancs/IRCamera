@@ -20,8 +20,8 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var selected = -1
     private var rangeEnable = false // 测距
-    private var pseudoMode = MenuBean.TYPE_MIX // pseudo colormode
-    private var lightLevel = MenuBean.TYPE_LIGHT_MIDDLE // brightness: 高
+    private var pseudoMode = MenuBean.TYPE_MIX // 伪彩模式
+    private var lightLevel = MenuBean.TYPE_LIGHT_MIDDLE // 亮度: 高
     private var pipEnable = false // 画中画
     private var gainLevel = MenuBean.TYPE_GAIN_X1 // 放大倍数
 
@@ -165,7 +165,7 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-//    // state变化
+//    // 状态变化
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

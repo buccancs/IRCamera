@@ -46,7 +46,7 @@ public class TimeDownView : AppCompatTextView {
     }
 
     /**
-start计时
+\1开始计时
      *
      * @param seconds
      */
@@ -73,12 +73,12 @@ start计时
     }
 
     /**
-倒计时enabledmethod
+\1倒计时enabled方法
      *
-@param downCount     倒计时总数
-@param lastDown      display的倒计时的最后一个数
-@param delayMills    延迟启动倒计时（毫秒数）
-@param intervalMills 倒计时间隔时间（毫秒数）
+\1@param downCount     倒计时总数
+\1@param lastDown      display的倒计时的最后一个数
+\1@param delayMills    延迟启动倒计时（毫秒数）
+\1@param intervalMills 倒计时间隔时间（毫秒数）
      */
     fun downTime(
         downCount: Int,
@@ -117,14 +117,14 @@ start计时
     }
 
     /**
-Cancel
+\1取消
      */
     fun cancel() {
         animationSet?.cancel()
         downTimerTask?.cancel()
         timer?.cancel()
         drawTextFlag = DRAW_TEXT_NO
-        invalidate() // refresh一下
+        invalidate() // 刷新一下
         visibility = GONE
         downTimerTask = null
         timer = null
@@ -154,19 +154,19 @@ interface DownTimeWatcher {
     }
 
     /**
-每个倒计时EventListener.
+\1每个倒计时事件监听.
      */
     var onTimeListener: ((time: Int) -> Unit)? = null
 
     /**
-倒计时endEventListener.
+\1倒计时结束事件监听.
      */
     var onFinishListener: (() -> Unit)? = null
 
     var downTimeWatcher: DownTimeWatcher? = null
 
     /**
-Listener倒计时的变化
+\1监听倒计时的变化
      * @param downTimeWatcher
      */
     fun setOnTimeDownListener(downTimeWatcher: DownTimeWatcher?) {
@@ -183,23 +183,23 @@ Listener倒计时的变化
                     downTimeWatcher!!.onTime(downCount)
                 }
                 onTimeListener?.invoke(downCount)
-Log.e("Test","//handleMessage"+downCount+"//"+lastDown);
+\1Log.e("测试","//handleMessage"+downCount+"//"+lastDown);
                 if (downCount >= lastDown - 1) {
                     drawTextFlag = DRAW_TEXT_YES // 默认绘制
-未到end时
+\1未到结束时
                     if (downCount >= lastDown) {
                         text = downCount.toString() + ""
                         startDefaultAnimate()
                         if (downCount == lastDown && downTimeWatcher != null) {
                             downTimeWatcher!!.onLastTime(downCount)
                         }
-                    } else if (downCount == lastDown - 1) { // 若lastDown为0，downCount == -1时是倒计时真正end之时。
-倒计时end，虽然setText()method触发onDraw，但override使之不进行drawing
-set不drawingmarker
+                    } else if (downCount == lastDown - 1) { // 若lastDown为0，downCount == -1时是倒计时真正结束之时。
+\1倒计时结束，虽然setText()方法触发onDraw，但重写使之不进行drawing
+\1set不drawing标记
                         if (afterDownDimissFlag == AFTER_LAST_TIME_DIMISS) {
                             drawTextFlag = DRAW_TEXT_NO
                         }
-                        invalidate() // refresh一下
+                        invalidate() // 刷新一下
                         isRunning = false
                         downTimerTask == null
                         timer?.cancel()
@@ -220,26 +220,26 @@ set不drawingmarker
     private val DRAW_TEXT_NO = 0
 
     /**
-是否执行onDraw的标识，默认drawing
+\1是否执行onDraw的标识，默认drawing
      */
     private var drawTextFlag = DRAW_TEXT_YES
     private val AFTER_LAST_TIME_DIMISS = 1
     private val AFTER_LAST_TIME_NODIMISS = 0
 
     /**
-在倒计时end之后text是否消失的标志，默认消失
+\1在倒计时结束之后文字是否消失的标志，默认消失
      */
     private var afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
 
     /**
-set倒计时end后text不消失
+\1set倒计时结束后文字不消失
      */
     fun setAfterDownNoDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_NODIMISS
     }
 
     /**
-set倒计时end后text消失
+\1set倒计时结束后文字消失
      */
     fun setAferDownDimiss() {
         afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
@@ -247,13 +247,13 @@ set倒计时end后text消失
 
     var startDefaultAnimFlag = true
 
-disabled默认动画
+\1disabled默认动画
     fun closeDefaultAnimate() {
         animationSet?.reset()
         startDefaultAnimFlag = false
     }
 
-enabled默认动画
+\1enabled默认动画
     private fun startDefaultAnimate() {
         if (startDefaultAnimFlag) {
             animation?.start()
@@ -278,7 +278,7 @@ enabled默认动画
         scaleAnimation.duration = intervalMills
         val alphaAnimation = AlphaAnimation(1f, 0.3f)
         alphaAnimation.duration = intervalMills
-将AlphaAnimation这个已经set好的动画add到 AnimationSet中
+\1将AlphaAnimation这个已经set好的动画添加到 AnimationSet中
         animationSet!!.addAnimation(scaleAnimation)
         animationSet!!.addAnimation(alphaAnimation)
         animationSet!!.interpolator = AccelerateInterpolator()

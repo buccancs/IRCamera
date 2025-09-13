@@ -25,8 +25,8 @@ import java.io.File
 /**
  * 使用 DataBinding 的基础 Activity.
  *
- * 由于 BaseActivity 子class实在太多没法一下子全改完，
- * 所以 BaseActivity 里的逻辑改一个搬一个吧，等全部改完再来Optimizeinheritance.
+ * 由于 BaseActivity 子类实在太多没法一下子全改完，
+ * 所以 BaseActivity 里的逻辑改一个搬一个吧，等全部改完再来优化继承.
  *
  * Created by LCG on 2024/10/14.
  */
@@ -34,7 +34,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     protected lateinit var binding: B
 
     /**
-     * 子classimplementation该method，Return使用 DataBinding 的 layout 资源 Id.
+     * 子类实现该方法，返回使用 DataBinding 的 layout 资源 Id.
      */
     @LayoutRes
     protected abstract fun initContentLayoutId(): Int
@@ -58,9 +58,6 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    /**
-     * Callback method triggered when usblinestatechange occurs.
-     */
     fun onUSBLineStateChange(event: DeviceConnectEvent) {
         if (event.isConnect) {
             connected()
@@ -76,9 +73,6 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    /**
-     * Callback method triggered when socketconnectstate occurs.
-     */
     fun onSocketConnectState(event: SocketStateEvent) {
         if (event.isConnect) {
             onSocketConnected(event.isTS004)
@@ -94,12 +88,12 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * 新版 LMS 风格的load中弹框.
+     * 新版 LMS 风格的加载中弹框.
      */
     private var loadingDialog: LoadingDialog? = null
 
     /**
-     * Show/Displayload中弹框.
+     * 显示加载中弹框.
      */
     fun showLoadingDialog(
         @StringRes resId: Int = R.string.tip_loading,
@@ -108,7 +102,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * Show/Displayload中弹框.
+     * 显示加载中弹框.
      */
     fun showLoadingDialog(text: CharSequence?) {
         if (loadingDialog == null) {
@@ -119,7 +113,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     /**
-     * Closeload中弹框.
+     * 关闭加载中弹框.
      */
     fun dismissLoadingDialog() {
         loadingDialog?.dismiss()

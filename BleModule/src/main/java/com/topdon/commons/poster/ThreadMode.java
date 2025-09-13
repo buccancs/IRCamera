@@ -1,26 +1,26 @@
 package com.topdon.commons.poster;
 
 /**
- * line程Strategy
+ * 线程策略
  * <p>
  * date: 2019/8/2 23:53
  * author: chuanfeng.bi
  */
 public enum ThreadMode {
     /**
-     * 和调用者同一line程
+     * 和调用者同一线程
      */
     POSTING,
     /**
-     * 主line程，UIline程
+     * 主线程，UI线程
      */
     MAIN,
     /**
-     * 后台line程，Synchronize的
+     * 后台线程，同步的
      */
     BACKGROUND,
     /**
-     * Asynchronousline程
+     * 异步线程
      */
     ASYNC,
     /**

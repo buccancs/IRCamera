@@ -18,21 +18,12 @@ import com.topdon.menu.R as MenuR
  * Custom Menu second night view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("旧的high/low temperaturepointmenu，已重构过了")
-/**
- * MenuSecondNightAdapter provides data binding between data source and UI components.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
+@Deprecated("旧的high/low temperature点menu，已重构过了")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
 
     var multipleListener: ((Int, Boolean) -> Unit)? = null
 
-    /**
-     * Clears data and resets internal state.
-     */
     fun clearMultipleSelected() {
         curMultipleArray.clear()
         notifyDataSetChanged()
@@ -84,11 +75,8 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-    /**
-     * Executes multiplechoice functionality.
-     */
     private fun multipleChoice(position: Int) {
-        // 1.calculationcurMultipleArray
+        // 1.计算curMultipleArray
         if (position == secondBean.size - 1) {
             curMultipleArray.clear()
             curMultipleArray[position] = secondBean[position].code
@@ -104,7 +92,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
         // 2.执行listener
         multipleListener?.invoke(secondBean[position].code, curMultipleArray.contains(position))
-        // 3.refreshdata
+        // 3.refresh数据
         notifyDataSetChanged()
     }
 
@@ -115,12 +103,6 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
 /**
  * Custom Item view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
- */
-/**
- * ItemView implements custom user interface component functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0
  */
     class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)

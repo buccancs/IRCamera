@@ -130,10 +130,10 @@ public class EasyWifi {
     public boolean connectByOld(String str, String str2, WifiCapability wifiCapability) {
         int addNetwork = this.wifiManager.addNetwork(createWifiConfig(str, str2, wifiCapability));
         if (addNetwork == -1) {
-            Log.e(this.TAG, "操作failed,需要您到手机wifilist中Cancel对deviceconnection的saved");
+            Log.e(this.TAG, "操作失败,需要您到手机wifilist中取消对设备连接的saved");
         }
         boolean enableNetwork = this.wifiManager.enableNetwork(addNetwork, true);
-        Log.d(this.TAG, "connectByOld: " + (enableNetwork ? "success" : "failed"));
+        Log.d(this.TAG, "connectByOld: " + (enableNetwork ? "成功" : "失败"));
         return enableNetwork;
     }
 
@@ -167,7 +167,7 @@ public class EasyWifi {
         wifiConfiguration.SSID = "\"" + str + "\"";
         WifiConfiguration isExist = isExist(str);
         if (isExist != null) {
-            Log.d(this.TAG, "createWifiConfig: 移除网路（true:success，false:failed），结果=" + this.wifiManager.removeNetwork(isExist.networkId) + "移除后saved" + this.wifiManager.saveConfiguration());
+            Log.d(this.TAG, "createWifiConfig: 移除网路（true:成功，false:失败），结果=" + this.wifiManager.removeNetwork(isExist.networkId) + "移除后saved" + this.wifiManager.saveConfiguration());
         }
         Log.d(this.TAG, "createWifiConfig: currentssid=" + str);
         if (wifiCapability == WifiCapability.WIFI_CIPHER_NO_PASS) {
@@ -207,7 +207,7 @@ public class EasyWifi {
     }
 
     public void setNetworkType(NetType netType) {
-        Log.d(this.TAG, "selectNetworkType: 强制使用wifinetwork或者移动datanetwork");
+        Log.d(this.TAG, "selectNetworkType: 强制使用wifi网络或者移动数据网络");
         NetworkRequest.Builder builder = new NetworkRequest.Builder();
         if (netType == NetType.WIFI) {
             builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
@@ -218,7 +218,7 @@ public class EasyWifi {
             @Override // android.net.ConnectivityManager.NetworkCallback
             public void onAvailable(Network network) {
                 try {
-                    Log.d(EasyWifi.this.TAG, "settingsnetworktype时onAvailable: ");
+                    Log.d(EasyWifi.this.TAG, "settings网络类型时onAvailable: ");
                     EasyWifi.this.getConnectivityManager().bindProcessToNetwork(network);
                 } catch (Exception e) {
                     e.printStackTrace();

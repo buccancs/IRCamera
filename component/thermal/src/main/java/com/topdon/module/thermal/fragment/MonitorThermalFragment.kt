@@ -44,7 +44,7 @@ import java.math.BigDecimal
 import java.util.*
 
 /**
-thermal imaging
+\1thermal imaging
  */
 /**
  * Monitor thermal fragment for thermal imaging components.
@@ -58,7 +58,7 @@ class MonitorThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> 
 
     private val msgLiveData by lazy { MutableLiveData<Int>() }
 
-settemperature展示的位置
+\1settemperature展示的位置
     private fun setViewPosition(
         imageView: ImageView,
         index: Int,
@@ -75,7 +75,7 @@ settemperature展示的位置
         val y1 = y * ph / rawHeight
         val maxX = x1 - imageView.width / 2
         val maxY = y1 - imageView.height / 2
-Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
+\1Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
         imageView.x = maxX.toFloat()
         imageView.y = maxY.toFloat()
     }
@@ -146,11 +146,11 @@ Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
             fenceLayoutParams!!.height = irSurfaceViewHeight
             mFenceLayout!!.layoutParams = fenceLayoutParams
 
-Log.i("123", "modify后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
+\1Log.i("123", "修改后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
         }
-初始选取range
+\1初始选取范围
         initFence()
-初始image
+\1初始image
         onIrVideoStart()
         mIrSurfaceView!!.post {
             Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
@@ -158,9 +158,9 @@ Log.i("123", "modify后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}
 
         msgLiveData.observe(this) { msg ->
             if (msg == 0) {
-                mCenterTextView!!.text = "center温 $mCenter"
-                mMaxTextView!!.text = "maximum温 $mMaxTemp"
-                mMinTextView!!.text = "minimum温 $mMinTemp"
+                mCenterTextView!!.text = "中心温 $mCenter"
+                mMaxTextView!!.text = "最高温 $mMaxTemp"
+                mMinTextView!!.text = "最低温 $mMinTemp"
                 maxImg?.let { setViewPosition(it, maxIndex) }
                 minImg?.let { setViewPosition(it, minIndex) }
             }
@@ -177,12 +177,12 @@ Log.i("123", "modify后w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}
     }
 
     /**
-enabledvideo流
+\1enabled视频流
      */
     fun onIrVideoStart() {
         mIsIrVideoStart =
             if (mIsIrVideoStart) {
-                ToastUtils.showShort("video流已开启")
+                ToastUtils.showShort("视频流已开启")
                 return
             } else {
                 true
@@ -196,11 +196,11 @@ enabledvideo流
                         yuv: ByteArray,
                         temp: FloatArray,
                     ) {
-refreshimage
+\1刷新image
                         if (mIrBitmap == null) {
                             mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
                         }
-                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // video转码yuv
+                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // 视频转码yuv
 //                mIrBitmap = mIrBitmap?.let { rotateBitmap(it, 90f) }
                         try {
                             mIrSurfaceView!!.doDraw(mIrBitmap, mGuideInterface!!.getImageStatus())
@@ -216,7 +216,7 @@ refreshimage
                         }
                         val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
                         try {
-选取region
+\1选取区域
                             val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                             val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
                             maxIndex = maxTempIndex
@@ -230,17 +230,17 @@ refreshimage
                             mMinTemp = minBigDecimal.setScale(1, java.math.RoundingMode.HALF_UP).toFloat()
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            Log.e(TAG, "提取temperatureexception:${e.message}")
+                            Log.e(TAG, "提取温度异常:${e.message}")
                         }
                     }
                 },
             )
 
         if (ret == 5) {
-            Log.w("123", "video流开启complete")
+            Log.w("123", "视频流开启完成")
         } else {
-ToastUtils.showShort("video流enabledfailed")
-            Log.w("123", "video流开启failed")
+\1ToastUtils.showShort("视频流enabledfailed")
+            Log.w("123", "视频流开启失败")
             mGuideInterface = null
             mIsIrVideoStart = false
         }
@@ -271,45 +271,45 @@ ToastUtils.showShort("video流enabledfailed")
     }
 
     /**
-stopvideo流
+\1停止视频流
      */
     fun onIrVideoStop() {
         mIsIrVideoStart =
             if (!mIsIrVideoStart) {
-                Log.w("123", "video流已stop")
+                Log.w("123", "视频流已停止")
                 return
             } else {
                 false
             }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        Log.w("123", "video流stopcomplete")
+        Log.w("123", "视频流停止完成")
     }
 
     fun onLowRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("请先开启video流")
+            ToastUtils.showShort("请先开启视频流")
             return
         }
         mGuideInterface!!.setRange(1)
-        ToastUtils.showShort("switch到常温档success")
+        ToastUtils.showShort("切换到常温档成功")
     }
 
     fun onHighRangeBtnClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("请先开启video流")
+            ToastUtils.showShort("请先开启视频流")
             return
         }
         mGuideInterface!!.setRange(2)
-        ToastUtils.showShort("switch到高温档success")
+        ToastUtils.showShort("切换到高温档成功")
     }
 
     /**
-temperaturedisplay
+\1temperaturedisplay
      */
     fun onTempBtnClick() {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("请先开启video流")
+            ToastUtils.showShort("请先开启视频流")
             return
         }
         isDispLayTemp = !isDispLayTemp
@@ -331,10 +331,10 @@ temperaturedisplay
         }
     }
 
-***************************************专家mode**********************************************
+\1***************************************专家模式**********************************************
 
     /**
-专家mode
+\1专家模式
      */
     fun onExpertModeClick(view: View?) {
         System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
@@ -351,7 +351,7 @@ temperaturedisplay
 
     fun onNucShutterClick(view: View?) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("请先开启video流")
+            ToastUtils.showShort("请先开启视频流")
             return
         }
         mGuideInterface!!.nuc()
@@ -381,49 +381,49 @@ temperaturedisplay
         Log.w("123", "event:${event.action}")
         when (event.action) {
             1001 -> {
-拍照
+\1拍照
                 ToastUtils.showShort("拍照")
                 picture()
             }
             1002 -> {
-recording
-                ToastUtils.showShort("recording")
+\1录制
+                ToastUtils.showShort("录制")
                 video()
             }
             2001 -> {
-addpoint
+\1添加点
                 addPoint()
             }
             2002 -> {
-addline
+\1添加线
                 addLine()
             }
             2003 -> {
-add围栏
+\1添加围栏
                 addFence()
             }
             2004 -> {
-addtemperature
+\1添加temperature
                 onTempBtnClick()
             }
             2006 -> {
-Clear还原
+\1清除还原
                 clearFence()
             }
             in 3000..3010 -> {
-setpseudo-color
+\1setpseudo-color
                 setColor(event.action)
             }
             in 5000..5010 -> {
-全屏
+\1全屏
                 full()
             }
             10001 -> {
-startRecord
+\1开始记录
                 recordThermal()
             }
             10003 -> {
-stopRecord
+\1停止记录
                 isRecord = false
             }
         }
@@ -436,7 +436,7 @@ stopRecord
     }
 
     /**
-setpseudo-color
+\1setpseudo-color
      */
     private fun setColor(action: Int) {
         var type: Int = action % 3000 - 1
@@ -447,11 +447,11 @@ setpseudo-color
     }
 
     /**
-色带
+\1色带
      */
     private fun updatePalette(index: Int) {
         if (mGuideInterface == null) {
-            ToastUtils.showShort("请先开启video流")
+            ToastUtils.showShort("请先开启视频流")
             return
         }
         mGuideInterface!!.changePalette(index)
@@ -474,10 +474,10 @@ setpseudo-color
         type = "fence"
     }
 
-displaypointlinearea布局
+\1display点线面布局
     private fun showFence(index: Int) {
         if (fenceFlag.getIndex(index) == 0) {
-            fenceFlag = 1.shl(4 * (index - 1)) // settings001 or 010 or 100
+            fenceFlag = 1.shl(4 * (index - 1)) // 设置001 or 010 or 100
             mFenceLayout!!.visibility = View.VISIBLE
             requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
             requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
@@ -488,7 +488,7 @@ displaypointlinearea布局
         }
     }
 
-    var selectIndex: ArrayList<Int> = arrayListOf() // 选取point
+    var selectIndex: ArrayList<Int> = arrayListOf() // 选取点
 
     private fun initFence() {
         requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).listener =
@@ -497,7 +497,7 @@ displaypointlinearea布局
                     startPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getpoint
+\1get点
                     val activity: MonitorActivity = requireActivity() as MonitorActivity
                     selectIndex.clear()
                     selectIndex =
@@ -512,7 +512,7 @@ getpoint
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getline
+\1get线
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
                             .getLineIndex(startPoint, endPoint)
@@ -527,7 +527,7 @@ getline
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getarea
+\1get面
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
                             .getAreaIndex(startPoint, endPoint)
@@ -547,7 +547,7 @@ getarea
 
     private fun video() {
         if (isVideoRunning) {
-            Log.w("123", "正在recording")
+            Log.w("123", "正在录制")
             return
         }
         // Note: FileConfig.galleryPath requires integration with file configuration module
@@ -560,7 +560,7 @@ getarea
     private fun full() {
         rotateType =
             if (rotateType == 0) {
-                Log.w("123", "横屏Show/Display")
+                Log.w("123", "横屏显示")
                 1
             } else {
                 0
@@ -607,7 +607,7 @@ getarea
                 delay(timeMillis)
                 time++
             }
-            Log.w("123", "stopRecord, data量:$time")
+            Log.w("123", "停止记录, 数据量:$time")
         }
     }
 }

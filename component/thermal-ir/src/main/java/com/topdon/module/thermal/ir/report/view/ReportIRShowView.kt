@@ -21,9 +21,9 @@ import com.topdon.lib.core.R as LibR
 class ReportIRShowView : LinearLayout {
     companion object {
         private const val TYPE_FULL = 0 // Full image
-        private const val TYPE_POINT = 1 // point
-        private const val TYPE_LINE = 2 // line
-        private const val TYPE_RECT = 3 // area
+        private const val TYPE_POINT = 1 // 点
+        private const val TYPE_LINE = 2 // 线
+        private const val TYPE_RECT = 3 // 面
     }
 
     // View references - migrated from synthetic views
@@ -130,7 +130,7 @@ class ReportIRShowView : LinearLayout {
     }
 
     /**
-get需要转为 PDF 的所有 View 列表.
+\1get需要转为 PDF 的所有 View 列表.
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
@@ -273,7 +273,7 @@ get需要转为 PDF 的所有 View 列表.
         tvTitleRect4.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible
         tvTitleRect5.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible && !clRect4.isVisible
 
-把最后一条分割line藏起来
+\1把最后一条分割线藏起来
         if (rectList.isNotEmpty()) {
             when (rectList.size) {
                 1 -> hideLastLine(isLast, clRect1, rectList[0], TYPE_RECT)

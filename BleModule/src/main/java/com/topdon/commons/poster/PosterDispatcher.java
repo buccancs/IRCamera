@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.ExecutorService;
 
 /**
- * taskallocate
+ * 任务分配
  * <p>
  * date: 2019/8/7 10:18
  * author: chuanfeng.bi
@@ -29,21 +29,21 @@ public class PosterDispatcher {
     }
 
     /**
-     * Get/Retrieve默认运行line程
+     * 获取默认运行线程
      */
     public ThreadMode getDefaultMode() {
         return defaultMode;
     }
 
     /**
-     * Get/Retrieveline程池
+     * 获取线程池
      */
     public ExecutorService getExecutorService() {
         return executorService;
     }
 
     /**
-     * Clear所有queue中task，存在执行的无法stop
+     * 清除所有队列中任务，存在执行的无法停止
      */
     public void clearTasks() {
         backgroundPoster.clear();
@@ -52,10 +52,10 @@ public class PosterDispatcher {
     }
 
     /**
-     * 根据method上带的{@link RunOn}注解，将taskpost到指定line程执行。如果method上没有带注解，使用configuration的默认值
+     * 根据方法上带的{@link RunOn}注解，将任务post到指定线程执行。如果方法上没有带注解，使用配置的默认值
      *
-     * @param method   method
-     * @param runnable 要执行的task
+     * @param method   方法
+     * @param runnable 要执行的任务
      */
     public void post(@Nullable Method method, @NonNull Runnable runnable) {
         if (method != null) {
@@ -69,10 +69,10 @@ public class PosterDispatcher {
     }
 
     /**
-     * 将taskpost到指定line程执行。
+     * 将任务post到指定线程执行。
      *
-     * @param mode     指定task执行line程
-     * @param runnable 要执行的task
+     * @param mode     指定任务执行线程
+     * @param runnable 要执行的任务
      */
     public void post(@NonNull ThreadMode mode, @NonNull Runnable runnable) {
         if (mode == ThreadMode.UNSPECIFIED) {
@@ -95,12 +95,12 @@ public class PosterDispatcher {
     }
 
     /**
-     * 将taskpost到指定line程执行
+     * 将任务post到指定线程执行
      *
-     * @param owner      method的所在的对象实例
-     * @param methodName method名
+     * @param owner      方法的所在的对象实例
+     * @param methodName 方法名
      * @param tag        {@link Tag#value()}
-     * @param parameters parameterinfo
+     * @param parameters 参数信息
      */
     public void post(@NonNull Object owner, @NonNull String methodName, @NonNull String tag,
                      @Nullable MethodInfo.Parameter... parameters) {
@@ -161,21 +161,21 @@ public class PosterDispatcher {
     }
 
     /**
-     * 将taskpost到指定line程执行
+     * 将任务post到指定线程执行
      *
-     * @param owner      method的所在的对象实例
-     * @param methodName method名
-     * @param parameters parameterinfo
+     * @param owner      方法的所在的对象实例
+     * @param methodName 方法名
+     * @param parameters 参数信息
      */
     public void post(@NonNull final Object owner, @NonNull String methodName, @Nullable MethodInfo.Parameter... parameters) {
         post(owner, methodName, "", parameters);
     }
 
     /**
-     * 将taskpost到指定line程执行
+     * 将任务post到指定线程执行
      *
-     * @param owner      method的所在的对象实例
-     * @param methodInfo methodinfo实例
+     * @param owner      方法的所在的对象实例
+     * @param methodInfo 方法信息实例
      */
     public void post(@NonNull Object owner, @NonNull MethodInfo methodInfo) {
         post(owner, methodInfo.getName(), methodInfo.getTag(), methodInfo.getParameters());

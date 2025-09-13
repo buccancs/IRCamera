@@ -150,9 +150,9 @@ public class FileUtil {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(toByteArray(bytes));
             fos.close();
-            Log.i(TAG, fileTitle + " savedsuccess");
+            Log.i(TAG, fileTitle + " saved成功");
         } catch (IOException e) {
-            Log.e(TAG, fileTitle + " savedfailed："+e.getMessage());
+            Log.e(TAG, fileTitle + " saved失败："+e.getMessage());
         }
     }
 
@@ -177,7 +177,7 @@ public class FileUtil {
     }
 
     /**
-     * 根据data流Get/RetrieveY16type
+     * 根据数据流获取Y16类型
      *
      * @param dataFlowMode
      * @return
@@ -222,7 +222,7 @@ public class FileUtil {
     }
 
     /**
-     * createfile夹---之所以要一层层create，是因为一次性create多层file夹可能会failed！
+     * 创建文件夹---之所以要一层层创建，是因为一次性创建多层文件夹可能会失败！
      *
      * @param dirFile
      * @return
@@ -234,7 +234,7 @@ public class FileUtil {
         }
         File parentFile = dirFile.getParentFile();
         if (parentFile != null && !parentFile.exists()) {
-            //父file夹不存在，则先create父file夹，再create自身file夹
+            //父文件夹不存在，则先创建父文件夹，再创建自身文件夹
             return createFileDir(parentFile) && createFileDir(dirFile);
         } else {
             boolean mkdirs = dirFile.mkdirs();
@@ -287,7 +287,7 @@ public class FileUtil {
      * 把两个位图覆盖合成为一个位图，以底层位图的长宽为基准
      *
      * @param bytes  在底部的位图
-     * @param bytes2 盖在上area的位图
+     * @param bytes2 盖在上面的位图
      */
     public static void savaRawFile(byte[] bytes, byte[] bytes2) {
         try {
@@ -307,7 +307,7 @@ public class FileUtil {
     }
 
     /**
-     * savedinfrareddata
+     * savedinfrared数据
      *
      * @param bytes
      */
@@ -330,7 +330,7 @@ public class FileUtil {
     }
 
     /**
-     * savedtemperaturedata
+     * saved温度数据
      *
      * @param bytes
      */
@@ -444,7 +444,7 @@ public class FileUtil {
      * @param fileTitle
      */
     public static void saveShortFile(String fileDir, short[] bytes, String fileTitle) {
-        // create目录
+        // 创建目录
         createOrExistsDir(fileDir);
         try {
             File file = new File(fileDir, fileTitle + ".bin");
@@ -462,7 +462,7 @@ public class FileUtil {
      * @param file
      */
     private static void createOrExistsDir(File file) {
-        // file不存在则createfile
+        // 文件不存在则创建文件
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -473,13 +473,13 @@ public class FileUtil {
     }
 
     /**
-     * 如果file夹不存在则create
+     * 如果文件夹不存在则创建
      *
      * @param fileDir
      */
     private static void createOrExistsDir(String fileDir) {
         File file = new File(fileDir);
-        //如果file夹不存在则create
+        //如果文件夹不存在则创建
         if (!file.exists() && !file.isDirectory()) {
             //不存在
             file.mkdir();
@@ -534,7 +534,7 @@ public class FileUtil {
     }
 
     /**
-     * 从Assets拷贝data到SD
+     * 从Assets拷贝数据到SD
      *
      * @param context
      * @param srcFileName
@@ -546,12 +546,12 @@ public class FileUtil {
             File file = new File(strOutFileName);
             Log.i(TAG, "file.exists->getAbsolutePath = " + file.getAbsolutePath());
             if (file.exists()) {
-                // 如果file存在则deletefile，重新create，避免modify的内容不effective
+                // 如果文件存在则删除文件，重新创建，避免修改的内容不effective
                 file.delete();
             }
             //
             if (!file.createNewFile()) {
-                Log.e(TAG, "createfile " + srcFileName + " failed");
+                Log.e(TAG, "创建文件 " + srcFileName + " 失败");
                 return;
             }
 
@@ -573,7 +573,7 @@ public class FileUtil {
     }
 
     /**
-     * 根据gainstateGet/Retrieve对应的ISPalgorithm的configurationfile
+     * 根据gainstate获取对应的ISP算法的configuration文件
      *
      * @param gainStatus
      * @return
@@ -599,10 +599,11 @@ public class FileUtil {
         }
     }
 
+
     static String INFISENSE_SAVE_DIR(){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     }
-    //=== deviceinfostorage到私有region，appdelete后一起delete
+    //=== 设备信息存储到私有区域，app删除后一起删除
     static String  DEVICE_DATA_SAVE_DIR (){
        return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
     }
@@ -620,7 +621,7 @@ public class FileUtil {
     }
 
     /**
-     * Get/Retrieveversioninfo
+     * 获取版本信息
      *
      * @param context
      * @return
@@ -757,7 +758,7 @@ public class FileUtil {
     }
 
     /**
-     * storageString到本地，覆盖原始data
+     * 存储String到本地，覆盖原始数据
      *
      * @param str
      * @param path

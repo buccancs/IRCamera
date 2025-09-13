@@ -69,7 +69,7 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
             if (!NetworkUtil.isConnected(this)) {
                 TToast.shortToast(this, R.string.lms_setting_http_error)
             } else {
-                // service条款
+                // 服务条款
                 NavigationManager.getInstance()
                     .build(RouterConfig.POLICY)
                     .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
@@ -115,10 +115,10 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
     private fun confirmInitApp() {
         lifecycleScope.launch {
             showLoading()
-            // initialization
+            // 初始化
             App.delayInit()
             async(Dispatchers.IO) {
-                // 等待1000ms initializationend
+                // 等待1000ms 初始化结束
                 delay(1000)
                 return@async
             }.await().let {

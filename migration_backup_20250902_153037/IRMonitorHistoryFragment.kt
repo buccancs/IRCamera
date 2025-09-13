@@ -130,12 +130,12 @@ class IRMonitorHistoryFragment : Fragment() {
             >(R.layout.item_monitory_history, dataList),
         LoadMoreModule {
         /**
-         * item clickEventListener.
+         * item 点击事件监听.
          */
         var onItemClickListener: ((position: Int) -> Unit)? = null
 
         /**
-         * item 长按EventListener.
+         * item 长按事件监听.
          */
         var onItemLongClickListener: ((position: Int) -> Unit)? = null
 

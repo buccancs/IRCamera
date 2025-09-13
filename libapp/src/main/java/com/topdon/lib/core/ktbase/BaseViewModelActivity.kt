@@ -16,9 +16,6 @@ abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    /**
-     * Initializes the component with default configuration.
-     */
     private fun initVM() {
         providerVMClass().let {
             viewModel = ViewModelProvider(this).get(it)
@@ -26,16 +23,16 @@ abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
         }
     }
 
-    
+    // viewModel实例
     abstract fun providerVMClass(): Class<VM>
 
-    // interface请求出错，子class可以override此method做一些操作
+    // 接口请求出错，子类可以重写此方法做一些操作
     protected fun requestError(it: Exception?) {
-        
+        // 处理一些已知异常
         it?.run {
             when (it) {
                 is TimeoutCancellationException -> httpErrorTip(getString(R.string.http_time_out), "")
-                is CancellationException -> Log.d("$TAG--->interface请求Cancel", it.message.toString())
+                is CancellationException -> Log.d("$TAG--->接口请求取消", it.message.toString())
                 else -> httpErrorTip(getString(R.string.http_code_z5004), "")
             }
         }

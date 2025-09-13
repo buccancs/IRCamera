@@ -28,12 +28,12 @@ import kotlinx.coroutines.launch
  */
 class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, R.style.TransparentDialog) {
     /**
-     * 下一步clickEventListener，step：当前处于第`[1,3]`，在该步骤click的下一步
+     * 下一步点击事件监听，step：当前处于第`[1,3]`，在该步骤点击的下一步
      */
     var onNextClickListener: ((step: Int) -> Unit)? = null
 
     /**
-     * 跳过clickEventListener.
+     * 跳过点击事件监听.
      */
     var onSkinClickListener: (() -> Unit)? = null
 

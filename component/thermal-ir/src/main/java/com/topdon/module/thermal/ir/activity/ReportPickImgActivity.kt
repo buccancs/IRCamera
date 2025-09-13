@@ -35,19 +35,19 @@ import com.topdon.lib.core.R as LibR
 import com.topdon.lib.ui.R as UiR
 
 /**
-生成reportimage拾取.
+\1生成报告图片拾取.
  *
-需要传递parameter：
-- 是否 TC007: [ExtraKeyConfig.IS_TC007] 进入目录不同
-- [ExtraKeyConfig.REPORT_INFO] - reportinfo
-- [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
-- [ExtraKeyConfig.REPORT_IR_LIST] - 当前已add的image对应data列表
+\1需要传递parameter：
+\1- 是否 TC007: [ExtraKeyConfig.IS_TC007] 进入目录不同
+\1- [ExtraKeyConfig.REPORT_INFO] - 报告信息
+\1- [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
+\1- [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应data列表
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
     /**
-从上一interface传递过来的，当前是否为 TC007 devicetype.
-true-TC007 false-其他插件式device
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -162,7 +162,7 @@ true-TC007 false-其他插件式device
     private fun initRecycler() {
         val spanCount = 3
         val gridLayoutManager = GridLayoutManager(this, spanCount)
-动态setspan
+\1动态setspan
         gridLayoutManager.spanSizeLookup =
             object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -173,7 +173,7 @@ true-TC007 false-其他插件式device
         irGalleryRecycler.layoutManager = gridLayoutManager
 
         adapter.onLongEditListener = {
-adapter 里area的switch编辑太乱了，先这么顶着
+\1adapter 里面的切换编辑太乱了，先这么顶着
             groupBottom.isVisible = true
             titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
             titleView.setLeftDrawable(0) // Note: Add appropriate drawable for cancel/back action

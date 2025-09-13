@@ -16,7 +16,7 @@ import com.topdon.module.thermal.ir.R
 import java.lang.NumberFormatException
 
 /**
-temperature correction ambient temperature、temperature measurement距离、emissivity modify值时输入弹框.
+\1temperature correction ambient temperature、temperature measurement距离、emissivity 修改值时输入弹框.
  *
  * Created by LCG on 2024/10/24.
  */
@@ -29,7 +29,7 @@ class IRConfigInputDialog(context: Context, val type: Type, val isTC007: Boolean
     private var onConfirmListener: ((value: Float) -> Unit)? = null
 
     /**
-set输入框默认值
+\1set输入框默认值
      */
     fun setInput(value: Float?): IRConfigInputDialog {
         this.value = value
@@ -37,7 +37,7 @@ set输入框默认值
     }
 
     /**
-setConfirmclickEventListener.
+\1set确认点击事件监听.
      */
     fun setConfirmListener(l: (value: Float) -> Unit): IRConfigInputDialog {
         this.onConfirmListener = l
@@ -112,17 +112,17 @@ setConfirmclickEventListener.
 
     enum class Type {
         /**
-ambient temperature
+\1ambient temperature
          */
         TEMP,
 
         /**
-temperature measurement距离
+\1temperature measurement距离
          */
         DIS,
 
         /**
-emissivity
+\1emissivity
          */
         EM,
     }

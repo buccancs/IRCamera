@@ -63,7 +63,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
         }
 
         time_down_view.postDelayed({
-            // start矫正
+            // 开始矫正
             if (time_down_view.downTimeWatcher == null)
                 {
                     time_down_view.setOnTimeDownListener(
@@ -84,7 +84,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
                                 try {
                                     if (!result)
                                         {
-                                            ToastUtils.showShort("calibrationsavefailed，请重新calibration")
+                                            ToastUtils.showShort("标定保存失败，请重新标定")
                                             return
                                         }
                                     if (!this@IRCorrectionLiteFourActivity.isFinishing)

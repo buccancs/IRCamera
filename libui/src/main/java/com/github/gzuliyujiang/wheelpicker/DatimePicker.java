@@ -28,7 +28,7 @@ import com.github.gzuliyujiang.wheelpicker.widget.DatimeWheelLayout;
 import com.topdon.lib.ui.R;
 
 /**
- * 日期时间selection器
+ * 日期时间选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2021/6/5 18:21
@@ -56,8 +56,8 @@ public class DatimePicker extends ModalDialog {
         wheelLayout.setTimeLabel(":", ":", "");
         wheelLayout.setCurtainEnabled(true);
         wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg)); //selected背景色
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text)); //selectedtextcolor
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); //未selectedtextcolor
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text)); //selected文字color
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); //未selected文字color
         wheelLayout.setResetWhenLinkage(false, false);
         return wheelLayout;
     }

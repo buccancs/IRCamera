@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -64,21 +65,21 @@ class ConnectionImpl implements Connection, ScanListener {
 
     private final BluetoothAdapter bluetoothAdapter;
     private final Device device;
-    private final ConnectionConfiguration configuration;//connectionconfiguration
+    private final ConnectionConfiguration configuration;//连接配置
     private BluetoothGatt bluetoothGatt;
-    private final List<GenericRequest> requestQueue = new ArrayList<>();//请求queue
+    private final List<GenericRequest> requestQueue = new ArrayList<>();//请求队列
     private GenericRequest currentRequest;//当前的请求
-    private final EventObserver observer;//伴生Observer
-    private boolean isReleased;//connection是否已release
-    private final Handler connHandler;//用于操作connection的Handler，运行在主line程
-    private long connStartTime; //用于connection超时计时
-    private int refreshCount;//refresh（清cache）计数，在发现service后清零
+    private final EventObserver observer;//伴生观察者
+    private boolean isReleased;//连接是否已释放
+    private final Handler connHandler;//用于操作连接的Handler，运行在主线程
+    private long connStartTime; //用于连接超时计时
+    private int refreshCount;//刷新（清缓存）计数，在发现服务后清零
     private int tryReconnectCount;//尝试重连计数
-    private ConnectionState lastConnectionState;//上次connectionstate
-    private int reconnectImmediatelyCount = 0; //不Search直接重连计数
-    private boolean refreshing;//是否正在执行清理cache
-    private boolean isActiveDisconnect;//是否主动disconnectconnection
-    private long lastScanStopTime;//上次Searchstop时间
+    private ConnectionState lastConnectionState;//上次连接状态
+    private int reconnectImmediatelyCount = 0; //不搜索直接重连计数
+    private boolean refreshing;//是否正在执行清理缓存
+    private boolean isActiveDisconnect;//是否主动断开连接
+    private long lastScanStopTime;//上次搜索停止时间
     private final Logger logger;
     private final Observable observable;
     private final PosterDispatcher posterDispatcher;
@@ -92,7 +93,7 @@ class ConnectionImpl implements Connection, ScanListener {
         this.easyBle = easyBle;
         this.bluetoothAdapter = bluetoothAdapter;
         this.device = device;
-        //如果没有configuration
+        //如果没有配置
         if (configuration == null) {
             this.configuration = new ConnectionConfiguration();
         } else {
@@ -104,7 +105,7 @@ class ConnectionImpl implements Connection, ScanListener {
         posterDispatcher = easyBle.getPosterDispatcher();
         connHandler = new ConnHandler(this);
         connStartTime = System.currentTimeMillis();
-        connHandler.sendEmptyMessageDelayed(MSG_CONNECT, connectDelay); //执行connection
+        connHandler.sendEmptyMessageDelayed(MSG_CONNECT, connectDelay); //执行连接
         connHandler.sendEmptyMessageDelayed(MSG_TIMER, connectDelay); //启动定时器
         easyBle.addScanListener(this);
     }
@@ -201,7 +202,7 @@ class ConnectionImpl implements Connection, ScanListener {
                     currentRequest.writeOptions.isWaitWriteResult) {
                 if (status == BluetoothGatt.GATT_SUCCESS) {
                     if (logger.isEnabled()) {
-                        byte[] data = (byte[]) currentRequest.value;//完整包data
+                        byte[] data = (byte[]) currentRequest.value;//完整包数据
                         int packageSize = currentRequest.writeOptions.packageSize;
                         int total = data.length / packageSize + (data.length % packageSize == 0 ? 0 : 1);
                         int progress;
@@ -352,7 +353,7 @@ class ConnectionImpl implements Connection, ScanListener {
                     logD(Logger.TYPE_CONNECTION_STATE, "connected! [name: %s, addr: %s]", device.name, device.address);
                     device.connectionState = ConnectionState.CONNECTED;
                     sendConnectionCallback();
-                    // 延时一会再去发现service
+                    // 延时一会再去发现服务
                     connHandler.sendEmptyMessageDelayed(MSG_DISCOVER_SERVICES, configuration.discoverServicesDelayMillis);
                 } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                     logD(Logger.TYPE_CONNECTION_STATE, "disconnected! [name: %s, addr: %s, autoReconnEnable: %s]",
@@ -396,6 +397,7 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
+
     private void doDiscoverServices() {
         if (bluetoothGatt != null) {
             Context context = easyBle.getContext();
@@ -422,7 +424,7 @@ class ConnectionImpl implements Connection, ScanListener {
 
     private void doTimer() {
         if (!isReleased) {
-            //只processing不是已发现service并且不在refresh也不是主动disconnectconnection的
+            //只处理不是已发现服务并且不在刷新也不是主动断开连接的
             if (device.connectionState != ConnectionState.SERVICE_DISCOVERED && !refreshing && !isActiveDisconnect) {
                 if (device.connectionState != ConnectionState.DISCONNECTED) {
                     //超时
@@ -470,7 +472,7 @@ class ConnectionImpl implements Connection, ScanListener {
         @Override
         public void run() {
             if (!isReleased && hasBluetoothPermission()) {
-                //connection之前必须先stopSearch
+                //连接之前必须先停止搜索
                 easyBle.stopScan();
                 
                 try {
@@ -511,9 +513,9 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     /**
-     * processingdisconnect
+     * 处理断开
      *
-     * @param reconnect disconnect后是否重连
+     * @param reconnect 断开后是否重连
      */
     private void doDisconnect(boolean reconnect) {
         clearRequestQueueAndNotify();
@@ -543,7 +545,7 @@ class ConnectionImpl implements Connection, ScanListener {
         doRefresh(true);
     }
 
-    //processingrefresh
+    //处理刷新
     private void doRefresh(boolean isAuto) {
         logD(Logger.TYPE_CONNECTION_STATE, "refresh GATT! [name: %s, addr: %s]", device.name, device.address);
         connStartTime = System.currentTimeMillis();
@@ -592,7 +594,7 @@ class ConnectionImpl implements Connection, ScanListener {
         if (!isReleased) {
             connStartTime = System.currentTimeMillis();
             easyBle.stopScan();
-            //Searchdevice，Search到才执行connection
+            //搜索设备，搜索到才执行连接
             device.connectionState = ConnectionState.SCANNING_FOR_RECONNECTION;
             logD(Logger.TYPE_CONNECTION_STATE, "scanning for reconnection [name: %s, addr: %s]", device.name, device.address);
             easyBle.startScan();
@@ -618,10 +620,10 @@ class ConnectionImpl implements Connection, ScanListener {
     private boolean hasBluetoothPermission() {
         Context context = easyBle.getContext();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // API 31+ 需要新的bluetoothPermission
+            // API 31+ 需要新的蓝牙权限
             return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
         } else {
-            // API 30及以下使用旧的bluetoothPermission
+            // API 30及以下使用旧的蓝牙权限
             return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED;
         }
     }
@@ -775,24 +777,24 @@ class ConnectionImpl implements Connection, ScanListener {
                             connection.executeNextRequest();
                         }
                         break;
-                    case MSG_CONNECT://connection   
+                    case MSG_CONNECT://连接   
                         if (connection.bluetoothAdapter.isEnabled()) {
                             connection.doConnect();
                         }
                         break;
-                    case MSG_DISCONNECT://disconnect
+                    case MSG_DISCONNECT://断开
                         boolean reconnect = msg.arg1 == MSG_ARG_RECONNECT && connection.bluetoothAdapter.isEnabled();
                         connection.doDisconnect(reconnect);
                         break;
-                    case MSG_REFRESH://手动refresh
+                    case MSG_REFRESH://手动刷新
                         connection.doRefresh(false);
                         break;
                     case MSG_TIMER://定时器
                         connection.doTimer();
                         break;
-                    case MSG_DISCOVER_SERVICES://执行发现service
-                    case MSG_ON_CONNECTION_STATE_CHANGE://connectionstate变化
-                    case MSG_ON_SERVICES_DISCOVERED://service已发现
+                    case MSG_DISCOVER_SERVICES://执行发现服务
+                    case MSG_ON_CONNECTION_STATE_CHANGE://连接状态变化
+                    case MSG_ON_SERVICES_DISCOVERED://服务已发现
                         if (connection.bluetoothAdapter.isEnabled()) {
                             if (msg.what == MSG_DISCOVER_SERVICES) {
                                 connection.doDiscoverServices();
@@ -816,7 +818,7 @@ class ConnectionImpl implements Connection, ScanListener {
                 if (currentRequest == null) {
                     executeRequest(request);
                 } else {
-                    //根据Optimize级将请求插入queue中
+                    //根据优化级将请求插入队列中
                     int index = -1;
                     for (int i = 0; i < requestQueue.size(); i++) {
                         GenericRequest req = requestQueue.get(i);
@@ -982,7 +984,7 @@ class ConnectionImpl implements Connection, ScanListener {
             }
             if (value.length > options.packageSize) {
                 List<byte[]> list = MathUtils.splitPackage(value, options.packageSize);
-                if (!options.isWaitWriteResult) { //不等待写入Callback，直接写入下一包data
+                if (!options.isWaitWriteResult) { //不等待写入回调，直接写入下一包数据
                     int delay = options.packageWriteDelayMillis;
                     for (int i = 0; i < list.size(); i++) {
                         byte[] bytes = list.get(i);
@@ -1002,7 +1004,7 @@ class ConnectionImpl implements Connection, ScanListener {
                         }
                     }
                     printWriteLog(request, list.size(), list.size(), list.get(list.size() - 1));
-                } else { //Send第一包，剩下的加入queue
+                } else { //发送第一包，剩下的加入队列
                     request.remainQueue = new ConcurrentLinkedQueue<>();
                     request.remainQueue.addAll(list);
                     request.sendingBytes = request.remainQueue.remove();
@@ -1099,11 +1101,11 @@ class ConnectionImpl implements Connection, ScanListener {
 
     private void handleCallbacks(RequestCallback callback, MethodInfo info) {
         if (observer != null) {
-            posterDispatcher.post(observer, info);//notification伴生Observer
+            posterDispatcher.post(observer, info);//通知伴生观察者
         }
-        if (callback != null) {//Callback方式
+        if (callback != null) {//回调方式
             posterDispatcher.post(callback, info);
-        } else {//Observermode
+        } else {//观察者模式
             observable.notifyObservers(info);
         }
     }
@@ -1217,7 +1219,7 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
-    //清理内部cache并强制refreshbluetoothdevice的service
+    //清理内部缓存并强制刷新蓝牙设备的服务
     @SuppressWarnings("all")
     private boolean doRefresh() {
         try {
@@ -1236,7 +1238,7 @@ class ConnectionImpl implements Connection, ScanListener {
     private void release(boolean noEvent) {
         if (!isReleased) {
             isReleased = true;
-            configuration.setAutoReconnect(false); //stop自动重连
+            configuration.setAutoReconnect(false); //停止自动重连
             connHandler.removeCallbacksAndMessages(null);
             easyBle.removeScanListener(this);
             clearRequestQueueAndNotify();
@@ -1249,7 +1251,7 @@ class ConnectionImpl implements Connection, ScanListener {
             if (!noEvent) {
                 sendConnectionCallback();
             }
-            easyBle.releaseConnection(device);//从集合中delete
+            easyBle.releaseConnection(device);//从集合中删除
         }
     }
 
@@ -1305,7 +1307,7 @@ class ConnectionImpl implements Connection, ScanListener {
     }
 
     /**
-     * clear请求queue并触发notificationEvent
+     * 清空请求队列并触发通知事件
      */
     private void clearRequestQueueAndNotify() {
         synchronized (this) {
@@ -1361,7 +1363,7 @@ class ConnectionImpl implements Connection, ScanListener {
         return null;
     }
 
-    //Checkuuid是否存在，存在则将请求加入queue，不存在则failedCallback或notificationObserver
+    //检查uuid是否存在，存在则将请求加入队列，不存在则失败回调或通知观察者
     private void checkUuidExistsAndEnqueue(GenericRequest request, int uuidNum) {
         boolean exists = false;
         if (uuidNum > 2) {
@@ -1376,7 +1378,7 @@ class ConnectionImpl implements Connection, ScanListener {
         }
     }
 
-    //Checkservice是否存在
+    //检查服务是否存在
     private boolean checkServiceExists(GenericRequest request, UUID uuid) {
         if (getService(uuid) == null) {
             handleFailedCallback(request, REQUEST_FAIL_TYPE_SERVICE_NOT_EXIST, false);
@@ -1385,7 +1387,7 @@ class ConnectionImpl implements Connection, ScanListener {
         return true;
     }
 
-    //Check特征是否存在
+    //检查特征是否存在
     private boolean checkCharacteristicExists(GenericRequest request, UUID service, UUID characteristic) {
         if (checkServiceExists(request, service)) {
             if (getCharacteristic(service, characteristic) == null) {
@@ -1397,7 +1399,7 @@ class ConnectionImpl implements Connection, ScanListener {
         return false;
     }
 
-    //CheckDescriptor是否存在
+    //检查Descriptor是否存在
     private boolean checkDescriptorExists(GenericRequest request, UUID service, UUID characteristic, UUID descriptor) {
         if (checkServiceExists(request, service) && checkCharacteristicExists(request, service, characteristic)) {
             if (getDescriptor(service, characteristic, descriptor) == null) {
@@ -1408,6 +1410,7 @@ class ConnectionImpl implements Connection, ScanListener {
         }
         return false;
     }
+
 
     @Override
     public void execute(Request request) {
@@ -1420,10 +1423,10 @@ class ConnectionImpl implements Connection, ScanListener {
                 case READ_CHARACTERISTIC:
                 case WRITE_CHARACTERISTIC:
                     if (req.type == RequestType.WRITE_CHARACTERISTIC && req.writeOptions == null) {
-                        //从默认configuration中取
+                        //从默认配置中取
                         req.writeOptions = configuration.getDefaultWriteOptions(req.service, req.characteristic);
                         if (req.writeOptions == null) {
-                            //没有settings默认的，则新建
+                            //没有设置默认的，则新建
                             req.writeOptions = new WriteOptions.Builder().build();
                         }
                     }

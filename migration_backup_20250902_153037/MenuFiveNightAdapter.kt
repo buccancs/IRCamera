@@ -16,7 +16,7 @@ import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.TemperatureBean
 import kotlinx.android.synthetic.main.ui_item_menu_five_view.view.*
 
-@Deprecated("旧的temperature档位menu，已重构过了")
+@Deprecated("旧的温度档位菜单，已重构过了")
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onTempLevelListener: ((index: Int) -> Unit)? = null
 

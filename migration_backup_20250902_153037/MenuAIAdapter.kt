@@ -13,13 +13,13 @@ import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
-@Deprecated("旧的高低温源menu，已重构过了")
+@Deprecated("旧的高低温源菜单，已重构过了")
 /**
  * MenuAIAdapter class for thermal imaging functionality.
  */
 class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
-     * 当前selected的选项 code.
+     * 当前选中的选项 code.
      *
      * Due to legacy constraints (saved in SharedPreferences), the code values are:
      * - Nothing selected: -1

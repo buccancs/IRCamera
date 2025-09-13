@@ -16,7 +16,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_msg.view.*
 
 /**
- * messagetip窗
+ * 消息提示窗
  * create by fylder on 2018/6/15
  **/
 class MsgDialog : Dialog {
@@ -92,7 +92,7 @@ class MsgDialog : Dialog {
                     // 横屏
                     0.3
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(false)

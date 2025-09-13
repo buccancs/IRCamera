@@ -18,7 +18,7 @@ class PdfActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_pdf
 
     override fun initView() {
-        // 本地description书
+        // 本地说明书
         pdf_view.fromAsset(if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf")
             .enableSwipe(true) // allows to block changing pages using swipe
             .swipeHorizontal(false)
@@ -55,7 +55,7 @@ class PdfActivity : BaseActivity() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    // copyassetsfile
+    // 复制assets文件
     @Throws(IOException::class)
     private fun copyBigDataToSD(
         assetsName: String,

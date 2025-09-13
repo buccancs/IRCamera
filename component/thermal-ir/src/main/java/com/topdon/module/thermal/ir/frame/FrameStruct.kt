@@ -155,12 +155,12 @@ class FrameStruct() {
             resultArray[658] = (textSize ushr 8).toByte()
             resultArray[659] = textSize.toByte()
 
-将 Float conversion为 4 字节
+\1将 Float conversion为 4 字节
             val envBytes = java.nio.ByteBuffer.allocate(4).putFloat(environment).array()
             val distanceBytes = java.nio.ByteBuffer.allocate(4).putFloat(distance).array()
             val radiationBytes = java.nio.ByteBuffer.allocate(4).putFloat(radiation).array()
 
-storage在 resultArray 中，[660, 663)是ambient temperature，[664, 667)是距离，[668, 671)是emissivity
+\1存储在 resultArray 中，[660, 663)是ambient temperature，[664, 667)是距离，[668, 671)是emissivity
             System.arraycopy(envBytes, 0, resultArray, 660, 4)
             System.arraycopy(distanceBytes, 0, resultArray, 664, 4)
             System.arraycopy(radiationBytes, 0, resultArray, 668, 4)
@@ -184,7 +184,7 @@ storage在 resultArray 中，[660, 663)是ambient temperature，[664, 667)是距
     var textColor = 0xffffffff.toInt()
     var watermarkBean = WatermarkBean()
     var alarmBean = AlarmBean()
-    var gainStatus: Int = 1 // 高低gain 1:低gain 0: 高gain
+    var gainStatus: Int = 1 // 高低增益 1:低增益 0: 高增益
     var textSize: Int = SizeUtils.sp2px(14f)
     var environment: Float = 0f
     var distance: Float = 0f

@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.SizeUtils
  */
 class WatermarkView : View {
     /**
-     * Watermark text content for display.
+\1watermark文字.
      */
     var watermarkText: String? = null
         set(value) {

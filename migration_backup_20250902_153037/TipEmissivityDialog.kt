@@ -17,7 +17,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_tip_emissivity.view.*
 
 /**
- * 发射率的tip弹窗
+ * 发射率的提示弹窗
  */
 class TipEmissivityDialog : Dialog {
     constructor(context: Context) : super(context)
@@ -146,7 +146,7 @@ class TipEmissivityDialog : Dialog {
                     // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // settings宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

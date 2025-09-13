@@ -1,5 +1,6 @@
 package com.topdon.commons.util;
 
+
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class MathUtils {
     }
 
     /**
-     * calculation各值占的比例，相加为100%
+     * 计算各值占的比例，相加为100%
      *
      * @param scale 取几位小数。12.3%表示1位小数
      */
@@ -49,7 +50,7 @@ public class MathUtils {
             if (i == list.size() - 1) {
                 fs[index] = 1 - sum;
             } else {
-                //先强转int不进行4舍5入，再转为floatcalculation
+                //先强转int不进行4舍5入，再转为float计算
                 fs[index] = (int) (values[index] / total * sc) / (float) sc;
                 sum += fs[index];
             }
@@ -82,7 +83,7 @@ public class MathUtils {
      * 将字节数组转数值
      *
      * @param bigEndian true表示高位在前，false表示低位在前
-     * @param cls       Return的datatype
+     * @param cls       返回的数据类型
      * @param src       待转字节数组
      */
     @SuppressWarnings("unchecked")
@@ -91,7 +92,7 @@ public class MathUtils {
         byte[] bs = new byte[8];
         System.arraycopy(src, 0, bs, bigEndian ? 8 - len : 0, len);
         long value = 0;
-        // 循环读取每个字节通过移位运算completelong的8个字节拼装
+        // 循环读取每个字节通过移位运算完成long的8个字节拼装
         for (int i = 0; i < 8; i++) {
             int shift = (bigEndian ? 7 - i : i) << 3;
             value = value | ((long) 0xff << shift & ((long) bs[i] << shift));
@@ -114,7 +115,7 @@ public class MathUtils {
     }
 
     /**
-     * 翻转整个数组，每个bit。如10000110 00110001conversion成10001100 01100001
+     * 翻转整个数组，每个bit。如10000110 00110001转换成10001100 01100001
      */
     public static byte[] reverseBitAndByte(byte[] src) {
         if (src == null || src.length == 0) {

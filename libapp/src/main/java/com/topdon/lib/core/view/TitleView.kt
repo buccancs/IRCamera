@@ -16,17 +16,17 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.R
 
 /**
- * title栏自定义 View.
+ * 标题栏自定义 View.
  *
- * title栏包含的要素有：
- * - 左侧 View [tvLeft]，目前都是image
+ * 标题栏包含的要素有：
+ * - 左侧 View [tvLeft]，目前都是图片
  * - 从右往左数 View 1 [tvRight1]
- * - 从右往左数 View 2 [tvRight2]，目前都是image
- * - 从右往左数 View 3 [tvRight3]，目前都是image
- * - titletext [tvTitle]，大部Paginationarea居左，少部Paginationarea居中
+ * - 从右往左数 View 2 [tvRight2]，目前都是图片
+ * - 从右往左数 View 3 [tvRight3]，目前都是图片
+ * - 标题文字 [tvTitle]，大部分页面居左，少部分页面居中
  *
- * text均为 16sp， #ffffff，titletext padding 0dp，其他 padding 12dp；
- * image高度均为 24dp，宽度等比Scale；
+ * 文字均为 16sp， #ffffff，标题文字 padding 0dp，其他 padding 12dp；
+ * 图片高度均为 24dp，宽度等比缩放；
  *
  * 最小高度 ?attr/actionBarSize.
  *
@@ -35,13 +35,13 @@ import com.topdon.lib.core.R
 open class TitleView : ViewGroup {
     companion object {
         /**
-         * 为保持与旧title栏的兼容，旧title栏图标尺寸为 48dp，当前 View 的高度也不能小于 48dp.
+         * 为保持与旧标题栏的兼容，旧标题栏图标尺寸为 48dp，当前 View 的高度也不能小于 48dp.
          */
         private const val ICON_SIZE = 48f
     }
 
     /**
-     * titletext是否居中.
+     * 标题文字是否居中.
      *
      * true-居中 false-居左
      */
@@ -73,7 +73,7 @@ open class TitleView : ViewGroup {
     protected var tvRight3: MyTextView? = null
 
     /**
-     * titletext.
+     * 标题文字.
      */
     protected var tvTitle: MyTextView? = null
 
@@ -127,7 +127,7 @@ open class TitleView : ViewGroup {
             tvRight1?.setTextColor(rightColor)
         }
 
-        // 右侧 2、3 View 目前都是image，先不搞text那些settings了
+        // 右侧 2、3 View 目前都是图片，先不搞文字那些设置了
         tvRight2?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right2Drawable))
         tvRight2?.isVisible = tvRight2!!.hasAnyDrawable()
         tvRight3?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right3Drawable))
@@ -148,7 +148,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * Build一个 TextView 并add到当前 View 中.
+     * 构建一个 TextView 并添加到当前 View 中.
      */
     fun addTextView(
         context: Context,
@@ -174,7 +174,7 @@ open class TitleView : ViewGroup {
         widthMeasureSpec: Int,
         heightMeasureSpec: Int,
     ) {
-        // calculation最大高度
+        // 计算最大高度
         var maxHeight = actionBarSize.coerceAtLeast(SizeUtils.dp2px(ICON_SIZE))
         for (i in 0 until childCount) {
             val childView: View = getChildAt(i)
@@ -187,7 +187,7 @@ open class TitleView : ViewGroup {
         // 宽度为 UNSPECIFIED 的情况目前不存在，不考虑
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), maxHeight)
 
-        // measurement除titletext外的子 View
+        // 测量除标题文字外的子 View
         for (i in 0 until childCount) {
             val childView: View = getChildAt(i)
             if (childView != tvTitle && childView.visibility != View.GONE) {
@@ -196,7 +196,7 @@ open class TitleView : ViewGroup {
             }
         }
 
-        // measurementtitletext
+        // 测量标题文字
         if (isTitleCenter) { // 居中
             val leftSize = if (tvLeft!!.isVisible) tvLeft?.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
             var rightSize = 0
@@ -209,7 +209,7 @@ open class TitleView : ViewGroup {
             if (tvRight3!!.isVisible) {
                 rightSize += tvRight3!!.measuredWidth
             }
-            if (rightSize == 0) { // 右侧没有任何东西时，给titletext搞个 ICON_SIZE 大小的 margin
+            if (rightSize == 0) { // 右侧没有任何东西时，给标题文字搞个 ICON_SIZE 大小的 margin
                 rightSize = SizeUtils.dp2px(ICON_SIZE)
             }
             val titleWidth = measuredWidth - leftSize!!.coerceAtLeast(rightSize) * 2
@@ -268,7 +268,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * settingstitletext.
+     * 设置标题文字.
      */
     fun setTitleText(
         @StringRes resId: Int,
@@ -278,7 +278,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * settingstitletext.
+     * 设置标题文字.
      */
     fun setTitleText(title: CharSequence?) {
         tvTitle?.text = title
@@ -286,8 +286,8 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * settings左侧 View 是否Visible.
-     * 注意其他method里如果不settingstext又不settingsimage的话会被视为 Gone，这里则不做这个限制。
+     * 设置左侧 View 是否可见.
+     * 注意其他方法里如果不设置文字又不设置图片的话会被视为 Gone，这里则不做这个限制。
      */
     var isLeftVisible: Boolean
         get() = tvLeft!!.isVisible
@@ -299,7 +299,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * 将左侧 View image部分settings为指定image.
+     * 将左侧 View 图片部分设置为指定图片.
      */
     fun setLeftDrawable(
         @DrawableRes resId: Int,
@@ -310,7 +310,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将左侧 View 的text部分settings为指定text.
+     * 将左侧 View 的文字部分设置为指定文字.
      */
     fun setLeftText(
         @StringRes resId: Int,
@@ -321,7 +321,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将左侧 View 的text部分settings为指定text.
+     * 将左侧 View 的文字部分设置为指定文字.
      */
     fun setLeftText(text: CharSequence?) {
         tvLeft?.text = text
@@ -330,15 +330,15 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * settings左侧 View clickEventListener.
+     * 设置左侧 View 点击事件监听.
      */
     fun setLeftClickListener(leftClickListener: OnClickListener?) {
         tvLeft?.setOnClickListener(leftClickListener)
     }
 
     /**
-     * settings右侧 View 是否Visible.
-     * 注意其他method里如果不settingstext又不settingsimage的话会被视为 Gone，这里则不做这个限制。
+     * 设置右侧 View 是否可见.
+     * 注意其他方法里如果不设置文字又不设置图片的话会被视为 Gone，这里则不做这个限制。
      */
     var isRightVisible: Boolean
         get() = tvRight1!!.isVisible
@@ -350,7 +350,7 @@ open class TitleView : ViewGroup {
         }
 
     /**
-     * 将右侧 View image部分settings为指定image.
+     * 将右侧 View 图片部分设置为指定图片.
      */
     fun setRightDrawable(
         @DrawableRes resId: Int,
@@ -361,7 +361,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将右侧 View 的text部分settings为指定text.
+     * 将右侧 View 的文字部分设置为指定文字.
      */
     fun setRightText(
         @StringRes resId: Int,
@@ -372,7 +372,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * 将右侧 View 的text部分settings为指定text.
+     * 将右侧 View 的文字部分设置为指定文字.
      */
     fun setRightText(text: CharSequence?) {
         tvRight1?.text = text
@@ -381,14 +381,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * settings右侧 View clickEventListener.
+     * 设置右侧 View 点击事件监听.
      */
     fun setRightClickListener(rightClickListener: OnClickListener?) {
         tvRight1?.setOnClickListener(rightClickListener)
     }
 
     /**
-     * 将右侧 View 2 image部分settings为指定image.
+     * 将右侧 View 2 图片部分设置为指定图片.
      */
     fun setRight2Drawable(
         @DrawableRes resId: Int,
@@ -399,14 +399,14 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * settings右侧 View 2 clickEventListener.
+     * 设置右侧 View 2 点击事件监听.
      */
     fun setRight2ClickListener(right2ClickListener: OnClickListener?) {
         tvRight2?.setOnClickListener(right2ClickListener)
     }
 
     /**
-     * 将右侧 View 3 image部分settings为指定image.
+     * 将右侧 View 3 图片部分设置为指定图片.
      */
     fun setRight3Drawable(
         @DrawableRes resId: Int,
@@ -417,7 +417,7 @@ open class TitleView : ViewGroup {
     }
 
     /**
-     * settings右侧 View 3 clickEventListener.
+     * 设置右侧 View 3 点击事件监听.
      */
     fun setRight3ClickListener(right3ClickListener: OnClickListener?) {
         tvRight3?.setOnClickListener(right3ClickListener)

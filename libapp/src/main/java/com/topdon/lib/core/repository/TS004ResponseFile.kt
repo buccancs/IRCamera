@@ -1,13 +1,13 @@
 package com.topdon.lib.core.repository
 
-// 这个file用来放 TS004 interfaceReturn JSON 的封装
+// 这个文件用来放 TS004 接口返回 JSON 的封装
 
 /**
- * TS004 所有interface请求Return的format内容.
- * @param command 不知道什么东西，艾睿的document也没说
- * @param data 实际Return的data，视不同的interface而定
+ * TS004 所有接口请求返回的格式内容.
+ * @param command 不知道什么东西，艾睿的文档也没说
+ * @param data 实际返回的数据，视不同的接口而定
  * @param detail 请求结果描述，如 "ok"、"error: request process error"
- * @param status state码 0-success 其他详见document
+ * @param status 状态码 0-成功 其他详见文档
  * @param transmit_cast 该请求耗时毫秒数
  */
 data class TS004Response<T>(
@@ -18,15 +18,15 @@ data class TS004Response<T>(
     val transmit_cast: Int,
 ) {
     /**
-     * 判断请求是否success.
+     * 判断请求是否成功.
      */
     fun isSuccess(): Boolean = status == 0
 }
 
 /**
- * TS004 interface请求Return：Get/Retrievepseudo color样式
+ * TS004 接口请求返回：获取伪彩样式
  * @param enable
- * @param mode 当前pseudo color样式
+ * @param mode 当前伪彩样式
  */
 data class PseudoColorBean(
     val enable: Boolean?,
@@ -34,23 +34,23 @@ data class PseudoColorBean(
 )
 
 /**
- * TS004 interface请求Return：Get/Retrieve测距
- * @param state 0-Close，1-开启
+ * TS004 接口请求返回：获取测距
+ * @param state 0-关闭，1-开启
  */
 data class RangeBean(
     val state: Int?,
 )
 
 /**
- * TS004 interface请求Return：Get/Retrieve画中画
- * @param enable true Open，false Close
+ * TS004 接口请求返回：获取画中画
+ * @param enable true 打开，false 关闭
  */
 data class PipBean(
     val enable: Boolean?,
 )
 
 /**
- * TS004 interface请求Return：Get/Retrieve屏幕brightness
+ * TS004 接口请求返回：获取屏幕亮度
  * brightness: Int
  */
 data class BrightnessBean(
@@ -58,33 +58,33 @@ data class BrightnessBean(
 )
 
 /**
- * TS004 interface请求Return：Get/Retrieve放大倍数
- * @param factor Scale比例
+ * TS004 接口请求返回：获取放大倍数
+ * @param factor 缩放比例
  */
 data class ZoomBean(
     val factor: Int?,
 )
 
 /**
- * TS004 interface请求Return：Get/Retrieve超分state
- * @param enable 0-Close 1-开启
+ * TS004 接口请求返回：获取超分状态
+ * @param enable 0-关闭 1-开启
  */
 data class TISRBean(
     val enable: Int?,
 )
 
 /**
- * TS004 interface请求Return：versioninfo
- * @param firmware firmwareversion，如1.0
+ * TS004 接口请求返回：版本信息
+ * @param firmware 固件版本，如1.0
  */
 data class VersionBean(
     val firmware: String?,
 )
 
 /**
- * TS004 interface请求Return：deviceinfo
- * @param code Activate码（又叫Register码）
- * @param model 应该是devicetypename，如 TS004
+ * TS004 接口请求返回：设备信息
+ * @param code 激活码（又叫注册码）
+ * @param model 应该是设备类型名称，如 TS004
  * @param sn sn
  * @param uuid 不知道啥
  */
@@ -96,18 +96,18 @@ data class DeviceInfo(
 )
 
 /**
- * TS004 interface请求Return：file数量
- * @param fileCount file数量
+ * TS004 接口请求返回：文件数量
+ * @param fileCount 文件数量
  */
 data class FileCountBean(
     val fileCount: Int,
 )
 
 /**
- * 一页fileinfo
- * @param current 当前Pagination数
+ * 一页文件信息
+ * @param current 当前分页数
  * @param total 总页数
- * @param filelist 当前Paginationfileinfo列表
+ * @param filelist 当前分页文件信息列表
  */
 data class FilePageBean(
     val current: Int,
@@ -116,14 +116,14 @@ data class FilePageBean(
 )
 
 /**
- * TS004 interface请求Return：fileinfo
- * @param type 0-photo 1-录像
+ * TS004 接口请求返回：文件信息
+ * @param type 0-照片 1-录像
  * @param duration 录像时长，单位秒
- * @param size file大小，单位 byte
- * @param name filename，如 1970_01_02075103.mp4
+ * @param size 文件大小，单位 byte
+ * @param name 文件名称，如 1970_01_02075103.mp4
  * @param thumb 录像缩略图
  * @param time 拍摄时 Unix 时间戳，单位秒
- * @param timezone 通过时区settingsinterfacesettings的时区
+ * @param timezone 通过时区设置接口设置的时区
  */
 data class FileBean(
     val id: Int,
@@ -137,9 +137,9 @@ data class FileBean(
 )
 
 /**
- * TS004 interface请求Return：firmwareUpgradestate
- * @param status 当前Upgradestate 1-start 2-running 3-failed 4-success
- * @param percent 当前Upgrade进度百分比
+ * TS004 接口请求返回：固件升级状态
+ * @param status 当前升级状态 1-start 2-running 3-failed 4-success
+ * @param percent 当前升级进度百分比
  */
 data class UpgradeStatus(
     val status: Int,
@@ -147,12 +147,12 @@ data class UpgradeStatus(
 )
 
 /**
- * TS004 interface请求Return：fileinfo
- * @param total 总storage大小，单位 byte
- * @param free 剩余可用storage大小，单位 byte
+ * TS004 接口请求返回：文件信息
+ * @param total 总存储大小，单位 byte
+ * @param free 剩余可用存储大小，单位 byte
  * @param system 系统占用大小，单位 byte
- * @param image_size photostorage大小，单位 byte
- * @param video_size videostorage大小，单位 byte
+ * @param image_size 照片存储大小，单位 byte
+ * @param video_size 视频存储大小，单位 byte
  */
 data class FreeSpaceBean(
     val total: Long,
@@ -161,18 +161,15 @@ data class FreeSpaceBean(
     val image_size: Long,
     val video_size: Long,
 ) {
-    /**
-     * Executes hasusesize functionality.
-     */
     fun hasUseSize(): Long = system + image_size + video_size
 }
 
 /**
- * TS004 interface请求Return：Get/Retrieve录像state
- * @param errCode recording的error代码， 0:无error，1: initializationerror，2: 电池电量低
- * @param path 当前recording的videofile名
- * @param pts 当前recording的时间
- * @param status 当前recording的开关
+ * TS004 接口请求返回：获取录像状态
+ * @param errCode 录制的错误代码， 0:无错误，1: 初始化错误，2: 电池电量低
+ * @param path 当前录制的视频文件名
+ * @param pts 当前录制的时间
+ * @param status 当前录制的开关
  */
 data class RecordStatusBean(
     val errCode: Int,

@@ -26,8 +26,8 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     var MONITOR_ACTION = STATS_START
 
-    private var selectType = 1 // 选取pointtype(point line area)
-    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取point
+    private var selectType = 1 // 选取点类型(点 线 面)
+    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取点
 
     override fun initContentView() = R.layout.activity_monitor
 
@@ -100,7 +100,7 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         motionBtn.visibility = View.GONE
     }
 
-秒
+\1秒
     fun updateTime(time: Long) {
         val ss = time % 60
         val mm = time / 60 % 60

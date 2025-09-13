@@ -41,8 +41,8 @@ import java.io.File
 @Route(path = RouterConfig.REPORT_LIST)
 class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     /**
-     * 从上一界area传递过来的，当前是否为 TC007 devicetype.
-     * true-TC007 false-其他插件式device
+     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
+     * true-TC007 false-其他插件式设备
      */
     private var isTC007 = false
 
@@ -74,7 +74,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
             }
             it?.let { data ->
                 if (page == 1) {
-                    // refresh
+                    // 刷新
                     if (data.code == LMS.SUCCESS)
                         {
                             reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
@@ -117,7 +117,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private fun initRecycler() {
         fragment_pdf_recycler.layoutManager = LinearLayoutManager(this)
         fragment_pdf_recycler_lay.setOnRefreshListener {
-            // refresh
+            // 刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }
@@ -125,7 +125,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         fragment_pdf_recycler_lay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            // load更多
+            // 加载更多
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = { item, position ->
@@ -159,7 +159,7 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
                                         if (file.exists()) {
                                             file.delete()
                                         }
-                                        Log.w("deletesuccess", response.toString())
+                                        Log.w("删除成功", response.toString())
                                     }
 
                                     override fun onFail(exception: Exception?) {

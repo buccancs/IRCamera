@@ -40,7 +40,7 @@ class IRLogMPChartActivity : BaseActivity() {
     private val viewModel: IRMonitorViewModel by viewModels()
 
     /**
-从上一interface传递过来的，当前查看的监控Recordstart时间戳.
+\1从上一interface传递过来的，当前查看的监控记录开始时间戳.
      */
     private var startTime = 0L
 
@@ -75,7 +75,7 @@ class IRLogMPChartActivity : BaseActivity() {
                 val chartView = findViewById<com.topdon.module.thermal.ir.view.ChartLogView>(R.id.log_chart_time_chart)
                 chartView.initEntry(it as ArrayList<ThermalEntity>)
             } catch (e: Exception) {
-                XLog.e("refresh图表exception:${e.message}")
+                XLog.e("刷新图表异常:${e.message}")
             }
         }
 
@@ -128,7 +128,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                         doNotAskAgain: Boolean,
                                     ) {
                                         if (doNotAskAgain) {
-拒绝Authorization并且不再提醒
+\1拒绝授权并且不再提醒
                                             if (BaseApplication.instance.isDomestic())
                                                 {
                                                     ToastUtils.showShort(getString(LibR.string.app_storage_content))

@@ -25,7 +25,7 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnTimePickedListener;
 import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
 
 /**
- * 时间selection器
+ * 时间选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2021/6/5 18:19

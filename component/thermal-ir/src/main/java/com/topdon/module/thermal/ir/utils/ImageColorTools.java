@@ -79,9 +79,9 @@ public class ImageColorTools {
         long startTimeAll = System.currentTimeMillis();
         int j = 0;
         int imageDstLength = imageDst.length;
-遍历pixel point，Filtertemperature threshold
+\1遍历pixel point，过滤temperature threshold
         for (int index = 0; index < imageDstLength; ) {
-temperatureconversion formula
+\1temperatureconversion formula
             float temperature0 = (temperature[j] & 0xff) + (temperature[j + 1] & 0xff) * 256;
             temperature0 = (float) (temperature0 / 64 - 273.15);
             if (temperature0 >= customMinTemp && temperature0 <= customMaxTemp) {
@@ -96,7 +96,7 @@ temperatureconversion formula
             index += 4;
             j += 2;
         }
-Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
+\1Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
         // Convert OpenCV Mat to Android Bitmap
         Bitmap outputBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888);
         outputBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst));
@@ -321,6 +321,12 @@ Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
         return outputBitmap;
     }
 
+
+
+
+
+
+
     public static int[] getOneColorByTempEx(float customMaxTemp, float customMinTemp, float nowTemp, int[] colorList) {
         if (colorList == null){
             return null;
@@ -366,6 +372,7 @@ Log.e("执行耗时：",System.currentTimeMillis() - time+"//");
         result[2] = b;
         return result;
     }
+
 
     private static int interpolateR(int startColor, int endColor, double ratio) {
         int startR = (startColor >> 16) & 0xFF;

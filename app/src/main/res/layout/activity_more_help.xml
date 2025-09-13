@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:text="去settings"
+                    android:text="去设置"
                     android:textColor="@color/chart_line_min"
                     android:textSize="@dimen/app_small_font"
                     android:layout_marginTop="30dp"

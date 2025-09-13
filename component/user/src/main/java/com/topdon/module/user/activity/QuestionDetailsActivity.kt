@@ -5,7 +5,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 
 /**
-FAQ - 一项 FAQ 详情
+\1FAQ - 一项 FAQ 详情
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class QuestionDetailsActivity : BaseActivity() {
