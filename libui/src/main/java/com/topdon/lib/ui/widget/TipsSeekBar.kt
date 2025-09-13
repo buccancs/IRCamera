@@ -11,6 +11,13 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 
+/**
+ * TipsSeekBar class
+ */
+/**
+ * Custom Tips seek bar view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
     private val tipsPercent: Float
     private val seekPercent: Float
@@ -32,7 +39,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * data View Currentdata.
+     * 指示 View current显示的文字.
      */
     var valueText: String
         get() {
@@ -43,12 +50,12 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * seekBar data onProgressChange data.
+     * seekBar 的 onProgressChange event listener.
      */
     var onProgressChangeListener: ((progress: Int, fromUser: Boolean) -> Unit)? = null
 
     /**
-     * seekBar data onStopTrackingTouch data.
+     * seekBar 的 onStopTrackingTouch event listener.
      */
     var onStopTrackingTouch: ((progress: Int) -> Unit)? = null
 
@@ -73,7 +80,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         defStyleAttr,
         defStyleRes,
     ) {
-        // seekBar data maxHeight data 29 data xml Settingsdata，dataCurrent View Settings maxHeight,data attr data seekBar
+        // seekBar 的 maxHeight 在 29 以下只能通过 xml settings实在太蛋疼了，这里只好给current View settings maxHeight,在 attr 中传递给 seekBar
         val thumb = ContextCompat.getDrawable(context, UiR.drawable.ic_tips_seek_bar_thumb)
         val thumbWidth = thumb?.intrinsicWidth ?: 0
         seekBar = SeekBar(context, attrs)

@@ -43,7 +43,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
     protected Paint paint = new Paint();
 
     /**
-     * Initialize
+     * initialize获取屏幕宽高
      */
     protected void initScreenW_H() {
         screenHeight = ScreenUtil.getScreenHeight(getContext()) - 40;
@@ -122,7 +122,7 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
                     case TOP: // 
                         top(v, dy);
                         break;
-                    case CENTER: // -->>
+                    case CENTER: // click中心-->>移动
                         center(v, dx, dy);
                         break;
                     case LEFT_BOTTOM: // 

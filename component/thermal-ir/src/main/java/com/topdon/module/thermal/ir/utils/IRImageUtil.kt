@@ -16,6 +16,20 @@ import org.opencv.imgproc.Imgproc
 import kotlin.math.pow
 import com.topdon.lib.ui.R as UiR
 
+/**
+ * @author: CaiSongL
+ * @date: 2023/4/4 14:28
+ */
+/**
+ * I r image util utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
+object IRImageUtil {
+    /**
+\1伽马对比度
+\1@param contrast      对比度 1: 复位  0: 增强   2: 减弱变灰
+\1@param brightness    亮度
+     */
     fun showContrast(
         imageView: ImageView,
         @FloatRange(from = 0.0, to = 2.0) contrast: Double,
@@ -34,22 +48,13 @@ import com.topdon.lib.ui.R as UiR
             }
             Log.w("123", "lookUpTableData: ${lookUpTableData[1].toUByte()}")
             lookUpTable.put(0, 0, lookUpTableData)
-            val srcMat =
-                Utils.loadResource(
-                    com.blankj.utilcode.util.Utils.getApp(),
-                    UiR.drawable.ic_main_menu_battery,
-                ) // BGR
+            val srcMat = Utils.loadResource(com.blankj.utilcode.util.Utils.getApp(), UiR.drawable.ic_main_menu_battery) // BGR
             val dstMat = Mat()
-            Core.LUT(srcMat, lookUpTable, dstMat) // Utility function
-            Core.add(dstMat, Scalar(brightness, brightness, brightness), dstMat) // Utility function
+            Core.LUT(srcMat, lookUpTable, dstMat) // 对比度
+            Core.add(dstMat, Scalar(brightness, brightness, brightness), dstMat) // 亮度
             val resultMat = Mat()
-            Imgproc.cvtColor(dstMat, resultMat, Imgproc.COLOR_BGR2RGBA) // androidutility
-            val bitmap =
-                Bitmap.createBitmap(
-                    resultMat.size().width.toInt(),
-                    resultMat.size().height.toInt(),
-                    Bitmap.Config.ARGB_8888,
-                )
+            Imgproc.cvtColor(dstMat, resultMat, Imgproc.COLOR_BGR2RGBA) // android对应图像格式
+            val bitmap = Bitmap.createBitmap(resultMat.size().width.toInt(), resultMat.size().height.toInt(), Bitmap.Config.ARGB_8888)
             Utils.matToBitmap(resultMat, bitmap)
             imageView.setImageBitmap(bitmap)
             srcMat.release()
@@ -59,6 +64,12 @@ import com.topdon.lib.ui.R as UiR
         }
     }
 
+    /**
+\1伽马曲线
+     * https://www.cnblogs.com/AlgrithmsRookie/p/13212369.html
+\1@param a     [0 ~ 1]交界点
+\1@param gamma 变化强度
+     */
     private fun lutGamma(
         @FloatRange(from = 0.0, to = 1.0) x: Double,
         a: Double = 0.5,
@@ -73,6 +84,12 @@ import com.topdon.lib.ui.R as UiR
         return y
     }
 
+    /**
+\1锐化
+     * @param sharpen [1,3,5]
+     *
+\1kernel_size  锐化程度,set是奇正数
+     */
     private fun showSharpen(
         imageView: ImageView,
         @FloatRange(from = 0.0, to = 2.55) sharpen: Double,
@@ -80,33 +97,24 @@ import com.topdon.lib.ui.R as UiR
         Log.i("123", "show sharpen: $sharpen")
         val scale = 1.0
         val delta = 0.0
-        val kernelSize = 3 // Utility function
+        val kernelSize = 3 // 锐化程度
 
-        val srcMat =
-            Utils.loadResource(
-                com.blankj.utilcode.util.Utils.getApp(),
-                UiR.drawable.ic_main_menu_battery,
-            ) // BGR
+        val srcMat = Utils.loadResource(com.blankj.utilcode.util.Utils.getApp(), UiR.drawable.ic_main_menu_battery) // BGR
         val dstMat = Mat(srcMat.rows(), srcMat.cols(), srcMat.type())
         val preGray = Mat()
         val absDst = Mat()
         Log.i("123", "start kernel_size: $kernelSize")
-        Imgproc.GaussianBlur(srcMat, srcMat, Size(3.0, 3.0), 0.0, 0.0, BORDER_DEFAULT) // Utility function
+        Imgproc.GaussianBlur(srcMat, srcMat, Size(3.0, 3.0), 0.0, 0.0, BORDER_DEFAULT) // 高斯平滑
         Imgproc.cvtColor(srcMat, preGray, Imgproc.COLOR_BGR2GRAY)
         Log.w("123", "cvtColor preGray: $preGray")
-        Imgproc.Laplacian(srcMat, dstMat, CV_16S, kernelSize, scale, delta, BORDER_DEFAULT) // Utility function
+        Imgproc.Laplacian(srcMat, dstMat, CV_16S, kernelSize, scale, delta, BORDER_DEFAULT) // 锐化
         Log.w("123", "Laplacian dstMat: $dstMat")
         Core.convertScaleAbs(dstMat, absDst)
         Log.w("123", "convertScaleAbs absDst: $absDst")
         val preMat = Mat()
-        Core.addWeighted(srcMat, 1.0, absDst, sharpen, 0.0, preMat) // Utility function
-        Imgproc.cvtColor(preMat, dstMat, Imgproc.COLOR_BGR2RGBA) // androidutility
-        val bitmap =
-            Bitmap.createBitmap(
-                dstMat.size().width.toInt(),
-                dstMat.size().height.toInt(),
-                Bitmap.Config.ARGB_8888,
-            )
+        Core.addWeighted(srcMat, 1.0, absDst, sharpen, 0.0, preMat) // 融合
+        Imgproc.cvtColor(preMat, dstMat, Imgproc.COLOR_BGR2RGBA) // android对应图像格式
+        val bitmap = Bitmap.createBitmap(dstMat.size().width.toInt(), dstMat.size().height.toInt(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(dstMat, bitmap)
         imageView.setImageBitmap(bitmap)
         srcMat.release()

@@ -2,6 +2,10 @@ package com.infisense.usbir.utils
 
 import java.util.Locale
 
+/**
+ * @author: CaiSongL
+ * @date: 2023/8/7 10:53
+ */
 object ColorUtils {
     fun getRed(color: Int): Int {
         return color shr 16 and 0xFF
@@ -15,6 +19,9 @@ object ColorUtils {
         return color and 0xFF
     }
 
+    /**
+     * Executes to01 functionality.
+     */
     fun to01(float: Float): String {
         return String.format(Locale.ENGLISH, "%.1f", float)
     }

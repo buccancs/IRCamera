@@ -14,15 +14,18 @@ import com.topdon.lib.ui.bean.ColorBean
 import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
 @Deprecated("旧的高低温源菜单，已重构过了")
+/**
+ * MenuAIAdapter class for thermal imaging functionality.
+ */
 class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
      * 当前选中的选项 code.
      *
-     * 由于历史遗留（已保存在 SharedPreferences 中），这里 code 取值为
-     * - 什么都未选中：-1
-     * - 动态识别：0
-     * - 高温源：1
-     * - 低温源：2
+     * Due to legacy constraints (saved in SharedPreferences), the code values are:
+     * - Nothing selected: -1
+     * - Dynamic recognition: 0
+     * - High temperature source: 1
+     * - Low temperature source: 2
      */
     var selectCode: Int = -1
         set(value) {
@@ -33,7 +36,7 @@ class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.Vi
         }
 
     /**
-     * 观测模式-菜单2-高低温源 点击事件监听，单选。
+     * Observation mode - Menu 2 - High/Low temperature source click event listener，单选。
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
@@ -92,7 +95,17 @@ class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.Vi
     }
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-val lay: View = itemView.item_menu_tab_lay
+//        init {
+//            val canSeeCount = itemCount.toFloat() //一屏Visible的 item 数量，目前都是全都Show/Display完
+//            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
+//            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
+//            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
+//            val layoutParams = itemView.item_menu_tab_img.layoutParams
+//            layoutParams.width = imageSize
+//            layoutParams.height = imageSize
+//            itemView.item_menu_tab_img.layoutParams = layoutParams
+//        }
+        val lay: View = itemView.item_menu_tab_lay
         val img: ImageView = itemView.item_menu_tab_img
         val name: TextView = itemView.item_menu_tab_text
     }

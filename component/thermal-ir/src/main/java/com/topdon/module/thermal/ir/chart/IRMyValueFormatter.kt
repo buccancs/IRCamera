@@ -7,7 +7,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Xdata
+\1X轴文本格式
+ */
+/**
+ * I r my value formatter utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
  */
 class IRMyValueFormatter(private val startTime: Long, private val type: Int = 1) :
     IndexAxisValueFormatter() {
@@ -26,7 +30,7 @@ class IRMyValueFormatter(private val startTime: Long, private val type: Int = 1)
             } else {
                 value.toLong()
             }
-        val realTime = startTime + time * ChartTools.scale(type) // Implementation
+        val realTime = startTime + time * ChartTools.scale(type) // 还原
         return showDateSecond(realTime)
     }
 

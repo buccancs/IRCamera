@@ -8,10 +8,23 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuFirstTabBinding
 
 /**
- * Bottom menu bar for thermal imaging with measurement and observation modes.
+ * Bottom menu bar for thermal imaging interface.
+ *
+ * Two available modes:
+ * - Temperature measurement mode: photo capture, point/line/area measurement, dual light, pseudo color, settings, high/low temperature range
+ * - Observation mode: photo capture, high/low temperature source, pseudo color, target, high/low temperature points, settings
+ */
+
+/**
+ * MenuFirstTabView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 class MenuFirstTabView : FrameLayout, View.OnClickListener {
-    /** Currently selected tab position [0,5] */
+    /**
+     * Currently selected tab, Range `[0,5]`
+     */
     var selectPosition = -1
         set(value) {
             if (field != value) {
@@ -25,7 +38,9 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
             }
         }
 
-    /** Observation mode with different icons */
+    /**
+     * Whether in observation mode, observation mode uses different icons.
+     */
     var isObserveMode = false
         set(value) {
             if (field != value) {
@@ -33,18 +48,12 @@ class MenuFirstTabView : FrameLayout, View.OnClickListener {
                 binding.ivMenu2.setImageResource(
                     if (value) R.drawable.selector_menu_first_observe_2 else R.drawable.selector_menu_first_2_5,
                 )
-                binding.ivMenu3.setImageResource(
-                    if (value) R.drawable.selector_menu_first_4_3 else R.drawable.selector_menu_first_normal_3,
-                )
+                binding.ivMenu3.setImageResource(if (value) R.drawable.selector_menu_first_4_3 else R.drawable.selector_menu_first_normal_3)
                 binding.ivMenu4.setImageResource(
                     if (value) R.drawable.selector_menu_first_observe_4 else R.drawable.selector_menu_first_4_3,
                 )
-                binding.ivMenu5.setImageResource(
-                    if (value) R.drawable.selector_menu_first_2_5 else R.drawable.selector_menu_first_5_6,
-                )
-                binding.ivMenu6.setImageResource(
-                    if (value) R.drawable.selector_menu_first_5_6 else R.drawable.selector_menu_first_normal_6,
-                )
+                binding.ivMenu5.setImageResource(if (value) R.drawable.selector_menu_first_2_5 else R.drawable.selector_menu_first_5_6)
+                binding.ivMenu6.setImageResource(if (value) R.drawable.selector_menu_first_5_6 else R.drawable.selector_menu_first_normal_6)
                 selectPosition = 0
             }
         }

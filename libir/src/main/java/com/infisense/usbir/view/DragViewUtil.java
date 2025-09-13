@@ -1,7 +1,5 @@
 package com.infisense.usbir.view;
 
-
-
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,7 +17,7 @@ public class DragViewUtil {
      * View
      *
      * @param v     view
-     * @param delay 
+     * @param delay delayed
      */
     public static void registerDragAction(View v, long delay) {
         v.setOnTouchListener(new TouchListener(delay));

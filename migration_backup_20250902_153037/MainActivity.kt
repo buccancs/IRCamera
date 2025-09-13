@@ -228,7 +228,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     private var disconnectDialog: TipDialog? = null
 
-    private fun dialogDisconnect() {
+    private fun dialogDisconnect()  {
         if (resetTipsDialog?.isShowing == true) {
             return
         }
@@ -411,17 +411,23 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * 权限检测
+     * 因申请权限前需要弹窗提示用户，所以修改成key value形式
+     * @return key：权限种类 value：具体权限
+     */
     private fun getNeedPermissionList(): SparseArray<List<String>> {
         val sparseArray = SparseArray<List<String>>()
         sparseArray.append(R.string.permission_request_camera_app, listOf(Manifest.permission.CAMERA))
         (
-            if (this.applicationInfo.targetSdkVersion >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
+            if (this.applicationInfo.targetSdkVersion >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (this.applicationInfo.targetSdkVersion == 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,
@@ -533,10 +539,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
      * 动态申请权限
      */
     private fun initStoragePermission() {
-        if (PermissionUtils.isVisualUser()) {
-            jumpIRActivity()
-            return
-        }
+        if (PermissionUtils.isVisualUser())
+            {
+                jumpIRActivity()
+                return
+            }
         XXPermissions.with(this)
             .permission(
                 getNeedPermissionList()[R.string.permission_request_storage_app],
@@ -574,7 +581,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             )
     }
 
-    fun jumpIRActivity() {
+    fun jumpIRActivity()  {
         when (checkPermissionType) {
             0 -> {
                 DeviceTools.isConnect(isSendConnectEvent = true)
@@ -586,16 +593,18 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 if (DeviceTools.isTC001PlusConnect()) {
                     ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivityForResult(Intent(this@MainActivity, IRThermalPlusActivity::class.java), 101)
-                } else if (DeviceTools.isTC001LiteConnect()) {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
-                    startActivityForResult(Intent(this@MainActivity, IRThermalLiteActivity::class.java), 101)
-                } else if (DeviceTools.isHikConnect()) {
+                } else if (DeviceTools.isTC001LiteConnect())
+                    {
+                        ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                        startActivityForResult(Intent(this@MainActivity, IRThermalLiteActivity::class.java), 101)
+                    } else if (DeviceTools.isHikConnect()) {
                     ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
                     startActivity(Intent(this, IRThermalHikActivity::class.java))
-                } else {
-                    ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
-                    startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)
-                }
+                } else
+                    {
+                        ARouter.getInstance().build(RouterConfig.IR_MAIN).navigation(this@MainActivity)
+                        startActivityForResult(Intent(this@MainActivity, IRThermalNightActivity::class.java), 101)
+                    }
             }
         }
     }

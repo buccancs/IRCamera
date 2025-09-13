@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present <1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -55,9 +55,9 @@ public class DatimePicker extends ModalDialog {
         wheelLayout.setDateLabel("/", "/", "");
         wheelLayout.setTimeLabel(":", ":", "");
         wheelLayout.setCurtainEnabled(true);
-        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg)); //
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text)); //
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); //
+        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg)); //selected背景色
+        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text)); //selected文字color
+        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); //未selected文字color
         wheelLayout.setResetWhenLinkage(false, false);
         return wheelLayout;
     }

@@ -38,7 +38,7 @@ class UserInfoManager {
     }
 
     /**
-     * data
+     * 登录saved用户信息
      */
     fun login(
         token: String,

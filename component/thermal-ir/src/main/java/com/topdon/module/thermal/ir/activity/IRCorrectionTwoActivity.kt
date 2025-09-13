@@ -14,11 +14,20 @@ import com.topdon.module.thermal.ir.event.CorrectionFinishEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ *
+\1锅盖矫正
+ * @author: CaiSongL
+ * @date: 2023/8/4 9:06
+ *
+\1需要传递parameter：
+\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+ */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionTwoActivity : BaseActivity() {
     /**
-     * Fromactivity，Currentactivity TC007 activityType.
-     * true-TC007 false-activity
+\1From上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -46,13 +55,15 @@ class IRCorrectionTwoActivity : BaseActivity() {
                 if (isTC007) {
                     NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
                 } else {
-                    if (DeviceTools.isTC001LiteConnect()) {
-                        NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
-                    } else if (DeviceTools.isHikConnect()) {
+                    if (DeviceTools.isTC001LiteConnect())
+                        {
+                            NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
+                        } else if (DeviceTools.isHikConnect()) {
                         NavigationManager.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
-                    } else {
-                        startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
-                    }
+                    } else
+                        {
+                            startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
+                        }
                 }
             }
         }

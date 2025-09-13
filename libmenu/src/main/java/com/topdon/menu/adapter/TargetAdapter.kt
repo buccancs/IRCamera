@@ -4,18 +4,19 @@ import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.TargetType
 import com.topdon.menu.R as MenuR
 
 /**
- * Adapter used for Observation mode - Menu 4 - Target menu.
+ * observation模式-menu4-target menuAdapter used for.
  *
- * Measurement mode (MODE), Target (STYLE), Target color (COLOR), Delete (DELETE), Help (HELP)
+ * measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)、删除(DELETE)、帮助(HELP)
  *
- * - Measurement mode (MODE) and Target (STYLE) are bundled, either both selected or both unselected, mutually exclusive with Delete (DELETE)
- * - Delete (DELETE) is mutually exclusive with {Measurement mode (MODE), Target (STYLE), Target color (COLOR)}
- * - Target color (COLOR) is effective and not in delete state - color is default green, or in delete state - not lit, leave state management to upper layer
- * - Help (HELP) shows dialog - lit, closes dialog - not lit, leave state management to upper layer
+ * - measurement mode(MODE)、target(STYLE) 捆绑，要么都selected，要么都不selected，与 删除(DELETE) 互斥
+ * - 删除(DELETE) 与 {measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)} 互斥
+ * - targetcolor(COLOR) effective且未处于删除亮，color为默认绿色或处于删除不亮，丢给上层维护这个state
+ * - 帮助(HELP) 显示弹框亮，close弹框不亮，丢给上层维护这个state
  *
  * Created by LCG on 2024/11/28.
  */
@@ -27,8 +28,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
     var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 
     /**
-     * SettingsSpecifiedOptionitemSelectedState.
-     * itemSelecteditemSelecteditem，itemHistorical legacyitem，itemState.
+     * settingsspecified option的selectedstate.
+     * 对于一些互斥的selected取消selected操作，由于legacy现在先不改动，丢给上层去维护这个互斥state.
      */
     fun setSelected(
         targetType: TargetType,
@@ -44,13 +45,13 @@ internal class TargetAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * Settings ObservationMode-Menu4-Target-itemMode itemType.
+     * Set icon type for Observation mode - Menu 4 - Target - Measurement mode.
      *
-     * itemHistorical legacy（Already saveditem SharedPreferences item），item code item
-     * - Person：10
-     * - Sheep：11
-     * - Dog：12
-     * - Bird：13
+     * Due to legacy constraints (saved in SharedPreferences), the code values are:
+     * - Human: 10
+     * - Sheep: 11
+     * - Dog: 12
+     * - Bird: 13
      */
     fun setTargetMode(modeCode: Int) {
         for (i in dataArray.indices) {
@@ -87,12 +88,21 @@ internal class TargetAdapter : BaseMenuAdapter() {
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
+            // targetcolor以effective才视为highlightselected的，Maintain original code logic here，
+            // menu的selectedrefreshleave to upper-layer listener to handle，consider changes later when time permits
+//            data.isSelected = !data.isSelected
+//            holder.binding.ivIcon.isSelected = data.isSelected
+//            holder.binding.tvText.isSelected = data.isSelected
             onTargetListener?.invoke(data.targetType)
         }
     }
 
     override fun getItemCount(): Int = dataArray.size
 
+/**
+ * Custom Data view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     data class Data(
         @StringRes val stringId: Int,
         @DrawableRes var drawableId: Int,

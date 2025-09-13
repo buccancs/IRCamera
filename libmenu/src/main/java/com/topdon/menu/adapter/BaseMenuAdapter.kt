@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.menu.databinding.ItemMenuBinding
 
 /**
- * Base adapter for menu items with common layout logic
+ * Shared logic extraction for all menu adapters except pseudo color.
+ *
+ * Created by LCG on 2024/11/29.
  */
 internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.ViewHolder>() {
     
@@ -22,41 +24,36 @@ internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.V
         private const val MAX_EQUAL_WIDTH_ITEMS = 4
     }
 
-    override fun getItemViewType(position: Int): Int = when (position) {
-        0 -> VIEW_TYPE_FIRST
-        itemCount - 1 -> VIEW_TYPE_LAST
-        else -> VIEW_TYPE_DEFAULT
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val screenWidth = parent.context.resources.displayMetrics.widthPixels
-        
-        setupIconSize(binding, screenWidth)
-        setupItemLayout(binding, viewType, screenWidth)
-        
-        return ViewHolder(binding)
-    }
-    
-    private fun setupIconSize(binding: ItemMenuBinding, screenWidth: Int) {
-        val iconSize = (screenWidth * ICON_SIZE_RATIO).toInt()
-        binding.ivIcon.layoutParams.apply {
-            width = iconSize
-            height = iconSize
+    override fun getItemViewType(position: Int): Int =
+        when (position) {
+            0 -> VIEW_TYPE_FIRST
+            itemCount - 1 -> VIEW_TYPE_LAST
+            else -> VIEW_TYPE_DEFAULT
         }
-    }
-    
-    private fun setupItemLayout(binding: ItemMenuBinding, viewType: Int, screenWidth: Int) {
-        if (itemCount <= MAX_EQUAL_WIDTH_ITEMS) {
-            binding.root.layoutParams.width = (screenWidth / itemCount.toFloat()).toInt()
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
+        val binding = ItemMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val widthPixels: Int = parent.context.resources.displayMetrics.widthPixels
+
+        // 计算及settings图标尺寸
+        val iconSize: Int = (widthPixels * 62 / 375f).toInt() // 62、375 是按 UI 图比例
+        val iconParams: ViewGroup.LayoutParams = binding.ivIcon.layoutParams
+        iconParams.width = iconSize
+        iconParams.height = iconSize
+
+        // 计算及settings整体尺寸
+        if (itemCount <= 4) {
+            binding.root.layoutParams.width = (widthPixels / itemCount.toFloat()).toInt()
         } else {
-            val bigMargin = (screenWidth * BIG_MARGIN_RATIO).toInt()
-            val smallMargin = (screenWidth * SMALL_MARGIN_RATIO).toInt()
-            
-            val (left, right) = when (viewType) {
-                VIEW_TYPE_FIRST -> bigMargin to smallMargin
-                VIEW_TYPE_LAST -> smallMargin to bigMargin
-                else -> smallMargin to smallMargin
+            val bigMargin: Int = (widthPixels * 24 / 375f).toInt() // 按 UI 图最左最右间距为 24
+            val smallMargin: Int = (widthPixels * 8 / 375f).toInt() // 按 UI 图每个 item 间距为 16
+            when (viewType) {
+                VIEW_TYPE_FIRST -> binding.root.setPadding(bigMargin, 0, smallMargin, 0)
+                VIEW_TYPE_LAST -> binding.root.setPadding(smallMargin, 0, bigMargin, 0)
+                else -> binding.root.setPadding(smallMargin, 0, smallMargin, 0)
             }
             binding.root.setPadding(left, 0, right, 0)
         }
@@ -65,5 +62,12 @@ internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.V
         return ViewHolder(binding)
     }
 
+    /**
+     * ViewHolder(val class
+     */
+/**
+ * Custom View holder view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     class ViewHolder(val binding: ItemMenuBinding) : RecyclerView.ViewHolder(binding.root)
 }

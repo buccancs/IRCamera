@@ -8,13 +8,20 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuEditBinding
 
 /**
- * Bottom menu bar used for 2D editing page.
+ * 2D编辑页面所用底部menu栏.
  *
- * Point/Line/Area, Pseudo color, Settings, Pseudo color bar
+ * point/line/area、pseudo color、settings、pseudo color条
+ */
+/**
+ * MenuEditView class
+ */
+/**
+ * Custom Menu edit view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 class MenuEditView : FrameLayout, View.OnClickListener {
     /**
-     * Whether the pseudo color bar icon is currently in selected state
+     * pseudo color条图标current是否处于selectedstate
      */
     var isBarSelect: Boolean
         get() = binding.ivMenu4.isSelected
@@ -24,12 +31,12 @@ class MenuEditView : FrameLayout, View.OnClickListener {
         }
 
     /**
-     * 0-Point/Line/Area, 1-Pseudo color, 2-Settings menu click event listener.
+     * 0-point/line/area、1-pseudo colorcolor、2-settings menuclickevent listener.
      */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
 
     /**
-     * Pseudo-colorview.
+     * pseudo color条图标clickevent listener.
      */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
 
@@ -59,7 +66,7 @@ class MenuEditView : FrameLayout, View.OnClickListener {
     }
 
     /**
-     * CurrentSelectedview tab，view `[0,2]`
+     * currentselected那个 tab，取值 `[0,2]`
      */
     private var selectPosition = -1
         set(value) {

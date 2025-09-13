@@ -25,13 +25,13 @@ except ImportError:
 
     # Mock numpy and cv2 for environments without OpenCV
     class MockOpenCV:
-        def findChessboardCorners(self, *args, **kwargs):
+        def findChessboardCorners(self, *args, **kwargs) -> Any:
             return False, None
 
-        def calibrateCamera(self, *args, **kwargs):
+        def calibrateCamera(self, *args, **kwargs) -> Any:
             return 0, None, None, None, None
 
-        def undistort(self, *args, **kwargs):
+        def undistort(self, *args, **kwargs) -> Any:
             return None
 
         TERM_CRITERIA_EPS = 1
@@ -43,10 +43,10 @@ except ImportError:
     except ImportError:
 
         class MockNumPy:
-            def array(self, *args, **kwargs):
+            def array(self, *args, **kwargs) -> Any:
                 return []
 
-            def zeros(self, *args, **kwargs):
+            def zeros(self, *args, **kwargs) -> Any:
                 return []
 
             float32 = float
@@ -253,7 +253,7 @@ class CameraCalibrator:
         self.completed_calibrations: Dict[str, CalibrationResult] = {}
 
         logger.info(
-            f"Camera Calibrator initialized with " f"data directory: {self.data_dir}"
+            "Camera Calibrator initialized with " f"data directory: {self.data_dir}"
         )
         logger.info(f"Pattern: {self.pattern_size}, Square size: {self.square_size}mm")
 
@@ -615,7 +615,8 @@ class CameraCalibrator:
 
             # For stereo calibration, we need corresponding object and image points
             # In a real implementation, you'd collect synchronized stereo image pairs
-            # For now, we'll create a working calibration based on the individual results
+            # For now,
+                we'll create a working calibration based on the individual results
 
             # Get the image resolution from the calibration results
             image_size = left_result.image_resolution
@@ -727,7 +728,7 @@ class CameraCalibrator:
             left_result.stereo = stereo_calibration
             right_result.stereo = stereo_calibration
 
-            logger.info(f"Stereo calibration completed successfully")
+            logger.info("Stereo calibration completed successfully")
             logger.info(f"Baseline: {stereo_calibration.baseline:.2f}mm")
             logger.info(
                 f"Convergence angle: {stereo_calibration.convergence_angle:.2f}°"

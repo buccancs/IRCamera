@@ -7,6 +7,25 @@ import android.graphics.Path
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
+/**
+ * TC007 电池电量图标.
+ *
+ * Created by LCG on 2024/5/22.
+ */
+/**
+ * Custom Battery view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * BatteryView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
+class BatteryView : AppCompatImageView {
+    /**
+     * current电量
+     */
     var battery = -1
         set(value) {
             field = value
@@ -14,7 +33,7 @@ import androidx.appcompat.widget.AppCompatImageView
         }
 
     /**
-     * Currentview
+     * current是否充电中
      */
     var isCharging = false
         set(value) {
@@ -125,7 +144,7 @@ import androidx.appcompat.widget.AppCompatImageView
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // view
+        
         val lineSize = drawWidth * 2 / 58f
         val roundSize = drawWidth * 6 / 58f
         val batteryWidth = drawWidth * 50 / 58f
@@ -142,7 +161,7 @@ import androidx.appcompat.widget.AppCompatImageView
             paint,
         )
 
-        // view
+        
         val anodeWidth = drawWidth * 3 / 58f
         val anodeHeight = drawHeight * 8 / 30f - lineSize
         val anodeX = drawWidth - anodeWidth / 2
@@ -152,7 +171,7 @@ import androidx.appcompat.widget.AppCompatImageView
         paint.strokeWidth = anodeWidth
         canvas.drawLine(anodeX, anodeStartY, anodeX, anodeStartY + anodeHeight, paint)
 
-        // view
+        
         if (battery <= 0) {
             return
         }

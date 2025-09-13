@@ -21,6 +21,10 @@ import org.json.JSONObject
 import java.io.File
 import java.util.concurrent.CountDownLatch
 
+/**
+ * Custom Up report view model view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class UpReportViewModel : BaseViewModel() {
     val commonBeanLD = SingleLiveEvent<CommonBean>()
 
@@ -55,12 +59,12 @@ class UpReportViewModel : BaseViewModel() {
                             reportIrBean.picture_id = jsonObject.getString("fileSecret")
                             reportIrBean.picture_url = jsonObject.getString("url")
                         }
-                        XLog.i("view")
+                        XLog.i("Upload完一张图")
                         downLatch.countDown()
                     }
                 }
                 downLatch.await()
-                XLog.i("${irList.size} view")
+                XLog.i("${irList.size} 张图Upload完毕")
             }
         }
     }

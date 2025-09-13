@@ -39,6 +39,181 @@ import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.text.DecimalFormat
 
+/**
+ * 插件式 “更多” 页面
+ *
+ * 需要传递参数：
+ * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ */
+@Route(path = RouterConfig.TC_MORE)
+class MoreFragment : BaseFragment(), View.OnClickListener {
+    /**
+     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
+     * true-TC007 false-其他插件式设备
+     */
+    private var isTC007 = false
+
+    /**
+     * TC007 固件升级 ViewModel.
+     */
+    private val firmwareViewModel: FirmwareViewModel by viewModels()
+
+    override fun initContentView() = R.layout.fragment_more
+
+    override fun initView() {
+        isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
+
+        setting_item_model.setOnClickListener(this) // 温度修正
+        setting_item_correction.setOnClickListener(this) // 图像校正
+        setting_item_dual.setOnClickListener(this) // 双光校正
+        setting_item_unit.setOnClickListener(this) // 温度单温
+        setting_version.setOnClickListener(this) // TC007固件升级
+        setting_device_information.setOnClickListener(this) // TC007设备信息
+        setting_reset.setOnClickListener(this) // TC007恢复出厂设置
+
+        // 根据 2024/5/23 评审会结论，TC007没有多少需要恢复出厂的配置，产品决定砍掉
+        setting_reset.isVisible = false
+
+        setting_version.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
+        setting_device_information.isVisible = isTC007
+        setting_item_dual.isVisible = !isTC007 && DeviceTools.isTC001PlusConnect()
+
+        if (isTC007) {
+            refresh07Connect(WebSocketProxy.getInstance().isTC007Connect())
+        }
+
+        setting_item_auto_show.isChecked = if (isTC007) SharedManager.isConnect07AutoOpen else SharedManager.isConnectAutoOpen
+        setting_item_auto_show.setOnCheckedChangeListener { _, isChecked ->
+            if (isTC007) {
+                SharedManager.isConnect07AutoOpen = isChecked
+            } else {
+                SharedManager.isConnectAutoOpen = isChecked
+            }
+        }
+
+        setting_item_config_select.isChecked = if (isTC007) WifiSaveSettingUtil.isSaveSetting else SaveSettingUtil.isSaveSetting
+        setting_item_config_select.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                TipDialog.Builder(requireContext())
+                    .setMessage(R.string.save_setting_tips)
+                    .setPositiveListener(R.string.app_ok) {
+                        if (isTC007)
+                            {
+                                WifiSaveSettingUtil.isSaveSetting = true
+                            } else
+                            {
+                                SaveSettingUtil.isSaveSetting = true
+                            }
+                    }
+                    .setCancelListener(R.string.app_cancel) {
+                        setting_item_config_select.isChecked = false
+                    }
+                    .setCanceled(false)
+                    .create().show()
+            } else {
+                if (isTC007)
+                    {
+                        WifiSaveSettingUtil.reset()
+                        WifiSaveSettingUtil.isSaveSetting = false
+                    } else
+                    {
+                        SaveSettingUtil.reset()
+                        SaveSettingUtil.isSaveSetting = false
+                    }
+            }
+        }
+
+        firmwareViewModel.firmwareDataLD.observe(this) {
+            tv_upgrade_point.isVisible = it != null
+            dismissLoadingDialog()
+            if (it == null) { // 请求成功但没有固件升级包，即已是最新
+                ToastUtils.showShort(R.string.setting_firmware_update_latest_version)
+            } else {
+                showFirmwareUpDialog(it)
+            }
+        }
+        firmwareViewModel.failLD.observe(this) {
+            dismissLoadingDialog()
+            TToast.shortToast(requireContext(), if (it) R.string.upgrade_bind_error else R.string.http_code_z5000)
+            tv_upgrade_point.isVisible = false
+        }
+    }
+
+    override fun initData() {
+    }
+
+    override fun connected() {
+        setting_item_dual.isVisible = !isTC007 && DeviceTools.isTC001PlusConnect()
+    }
+
+    override fun disConnected() {
+        setting_item_dual.isVisible = false
+    }
+
+    override fun onSocketConnected(isTS004: Boolean) {
+        if (!isTS004 && isTC007) {
+            refresh07Connect(true)
+        }
+    }
+
+    override fun onSocketDisConnected(isTS004: Boolean) {
+        if (!isTS004 && isTC007) {
+            refresh07Connect(false)
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            setting_item_model -> { // 温度修正
+                ARouter.getInstance().build(
+                    RouterConfig.IR_SETTING,
+                ).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
+            }
+            setting_item_dual -> {
+                ARouter.getInstance().build(RouterConfig.MANUAL_START).navigation(requireContext())
+            }
+            setting_item_unit -> { // 温度单位
+                ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+            }
+            setting_item_correction -> { // 锅盖校正
+                ARouter.getInstance().build(
+                    RouterConfig.IR_CORRECTION,
+                ).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
+            }
+            setting_version -> { // TC007固件升级
+                // 由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
+//               if (LMS.getInstance().isLogin) {
+                val firmwareData = firmwareViewModel.firmwareDataLD.value
+                if (firmwareData != null) {
+                    showFirmwareUpDialog(firmwareData)
+                } else {
+                    XLog.i("TC007 固件升级 - 点击查询")
+                    showLoadingDialog()
+                    firmwareViewModel.queryFirmware(false)
+                }
+//               } else {
+//                   LMS.getInstance().activityLogin()
+//               }
+            }
+            setting_device_information -> { // TC007设备信息
+                if (WebSocketProxy.getInstance().isTC007Connect()) {
+                    ARouter.getInstance()
+                        .build(RouterConfig.DEVICE_INFORMATION)
+                        .withBoolean(ExtraKeyConfig.IS_TC007, true)
+                        .navigation(requireContext())
+                }
+            }
+            setting_reset -> { // TC007恢复出厂设置
+                if (WebSocketProxy.getInstance().isTC007Connect()) {
+                    restoreFactory()
+                }
+            }
+        }
+    }
+
+    /**
+     * 仅 TC007 页面时，刷新连接或未连接状态.
+     */
     private fun refresh07Connect(isConnect: Boolean) {
         setting_device_information.isRightArrowVisible = isConnect
         setting_device_information.setRightTextId(if (isConnect) 0 else R.string.app_no_connect)

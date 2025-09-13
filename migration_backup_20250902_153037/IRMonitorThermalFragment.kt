@@ -76,9 +76,10 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments?.containsKey("isPick") == true) {
-            isPick = requireArguments().getBoolean("isPick")
-        }
+        if (arguments?.containsKey("isPick") == true)
+            {
+                isPick = requireArguments().getBoolean("isPick")
+            }
     }
 
     override fun initData() {
@@ -195,10 +196,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
     private fun startUSB(isRestart: Boolean) {
         iruvc =
             IRUVCTC(
-                cameraWidth,
-                cameraHeight,
-                context,
-                syncimage,
+                cameraWidth, cameraHeight, context, syncimage,
                 defaultDataFlowMode,
                 object : ConnectCallback {
                     override fun onCameraOpened(uvcCamera: UVCCamera) {
@@ -279,11 +277,13 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         Log.w(TAG, "onStart")
         if (!isrun) {
             // 初始配置,伪彩铁红
-            if (isPick) {
-                pseudocolorMode = SaveSettingUtil.pseudoColorMode
-            } else {
-                pseudocolorMode = 3
-            }
+            if (isPick)
+                {
+                    pseudocolorMode = SaveSettingUtil.pseudoColorMode
+                } else
+                {
+                    pseudocolorMode = 3
+                }
             startUSB(false)
             startISP()
             temperatureView.start()
@@ -455,7 +455,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
             val config = ConfigRepository.readConfig(false)
             val disChar = (config.distance * 128).toInt() // 距离(米)
             val emsChar = (config.radiation * 128).toInt() // 发射率
-
+//            val tuChar = (config.environment * 10).toInt().toChar() //环境温度
             XLog.w("设置TPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)
@@ -480,12 +480,13 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
                             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    } else {
-                        ircmd?.setPropAutoShutterParameter(
-                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
-                        )
-                    }
+                    } else
+                        {
+                            ircmd?.setPropAutoShutterParameter(
+                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                            )
+                        }
                 }
             }
             // 复位对比度、细节
@@ -507,16 +508,16 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         }
     }
 
-    fun getBitmap(): Bitmap {
+    fun getBitmap(): Bitmap  {
         return cameraView.scaledBitmap
     }
 
-    fun startCoverStsSwitchReady(): Int {
+    fun startCoverStsSwitchReady(): Int  {
         // 锅盖标定-准备
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
 
-    fun startCoverStsSwitch(): Int {
+    fun startCoverStsSwitch(): Int  {
         // 锅盖标定-准备
         ircmd?.rmCoverAutoCalc(CommonParams.RMCoverAutoCalcType.GAIN_1)
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1

@@ -15,6 +15,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
+/**
+ *
+\1锅盖矫正
+ * @author: CaiSongL
+ * @date: 2023/8/4 9:06
+ */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionLiteFourActivity : BaseActivity() {
     private lateinit var binding: ActivityIrCorrectionLiteFourBinding
@@ -55,42 +61,46 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
         }
 
         binding.timeDownView.postDelayed({
-            // Activity logic
-            if (binding.timeDownView.downTimeWatcher == null) {
-                binding.timeDownView.setOnTimeDownListener(
-                    object : TimeDownView.DownTimeWatcher {
-                        override fun onTime(num: Int) {
-                            if (num == 35) {
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    result = irFragment.autoStart()
-                                }
-                            }
-                        }
-
-                        override fun onLastTime(num: Int) {
-                        }
-
-                        override fun onLastTimeFinish(num: Int) {
-                            try {
-                                if (!result) {
-                                    ToastUtils.showShort("activity，activity")
-                                    return
-                                }
-                                if (!this@IRCorrectionLiteFourActivity.isFinishing) {
-                                    TipDialog.Builder(this@IRCorrectionLiteFourActivity)
-                                        .setMessage(R.string.correction_complete)
-                                        .setPositiveListener(R.string.app_confirm) {
-                                            EventBus.getDefault().post(CorrectionFinishEvent())
-                                            finish()
+\1开始矫正
+            if (binding.timeDownView.downTimeWatcher == null)
+                {
+                    binding.timeDownView.setOnTimeDownListener(
+                        object : TimeDownView.DownTimeWatcher {
+                            override fun onTime(num: Int) {
+                                if (num == 35)
+                                    {
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            result = irFragment.autoStart()
                                         }
-                                        .create().show()
-                                }
-                            } catch (e: Exception) {
+                                    }
                             }
-                        }
-                    },
-                )
-            }
+
+                            override fun onLastTime(num: Int) {
+                            }
+
+                            override fun onLastTimeFinish(num: Int) {
+                                try {
+                                    if (!result)
+                                        {
+                                            ToastUtils.showShort("标定保存失败，请重新标定")
+                                            return
+                                        }
+                                    if (!this@IRCorrectionLiteFourActivity.isFinishing)
+                                        {
+                                            TipDialog.Builder(this@IRCorrectionLiteFourActivity)
+                                                .setMessage(R.string.correction_complete)
+                                                .setPositiveListener(R.string.app_confirm) {
+                                                    EventBus.getDefault().post(CorrectionFinishEvent())
+                                                    finish()
+                                                }
+                                                .create().show()
+                                        }
+                                } catch (e: Exception) {
+                                }
+                            }
+                        },
+                    )
+                }
             binding.timeDownView.downSecond(time, false)
         }, 2000)
     }

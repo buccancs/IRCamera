@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import asyncio
 import sys
 import time
 from pathlib import Path
@@ -13,17 +14,38 @@ def test_imports():
 
     try:
         # Test PyQtGraph plotting widgets
-        pass
+        from ircamera_pc.gui.plotting_widgets import (
+            DataAggregationWidget,
+            GSRPlotWidget,
+            MultiModalDashboard,
+            VideoPreviewWidget,
+        )
 
-        print("OK Plotting widgets imported successfully")
+        print("✓ Plotting widgets imported successfully")
 
         # Test enhanced GUI widgets
+        from ircamera_pc.gui.widgets import (
+            BluetoothControlWidget,
+            DeviceListWidget,
+            SessionControlWidget,
+            StatusDisplayWidget,
+            SystemIntegrationWidget,
+            WiFiControlWidget,
+        )
 
-        print("OK Enhanced GUI widgets imported successfully")
+        print("✓ Enhanced GUI widgets imported successfully")
 
         # Test data aggregation engine
+        from ircamera_pc.data import (
+            AggregationStats,
+            DataAggregationEngine,
+            DataStream,
+            SyncEvent,
+            calculate_temporal_alignment,
+            validate_data_synchronization,
+        )
 
-        print("OK Data aggregation engine imported successfully")
+        print("✓ Data aggregation engine imported successfully")
 
         return True
 
@@ -37,19 +59,23 @@ def test_data_aggregation():
     print("\nTesting data aggregation engine...")
 
     try:
-        from ircamera_pc.data import DataAggregationEngine
+        from ircamera_pc.data import DataAggregationEngine, DataStream, SyncEvent
 
+        # Create test session directory
         test_dir = Path("/tmp/test_session")
         test_dir.mkdir(exist_ok=True)
 
+        # Initialize aggregation engine
         engine = DataAggregationEngine(test_dir)
         engine.start()
 
+        # Add test streams
         gsr_stream_id = engine.add_stream("device_1", "gsr", 128.0)
         video_stream_id = engine.add_stream("device_1", "rgb_video", 30.0)
 
-        print(f"OK Added streams: {gsr_stream_id}, {video_stream_id}")
+        print(f"✓ Added streams: {gsr_stream_id}, {video_stream_id}")
 
+        # Add test data
         timestamp_ns = time.time_ns()
 
         # Simulate GSR data
@@ -66,20 +92,23 @@ def test_data_aggregation():
         video_data = {"frame_number": 1, "width": 1920, "height": 1080}
         engine.add_data(video_stream_id, timestamp_ns, video_data)
 
+        # Add sync event
         engine.add_sync_event("flash", "device_1", timestamp_ns)
 
         # Wait a bit for processing
         time.sleep(0.1)
 
+        # Get statistics
         stats = engine.get_statistics()
         print(
-            f"OK Statistics: {stats.total_devices} devices, {stats.active_streams} streams"
+            f"✓ Statistics: {stats.total_devices} devices,
+                {stats.active_streams} streams"
         )
 
         # Clean up
         engine.stop()
 
-        print("OK Data aggregation engine test passed")
+        print("✓ Data aggregation engine test passed")
         return True
 
     except Exception as e:
@@ -95,6 +124,7 @@ def test_plotting_widgets():
         from ircamera_pc.gui.plotting_widgets import GSRPlotWidget, MultiModalDashboard
         from PyQt6.QtWidgets import QApplication
 
+        # Create minimal QApplication for testing
         app = QApplication.instance()
         if app is None:
             app = QApplication([])
@@ -103,15 +133,15 @@ def test_plotting_widgets():
         gsr_plot = GSRPlotWidget()
         gsr_plot.add_device("test_device", "cyan")
         gsr_plot.add_gsr_data("test_device", time.time_ns(), 15.5)
-        print("OK GSR plot widget created and tested")
+        print("✓ GSR plot widget created and tested")
 
         # Test multi-modal dashboard
         dashboard = MultiModalDashboard()
         dashboard.add_gsr_device("device_1")
-        dashboard.add_video_device("device_1", "RGB")
-        print("OK Multi-modal dashboard created and tested")
+        video_widget = dashboard.add_video_device("device_1", "RGB")
+        print("✓ Multi-modal dashboard created and tested")
 
-        print("OK Plotting widgets test passed")
+        print("✓ Plotting widgets test passed")
         return True
 
     except Exception as e:
@@ -126,6 +156,7 @@ def test_native_backend_structure():
     try:
         backend_dir = Path(__file__).parent / "native_backend"
 
+        # Check directory structure
         if not backend_dir.exists():
             print("FAIL Native backend directory missing")
             return False
@@ -144,9 +175,9 @@ def test_native_backend_structure():
             if not full_path.exists():
                 print(f"FAIL Missing file: {file_path}")
                 return False
-            print(f"OK Found: {file_path}")
+            print(f"✓ Found: {file_path}")
 
-        print("OK Native backend structure test passed")
+        print("✓ Native backend structure test passed")
         return True
 
     except Exception as e:
@@ -166,6 +197,7 @@ def test_gui_widgets():
         )
         from PyQt6.QtWidgets import QApplication
 
+        # Create minimal QApplication for testing
         app = QApplication.instance()
         if app is None:
             app = QApplication([])
@@ -177,11 +209,11 @@ def test_gui_widgets():
             {"device_id": "device_2", "device_type": "RGB", "status": "recording"},
         ]
         device_list.update_devices(test_devices)
-        print("OK Device list widget created and tested")
+        print("✓ Device list widget created and tested")
 
         # Test session control widget
-        SessionControlWidget()
-        print("OK Session control widget created")
+        session_control = SessionControlWidget()
+        print("✓ Session control widget created")
 
         # Test status display widget
         status_display = StatusDisplayWidget()
@@ -191,9 +223,9 @@ def test_gui_widgets():
             "total_devices": 2,
         }
         status_display.update_time_sync_stats(test_stats)
-        print("OK Status display widget created and tested")
+        print("✓ Status display widget created and tested")
 
-        print("OK Enhanced GUI widgets test passed")
+        print("✓ Enhanced GUI widgets test passed")
         return True
 
     except Exception as e:
@@ -207,12 +239,14 @@ def main():
 
     test_results = []
 
+    # Run all tests
     test_results.append(("Imports", test_imports()))
     test_results.append(("Native Backend Structure", test_native_backend_structure()))
     test_results.append(("Data Aggregation", test_data_aggregation()))
     test_results.append(("Plotting Widgets", test_plotting_widgets()))
     test_results.append(("GUI Widgets", test_gui_widgets()))
 
+    # Print summary
     print("\n=== Test Results Summary ===")
     passed = 0
     total = len(test_results)

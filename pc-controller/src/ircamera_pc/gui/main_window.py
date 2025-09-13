@@ -316,7 +316,8 @@ class MainWindow(QMainWindow):
     def _setup_network_callbacks(self) -> None:
         """Set up WebSocket server event callbacks - Phase 1 implementation."""
         # WebSocket server handles callbacks through message handlers internally
-        # For now, we'll implement basic device tracking through the server's client management
+        # For now,
+            we'll implement basic device tracking through the server's client management
         logger.info("WebSocket server callbacks configured")
 
     def _setup_system_integration_callbacks(self) -> None:
@@ -348,7 +349,8 @@ class MainWindow(QMainWindow):
                 )
             )
             self.bluetooth_manager.device_disconnected.connect(
-                lambda addr, reason: self.bluetooth_control_widget.set_connection_status(
+                lambda addr,
+                    reason: self.bluetooth_control_widget.set_connection_status(
                     addr, False
                 )
             )

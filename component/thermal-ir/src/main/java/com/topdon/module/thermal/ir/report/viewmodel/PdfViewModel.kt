@@ -21,14 +21,22 @@ import java.util.*
 import java.util.concurrent.CountDownLatch
 import com.topdon.lib.core.R as LibR
 
+/**
+ * @author: CaiSongL
+ * @date: 2023/5/12 17:43
+ */
+/**
+ * Custom Pdf view model view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class PdfViewModel : BaseViewModel() {
     val listData = MutableLiveData<ReportData?>()
 
-    // View rendering
+\1get报告列表
     fun getReportData(
         isTC007: Boolean,
         page: Int,
-    ) {
+    )  {
         if (!NetworkUtil.isConnected(Utils.getApp())) {
             TToast.shortToast(Utils.getApp(), LibR.string.http_code_z5004)
             listData.postValue(null)
@@ -52,7 +60,21 @@ class PdfViewModel : BaseViewModel() {
             object : IResponseCallback {
                 override fun onResponse(p0: String?) {
                     result = Gson().fromJson(p0, ReportData::class.java)
-downLatch.countDown()
+//                val testData : MutableList<ReportData.Records?> = mutableListOf()
+//                var tmp = ReportData.Records()
+//                tmp.uploadTime = TimeTool.getNowTime()
+//                testData.add(tmp)
+//                tmp = ReportData.Records()
+//                tmp.uploadTime = TimeTool.getNowTime()
+//                testData.add(tmp)
+//                tmp = ReportData.Records()
+//                tmp.uploadTime = TimeTool.getNowTime()
+//                testData.add(tmp)
+//                tmp = ReportData.Records()
+//                tmp.uploadTime = "1992-12-30 11:11"
+//                testData.add(tmp)
+//                result?.data?.records = testData
+                    downLatch.countDown()
                 }
 
                 override fun onFail(p0: Exception?) {
@@ -60,7 +82,7 @@ downLatch.countDown()
                     result?.msg = p0?.message
                     result?.code = -1
                     downLatch.countDown()
-                    TLog.e("bcf", "view：" + p0?.message)
+                    TLog.e("bcf", "获取报告列表失败：" + p0?.message)
                 }
 
                 override fun onFail(

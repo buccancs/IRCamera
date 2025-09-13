@@ -14,38 +14,42 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
+/**
+ * Custom I r gallery view model view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class IRGalleryViewModel : BaseViewModel() {
     companion object {
         /**
-         * view 1 view
+\1分页load时 1 页data的条数
          */
         const val PAGE_COUNT = 20
     }
 
     /**
-     * view.
+\1未掺杂日期title的raw data列表.
      */
     val sourceListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
 
     /**
-     * view.
+\1添加了日期title的用于display的列表.
      */
     val showListLD: MutableLiveData<ArrayList<GalleryBean>> = MutableLiveData()
 
     /**
-     * view，viewAllview.
+\1仅供生成报告使用的，load所有插件式device图片.
      */
     fun queryAllReportImg(dirType: GalleryRepository.DirType) {
         viewModelScope.launch(Dispatchers.IO) {
             val sourceList: ArrayList<GalleryBean> = GalleryRepository.loadAllReportImg(dirType)
             sourceListLD.postValue(sourceList)
 
-            // View rendering item
+\1插入日期 item
             val showList: ArrayList<GalleryBean> = ArrayList(sourceList.size)
             var beforeTime = 0L
             for (galleryBean in sourceList) {
                 val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                if (beforeTime != currentTime) { // View rendering
+                if (beforeTime != currentTime) { // 新的日期
                     showList.add(GalleryTitle(galleryBean.timeMillis))
                     beforeTime = currentTime
                 }
@@ -56,13 +60,13 @@ class IRGalleryViewModel : BaseViewModel() {
     }
 
     /**
-     * view
+\1分页load时已successfulload的页数
      */
     var hasLoadPage = 0
 
     /**
-     * view.
-     * null-view
+\1一页请求data列表.
+\1null-请求failed
      */
     val pageListLD: MutableLiveData<ArrayList<GalleryBean>?> = MutableLiveData()
 
@@ -101,11 +105,11 @@ class IRGalleryViewModel : BaseViewModel() {
                     hasLoadPage++
                 }
 
-                // View rendering item
+\1插入日期 item
                 var beforeTime = if (sourceList.isEmpty()) 0 else TimeTool.timeToMinute(sourceList.last().timeMillis, 4)
                 for (galleryBean in pageList) {
                     val currentTime = TimeTool.timeToMinute(galleryBean.timeMillis, 4)
-                    if (beforeTime != currentTime) { // View rendering
+                    if (beforeTime != currentTime) { // 新的日期
                         showList.add(GalleryTitle(galleryBean.timeMillis))
                         beforeTime = currentTime
                     }
@@ -120,7 +124,7 @@ class IRGalleryViewModel : BaseViewModel() {
     }
 
     /**
-     * viewDeleteview.
+\1批量删除文件结果.
      */
     val deleteResultLD: MutableLiveData<Boolean> = MutableLiveData()
 

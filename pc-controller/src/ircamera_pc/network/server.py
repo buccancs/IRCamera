@@ -17,7 +17,7 @@ except ImportError:
 from ..core.config import config
 from ..core.gsr_receiver import GSRReceiver
 from .discovery import NetworkDiscoveryService
-from .messaging import ReliableMessageService
+from .messaging import MessageCallback, MessagePriority, ReliableMessageService
 from .protocol import (
     ValidationError,
     create_message,
@@ -255,7 +255,8 @@ class NetworkServer:
                 f"Network server started on {addr[0]}:{addr[1]} (plaintext) and {secure_addr[0]}:{secure_addr[1]} (TLS)"
             )
             logger.info(
-                "Enhanced networking features: TLS encryption, mDNS discovery, reliable messaging"
+                "Enhanced networking features: TLS encryption, mDNS discovery,
+                    reliable messaging"
             )
 
             return True
@@ -607,7 +608,7 @@ class NetworkServer:
 
             # Fallback to GSR ingestor for processing
             try:
-                from ..core.gsr_ingestor import GSRIngestor, GSRSample
+                from ..core.gsr_ingestor import GSRIngestor, GSRMode, GSRSample
 
                 # Convert data points to GSR samples
                 gsr_samples = []
@@ -800,6 +801,134 @@ class NetworkServer:
         self, session_id: str, session_name: Optional[str] = None
     ) -> Dict[str, bool]:
 
+        logger.info(f"Starting recording session {session_id} on all devices")
+        return await self.broadcast_command(command)
+
+    async def stop_recording_session(self, session_id: str) -> Dict[str, bool]:
+        """Stop recording session on all devices using protocol format."""
+        command = create_message("session_stop", session_id=session_id)
+
+        logger.info(f"Stopping recording session {session_id} on all devices")
+        return await self.broadcast_command(command)
+
+    async def send_sync_flash(self, duration_ms: int = 100) -> Dict[str, bool]:
+        """Send sync flash command to all devices using protocol format."""
+        command = create_message(
+            "sync_flash", duration_ms=duration_ms, intensity=1.0, color="white"
+        )
+
+        logger.info("Sending sync flash to all devices")
+        return await self.broadcast_command(command)
+
+    async def send_sync_mark(
+        self, mark_type: str, metadata: Dict[str, Any] = None
+    ) -> Dict[str, bool]:
+        """Send sync mark to all devices using protocol format."""
+        command = create_message(
+            "sync_mark",
+            mark_type=mark_type,
+            mark_id=str(uuid.uuid4()),
+            metadata=metadata or {},
+        )
+
+        logger.info(f"Sending sync mark '{mark_type}' to all devices")
+        return await self.broadcast_command(command)
+
+    async def _send_message(
+        self, writer: asyncio.StreamWriter, message: Dict[str, Any]
+    ) -> None:
+        """Send JSON message to client."""
+        try:
+            message_data = json.dumps(message).encode("utf-8")
+            length_data = len(message_data).to_bytes(4, "big")
+
+            writer.write(length_data + message_data)
+            await writer.drain()
+
+        except (OSError, ValueError, RuntimeError) as e:
+            logger.error(f"Failed to send message: {e}")
+            raise
+
+    async def _send_error(
+        self,
+        writer: asyncio.StreamWriter,
+        error_message: str,
+        message_id: Optional[str] = None,
+    ) -> None:
+        """Send error response to client using protocol format."""
+        error_response = create_message(
+            "error", error_code="INVALID_MESSAGE", error_message=error_message
+        )
+
+        if message_id:
+            error_response["message_id"] = message_id
+
+        await self._send_message(writer, error_response)
+
+    # Event callback setters
+    def set_device_connected_callback(
+        self, callback: Callable[[DeviceInfo], None]
+    ) -> None:
+        """Set callback for device connection events."""
+        self._on_device_connected = callback
+
+    def set_device_disconnected_callback(
+        self, callback: Callable[[DeviceInfo], None]
+    ) -> None:
+        """Set callback for device disconnection events."""
+        self._on_device_disconnected = callback
+
+    def set_device_status_update_callback(
+        self, callback: Callable[[DeviceInfo], None]
+    ) -> None:
+        """Set callback for device status updates."""
+        self._on_device_status_update = callback
+
+    # Property accessors
+    def get_connected_devices(self) -> Dict[str, DeviceInfo]:
+        """Get all connected devices."""
+        return {
+            did: device
+            for did, device in self._devices.items()
+            if device.state != DeviceState.DISCONNECTED.value
+        }
+
+    def get_device_info(self, device_id: str) -> Optional[DeviceInfo]:
+        """Get device information."""
+        return self._devices.get(device_id)
+
+    def get_gsr_leader(self) -> Optional[DeviceInfo]:
+        """Get current GSR leader device."""
+        for device in self._devices.values():
+            if device.is_gsr_leader and device.state != DeviceState.DISCONNECTED.value:
+                return device
+        return None
+
+    # Enhanced networking methods
+    async def _handle_secure_client(
+        self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter
+    ) -> None:
+        """Handle secure client connections with TLS."""
+        peer_addr = writer.get_extra_info("peername")
+        logger.info(f"Secure client connected from {peer_addr}")
+
+        # Handle the same way as regular clients but with security context
+        await self._handle_client(reader, writer, is_secure=True)
+
+    async def _send_message_to_device(
+        self, host: str, port: int, message: Dict[str, Any]
+    ) -> bool:
+        """
+        Send message to a specific device (transport for reliable messaging).
+
+        Args:
+            host: Target device IP address
+            port: Target device port
+            message: Message data to send
+
+        Returns:
+            bool: True if message was sent successfully
+        """
         try:
             # Find device by IP address
             target_device = None
@@ -827,7 +956,183 @@ class NetworkServer:
             return False
 
     async def _on_device_discovered(self, event_type: str, device) -> None:
+        """Handle device discovery events."""
+        try:
+            if event_type == "discovered":
+                logger.info(
+                    f"Discovered device: {device.service_name} ({device.device_type.value}) at {device.ip_address}:{device.port}"
+                )
 
+                # Optionally auto-connect to discovered devices
+                auto_connect = config.get("network.auto_connect_discovered", False)
+                if auto_connect:
+                    logger.debug(
+                        f"Auto-connecting to discovered device: {device.service_name}"
+                    )
+                    # Could implement auto-connection logic here
+
+            elif event_type == "lost":
+                logger.info(f"Lost device: {device.service_name}")
+
+        except Exception as e:
+            logger.error(f"Error handling device discovery event: {e}")
+
+    async def _handle_device_auth(
+        self, message: Dict[str, Any], device_id: str
+    ) -> Dict[str, Any]:
+        """Handle device authentication request."""
+        try:
+            auth_token = message.get("auth_token")
+            certificate_data = message.get("certificate")
+
+            if certificate_data:
+                # Validate device certificate
+                cert_bytes = certificate_data.encode("utf-8")
+                is_valid, device_type = (
+                    self._security_manager.validate_device_certificate(cert_bytes)
+                )
+
+                if is_valid:
+                    # Generate auth token for the device
+                    token = self._security_manager.generate_auth_token(device_id)
+
+                    return create_message(
+                        "auth_response",
+                        {
+                            "success": True,
+                            "auth_token": token,
+                            "device_type": device_type,
+                            "secure_port": self._secure_port,
+                        },
+                    )
+                else:
+                    return create_message(
+                        "auth_response",
+                        {"success": False, "error": "Certificate validation failed"},
+                    )
+            elif auth_token:
+                # Validate existing token
+                is_valid, token_device_id = self._security_manager.validate_auth_token(
+                    auth_token
+                )
+
+                if is_valid and token_device_id == device_id:
+                    return create_message(
+                        "auth_response", {"success": True, "token_valid": True}
+                    )
+                else:
+                    return create_message(
+                        "auth_response",
+                        {"success": False, "error": "Token validation failed"},
+                    )
+            else:
+                return create_message(
+                    "auth_response",
+                    {"success": False, "error": "No authentication data provided"},
+                )
+
+        except Exception as e:
+            logger.error(f"Error handling device authentication: {e}")
+            return create_message(
+                "auth_response",
+                {"success": False, "error": f"Authentication error: {e}"},
+            )
+
+    async def _handle_message_ack(
+        self, message: Dict[str, Any], device_id: str
+    ) -> Optional[Dict[str, Any]]:
+        """Handle message acknowledgment."""
+        await self._messaging_service.handle_acknowledgment(
+            message.get("original_message_id", ""), True
+        )
+        return None
+
+    async def _handle_message_nack(
+        self, message: Dict[str, Any], device_id: str
+    ) -> Optional[Dict[str, Any]]:
+        """Handle message negative acknowledgment."""
+        await self._messaging_service.handle_acknowledgment(
+            message.get("original_message_id", ""),
+            False,
+            message.get("error_message", "Unknown error"),
+        )
+        return None
+
+    async def _handle_reliable_session_start(
+        self, message: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """Handle reliable session start message."""
+        try:
+            session_id = message.get("session_id")
+            if session_id:
+                logger.info(f"Reliable session start received: {session_id}")
+                # Process session start logic here
+                return {
+                    "message_type": "session_start_ack",
+                    "session_id": session_id,
+                    "status": "accepted",
+                }
+        except Exception as e:
+            logger.error(f"Error handling reliable session start: {e}")
+        return None
+
+    async def _handle_reliable_session_stop(
+        self, message: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """Handle reliable session stop message."""
+        try:
+            session_id = message.get("session_id")
+            if session_id:
+                logger.info(f"Reliable session stop received: {session_id}")
+                # Process session stop logic here
+                return {
+                    "message_type": "session_stop_ack",
+                    "session_id": session_id,
+                    "status": "acknowledged",
+                }
+        except Exception as e:
+            logger.error(f"Error handling reliable session stop: {e}")
+        return None
+
+    async def _handle_reliable_sync_flash(
+        self, message: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        """Handle reliable sync flash message."""
+        try:
+            flash_id = message.get("flash_id")
+            if flash_id:
+                logger.info(f"Reliable sync flash received: {flash_id}")
+                # Process sync flash logic here
+                return {
+                    "message_type": "sync_flash_ack",
+                    "flash_id": flash_id,
+                    "status": "executed",
+                }
+        except Exception as e:
+            logger.error(f"Error handling reliable sync flash: {e}")
+        return None
+
+    async def send_reliable_message_to_device(
+        self,
+        device_id: str,
+        message_type: str,
+        content: Dict[str, Any],
+        priority: MessagePriority = MessagePriority.NORMAL,
+        timeout_seconds: float = 30.0,
+    ) -> str:
+        """
+        Send a reliable message to a specific device.
+
+        Args:
+            device_id: Target device ID
+            message_type: Type of message
+            content: Message content
+            priority: Message priority
+            timeout_seconds: Message timeout
+
+        Returns:
+            str: Message ID for tracking
+        """
         device = self._devices.get(device_id)
         if not device:
             raise ValueError(f"Device {device_id} not found")
@@ -853,27 +1158,18 @@ class NetworkServer:
         if device and hasattr(device, "last_heartbeat"):
             current_time = datetime.now()
             if device.last_heartbeat:
-                try:
-                    # Parse last_heartbeat string to datetime
-                    last_heartbeat = datetime.fromisoformat(
-                        device.last_heartbeat.replace("Z", "+00:00")
-                    )
-
-                    # Estimate round-trip time based on heartbeat response
-                    latency_ms = (
-                        current_time - last_heartbeat
-                    ).total_seconds() * 500  # Rough estimate
-                    return float(min(latency_ms, 1000.0))  # Cap at 1 second
-                except (ValueError, TypeError):
-                    logger.warning(
-                        f"Invalid heartbeat timestamp for device {device_id}"
-                    )
+                # Estimate round-trip time based on heartbeat response
+                latency_ms = (
+                    current_time - device.last_heartbeat
+                ).total_seconds() * 500  # Rough estimate
+                return min(latency_ms, 1000.0)  # Cap at 1 second
         return 50.0  # Default estimate
 
     def _calculate_data_hash(self, data_point: Dict[str, Any]) -> str:
         """Calculate integrity hash for data verification."""
         import hashlib
 
+        # Create hash from critical data fields
         hash_data = (
             f"{data_point.get('timestamp_ns', 0)}"
             f"{data_point.get('gsr_raw', 0)}"
@@ -892,7 +1188,7 @@ class NetworkServer:
             if data_points:
                 latest_point = data_points[-1]
                 gsr_value = latest_point.get("gsr_microsiemens", 0)
-                logger.debug(f"Real-time GSR from {device_id}: {gsr_value:.4f} microS")
+                logger.debug(f"Real-time GSR from {device_id}: {gsr_value:.4f} µS")
 
                 # In a full implementation, this would:
                 # 1. Send data to GUI plotting thread
@@ -908,11 +1204,12 @@ class NetworkServer:
     ) -> None:
         """Fallback method to buffer GSR data when aggregator is unavailable."""
         if not hasattr(self, "_gsr_data_buffer"):
-            self._gsr_data_buffer: Dict[str, List[Dict[str, Any]]] = {}
+            self._gsr_data_buffer = {}
 
         if device_id not in self._gsr_data_buffer:
             self._gsr_data_buffer[device_id] = []
 
+        # Add timestamp for when data was received
         timestamped_points = []
         for point in data_points:
             enhanced_point = point.copy()
@@ -929,7 +1226,8 @@ class NetworkServer:
             ]
 
         logger.debug(
-            f"Buffered {len(data_points)} GSR points from {device_id}, buffer size: {len(self._gsr_data_buffer[device_id])}"
+            f"Buffered {len(data_points)} GSR points from {device_id},
+                buffer size: {len(self._gsr_data_buffer[device_id])}"
         )
 
     # Enhanced GSR Streaming Handlers for Hub-Spoke Communication

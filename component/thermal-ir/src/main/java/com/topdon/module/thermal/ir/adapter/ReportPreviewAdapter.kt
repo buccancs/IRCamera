@@ -18,6 +18,10 @@ import com.topdon.lib.core.bean.HouseRepPreviewItemBean
 import com.topdon.lms.sdk.weiget.TToast
 import com.topdon.module.thermal.ir.R
 
+/**
+ * Custom Report preview view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 @SuppressLint("NotifyDataSetChanged")
 class ReportPreviewAdapter(private val cxt: Context, var dataList: List<HouseRepPreviewItemBean>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -63,7 +67,18 @@ class ReportPreviewAdapter(private val cxt: Context, var dataList: List<HouseRep
                 val albumAdapter = ReportPreviewAlbumAdapter(cxt, data.albumItemBeans)
                 holder.rcyAlbum.adapter = albumAdapter
                 albumAdapter.jumpListener = { _, position ->
-TToast.shortToast(cxt, "Image detail view disabled - house module removed")
+                    // Disabled - ImagesDetailActivity from removed house module
+                    // var intent = Intent(cxt, ImagesDetailActivity::class.java)
+                    // var photos = ArrayList<String>()
+                    // data.albumItemBeans.forEach {
+                    //     photos.add(it.photoPath)
+                    // }
+                    // intent.putExtra(ExtraKeyConfig.IMAGE_PATH_LIST, photos)
+                    // intent.putExtra(ExtraKeyConfig.CURRENT_ITEM, position)
+                    // cxt.startActivity(intent)
+
+                    // Temporary stub - show toast instead of navigating
+                    TToast.shortToast(cxt, "Image detail view disabled - house module removed")
                 }
             } else {
                 holder.llyAlbum.visibility = View.GONE
@@ -103,7 +118,7 @@ TToast.shortToast(cxt, "Image detail view disabled - house module removed")
             }
         })
          */
-        }
+        } // End of if (holder is ItemView) block
     }
 
     override fun getItemCount(): Int {

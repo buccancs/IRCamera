@@ -81,22 +81,25 @@ class IRMonitorHistoryFragment : Fragment() {
         adapter.isUseEmpty = true
         viewModel.recordListLD.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
-                if (!adapter.hasEmptyView()) {
-                    adapter.setEmptyView(R.layout.layout_empty)
-                }
+                if (!adapter.hasEmptyView())
+                    {
+                        adapter.setEmptyView(R.layout.layout_empty)
+                    }
                 withContext(Dispatchers.IO) {
                     var lastTime = 0L
                     val nowCalendar = Calendar.getInstance()
                     val lastCalendar = Calendar.getInstance()
                     for (tmp in it) {
-                        if (lastTime == 0L) {
-                            tmp.showTitle = true
-                        }
+                        if (lastTime == 0L)
+                            {
+                                tmp.showTitle = true
+                            }
                         nowCalendar.timeInMillis = tmp.startTime
                         lastCalendar.timeInMillis = lastTime
-                        if (nowCalendar.get(Calendar.MONTH) != lastCalendar.get(Calendar.MONTH)) {
-                            tmp.showTitle = true
-                        }
+                        if (nowCalendar.get(Calendar.MONTH) != lastCalendar.get(Calendar.MONTH))
+                            {
+                                tmp.showTitle = true
+                            }
                         lastTime = tmp.startTime
                     }
                 }
@@ -124,7 +127,7 @@ class IRMonitorHistoryFragment : Fragment() {
         BaseQuickAdapter<
             ThermalDao.Record,
             BaseViewHolder,
-        >(R.layout.item_monitory_history, dataList),
+            >(R.layout.item_monitory_history, dataList),
         LoadMoreModule {
         /**
          * item 点击事件监听.

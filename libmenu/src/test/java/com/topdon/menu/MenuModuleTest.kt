@@ -21,8 +21,14 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.O], manifest = Config.NONE)
 @OptIn(ExperimentalCoroutinesApi::class)
-class MenuModuleTest {
 
+/**
+ * MenuModuleTest manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
+class MenuModuleTest {
     private lateinit var context: Context
 
     @Before
@@ -31,12 +37,18 @@ class MenuModuleTest {
     }
 
     @Test
+    /**
+     * Executes testcontextaccess functionality.
+     */
     fun testContextAccess() {
         assertNotNull("Context should be available", context)
         assertNotNull("Package name should be available", context.packageName)
     }
 
     @Test
+    /**
+     * Executes testmenutypeconstants functionality.
+     */
     fun testMenuTypeConstants() {
         // Test MenuType enum accessibility
         try {
@@ -57,6 +69,9 @@ class MenuModuleTest {
     }
 
     @Test
+    /**
+     * Executes testtargettypeconstants functionality.
+     */
     fun testTargetTypeConstants() {
         try {
             val targetTypeClass = Class.forName("com.topdon.menu.constant.TargetType")
@@ -68,6 +83,9 @@ class MenuModuleTest {
     }
 
     @Test
+    /**
+     * Executes testtemppointtypeconstants functionality.
+     */
     fun testTempPointTypeConstants() {
         try {
             val tempPointTypeClass = Class.forName("com.topdon.menu.constant.TempPointType")
@@ -79,6 +97,9 @@ class MenuModuleTest {
     }
 
     @Test
+    /**
+     * Executes testfencetypeconstants functionality.
+     */
     fun testFenceTypeConstants() {
         try {
             val fenceTypeClass = Class.forName("com.topdon.menu.constant.FenceType")
@@ -90,6 +111,9 @@ class MenuModuleTest {
     }
 
     @Test
+    /**
+     * Executes testsettingtypeconstants functionality.
+     */
     fun testSettingTypeConstants() {
         try {
             val settingTypeClass = Class.forName("com.topdon.menu.constant.SettingType")
@@ -101,57 +125,70 @@ class MenuModuleTest {
     }
 
     @Test
-    fun testColorProcessing() = runTest {
-        // Test color processing functionality used in menu
-        val testColors = listOf(
-            Color.RED,
-            Color.GREEN,
-            Color.BLUE,
-            Color.WHITE,
-            Color.BLACK,
-        )
+    /**
+     * Executes testcolorprocessing functionality.
+     */
+    fun testColorProcessing() =
+        runTest {
+            // Test color processing functionality used in menu
+            val testColors =
+                listOf(
+                    Color.RED,
+                    Color.GREEN,
+                    Color.BLUE,
+                    Color.WHITE,
+                    Color.BLACK,
+                )
 
-        testColors.forEach { color ->
-            // Test color component extraction
-            val alpha = Color.alpha(color)
-            val red = Color.red(color)
-            val green = Color.green(color)
-            val blue = Color.blue(color)
+            testColors.forEach { color ->
+                // Test color component extraction
+                val alpha = Color.alpha(color)
+                val red = Color.red(color)
+                val green = Color.green(color)
+                val blue = Color.blue(color)
 
-            assertTrue("Alpha component should be valid", alpha >= 0 && alpha <= 255)
-            assertTrue("Red component should be valid", red >= 0 && red <= 255)
-            assertTrue("Green component should be valid", green >= 0 && green <= 255)
-            assertTrue("Blue component should be valid", blue >= 0 && blue <= 255)
+                assertTrue("Alpha component should be valid", alpha >= 0 && alpha <= 255)
+                assertTrue("Red component should be valid", red >= 0 && red <= 255)
+                assertTrue("Green component should be valid", green >= 0 && green <= 255)
+                assertTrue("Blue component should be valid", blue >= 0 && blue <= 255)
 
-            // Test color operations
-            val brightness = (red + green + blue) / 3
-            assertTrue("Brightness should be calculable", brightness >= 0 && brightness <= 255)
+                // Test color operations
+                val brightness = (red + green + blue) / 3
+                assertTrue("Brightness should be calculable", brightness >= 0 && brightness <= 255)
+            }
         }
-    }
 
     @Test
-    fun testMenuConfigurationScenarios() = runTest {
-        // Test various menu configuration scenarios
-        val configurationCases = listOf(
-            "default",
-            "thermal",
-            "video",
-            "photo",
-            "settings",
-        )
+    /**
+     * Executes testmenuconfigurationscenarios functionality.
+     */
+    fun testMenuConfigurationScenarios() =
+        runTest {
+            // Test various menu configuration scenarios
+            val configurationCases =
+                listOf(
+                    "default",
+                    "thermal",
+                    "video",
+                    "photo",
+                    "settings",
+                )
 
-        configurationCases.forEach { config ->
-            // Test configuration string validation
-            assertFalse("Configuration should not be empty", config.isEmpty())
-            assertTrue("Configuration should be valid string", config.isNotBlank())
+            configurationCases.forEach { config ->
+                // Test configuration string validation
+                assertFalse("Configuration should not be empty", config.isEmpty())
+                assertTrue("Configuration should be valid string", config.isNotBlank())
 
-            // Test configuration processing
-            val processedConfig = config.lowercase().trim()
-            assertEquals("Processed config should match expected", config.lowercase(), processedConfig)
+                // Test configuration processing
+                val processedConfig = config.lowercase().trim()
+                assertEquals("Processed config should match expected", config.lowercase(), processedConfig)
+            }
         }
-    }
 
     @Test
+    /**
+     * Executes testsystemserviceaccess functionality.
+     */
     fun testSystemServiceAccess() {
         // Test system services that menu functionality might use
         val windowService = context.getSystemService(Context.WINDOW_SERVICE)
@@ -162,6 +199,9 @@ class MenuModuleTest {
     }
 
     @Test
+    /**
+     * Executes testresourceaccess functionality.
+     */
     fun testResourceAccess() {
         val resources = context.resources
         assertNotNull("Resources should be available", resources)
@@ -172,6 +212,9 @@ class MenuModuleTest {
     }
 
     @Test
+    /**
+     * Executes testmenuadapterfunctionality functionality.
+     */
     fun testMenuAdapterFunctionality() {
         // Test menu adapter related functionality
         try {
@@ -183,13 +226,18 @@ class MenuModuleTest {
     }
 
     @Test
-    fun testAsyncOperations() = runTest {
-        // Test that coroutines work with menu processing context
-        val result = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-            // Simulate menu processing operation
-            context.packageName
-        }
+    /**
+     * Executes testasyncoperations functionality.
+     */
+    fun testAsyncOperations() =
+        runTest {
+            // Test that coroutines work with menu processing context
+            val result =
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    // Simulate menu processing operation
+                    context.packageName
+                }
 
-        assertEquals("Async menu operation should return correct value", context.packageName, result)
-    }
+            assertEquals("Async menu operation should return correct value", context.packageName, result)
+        }
 }

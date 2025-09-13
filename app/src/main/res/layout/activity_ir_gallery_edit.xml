@@ -10,15 +10,138 @@
 
     <com.topdon.menu.MenuSecondView ns0:id="@+id/edit_recycler_second" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" ns2:deviceType="gallery_edit" />
 
-    <com.topdon.menu.MenuEditView ns0:id="@+id/edit_recycler_first" ns0:layout_width="match_parent" ns0:layout_height="wrap_content" />
-  </LinearLayout>
-  <ImageView ns0:id="@+id/ir_image_view" ns0:layout_width="0dp" ns0:layout_height="0dp" ns0:contentDescription="@null" ns2:layout_constraintDimensionRatio="192:256" ns2:layout_constraintStart_toStartOf="parent" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintTop_toBottomOf="@id/title_view" ns2:layout_constraintBottom_toTopOf="@id/ll_bottom" />
-  <com.topdon.module.thermal.ir.view.TemperatureEditView ns0:id="@+id/temperature_view" ns0:layout_width="0dp" ns0:layout_height="0dp" ns2:layout_constraintBottom_toBottomOf="@id/ir_image_view" ns2:layout_constraintEnd_toEndOf="@id/ir_image_view" ns2:layout_constraintStart_toStartOf="@id/ir_image_view" ns2:layout_constraintTop_toTopOf="@id/ir_image_view" />
-  <androidx.constraintlayout.widget.ConstraintLayout ns0:id="@+id/color_bar_view" ns0:layout_width="0dp" ns0:layout_height="0dp" ns2:layout_constraintBottom_toBottomOf="@id/ir_image_view" ns2:layout_constraintEnd_toEndOf="@id/ir_image_view" ns2:layout_constraintStart_toStartOf="@id/ir_image_view" ns2:layout_constraintTop_toTopOf="@id/ir_image_view">
-    <ImageView ns0:id="@+id/temperature_iv_lock" ns0:layout_width="36dp" ns0:layout_height="36dp" ns0:layout_marginTop="22dp" ns0:layout_marginEnd="6dp" ns0:padding="8dp" ns0:src="@drawable/svg_pseudo_bar_unlock" ns0:contentDescription="@null" ns2:layout_constraintBottom_toTopOf="@id/temperature_seekbar" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintTop_toTopOf="parent" />
-    <TextView ns0:id="@+id/tv_temp_content" ns0:layout_width="wrap_content" ns0:layout_height="wrap_content" ns0:layout_marginEnd="6dp" ns0:gravity="end" ns0:textColor="@color/white" ns0:textSize="13sp" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintTop_toTopOf="parent" />
-    <ImageView ns0:id="@+id/temperature_iv_input" ns0:layout_width="36dp" ns0:layout_height="36dp" ns0:layout_marginEnd="6dp" ns0:layout_marginBottom="22dp" ns0:padding="8dp" ns0:src="@drawable/ic_color_edit" ns0:contentDescription="@null" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintTop_toBottomOf="@id/temperature_seekbar" ns2:layout_constraintBottom_toBottomOf="parent" />
-    <com.topdon.lib.ui.widget.seekbar.VerticalRangeSeekBar ns0:id="@+id/temperature_seekbar" ns0:layout_width="80dp" ns0:layout_height="0dp" ns0:layout_marginTop="-12dp" ns0:layout_marginEnd="12dp" ns0:layout_marginBottom="-12dp" ns2:layout_constraintBottom_toTopOf="@id/temperature_iv_input" ns2:layout_constraintEnd_toEndOf="parent" ns2:layout_constraintTop_toBottomOf="@id/temperature_iv_lock" ns2:rsb_gravity="bottom" ns2:rsb_indicator_background_color="#00000000" ns2:rsb_indicator_height="wrap_content" ns2:rsb_indicator_padding_bottom="6dp" ns2:rsb_indicator_padding_left="6dp" ns2:rsb_indicator_padding_right="6dp" ns2:rsb_indicator_padding_top="6dp" ns2:rsb_indicator_radius="3dp" ns2:rsb_indicator_show_mode="alwaysShow" ns2:rsb_indicator_width="wrap_content" ns2:rsb_max="0" ns2:rsb_min="0" ns2:rsb_min_interval="0.1" ns2:rsb_mode="range" ns2:rsb_orientation="left" ns2:rsb_progress_drawable="@drawable/ic_seekbar_progress" ns2:rsb_progress_height="16dp" ns2:rsb_progress_radius="16dp" ns2:rsb_thumb_height="24dp" ns2:rsb_thumb_width="24dp" ns2:rsb_tick_mark_mode="number" />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#16131e"
+        tools:context=".IRGalleryEditActivity">
+
+    <com.topdon.lib.core.view.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <!-- 二级Menu -->
+        <com.topdon.menu.MenuSecondView
+            android:id="@+id/edit_recycler_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:deviceType="gallery_edit"/>
+        <!-- 一级Menu -->
+        <com.topdon.menu.MenuEditView
+            android:id="@+id/edit_recycler_first"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ir_image_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        app:layout_constraintDimensionRatio="192:256"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_view"
+        app:layout_constraintBottom_toTopOf="@id/ll_bottom" />
+
+    <com.topdon.module.thermal.ir.view.TemperatureEditView
+        android:id="@+id/temperature_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/ir_image_view"
+        app:layout_constraintEnd_toEndOf="@id/ir_image_view"
+        app:layout_constraintStart_toStartOf="@id/ir_image_view"
+        app:layout_constraintTop_toTopOf="@id/ir_image_view" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/color_bar_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/ir_image_view"
+        app:layout_constraintEnd_toEndOf="@id/ir_image_view"
+        app:layout_constraintStart_toStartOf="@id/ir_image_view"
+        app:layout_constraintTop_toTopOf="@id/ir_image_view">
+
+        <ImageView
+            android:id="@+id/temperature_iv_lock"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="6dp"
+            android:padding="8dp"
+            android:src="@drawable/svg_pseudo_bar_unlock"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toTopOf="@id/temperature_seekbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_temp_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:gravity="end"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/temperature_iv_input"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="22dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_color_edit"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/temperature_seekbar"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.topdon.lib.ui.widget.seekbar.VerticalRangeSeekBar
+            android:id="@+id/temperature_seekbar"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="-12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="-12dp"
+            app:layout_constraintBottom_toTopOf="@id/temperature_iv_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/temperature_iv_lock"
+            app:rsb_gravity="bottom"
+            app:rsb_indicator_background_color="#00000000"
+            app:rsb_indicator_height="wrap_content"
+            app:rsb_indicator_padding_bottom="6dp"
+            app:rsb_indicator_padding_left="6dp"
+            app:rsb_indicator_padding_right="6dp"
+            app:rsb_indicator_padding_top="6dp"
+            app:rsb_indicator_radius="3dp"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_indicator_width="wrap_content"
+            app:rsb_max="0"
+            app:rsb_min="0"
+            app:rsb_min_interval="0.1"
+            app:rsb_mode="range"
+            app:rsb_orientation="left"
+            app:rsb_progress_drawable="@drawable/ic_seekbar_progress"
+            app:rsb_progress_height="16dp"
+            app:rsb_progress_radius="16dp"
+            app:rsb_thumb_height="24dp"
+            app:rsb_thumb_width="24dp"
+            app:rsb_tick_mark_mode="number" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

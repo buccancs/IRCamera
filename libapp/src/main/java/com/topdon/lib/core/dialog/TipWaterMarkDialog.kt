@@ -193,7 +193,7 @@ class TipWaterMarkDialog : Dialog {
                             never: Boolean,
                         ) {
                             if (never) {
-                                // dialogSettingsdialog
+                                // 如果是被永久拒绝就跳转到应用权限系统设置页面
                                 if (BaseApplication.instance.isDomestic()) {
                                     ToastUtils.showShort(R.string.app_location_content)
                                     return

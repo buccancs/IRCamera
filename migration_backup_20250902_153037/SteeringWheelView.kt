@@ -17,13 +17,15 @@ class SteeringWheelView : LinearLayout, OnClickListener {
     var rotationIR = 270
         set(value) {
             field = value
-            if (value == 270 || value == 90) {
-                tv_confirm?.rotation = 270f
-                rotation = 90f
-            } else {
-                tv_confirm?.rotation = 0f
-                rotation = 0f
-            }
+            if (value == 270 || value == 90)
+                {
+                    tv_confirm?.rotation = 270f
+                    rotation = 90f
+                } else
+                {
+                    tv_confirm?.rotation = 0f
+                    rotation = 0f
+                }
             requestLayout()
         }
 
@@ -44,13 +46,15 @@ class SteeringWheelView : LinearLayout, OnClickListener {
         steering_wheel_start_btn.setOnClickListener(this)
         steering_wheel_center_btn.setOnClickListener(this)
         steering_wheel_end_btn.setOnClickListener(this)
-        if (rotationIR == 270 || rotationIR == 90) {
-            tv_confirm.rotation = 270f
-            rotation = 90f
-        } else {
-            tv_confirm.rotation = 0f
-            rotation = 0f
-        }
+        if (rotationIR == 270 || rotationIR == 90)
+            {
+                tv_confirm.rotation = 270f
+                rotation = 90f
+            } else
+            {
+                tv_confirm.rotation = 0f
+                rotation = 0f
+            }
     }
 
     override fun onClick(v: View?) {

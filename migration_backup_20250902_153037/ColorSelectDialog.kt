@@ -22,7 +22,7 @@ class ColorSelectDialog(
     @ColorInt private var color: Int,
 ) : Dialog(context, R.style.InfoDialog) {
     /**
-     * 颜色值拾取事件监听.
+     * 颜色值拾取EventListener.
      */
     var onPickListener: ((color: Int) -> Unit)? = null
 

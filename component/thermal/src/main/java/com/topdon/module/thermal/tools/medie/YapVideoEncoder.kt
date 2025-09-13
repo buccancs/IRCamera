@@ -12,6 +12,16 @@ import java.io.IOException
 import java.nio.ByteBuffer
 import kotlin.concurrent.thread
 
+/**
+ * @author YaphetZhao
+ * @email yaphetzhao@gmail.com
+ * @data 2020-07-30
+ * @wechat yaphetzhao92
+ */
+/**
+ * Yap video encoder utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 class YapVideoEncoder(
     private val IProvider: IYapVideoProvider<Bitmap>,
     private val out: File,

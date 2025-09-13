@@ -9,7 +9,7 @@ import asyncio
 import os
 import signal
 import sys
-from typing import Optional
+from typing import Optional, Any
 
 from loguru import logger
 
@@ -31,32 +31,32 @@ except ImportError as e:
         def __init__(self, *args):
             pass
 
-        def setApplicationName(self, name):
+        def setApplicationName(self, name) -> None:
             pass
 
-        def setApplicationVersion(self, version):
+        def setApplicationVersion(self, version) -> None:
             pass
 
-        def setStyleSheet(self, style):
+        def setStyleSheet(self, style) -> None:
             pass
 
-        def exec(self):
+        def exec(self) -> Any:
             return 0
 
     class QTimer:
         def __init__(self):
             self.timeout_func = None
 
-        def timeout(self):
+        def timeout(self) -> Any:
             return self
 
-        def connect(self, func):
+        def connect(self, func) -> Any:
             self.timeout_func = func
 
-        def start(self, interval):
+        def start(self, interval) -> Any:
             pass
 
-        def stop(self):
+        def stop(self) -> Any:
             pass
 
 
@@ -80,10 +80,10 @@ else:
         def __init__(self, *args, **kwargs):
             logger.info("MainWindow created in headless mode")
 
-        def show(self):
+        def show(self) -> Any:
             pass
 
-        def resize(self, w, h):
+        def resize(self, w, h) -> Any:
             pass
 
 

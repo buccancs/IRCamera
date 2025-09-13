@@ -1,19 +1,25 @@
 package com.topdon.lib.core.bean
 
+/**
+ * continuouscaptureconfiguration.
+ * @param isOpen 是否开启
+ * @param continuaTime continuouscapture时间间隔，单位毫秒
+ * @param count continuouscapturequantity
+ */
 data class ContinuousBean(var isOpen: Boolean = false, var continuaTime: Long = 1000, var count: Int = 3)
 
 class ObserveBean {
     companion object {
-        // data
-        const val TYPE_NONE = -1 // dataDynamic recognition
-        const val TYPE_DYN_R = 0 // Dynamic recognition
-        const val TYPE_TMP_H_S = 1 // High temperaturedata
-        const val TYPE_TMP_L_S = 2 // Low temperaturedata
+        // 动态追踪
+        const val TYPE_NONE = -1 // 不开启dynamic recognition
+        const val TYPE_DYN_R = 0 // dynamic recognition
+        const val TYPE_TMP_H_S = 1 // high temperature source
+        const val TYPE_TMP_L_S = 2 // low temperature source
 
-        const val TYPE_MEASURE_PERSON = 10 // Person
-        const val TYPE_MEASURE_SHEEP = 11 // Sheep
-        const val TYPE_MEASURE_DOG = 12 // Dog
-        const val TYPE_MEASURE_BIRD = 13 // Bird
+        const val TYPE_MEASURE_PERSON = 10 // human
+        const val TYPE_MEASURE_SHEEP = 11 // sheep
+        const val TYPE_MEASURE_DOG = 12 // dog
+        const val TYPE_MEASURE_BIRD = 13 // bird
 
         const val TYPE_TARGET_HORIZONTAL = 15 // data
         const val TYPE_TARGET_VERTICAL = 16 // data
@@ -28,7 +34,7 @@ class ObserveBean {
 }
 
 data class CameraItemBean(
-    var name: String = "data",
+    var name: String = "delayed",
     var type: Int = 0,
     var time: Int = DELAY_TIME_0,
     var isSel: Boolean = false,
@@ -58,13 +64,13 @@ data class CameraItemBean(
         const val TYPE_AUDIO = 3
         const val TYPE_SETTING = 4
 
-        const val DELAY_TIME_0 = 0 // data3data
-        const val DELAY_TIME_3 = 3 // data3data
-        const val DELAY_TIME_6 = 6 // data6data
+        const val DELAY_TIME_0 = 0 // delayed3秒
+        const val DELAY_TIME_3 = 3 // delayed3秒
+        const val DELAY_TIME_6 = 6 // delayed6秒
 
-        // dataMode
-        const val TYPE_TMP_ZD = -1 // dataMode
-        const val TYPE_TMP_C = 1 // Normal temperatureMode
-        const val TYPE_TMP_H = 0 // High temperatureMode
+        // 温度模式
+        const val TYPE_TMP_ZD = -1 // 自动识别模式
+        const val TYPE_TMP_C = 1 // normal temperature模式
+        const val TYPE_TMP_H = 0 // 高温模式
     }
 }

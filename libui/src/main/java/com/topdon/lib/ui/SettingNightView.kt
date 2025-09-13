@@ -8,9 +8,19 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import com.topdon.lib.ui.databinding.UiSettingViewNightBinding
 import com.topdon.lib.ui.R as UiR
+import com.topdon.lib.ui.databinding.UiSettingViewNightBinding
 
+/**
+ * Custom Setting night view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * SettingNightView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class SettingNightView : LinearLayout {
     private lateinit var binding: UiSettingViewNightBinding
 
@@ -73,6 +83,9 @@ class SettingNightView : LinearLayout {
         defStyleAttr,
     )
 
+    /**
+     * Initializes the component with default configuration.
+     */
     private fun initView() {
         // Views are already inflated in constructor via binding
         binding.itemSettingImage.setImageResource(iconRes)

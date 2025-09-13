@@ -32,20 +32,25 @@ import kotlin.collections.ArrayList
 import com.topdon.lib.core.R as LibR
 
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * I r log m p chart activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class IRLogMPChartActivity : BaseActivity() {
     private val viewModel: IRMonitorViewModel by viewModels()
 
     /**
-     * activity，Currentactivity.
+\1从上一interface传递过来的，当前查看的监控记录开始时间戳.
      */
     private var startTime = 0L
 
     private val permissionList by lazy {
-        if (this.applicationInfo.targetSdkVersion >= 34) {
-            listOf(
-                Permission.WRITE_EXTERNAL_STORAGE,
-            )
-        } else if (this.applicationInfo.targetSdkVersion == 33) {
+        if (this.applicationInfo.targetSdkVersion >= 34)
+            {
+                listOf(
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                )
+            } else if (this.applicationInfo.targetSdkVersion == 33) {
             mutableListOf(
                 Permission.WRITE_EXTERNAL_STORAGE,
             )
@@ -100,11 +105,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                                 var filePath: String? = null
                                                 withContext(Dispatchers.IO) {
                                                     tempData?.get(0)?.let {
-                                                        filePath =
-                                                            ExcelUtil.exportExcel(
-                                                                tempData as java.util.ArrayList<ThermalEntity>?,
-                                                                "point" == it.type,
-                                                            )
+                                                        filePath = ExcelUtil.exportExcel(tempData as java.util.ArrayList<ThermalEntity>?, "point" == it.type)
                                                     }
                                                 }
                                                 dismissLoadingDialog()
@@ -116,12 +117,7 @@ class IRLogMPChartActivity : BaseActivity() {
                                                     shareIntent.action = Intent.ACTION_SEND
                                                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
                                                     shareIntent.type = "application/xlsx"
-                                                    startActivity(
-                                                        Intent.createChooser(
-                                                            shareIntent,
-                                                            getString(LibR.string.battery_share),
-                                                        ),
-                                                    )
+                                                    startActivity(Intent.createChooser(shareIntent, getString(LibR.string.battery_share)))
                                                 }
                                             }
                                         } else {
@@ -134,11 +130,12 @@ class IRLogMPChartActivity : BaseActivity() {
                                         doNotAskAgain: Boolean,
                                     ) {
                                         if (doNotAskAgain) {
-                                            // Activity logic
-                                            if (BaseApplication.instance.isDomestic()) {
-                                                ToastUtils.showShort(getString(LibR.string.app_storage_content))
-                                                return
-                                            }
+\1拒绝授权并且不再提醒
+                                            if (BaseApplication.instance.isDomestic())
+                                                {
+                                                    ToastUtils.showShort(getString(LibR.string.app_storage_content))
+                                                    return
+                                                }
                                             TipDialog.Builder(this@IRLogMPChartActivity)
                                                 .setTitleMessage(getString(LibR.string.app_tip))
                                                 .setMessage(getString(LibR.string.app_storage_content))

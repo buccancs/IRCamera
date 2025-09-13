@@ -55,15 +55,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * fragmentSettingsfragment，fragment “fragment”
- * [MoreActivity] - TS004 “fragment”
- * [MoreFragment] - fragment “fragment”
+\1公共set页，即公共 “我的”
+\1[MoreActivity] - TS004 “我的”
+\1[MoreFragment] - 插件式 “我的”
  *
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
     /**
-     * onResume() fragmentStatefragment UI.
+\1onResume() 阶段是否需要刷新登录状态相关 UI.
      */
     private var isNeedRefreshLogin = false
 
@@ -107,19 +107,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         settingElectronicManual.setOnClickListener(this)
         settingFaq.setOnClickListener(this)
         settingFeedback.setOnClickListener(this)
-        settingItemUnit.setOnClickListener(this) // Fragment logic
+        settingItemUnit.setOnClickListener(this) // 温度单温
         dragCustomerView.setOnClickListener(this)
 
         viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) { // Fragment logic
+        if (BaseApplication.instance.isDomestic()) { // 国内版
             // Language selection removed - English only
         }
 
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    // fragmentCurrentfragment TS004、TC007，fragment，fragment
+\1要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(false)
                     }
@@ -154,7 +154,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            ivWinter -> { // Fragment logic
+            ivWinter -> { // 冬季特辑入口
                 viewWinterPoint.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
@@ -184,7 +184,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingElectronicManual -> { // Fragment logic
+            settingElectronicManual -> { // 电子说明书
                 NavigationManager.getInstance().build(
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
@@ -194,7 +194,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            settingFeedback -> { // Fragment logic
+            settingFeedback -> { // 意见反馈
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -211,16 +211,16 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            settingItemUnit -> { // Fragment logic
+            settingItemUnit -> { // 温度单位
                 NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            settingItemVersion -> { // Fragment logic
+            settingItemVersion -> { // 版本
                 NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            settingItemClear -> { // Clearfragment，fragment
+            settingItemClear -> { // 清除缓存，实际已隐藏
                 clearCache()
             }
-            dragCustomerView -> { // Fragment logic
+            dragCustomerView -> { // 客服
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 // ZohoSalesIQ functionality disabled - dependency not available
@@ -235,18 +235,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        // Activity operationLogin()fragment，fragmentonResume()
-        val bgBitmap =
-            BitmapFactory.decodeResource(
-                resources,
-                LibAppR.mipmap.ic_default_user_head,
-            ) // Use available resource from libapp
+\1activityLogin()回调不可靠，但必然触发onResume()
+        val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-            // Fragment logic
+\1登录successful
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -260,17 +256,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         headUrl = infoData.avatar,
                     )
 
-                    // Fragment logicui
+\1updateui
                     changeLoginStyle()
                 } catch (e: Exception) {
                     XLog.e(" fragment: ${e.message}")
                 }
             }
         } else {
-            // Fragment logic
-            XLog.e(" fragment")
+\1登录failed
+            XLog.e(" 登录失败")
             changeLoginStyle()
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Fragment logic
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
         }
     }
 
@@ -319,10 +315,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             settingUserText.gravity = Gravity.CENTER
             settingUserText.layoutParams = layoutParams
             settingUserText.setText(
-                AppLanguageUtils.attachBaseContext(
-                    context,
-                    ConstantLanguages.ENGLISH,
-                ).getString(RCore.string.app_sign_in),
+                // AppLanguageUtils.attachBaseContext(
+                // context, ConstantLanguages.ENGLISH).getString(RCore.string.app_sign_in))
+                context?.getString(RCore.string.app_sign_in) ?: "Sign In",
             )
             val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
             drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
@@ -330,12 +325,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             settingUserLay.visibility = View.GONE
             val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
             tvEmail.text = ""
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Fragment logic
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
         }
     }
 
     /**
-     * Clearfragment
+\1清除buffer
      */
     private fun clearCache() {
         lifecycleScope.launch {

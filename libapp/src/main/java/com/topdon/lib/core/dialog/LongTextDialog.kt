@@ -14,6 +14,12 @@ import com.topdon.lib.core.utils.ScreenUtil
  *
  * Created by LCG on 2024/2/2.
  */
+/**
+ * LongTextDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class LongTextDialog(context: Context, val title: String?, val content: String?) : Dialog(context, R.style.InfoDialog) {
     private val binding: DialogLongTextBinding = DialogLongTextBinding.inflate(LayoutInflater.from(context))
 

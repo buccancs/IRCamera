@@ -11,6 +11,13 @@ import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 
+/**
+ * FenceView class
+ */
+/**
+ * Custom Fence view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class FenceView : View {
     var listener: CallBack? = null
 
@@ -38,7 +45,7 @@ class FenceView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-//        //Settingsview
+//        //settings无锯齿
 //        canvas.drawARGB(50, 255, 227, 0)
 //        mPaint.color = Color.GREEN
 //        // view
@@ -148,6 +155,13 @@ class FenceView : View {
         invalidate()
     }
 
+    /**
+     * CallBack class
+     */
+/**
+ * Custom Call back view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     interface CallBack {
         /**
          * startPoint: view

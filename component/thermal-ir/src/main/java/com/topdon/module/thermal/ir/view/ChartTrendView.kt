@@ -17,6 +17,10 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.lib.core.R as LibR
 import com.topdon.module.thermal.R as ThermalR
 
+/**
+ * Custom Chart trend view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class ChartTrendView : LineChart {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -25,43 +29,43 @@ class ChartTrendView : LineChart {
         val axisChartColors: Int = ContextCompat.getColor(context, LibR.color.chart_axis)
 
         this.isDragEnabled = false
-        this.isScaleYEnabled = false // View renderingYview
-        this.isScaleXEnabled = false // View renderingXview
-        this.isDoubleTapToZoomEnabled = false // View rendering
-        this.setScaleEnabled(false) // View rendering
-        this.setPinchZoom(false) // View rendering，viewxviewyview
+        this.isScaleYEnabled = false // 禁止Y轴缩放
+        this.isScaleXEnabled = false // 禁止X轴缩放
+        this.isDoubleTapToZoomEnabled = false // 双击不可缩放
+        this.setScaleEnabled(false) // 缩放
+        this.setPinchZoom(false) // 禁用后，可以分别在x轴和y轴上进行缩放
         this.setTouchEnabled(true)
         this.setDrawGridBackground(false)
-        this.description = null // View rendering
-        this.axisRight.isEnabled = false // View renderingYview
+        this.description = null // 图标描述文本
+        this.axisRight.isEnabled = false // 不绘制右侧Y轴
         this.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat(),
-        ) // View rendering
+        ) // 图表区域偏移
 
         setNoDataText(context.getString(ThermalR.string.lms_http_code998))
         setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
 
         val mv = MyMarkerView(context, R.layout.marker_lay)
         mv.chartView = this
-        marker = mv // Settingsview
+        marker = mv // 设置点击坐标显示提示框
 
         legend.form = Legend.LegendForm.CIRCLE
         legend.textColor = textColor
-        legend.isEnabled = false // View rendering
+        legend.isEnabled = false // 隐藏曲线标签
 
-        // xview
+\1x轴
         val xAxis = this.xAxis
         xAxis.textColor = textColor
-        xAxis.setDrawGridLines(false) // View rendering
-        xAxis.axisLineColor = 0x00000000 // xview
+        xAxis.setDrawGridLines(false) // 竖向格线
+        xAxis.axisLineColor = 0x00000000 // x轴颜色
         xAxis.setAvoidFirstLastClipping(true)
         xAxis.isEnabled = true
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true // View rendering
+        xAxis.isGranularityEnabled = true // 重复值不显示
         xAxis.textSize = 11f
         xAxis.isJumpFirstLabel = false
         xAxis.axisMinimum = 0f
@@ -80,12 +84,12 @@ class ChartTrendView : LineChart {
                 }
             }
 
-        // yview
+\1y轴
         val leftAxis = this.axisLeft
-        leftAxis.textColor = textColor // yview
-        leftAxis.axisLineColor = 0x00000000 // yview
-        leftAxis.setDrawGridLines(true) // View rendering
-        leftAxis.gridColor = axisChartColors // yview
+        leftAxis.textColor = textColor // y轴文本颜色
+        leftAxis.axisLineColor = 0x00000000 // y轴颜色
+        leftAxis.setDrawGridLines(true) // 横向格线
+        leftAxis.gridColor = axisChartColors // y轴网格颜色
         leftAxis.gridLineWidth = 1.5f
         leftAxis.setLabelCount(6, true)
         leftAxis.valueFormatter =
@@ -108,6 +112,10 @@ class ChartTrendView : LineChart {
         invalidate()
     }
 
+    /**
+\1根据指定的data刷新折线图data
+\1@param tempList temperature值列表，单位摄氏度
+     */
     fun refresh(tempList: List<Float>) {
         if (tempList.isEmpty()) {
             setToEmpty()
@@ -145,21 +153,20 @@ class ChartTrendView : LineChart {
         axisLeft.axisMinimum = (minUnit - (maxUnit - minUnit) / 3).coerceAtMost(minUnit - 0.3f)
         axisLeft.valueFormatter =
             object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String =
-                    "${String.format("%.1f", value)}${UnitTools.showUnit()}"
+                override fun getFormattedValue(value: Float): String = "${String.format("%.1f", value)}${UnitTools.showUnit()}"
             }
 
         val lineDataSet = LineDataSet(entryList, "point temp")
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        lineDataSet.color = 0xffffffff.toInt() // View rendering
-        lineDataSet.circleHoleColor = 0xffffffff.toInt() // View rendering
-        lineDataSet.setCircleColor(0xffffffff.toInt()) // View rendering
+        lineDataSet.color = 0xffffffff.toInt() // 曲线颜色
+        lineDataSet.circleHoleColor = 0xffffffff.toInt() // 坐标圆心颜色
+        lineDataSet.setCircleColor(0xffffffff.toInt()) // 坐标颜色
         lineDataSet.valueTextColor = Color.WHITE
         lineDataSet.lineWidth = 2f
-        lineDataSet.circleRadius = 1f // View rendering
+        lineDataSet.circleRadius = 1f // 坐标点半径
         lineDataSet.fillAlpha = 200
         lineDataSet.valueTextSize = 10f
-        lineDataSet.setDrawValues(false) // Settingsview
+        lineDataSet.setDrawValues(false) // 设置是否显示坐标值文本
 
         data = LineData(lineDataSet)
         invalidate()

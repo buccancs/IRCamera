@@ -56,13 +56,338 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import com.topdon.lib.core.R as LibR
 
+/**
+\1temperature实时监控
+ */
+// Legacy ARouter route annotation - now using NavigationManager
+/**
+ * I r monitor chart activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
+class IRMonitorChartActivity : BaseActivity(), ITsTempListener {
+\1默认data流模式：image+temperature复合data */
+    protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
+
+    private var gainStatus = CommonParams.GainStatus.HIGH_GAIN
+    private var isTS001 = false
+
+    /**
+\1从上一interface传递过来的，当前选中的 点/线/面 信息.
+     */
+    private var selectBean: SelectPositionBean = SelectPositionBean()
+
+    // View properties - migrated from synthetic views
+    private lateinit var temperatureView: TemperatureView
+    private lateinit var llTime: View
+    private lateinit var mpChartView: ChartMonitorView
+    private lateinit var cameraView: CameraView
+    private lateinit var tvTime: TextView
+    private lateinit var thermalLay: View
+
+    private var ircmd: IRCMD? = null
+    private val bean = ThermalBean()
+    private var ts_data_H: ByteArray? = null
+    private var ts_data_L: ByteArray? = null
+
+    override fun initContentView() = R.layout.activity_ir_monitor_chart
+
+    override fun initView() {
+        findViewById<TitleView>(R.id.title_view).setRightClickListener {
+            recordJob?.cancel()
+            lifecycleScope.launch {
+                delay(200)
+                finish()
+            }
+        }
+        ts_data_H = CommonUtils.getTauData(this@IRMonitorChartActivity, "ts/TS001_H.bin")
+        ts_data_L = CommonUtils.getTauData(this@IRMonitorChartActivity, "ts/TS001_L.bin")
+        selectBean = intent.getParcelableExtra("select")!!
+
+        findViewById<TextView>(R.id.monitor_current_vol).text = getString(if (selectBean.type == 1) LibR.string.chart_temperature else LibR.string.chart_temperature_high)
+        findViewById<TextView>(R.id.monitor_real_vol).visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+        findViewById<ImageView>(R.id.monitor_real_img).visibility = if (selectBean.type == 1) View.GONE else View.VISIBLE
+
+        // Initialize view properties
+        temperatureView = findViewById(R.id.temperatureView)
+        llTime = findViewById(R.id.ll_time)
+        mpChartView = findViewById(R.id.mp_chart_view)
+        cameraView = findViewById(R.id.cameraView)
+        tvTime = findViewById(R.id.tv_time)
+        thermalLay = findViewById(R.id.thermal_lay)
+
+        temperatureView.isEnabled = false
+        temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
+
+        initDataIR()
+    }
+
+    override fun finish() {
+        super.finish()
+        EventBus.getDefault().post(MonitorSaveEvent())
+    }
+
+    private var showTask: Job? = null
+
+    override fun initData() {
+        if (showTask != null && showTask!!.isActive) {
+            showTask!!.cancel()
+            showTask = null
+        }
+        showTask =
+            lifecycleScope.launch {
+                var isFirstRead = true
+                var errorReadCount = 0
+                while (true) {
+                    delay(1000)
+                    val result: LibIRTemp.TemperatureSampleResult =
+                        when (selectBean.type) {
+                            1 -> temperatureView.getPointTemp(selectBean.startPosition)
+                            2 -> temperatureView.getLineTemp(Line(selectBean.startPosition, selectBean.endPosition))
+                            else -> temperatureView.getRectTemp(selectBean.getRect())
+                        } ?: continue
+                    if (isFirstRead) {
+                        if (result.maxTemperature > 200f || result.minTemperature < -200f) {
+                            errorReadCount++
+                            XLog.w("第 $errorReadCount 次读取到异常数据，max = ${result.maxTemperature} min = ${result.minTemperature}")
+                            if (errorReadCount > 10) {
+                                XLog.i("连续10次获取到异常数据，认为温度区域稳定")
+                                isFirstRead = false
+                            }
+                            continue
+                        } else {
+                            isFirstRead = false
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                llTime.isVisible = true
+                            }
+                        }
+                    }
+                    if (result.maxTemperature >= -270f) {
+                        val maxBigDecimal = BigDecimal.valueOf(tempCorrectByTs(result.maxTemperature).toDouble())
+                        val minBigDecimal = BigDecimal.valueOf(tempCorrectByTs(result.minTemperature).toDouble())
+                        bean.centerTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+                        bean.maxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+                        bean.minTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+                        bean.createTime = System.currentTimeMillis()
+                        canUpdate = true // 可以开始更新记录
+                    }
+                }
+            }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        isStop = false
+        if (!isrun) {
+            configParam()
+            temperatureView.postDelayed({
+\1初始configuration,pseudo-color铁红
+                try {
+                    if (!isStop)
+                        {
+                            pseudoColorMode = 3
+                            startUSB(false)
+                            startISP()
+                            temperatureView.start()
+                            cameraView.start()
+                            isrun = true
+                            if (!isRecord)
+                                {
+                                    recordThermal() // 开始记录
+                                }
+                        }
+                } catch (e: Exception) {
+                    Log.e("测试", "//" + e.message)
+                }
+            }, 1500)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        mpChartView.highlightValue(null) // 关闭高亮点Marker
+    }
+
+    override fun onPause() {
+        super.onPause()
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+
+    private var isStop = false
+
+    override fun onStop() {
+        super.onStop()
+        isStop = true
+        if (iruvc != null) {
+            iruvc!!.stopPreview()
+            iruvc!!.unregisterUSB()
+        }
+        imageThread?.interrupt()
+        syncimage.valid = false
+        temperatureView.stop()
+        cameraView.stop()
+        isrun = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        recordJob?.cancel()
+        try {
+            imageThread?.join()
+        } catch (e: InterruptedException) {
+            Log.e(TAG, "imageThread.join(): catch an interrupted exception")
+        }
+    }
+
+    override fun disConnected() {
+        super.disConnected()
+        finish()
+    }
+
+    private var isRecord = false
+    private var timeMillis = 1000L // 间隔1s
+    private var canUpdate = false
+
+    private var recordJob: Job? = null
+
+    /**
+\1开始每隔1秒记录一个temperaturedata到data库.
+     */
+    private fun recordThermal() {
+        recordJob =
+            lifecycleScope.launch(Dispatchers.IO) {
+                isRecord = true
+                val thermalId = TimeTool.showDateSecond()
+                val startTime = System.currentTimeMillis()
+                val typeStr =
+                    when (selectBean.type) {
+                        1 -> "point"
+                        2 -> "line"
+                        else -> "fence"
+                    }
+                var time = 0L
+                while (isRecord) {
+                    if (!isStop)
+                        {
+                            if (canUpdate) {
+                                val entity = ThermalEntity()
+                                entity.userId = SharedManager.getUserId()
+                                entity.thermalId = thermalId
+                                entity.thermal = NumberTools.to02f(bean.centerTemp)
+                                entity.thermalMax = NumberTools.to02f(bean.maxTemp)
+                                entity.thermalMin = NumberTools.to02f(bean.minTemp)
+                                entity.type = typeStr
+                                entity.startTime = startTime
+                                entity.createTime = System.currentTimeMillis()
+                                AppDatabase.getInstance().thermalDao().insert(entity)
+                                time++
+                                launch(Dispatchers.Main) {
+                                    mpChartView.addPointToChart(bean = entity, selectType = selectBean.type)
+                                }
+                                delay(timeMillis)
+                            } else {
+                                delay(100)
+                            }
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                tvTime.text = TimeTool.showVideoLongTime(System.currentTimeMillis() - startTime)
+                            }
+                        }
+                }
+                XLog.w("停止记录, 数据量:$time")
+            }
+    }
+
+    private var imageThread: ImageThreadTC? = null
+    private var bitmap: Bitmap? = null // 不需要显示图像，可去掉
+    private var iruvc: IRUVCTC? = null
+    private val cameraWidth = 256
+    private val cameraHeight = 384
+    private val tempHeight = 192
+    private var imageWidth = cameraWidth
+    private var imageHeight = cameraHeight - tempHeight
+    private val imageBytes = ByteArray(imageWidth * imageHeight * 2)
+    private val temperatureBytes = ByteArray(imageWidth * imageHeight * 2)
+    private val syncimage = SynchronizedBitmap()
+    private var isrun = false
+    private var pseudoColorMode = 0
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun irEvent(event: IRMsgEvent) {
+        if (event.code == MsgCode.RESTART_USB) {
+            restartUsbCamera()
+        }
+    }
+
+    private var rotateAngle = 270
+
+    /**
+\1初始data
+     *
+\1不做imageupdate
+\1去掉cameraView
+     * syncimage.valid = true
+     */
+    private fun initDataIR() {
+        imageWidth = cameraHeight - tempHeight
+        imageHeight = cameraWidth
+        if (ScreenUtil.isPortrait(this)) {
+            bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
+            temperatureView.setImageSize(imageWidth, imageHeight, this@IRMonitorChartActivity)
+            rotateAngle = DeviceConfig.S_ROTATE_ANGLE
+        } else {
+            bitmap = Bitmap.createBitmap(imageHeight, imageWidth, Bitmap.Config.ARGB_8888)
+            temperatureView.setImageSize(imageHeight, imageWidth, this@IRMonitorChartActivity)
+            rotateAngle = DeviceConfig.ROTATE_ANGLE
+        }
+        cameraView.setSyncimage(syncimage)
+        cameraView.bitmap = bitmap
+        temperatureView.setSyncimage(syncimage)
+        temperatureView.setTemperature(temperatureBytes)
+        setViewLay()
+\1某些特定客户的特殊device需要使用该命令disabledsensor
+        if (Usbcontorl.isload) {
+            Usbcontorl.usb3803_mode_setting(1) // 打开5V
+            Log.w("123", "打开5V")
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun iruvctc(event: PreviewComplete) {
+        dealY16ModePreviewComplete()
+    }
+
+    private fun dealY16ModePreviewComplete() {
+        dismissLoadingDialog()
+        isConfigWait = false
+        iruvc!!.setFrameReady(true)
+        addTempLine()
+    }
+
+    /**
+\1image信号processing
+     */
+    private fun startISP() {
+        try {
+            imageThread = ImageThreadTC(this@IRMonitorChartActivity, imageWidth, imageHeight)
+            imageThread!!.setDataFlowMode(defaultDataFlowMode)
+            imageThread!!.setSyncImage(syncimage)
+            imageThread!!.setImageSrc(imageBytes)
+            imageThread!!.setTemperatureSrc(temperatureBytes)
+            imageThread!!.setBitmap(bitmap)
+            imageThread!!.setRotate(rotateAngle)
+            imageThread!!.start()
+        } catch (e: Exception) {
+            Log.e("图像线程重复启动", e.message.toString())
+        }
+    }
+
+    /**
+\1@param isRestart 是否是重启模组
+     */
     private fun startUSB(isRestart: Boolean) {
         iruvc =
             IRUVCTC(
-                cameraWidth,
-                cameraHeight,
-                this@IRMonitorChartActivity,
-                syncimage,
+                cameraWidth, cameraHeight, this@IRMonitorChartActivity, syncimage,
                 defaultDataFlowMode,
                 object : ConnectCallback {
                     override fun onCameraOpened(uvcCamera: UVCCamera) {
@@ -74,7 +399,7 @@ import com.topdon.lib.core.R as LibR
                             "ConnectCallback->onIRCMDCreate",
                         )
                         this@IRMonitorChartActivity.ircmd = ircmd
-                        // Activity operationIRCMDactivity
+\1需要等IRCMDinitialize完成之后才可以调用
 //                    ircmd.setPseudoColor(
 //                        CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 //                        PseudocodeUtils.changePseudocodeModeByOld(pseudoColorMode))
@@ -90,11 +415,11 @@ import com.topdon.lib.core.R as LibR
                         Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                         gainStatus =
                             if (value[0] == 1) {
-                                // CurrentCoreactivityHigh gain
+\1当前机芯为高gain
                                 CommonParams.GainStatus.HIGH_GAIN
-                                // Activity operation
+\1等效大气透过率表
                             } else {
-                                // CurrentCoreactivityLow gain
+\1当前机芯为低gain
                                 CommonParams.GainStatus.LOW_GAIN
                             }
                     }
@@ -137,7 +462,7 @@ import com.topdon.lib.core.R as LibR
 
     private var isConfigWait = false
 
-    // Activity logic
+\1configuration
     private fun configParam() {
         lifecycleScope.launch {
             isConfigWait = true
@@ -145,23 +470,23 @@ import com.topdon.lib.core.R as LibR
                 delay(100)
             }
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() // Activity logic(activity)
-            val emsChar = (config.radiation * 128).toInt() // Activity logic
-            XLog.w("SettingsTPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
+            val disChar = (config.distance * 128).toInt() // 距离(米)
+            val emsChar = (config.radiation * 128).toInt() // 发射率
+            XLog.w("设置TPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
             val timeMillis = 250L
             delay(timeMillis)
-            // Activity logic
+\1emissivity
             ircmd!!.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
             )
             delay(timeMillis)
-            // Activity logic
+\1距离
             ircmd!!.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
-            // Activity operation
+\1自动快门
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -183,7 +508,7 @@ import com.topdon.lib.core.R as LibR
                 CommonParams.ZoomScaleStep.ZOOM_STEP2,
             )
             iruvc?.let {
-                // Activity operation，activity
+\1部分机型在disabled自动快门，初始会花屏
                 withContext(Dispatchers.IO) {
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd!!.setPropAutoShutterParameter(
@@ -198,7 +523,7 @@ import com.topdon.lib.core.R as LibR
                     }
                 }
             }
-            // Activity logic、activity
+\1复位对比度、细节
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -218,18 +543,18 @@ import com.topdon.lib.core.R as LibR
     }
 
     /**
-     * activityPoint/Line/Area
+\1drawing点线面
      */
     private fun addTempLine() {
         temperatureView.visibility = View.VISIBLE
         when (selectBean.type) {
             1 -> {
-                // Activity logic
+\1点
                 temperatureView.addScalePoint(selectBean.startPosition)
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
             }
             2 -> {
-                // Activity logic
+\1线
                 temperatureView.addScaleLine(
                     Line(
                         selectBean.startPosition,
@@ -239,7 +564,7 @@ import com.topdon.lib.core.R as LibR
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
             }
             3 -> {
-                // Activity logic
+\1面
                 temperatureView.addScaleRectangle(
                     Rect(
                         selectBean.startPosition!!.x,
@@ -283,7 +608,7 @@ import com.topdon.lib.core.R as LibR
     }
 
     /**
-     * activity
+\1单点修正过程
      */
     private fun tempCorrect(
         temp: Float,
@@ -291,7 +616,7 @@ import com.topdon.lib.core.R as LibR
         tempInfo: Long,
     ): Float {
         if (!isTS001) {
-            // Activity logicts001activity
+\1不是ts001不需要修正
             return temp
         }
         if (ts_data_H == null || ts_data_L == null) {
@@ -336,11 +661,11 @@ import com.topdon.lib.core.R as LibR
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                // Activity logic
+\1准备image
                 showCameraLoading()
             }
             101 -> {
-                // Activity logic
+\1displayimage
                 dismissCameraLoading()
                 addTempLine()
             }

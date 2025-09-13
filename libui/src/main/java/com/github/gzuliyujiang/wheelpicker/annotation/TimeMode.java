@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present <1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.SOURCE)
 public @interface TimeMode {
     /**
-     * 
+     * 不Show/Display
      */
     int NONE = -1;
     /**

@@ -9,12 +9,19 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatSeekBar
 import com.blankj.utilcode.util.SizeUtils
-import kotlin.math.roundToInt
 import com.topdon.lib.ui.R as UiR
+import kotlin.math.roundToInt
 
 /**
  * data SeekBar。
  * data thumbOffset.
+ */
+/**
+ * Comm3DSeekBar class
+ */
+/**
+ * Comm3 d seek bar utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
  */
 class Comm3DSeekBar : AppCompatSeekBar {
     private lateinit var mPaint: TextPaint
@@ -33,7 +40,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
     // data
     private val mProgressTextRect: Rect = Rect()
 
-    // data
+    // 滑块button宽度
     private val mThumbWidth: Int = SizeUtils.dp2px(50f)
 
     // data

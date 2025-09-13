@@ -180,11 +180,12 @@ class TempAlarmSetDialog(
         clRingtoneSelect.isVisible = !isEdit && switchAlarmRingtone.isChecked
         tvAlarmRingtone.isVisible = !isEdit
         switchAlarmRingtone.isVisible = !isEdit
-        if (hideAlarmMark) {
-            tvAlarmMark.visibility = View.GONE
-            switchAlarmMark.visibility = View.GONE
-            clAlarmMark.visibility = View.GONE
-        }
+        if (hideAlarmMark)
+            {
+                tvAlarmMark.visibility = View.GONE
+                switchAlarmMark.visibility = View.GONE
+                clAlarmMark.visibility = View.GONE
+            }
         switchAlarmMark.isVisible = !isEdit
         if (alarmBean.highTemp == Float.MAX_VALUE) {
             etAlarmHigh.setText("")
@@ -214,25 +215,13 @@ class TempAlarmSetDialog(
         try {
             val inputHigh =
                 if (switchAlarmHigh.isChecked) {
-                    if (etAlarmHigh.text.isNotEmpty()) {
-                        UnitTools.showToCValue(
-                            etAlarmHigh.text.toString().toFloat(),
-                        )
-                    } else {
-                        null
-                    }
+                    if (etAlarmHigh.text.isNotEmpty()) UnitTools.showToCValue(etAlarmHigh.text.toString().toFloat()) else null
                 } else {
                     null
                 }
             val inputLow =
                 if (switchAlarmLow.isChecked) {
-                    if (etAlarmLow.text.isNotEmpty()) {
-                        UnitTools.showToCValue(
-                            etAlarmLow.text.toString().toFloat(),
-                        )
-                    } else {
-                        null
-                    }
+                    if (etAlarmLow.text.isNotEmpty()) UnitTools.showToCValue(etAlarmLow.text.toString().toFloat()) else null
                 } else {
                     null
                 }
@@ -296,22 +285,22 @@ class TempAlarmSetDialog(
         isChecked: Boolean,
     ) {
         when (buttonView?.id) {
-            R.id.switch_alarm_high -> { // High temperaturedialog
+            R.id.switch_alarm_high -> { // 高温报警
                 etAlarmHigh.isEnabled = isChecked
                 alarmBean.isHighOpen = isChecked
             }
 
-            R.id.switch_alarm_low -> { // Low temperaturedialog
+            R.id.switch_alarm_low -> { // 低温报警
                 etAlarmLow.isEnabled = isChecked
                 alarmBean.isLowOpen = isChecked
             }
 
-            R.id.switch_alarm_mark -> { // Dialog content
+            R.id.switch_alarm_mark -> { // 区域标记
                 clAlarmMark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
 
-            R.id.switch_alarm_ringtone -> { // Dialog content
+            R.id.switch_alarm_ringtone -> { // 报警铃声
                 clRingtoneSelect.isVisible = isChecked
                 if (isChecked) {
                     selectRingtone(alarmBean.ringtoneType)

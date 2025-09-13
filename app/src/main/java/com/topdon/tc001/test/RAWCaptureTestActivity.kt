@@ -9,8 +9,8 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
  * Test Activity to demonstrate RAW Image Capture UI
  * Shows the enhanced multi-modal recording interface with RAW capture options
  */
-class RAWCaptureTestActivity : BaseBindingActivity<ActivityRawCaptureTestBinding>() {
-    override fun initContentLayoutId(): Int = R.layout.activity_raw_capture_test
+class RAWCaptureTestActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRawCaptureTestBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

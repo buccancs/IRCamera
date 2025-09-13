@@ -288,7 +288,6 @@ public class RadarChartRenderer extends LineRadarRenderer {
 
                 c.drawLine(p1out.x, p1out.y, p2out.x, p2out.y, mWebPaint);
 
-
             }
         }
         MPPointF.recycleInstance(p1out);

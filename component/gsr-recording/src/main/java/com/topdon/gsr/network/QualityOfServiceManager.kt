@@ -14,7 +14,10 @@ import java.util.concurrent.atomic.AtomicLong
 /**
  * Manages network quality of service monitoring and adaptation
  */
-class QualityOfServiceManager(private val context: Context) {
+class QualityOfServiceManager(
+    private val context: Context,
+    private val networkClient: NetworkClient,
+) {
     companion object {
         private const val TAG = "QualityOfServiceManager"
         private const val MONITORING_INTERVAL_MS = 5000L
@@ -28,36 +31,84 @@ class QualityOfServiceManager(private val context: Context) {
         private const val CONGESTION_THRESHOLD = 80
     }
 
-    // Monitoring state
+    private val qosJob = SupervisorJob()
+    private val qosScope = CoroutineScope(Dispatchers.IO + qosJob)
+
     private val isMonitoring = AtomicBoolean(false)
-    private val totalDataTransferred = AtomicLong(0)
-    private var currentNetworkTier = NetworkTier.POOR
-    private var compressionLevel = CompressionLevel.MAXIMUM
-    private var currentBandwidth = 0L
-    private var networkLatency = 0L
-    private var adaptiveBatchSize = ADAPTIVE_BATCH_MIN
-    
-    // Metrics collection
-    private val latencySamples = ConcurrentLinkedQueue<Long>()
-    private val bandwidthSamples = ConcurrentLinkedQueue<Double>()
-    
-    // Priority queues for data transmission
+    private val currentBandwidth = AtomicLong(0) // bytes per second
+    private val networkLatency = AtomicLong(0) // milliseconds
+    private val packetLossRate = AtomicLong(0) // percentage * 100
+
+    // Priority queues for different data types
     private val criticalQueue = ConcurrentLinkedQueue<QoSDataPacket>()
     private val highPriorityQueue = ConcurrentLinkedQueue<QoSDataPacket>()
     private val normalPriorityQueue = ConcurrentLinkedQueue<QoSDataPacket>()
     private val lowPriorityQueue = ConcurrentLinkedQueue<QoSDataPacket>()
-    
-    // Network client reference
-    private lateinit var networkClient: NetworkClient
-    
-    // Coroutine scope
-    private val monitoringScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    private val qosScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+    private var adaptiveBatchSize = 50
+    private var compressionLevel = CompressionLevel.MEDIUM
+    private var currentNetworkTier = NetworkTier.MEDIUM
+
+    data class QoSDataPacket(
+        val data: ByteArray,
+        val dataType: DataType,
+        val priority: Priority,
+        val timestamp: Long,
+        val sessionId: String,
+        val metadata: Map<String, String> = emptyMap(),
+    )
+
+    enum class DataType(val typeName: String) {
+        GSR("gsr"),
+        THERMAL("thermal"),
+        VIDEO_METADATA("video_metadata"),
+        CONTROL_MESSAGE("control"),
+        FILE_CHUNK("file_chunk"),
+        HEARTBEAT("heartbeat"),
+    }
+
+    enum class Priority(val level: Int) {
+        CRITICAL(4), // Control messages, heartbeats
+        HIGH(3), // GSR data, session events
+        NORMAL(2), // Thermal data, video metadata
+        LOW(1), // File transfers, logs
+    }
+
+    enum class CompressionLevel(val factor: Float) {
+        NONE(1.0f),
+        LOW(0.9f),
+        MEDIUM(0.7f),
+        HIGH(0.5f),
+        MAXIMUM(0.3f),
+    }
+
+    enum class NetworkTier {
+        POOR, // < 100KB/s
+        LOW, // 100KB/s - 500KB/s
+        MEDIUM, // 500KB/s - 2MB/s
+        HIGH, // 2MB/s - 10MB/s
+        EXCELLENT, // > 10MB/s
+    }
+
+    data class NetworkQualityMetrics(
+        val bandwidth: Long, // bytes per second
+        val latency: Long, // milliseconds
+        val packetLoss: Float, // percentage
+        val networkTier: NetworkTier,
+        val recommendedBatchSize: Int,
+        val recommendedCompression: CompressionLevel,
+        val congestionLevel: Float, // 0.0 to 1.0
+    )
 
     /**
-     * Start QoS monitoring
+     * Start QoS monitoring and optimization
+     *
+     * Initializes bandwidth monitoring, latency measurement, adaptive processing,
+     * and priority queue processing. Must be called before using other QoS features.
+     *
+     * @throws IllegalStateException if QoS monitoring is already active
      */
-    suspend fun startMonitoring() {
+    suspend fun startQoSMonitoring() =
         withContext(Dispatchers.IO) {
             if (isMonitoring.getAndSet(true)) {
                 Log.w(TAG, "QoS monitoring already active")
@@ -66,15 +117,18 @@ class QualityOfServiceManager(private val context: Context) {
 
             Log.d(TAG, "Starting QoS monitoring")
 
+            // Start bandwidth monitoring
             startBandwidthMonitoring()
 
+            // Start latency measurement
             startLatencyMonitoring()
 
+            // Start adaptive processing
             startAdaptiveProcessing()
 
+            // Start priority queue processing
             startPriorityQueueProcessor()
         }
-    }
 
     /**
      * Start bandwidth monitoring
@@ -82,9 +136,16 @@ class QualityOfServiceManager(private val context: Context) {
     private fun startBandwidthMonitoring() {
         monitoringScope.launch {
             while (isMonitoring.get()) {
-                val bandwidth = measureCurrentBandwidth()
-                addBandwidthSample(bandwidth)
-                delay(MONITORING_INTERVAL_MS)
+                val bandwidth = measureBandwidth()
+                currentBandwidth.set(bandwidth)
+
+                // Update network tier based on bandwidth
+                updateNetworkTier(bandwidth)
+
+                // Adjust compression based on bandwidth
+                adjustCompressionLevel(bandwidth)
+
+                delay(BANDWIDTH_MONITOR_INTERVAL)
             }
         }
     }
@@ -96,8 +157,9 @@ class QualityOfServiceManager(private val context: Context) {
         monitoringScope.launch {
             while (isMonitoring.get()) {
                 val latency = measureNetworkLatency()
-                addLatencySample(latency)
-                delay(MONITORING_INTERVAL_MS)
+                networkLatency.set(latency)
+
+                delay(5000L) // Measure latency every 5 seconds
             }
         }
     }
@@ -105,14 +167,45 @@ class QualityOfServiceManager(private val context: Context) {
     /**
      * Measure current bandwidth
      */
-    private fun measureCurrentBandwidth(): Double {
+    private suspend fun measureBandwidth(): Long =
+        withContext(Dispatchers.IO) {
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+
+            return@withContext when {
+                networkCapabilities == null -> 0L
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                    measureWiFiBandwidth()
+                }
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                    measureCellularBandwidth()
+                }
+                else -> 1024 * 1024L // 1MB/s default
+            }
+        }
+
+    /**
+     * Measure WiFi bandwidth using signal strength and theoretical capacity
+     */
+    private fun measureWiFiBandwidth(): Long {
         val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         val wifiInfo = wifiManager.connectionInfo
-        
-        return when {
-            wifiInfo.linkSpeed > 0 -> wifiInfo.linkSpeed.toDouble() * 125000.0 // Convert Mbps to bytes/sec
-            else -> measureCellularBandwidth().toDouble()
-        }
+
+        val rssi = wifiInfo.rssi
+        val linkSpeed = wifiInfo.linkSpeed // Mbps
+
+        // Estimate available bandwidth based on signal strength
+        val signalQuality =
+            when {
+                rssi >= -50 -> 1.0f
+                rssi >= -60 -> 0.8f
+                rssi >= -70 -> 0.6f
+                rssi >= -80 -> 0.4f
+                else -> 0.2f
+            }
+
+        // Convert Mbps to bytes per second and apply signal quality factor
+        return (linkSpeed * 1024 * 1024 / 8 * signalQuality).toLong()
     }
 
     /**
@@ -179,6 +272,7 @@ class QualityOfServiceManager(private val context: Context) {
                 delay(100L) // Small delay between samples
             }
 
+            // Return median latency
             samples.sorted()[samples.size / 2]
         }
 
@@ -326,6 +420,7 @@ class QualityOfServiceManager(private val context: Context) {
         val batch = mutableListOf<QoSDataPacket>()
         val maxBatchSize = adaptiveBatchSize
 
+        // Process critical queue first (always immediate)
         while (criticalQueue.isNotEmpty() && batch.size < maxBatchSize) {
             criticalQueue.poll()?.let { batch.add(it) }
         }
@@ -416,7 +511,19 @@ class QualityOfServiceManager(private val context: Context) {
             put("compression_level", compressionLevel.name)
             put("timestamp", System.currentTimeMillis())
 
-        }
+    /**
+     * Get current network quality metrics
+     */
+    fun getNetworkQualityMetrics(): NetworkQualityMetrics {
+        return NetworkQualityMetrics(
+            bandwidth = currentBandwidth.get(),
+            latency = networkLatency.get(),
+            packetLoss = packetLossRate.get() / 100.0f,
+            networkTier = currentNetworkTier,
+            recommendedBatchSize = adaptiveBatchSize,
+            recommendedCompression = compressionLevel,
+            congestionLevel = calculateBandwidthUtilization(),
+        )
     }
 
     /**
@@ -453,115 +560,13 @@ class QualityOfServiceManager(private val context: Context) {
     fun stopQoSMonitoring() {
         isMonitoring.set(false)
 
+        // Clear all queues
         criticalQueue.clear()
         highPriorityQueue.clear()
         normalPriorityQueue.clear()
         lowPriorityQueue.clear()
 
-        monitoringScope.cancel()
+        qosJob.cancel()
         Log.d(TAG, "QoS monitoring stopped")
     }
-    
-    /**
-     * Get current network quality metrics
-     */
-    fun getNetworkQualityMetrics(): NetworkQualityMetrics {
-        val avgLatency = if (latencySamples.isEmpty()) 0.0 else {
-            latencySamples.average()
-        }
-        
-        val avgBandwidth = if (bandwidthSamples.isEmpty()) 0.0 else {
-            bandwidthSamples.average()
-        }
-        
-        return NetworkQualityMetrics(
-            networkTier = currentNetworkTier,
-            avgLatency = avgLatency,
-            avgBandwidth = avgBandwidth,
-            packetLoss = 0.0 // Placeholder for packet loss calculation
-        )
-    }
-
-    /**
-     * Network tier enumeration
-     */
-    enum class NetworkTier {
-        EXCELLENT, HIGH, MEDIUM, LOW, POOR
-    }
-
-    /**
-     * Data type enumeration for QoS prioritization
-     */
-    enum class DataType {
-        GSR, THERMAL, VIDEO_METADATA, RGB_VIDEO, THERMAL_VIDEO, SYNC_DATA, CONTROL_MESSAGE
-    }
-
-    /**
-     * Priority levels for data transmission
-     */
-    enum class Priority(val level: Int) {
-        CRITICAL(4), HIGH(3), NORMAL(2), LOW(1)
-    }
-    
-    /**
-     * Compression levels for adaptive compression
-     */
-    enum class CompressionLevel {
-        NONE, LOW, MEDIUM, HIGH, MAXIMUM
-    }
-
-    /**
-     * Set network client reference
-     */
-    fun setNetworkClient(client: NetworkClient) {
-        this.networkClient = client
-    }
 }
-
-/**
- * Data packet for QoS processing
- */
-data class QoSDataPacket(
-    val data: ByteArray,
-    val dataType: QualityOfServiceManager.DataType,
-    val priority: QualityOfServiceManager.Priority,
-    val timestamp: Long,
-    val sessionId: String,
-    val metadata: Map<String, String> = emptyMap()
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as QoSDataPacket
-
-        if (!data.contentEquals(other.data)) return false
-        if (dataType != other.dataType) return false
-        if (priority != other.priority) return false
-        if (timestamp != other.timestamp) return false
-        if (sessionId != other.sessionId) return false
-        if (metadata != other.metadata) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = data.contentHashCode()
-        result = 31 * result + dataType.hashCode()
-        result = 31 * result + priority.hashCode()
-        result = 31 * result + timestamp.hashCode()
-        result = 31 * result + sessionId.hashCode()
-        result = 31 * result + metadata.hashCode()
-        return result
-    }
-}
-
-/**
- * Network quality metrics data class
- */
-data class NetworkQualityMetrics(
-    val networkTier: QualityOfServiceManager.NetworkTier,
-    val avgLatency: Double,
-    val avgBandwidth: Double,
-    val packetLoss: Double
-)

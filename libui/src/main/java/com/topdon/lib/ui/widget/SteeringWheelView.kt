@@ -11,6 +11,16 @@ import com.topdon.lib.ui.databinding.UiSteeringWheelViewBinding
 /**
  * view
  */
+/**
+ * Custom Steering wheel view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * SteeringWheelView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class SteeringWheelView : LinearLayout, OnClickListener {
     var listener: ((action: Int, moveX: Int) -> Unit)? = null
     var moveX = 30
@@ -42,6 +52,9 @@ class SteeringWheelView : LinearLayout, OnClickListener {
         defStyleAttr,
     )
 
+    /**
+     * Initializes the component with default configuration.
+     */
     private fun initView() {
         binding = UiSteeringWheelViewBinding.inflate(LayoutInflater.from(context), this, true)
 

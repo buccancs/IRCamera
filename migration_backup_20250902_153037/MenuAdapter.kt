@@ -31,11 +31,13 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
     var onItemClickListener: ((position: Int) -> Unit)? = null
 
     init {
-        if (type == Type.VISUAL) {
+        if (type == Type.VISUAL)
+            {
 //            selectIndex = 1
-        } else if (type == Type.MARK) {
-            selectIndex = -1
-        } else if (type == Type.MODE) {
+            } else if (type == Type.MARK)
+            {
+                selectIndex = -1
+            } else if (type == Type.MODE) {
             selectIndex = 2
         }
     }
@@ -84,13 +86,15 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         holder: ViewHolder,
         position: Int,
     ) {
-        if (type == Type.PSEUDO) {
-            holder.itemView.tv_menu.visibility = View.GONE
-            holder.itemView.iv_pseudo.visibility = View.VISIBLE
-        } else if (type == Type.MODE) {
-            holder.itemView.tv_menu.visibility = View.VISIBLE
-            holder.itemView.iv_pseudo.visibility = View.GONE
-        }
+        if (type == Type.PSEUDO)
+            {
+                holder.itemView.tv_menu.visibility = View.GONE
+                holder.itemView.iv_pseudo.visibility = View.VISIBLE
+            } else if (type == Type.MODE)
+            {
+                holder.itemView.tv_menu.visibility = View.VISIBLE
+                holder.itemView.iv_pseudo.visibility = View.GONE
+            }
         val itemArray =
             when (type) {
                 Type.VISUAL -> VISUAL_ARRAY
@@ -108,14 +112,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
                 when (position) {
                     0 -> buildRectDrawable(selectIndex == 0, 0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
                     1 -> buildRectDrawable(selectIndex == 1, 0xff000000.toInt(), 0xffffffff.toInt(), 0xffff0000.toInt())
-                    2 ->
-                        buildRectDrawable(
-                            selectIndex == 2,
-                            0xff0000ff.toInt(),
-                            0xff00ff00.toInt(),
-                            0xffffff00.toInt(),
-                            0xffff0000.toInt(),
-                        )
+                    2 -> buildRectDrawable(selectIndex == 2, 0xff0000ff.toInt(), 0xff00ff00.toInt(), 0xffffff00.toInt(), 0xffff0000.toInt())
                     3 -> buildRectDrawable(selectIndex == 3, 0xff000000.toInt(), 0xffff0000.toInt())
                     else -> buildRectDrawable(selectIndex == position, 0xff0000ff.toInt(), 0xffffff00.toInt())
                 }

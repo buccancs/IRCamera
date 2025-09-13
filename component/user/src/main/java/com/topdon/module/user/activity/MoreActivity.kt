@@ -32,7 +32,50 @@ import java.io.File
 import java.text.DecimalFormat
 import com.topdon.lib.core.R as RCore
 
-        // 2024-5-30 09:16 TS004activityAPPactivity，3.30activity
+/**
+\1TS004 的 “更多” 页面.
+ */
+// Legacy ARouter route annotation - now using NavigationManager
+class MoreActivity : BaseActivity(), View.OnClickListener {
+    private val firmwareViewModel: FirmwareViewModel by viewModels()
+
+    // View references
+    private lateinit var settingDeviceInformation: View
+    private lateinit var settingTisr: View
+    private lateinit var settingStorageSpace: View
+    private lateinit var settingReset: View
+    private lateinit var settingVersion: View
+    private lateinit var settingDisconnect: View
+    private lateinit var settingAutoSave: View
+    private lateinit var itemSettingBottomText: TextView
+    private lateinit var tvUpgradePoint: TextView
+
+    override fun initContentView() = R.layout.activity_more
+
+    override fun initView() {
+        // Initialize views
+        settingDeviceInformation = findViewById(R.id.setting_device_information)
+        settingTisr = findViewById(R.id.setting_tisr)
+        settingStorageSpace = findViewById(R.id.setting_storage_space)
+        settingReset = findViewById(R.id.setting_reset)
+        settingVersion = findViewById(R.id.setting_version)
+        settingDisconnect = findViewById(R.id.setting_disconnect)
+        settingAutoSave = findViewById(R.id.setting_auto_save)
+        itemSettingBottomText = findViewById(R.id.item_setting_bottom_text)
+        tvUpgradePoint = findViewById(R.id.tv_upgrade_point)
+
+        settingDeviceInformation.setOnClickListener(this)
+        settingTisr.setOnClickListener(this)
+        settingStorageSpace.setOnClickListener(this)
+        settingReset.setOnClickListener(this)
+        settingVersion.setOnClickListener(this)
+        settingDisconnect.setOnClickListener(this)
+        settingAutoSave.setOnClickListener(this)
+
+\1if (Build.VERSION.SDK_INT < 29) {//低于 Android10
+            settingVersion.isVisible = false
+        }*/
+\12024-5-30 09:16 TS004项目APP沟通群决定，3.30版本先把固件升级hide
         settingVersion.isVisible = false
     }
 
@@ -42,7 +85,7 @@ import com.topdon.lib.core.R as RCore
         firmwareViewModel.firmwareDataLD.observe(this) {
             tvUpgradePoint.isVisible = it != null
             dismissCameraLoading()
-            if (it == null) { // Activity logic，activity
+            if (it == null) { // 请求成功但没有固件升级包，即已是最新
                 ToastUtils.showShort(RCore.string.setting_firmware_update_latest_version)
             } else {
                 showFirmwareUpDialog(it)
@@ -57,29 +100,29 @@ import com.topdon.lib.core.R as RCore
 
     override fun onClick(v: View?) {
         when (v) {
-            settingDeviceInformation -> { // Activity logic
+            settingDeviceInformation -> { // 设备信息
                 NavigationManager.getInstance()
                     .build(RouterConfig.DEVICE_INFORMATION)
                     .withBoolean(ExtraKeyConfig.IS_TC007, false)
                     .navigation(this@MoreActivity)
             }
-            settingTisr -> { // Settingsactivity
+            settingTisr -> { // 设置超分
                 NavigationManager.getInstance().build(RouterConfig.TISR).navigation(this@MoreActivity)
             }
-            settingAutoSave -> { // Activity logic
+            settingAutoSave -> { // 自动保存到手机
                 NavigationManager.getInstance().build(RouterConfig.AUTO_SAVE).navigation(this@MoreActivity)
             }
-            settingStorageSpace -> { // TS004activity
+            settingStorageSpace -> { // TS004储存空间
                 NavigationManager.getInstance().build(RouterConfig.STORAGE_SPACE).navigation(this@MoreActivity)
             }
-            settingVersion -> { // Activity logic
-                // Activity logic，V3.30activity apk activity，activity
+            settingVersion -> { // 固件版本
+\1由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释强制登录逻辑
 //                if (LMS.getInstance().isLogin) {
                 val firmwareData = firmwareViewModel.firmwareDataLD.value
                 if (firmwareData != null) {
                     showFirmwareUpDialog(firmwareData)
                 } else {
-                    XLog.i("TS004 activity - activity")
+                    XLog.i("TS004 固件升级 - 点击查询")
                     showCameraLoading()
                     firmwareViewModel.queryFirmware(true)
                 }
@@ -87,10 +130,10 @@ import com.topdon.lib.core.R as RCore
 //                    LMS.getInstance().activityLogin()
 //                }
             }
-            settingReset -> { // Activity logicSettings
+            settingReset -> { // 恢复出厂设置
                 restoreFactory()
             }
-            settingDisconnect -> { // Activity logic
+            settingDisconnect -> { // 断开连接
                 NavigationManager.getInstance().build(RouterConfig.IR_MORE_HELP)
                     .withInt(Constants.SETTING_CONNECTION_TYPE, Constants.SETTING_DISCONNECTION)
                     .navigation(this@MoreActivity)
@@ -99,7 +142,7 @@ import com.topdon.lib.core.R as RCore
     }
 
     /**
-     * activity.
+\1display固件升级提示弹框.
      */
     private fun showFirmwareUpDialog(firmwareData: FirmwareViewModel.FirmwareData) {
         val dialog = FirmwareUpDialog(this)
@@ -108,7 +151,7 @@ import com.topdon.lib.core.R as RCore
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-            // Activity logic，V3.30activity apk activity，activity
+\1由于双通道方案存在问题，V3.30临时使用 apk 内置固件升级包，此处注释下载逻辑
             // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
@@ -127,7 +170,7 @@ import com.topdon.lib.core.R as RCore
         }
 
     /**
-     * activitySpecifiedactivity
+\1下载指定固件升级包
      */
     private fun downloadFirmware(firmwareData: FirmwareViewModel.FirmwareData) {
         lifecycleScope.launch {

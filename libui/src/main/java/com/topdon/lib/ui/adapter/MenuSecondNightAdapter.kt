@@ -14,7 +14,11 @@ import com.topdon.lib.ui.config.CameraHelp
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("itemHigh/Low temperature pointsMenu，item")
+/**
+ * Custom Menu second night view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+@Deprecated("旧的high/low temperature点menu，已重构过了")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
 
@@ -92,7 +96,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
         // 2.itemlistener
         multipleListener?.invoke(secondBean[position].code, curMultipleArray.contains(position))
-        // 3.item
+        // 3.refresh数据
         notifyDataSetChanged()
     }
 
@@ -100,6 +104,10 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         return secondBean.size
     }
 
+/**
+ * Custom Item view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
         val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)

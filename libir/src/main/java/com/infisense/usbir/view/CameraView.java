@@ -18,7 +18,7 @@ import com.infisense.usbdual.Const;
 import com.infisense.usbir.utils.OpencvTools;
 
 /**
- * Graph，TextureViewSurfaceView
+ * infrared图像展示控件，可以为TextureView或SurfaceView
  */
 public class CameraView extends TextureView {
     private String TAG = "CameraView";
@@ -75,11 +75,11 @@ public class CameraView extends TextureView {
         //
         paint = new Paint();  //
         paint = new Paint(Paint.FILTER_BITMAP_FLAG);
-//        paint = new Paint();  //
-        paint.setStrokeWidth(2);  //。
-        paint.setAntiAlias(true); //
-        paint.setDither(true);    //
-        paint.setColor(Color.WHITE);  //
+//        paint = new Paint();  //画笔
+        paint.setStrokeWidth(2);  //settings线宽。单位为像素
+        paint.setAntiAlias(true); //抗锯齿
+        paint.setDither(true);    //防抖动
+        paint.setColor(Color.WHITE);  //画笔color
         //
         greenPaint = new Paint();
         greenPaint.setStrokeWidth(6);
@@ -106,11 +106,11 @@ public class CameraView extends TextureView {
                             if (canvas == null) {
                                 continue;
                             }
-                            // 
-                            paint.setStrokeWidth(2);  //。
-                            paint.setAntiAlias(true); //
-                            paint.setDither(true);    //
-                            paint.setColor(Color.WHITE);  //
+                            // 画面中心的十字交叉线绘制
+                            paint.setStrokeWidth(2);  //settings线宽。单位为像素
+                            paint.setAntiAlias(true); //抗锯齿
+                            paint.setDither(true);    //防抖动
+                            paint.setColor(Color.WHITE);  //画笔color
                             /**
                              * Graph，getWidth()，getHeight()，，
                              * Graph

@@ -18,6 +18,8 @@ from datetime import datetime, timezone
 from typing import Any, Dict
 
 import websockets
+from src.ircamera_pc.core.timesync import TimeSyncService
+from src.ircamera_pc.gui.app import IRCameraApp
 from src.ircamera_pc.network.protocol import create_message, validate_message
 
 
@@ -206,6 +208,7 @@ async def run_hub_spoke_integration_test():
 
         # We would start the actual IRCameraApp here, but for testing
         # let's just simulate what the network services would do
+        hub_tasks = []
 
         # Simulate device connections
         print("\n📱 Connecting Android devices...")

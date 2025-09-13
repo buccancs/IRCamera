@@ -2,6 +2,8 @@ package com.topdon.tc001.gsr
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import com.csl.irCamera.R
 import com.csl.irCamera.databinding.ActivitySessionDetailBinding
 import com.topdon.lib.core.ktbase.BaseBindingActivity
 

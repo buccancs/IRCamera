@@ -9,16 +9,18 @@ in the Multi-Modal Physiological Sensing Platform hub-and-spoke architecture.
 import asyncio
 import json
 import sqlite3
+import struct
 import time
 from collections import deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
+import numpy as np
 import pandas as pd
 from loguru import logger
 
-from .gsr_analytics import GSRAnalytics
+from .gsr_analytics import GSRAnalysisReport, GSRAnalytics, GSRFeatures
 
 
 @dataclass
@@ -107,7 +109,7 @@ class GSRReceiver:
             f"GSR Receiver initialized with data directory: {self.data_dir} and advanced analytics"
         )
 
-    def init_database(self):
+    def init_database(self) -> Any:
         """Initialize SQLite database for GSR data storage"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -145,7 +147,8 @@ class GSRReceiver:
 
                 # Create indexes for performance
                 conn.execute(
-                    "CREATE INDEX IF NOT EXISTS idx_samples_device_session ON gsr_samples(device_id, session_id)"
+                    "CREATE INDEX IF NOT EXISTS idx_samples_device_session ON gsr_samples(device_id,
+                        session_id)"
                 )
                 conn.execute(
                     "CREATE INDEX IF NOT EXISTS idx_samples_timestamp ON gsr_samples(timestamp)"
@@ -158,7 +161,7 @@ class GSRReceiver:
             logger.error(f"Failed to initialize GSR database: {e}")
             raise
 
-    async def start(self):
+    async def start(self) -> Any:
         """Start GSR receiver background tasks"""
         if self._running:
             logger.warning("GSR Receiver already running")
@@ -172,7 +175,7 @@ class GSRReceiver:
 
         logger.info("GSR Receiver started")
 
-    async def stop(self):
+    async def stop(self) -> Any:
         """Stop GSR receiver and cleanup"""
         if not self._running:
             return
@@ -448,7 +451,8 @@ class GSRReceiver:
                 conn.execute(
                     """
                     UPDATE device_sessions 
-                    SET end_time = ?, sample_count = ?, avg_quality = ?, status = 'completed'
+                    SET end_time = ?, sample_count = ?, avg_quality = ?,
+                        status = 'completed'
                     WHERE device_id = ? AND session_id = ?
                 """,
                     (
@@ -578,7 +582,8 @@ class GSRReceiver:
                 conn.executemany(
                     """
                     INSERT INTO gsr_samples 
-                    (device_id, session_id, timestamp, gsr_value, raw_value, quality, received_time)
+                    (device_id, session_id, timestamp, gsr_value, raw_value, quality,
+                        received_time)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
                     [
@@ -613,7 +618,8 @@ class GSRReceiver:
                 conn.executemany(
                     """
                     INSERT INTO gsr_samples 
-                    (device_id, session_id, timestamp, gsr_value, raw_value, quality, received_time)
+                    (device_id, session_id, timestamp, gsr_value, raw_value, quality,
+                        received_time)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
                     [

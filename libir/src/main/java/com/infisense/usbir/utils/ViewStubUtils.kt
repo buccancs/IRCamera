@@ -4,6 +4,9 @@ import android.view.View
 import android.view.ViewStub
 
 object ViewStubUtils {
+    /**
+     * Executes showviewstub functionality.
+     */
     fun showViewStub(
         viewStub: ViewStub?,
         isShow: Boolean,

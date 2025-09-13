@@ -78,47 +78,50 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
      * Setup comprehensive runtime permission handling for Shimmer GSR integration
      */
     private fun setupPermissionHandling() {
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val allGranted = permissions.values.all { it }
-            val deniedPermissions = permissions.filter { !it.value }.keys
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                val allGranted = permissions.values.all { it }
+                val deniedPermissions = permissions.filter { !it.value }.keys
 
-            if (allGranted) {
-                Log.i(TAG, "All Bluetooth permissions granted")
-                updatePermissionStatus("All Required Permissions Granted", android.graphics.Color.parseColor("#4caf50"))
+                if (allGranted) {
+                    Log.i(TAG, "All Bluetooth permissions granted")
+                    updatePermissionStatus("All Required Permissions Granted", android.graphics.Color.parseColor("#4caf50"))
 
-                // Execute pending operation if any
-                pendingOperation?.invoke()
-                pendingOperation = null
+                    // Execute pending operation if any
+                    pendingOperation?.invoke()
+                    pendingOperation = null
 
-                // Enable device management UI
-                enableDeviceManagement(true)
-            } else {
-                Log.w(TAG, "Some Bluetooth permissions denied: $deniedPermissions")
-
-                // Check if any permissions were permanently denied
-                val permanentlyDenied = deniedPermissions.any { permission ->
-                    !ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
-                }
-
-                if (permanentlyDenied) {
-                    showPermissionPermanentlyDeniedDialog(deniedPermissions.toList())
+                    // Enable device management UI
+                    enableDeviceManagement(true)
                 } else {
-                    showPermissionDeniedDialog(deniedPermissions.toList())
-                }
+                    Log.w(TAG, "Some Bluetooth permissions denied: $deniedPermissions")
 
-                updatePermissionStatus("Missing Required Permissions", android.graphics.Color.parseColor("#f44336"))
-                enableDeviceManagement(false)
+                    // Check if any permissions were permanently denied
+                    val permanentlyDenied =
+                        deniedPermissions.any { permission ->
+                            !ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
+                        }
+
+                    if (permanentlyDenied) {
+                        showPermissionPermanentlyDeniedDialog(deniedPermissions.toList())
+                    } else {
+                        showPermissionDeniedDialog(deniedPermissions.toList())
+                    }
+
+                    updatePermissionStatus("Missing Required Permissions", android.graphics.Color.parseColor("#f44336"))
+                    enableDeviceManagement(false)
+                }
             }
-        }
     }
 
     /**
      * Show dialog explaining why permissions are needed and how to grant them
      */
     private fun showPermissionDialog(missingPermissions: List<String>) {
-        val permissionDescriptions = missingPermissions.map { permission ->
-            "• ${BluetoothPermissionUtils.getPermissionRationale(permission)}"
-        }.joinToString("\n")
+        val permissionDescriptions =
+            missingPermissions.map { permission ->
+                "• ${BluetoothPermissionUtils.getPermissionRationale(permission)}"
+            }.joinToString("\n")
 
         AlertDialog.Builder(this)
             .setTitle("Permissions Required for Shimmer GSR")
@@ -143,9 +146,10 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
      * Show dialog when permissions are denied but can still be requested
      */
     private fun showPermissionDeniedDialog(deniedPermissions: List<String>) {
-        val permissionDescriptions = deniedPermissions.map { permission ->
-            "• ${BluetoothPermissionUtils.getPermissionRationale(permission)}"
-        }.joinToString("\n")
+        val permissionDescriptions =
+            deniedPermissions.map { permission ->
+                "• ${BluetoothPermissionUtils.getPermissionRationale(permission)}"
+            }.joinToString("\n")
 
         AlertDialog.Builder(this)
             .setTitle("Permissions Denied")
@@ -169,9 +173,10 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
      * Show dialog when permissions are permanently denied
      */
     private fun showPermissionPermanentlyDeniedDialog(deniedPermissions: List<String>) {
-        val permissionDescriptions = deniedPermissions.map { permission ->
-            "• ${BluetoothPermissionUtils.getPermissionRationale(permission)}"
-        }.joinToString("\n")
+        val permissionDescriptions =
+            deniedPermissions.map { permission ->
+                "• ${BluetoothPermissionUtils.getPermissionRationale(permission)}"
+            }.joinToString("\n")
 
         AlertDialog.Builder(this)
             .setTitle("Permissions Required")
@@ -196,9 +201,10 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
      */
     private fun openAppSettings() {
         try {
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.fromParts("package", packageName, null)
-            }
+            val intent =
+                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", packageName, null)
+                }
             startActivity(intent)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to open app settings", e)
@@ -260,7 +266,10 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
     /**
      * Update permission status display
      */
-    private fun updatePermissionStatus(status: String, color: Int) {
+    private fun updatePermissionStatus(
+        status: String,
+        color: Int,
+    ) {
         // Update permission status in device info text if no specific device info
         if (binding.deviceInfoText.text.toString().contains("permission", ignoreCase = true) ||
             binding.deviceInfoText.text.toString().isEmpty()
@@ -286,9 +295,10 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
         availableDevices.clear()
         availableDevices.add("No devices found")
 
-        deviceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, availableDevices).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
+        deviceAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, availableDevices).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
         binding.shimmerDeviceSpinner.adapter = deviceAdapter
 
         // Update device status
@@ -527,11 +537,12 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
                 updateDeviceStatus("Connecting...")
 
                 // Extract device address from the selected device string (assumed format: "DeviceName (MAC)")
-                val deviceAddress = if (selectedDevice.contains("(") && selectedDevice.contains(")")) {
-                    selectedDevice.substringAfter("(").substringBefore(")")
-                } else {
-                    selectedDevice // Use the full string as address if no parentheses
-                }
+                val deviceAddress =
+                    if (selectedDevice.contains("(") && selectedDevice.contains(")")) {
+                        selectedDevice.substringAfter("(").substringBefore(")")
+                    } else {
+                        selectedDevice // Use the full string as address if no parentheses
+                    }
 
                 Log.i(TAG, "Attempting to connect to device: $selectedDevice with address: $deviceAddress")
                 val success = gsrSensorRecorder?.connectToShimmerDevice(deviceAddress) ?: false
@@ -569,14 +580,16 @@ class GSRSettingsActivity : BaseBindingActivity<ActivityGsrSettingsBinding>() {
         binding.deviceStatusText.text = status
 
         // Update color based on status
-        val color = when {
-            status.contains("Connected", ignoreCase = true) -> android.graphics.Color.parseColor("#4caf50") // Green
-            status.contains("Connecting", ignoreCase = true) -> android.graphics.Color.parseColor("#ff9800") // Orange
-            status.contains("Failed", ignoreCase = true) || status.contains("Error", ignoreCase = true) -> android.graphics.Color.parseColor(
-                "#f44336",
-            ) // Red
-            else -> android.graphics.Color.parseColor("#ffcc00") // Yellow
-        }
+        val color =
+            when {
+                status.contains("Connected", ignoreCase = true) -> android.graphics.Color.parseColor("#4caf50") // Green
+                status.contains("Connecting", ignoreCase = true) -> android.graphics.Color.parseColor("#ff9800") // Orange
+                status.contains("Failed", ignoreCase = true) || status.contains("Error", ignoreCase = true) ->
+                    android.graphics.Color.parseColor(
+                        "#f44336",
+                    ) // Red
+                else -> android.graphics.Color.parseColor("#ffcc00") // Yellow
+            }
         binding.deviceStatusText.setTextColor(color)
     }
 

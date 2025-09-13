@@ -17,15 +17,13 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRMonitorActivity
 
 /**
- * fragment-fragment（fragment）.
- *
- * fragment：
- * - [ExtraKeyConfig.IS_TC007] - Currentfragment TC007
+ * I r monitor capture fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
  */
 class IRMonitorCaptureFragment : BaseFragment() {
     /**
-     * fragment，Currentfragment TC007 fragmentType.
-     * true-TC007 false-fragment
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -58,17 +56,15 @@ class IRMonitorCaptureFragment : BaseFragment() {
                 }
             } else {
                 if (DeviceTools.isConnect()) {
-                    if (DeviceTools.isTC001LiteConnect()) {
-                        NavigationManager.getInstance().build(
-                            RouterConfig.IR_THERMAL_MONITOR_LITE,
-                        ).navigation(requireContext())
-                    } else if (DeviceTools.isHikConnect()) {
-                        NavigationManager.getInstance().build(
-                            RouterConfig.IR_HIK_MONITOR_CAPTURE1,
-                        ).navigation(requireContext())
-                    } else {
-                        startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
-                    }
+                    if (DeviceTools.isTC001LiteConnect())
+                        {
+                            NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_MONITOR_LITE).navigation(requireContext())
+                        } else if (DeviceTools.isHikConnect()) {
+                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_MONITOR_CAPTURE1).navigation(requireContext())
+                    } else
+                        {
+                            startActivity(Intent(requireContext(), IRMonitorActivity::class.java))
+                        }
                 } else {
                     ToastTools.showShort(R.string.device_connect_tip)
                 }
@@ -87,7 +83,7 @@ class IRMonitorCaptureFragment : BaseFragment() {
     }
 
     /**
-     * fragmentState
+\1刷新连接状态
      */
     private fun refreshUI(isConnect: Boolean) {
         animationView.isVisible = !isConnect

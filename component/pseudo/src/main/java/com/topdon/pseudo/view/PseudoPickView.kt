@@ -18,6 +18,138 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.pseudo.R
 import kotlin.math.abs
 
+/**
+\1自定义pseudo-colorset页面中，那个支持最多 7 个圆形color block滑来滑去的 View.
+ *
+\1提供方法：
+\1- [reset] 将当前状态重置为指定color value及位置
+\1- [refreshColor] 将当前选中的圆形color blockset为指定颜色
+\1- [add] 添加一个圆形color block
+\1- [del] 删除当前选中圆形color block
+\1- [isCurrentOnlyLimit] 判断当前选中圆形color block是不是：(最左 || 最右) && 唯一
+ *
+ * Created by LCG on 2024/10/15.
+ */
+class PseudoPickView : View {
+    companion object {
+        @CheckResult
+        private fun IntArray.add(
+            index: Int,
+            element: Int,
+        ): IntArray {
+            val newArray = IntArray(this.size + 1)
+            System.arraycopy(this, 0, newArray, 0, index)
+            newArray[index] = element
+            System.arraycopy(this, index, newArray, index + 1, this.size - index)
+            return newArray
+        }
+
+        @CheckResult
+        private fun FloatArray.add(
+            index: Int,
+            element: Float,
+        ): FloatArray {
+            val newArray = FloatArray(this.size + 1)
+            System.arraycopy(this, 0, newArray, 0, index)
+            newArray[index] = element
+            System.arraycopy(this, index, newArray, index + 1, this.size - index)
+            return newArray
+        }
+
+        @CheckResult
+        private fun IntArray.removeAt(index: Int): IntArray {
+            val newArray = IntArray(this.size - 1)
+            System.arraycopy(this, 0, newArray, 0, index)
+            System.arraycopy(this, index + 1, newArray, index, this.size - index - 1)
+            return newArray
+        }
+
+        @CheckResult
+        private fun FloatArray.removeAt(index: Int): FloatArray {
+            val newArray = FloatArray(this.size - 1)
+            System.arraycopy(this, 0, newArray, 0, index)
+            System.arraycopy(this, index + 1, newArray, index, this.size - index - 1)
+            return newArray
+        }
+    }
+
+    /**
+\1drawing渐变条所用的 Paint.
+     */
+    private val barPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    /**
+\1drawing渐变条下面圆形color block所用的 Pint.
+     */
+    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    /**
+\1圆形color block选中时三角形 Drawable.
+     */
+    private val selectYesDrawable: Drawable
+
+    /**
+\1圆形color block未选中时三角形 Drawable.
+     */
+    private val selectNotDrawable: Drawable
+
+    /**
+\1选中color block变更事件监听.
+     */
+    var onSelectChangeListener: ((selectIndex: Int) -> Unit)? = null
+
+    /**
+\1当前选中的圆形color block在列表中的 index.
+     */
+    var selectIndex = 0
+
+    /**
+\1由于需求为完全重叠的多个圆形color block，只生效最上方的圆形color block，该arraysave原始的颜色array.
+\1按 place 排序，若 place 相同则 zAltitude 越大的越靠后.
+\1size 与 [actualColors]、[zAltitudes]、[places] 一致。
+     */
+    var sourceColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
+
+    /**
+\1由于需求为完全重叠的多个圆形color block，只生效最上方的圆形color block，该arraysave实际生效的颜色array.
+     */
+    var actualColors: IntArray = intArrayOf(0xff0000ff.toInt(), 0xffff0000.toInt(), 0xffffff00.toInt())
+
+    /**
+\1每个圆形color block对应的 z 轴altitudearray，用来在重叠时判断哪个圆形color block在上面。
+     */
+    var zAltitudes: IntArray = intArrayOf(0, 0, 0)
+
+    /**
+\1每个圆形color block对应的位置array.
+     */
+    var places: FloatArray = floatArrayOf(0f, 0.5f, 1f)
+
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes,
+    ) {
+        selectYesDrawable = ContextCompat.getDrawable(context, R.drawable.svg_pseudo_triangle_select)!!
+        selectNotDrawable = ContextCompat.getDrawable(context, R.drawable.svg_pseudo_triangle_not_select)!!
+        selectYesDrawable.setBounds(0, 0, SizeUtils.dp2px(16f), SizeUtils.dp2px(10f))
+        selectNotDrawable.setBounds(0, 0, SizeUtils.dp2px(16f), SizeUtils.dp2px(10f))
+    }
+
+    /**
+\1将当前状态重置为指定color value及位置的configuration.
+\1@param selectIndex 当前选中的圆形color block index
+\1@param colors 每个圆形color block颜色array
+\1@param zAltitudes 每个圆形color block对应的 z 轴altitudearray
+\1@param places 每个圆形color block对应的位置array
+     */
     fun reset(
         selectIndex: Int,
         colors: IntArray,
@@ -44,7 +176,7 @@ import kotlin.math.abs
     }
 
     /**
-     * viewCurrentSelectedviewSettingsviewSpecifiedview
+\1将当前选中的圆color valueset为指定颜色
      */
     fun refreshColor(
         @ColorInt color: Int,
@@ -66,15 +198,15 @@ import kotlin.math.abs
     }
 
     /**
-     * view view、view、view、view view，view.
+\1需求要添加时颜色按 绿、黑、白、紫 循环，用该变量控制.
      */
     private var addCount = 0
 
     /**
-     * view
+\1添加一个圆形color block
      */
     fun add() {
-        if (sourceColors.size >= 7) { // View rendering7view
+        if (sourceColors.size >= 7) { // 最多7个圆形色块
             return
         }
         addCount++
@@ -121,13 +253,13 @@ import kotlin.math.abs
     }
 
     /**
-     * DeleteCurrentSelectedview.
+\1删除当前选中圆形color block.
      */
     fun del() {
         if (sourceColors.size <= 3) {
             return
         }
-        if (isCurrentOnlyLimit()) { // View renderingDelete
+        if (isCurrentOnlyLimit()) { // 仅有的最左最右不允许删除
             return
         }
 
@@ -156,11 +288,11 @@ import kotlin.math.abs
     }
 
     /**
-     * viewCurrentSelectedview：(view || view) && view
+\1判断当前选中圆形color block是不是：(最左 || 最右) && 唯一
      */
     fun isCurrentOnlyLimit(): Boolean {
         val place: Float = places[selectIndex]
-        if (place == 0f || place == 1f) { // View rendering，view
+        if (place == 0f || place == 1f) { // 是最左或最右，接下来看看是不是唯一
             for (i in places.indices) {
                 if (i != selectIndex && places[i] == place) {
                     return false
@@ -172,7 +304,7 @@ import kotlin.math.abs
     }
 
     /**
-     * view、view、z view，view.
+\1当任意圆形color block颜色、位置、z 轴高度变更时，刷新实际生效的颜色array.
      */
     private fun refreshActualColors() {
         if (actualColors.size != sourceColors.size) {
@@ -187,7 +319,7 @@ import kotlin.math.abs
     }
 
     /**
-     * viewSpecifiedview place view ZAltitude.
+\1根据指定的 place calculation对应的 ZAltitude.
      */
     private fun calculateZAltitude(place: Float): Int {
         var result = 0
@@ -201,12 +333,12 @@ import kotlin.math.abs
     }
 
     /**
-     * view Rect.
+\1渐变条 Rect.
      */
     private val barRect = RectF()
 
     /**
-     * viewSelectedview，view px.
+\1渐变条下面圆形color block选中时半径，单位 px.
      */
     private val selectRadius: Int = SizeUtils.dp2px(12f)
 
@@ -222,31 +354,18 @@ import kotlin.math.abs
             (widthSize - selectRadius).toFloat(),
             ((widthSize - selectRadius * 2) * 30 / 311f).toInt().toFloat(),
         )
-        barPaint.shader =
-            LinearGradient(
-                barRect.left,
-                0f,
-                barRect.right,
-                0f,
-                actualColors,
-                places,
-                Shader.TileMode.CLAMP,
-            )
+        barPaint.shader = LinearGradient(barRect.left, 0f, barRect.right, 0f, actualColors, places, Shader.TileMode.CLAMP)
 
-        // 2dp view
-        val wantHeight: Int =
-            barRect.height().toInt() +
-                SizeUtils.dp2px(
-                    2f,
-                ) + selectNotDrawable.bounds.height() + selectRadius * 2
+\12dp 为渐变条与三角形间距
+        val wantHeight: Int = barRect.height().toInt() + SizeUtils.dp2px(2f) + selectNotDrawable.bounds.height() + selectRadius * 2
 
-        // View rendering UNSPECIFIED view，view；view wrap_content view，view
+\1宽度为 UNSPECIFIED 的情况目前不存在，不考虑；高度不为 wrap_content 的情况也不存在，不考虑
         setMeasuredDimension(widthSize, wantHeight)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // View renderingPseudo-colorview
+\1drawingpseudo-color bar
         val barRadius = SizeUtils.dp2px(4f).toFloat()
         canvas.drawRoundRect(barRect.left, 0f, barRect.right, barRect.bottom, barRadius, barRadius, barPaint)
 
@@ -285,17 +404,17 @@ import kotlin.math.abs
     }
 
     /**
-     * Touch Down view x view，view，view。
+\1Touch Down 时 x 轴坐标，用于calculation滑动距离，从而判断是否触发滑动。
      */
     private var downX = 0
 
     /**
-     * view Touch view.
+\1是否需要接手 Touch 事件.
      */
     private var handleTouch = false
 
     /**
-     * CurrentSelectedview，view。
+\1当前选中的滑块是否可拖动，唯一的最左或最右不可滑动。
      */
     private var canDrag = false
 
@@ -310,11 +429,11 @@ import kotlin.math.abs
                 canDrag = false
                 downX = event.x.toInt()
 
-                // View rendering index
+\1找出点击范围内altitude最高的圆形color block index
                 var targetIndex = -1
                 for (i in places.indices) {
                     val centerX: Int = (barRect.left + barRect.width() * places[i]).toInt()
-                    if (downX >= centerX - selectRadius && downX <= centerX + selectRadius) { // View rendering
+                    if (downX >= centerX - selectRadius && downX <= centerX + selectRadius) { // 在该圆形色块范围内
                         if (targetIndex == -1) {
                             targetIndex = i
                             continue
@@ -339,13 +458,13 @@ import kotlin.math.abs
                     parent.requestDisallowInterceptTouchEvent(true)
                     val oldPlace: Float = places[selectIndex]
                     val newPlace: Float = (x - barRect.left) / barRect.width()
-                    if (newPlace == oldPlace) { // View rendering，view
+                    if (newPlace == oldPlace) { // 没变化，不用往下处理了
                         return handleTouch
                     }
                     val currentColor: Int = sourceColors[selectIndex]
                     val oldIndex: Int = selectIndex
                     var newIndex: Int = selectIndex
-                    if (oldPlace < newPlace) { // View rendering
+                    if (oldPlace < newPlace) { // 从左往右移
                         for (i in places.indices) {
                             if (places[i] <= newPlace) {
                                 newIndex = i
@@ -353,7 +472,7 @@ import kotlin.math.abs
                                 break
                             }
                         }
-                    } else { // View rendering
+                    } else { // 从右往左移
                         for (i in places.size - 1 downTo 0) {
                             val place = places[i]
                             if (place > newPlace) {

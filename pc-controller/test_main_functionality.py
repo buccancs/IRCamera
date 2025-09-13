@@ -12,12 +12,14 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ircamera_pc.network.discovery import NetworkDiscoveryService
 from ircamera_pc.network.messaging import MessagePriority, ReliableMessageService
+
+# Import core networking components directly
 from ircamera_pc.network.security import SecurityManager
 
 
 async def test_basic_integration():
     """Test basic integration of networking components."""
-    print("START Testing Enhanced Networking Integration...")
+    print("🚀 Testing Enhanced Networking Integration...")
 
     # Test Security Manager
     print("\n1. Testing SecurityManager...")
@@ -34,12 +36,12 @@ async def test_basic_integration():
         security_manager.auth_tokens = {}
 
         if security_manager.initialize():
-            print("   OK SecurityManager initialized successfully")
+            print("   ✅ SecurityManager initialized successfully")
 
             # Test token generation
             token = security_manager.generate_auth_token("test_device")
             is_valid, device_id = security_manager.validate_auth_token(token)
-            print(f"   OK Auth token validation: {is_valid} (device: {device_id})")
+            print(f"   ✅ Auth token validation: {is_valid} (device: {device_id})")
 
             # Test SSL context
             ssl_context = security_manager.create_ssl_context()
@@ -62,14 +64,14 @@ async def test_basic_integration():
     messaging.set_transport(mock_transport)
 
     if await messaging.initialize():
-        print("   OK ReliableMessageService initialized")
+        print("   ✅ ReliableMessageService initialized")
 
         # Register a test handler
         def test_handler(message):
             return {"status": "handled", "echo": message.get("content", {})}
 
         messaging.register_message_handler("test_type", test_handler)
-        print("   OK Message handler registered")
+        print("   ✅ Message handler registered")
 
         # Send test message
         message_id = await messaging.send_message(
@@ -79,14 +81,14 @@ async def test_basic_integration():
             content={"test": "data"},
             priority=MessagePriority.NORMAL,
         )
-        print(f"   OK Test message sent: {message_id}")
+        print(f"   ✅ Test message sent: {message_id}")
 
         # Let message processor run
         await asyncio.sleep(1)
 
         # Simulate acknowledgment
         await messaging.handle_acknowledgment(message_id, True)
-        print("   OK Message acknowledgment handled")
+        print("   ✅ Message acknowledgment handled")
 
         await messaging.shutdown()
         print("   OK ReliableMessageService shutdown completed")
@@ -98,14 +100,15 @@ async def test_basic_integration():
     print("\n3. Testing NetworkDiscoveryService...")
     discovery = NetworkDiscoveryService()
 
+    # Start discovery (automatically registers PC controller service)
     success = await discovery.start_discovery()
     if success:
-        print("   OK NetworkDiscoveryService started")
-        print("   OK PC controller service auto-registered")
+        print("   ✅ NetworkDiscoveryService started")
+        print("   ✅ PC controller service auto-registered")
 
         # Simulate discovery for a bit to find devices
         await asyncio.sleep(2)
-        print("   OK Discovery running and scanning for devices")
+        print("   ✅ Discovery running and scanning for devices")
 
         await discovery.stop_discovery()
         print("   OK NetworkDiscoveryService stopped")
@@ -115,12 +118,12 @@ async def test_basic_integration():
         )
         return True  # This is expected without zeroconf
 
-    print("\nSUCCESS All networking components tested successfully!")
-    print("\nMETRICS Summary:")
-    print("   OK TLS/SSL Security with certificate management")
-    print("   OK Reliable messaging with ACK/NACK protocol")
-    print("   OK mDNS service discovery and registration")
-    print("   OK Proper initialization and shutdown procedures")
+    print("\n🎉 All networking components tested successfully!")
+    print("\n📊 Summary:")
+    print("   ✅ TLS/SSL Security with certificate management")
+    print("   ✅ Reliable messaging with ACK/NACK protocol")
+    print("   ✅ mDNS service discovery and registration")
+    print("   ✅ Proper initialization and shutdown procedures")
 
     return True
 

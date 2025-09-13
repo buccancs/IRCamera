@@ -13,7 +13,58 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.tools.PermissionTool
 
 object BluetoothUtil {
+    /**
+     * 在给定 activity 生命周期内添加 蓝牙 开关state监听.
+     */
+    fun addBtStateListener(
+        activity: ComponentActivity,
+        listener: ((isEnable: Boolean) -> Unit),
+    ) {
+        activity.lifecycle.addObserver(BtStateObserver(activity, listener))
+    }
 
+    private class BtStateObserver(val context: Context, val listener: ((isEnable: Boolean) -> Unit)) : DefaultLifecycleObserver {
+        private val receiver = BtStateReceiver()
+
+        override fun onCreate(owner: LifecycleOwner) {
+            context.registerReceiver(receiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        }
+
+        override fun onDestroy(owner: LifecycleOwner) {
+            context.unregisterReceiver(receiver)
+            owner.lifecycle.removeObserver(this)
+        }
+
+        private inner class BtStateReceiver : BroadcastReceiver() {
+            override fun onReceive(
+                context: Context?,
+                intent: Intent?,
+            ) {
+                when (intent?.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.STATE_OFF)) {
+                    BluetoothAdapter.STATE_OFF -> listener.invoke(false)
+                    BluetoothAdapter.STATE_ON -> listener.invoke(true)
+                }
+            }
+        }
+    }
+
+    private val scanCallback = MyScanCallback()
+
+    /**
+     * settings低功耗蓝牙搜索回调.
+     */
+    fun setLeScanListener(
+        isTS004: Boolean,
+        listener: (name: String) -> Unit,
+    ) {
+        scanCallback.isTS004 = isTS004
+        scanCallback.listener = listener
+    }
+
+    /**
+     * 开启低功耗蓝牙搜索，调用前需确保拥有相应权限且开启蓝牙.
+     * @return true-调用成功 false-缺少权限或蓝牙未开启
+     */
     @SuppressLint("MissingPermission")
     fun startLeScan(context: Context): Boolean {
         XLog.i("startLeScan()")

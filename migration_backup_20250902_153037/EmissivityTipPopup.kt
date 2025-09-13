@@ -41,16 +41,25 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
         view = inflater.inflate(R.layout.layout_popup_tip_emissivity, null)
     }
 
+    /**
+     * setTitle function implementation.
+     */
     fun setTitle(title: String): EmissivityTipPopup {
         titleText?.text = title
         return this
     }
 
+    /**
+     * setMessage function implementation.
+     */
     fun setMessage(message: String): EmissivityTipPopup {
         messageText?.text = message
         return this
     }
 
+    /**
+     * setDataBean function implementation.
+     */
     fun setDataBean(
         environment: Float,
         distance: Float,
@@ -64,23 +73,31 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
         return this
     }
 
+    /**
+     * setCancelListener function implementation.
+     */
     fun setCancelListener(event: ((check: Boolean) -> Unit)?): EmissivityTipPopup {
         this.closeEvent = event
         return this
     }
 
+    /**
+     * build function implementation.
+     */
     fun build(): PopupWindow {
         if (popupWindow == null) {
             view.tv_environment_title.text = context.getString(R.string.thermal_config_environment) + ":"
             view.tv_distance_title.text = context.getString(R.string.thermal_config_distance) + ":"
 
             view.tv_title.visibility = View.GONE
-            if (text.isNotEmpty()) {
-                view.tv_emissivity_materials.text = text
-                view.tv_emissivity_materials.visibility = View.VISIBLE
-            } else {
-                view.tv_emissivity_materials.visibility = View.GONE
-            }
+            if (text.isNotEmpty())
+                {
+                    view.tv_emissivity_materials.text = text
+                    view.tv_emissivity_materials.visibility = View.VISIBLE
+                } else
+                {
+                    view.tv_emissivity_materials.visibility = View.GONE
+                }
             view.dialog_tip_cancel_btn.visibility = View.GONE
             view.dialog_tip_success_btn.text = context.getString(R.string.tc_modify_params)
             view.dialog_tip_check.visibility = View.GONE
@@ -111,10 +128,16 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
         return popupWindow!!
     }
 
+    /**
+     * show function implementation.
+     */
     fun show(anchorView: View) {
         popupWindow?.showAtLocation(anchorView, Gravity.CENTER, -SizeUtils.dp2px(10f), 0)
     }
 
+    /**
+     * dismiss function implementation.
+     */
     fun dismiss() {
         popupWindow?.dismiss()
         closeEvent?.invoke(checkBox?.isChecked ?: false)

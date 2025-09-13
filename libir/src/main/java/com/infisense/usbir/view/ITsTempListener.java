@@ -1,6 +1,5 @@
 package com.infisense.usbir.view;
 
-
 /**
  * ,TS001M256
  * @author: CaiSongL

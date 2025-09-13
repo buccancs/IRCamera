@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.topdon.lib.ui.R;
 
-
 /**
  * //                       _ooOoo_
  * //                      o8888888o
@@ -138,7 +137,7 @@ public class VerticalSeekBar extends SeekBar {
                 canvas.drawPath(indicatorArrowPath, paint);
                 indicatorRect.bottom -= getIndicatorArrowSize();
                 indicatorRect.top -= getIndicatorArrowSize();
-                Log.w("","///");
+                Log.w("pseudo color条refresh","///");
             }
 
             int defaultPaddingOffset = Utils.dp2px(getContext(), 1);
@@ -191,7 +190,7 @@ public class VerticalSeekBar extends SeekBar {
                 canvas.rotate(-degrees, rotateX, rotateY);
             }
         }catch (Exception e){
-            Log.e("",e.getMessage());
+            Log.e("pseudo color条渲染失败",e.getMessage());
         }
     }
 

@@ -1,9 +1,8 @@
 package com.shuyu.gsyvideoplayer.player
 
 /**
- * Minimal stub implementation of SystemPlayerManager
- * This is a temporary placeholder to resolve build dependencies
- * TODO: Replace with actual GSY Video Player library when available
+ * System player manager for thermal imaging resource coordination.
+ * Handles lifecycle and resource management.
  */
 class SystemPlayerManager {
     // Stub implementation

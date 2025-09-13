@@ -43,7 +43,6 @@ public abstract class ComponentBase {
      */
     protected int mTextColor = Color.BLACK;
 
-
     public ComponentBase() {
 
     }
@@ -130,7 +129,6 @@ public abstract class ComponentBase {
     public float getTextSize() {
         return mTextSize;
     }
-
 
     /**
      * Sets the text color to use for the labels. Make sure to use

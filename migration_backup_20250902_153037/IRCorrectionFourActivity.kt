@@ -50,37 +50,40 @@ class IRCorrectionFourActivity : BaseActivity() {
 
         time_down_view.postDelayed({
             // 开始矫正
-            if (time_down_view.downTimeWatcher == null) {
-                time_down_view.setOnTimeDownListener(
-                    object : TimeDownView.DownTimeWatcher {
-                        override fun onTime(num: Int) {
-                            if (num == 50) {
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    irFragment.autoStart()
-                                }
-                            }
-                        }
-
-                        override fun onLastTime(num: Int) {
-                        }
-
-                        override fun onLastTimeFinish(num: Int) {
-                            try {
-                                if (!this@IRCorrectionFourActivity.isFinishing) {
-                                    TipDialog.Builder(this@IRCorrectionFourActivity)
-                                        .setMessage(R.string.correction_complete)
-                                        .setPositiveListener(R.string.app_confirm) {
-                                            EventBus.getDefault().post(CorrectionFinishEvent())
-                                            finish()
+            if (time_down_view.downTimeWatcher == null)
+                {
+                    time_down_view.setOnTimeDownListener(
+                        object : TimeDownView.DownTimeWatcher {
+                            override fun onTime(num: Int) {
+                                if (num == 50)
+                                    {
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            irFragment.autoStart()
                                         }
-                                        .create().show()
-                                }
-                            } catch (e: Exception) {
+                                    }
                             }
-                        }
-                    },
-                )
-            }
+
+                            override fun onLastTime(num: Int) {
+                            }
+
+                            override fun onLastTimeFinish(num: Int) {
+                                try {
+                                    if (!this@IRCorrectionFourActivity.isFinishing)
+                                        {
+                                            TipDialog.Builder(this@IRCorrectionFourActivity)
+                                                .setMessage(R.string.correction_complete)
+                                                .setPositiveListener(R.string.app_confirm) {
+                                                    EventBus.getDefault().post(CorrectionFinishEvent())
+                                                    finish()
+                                                }
+                                                .create().show()
+                                        }
+                                } catch (e: Exception) {
+                                }
+                            }
+                        },
+                    )
+                }
             time_down_view.downSecond(time, false)
         }, 2000)
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present <1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -103,7 +103,7 @@ public class DateWheelLayout extends BaseWheelLayout {
         spaceStartView = findViewById(R.id.wheel_picker_date_start_view);
         spaceEndView = findViewById(R.id.wheel_picker_date_end_view);
 
-        //
+        //settings高度
         post(new Runnable() {
             @Override
             public void run() {
@@ -252,14 +252,14 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     /**
-     * 
+     * settings日期时间range
      */
     public void setRange(DateEntity startValue, DateEntity endValue) {
         setRange(startValue, endValue, null);
     }
 
     /**
-     * 
+     * settings日期时间range
      */
     public void setRange(DateEntity startValue, DateEntity endValue, DateEntity defaultValue) {
         if (startValue == null) {
@@ -405,17 +405,17 @@ public class DateWheelLayout extends BaseWheelLayout {
             min = Math.min(startValue.getMonth(), endValue.getMonth());
             max = Math.max(startValue.getMonth(), endValue.getMonth());
         }
-        //
+        //current所选年份和开始年份相同
         else if (year == startValue.getYear()) {
             min = startValue.getMonth();
             max = 12;
         }
-        //
+        //current所选年份和结束年份相同
         else if (year == endValue.getYear()) {
             min = 1;
             max = endValue.getMonth();
         }
-        //
+        //current所选年份在开始年份和结束年份之间
         else {
             min = 1;
             max = 12;

@@ -15,6 +15,12 @@ import kotlin.math.abs
  *
  * Implements a simplified NTP protocol to calculate clock offset and round-trip delay.
  */
+/**
+ * TimeSyncService provides background service functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class TimeSyncService {
     companion object {
         private const val TAG = "TimeSyncService"
@@ -45,11 +51,26 @@ class TimeSyncService {
         val clockOffset: Long,
     )
 
+/**
+ * TimeSyncListener manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     interface TimeSyncListener {
+    /**
+     * Callback method triggered when synccompleted occurs.
+     */
         fun onSyncCompleted(result: SyncResult)
 
+    /**
+     * Callback method triggered when syncstarted occurs.
+     */
         fun onSyncStarted(targetHost: String)
 
+    /**
+     * Callback method triggered when syncerror occurs.
+     */
         fun onSyncError(error: String)
     }
 
@@ -81,10 +102,7 @@ class TimeSyncService {
                     // Only accept samples with reasonable round-trip delay
                     if (sample.roundTripDelay <= MAX_ACCEPTABLE_DELAY_MS) {
                         samples.add(sample)
-                        Log.d(
-                            TAG,
-                            "Sample ${attempt + 1}: offset=${sample.clockOffset}ms, delay=${sample.roundTripDelay}ms",
-                        )
+                        Log.d(TAG, "Sample ${attempt + 1}: offset=${sample.clockOffset}ms, delay=${sample.roundTripDelay}ms")
                     } else {
                         Log.w(TAG, "Sample ${attempt + 1} rejected: delay too high (${sample.roundTripDelay}ms)")
                     }

@@ -21,7 +21,7 @@ public class Usbcontorl extends Usbjni {
                 String tempString = null;
                 // ，null
                 while ((tempString = reader.readLine()) != null) {
-                    // 
+                    // Show/Display行号
                     if (tempString.contains("libusb3803_hub.so")) {
                         isload = true;
                         break;

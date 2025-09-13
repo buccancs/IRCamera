@@ -4,6 +4,29 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.view.animation.ScaleAnimation
 
+/**
+ * @author: CaiSongL
+ * @date: 2022/6/9 22:14
+ */
+public object AnimaUtils {
+    /**
+     * 默认动画持续时间
+     */
+    const val DEFAULT_ANIMATION_DURATION: Long = 400
+
+    /**
+     * 获取一个旋转动画
+     *
+     * @param fromDegrees       开始角度
+     * @param toDegrees         结束角度
+     * @param pivotXType        旋转中心点X轴坐标相对类型
+     * @param pivotXValue       旋转中心点X轴坐标
+     * @param pivotYType        旋转中心点Y轴坐标相对类型
+     * @param pivotYValue       旋转中心点Y轴坐标
+     * @param durationMillis    持续时间
+     * @param animationListener 动画监听器
+     * @return 一个旋转动画
+     */
     fun getRotateAnimation(
         fromDegrees: Float,
         toDegrees: Float,
@@ -92,6 +115,13 @@ import android.view.animation.ScaleAnimation
         )
     }
 
+    /**
+     * 获取一个透明度渐变动画
+     *
+     * @param fromAlpha 开始时的透明度
+     * @param toAlpha   结束时的透明度都
+     * @return 一个透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     */
     fun getAlphaAnimation(
         fromAlpha: Float,
         toAlpha: Float,

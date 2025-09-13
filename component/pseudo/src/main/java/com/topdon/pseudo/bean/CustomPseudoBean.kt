@@ -8,23 +8,23 @@ import kotlinx.android.parcel.Parcelize
 import java.nio.ByteBuffer
 
 /**
- * data.
+\1自定义rendering的相关configuration.
  */
 @Parcelize
 data class CustomPseudoBean(
-    var selectIndex: Int = 0, // CurrentSelecteddata index
-    var colors: IntArray? = null, // 7 data
-    var zAltitudes: IntArray? = null, // 7 data
-    var places: FloatArray? = null, // 7 data
-    var isUseCustomPseudo: Boolean = false, // true-data false-data
-    var maxTemp: Float = 50f, // Data fieldHigh temperature，dataCelsius，data50Celsius
-    var minTemp: Float = 0f, // Data fieldLow temperature，dataCelsius，data0Celsius
-    var isColorCustom: Boolean = true, // true-data false-data
-    var customMinColor: Int = 0xff0000FF.toInt(), // Data field(dataLow temperature)
-    var customMiddleColor: Int = 0xFFFF0000.toInt(), // Data field
-    var customMaxColor: Int = 0xFFFFFF00.toInt(), // Data field(dataHigh temperature)
-    var customRecommendIndex: Int = 0, // Data field index
-    var isUseGray: Boolean = true, // true-data false-data
+    var selectIndex: Int = 0, // 当前选中色块在列表中 index
+    var colors: IntArray? = null, // 7 个色块颜色值
+    var zAltitudes: IntArray? = null, // 7 个色块海拔
+    var places: FloatArray? = null, // 7 个色块占比值
+    var isUseCustomPseudo: Boolean = false, // true-自定义渲染 false-动态渲染
+    var maxTemp: Float = 50f, // 自定义渲染最高温，单位摄氏度，默认50摄氏度
+    var minTemp: Float = 0f, // 自定义渲染最低温，单位摄氏度，默认0摄氏度
+    var isColorCustom: Boolean = true, // true-自定义渲染颜色为自定义 false-自定义渲染颜色为推荐
+    var customMinColor: Int = 0xff0000FF.toInt(), // 自定义渲染自定义颜色最小值(最低温)
+    var customMiddleColor: Int = 0xFFFF0000.toInt(), // 自定义渲染自定义颜色中间值
+    var customMaxColor: Int = 0xFFFFFF00.toInt(), // 自定义渲染自定义颜色最大值(最高温)
+    var customRecommendIndex: Int = 0, // 自定义渲染颜色推荐 index
+    var isUseGray: Boolean = true, // true-自定义渲染使用灰度渐变 false-自定义渲染使用等色
 ) : Parcelable {
     companion object {
         fun loadFromShared(isTC007: Boolean = false): CustomPseudoBean {
@@ -74,14 +74,15 @@ data class CustomPseudoBean(
             var customMaxColor = buffer.int
             val customRecommendIndex = buffer.int
             val isUseGray = buffer.get() == 0.toByte()
-            if (customMinColor == 0 && customMiddleColor == 0 && customMaxColor == 0) {
-                maxTemp = 50f
-                minTemp = 0f
-                isColorCustom = true
-                customMinColor = 0xff0000FF.toInt()
-                customMiddleColor = 0xFFFF0000.toInt()
-                customMaxColor = 0xFFFFFF00.toInt()
-            }
+            if (customMinColor == 0 && customMiddleColor == 0 && customMaxColor == 0)
+                {
+                    maxTemp = 50f
+                    minTemp = 0f
+                    isColorCustom = true
+                    customMinColor = 0xff0000FF.toInt()
+                    customMiddleColor = 0xFFFF0000.toInt()
+                    customMaxColor = 0xFFFFFF00.toInt()
+                }
 
             return CustomPseudoBean(
                 selectIndex = byteArray[1].toInt() and 0xff,
@@ -111,10 +112,10 @@ data class CustomPseudoBean(
 
     fun getColorList(isTC007: Boolean = false): IntArray? {
         // Note: Synchronization of places calculation required across all usage locations
-        if (!isUseCustomPseudo) { // Data field
+        if (!isUseCustomPseudo) { // 都没开自定义渲染
             return null
         }
-        return if (isColorCustom) { // Data field
+        return if (isColorCustom) { // 自定义颜色
             val sourceColors = getCustomColors()
             val places = getCustomPlaces()
             val actualColors = IntArray(sourceColors.size)
@@ -125,24 +126,24 @@ data class CustomPseudoBean(
                 }
             }
             actualColors
-        } else { // Data field
+        } else { // 推荐颜色
             ColorRecommend.getColorByIndex(isTC007, customRecommendIndex)
         }
     }
 
     fun getPlaceList(): FloatArray? {
-        if (!isUseCustomPseudo) { // Data field
+        if (!isUseCustomPseudo) { // 都没开自定义渲染
             return null
         }
-        return if (isColorCustom) { // Data field
+        return if (isColorCustom) { // 自定义颜色
             getCustomPlaces()
-        } else { // Data field
+        } else { // 推荐颜色
             null
         }
     }
 
     fun getCustomColors(): IntArray {
-        if (colors == null) { // Data field
+        if (colors == null) { // 老数据
             colors = intArrayOf(customMinColor, customMiddleColor, customMaxColor)
         }
         return colors!!

@@ -130,7 +130,7 @@ public class EasyWifi {
     public boolean connectByOld(String str, String str2, WifiCapability wifiCapability) {
         int addNetwork = this.wifiManager.addNetwork(createWifiConfig(str, str2, wifiCapability));
         if (addNetwork == -1) {
-            Log.e(this.TAG, ",wifi");
+            Log.e(this.TAG, "操作失败,需要您到手机wifilist中取消对设备连接的saved");
         }
         boolean enableNetwork = this.wifiManager.enableNetwork(addNetwork, true);
         Log.d(this.TAG, "connectByOld: " + (enableNetwork ? "" : ""));
@@ -167,9 +167,9 @@ public class EasyWifi {
         wifiConfiguration.SSID = "\"" + str + "\"";
         WifiConfiguration isExist = isExist(str);
         if (isExist != null) {
-            Log.d(this.TAG, "createWifiConfig: （true:，false:），=" + this.wifiManager.removeNetwork(isExist.networkId) + "" + this.wifiManager.saveConfiguration());
+            Log.d(this.TAG, "createWifiConfig: 移除网路（true:成功，false:失败），结果=" + this.wifiManager.removeNetwork(isExist.networkId) + "移除后saved" + this.wifiManager.saveConfiguration());
         }
-        Log.d(this.TAG, "createWifiConfig: ssid=" + str);
+        Log.d(this.TAG, "createWifiConfig: currentssid=" + str);
         if (wifiCapability == WifiCapability.WIFI_CIPHER_NO_PASS) {
             wifiConfiguration.allowedKeyManagement.set(0);
         } else if (wifiCapability == WifiCapability.WIFI_CIPHER_WEP) {
@@ -218,7 +218,7 @@ public class EasyWifi {
             @Override // android.net.ConnectivityManager.NetworkCallback
             public void onAvailable(Network network) {
                 try {
-                    Log.d(EasyWifi.this.TAG, "onAvailable: ");
+                    Log.d(EasyWifi.this.TAG, "settings网络类型时onAvailable: ");
                     EasyWifi.this.getConnectivityManager().bindProcessToNetwork(network);
                 } catch (Exception e) {
                     e.printStackTrace();

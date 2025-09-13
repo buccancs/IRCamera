@@ -22,10 +22,10 @@ fun IRCMD.setMirror(enabled: Boolean) {
         // Use real IRCMD native methods for mirror control
         val result =
             if (enabled) {
-
+                // Enable mirror mode through native IRCMD interface
                 nativeSetProperty("mirror", 1)
             } else {
-
+                // Disable mirror mode
                 nativeSetProperty("mirror", 0)
             }
         Log.d(TAG, "Mirror mode set to $enabled, result: $result")

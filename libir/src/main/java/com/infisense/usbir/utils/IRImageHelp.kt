@@ -8,12 +8,76 @@ import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 import java.io.IOException
 
+/**
+ * 热成像图像二次处理的统一入口，为了方便管理
+ * @author: CaiSongL
+ * @date: 2024/1/17 9:54
+ */
+class IRImageHelp {
+    // 自定义的color值
+    @Volatile
+    private var colorList: IntArray? = null
+
+    @Volatile
+    private var places: FloatArray? = null
+
+    private var isUseGray = true
+    private var customMaxTemp = 0f
+    private var customMinTemp = 0f
+    private var maxRGB = IntArray(3)
+    private var minRGB = IntArray(3)
+
+    fun getColorList(): IntArray?  {
+        return colorList
+    }
+
+    /**
+     * settings自定义pseudo color条属性
+     * @author: CaiSongL
+     * @date: 2024/1/17 10:07
+     */
+    fun setColorList(
+        colorList: IntArray?,
+        places: FloatArray?,
+        isUseGray: Boolean,
+        customMaxTemp: Float,
+        customMinTemp: Float,
+    ) {
+        if (colorList == null) {
+            this.isUseGray = true
+        } else {
+            this.isUseGray = isUseGray
+        }
+        this.colorList = colorList
+        this.places = places
+        if (colorList != null) {
+            this.customMaxTemp = customMaxTemp
+            this.customMinTemp = customMinTemp
+            val maxColor = colorList[colorList.size - 1]
+            val minColor = colorList[0]
+            this.maxRGB[0] = maxColor shr 16 and 0xFF
+            this.maxRGB[1] = maxColor shr 8 and 0xFF
+            this.maxRGB[2] = maxColor and 0xFF
+            this.minRGB[0] = minColor shr 16 and 0xFF
+            this.minRGB[1] = minColor shr 8 and 0xFF
+            this.minRGB[2] = minColor and 0xFF
+        }
+    }
+
+    /**
+     * 自定义pseudo color处理，在执行这个方法之前，变更pseudo color属性时先通过 上面setColorList进行属性settings
+     * @param imageDst ByteArray ： 图像数据，argb格式
+     * @param temperatureSrc ByteArray ： 温度数据
+     * @param imageWidth Int ：
+     * @param imageHeight Int
+     * @return ByteArray ： 返回处理后的图像数据，argb格式
+     */
     fun customPseudoColor(
         imageDst: ByteArray,
         temperatureSrc: ByteArray,
         imageWidth: Int,
         imageHeight: Int,
-    ): ByteArray {
+    ): ByteArray  {
         try {
             if (colorList != null && temperatureSrc != null) {
                 var j = 0
@@ -78,14 +142,14 @@ import java.io.IOException
 
             }
         } catch (exception: Exception) {
-            Log.e("utility", exception.message!!)
+            Log.e("上色异常", exception.message!!)
         } finally {
             return imageDst
         }
     }
 
     /**
-     * utility,utilityPseudo-colorutility
+     * 等温尺处理,展示pseudo color的温度range内信息
      */
     fun setPseudoColorMaxMin(
         imageDst: ByteArray?,
@@ -94,7 +158,7 @@ import java.io.IOException
         min: Float,
         imageWidth: Int,
         imageHeight: Int,
-    ) {
+    )  {
         if (temperatureSrc != null && (max != Float.MAX_VALUE || min != Float.MIN_VALUE)) {
             var j = 0
             val imageDstLength: Int = imageWidth * imageHeight * 4
@@ -104,7 +168,7 @@ import java.io.IOException
 
             var index = 0
             while (index < imageDstLength) {
-
+                // 温度换算公式
                 var temperature0: Float =
                     (
                         (temperatureSrc[j].toInt() and 0xff) + (
@@ -118,7 +182,7 @@ import java.io.IOException
                     val r: Int = imageDst!![index].toInt() and 0xff
                     val g: Int = imageDst!![index + 1].toInt() and 0xff
                     val b: Int = imageDst!![index + 2].toInt() and 0xff
-                    // Utility function
+                    // 灰度
                     val grey = (r * 0.3f + g * 0.59f + b * 0.11f).toInt()
                     imageDst!![index] = grey.toByte()
                     imageDst!![index + 1] = grey.toByte()
@@ -140,7 +204,7 @@ import java.io.IOException
         temperatureSrc: ByteArray?,
         imageWidth: Int,
         imageHeight: Int,
-    ): ByteArray? {
+    ): ByteArray?  {
         if (alarmBean != null && imageDst != null && temperatureSrc != null) {
             if (alarmBean.isMarkOpen && (
                     (alarmBean.highTemp != Float.MAX_VALUE && alarmBean.isHighOpen) ||

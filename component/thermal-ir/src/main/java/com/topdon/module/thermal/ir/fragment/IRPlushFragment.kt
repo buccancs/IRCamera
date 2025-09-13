@@ -14,6 +14,10 @@ import com.topdon.module.thermal.ir.activity.BaseIRPlushFragment
  * author: CaiSongL
  * date: 2024/9/3 11:43
  **/
+/**
+ * I r plush fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
+ */
 class IRPlushFragment : BaseIRPlushFragment() {
     // findViewById declarations using proper view reference in onViewCreated
     private lateinit var dualTextureViewNativeCamera: SurfaceView
@@ -67,7 +71,7 @@ class IRPlushFragment : BaseIRPlushFragment() {
         super.onDestroy()
     }
 
-    fun getBitmap(): Bitmap? {
+    fun getBitmap(): Bitmap?  {
         return dualView?.scaledBitmap
     }
 }

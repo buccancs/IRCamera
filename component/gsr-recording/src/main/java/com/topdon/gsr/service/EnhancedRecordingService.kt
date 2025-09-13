@@ -220,6 +220,7 @@ class EnhancedRecordingService : Service() {
                     updateNotification("Recording started - ${sessionInfo.sessionId}")
                     eventListener?.onRecordingStateChanged(true, sessionInfo.sessionId)
 
+                    // Start data streaming if connected to PC
                     if (isConnectedToPC) {
                         serviceScope.launch {
                             val streamingStarted = dataStreamingService.startStreaming(sessionInfo.sessionId)
@@ -236,6 +237,7 @@ class EnhancedRecordingService : Service() {
                     isRecording = false
                     currentSessionId = null
 
+                    // Stop data streaming
                     if (isStreamingData) {
                         serviceScope.launch {
                             dataStreamingService.stopStreaming()
@@ -254,6 +256,7 @@ class EnhancedRecordingService : Service() {
                         dataStreamingService.queueGSRSample(sample)
                     }
 
+                    // Update notification periodically
                     if (sample.sampleIndex % 1280 == 0L) { // Every 10 seconds at 128Hz
                         updateNotification("Recording... ${sample.sampleIndex} samples")
                     }
@@ -273,14 +276,14 @@ class EnhancedRecordingService : Service() {
         // Network client listener for PC communication
         networkClient.setEventListener(
             object : NetworkClient.NetworkEventListener {
-                override fun onControllerDiscovered(controller: ControllerInfo) {
-                    Log.i(TAG, "PC Controller discovered: ${controller.name} at ${controller.ipAddress}")
+                override fun onControllerDiscovered(controller: NetworkClient.ControllerInfo) {
+                    Log.i(TAG, "PC Controller discovered: ${controller.deviceName} at ${controller.ipAddress}")
                 }
 
-                override fun onConnected(controller: ControllerInfo) {
-                    Log.i(TAG, "Connected to PC Controller: ${controller.name}")
+                override fun onConnected(controller: NetworkClient.ControllerInfo) {
+                    Log.i(TAG, "Connected to PC Controller: ${controller.deviceName}")
                     isConnectedToPC = true
-                    updateNotification("Connected to ${controller.name}")
+                    updateNotification("Connected to ${controller.deviceName}")
                     eventListener?.onNetworkStateChanged(true, controller)
                 }
 
@@ -288,6 +291,7 @@ class EnhancedRecordingService : Service() {
                     Log.i(TAG, "Disconnected from PC Controller: $reason")
                     isConnectedToPC = false
 
+                    // Stop data streaming
                     if (isStreamingData) {
                         serviceScope.launch {
                             dataStreamingService.stopStreaming()
@@ -310,7 +314,7 @@ class EnhancedRecordingService : Service() {
 
                 override fun onSyncFlash(durationMs: Int) {
                     Log.i(TAG, "Sync flash requested: ${durationMs}ms")
-
+                    // Trigger visual sync flash on device
                     if (isRecording) {
                         gsrRecorder.triggerSyncEvent("SYNC_FLASH_${durationMs}ms")
                     }
@@ -331,9 +335,12 @@ class EnhancedRecordingService : Service() {
                     updateNotification("Data streaming stopped")
                 }
 
-                override fun onConnectionError(error: String) {
-                    Log.e(TAG, "Network connection error: $error")
-                    eventListener?.onServiceError("network_connection", error)
+                override fun onError(
+                    operation: String,
+                    error: String,
+                ) {
+                    Log.e(TAG, "Network error in $operation: $error")
+                    eventListener?.onServiceError("network_$operation", error)
                 }
 
                 override fun onPairingRequested(
@@ -373,8 +380,8 @@ class EnhancedRecordingService : Service() {
                     eventListener?.onDataStreamingStateChanged(true)
                 }
 
-                override fun onStreamingStopped() {
-                    Log.i(TAG, "Data streaming stopped")
+                override fun onStreamingStopped(sessionId: String) {
+                    Log.i(TAG, "Data streaming stopped for session: $sessionId")
                     isStreamingData = false
                     eventListener?.onDataStreamingStateChanged(false)
                 }
@@ -391,30 +398,24 @@ class EnhancedRecordingService : Service() {
                     eventListener?.onServiceError("data_streaming", error)
                 }
 
-                override fun onQueueFull(dataType: String, droppedCount: Int) {
-                    Log.w(TAG, "Queue full for $dataType: $droppedCount samples dropped")
-                    eventListener?.onServiceError("queue_overflow", "$droppedCount $dataType samples dropped")
+                override fun onQueueFull(
+                    dataType: String,
+                    droppedSamples: Int,
+                ) {
+                    Log.w(TAG, "Queue full for $dataType: dropped $droppedSamples samples")
                 }
             },
         )
 
         // Discovery service listener
-        discoveryService.setServiceEventListener(
-            object : ZeroconfDiscoveryService.ServiceEventListener {
-                override fun onControllerDiscovered(controllerInfo: ControllerInfo) {
-                    Log.i(TAG, "mDNS controller discovered: ${controllerInfo.name}")
+        discoveryService.setServiceListener(
+            object : ZeroconfDiscoveryService.ServiceDiscoveryListener {
+                override fun onServiceDiscovered(serviceInfo: NetworkClient.ControllerInfo) {
+                    Log.i(TAG, "mDNS service discovered: ${serviceInfo.deviceName}")
                 }
 
-                override fun onControllerLost(controllerId: String) {
-                    Log.i(TAG, "mDNS controller lost: $controllerId")
-                }
-
-                override fun onDiscoveryStarted() {
-                    Log.i(TAG, "mDNS discovery started")
-                }
-
-                override fun onDiscoveryStopped() {
-                    Log.i(TAG, "mDNS discovery stopped")
+                override fun onServiceLost(serviceName: String) {
+                    Log.i(TAG, "mDNS service lost: $serviceName")
                 }
 
                 override fun onServiceRegistered(serviceName: String) {
@@ -595,7 +596,7 @@ class EnhancedRecordingService : Service() {
 
     fun getCurrentSessionId(): String? = currentSessionId
 
-    fun getDiscoveredControllers(): List<ControllerInfo> = discoveryService.getDiscoveredControllers()
+    fun getDiscoveredControllers(): List<NetworkClient.ControllerInfo> = discoveryService.getDiscoveredControllers()
 
     fun getQueueSizes(): Map<String, Int> = dataStreamingService.getQueueSizes()
 

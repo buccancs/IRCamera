@@ -43,6 +43,138 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
+/**
+ * 插件式 或 TC007 首页.
+ *
+ * 需要传递参数：
+ * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ *
+ * Created by LCG on 2024/4/18.
+ */
+@Route(path = RouterConfig.IR_MAIN)
+class IRMainActivity : BaseActivity(), View.OnClickListener {
+    /**
+     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
+     * true-TC007 false-其他插件式设备
+     */
+    private var isTC007 = false
+
+    override fun initContentView(): Int = R.layout.activity_ir_main
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        initView()
+    }
+
+    override fun initView() {
+        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+
+        view_page.offscreenPageLimit = 5
+        view_page.isUserInputEnabled = false
+        view_page.adapter = ViewPagerAdapter(this, isTC007)
+        view_page.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    refreshTabSelect(position)
+                }
+            },
+        )
+        view_page.setCurrentItem(2, false)
+
+        cl_icon_monitor.setOnClickListener(this)
+        cl_icon_gallery.setOnClickListener(this)
+        view_main_thermal.setOnClickListener(this)
+        cl_icon_report.setOnClickListener(this)
+        cl_icon_mine.setOnClickListener(this)
+
+        showGuideDialog()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        DeviceTools.isConnect(true)
+        if (isTC007) {
+            if (WebSocketProxy.getInstance().isTC007Connect()) {
+                NetWorkUtils.switchNetwork(false)
+                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+                lifecycleScope.launch {
+                    TC007Repository.syncTime()
+                }
+                if (SharedManager.isConnect07AutoOpen) {
+                    ARouter.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
+                }
+            } else {
+                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            }
+        } else {
+            if (DeviceTools.isConnect(isAutoRequest = false)) {
+                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+            } else {
+                iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            }
+        }
+    }
+
+    override fun initData() {
+    }
+
+    override fun connected() {
+        if (!isTC007) {
+            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+        }
+    }
+
+    override fun disConnected() {
+        if (!isTC007) {
+            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+        }
+    }
+
+    override fun onSocketConnected(isTS004: Boolean) {
+        if (!isTS004 && isTC007) {
+            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+        }
+    }
+
+    override fun onSocketDisConnected(isTS004: Boolean) {
+        if (!isTS004 && isTC007) {
+            iv_main_bg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            cl_icon_monitor -> { // 监控
+                view_page.setCurrentItem(0, false)
+            }
+            cl_icon_gallery -> { // 图库
+                checkStoragePermission()
+            }
+            view_main_thermal -> { // 首页
+                view_page.setCurrentItem(2, false)
+            }
+            cl_icon_report -> { // 报告
+                if (LMS.getInstance().isLogin) {
+                    view_page.setCurrentItem(3, false)
+                } else {
+                    LMS.getInstance().activityLogin(null) {
+                        if (it) {
+                            view_page.setCurrentItem(3, false)
+                            EventBus.getDefault().post(PDFEvent())
+                        }
+                    }
+                }
+            }
+            cl_icon_mine -> { // 我的
+                view_page.setCurrentItem(4, false)
+            }
+        }
+    }
+
+    /**
+     * 刷新 5 个 tab 的选中状态
+     * @param index 当前选中哪个 tab，`[0, 4]`
+     */
     private fun refreshTabSelect(index: Int) {
         iv_icon_monitor.isSelected = false
         tv_icon_monitor.isSelected = false
@@ -74,7 +206,7 @@ import org.greenrobot.eventbus.EventBus
     }
 
     /**
-     * 显示操作指引弹框.
+     * Show/Display操作指引弹框.
      */
     private fun showGuideDialog() {
         if (SharedManager.homeGuideStep == 0) { // 已看过或不再提示
@@ -139,19 +271,21 @@ import org.greenrobot.eventbus.EventBus
 
     private fun checkStoragePermission() {
         val permissionList: List<String> =
-            if (this.applicationInfo.targetSdkVersion >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
+            if (this.applicationInfo.targetSdkVersion >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (this.applicationInfo.targetSdkVersion >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (this.applicationInfo.targetSdkVersion == 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,
@@ -179,13 +313,14 @@ import org.greenrobot.eventbus.EventBus
     }
 
     /**
-     * 动态申请权限
+     * 动态申请Permission
      */
     private fun initStoragePermission(permissionList: List<String>) {
-        if (PermissionUtils.isVisualUser()) {
-            view_page.setCurrentItem(1, false)
-            return
-        }
+        if (PermissionUtils.isVisualUser())
+            {
+                view_page.setCurrentItem(1, false)
+                return
+            }
         XXPermissions.with(this)
             .permission(permissionList)
             .request(
@@ -204,7 +339,7 @@ import org.greenrobot.eventbus.EventBus
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-                            // 拒绝授权并且不再提醒
+                            // 拒绝Authorization并且不再提醒
                             TipDialog.Builder(this@IRMainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_album_content))

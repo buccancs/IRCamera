@@ -14,6 +14,10 @@ import com.bumptech.glide.Glide
 import com.topdon.lib.core.bean.HouseRepPreviewAlbumItemBean
 import com.topdon.module.thermal.ir.R
 
+/**
+ * Custom Report preview album view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 @SuppressLint("NotifyDataSetChanged")
 class ReportPreviewAlbumAdapter(
     private val cxt: Context,

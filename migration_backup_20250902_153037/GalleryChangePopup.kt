@@ -27,11 +27,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
                 (context.resources.displayMetrics.widthPixels * 0.6).toInt(),
                 MeasureSpec.EXACTLY,
             )
-        val heightMeasureSpec =
-            MeasureSpec.makeMeasureSpec(
-                context.resources.displayMetrics.heightPixels,
-                MeasureSpec.AT_MOST,
-            )
+        val heightMeasureSpec = MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.heightPixels, MeasureSpec.AT_MOST)
         contentView = LayoutInflater.from(context).inflate(R.layout.popup_gallery_change, null)
         contentView.measure(widthMeasureSpec, heightMeasureSpec)
 
@@ -54,6 +50,9 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
         }
     }
 
+    /**
+     * show function implementation.
+     */
     fun show(anchor: View) {
         val locationArray = IntArray(2)
         anchor.getLocationInWindow(locationArray)

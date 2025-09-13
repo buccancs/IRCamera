@@ -54,7 +54,7 @@ public class ScreenUtils {
     }
 
     /**
-     * State
+     * 获得state栏的高度
      *
      * @param context
      * @return
@@ -75,7 +75,7 @@ public class ScreenUtils {
     }
 
     /**
-     * Graph，State
+     * 获取current屏幕截图，包含state栏
      *
      * @param activity
      * @return
@@ -102,7 +102,7 @@ public class ScreenUtils {
     }
 
     /**
-     * Graph，State
+     * 获取current屏幕截图，不包含state栏
      *
      * @param activity
      * @return
@@ -179,10 +179,10 @@ public class ScreenUtils {
 
     /**
      * @param info
-     * @setIcon Graph
-     * @setTitle 
-     * @setMessage 
-     * setXXXDialog，
+     * @setIcon settings对话框图标
+     * @setTitle settings对话框标题
+     * @setMessage settings对话框消息提示
+     * setXXX方法返回Dialog对象，因此可以链式settings属性
      */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
         final AlertDialog.Builder normalDialog =

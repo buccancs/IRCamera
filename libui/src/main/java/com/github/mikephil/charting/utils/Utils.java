@@ -217,7 +217,6 @@ public abstract class Utils {
 
     }
 
-
     /**
      * Math.pow(...) is very expensive, so avoid calling it and create it
      * yourself.
@@ -703,7 +702,6 @@ public abstract class Utils {
                 paint,
                 (int) Math.max(Math.ceil(constrainedToSize.width), 1.f),
                 Layout.Alignment.ALIGN_NORMAL, 1.f, 0.f, false);
-
 
         drawMultilineText(c, textLayout, x, y, paint, anchor, angleDegrees);
     }

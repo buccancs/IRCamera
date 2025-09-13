@@ -11,9 +11,13 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.module.thermal.ir.R
 
 /**
- * GallerydataSwitch PopupWindow.
+\1图库目录切换 PopupWindow.
  *
  * Created by LCG on 2024/1/5.
+ */
+/**
+ * Custom Gallery change popup view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 class GalleryChangePopup(private val context: Context) : PopupWindow() {
     // View references using findViewById
@@ -22,7 +26,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
     private val tvTc007: TextView by lazy { contentView.findViewById(R.id.tv_tc007) }
 
     /**
-     * dataOptiondataSelecteddata.
+\1一个option被选中事件监听.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
@@ -32,11 +36,7 @@ class GalleryChangePopup(private val context: Context) : PopupWindow() {
                 (context.resources.displayMetrics.widthPixels * 0.6).toInt(),
                 MeasureSpec.EXACTLY,
             )
-        val heightMeasureSpec =
-            MeasureSpec.makeMeasureSpec(
-                context.resources.displayMetrics.heightPixels,
-                MeasureSpec.AT_MOST,
-            )
+        val heightMeasureSpec = MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.heightPixels, MeasureSpec.AT_MOST)
         contentView = LayoutInflater.from(context).inflate(R.layout.popup_gallery_change, null)
         contentView.measure(widthMeasureSpec, heightMeasureSpec)
 

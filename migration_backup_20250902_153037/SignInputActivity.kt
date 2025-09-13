@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
  * 需要传递：
  * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-检测师签名 false-房主签名
  *
- * 返回：
+ * Return：
  * - [ExtraKeyConfig.IS_PICK_INSPECTOR] - true-检测师签名 false-房主签名
  * - [ExtraKeyConfig.RESULT_PATH_WHITE] - 白色画笔版签名图片在本地的绝对路径.
  * - [ExtraKeyConfig.RESULT_PATH_BLACK] - 黑色画笔版签名图片在本地的绝对路径.

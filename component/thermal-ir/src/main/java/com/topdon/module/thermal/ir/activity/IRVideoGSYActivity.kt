@@ -2,7 +2,6 @@ package com.topdon.module.thermal.ir.activity
 
 import android.content.Intent
 import android.media.MediaScannerConnection
-import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -15,8 +14,6 @@ import com.blankj.utilcode.util.BarUtils
 import com.topdon.lib.core.bean.GalleryBean
 import com.topdon.lib.core.bean.event.GalleryDelEvent
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.dialog.ConfirmSelectDialog
-import com.topdon.lib.core.dialog.TipDialog
 import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.repository.TS004Repository
 import com.topdon.lib.core.tools.FileTools
@@ -29,10 +26,12 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 // import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 import java.io.File
-import com.topdon.lib.core.R as LibR
-import com.topdon.lib.ui.R as UiR
 
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * I r video g s y activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class IRVideoGSYActivity : BaseActivity() {
     private var isRemote = false
     private lateinit var data: GalleryBean
@@ -45,7 +44,7 @@ class IRVideoGSYActivity : BaseActivity() {
     private lateinit var clDelete: androidx.constraintlayout.widget.ConstraintLayout
     private lateinit var ivDownload: android.widget.ImageView
     // private lateinit var gsyPlay: com.topdon.module.thermal.ir.view.MyGSYVideoPlayer
-    
+
     override fun initContentView() = R.layout.activity_ir_video_gsy
 
     override fun initView() {
@@ -57,13 +56,13 @@ class IRVideoGSYActivity : BaseActivity() {
         clDelete = findViewById(R.id.cl_delete)
         ivDownload = findViewById(R.id.iv_download)
         // gsyPlay = findViewById(R.id.gsy_play)
-        
+
         BarUtils.setNavBarColor(this, ContextCompat.getColor(this, UiR.color.black))
 
         isRemote = intent.getBooleanExtra("isRemote", false)
         data = intent.getParcelableExtra("data") ?: throw NullPointerException("activity data")
 
-        clBottom.isVisible = isRemote // Activity logic3activity
+        clBottom.isVisible = isRemote // 查看远端时底部才有3个按钮
 
         if (!isRemote) {
             titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)
@@ -97,7 +96,10 @@ class IRVideoGSYActivity : BaseActivity() {
     override fun initData() {
     }
 
-    private fun previewVideo(isRemote: Boolean, path: String) {
+    private fun previewVideo(
+        isRemote: Boolean,
+        path: String,
+    ) {
         // Temporarily commented out GSY Video Player usage due to dependency resolution issues
         // TODO: Re-enable with correct dependency once GSY Video Player is properly included
         /*
@@ -113,19 +115,19 @@ class IRVideoGSYActivity : BaseActivity() {
         GSYVideoOptionBuilder()
             .setUrl(url)
             .build(gsyPlay)
-        // Activity logicSettings
-        gsyPlay.isNeedShowWifiTip = false // Activity logic
+\1interfaceset
+        gsyPlay.isNeedShowWifiTip = false //不显示消耗流量弹框
         gsyPlay.titleTextView.visibility = View.GONE
         gsyPlay.backButton.visibility = View.GONE
         gsyPlay.fullscreenButton.visibility = View.GONE
-        */
-        
+         */
+
         // Placeholder implementation - shows path for now
         // In production, implement with Media3 ExoPlayer as alternative
     }
 
     private fun actionDownload(isToShare: Boolean) {
-        if (data.hasDownload) { // Activity logic
+        if (data.hasDownload) { // 已下载
             if (isToShare) {
                 actionShare()
             }
@@ -158,7 +160,7 @@ class IRVideoGSYActivity : BaseActivity() {
         str.append(getString(R.string.detail_date)).append("\n")
         str.append(TimeTool.showDateType(data.timeMillis)).append("\n\n")
         str.append(getString(R.string.detail_info)).append("\n")
-//        str.append("activity: ").append(whStr).append("\n")
+\1str.append("尺寸: ").append(whStr).append("\n")
         str.append("${getString(R.string.detail_len)}: ").append(sizeStr).append("\n")
         str.append("${getString(R.string.detail_path)}: ").append(data.path).append("\n")
         TipDialog.Builder(this)
@@ -234,5 +236,5 @@ class IRVideoGSYActivity : BaseActivity() {
     private fun getCurPlay(): GSYVideoPlayer {
         return gsyPlay.fullWindowPlayer ?: gsyPlay
     }
-    */
+     */
 }

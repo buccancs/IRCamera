@@ -12,6 +12,16 @@ import com.topdon.lib.ui.R as UiR
  * data SeekBar。
  * data thumbOffset.
  */
+/**
+ * Comm seek bar utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
+/**
+ * CommSeekBar manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class CommSeekBar : AppCompatSeekBar {
     /**
      * 0-data 1-data
@@ -112,6 +122,9 @@ class CommSeekBar : AppCompatSeekBar {
         }
     }
 
+    /**
+     * Calculates drawable based on input parameters.
+     */
     private fun calculateDrawable(
         w: Int,
         h: Int,
@@ -203,6 +216,9 @@ class CommSeekBar : AppCompatSeekBar {
         }
     }
 
+    /**
+     * Handles touch gesture events.
+     */
     private fun trackTouchEvent(event: MotionEvent) {
         val y = event.y.roundToInt()
         progress =

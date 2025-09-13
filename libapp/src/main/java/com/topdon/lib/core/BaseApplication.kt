@@ -48,17 +48,107 @@ abstract class BaseApplication : Application() {
     var activitys = arrayListOf<Activity>()
     var hasOtgShow = false // otgdata
 
+    /**
+     * 获取软件encoding.
+     */
+    abstract fun getSoftWareCode(): String
+
+    /**
+     * 是否国内渠道。
+     *
+     * 国内渠道一些逻辑不同，如国内渠道可以应用内升级，权限申请前有提示弹窗等。
+     * 根据 2024/8/27 邮件结论，“热视界和电小搭其实没有形成销售，可以不用维护。”
+     * @return true-国内渠道 false-非国内渠道
+     */
+    abstract fun isDomestic(): Boolean
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            webviewSetPath(this)
+        }
+        onLanguageChange()
+
+        WebSocketProxy.getInstance().onMessageListener = {
+            parserSocketMessage(it)
+        }
+    }
+
+    open fun initWebSocket() {
+        connectWebSocket()
+        // 注册网络变更广播 - using modern network callback for Android 10+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkRequest =
+                android.net.NetworkRequest.Builder()
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .build()
+
+            manager.registerNetworkCallback(
+                networkRequest,
+                object : ConnectivityManager.NetworkCallback() {
+                    override fun onAvailable(network: Network) {
+                        super.onAvailable(network)
+                        val capabilities = manager.getNetworkCapabilities(network)
+                        if (capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
+                            connectWebSocket()
+                            Log.i("WebSocket", "WiFi network available: $network")
+                        }
+                    }
+                },
+            )
+        } else {
+            // Fallback for older Android versions - use modern Intent filter approach
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(
+                    NetworkChangedReceiver(),
+                    IntentFilter().apply {
+                        addAction("android.net.conn.CONNECTIVITY_CHANGE")
+                    },
+                    Context.RECEIVER_NOT_EXPORTED,
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                registerReceiver(NetworkChangedReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+            }
+        }
+    }
+
+    private fun connectWebSocket() {
+        val ssid = WifiUtil.getCurrentWifiSSID(this) ?: return
+        Log.i("WebSocket", "current连接 Wifi SSID: $ssid")
+        if (ssid.startsWith(DeviceConfig.TS004_NAME_START)) {
+            SharedManager.hasTS004 = true
+            WebSocketProxy.getInstance().startWebSocket(ssid)
+        } else if (ssid.startsWith(DeviceConfig.TC007_NAME_START)) {
+            SharedManager.hasTC007 = true
+            WebSocketProxy.getInstance().startWebSocket(ssid)
+        } else {
+            NetWorkUtils.switchNetwork(true)
+        }
+    }
+
+    fun disconnectWebSocket() {
+        Log.i("WebSocket", "disconnectWebSocket()")
+        WebSocketProxy.getInstance().stopWebSocket()
+    }
+
+    /**
+     * 解析socket消息
+     * @param msgJson
+     */
     private fun parserSocketMessage(msgJson: String) {
         if (TextUtils.isEmpty(msgJson)) return
         EventBus.getDefault().post(SocketMsgEvent(msgJson))
 
-        if (SharedManager.is04AutoSync) { // data
+        if (SharedManager.is04AutoSync) { // 自动saved到手机开启
             when (SocketCmdUtil.getCmdResponse(msgJson)) {
-                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { // Photodata
+                WsCmdConstants.AR_COMMAND_SNAPSHOT -> { // capture事件
                     autoSaveNewest(false)
                 }
 
-                WsCmdConstants.AR_COMMAND_VRECORD -> { // dataVideodata
+                WsCmdConstants.AR_COMMAND_VRECORD -> { // 开始或结束recording事件
                     try {
                         val data: JSONObject = JSONObject(msgJson).getJSONObject("data")
                         val enable: Boolean = data.getBoolean("enable")
@@ -118,7 +208,7 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * Settingswebviewdataandroid9data
+     * settingswebview的android9以上系统的多进程兼容性处理
      */
     @RequiresApi(api = 28)
     open fun webviewSetPath(context: Context?) {
@@ -141,7 +231,7 @@ abstract class BaseApplication : Application() {
         return null
     }
 
-    // Cleardata
+    // clear无用数据
     fun clearDb() {
         GlobalScope.launch(Dispatchers.Default) {
             try {

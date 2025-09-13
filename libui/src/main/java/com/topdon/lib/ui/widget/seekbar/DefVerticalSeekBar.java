@@ -12,7 +12,6 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.DIRECTION
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.DIRECTION_RIGHT;
 import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRECTION_VERTICAL;
 
-
 /**
  * //                       _ooOoo_
  * //                      o8888888o

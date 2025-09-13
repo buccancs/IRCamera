@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_auto_save.*
  */
 @Route(path = RouterConfig.AUTO_SAVE)
 class AutoSaveActivity : BaseActivity() {
+
     override fun initContentView() = R.layout.activity_auto_save
 
     override fun initView() {

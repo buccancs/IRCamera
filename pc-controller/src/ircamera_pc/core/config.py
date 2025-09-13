@@ -38,8 +38,18 @@ class ConfigManager:
         except (OSError, yaml.YAMLError) as e:
             logger.error(f"Failed to load configuration: {e}")
 
-    def get(self, key: str, default: Any = None) -> Any:
-        """Get configuration value by dot-separated key."""
+    def get(self, key: str, default: Optional[Any] = None) -> Any:
+        """
+        Get configuration value by dot-notation key.
+
+        Args:
+            key: Configuration key in dot notation (e.g.,
+                'network.server_port')
+            default: Default value if key not found
+
+        Returns:
+            Configuration value or default
+        """
         try:
             keys = key.split(".")
             value = self._config

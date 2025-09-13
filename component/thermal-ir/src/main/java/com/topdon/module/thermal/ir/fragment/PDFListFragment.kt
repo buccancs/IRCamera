@@ -43,6 +43,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
+/**
+ * @author: CaiSongL
+ * @date: 2023/5/12 11:34
+ */
+/**
+ * P d f list fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
+ */
 class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     // View references using findViewById
     private val titleView: TitleView by lazy { requireView().findViewById(R.id.title_view) }
@@ -52,8 +60,8 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     private val fragmentPdfRecycler: RecyclerView by lazy { requireView().findViewById(R.id.fragment_pdf_recycler) }
 
     /**
-     * fragment，Currentfragment TC007 fragmentType.
-     * true-TC007 false-fragment
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -61,7 +69,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     private var reportAdapter = PDFAdapter(R.layout.item_pdf)
 
     /**
-     * LMS fragment.
+\1LMS 登录及退出登录广播.
      */
     private val loginBroadcastReceiver = LoginBroadcastReceiver()
 
@@ -83,9 +91,10 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
 
         viewModel.listData.observe(this) {
             dismissLoadingDialog()
-            if (!reportAdapter.hasEmptyView()) {
-                reportAdapter.setEmptyView(R.layout.layout_empty)
-            }
+            if (!reportAdapter.hasEmptyView())
+                {
+                    reportAdapter.setEmptyView(R.layout.layout_empty)
+                }
             if (it == null) {
                 if (page == 1) {
                     fragmentPdfRecyclerLay.finishRefresh(false)
@@ -100,25 +109,31 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 )
 
                 if (page == 1) {
-                    // Fragment logic
-                    if (data.code == LMS.SUCCESS) {
-                        reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
-                        fragmentPdfRecyclerLay.finishRefresh()
-                    } else {
-                        fragmentPdfRecyclerLay.finishRefresh(false)
-                    }
+\1刷新
+                    if (data.code == LMS.SUCCESS)
+                        {
+                            reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
+                            fragmentPdfRecyclerLay.finishRefresh()
+                        } else
+                        {
+                            fragmentPdfRecyclerLay.finishRefresh(false)
+                        }
                     reportAdapter.setNewInstance(data.data?.records)
                 } else {
                     data.data?.records?.let { it1 -> reportAdapter.addData(it1) }
-                    if (data.code == LMS.SUCCESS) {
-                        if (data.data?.records.isNullOrEmpty()) {
-                            reportAdapter.loadMoreModule.loadMoreEnd()
-                        } else {
-                            reportAdapter.loadMoreModule.loadMoreComplete()
+                    if (data.code == LMS.SUCCESS)
+                        {
+                            if (data.data?.records.isNullOrEmpty())
+                                {
+                                    reportAdapter.loadMoreModule.loadMoreEnd()
+                                } else
+                                {
+                                    reportAdapter.loadMoreModule.loadMoreComplete()
+                                }
+                        } else
+                        {
+                            reportAdapter.loadMoreModule.loadMoreFail()
                         }
-                    } else {
-                        reportAdapter.loadMoreModule.loadMoreFail()
-                    }
                 }
             }
         }
@@ -127,9 +142,10 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 override fun onResume(owner: LifecycleOwner) {
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(false)
-                    } else {
-                        NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
-                    }
+                    } else
+                        {
+                            NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
+                        }
                     if (!hasLoadData) {
                         hasLoadData = true
                         fragmentPdfRecyclerLay.autoRefresh()
@@ -140,7 +156,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     }
 
     /**
-     * fragment
+\1是否已调用过load初始data
      */
     private var hasLoadData = false
 
@@ -185,8 +201,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                             params.addBodyParameter("languageId", LanguageUtil.getLanguageId(Utils.getApp()))
                             params.addBodyParameter("reportType", 2)
                             HttpProxy.instant.post(
-                                url,
-                                params,
+                                url, params,
                                 object :
                                     IResponseCallback {
                                     override fun onResponse(response: String?) {
@@ -195,7 +210,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                                         if (file.exists()) {
                                             file.delete()
                                         }
-                                        Log.w("Deletefragment", response.toString())
+                                        Log.w("删除成功", response.toString())
                                     }
 
                                     override fun onFail(exception: Exception?) {
@@ -221,14 +236,16 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                             )
                         }
                         dismissLoadingDialog()
-                        if (item.isShowTitleTime) {
-                            reportAdapter.remove(item)
-                            reportAdapter.setNewInstance(reportAdapter.data)
-                            reportAdapter.notifyDataSetChanged()
-                        } else {
-                            reportAdapter.data.removeAt(position)
-                            reportAdapter.notifyItemRemoved(position)
-                        }
+                        if (item.isShowTitleTime)
+                            {
+                                reportAdapter.remove(item)
+                                reportAdapter.setNewInstance(reportAdapter.data)
+                                reportAdapter.notifyDataSetChanged()
+                            } else
+                            {
+                                reportAdapter.data.removeAt(position)
+                                reportAdapter.notifyItemRemoved(position)
+                            }
                     }
                 }
                 .setCancelListener(R.string.app_cancel) {
@@ -244,14 +261,14 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            // Fragment logic
+\1load更多
             viewModel.getReportData(isTC007, ++page)
         }
 
         fragmentPdfRecycler.adapter = reportAdapter
         fragmentPdfRecycler.layoutManager = LinearLayoutManager(requireContext())
         fragmentPdfRecyclerLay.setOnRefreshListener {
-            // Fragment logic
+\1刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }

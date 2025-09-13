@@ -18,18 +18,24 @@ class GSRDeviceAdapter(
     private val devices: MutableList<GSRDeviceInfo>,
     private val onDeviceClick: (GSRDeviceInfo) -> Unit,
 ) : RecyclerView.Adapter<GSRDeviceAdapter.DeviceViewHolder>() {
-
     companion object {
         private const val TAG = "GSRDeviceAdapter"
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_gsr_device, parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): DeviceViewHolder {
+        val view =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_gsr_device, parent, false)
         return DeviceViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DeviceViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: DeviceViewHolder,
+        position: Int,
+    ) {
         val device = devices[position]
         holder.bind(device, onDeviceClick)
     }
@@ -52,7 +58,10 @@ class GSRDeviceAdapter(
         private val batteryProgressBar: ProgressBar = itemView.findViewById(R.id.batteryProgressBar)
         private val signalStrengthProgressBar: ProgressBar = itemView.findViewById(R.id.signalStrengthProgressBar)
 
-        fun bind(device: GSRDeviceInfo, onDeviceClick: (GSRDeviceInfo) -> Unit) {
+        fun bind(
+            device: GSRDeviceInfo,
+            onDeviceClick: (GSRDeviceInfo) -> Unit,
+        ) {
             // Basic device information
             deviceNameText.text = device.name
             deviceAddressText.text = device.address

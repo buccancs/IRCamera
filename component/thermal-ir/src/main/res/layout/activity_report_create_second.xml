@@ -11,8 +11,22 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="25dp">
       <ImageView android:id="@+id/iv_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15dp" android:layout_gravity="center_horizontal" android:contentDescription="@null"/>
 
-      <com.topdon.module.thermal.ir.report.view.ReportIRInputView android:id="@+id/report_temp_view_full" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="20dp" android:layout_marginEnd="20dp" android:layout_marginTop="20dp" android:background="@drawable/bg_corners10_stroke_5b5961" android:visibility="gone" app:type="full"/>
-      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="20dp" android:layout_marginEnd="20dp" android:layout_marginTop="20dp" android:orientation="vertical" android:background="@drawable/bg_corners10_stroke_5b5961">
+        <!-- Add图片 -->
+        <TextView
+            android:id="@+id/tv_add_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="@string/album_report_add_image"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/bg_corners05_solid_23202e_stroke_theme"
+            app:layout_constraintDimensionRatio="325:88"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_preview" />
 
         <com.topdon.module.thermal.ir.report.view.ReportIRInputView android:id="@+id/report_temp_view_point1" android:layout_width="match_parent" android:layout_height="wrap_content" android:visibility="gone" app:index="0" app:type="point"/>
 

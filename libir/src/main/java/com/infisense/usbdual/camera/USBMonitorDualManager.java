@@ -176,8 +176,8 @@ public class USBMonitorDualManager {
                 // uvc
                 mIrUvcCamera.openUVCCamera(controlBlock);
                 /**
-                 * 
-                 * ，Graph，Graph，
+                 * Adjust带宽
+                 * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要configuration对应的带宽
                  */
 
                 initIRCMD();
@@ -227,8 +227,8 @@ public class USBMonitorDualManager {
                 // uvc
                 mVlUvcCamera.openUVCCamera(controlBlock);
                 /**
-                 * 
-                 * ，Graph，Graph，
+                 * Adjust带宽
+                 * 部分分辨率或在部分机型上，会出现无法出图，或出图一段时间后卡顿的问题，需要configuration对应的带宽
                  */
 
                 mVlUvcCamera.setUSBPreviewSize(vlWidth, vlHeight);

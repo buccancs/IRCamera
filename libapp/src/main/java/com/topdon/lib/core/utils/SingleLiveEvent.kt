@@ -7,8 +7,14 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * eventLiveDataevent
+ * 解决LiveData粘性Event
  * Created by jzh on 2020-12-28.
+ */
+/**
+ * SingleLiveEvent manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
     private val mPending: AtomicBoolean = AtomicBoolean(false)
@@ -25,9 +31,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     }
 
     @MainThread
-    override fun setValue(
-        t: T?,
-    ) {
+    override fun setValue(t: T?) {
         mPending.set(true)
         super.setValue(t)
     }
@@ -36,6 +40,9 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
      * Used for cases where T is Void, to make calls cleaner.
      */
     @MainThread
+    /**
+     * Executes call functionality.
+     */
     fun call() {
         this.setValue(null)
     }

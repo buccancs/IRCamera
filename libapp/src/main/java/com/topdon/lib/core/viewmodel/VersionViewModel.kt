@@ -10,9 +10,32 @@ import com.topdon.lib.core.utils.SingleLiveEvent
 class VersionViewModel : BaseViewModel() {
     val updateLiveData = SingleLiveEvent<VersionUpData>()
 
+    /**
+     * forcedUpgradeFlag: 1 强制update    0 非强制update
+     * descType: 包含3时,显示给用户(descType获取升级描述信息)
+     */
     fun checkVersion() {
-        // Version check implementation would go here
-        // This appears to be a placeholder method that needs implementation
+//        viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                if (TimeUtils.isToday(SharedManager.getVersionCheckDate())) {
+//                    Log.w("123", "今天已有版本update提示")
+//                    return@launch
+//                }
+//                val result: CheckVersionJson = LmsRepository.getVersionInfo() ?: return@launch
+//                /*if (result.googleVerCode > AppUtils.getAppVersionCode()) {
+//                    // google play需要升级
+//                    updateTip(result)
+//                    return@launch
+//                }*/
+//                if (VersionTool.checkVersion(remoteStr = result.versionNo ?: "1.0", localStr = AppUtils.getAppVersionName())) {
+//                    // google play检测不出时,官方升级,根据app情况跳转对应的升级渠道
+//                    updateTip(result)
+//                    return@launch
+//                }
+//            } catch (e: Exception) {
+//                XLog.e("检测异常: ${e.message}")
+//            }
+//        }
     }
 
     private fun processVersionResult(result: CheckVersionJson) {

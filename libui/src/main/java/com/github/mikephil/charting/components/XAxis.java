@@ -116,7 +116,6 @@ public class XAxis extends AxisBase {
         return mAvoidFirstLastClipping;
     }
 
-
     /**
      * 1.
      */

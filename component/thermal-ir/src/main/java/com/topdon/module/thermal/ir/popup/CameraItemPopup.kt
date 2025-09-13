@@ -18,17 +18,18 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
 /**
- * data Photo/Video Menu.
+\1thermal imaging 拍照/录像 menu.
  *
  * Created by LCG on 2025/1/3.
  */
+/**
+ * Custom Camera item popup view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 @SuppressLint("SetTextI18n")
-class CameraItemPopup(
-    val context: Context,
-    private val saveSetBean: SaveSettingBean,
-) : PopupWindow(), View.OnClickListener {
+class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
     /**
-     * dataSelectedState
+\1手动快门是否处于选中状态
      */
     var isShutterSelect: Boolean
         get() = binding.ivShutter.isSelected
@@ -37,7 +38,7 @@ class CameraItemPopup(
         }
 
     /**
-     * dataSelectedState
+\1录音开关是否处于选中状态
      */
     var isAudioSelect: Boolean
         get() = binding.ivAudio.isSelected
@@ -46,22 +47,22 @@ class CameraItemPopup(
         }
 
     /**
-     * data，data
+\1延时秒数点击事件监听，返回值为是否响应该次点击事件
      */
     var onDelayClickListener: (() -> Boolean)? = null
 
     /**
-     * data.
+\1自动快门enableddisabled事件监听.
      */
     var onAutoCLickListener: ((isOpen: Boolean) -> Unit)? = null
 
     /**
-     * data.
+\1手动快门点击事件监听.
      */
     var onShutterClickListener: (() -> Unit)? = null
 
     /**
-     * data.
+\1录音enableddisabled事件监听.
      */
     var onAudioCLickListener: (() -> Unit)? = null
 
@@ -120,7 +121,7 @@ class CameraItemPopup(
                     }
                     binding.ivDelay.setImageLevel(saveSetBean.delayCaptureSecond)
                 }
-            binding.clAuto -> { // Implementation
+            binding.clAuto -> { // 自动快门
                 saveSetBean.isAutoShutter = !saveSetBean.isAutoShutter
                 binding.ivAuto.isSelected = saveSetBean.isAutoShutter
                 if (SharedManager.isTipShutter && !saveSetBean.isAutoShutter) {

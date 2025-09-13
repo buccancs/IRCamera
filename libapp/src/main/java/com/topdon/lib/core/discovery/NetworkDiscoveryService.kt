@@ -11,6 +11,12 @@ import java.util.concurrent.ConcurrentHashMap
  * Network Service Discovery manager for automatic device discovery using mDNS/Zeroconf.
  * Discovers PC Controllers and thermal cameras on the local network.
  */
+/**
+ * NetworkDiscoveryService provides background service functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class NetworkDiscoveryService(private val context: Context) {
     companion object {
         private const val TAG = "NetworkDiscovery"
@@ -42,6 +48,12 @@ class NetworkDiscoveryService(private val context: Context) {
         val discoveredAt: Long = System.currentTimeMillis(),
     )
 
+/**
+ * Type definition for device classification.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     enum class DeviceType {
         PC_CONTROLLER,
         THERMAL_CAMERA_TS004,
@@ -49,15 +61,36 @@ class NetworkDiscoveryService(private val context: Context) {
         UNKNOWN,
     }
 
+/**
+ * DiscoveryEventListener manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     interface DiscoveryEventListener {
+    /**
+     * Callback method triggered when devicediscovered occurs.
+     */
         fun onDeviceDiscovered(device: DiscoveredDevice)
 
+    /**
+     * Callback method triggered when devicelost occurs.
+     */
         fun onDeviceLost(serviceName: String)
 
+    /**
+     * Callback method triggered when discoverystarted occurs.
+     */
         fun onDiscoveryStarted()
 
+    /**
+     * Callback method triggered when discoverystopped occurs.
+     */
         fun onDiscoveryStopped()
 
+    /**
+     * Callback method triggered when error occurs.
+     */
         fun onError(
             operation: String,
             error: String,
@@ -163,10 +196,12 @@ class NetworkDiscoveryService(private val context: Context) {
                     this.serviceType = serviceType
                     this.port = port
 
+                    // Add device attributes
                     attributes.forEach { (key, value) ->
                         setAttribute(key, value)
                     }
 
+                    // Add device type
                     setAttribute("device_type", deviceType.name)
                     setAttribute("version", "1.0")
                 }
@@ -249,6 +284,9 @@ class NetworkDiscoveryService(private val context: Context) {
         discoveredServices.clear()
     }
 
+    /**
+     * Initiates the operation or service.
+     */
     private fun startServiceDiscovery(serviceType: String) {
         val discoveryListener =
             object : NsdManager.DiscoveryListener {
@@ -298,6 +336,9 @@ class NetworkDiscoveryService(private val context: Context) {
         nsdManager.discoverServices(serviceType, NsdManager.PROTOCOL_DNS_SD, discoveryListener)
     }
 
+    /**
+     * Executes resolveservice functionality.
+     */
     private fun resolveService(serviceInfo: NsdServiceInfo) {
         val resolveListener =
             object : NsdManager.ResolveListener {
@@ -338,6 +379,9 @@ class NetworkDiscoveryService(private val context: Context) {
         nsdManager.resolveService(serviceInfo, resolveListener)
     }
 
+    /**
+     * Executes determinedevicetype functionality.
+     */
     private fun determineDeviceType(serviceInfo: NsdServiceInfo): DeviceType {
         val deviceTypeAttr =
             serviceInfo.attributes["device_type"]?.let {
@@ -356,6 +400,9 @@ class NetworkDiscoveryService(private val context: Context) {
         }
     }
 
+    /**
+     * Executes extractattributes functionality.
+     */
     private fun extractAttributes(serviceInfo: NsdServiceInfo): Map<String, String> {
         val attributes = mutableMapOf<String, String>()
 

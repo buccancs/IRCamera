@@ -47,18 +47,18 @@ import java.util.*
 import com.topdon.lib.core.R as LibR
 
 /**
- * activity1activity（activity2activity）.
+\1生成报告第1步（共2步）.
  *
- * activity
- * - activity TC007: [ExtraKeyConfig.IS_TC007] （activity、activity）
- * - Currentactivity: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （activity，activity）
- * - CurrentactivityPoint/Line/Areaactivity: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （activity，activity）
+\1需要传递
+\1- 是否 TC007: [ExtraKeyConfig.IS_TC007] （ambient temperature、emissivity等不同）
+\1- 当前编辑的图片绝对路径: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （本interface不使用，透传）
+\1- 当前编辑的图片点线面full imagetemperaturedata: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本interface不使用，透传）
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     /**
-     * activity，Currentactivity TC007 activityType.
-     * true-TC007 false-activity
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
     private var locationManager: LocationManager? = null
@@ -171,9 +171,9 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun readConfig() {
-        var environment = 30f // Activity logic
-        var distance = 0.25f // Activity logic
-        var radiation = 0.95f // Activity logic
+        var environment = 30f // 环境温度
+        var distance = 0.25f // 测试距离
+        var radiation = 0.95f // 发射率
         val config = ConfigRepository.readConfig(isTC007)
         distance = config.distance
         radiation = config.radiation
@@ -193,10 +193,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv_report_date -> { // Activity logic
+            R.id.tv_report_date -> { // 报告日期
                 selectTime()
             }
-            R.id.tv_preview -> { // Activity logic
+            R.id.tv_preview -> { // 预览
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 NavigationManager.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
@@ -204,7 +204,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
             }
-            R.id.tv_next -> { // Activity logic
+            R.id.tv_next -> { // 下一步
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
@@ -227,33 +227,36 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("MissingPermission")
     private fun getLocation(): String? {
-        // 1.activity
+\11.get位置管理器
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        // 2.activity，GPSactivityNetWork
+\12.get位置提供器，GPS或是NetWork
         val providers = locationManager?.getProviders(true)
         locationProvider =
             if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-                // Activity logicGPS
+\1如果是GPS
                 LocationManager.GPS_PROVIDER
             } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-                // Activity logicNetwork
+\1如果是Network
                 LocationManager.NETWORK_PROVIDER
             } else {
                 return null
             }
         var location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (location == null) {
-            location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        }
-        return if (location == null) {
-            null
-        } else {
-            getAddress(location)
-        }
+        if (location == null)
+            {
+                location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            }
+        return if (location == null)
+            {
+                null
+            } else
+            {
+                getAddress(location)
+            }
     }
 
-    // Activity logic:activity、activity
+\1getaddress信息:城市、街道等信息
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -262,38 +265,43 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                 result =
                     gc.getFromLocation(
                         location.latitude,
-                        location.longitude,
-                        1,
+                        location.longitude, 1,
                     )
-                Log.v("TAG", "activity：$result")
+                Log.v("TAG", "获取地址信息：$result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
         var str = ""
-        if (result != null && result.isNotEmpty()) {
-            result?.get(0)?.let {
-                str += getNullString(it.adminArea)
-                if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea))) {
-                    str += getNullString(it.subAdminArea)
-                }
-                if (!str.contains(getNullString(it.locality))) {
-                    str += getNullString(it.locality)
-                }
-                if (!str.contains(getNullString(it.subLocality))) {
-                    str += getNullString(it.subLocality)
+        if (result != null && result.isNotEmpty())
+            {
+                result?.get(0)?.let {
+                    str += getNullString(it.adminArea)
+                    if (TextUtils.isEmpty(it.subLocality) && !str.contains(getNullString(it.subAdminArea)))
+                        {
+                            str += getNullString(it.subAdminArea)
+                        }
+                    if (!str.contains(getNullString(it.locality)))
+                        {
+                            str += getNullString(it.locality)
+                        }
+                    if (!str.contains(getNullString(it.subLocality)))
+                        {
+                            str += getNullString(it.subLocality)
+                        }
                 }
             }
-        }
         return str
     }
 
-    private fun getNullString(str: String?): String {
-        return if (str.isNullOrEmpty()) {
-            ""
-        } else {
-            str
-        }
+    private fun getNullString(str: String?): String  {
+        return if (str.isNullOrEmpty())
+            {
+                ""
+            } else
+            {
+                str
+            }
     }
 
     private fun buildReportInfo(): ReportInfoBean =
@@ -329,12 +337,12 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * CurrentSettingsactivity.
+\1当前set的报告日期时间戳.
      */
     private var startTime = 0L
 
     /**
-     * activity
+\1display时间拾取弹窗
      */
     private fun selectTime() {
         val picker = DatimePicker(this)
@@ -353,10 +361,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
         val endTimeEntity = DatimeEntity.yearOnFuture(10)
         if (startTime == 0L) {
-            // SettingsCurrentactivity
+\1set当前时间
             picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
         } else {
-            // SettingsactivitySelectedactivity
+\1set上一次选中时间
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = startTime
             val year = calendar.get(Calendar.YEAR)
@@ -392,7 +400,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initLocationPermission() {
-        // Activity logic
+\1定位
         XXPermissions.with(this@ReportCreateFirstActivity)
             .permission(
                 permissionList,
@@ -402,27 +410,31 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         permissions: MutableList<String>,
                         all: Boolean,
                     ) {
-                        if (all) {
-                            showLoadingDialog(R.string.get_current_address)
-                            lifecycleScope.launch {
-                                var addressText: String? = ""
-                                withContext(Dispatchers.IO) {
-                                    addressText = getLocation()
+                        if (all)
+                            {
+                                showLoadingDialog(R.string.get_current_address)
+                                lifecycleScope.launch {
+                                    var addressText: String? = ""
+                                    withContext(Dispatchers.IO) {
+                                        addressText = getLocation()
+                                    }
+                                    dismissLoadingDialog()
+                                    if (addressText == null)
+                                        {
+                                            TipDialog.Builder(this@ReportCreateFirstActivity)
+                                                .setMessage(LibR.string.get_Location_failed)
+                                                .setPositiveListener(R.string.app_ok)
+                                                .setCanceled(false)
+                                                .create().show()
+                                        } else
+                                        {
+                                            etReportPlace.setText(addressText)
+                                        }
                                 }
-                                dismissLoadingDialog()
-                                if (addressText == null) {
-                                    TipDialog.Builder(this@ReportCreateFirstActivity)
-                                        .setMessage(LibR.string.get_Location_failed)
-                                        .setPositiveListener(R.string.app_ok)
-                                        .setCanceled(false)
-                                        .create().show()
-                                } else {
-                                    etReportPlace.setText(addressText)
-                                }
+                            } else
+                            {
+                                ToastUtils.showShort(R.string.scan_ble_tip_authorize)
                             }
-                        } else {
-                            ToastUtils.showShort(R.string.scan_ble_tip_authorize)
-                        }
                     }
 
                     override fun onDenied(
@@ -430,11 +442,12 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         never: Boolean,
                     ) {
                         if (never) {
-                            // Activity operationSettingsactivity
-                            if (BaseApplication.instance.isDomestic()) {
-                                ToastUtils.showShort(getString(R.string.app_location_content))
-                                return
-                            }
+\1如果是被永久拒绝就跳转到应用权限系统set页面
+                            if (BaseApplication.instance.isDomestic())
+                                {
+                                    ToastUtils.showShort(getString(R.string.app_location_content))
+                                    return
+                                }
                             TipDialog.Builder(this@ReportCreateFirstActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_location_content))

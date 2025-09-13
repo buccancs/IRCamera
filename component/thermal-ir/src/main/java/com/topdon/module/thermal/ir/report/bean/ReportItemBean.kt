@@ -5,14 +5,18 @@ import com.blankj.utilcode.util.GsonUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
- * Report data structure for IR thermal analysis.
+\1从服务器接口返回的，一页报告信息中的一条报告信息.
+ */
+/**
+ * Report item data model for thermal imaging information.
+ * Encapsulates thermal measurement and configuration data.
  */
 @Parcelize
 data class ReportItemBean(
     val testReportId: String?,
-    val testInfo: String?, // Data field JSON
+    val testInfo: String?, // 上传的 JSON
     val testTime: String?,
-    val uploadTime: String?, // Data field
+    val uploadTime: String?, // 上传时间
     val sn: String?,
     val url: String?,
     val status: Int?,

@@ -1,10 +1,9 @@
 import asyncio
 import socket
+from dataclasses import dataclass
 from datetime import datetime
-from typing import TYPE_CHECKING, Dict, List, Optional
-
-if TYPE_CHECKING:
-    pass
+from enum import Enum
+from typing import Dict, List, Optional, Set, Any
 
 try:
     from zeroconf import ServiceInfo, Zeroconf
@@ -25,21 +24,102 @@ except ImportError:
     try:
         from ..utils.simple_logger import logger
     except ImportError:
-        # Enterprise fallback logger for testing environments
-        class EnterpriseLogger:
-            def info(self, msg):
+        # Fallback logger for testing
+        class FallbackLogger:
+            def info(self, msg) -> Any:
                 print(f"INFO: {msg}")
 
-            def warning(self, msg):
+            def debug(self, msg) -> Any:
+                print(f"DEBUG: {msg}")
+
+            def warning(self, msg) -> Any:
                 print(f"WARNING: {msg}")
+
+            def error(self, msg) -> Any:
+                print(f"ERROR: {e}")
+
+        logger = FallbackLogger()
+
+try:
+    from ..core.config import config
+except ImportError:
+    # Fallback config for testing
+    class FallbackConfig:
+        def get(self, key, default=None) -> Any:
+            config_map = {
+                "network.discovery_port": 8081,
+                "version": "1.0.0",
+            }
+            return config_map.get(key, default)
+
+    config = FallbackConfig()
 
             def error(self, msg):
                 print(f"ERROR: {msg}")
 
-        logger = EnterpriseLogger()
+class DeviceType(Enum):
+    """Device types for discovery."""
 
-    async def start_discovery(self):
-        """Start device discovery service."""
+    PC_CONTROLLER = "PC_CONTROLLER"
+    THERMAL_CAMERA_TS004 = "THERMAL_CAMERA_TS004"
+    THERMAL_CAMERA_TC007 = "THERMAL_CAMERA_TC007"
+    ANDROID_SENSOR_NODE = "ANDROID_SENSOR_NODE"
+    UNKNOWN = "UNKNOWN"
+
+
+@dataclass
+class DiscoveredDevice:
+    """Represents a discovered device on the network."""
+
+    service_name: str
+    service_type: str
+    ip_address: str
+    port: int
+    device_type: DeviceType
+    attributes: Dict[str, str]
+    discovered_at: datetime
+    last_seen: datetime
+
+
+class NetworkDiscoveryService:
+    """
+    Network discovery service using mDNS/Zeroconf for automatic device discovery.
+    Implements the PC controller side of the discovery protocol.
+    """
+
+    SERVICE_TYPE_PC_CONTROLLER = "_topdon-pc._tcp.local."
+    SERVICE_TYPE_THERMAL_CAMERA = "_topdon-thermal._tcp.local."
+    SERVICE_TYPE_ANDROID_NODE = "_topdon-android._tcp.local."
+
+    def __init__(self):
+        """Initialize the discovery service."""
+        self.zeroconf: Optional[AsyncZeroconf] = None
+        self.service_browser: Optional[AsyncServiceBrowser] = None
+        self.discovered_devices: Dict[str, DiscoveredDevice] = {}
+        self.registered_services: List[ServiceInfo] = []
+        self.discovery_listeners: List[callable] = []
+        self.is_running = False
+
+        # Service registration info
+        self.hostname = socket.gethostname()
+        self.local_ip = self._get_local_ip()
+
+    def add_discovery_listener(self, callback: None = callable) -> None:
+        """Add a callback for discovery events."""
+        self.discovery_listeners.append(callback)
+
+    def remove_discovery_listener(self, callback: None = callable) -> None:
+        """Remove a discovery callback."""
+        if callback in self.discovery_listeners:
+            self.discovery_listeners.remove(callback)
+
+    async def start_discovery(self) -> bool:
+        """
+        Start the mDNS discovery service.
+
+        Returns:
+            bool: True if started successfully, False otherwise
+        """
         if not self._check_zeroconf_available():
             logger.warning("Zeroconf not available, using fallback discovery")
             return await self._start_fallback_discovery()
@@ -52,6 +132,7 @@ except ImportError:
             # Register our PC controller service
             await self._register_pc_controller_service()
 
+            # Start browsing for Android devices and thermal cameras
             await self._start_service_browser()
 
             self.is_running = True
@@ -63,7 +144,7 @@ except ImportError:
             await self.stop_discovery()
             return False
 
-    async def stop_discovery(self):
+    async def stop_discovery(self) -> Any:
         """Stop the discovery service."""
         if not self.is_running:
             return
@@ -77,10 +158,12 @@ except ImportError:
                     await self.zeroconf.async_unregister_service(service)
                 self.registered_services.clear()
 
+            # Stop service browser
             if self.service_browser:
                 await self.service_browser.async_cancel()
                 self.service_browser = None
 
+            # Close zeroconf
             if self.zeroconf:
                 await self.zeroconf.async_close()
                 self.zeroconf = None
@@ -105,7 +188,7 @@ except ImportError:
             if device.device_type == device_type
         ]
 
-    async def refresh_discovery(self):
+    async def refresh_discovery(self) -> Any:
         """Refresh device discovery by restarting the browser."""
         if self.is_running and self.service_browser:
             await self.service_browser.async_cancel()
@@ -143,15 +226,11 @@ except ImportError:
                 server=f"{self.hostname}.local.",
             )
 
-            if self.zeroconf is not None:
-                await self.zeroconf.async_register_service(service_info)
-                self.registered_services.append(service_info)
-            else:
-                logger.error("Zeroconf not available for service registration")
+            await self.zeroconf.async_register_service(service_info)
+            self.registered_services.append(service_info)
 
             logger.info(
-                f"Registered PC controller service: {service_name} at "
-                f"{self.local_ip}:{port}"
+                f"Registered PC controller service: {service_name} at {self.local_ip}:{port}"
             )
 
         except Exception as e:
@@ -170,12 +249,9 @@ except ImportError:
                 handler = ServiceBrowserHandler(self, service_type)
                 handlers.append(handler)
 
-            if self.zeroconf is not None:
-                self.service_browser = AsyncServiceBrowser(
-                    self.zeroconf.zeroconf, service_types, handlers=handlers
-                )
-            else:
-                logger.error("Zeroconf not available for service browsing")
+            self.service_browser = AsyncServiceBrowser(
+                self.zeroconf.zeroconf, service_types, handlers=handlers
+            )
 
             logger.debug(f"Started browsing for service types: {service_types}")
 
@@ -189,8 +265,7 @@ except ImportError:
         # This would implement subnet scanning as a fallback
         # For now, just log that it would be implemented
         logger.warning(
-            "Fallback discovery not fully implemented - install zeroconf "
-            "for full functionality"
+            "Fallback discovery not fully implemented - install zeroconf for full functionality"
         )
 
         self.is_running = True
@@ -206,52 +281,35 @@ except ImportError:
         except Exception:
             return "127.0.0.1"
 
-    def _get_explicit_device_type(
-        self, properties: Dict[str, bytes]
-    ) -> Optional[DeviceType]:
-        """Get device type from explicit device_type property."""
-        if "device_type" in properties:
-            try:
-                device_type_str = properties["device_type"].decode("utf-8")
-                return DeviceType(device_type_str)
-            except ValueError:
-                pass
-        return None
-
-    def _infer_thermal_camera_type(self, properties: Dict[str, bytes]) -> DeviceType:
-        """Infer specific thermal camera type from model property."""
-        if "model" in properties:
-            model = properties["model"].decode("utf-8").upper()
-            if "TS004" in model:
-                return DeviceType.THERMAL_CAMERA_TS004
-            elif "TC007" in model:
-                return DeviceType.THERMAL_CAMERA_TC007
-        return DeviceType.THERMAL_CAMERA_TS004  # Default
-
-    def _infer_from_service_type(
-        self, service_type: str, properties: Dict[str, bytes]
-    ) -> DeviceType:
-        """Infer device type from service type and properties."""
-        if self.SERVICE_TYPE_PC_CONTROLLER in service_type:
-            return DeviceType.PC_CONTROLLER
-        elif self.SERVICE_TYPE_THERMAL_CAMERA in service_type:
-            return self._infer_thermal_camera_type(properties)
-        elif self.SERVICE_TYPE_ANDROID_NODE in service_type:
-            return DeviceType.ANDROID_SENSOR_NODE
-        return DeviceType.UNKNOWN
-
     def _determine_device_type(
         self, service_type: str, properties: Dict[str, bytes]
     ) -> DeviceType:
         """Determine device type from service information."""
         try:
-
-            explicit_type = self._get_explicit_device_type(properties)
-            if explicit_type:
-                return explicit_type
+            # Check explicit device type property
+            if b"device_type" in properties:
+                device_type_str = properties[b"device_type"].decode("utf-8")
+                try:
+                    return DeviceType(device_type_str)
+                except ValueError:
+                    pass
 
             # Infer from service type and name
-            return self._infer_from_service_type(service_type, properties)
+            if self.SERVICE_TYPE_PC_CONTROLLER in service_type:
+                return DeviceType.PC_CONTROLLER
+            elif self.SERVICE_TYPE_THERMAL_CAMERA in service_type:
+                # Check for specific thermal camera models
+                if b"model" in properties:
+                    model = properties[b"model"].decode("utf-8").upper()
+                    if "TS004" in model:
+                        return DeviceType.THERMAL_CAMERA_TS004
+                    elif "TC007" in model:
+                        return DeviceType.THERMAL_CAMERA_TC007
+                return DeviceType.THERMAL_CAMERA_TS004  # Default
+            elif self.SERVICE_TYPE_ANDROID_NODE in service_type:
+                return DeviceType.ANDROID_SENSOR_NODE
+
+            return DeviceType.UNKNOWN
 
         except Exception as e:
             logger.warning(f"Failed to determine device type: {e}")
@@ -279,6 +337,7 @@ except ImportError:
                 service_type, service_info.properties or {}
             )
 
+            # Create device record
             device = DiscoveredDevice(
                 service_name=service_name,
                 service_type=service_type,
@@ -295,8 +354,7 @@ except ImportError:
             self.discovered_devices[device_key] = device
 
             logger.info(
-                f"Discovered device: {service_name} ({device_type.value}) "
-                f"at {ip_address}:{port}"
+                f"Discovered device: {service_name} ({device_type.value}) at {ip_address}:{port}"
             )
 
             # Notify listeners
@@ -350,15 +408,21 @@ class ServiceBrowserHandler:
         self.discovery_service = discovery_service
         self.service_type = service_type
 
-    def add_service(self, zc: Zeroconf, type_: str, name: str):
+    def add_service(
+        self, zc: None = Zeroconf, type_: None = str, name: None = str
+    ) -> None:
         """Called when a service is discovered."""
         asyncio.create_task(self._add_service_async(zc, type_, name))
 
-    def remove_service(self, zc: Zeroconf, type_: str, name: str):
+    def remove_service(
+        self, zc: None = Zeroconf, type_: None = str, name: None = str
+    ) -> None:
         """Called when a service is removed."""
         asyncio.create_task(self.discovery_service._on_device_lost(name))
 
-    def update_service(self, zc: Zeroconf, type_: str, name: str):
+    def update_service(
+        self, zc: None = Zeroconf, type_: None = str, name: None = str
+    ) -> None:
         """Called when a service is updated."""
         # Treat updates as new discoveries
         asyncio.create_task(self._add_service_async(zc, type_, name))

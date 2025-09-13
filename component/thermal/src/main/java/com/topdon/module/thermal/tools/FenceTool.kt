@@ -1,7 +1,11 @@
 package com.topdon.module.thermal.tools
 
+/**
+ * Fence tool tools for thermal imaging processing.
+ * Contains specialized algorithms and processing functions.
+ */
 object FenceTool {
-    // Utility function => utility
+\1坐标 => 序列
     fun pointToIndex(
         point: IntArray,
         w: Int,
@@ -11,7 +15,7 @@ object FenceTool {
         return y * w + x
     }
 
-    // Utility function => utility
+\1序列 => 坐标
     fun indexToPoint(
         index: Int,
         w: Int,

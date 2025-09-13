@@ -6,10 +6,11 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.module.user.R
 
 /**
- * activity
+\1自动save到手机
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class AutoSaveActivity : BaseActivity() {
+
     // View references - migrated from synthetic views
     private lateinit var settingItemSaveSelect: SwitchCompat
 

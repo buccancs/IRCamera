@@ -9,15 +9,79 @@ import com.topdon.lib.core.utils.ByteUtils
 import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
 
+/**
+ * Header structure, all values in big-endian format
+ * ```
+ * len                 [ 0,  2)    2 byte   Header length, currently fixed at 1024
+ * name                [ 2, 18)   16 byte   Device name (legacy data includes TopInfrared, renamed to MPDC4GSR, new devices use TC001, TS001 or TC007)
+ * ver                 [18, 26)    6 byte   APP version name (versionName)
+ * width               [26, 28)    2 byte   Width 256 or 192 (unused)
+ * height              [28, 30)    2 byte   Height 256 or 192 (unused)
+ * rotate              [30, 32)    2 byte   Rotation angle
+ * pseudo              [32, 34)    2 byte   Pseudo-color code
+ * initRotate          [34, 36)    2 byte   Initial rotation angle (unused)
+ * correctRotate       [36, 38)    2 byte   Correction rotation angle (unused)
+ *                     [38, 81)   44 byte   Point/line/area data (unused, actually all zero padding)
+ *
+ * customPseudoBean    [81,173)  92 byte
+ *   colorSize                   81     1 byte   Number of color blocks
+ *   selectIndex                 82     1 byte   Currently selected color block index in list
+ *   colors                [ 83,111)   28 byte   7 color block color values
+ *   zAltitudes            [111,118)    7 byte   7 color block altitude values
+ *   places                [118,146)   28 byte   7 color block ratio values
+ *   isUseCustomPseudo          146     1 byte
+ *   maxTemp               [147,151)    4 byte
+ *   minTemp               [151,155)    4 byte
+ *   isColorCustom              155     1 byte
+ *   customMinColor        [156,160)    4 byte
+ *   customMiddleColor     [160,164)    4 byte
+ *   customMaxColor        [164,168)    4 byte
+ *   customRecommendIndex  [168,172)    4 byte
+ *   isUseGray                  172     1 byte
+ *
+ * isShowPseudoBar          173     1 byte   Whether to display pseudo-color bar
+ * textColor           [174,178)    4 byte   Font color value
+ *
+ * watermarkBean       [178,628)  450 byte   Watermark information
+ *   isOpen                 178     1 byte   Whether watermark is enabled
+ *   titleLen          [179,183)    4 byte   Watermark title byte count
+ *   title             [183,303)  120 byte   Watermark title
+ *   addressLen        [303,307)    4 byte   Watermark address byte count
+ *   address           [307,627)  320 byte   Watermark address
+ *   isAddTime              627     1 byte   Whether watermark includes timestamp
+ *
+ * alarmBean           [628,656)   28 byte   Alarm information
+ *   isHighOpen             628     1 byte   Whether high temperature alarm is enabled
+ *   isLowOpen              629     1 byte   Whether low temperature alarm is enabled
+ *   highTemp          [630,634)    4 byte   High temperature alarm threshold, in Celsius
+ *   lowTemp           [634,638)    4 byte   Low temperature alarm threshold, in Celsius
+ *   isMarkOpen             638     1 byte   Whether area marking is enabled
+ *   highColor         [639,643)    4 byte   High temperature alarm color value
+ *   lowColor          [643,647)    4 byte   Low temperature alarm color value
+ *   markType          [647,651)    4 byte   Area marking type: 1-outline, 2-matrix
+ *   isRingtoneOpen         651     1 byte   Whether alarm ringtone is enabled
+ *   ringtoneType      [652,656)    4 byte   Alarm ringtone type
+ *   gainStatus       [657)    1 byte   High/low gain: 1-(low temp) high gain, 0-high temp (low gain)
+ *   textSize         [658,659) 2 byte   Font size
+ *   environment      [660,663) 4 byte   Temperature correction parameter: ambient temperature, in Celsius
+ *   distance         [664,667) 4 byte   Temperature correction parameter: distance
+ *   radiation        [668,671) 4 byte   Temperature correction parameter: emissivity, in Celsius
+ *   amplify          672     1 byte   Whether amplification is enabled
+ * ```
+ */
+/**
+ * Frame struct utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 class FrameStruct() {
     companion object {
         /**
-         * data.
+         * Data length.
          */
         private const val SIZE = 1024
 
         /**
-         * dataSpecifieddata.
+         * Convert specified parameter data to array format.
          */
         fun toCode(
             name: String,
@@ -91,12 +155,12 @@ class FrameStruct() {
             resultArray[658] = (textSize ushr 8).toByte()
             resultArray[659] = textSize.toByte()
 
-            // data Float data 4 data
+\1将 Float conversion为 4 字节
             val envBytes = java.nio.ByteBuffer.allocate(4).putFloat(environment).array()
             val distanceBytes = java.nio.ByteBuffer.allocate(4).putFloat(distance).array()
             val radiationBytes = java.nio.ByteBuffer.allocate(4).putFloat(radiation).array()
 
-            // data resultArray data，[660, 663)data，[664, 667)data，[668, 671)data
+\1存储在 resultArray 中，[660, 663)是ambient temperature，[664, 667)是距离，[668, 671)是emissivity
             System.arraycopy(envBytes, 0, resultArray, 660, 4)
             System.arraycopy(distanceBytes, 0, resultArray, 664, 4)
             System.arraycopy(radiationBytes, 0, resultArray, 668, 4)
@@ -120,7 +184,7 @@ class FrameStruct() {
     var textColor = 0xffffffff.toInt()
     var watermarkBean = WatermarkBean()
     var alarmBean = AlarmBean()
-    var gainStatus: Int = 1 // dataLow gain 1:Low gain 0: High gain
+    var gainStatus: Int = 1 // 高低增益 1:低增益 0: 高增益
     var textSize: Int = SizeUtils.sp2px(14f)
     var environment: Float = 0f
     var distance: Float = 0f
@@ -175,9 +239,10 @@ class FrameStruct() {
         alarmBean = AlarmBean.loadFromArray(alarmArray)
         gainStatus = data[657].toInt()
         val tmpTextSize = (data[658].toInt() and 0xff shl 8) or (data[659].toInt() and 0xff)
-        if (tmpTextSize >= SizeUtils.sp2px(14f)) {
-            textSize = tmpTextSize
-        }
+        if (tmpTextSize >= SizeUtils.sp2px(14f))
+            {
+                textSize = tmpTextSize
+            }
 
         val envBytes = data.copyOfRange(660, 664)
         val distanceBytes = data.copyOfRange(664, 668)

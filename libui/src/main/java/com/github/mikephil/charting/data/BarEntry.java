@@ -307,4 +307,3 @@ public class BarEntry extends Entry {
     }
 }
 
-

@@ -12,7 +12,21 @@ import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
  * dialog
  * create by fylder on 2018/6/15
  **/
+/**
+ * MonitorSelectDialog(context: class
+ */
+/**
+ * Monitor select dialog for thermal imaging user interaction.
+ * Provides specialized input and configuration interfaces.
+ */
 class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
+    /**
+     * Builder(private class
+     */
+/**
+ * Builder dialog for thermal imaging user interaction.
+ * Provides specialized input and configuration interfaces.
+ */
     class Builder(private val context: Context) {
         /**
          * dialog 1 dialog.
@@ -20,7 +34,7 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
         private var isFirstStep = true
 
         /**
-         * CurrentSelecteddialogType 1-dialog 2-dialog 3-dialog.
+         * currentselected的监控类型 1-点 2-线 3-面.
          */
         private var monitorType = 0
 
@@ -39,7 +53,7 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
             dialog.setContentView(binding.root)
 
             val lp = dialog.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // Settingsdialog
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // settings宽度
             dialog.window!!.attributes = lp
 
             binding.btnConfirmOrBack.setOnClickListener {

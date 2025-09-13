@@ -74,5 +74,15 @@ class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
         val lay: View = itemView.item_menu_tab_lay
         val img: ImageView = itemView.item_menu_tab_img
         val name: TextView = itemView.item_menu_tab_text
-}
+//        init {
+//            val canSeeCount = itemCount.toFloat() //一屏Visible的 item 数量，目前都是全都Show/Display完
+//            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
+//            itemView.layoutParams = ViewGroup.LayoutParams((with * 0.95).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+//            val imageSize = (ScreenUtils.getScreenWidth() * 29 / 375f).toInt()
+//            val layoutParams = itemView.item_menu_tab_img.layoutParams
+//            layoutParams.width = imageSize
+//            layoutParams.height = imageSize
+//            itemView.item_menu_tab_img.layoutParams = layoutParams
+//        }
+    }
 }

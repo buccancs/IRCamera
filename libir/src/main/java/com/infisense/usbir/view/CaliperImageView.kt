@@ -10,6 +10,17 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import com.infisense.usbir.R
 
+/**
+ * 卡尺图片
+ * @author: CaiSongL
+ * @date: 2023/10/25 13:31
+ */
+/**
+ * CaliperImageView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class CaliperImageView : AppCompatImageView {
     private var showBitmapWidth: Float = 0f
     private var showBitmapHeight: Float = 0F
@@ -40,6 +51,9 @@ class CaliperImageView : AppCompatImageView {
         defStyleAttr,
     )
 
+    /**
+     * Initializes the component with default configuration.
+     */
     private fun initView() {
         originalBitmap =
             (
@@ -61,16 +75,20 @@ class CaliperImageView : AppCompatImageView {
     ) {
         this.imageWidth = imageWidth
         this.imageHeight = imageHeight
-        if (parentViewWidth > 0) {
-            this.parentViewWidth = parentViewWidth.toFloat()
-        } else {
-            this.parentViewWidth = (parent as ViewGroup).measuredWidth.toFloat()
-        }
-        if (parentViewHeight > 0) {
-            this.parentViewHeight = parentViewHeight.toFloat()
-        } else {
-            this.parentViewHeight = (parent as ViewGroup).measuredHeight.toFloat()
-        }
+        if (parentViewWidth > 0)
+            {
+                this.parentViewWidth = parentViewWidth.toFloat()
+            } else
+            {
+                this.parentViewWidth = (parent as ViewGroup).measuredWidth.toFloat()
+            }
+        if (parentViewHeight > 0)
+            {
+                this.parentViewHeight = parentViewHeight.toFloat()
+            } else
+            {
+                this.parentViewHeight = (parent as ViewGroup).measuredHeight.toFloat()
+            }
         if (parentViewWidth > 0) {
             xscale = parentViewWidth.toFloat() / imageWidth.toFloat()
         }
@@ -84,12 +102,13 @@ class CaliperImageView : AppCompatImageView {
         layoutParams.width = showBitmapWidth.toInt()
         layoutParams.height = showBitmapHeight.toInt()
         this.layoutParams = layoutParams
-        if (l == 0 && t == 0 && r == 0 && b == 0) {
-            l = (parentViewWidth / 2 - showBitmapWidth / 2).toInt()
-            r = (parentViewWidth / 2 + showBitmapWidth / 2).toInt()
-            t = (parentViewHeight / 2 - showBitmapHeight / 2).toInt()
-            b = (parentViewHeight / 2 + showBitmapHeight / 2).toInt()
-        }
+        if (l == 0 && t == 0 && r == 0 && b == 0)
+            {
+                l = (parentViewWidth / 2 - showBitmapWidth / 2).toInt()
+                r = (parentViewWidth / 2 + showBitmapWidth / 2).toInt()
+                t = (parentViewHeight / 2 - showBitmapHeight / 2).toInt()
+                b = (parentViewHeight / 2 + showBitmapHeight / 2).toInt()
+            }
         layout(l, t, r, b)
         requestLayout()
     }

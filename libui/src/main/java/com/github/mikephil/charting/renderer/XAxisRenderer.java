@@ -90,7 +90,6 @@ public class XAxisRenderer extends AxisRenderer {
                 labelHeight,
                 mXAxis.getLabelRotationAngle());
 
-
         mXAxis.mLabelWidth = Math.round(labelWidth);
         mXAxis.mLabelHeight = Math.round(labelHeight);
         mXAxis.mLabelRotatedWidth = Math.round(labelRotatedSize.width);
@@ -223,8 +222,8 @@ public class XAxisRenderer extends AxisRenderer {
                 //chart   -------- start --------
 
                 if (i == 0 && mXAxis.isJumpFirstLabel()) {
-                    //，，
-                    //
+                    //不是哥们，你好歹好个参数来saved要不要绘制啊，查了我半天结果是因为你这里给跳过了
+                    //起始刻度不需要绘制
                     continue;
                 }
 
@@ -264,7 +263,6 @@ public class XAxisRenderer extends AxisRenderer {
 
         Path gridLinePath = mRenderGridLinesPath;
         gridLinePath.reset();
-
 
         for (int i = 0; i < positions.length; i += 2) {
             //chart    -------- start --------
@@ -383,7 +381,6 @@ public class XAxisRenderer extends AxisRenderer {
             mLimitLinePaint.setColor(limitLine.getTextColor());
             mLimitLinePaint.setStrokeWidth(0.5f);
             mLimitLinePaint.setTextSize(limitLine.getTextSize());
-
 
             float xOffset = limitLine.getLineWidth() + limitLine.getXOffset();
 

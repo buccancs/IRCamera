@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.ThreadMode
  * 热成像选取点
  */
 class IRCorrectionFragment : BaseFragment(), ITsTempListener {
+
     /** 默认数据流模式：图像+温度复合数据 */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
@@ -132,10 +133,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
         context?.let {
             iruvc =
                 IRUVCTC(
-                    cameraWidth,
-                    cameraHeight,
-                    context,
-                    syncimage,
+                    cameraWidth, cameraHeight, context, syncimage,
                     defaultDataFlowMode,
                     object : ConnectCallback {
                         override fun onCameraOpened(uvcCamera: UVCCamera) {
@@ -147,7 +145,10 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                                 "ConnectCallback->onIRCMDCreate",
                             )
                             this@IRCorrectionFragment.ircmd = ircmd
-}
+                            // 需要等IRCMD初始化完成之后才可以调用
+//                        ircmd.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
+//                            PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
+                        }
                     },
                     object : USBMonitorCallback {
                         override fun onAttach() {}
@@ -332,12 +333,13 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
                             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    } else {
-                        ircmd?.setPropAutoShutterParameter(
-                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
-                        )
-                    }
+                    } else
+                        {
+                            ircmd?.setPropAutoShutterParameter(
+                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                            )
+                        }
                 }
             }
             // 复位对比度、细节
@@ -361,9 +363,18 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
 
     suspend fun autoStart() {
         withContext(Dispatchers.IO) {
-CalibrationTools.autoShutter(irCmd = ircmd, false)
+            //            ToastUtils.showShort("任务开始")
+            // 锅盖开始
+            // 1 锅盖标定开始
+            // 2 关闭自动快门
+            CalibrationTools.autoShutter(irCmd = ircmd, false)
             XLog.w("锅盖矫正：" + "锅盖标定开始")
-delay(2000)
+            // 常温
+            // 3 手动打快门命令
+//            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
+//            XLog.w("锅盖矫正："+"手动打快门命令")
+            // 4 关闭锅盖校正
+            delay(2000)
             XLog.w("锅盖矫正：" + "关闭锅盖校正")
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
             // 5 发送锅盖标
@@ -375,7 +386,12 @@ delay(2000)
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             delay(20000)
             XLog.w("锅盖矫正：" + "20000")
-delay(2000)
+            // 高温
+            // 11 手动打快门命令
+//            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
+//            XLog.w("锅盖矫正："+"手动打快门命令")
+            // 12 关闭锅盖校正
+            delay(2000)
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
             XLog.w("锅盖矫正：" + "关闭锅盖校正")
             // 13 发送锅盖标

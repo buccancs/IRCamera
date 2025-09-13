@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.topdon.module.thermal.ir.R
 
+/**
+ * Gallery fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
+ */
 class GalleryFragment : Fragment() {
     private var path = ""
 
@@ -27,6 +31,7 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         path = requireArguments().getString("path")!!
 
+        // Initialize view with findViewById
         val fragmentGalleryImg: ImageView = view.findViewById(R.id.fragment_gallery_img)
         Glide.with(this).load(path).into(fragmentGalleryImg)
     }

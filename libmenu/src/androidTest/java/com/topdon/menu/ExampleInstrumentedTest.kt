@@ -12,8 +12,18 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
+
+/**
+ * ExampleInstrumentedTest manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class ExampleInstrumentedTest {
     @Test
+    /**
+     * Executes useappcontext functionality.
+     */
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext

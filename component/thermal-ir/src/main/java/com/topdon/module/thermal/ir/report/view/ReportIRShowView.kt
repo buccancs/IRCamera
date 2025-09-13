@@ -15,16 +15,15 @@ import com.topdon.module.thermal.ir.report.bean.ReportTempBean
 import com.topdon.lib.core.R as LibR
 
 /**
- * Infrared temperature analysis view.
- *
- * Displays point, line, area, and full temperature analysis data.
+ * Custom Report i r show view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 class ReportIRShowView : LinearLayout {
     companion object {
-        private const val TYPE_FULL = 0 // Full temperature view
-        private const val TYPE_POINT = 1 // Point temperature view
-        private const val TYPE_LINE = 2 // Line temperature view
-        private const val TYPE_RECT = 3 // Rectangle temperature view
+        private const val TYPE_FULL = 0 // Full image
+        private const val TYPE_POINT = 1 // 点
+        private const val TYPE_LINE = 2 // 线
+        private const val TYPE_RECT = 3 // 面
     }
 
     // View references - migrated from synthetic views
@@ -117,7 +116,7 @@ class ReportIRShowView : LinearLayout {
             }
         tvAverageTitle.text =
             when (type) {
-                TYPE_FULL, TYPE_POINT -> "" // Full view and point view
+                TYPE_FULL, TYPE_POINT -> "" // Full image and points have no average temperature
                 TYPE_LINE -> "L${index + 1} " + context.getString(LibR.string.album_report_mean_temperature)
                 else -> "R${index + 1} " + context.getString(LibR.string.album_report_mean_temperature)
             }
@@ -131,7 +130,7 @@ class ReportIRShowView : LinearLayout {
     }
 
     /**
-     * Generate PDF with all view data included.
+\1get需要转为 PDF 的所有 View 列表.
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
@@ -221,6 +220,7 @@ class ReportIRShowView : LinearLayout {
             }
         }
 
+        // Update title visibility with findViewById
         val tvTitlePoint2 = clPoint2.findViewById<TextView>(R.id.tv_title)
         val tvTitlePoint3 = clPoint3.findViewById<TextView>(R.id.tv_title)
         val tvTitlePoint4 = clPoint4.findViewById<TextView>(R.id.tv_title)
@@ -242,6 +242,7 @@ class ReportIRShowView : LinearLayout {
             }
         }
 
+        // Update line title visibility with findViewById
         val tvTitleLine2 = clLine2.findViewById<TextView>(R.id.tv_title)
         val tvTitleLine3 = clLine3.findViewById<TextView>(R.id.tv_title)
         val tvTitleLine4 = clLine4.findViewById<TextView>(R.id.tv_title)
@@ -263,6 +264,7 @@ class ReportIRShowView : LinearLayout {
             }
         }
 
+        // Update rect title visibility with findViewById
         val tvTitleRect2 = clRect2.findViewById<TextView>(R.id.tv_title)
         val tvTitleRect3 = clRect3.findViewById<TextView>(R.id.tv_title)
         val tvTitleRect4 = clRect4.findViewById<TextView>(R.id.tv_title)
@@ -273,7 +275,7 @@ class ReportIRShowView : LinearLayout {
         tvTitleRect4.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible
         tvTitleRect5.isVisible = !clRect1.isVisible && !clRect2.isVisible && !clRect3.isVisible && !clRect4.isVisible
 
-        // Data processing
+\1把最后一条分割线藏起来
         if (rectList.isNotEmpty()) {
             when (rectList.size) {
                 1 -> hideLastLine(isLast, clRect1, rectList[0], TYPE_RECT)
@@ -321,6 +323,7 @@ class ReportIRShowView : LinearLayout {
         val viewLineAverage = itemRoot.findViewById<View>(R.id.view_line_average)
         val viewLineRange = itemRoot.findViewById<View>(R.id.view_line_range)
 
+        // Hide the last visible line divider
         if (tempBean.isExplainOpen()) {
             viewLineExplain.isVisible = !isLast
         } else if ((type == TYPE_LINE || type == TYPE_RECT) && tempBean.isAverageOpen()) {
@@ -363,9 +366,7 @@ class ReportIRShowView : LinearLayout {
                     }
                 prefix +
                     if (tempBean.isMinOpen() && tempBean.isMaxOpen()) {
-                        context.getString(
-                            LibR.string.chart_temperature_low,
-                        ) + "-" + context.getString(LibR.string.chart_temperature_high)
+                        context.getString(LibR.string.chart_temperature_low) + "-" + context.getString(LibR.string.chart_temperature_high)
                     } else if (tempBean.isMinOpen()) {
                         context.getString(LibR.string.chart_temperature_low)
                     } else {

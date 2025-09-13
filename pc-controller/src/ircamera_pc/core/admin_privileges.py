@@ -7,9 +7,63 @@ import logging
 import platform
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, List, Optional
+from typing import Optional, Any
 
-logger = logging.getLogger(__name__)
+try:
+    from PyQt6.QtCore import pyqtSignal
+    from PyQt6.QtWidgets import QApplication, QMessageBox
+
+    from .base_manager import BaseManager
+
+    PYQT_AVAILABLE = True
+
+except ImportError:
+    from .base_manager import BaseManager
+
+    PYQT_AVAILABLE = False
+
+    # Mock classes for when PyQt6 is not available
+    class QMessageBox:
+        StandardButton = type(
+            "StandardButton",
+            (),
+            {"Yes": "Yes", "No": "No", "Cancel": "Cancel"},
+        )()
+
+        @staticmethod
+        def question(*args, **kwargs) -> Any:
+            return QMessageBox.StandardButton.Yes
+
+        @staticmethod
+        def warning(*args, **kwargs) -> Any:
+            pass
+
+    class QApplication:
+        @staticmethod
+        def quit() -> Any:
+            pass
+
+
+from loguru import logger
+
+try:
+    if platform.system() == "Windows":
+        import win32api
+        import win32con
+        import win32security
+
+        WIN32_AVAILABLE = True
+    else:
+        WIN32_AVAILABLE = False
+except ImportError:
+    WIN32_AVAILABLE = False
+
+try:
+    from elevate import elevate
+
+    ELEVATE_AVAILABLE = True
+except ImportError:
+    ELEVATE_AVAILABLE = False
 
 
 class PrivilegeLevel(Enum):
@@ -136,7 +190,9 @@ class AdminPrivilegeManager:
         logger.warning(f"Unknown operation permission check: {operation}")
         return False
 
-    def run_as_admin(self, command: str, arguments: Optional[List[Any]] = None) -> bool:
+    def run_as_admin(self, command: str, arguments: Optional[list] = None) -> bool:
+        """
+        Run a command with administrator privileges.
 
         if not self.is_elevated:
             logger.error("Cannot run admin command without elevation")

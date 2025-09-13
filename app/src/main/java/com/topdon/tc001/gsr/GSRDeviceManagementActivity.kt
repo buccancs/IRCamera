@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 class GSRDeviceManagementActivity :
     BaseBindingActivity<ActivityGsrDeviceManagementBinding>(),
     View.OnClickListener {
-
     companion object {
         private const val TAG = "GSRDeviceManagement"
 
@@ -90,22 +89,23 @@ class GSRDeviceManagementActivity :
      * Setup permission handling system
      */
     private fun setupPermissionHandling() {
-        permissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions(),
-        ) { permissions ->
-            val allGranted = permissions.values.all { it }
+        permissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestMultiplePermissions(),
+            ) { permissions ->
+                val allGranted = permissions.values.all { it }
 
-            if (allGranted) {
-                Log.i(TAG, "All required permissions granted")
-                enableDeviceOperations(true)
-                pendingOperation?.invoke()
-                pendingOperation = null
-            } else {
-                Log.w(TAG, "Some permissions were denied")
-                showPermissionRequiredDialog()
-                enableDeviceOperations(false)
+                if (allGranted) {
+                    Log.i(TAG, "All required permissions granted")
+                    enableDeviceOperations(true)
+                    pendingOperation?.invoke()
+                    pendingOperation = null
+                } else {
+                    Log.w(TAG, "Some permissions were denied")
+                    showPermissionRequiredDialog()
+                    enableDeviceOperations(false)
+                }
             }
-        }
     }
 
     /**
@@ -137,10 +137,11 @@ class GSRDeviceManagementActivity :
      * Setup device list RecyclerView - matching IR camera device list pattern
      */
     private fun setupDeviceListRecycler() {
-        deviceAdapter = GSRDeviceAdapter(discoveredDevices) { device ->
-            // Device item click handler
-            connectToDevice(device)
-        }
+        deviceAdapter =
+            GSRDeviceAdapter(discoveredDevices) { device ->
+                // Device item click handler
+                connectToDevice(device)
+            }
 
         binding.deviceRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@GSRDeviceManagementActivity)
@@ -205,14 +206,15 @@ class GSRDeviceManagementActivity :
                 devices.forEach { deviceName ->
                     delay(500) // Simulate discovery time
 
-                    val deviceInfo = GSRDeviceInfo(
-                        name = deviceName,
-                        address = extractMacAddress(deviceName),
-                        rssi = -50, // Simulated signal strength
-                        isConnected = false,
-                        batteryLevel = 85, // Simulated battery
-                        firmwareVersion = "1.0.0",
-                    )
+                    val deviceInfo =
+                        GSRDeviceInfo(
+                            name = deviceName,
+                            address = extractMacAddress(deviceName),
+                            rssi = -50, // Simulated signal strength
+                            isConnected = false,
+                            batteryLevel = 85, // Simulated battery
+                            firmwareVersion = "1.0.0",
+                        )
 
                     discoveredDevices.add(deviceInfo)
                     deviceAdapter.notifyItemInserted(discoveredDevices.size - 1)
@@ -366,11 +368,12 @@ class GSRDeviceManagementActivity :
     private fun updateConnectionStatus(status: String) {
         binding.connectionStatusText.text = status
 
-        val color = when {
-            status.contains("Connected", ignoreCase = true) -> getColor(android.R.color.holo_green_dark)
-            status.contains("Connecting", ignoreCase = true) -> getColor(android.R.color.holo_orange_dark)
-            else -> getColor(android.R.color.holo_red_dark)
-        }
+        val color =
+            when {
+                status.contains("Connected", ignoreCase = true) -> getColor(android.R.color.holo_green_dark)
+                status.contains("Connecting", ignoreCase = true) -> getColor(android.R.color.holo_orange_dark)
+                else -> getColor(android.R.color.holo_red_dark)
+            }
         binding.connectionStatusText.setTextColor(color)
     }
 

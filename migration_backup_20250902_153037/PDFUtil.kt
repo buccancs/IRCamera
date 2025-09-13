@@ -119,12 +119,7 @@ object PDFUtil {
                 titleText.textSize = 8f
                 titleText.paint.isFakeBoldText = true
                 titleText.setTextColor(0xff333333.toInt())
-                titleText.setPadding(
-                    SizeUtils.dp2px(13f),
-                    SizeUtils.dp2px(13f),
-                    SizeUtils.dp2px(13f),
-                    SizeUtils.dp2px(3f),
-                )
+                titleText.setPadding(SizeUtils.dp2px(13f), SizeUtils.dp2px(13f), SizeUtils.dp2px(13f), SizeUtils.dp2px(3f))
                 titleText.measure(
                     MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -150,12 +145,7 @@ object PDFUtil {
                     // 计算第1行item高度
                     val tabItemView = LayoutInflater.from(context).inflate(R.layout.pdf_tab_item, null)
                     tabItemView.tv_item_name.text = dirBean.itemList[0].itemName
-                    tabItemView.tv_input.text =
-                        dirBean.itemList[0].inputText.ifEmpty {
-                            dirBean.itemList[0].getStateStr(
-                                context,
-                            )
-                        }
+                    tabItemView.tv_input.text = dirBean.itemList[0].inputText.ifEmpty { dirBean.itemList[0].getStateStr(context) }
                     tabItemView.measure(
                         MeasureSpec.makeMeasureSpec(pageWidth, MeasureSpec.EXACTLY),
                         MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -375,8 +365,7 @@ object PDFUtil {
 
                             // 部分机型 resolver.insert() 返回的 Uri 用 id 拼的，导致分享时显示的文件名有问题，这里查询一遍
                             val selection = "${MediaStore.MediaColumns.RELATIVE_PATH} = ? AND ${MediaStore.MediaColumns.DISPLAY_NAME} = ?"
-                            val selectionArgs: Array<String> =
-                                arrayOf(FileConfig.documentsDir, houseReport.getPdfFileName())
+                            val selectionArgs: Array<String> = arrayOf(FileConfig.documentsDir, houseReport.getPdfFileName())
                             val cursor: Cursor? =
                                 resolver.query(
                                     contentUri,
@@ -387,10 +376,7 @@ object PDFUtil {
                                 )
                             if (cursor != null) {
                                 if (cursor.moveToFirst()) {
-                                    val data: String? =
-                                        cursor.getString(
-                                            cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA),
-                                        )
+                                    val data: String? = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA))
                                     if (data != null) {
                                         pdfUri = UriUtils.file2Uri(File(data))
                                     }

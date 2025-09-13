@@ -24,6 +24,12 @@ import com.topdon.lib.core.databinding.ItemCarDetectLayoutBinding
 /**
  * dialogTypedialog.
  */
+/**
+ * CarDetectDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean) -> Unit)) :
     Dialog(context, R.style.DefaultDialog) {
     private lateinit var binding: DialogCarDetectBinding
@@ -294,6 +300,12 @@ class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean
         }
     }
 
+/**
+ * CarDetectChildAdapter provides data binding between data source and UI components.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     class CarDetectChildAdapter(
         val context: Context,
         private var carChildDetects: List<CarDetectChildBean>,

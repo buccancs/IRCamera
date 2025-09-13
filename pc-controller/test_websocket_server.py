@@ -4,6 +4,7 @@ Test script for WebSocket server - Phase 1 implementation
 """
 
 import asyncio
+import os
 import sys
 from pathlib import Path
 
@@ -22,7 +23,7 @@ async def main():
         # Create and start WebSocket server
         server = WebSocketServer(host="0.0.0.0", port=8443)
 
-        print(f"Starting WebSocket server on port 8443...")
+        print("Starting WebSocket server on port 8443...")
         await server.start()
 
         print("WebSocket server started successfully!")

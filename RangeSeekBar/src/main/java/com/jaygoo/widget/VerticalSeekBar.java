@@ -10,7 +10,6 @@ import static com.jaygoo.widget.VerticalRangeSeekBar.DIRECTION_LEFT;
 import static com.jaygoo.widget.VerticalRangeSeekBar.DIRECTION_RIGHT;
 import static com.jaygoo.widget.VerticalRangeSeekBar.TEXT_DIRECTION_VERTICAL;
 
-
 /**
  * //                       _ooOoo_
  * //                      o8888888o

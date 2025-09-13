@@ -97,7 +97,7 @@ class TipProgressDialog : Dialog {
     }
 
     /**
-     * 提交回调
+     * 提交Callback
      */
     interface OnClickListener {
         fun onClick(dialog: DialogInterface)

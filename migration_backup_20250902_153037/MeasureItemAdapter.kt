@@ -13,11 +13,17 @@ import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
 import kotlinx.android.synthetic.main.itme_target_mode.view.*
 
+/**
+ * MeasureItemAdapter class for thermal imaging functionality.
+ */
 class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
 
+    /**
+     * selected function implementation.
+     */
     fun selected(index: Int) {
         selected = index
         notifyDataSetChanged()
@@ -70,5 +76,15 @@ class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
         val lay: View = itemView.item_menu_tab_lay
         val img: ImageView = itemView.item_menu_tab_img
         val name: TextView = itemView.item_menu_tab_text
-}
+//        init {
+//            val canSeeCount = 4
+//            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
+//            itemView.layoutParams = ViewGroup.LayoutParams((with * 0.96).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+//            val imageSize = (ScreenUtils.getScreenWidth() * 29 / 375f).toInt()
+//            val layoutParams = itemView.item_menu_tab_img.layoutParams
+//            layoutParams.width = imageSize
+//            layoutParams.height = imageSize
+//            itemView.item_menu_tab_img.layoutParams = layoutParams
+//        }
+    }
 }

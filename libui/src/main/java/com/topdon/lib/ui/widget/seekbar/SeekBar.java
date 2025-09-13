@@ -65,7 +65,7 @@ public class SeekBar {
     //Progress prompted the background height, width,
     private int indicatorHeight;
     private int indicatorWidth;
-    //
+    //进度提示背景与button之间的距离
     //The progress indicates the distance between the background and the button
     private int indicatorMargin;
     private int indicatorDrawableId;
@@ -162,7 +162,7 @@ public class SeekBar {
     }
 
     /**
-     * Initialize
+     * initialize进度提示的背景
      */
     private void initBitmap() {
         setIndicatorDrawableId(indicatorDrawableId);
@@ -171,7 +171,7 @@ public class SeekBar {
     }
 
     /**
-     * 
+     * 计算每个button的位置和尺寸
      * Calculates the position and size of each button
      *
      * @param x position x
@@ -216,7 +216,7 @@ public class SeekBar {
         this.noNegativeNumber = noNegativeNumber;
     }
     /**
-     * 
+     * 绘制button和提示背景和文字
      * Draw buttons and tips for background and text
      *
      * @param canvas Canvas
@@ -234,10 +234,10 @@ public class SeekBar {
             onDrawIndicator(canvas, paint, formatCurrentIndicatorText(userText2Draw)); //
         }
 //        if (isLeft) {
-//            //Graph
+//            //settings上指示图标
 //            setThumbDrawableId(R.drawable.ic_seekbar_high_svg, thumbWidth, thumbHeight);
 //        } else {
-//            //Graph
+//            //settings下指示图标
 //            setThumbDrawableId(R.drawable.ic_seekbar_low_svg, thumbWidth, thumbHeight);
 //        }
         if (thumbShow){
@@ -250,8 +250,8 @@ public class SeekBar {
 
 
     /**
-     * 
-     * Graph，
+     * 绘制button
+     * 如果没有图片资源，则绘制默认button
      * <p>
      * draw the thumb button
      * If there is no image resource, draw the default button
@@ -268,8 +268,8 @@ public class SeekBar {
     }
 
     /**
-     * 
-     * Graph，
+     * 绘制button
+     * 如果没有图片资源，则绘制默认button
      * <p>
      * draw the thumb button
      * If there is no image resource, draw the default button
@@ -381,7 +381,7 @@ public class SeekBar {
                 canvas.drawPath(indicatorArrowPath, paint);
                 indicatorRect.bottom -= indicatorArrowSize;
                 indicatorRect.top -= indicatorArrowSize;
-                Log.w("","///");
+                Log.w("pseudo color条refresh","///");
             }
 
             //indicator background edge processing

@@ -73,9 +73,7 @@ class ElectronicManualActivity : BaseActivity() {
             parent: ViewGroup,
             viewType: Int,
         ): RecyclerView.ViewHolder {
-            return ItemViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_electronic_manual, parent, false),
-            )
+            return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_electronic_manual, parent, false))
         }
 
         override fun onBindViewHolder(

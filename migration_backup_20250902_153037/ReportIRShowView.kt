@@ -84,7 +84,7 @@ class ReportIRShowView : LinearLayout {
     }
 
     /**
-     * 获取需要转为 PDF 的所有 View 列表.
+     * Get/Retrieve需要转为 PDF 的所有 View 列表.
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
@@ -298,9 +298,7 @@ class ReportIRShowView : LinearLayout {
                     }
                 prefix +
                     if (tempBean.isMinOpen() && tempBean.isMaxOpen()) {
-                        context.getString(
-                            R.string.chart_temperature_low,
-                        ) + "-" + context.getString(R.string.chart_temperature_high)
+                        context.getString(R.string.chart_temperature_low) + "-" + context.getString(R.string.chart_temperature_high)
                     } else if (tempBean.isMinOpen()) {
                         context.getString(R.string.chart_temperature_low)
                     } else {

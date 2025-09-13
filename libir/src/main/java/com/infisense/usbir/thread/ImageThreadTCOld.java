@@ -156,9 +156,9 @@
 //
 //            // imagerTemp2 ()
 //            if (max != Float.MAX_VALUE || min != Float.MIN_VALUE ) {
-//                // ，
+//                // 当不设高温，只settings低温时
 //                if (max == -273) {
-//                    // 
+//                    // 替换color的方法里最高温不能低于最低温
 //                    max = 1000000;
 //                }
 //                //FF808080
@@ -166,15 +166,15 @@
 //                    ImageTools.INSTANCE.readFrame(imageDst, temperatureSrc, max, min);//
 //                } else {
 //                    Log.w("123", "max:" + max + ", min: " + min);
-////                    ImageTools.INSTANCE.readFrame(imageDst, temperatureSrc, max, min,maxColor,minColor);//
-//                    BitmapTools.INSTANCE.replaceBitmapColor(imageDst, temperatureSrc, max, min,0,0);//
+////                    ImageTools.INSTANCE.readFrame(imageDst, temperatureSrc, max, min,maxColor,minColor);//替换color处理
+//                    BitmapTools.INSTANCE.replaceBitmapColor(imageDst, temperatureSrc, max, min,0,0);//替换color处理
 //                }
 //                Log.w("Graph:", imageDst.toString());
 //            }
 //            synchronized (syncImage.viewLock) {
 //                if (!syncImage.valid) {
 //                    if (bitmap != null) {
-//                        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst)); //bitmapGraph
+//                        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst)); //bitmap图像refresh数据
 //                    } else {
 //                        XLog.e("ImageThreadTC copyPixelsFromBuffer(): bitmap is null");
 //                    }
@@ -186,7 +186,7 @@
 //            try {
 //                SystemClock.sleep(20);
 //            } catch (Exception e) {
-//                XLog.e("Image Thread: " + e.getMessage());
+//                XLog.e("Image Threadrefresh异常: " + e.getMessage());
 //            }
 //        }
 //        Log.w(TAG, "ImageThread exit:");

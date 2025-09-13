@@ -4,33 +4,35 @@ Tests complete system integration, multi-device coordination, and end-to-end wor
 """
 
 import asyncio
+import json
 import os
 import shutil
 import sys
 import tempfile
+import threading
 import time
 import unittest
-from typing import Any, Dict, List
-from unittest.mock import Mock
-
-from loguru import logger
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-# Local imports - moved after sys.path setup
 from ircamera_pc.core.session_manager import SessionManager
 from ircamera_pc.data.aggregator import DataAggregator
+from ircamera_pc.gui.main_window import MainWindow
 from ircamera_pc.network.server import NetworkServer
 
 
 class TestEndToEndIntegration(unittest.TestCase):
     """End-to-end integration tests for complete Hub-and-Spoke system"""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up integration test environment"""
         self.temp_dir = tempfile.mkdtemp()
 
-        self.network_server = NetworkServer()
+        # Initialize core components
+        self.network_server = NetworkServer(host="localhost", port=8080)
         self.data_aggregator = DataAggregator(output_dir=self.temp_dir)
         self.session_manager = SessionManager()
 
@@ -56,14 +58,14 @@ class TestEndToEndIntegration(unittest.TestCase):
             },
         ]
 
-    def tearDown(self):
+    def tearDown(self) -> Any:
         """Clean up integration test environment"""
         if self.network_server.is_running:
 
             asyncio.run(self.network_server.stop())
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_complete_system_startup_shutdown(self):
+    def test_complete_system_startup_shutdown(self) -> Any:
         """Test complete system startup and shutdown sequence"""
         # Step 1: Start network server
         server_started = asyncio.run(self.network_server.start())
@@ -84,21 +86,17 @@ class TestEndToEndIntegration(unittest.TestCase):
         # Step 4: Graceful shutdown
         self.session_manager.stop()
         self.data_aggregator.shutdown()
-        asyncio.run(self.network_server.stop())
+        self.network_server.stop()
 
         # Verify clean shutdown
         self.assertFalse(self.network_server.is_running)
         self.assertFalse(self.session_manager.is_active())
 
-    def test_multi_device_discovery_and_registration(self):
+    def test_multi_device_discovery_and_registration(self) -> Any:
         """Test discovery and registration of multiple Android devices"""
-        asyncio.run(self._test_multi_device_discovery_and_registration_async())
+        self.network_server.start()
 
-    async def _test_multi_device_discovery_and_registration_async(self):
-        """Async implementation of device discovery and registration test"""
-        await self.network_server.start()
-
-        registered_devices: List[str] = []
+        registered_devices = []
 
         # Simulate devices connecting
         for device_config in self.test_devices:
@@ -106,28 +104,31 @@ class TestEndToEndIntegration(unittest.TestCase):
             mock_socket = Mock()
 
             # Device sends registration message
-            registration_msg = {"type": "device_register", **device_config}
+            registration_msg = {"type": "device_registration", **device_config}
 
-            try:
-                await self.network_server._handle_device_register(
-                    registration_msg, mock_socket
-                )
-                registered_devices.append(str(device_config["device_id"]))
-            except Exception as e:
-                logger.warning(f"Registration failed: {e}")
+            # Process registration
+            response = self.network_server._handle_device_registration(
+                registration_msg, mock_socket
+            )
 
-        # Verify devices can be queried
+            self.assertEqual(response["status"], "registered")
+            registered_devices.append(device_config["device_id"])
+
+        # Verify all devices registered
+        connected_devices = self.network_server.get_connected_devices()
+        self.assertEqual(len(connected_devices), 3)
+
         for device_id in registered_devices:
-            self.network_server.get_device_info(device_id)
-            # Device info may be None for mock devices, just check it doesn't crash
+            device_info = self.network_server.get_device_info(device_id)
+            self.assertIsNotNone(device_info)
 
-    async def test_coordinated_multi_modal_session(self):
+    def test_coordinated_multi_modal_session(self) -> Any:
         """Test coordinated multi-modal recording session across devices"""
         await self.network_server.start()
         self.data_aggregator.initialize()
 
         # Register devices
-        await self._register_test_devices()
+        self._register_test_devices()
 
         # Step 1: Create coordinated session
         session_config = {
@@ -206,12 +207,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         ]
 
         for event in experimental_events:
-            time_offset_val = event.get("time_offset", 0.0)
-            if isinstance(time_offset_val, (int, float)):
-                time_offset = float(time_offset_val)
-            else:
-                time_offset = 0.0
-            time.sleep(time_offset / 10)  # Accelerated for testing
+            time.sleep(event["time_offset"] / 10)  # Accelerated for testing
 
             sync_marker = {
                 "type": "sync_marker",
@@ -220,8 +216,10 @@ class TestEndToEndIntegration(unittest.TestCase):
                 "metadata": {k: v for k, v in event.items() if k != "time_offset"},
             }
 
-            # Distribute sync marker to all devices (mock)
-            distribution_success = True  # Mock successful distribution
+            # Distribute sync marker to all devices
+            distribution_success = self.network_server.distribute_sync_marker(
+                sync_marker
+            )
             self.assertTrue(
                 distribution_success,
                 f"Sync marker for {event['event']} should be distributed",
@@ -260,12 +258,13 @@ class TestEndToEndIntegration(unittest.TestCase):
                 time_diff, 0, "Sync markers should be temporally ordered"
             )
 
-    async def test_file_transfer_coordination(self):
+    def test_file_transfer_coordination(self) -> Any:
         """Test coordinated file transfer from multiple devices"""
         await self.network_server.start()
         self.data_aggregator.initialize()
-        await self._register_test_devices()
+        self._register_test_devices()
 
+        # Create test session with recorded data
         session_id = self.session_manager.create_session(
             {"session_name": "FileTransfer_Test", "participant_id": "P001"}
         )
@@ -305,12 +304,9 @@ class TestEndToEndIntegration(unittest.TestCase):
                     "checksum": file_info["checksum"],
                 }
 
-                # Mock file transfer request handling
-                response = {
-                    "status": "ready",
-                    "transfer_id": f"transfer_{transfer_counter}",
-                }
-                transfer_counter += 1
+                response = self.network_server._handle_file_transfer_request(
+                    transfer_request
+                )
                 self.assertEqual(response["status"], "ready")
 
                 transfer_requests.append(
@@ -329,8 +325,17 @@ class TestEndToEndIntegration(unittest.TestCase):
             chunk_size = transfer["response"]["chunk_size"]
 
             for offset in range(0, len(content), chunk_size):
-                # Mock file chunk handling (simplified)
-                chunk_response = {"status": "received"}
+                chunk = content[offset : offset + chunk_size]
+
+                chunk_msg = {
+                    "type": "file_chunk",
+                    "transfer_id": transfer["response"]["transfer_id"],
+                    "offset": offset,
+                    "size": len(chunk),
+                    "data": chunk.hex(),  # Hex encode for JSON
+                }
+
+                chunk_response = self.network_server._handle_file_chunk(chunk_msg)
                 self.assertEqual(chunk_response["status"], "received")
 
             # Finalize transfer
@@ -339,10 +344,8 @@ class TestEndToEndIntegration(unittest.TestCase):
                 "transfer_id": transfer["response"]["transfer_id"],
             }
 
-            # Mock final transfer completion (note: method needs writer parameter)
-            mock_writer = Mock()
-            final_response = await self.network_server._handle_file_transfer_complete(
-                finalize_msg, mock_writer
+            final_response = self.network_server._handle_file_transfer_complete(
+                finalize_msg
             )
             if final_response["status"] == "completed":
                 successful_transfers += 1
@@ -359,12 +362,23 @@ class TestEndToEndIntegration(unittest.TestCase):
         aggregated_files = self.data_aggregator.get_session_files(session_id)
         self.assertEqual(len(aggregated_files), expected_file_count)
 
-    async def test_real_time_monitoring_and_quality_assurance(self):
+    def test_real_time_monitoring_and_quality_assurance(self) -> Any:
         """Test real-time monitoring and quality assurance during recording"""
         await self.network_server.start()
         self.data_aggregator.initialize()
-        await self._register_test_devices()
+        self._register_test_devices()
 
+        # Enable real-time monitoring
+        monitoring_config = {
+            "sync_accuracy_threshold_ms": 5.0,
+            "data_loss_threshold_percent": 1.0,
+            "network_latency_threshold_ms": 50.0,
+            "quality_check_interval_s": 10.0,
+        }
+
+        self.network_server.enable_real_time_monitoring(monitoring_config)
+
+        # Create and start session
         session_id = self.session_manager.create_session(
             {"session_name": "QualityMonitoring_Test", "participant_id": "P001"}
         )
@@ -397,8 +411,10 @@ class TestEndToEndIntegration(unittest.TestCase):
                     },
                 }
 
-                # Mock quality report processing
-                processing_result = True  # Mock successful processing
+                # Process quality report
+                processing_result = self.network_server._process_quality_report(
+                    quality_report
+                )
                 self.assertTrue(
                     processing_result,
                     f"Quality report should be processed for {device_id}",
@@ -406,17 +422,8 @@ class TestEndToEndIntegration(unittest.TestCase):
 
                 quality_reports.append(quality_report)
 
-        # Analyze quality trends (mock)
-        quality_stats: Dict[str, Any] = {
-            "overall_sync_accuracy": {"average_ms": 2.5, "max_ms": 4.8, "min_ms": 1.2},
-            "data_loss_percentage": 0.1,
-            "device_sync_health": 95.0,
-            "network_performance": {
-                "average_latency_ms": 25.0,
-                "packet_loss_rate": 0.001,
-            },
-            "data_integrity": {"completeness": 0.995, "corruption_rate": 0.0001},
-        }
+        # Analyze quality trends
+        quality_stats = self.network_server.get_quality_statistics_summary()
 
         self.assertIsNotNone(quality_stats)
         self.assertIn("overall_sync_accuracy", quality_stats)
@@ -435,13 +442,14 @@ class TestEndToEndIntegration(unittest.TestCase):
             "Data completeness should be >99%",
         )
 
-    async def test_error_recovery_and_resilience(self):
+    def test_error_recovery_and_resilience(self) -> Any:
         """Test system error recovery and resilience mechanisms"""
         await self.network_server.start()
         self.data_aggregator.initialize()
-        await self._register_test_devices()
+        self._register_test_devices()
 
-        _ = self.session_manager.create_session(
+        # Create test session
+        session_id = self.session_manager.create_session(
             {"session_name": "ErrorRecovery_Test", "participant_id": "P001"}
         )
 
@@ -474,24 +482,30 @@ class TestEndToEndIntegration(unittest.TestCase):
 
             # Inject error condition
             if scenario_name == "device_disconnection":
-                # Mock device disconnection simulation
-                # Mock disconnection and recovery behavior
+                # Simulate device disconnection
+                device_id = scenario["device_id"]
+                self.network_server._simulate_device_disconnect(device_id)
 
                 # Wait for detection
                 time.sleep(2)
 
-                # Attempt recovery (mock device reconnection)
-                reconnection_success = True  # Mock successful reconnection
+                # Attempt recovery (device reconnection)
+                reconnection_success = self.network_server._simulate_device_reconnect(
+                    device_id
+                )
                 recovery_results[scenario_name] = reconnection_success
 
             elif scenario_name == "network_congestion":
-                # Mock high latency behavior
-                original_latency = 50  # Mock original latency in ms
+                # Simulate high latency
+                original_latency = self.network_server.get_average_latency()
+                self.network_server._inject_latency_simulation(high_latency_ms=200)
 
+                # Check if system adapts
                 time.sleep(3)
 
-                # Mock the latency adaptation process
-                adapted_latency = original_latency * 0.8  # Mock improved latency
+                # Remove latency simulation
+                self.network_server._remove_latency_simulation()
+                adapted_latency = self.network_server.get_average_latency()
 
                 recovery_results[scenario_name] = (
                     adapted_latency < original_latency * 1.5
@@ -501,16 +515,9 @@ class TestEndToEndIntegration(unittest.TestCase):
                 # Send corrupted sync marker
                 corrupted_marker = "invalid json data"
 
-                try:
-                    # Try to parse as JSON first, then validate
-                    import json
-
-                    from ..network.protocol import validate_message
-
-                    parsed_data = json.loads(corrupted_marker)
-                    processing_result = validate_message(parsed_data)
-                except Exception:
-                    processing_result = False
+                processing_result = self.network_server._process_raw_message(
+                    corrupted_marker, Mock()
+                )
 
                 # Should handle gracefully without crashing
                 recovery_results[scenario_name] = processing_result is False
@@ -523,8 +530,12 @@ class TestEndToEndIntegration(unittest.TestCase):
                     f"Recovery should succeed for {scenario['name']}",
                 )
 
-    async def _setup_load_test_devices(self, count: int) -> List[Dict]:
-        """Set up devices for load testing."""
+    def test_performance_under_load(self) -> Any:
+        """Test system performance under various load conditions"""
+        self.network_server.start()
+        self.data_aggregator.initialize()
+
+        # Register larger number of devices for load testing
         load_test_devices = []
         for i in range(count):
             device = {
@@ -535,119 +546,12 @@ class TestEndToEndIntegration(unittest.TestCase):
             }
             load_test_devices.append(device)
 
-            # Register device using proper async method
+            # Register device
             mock_socket = Mock()
-            registration_msg = {"type": "device_register", **device}
-            await self.network_server._handle_device_register(
+            registration_msg = {"type": "device_registration", **device}
+            self.network_server._handle_device_registration(
                 registration_msg, mock_socket
             )
-
-        return load_test_devices
-
-    async def _run_high_sync_rate_test(self, scenario: Dict) -> Dict:
-        """Run high frequency sync marker test."""
-        sync_count = 0
-        target_count = scenario["sync_markers_per_sec"] * scenario["duration_sec"]
-
-        for i in range(target_count):
-            sync_marker = {
-                "type": "sync_marker",
-                "id": f"LOAD_SYNC_{i}",
-                "timestamp": time.time_ns(),
-            }
-
-            # Distribute sync marker using broadcast command
-            result = await self.network_server.broadcast_command(sync_marker)
-            success = any(result.values()) if result else False
-            if success:
-                sync_count += 1
-
-            time.sleep(1.0 / scenario["sync_markers_per_sec"])
-
-        return {
-            "success_rate": sync_count / target_count,
-            "actual_rate": sync_count / scenario["duration_sec"],
-        }
-
-    async def _run_many_devices_test(self, scenario: Dict) -> Dict:
-        """Run concurrent device message test."""
-        message_count = 0
-        total_messages = (
-            scenario["devices_count"] * scenario["sync_rate"] * scenario["duration_sec"]
-        )
-
-        async def send_device_messages(device_id):
-            nonlocal message_count
-            for i in range(scenario["sync_rate"] * scenario["duration_sec"]):
-                message = {
-                    "type": "status_update",
-                    "device_id": device_id,
-                    "recording": True,
-                    "timestamp": time.time_ns(),
-                }
-
-                try:
-                    await self.network_server._process_message(message, Mock())
-                    success = True
-                except Exception:
-                    success = False
-                if success:
-                    message_count += 1
-
-                time.sleep(1.0 / scenario["sync_rate"])
-
-        tasks = []
-        for i in range(scenario["devices_count"]):
-            task = asyncio.create_task(send_device_messages(f"LOAD_DEVICE_{i:02d}"))
-            tasks.append(task)
-
-        # Wait for all tasks
-        await asyncio.gather(*tasks)
-
-        return {
-            "success_rate": message_count / total_messages,
-            "message_rate": message_count / scenario["duration_sec"],
-        }
-
-    async def _run_large_messages_test(self, scenario: Dict) -> Dict:
-        """Run large message size test."""
-        message_count = 0
-        target_size_bytes = scenario["message_size_kb"] * 1024
-        dummy_data = "x" * target_size_bytes
-
-        total_messages = scenario["message_rate"] * scenario["duration_sec"]
-
-        for i in range(total_messages):
-            large_message = {
-                "type": "file_transfer_chunk",
-                "device_id": "LOAD_DEVICE_00",
-                "chunk_id": i,
-                "data": dummy_data,
-                "timestamp": time.time_ns(),
-            }
-
-            try:
-                await self.network_server._process_message(large_message, Mock())
-                success = True
-            except Exception:
-                success = False
-            if success:
-                message_count += 1
-
-            time.sleep(1.0 / scenario["message_rate"])
-
-        return {
-            "success_rate": message_count / total_messages,
-            "avg_message_size_kb": len(dummy_data) / 1024,
-        }
-
-    async def test_performance_under_load(self):
-        """Test system performance under various load conditions"""
-        await self.network_server.start()
-        self.data_aggregator.initialize()
-
-        # Register devices for load testing
-        await self._setup_load_test_devices(10)
 
         # Performance test scenarios
         load_scenarios = [
@@ -673,34 +577,84 @@ class TestEndToEndIntegration(unittest.TestCase):
             scenario_name = scenario["name"]
 
             if scenario_name == "high_sync_rate":
-                results = await self._run_high_sync_rate_test(scenario)
+                # High frequency sync markers
+                sync_count = 0
+                target_count = (
+                    scenario["sync_markers_per_sec"] * scenario["duration_sec"]
+                )
+
+                for i in range(target_count):
+                    sync_marker = {
+                        "type": "sync_marker",
+                        "id": f"LOAD_SYNC_{i}",
+                        "timestamp": time.time_ns(),
+                    }
+
+                    success = self.network_server.distribute_sync_marker(sync_marker)
+                    if success:
+                        sync_count += 1
+
+                    time.sleep(1.0 / scenario["sync_markers_per_sec"])
+
+                performance_results[scenario_name] = {
+                    "success_rate": sync_count / target_count,
+                    "actual_rate": sync_count / scenario["duration_sec"],
+                }
+
             elif scenario_name == "many_devices":
-                results = await self._run_many_devices_test(scenario)
-            elif scenario_name == "large_messages":
-                results = await self._run_large_messages_test(scenario)
-            else:
-                results = {"error": "Unknown scenario"}
+                # Messages from many devices simultaneously
+                message_count = 0
+                total_messages = (
+                    scenario["devices_count"]
+                    * scenario["sync_rate"]
+                    * scenario["duration_sec"]
+                )
+
+                # Use threading to simulate concurrent device messages
+                def send_device_messages(device_id) -> Any:
+                    nonlocal message_count
+                    for i in range(scenario["sync_rate"] * scenario["duration_sec"]):
+                        message = {
+                            "type": "status_update",
+                            "device_id": device_id,
+                            "recording": True,
+                            "timestamp": time.time_ns(),
+                        }
+
+                        success = self.network_server._process_device_message(message)
+                        if success:
+                            message_count += 1
+
+                        time.sleep(1.0 / scenario["sync_rate"])
+
+                threads = []
+                for device in load_test_devices:
+                    thread = threading.Thread(
+                        target=send_device_messages, args=(device["device_id"],)
+                    )
+                    threads.append(thread)
+                    thread.start()
+
+                for thread in threads:
+                    thread.join()
+
+                performance_results[scenario_name] = {
+                    "success_rate": message_count / total_messages,
+                    "messages_per_sec": message_count / scenario["duration_sec"],
+                }
 
             end_time = time.time()
-            results["execution_time_sec"] = end_time - start_time
-            performance_results[scenario_name] = results
+            performance_results[scenario_name]["actual_duration"] = (
+                end_time - start_time
+            )
 
-        # Validate performance results
+        # Verify performance requirements
         for scenario_name, results in performance_results.items():
-            self.assertGreater(results.get("success_rate", 0), 0.5)
-            logger.info(f"Performance test '{scenario_name}': {results}")
-
-        perf_stats = {
-            "messages_processed": sum(
-                results.get("success_count", 0)
-                for results in performance_results.values()
-            ),
-            "average_response_time_ms": 50.0,
-            "peak_throughput": 100.0,
-        }
-        self.assertIsNotNone(perf_stats)
-        self.assertIn("messages_processed", perf_stats)
-        self.assertIn("average_response_time_ms", perf_stats)
+            self.assertGreaterEqual(
+                results["success_rate"],
+                0.95,
+                f"Success rate should be >95% for {scenario_name}",
+            )
 
     # Helper methods
     async def _register_test_devices(self):
@@ -708,7 +662,7 @@ class TestEndToEndIntegration(unittest.TestCase):
         for device in self.test_devices:
             mock_socket = Mock()
             registration_msg = {"type": "device_registration", **device}
-            response = await self.network_server._handle_device_register(
+            response = self.network_server._handle_device_registration(
                 registration_msg, mock_socket
             )
             self.assertEqual(response["status"], "registered")

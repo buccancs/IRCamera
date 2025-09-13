@@ -10,7 +10,6 @@ import android.util.DisplayMetrics;
 
 import java.util.Locale;
 
-
 /**
  * @author YanLu
  * @since 17/5/12

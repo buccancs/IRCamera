@@ -150,9 +150,9 @@ public class FileUtil {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(toByteArray(bytes));
             fos.close();
-            Log.i(TAG, fileTitle + " ");
+            Log.i(TAG, fileTitle + " saved成功");
         } catch (IOException e) {
-            Log.e(TAG, fileTitle + " ："+e.getMessage());
+            Log.e(TAG, fileTitle + " saved失败："+e.getMessage());
         }
     }
 
@@ -307,7 +307,7 @@ public class FileUtil {
     }
 
     /**
-     * 
+     * savedinfrared数据
      *
      * @param bytes
      */
@@ -330,7 +330,7 @@ public class FileUtil {
     }
 
     /**
-     * 
+     * saved温度数据
      *
      * @param bytes
      */
@@ -409,7 +409,7 @@ public class FileUtil {
     }
 
     /**
-     * shortArraybyteArray
+     * shortarray转bytearray
      *
      * @param src
      * @return
@@ -425,7 +425,7 @@ public class FileUtil {
     }
 
     /**
-     * byteArrayshortArray
+     * bytearray转shortarray
      *
      * @param src
      * @return
@@ -546,7 +546,7 @@ public class FileUtil {
             File file = new File(strOutFileName);
             Log.i(TAG, "file.exists->getAbsolutePath = " + file.getAbsolutePath());
             if (file.exists()) {
-                // ，，
+                // 如果文件存在则删除文件，重新创建，避免修改的内容不effective
                 file.delete();
             }
             //
@@ -573,7 +573,7 @@ public class FileUtil {
     }
 
     /**
-     * StateISP
+     * 根据gainstate获取对应的ISP算法的configuration文件
      *
      * @param gainStatus
      * @return

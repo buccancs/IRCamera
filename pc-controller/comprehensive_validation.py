@@ -12,7 +12,7 @@ import socket
 import sys
 import time
 from datetime import datetime
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 
 class ValidationReport:
@@ -45,7 +45,7 @@ class ValidationReport:
         passed_tests = sum(1 for t in self.tests if t["result"])
         failed_tests = total_tests - passed_tests
 
-        report = f"""
+        report = """
 # PC-to-Phone Communication Validation Report
 
 **Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
@@ -365,7 +365,7 @@ class ComprehensiveValidator:
                     has_status,
                     duration,
                     (
-                        f"Status response received with valid data"
+                        "Status response received with valid data"
                         if has_status
                         else "Status response missing expected fields"
                     ),
@@ -485,7 +485,7 @@ def main():
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
-    print(f"🚀 Starting comprehensive validation of PC-to-Phone communication")
+    print("🚀 Starting comprehensive validation of PC-to-Phone communication")
     print(f"📱 Target Android device: {args.android_ip}:{args.port}")
     print(f"⏰ Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
@@ -494,7 +494,7 @@ def main():
     try:
         overall_success = validator.run_all_tests()
 
-        print(f"\n📊 Generating validation report...")
+        print("\n📊 Generating validation report...")
         report = validator.get_report()
 
         if args.output:

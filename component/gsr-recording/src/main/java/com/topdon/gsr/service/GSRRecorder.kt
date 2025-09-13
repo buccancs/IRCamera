@@ -8,12 +8,19 @@ import com.topdon.gsr.model.GSRSample
 import com.topdon.gsr.model.SessionInfo
 import com.topdon.gsr.model.SyncMark
 import com.topdon.gsr.util.TimeUtil
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.coroutines.coroutineContext
 
 /**
  * Core GSR recorder with Shimmer3 device integration

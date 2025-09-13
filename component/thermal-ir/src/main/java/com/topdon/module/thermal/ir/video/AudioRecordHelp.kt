@@ -10,6 +10,15 @@ import org.bytedeco.javacv.FFmpegFrameRecorder
 import java.lang.ref.WeakReference
 import java.nio.ShortBuffer
 
+/**
+\1音频采集并且与视频合并一起
+ * @author: CaiSongL
+ * @date: 2023/3/28
+ */
+/**
+ * Audio record help utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 class AudioRecordHelp private constructor() {
     private var audioRecord: AudioRecord? = null
     private var audioRecordRunnable: AudioRecordRunnable? = null
@@ -32,7 +41,11 @@ class AudioRecordHelp private constructor() {
     var type: Int = 0
     private var startRecordTime: Long = 0L
 
-    object AudioUtilHolder {
+/**
+ * Audio util holder utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
+object AudioUtilHolder {
         val INSTANCE = AudioRecordHelp()
     }
 
@@ -44,16 +57,14 @@ class AudioRecordHelp private constructor() {
         this.startRecordTime = startRecordTime
         type = 1
         initRecorder(recorder)
-        if (audioRecord == null) {
-            audioRecord =
-                AudioRecord(
-                    MediaRecorder.AudioSource.MIC,
-                    VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
-                    AudioFormat.CHANNEL_IN_MONO,
-                    AudioFormat.ENCODING_PCM_16BIT,
-                    bufferSize,
-                )
-        }
+        if (audioRecord == null)
+            {
+                audioRecord =
+                    AudioRecord(
+                        MediaRecorder.AudioSource.MIC, VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
+                        AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
+                    )
+            }
         try {
             startTime = System.currentTimeMillis()
             audioThread!!.start()
@@ -74,17 +85,19 @@ class AudioRecordHelp private constructor() {
 
         @SuppressLint("MissingPermission")
         override fun run() {
-
-            if (audioRecord == null) {
-                return
-            }
+//            Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO)
+            if (audioRecord == null)
+                {
+                    return
+                }
             // Audio
-            if (audioData == null) {
-                audioData = ShortBuffer.allocate(bufferSize)
-            }
+            if (audioData == null)
+                {
+                    audioData = ShortBuffer.allocate(bufferSize)
+                }
             audioRecord!!.startRecording()
             /**
-             * utility
+\1音频进行循环编码
              */
             try {
                 while (runAudioThread) {
@@ -92,42 +105,44 @@ class AudioRecordHelp private constructor() {
                     if (recordingAudio) {
                         if (bufferReadResult > 0) {
                             audioData?.limit(bufferReadResult)
-                            Log.w("utility", bufferReadResult.toString() + "//" + bufferReadResult)
+                            Log.w("音频采集", bufferReadResult.toString() + "//" + bufferReadResult)
                             recorder?.get()?.recordSamples(
                                 VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
                                 VideoRecordFFmpeg.AUDIO_CHANNELS,
                                 audioData,
                             )
-
+\1Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
                         }
-                    } else {
-                        for (i in 0 until bufferSize) {
-                            audioData!!.put(i, 0)
+                    } else
+                        {
+                            for (i in 0 until bufferSize) {
+                                audioData!!.put(i, 0)
+                            }
+                            recorder?.get()?.recordSamples(
+                                VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
+                                VideoRecordFFmpeg.AUDIO_CHANNELS,
+                                audioData,
+                            )
+                            Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
                         }
-                        recorder?.get()?.recordSamples(
-                            VideoRecordFFmpeg.SAMPLE_AUDIO_RETE_INHZ,
-                            VideoRecordFFmpeg.AUDIO_CHANNELS,
-                            audioData,
-                        )
-                        Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
-                    }
                 }
-
+\1Log.w("停止采集",""+recorder?.get()?.frameNumber)
             } catch (e: Exception) {
-                XLog.e("utility")
+                XLog.e("采集容器异常")
             }
         }
     }
 
-    public fun updateAudioRecordingState(boolean: Boolean) {
+    public fun updateAudioRecordingState(boolean: Boolean)  {
         recordingAudio = boolean
     }
 
     fun stopAudioRecording() {
         type = 2
-        if (!runAudioThread) {
-            return
-        }
+        if (!runAudioThread)
+            {
+                return
+            }
         runAudioThread = false
         try {
             audioThread?.interrupt()
@@ -142,10 +157,11 @@ class AudioRecordHelp private constructor() {
         recordingAudio = false
     }
 
-    fun stopRecording() {
-        if (!runAudioThread) {
-            return
-        }
+    fun stopRecording()  {
+        if (!runAudioThread)
+            {
+                return
+            }
     }
 
     companion object {

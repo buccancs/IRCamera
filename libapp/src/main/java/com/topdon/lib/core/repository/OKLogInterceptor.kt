@@ -8,8 +8,14 @@ import okio.Buffer
 import java.nio.charset.StandardCharsets
 
 /**
- * OKHttpClient data，data Interceptor.
+ * OKHttpClient 所用，用于输出Log为目的的 Interceptor.
  * Created by LCG on 2024/4/28.
+ */
+/**
+ * OKLogInterceptor manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 class OKLogInterceptor(val isTC007: Boolean) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

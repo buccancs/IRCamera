@@ -63,7 +63,7 @@ android {
         viewBinding = true
         dataBinding = true
     }
-    
+
     lint {
         abortOnError = false
         ignoreWarnings = true
@@ -85,10 +85,11 @@ dependencies {
     implementation(project(":component:thermal-ir"))
     // Removed commonlibrary dependency - module removed as unused
 
+    // Enhanced BLE harmonization - Thermal-lite cross-modal coordination
+    implementation(project(":BleModule"))
+
     // AAR dependencies as compileOnly for compilation but not packaging
-    compileOnly(
-        files("../../libir/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar"),
-    ) // AC020 SDK for thermal-lite functionality
+    compileOnly(files("../../libir/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar")) // AC020 SDK for thermal-lite functionality
     compileOnly(files("../../libir/libs/libirutils_1.2.0_2409241055.aar")) // IR utilities for thermal-lite
     compileOnly(files("../../libir/libs/libusbdualsdk_1.3.4_2406271906_standard.aar")) // Required for iruvc classes
     compileOnly(files("../../shared/libs/lms_international-3.90.009.0.aar")) // LMS SDK for thermal-lite classes
@@ -102,7 +103,7 @@ dependencies {
     implementation(libs.bundles.ui.common)
     implementation(libs.utilcode)
 
-    // Test dependencies
+    // Test dependencies - using Robolectric for context-based testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.test.espresso.core)

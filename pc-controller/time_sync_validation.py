@@ -10,10 +10,11 @@ This test validates the sub-5ms temporal alignment requirement by:
 """
 
 import asyncio
+import json
 import statistics
 import time
 from datetime import datetime, timezone
-from typing import Dict
+from typing import Dict, List, Tuple
 
 # Import our time sync service
 from src.ircamera_pc.core.timesync import TimeSyncService
@@ -80,7 +81,8 @@ class TimeSyncValidator:
 
                 if i < 3:  # Show first few measurements
                     print(
-                        f"    Measurement {i+1}: offset={offset_ms:.3f}ms, RTT={rtt_ms:.3f}ms"
+                        f"    Measurement {i+1}: offset={offset_ms:.3f}ms,
+                            RTT={rtt_ms:.3f}ms"
                     )
 
             # Analyze results
@@ -89,7 +91,8 @@ class TimeSyncValidator:
             std_dev = statistics.stdev(sync_errors) if len(sync_errors) > 1 else 0
 
             print(
-                f"    Results: avg_error={avg_error:.3f}ms, max_error={max_error:.3f}ms, std_dev={std_dev:.3f}ms"
+                f"    Results: avg_error={avg_error:.3f}ms, max_error={max_error:.3f}ms,
+                    std_dev={std_dev:.3f}ms"
             )
 
             # Check if meets 5ms requirement
@@ -153,7 +156,8 @@ class TimeSyncValidator:
             )
 
             print(
-                f"    {device}: flash_time={flash_timestamp}, delay={processing_delay*1000:.2f}ms"
+                f"    {device}: flash_time={flash_timestamp},
+                    delay={processing_delay*1000:.2f}ms"
             )
 
         # Calculate temporal alignment
@@ -204,7 +208,7 @@ class TimeSyncValidator:
         print(f"  🎬 Starting coordinated session: {session_id}")
 
         # Send session start to all devices
-        time.time_ns()
+        session_start_time = time.time_ns()
 
         device_start_times = []
         for device in devices:

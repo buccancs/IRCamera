@@ -146,10 +146,10 @@ class ZeroconfDiscoveryService(private val context: Context) {
                 val host = serviceInfo.host?.hostAddress ?: return@mapNotNull null
                 val port = serviceInfo.port
                 val deviceName =
-                    serviceInfo.getAttribute("device_name")?.decodeToString()
+                    serviceInfo.attributes?.get("device_name")?.let { String(it) }
                         ?: serviceInfo.serviceName
                 val capabilities =
-                    serviceInfo.getAttribute("capabilities")?.decodeToString()
+                    serviceInfo.attributes?.get("capabilities")?.let { String(it) }
                         ?.split(",") ?: emptyList()
 
                 NetworkClient.ControllerInfo(
@@ -232,10 +232,10 @@ class ZeroconfDiscoveryService(private val context: Context) {
                     val host = serviceInfo.host?.hostAddress ?: return
                     val port = serviceInfo.port
                     val deviceName =
-                        serviceInfo.getAttribute("device_name")?.decodeToString()
+                        serviceInfo.attributes?.get("device_name")?.let { String(it) }
                             ?: serviceInfo.serviceName
                     val capabilities =
-                        serviceInfo.getAttribute("capabilities")?.decodeToString()
+                        serviceInfo.attributes?.get("capabilities")?.let { String(it) }
                             ?.split(",") ?: emptyList()
 
                     val controllerInfo =

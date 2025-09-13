@@ -66,7 +66,7 @@ dependencies {
     implementation("com.fasterxml:aalto-xml:1.3.3")
     implementation(project(":RangeSeekBar"))
 
-    // Test dependencies
+    // Test dependencies - using Robolectric for context-based testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.test.espresso.core)

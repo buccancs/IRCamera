@@ -36,11 +36,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
                 context.getString(R.string.main_tab_second_low_temperature_point),
                 CameraHelp.TYPE_SET_LOWTEMP,
             ),
-            ColorBean(
-                R.drawable.selector_menu2_del,
-                context.getString(R.string.thermal_delete),
-                CameraHelp.TYPE_SET_DETELE,
-            ),
+            ColorBean(R.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
         )
 
     override fun onCreateViewHolder(

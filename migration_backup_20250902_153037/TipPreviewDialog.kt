@@ -104,10 +104,11 @@ class TipPreviewDialog : DialogFragment() {
         )
     }
 
-    fun updateIndex(position: Int) {
-        if (index == position) {
-            return
-        }
+    fun updateIndex(position: Int)  {
+        if (index == position)
+            {
+                return
+            }
         indicateView.currentIndex = position
         viewPager.setCurrentItem(position, true)
         tvContent.text = titleList[position]

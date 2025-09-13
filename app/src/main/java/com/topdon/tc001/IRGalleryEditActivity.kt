@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.csl.irCamera.R
 import com.csl.irCamera.databinding.ActivityIrGalleryEditBinding
 import com.elvishew.xlog.XLog
+import com.energy.iruvc.ircmd.IRCMDType
 import com.energy.iruvc.ircmd.IRUtils
 import com.energy.iruvc.utils.CommonParams
 import com.example.thermal_lite.IrConst
@@ -78,18 +79,8 @@ import com.topdon.module.thermal.ir.R as ThermalIrR
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(), View.OnClickListener, ITsTempListener {
-    
-    private companion object {
-        private const val IMAGE_WIDTH = 256
-        private const val IMAGE_HEIGHT = 192
-        private const val FRAME_BUFFER_SIZE = IMAGE_HEIGHT * IMAGE_WIDTH * 4
-        private const val DEFAULT_PSEUDOCOLOR_MODE = 3
-        private const val DEFAULT_LEFT_VALUE = 0f
-        private const val DEFAULT_RIGHT_VALUE = 10000f
-        private const val DEFAULT_MAX_VALUE = 10000f
-        private const val DEFAULT_MIN_VALUE = 0f
-    }
-    
+    private val TAG = "IRGalleryEditActivity"
+
     private var isShowC: Boolean = false
     private var isTC007 = false // TC007 activity type flag
     
@@ -127,6 +118,7 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
+        initData()
     }
 
     override fun initView() {

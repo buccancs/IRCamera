@@ -20,7 +20,6 @@ import com.topdon.module.thermal.ir.R;
 
 import java.util.Locale;
 
-
 /**
  * Custom implementation of the MarkerView.
  *

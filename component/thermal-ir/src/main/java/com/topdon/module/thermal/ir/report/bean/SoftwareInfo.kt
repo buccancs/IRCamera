@@ -6,16 +6,20 @@ import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.tools.AppLanguageUtils
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Software info utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 @Parcelize
 data class SoftwareInfo(
-    val app_language: String, // App language setting
-    val sdk_version: String, // SDK version
+    val app_language: String, // APP语言
+    val sdk_version: String, // SDK版本
 ) : Parcelable {
-    val software_code = BaseApplication.instance.getSoftWareCode() // Data field
-    val system_language = AppLanguageUtils.getSystemLanguage() // System language
-    val app_version = "1.10.000" // Data field
-    val hardware_version = "" // Data field
+    val software_code = BaseApplication.instance.getSoftWareCode() // 软件编码
+    val system_language = AppLanguageUtils.getSystemLanguage() // 系统语言
+    val app_version = "1.10.000" // 软件版本
+    val hardware_version = "" // 硬件版本
     val app_sn = ""
-    val mobile_phone_model = Build.BRAND // Data field
-    val system_version = Build.VERSION.RELEASE // Data field
+    val mobile_phone_model = Build.BRAND // 手机型号
+    val system_version = Build.VERSION.RELEASE // 系统版本
 }

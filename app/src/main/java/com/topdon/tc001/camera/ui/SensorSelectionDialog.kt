@@ -11,6 +11,59 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import com.csl.irCamera.R
 
+// Enhanced unified BLE integration for comprehensive sensor discovery
+import com.topdon.ble.UnifiedBleManager
+
+/**
+ * Dialog for selecting which sensors to include in multi-modal recording
+ * Allows any combination of Thermal (IR), RGB Camera, and GSR sensors
+ */
+class SensorSelectionDialog(
+    context: Context,
+    private val availableSensors: Set<SensorType>,
+    private val onSensorsSelected: (Set<SensorType>) -> Unit,
+) : Dialog(context) {
+    companion object {
+        private const val TAG = "SensorSelectionDialog"
+
+        fun detectAvailableSensors(context: Context): Set<SensorType> {
+            val available = mutableSetOf<SensorType>()
+
+            // Thermal camera is always available in this thermal camera app
+            available.add(SensorType.THERMAL)
+
+            // Check RGB camera availability
+            if (context.packageManager.hasSystemFeature(android.content.pm.PackageManager.FEATURE_CAMERA_ANY)) {
+                available.add(SensorType.RGB)
+            }
+
+            // Enhanced GSR sensor detection using unified BLE system
+            try {
+                val unifiedBleManager = UnifiedBleManager.getInstance(context)
+                // Quick check for any previously connected Shimmer devices
+                val hasConnectedShimmerDevices = unifiedBleManager.getConnectedShimmerDevices().isNotEmpty()
+
+                if (hasConnectedShimmerDevices) {
+                    available.add(SensorType.GSR)
+                    Log.d(TAG, "Connected Shimmer GSR devices found")
+                } else {
+                    // GSR sensor available with fallback to simulated data if no hardware present
+                    available.add(SensorType.GSR)
+                    Log.d(TAG, "GSR sensor available (will use simulation if no hardware found)")
+                }
+            } catch (e: Exception) {
+                // Fallback - always make GSR available with simulated data option
+                available.add(SensorType.GSR)
+                Log.w(TAG, "BLE manager not available, GSR will use simulated data if needed", e)
+            }
+
+            Log.d(TAG, "Detected available sensors: $available")
+            return available
+        }
+
+        /**
+         * Show sensor selection dialog with enhanced BLE-aware sensor detection
+         */
         fun show(
             context: Context,
             onSensorsSelected: (Set<SensorType>) -> Unit,

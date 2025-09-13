@@ -66,7 +66,7 @@ class ReportInfoView : LinearLayout {
     }
 
     /**
-     * 获取需要转为 PDF 的所有 View 列表.
+     * Get/Retrieve需要转为 PDF 的所有 View 列表.
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()

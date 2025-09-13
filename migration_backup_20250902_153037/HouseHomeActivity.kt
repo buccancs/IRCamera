@@ -115,7 +115,7 @@ class HouseHomeActivity : BaseActivity(), View.OnClickListener {
                 newIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
                 startActivity(newIntent)
             }
-            iv_exit_edit -> { // 退出编辑
+            iv_exit_edit -> { // Exit编辑
                 tabViewModel.isEditModeLD.value = false
             }
         }

@@ -15,9 +15,13 @@ import com.topdon.lib.core.view.MyTextView
 import com.topdon.module.thermal.ir.R
 
 /**
- * Optiondata PopupWindow.
+\1option拾取 PopupWindow.
  *
  * Created by LCG on 2024/1/5.
+ */
+/**
+ * Custom Option pick popup view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 class OptionPickPopup(
     private val context: Context,
@@ -29,18 +33,18 @@ class OptionPickPopup(
 
     companion object {
         /**
-         * Optiondata，data ***sp***
+\1option文字大小，单位 ***sp***
          */
         private const val TEXT_SIZE_SP: Float = 14f
 
         /**
-         * Optiondata padding，data ***dp***
+\1option文字顶部或底部 padding，单位 ***dp***
          */
         private const val TEXT_PADDING: Float = 7f
     }
 
     /**
-     * dataOptiondataSelecteddata.
+\1一个option被选中事件监听.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
@@ -76,25 +80,16 @@ class OptionPickPopup(
 
         val x = locationArray[0] + anchor.width - width + SizeUtils.dp2px(5f)
 
-        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height -
-            SizeUtils.dp2px(
-                5f,
-            )
-        ) { // Implementation anchor data
+        if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) { // 在 anchor 底部放得下
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
-        } else { // Implementation
-            showAtLocation(
-                anchor,
-                Gravity.NO_GRAVITY,
-                x,
-                (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0),
-            )
+        } else { // 下面放不下就放上面吧
+            showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
         }
     }
 
     private inner class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-         * item data.
+\1item 点击事件监听.
          */
         var onItemClickListener: ((position: Int) -> Unit)? = null
 

@@ -4,7 +4,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import kotlin.math.roundToLong
 
-// Utility functionxutility
+\1get真实的x坐标
 fun realX(
     str: String,
     x: Float,
@@ -41,6 +41,13 @@ fun textDimensions(
     return measurementRect.width().toFloat() to measurementRect.height().toFloat()
 }
 
+/**
+ * Returns the values between min and max, inclusive, that are divisible by divisor
+ * @param min The minimum value
+ * @param max The maximum value
+ * @param divisor The divisor
+ * @return The values between min and max, inclusive, that are divisible by divisor
+ */
 fun getValuesBetween(
     min: Float,
     max: Float,

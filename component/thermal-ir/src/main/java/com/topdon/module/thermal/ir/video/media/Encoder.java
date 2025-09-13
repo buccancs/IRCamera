@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 public abstract class Encoder {
     private static final String TAG = Encoder.class.getSimpleName();
     protected static final int STATE_IDLE = 0;
@@ -55,11 +54,9 @@ public abstract class Encoder {
         }
     };
 
-
     public interface EncodeFinishListener {
         void onEncodeFinished();
     }
-
 
     public Encoder() {
         setDefaultEncodingOptions();
@@ -141,7 +138,6 @@ public abstract class Encoder {
     public void notifyLastFrameAdded() {
         setState(STATE_RECORDING_UNTIL_LAST_FRAME);
     }
-
 
     private void setState(int state) {
         this.state = state;

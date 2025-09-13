@@ -16,7 +16,11 @@ import com.topdon.module.thermal.viewmodel.GalleryViewModel
 import java.io.File
 
 /**
- * fragment
+\1图片
+ */
+/**
+ * Gallery picture fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
  */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -65,7 +69,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     /**
-     * fragment
+\1分享图片
      */
     fun share(path: String) {
         val file = File(path)

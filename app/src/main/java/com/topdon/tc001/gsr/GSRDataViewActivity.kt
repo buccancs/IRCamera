@@ -335,27 +335,17 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         // Data header
         csvWriter.writeNext(
             arrayOf(
-                "timestamp_ns",
-                "timestamp_ms",
-                "timestamp_iso",
-                "gsr_raw",
-                "gsr_microsiemens",
-                "gsr_normalized",
-                "ppg_raw",
-                "ppg_normalized",
-                "quality_score",
-                "sync_marker",
-                "notes",
+                "timestamp_ns", "timestamp_ms", "timestamp_iso",
+                "gsr_raw", "gsr_microsiemens", "gsr_normalized",
+                "ppg_raw", "ppg_normalized",
+                "quality_score", "sync_marker", "notes",
             ),
         )
 
+        // Process and export data with enhancements
         gsrDataPoints.forEachIndexed { index, dataPoint ->
             val timestampMs = dataPoint.timestamp / 1000000
-            val timestampIso =
-                SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-                    Locale.getDefault(),
-                ).format(Date(timestampMs))
+            val timestampIso = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(Date(timestampMs))
 
             // Calculate additional metrics
             val normalizedGSR = normalizeGSRValue(dataPoint.gsrValue.toFloat())
@@ -576,6 +566,7 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
 
                 progressDialog.dismiss()
 
+                // Launch plotting activity
                 val intent =
                     Intent(this@GSRDataViewActivity, GSRPlotActivity::class.java).apply {
                         putExtra("plot_data", plotData)
@@ -618,12 +609,12 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
             gsrEvents = gsrEvents,
             statistics = stats,
             metadata =
-            PlotMetadata(
-                fileName = file.name,
-                duration = timestamps.lastOrNull() ?: 0.0,
-                samplingRate = calculateSamplingRate(),
-                dataPoints = gsrDataPoints.size,
-            ),
+                PlotMetadata(
+                    fileName = file.name,
+                    duration = timestamps.lastOrNull() ?: 0.0,
+                    samplingRate = calculateSamplingRate(),
+                    dataPoints = gsrDataPoints.size,
+                ),
         )
     }
 
@@ -744,14 +735,17 @@ class GSRDataViewActivity : BaseBindingActivity<ActivityGsrDataViewBinding>() {
         // Simple quality score based on signal characteristics
         var quality = 100.0
 
+        // Check for unrealistic values
         if (dataPoint.gsrValue < 0.01 || dataPoint.gsrValue > 100.0) {
             quality -= 30.0
         }
 
+        // Check for PPG signal quality
         if (dataPoint.ppgValue < 100 || dataPoint.ppgValue > 3900) {
             quality -= 20.0
         }
 
+        // Check for rapid changes (potential artifacts)
         if (index > 0 && index < gsrDataPoints.size - 1) {
             val prevChange = kotlin.math.abs(dataPoint.gsrValue - gsrDataPoints[index - 1].gsrValue)
             val nextChange = kotlin.math.abs(gsrDataPoints[index + 1].gsrValue - dataPoint.gsrValue)

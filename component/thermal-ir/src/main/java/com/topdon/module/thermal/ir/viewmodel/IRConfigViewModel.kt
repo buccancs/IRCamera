@@ -10,9 +10,91 @@ import com.topdon.module.thermal.ir.repository.ConfigRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Custom I r config view model view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class IRConfigViewModel(application: Application) : AndroidViewModel(application) {
     val configLiveData = SingleLiveEvent<ModelBean>()
 
+    /**
+\1读取configurationdata
+     */
+    fun getConfig(isTC007: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            configLiveData.postValue(ConfigRepository.read(isTC007))
+        }
+    }
+
+    /**
+\1update默认parameter中的ambient temperature，单位摄氏度。
+     */
+    fun updateDefaultEnvironment(
+        isTC007: Boolean,
+        environment: Float,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
+            modelBean.defaultModel.environment = environment
+            ConfigRepository.update(isTC007, modelBean)
+            configLiveData.postValue(modelBean)
+        }
+    }
+
+    /**
+\1update默认parameter中的距离，单位不详。
+     */
+    fun updateDefaultDistance(
+        isTC007: Boolean,
+        distance: Float,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
+            modelBean.defaultModel.distance = distance
+            ConfigRepository.update(isTC007, modelBean)
+            configLiveData.postValue(modelBean)
+        }
+    }
+
+    /**
+\1update默认parameter中的emissivity。
+     */
+    fun updateDefaultRadiation(
+        isTC007: Boolean,
+        radiation: Float,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
+            modelBean.defaultModel.radiation = radiation
+            ConfigRepository.update(isTC007, modelBean)
+            configLiveData.postValue(modelBean)
+        }
+    }
+
+    /**
+\1增加一个自定义模式
+     */
+    fun addConfig(isTC007: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val modelBean = configLiveData.value ?: ConfigRepository.read(isTC007)
+
+            var index = 0
+            modelBean.myselfModel.forEach {
+                index = index.coerceAtLeast(it.id)
+            }
+            index++
+
+            modelBean.myselfModel.add(DataBean(id = index, name = index.toString()))
+
+            ConfigRepository.update(isTC007, modelBean)
+            configLiveData.postValue(modelBean)
+        }
+    }
+
+    /**
+\1选择模式
+\1@param id 0:默认模式   > 0 采用自定义模式
+     */
     fun checkConfig(
         isTC007: Boolean,
         id: Int,
@@ -28,6 +110,10 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    /**
+\1删除自定义模式
+\1@param id 自定义模式 id
+     */
     fun deleteConfig(
         isTC007: Boolean,
         id: Int,
@@ -38,7 +124,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
             for (i in modelBean.myselfModel.indices) {
                 val dataBean = modelBean.myselfModel[i]
                 if (dataBean.id == id) {
-                    if (dataBean.use) { // DeleteCurrentviewMode，viewMode
+                    if (dataBean.use) { // 删除当前正在使用的自定义模式，变更为使用默认模式
                         modelBean.defaultModel.use = true
                     }
                     modelBean.myselfModel.removeAt(i)
@@ -47,7 +133,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
                 }
             }
 
-            // BUG 28055 view，Deleteview，view，view BUG view
+\1BUG 28055 提的问题，删除后要把后面名称往前补，虽然实际使用非常怪，先按 BUG 改吧
             if (removeAt < modelBean.myselfModel.size) {
                 for (i in removeAt until modelBean.myselfModel.size) {
                     val dataBean = modelBean.myselfModel[i]
@@ -62,7 +148,7 @@ class IRConfigViewModel(application: Application) : AndroidViewModel(application
     }
 
     /**
-     * view.
+\1update一项自定义parameter.
      */
     fun updateCustom(
         isTC007: Boolean,

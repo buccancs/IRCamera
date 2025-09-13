@@ -10,7 +10,126 @@ import com.topdon.lib.core.tools.DeviceTools
  * Navigation management utility for handling screen transitions and intent routing
  */
 object NavigationManager {
+    /**
+     * Navigation builder class for fluent API
+     */
+/**
+ * NavigationBuilder manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
+    class NavigationBuilder(private val route: String) {
+        private val extras = Bundle()
+        private var requestCode: Int? = null
 
+    /**
+     * Executes withstring functionality.
+     */
+        fun withString(
+            key: String,
+            value: String,
+        ) = apply {
+            extras.putString(key, value)
+        }
+
+    /**
+     * Executes withboolean functionality.
+     */
+        fun withBoolean(
+            key: String,
+            value: Boolean,
+        ) = apply {
+            extras.putBoolean(key, value)
+        }
+
+    /**
+     * Executes withint functionality.
+     */
+        fun withInt(
+            key: String,
+            value: Int,
+        ) = apply {
+            extras.putInt(key, value)
+        }
+
+    /**
+     * Executes withfloat functionality.
+     */
+        fun withFloat(
+            key: String,
+            value: Float,
+        ) = apply {
+            extras.putFloat(key, value)
+        }
+
+    /**
+     * Executes withlong functionality.
+     */
+        fun withLong(
+            key: String,
+            value: Long,
+        ) = apply {
+            extras.putLong(key, value)
+        }
+
+    /**
+     * Executes withparcelable functionality.
+     */
+        fun withParcelable(
+            key: String,
+            value: Parcelable,
+        ) = apply {
+            extras.putParcelable(key, value)
+        }
+
+    /**
+     * Executes withparcelablearraylist functionality.
+     */
+        fun withParcelableArrayList(
+            key: String,
+            value: ArrayList<out Parcelable>,
+        ) = apply {
+            extras.putParcelableArrayList(key, value)
+        }
+
+    /**
+     * Executes withextras functionality.
+     */
+        fun withExtras(bundle: Bundle) =
+            apply {
+                extras.putAll(bundle)
+            }
+
+    /**
+     * Executes navigation functionality.
+     */
+        fun navigation(
+            context: Context,
+            requestCode: Int? = null,
+        ) {
+            this.requestCode = requestCode
+            val intent = createIntent(context, route)
+            intent.putExtras(extras)
+
+            if (requestCode != null && context is Activity) {
+                context.startActivityForResult(intent, requestCode)
+            } else {
+                context.startActivity(intent)
+            }
+        }
+    }
+
+    /**
+     * Build navigation to a specific route
+     */
+    fun build(route: String): NavigationBuilder {
+        return NavigationBuilder(route)
+    }
+
+    /**
+     * Get instance for API compatibility with ARouter
+     */
     fun getInstance(): NavigationManager = this
 
     /**

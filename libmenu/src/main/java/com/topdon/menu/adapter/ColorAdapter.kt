@@ -7,14 +7,14 @@ import com.topdon.menu.util.PseudoColorConfig
 import com.topdon.menu.view.ColorView
 
 /**
- * Adapter used for Temperature measurement mode - Menu 3 - Pseudo color / Observation mode - Menu 4 - Pseudo color, supports single selection only.
+ * temperature measurement模式-menu3-pseudo color/observation模式-menu4-pseudo color Adapter used for，只支持single selection.
  *
  * Created by LCG on 2024/11/12.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
     /**
-     * Currently selected pseudo color code.
+     * currentselected的pseudo colorcode.
      */
     var selectCode = -1
         set(value) {
@@ -25,16 +25,16 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
         }
 
     /**
-     * Selection change event listener.
-     * index - Selected pseudo color index in the list, used by TC007
-     * code - Pseudo color code, cannot be changed due to legacy reasons (2D editing data, saved settings pseudo color)
-     * size - Number of preset pseudo colors, used by TC007
+     * selected变更event listener.
+     * index-selectedpseudo color在list中的 index，也就 TC007 要用
+     * code-pseudo colorcode，由于legacy（2D编辑的数据、savedsettings开关的pseudo color）没法改了
+     * size-presetpseudo colorquantity，也就 TC007 要用
      */
     var onColorListener: ((index: Int, code: Int, size: Int) -> Unit)? = null
 
     /**
-     * item code item，itemHistorical legacy（2Ditem、itemSettingsitemPseudo-coloritem）item
-     * 1-White hot 3-Iron red 4-Rainbow1 5-Rainbow2 6-Rainbow3 7-Red hot 8-Hot iron 9-Rainbow4 10-Rainbow5 11-Black hot
+     * 这里的 code 来源不详，由于legacy（2D编辑的数据、savedsettings开关的pseudo color都按这个saved）没法改了
+     * 1-White Hot 3-Iron Red 4-Rainbow 1 5-Rainbow 2 6-Rainbow 3 7-Red Hot 8-Hot Iron 9-Rainbow 4 10-Rainbow 5 11-Black Hot
      */
     private val colorCodeArray: IntArray = intArrayOf(1, 3, 4, 5, 6, 7, 8, 9, 10, 11)
 
@@ -42,7 +42,7 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
         parent: ViewGroup,
         viewType: Int,
     ): ViewHolder {
-        // Adapter itemUIitem，item 62:375
+        // 按照UI图，宽度与屏幕宽度比例为 62:375
         val width: Int = (parent.context.resources.displayMetrics.widthPixels * 62f / 375).toInt()
         val colorView = ColorView(parent.context)
         colorView.layoutParams = ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -68,5 +68,12 @@ internal class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = colorCodeArray.size
 
+    /**
+     * ViewHolder(val class
+     */
+/**
+ * Custom View holder view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     class ViewHolder(val colorView: ColorView) : RecyclerView.ViewHolder(colorView)
 }

@@ -35,10 +35,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * fragment
+\1thermal imaging选取点
+ */
+/**
+ * I r correction fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
  */
 class IRCorrectionFragment : BaseFragment(), ITsTempListener {
-    /** fragmentMode：fragment+fragment */
+
+\1默认data流模式：image+temperature复合data */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
@@ -50,11 +55,12 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
 
     override fun initContentView() = R.layout.fragment_ir_monitor_thermal
 
-    private var rotateAngle = 270 // Fragment logicAngle270
+    private var rotateAngle = 270 // 校对默认角度270
 
     override fun initView() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
+        // Initialize views with findViewById
         temperatureView = requireView().findViewById<TemperatureView>(R.id.temperatureView)
         cameraView = requireView().findViewById<CameraView>(R.id.cameraView)
         thermalLay = requireView().findViewById<ViewGroup>(R.id.thermal_lay)
@@ -87,7 +93,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-     * fragment
+\1初始data
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -111,17 +117,17 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
         setViewLay()
-        // fragmentsensor
+\1某些特定客户的特殊device需要使用该命令disabledsensor
         if (Usbcontorl.isload) {
-            Usbcontorl.usb3803_mode_setting(1) // Fragment logic5V
-            Log.w("123", "fragment5V")
+            Usbcontorl.usb3803_mode_setting(1) // 打开5V
+            Log.w("123", "打开5V")
         }
         temperatureView.clear()
         temperatureView.temperatureRegionMode = REGION_MODE_CLEAN
     }
 
     /**
-     * fragment
+\1image信号processing
      */
     private fun startISP() {
         try {
@@ -135,7 +141,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
             imageThread!!.setRotate(true)
             imageThread!!.start()
         } catch (e: Exception) {
-            Log.e("fragment", e.message.toString())
+            Log.e("图像线程重复启动", e.message.toString())
         }
     }
 
@@ -146,10 +152,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
         context?.let {
             iruvc =
                 IRUVCTC(
-                    cameraWidth,
-                    cameraHeight,
-                    context,
-                    syncimage,
+                    cameraWidth, cameraHeight, context, syncimage,
                     defaultDataFlowMode,
                     object : ConnectCallback {
                         override fun onCameraOpened(uvcCamera: UVCCamera) {
@@ -161,7 +164,10 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                                 "ConnectCallback->onIRCMDCreate",
                             )
                             this@IRCorrectionFragment.ircmd = ircmd
-}
+\1需要等IRCMDinitialize完成之后才可以调用
+//                        ircmd.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
+//                            PseudocodeUtils.changePseudocodeModeByOld(pseudocolorMode))
+                        }
                     },
                     object : USBMonitorCallback {
                         override fun onAttach() {}
@@ -204,7 +210,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
         super.onStart()
         Log.w(TAG, "onStart")
         if (!isrun) {
-            // Fragment logic,Pseudo-colorIron red
+\1初始configuration,pseudo-color铁红
             temperatureView.postDelayed({
                 pseudocolorMode = 3
                 startUSB(false)
@@ -212,7 +218,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                 temperatureView.start()
                 cameraView?.start()
                 isrun = true
-                // Fragment logic
+\1恢复configuration
                 configParam()
             }, 1500)
         }
@@ -263,7 +269,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                 params.height = params.width * imageHeight / imageWidth
                 thermalLay.layoutParams = params
             } else {
-                // fragment
+\1横屏
                 val params = thermalLay.layoutParams
                 params.height = thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
@@ -276,11 +282,11 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                // Fragment logic
+\1准备image
                 showLoadingDialog()
             }
             101 -> {
-                // Fragment logic
+\1displayimage
                 lifecycleScope.launch {
                     delay(500)
                     isConfigWait = false
@@ -293,7 +299,7 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
 
     private var isConfigWait = true
 
-    // Fragment logic
+\1configuration
     private fun configParam() {
         lifecycleScope.launch {
             isConfigWait = true
@@ -301,23 +307,23 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                 delay(100)
             }
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() // Fragment logic(fragment)
-            val emsChar = (config.radiation * 128).toInt() // Fragment logic
-            XLog.w("SettingsTPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
+            val disChar = (config.distance * 128).toInt() // 距离(米)
+            val emsChar = (config.radiation * 128).toInt() // 发射率
+            XLog.w("设置TPD_PROP DISTANCE:$disChar, EMS:$emsChar}")
             val timeMillis = 250L
             delay(timeMillis)
-            // Fragment logic
+\1emissivity
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
             )
             delay(timeMillis)
-            // Fragment logic
+\1距离
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
-            // fragment
+\1自动快门
             delay(timeMillis)
             ircmd?.zoomCenterDown(
                 CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -339,22 +345,23 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
                 CommonParams.ZoomScaleStep.ZOOM_STEP2,
             )
             iruvc?.let {
-                // fragment，fragment
+\1部分机型在disabled自动快门，初始会花屏
                 withContext(Dispatchers.IO) {
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd?.setPropAutoShutterParameter(
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
                             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    } else {
-                        ircmd?.setPropAutoShutterParameter(
-                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
-                        )
-                    }
+                    } else
+                        {
+                            ircmd?.setPropAutoShutterParameter(
+                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                            )
+                        }
                 }
             }
-            // Fragment logic、fragment
+\1复位对比度、细节
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -375,33 +382,47 @@ class IRCorrectionFragment : BaseFragment(), ITsTempListener {
 
     suspend fun autoStart() {
         withContext(Dispatchers.IO) {
-CalibrationTools.autoShutter(irCmd = ircmd, false)
-            XLog.w("fragment：" + "fragment")
-delay(2000)
-            XLog.w("fragment：" + "fragment")
+\1ToastUtils.showShort("任务开始")
+\1锅盖开始
+\11 锅盖calibration开始
+\12 disabled自动快门
+            CalibrationTools.autoShutter(irCmd = ircmd, false)
+            XLog.w("锅盖矫正：" + "锅盖标定开始")
+\1常温
+\13 手动打快门命令
+//            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
+\1XLog.w("锅盖矫正："+"手动打快门命令")
+\14 disabled锅盖校正
+            delay(2000)
+            XLog.w("锅盖矫正：" + "关闭锅盖校正")
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
-            // 5 fragment
+\15 发送锅盖标
             CalibrationTools.pot(irCmd = ircmd!!, 1)
-            XLog.w("fragment：" + "fragment")
-            // 6 fragment
+            XLog.w("锅盖矫正：" + "发送锅盖标")
+\16 打开锅盖校正
             delay(5000)
-            XLog.w("fragment：" + "fragment")
+            XLog.w("锅盖矫正：" + "打开锅盖校正")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
             delay(20000)
-            XLog.w("fragment：" + "20000")
-delay(2000)
+            XLog.w("锅盖矫正：" + "20000")
+\1high temperature
+\111 手动打快门命令
+//            CalibrationTools.shutter(irCmd = ircmd, syncImage = syncimage)
+\1XLog.w("锅盖矫正："+"手动打快门命令")
+\112 disabled锅盖校正
+            delay(2000)
             CalibrationTools.stsSwitch(irCmd = ircmd, false)
-            XLog.w("fragment：" + "fragment")
-            // 13 fragment
+            XLog.w("锅盖矫正：" + "关闭锅盖校正")
+\113 发送锅盖标
             CalibrationTools.pot(irCmd = ircmd!!, 1)
-            // 14 fragment
+\114 打开锅盖校正
             delay(5000)
-            XLog.w("fragment：" + "fragment")
+            XLog.w("锅盖矫正：" + "打开锅盖校正")
             CalibrationTools.stsSwitch(irCmd = ircmd, true)
-            // 17 fragment
+\117 打开自动快门
             CalibrationTools.autoShutter(irCmd = ircmd, true)
-            // fragment
-            XLog.w("fragment：" + "fragment")
+\1锅盖结束
+            XLog.w("锅盖矫正：" + "锅盖结束")
         }
     }
 }

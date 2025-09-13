@@ -23,6 +23,12 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
 class WebViewActivity : BaseBindingActivity<ActivityWebViewBinding>() {
     override fun initContentLayoutId(): Int = R.layout.activity_web_view
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+        initData()
+    }
+
     override fun getViewBinding(): ActivityWebViewBinding = ActivityWebViewBinding.inflate(layoutInflater)
 
     override fun initView() {

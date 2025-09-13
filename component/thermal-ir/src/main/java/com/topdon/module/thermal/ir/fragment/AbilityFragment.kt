@@ -23,10 +23,8 @@ import com.topdon.module.thermal.ir.activity.MonitoryHomeActivity
 import org.greenrobot.eventbus.EventBus
 
 /**
- *  Tab 
- *
- * ：
- * - [ExtraKeyConfig.IS_TC007] -  TC007（，）
+ * Ability fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
  */
 class AbilityFragment : BaseFragment(), View.OnClickListener {
     private var mIsTC007 = false
@@ -42,6 +40,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
     override fun initView() {
         mIsTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
 
+        // Initialize views with findViewById
         ivWinter = requireView().findViewById(R.id.iv_winter)
         viewMonitory = requireView().findViewById(R.id.view_monitory)
         viewHouse = requireView().findViewById(R.id.view_house)
@@ -58,7 +57,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            ivWinter -> { // 
+            ivWinter -> { // 冬季特辑入口
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
                 val url =
@@ -72,16 +71,20 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            viewMonitory -> { // 
+            viewMonitory -> { // 温度监控
                 val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
                 startActivity(intent)
             }
 
-            viewHouse -> {
-}
+            viewHouse -> { // 房屋检测
+                // Disabled - HouseHomeActivity from removed house module
+                // val intent = Intent(requireContext(), HouseHomeActivity::class.java)
+                // intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
+                // startActivity(intent)
+            }
 
-            viewCar -> { // 
+            viewCar -> { // 汽车检测
                 if (mIsTC007) {
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07)

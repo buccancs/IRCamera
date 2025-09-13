@@ -93,9 +93,7 @@ dependencies {
 
     // All AAR dependencies as compileOnly for compilation but not packaging (runtime provided by app module)
     // This fixes AGP 8.0+ restrictions on local AAR files in library modules
-    compileOnly(
-        files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar"),
-    ) // Required for infisense thermal camera classes
+    compileOnly(files("libs/libusbdualsdk_1.3.4_2406271906_standard.aar")) // Required for infisense thermal camera classes
     compileOnly(files("libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar")) // AC020 SDK for thermal-lite functionality
     compileOnly(files("libs/libirutils_1.2.0_2409241055.aar")) // IR utilities for thermal-lite
     compileOnly(files("libs/opengl_1.3.2_standard.aar")) // OpenGL functionality
@@ -114,10 +112,14 @@ dependencies {
     api(libs.javacpp) // JavaCV native dependencies
 
     implementation(project(":libapp"))
+
+    // Add unified BLE module for comprehensive Shimmer Nordic and Topdon BLE support
+    implementation(project(":BleModule"))
+
     // libcommon needs to be available directly to libir since it uses SurfaceNativeWindow
     // Changed to compileOnly since library modules cannot include AAR dependencies directly
     compileOnly(files("../app/libs/libcommon_1.2.0_24052117.aar"))
-    
+
     // Test dependencies for Robolectric testing
     testImplementation("org.robolectric:robolectric:4.10.3")
     testImplementation("junit:junit:4.13.2")

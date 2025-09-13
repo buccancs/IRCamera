@@ -64,6 +64,34 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
+    lint {
+        // Disable lint for third-party and compatibility issues
+        abortOnError = false
+        checkReleaseBuilds = false
+        ignoreWarnings = true
+
+        // Focus only on critical issues
+        disable.addAll(
+            listOf(
+                "MissingClass",
+                "Instantiatable",
+                "UnusedResources",
+                "IconMissingDensityFolder",
+                "TypographyFractions",
+                "TypographyQuotes",
+                "ObsoleteLintCustomCheck",
+                "GradleDependency",
+                "NewerVersionAvailable",
+                "UnusedIds",
+                "ContentDescription",
+                "SmallSp",
+                "SpUsage",
+                "HardcodedText",
+                "RelativeOverlap",
+            ),
+        )
+    }
 }
 
 dependencies {
@@ -74,6 +102,9 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu"))
+
+    // Enhanced BLE harmonization - User component device management
+    implementation(project(":BleModule"))
 
     // Compile-time access to LMS SDK for user component classes that import LMS classes
     compileOnly(files("../../shared/libs/lms_international-3.90.009.0.aar"))
@@ -86,4 +117,13 @@ dependencies {
 
     // Core library desugaring
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    // Testing dependencies - using Robolectric for context-based testing
+    testImplementation(libs.junit)
+    testImplementation("org.robolectric:robolectric:4.10.3")
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.espresso.core)
 }

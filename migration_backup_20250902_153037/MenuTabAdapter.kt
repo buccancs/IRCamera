@@ -60,7 +60,7 @@ class MenuTabAdapter(val context: Context) :
     private val fourthMenusStr =
         arrayListOf(
             "旋转",
-            "增强",
+            "Enhance",
             "画中画",
             "色带",
         )

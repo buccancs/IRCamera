@@ -12,15 +12,15 @@ import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.dialog.CarDetectDialog
 
 /**
- * Currentdata“dataSettingsdata”data，
+ * current类封装不受“savedsettings开关”影响的configuration项，
  *
- * [SaveSettingUtil] data“dataSettingsdata”data.
+ * [SaveSettingUtil] saved受“savedsettings开关”影响的configuration项.
  *
  * create by fylder on 2018/6/14
  **/
 object SharedManager {
     /**
-     * data.
+     * 是否已click过冬季特辑入口.
      */
     var hasClickWinter: Boolean
         get() = SPUtils.getInstance().getBoolean("hasClickWinter", false)
@@ -43,7 +43,7 @@ object SharedManager {
         }
 
     /**
-     * data - data，0-dataUSD 1-dataEUR 2-dataGBP 3-dataAUD 4-dataJPY 5-dataCAD 6-dataNZD 7-PersondataRMB 8-dataHKD
+     * 房屋检测 - 检测费用单位，0-美元USD 1-欧元EUR 2-英镑GBP 3-澳元AUD 4-日元JPY 5-加元CAD 6-新西兰NZD 7-human民币RMB 8-港币HKD
      */
     var costUnit: Int
         get() = SPUtils.getInstance().getInt("costUnit", 0)
@@ -52,7 +52,7 @@ object SharedManager {
         }
 
     /**
-     * data TC data，data false.
+     * 设备list中是否有 TC 有线设备，默认 false.
      */
     var hasTcLine: Boolean
         get() = SPUtils.getInstance().getBoolean("hasConnectTcLine", false)
@@ -61,7 +61,7 @@ object SharedManager {
         }
 
     /**
-     * data TS004 data，data false.
+     * 设备list中是否有 TS004 设备，默认 false.
      */
     var hasTS004: Boolean
         get() = SPUtils.getInstance().getBoolean("hasConnectTS004", false)
@@ -70,7 +70,7 @@ object SharedManager {
         }
 
     /**
-     * data TC007 data，data false.
+     * 设备list中是否有 TC007 设备，默认 false.
      */
     var hasTC007: Boolean
         get() = SPUtils.getInstance().getBoolean("hasConnectTC007", false)
@@ -134,7 +134,7 @@ object SharedManager {
         }
 
     /**
-     * TS004 data”data“
+     * TS004 是否开启”自动saved到手机“
      */
     var is04AutoSync: Boolean
         get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
@@ -143,7 +143,7 @@ object SharedManager {
         }
 
     /**
-     * Dual lightdataRotateAngle，data [0, 2000]，data SeekBar data.iddatasiddata
+     * dual light校正rotation angle，取值range [0, 2000]，对应 SeekBar 取值.id对应设备的sid作为唯一标识区分
      */
     fun getManualAngle(sId: String): Int {
         return SPUtils.getInstance().getInt("manualAngle_$sId", 1000)
@@ -157,7 +157,7 @@ object SharedManager {
     }
 
     /**
-     * Dual lightdata，data 24.
+     * dual light校正的实际数据，长度必定为 24.
      */
     fun getManualData(sId: String): ByteArray {
         val strValue = SPUtils.getInstance().getString("manualData_$sId")
@@ -233,8 +233,8 @@ object SharedManager {
         }
 
     /**
-     * data-data，data.
-     * true-data false-data，data
+     * click热成像-自动快门时，是否需要弹出提示弹框.
+     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipShutter: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipShutter", true)
@@ -243,8 +243,8 @@ object SharedManager {
         }
 
     /**
-     * data-High temperaturedata，data.
-     * true-data false-data，data
+     * click温度-高温档时，是否需要弹出提示弹框.
+     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipHighTemp: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipHighTemp", true)
@@ -253,8 +253,8 @@ object SharedManager {
         }
 
     /**
-     * data-Picture in picture（dataDual light）data，data.
-     * true-data false-data，data
+     * click热成像-picture-in-picture（也就是dual light）时，是否需要弹出提示弹框.
+     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipPinP: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipPinP", true)
@@ -263,8 +263,8 @@ object SharedManager {
         }
 
     /**
-     * data-Observationdata，data.
-     * true-data false-data，data
+     * click热成像-observation时，是否需要弹出提示弹框.
+     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipCoordinate: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipCoordinate", true)
@@ -273,8 +273,8 @@ object SharedManager {
         }
 
     /**
-     * data-AIdata，data.
-     * true-data false-data，data
+     * click热成像-AI追踪时，是否需要弹出提示弹框.
+     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipAIRecognition: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipAIRecognition", true)
@@ -283,8 +283,8 @@ object SharedManager {
         }
 
     /**
-     * data-ObservationMode-Photodata，data.
-     * true-data false-data，data
+     * click热成像-observation模式-capture踪时，是否需要弹出提示弹框.
+     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipObservePhoto: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipObservePhoto", true)
@@ -293,7 +293,7 @@ object SharedManager {
         }
 
     /**
-     * dataPhotodata，dataSettingsdata.
+     * continuouscapture相关configuration项，不受savedsettings开关影响.
      */
     var continuousBean: ContinuousBean
         get() {
@@ -312,8 +312,8 @@ object SharedManager {
         }
 
     /**
-     * wifidata
-     * data，dataSettingsdata.
+     * wifi类产品
+     * watermark相关configuration想，不受savedsettings开关影响.
      */
     var wifiWatermarkBean: WatermarkBean
         get() {
@@ -332,7 +332,7 @@ object SharedManager {
         }
 
     /**
-     * data，dataSettingsdata.
+     * watermark相关configuration想，不受savedsettings开关影响.
      */
     var watermarkBean: WatermarkBean
         get() {
@@ -351,8 +351,8 @@ object SharedManager {
         }
 
     /**
-     * dataTS004-dataSwitchdata，data.
-     * true-data false-data，data
+     * clickTS004-是否switch设备，是否需要弹出提示弹框.
+     * true-弹出提示弹框 false-用户点过不再提示，不需要再弹出
      */
     var isTipChangeDevice: Boolean
         get() = SPUtils.getInstance().getBoolean("isTipChangeDevice", true)
@@ -361,8 +361,8 @@ object SharedManager {
         }
 
     /**
-     * data，dataSwitch.
-     * true-Switch false-dataSwitch
+     * 设备连接成功，是否switch.
+     * true-switch false-不switch
      */
     var isChangeDevice: Boolean
         get() = SPUtils.getInstance().getBoolean("isChangeDevice", false)
@@ -377,7 +377,7 @@ object SharedManager {
     private const val HEAD_ICON: String = "head_icon"
 
     private const val BASE_HOST: String = "base_host"
-    private const val LANGUAGE = "language" // dataSettings
+    private const val LANGUAGE = "language" // 语言settings
 
     private const val HAS_SHOW_CLAUSE = "hasShowClause" // data
     private const val TEMPERATURE_UNIT = "temperature" // data
@@ -386,17 +386,17 @@ object SharedManager {
     private const val DEVICE_SN = "deviceSn" // dataSN
     private const val DEVICE_VERSION = "deviceVersion" // data
 
-    private const val IR_CONFIG = "ir_config" // data(json)
-    private const val SP_CUSTOM_PSEUDO = "sp_custom_pseudo" // dataPseudo-colordata
-    private const val SP_TARGET_POP = "sp_target_pop" // Targetdata
+    private const val IR_CONFIG = "ir_config" // 温度修正参数(json)
+    private const val SP_CUSTOM_PSEUDO = "sp_custom_pseudo" // 自定义pseudo color条
+    private const val SP_TARGET_POP = "sp_target_pop" // target弹框
 
     private const val SP_SETTING_IS_PUSH = "sp_setting_is_push" // data
     private const val SP_SETTING_IS_RECOMMEND = "sp_setting_is_recommend"
 
     /************************TS004************************************/
-    private const val SP_HOT_MODE = "sp_hot_mode" // White hot
-    private const val SP_CHANGE_DEVICE = "sp_change_device" // ts001datats004dataSwitch
-    private const val SP_TC007_CUSTOM_PSEUDO = "sp_tc007_custom_pseudo" // tc007dataPseudo-colordata
+    private const val SP_HOT_MODE = "sp_hot_mode" // white hot
+    private const val SP_CHANGE_DEVICE = "sp_change_device" // ts001与ts004相互switch
+    private const val SP_TC007_CUSTOM_PSEUDO = "sp_tc007_custom_pseudo" // tc007自定义pseudo color条
 
     private const val SP_CAR_DETECT = "sp_car_detect" // data
 
@@ -527,7 +527,7 @@ object SharedManager {
     }
 
     /**
-     * Targetdata
+     * target页面是否自动弹框
      */
     fun getTargetPop(): Boolean {
         return SPUtils.getInstance().getBoolean(SP_TARGET_POP, false)
@@ -537,8 +537,8 @@ object SharedManager {
         SPUtils.getInstance().put(SP_TARGET_POP, targetPop)
     }
 
-    private const val IR_DUAL_DISP = "ir_dual_disp" // Dual lightRegistration-data
-    private const val IR_DUAL_DISP_V = "ir_dual_disp_v" // Dual lightRegistration-data
+    private const val IR_DUAL_DISP = "ir_dual_disp" // dual lightregistration-水平
+    private const val IR_DUAL_DISP_V = "ir_dual_disp_v" // dual lightregistration-垂直
 
     fun saveSettingIsPush(isPush: Boolean) {
         SPUtils.getInstance().put(SP_SETTING_IS_PUSH, isPush)
@@ -577,7 +577,7 @@ object SharedManager {
     /************************TS004************************************/
 
     /**
-     * TS004data-Black hot
+     * TS004主页面-black hot
      */
     fun getHotMode(): Int {
         return SPUtils.getInstance().getInt(SP_HOT_MODE, 1)
@@ -588,7 +588,7 @@ object SharedManager {
     }
 
     /**
-     * TS004dataTS001dataSwitch device 0:data  1:TS001data  2:TS004data
+     * TS004和TS001相互switch device 0:都无连接  1:TS001连接  2:TS004连接
      */
     fun getChangeDevice(): Int {
         return SPUtils.getInstance().getInt(SP_CHANGE_DEVICE, 0)

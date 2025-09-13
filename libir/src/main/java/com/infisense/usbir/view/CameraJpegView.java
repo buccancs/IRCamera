@@ -11,7 +11,6 @@ import android.view.TextureView;
 
 import com.energy.iruvc.utils.SynchronizedBitmap;
 
-
 public class CameraJpegView extends TextureView {
 
     private String TAG = "CameraView";
@@ -65,10 +64,10 @@ public class CameraJpegView extends TextureView {
                             Bitmap mScaledBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
                             canvas.drawBitmap(mScaledBitmap, 0, 0, null);
 
-                            Paint paint = new Paint();  //
-                            paint.setStrokeWidth(2);  //。
-                            paint.setAntiAlias(true); //
-                            paint.setColor(Color.WHITE);  //
+                            Paint paint = new Paint();  //画笔
+                            paint.setStrokeWidth(2);  //settings线宽。单位为像素
+                            paint.setAntiAlias(true); //抗锯齿
+                            paint.setColor(Color.WHITE);  //画笔color
 
                             int cross_len = 20;
                             canvas.drawLine(getWidth() / 2f - cross_len, getHeight() / 2f,

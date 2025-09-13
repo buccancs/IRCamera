@@ -4,22 +4,23 @@ import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.topdon.lib.core.R
+import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.MenuType
 import com.topdon.menu.R as MenuR
 
 /**
- * Adapter used for Temperature measurement mode - Menu 6 - High/Low temperature level menu, single selection and must select one.
+ * temperature measurement模式-menu6-high/low temperature档 menuAdapter used for，single selection且必须selected其中一个.
  *
- * Low temperature level (high gain), High temperature level (low gain), Auto switch
+ * 低温档(高gain)、高温档(低gain)、auto switch
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     /**
-     * Whether to use Fahrenheit as unit
+     * 是否使用Fahrenheit作为单位
      *
-     * true - Fahrenheit, false - Celsius
+     * true-Fahrenheit false-Celsius
      */
     var isUnitF = false
         set(value) {
@@ -30,12 +31,12 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * CurrentSelecteditem code.
+     * currentselected的level code.
      *
-     * itemHistorical legacy（Already saveditem SharedPreferences item），item code item
-     * - itemSwitch：-1
-     * - High temperature(Low gain)：0
-     * - Normal temperature(High gain)：1
+     * Due to legacy constraints (saved in SharedPreferences), the code values are:
+     * - Auto switch: -1
+     * - High temperature (low gain): 0
+     * - Normal temperature (high gain): 1
      */
     var selectCode: Int = 1
         set(value) {
@@ -46,7 +47,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * Menuitem，item。
+     * menuclickevent listener，single selection。
      */
     var onTempLevelListener: ((code: Int) -> Unit)? = null
 
@@ -110,12 +111,16 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * itemSpecified Celsius°C item Fahrenheit°F
+     * 将指定 Celsius°C 转换为 Fahrenheit°F
      */
     private fun c2f(cValue: Int): Int = (cValue * 1.8f + 32).toInt()
 
     override fun getItemCount(): Int = dataList.size
 
+/**
+ * Custom Data view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     data class Data(
         @StringRes val stringId: Int,
         @DrawableRes val drawableId: Int,

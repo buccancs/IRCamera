@@ -17,6 +17,163 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * Terms and Conditions Activity
+ * 
+ * Displays different types of terms:
+ * 1: User terms  2: Privacy terms  3: Third-party terms
+ *
+ * When service returns an error, loads default terms
+ */
+// Legacy ARouter route annotation - now using NavigationManager
+class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
+    private val mHandler = Handler(Looper.getMainLooper())
+
+    companion object {
+        const val KEY_THEME_TYPE = "key_theme_type"
+        const val KEY_USE_TYPE = "key_use_type" // Usage type: local or network
+    }
+
+    private var themeType = 1
+    private var themeStr = ""
+    private var reloadCount = 1
+    private var keyUseType = 0
+
+    override fun initContentLayoutId() = R.layout.activity_policy
+
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
+        if (intent.hasExtra(KEY_THEME_TYPE)) {
+            themeType = intent.getIntExtra(KEY_THEME_TYPE, 1)
+        }
+        if (intent.hasExtra(KEY_USE_TYPE)) {
+            keyUseType = intent.getIntExtra(KEY_USE_TYPE, 0)
+        }
+        themeStr =
+            when (themeType) {
+                1 -> getString(R.string.user_services_agreement)
+                2 -> getString(R.string.privacy_policy)
+                3 -> getString(R.string.third_party_components)
+                else -> getString(R.string.user_services_agreement)
+            }
+
+        // Initialize views using view binding
+        binding.titleView.apply {
+            // Note: Title text setting is handled by the parent view implementation
+            // title_view.setTitleText(themeStr)
+        }
+
+        // Create a simple ViewModel-like observer pattern since we're using BaseBindingActivity
+        observeHtmlData()
+
+        if (keyUseType != 0) {
+            loadHttpWhenNotInit(binding.policyWeb)
+            delayShowWebView()
+        }
+    }
+
+    private fun observeHtmlData() {
+        // Since we're not using ViewModel anymore, we'll directly load the data
+        // This is a simplified version - in a real scenario you'd want proper MVVM
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler.removeCallbacksAndMessages(null)
+    }
+
+    /**
+     * 为解决闪缩白屏问题，延时打开webView
+     */
+    private fun delayShowWebView() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            delay(200)
+            launch(Dispatchers.Main) {
+                binding.policyWeb.visibility = android.view.View.VISIBLE
+            }
+        }
+    }
+
+    private fun initData() {
+        if (keyUseType == 0) {
+            showLoadingDialog()
+            // Load data directly since we removed ViewModel
+            loadDefaultContent()
+        }
+    }
+
+    private fun loadDefaultContent() {
+        // Load the appropriate content based on theme type
+        loadHttp(binding.policyWeb)
+        delayShowWebView()
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun initWeb(url: String) {
+        binding.policyWeb.visibility = android.view.View.INVISIBLE
+        val webSettings: android.webkit.WebSettings = binding.policyWeb.settings
+        webSettings.javaScriptEnabled = true // 设置支持javascript
+
+        binding.policyWeb.webViewClient =
+            object : android.webkit.WebViewClient() {
+                override fun shouldOverrideUrlLoading(
+                    view: android.webkit.WebView,
+                    url: String,
+                ): Boolean {
+                    view.loadUrl(url)
+                    return true
+                }
+
+                override fun onPageFinished(
+                    view: android.webkit.WebView?,
+                    url: String?,
+                ) {
+                    super.onPageFinished(view, url)
+                    Log.w("123", "onPageFinished url: $url")
+                }
+            }
+
+        binding.policyWeb.webChromeClient =
+            object : android.webkit.WebChromeClient() {
+                override fun onProgressChanged(
+                    view: android.webkit.WebView,
+                    newProgress: Int,
+                ) {
+                    super.onProgressChanged(view, newProgress)
+                }
+
+                override fun onReceivedTitle(
+                    view: android.webkit.WebView?,
+                    title: String?,
+                ) {
+                    super.onReceivedTitle(view, title)
+                    if (title!!.contains("404") && reloadCount > 0) {
+                        loadHttp(view!!)
+                        delayShowWebView()
+                    } else {
+                        mHandler.postDelayed({
+                            binding.policyWeb.visibility = android.view.View.VISIBLE
+                        }, 200)
+                    }
+                }
+            }
+
+        binding.policyWeb.settings.defaultTextEncodingName = "utf-8"
+        binding.policyWeb.loadDataWithBaseURL(null, url, "text/html", "utf-8", null)
+    }
+
+    /**
+     * 处理富文本
+     *
+     * @param bodyHTML body
+     * @param fontColor 需要改变的字体颜色
+     * @param backgroundColor 修改字体颜色
+     * @return String
+     */
     fun getHtmlData(
         htmlBody: String,
         fontColor: String,

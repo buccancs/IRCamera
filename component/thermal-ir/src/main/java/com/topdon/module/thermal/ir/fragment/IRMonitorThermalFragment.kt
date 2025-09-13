@@ -42,10 +42,14 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * fragment
+\1thermal imaging选取点
+ */
+/**
+ * I r monitor thermal fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
  */
 class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
-    /** fragmentMode：fragment+fragment */
+\1默认data流模式：image+temperature复合data */
     protected var defaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT
 
     private var ircmd: IRCMD? = null
@@ -58,7 +62,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
 
     override fun initContentView() = R.layout.fragment_ir_monitor_thermal
 
-    private var rotateAngle = 270 // Fragment logicAngle270
+    private var rotateAngle = 270 // 校对默认角度270
     private var ts_data_H: ByteArray? = null
     private var ts_data_L: ByteArray? = null
     private var isPick = false
@@ -87,9 +91,10 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments?.containsKey("isPick") == true) {
-            isPick = requireArguments().getBoolean("isPick")
-        }
+        if (arguments?.containsKey("isPick") == true)
+            {
+                isPick = requireArguments().getBoolean("isPick")
+            }
     }
 
     override fun initData() {
@@ -101,19 +106,19 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         Log.w("123", "event:${event.action}")
         when (event.action) {
             2001 -> {
-                // Fragment logic
+\1点
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
                 readPosition(1)
             }
             2002 -> {
-                // Fragment logic
+\1线
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
                 readPosition(2)
             }
             2003 -> {
-                // Fragment logic
+\1面
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
                 readPosition(3)
@@ -145,7 +150,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-     * fragment
+\1初始data
      */
     private fun initDataIR() {
         imageWidth = cameraHeight - tempHeight
@@ -166,23 +171,23 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         temperatureView.setTemperature(temperature)
         temperatureView.isEnabled = false
         setViewLay()
-        // fragmentsensor
+\1某些特定客户的特殊device需要使用该命令disabledsensor
         if (Usbcontorl.isload) {
-            Usbcontorl.usb3803_mode_setting(1) // Fragment logic5V
-            Log.w("123", "fragment5V")
+            Usbcontorl.usb3803_mode_setting(1) // 打开5V
+            Log.w("123", "打开5V")
         }
-        // Fragment logicTemperature measurement
+\1初始全局temperature measurement
         temperatureView.post {
             if (!temperaturerun) {
                 temperaturerun = true
-                // Fragment logic
+\1需等待rendering完成再display
                 temperatureView.visibility = View.VISIBLE
             }
         }
     }
 
     /**
-     * fragment
+\1image信号processing
      */
     private fun startISP() {
         try {
@@ -196,7 +201,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
             imageThread!!.setRotate(true)
             imageThread!!.start()
         } catch (e: Exception) {
-            Log.e("fragment", e.message.toString())
+            Log.e("图像线程重复启动", e.message.toString())
         }
     }
 
@@ -206,10 +211,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
     private fun startUSB(isRestart: Boolean) {
         iruvc =
             IRUVCTC(
-                cameraWidth,
-                cameraHeight,
-                context,
-                syncimage,
+                cameraWidth, cameraHeight, context, syncimage,
                 defaultDataFlowMode,
                 object : ConnectCallback {
                     override fun onCameraOpened(uvcCamera: UVCCamera) {
@@ -221,12 +223,12 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
                             "ConnectCallback->onIRCMDCreate",
                         )
                         this@IRMonitorThermalFragment.ircmd = ircmd
-                        // Fragment logic
+\1重置镜像为非镜像
                         ircmd.setPropImageParams(
                             CommonParams.PropImageParams.IMAGE_PROP_SEL_MIRROR_FLIP,
                             CommonParams.PropImageParamsValue.MirrorFlipType.NO_MIRROR_FLIP,
                         )
-                        // fragmentIRCMDfragment
+\1需要等IRCMDinitialize完成之后才可以调用
 //                    ircmd?.setPseudoColor(CommonParams.PreviewPathChannel.PREVIEW_PATH0, CommonParams.PseudoColorType.PSEUDO_1)
                         val fwBuildVersionInfoBytes = ByteArray(50)
                         ircmd?.getDeviceInfo(
@@ -240,11 +242,11 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
                         Log.d(TAG, "TPD_PROP_GAIN_SEL=" + value[0])
                         gainStatus =
                             if (value[0] == 1) {
-                                // CurrentCorefragmentHigh gain
+\1当前机芯为高gain
                                 CommonParams.GainStatus.HIGH_GAIN
-                                // fragment
+\1等效大气透过率表
                             } else {
-                                // CurrentCorefragmentLow gain
+\1当前机芯为低gain
                                 CommonParams.GainStatus.LOW_GAIN
                             }
                     }
@@ -289,18 +291,20 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         super.onStart()
         Log.w(TAG, "onStart")
         if (!isrun) {
-            // Fragment logic,Pseudo-colorIron red
-            if (isPick) {
-                pseudocolorMode = SaveSettingUtil.pseudoColorMode
-            } else {
-                pseudocolorMode = 3
-            }
+\1初始configuration,pseudo-color铁红
+            if (isPick)
+                {
+                    pseudocolorMode = SaveSettingUtil.pseudoColorMode
+                } else
+                {
+                    pseudocolorMode = 3
+                }
             startUSB(false)
             startISP()
             temperatureView.start()
             cameraView!!.start()
             isrun = true
-            // Fragment logic
+\1恢复configuration
             configParam()
         }
     }
@@ -327,9 +331,9 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         } catch (e: InterruptedException) {
             Log.e(TAG, "imageThread.join(): catch an interrupted exception")
         }
-        // fragmentsensor
+\1某些特定客户的特殊device需要使用该命令disabledsensor
 //        if (Usbcontorl.isload) {
-//            Usbcontorl.usb3803_mode_setting(0) // Fragment logic5V
+\1Usbcontorl.usb3803_mode_setting(0) //disabled5V
 //        }
 //        if (tempinfo != 0L) {
 //            Libircmd.temp_correction_release(tempinfo)
@@ -362,7 +366,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
             }
     }
 
-    // Fragment logic
+\1get选取点
     private fun updateTemp(type: Int) {
         var result: SelectPositionBean? = null
         val contentRectF = RectF(0f, 0f, 192f, 256f)
@@ -425,7 +429,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
                 params.height = params.width * imageHeight / imageWidth
                 thermalLay.layoutParams = params
             } else {
-                // fragment
+\1横屏
                 val params = thermalLay.layoutParams
                 params.height = thermalLay.height
                 params.width = params.height * imageHeight / imageWidth
@@ -438,11 +442,11 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
     fun cameraEvent(event: DeviceCameraEvent) {
         when (event.action) {
             100 -> {
-                // Fragment logic
+\1准备image
                 showLoadingDialog()
             }
             101 -> {
-                // Fragment logic
+\1displayimage
                 lifecycleScope.launch {
                     delay(500)
                     isConfigWait = false
@@ -455,51 +459,52 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
 
     private var isConfigWait = true
 
-    // Fragment logic
+\1configuration
     private fun configParam() {
         lifecycleScope.launch {
-            imageThread?.pseudocolorMode = pseudocolorMode // SettingsPseudo-color
+            imageThread?.pseudocolorMode = pseudocolorMode // 设置伪彩
             isConfigWait = true
             while (isConfigWait) {
                 delay(100)
             }
             val config = ConfigRepository.readConfig(false)
-            val disChar = (config.distance * 128).toInt() // Fragment logic(fragment)
-            val emsChar = (config.radiation * 128).toInt() // Fragment logic
-
-            XLog.w("SettingsTPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
+            val disChar = (config.distance * 128).toInt() // 距离(米)
+            val emsChar = (config.radiation * 128).toInt() // 发射率
+\1val tuChar = (config.environment * 10).toInt().toChar() //ambient temperature
+            XLog.w("设置TPD_PROP DISTANCE:${disChar.toInt()}, EMS:${emsChar.toInt()}}")
             val timeMillis = 250L
             delay(timeMillis)
-            // Fragment logic
+\1emissivity
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_EMS,
                 CommonParams.PropTPDParamsValue.NumberType(emsChar.toString()),
             )
             delay(timeMillis)
-            // Fragment logic
+\1距离
             ircmd?.setPropTPDParams(
                 CommonParams.PropTPDParams.TPD_PROP_DISTANCE,
                 CommonParams.PropTPDParamsValue.NumberType(disChar.toString()),
             )
-            // fragment
+\1自动快门
             delay(timeMillis)
             iruvc?.let {
-                // fragment，fragment
+\1部分机型在disabled自动快门，初始会花屏
                 withContext(Dispatchers.IO) {
                     if (SaveSettingUtil.isAutoShutter) {
                         ircmd?.setPropAutoShutterParameter(
                             CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
                             CommonParams.PropAutoShutterParameterValue.StatusSwith.ON,
                         )
-                    } else {
-                        ircmd?.setPropAutoShutterParameter(
-                            CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-                            CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
-                        )
-                    }
+                    } else
+                        {
+                            ircmd?.setPropAutoShutterParameter(
+                                CommonParams.PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+                                CommonParams.PropAutoShutterParameterValue.StatusSwith.OFF,
+                            )
+                        }
                 }
             }
-            // Fragment logic、fragment
+\1复位对比度、细节
             delay(timeMillis)
             ircmd?.setPropImageParams(
                 CommonParams.PropImageParams.IMAGE_PROP_LEVEL_CONTRAST,
@@ -518,17 +523,17 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
         }
     }
 
-    fun getBitmap(): Bitmap {
+    fun getBitmap(): Bitmap  {
         return cameraView.scaledBitmap
     }
 
-    fun startCoverStsSwitchReady(): Int {
-        // fragment-fragment
+    fun startCoverStsSwitchReady(): Int  {
+\1锅盖calibration-准备
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
 
-    fun startCoverStsSwitch(): Int {
-        // fragment-fragment
+    fun startCoverStsSwitch(): Int  {
+\1锅盖calibration-准备
         ircmd?.rmCoverAutoCalc(CommonParams.RMCoverAutoCalcType.GAIN_1)
         return ircmd?.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) ?: 1
     }
@@ -544,7 +549,7 @@ class IRMonitorThermalFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-     * fragment
+\1单点修正过程
      */
     private fun tempCorrect(
         temp: Float,

@@ -39,7 +39,6 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
      */
     protected float mXMin = Float.MAX_VALUE;
 
-
     protected float mLeftAxisMax = -Float.MAX_VALUE;
 
     protected float mLeftAxisMin = Float.MAX_VALUE;

@@ -41,23 +41,27 @@ import com.topdon.lib.core.R as LibR
 import com.topdon.lib.ui.R as UiR
 
 /**
- * TS004 activity
+\1TS004 图片详情
  */
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * I r gallery detail04 activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class IRGalleryDetail04Activity : BaseActivity() {
     /**
-     * activity.
-     * true-activity false-activity
+\1是否查看远端data.
+\1true-远端data false-手机本地data
      */
     private var isRemote = false
 
     /**
-     * Currentactivity position
+\1当前展示图片在列表中的 position
      */
     private var position = 0
 
     /**
-     * activity，Currentactivity.
+\1从上一interface传递过来的，当前展示的图片列表.
      */
     private lateinit var dataList: ArrayList<GalleryBean>
 
@@ -72,7 +76,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
         val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
         titleView.setTitleText("${position + 1}/${dataList.size}")
 
-        findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote // Activity logic3activity
+        findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote // 查看远端时底部才有3个按钮
 
         if (!isRemote) {
             titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)
@@ -112,9 +116,7 @@ class IRGalleryDetail04Activity : BaseActivity() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     this@IRGalleryDetail04Activity.position = position
-                    findViewById<com.topdon.lib.core.view.TitleView>(
-                        R.id.title_view,
-                    ).setTitleText("${position + 1}/${dataList.size}")
+                    findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view).setTitleText("${position + 1}/${dataList.size}")
                     findViewById<ImageView>(R.id.iv_download).isSelected = dataList[position].hasDownload
                 }
             },

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present <1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -24,9 +24,9 @@ public interface OnLinkagePickedListener {
     /**
      * 
      *
-     * @param first  
-     * @param second 
-     * @param third  
+     * @param first  selected项的第一级条目内容
+     * @param second selected项的第二级条目内容
+     * @param third  selected项的第三级条目内容
      */
     void onLinkagePicked(Object first, Object second, Object third);
 

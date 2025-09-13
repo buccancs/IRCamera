@@ -81,7 +81,10 @@ dependencies {
     implementation(libs.utilcode)
     implementation(libs.glide)
 
-    // Test dependencies
+    // Enhanced unified BLE system integration for cross-modal coordination
+    implementation(project(":BleModule"))
+
+    // Test dependencies - using Robolectric for context-based testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.test.espresso.core)

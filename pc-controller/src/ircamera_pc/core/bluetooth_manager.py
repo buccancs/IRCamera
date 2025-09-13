@@ -118,31 +118,55 @@ class BluetoothManager(BaseManager):
         self._scanning = False
         logger.info("Stopped Bluetooth device scanning")
 
-    def _timer_scan(self) -> None:
-        """Timer-triggered scan."""
-        if not self._scanning:
+    async def _scan_devices(self) -> None:
+        """Scan for BLE devices."""
+        try:
+            logger.debug("Scanning for BLE devices...")
+            devices = await BleakScanner.discover(timeout=5.0)
+
+            discovered_count = 0
+            for device in devices:
+                if device.address not in self._devices or self._should_update_device(
+                    device
+                ):
+                    bt_device = self._create_bluetooth_device(device)
+                    self._devices[device.address] = bt_device
+                    self._emit_signal("device_discovered", bt_device)
+                    discovered_count += 1
+                    logger.debug(
+                        f"Discovered device: {device.name}" "({device.address})"
+                    )
+
+            self._emit_signal("scan_completed", discovered_count)
+            logger.info(f"Scan completed - found {discovered_count}" "new devices")
+
+        except (OSError, ValueError, RuntimeError) as e:
+            logger.error(f"Error during device scan: {e}")
+            self._emit_signal("error_occurred", "scan", str(e))
+
+    def _periodic_scan(self) -> None:
+        """
+        Periodic scan callback.
+
+        Initiates device scanning if scanning is currently active.
+        Called automatically by the scan timer to maintain device discovery.
+        """
+        if self._scanning:
             asyncio.create_task(self._scan_devices())
 
-    async def _scan_devices(self) -> None:
-        """Asynchronously scan for Bluetooth devices."""
-        if not BLUETOOTH_AVAILABLE:
-            return
+    def _should_update_device(self, device: BLEDevice) -> bool:
+        """
+        Check if device information should be updated.
 
-        try:
-            # Simulate device discovery (replace with actual Bluetooth scanning)
-            await asyncio.sleep(1)  # Simulated scan time
+        Determines whether a discovered device's information has changed
+        enough to warrant updating the stored device record.
 
-            # In real implementation, would use bluetooth.discover_devices()
-            logger.info("Bluetooth device scan completed")
-            self._emit_signal("scan_completed", len(self._devices))
+        Args:
+            device: BLE device to check for updates
 
-        except Exception as e:
-            self._handle_error("scan", f"Device scan failed: {e}", e)
-        finally:
-            self._scanning = False
-
-    def add_device(self, device: BluetoothDevice) -> None:
-        """Add discovered device."""
+        Returns:
+            True if device should be updated, False otherwise
+        """
         if device.address not in self._devices:
             self._devices[device.address] = device
             logger.info(f"Added Bluetooth device: {device.name} ({device.address})")
@@ -200,7 +224,19 @@ class BluetoothManager(BaseManager):
         )
 
     def _create_bluetooth_device(self, device: BLEDevice) -> BluetoothDevice:
+        """
+        Create BluetoothDevice from BLEDevice.
 
+        Converts a BLEDevice from the bleak library into our internal
+        BluetoothDevice representation with additional metadata.
+
+        Args:
+            device: BLE device from bleak scan results
+
+        Returns:
+            BluetoothDevice with enhanced information and IRCamera detection
+        """
+        # Check if this could be an IRCamera device
         is_ircamera = self._is_ircamera_device(device)
 
         return BluetoothDevice(

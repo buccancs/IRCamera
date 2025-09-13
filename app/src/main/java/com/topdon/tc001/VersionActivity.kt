@@ -19,9 +19,13 @@ import java.util.*
 
 // Legacy ARouter route annotation - now using NavigationManager
 class VersionActivity : BaseBindingActivity<ActivityVersionBinding>(), View.OnClickListener {
-    override fun getViewBinding(): ActivityVersionBinding = ActivityVersionBinding.inflate(layoutInflater)
+    override fun initContentLayoutId(): Int = R.layout.activity_version
 
-    override fun initView() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+        initData()
+    }
 
         binding.versionCodeText.text = "${getString(R.string.set_version)}V${VersionUtils.getCodeStr(this)}"
         val year = Calendar.getInstance().get(Calendar.YEAR)

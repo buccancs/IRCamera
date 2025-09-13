@@ -12,14 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.ir.R
 import com.topdon.menu.R as MenuR
 
-@Deprecated("item2DitemMenu，item")
+/**
+ * Custom Gallery edit menu view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+@Deprecated("旧的2D编辑一级菜单，已重构过了")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((code: Int) -> Unit)? = null
 
-    private var pointColor = false // Adapter item
-    private var pseudoColor = false // Pseudo-color
-    private var pseudoColorBar = false // Pseudo-coloritem
-    private var settingColorBar = false // Settings
+    private var pointColor = false // 点
+    private var pseudoColor = false // 伪彩
+    private var pseudoColorBar = false // 伪彩条
+    private var settingColorBar = false // 设置
 
     private val bean =
         arrayListOf(
@@ -27,22 +31,18 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
                 name = context.getString(R.string.menu_3d_calibrate),
                 icon = MenuR.drawable.selector_menu_first_2_5,
                 code = 1000,
-            ), // Adapter item
+            ), // 标定
             IconBean(
                 name = context.getString(R.string.thermal_false_color),
                 icon = MenuR.drawable.selector_menu_first_4_3,
                 code = 2000,
-            ), // Pseudo-color
-            IconBean(
-                name = context.getString(R.string.app_setting),
-                icon = MenuR.drawable.selector_menu_first_5_6,
-                code = 4000,
-            ), // Settings
+            ), // 伪彩
+            IconBean(name = context.getString(R.string.app_setting), icon = MenuR.drawable.selector_menu_first_5_6, code = 4000), // 设置
             IconBean(
                 name = context.getString(R.string.func_temper_ruler),
                 icon = MenuR.drawable.selector_menu_first_edit_4,
                 code = 3000,
-            ), // Adapter item
+            ), // 等温尺
         )
 
     fun enPointColor(pointColor: Boolean) {
@@ -104,7 +104,7 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-    // Stateitem
+\1状态变化
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,
@@ -130,7 +130,11 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-    data class IconBean(
+/**
+ * Custom Icon view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+data class IconBean(
         val name: String,
         @DrawableRes val icon: Int,
         val code: Int,

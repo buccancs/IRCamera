@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present <1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -234,12 +234,12 @@ public class WheelView extends View implements Runnable {
 
     protected List<?> generatePreviewData() {
         List<String> data = new ArrayList<>();
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
+        data.add("贵州穿青human");
+        data.add("大定府羡民");
+        data.add("不在五十六个民族之内");
+        data.add("已识别待定民族");
+        data.add("穿青山魈human马");
+        data.add("李裕江");
         return data;
     }
 
@@ -248,7 +248,7 @@ public class WheelView extends View implements Runnable {
         if (visibleItemCount < minCount) {
             throw new ArithmeticException("Visible item count can not be less than " + minCount);
         }
-        //，
+        //Visible条目只能是奇数个，settingsVisible条目时偶数个将自动矫正为奇数个
         int evenNumberFlag = 2;
         if (visibleItemCount % evenNumberFlag == 0) {
             visibleItemCount += 1;

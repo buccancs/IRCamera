@@ -11,7 +11,8 @@ import com.topdon.module.thermal.ir.report.bean.ReportConditionBean
 import com.topdon.module.thermal.ir.report.bean.ReportInfoBean
 
 /**
- * Report information display view.
+ * Custom Report info view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 class ReportInfoView : LinearLayout {
     // View declarations
@@ -65,7 +66,7 @@ class ReportInfoView : LinearLayout {
     }
 
     /**
-     * Show specified data view.
+\1根据指定的报告信息刷新对应 View.
      */
     fun refreshInfo(reportInfoBean: ReportInfoBean?) {
         tvReportName.text = reportInfoBean?.report_name
@@ -81,7 +82,7 @@ class ReportInfoView : LinearLayout {
     }
 
     /**
-     * Show specified data view.
+\1根据指定的检测条件信息刷新对应 View.
      */
     fun refreshCondition(conditionBean: ReportConditionBean?) {
         clReportCondition.isVisible = conditionBean?.is_ambient_humidity == 1 ||
@@ -107,7 +108,7 @@ class ReportInfoView : LinearLayout {
     }
 
     /**
-     * Generate PDF with all view data included.
+\1get需要转为 PDF 的所有 View 列表.
      */
     fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()

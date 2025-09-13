@@ -78,6 +78,7 @@ class WebSocketProxy {
                         val originalRequest = chain.request()
                         val requestBuilder: Request.Builder = originalRequest.newBuilder()
 
+                        // Add authentication header if certificate manager is available
                         certificateManager?.let { certManager ->
                             val authToken = certManager.generateAuthToken()
                             requestBuilder.addHeader("Authorization", "Bearer $authToken")
@@ -90,6 +91,7 @@ class WebSocketProxy {
                 )
                 .retryOnConnectionFailure(true)
 
+        // Configure TLS/SSL if certificate manager is available and secure connection is enabled
         if (useSecureConnection && certificateManager != null) {
             try {
                 val sslSocketFactory = certificateManager?.createSSLSocketFactory()

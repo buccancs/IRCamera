@@ -18,6 +18,9 @@ data class AlarmBean(
         const val TYPE_ALARM_MARK_STROKE = 1
         const val TYPE_ALARM_MARK_MATRIX = 2
 
+    /**
+     * Loads fromarray from the data source.
+     */
         fun loadFromArray(data: ByteArray): AlarmBean {
             val buffer = ByteBuffer.wrap(data)
             val isHighOpen = buffer.get() == 1.toByte()
@@ -48,6 +51,9 @@ data class AlarmBean(
         }
     }
 
+    /**
+     * Executes tobytearray functionality.
+     */
     fun toByteArray(): ByteArray =
         ByteBuffer.allocate(28)
             .put(if (isHighOpen) 1 else 0)

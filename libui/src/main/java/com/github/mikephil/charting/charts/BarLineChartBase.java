@@ -821,7 +821,6 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         mViewPortHandler.setMinMaxScaleY(minScale, maxScale);
     }
 
-
     /**
      * Moves the left side of the current viewport to the specified x-position.
      * This also refreshes the chart by calling invalidate().

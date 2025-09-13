@@ -14,14 +14,18 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("item 2D itemMenu，item")
+/**
+ * Custom Menu six view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+@Deprecated("看起来是旧版 2D 编辑的menu，根本没使用了")
 class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
     private var selected = -1
-    private var colorEnable = false // Pseudo-coloritem
-    private var contrastEnable = false // List item data
-    private var ddeEnable = false // List item data
+    private var colorEnable = false // pseudo color条
+    private var contrastEnable = false // 对比度
+    private var ddeEnable = false // 细节
 
     fun selected(index: Int) {
         selected = index
@@ -94,7 +98,7 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    // Stateitem
+    // state变化
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

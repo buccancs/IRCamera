@@ -10,7 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.R
 import com.topdon.lib.ui.R as UiR
 
-@Deprecated("item-Menu-Photoitem，item")
+/**
+ * @author: CaiSongL
+ * @date: 2023/4/1 13:48
+ */
+/**
+ * Custom Camera item view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+@Deprecated("热成像-menu-capture已重构，不需要这个类了")
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {
     val data: List<String> =
         listOf(

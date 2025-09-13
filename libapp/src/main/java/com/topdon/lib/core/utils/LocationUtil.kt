@@ -21,7 +21,10 @@ import java.util.Locale
  * Location utility for GPS and address lookups
  */
 object LocationUtil {
-
+    /**
+     * 获取最后一个位置信息，并反向地理信息encoding为 省市区.
+     * @return 省-市-区，若获取失败或无可知位置信息则为 null
+     */
     @RequiresPermission(Permission.ACCESS_FINE_LOCATION)
     suspend fun getLastLocationStr(context: Context): String? =
         withContext(Dispatchers.IO) {
@@ -52,7 +55,7 @@ object LocationUtil {
         }
 
     /**
-     * utility activity utility utility utilityStateutility.
+     * 在给定 activity 生命周期内添加 位置信息 开关state监听.
      */
     fun addBtStateListener(
         activity: ComponentActivity,

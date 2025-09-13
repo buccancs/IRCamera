@@ -494,7 +494,7 @@
 //                            }
 //                        }
 //                        for (int i = lines.size(); i < drawCount; i++) {
-//                            //State
+//                            //settings不计数state
 //                            lineResultList.get(i).index = 0;
 //                        }
 //                        //
@@ -535,7 +535,7 @@
 //                        surfaceViewCanvas.drawBitmap(regionAndValueBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
 //                        getHolder().unlockCanvasAndPost(surfaceViewCanvas);
 //                    }catch (Exception e){
-//                        XLog.e("Temperature View: " + e.getMessage());
+//                        XLog.e("Temperature Viewrefresh异常: " + e.getMessage());
 //                    }
 //                }else {
 //                    TemperatureSampleResult temperatureSampleEasyResult = null;
@@ -563,11 +563,11 @@
 //
 ////                SystemClock.sleep(333);
 //                try {
-//                    SystemClock.sleep(1000);//
+//                    SystemClock.sleep(1000);//settingsrefresh间隔
 ////                    int[] value = new int[1];
 ////                    Libircmd.set_prop_tpd_params(Libircmd.TPD_PROP_GAIN_SEL, (char) 0, 1);
 //                } catch (Exception e) {
-//                    XLog.e("Temperature View: " + e.getMessage());
+//                    XLog.e("Temperature Viewrefresh异常: " + e.getMessage());
 //                }
 //            }
 //            Log.d(TAG, "temperatureThread exit");

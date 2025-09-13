@@ -8,11 +8,13 @@ to match the Android implementation.
 import asyncio
 import hashlib
 import hmac
+import json
 import logging
 import secrets
+import ssl
 import time
-from dataclasses import dataclass
-from datetime import datetime
+from dataclasses import asdict, dataclass
+from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
@@ -98,7 +100,7 @@ class AuthenticationContext:
     session_token: str
     expiry_time: float
     capabilities: Set[str]
-    created_at: float = None
+    created_at: Optional[float] = None
 
     def __post_init__(self):
         if self.created_at is None:
@@ -148,14 +150,14 @@ class SecurityAlert:
 class EnhancedAuthenticationManager:
     """Advanced authentication manager for PC Controller"""
 
-    def __init__(self, cert_dir: Path = None):
+    def __init__(self, cert_dir: Optional[Path] = None):
         self.cert_dir = cert_dir or Path("certificates")
         self.cert_dir.mkdir(exist_ok=True)
 
         # Authentication state
         self.authenticated_devices: Dict[str, AuthenticationContext] = {}
         self.failed_attempts: Dict[str, List[float]] = {}
-        self.locked_devices: Dict[str, float] = {}  # device_id -> unlock_time
+        self.locked_devices: Dict[str, float] = {}  # device_id: unlock_time
 
         # Enhanced credentials beyond admin/admin
         self.enhanced_credentials = {
@@ -177,7 +179,8 @@ class EnhancedAuthenticationManager:
         Perform multi-tier authentication
 
         Returns:
-            Tuple[bool, Optional[AuthenticationContext], str]: (success, context, reason)
+            Tuple[bool, Optional[AuthenticationContext], str]: (success, context,
+                reason)
         """
 
         # Check if device is locked
@@ -453,7 +456,7 @@ class EnhancedSecurityMonitor:
 
         logger.info("Enhanced security monitor initialized")
 
-    async def start_monitoring(self):
+    async def start_monitoring(self) -> Any:
         """Start security monitoring"""
         if self.is_monitoring:
             return
@@ -465,7 +468,7 @@ class EnhancedSecurityMonitor:
 
         logger.info("Security monitoring started")
 
-    def stop_monitoring(self):
+    def stop_monitoring(self) -> Any:
         """Stop security monitoring"""
         self.is_monitoring = False
         logger.info("Security monitoring stopped")
@@ -544,8 +547,8 @@ class EnhancedSecurityMonitor:
         ]
 
     def report_connection_attempt(
-        self, device_id: str, successful: bool, details: Dict[str, Any] = None
-    ):
+        self, device_id: str, successful: bool, details: Optional[Dict[str, Any]] = None
+    ) -> None:
         """Report connection attempt for monitoring"""
         current_time = time.time()
 
@@ -622,18 +625,18 @@ class EnhancedSecurityMonitor:
 class EnhancedSecurityManager:
     """Main security manager integrating all Phase 4 security features"""
 
-    def __init__(self, cert_dir: Path = None):
+    def __init__(self, cert_dir: Optional[Path] = None):
         self.auth_manager = EnhancedAuthenticationManager(cert_dir)
         self.security_monitor = EnhancedSecurityMonitor()
 
         logger.info("Enhanced security manager initialized")
 
-    async def initialize(self):
+    async def initialize(self) -> Any:
         """Initialize all security components"""
         await self.security_monitor.start_monitoring()
         logger.info("Enhanced security system fully initialized")
 
-    def shutdown(self):
+    def shutdown(self) -> Any:
         """Shutdown security system"""
         self.security_monitor.stop_monitoring()
         logger.info("Enhanced security system shutdown complete")

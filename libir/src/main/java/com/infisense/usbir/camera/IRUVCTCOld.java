@@ -29,7 +29,7 @@
 //
 ///**
 // * device -> bytes
-// * Graph
+// * infrared出图核心工具类
 // */
 //public class IRUVCTC {
 //
@@ -49,7 +49,7 @@
 //    public boolean auto_gain_switch = false;
 //    private boolean auto_over_portect = false;
 //    /**
-//     * 
+//     * 自动gainswitch
 //     */
 //    private LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
 //    private LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
@@ -142,20 +142,20 @@
 //            }
 //        });
 //        // auto gain switch parameter
-//        gain_switch_param.above_pixel_prop = 0.1f;    //high -> low gain,
-//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //high -> low gain,
-//        gain_switch_param.below_pixel_prop = 0.95f;   //low -> high gain,
-//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//low -> high gain,
-//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //(Graph15，5 * 155)
-//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//，(Graph15，7 * 157)
+//        gain_switch_param.above_pixel_prop = 0.1f;    //用于high -> low gain,设备像素总面积的百分比
+//        gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //用于high -> low gain,高gain向低gainswitch的触发温度
+//        gain_switch_param.below_pixel_prop = 0.95f;   //用于low -> high gain,设备像素总面积的百分比
+//        gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//用于low -> high gain,低gain向高gainswitch的触发温度
+//        auto_gain_switch_info.switch_frame_cnt = 5 * 15; //continuous满足触发条件帧数超过该阈值会触发自动gainswitch(假设出图速度为15帧每秒，则5 * 15大概为5秒)
+//        auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//触发自动gainswitch之后，会间隔该阈值的帧数不进行gainswitch监测(假设出图速度为15帧每秒，则7 * 15大概为7秒)
 //        //over_portect parameter
 //        int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4);
 //        int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4);
 //        float pixel_above_prop = 0.02f;         //0-1
 //
-//        // 
+//        // 监听读取设备infrared数据
 //        iFrameCallback = frame -> {
-//            Log.d(TAG, "frame: " + "："+(System.currentTimeMillis()-updateTime));
+//            Log.d(TAG, "frame: " + "refresh："+(System.currentTimeMillis()-updateTime));
 //            updateTime = System.currentTimeMillis();
 //            // ，
 //            if (count++ >= 25) {
@@ -173,13 +173,13 @@
 //                    return;
 //                }
 //                /**
-//                 * copyimageArray
-//                 * GraphframeArray，，
-//                 * 256*384，256*192，256*192，
-//                 * 90，。
+//                 * copyinfrared数据到imagearray中
+//                 * 出图的framearray中前半部分是infrared数据，后半部分是温度数据，
+//                 * 例如256*384分辨率的设备，前面的256*192是infrared数据，后面的256*192是温度数据，
+//                 * 其中的数据是旋转90度的，需要旋转回来。
 //                 */
 //                if (imageEditTemp != null && imageEditTemp.length >= length) {
-//                    //
+//                    //部分场景不需要saved帧数据
 //                    System.arraycopy(frame, 0, imageEditTemp, 0, length);
 //                }
 //                System.arraycopy(frame, 0, image, 0, length / 2);
@@ -190,7 +190,7 @@
 ////                //
 ////                System.arraycopy(frame, length / 2, temperatureSrc, 0, length / 2);
 //
-////                //
+////                //saved测试数据
 ////                countTemp++;
 ////                if (countTemp == 100) {
 ////                    imageTemp = new byte[length / 2];
@@ -222,7 +222,7 @@
 //                    // 0
 //                    System.arraycopy(frame, length / 2, temperature, 0, length / 2);
 //                }
-//                // ，
+//                // 自动gainswitch，不effective的话请您的设备是否支持自动gainswitch
 //                if (auto_gain_switch) {
 //                    Libircmd.auto_gain_switch(temperature, imageRes, auto_gain_switch_info, gain_switch_param, uvcCamera.nativePtr);
 //                }
@@ -261,7 +261,7 @@
 //    }
 //
 //    /**
-//     * ，PIDPID
+//     * 判断是否是infrared设备，请把您的设备的PID添加进设备PID白名单
 //     *
 //     * @param devpid
 //     * @return
@@ -371,13 +371,13 @@
 //                    if (syncimage.type == 1) {
 //                        Libircmd.tiny1b_shutter_manual(uvcCamera.nativePtr);
 //                    } else {
-//                        //
+//                        //源码settings快门
 //                        Libircmd.ooc_b_update(Libircmd.B_UPDATE, uvcCamera.nativePtr);
 //                    }
 //                }
 //            }).start();
 //        }catch (Exception e){
-//            Log.w("sdk", e.getMessage());
+//            Log.w("infraredsdk异常", e.getMessage());
 //        }
 //
 //    }

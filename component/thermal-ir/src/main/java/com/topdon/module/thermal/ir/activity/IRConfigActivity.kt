@@ -38,16 +38,20 @@ import kotlinx.coroutines.launch
 import com.topdon.lib.core.R as LibR
 
 /**
- * activity（activitySettingsactivity、Temperature measurementactivity、activity）
+\1temperature correction（即setambient temperature、temperature measurement距离、emissivity）
  *
- * activity：
- * - [ExtraKeyConfig.IS_TC007] - Currentactivity TC007
+\1需要传递parameter：
+\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * I r config activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
     /**
-     * activity，Currentactivity TC007 activityType.
-     * true-TC007 false-activity
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -124,7 +128,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         recyclerView.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
 
         viewModel.configLiveData.observe(this) {
-            // Activity logic，activity
+\1先只刷新默认的configuration，等操作指引display完再刷新自定义configuration
             tvDefaultTempValue.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
             tvDefaultDisValue.text = NumberTools.to02(it.defaultModel.distance)
             tvDefaultEmValue.text = NumberTools.to02(it.defaultModel.radiation)
@@ -146,13 +150,13 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * activity.
+\1display操作指引弹框.
      */
     private fun showGuideDialog(modelBean: ModelBean) {
         val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
         val llRoot = findViewById<android.widget.LinearLayout>(R.id.ll_root)
 
-        if (SharedManager.configGuideStep == 0) { // Activity logic
+        if (SharedManager.configGuideStep == 0) { // 已看过或不再提示
             ivDefaultSelector.isSelected = modelBean.defaultModel.use
             adapter.refresh(modelBean.myselfModel)
             return
@@ -171,7 +175,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                // Activity logic，activity100activity
+\1interface刷新需要时间，所以需要等待100毫秒再去刷新背景
                 delay(100)
                 guideDialog.blurBg(llRoot)
             }
@@ -185,10 +189,10 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
 
         when (v) {
-            ivDefaultSelector -> { // Activity logicMode-Selected
+            ivDefaultSelector -> { // 默认模式-选中
                 viewModel.checkConfig(isTC007, 0)
             }
-            viewDefaultTempBg -> { // Activity logicMode-activity
+            viewDefaultTempBg -> { // 默认模式-环境温度
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
                     .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
                     .setConfirmListener {
@@ -196,7 +200,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            viewDefaultDisBg -> { // Activity logicMode-Temperature measurementactivity
+            viewDefaultDisBg -> { // 默认模式-测温距离
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
                     .setConfirmListener {
@@ -204,7 +208,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            tvDefaultEmValue -> { // Activity logicMode-activity
+            tvDefaultEmValue -> { // 默认模式-发射率
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
                     .setConfirmListener {
@@ -219,22 +223,22 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         private val dataList: ArrayList<DataBean> = ArrayList()
 
         /**
-         * item（activity）Selectedactivity.
+\1item（一项自定义configuration）选中事件监听.
          */
         var onSelectListener: ((id: Int) -> Unit)? = null
 
         /**
-         * item（activity）Deleteactivity.
+\1item（一项自定义configuration）删除件监听.
          */
         var onDeleteListener: ((bean: DataBean) -> Unit)? = null
 
         /**
-         * item（activity）activity.
+\1item（一项自定义configuration）变更事件监听.
          */
         var onUpdateListener: ((bean: DataBean) -> Unit)? = null
 
         /**
-         * activity.
+\1添加事件监听.
          */
         var onAddListener: View.OnClickListener? = null
 

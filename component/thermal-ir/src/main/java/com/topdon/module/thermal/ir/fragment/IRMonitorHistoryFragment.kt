@@ -32,6 +32,10 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.Calendar
 import androidx.recyclerview.widget.RecyclerView as AndroidRecyclerView
 
+/**
+ * I r monitor history fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
+ */
 class IRMonitorHistoryFragment : Fragment() {
     private val adapter = MyAdapter(ArrayList())
 
@@ -56,6 +60,7 @@ class IRMonitorHistoryFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize findViewById
         recyclerView = view.findViewById(R.id.recycler_view)
 
         adapter.loadMoreModule.loadMoreView = CommLoadMoreView()
@@ -85,22 +90,25 @@ class IRMonitorHistoryFragment : Fragment() {
         adapter.isUseEmpty = true
         viewModel.recordListLD.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
-                if (!adapter.hasEmptyView()) {
-                    adapter.setEmptyView(R.layout.layout_empty)
-                }
+                if (!adapter.hasEmptyView())
+                    {
+                        adapter.setEmptyView(R.layout.layout_empty)
+                    }
                 withContext(Dispatchers.IO) {
                     var lastTime = 0L
                     val nowCalendar = Calendar.getInstance()
                     val lastCalendar = Calendar.getInstance()
                     for (tmp in it) {
-                        if (lastTime == 0L) {
-                            tmp.showTitle = true
-                        }
+                        if (lastTime == 0L)
+                            {
+                                tmp.showTitle = true
+                            }
                         nowCalendar.timeInMillis = tmp.startTime
                         lastCalendar.timeInMillis = lastTime
-                        if (nowCalendar.get(Calendar.MONTH) != lastCalendar.get(Calendar.MONTH)) {
-                            tmp.showTitle = true
-                        }
+                        if (nowCalendar.get(Calendar.MONTH) != lastCalendar.get(Calendar.MONTH))
+                            {
+                                tmp.showTitle = true
+                            }
                         lastTime = tmp.startTime
                     }
                 }
@@ -128,15 +136,15 @@ class IRMonitorHistoryFragment : Fragment() {
         BaseQuickAdapter<
             ThermalDao.Record,
             BaseViewHolder,
-        >(R.layout.item_monitory_history, dataList),
+            >(R.layout.item_monitory_history, dataList),
         LoadMoreModule {
         /**
-         * item fragment.
+\1item 点击事件监听.
          */
         var onItemClickListener: ((position: Int) -> Unit)? = null
 
         /**
-         * item fragment.
+\1item 长按事件监听.
          */
         var onItemLongClickListener: ((position: Int) -> Unit)? = null
 

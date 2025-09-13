@@ -12,7 +12,7 @@ public class SharedPreferencesUtil {
     private static final String FILE_NAME = "usb_ir";
 
     /**
-     * 
+     * saved数据到文件
      *
      * @param context
      * @param key

@@ -63,9 +63,10 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                     // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(true)
-                    } else {
-                        NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
-                    }
+                    } else
+                        {
+                            NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
+                        }
                 }
             },
         )
@@ -132,9 +133,10 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
                         startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
-                    } else if (DeviceTools.isTC001LiteConnect()) {
-                        ARouter.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity, 101)
-                    } else if (DeviceTools.isHikConnect()) {
+                    } else if (DeviceTools.isTC001LiteConnect())
+                        {
+                            ARouter.getInstance().build(RouterConfig.IR_TCLITE).navigation(activity, 101)
+                        } else if (DeviceTools.isHikConnect()) {
                         ARouter.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(activity)
                     } else {
                         startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
@@ -243,13 +245,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
 
     private fun checkStoragePermission() {
         val permissionList: List<String> =
-            if (activity?.applicationInfo?.targetSdkVersion!! >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (activity?.applicationInfo?.targetSdkVersion!! >= 33) {
+            if (activity?.applicationInfo?.targetSdkVersion!! >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (activity?.applicationInfo?.targetSdkVersion!! >= 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,

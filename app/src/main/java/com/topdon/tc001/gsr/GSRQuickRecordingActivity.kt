@@ -22,19 +22,19 @@ import java.util.*
  * This provides the main integration point between GSR functionality and the Android app
  */
 class GSRQuickRecordingActivity : BaseBindingActivity<ActivityGsrQuickRecordingBinding>() {
-
     companion object {
         private const val TAG = "GSRQuickRecording"
         private const val REQUEST_PERMISSIONS = 100
 
-        private val REQUIRED_PERMISSIONS = arrayOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.BLUETOOTH_SCAN,
-            Manifest.permission.BLUETOOTH_CONNECT,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.CAMERA,
-        )
+        private val REQUIRED_PERMISSIONS =
+            arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA,
+            )
 
         fun start(context: Context) {
             val intent = Intent(context, GSRQuickRecordingActivity::class.java)
@@ -123,12 +123,13 @@ class GSRQuickRecordingActivity : BaseBindingActivity<ActivityGsrQuickRecordingB
                 runOnUiThread {
                     val gsrStatus = statusList.find { it.sensorType.contains("GSR", ignoreCase = true) }
                     if (gsrStatus != null) {
-                        binding.sensorDataText.text = buildString {
-                            append("GSR Sensor Status:\n")
-                            append("Samples: ${gsrStatus.samplesRecorded}\n")
-                            append("Data Rate: ${"%.1f".format(gsrStatus.currentDataRate)} Hz\n")
-                            append("Storage: ${"%.2f".format(gsrStatus.storageUsedMB)} MB\n")
-                        }
+                        binding.sensorDataText.text =
+                            buildString {
+                                append("GSR Sensor Status:\n")
+                                append("Samples: ${gsrStatus.samplesRecorded}\n")
+                                append("Data Rate: ${"%.1f".format(gsrStatus.currentDataRate)} Hz\n")
+                                append("Storage: ${"%.2f".format(gsrStatus.storageUsedMB)} MB\n")
+                            }
                     }
                 }
             }
@@ -171,9 +172,10 @@ class GSRQuickRecordingActivity : BaseBindingActivity<ActivityGsrQuickRecordingB
 
     private fun checkPermissions() {
         // Check if all required permissions are granted
-        val missingPermissions = REQUIRED_PERMISSIONS.filter {
-            ContextCompat.checkSelfPermission(this, it) != android.content.pm.PackageManager.PERMISSION_GRANTED
-        }
+        val missingPermissions =
+            REQUIRED_PERMISSIONS.filter {
+                ContextCompat.checkSelfPermission(this, it) != android.content.pm.PackageManager.PERMISSION_GRANTED
+            }
 
         if (missingPermissions.isNotEmpty()) {
             requestPermissions(missingPermissions.toTypedArray(), REQUEST_PERMISSIONS)
@@ -261,7 +263,11 @@ class GSRQuickRecordingActivity : BaseBindingActivity<ActivityGsrQuickRecordingB
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == REQUEST_PERMISSIONS) {

@@ -12,6 +12,10 @@ import com.topdon.lib.core.bean.ObserveBean
 import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.module.thermal.ir.R
 
+/**
+ * Custom Measure item view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
     private var type = 0
@@ -69,5 +73,15 @@ class MeasureItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVi
         val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
         val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
         val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
-}
+//        init {
+//            val canSeeCount = 4
+//            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
+//            itemView.layoutParams = ViewGroup.LayoutParams((with * 0.96).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+//            val imageSize = (ScreenUtils.getScreenWidth() * 29 / 375f).toInt()
+//            val layoutParams = itemView.item_menu_tab_img.layoutParams
+//            layoutParams.width = imageSize
+//            layoutParams.height = imageSize
+//            itemView.item_menu_tab_img.layoutParams = layoutParams
+//        }
+    }
 }

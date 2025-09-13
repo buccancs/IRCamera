@@ -10,9 +10,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 
-def test_imports_and_basic_functionality() -> bool:
+def test_imports_and_basic_functionality():
     """Test that all core modules import and basic functionality works."""
-    print("ANALYZE Testing imports and basic functionality...")
+    print("🔍 Testing imports and basic functionality...")
 
     try:
         # Test core imports
@@ -27,27 +27,27 @@ def test_imports_and_basic_functionality() -> bool:
         from ircamera_pc.gui.icons import IconRegistry
         from ircamera_pc.network import NetworkServer
 
-        print("OK All imports successful")
+        print("✅ All imports successful")
 
         # Test instantiation
         config = ConfigManager()
         session_manager = SessionManager()
-        FileTransferManager(config.to_dict())
-        CameraCalibrator(config.to_dict())
-        GSRIngestor(config.to_dict())
-        TimeSyncService()
-        NetworkServer()
-        print("OK All components instantiate successfully")
+        file_manager = FileTransferManager(config)
+        calibrator = CameraCalibrator(config)
+        gsr_ingestor = GSRIngestor(config)
+        timesync = TimeSyncService()
+        network_server = NetworkServer()
+        print("✅ All components instantiate successfully")
 
         # Test icons
         icons = IconRegistry.list_available_icons()
         assert len(icons) == 4, f"Expected 4 icons, got {len(icons)}"
-        print(f"OK IconRegistry works: {len(icons)} icons available")
+        print(f"✅ IconRegistry works: {len(icons)} icons available")
 
         # Test session creation
         session_id = session_manager.create_session("validation_test")
         assert session_id is not None
-        print(f"OK Session created: {session_id}")
+        print(f"✅ Session created: {session_id}")
 
         return True
 
@@ -59,9 +59,9 @@ def test_imports_and_basic_functionality() -> bool:
         return False
 
 
-def test_android_build() -> bool:
+def test_android_build():
     """Test that Android build is successful."""
-    print("\nDEVICE Testing Android build...")
+    print("\n📱 Testing Android build...")
 
     import os
     import subprocess
@@ -70,6 +70,7 @@ def test_android_build() -> bool:
 
         os.chdir(Path(__file__).parent.parent)
 
+        # Run Android build
         result = subprocess.run(
             ["./gradlew", ":libapp:assembleRelease", "--quiet"],
             capture_output=True,
@@ -92,9 +93,9 @@ def test_android_build() -> bool:
         return False
 
 
-def test_python_tests() -> bool:
+def test_python_tests():
     """Run Python test suite."""
-    print("\nTESTING Testing Python test suite...")
+    print("\n🧪 Testing Python test suite...")
 
     import os
     import subprocess
@@ -107,6 +108,7 @@ def test_python_tests() -> bool:
         env["QT_QPA_PLATFORM"] = "offscreen"
         env["DISPLAY"] = ":99"
 
+        # Run pytest
         result = subprocess.run(
             [
                 sys.executable,
@@ -134,7 +136,7 @@ def test_python_tests() -> bool:
         return False
 
 
-def main() -> int:
+def main():
     """Run all validation tests."""
     print("START Starting Final Validation for IRCamera PC Controller")
     print("=" * 60)
@@ -162,13 +164,13 @@ def main() -> int:
     all_passed = all(results)
 
     if all_passed:
-        print("\nSUCCESS ALL VALIDATION TESTS PASSED")
-        print("OK IRCamera PC Controller is stable with no errors or warnings")
+        print("\n🎉 ALL VALIDATION TESTS PASSED")
+        print("✅ IRCamera PC Controller is stable with no errors or warnings")
         print(
-            "OK Enhanced networking, GUI icons, and data processing pipeline complete"
+            "✅ Enhanced networking, GUI icons, and data processing pipeline complete"
         )
-        print("OK Cross-platform compatibility achieved")
-        print("OK Production-ready implementation")
+        print("✅ Cross-platform compatibility achieved")
+        print("✅ Production-ready implementation")
     else:
         print("\nERROR SOME VALIDATION TESTS FAILED")
         print("Please review the output above for details")

@@ -1,5 +1,15 @@
 package com.topdon.module.thermal.tools.medie
 
+/**
+ * @author YaphetZhao
+ * @email yaphetzhao@gmail.com
+ * @data 2020-07-30
+ * @wechat yaphetzhao92
+ */
+/**
+ * I yap video provider utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 interface IYapVideoProvider<Bitmap> {
     /**
      * bitmap list size, you can set like

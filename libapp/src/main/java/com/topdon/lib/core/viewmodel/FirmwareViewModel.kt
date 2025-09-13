@@ -32,6 +32,73 @@ import java.lang.NumberFormatException
 import java.util.TimeZone
 import java.util.concurrent.CountDownLatch
 
+/**
+ * 固件升级包
+ */
+class FirmwareViewModel(application: Application) : AndroidViewModel(application) {
+    companion object {
+        /**
+         * TS004 固件升级包 软件encoding.
+         */
+        private const val TS004_SOFT_CODE = "TS004_FirmwareSW_Scope"
+
+        /**
+         * TC007 固件升级包 软件encoding.
+         */
+        private const val TC007_SOFT_CODE = "TC007_FirmwareSW_Wireless"
+
+        /**
+         * TS004 apk 内置固件升级包版本.
+         */
+        private const val TS004_FIRMWARE_VERSION = "V1.70"
+
+        /**
+         * TS004 apk 内置固件升级包文件名.
+         */
+        private const val TS004_FIRMWARE_NAME = "TS004V1.70.zip"
+
+        /**
+         * TC007 apk 内置固件升级包版本.
+         */
+        private const val TC007_FIRMWARE_VERSION = "V4.06"
+
+        /**
+         * TC007 apk 内置固件升级包文件名.
+         */
+        private const val TC007_FIRMWARE_NAME = "TC007V4.06.zip"
+
+        private const val USE_DEBUG_SN = false
+        private const val TS004_DEBUG_SN = "1D003655A10016"
+        private const val TS004_DEBUG_RANDOM_NUM = "8D2N01"
+        private const val TC007_DEBUG_SN = "1D004714E10002"
+        private const val TC007_DEBUG_RANDOM_NUM = "EN6L6Q"
+    }
+
+    /**
+     * 用一个变量来存储请求state，避免重复请求.
+     */
+    @Volatile
+    private var isRequest = false
+
+    /**
+     * 查询固件升级包成功 LiveData.
+     * null表示查询成功但没有配固件升级包
+     */
+    val firmwareDataLD: MutableLiveData<FirmwareData?> = MutableLiveData()
+
+    /**
+     * 查询固件升级包失败 LiveData.
+     * true-设备已被其他用户绑定错误 false-普通错误
+     */
+    val failLD: MutableLiveData<Boolean> = MutableLiveData()
+
+    /**
+     * 一个固件升级包信息.
+     * @param version 该固件升级包版本，V1.00格式
+     * @param updateStr 升级文案信息
+     * @param downUrl 固件升级包 URL
+     * @param size 固件升级包大小，单位 byte
+     */
     data class FirmwareData(
         val version: String,
         val updateStr: String,
@@ -124,8 +191,8 @@ import java.util.concurrent.CountDownLatch
 
         val newVersion: Double = getVersionFromStr(apkVersionStr)
         val currentVersion: Double = getVersionFromStr(firmware)
-        XLog.d("${if (isTS004) "TS004" else "TC007"} view - Currentview：$currentVersion apkview：$newVersion")
-        if (newVersion <= currentVersion) { // Currentview
+        XLog.d("${if (isTS004) "TS004" else "TC007"} 固件升级 - current版本：$currentVersion apk内置版本：$newVersion")
+        if (newVersion <= currentVersion) { // current固件升级包已是最新
             firmwareDataLD.postValue(null)
             isRequest = false
             return
@@ -176,7 +243,7 @@ import java.util.concurrent.CountDownLatch
             return
         }
 
-        // view
+        // 获取固件升级包list
         val packageData: PackageData? = querySoftPackage(sn, if (isTS004) TS004_SOFT_CODE else TC007_SOFT_CODE)
         if (packageData == null) {
             XLog.w("${if (isTS004) "TS004" else "TC007"} view - view!")
@@ -187,8 +254,8 @@ import java.util.concurrent.CountDownLatch
 
         val record: PackageData.Record? = packageData.getFirstRecord()
         val newVersionStr: String? = record?.maxUpdateVersion
-        if (record == null || newVersionStr == null) { // view，viewCurrentview
-            XLog.d("${if (isTS004) "TS004" else "TC007"} view - view，viewCurrentview")
+        if (record == null || newVersionStr == null) { // 没有固件升级包，即current固件已是最新
+            XLog.d("${if (isTS004) "TS004" else "TC007"} 固件升级 - 没有固件升级包，即current固件已是最新")
             firmwareDataLD.postValue(null)
             isRequest = false
             return
@@ -196,8 +263,8 @@ import java.util.concurrent.CountDownLatch
 
         val newVersion: Double = getVersionFromStr(newVersionStr)
         val currentVersion: Double = getVersionFromStr(firmware)
-        XLog.d("${if (isTS004) "TS004" else "TC007"} view - Currentview：$currentVersion view：$newVersion")
-        if (newVersion <= currentVersion) { // Currentview
+        XLog.d("${if (isTS004) "TS004" else "TC007"} 固件升级 - current版本：$currentVersion 服务器版本：$newVersion")
+        if (newVersion <= currentVersion) { // current固件升级包已是最新
             firmwareDataLD.postValue(null)
             isRequest = false
             return
@@ -222,7 +289,7 @@ import java.util.concurrent.CountDownLatch
     }
 
     /**
-     * view SN、viewCurrentview.
+     * 将设备 SN、注册码与current账号绑定.
      */
     private suspend fun bindDevice(
         sn: String,
@@ -241,7 +308,7 @@ import java.util.concurrent.CountDownLatch
     }
 
     /**
-     * viewSpecified SN view
+     * 查询指定 SN 的固件升级包list
      */
     private suspend fun querySoftPackage(
         sn: String,
@@ -340,7 +407,7 @@ import java.util.concurrent.CountDownLatch
         }
 
     /**
-     * view view view.
+     * 用来解析 获取固件升级包list 接口返回的数据.
      */
     private class PackageData {
         var records: List<Record>? = null
@@ -370,7 +437,7 @@ import java.util.concurrent.CountDownLatch
         )
 
         data class OtherExplain(
-            val valueType: Int, // 1-view 2-view 3-view 4-Noteview
+            val valueType: Int, // 1-软件名称 2-软件介绍 3-update说明 4-注意事项
             val textDescription: String?,
         )
     }

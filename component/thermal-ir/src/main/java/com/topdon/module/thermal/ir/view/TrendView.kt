@@ -11,6 +11,36 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
 import kotlin.math.min
 
+/**
+\1趋势图折线图及对应箭头等的封装.
+ *
+ * Created by LCG on 2024/12/31.
+ */
+/**
+ * Custom Trend view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+class TrendView : FrameLayout {
+    /**
+\1展开趋势图
+     */
+    fun expand() {
+        binding.clOpen.isVisible = true
+        binding.llClose.isVisible = false
+    }
+
+    /**
+\1收起趋势图
+     */
+    fun close() {
+        binding.clOpen.isVisible = false
+        binding.llClose.isVisible = true
+    }
+
+    /**
+\1根据指定的data刷新折线图data
+\1@param tempList temperature值列表，单位摄氏度
+     */
     fun refreshChart(tempList: List<Float>) {
         if (isVisible && binding.clOpen.isVisible) {
             binding.viewChartTrend.refresh(tempList)
@@ -18,7 +48,7 @@ import kotlin.math.min
     }
 
     /**
-     * view
+\1将折线图清空
      */
     fun setToEmpty() {
         binding.viewChartTrend.setToEmpty()
@@ -69,7 +99,7 @@ import kotlin.math.min
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        // View rendering UNSPECIFIED view，view
+\1宽度为 UNSPECIFIED 的情况目前不存在，不考虑
         val wantHeight: Int = SizeUtils.dp2px(34f) + (widthSize * 158 / 264f).toInt()
         val height =
             when (heightMode) {

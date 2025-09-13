@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.lib.core.bean.HouseRepPreviewProjectItemBean
 import com.topdon.module.thermal.ir.R
 
+/**
+ * Custom Report preview floor view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 @SuppressLint("NotifyDataSetChanged")
 class ReportPreviewFloorAdapter(
     val cxt: Context,

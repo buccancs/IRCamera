@@ -10,11 +10,17 @@ import android.view.View
 import android.widget.LinearLayout
 import com.topdon.libcom.R
 
+/**
+ *
+ * 高低温闪烁动画
+ * @author: CaiSongL
+ * @date: 2023/4/28 15:52
+ */
 class TempLayout : LinearLayout {
     companion object {
-        val TYPE_HOT = 1 // High temperaturedata
-        val TYPE_LT = 2 // Low temperaturedata
-        val TYPE_A = 3 // ImplementationLow temperaturedata
+        val TYPE_HOT = 1 // 高温预警
+        val TYPE_LT = 2 // 低温预警
+        val TYPE_A = 3 // 高低温交叉预警
     }
 
     private var alphaAnimator: ObjectAnimator? = null
@@ -37,7 +43,7 @@ class TempLayout : LinearLayout {
         alphaAnimator = ObjectAnimator.ofFloat(this, "alpha", 0f, 1f)
         alphaAnimator?.duration = 500
         alphaAnimator?.interpolator =
-            BreatheInterpolator() // Implementation
+            BreatheInterpolator() // 使用自定义的插值器
         alphaAnimator?.addUpdateListener {
             animatorAlpha = it.getAnimatedValue("alpha") as Float
 
@@ -51,30 +57,31 @@ class TempLayout : LinearLayout {
         defStyleAttr,
     )
 
-    fun startAnimation(type: Int) {
+    fun startAnimation(type: Int)  {
         this.visibility = View.VISIBLE
-        if (this.type != type) {
-            alphaAnimator?.cancel()
-            alphaAnimator?.removeAllListeners()
-            when (type) {
-                TYPE_HOT -> {
-                    isHot = true
-                    alphaAnimator?.repeatCount = ValueAnimator.INFINITE
-                    bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
+        if (this.type != type)
+            {
+                alphaAnimator?.cancel()
+                alphaAnimator?.removeAllListeners()
+                when (type) {
+                    TYPE_HOT -> {
+                        isHot = true
+                        alphaAnimator?.repeatCount = ValueAnimator.INFINITE
+                        bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
+                    }
+                    TYPE_A -> {
+                        alphaAnimator?.repeatCount = 0
+                        alphaAnimator?.addListener(animatorListener)
+                    }
+                    else -> {
+                        alphaAnimator?.repeatCount = ValueAnimator.INFINITE
+                        isHot = false
+                        bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
+                    }
                 }
-                TYPE_A -> {
-                    alphaAnimator?.repeatCount = 0
-                    alphaAnimator?.addListener(animatorListener)
-                }
-                else -> {
-                    alphaAnimator?.repeatCount = ValueAnimator.INFINITE
-                    isHot = false
-                    bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
-                }
+                alphaAnimator?.start()
+                this.type = type
             }
-            alphaAnimator?.start()
-            this.type = type
-        }
     }
 
     var animatorListener: Animator.AnimatorListener =
@@ -83,15 +90,18 @@ class TempLayout : LinearLayout {
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                if (this@TempLayout.visibility == View.VISIBLE) {
-                    isHot = !isHot
-                    if (isHot) {
-                        bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
-                    } else {
-                        bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
+                if (this@TempLayout.visibility == View.VISIBLE)
+                    {
+                        isHot = !isHot
+                        if (isHot)
+                            {
+                                bg?.setBackgroundResource(R.drawable.ic_ir_read_bg)
+                            } else
+                            {
+                                bg?.setBackgroundResource(R.drawable.ic_ir_blue_bg)
+                            }
+                        alphaAnimator?.start()
                     }
-                    alphaAnimator?.start()
-                }
             }
 
             override fun onAnimationCancel(animation: Animator) {}
@@ -99,7 +109,7 @@ class TempLayout : LinearLayout {
             override fun onAnimationRepeat(animation: Animator) {}
         }
 
-    fun stopAnimation() {
+    fun stopAnimation()  {
         this.type = -1
         alphaAnimator?.removeAllListeners()
         this.visibility = View.GONE

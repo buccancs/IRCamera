@@ -43,6 +43,145 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import com.topdon.lib.core.R as LibR
 
+/**
+\1插件式 或 TC007 首页.
+ *
+\1需要传递parameter：
+\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+ *
+ * Created by LCG on 2024/4/18.
+ */
+// Legacy ARouter route annotation - now using NavigationManager
+class IRMainActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityIrMainBinding
+
+    /**
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
+     */
+    private var isTC007 = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityIrMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initView()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        initView()
+    }
+
+    private fun initView() {
+        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+
+        binding.viewPage.offscreenPageLimit = 5
+        binding.viewPage.isUserInputEnabled = false
+        binding.viewPage.adapter = ViewPagerAdapter(this, isTC007)
+        binding.viewPage.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    refreshTabSelect(position)
+                }
+            },
+        )
+        binding.viewPage.setCurrentItem(2, false)
+
+        binding.clIconMonitor.setOnClickListener(this)
+        binding.clIconGallery.setOnClickListener(this)
+        // view_main_thermal.setOnClickListener(this) // Not found in view declarations, likely unused
+        binding.clIconReport.setOnClickListener(this)
+        binding.clIconMine.setOnClickListener(this)
+
+        showGuideDialog()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        DeviceTools.isConnect(true)
+        if (isTC007) {
+            if (WebSocketProxy.getInstance().isTC007Connect()) {
+                NetWorkUtils.switchNetwork(false)
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+                lifecycleScope.launch {
+                    TC007Repository.syncTime()
+                }
+                if (SharedManager.isConnect07AutoOpen) {
+                    NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07).navigation(this)
+                }
+            } else {
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            }
+        } else {
+            if (DeviceTools.isConnect(isAutoRequest = false)) {
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+            } else {
+                binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+            }
+        }
+    }
+
+    private fun initData() {
+    }
+
+    private fun connected() {
+        if (!isTC007) {
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+        }
+    }
+
+    private fun disConnected() {
+        if (!isTC007) {
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+        }
+    }
+
+    private fun onSocketConnected(isTS004: Boolean) {
+        if (!isTS004 && isTC007) {
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_connect)
+        }
+    }
+
+    private fun onSocketDisConnected(isTS004: Boolean) {
+        if (!isTS004 && isTC007) {
+            binding.ivMainBg.setImageResource(R.drawable.ic_ir_main_bg_disconnect)
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            binding.clIconMonitor -> { // 监控
+                binding.viewPage.setCurrentItem(0, false)
+            }
+            binding.clIconGallery -> { // 图库
+                checkStoragePermission()
+            }
+\1view_main_thermal -> {//首页 - Commented out as not in view declarations
+            //     binding.viewPage.setCurrentItem(2, false)
+            // }
+            binding.clIconReport -> { // 报告
+                if (LMS.getInstance().isLogin) {
+                    binding.viewPage.setCurrentItem(3, false)
+                } else {
+                    LMS.getInstance().activityLogin(null) {
+                        if (it) {
+                            binding.viewPage.setCurrentItem(3, false)
+                            EventBus.getDefault().post(PDFEvent())
+                        }
+                    }
+                }
+            }
+            binding.clIconMine -> { // 我的
+                binding.viewPage.setCurrentItem(4, false)
+            }
+        }
+    }
+
+    /**
+\1刷新 5 个 tab 的选中状态
+\1@param index 当前选中哪个 tab，`[0, 4]`
+     */
     private fun refreshTabSelect(index: Int) {
         binding.ivIconMonitor.isSelected = false
         binding.tvIconMonitor.isSelected = false
@@ -73,10 +212,10 @@ import com.topdon.lib.core.R as LibR
     }
 
     /**
-     * activity.
+\1display操作指引弹框.
      */
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) { // Activity logic
+        if (SharedManager.homeGuideStep == 0) { // 已看过或不再提示
             return
         }
 
@@ -128,8 +267,8 @@ import com.topdon.lib.core.R as LibR
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                // Activity logicSwitchactivity，activity1000activity
-                // Activity logic1000activity，activity1000activity，activity
+\1interface切换及temperature监控历史列表load均需要时间，所以需要等待1000毫秒再去刷新背景
+\1而若等待1000毫秒太过久，interface会非模糊1000毫秒，所以先刷新一次背景占位
                 delay(100)
                 guideDialog.blurBg(binding.clRoot)
             }
@@ -138,19 +277,21 @@ import com.topdon.lib.core.R as LibR
 
     private fun checkStoragePermission() {
         val permissionList: List<String> =
-            if (this.applicationInfo.targetSdkVersion >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion >= 34) {
-                listOf(
-                    Permission.READ_MEDIA_VIDEO,
-                    Permission.READ_MEDIA_IMAGES,
-                    Permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion == 33) {
+            if (this.applicationInfo.targetSdkVersion >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (this.applicationInfo.targetSdkVersion >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (this.applicationInfo.targetSdkVersion == 33) {
                 listOf(
                     Permission.READ_MEDIA_VIDEO,
                     Permission.READ_MEDIA_IMAGES,
@@ -178,13 +319,14 @@ import com.topdon.lib.core.R as LibR
     }
 
     /**
-     * activity
+\1动态申请权限
      */
     private fun initStoragePermission(permissionList: List<String>) {
-        if (PermissionUtils.isVisualUser()) {
-            binding.viewPage.setCurrentItem(1, false)
-            return
-        }
+        if (PermissionUtils.isVisualUser())
+            {
+                binding.viewPage.setCurrentItem(1, false)
+                return
+            }
         XXPermissions.with(this)
             .permission(permissionList)
             .request(
@@ -203,7 +345,7 @@ import com.topdon.lib.core.R as LibR
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-                            // Activity logic
+\1拒绝授权并且不再提醒
                             TipDialog.Builder(this@IRMainActivity)
                                 .setTitleMessage(getString(LibR.string.app_tip))
                                 .setMessage(getString(LibR.string.app_album_content))
@@ -220,13 +362,11 @@ import com.topdon.lib.core.R as LibR
             )
     }
 
-    private class ViewPagerAdapter(val activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(
-        activity,
-    ) {
+    private class ViewPagerAdapter(val activity: FragmentActivity, val isTC007: Boolean) : FragmentStateAdapter(activity) {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) { // Gallery
+            if (position == 1) { // 图库
                 return IRGalleryTabFragment().apply {
                     arguments =
                         Bundle().also {
@@ -242,10 +382,7 @@ import com.topdon.lib.core.R as LibR
                         0 -> AbilityFragment()
                         2 -> IRThermalFragment()
                         3 -> PDFListFragment()
-                        else ->
-                            NavigationManager.getInstance().build(
-                                RouterConfig.TC_MORE,
-                            ).navigation(activity) as Fragment
+                        else -> MoreFragment()
                     }
                 fragment.arguments = Bundle().also { it.putBoolean(ExtraKeyConfig.IS_TC007, isTC007) }
                 return fragment

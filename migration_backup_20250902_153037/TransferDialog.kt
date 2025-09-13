@@ -10,7 +10,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_transfer.view.*
 
 /**
- * 相册迁移进度弹框.
+ * 相册Migration进度弹框.
  *
  * Created by LCG on 2024/3/26.
  */

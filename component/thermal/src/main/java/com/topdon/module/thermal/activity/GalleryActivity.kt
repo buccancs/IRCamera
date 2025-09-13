@@ -14,6 +14,10 @@ import com.topdon.module.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.fragment.GalleryVideoFragment
 
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * Gallery activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class GalleryActivity : BaseActivity() {
     //    override fun providerVMClass() = GalleryViewModel::class.java
 

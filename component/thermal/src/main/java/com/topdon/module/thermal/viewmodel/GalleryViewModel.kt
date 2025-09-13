@@ -13,6 +13,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.File
 
+/**
+ * Custom Gallery view model view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class GalleryViewModel : BaseViewModel() {
     val galleryLiveData = SingleLiveEvent<ArrayList<String>>()
 

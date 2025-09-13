@@ -13,7 +13,7 @@ import com.topdon.lib.core.R as LibAppR
 import com.topdon.lib.core.R as RCore
 
 /**
- * dialog.
+\1下载进度提示弹框.
  * Created by LCG on 2024/3/5.
  */
 class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDialog) {
@@ -34,7 +34,7 @@ class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDi
     }
 
     /**
-     * dialog
+\1刷新进度值
      */
     fun refreshProgress(
         current: Long,
@@ -45,9 +45,7 @@ class DownloadProDialog(context: Context) : Dialog(context, LibAppR.style.InfoDi
         val progressBar = rootView.findViewById<android.widget.ProgressBar>(R.id.progress_bar)
         val tvProgress = rootView.findViewById<android.widget.TextView>(R.id.tv_progress)
 
-        tvSize.text = "${context.getString(
-            RCore.string.detail_len,
-        )}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
+        tvSize.text = "${context.getString(RCore.string.detail_len)}: ${getFileSizeStr(current)}/${getFileSizeStr(total)}"
         progressBar.progress = progress
         tvProgress.text = "$progress%"
     }

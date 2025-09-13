@@ -4,14 +4,18 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * data.
+\1一张图片对应的data信息.
+ */
+/**
+ * Report i r data model for thermal imaging information.
+ * Encapsulates thermal measurement and configuration data.
  */
 @Parcelize
 data class ReportIRBean(
-    var picture_id: String, // Picture ID
-    var picture_url: String, // Picture URL
-    val full_graph_data: ReportTempBean?, // Full temperature graph data
-    val point_data: List<ReportTempBean>, // Point temperature data
-    val line_data: List<ReportTempBean>, // Line temperature data
-    val surface_data: List<ReportTempBean>, // Surface temperature data
+    var picture_id: String, // 上传服务器后接口返回的图片Id
+    var picture_url: String, // 上传服务器后接口返回的图片URL
+    val full_graph_data: ReportTempBean?, // 全图数据
+    val point_data: List<ReportTempBean>, // 点数据
+    val line_data: List<ReportTempBean>, // 线数据
+    val surface_data: List<ReportTempBean>, // 面数据
 ) : Parcelable

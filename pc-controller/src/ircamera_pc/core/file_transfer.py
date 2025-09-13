@@ -146,7 +146,9 @@ class FileTransferManager:
             f"Chunk size: {self.chunk_size} bytes, Maxconcurrent: {self.max_concurrent}"
         )
 
-    def add_progress_callback(self, callback: Callable[[str, float, float], None]):
+    def add_progress_callback(
+        self, callback: None = Callable[[str, float, float], None]
+    ) -> None:
         """
         Add callback for transfer progress updates
 
@@ -195,7 +197,8 @@ class FileTransferManager:
                 resume_offset=0,
                 retry_count=0,
                 error_message=None,
-                device_connection=device_conn,  # Store device connection for real file transfer
+                device_connection=device_conn,
+                     # Store device connection for real file transfer
             )
 
             # Check for partial file to resume
@@ -454,7 +457,8 @@ class FileTransferManager:
                         return chunk_data
                     else:
                         raise Exception(
-                            f"Chunk read failed: {response.get('error', 'Unknown error')}"
+                            f"Chunk read failed: {response.get('error',
+                                'Unknown error')}"
                         )
                 else:
                     raise Exception("Invalid or timeout response from device")
@@ -635,7 +639,7 @@ class FileTransferManager:
             "data_directory": str(self.data_dir),
         }
 
-    async def save_job_state(self):
+    async def save_job_state(self) -> Any:
         """Save transfer job states to disk for recovery"""
         try:
             state_file = self.data_dir / "transfer_state.json"
@@ -658,7 +662,7 @@ class FileTransferManager:
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to save transfer state: {e}")
 
-    async def load_job_state(self):
+    async def load_job_state(self) -> Any:
         """Load transfer job states from disk for recovery"""
         try:
             state_file = self.data_dir / "transfer_state.json"

@@ -27,6 +27,16 @@ import com.topdon.lib.core.ktbase.BaseBindingActivity
 import com.topdon.tc001.camera.RGBCameraRecorder
 import kotlinx.coroutines.launch
 
+// Enhanced unified BLE integration for comprehensive cross-modal coordination
+import com.topdon.ble.UnifiedBleManager
+import com.topdon.ble.UnifiedDevice
+
+// Note: EnhancedRecordingService is referenced with full package name since it's in a different module
+
+/**
+ * Full multi-modal recording interface with GSR and thermal coordination
+ * Navigation: Use NavigationManager.getInstance().build(RouterConfig.GSR_MULTI_MODAL).navigation(context)
+ */
 class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecordingBinding>() {
     
     private companion object {
@@ -62,25 +72,41 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     private var currentSession: SessionInfo? = null
     private var sampleCount = 0L
     private var syncMarkCount = 0
-    private var discoveredDevices = mutableListOf<Any>() // Placeholder for ControllerInfo
+
+    // Enhanced unified BLE management for cross-modal coordination
+    private var unifiedBleManager: UnifiedBleManager? = null
+    private var discoveredBleDevices = mutableListOf<UnifiedDevice>()
+    private var connectedBleDevices = mutableListOf<UnifiedDevice>()
+
+    // Enhanced service integration
+    private var enhancedRecordingService: com.topdon.gsr.service.EnhancedRecordingService? = null
+    private var isServiceBound = false
+    private var discoveredDevices = mutableListOf<com.topdon.gsr.network.NetworkClient.ControllerInfo>()
+
+    // UI update timer
     private var uiUpdateJob: kotlinx.coroutines.Job? = null
 
     // Service connection for enhanced recording service
-    private val serviceConnection = object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            // Note: Enhanced recording service integration placeholder
-            isServiceBound = true
-            Log.i(TAG, "Enhanced recording service connected")
-            updateNetworkStatusUI()
-        }
+    private val serviceConnection =
+        object : ServiceConnection {
+            override fun onServiceConnected(
+                name: ComponentName?,
+                service: IBinder?,
+            ) {
+                val binder = service as? com.topdon.gsr.service.EnhancedRecordingService.EnhancedRecordingBinder
+                enhancedRecordingService = binder?.getService()
+                isServiceBound = true
+                Log.i(TAG, "Enhanced recording service connected")
+                updateNetworkStatusUI()
+            }
 
-        override fun onServiceDisconnected(name: ComponentName?) {
-            enhancedRecordingService = null
-            isServiceBound = false
-            Log.i(TAG, "Enhanced recording service disconnected")
-            updateNetworkStatusUI()
+            override fun onServiceDisconnected(name: ComponentName?) {
+                enhancedRecordingService = null
+                isServiceBound = false
+                Log.i(TAG, "Enhanced recording service disconnected")
+                updateNetworkStatusUI()
+            }
         }
-    }
 
     fun startWithTemplate(context: Context, templateId: String) {
         context.startActivity(Intent(context, MultiModalRecordingActivity::class.java).apply {
@@ -199,6 +225,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             enable4KSwitch.isChecked = false
             enableRawCaptureSwitch.isChecked = false
 
+            // Set up raw frame rate spinner
             val frameRateAdapter =
                 ArrayAdapter(
                     this@MultiModalRecordingActivity,
@@ -245,7 +272,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                                 connectToDeviceButton.isEnabled = true
                                 Toast.makeText(
                                     this@MultiModalRecordingActivity,
-                                    "Found PC Controller: ${controller.name} (${controller.address})",
+                                    "Found PC Controller: ${controller.deviceName} (${controller.ipAddress})",
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             }
@@ -256,7 +283,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
                                 updateNetworkStatusUI()
                                 Toast.makeText(
                                     this@MultiModalRecordingActivity,
-                                    "Connected to ${controller.name}",
+                                    "Connected to ${controller.deviceName}",
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             }
@@ -564,7 +591,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
 
         if (binding.enableVideoSwitch.isChecked) {
             val resolution =
-                if (binding.enable4KSwitch.isChecked) {
+                if (binding.enable4kSwitch.isChecked) {
                     RGBCameraRecorder.VideoResolution.UHD_4K
                 } else {
                     RGBCameraRecorder.VideoResolution.HD_1080P
@@ -734,7 +761,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     }
 
     private fun triggerFlashSync() {
-
+        // Trigger a visual flash for synchronization
         val overlay =
             android.view.View(this).apply {
                 setBackgroundColor(android.graphics.Color.WHITE)
@@ -808,7 +835,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
     // Network status UI update method
     private fun updateNetworkStatusUI() {
         runOnUiThread {
-
+            // Update network connection status
             val connectionStatus =
                 when {
                     networkClient?.isConnected() == true -> "Connected"
@@ -821,7 +848,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             val deviceText =
                 if (deviceCount > 0) {
                     val firstDevice = discoveredDevices.first()
-                    "Devices: $deviceCount found (${firstDevice.name})"
+                    "Devices: $deviceCount found (${firstDevice.deviceName})"
                 } else {
                     "Discovered Devices: None"
                 }
@@ -926,7 +953,7 @@ class MultiModalRecordingActivity : BaseBindingActivity<ActivityMultiModalRecord
             lifecycleScope.launch {
                 while (true) {
                     updateNetworkStatusUI()
-                    kotlinx.coroutines.delay(2000)
+                    kotlinx.coroutines.delay(2000) // Update every 2 seconds
                 }
             }
     }

@@ -51,7 +51,7 @@ class ClauseActivity : AppCompatActivity() {
             confirmInitApp()
         }
         clause_disagree_btn.setOnClickListener {
-            // 再次弹框确认是否退出
+            // 再次弹框Confirm是否Exit
             TipDialog.Builder(this)
                 .setMessage(getString(R.string.privacy_tips))
                 .setPositiveListener(R.string.privacy_confirm) {

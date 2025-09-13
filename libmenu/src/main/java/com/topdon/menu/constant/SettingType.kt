@@ -1,9 +1,16 @@
 package com.topdon.menu.constant
 
 /**
- * Temperature measurement mode - Menu 5 - Settings / Observation mode - Menu 6 - Settings menu type.
+ * Temperature measurement mode - Menu 5 - Settings/Observation mode - Menu 6 - Settings menu type.
  *
  * Created by LCG on 2024/11/28.
+ */
+
+/**
+ * Type definition for setting classification.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 enum class SettingType {
     /** Pseudo color bar */
@@ -15,13 +22,13 @@ enum class SettingType {
     /** Sharpness (detail) */
     DETAIL,
 
-    /** Rotation */
+    /** Rotate */
     ROTATE,
 
     /** Mirror */
     MIRROR,
 
-    /** Alarm */
+    /** Alert */
     ALARM,
 
     /** Font */

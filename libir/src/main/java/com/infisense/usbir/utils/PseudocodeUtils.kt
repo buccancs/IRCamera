@@ -3,6 +3,9 @@ package com.infisense.usbir.utils
 import com.energy.iruvc.utils.CommonParams
 
 object PseudocodeUtils {
+    /**
+     * Executes changedualpseudocodemodelbyold functionality.
+     */
     fun changeDualPseudocodeModelByOld(oldPseudocodeMode: Int): CommonParams.PseudoColorUsbDualType {
         return when (oldPseudocodeMode) {
             1 -> {
@@ -82,6 +85,9 @@ object PseudocodeUtils {
         }
     }
 
+    /**
+     * Executes changepseudocodemodebynew functionality.
+     */
     fun changePseudocodeModeByNew(pseudoColorType: CommonParams.PseudoColorType): Int {
         return when (pseudoColorType) {
             CommonParams.PseudoColorType.PSEUDO_1 -> {

@@ -7,9 +7,13 @@ import android.util.AttributeSet
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 
+/**
+ * Custom Watermark view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class WatermarkView : View {
     /**
-     * Add watermark.
+\1watermark文字.
      */
     var watermarkText: String? = null
         set(value) {

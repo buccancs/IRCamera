@@ -15,8 +15,15 @@ import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import com.topdon.lib.ui.R as UiR
 
+/**
+ * CountDownView class
+ */
+/**
+ * Custom Count down view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class CountDownView : View {
-    // view
+    // 圆环color
     private var mRingColor = 0
 
     // view
@@ -126,7 +133,7 @@ class CountDownView : View {
     }
 
     /**
-     * Settingsview view
+     * settings倒计时间 单位秒
      */
     fun setCountdownTime(mCountdownTime: Int) {
         this.mCountdownTime = mCountdownTime
@@ -206,6 +213,13 @@ class CountDownView : View {
         this.mListener = mListener
     }
 
+    /**
+     * OnCountDownListener class
+     */
+/**
+ * Custom On count down listener view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     interface OnCountDownListener {
         fun countDownFinished()
     }

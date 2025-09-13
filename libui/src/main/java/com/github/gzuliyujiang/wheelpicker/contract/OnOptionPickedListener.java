@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present <1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -24,8 +24,8 @@ public interface OnOptionPickedListener {
     /**
      * 
      *
-     * @param position 
-     * @param item     
+     * @param position selected项的index
+     * @param item     selected项的内容
      */
     void onOptionPicked(int position, Object item);
 

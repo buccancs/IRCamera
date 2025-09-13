@@ -42,8 +42,8 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
 
         private IFrameCallback iFrameCallback = new IFrameCallback() {
             /**
-             * frameGraph，Graph，ARGB，4;
-             * Graph，GraphYUV422，2
+             * frame里面是有两帧图像的，前面是fusion之后的图像，是ARGB格式，占4个字节;
+             * 后面是infrared和温度的图像，infrared和温度的图像是YUV422格式，占2个字节
              */
 
             @Override
@@ -84,7 +84,7 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
                                                      SurfaceView cameraview, UVCCamera iruvc, CommonParams.DataFlowMode dataFlowMode) {
             super(irWidth, irHeight, vlWidth, vlHeight, dualWidth, dualHeight);
             this.cameraview = cameraview;
-            // DualUVCCamera Initialize
+            // DualUVCCamera initialize
             ConcreateDualBuilder concreateDualBuilder = new ConcreateDualBuilder();
             dualUVCCamera = concreateDualBuilder
                     .setDualType(DualType.USB_DUAL)
@@ -106,9 +106,7 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
 
         }
 
-        /**
-         *
-         */
+        
         public void startPreview() {
             dualUVCCamera.setFrameCallback(iFrameCallback);
             dualUVCCamera.onStartPreview();
@@ -123,7 +121,7 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
         }
 
         /**
-         * 
+         * closedual light预览
          */
         public void stopPreview() {
             dualUVCCamera.setFrameCallback(null);

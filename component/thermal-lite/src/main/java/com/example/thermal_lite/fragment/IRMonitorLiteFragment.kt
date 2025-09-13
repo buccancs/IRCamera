@@ -73,9 +73,9 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
 
     private var configJob: Job? = null
     protected var isConfigWait = true
-    protected var temperatureBytes = ByteArray(192 * 256 * 2) // Fragment logic
+    protected var temperatureBytes = ByteArray(192 * 256 * 2) // 温度数据
     var rotateAngle = 270
-    private val imageRes = LibIRProcess.ImageRes_t() // Fragment logic
+    private val imageRes = LibIRProcess.ImageRes_t() // 原图尺寸
     val dstTempBytes = ByteArray(192 * 256 * 2)
     private var mProgressDialog: ProgressDialog? = null
     private var temperaturerun = false
@@ -108,9 +108,10 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments?.containsKey("isPick") == true) {
-            isPick = requireArguments().getBoolean("isPick")
-        }
+        if (arguments?.containsKey("isPick") == true)
+            {
+                isPick = requireArguments().getBoolean("isPick")
+            }
     }
 
     override fun initView() {
@@ -135,30 +136,30 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                         delay(200)
                     }
                     delay(500)
-                    if (isPick) {
-                        CameraPreviewManager.getInstance().setPseudocolorMode(SaveSettingUtil.pseudoColorMode)
-                    } else {
-                        CameraPreviewManager.getInstance().setPseudocolorMode(3)
-                    }
+                    if (isPick)
+                        {
+                            CameraPreviewManager.getInstance().setPseudocolorMode(SaveSettingUtil.pseudoColorMode)
+                        } else
+                        {
+                            CameraPreviewManager.getInstance().setPseudocolorMode(3)
+                        }
                     CameraPreviewManager.getInstance().setColorList(null, null, false, 0f, 0f)
                     CameraPreviewManager.getInstance().alarmBean = null
-                    // Fragment logic
+\1自动快门
                     IRTool.setAutoShutter(true)
-                    // Fragment logic
+\1initialize对比度
                     IRTool.basicGlobalContrastLevelSet((50).toInt())
-                    // Fragment logic
+\1镜像
                     IRTool.basicMirrorAndFlipStatusSet(false)
-                    // Fragment logic
+\1initialize锐度
                     IRTool.basicImageDetailEnhanceLevelSet(50)
                     CameraPreviewManager.getInstance()?.setLimit(
-                        Float.MAX_VALUE,
-                        Float.MIN_VALUE,
-                        0,
-                        0,
-                    ) // Fragment logic
+                        Float.MAX_VALUE, Float.MIN_VALUE,
+                        0, 0,
+                    ) // 自定义颜色
                     shutterHandler = Handler(Looper.getMainLooper())
 
-                    // fragment
+\1定义快门操作
                     fun takePicture() {
                         shutterCount++
                         try {
@@ -166,20 +167,20 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                         } catch (e: RuntimeException) {
                         }
                     }
-                    // fragment Runnable，fragment5fragment
+\1create Runnable，每5秒执行一次
                     shutterRunnable =
                         object : Runnable {
                             override fun run() {
-                                if (shutterCount < 4) { // fragment40fragment（8fragment）
-                                    shutterHandler?.postDelayed(this, 5000L) // fragment5fragment
+                                if (shutterCount < 4) { // 确保只执行前40秒的操作（8次）
+                                    shutterHandler?.postDelayed(this, 5000L) // 延迟5秒后再次执行
                                     takePicture()
                                 }
                             }
                         }
-                    // fragment
+\1开始任务
                     shutterHandler?.postDelayed(shutterRunnable!!, 300)
-                    // Fragment logicModefragment
-                    delay(2000) // sdkfragmentLow gainfragment2fragmentSettingsfragment
+\1gain模式initialize
+                    delay(2000) // sdk的高低增益需要延迟2秒后才能设置成功
                     withContext(Dispatchers.IO) {
                         IRTool.basicGainSet(SaveSettingUtil.temperatureMode)
                     }
@@ -188,9 +189,9 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     }
 
     /**
-     * fragment
+\1开始锅盖矫正流程
      */
-    suspend fun autoStart(): Boolean {
+    suspend fun autoStart(): Boolean  {
         return IRTool.autoStart()
     }
 
@@ -200,19 +201,19 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
         Log.w("123", "event:${event.action}")
         when (event.action) {
             2001 -> {
-                // Fragment logic
+\1点
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
                 readPosition(1)
             }
             2002 -> {
-                // Fragment logic
+\1线
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
                 readPosition(2)
             }
             2003 -> {
-                // Fragment logic
+\1面
                 temperatureView.visibility = View.VISIBLE
                 temperatureView.temperatureRegionMode = REGION_MODE_RECTANGLE
                 readPosition(3)
@@ -236,11 +237,11 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
             }
     }
 
-    fun stopTask() {
+    fun stopTask()  {
         showTask?.cancel()
     }
 
-    // Fragment logic
+\1get选取点
     private fun updateTemp(type: Int) {
         var result: SelectPositionBean? = null
         val contentRectF = RectF(0f, 0f, 192f, 256f)
@@ -291,10 +292,11 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 }
             }
         }
-        if (requireActivity() is IRMonitorLiteActivity) {
-            val activity = requireActivity() as IRMonitorLiteActivity
-            activity.select(result)
-        }
+        if (requireActivity() is IRMonitorLiteActivity)
+            {
+                val activity = requireActivity() as IRMonitorLiteActivity
+                activity.select(result)
+            }
     }
 
     override fun initData() {
@@ -331,7 +333,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
         }
 
     /**
-     * fragmentUSBfragment
+\1initializeUSB连接相关类
      */
     private fun initUSBMonitorManager() {
         USBMonitorManager.getInstance().init()
@@ -356,7 +358,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                     createNew: Boolean,
                 ) {
                     this@IRMonitorLiteFragment.ctrlBlock = ctrlBlock
-                    // USBfragment
+\1USB连接successful后
                     DeviceControlManager.getInstance().handleStartPreview(ctrlBlock)
                 }
 
@@ -379,7 +381,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     }
 
     private fun initPreviewManager() {
-        // fragment
+\1initialize预览相关的类
         config = ConfigRepository.readConfig(false)
         CameraPreviewManager.getInstance().init(cameraView, mLiteHandler)
         CameraPreviewManager.getInstance().imageRotate = RotateDegree.DEGREE_270
@@ -425,43 +427,43 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     private fun initCameraSize() {
         temperatureView.setTextSize(SaveSettingUtil.tempTextSize)
         temperatureView.setSyncimage(syncimage)
-        // fragment，fragment
+\1calculation画面的宽高，避免被拉伸变形
         temperatureView.setTemperature(dstTempBytes)
         temperatureView.setUseIRISP(false)
-        // Fragment logicTemperature measurement
+\1初始全局temperature measurement
         temperatureView.post {
             lifecycleScope.launch {
                 if (!temperaturerun) {
                     temperaturerun = true
-                    // Fragment logic
+\1需等待rendering完成再display
                     temperatureView.visibility = View.VISIBLE
                     delay(1000)
                     temperatureView.setImageSize(mPreviewHeight, mPreviewWidth, this@IRMonitorLiteFragment)
-                    temperatureView.temperatureRegionMode = TemperatureView.REGION_MODE_CLEAN // Fragment logicTemperature measurement
+                    temperatureView.temperatureRegionMode = TemperatureView.REGION_MODE_CLEAN // 全屏测温
                 }
             }
         }
     }
 
-    fun restTempView() {
+    fun restTempView()  {
         temperatureView.restView()
         temperatureView.clear()
     }
 
     /**
-     * fragmentPoint/Line/Area
+\1drawing点线面
      */
     fun addTempLine(selectBean: SelectPositionBean) {
         temperatureView.visibility = View.VISIBLE
         temperatureView.isEnabled = false
         when (selectBean.type) {
             1 -> {
-                // Fragment logic
+\1点
                 temperatureView.addScalePoint(selectBean.startPosition)
                 temperatureView.temperatureRegionMode = REGION_MODE_POINT
             }
             2 -> {
-                // Fragment logic
+\1线
                 temperatureView.addScaleLine(
                     Line(
                         selectBean.startPosition,
@@ -471,7 +473,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 temperatureView.temperatureRegionMode = REGION_MODE_LINE
             }
             3 -> {
-                // Fragment logic
+\1面
                 temperatureView.addScaleRectangle(
                     Rect(
                         selectBean.startPosition!!.x,
@@ -497,10 +499,11 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     override fun onResume() {
         super.onResume()
         activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (isPause) {
-            DeviceControlManager.getInstance().handleResumeDualPreview()
-            isPause = false
-        }
+        if (isPause)
+            {
+                DeviceControlManager.getInstance().handleResumeDualPreview()
+                isPause = false
+            }
     }
 
     override fun onPause() {
@@ -510,7 +513,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
         DeviceControlManager.getInstance().handlePauseDualPreview()
     }
 
-    fun closeFragment() {
+    fun closeFragment()  {
         try {
             DeviceControlManager.getInstance().handlePauseDualPreview()
             DeviceControlManager.getInstance().handleStopPreview()
@@ -524,7 +527,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
             DeviceControlManager.getInstance().release()
             CameraPreviewManager.getInstance().releaseSource()
         } catch (e: Exception) {
-            XLog.e("$TAG:litefragment--${e.message}")
+            XLog.e("$TAG:lite销毁异常--${e.message}")
         }
     }
 
@@ -546,7 +549,7 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                 CameraPreviewManager.getInstance().releaseSource()
             }
         } catch (e: Exception) {
-            XLog.e("$TAG:litefragment--${e.message}")
+            XLog.e("$TAG:lite销毁异常--${e.message}")
         }
     }
 
@@ -557,31 +560,35 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
     override fun tempCorrectByTs(temp: Float?): Float {
         var tempNew = temp
         try {
-            if (config == null) {
-                config = ConfigRepository.readConfig(false)
-            }
-            if (isConfigWait) {
-                return temp!!
-            }
+            if (config == null)
+                {
+                    config = ConfigRepository.readConfig(false)
+                }
+            if (isConfigWait)
+                {
+                    return temp!!
+                }
             val defModel = DataBean()
             if (config!!.radiation == defModel.radiation &&
                 defModel.environment == config!!.environment &&
                 defModel.distance == config!!.distance
-            ) {
-                return temp!!
-            }
-
-            // Fragment logicState PASS
-            if (System.currentTimeMillis() - basicGainGetTime > 5000L) {
-                try {
-                    val basicGainGet: IrcmdError? =
-                        DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
-                            ?.basicGainGet(basicGainGetValue)
-                } catch (e: Exception) {
-                    XLog.e("fragment")
+            )
+                {
+                    return temp!!
                 }
-                basicGainGetTime = System.currentTimeMillis()
-            }
+
+\1getgain状态 PASS
+            if (System.currentTimeMillis() - basicGainGetTime > 5000L)
+                {
+                    try {
+                        val basicGainGet: IrcmdError? =
+                            DeviceIrcmdControlManager.getInstance().getIrcmdEngine()
+                                ?.basicGainGet(basicGainGetValue)
+                    } catch (e: Exception) {
+                        XLog.e("增益获取失败")
+                    }
+                    basicGainGetTime = System.currentTimeMillis()
+                }
             val params_array =
                 floatArrayOf(
                     temp!!,
@@ -611,13 +618,13 @@ class IRMonitorLiteFragment : BaseFragment(), ITsTempListener {
                     "distance = " + params_array[4] + " hum = " + params_array[5] + " basicGain = " + basicGainGetValue[0],
             )
         } catch (e: Exception) {
-            XLog.e("$TAG--fragment：${e.message}")
+            XLog.e("$TAG--温度修正异常：${e.message}")
         } finally {
             return tempNew ?: 0f
         }
     }
 
-    fun getBitmap(): Bitmap {
+    fun getBitmap(): Bitmap  {
         return Bitmap.createScaledBitmap(
             CameraPreviewManager.getInstance().scaledBitmap(true),
             cameraView!!.width,

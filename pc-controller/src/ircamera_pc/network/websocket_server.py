@@ -17,6 +17,7 @@ import ssl
 import time
 import uuid
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional, Set
 
@@ -27,9 +28,11 @@ try:
 except ImportError:
     from ..utils.simple_logger import logger
 
+from ..core.config import config
+from ..sync import EnhancedTimeSyncServer
 from .discovery import NetworkDiscoveryService
 from .enhanced_security import AuthLevel, EnhancedSecurityManager
-from .protocol import create_message, get_protocol_manager
+from .protocol import create_message, get_protocol_manager, validate_message
 from .security import SecurityManager
 
 
@@ -151,7 +154,7 @@ class WebSocketServer:
             "role_change_request": self._handle_role_change_request,
         }
 
-    async def start(self):
+    async def start(self) -> Any:
         """Start the WebSocket Secure server"""
         if self.is_running:
             logger.warning("WebSocket server already running")
@@ -182,14 +185,14 @@ class WebSocketServer:
             # Start heartbeat monitoring
             self.heartbeat_task = asyncio.create_task(self._heartbeat_monitor())
 
-            logger.info(f"WebSocket Secure server started successfully")
+            logger.info("WebSocket Secure server started successfully")
             logger.info(f"Service advertised as '_irhub._tcp' on port {self.port}")
 
         except Exception as e:
             logger.error(f"Failed to start WebSocket server: {e}")
             raise
 
-    async def stop(self):
+    async def stop(self) -> Any:
         """Stop the WebSocket server"""
         if not self.is_running:
             return
@@ -619,7 +622,7 @@ class WebSocketServer:
     async def _broadcast_message(
         self,
         message: dict,
-        exclude_client: str = None,
+        exclude_client: Optional[str] = None,
         authenticated_only: bool = False,
     ):
         """Broadcast message to all connected clients"""
@@ -1378,7 +1381,7 @@ class WebSocketServerPhase4Extension:
         try:
             requested_role = message.get("requested_role", "")
             device_id = message.get("device_id", "")
-            message.get("justification", "")
+            justification = message.get("justification", "")
 
             # Get current authentication context
             async with self.server.client_lock:
@@ -1412,7 +1415,7 @@ class WebSocketServerPhase4Extension:
 
 
 # Monkey patch the Phase 4 handlers into the main WebSocket server
-def extend_websocket_server_with_phase4(server: WebSocketServer):
+def extend_websocket_server_with_phase4(server: Any = WebSocketServer) -> Any:
     """Extend WebSocket server with Phase 4 security handlers"""
     extension = WebSocketServerPhase4Extension(server)
 

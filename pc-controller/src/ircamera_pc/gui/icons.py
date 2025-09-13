@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """"""
 
+This module provides access to generic icons for GUI widgets and utilities,
+sourced from Android drawable resources for cross-platform visual consistency.
+"""
+
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -21,9 +25,7 @@ class IconRegistry:
             "name": "Calibration Crosshair",
             "android_resource": "ic_menu_coordinate_svg.xml",
             "android_path": "libui/src/main/res/drawable/ic_menu_coordinate_svg.xml",
-            "description": (
-                "Crosshair with concentric circles for calibration and targeting"
-            ),
+            "description": "Crosshair with concentric circles for calibration and targeting",
             "use_cases": [
                 "Camera calibration",
                 "Coordinate systems",
@@ -54,30 +56,20 @@ class IconRegistry:
     @classmethod
     def list_available_icons(cls) -> Dict[str, str]:
         """List all available icons with their descriptions."""
-        result = {}
-        for name, info in cls.ICONS.items():
-            desc = info.get("description", "")
-            if isinstance(desc, str):
-                result[name] = desc
-            else:
-                result[name] = str(desc)
-        return result
+        return {name: str(info["description"]) for name, info in cls.ICONS.items()}
 
     @classmethod
     def get_android_resource_path(cls, icon_name: str) -> str:
         """Get the Android resource path for an icon."""
         icon_info = cls.ICONS.get(icon_name, {})
-        path = icon_info.get("android_path", "")
-        return str(path) if path else ""
+        return str(icon_info.get("android_path", ""))
 
     @classmethod
     def get_icon_use_cases(cls, icon_name: str) -> List[str]:
         """Get recommended use cases for an icon."""
         icon_info = cls.ICONS.get(icon_name, {})
         use_cases = icon_info.get("use_cases", [])
-        if isinstance(use_cases, list):
-            return [str(case) for case in use_cases]
-        return []
+        return [str(case) for case in use_cases] if use_cases else []
 
 
 def get_project_icon_path(icon_name: str) -> Path:

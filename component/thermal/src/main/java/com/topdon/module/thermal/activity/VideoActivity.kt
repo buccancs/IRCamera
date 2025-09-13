@@ -14,6 +14,10 @@ import java.io.File
 import com.topdon.lib.core.R as LibR
 
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * Video activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class VideoActivity : BaseActivity() {
     companion object {
         const val KEY_PATH = "video_path"

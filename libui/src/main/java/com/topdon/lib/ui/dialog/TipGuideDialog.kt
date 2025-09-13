@@ -17,11 +17,21 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.topdon.lib.core.R
+import com.topdon.lib.ui.R as UiR
 import com.topdon.lib.ui.databinding.DialogTipGuideBinding
 import com.topdon.lib.ui.widget.IndicateView
 import kotlin.collections.ArrayList
-import com.topdon.lib.ui.R as UiR
 
+/**
+ * Tip guide fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
+ */
+/**
+ * TipGuideDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class TipGuideDialog : DialogFragment() {
     private lateinit var titleList: ArrayList<String>
     private lateinit var imgList: ArrayList<Int>
@@ -67,6 +77,7 @@ class TipGuideDialog : DialogFragment() {
                 UiR.drawable.target_guide_pic_4,
             )
 
+        // Initialize views using binding
         viewPager = binding.viewPager
         tvContent1 = binding.tvContent1
         tvContent2 = binding.tvContent2
@@ -101,6 +112,9 @@ class TipGuideDialog : DialogFragment() {
         )
     }
 
+    /**
+     * Updates the index with new data.
+     */
     fun updateIndex(position: Int) {
         if (index == position) {
             return
@@ -156,6 +170,9 @@ class TipGuideDialog : DialogFragment() {
     }
 
     companion object {
+    /**
+     * Executes newinstance functionality.
+     */
         fun newInstance(): TipGuideDialog {
             return TipGuideDialog()
         }

@@ -36,6 +36,7 @@ class CertificateManager(private val context: Context) {
 
             trustManager = createCustomTrustManager()
 
+            // Initialize key manager for client authentication
             keyManager = createKeyManager()
 
             Log.i(TAG, "Certificate manager initialized successfully")
@@ -268,6 +269,7 @@ class CertificateManager(private val context: Context) {
             val timestamp = parts[1].toLong()
             val currentTime = System.currentTimeMillis()
 
+            // Check token age
             if (currentTime - timestamp > maxAgeMs) {
                 Log.w(TAG, "Auth token expired")
                 return false

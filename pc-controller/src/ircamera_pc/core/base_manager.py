@@ -15,8 +15,11 @@ except ImportError:
     PYQT_AVAILABLE = False
     BaseClass = object  # type: ignore
 
-logger = logging.getLogger(__name__)
+    def pyqtSignal(*args, **kwargs) -> Any:
+        """Mock pyqtSignal decorator"""
 
+        def decorator(func) -> Any:
+            return func
 
 class BaseManager(BaseClass, ABC):
     """Base manager class with common functionality."""
