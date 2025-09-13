@@ -120,9 +120,9 @@
  <string name="thermal_false_color">False Color</string>
  <string name="app_setting">Settings</string>
  <string name="func_temper_ruler">Temperature Ruler</string>
- <string name="thermal_point"></string>
- <string name="thermal_line"></string>
- <string name="thermal_rect"></string>
+ <string name="thermal_point">Point</string>
+ <string name="thermal_line">Line</string>
+ <string name="thermal_rect">Rectangle</string>
  <string name="pdf_project_item">Project Item</string>
  <string name="report_remark">Remark</string>
  <string name="currency">Currency</string>
