@@ -9,7 +9,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
 
 /**
- * 提示窗
+ * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 /**
@@ -20,92 +20,92 @@ import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
  * Provides specialized input and configuration interfaces.
  */
 class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
-    /**
-     * Builder(private class
-     */
+ /**
+ * Builder(private class
+ */
 /**
  * Builder dialog for thermal imaging user interaction.
  * Provides specialized input and configuration interfaces.
  */
-    class Builder(private val context: Context) {
-        /**
-         * 是否处于第 1 步.
-         */
-        private var isFirstStep = true
+ class Builder(private val context: Context) {
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private var isFirstStep = true
 
-        /**
-         * currentselected的监控类型 1-点 2-线 3-面.
-         */
-        private var monitorType = 0
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private var monitorType = 0
 
-        private var positiveClickListener: ((select: Int) -> Unit)? = null
+ private var positiveClickListener: ((select: Int) -> Unit)? = null
 
-        fun setPositiveListener(listener: ((select: Int) -> Unit)?): Builder {
-            this.positiveClickListener = listener
-            return this
-        }
+ fun setPositiveListener(listener: ((select: Int) -> Unit)?): Builder {
+ this.positiveClickListener = listener
+ return this
+ }
 
-        fun create(): MonitorSelectDialog {
-            val dialog = MonitorSelectDialog(context)
-            dialog.setCanceledOnTouchOutside(false)
+ fun create(): MonitorSelectDialog {
+ val dialog = MonitorSelectDialog(context)
+ dialog.setCanceledOnTouchOutside(false)
 
-            val binding = DialogMonitorSelectBinding.inflate(LayoutInflater.from(context))
-            dialog.setContentView(binding.root)
+ val binding = DialogMonitorSelectBinding.inflate(LayoutInflater.from(context))
+ dialog.setContentView(binding.root)
 
-            val lp = dialog.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // settings宽度
-            dialog.window!!.attributes = lp
+ val lp = dialog.window!!.attributes
+ lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // settings
+ dialog.window!!.attributes = lp
 
-            binding.btnConfirmOrBack.setOnClickListener {
-                if (isFirstStep) { // 步骤1->步骤2 逻辑为“确认”
-                    if (monitorType == 0) { // 还没选取类型不允许点确认
-                        return@setOnClickListener
-                    }
-                    isFirstStep = false
-                    binding.btnCancel.visibility = View.VISIBLE
-                    binding.clFirstStep.visibility = View.INVISIBLE
-                    binding.clSecondStep.visibility = View.VISIBLE
-                    binding.tvTitle.text = context.getString(R.string.select_monitor_type_step2)
-                    binding.btnConfirmOrBack.text = context.getString(R.string.select_monitor_return)
-                } else { // 步骤2->步骤1 逻辑为“返回”
-                    isFirstStep = true
-                    binding.btnCancel.visibility = View.GONE
-                    binding.clFirstStep.visibility = View.VISIBLE
-                    binding.clSecondStep.visibility = View.GONE
-                    binding.tvTitle.text = context.getString(R.string.select_monitor_type_step1)
-                    binding.btnConfirmOrBack.text = context.getString(R.string.app_confirm)
-                }
-            }
+ binding.btnConfirmOrBack.setOnClickListener {
+ if (isFirstStep) { // 1->2 “Confirm”
+ if (monitorType == 0) { // TypeConfirm
+ return@setOnClickListener
+ }
+ isFirstStep = false
+ binding.btnCancel.visibility = View.VISIBLE
+ binding.clFirstStep.visibility = View.INVISIBLE
+ binding.clSecondStep.visibility = View.VISIBLE
+ binding.tvTitle.text = context.getString(R.string.select_monitor_type_step2)
+ binding.btnConfirmOrBack.text = context.getString(R.string.select_monitor_return)
+ } else { // 2->1 “”
+ isFirstStep = true
+ binding.btnCancel.visibility = View.GONE
+ binding.clFirstStep.visibility = View.VISIBLE
+ binding.clSecondStep.visibility = View.GONE
+ binding.tvTitle.text = context.getString(R.string.select_monitor_type_step1)
+ binding.btnConfirmOrBack.text = context.getString(R.string.app_confirm)
+ }
+ }
 
-            binding.btnCancel.setOnClickListener {
-                dialog.dismiss()
-            }
+ binding.btnCancel.setOnClickListener {
+ dialog.dismiss()
+ }
 
-            binding.btnSelectLocation.setOnClickListener {
-                dialog.dismiss()
-                positiveClickListener?.invoke(monitorType)
-            }
+ binding.btnSelectLocation.setOnClickListener {
+ dialog.dismiss()
+ positiveClickListener?.invoke(monitorType)
+ }
 
-            binding.tvPoint.setOnClickListener {
-                updateUI(binding, 1)
-            }
-            binding.tvLine.setOnClickListener {
-                updateUI(binding, 2)
-            }
-            binding.tvRect.setOnClickListener {
-                updateUI(binding, 3)
-            }
-            return dialog
-        }
+ binding.tvPoint.setOnClickListener {
+ updateUI(binding, 1)
+ }
+ binding.tvLine.setOnClickListener {
+ updateUI(binding, 2)
+ }
+ binding.tvRect.setOnClickListener {
+ updateUI(binding, 3)
+ }
+ return dialog
+ }
 
-        private fun updateUI(
-            binding: DialogMonitorSelectBinding,
-            index: Int,
-        ) {
-            binding.tvPoint.isSelected = index == 1
-            binding.tvLine.isSelected = index == 2
-            binding.tvRect.isSelected = index == 3
-            monitorType = index
-        }
-    }
+ private fun updateUI(
+ binding: DialogMonitorSelectBinding,
+ index: Int,
+ ) {
+ binding.tvPoint.isSelected = index == 1
+ binding.tvLine.isSelected = index == 2
+ binding.tvRect.isSelected = index == 3
+ monitorType = index
+ }
+ }
 }

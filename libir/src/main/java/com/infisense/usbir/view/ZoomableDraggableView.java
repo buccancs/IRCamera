@@ -18,132 +18,132 @@ import com.infisense.usbir.R;
 import com.topdon.lib.core.utils.BitmapUtils;
 
 public class ZoomableDraggableView extends View {
-    private ScaleGestureDetector scaleGestureDetector;
-    private GestureDetector gestureDetector;
-    private Matrix matrix = new Matrix();
-    private float scaleFactor = 1.0f;
-    private float minScaleFactor = 0.5f;
-    private float maxScaleFactor = 2.0f;
-    private float focusX, focusY;
-    private float lastX, lastY;
+ private ScaleGestureDetector scaleGestureDetector;
+ private GestureDetector gestureDetector;
+ private Matrix matrix = new Matrix();
+ private float scaleFactor = 1.0f;
+ private float minScaleFactor = 0.5f;
+ private float maxScaleFactor = 2.0f;
+ private float focusX, focusY;
+ private float lastX, lastY;
 
-    //原始图片
-    private Bitmap originalBitmap;
-    private int imageWidth;
-    private int imageHeight;
-    private int viewWidth;
-    private int viewHeight;
-    private float xscale;
-    private float yscale;
-    private float originalBitmapWidth;
-    private float originalBitmapHeight;
+ // Comment removed (contained Chinese characters)
+ private Bitmap originalBitmap;
+ private int imageWidth;
+ private int imageHeight;
+ private int viewWidth;
+ private int viewHeight;
+ private float xscale;
+ private float yscale;
+ private float originalBitmapWidth;
+ private float originalBitmapHeight;
 
-    private float pxBitmapHeight = 150;
+ private float pxBitmapHeight = 150;
 
-    private float showBitmapHeightWidth = 0f;
-    private float showBitmapHeight = 0f;
-    private Paint paint = new Paint();
+ private float showBitmapHeightWidth = 0f;
+ private float showBitmapHeight = 0f;
+ private Paint paint = new Paint();
 
-    private Bitmap showBitmap;
+ private Bitmap showBitmap;
 
-    public ZoomableDraggableView(Context context) {
-        super(context);
-        init(context);
-    }
+ public ZoomableDraggableView(Context context) {
+ super(context);
+ init(context);
+ }
 
-    public ZoomableDraggableView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
-    }
+ public ZoomableDraggableView(Context context, AttributeSet attrs) {
+ super(context, attrs);
+ init(context);
+ }
 
-    private void init(Context context) {
-        scaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
-        gestureDetector = new GestureDetector(context, new GestureListener());
-        Drawable drawable = androidx.core.content.ContextCompat.getDrawable(getContext(), R.drawable.svg_ic_target_horizontal_person_green);
-        if (drawable instanceof BitmapDrawable) {
-            originalBitmap = ((BitmapDrawable) drawable).getBitmap();
-        }
-        originalBitmapWidth = originalBitmap.getWidth();
-        originalBitmapHeight = originalBitmap.getHeight();
-    }
+ private void init(Context context) {
+ scaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
+ gestureDetector = new GestureDetector(context, new GestureListener());
+ Drawable drawable = androidx.core.content.ContextCompat.getDrawable(getContext(), R.drawable.svg_ic_target_horizontal_person_green);
+ if (drawable instanceof BitmapDrawable) {
+ originalBitmap = ((BitmapDrawable) drawable).getBitmap();
+ }
+ originalBitmapWidth = originalBitmap.getWidth();
+ originalBitmapHeight = originalBitmap.getHeight();
+ }
 
-    public void setImageSize(int imageWidth, int imageHeight) {
-        this.imageWidth = imageWidth;
-        this.imageHeight = imageHeight;
-        viewWidth = ((ViewGroup)getParent()).getMeasuredWidth();
-        viewHeight = ((ViewGroup)getParent()).getMeasuredHeight();
-        if (viewWidth != 0) {
-            xscale = (float) viewWidth / (float) imageWidth;
-        }
-        if (viewHeight != 0) {
-            yscale = (float) viewHeight / (float) imageHeight;
-        }
-        showBitmapHeight = pxBitmapHeight / yscale;
-        showBitmapHeightWidth = pxBitmapHeight * originalBitmapWidth / originalBitmapHeight * xscale;
-        showBitmap = BitmapUtils.scaleWithWH(originalBitmap,showBitmapHeightWidth,showBitmapHeight);
-    }
+ public void setImageSize(int imageWidth, int imageHeight) {
+ this.imageWidth = imageWidth;
+ this.imageHeight = imageHeight;
+ viewWidth = ((ViewGroup)getParent()).getMeasuredWidth();
+ viewHeight = ((ViewGroup)getParent()).getMeasuredHeight();
+ if (viewWidth != 0) {
+ xscale = (float) viewWidth / (float) imageWidth;
+ }
+ if (viewHeight != 0) {
+ yscale = (float) viewHeight / (float) imageHeight;
+ }
+ showBitmapHeight = pxBitmapHeight / yscale;
+ showBitmapHeightWidth = pxBitmapHeight * originalBitmapWidth / originalBitmapHeight * xscale;
+ showBitmap = BitmapUtils.scaleWithWH(originalBitmap,showBitmapHeightWidth,showBitmapHeight);
+ }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.save();
-        canvas.concat(matrix);
-        if (showBitmap!=null){
-            canvas.drawBitmap(showBitmap,matrix,paint);
-        }
-        // 在此处绘制你的内容
-        super.onDraw(canvas);
-        canvas.restore();
-    }
+ @Override
+ protected void onDraw(Canvas canvas) {
+ canvas.save();
+ canvas.concat(matrix);
+ if (showBitmap!=null){
+ canvas.drawBitmap(showBitmap,matrix,paint);
+ }
+ // Comment removed (contained Chinese characters)
+ super.onDraw(canvas);
+ canvas.restore();
+ }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        scaleGestureDetector.onTouchEvent(event);
-        gestureDetector.onTouchEvent(event);
-        return true;
-    }
+ @Override
+ public boolean onTouchEvent(MotionEvent event) {
+ scaleGestureDetector.onTouchEvent(event);
+ gestureDetector.onTouchEvent(event);
+ return true;
+ }
 
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(minScaleFactor, Math.min(scaleFactor, maxScaleFactor));
+ private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+ @Override
+ public boolean onScale(ScaleGestureDetector detector) {
+ scaleFactor *= detector.getScaleFactor();
+ scaleFactor = Math.max(minScaleFactor, Math.min(scaleFactor, maxScaleFactor));
 
-            focusX = detector.getFocusX();
-            focusY = detector.getFocusY();
+ focusX = detector.getFocusX();
+ focusY = detector.getFocusY();
 
-            matrix.setScale(scaleFactor, scaleFactor, focusX, focusY);
+ matrix.setScale(scaleFactor, scaleFactor, focusX, focusY);
 
-            invalidate();
+ invalidate();
 
-            return true;
-        }
-    }
+ return true;
+ }
+ }
 
-    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onDown(MotionEvent e) {
-            lastX = e.getX();
-            lastY = e.getY();
-            return true;
-        }
+ private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+ @Override
+ public boolean onDown(MotionEvent e) {
+ lastX = e.getX();
+ lastY = e.getY();
+ return true;
+ }
 
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            float deltaX = e2.getX() - lastX;
-            float deltaY = e2.getY() - lastY;
+ @Override
+ public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+ float deltaX = e2.getX() - lastX;
+ float deltaY = e2.getY() - lastY;
 
-            lastX = e2.getX();
-            lastY = e2.getY();
+ lastX = e2.getX();
+ lastY = e2.getY();
 
-            // 将滚动距离根据Scale因子进行Adjust
-            deltaX /= scaleFactor;
-            deltaY /= scaleFactor;
+ // Comment removed (contained Chinese characters)
+ deltaX /= scaleFactor;
+ deltaY /= scaleFactor;
 
-            matrix.postTranslate(-deltaX, -deltaY);
+ matrix.postTranslate(-deltaX, -deltaY);
 
-            invalidate();
+ invalidate();
 
-            return true;
-        }
-    }
+ return true;
+ }
+ }
 }

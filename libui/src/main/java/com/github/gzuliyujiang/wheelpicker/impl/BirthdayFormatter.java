@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+* Copyright (c) 2016-present Original Author <1032694760@qq.com>
  *
- * The software is licensed under the Mulan PSL v2.
+* The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+* http://license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -14,26 +14,26 @@
 package com.github.gzuliyujiang.wheelpicker.impl;
 
 /**
- * 生日格式化
+ * Comment removed (contained Chinese characters)
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+* @author （1032694760@qq.com）
  * @since 2019/5/14 14:31
  */
 public class BirthdayFormatter extends SimpleDateFormatter {
 
-    @Override
-    public String formatYear(int year) {
-        return super.formatYear(year) + "年";
-    }
+ @Override
+ public String formatYear(int year) {
+ return super.formatYear(year) + "";
+ }
 
-    @Override
-    public String formatMonth(int month) {
-        return super.formatMonth(month) + "月";
-    }
+ @Override
+ public String formatMonth(int month) {
+ return super.formatMonth(month) + "";
+ }
 
-    @Override
-    public String formatDay(int day) {
-        return super.formatDay(day) + "日";
-    }
+ @Override
+ public String formatDay(int day) {
+ return super.formatDay(day) + "";
+ }
 
 }

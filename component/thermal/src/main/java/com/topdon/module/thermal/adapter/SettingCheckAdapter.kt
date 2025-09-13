@@ -15,63 +15,63 @@ import com.topdon.module.thermal.R
  * Provides specialized rendering and interaction capabilities.
  */
 class SettingCheckAdapter(val context: Context) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var datas = arrayOf("1s", "5s", "10s", "30s", "1min", "5min")
-    private var dataTimes = arrayOf(1, 5, 10, 30, 60, 300)
+ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+ private var datas = arrayOf("1s", "5s", "10s", "30s", "1min", "5min")
+ private var dataTimes = arrayOf(1, 5, 10, 30, 60, 300)
 
-    var listener: OnItemClickListener? = null
-    var selectTime = 0
+ var listener: OnItemClickListener? = null
+ var selectTime = 0
 
-    fun setCheck(index: Int) {
-        this.selectTime = index
-        notifyDataSetChanged()
-    }
+ fun setCheck(index: Int) {
+ this.selectTime = index
+ notifyDataSetChanged()
+ }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): RecyclerView.ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_setting_check, parent, false)
-        return ItemView(view)
-    }
+ override fun onCreateViewHolder(
+ parent: ViewGroup,
+ viewType: Int,
+ ): RecyclerView.ViewHolder {
+ val view =
+ LayoutInflater.from(parent.context).inflate(R.layout.item_setting_check, parent, false)
+ return ItemView(view)
+ }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-    ) {
-        if (holder is ItemView) {
-            holder.btn.text = datas[position]
-            if (position == selectTime) {
-                holder.btn.setBackgroundResource(com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg)
-                holder.btn.setTextColor(ContextCompat.getColor(context, com.topdon.lib.core.R.color.white))
-            } else {
-                holder.btn.setBackgroundResource(com.topdon.lib.ui.R.drawable.ic_menu_thermal7002_svg)
-                holder.btn.setTextColor(ContextCompat.getColor(context, com.topdon.lib.core.R.color.font_third_color))
-            }
-            holder.btn.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
-                listener?.onClick(position, dataTimes[position])
-            }
-        }
-    }
+ override fun onBindViewHolder(
+ holder: RecyclerView.ViewHolder,
+ position: Int,
+ ) {
+ if (holder is ItemView) {
+ holder.btn.text = datas[position]
+ if (position == selectTime) {
+ holder.btn.setBackgroundResource(com.topdon.lib.ui.R.drawable.ic_menu_thermal7001_svg)
+ holder.btn.setTextColor(ContextCompat.getColor(context, com.topdon.lib.core.R.color.white))
+ } else {
+ holder.btn.setBackgroundResource(com.topdon.lib.ui.R.drawable.ic_menu_thermal7002_svg)
+ holder.btn.setTextColor(ContextCompat.getColor(context, com.topdon.lib.core.R.color.font_third_color))
+ }
+ holder.btn.setOnClickListener {
+ Log.w("123", ": ${datas[position]}")
+ listener?.onClick(position, dataTimes[position])
+ }
+ }
+ }
 
-    override fun getItemCount(): Int {
-        return datas.size
-    }
+ override fun getItemCount(): Int {
+ return datas.size
+ }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btn: Button = itemView.findViewById(R.id.item_setting_check_btn)
-    }
+ inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+ val btn: Button = itemView.findViewById(R.id.item_setting_check_btn)
+ }
 
 /**
  * Custom On item click listener view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-    interface OnItemClickListener {
-        fun onClick(
-            index: Int,
-            time: Int,
-        )
-    }
+ interface OnItemClickListener {
+ fun onClick(
+ index: Int,
+ time: Int,
+ )
+ }
 }

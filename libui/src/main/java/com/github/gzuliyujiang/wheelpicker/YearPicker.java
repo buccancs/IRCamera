@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+* Copyright (c) 2016-present Original Author <1032694760@qq.com>
  *
- * The software is licensed under the Mulan PSL v2.
+* The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+* http://license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -30,62 +30,62 @@ import com.topdon.lib.ui.R;
 import java.util.Calendar;
 
 /**
- * 日期时间选择器
+ * Comment removed (contained Chinese characters)
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+* @author （1032694760@qq.com）
  * @since 2021/6/5 18:21
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class YearPicker extends ModalDialog {
-    protected YearWheelLayout wheelLayout;
-    private OnYearPickedListener onYearPickedListener;
+ protected YearWheelLayout wheelLayout;
+ private OnYearPickedListener onYearPickedListener;
 
-    public YearPicker(@NonNull Activity activity, @Nullable Integer year) {
-        super(activity);
+ public YearPicker(@NonNull Activity activity, @Nullable Integer year) {
+ super(activity);
 
-        //initialize年份range及currentselected年份
-        int nowYear = Calendar.getInstance().get(Calendar.YEAR);
-        DatimeEntity startTimeEntity = new DatimeEntity();
-        startTimeEntity.setDate(DateEntity.target(nowYear - 1000, 1, 1));
-        DatimeEntity defaultEntity = new DatimeEntity();
-        defaultEntity.setDate(DateEntity.target(year == null ? nowYear : year, 1, 1));
-        wheelLayout.setRange(startTimeEntity, DatimeEntity.now(), defaultEntity);
+ // Comment removed (contained Chinese characters)
+ int nowYear = Calendar.getInstance().get(Calendar.YEAR);
+ DatimeEntity startTimeEntity = new DatimeEntity();
+ startTimeEntity.setDate(DateEntity.target(nowYear - 1000, 1, 1));
+ DatimeEntity defaultEntity = new DatimeEntity();
+ defaultEntity.setDate(DateEntity.target(year == null ? nowYear : year, 1, 1));
+ wheelLayout.setRange(startTimeEntity, DatimeEntity.now(), defaultEntity);
 
-        wheelLayout.setCurtainEnabled(true);//selected栏是否有背景color
-        wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg));       //selected栏背景color
-        wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//selected文字color
-        wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text));      //未selected文字color
+ wheelLayout.setCurtainEnabled(true);//selectedWhethercolor
+ wheelLayout.setCurtainColor(ContextCompat.getColor(getContext(), R.color.wheel_select_bg)); //selectedcolor
+ wheelLayout.setSelectedTextColor(ContextCompat.getColor(getContext(), R.color.wheel_select_text));//selectedcolor
+ wheelLayout.setTextColor(ContextCompat.getColor(getContext(), R.color.wheel_unselect_text)); //selectedcolor
 
-        wheelLayout.setResetWhenLinkage(false, false);//他娘的不知道什么鬼，连个注释都没有
+ wheelLayout.setResetWhenLinkage(false, false);//，
 
-    }
+ }
 
-    @NonNull
-    @Override
-    protected View createBodyView() {
-        wheelLayout = new YearWheelLayout(activity);
-        return wheelLayout;
-    }
+ @NonNull
+ @Override
+ protected View createBodyView() {
+ wheelLayout = new YearWheelLayout(activity);
+ return wheelLayout;
+ }
 
-    @Override
-    protected void onCancel() {
+ @Override
+ protected void onCancel() {
 
-    }
+ }
 
-    @Override
-    protected void onOk() {
-        if (onYearPickedListener != null) {
-            onYearPickedListener.onYearPicked(wheelLayout.getSelectedYear());
-        }
-    }
+ @Override
+ protected void onOk() {
+ if (onYearPickedListener != null) {
+ onYearPickedListener.onYearPicked(wheelLayout.getSelectedYear());
+ }
+ }
 
-    public YearPicker setOnYearPickedListener(OnYearPickedListener onYearPickedListener) {
-        this.onYearPickedListener = onYearPickedListener;
-        return this;
-    }
+ public YearPicker setOnYearPickedListener(OnYearPickedListener onYearPickedListener) {
+ this.onYearPickedListener = onYearPickedListener;
+ return this;
+ }
 
-    public final YearWheelLayout getWheelLayout() {
-        return wheelLayout;
-    }
+ public final YearWheelLayout getWheelLayout() {
+ return wheelLayout;
+ }
 
 }

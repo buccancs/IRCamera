@@ -18,88 +18,88 @@
 // @Route(path = RouterConfig.CHART)
 // class ChartActivity : BaseActivity() {
 //
-//    override fun initContentView() = R.layout.activity_chart
+// override fun initContentView() = R.layout.activity_chart
 //
-//    override fun initView() {
-\1setTitleText("图表")
-\1//初始data
-//        aa_chart_view.aa_drawChartWithChartOptions(
-//            configureSpecialStyleMarkerOfSingleDataElementChart().aa_toAAOptions()
-//        )
-\1//动态update
-//        lifecycleScope.launch {
-//            flow {
-//                repeat(40) {
-//                    delay(1000)
-//                    emit(it.toFloat())
-//                }
-//            }.map {
-//                val max = 38
-//                val min = 1
-//                val random = (Math.random() * (max - min) + min).toInt()
-//                val y1 = sin(random * (it * Math.PI / 180)) + it * 2 * 0.01 + 10
-//                getSeriesModel(y1.toFloat())
-//                y1
-//            }.collect {
-//                Log.w("123", "data:${dataSeries.joinToString()}")
-//                aa_chart_view.aa_addPointToChartSeriesElement(0, it, true)
-//            }
-//        }
-//    }
+// override fun initView() {
+\1setTitleText("")
+\1//data
+// aa_chart_view.aa_drawChartWithChartOptions(
+// configureSpecialStyleMarkerOfSingleDataElementChart().aa_toAAOptions()
+// )
+\1//update
+// lifecycleScope.launch {
+// flow {
+// repeat(40) {
+// delay(1000)
+// emit(it.toFloat())
+// }
+// }.map {
+// val max = 38
+// val min = 1
+// val random = (Math.random() * (max - min) + min).toInt()
+// val y1 = sin(random * (it * Math.PI / 180)) + it * 2 * 0.01 + 10
+// getSeriesModel(y1.toFloat())
+// y1
+// }.collect {
+// Log.w("123", "data:${dataSeries.joinToString()}")
+// aa_chart_view.aa_addPointToChartSeriesElement(0, it, true)
+// }
+// }
+// }
 //
-//    override fun initData() {
+// override fun initData() {
 //
-//    }
+// }
 //
-//    private var dataSeries = arrayOfNulls<Float>(0)
+// private var dataSeries = arrayOfNulls<Float>(0)
 //
-//    private fun getSeriesModel(data: Float): Array<AASeriesElement> {
-//        dataSeries = dataSeries.plus(data)
-//        return arrayOf(
-//            AASeriesElement()
-//                .name("Tokyo")
-//                .data(dataSeries as Array<Any>)
-//        )
-//    }
+// private fun getSeriesModel(data: Float): Array<AASeriesElement> {
+// dataSeries = dataSeries.plus(data)
+// return arrayOf(
+// AASeriesElement()
+// .name("Tokyo")
+// .data(dataSeries as Array<Any>)
+// )
+// }
 //
-//    private fun configureSpecialStyleMarkerOfSingleDataElementChart(): AAChartModel {
-//        return AAChartModel()
-//            .chartType(AAChartType.Spline)
-\1.title("监测记录")
-//            .subtitle("2021-10-20")
-//            .titleStyle(AAStyle.Companion.style("#FFFFFF"))
-//            .subtitleStyle(AAStyle.Companion.style(color = "#FFFFFF", fontSize = 12f))
-//            .backgroundColor("#3598E8")
-//            .yAxisTitle("")
-//            .axesTextColor("#FFFFFF")
-\1.dataLabelsEnabled(false)//坐标点是否display值
-//            .tooltipEnabled(true)
-//            .markerRadius(0f)
-//            .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))
-//            .xAxisVisible(true)
-//            .yAxisVisible(true)
-//            .series(
-//                arrayOf(
-//                    AASeriesElement()
-//                        .name("vol")
-//                        .color("#FFFFFF")
-//                        .lineWidth(2f)
-//                        .data(
-//                            arrayOf(
-//                                7.0,
-//                                6.9,
-//                                2.5,
-//                                14.5,
-//                                18.2,
-//                                5.2,
-//                                16.5,
-//                                13.3,
-//                                15.3,
-//                                13.9,
-//                                9.6
-//                            )
-//                        ).color("#FFFFFF")
-//                )
-//            )
-//    }
+// private fun configureSpecialStyleMarkerOfSingleDataElementChart(): AAChartModel {
+// return AAChartModel()
+// .chartType(AAChartType.Spline)
+\1.title("")
+// .subtitle("2021-10-20")
+// .titleStyle(AAStyle.Companion.style("#FFFFFF"))
+// .subtitleStyle(AAStyle.Companion.style(color = "#FFFFFF", fontSize = 12f))
+// .backgroundColor("#3598E8")
+// .yAxisTitle("")
+// .axesTextColor("#FFFFFF")
+\1.dataLabelsEnabled(false)//WhetherdisplayValue
+// .tooltipEnabled(true)
+// .markerRadius(0f)
+// .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))
+// .xAxisVisible(true)
+// .yAxisVisible(true)
+// .series(
+// arrayOf(
+// AASeriesElement()
+// .name("vol")
+// .color("#FFFFFF")
+// .lineWidth(2f)
+// .data(
+// arrayOf(
+// 7.0,
+// 6.9,
+// 2.5,
+// 14.5,
+// 18.2,
+// 5.2,
+// 16.5,
+// 13.3,
+// 15.3,
+// 13.9,
+// 9.6
+// )
+// ).color("#FFFFFF")
+// )
+// )
+// }
 // }

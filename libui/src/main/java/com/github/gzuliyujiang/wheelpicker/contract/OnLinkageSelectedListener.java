@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+* Copyright (c) 2016-present Original Author <1032694760@qq.com>
  *
- * The software is licensed under the Mulan PSL v2.
+* The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+* http://license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -14,20 +14,20 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 联动选择接口
+ * Comment removed (contained Chinese characters)
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+* @author （1032694760@qq.com）
  * @since 2019/6/17 18:23
  */
 public interface OnLinkageSelectedListener {
 
-    /**
-     * 联动选择回调
-     *
-     * @param first  selected项的第一级条目内容
-     * @param second selected项的第二级条目内容
-     * @param third  selected项的第三级条目内容
-     */
-    void onLinkageSelected(Object first, Object second, Object third);
+ /**
+ * Comment removed (contained Chinese characters)
+ *
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ void onLinkageSelected(Object first, Object second, Object third);
 
 }

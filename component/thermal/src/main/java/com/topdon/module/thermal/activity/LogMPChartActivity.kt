@@ -35,313 +35,313 @@ import kotlinx.coroutines.launch
  * Manages UI interactions and thermal data display.
  */
 class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
-    private val viewModel: LogViewModel by viewModels()
+ private val viewModel: LogViewModel by viewModels()
 
-    private val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }
+ private val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }
 
-    //    private var dataList: ArrayList<ThermalEntity> = arrayListOf()
-    private lateinit var chart: LineChart
-    private var selectType = 1
+ // private var dataList: ArrayList<ThermalEntity> = arrayListOf()
+ private lateinit var chart: LineChart
+ private var selectType = 1
 
-    override fun initContentView() = R.layout.activity_log_mp_chart
+ override fun initContentView() = R.layout.activity_log_mp_chart
 
-    override fun initView() {
-        // Set toolbar title
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(com.topdon.lib.core.R.id.toolbar_lay)
-        toolbar?.title = getString(R.string.app_record)
+ override fun initView() {
+ // Set toolbar title
+ val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(com.topdon.lib.core.R.id.toolbar_lay)
+ toolbar?.title = getString(R.string.app_record)
 
-        chart = findViewById(R.id.log_chart_time_chart)
-        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.log_chart_time_recycler)
-        recyclerView.layoutManager = GridLayoutManager(this, 4)
-        recyclerView.adapter = adapter
-        adapter.listener =
-            object : SettingTimeAdapter.OnItemClickListener {
-                override fun onClick(
-                    index: Int,
-                    time: Int,
-                ) {
-\1切换类型
-                    chart.highlightValue(null) // 关闭高亮点Marker
-                    selectType = index + 1
-                    queryLog()
-                }
-            }
-        viewModel.resultLiveData.observe(this) {
-            dismissLoadingDialog()
-            try {
-                initEntry(it.dataList)
-            } catch (e: Exception) {
-                XLog.e("刷新图表异常:${e.message}")
-                ToastTools.showShort("图表异常，请重新加载")
-            }
-        }
-        clearEntity(true)
-    }
+ chart = findViewById(R.id.log_chart_time_chart)
+ val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.log_chart_time_recycler)
+ recyclerView.layoutManager = GridLayoutManager(this, 4)
+ recyclerView.adapter = adapter
+ adapter.listener =
+ object : SettingTimeAdapter.OnItemClickListener {
+ override fun onClick(
+ index: Int,
+ time: Int,
+ ) {
+\1Type
+ chart.highlightValue(null) // Marker
+ selectType = index + 1
+ queryLog()
+ }
+ }
+ viewModel.resultLiveData.observe(this) {
+ dismissLoadingDialog()
+ try {
+ initEntry(it.dataList)
+ } catch (e: Exception) {
+ XLog.e(":${e.message}")
+ ToastTools.showShort("，")
+ }
+ }
+ clearEntity(true)
+ }
 
-    override fun initData() {
-        queryLog()
-    }
+ override fun initData() {
+ queryLog()
+ }
 
-    override fun onResume() {
-        super.onResume()
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    }
+ override fun onResume() {
+ super.onResume()
+ window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+ }
 
-    override fun onPause() {
-        super.onPause()
-        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    }
+ override fun onPause() {
+ super.onPause()
+ window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+ }
 
-    private fun queryLog() {
-        showLoadingDialog()
-//        viewModel.queryLogByType(selectType)
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.queryLogVolsByStartTime(
-                type = 1, // Default fence type since getSelectFenceType() is not available
-                selectTimeType = selectType,
-            )
-        }
-    }
+ private fun queryLog() {
+ showLoadingDialog()
+// viewModel.queryLogByType(selectType)
+ lifecycleScope.launch(Dispatchers.IO) {
+ viewModel.queryLogVolsByStartTime(
+ type = 1, // Default fence type since getSelectFenceType() is not available
+ selectTimeType = selectType,
+ )
+ }
+ }
 
-    private fun initChart() {
-        chart.clear()
-        chart.setOnChartValueSelectedListener(this)
-        chart.setTouchEnabled(true)
-        chart.isDragEnabled = true
-        chart.setDrawGridBackground(false)
-        chart.description = null // 图标描述文本
-        chart.setBackgroundResource(com.topdon.lib.core.R.color.chart_bg)
-        chart.setScaleEnabled(true) // 缩放
-        chart.setPinchZoom(false) // 禁用后，可以分别在x轴和y轴上进行缩放
-        chart.isDoubleTapToZoomEnabled = false // 双击不可缩放
-        chart.isScaleYEnabled = false // 禁止Y轴缩放
-        chart.setExtraOffsets(
-            0f,
-            0f,
-            SizeUtils.dp2px(8f).toFloat(),
-            SizeUtils.dp2px(4f).toFloat(),
-        ) // 图表区域偏移
-        chart.setNoDataText(getString(R.string.lms_http_code998))
-        chart.setNoDataTextColor(textColor)
-        val mv = MyMarkerView(this, R.layout.marker_lay)
-        mv.chartView = chart
-        chart.marker = mv // 设置点击坐标显示提示框
-        val data = LineData()
-        data.setValueTextColor(textColor)
-        chart.data = data
-        val l = chart.legend
-        l.form = Legend.LegendForm.CIRCLE
-        l.textColor = textColor
-        l.isEnabled = false // 隐藏曲线标签
-        val xAxis = chart.xAxis
-        xAxis.textColor = textColor
-        xAxis.setDrawGridLines(true)
-        xAxis.setAvoidFirstLastClipping(true)
-        xAxis.isEnabled = true
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.axisLineColor = textColor
-        xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true // 重复值不显示
-        xAxis.textSize = 9f
-        val leftAxis = chart.axisLeft
-        leftAxis.textSize = 9f
-        leftAxis.textColor = textColor
-        leftAxis.setDrawGridLines(true)
-        leftAxis.setLabelCount(6, false) // 固定x刻度
-        val rightAxis = chart.axisRight
-        rightAxis.isEnabled = false
-//        chart.zoom(10f, 1f, chart.xChartMax, 0f)
-    }
+ private fun initChart() {
+ chart.clear()
+ chart.setOnChartValueSelectedListener(this)
+ chart.setTouchEnabled(true)
+ chart.isDragEnabled = true
+ chart.setDrawGridBackground(false)
+ chart.description = null // 
+ chart.setBackgroundResource(com.topdon.lib.core.R.color.chart_bg)
+ chart.setScaleEnabled(true) // 
+ chart.setPinchZoom(false) // ，xy
+ chart.isDoubleTapToZoomEnabled = false // 
+ chart.isScaleYEnabled = false // Y
+ chart.setExtraOffsets(
+ 0f,
+ 0f,
+ SizeUtils.dp2px(8f).toFloat(),
+ SizeUtils.dp2px(4f).toFloat(),
+ ) // 
+ chart.setNoDataText(getString(R.string.lms_http_code998))
+ chart.setNoDataTextColor(textColor)
+ val mv = MyMarkerView(this, R.layout.marker_lay)
+ mv.chartView = chart
+ chart.marker = mv // Settings
+ val data = LineData()
+ data.setValueTextColor(textColor)
+ chart.data = data
+ val l = chart.legend
+ l.form = Legend.LegendForm.CIRCLE
+ l.textColor = textColor
+ l.isEnabled = false // 
+ val xAxis = chart.xAxis
+ xAxis.textColor = textColor
+ xAxis.setDrawGridLines(true)
+ xAxis.setAvoidFirstLastClipping(true)
+ xAxis.isEnabled = true
+ xAxis.position = XAxis.XAxisPosition.BOTTOM
+ xAxis.axisLineColor = textColor
+ xAxis.granularity = 1f
+ xAxis.isGranularityEnabled = true // Value
+ xAxis.textSize = 9f
+ val leftAxis = chart.axisLeft
+ leftAxis.textSize = 9f
+ leftAxis.textColor = textColor
+ leftAxis.setDrawGridLines(true)
+ leftAxis.setLabelCount(6, false) // x
+ val rightAxis = chart.axisRight
+ rightAxis.isEnabled = false
+// chart.zoom(10f, 1f, chart.xChartMax, 0f)
+ }
 
-    private val bgChartColors =
-        intArrayOf(
-            R.drawable.bg_chart_fill,
-            R.drawable.bg_chart_fill2,
-            R.drawable.bg_chart_fill3,
-        )
-    private val lineChartColors =
-        intArrayOf(
-            com.topdon.lib.core.R.color.chart_line_max,
-            com.topdon.lib.core.R.color.chart_line_min,
-            com.topdon.lib.core.R.color.chart_line_center,
-        )
-    private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
+ private val bgChartColors =
+ intArrayOf(
+ R.drawable.bg_chart_fill,
+ R.drawable.bg_chart_fill2,
+ R.drawable.bg_chart_fill3,
+ )
+ private val lineChartColors =
+ intArrayOf(
+ com.topdon.lib.core.R.color.chart_line_max,
+ com.topdon.lib.core.R.color.chart_line_min,
+ com.topdon.lib.core.R.color.chart_line_center,
+ )
+ private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
 
-    /**
-\1曲线样式
-     */
-    private fun createSet(
-        index: Int,
-        label: String,
-    ): LineDataSet {
-        val set = LineDataSet(null, label)
-//        set.mode = LineDataSet.Mode.CUBIC_BEZIER
-        set.mode = LineDataSet.Mode.LINEAR
-        set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index]) // 设置填充颜色渐变
-        set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(this, lineChartColors[index]) // 曲线颜色
-        set.setCircleColor(ContextCompat.getColor(this, com.topdon.lib.core.R.color.white)) // 坐标颜色
-//        set.fillColor = ContextCompat.getColor(this, R.color.purple_500)
-//        set.highLightColor = ContextCompat.getColor(this, R.color.white)
-        set.valueTextColor = Color.WHITE
-        set.lineWidth = 2f
-        set.circleRadius = 1f // 不显示坐标点
-        set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // 坐标颜色(隐藏处理)
-\1set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hideprocessing)
-        set.fillAlpha = 200
-        set.valueTextSize = 10f
-        set.setDrawValues(false) // 设置是否显示坐标值文本
-        return set
-    }
+ /**
+\1
+ */
+ private fun createSet(
+ index: Int,
+ label: String,
+ ): LineDataSet {
+ val set = LineDataSet(null, label)
+// set.mode = LineDataSet.Mode.CUBIC_BEZIER
+ set.mode = LineDataSet.Mode.LINEAR
+ set.setDrawFilled(false)
+ set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index]) // Settings
+ set.axisDependency = YAxis.AxisDependency.LEFT
+ set.color = ContextCompat.getColor(this, lineChartColors[index]) // 
+ set.setCircleColor(ContextCompat.getColor(this, com.topdon.lib.core.R.color.white)) // 
+// set.fillColor = ContextCompat.getColor(this, R.color.purple_500)
+// set.highLightColor = ContextCompat.getColor(this, R.color.white)
+ set.valueTextColor = Color.WHITE
+ set.lineWidth = 2f
+ set.circleRadius = 1f // 
+ set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // ()
+\1set.setCircleColor(ContextCompat.getColor(this, R.color.white))//(hideprocessing)
+ set.fillAlpha = 200
+ set.valueTextSize = 10f
+ set.setDrawValues(false) // SettingsWhetherValue
+ return set
+ }
 
-    private fun initEntry(data: ArrayList<ThermalEntity>) {
-        synchronized(chart) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                clearEntity(data.size == 0)
-                if (data.size == 0) {
-                    return@launch
-                }
-                Log.i("chart", "update chart start")
-                val lineData: LineData? = chart.data
-                if (lineData != null) {
-                    Log.w(
-                        "123",
-                        "时间区间:${(data.last().createTime - data.first().createTime) / 1000}",
-                    )
-                    val startTime = data[0].createTime
-                    Log.w("123", "设置初始时间startTime:$startTime")
-                    chart.xAxis.valueFormatter =
-                        MyValueFormatter(startTime = startTime, type = selectType)
-                    XLog.w("chart init startTime:$startTime")
-                    data[0].type = "default"
-                    when (data[0].type) {
-                        "point" -> {
-                            var set = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
-                            if (set == null) {
-                                set = createSet(2, "temp")
-                                lineData.addDataSet(set)
-                            }
-                            data.forEach {
-                                val x = (it.createTime - startTime).toFloat()
-                                val entity = Entry(x, it.thermal)
-                                entity.data = it
-                                set.addEntry(entity)
-                            }
-                            XLog.w("DataSet:${set.entryCount}")
-                        }
-                        "line" -> {
-                            var maxDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
-                            if (maxDataSet == null) {
-                                maxDataSet = createSet(0, "line maxTemp")
-                                lineData.addDataSet(maxDataSet)
-                            }
+ private fun initEntry(data: ArrayList<ThermalEntity>) {
+ synchronized(chart) {
+ lifecycleScope.launch(Dispatchers.IO) {
+ clearEntity(data.size == 0)
+ if (data.size == 0) {
+ return@launch
+ }
+ Log.i("chart", "update chart start")
+ val lineData: LineData? = chart.data
+ if (lineData != null) {
+ Log.w(
+ "123",
+ ":${(data.last().createTime - data.first().createTime) / 1000}",
+ )
+ val startTime = data[0].createTime
+ Log.w("123", "SettingsstartTime:$startTime")
+ chart.xAxis.valueFormatter =
+ MyValueFormatter(startTime = startTime, type = selectType)
+ XLog.w("chart init startTime:$startTime")
+ data[0].type = "default"
+ when (data[0].type) {
+ "point" -> {
+ var set = lineData.getDataSetByIndex(0) // x0
+ if (set == null) {
+ set = createSet(2, "temp")
+ lineData.addDataSet(set)
+ }
+ data.forEach {
+ val x = (it.createTime - startTime).toFloat()
+ val entity = Entry(x, it.thermal)
+ entity.data = it
+ set.addEntry(entity)
+ }
+ XLog.w("DataSet:${set.entryCount}")
+ }
+ "line" -> {
+ var maxDataSet = lineData.getDataSetByIndex(0) // x0
+ if (maxDataSet == null) {
+ maxDataSet = createSet(0, "line maxTemp")
+ lineData.addDataSet(maxDataSet)
+ }
 
-                            var minDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
-                            if (minDataSet == null) {
-                                minDataSet = createSet(1, "line minTemp")
-                                lineData.addDataSet(minDataSet)
-                            }
-                            Log.w("123", "两条曲线")
-                            data.forEach {
-                                val x = (it.createTime - startTime).toFloat()
-                                // max
-                                val entity = Entry(x, it.thermalMax)
-                                entity.data = it
-                                maxDataSet.addEntry(entity)
-                                // min
-                                val entityMin = Entry(x, it.thermalMin)
-                                entityMin.data = it
-                                minDataSet.addEntry(entityMin)
-                            }
-                            XLog.w("DataSet:${maxDataSet.entryCount}")
-                        }
-                        else -> {
-                            // max
-                            var maxTempDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
-                            if (maxTempDataSet == null) {
-                                maxTempDataSet = createSet(0, "fence maxTemp")
-                                lineData.addDataSet(maxTempDataSet)
-                            }
-                            // center
-                            var centerTempDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
-                            if (centerTempDataSet == null) {
-                                centerTempDataSet = createSet(1, "fence minTemp")
-                                lineData.addDataSet(centerTempDataSet)
-                            }
-                            data.forEach {
-                                val x = (it.createTime - startTime).toFloat()
-                                // max
-                                val entityMax = Entry(x, it.thermalMax)
-                                entityMax.data = it
-                                maxTempDataSet.addEntry(entityMax)
-                                // min
-                                val entity = Entry(x, it.thermalMin)
-                                entity.data = it
-                                centerTempDataSet.addEntry(entity)
-                            }
-                            XLog.w("DataSet:${centerTempDataSet.entryCount}")
-                        }
-                    }
-                    lineData.notifyDataChanged()
-                    chart.notifyDataSetChanged()
-                    chart.setVisibleXRangeMinimum(getMinimum()) // 设置显示X轴区间大小
-                    chart.setVisibleXRangeMaximum(getMaximum()) // 设置显示X轴区间大小
-                    chart.xAxis.setLabelCount(5, false) // true保证有刻度数量不变
-                    chart.moveViewToX(chart.xChartMax) // 移动到最右端
-                    chart.zoom(1f, 1f, chart.xChartMax, 0f) // 默认无缩放，全部显示
-                }
-                Log.w("chart", "update chart finish")
-            }
-        }
-    }
+ var minDataSet = lineData.getDataSetByIndex(1) // x0
+ if (minDataSet == null) {
+ minDataSet = createSet(1, "line minTemp")
+ lineData.addDataSet(minDataSet)
+ }
+ Log.w("123", "")
+ data.forEach {
+ val x = (it.createTime - startTime).toFloat()
+ // max
+ val entity = Entry(x, it.thermalMax)
+ entity.data = it
+ maxDataSet.addEntry(entity)
+ // min
+ val entityMin = Entry(x, it.thermalMin)
+ entityMin.data = it
+ minDataSet.addEntry(entityMin)
+ }
+ XLog.w("DataSet:${maxDataSet.entryCount}")
+ }
+ else -> {
+ // max
+ var maxTempDataSet = lineData.getDataSetByIndex(0) // x0
+ if (maxTempDataSet == null) {
+ maxTempDataSet = createSet(0, "fence maxTemp")
+ lineData.addDataSet(maxTempDataSet)
+ }
+ // center
+ var centerTempDataSet = lineData.getDataSetByIndex(1) // x0
+ if (centerTempDataSet == null) {
+ centerTempDataSet = createSet(1, "fence minTemp")
+ lineData.addDataSet(centerTempDataSet)
+ }
+ data.forEach {
+ val x = (it.createTime - startTime).toFloat()
+ // max
+ val entityMax = Entry(x, it.thermalMax)
+ entityMax.data = it
+ maxTempDataSet.addEntry(entityMax)
+ // min
+ val entity = Entry(x, it.thermalMin)
+ entity.data = it
+ centerTempDataSet.addEntry(entity)
+ }
+ XLog.w("DataSet:${centerTempDataSet.entryCount}")
+ }
+ }
+ lineData.notifyDataChanged()
+ chart.notifyDataSetChanged()
+ chart.setVisibleXRangeMinimum(getMinimum()) // SettingsX
+ chart.setVisibleXRangeMaximum(getMaximum()) // SettingsX
+ chart.xAxis.setLabelCount(5, false) // true
+ chart.moveViewToX(chart.xChartMax) // 
+ chart.zoom(1f, 1f, chart.xChartMax, 0f) // Default，
+ }
+ Log.w("chart", "update chart finish")
+ }
+ }
+ }
 
-    override fun onValueSelected(
-        e: Entry?,
-        h: Highlight?,
-    ) {
-    }
+ override fun onValueSelected(
+ e: Entry?,
+ h: Highlight?,
+ ) {
+ }
 
-    override fun onNothingSelected() {
-    }
+ override fun onNothingSelected() {
+ }
 
-    /**
-\1x轴display多少个刻度
-     */
-    private fun getLabCount(count: Int): Int {
-        return when (count) {
-            in 0..2 -> 1
-            in 3..4 -> 2
-            in 5..6 -> 3
-            in 7..9 -> 4
-            else -> 5
-        }
-    }
+ /**
+\1xdisplay
+ */
+ private fun getLabCount(count: Int): Int {
+ return when (count) {
+ in 0..2 -> 1
+ in 3..4 -> 2
+ in 5..6 -> 3
+ in 7..9 -> 4
+ else -> 5
+ }
+ }
 
-\1getdisplay最小区间
-    private fun getMinimum(): Float {
-        val min =
-            when (selectType) {
-                1 -> 1 * 10 * 1000f // 10s
-                2 -> 10 * 60 * 1000f // 10min
-                3 -> 10 * 60 * 60 * 1000f // 10hour
-                4 -> 10 * 24 * 60 * 60 * 1000f // 10day
-                else -> 1 * 10 * 1000f // 10s
-            }
-        return min
-    }
+\1getdisplay
+ private fun getMinimum(): Float {
+ val min =
+ when (selectType) {
+ 1 -> 1 * 10 * 1000f // 10s
+ 2 -> 10 * 60 * 1000f // 10min
+ 3 -> 10 * 60 * 60 * 1000f // 10hour
+ 4 -> 10 * 24 * 60 * 60 * 1000f // 10day
+ else -> 1 * 10 * 1000f // 10s
+ }
+ return min
+ }
 
-\1getdisplay最大区间，以最小区间的50倍
-    private fun getMaximum(): Float {
-        return getMinimum() * 50f
-    }
+\1getdisplay，50
+ private fun getMaximum(): Float {
+ return getMinimum() * 50f
+ }
 
-    private fun clearEntity(isEmpty: Boolean) {
-        initChart()
-        if (isEmpty) {
-            chart.clear()
-        } else {
-            chart.clearValues()
-        }
-    }
+ private fun clearEntity(isEmpty: Boolean) {
+ initChart()
+ if (isEmpty) {
+ chart.clear()
+ } else {
+ chart.clearValues()
+ }
+ }
 }

@@ -12,276 +12,276 @@ import com.blankj.utilcode.util.SizeUtils
 import java.util.*
 
 /**
- * @author: CaiSongL
+* @author: CaiSongL
  * @date: 2023/4/7 23:43
  */
 public class TimeDownView : AppCompatTextView {
-    private var timer: Timer? = null
-    private var downTimerTask: DownTimerTask? = null
-    private var downCount = 0
-    private var lastDown = 0
-    private var intervalMills: Long = 0
-    private var delayMills: Long = 0
-    private var animationSet: AnimationSet? = null
-    var isRunning = false
+ private var timer: Timer? = null
+ private var downTimerTask: DownTimerTask? = null
+ private var downCount = 0
+ private var lastDown = 0
+ private var intervalMills: Long = 0
+ private var delayMills: Long = 0
+ private var animationSet: AnimationSet? = null
+ var isRunning = false
 
-    private fun init() {
-        if (animationSet == null) {
-            animationSet = AnimationSet(true)
-        }
-        if (downHandler == null) {
-            downHandler = DownHandler()
-        }
-        gravity = Gravity.CENTER
-        textSize = SizeUtils.sp2px(30f).toFloat()
-    }
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle,
-    ) {
-        init()
-    }
+ private fun init() {
+ if (animationSet == null) {
+ animationSet = AnimationSet(true)
+ }
+ if (downHandler == null) {
+ downHandler = DownHandler()
+ }
+ gravity = Gravity.CENTER
+ textSize = SizeUtils.sp2px(30f).toFloat()
+ }
+ constructor(context: Context) : this(context, null)
+ constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+ constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
+ context,
+ attrs,
+ defStyle,
+ ) {
+ init()
+ }
 
-    /**
-\1开始计时
-     *
-     * @param seconds
-     */
-    fun downSecond(seconds: Int) {
-        downSecond(seconds, true)
-    }
+ /**
+\1Start
+ *
+ * @param seconds
+ */
+ fun downSecond(seconds: Int) {
+ downSecond(seconds, true)
+ }
 
-    fun downSecond(
-        seconds: Int,
-        openAnimation: Boolean,
-    ) {
-        if (seconds == 0)
-            {
-                isRunning = false
-                visibility = GONE
-                downTimeWatcher?.onLastTimeFinish(seconds)
-                onFinishListener?.invoke()
-            } else
-            {
-                visibility = VISIBLE
-                isRunning = true
-                downTime(seconds, 1, 0, 1000, openAnimation)
-            }
-    }
+ fun downSecond(
+ seconds: Int,
+ openAnimation: Boolean,
+ ) {
+ if (seconds == 0)
+ {
+ isRunning = false
+ visibility = GONE
+ downTimeWatcher?.onLastTimeFinish(seconds)
+ onFinishListener?.invoke()
+ } else
+ {
+ visibility = VISIBLE
+ isRunning = true
+ downTime(seconds, 1, 0, 1000, openAnimation)
+ }
+ }
 
-    /**
-\1倒计时enabled方法
-     *
-\1@param downCount     倒计时总数
-\1@param lastDown      display的倒计时的最后一个数
-\1@param delayMills    延迟启动倒计时（毫秒数）
-\1@param intervalMills 倒计时间隔时间（毫秒数）
-     */
-    fun downTime(
-        downCount: Int,
-        lastDown: Int,
-        delayMills: Long,
-        intervalMills: Long,
-        startAnimate: Boolean,
-    ) {
-        timer = Timer()
-        this.downCount = downCount
-        this.lastDown = lastDown
-        this.delayMills = delayMills
-        this.intervalMills = intervalMills
-        if (startAnimate)
-            {
-                initDefaultAnimate()
-            }
-        downTimerTask = DownTimerTask()
-        timer?.schedule(downTimerTask, delayMills, intervalMills)
-    }
+ /**
+\1enabled
+ *
+\1@param downCount 
+\1@param lastDown display
+\1@param delayMills （）
+\1@param intervalMills （）
+ */
+ fun downTime(
+ downCount: Int,
+ lastDown: Int,
+ delayMills: Long,
+ intervalMills: Long,
+ startAnimate: Boolean,
+ ) {
+ timer = Timer()
+ this.downCount = downCount
+ this.lastDown = lastDown
+ this.delayMills = delayMills
+ this.intervalMills = intervalMills
+ if (startAnimate)
+ {
+ initDefaultAnimate()
+ }
+ downTimerTask = DownTimerTask()
+ timer?.schedule(downTimerTask, delayMills, intervalMills)
+ }
 
-    override fun setVisibility(visibility: Int) {
-        super.setVisibility(visibility)
-        if (GONE == visibility) {
-            downTimerTask = null
-            timer?.cancel()
-            timer = null
-        }
-    }
+ override fun setVisibility(visibility: Int) {
+ super.setVisibility(visibility)
+ if (GONE == visibility) {
+ downTimerTask = null
+ timer?.cancel()
+ timer = null
+ }
+ }
 
-    override fun onDraw(canvas: Canvas) {
-        if (drawTextFlag == DRAW_TEXT_NO) {
-            return
-        }
-        super.onDraw(canvas)
-    }
+ override fun onDraw(canvas: Canvas) {
+ if (drawTextFlag == DRAW_TEXT_NO) {
+ return
+ }
+ super.onDraw(canvas)
+ }
 
-    /**
-\1取消
-     */
-    fun cancel() {
-        animationSet?.cancel()
-        downTimerTask?.cancel()
-        timer?.cancel()
-        drawTextFlag = DRAW_TEXT_NO
-        invalidate() // 刷新一下
-        visibility = GONE
-        downTimerTask = null
-        timer = null
-        isRunning = false
-    }
+ /**
+\1Cancel
+ */
+ fun cancel() {
+ animationSet?.cancel()
+ downTimerTask?.cancel()
+ timer?.cancel()
+ drawTextFlag = DRAW_TEXT_NO
+ invalidate() // 
+ visibility = GONE
+ downTimerTask = null
+ timer = null
+ isRunning = false
+ }
 
-    private inner class DownTimerTask : TimerTask() {
-        override fun run() {
-            if (downCount >= lastDown - 1) {
-                val msg = Message.obtain()
-                msg.what = 1
-                downHandler!!.sendMessage(msg)
-            }
-        }
-    }
+ private inner class DownTimerTask : TimerTask() {
+ override fun run() {
+ if (downCount >= lastDown - 1) {
+ val msg = Message.obtain()
+ msg.what = 1
+ downHandler!!.sendMessage(msg)
+ }
+ }
+ }
 
 /**
  * Down time watcher utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
 interface DownTimeWatcher {
-        fun onTime(num: Int)
+ fun onTime(num: Int)
 
-        fun onLastTime(num: Int)
+ fun onLastTime(num: Int)
 
-        fun onLastTimeFinish(num: Int)
-    }
+ fun onLastTimeFinish(num: Int)
+ }
 
-    /**
-\1每个倒计时事件监听.
-     */
-    var onTimeListener: ((time: Int) -> Unit)? = null
+ /**
+\1.
+ */
+ var onTimeListener: ((time: Int) -> Unit)? = null
 
-    /**
-\1倒计时结束事件监听.
-     */
-    var onFinishListener: (() -> Unit)? = null
+ /**
+\1End.
+ */
+ var onFinishListener: (() -> Unit)? = null
 
-    var downTimeWatcher: DownTimeWatcher? = null
+ var downTimeWatcher: DownTimeWatcher? = null
 
-    /**
-\1监听倒计时的变化
-     * @param downTimeWatcher
-     */
-    fun setOnTimeDownListener(downTimeWatcher: DownTimeWatcher?) {
-        this.downTimeWatcher = downTimeWatcher
-    }
+ /**
+\1
+ * @param downTimeWatcher
+ */
+ fun setOnTimeDownListener(downTimeWatcher: DownTimeWatcher?) {
+ this.downTimeWatcher = downTimeWatcher
+ }
 
-    private var downHandler: DownHandler? = null
+ private var downHandler: DownHandler? = null
 
-    private inner class DownHandler : Handler() {
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-            if (msg.what == 1) {
-                if (downTimeWatcher != null) {
-                    downTimeWatcher!!.onTime(downCount)
-                }
-                onTimeListener?.invoke(downCount)
-\1Log.e("测试","//handleMessage"+downCount+"//"+lastDown);
-                if (downCount >= lastDown - 1) {
-                    drawTextFlag = DRAW_TEXT_YES // 默认绘制
-\1未到结束时
-                    if (downCount >= lastDown) {
-                        text = downCount.toString() + ""
-                        startDefaultAnimate()
-                        if (downCount == lastDown && downTimeWatcher != null) {
-                            downTimeWatcher!!.onLastTime(downCount)
-                        }
-                    } else if (downCount == lastDown - 1) { // 若lastDown为0，downCount == -1时是倒计时真正结束之时。
-\1倒计时结束，虽然setText()方法触发onDraw，但重写使之不进行drawing
-\1set不drawing标记
-                        if (afterDownDimissFlag == AFTER_LAST_TIME_DIMISS) {
-                            drawTextFlag = DRAW_TEXT_NO
-                        }
-                        invalidate() // 刷新一下
-                        isRunning = false
-                        downTimerTask == null
-                        timer?.cancel()
-                        timer = null
-                        if (downTimeWatcher != null) {
-                            downTimeWatcher!!.onLastTimeFinish(downCount)
-                        }
-                        onFinishListener?.invoke()
-                    }
-                    downCount--
-                }
-                //
-            }
-        }
-    }
+ private inner class DownHandler : Handler() {
+ override fun handleMessage(msg: Message) {
+ super.handleMessage(msg)
+ if (msg.what == 1) {
+ if (downTimeWatcher != null) {
+ downTimeWatcher!!.onTime(downCount)
+ }
+ onTimeListener?.invoke(downCount)
+\1Log.e("","//handleMessage"+downCount+"//"+lastDown);
+ if (downCount >= lastDown - 1) {
+ drawTextFlag = DRAW_TEXT_YES // Default
+\1End
+ if (downCount >= lastDown) {
+ text = downCount.toString() + ""
+ startDefaultAnimate()
+ if (downCount == lastDown && downTimeWatcher != null) {
+ downTimeWatcher!!.onLastTime(downCount)
+ }
+ } else if (downCount == lastDown - 1) { // lastDown0，downCount == -1End。
+\1End，setText()onDraw，drawing
+\1setdrawing
+ if (afterDownDimissFlag == AFTER_LAST_TIME_DIMISS) {
+ drawTextFlag = DRAW_TEXT_NO
+ }
+ invalidate() // 
+ isRunning = false
+ downTimerTask == null
+ timer?.cancel()
+ timer = null
+ if (downTimeWatcher != null) {
+ downTimeWatcher!!.onLastTimeFinish(downCount)
+ }
+ onFinishListener?.invoke()
+ }
+ downCount--
+ }
+ //
+ }
+ }
+ }
 
-    private val DRAW_TEXT_YES = 1
-    private val DRAW_TEXT_NO = 0
+ private val DRAW_TEXT_YES = 1
+ private val DRAW_TEXT_NO = 0
 
-    /**
-\1是否执行onDraw的标识，默认drawing
-     */
-    private var drawTextFlag = DRAW_TEXT_YES
-    private val AFTER_LAST_TIME_DIMISS = 1
-    private val AFTER_LAST_TIME_NODIMISS = 0
+ /**
+\1WhetheronDraw，Defaultdrawing
+ */
+ private var drawTextFlag = DRAW_TEXT_YES
+ private val AFTER_LAST_TIME_DIMISS = 1
+ private val AFTER_LAST_TIME_NODIMISS = 0
 
-    /**
-\1在倒计时结束之后文字是否消失的标志，默认消失
-     */
-    private var afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
+ /**
+\1EndWhether，Default
+ */
+ private var afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
 
-    /**
-\1set倒计时结束后文字不消失
-     */
-    fun setAfterDownNoDimiss() {
-        afterDownDimissFlag = AFTER_LAST_TIME_NODIMISS
-    }
+ /**
+\1setEnd
+ */
+ fun setAfterDownNoDimiss() {
+ afterDownDimissFlag = AFTER_LAST_TIME_NODIMISS
+ }
 
-    /**
-\1set倒计时结束后文字消失
-     */
-    fun setAferDownDimiss() {
-        afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
-    }
+ /**
+\1setEnd
+ */
+ fun setAferDownDimiss() {
+ afterDownDimissFlag = AFTER_LAST_TIME_DIMISS
+ }
 
-    var startDefaultAnimFlag = true
+ var startDefaultAnimFlag = true
 
-\1disabled默认动画
-    fun closeDefaultAnimate() {
-        animationSet?.reset()
-        startDefaultAnimFlag = false
-    }
+\1disabledDefault
+ fun closeDefaultAnimate() {
+ animationSet?.reset()
+ startDefaultAnimFlag = false
+ }
 
-\1enabled默认动画
-    private fun startDefaultAnimate() {
-        if (startDefaultAnimFlag) {
-            animation?.start()
-        }
-    }
+\1enabledDefault
+ private fun startDefaultAnimate() {
+ if (startDefaultAnimFlag) {
+ animation?.start()
+ }
+ }
 
-    private fun initDefaultAnimate() {
-        if (animationSet == null) {
-            animationSet = AnimationSet(true)
-        }
-        val scaleAnimation =
-            ScaleAnimation(
-                1f,
-                0.5f,
-                1f,
-                0.5f,
-                ScaleAnimation.ABSOLUTE,
-                measuredWidth / 2f,
-                ScaleAnimation.ABSOLUTE,
-                measuredHeight / 2f,
-            )
-        scaleAnimation.duration = intervalMills
-        val alphaAnimation = AlphaAnimation(1f, 0.3f)
-        alphaAnimation.duration = intervalMills
-\1将AlphaAnimation这个已经set好的动画添加到 AnimationSet中
-        animationSet!!.addAnimation(scaleAnimation)
-        animationSet!!.addAnimation(alphaAnimation)
-        animationSet!!.interpolator = AccelerateInterpolator()
-        animation = animationSet
-    }
+ private fun initDefaultAnimate() {
+ if (animationSet == null) {
+ animationSet = AnimationSet(true)
+ }
+ val scaleAnimation =
+ ScaleAnimation(
+ 1f,
+ 0.5f,
+ 1f,
+ 0.5f,
+ ScaleAnimation.ABSOLUTE,
+ measuredWidth / 2f,
+ ScaleAnimation.ABSOLUTE,
+ measuredHeight / 2f,
+ )
+ scaleAnimation.duration = intervalMills
+ val alphaAnimation = AlphaAnimation(1f, 0.3f)
+ alphaAnimation.duration = intervalMills
+\1AlphaAnimationset AnimationSet
+ animationSet!!.addAnimation(scaleAnimation)
+ animationSet!!.addAnimation(alphaAnimation)
+ animationSet!!.interpolator = AccelerateInterpolator()
+ animation = animationSet
+ }
 }

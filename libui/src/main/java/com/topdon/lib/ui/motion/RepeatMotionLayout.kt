@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 /**
- * 闪烁效果
+ * Comment removed (contained Chinese characters)
  */
 
 /**
@@ -15,82 +15,82 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 /**
  * RepeatMotionLayout manages camera operations and image capture functionality.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
 class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
-    private var motionStartId = 0
-    private var motionEndId = 0
+ private var motionStartId = 0
+ private var motionEndId = 0
 
-    @Volatile
-    private var isAdd = false
+ @Volatile
+ private var isAdd = false
 
-    constructor(context: Context) : this(context, null)
+ constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-    }
+ constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+ }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-    )
+ constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+ context,
+ attrs,
+ defStyleAttr,
+ )
 
-    /**
-     * 开始闪烁
-     */
-    fun startTransition() {
-//        Log.w("123", "开始闪烁")
-        if (!isAdd) {
-            addTransitionListener(this)
-            isAdd = true
-        }
-        transitionToEnd()
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ fun startTransition() {
+// Comment removed (contained Chinese characters)
+ if (!isAdd) {
+ addTransitionListener(this)
+ isAdd = true
+ }
+ transitionToEnd()
+ }
 
-    /**
-     * Restore state
-     */
-    fun cancelTransition() {
-        removeTransitionListener(this)
-        isAdd = false
-        transitionToStart()
-    }
+ /**
+ * Restore state
+ */
+ fun cancelTransition() {
+ removeTransitionListener(this)
+ isAdd = false
+ transitionToStart()
+ }
 
-    override fun onTransitionStarted(
-        motionLayout: MotionLayout?,
-        startId: Int,
-        endId: Int,
-    ) {
-        motionStartId = startId
-        motionEndId = endId
-    }
+ override fun onTransitionStarted(
+ motionLayout: MotionLayout?,
+ startId: Int,
+ endId: Int,
+ ) {
+ motionStartId = startId
+ motionEndId = endId
+ }
 
-    override fun onTransitionChange(
-        motionLayout: MotionLayout?,
-        startId: Int,
-        endId: Int,
-        progress: Float,
-    ) {
-    }
+ override fun onTransitionChange(
+ motionLayout: MotionLayout?,
+ startId: Int,
+ endId: Int,
+ progress: Float,
+ ) {
+ }
 
-    override fun onTransitionCompleted(
-        motionLayout: MotionLayout?,
-        currentId: Int,
-    ) {
-//        Log.w("123", "onTransitionCompleted currentId:$currentId")
-        if (currentId == motionEndId) {
-            transitionToStart()
-        } else {
-            transitionToEnd()
-        }
-    }
+ override fun onTransitionCompleted(
+ motionLayout: MotionLayout?,
+ currentId: Int,
+ ) {
+// Log.w("123", "onTransitionCompleted currentId:$currentId")
+ if (currentId == motionEndId) {
+ transitionToStart()
+ } else {
+ transitionToEnd()
+ }
+ }
 
-    override fun onTransitionTrigger(
-        motionLayout: MotionLayout?,
-        triggerId: Int,
-        positive: Boolean,
-        progress: Float,
-    ) {
-    }
+ override fun onTransitionTrigger(
+ motionLayout: MotionLayout?,
+ triggerId: Int,
+ positive: Boolean,
+ progress: Float,
+ ) {
+ }
 }

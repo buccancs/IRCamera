@@ -18,95 +18,95 @@ import com.topdon.menu.R as MenuR
  * Custom Menu second night view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("旧的high/low temperature点menu，已重构过了")
+@Deprecated("high/low temperaturemenu，")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
+ private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
 
-    var multipleListener: ((Int, Boolean) -> Unit)? = null
+ var multipleListener: ((Int, Boolean) -> Unit)? = null
 
-    fun clearMultipleSelected() {
-        curMultipleArray.clear()
-        notifyDataSetChanged()
-    }
+ fun clearMultipleSelected() {
+ curMultipleArray.clear()
+ notifyDataSetChanged()
+ }
 
-    private val secondBean =
-        arrayListOf(
-            ColorBean(
-                MenuR.drawable.selector_menu2_temp_point_1,
-                context.getString(R.string.main_tab_second_high_temperature_point),
-                CameraHelp.TYPE_SET_HIGHTEMP,
-            ),
-            ColorBean(
-                MenuR.drawable.selector_menu2_temp_point_2,
-                context.getString(R.string.main_tab_second_low_temperature_point),
-                CameraHelp.TYPE_SET_LOWTEMP,
-            ),
-            ColorBean(MenuR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
-        )
+ private val secondBean =
+ arrayListOf(
+ ColorBean(
+ MenuR.drawable.selector_menu2_temp_point_1,
+ context.getString(R.string.main_tab_second_high_temperature_point),
+ CameraHelp.TYPE_SET_HIGHTEMP,
+ ),
+ ColorBean(
+ MenuR.drawable.selector_menu2_temp_point_2,
+ context.getString(R.string.main_tab_second_low_temperature_point),
+ CameraHelp.TYPE_SET_LOWTEMP,
+ ),
+ ColorBean(MenuR.drawable.selector_menu2_del, context.getString(R.string.thermal_delete), CameraHelp.TYPE_SET_DETELE),
+ )
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): RecyclerView.ViewHolder {
-        return ItemView(LayoutInflater.from(parent.context).inflate(UiR.layout.ui_item_menu_second_view, parent, false))
-    }
+ override fun onCreateViewHolder(
+ parent: ViewGroup,
+ viewType: Int,
+ ): RecyclerView.ViewHolder {
+ return ItemView(LayoutInflater.from(parent.context).inflate(UiR.layout.ui_item_menu_second_view, parent, false))
+ }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-    ) {
-        if (holder is ItemView) {
-            holder.img.setImageResource(secondBean[position].res)
-            holder.name.text = secondBean[position].name
+ override fun onBindViewHolder(
+ holder: RecyclerView.ViewHolder,
+ position: Int,
+ ) {
+ if (holder is ItemView) {
+ holder.img.setImageResource(secondBean[position].res)
+ holder.name.text = secondBean[position].name
 
-            holder.itemView.findViewById<View>(UiR.id.item_menu_tab_lay).setOnClickListener {
-                multipleChoice(position)
-            }
+ holder.itemView.findViewById<View>(UiR.id.item_menu_tab_lay).setOnClickListener {
+ multipleChoice(position)
+ }
 
-            holder.img.isSelected = curMultipleArray.contains(position)
-            holder.name.isSelected = curMultipleArray.contains(position)
-            holder.name.setTextColor(
-                if (curMultipleArray.contains(position)) {
-                    ContextCompat.getColor(context, UiR.color.white)
-                } else {
-                    ContextCompat.getColor(context, UiR.color.font_third_color)
-                },
-            )
-        }
-    }
+ holder.img.isSelected = curMultipleArray.contains(position)
+ holder.name.isSelected = curMultipleArray.contains(position)
+ holder.name.setTextColor(
+ if (curMultipleArray.contains(position)) {
+ ContextCompat.getColor(context, UiR.color.white)
+ } else {
+ ContextCompat.getColor(context, UiR.color.font_third_color)
+ },
+ )
+ }
+ }
 
-    private fun multipleChoice(position: Int) {
-        // 1.计算curMultipleArray
-        if (position == secondBean.size - 1) {
-            curMultipleArray.clear()
-            curMultipleArray[position] = secondBean[position].code
-        } else {
-            if (curMultipleArray.contains(position)) {
-                curMultipleArray.remove(position)
-            } else {
-                curMultipleArray[position] = secondBean[position].code
-            }
-            if (curMultipleArray.contains(secondBean.size - 1)) {
-                curMultipleArray.remove(secondBean.size - 1)
-            }
-        }
-        // 2.执行listener
-        multipleListener?.invoke(secondBean[position].code, curMultipleArray.contains(position))
-        // 3.refresh数据
-        notifyDataSetChanged()
-    }
+ private fun multipleChoice(position: Int) {
+ // Comment removed (contained Chinese characters)
+ if (position == secondBean.size - 1) {
+ curMultipleArray.clear()
+ curMultipleArray[position] = secondBean[position].code
+ } else {
+ if (curMultipleArray.contains(position)) {
+ curMultipleArray.remove(position)
+ } else {
+ curMultipleArray[position] = secondBean[position].code
+ }
+ if (curMultipleArray.contains(secondBean.size - 1)) {
+ curMultipleArray.remove(secondBean.size - 1)
+ }
+ }
+ // Comment removed (contained Chinese characters)
+ multipleListener?.invoke(secondBean[position].code, curMultipleArray.contains(position))
+ // Comment removed (contained Chinese characters)
+ notifyDataSetChanged()
+ }
 
-    override fun getItemCount(): Int {
-        return secondBean.size
-    }
+ override fun getItemCount(): Int {
+ return secondBean.size
+ }
 
 /**
  * Custom Item view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-    class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
-        val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
-        val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
-    }
+ class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+ val lay: View = itemView.findViewById(UiR.id.item_menu_tab_lay)
+ val img: ImageView = itemView.findViewById(UiR.id.item_menu_tab_img)
+ val name: TextView = itemView.findViewById(UiR.id.item_menu_tab_text)
+ }
 }

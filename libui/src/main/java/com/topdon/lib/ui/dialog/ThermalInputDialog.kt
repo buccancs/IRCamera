@@ -32,7 +32,7 @@ import com.topdon.lib.ui.databinding.DialogThermalInputBinding
 import java.math.BigDecimal
 
 /**
- * 提示窗
+ * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 
@@ -43,21 +43,20 @@ import java.math.BigDecimal
 /**
  * ThermalInputDialog displays modal dialog interface for user interaction.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
 class ThermalInputDialog : Dialog {
-    private var action = 100 // 100:初始温度输入界面     201: 温度上限color选择界面   301: 温度下限color选择界面
+ private var action = 100 // 100:Temperature 201: Temperaturecolor 301: Temperaturecolor
 
-    constructor(context: Context) : super(context)
+ constructor(context: Context) : super(context)
 
-    constructor(context: Context, themeResId: Int) : super(context, themeResId)
+ constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-    @Deprecated("This method is deprecated")
-    override fun onBackPressed() {
-    }
+ @Deprecated("This method is deprecated")
+ override fun onBackPressed() {
+ }
 
-    
 /**
  * Builder dialog for thermal imaging user interaction.
  * Provides specialized input and configuration interfaces.
@@ -65,402 +64,401 @@ class ThermalInputDialog : Dialog {
 /**
  * Builder handles thermal imaging functionality and processing.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
-    class Builder {
-        var dialog: ThermalInputDialog? = null
+ class Builder {
+ var dialog: ThermalInputDialog? = null
 
-        private var context: Context? = null
+ private var context: Context? = null
 
-        private var listener: ((s: Int) -> Unit)? = null
+ private var listener: ((s: Int) -> Unit)? = null
 
-        private var message: Spanned? = null
-        private var positiveStr: String? = null
-        private var cancelStr: String? = null
-        private var positiveEvent: ((up: Float, down: Float, upColor: Int, downColor: Int) -> Unit)? =
-            null
-        private var cancelEvent: (() -> Unit)? = null
-        private var canceled = false
-        private var saturation = 0
-        private var upColor = Color.parseColor("#FFF3812F") 
-        private var downColor = Color.parseColor("#FF28C445") 
-        private var selectColor = 0 
-        private var max = 0f
-        private var min = 0f
-        private var maxColor = 0
-        private var minColor = 0
+ private var message: Spanned? = null
+ private var positiveStr: String? = null
+ private var cancelStr: String? = null
+ private var positiveEvent: ((up: Float, down: Float, upColor: Int, downColor: Int) -> Unit)? =
+ null
+ private var cancelEvent: (() -> Unit)? = null
+ private var canceled = false
+ private var saturation = 0
+ private var upColor = Color.parseColor("#FFF3812F") 
+ private var downColor = Color.parseColor("#FF28C445") 
+ private var selectColor = 0 
+ private var max = 0f
+ private var min = 0f
+ private var maxColor = 0
+ private var minColor = 0
 
-        private lateinit var messageText: TextView
-        private lateinit var successBtn: Button
-        private lateinit var cancelBtn: Button
-        private lateinit var upEdit: EditText
-        private lateinit var downEdit: EditText
-        private lateinit var upUnit: TextView
-        private lateinit var downUnit: TextView
-        private lateinit var colorPickerView: ColorPickerView
-        private lateinit var recycler: RecyclerView
-        private var isIconEdit: Boolean = false
+ private lateinit var messageText: TextView
+ private lateinit var successBtn: Button
+ private lateinit var cancelBtn: Button
+ private lateinit var upEdit: EditText
+ private lateinit var downEdit: EditText
+ private lateinit var upUnit: TextView
+ private lateinit var downUnit: TextView
+ private lateinit var colorPickerView: ColorPickerView
+ private lateinit var recycler: RecyclerView
+ private var isIconEdit: Boolean = false
 
-        constructor(context: Context) {
-            this.context = context
-        }
+ constructor(context: Context) {
+ this.context = context
+ }
 
-        fun setMessage(message: String): Builder {
-            this.message = HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            return this
-        }
+ fun setMessage(message: String): Builder {
+ this.message = HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_LEGACY)
+ return this
+ }
 
-        fun setMessage(message: Spanned): Builder {
-            this.message = message
-            return this
-        }
+ fun setMessage(message: Spanned): Builder {
+ this.message = message
+ return this
+ }
 
-        fun setMessage(
-            @StringRes message: Int,
-        ): Builder {
-            this.message =
-                HtmlCompat.fromHtml(context!!.getString(message), HtmlCompat.FROM_HTML_MODE_LEGACY)
-            return this
-        }
+ fun setMessage(
+ @StringRes message: Int,
+ ): Builder {
+ this.message =
+ HtmlCompat.fromHtml(context!!.getString(message), HtmlCompat.FROM_HTML_MODE_LEGACY)
+ return this
+ }
 
-        fun setIconEdit(isIconEdit: Boolean): Builder {
-            this.isIconEdit = isIconEdit
-            return this
-        }
+ fun setIconEdit(isIconEdit: Boolean): Builder {
+ this.isIconEdit = isIconEdit
+ return this
+ }
 
-        fun setEditNum(
-            max: Float,
-            min: Float,
-        ): Builder {
-            this.max = max
-            this.min = min
-            return this
-        }
+ fun setEditNum(
+ max: Float,
+ min: Float,
+ ): Builder {
+ this.max = max
+ this.min = min
+ return this
+ }
 
-        fun setNum(
-            max: Float,
-            min: Float,
-        ): Builder {
-            if (SharedManager.getTemperature() == 1) {
-                
-                this.max = max
-                this.min = min
-            } else {
-                
-                this.max = UnitTools.toF(max)
-                this.min = UnitTools.toF(min)
-            }
-            return this
-        }
+ fun setNum(
+ max: Float,
+ min: Float,
+ ): Builder {
+ if (SharedManager.getTemperature() == 1) {
+ 
+ this.max = max
+ this.min = min
+ } else {
+ 
+ this.max = UnitTools.toF(max)
+ this.min = UnitTools.toF(min)
+ }
+ return this
+ }
 
-        fun setColor(
-            @ColorInt maxColor: Int,
-            @ColorInt minColor: Int,
-        ): Builder {
-            this.maxColor = maxColor
-            this.minColor = minColor
-            return this
-        }
+ fun setColor(
+ @ColorInt maxColor: Int,
+ @ColorInt minColor: Int,
+ ): Builder {
+ this.maxColor = maxColor
+ this.minColor = minColor
+ return this
+ }
 
-        @JvmOverloads
-        fun setPositiveListener(
-            @StringRes strRes: Int,
-            event: ((up: Float, down: Float, upColor: Int, downColor: Int) -> Unit)? = null,
-        ): Builder {
-            return setPositiveListener(context!!.getString(strRes), event)
-        }
+ @JvmOverloads
+ fun setPositiveListener(
+ @StringRes strRes: Int,
+ event: ((up: Float, down: Float, upColor: Int, downColor: Int) -> Unit)? = null,
+ ): Builder {
+ return setPositiveListener(context!!.getString(strRes), event)
+ }
 
-        @JvmOverloads
-        fun setPositiveListener(
-            str: String,
-            event: ((up: Float, down: Float, upColor: Int, downColor: Int) -> Unit)? = null,
-        ): Builder {
-            this.positiveStr = str
-            this.positiveEvent = event
-            return this
-        }
+ @JvmOverloads
+ fun setPositiveListener(
+ str: String,
+ event: ((up: Float, down: Float, upColor: Int, downColor: Int) -> Unit)? = null,
+ ): Builder {
+ this.positiveStr = str
+ this.positiveEvent = event
+ return this
+ }
 
-        @JvmOverloads
-        fun setCancelListener(
-            @StringRes strRes: Int,
-            event: (() -> Unit)? = null,
-        ): Builder {
-            return setCancelListener(context!!.getString(strRes), event)
-        }
+ @JvmOverloads
+ fun setCancelListener(
+ @StringRes strRes: Int,
+ event: (() -> Unit)? = null,
+ ): Builder {
+ return setCancelListener(context!!.getString(strRes), event)
+ }
 
-        @JvmOverloads
-        fun setCancelListener(
-            str: String,
-            event: (() -> Unit)? = null,
-        ): Builder {
-            this.cancelStr = str
-            this.cancelEvent = event
-            return this
-        }
+ @JvmOverloads
+ fun setCancelListener(
+ str: String,
+ event: (() -> Unit)? = null,
+ ): Builder {
+ this.cancelStr = str
+ this.cancelEvent = event
+ return this
+ }
 
-        fun setCanceled(canceled: Boolean): Builder {
-            this.canceled = canceled
-            return this
-        }
+ fun setCanceled(canceled: Boolean): Builder {
+ this.canceled = canceled
+ return this
+ }
 
-        fun setSaturation(s: Int): Builder {
-            this.saturation = s
-            return this
-        }
+ fun setSaturation(s: Int): Builder {
+ this.saturation = s
+ return this
+ }
 
-        fun setListener(event: ((s: Int) -> Unit)? = null): Builder {
-            this.listener = event
-            return this
-        }
+ fun setListener(event: ((s: Int) -> Unit)? = null): Builder {
+ this.listener = event
+ return this
+ }
 
-    /**
-     * Executes dismiss functionality.
-     */
-        fun dismiss() {
-            this.dialog!!.dismiss()
-        }
+ /**
+ * Executes dismiss functionality.
+ */
+ fun dismiss() {
+ this.dialog!!.dismiss()
+ }
 
-        private val adapter by lazy { ColorSelectAdapter(context!!) }
-        private lateinit var binding: DialogThermalInputBinding
+ private val adapter by lazy { ColorSelectAdapter(context!!) }
+ private lateinit var binding: DialogThermalInputBinding
 
-    /**
-     * Creates and configures a new  instance.
-     */
-        fun create(): ThermalInputDialog {
-            if (dialog == null) {
-                dialog = ThermalInputDialog(context!!, R.style.InfoDialog)
-            }
-            val inflater =
-                context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            binding = DialogThermalInputBinding.inflate(inflater)
+ /**
+ * Creates and configures a new instance.
+ */
+ fun create(): ThermalInputDialog {
+ if (dialog == null) {
+ dialog = ThermalInputDialog(context!!, R.style.InfoDialog)
+ }
+ val inflater =
+ context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+ binding = DialogThermalInputBinding.inflate(inflater)
 
-            // Initialize views using binding
-            messageText = binding.dialogTipMsgText
-            successBtn = binding.dialogTipSuccessBtn
-            cancelBtn = binding.dialogTipCancelBtn
-            upEdit = binding.dialogUpEdit
-            downEdit = binding.dialogDownEdit
-            upUnit = binding.dialogUpUnitText
-            downUnit = binding.dialogDownUnitText
-            colorPickerView = binding.colorPickerView
-            recycler = binding.colorPickerRecycler
+ // Initialize views using binding
+ messageText = binding.dialogTipMsgText
+ successBtn = binding.dialogTipSuccessBtn
+ cancelBtn = binding.dialogTipCancelBtn
+ upEdit = binding.dialogUpEdit
+ downEdit = binding.dialogDownEdit
+ upUnit = binding.dialogUpUnitText
+ downUnit = binding.dialogDownUnitText
+ colorPickerView = binding.colorPickerView
+ recycler = binding.colorPickerRecycler
 
-            binding.colorPickerViewLay.visibility = View.GONE
-            binding.dialogInputLay.visibility = View.VISIBLE
+ binding.colorPickerViewLay.visibility = View.GONE
+ binding.dialogInputLay.visibility = View.VISIBLE
 
-            
-            if (isIconEdit) {
-                binding.dialogUpColor.visibility = View.GONE
-                binding.dialogDownColor.visibility = View.GONE
-            } else {
-                binding.dialogUpColor.visibility = View.VISIBLE
-                binding.dialogDownColor.visibility = View.VISIBLE
-            }
-            messageText.text = message
-            
-            if (maxColor != 0) upColor = maxColor
-            if (minColor != 0) downColor = minColor
-            upUnit.text = UnitTools.showUnit()
-            downUnit.text = UnitTools.showUnit()
-            binding.dialogUpColor.setColorFilter(upColor)
-            binding.dialogDownColor.setColorFilter(downColor)
-            colorPickerView.setInitialColor(upColor)
+ if (isIconEdit) {
+ binding.dialogUpColor.visibility = View.GONE
+ binding.dialogDownColor.visibility = View.GONE
+ } else {
+ binding.dialogUpColor.visibility = View.VISIBLE
+ binding.dialogDownColor.visibility = View.VISIBLE
+ }
+ messageText.text = message
+ 
+ if (maxColor != 0) upColor = maxColor
+ if (minColor != 0) downColor = minColor
+ upUnit.text = UnitTools.showUnit()
+ downUnit.text = UnitTools.showUnit()
+ binding.dialogUpColor.setColorFilter(upColor)
+ binding.dialogDownColor.setColorFilter(downColor)
+ colorPickerView.setInitialColor(upColor)
 
-            recycler.layoutManager = GridLayoutManager(context!!, 6)
-            recycler.adapter = adapter
-            adapter.listener = { _, color ->
-                selectColor = color
-                colorPickerView.setInitialColor(Color.parseColor("#FFFFFFFF"))
-            }
+ recycler.layoutManager = GridLayoutManager(context!!, 6)
+ recycler.adapter = adapter
+ adapter.listener = { _, color ->
+ selectColor = color
+ colorPickerView.setInitialColor(Color.parseColor("#FFFFFFFF"))
+ }
 
-            dialog!!.addContentView(
-                binding.root,
-                LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT),
-            )
-            val lp = dialog!!.window!!.attributes
-            val wRatio =
-                if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    
-                    0.85
-                } else {
-                    
-                    0.35
-                }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() 
-            dialog!!.window!!.attributes = lp
+ dialog!!.addContentView(
+ binding.root,
+ LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT),
+ )
+ val lp = dialog!!.window!!.attributes
+ val wRatio =
+ if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+ 
+ 0.85
+ } else {
+ 
+ 0.35
+ }
+ lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() 
+ dialog!!.window!!.attributes = lp
 
-            dialog!!.setCanceledOnTouchOutside(canceled)
-            successBtn.setOnClickListener {
-                if (binding.colorPickerViewLay.isVisible) {
-                    // 选取color,Return上一步
-                    binding.colorPickerViewLay.visibility = View.GONE
-                    binding.dialogInputLay.visibility = View.VISIBLE
-                    messageText.text = message
-                    if (dialog!!.action == 201) {
-                        if (selectColor != 0) {
-                            upColor = selectColor
-                        }
-                        binding.dialogUpColor.setColorFilter(upColor)
-                    }
-                    if (dialog!!.action == 301) {
-                        if (selectColor != 0) {
-                            downColor = selectColor
-                        }
-                        binding.dialogDownColor.setColorFilter(downColor)
-                    }
-                    dialog!!.action = 100
-                    return@setOnClickListener
-                }
-                if (upEdit.text.isNullOrEmpty() || downEdit.text.isNullOrEmpty()) {
-                    ToastTools.showShort(com.topdon.lib.core.R.string.ui_fill_in_the_complete)
-                    return@setOnClickListener
-                }
+ dialog!!.setCanceledOnTouchOutside(canceled)
+ successBtn.setOnClickListener {
+ if (binding.colorPickerViewLay.isVisible) {
+ // Comment removed (contained Chinese characters)
+ binding.colorPickerViewLay.visibility = View.GONE
+ binding.dialogInputLay.visibility = View.VISIBLE
+ messageText.text = message
+ if (dialog!!.action == 201) {
+ if (selectColor != 0) {
+ upColor = selectColor
+ }
+ binding.dialogUpColor.setColorFilter(upColor)
+ }
+ if (dialog!!.action == 301) {
+ if (selectColor != 0) {
+ downColor = selectColor
+ }
+ binding.dialogDownColor.setColorFilter(downColor)
+ }
+ dialog!!.action = 100
+ return@setOnClickListener
+ }
+ if (upEdit.text.isNullOrEmpty() || downEdit.text.isNullOrEmpty()) {
+ ToastTools.showShort(com.topdon.lib.core.R.string.ui_fill_in_the_complete)
+ return@setOnClickListener
+ }
 
-                val upValue = upEdit.text.trim().toString()
-                val downValue = downEdit.text.trim().toString()
-                try {
-                    if (upValue.toFloat() < downValue.toFloat()) {
-                        ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
-                        return@setOnClickListener
-                    }
-                } catch (e: Exception) {
-                    ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
-                    return@setOnClickListener
-                }
-                if (sub(upValue, downValue) < 0.1f) {
-                    ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
-                    return@setOnClickListener
-                }
-//                if (upValue.isBlank() && downValue.isBlank()) {
-//                    ToastTools.showShort(R.string.ui_fill_in_the_complete)
-//                    return@setOnClickListener
-//                }
-                if ((upValue.isNotBlank() && downValue.isNotBlank()) && upValue.toFloat() < downValue.toFloat()) {
-                    ToastTools.showShort(R.string.tip_input_format)
-                    return@setOnClickListener
-                }
+ val upValue = upEdit.text.trim().toString()
+ val downValue = downEdit.text.trim().toString()
+ try {
+ if (upValue.toFloat() < downValue.toFloat()) {
+ ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
+ return@setOnClickListener
+ }
+ } catch (e: Exception) {
+ ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
+ return@setOnClickListener
+ }
+ if (sub(upValue, downValue) < 0.1f) {
+ ToastTools.showShort(com.topdon.lib.core.R.string.tip_input_format)
+ return@setOnClickListener
+ }
+// if (upValue.isBlank() && downValue.isBlank()) {
+// ToastTools.showShort(R.string.ui_fill_in_the_complete)
+// return@setOnClickListener
+// }
+ if ((upValue.isNotBlank() && downValue.isNotBlank()) && upValue.toFloat() < downValue.toFloat()) {
+ ToastTools.showShort(R.string.tip_input_format)
+ return@setOnClickListener
+ }
 
-                dismiss()
-                if (isIconEdit) {
-                    positiveEvent?.invoke(
-                        if (upValue.isBlank()) -273f else upValue.toFloat(),
-                        if (downValue.isBlank()) -273f else downValue.toFloat(),
-                        upColor,
-                        downColor,
-                    )
-                } else {
-                    if (SharedManager.getTemperature() == 1) {
-                        
-                        positiveEvent?.invoke(
-                            if (upValue.isBlank()) -273f else upValue.toFloat(),
-                            if (downValue.isBlank()) -273f else downValue.toFloat(),
-                            upColor,
-                            downColor,
-                        )
-                    } else {
-                        
-                        positiveEvent?.invoke(
-                            if (upValue.isBlank()) -273f else UnitTools.toC(upValue.toFloat()),
-                            if (downValue.isBlank()) -273f else UnitTools.toC(downValue.toFloat()),
-                            upColor,
-                            downColor,
-                        )
-                    }
-                }
-            }
-            cancelBtn.setOnClickListener {
-                if (binding.colorPickerViewLay.isVisible) {
-                    
-                    binding.colorPickerViewLay.visibility = View.GONE
-                    binding.dialogInputLay.visibility = View.VISIBLE
-                    messageText.text = message
-                    dialog!!.action = 100
-                    return@setOnClickListener
-                }
-                dismiss()
-                cancelEvent?.invoke()
-            }
-            binding.dialogUpColor.setOnClickListener {
-                dialog!!.action = 201
-                binding.colorPickerViewLay.visibility = View.VISIBLE
-                binding.dialogInputLay.visibility = View.GONE
-                messageText.text = context!!.getString(R.string.color_board)
-                colorPickerView.setInitialColor(upColor)
-            }
-            binding.dialogDownColor.setOnClickListener {
-                dialog!!.action = 301
-                binding.colorPickerViewLay.visibility = View.VISIBLE
-                binding.dialogInputLay.visibility = View.GONE
-                messageText.text = context!!.getString(R.string.color_board)
-                colorPickerView.setInitialColor(downColor)
-            }
-            colorPickerView.setColorListener(
-                object : ColorEnvelopeListener {
-                    override fun onColorSelected(
-                        envelope: ColorEnvelope,
-                        fromUser: Boolean,
-                    ) {
-                        if ("#${envelope.hexCode}" != "#FFFFFFFF") {
-                            // 非presetcolor,复位preset参数
-                            adapter.selected(-1)
-                            selectColor = 0
-                        }
-                        if (dialog!!.action == 201) {
-                            
-                            upColor = Color.parseColor("#${envelope.hexCode}")
-                        } else if (dialog!!.action == 301) {
-                            
-                            downColor = Color.parseColor("#${envelope.hexCode}")
-                        }
-                    }
-                },
-            )
-            if ((max == -273f && SharedManager.getTemperature() == 1) || (max == -459.4f && SharedManager.getTemperature() != 1)) {
-                upEdit.setText("")
-            } else {
-                upEdit.setText(NumberTools.scale(max, 1).toString())
-            }
-            if ((min == -273f && SharedManager.getTemperature() == 1) || (min == -459.4f && SharedManager.getTemperature() != 1)) {
-                downEdit.setText("")
-            } else {
-                downEdit.setText(NumberTools.scale(min, 1).toString())
-            }
-//            if (max != 0f && min != 0f) {
-//                upEdit.setText(max.toString())
-//                downEdit.setText(min.toString())
-//            }
-            if (positiveStr != null) {
-                successBtn.text = positiveStr
-            }
-            if (!TextUtils.isEmpty(cancelStr)) {
-                cancelBtn.visibility = View.VISIBLE
-                cancelBtn.text = cancelStr
-            } else {
-                cancelBtn.visibility = View.GONE
-                cancelBtn.text = ""
-            }
-            
-            if (message != null) {
-                messageText.visibility = View.VISIBLE
-                messageText.setText(message, TextView.BufferType.NORMAL)
-            } else {
-                messageText.visibility = View.GONE
-            }
-            dialog!!.setContentView(binding.root)
-            return dialog as ThermalInputDialog
-        }
+ dismiss()
+ if (isIconEdit) {
+ positiveEvent?.invoke(
+ if (upValue.isBlank()) -273f else upValue.toFloat(),
+ if (downValue.isBlank()) -273f else downValue.toFloat(),
+ upColor,
+ downColor,
+ )
+ } else {
+ if (SharedManager.getTemperature() == 1) {
+ 
+ positiveEvent?.invoke(
+ if (upValue.isBlank()) -273f else upValue.toFloat(),
+ if (downValue.isBlank()) -273f else downValue.toFloat(),
+ upColor,
+ downColor,
+ )
+ } else {
+ 
+ positiveEvent?.invoke(
+ if (upValue.isBlank()) -273f else UnitTools.toC(upValue.toFloat()),
+ if (downValue.isBlank()) -273f else UnitTools.toC(downValue.toFloat()),
+ upColor,
+ downColor,
+ )
+ }
+ }
+ }
+ cancelBtn.setOnClickListener {
+ if (binding.colorPickerViewLay.isVisible) {
+ 
+ binding.colorPickerViewLay.visibility = View.GONE
+ binding.dialogInputLay.visibility = View.VISIBLE
+ messageText.text = message
+ dialog!!.action = 100
+ return@setOnClickListener
+ }
+ dismiss()
+ cancelEvent?.invoke()
+ }
+ binding.dialogUpColor.setOnClickListener {
+ dialog!!.action = 201
+ binding.colorPickerViewLay.visibility = View.VISIBLE
+ binding.dialogInputLay.visibility = View.GONE
+ messageText.text = context!!.getString(R.string.color_board)
+ colorPickerView.setInitialColor(upColor)
+ }
+ binding.dialogDownColor.setOnClickListener {
+ dialog!!.action = 301
+ binding.colorPickerViewLay.visibility = View.VISIBLE
+ binding.dialogInputLay.visibility = View.GONE
+ messageText.text = context!!.getString(R.string.color_board)
+ colorPickerView.setInitialColor(downColor)
+ }
+ colorPickerView.setColorListener(
+ object : ColorEnvelopeListener {
+ override fun onColorSelected(
+ envelope: ColorEnvelope,
+ fromUser: Boolean,
+ ) {
+ if ("#${envelope.hexCode}" != "#FFFFFFFF") {
+ // Comment removed (contained Chinese characters)
+ adapter.selected(-1)
+ selectColor = 0
+ }
+ if (dialog!!.action == 201) {
+ 
+ upColor = Color.parseColor("#${envelope.hexCode}")
+ } else if (dialog!!.action == 301) {
+ 
+ downColor = Color.parseColor("#${envelope.hexCode}")
+ }
+ }
+ },
+ )
+ if ((max == -273f && SharedManager.getTemperature() == 1) || (max == -459.4f && SharedManager.getTemperature() != 1)) {
+ upEdit.setText("")
+ } else {
+ upEdit.setText(NumberTools.scale(max, 1).toString())
+ }
+ if ((min == -273f && SharedManager.getTemperature() == 1) || (min == -459.4f && SharedManager.getTemperature() != 1)) {
+ downEdit.setText("")
+ } else {
+ downEdit.setText(NumberTools.scale(min, 1).toString())
+ }
+// if (max != 0f && min != 0f) {
+// upEdit.setText(max.toString())
+// downEdit.setText(min.toString())
+// }
+ if (positiveStr != null) {
+ successBtn.text = positiveStr
+ }
+ if (!TextUtils.isEmpty(cancelStr)) {
+ cancelBtn.visibility = View.VISIBLE
+ cancelBtn.text = cancelStr
+ } else {
+ cancelBtn.visibility = View.GONE
+ cancelBtn.text = ""
+ }
+ 
+ if (message != null) {
+ messageText.visibility = View.VISIBLE
+ messageText.setText(message, TextView.BufferType.NORMAL)
+ } else {
+ messageText.visibility = View.GONE
+ }
+ dialog!!.setContentView(binding.root)
+ return dialog as ThermalInputDialog
+ }
 
-    /**
-     * Executes sub functionality.
-     */
-        fun sub(
-            doubleValA: String?,
-            doubleValB: String?,
-        ): Float {
-            val a2 = BigDecimal(doubleValA)
-            val b2 = BigDecimal(doubleValB)
-            return a2.subtract(b2).toFloat()
-        }
-    }
+ /**
+ * Executes sub functionality.
+ */
+ fun sub(
+ doubleValA: String?,
+ doubleValB: String?,
+ ): Float {
+ val a2 = BigDecimal(doubleValA)
+ val b2 = BigDecimal(doubleValB)
+ return a2.subtract(b2).toFloat()
+ }
+ }
 }

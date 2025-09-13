@@ -18,148 +18,148 @@ import java.util.Map;
  */
 public class DeviceControlManager implements IDeviceConnectListener {
 
-    private static final String TAG = "DualDeviceControlManager";
+ private static final String TAG = "DualDeviceControlManager";
 
-    private DeviceControlWorker mDeviceControlWorker;
+ private DeviceControlWorker mDeviceControlWorker;
 
-    private HashMap<String, IDeviceConnectListener> mIDeviceConnectListeners;
+ private HashMap<String, IDeviceConnectListener> mIDeviceConnectListeners;
 
-    private DeviceControlManager() {
+ private DeviceControlManager() {
 
-    }
+ }
 
-    private static DeviceControlManager mInstance;
+ private static DeviceControlManager mInstance;
 
-    public static synchronized DeviceControlManager getInstance() {
-        if (mInstance == null) {
-            mInstance = new DeviceControlManager();
-        }
-        return mInstance;
-    }
+ public static synchronized DeviceControlManager getInstance() {
+ if (mInstance == null) {
+ mInstance = new DeviceControlManager();
+ }
+ return mInstance;
+ }
 
-    /**
+ /**
 \1initialize
-     */
-    public void init() {
-        mDeviceControlWorker = new DeviceControlWorker();
-        mDeviceControlWorker.setDeviceControlCallback(this);
-        mDeviceControlWorker.startWork();
-        mIDeviceConnectListeners = new HashMap<>();
-    }
+ */
+ public void init() {
+ mDeviceControlWorker = new DeviceControlWorker();
+ mDeviceControlWorker.setDeviceControlCallback(this);
+ mDeviceControlWorker.startWork();
+ mIDeviceConnectListeners = new HashMap<>();
+ }
 
-    /**
-\1注册device状态回调，可在activity或fragment中注册，用于UI的改变
-\1@param key 唯一标识
-     * @param iDeviceConnectListener
-     */
-    public void addDeviceConnectListener(String key, IDeviceConnectListener iDeviceConnectListener) {
-        if (mIDeviceConnectListeners != null) {
-            mIDeviceConnectListeners.put(key, iDeviceConnectListener);
-        }
-    }
+ /**
+\1deviceStatus，activityfragment，UI
+\1@param key 
+ * @param iDeviceConnectListener
+ */
+ public void addDeviceConnectListener(String key, IDeviceConnectListener iDeviceConnectListener) {
+ if (mIDeviceConnectListeners != null) {
+ mIDeviceConnectListeners.put(key, iDeviceConnectListener);
+ }
+ }
 
-    /**
-\1取消注册device状态回调
-     * @param key
-     */
-    public void removeDeviceConnectListener(String key) {
-        if (mIDeviceConnectListeners != null) {
-            mIDeviceConnectListeners.remove(key);
-        }
-    }
+ /**
+\1CanceldeviceStatus
+ * @param key
+ */
+ public void removeDeviceConnectListener(String key) {
+ if (mIDeviceConnectListeners != null) {
+ mIDeviceConnectListeners.remove(key);
+ }
+ }
 
-    /**
-\1回收资源
-     */
-    public void release() {
-        if (mDeviceControlWorker != null) {
-            mDeviceControlWorker.release();
-            mDeviceControlWorker = null;
-        }
-        if (mIDeviceConnectListeners != null) {
-            mIDeviceConnectListeners.clear();
-            mIDeviceConnectListeners = null;
-        }
-    }
+ /**
+\1
+ */
+ public void release() {
+ if (mDeviceControlWorker != null) {
+ mDeviceControlWorker.release();
+ mDeviceControlWorker = null;
+ }
+ if (mIDeviceConnectListeners != null) {
+ mIDeviceConnectListeners.clear();
+ mIDeviceConnectListeners = null;
+ }
+ }
 
-    /**
-\1双光data流出图
-     * @param ctrlBlock
-     */
-    public void handleStartPreview(USBMonitor.UsbControlBlock ctrlBlock) {
-        if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handleStartPreview");
-            mDeviceControlWorker.addTask(new StartPreviewTask(ctrlBlock, mDeviceControlWorker.getDeviceState()));
-        }
-    }
+ /**
+\1data
+ * @param ctrlBlock
+ */
+ public void handleStartPreview(USBMonitor.UsbControlBlock ctrlBlock) {
+ if (mDeviceControlWorker != null) {
+ Log.d(TAG, "handleStartPreview");
+ mDeviceControlWorker.addTask(new StartPreviewTask(ctrlBlock, mDeviceControlWorker.getDeviceState()));
+ }
+ }
 
-    /**
-\1双光data流停图
-     */
-    public void handleStopPreview() {
-        if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handleStopPreview");
-            mDeviceControlWorker.addTask(new StopPreviewTask(mDeviceControlWorker.getDeviceState()));
-        }
-    }
+ /**
+\1data
+ */
+ public void handleStopPreview() {
+ if (mDeviceControlWorker != null) {
+ Log.d(TAG, "handleStopPreview");
+ mDeviceControlWorker.addTask(new StopPreviewTask(mDeviceControlWorker.getDeviceState()));
+ }
+ }
 
-    /**
-\1双光data流暂停
-     */
-    public void handlePauseDualPreview() {
-        if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handlePausePreview");
-            mDeviceControlWorker.addTask(new PausePreviewTask(mDeviceControlWorker.getDeviceState()));
-        }
-    }
+ /**
+\1data
+ */
+ public void handlePauseDualPreview() {
+ if (mDeviceControlWorker != null) {
+ Log.d(TAG, "handlePausePreview");
+ mDeviceControlWorker.addTask(new PausePreviewTask(mDeviceControlWorker.getDeviceState()));
+ }
+ }
 
-    /**
-\1双光data流恢复
-     */
-    public void handleResumeDualPreview() {
-        if (mDeviceControlWorker != null) {
-            Log.d(TAG, "handleResumePreview");
-            mDeviceControlWorker.addTask(new ResumePreviewTask(mDeviceControlWorker.getDeviceState()));
-        }
-    }
+ /**
+\1data
+ */
+ public void handleResumeDualPreview() {
+ if (mDeviceControlWorker != null) {
+ Log.d(TAG, "handleResumePreview");
+ mDeviceControlWorker.addTask(new ResumePreviewTask(mDeviceControlWorker.getDeviceState()));
+ }
+ }
 
-    @Override
-    public void onPrepareConnect() {
-\1StartPreview前回调
-        for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
-            entry.getValue().onPrepareConnect();
-        }
-    }
+ @Override
+ public void onPrepareConnect() {
+\1StartPreview
+ for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
+ entry.getValue().onPrepareConnect();
+ }
+ }
 
-    @Override
-    public void onConnected() {
-\1StartPreviewsuccessful前后回调，注意是子线程
-        for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
-            entry.getValue().onConnected();
-        }
-    }
+ @Override
+ public void onConnected() {
+\1StartPreviewsuccessful，
+ for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
+ entry.getValue().onConnected();
+ }
+ }
 
-    @Override
-    public void onDisconnected() {
-\1StopPreviewsuccessful前后回调，注意是子线程
-        for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
-            entry.getValue().onDisconnected();
-        }
-    }
+ @Override
+ public void onDisconnected() {
+\1StopPreviewsuccessful，
+ for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
+ entry.getValue().onDisconnected();
+ }
+ }
 
-    @Override
-    public void onPaused() {
-\1todo 自行定义Paused Task来实现
-        for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
-            entry.getValue().onPaused();
-        }
-    }
+ @Override
+ public void onPaused() {
+\1todo Paused Task
+ for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
+ entry.getValue().onPaused();
+ }
+ }
 
-    @Override
-    public void onResumed() {
-\1todo 自行定义Resumed Task来实现
-        for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
-            entry.getValue().onResumed();
-        }
-    }
+ @Override
+ public void onResumed() {
+\1todo Resumed Task
+ for (Map.Entry<String, IDeviceConnectListener> entry: mIDeviceConnectListeners.entrySet()) {
+ entry.getValue().onResumed();
+ }
+ }
 }

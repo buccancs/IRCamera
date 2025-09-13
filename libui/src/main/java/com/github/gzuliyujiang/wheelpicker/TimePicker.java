@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+* Copyright (c) 2016-present Original Author <1032694760@qq.com>
  *
- * The software is licensed under the Mulan PSL v2.
+* The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+* http://license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -25,60 +25,60 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnTimePickedListener;
 import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
 
 /**
- * 时间选择器
+ * Comment removed (contained Chinese characters)
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+* @author （1032694760@qq.com）
  * @since 2021/6/5 18:19
  */
 @SuppressWarnings("unused")
 public class TimePicker extends ModalDialog {
-    protected TimeWheelLayout wheelLayout;
-    private OnTimePickedListener onTimePickedListener;
-    private OnTimeMeridiemPickedListener onTimeMeridiemPickedListener;
+ protected TimeWheelLayout wheelLayout;
+ private OnTimePickedListener onTimePickedListener;
+ private OnTimeMeridiemPickedListener onTimeMeridiemPickedListener;
 
-    public TimePicker(@NonNull Activity activity) {
-        super(activity);
-    }
+ public TimePicker(@NonNull Activity activity) {
+ super(activity);
+ }
 
-    public TimePicker(@NonNull Activity activity, @StyleRes int themeResId) {
-        super(activity, themeResId);
-    }
+ public TimePicker(@NonNull Activity activity, @StyleRes int themeResId) {
+ super(activity, themeResId);
+ }
 
-    @NonNull
-    @Override
-    protected View createBodyView() {
-        wheelLayout = new TimeWheelLayout(activity);
-        return wheelLayout;
-    }
+ @NonNull
+ @Override
+ protected View createBodyView() {
+ wheelLayout = new TimeWheelLayout(activity);
+ return wheelLayout;
+ }
 
-    @Override
-    protected void onCancel() {
+ @Override
+ protected void onCancel() {
 
-    }
+ }
 
-    @Override
-    protected void onOk() {
-        int hour = wheelLayout.getSelectedHour();
-        int minute = wheelLayout.getSelectedMinute();
-        int second = wheelLayout.getSelectedSecond();
-        if (onTimePickedListener != null) {
-            onTimePickedListener.onTimePicked(hour, minute, second);
-        }
-        if (onTimeMeridiemPickedListener != null) {
-            onTimeMeridiemPickedListener.onTimePicked(hour, minute, second, wheelLayout.isAnteMeridiem());
-        }
-    }
+ @Override
+ protected void onOk() {
+ int hour = wheelLayout.getSelectedHour();
+ int minute = wheelLayout.getSelectedMinute();
+ int second = wheelLayout.getSelectedSecond();
+ if (onTimePickedListener != null) {
+ onTimePickedListener.onTimePicked(hour, minute, second);
+ }
+ if (onTimeMeridiemPickedListener != null) {
+ onTimeMeridiemPickedListener.onTimePicked(hour, minute, second, wheelLayout.isAnteMeridiem());
+ }
+ }
 
-    public void setOnTimePickedListener(OnTimePickedListener onTimePickedListener) {
-        this.onTimePickedListener = onTimePickedListener;
-    }
+ public void setOnTimePickedListener(OnTimePickedListener onTimePickedListener) {
+ this.onTimePickedListener = onTimePickedListener;
+ }
 
-    public void setOnTimeMeridiemPickedListener(OnTimeMeridiemPickedListener onTimeMeridiemPickedListener) {
-        this.onTimeMeridiemPickedListener = onTimeMeridiemPickedListener;
-    }
+ public void setOnTimeMeridiemPickedListener(OnTimeMeridiemPickedListener onTimeMeridiemPickedListener) {
+ this.onTimeMeridiemPickedListener = onTimeMeridiemPickedListener;
+ }
 
-    public final TimeWheelLayout getWheelLayout() {
-        return wheelLayout;
-    }
+ public final TimeWheelLayout getWheelLayout() {
+ return wheelLayout;
+ }
 
 }

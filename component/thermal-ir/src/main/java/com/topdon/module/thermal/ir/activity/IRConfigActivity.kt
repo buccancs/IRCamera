@@ -38,10 +38,10 @@ import kotlinx.coroutines.launch
 import com.topdon.lib.core.R as LibR
 
 /**
-\1temperature correction（即setambient temperature、temperature measurement距离、emissivity）
+\1temperature correction（setambient temperature、temperature measurement、emissivity）
  *
-\1需要传递parameter：
-\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+\1parameter：
+\1- [ExtraKeyConfig.IS_TC007] - CurrentdeviceWhether TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -49,314 +49,314 @@ import com.topdon.lib.core.R as LibR
  * Manages UI interactions and thermal data display.
  */
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
-    /**
-\1从上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
-     */
-    private var isTC007 = false
+ /**
+\1interface，CurrentWhether TC007 deviceType.
+\1true-TC007 false-device
+ */
+ private var isTC007 = false
 
-    private val viewModel: IRConfigViewModel by viewModels()
+ private val viewModel: IRConfigViewModel by viewModels()
 
-    private lateinit var adapter: ConfigAdapter
+ private lateinit var adapter: ConfigAdapter
 
-    override fun initContentView(): Int = R.layout.activity_ir_config
+ override fun initContentView(): Int = R.layout.activity_ir_config
 
-    @SuppressLint("SetTextI18n")
-    override fun initView() {
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+ @SuppressLint("SetTextI18n")
+ override fun initView() {
+ isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        val tvDefaultTempTitle = findViewById<android.widget.TextView>(R.id.tv_default_temp_title)
-        val tvDefaultDisTitle = findViewById<android.widget.TextView>(R.id.tv_default_dis_title)
-        val tvDefaultEmTitle = findViewById<android.widget.TextView>(R.id.tv_default_em_title)
-        val tvDefaultTempUnit = findViewById<android.widget.TextView>(R.id.tv_default_temp_unit)
-        val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
-        val viewDefaultTempBg = findViewById<android.view.View>(R.id.view_default_temp_bg)
-        val viewDefaultDisBg = findViewById<android.view.View>(R.id.view_default_dis_bg)
-        val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        val tvDefaultTempValue = findViewById<android.widget.TextView>(R.id.tv_default_temp_value)
-        val tvDefaultDisValue = findViewById<android.widget.TextView>(R.id.tv_default_dis_value)
+ val tvDefaultTempTitle = findViewById<android.widget.TextView>(R.id.tv_default_temp_title)
+ val tvDefaultDisTitle = findViewById<android.widget.TextView>(R.id.tv_default_dis_title)
+ val tvDefaultEmTitle = findViewById<android.widget.TextView>(R.id.tv_default_em_title)
+ val tvDefaultTempUnit = findViewById<android.widget.TextView>(R.id.tv_default_temp_unit)
+ val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
+ val viewDefaultTempBg = findViewById<android.view.View>(R.id.view_default_temp_bg)
+ val viewDefaultDisBg = findViewById<android.view.View>(R.id.view_default_dis_bg)
+ val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
+ val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+ val tvDefaultTempValue = findViewById<android.widget.TextView>(R.id.tv_default_temp_value)
+ val tvDefaultDisValue = findViewById<android.widget.TextView>(R.id.tv_default_dis_value)
 
-        tvDefaultTempTitle.text = "${getString(LibR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-        tvDefaultDisTitle.text = "${getString(LibR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        tvDefaultEmTitle.text = "${getString(LibR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-        tvDefaultTempUnit.text = UnitTools.showUnit()
+ tvDefaultTempTitle.text = "${getString(LibR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+ tvDefaultDisTitle.text = "${getString(LibR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+ tvDefaultEmTitle.text = "${getString(LibR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+ tvDefaultTempUnit.text = UnitTools.showUnit()
 
-        ivDefaultSelector.setOnClickListener(this)
-        viewDefaultTempBg.setOnClickListener(this)
-        viewDefaultDisBg.setOnClickListener(this)
-        tvDefaultEmValue.setOnClickListener(this)
+ ivDefaultSelector.setOnClickListener(this)
+ viewDefaultTempBg.setOnClickListener(this)
+ viewDefaultDisBg.setOnClickListener(this)
+ tvDefaultEmValue.setOnClickListener(this)
 
-        adapter = ConfigAdapter(this, isTC007)
-        adapter.onSelectListener = {
-            viewModel.checkConfig(isTC007, it)
-        }
-        adapter.onDeleteListener = {
-            TipDialog.Builder(this)
-                .setMessage(getString(LibR.string.tip_config_delete, "${getString(LibR.string.thermal_custom_mode)}${it.name}"))
-                .setPositiveListener(LibR.string.app_confirm) {
-                    viewModel.deleteConfig(isTC007, it.id)
-                }
-                .setCancelListener(LibR.string.app_cancel)
-                .create().show()
-        }
-        adapter.onUpdateListener = {
-            viewModel.updateCustom(isTC007, it)
-        }
-        adapter.onAddListener =
-            View.OnClickListener {
-                TipDialog.Builder(this)
-                    .setMessage(LibR.string.tip_myself_model)
-                    .setPositiveListener(LibR.string.app_confirm) {
-                        viewModel.addConfig(isTC007)
-                    }
-                    .setCancelListener(LibR.string.app_cancel)
-                    .create().show()
-            }
+ adapter = ConfigAdapter(this, isTC007)
+ adapter.onSelectListener = {
+ viewModel.checkConfig(isTC007, it)
+ }
+ adapter.onDeleteListener = {
+ TipDialog.Builder(this)
+ .setMessage(getString(LibR.string.tip_config_delete, "${getString(LibR.string.thermal_custom_mode)}${it.name}"))
+ .setPositiveListener(LibR.string.app_confirm) {
+ viewModel.deleteConfig(isTC007, it.id)
+ }
+ .setCancelListener(LibR.string.app_cancel)
+ .create().show()
+ }
+ adapter.onUpdateListener = {
+ viewModel.updateCustom(isTC007, it)
+ }
+ adapter.onAddListener =
+ View.OnClickListener {
+ TipDialog.Builder(this)
+ .setMessage(LibR.string.tip_myself_model)
+ .setPositiveListener(LibR.string.app_confirm) {
+ viewModel.addConfig(isTC007)
+ }
+ .setCancelListener(LibR.string.app_cancel)
+ .create().show()
+ }
 
-        val itemDecoration = MyItemDecoration(this)
-        itemDecoration.wholeBottom = 20f
+ val itemDecoration = MyItemDecoration(this)
+ itemDecoration.wholeBottom = 20f
 
-        recyclerView.addItemDecoration(itemDecoration)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
+ recyclerView.addItemDecoration(itemDecoration)
+ recyclerView.layoutManager = LinearLayoutManager(this)
+ recyclerView.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
 
-        viewModel.configLiveData.observe(this) {
-\1先只刷新默认的configuration，等操作指引display完再刷新自定义configuration
-            tvDefaultTempValue.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
-            tvDefaultDisValue.text = NumberTools.to02(it.defaultModel.distance)
-            tvDefaultEmValue.text = NumberTools.to02(it.defaultModel.radiation)
-            ivDefaultSelector.isSelected = true
+ viewModel.configLiveData.observe(this) {
+\1Defaultconfiguration，displayconfiguration
+ tvDefaultTempValue.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
+ tvDefaultDisValue.text = NumberTools.to02(it.defaultModel.distance)
+ tvDefaultEmValue.text = NumberTools.to02(it.defaultModel.radiation)
+ ivDefaultSelector.isSelected = true
 
-            showGuideDialog(it)
+ showGuideDialog(it)
 
-            if (isTC007 && WebSocketProxy.getInstance().isTC007Connect()) {
-                lifecycleScope.launch {
-                    val config = ConfigRepository.readConfig(true)
-                    TC007Repository.setIRConfig(config.environment, config.distance, config.radiation)
-                }
-            }
-        }
-        viewModel.getConfig(isTC007)
-    }
+ if (isTC007 && WebSocketProxy.getInstance().isTC007Connect()) {
+ lifecycleScope.launch {
+ val config = ConfigRepository.readConfig(true)
+ TC007Repository.setIRConfig(config.environment, config.distance, config.radiation)
+ }
+ }
+ }
+ viewModel.getConfig(isTC007)
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    /**
-\1display操作指引弹框.
-     */
-    private fun showGuideDialog(modelBean: ModelBean) {
-        val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
-        val llRoot = findViewById<android.widget.LinearLayout>(R.id.ll_root)
+ /**
+\1display.
+ */
+ private fun showGuideDialog(modelBean: ModelBean) {
+ val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
+ val llRoot = findViewById<android.widget.LinearLayout>(R.id.ll_root)
 
-        if (SharedManager.configGuideStep == 0) { // 已看过或不再提示
-            ivDefaultSelector.isSelected = modelBean.defaultModel.use
-            adapter.refresh(modelBean.myselfModel)
-            return
-        }
-        val guideDialog = ConfigGuideDialog(this, isTC007, modelBean.defaultModel)
-        guideDialog.setOnDismissListener {
-            if (Build.VERSION.SDK_INT >= 31) {
-                window?.decorView?.setRenderEffect(null)
-            }
-            ivDefaultSelector.isSelected = modelBean.defaultModel.use
-            adapter.refresh(modelBean.myselfModel)
-        }
-        guideDialog.show()
+ if (SharedManager.configGuideStep == 0) { // 
+ ivDefaultSelector.isSelected = modelBean.defaultModel.use
+ adapter.refresh(modelBean.myselfModel)
+ return
+ }
+ val guideDialog = ConfigGuideDialog(this, isTC007, modelBean.defaultModel)
+ guideDialog.setOnDismissListener {
+ if (Build.VERSION.SDK_INT >= 31) {
+ window?.decorView?.setRenderEffect(null)
+ }
+ ivDefaultSelector.isSelected = modelBean.defaultModel.use
+ adapter.refresh(modelBean.myselfModel)
+ }
+ guideDialog.show()
 
-        if (Build.VERSION.SDK_INT >= 31) {
-            window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
-        } else {
-            lifecycleScope.launch {
-\1interface刷新需要时间，所以需要等待100毫秒再去刷新背景
-                delay(100)
-                guideDialog.blurBg(llRoot)
-            }
-        }
-    }
+ if (Build.VERSION.SDK_INT >= 31) {
+ window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
+ } else {
+ lifecycleScope.launch {
+\1interface，100
+ delay(100)
+ guideDialog.blurBg(llRoot)
+ }
+ }
+ }
 
-    override fun onClick(v: View?) {
-        val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
-        val viewDefaultTempBg = findViewById<android.view.View>(R.id.view_default_temp_bg)
-        val viewDefaultDisBg = findViewById<android.view.View>(R.id.view_default_dis_bg)
-        val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
+ override fun onClick(v: View?) {
+ val ivDefaultSelector = findViewById<android.widget.ImageView>(R.id.iv_default_selector)
+ val viewDefaultTempBg = findViewById<android.view.View>(R.id.view_default_temp_bg)
+ val viewDefaultDisBg = findViewById<android.view.View>(R.id.view_default_dis_bg)
+ val tvDefaultEmValue = findViewById<android.widget.TextView>(R.id.tv_default_em_value)
 
-        when (v) {
-            ivDefaultSelector -> { // 默认模式-选中
-                viewModel.checkConfig(isTC007, 0)
-            }
-            viewDefaultTempBg -> { // 默认模式-环境温度
-                IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
-                    .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
-                    .setConfirmListener {
-                        viewModel.updateDefaultEnvironment(isTC007, UnitTools.showToCValue(it))
-                    }
-                    .show()
-            }
-            viewDefaultDisBg -> { // 默认模式-测温距离
-                IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
-                    .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
-                    .setConfirmListener {
-                        viewModel.updateDefaultDistance(isTC007, it)
-                    }
-                    .show()
-            }
-            tvDefaultEmValue -> { // 默认模式-发射率
-                IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
-                    .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
-                    .setConfirmListener {
-                        viewModel.updateDefaultRadiation(isTC007, it)
-                    }
-                    .show()
-            }
-        }
-    }
+ when (v) {
+ ivDefaultSelector -> { // DefaultMode-
+ viewModel.checkConfig(isTC007, 0)
+ }
+ viewDefaultTempBg -> { // DefaultMode-Temperature
+ IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
+ .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
+ .setConfirmListener {
+ viewModel.updateDefaultEnvironment(isTC007, UnitTools.showToCValue(it))
+ }
+ .show()
+ }
+ viewDefaultDisBg -> { // DefaultMode-Temp
+ IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
+ .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
+ .setConfirmListener {
+ viewModel.updateDefaultDistance(isTC007, it)
+ }
+ .show()
+ }
+ tvDefaultEmValue -> { // DefaultMode-
+ IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
+ .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
+ .setConfirmListener {
+ viewModel.updateDefaultRadiation(isTC007, it)
+ }
+ .show()
+ }
+ }
+ }
 
-    private class ConfigAdapter(val context: Context, val isTC007: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private val dataList: ArrayList<DataBean> = ArrayList()
+ private class ConfigAdapter(val context: Context, val isTC007: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+ private val dataList: ArrayList<DataBean> = ArrayList()
 
-        /**
-\1item（一项自定义configuration）选中事件监听.
-         */
-        var onSelectListener: ((id: Int) -> Unit)? = null
+ /**
+\1item（configuration）.
+ */
+ var onSelectListener: ((id: Int) -> Unit)? = null
 
-        /**
-\1item（一项自定义configuration）删除件监听.
-         */
-        var onDeleteListener: ((bean: DataBean) -> Unit)? = null
+ /**
+\1item（configuration）Delete.
+ */
+ var onDeleteListener: ((bean: DataBean) -> Unit)? = null
 
-        /**
-\1item（一项自定义configuration）变更事件监听.
-         */
-        var onUpdateListener: ((bean: DataBean) -> Unit)? = null
+ /**
+\1item（configuration）.
+ */
+ var onUpdateListener: ((bean: DataBean) -> Unit)? = null
 
-        /**
-\1添加事件监听.
-         */
-        var onAddListener: View.OnClickListener? = null
+ /**
+\1.
+ */
+ var onAddListener: View.OnClickListener? = null
 
-        @SuppressLint("NotifyDataSetChanged")
-        fun refresh(newList: List<DataBean>) {
-            dataList.clear()
-            dataList.addAll(newList)
-            notifyDataSetChanged()
-        }
+ @SuppressLint("NotifyDataSetChanged")
+ fun refresh(newList: List<DataBean>) {
+ dataList.clear()
+ dataList.addAll(newList)
+ notifyDataSetChanged()
+ }
 
-        override fun getItemViewType(position: Int): Int {
-            return if (position < dataList.size) 0 else 1
-        }
+ override fun getItemViewType(position: Int): Int {
+ return if (position < dataList.size) 0 else 1
+ }
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int,
-        ): RecyclerView.ViewHolder {
-            return if (viewType == 0) {
-                ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_config, parent, false))
-            } else {
-                FootViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_foot, parent, false))
-            }
-        }
+ override fun onCreateViewHolder(
+ parent: ViewGroup,
+ viewType: Int,
+ ): RecyclerView.ViewHolder {
+ return if (viewType == 0) {
+ ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_config, parent, false))
+ } else {
+ FootViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_foot, parent, false))
+ }
+ }
 
-        @SuppressLint("SetTextI18n")
-        override fun onBindViewHolder(
-            holder: RecyclerView.ViewHolder,
-            position: Int,
-        ) {
-            if (holder is ItemViewHolder) {
-                val dataBean = dataList[position]
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_name).text = "${context.getString(LibR.string.thermal_custom_mode)}${dataBean.name}"
-                holder.itemView.findViewById<android.widget.ImageView>(R.id.iv_selector).isSelected = dataBean.use
+ @SuppressLint("SetTextI18n")
+ override fun onBindViewHolder(
+ holder: RecyclerView.ViewHolder,
+ position: Int,
+ ) {
+ if (holder is ItemViewHolder) {
+ val dataBean = dataList[position]
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_name).text = "${context.getString(LibR.string.thermal_custom_mode)}${dataBean.name}"
+ holder.itemView.findViewById<android.widget.ImageView>(R.id.iv_selector).isSelected = dataBean.use
 
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_title).text = "${context.getString(LibR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_dis_title).text = "${context.getString(LibR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_em_title).text = "${context.getString(LibR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_unit).text = UnitTools.showUnit()
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_title).text = "${context.getString(LibR.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_dis_title).text = "${context.getString(LibR.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_em_title).text = "${context.getString(LibR.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_unit).text = UnitTools.showUnit()
 
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_value).text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_dis_value).text = NumberTools.to02(dataBean.distance)
-                holder.itemView.findViewById<android.widget.TextView>(R.id.tv_em_value).text = NumberTools.to02(dataBean.radiation)
-            } else if (holder is FootViewHolder) {
-                holder.itemView.findViewById<android.widget.TextView>(
-                    R.id.tv_add,
-                ).setTextColor(if (dataList.size >= 10) 0x80ffffff.toInt() else 0xccffffff.toInt())
-            }
-        }
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_temp_value).text = NumberTools.to02(UnitTools.showUnitValue(dataBean.environment))
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_dis_value).text = NumberTools.to02(dataBean.distance)
+ holder.itemView.findViewById<android.widget.TextView>(R.id.tv_em_value).text = NumberTools.to02(dataBean.radiation)
+ } else if (holder is FootViewHolder) {
+ holder.itemView.findViewById<android.widget.TextView>(
+ R.id.tv_add,
+ ).setTextColor(if (dataList.size >= 10) 0x80ffffff.toInt() else 0xccffffff.toInt())
+ }
+ }
 
-        override fun getItemCount(): Int = dataList.size + 1
+ override fun getItemCount(): Int = dataList.size + 1
 
-        inner class ItemViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
-            init {
-                rootView.findViewById<android.widget.ImageView>(R.id.iv_selector).setOnClickListener {
-                    val position: Int = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        onSelectListener?.invoke(dataList[position].id)
-                    }
-                }
-                rootView.findViewById<android.widget.ImageView>(R.id.iv_del).setOnClickListener {
-                    val position: Int = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        onDeleteListener?.invoke(dataList[position])
-                    }
-                }
-                rootView.findViewById<android.view.View>(R.id.view_temp_bg).setOnClickListener {
-                    val position: Int = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        IRConfigInputDialog(context, IRConfigInputDialog.Type.TEMP, isTC007)
-                            .setInput(UnitTools.showUnitValue(dataList[position].environment))
-                            .setConfirmListener {
-                                itemView.findViewById<android.widget.TextView>(R.id.tv_temp_value).text = NumberTools.to02(UnitTools.showToCValue(it))
-                                dataList[position].environment = UnitTools.showToCValue(it)
-                                onUpdateListener?.invoke(dataList[position])
-                            }
-                            .show()
-                    }
-                }
-                rootView.findViewById<android.view.View>(R.id.view_dis_bg).setOnClickListener {
-                    val position: Int = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        IRConfigInputDialog(context, IRConfigInputDialog.Type.DIS, isTC007)
-                            .setInput(dataList[position].distance)
-                            .setConfirmListener {
-                                itemView.findViewById<android.widget.TextView>(R.id.tv_dis_value).text = it.toString()
-                                dataList[position].distance = it
-                                onUpdateListener?.invoke(dataList[position])
-                            }
-                            .show()
-                    }
-                }
-                rootView.findViewById<android.widget.TextView>(R.id.tv_em_value).setOnClickListener {
-                    val position: Int = bindingAdapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        IRConfigInputDialog(context, IRConfigInputDialog.Type.EM, isTC007)
-                            .setInput(dataList[position].radiation)
-                            .setConfirmListener {
-                                itemView.findViewById<android.widget.TextView>(R.id.tv_em_value).text = it.toString()
-                                dataList[position].radiation = it
-                                onUpdateListener?.invoke(dataList[position])
-                            }
-                            .show()
-                    }
-                }
-            }
-        }
+ inner class ItemViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+ init {
+ rootView.findViewById<android.widget.ImageView>(R.id.iv_selector).setOnClickListener {
+ val position: Int = bindingAdapterPosition
+ if (position != RecyclerView.NO_POSITION) {
+ onSelectListener?.invoke(dataList[position].id)
+ }
+ }
+ rootView.findViewById<android.widget.ImageView>(R.id.iv_del).setOnClickListener {
+ val position: Int = bindingAdapterPosition
+ if (position != RecyclerView.NO_POSITION) {
+ onDeleteListener?.invoke(dataList[position])
+ }
+ }
+ rootView.findViewById<android.view.View>(R.id.view_temp_bg).setOnClickListener {
+ val position: Int = bindingAdapterPosition
+ if (position != RecyclerView.NO_POSITION) {
+ IRConfigInputDialog(context, IRConfigInputDialog.Type.TEMP, isTC007)
+ .setInput(UnitTools.showUnitValue(dataList[position].environment))
+ .setConfirmListener {
+ itemView.findViewById<android.widget.TextView>(R.id.tv_temp_value).text = NumberTools.to02(UnitTools.showToCValue(it))
+ dataList[position].environment = UnitTools.showToCValue(it)
+ onUpdateListener?.invoke(dataList[position])
+ }
+ .show()
+ }
+ }
+ rootView.findViewById<android.view.View>(R.id.view_dis_bg).setOnClickListener {
+ val position: Int = bindingAdapterPosition
+ if (position != RecyclerView.NO_POSITION) {
+ IRConfigInputDialog(context, IRConfigInputDialog.Type.DIS, isTC007)
+ .setInput(dataList[position].distance)
+ .setConfirmListener {
+ itemView.findViewById<android.widget.TextView>(R.id.tv_dis_value).text = it.toString()
+ dataList[position].distance = it
+ onUpdateListener?.invoke(dataList[position])
+ }
+ .show()
+ }
+ }
+ rootView.findViewById<android.widget.TextView>(R.id.tv_em_value).setOnClickListener {
+ val position: Int = bindingAdapterPosition
+ if (position != RecyclerView.NO_POSITION) {
+ IRConfigInputDialog(context, IRConfigInputDialog.Type.EM, isTC007)
+ .setInput(dataList[position].radiation)
+ .setConfirmListener {
+ itemView.findViewById<android.widget.TextView>(R.id.tv_em_value).text = it.toString()
+ dataList[position].radiation = it
+ onUpdateListener?.invoke(dataList[position])
+ }
+ .show()
+ }
+ }
+ }
+ }
 
-        inner class FootViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
-            init {
-                rootView.findViewById<android.view.View>(R.id.view_add).setOnClickListener {
-                    if (dataList.size < 10) {
-                        val position: Int = bindingAdapterPosition
-                        if (position != RecyclerView.NO_POSITION) {
-                            onAddListener?.onClick(it)
-                        }
-                    } else {
-                        TToast.shortToast(context, com.topdon.lib.core.R.string.config_add_tip)
-                    }
-                }
-                rootView.findViewById<TextView>(R.id.tv_all_emissivity).setOnClickListener {
-                    context.startActivity(Intent(context, IREmissivityActivity::class.java))
-                }
-            }
-        }
-    }
+ inner class FootViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+ init {
+ rootView.findViewById<android.view.View>(R.id.view_add).setOnClickListener {
+ if (dataList.size < 10) {
+ val position: Int = bindingAdapterPosition
+ if (position != RecyclerView.NO_POSITION) {
+ onAddListener?.onClick(it)
+ }
+ } else {
+ TToast.shortToast(context, com.topdon.lib.core.R.string.config_add_tip)
+ }
+ }
+ rootView.findViewById<TextView>(R.id.tv_all_emissivity).setOnClickListener {
+ context.startActivity(Intent(context, IREmissivityActivity::class.java))
+ }
+ }
+ }
+ }
 }

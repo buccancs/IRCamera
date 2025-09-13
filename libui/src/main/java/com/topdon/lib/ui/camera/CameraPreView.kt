@@ -35,489 +35,489 @@ import com.topdon.lib.ui.databinding.CameraLayBinding
 import java.util.Collections
 
 /**
- * 相机预览
+ * Comment removed (contained Chinese characters)
  */
 /**
  * Custom Camera pre view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
 class CameraPreView :
-    LinearLayout,
-    ScaleGestureDetector.OnScaleGestureListener,
-    BitmapViewListener {
-    private lateinit var binding: CameraLayBinding
-    private var cameraCharacteristics: CameraCharacteristics? = null
-    private var isReverse: Boolean = false
-    private var cameraWidth = 0
+ LinearLayout,
+ ScaleGestureDetector.OnScaleGestureListener,
+ BitmapViewListener {
+ private lateinit var binding: CameraLayBinding
+ private var cameraCharacteristics: CameraCharacteristics? = null
+ private var isReverse: Boolean = false
+ private var cameraWidth = 0
 
-    var isPreviewing = false
+ var isPreviewing = false
 
-    var cameraPreViewCloseListener: (() -> Unit)? = null
+ var cameraPreViewCloseListener: (() -> Unit)? = null
 
-    constructor(context: Context) : this(context, null)
+ constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        initView()
-    }
+ constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+ initView()
+ }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-    )
+ constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+ context,
+ attrs,
+ defStyleAttr,
+ )
 
-    private fun initView() {
-        binding = CameraLayBinding.inflate(LayoutInflater.from(context), this, true)
-        binding.cameraTexture.post { cameraWidth = binding.cameraTexture.width }
-        lis = ScaleGestureDetector(context, this)
-        onResumeView()
-    }
+ private fun initView() {
+ binding = CameraLayBinding.inflate(LayoutInflater.from(context), this, true)
+ binding.cameraTexture.post { cameraWidth = binding.cameraTexture.width }
+ lis = ScaleGestureDetector(context, this)
+ onResumeView()
+ }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        isPreviewing = false
-        mCameraDevice?.close()
-        mCameraHandler?.removeCallbacksAndMessages(null)
-    }
+ override fun onDetachedFromWindow() {
+ super.onDetachedFromWindow()
+ isPreviewing = false
+ mCameraDevice?.close()
+ mCameraHandler?.removeCallbacksAndMessages(null)
+ }
 
-    private var startX = 0f // 记录落点到控件的距离
-    private var startY = 0f
-    private var moveX = 0f
-    private var moveY = 0f
-    private var parentViewW = 0f
-    private var parentViewH = 0f
-    private var isScale = false
-    private var scale = 1f
-    private var scaleW = 0f // 单边缩放长度
-    private var scaleH = 0f
+ private var startX = 0f // 
+ private var startY = 0f
+ private var moveX = 0f
+ private var moveY = 0f
+ private var parentViewW = 0f
+ private var parentViewH = 0f
+ private var isScale = false
+ private var scale = 1f
+ private var scaleW = 0f // 
+ private var scaleH = 0f
 
-    private lateinit var lis: ScaleGestureDetector
+ private lateinit var lis: ScaleGestureDetector
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (isScale && event.action != MotionEvent.ACTION_UP) {
-            return lis.onTouchEvent(event)
-        }
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                scaleW = binding.cameraTexture.width * (scale - 1) / 2f
-                scaleH = binding.cameraTexture.height * (scale - 1) / 2f
-                startX = event.x - binding.cameraTexture.x
-                startY = event.y - binding.cameraTexture.y
-                val view: View = binding.cameraTexture.parent as View
-                parentViewW = view.width.toFloat()
-                parentViewH = view.height.toFloat()
-            }
-            MotionEvent.ACTION_MOVE -> {
-                // 滑动
-                moveX = event.x - startX
-                moveY = event.y - startY
-                // 根据移动情况，不可见时候close
-//                if (moveX-scaleW < -mTextureView.width ||
-//                    moveX+scaleW > parentViewW ||
-//                    moveY - scaleH < -mTextureView.height ||
-//                    moveY + scaleH > parentViewH){
-//                    cameraPreViewCloseListener?.invoke()
-//                }
+ @SuppressLint("ClickableViewAccessibility")
+ override fun onTouchEvent(event: MotionEvent): Boolean {
+ if (isScale && event.action != MotionEvent.ACTION_UP) {
+ return lis.onTouchEvent(event)
+ }
+ when (event.action) {
+ MotionEvent.ACTION_DOWN -> {
+ scaleW = binding.cameraTexture.width * (scale - 1) / 2f
+ scaleH = binding.cameraTexture.height * (scale - 1) / 2f
+ startX = event.x - binding.cameraTexture.x
+ startY = event.y - binding.cameraTexture.y
+ val view: View = binding.cameraTexture.parent as View
+ parentViewW = view.width.toFloat()
+ parentViewH = view.height.toFloat()
+ }
+ MotionEvent.ACTION_MOVE -> {
+ // Comment removed (contained Chinese characters)
+ moveX = event.x - startX
+ moveY = event.y - startY
+ // Comment removed (contained Chinese characters)
+// if (moveX-scaleW < -mTextureView.width ||
+// moveX+scaleW > parentViewW ||
+// moveY - scaleH < -mTextureView.height ||
+// moveY + scaleH > parentViewH){
+// cameraPreViewCloseListener?.invoke()
+// }
 
-                // 越界归位
-//                if (moveX - scaleW < 0f) moveX = 0f + scaleW
-//                if (moveY - scaleH < 0f) moveY = 0f + scaleH
-//                if (moveX + scaleW > parentViewW - mTextureView.width) {
-//                    moveX = parentViewW - mTextureView.width - scaleW
-//                }
-//                if (moveY + scaleH > parentViewH - mTextureView.height) {
-//                    moveY = parentViewH - mTextureView.height - scaleH
-//                }
-//                Log.e("测试---","/"+(moveX + scaleW)+"///"+(parentViewW - mTextureView.width))
-                binding.cameraTexture.x = moveX
-                binding.cameraTexture.y = moveY
-            }
-            MotionEvent.ACTION_UP -> {
-                isScale = false // 实际以手指抬起设定缩放结束
-                val startX = viewX
-                val startY = viewY
-//                Log.e("测试","/"+(startX)+"///"+startY+"///"+(mTextureView.width)+"//"+mTextureView.width * scale)
-                if ((viewX < 0 && startX < -binding.cameraTexture.width * scale + SizeUtils.dp2px(10f)) ||
-                    (startX > 0 && startX > parentViewW - SizeUtils.dp2px(10f)) ||
-                    (startY < 0 && startY < -binding.cameraTexture.height * scale + SizeUtils.dp2px(10f)) ||
-                    (startY > 0 && startY > parentViewH - SizeUtils.dp2px(10f))
-                ) {
-                    cameraPreViewCloseListener?.invoke()
-                }
-            }
-        }
-        return lis.onTouchEvent(event)
-    }
+ // Comment removed (contained Chinese characters)
+// if (moveX - scaleW < 0f) moveX = 0f + scaleW
+// if (moveY - scaleH < 0f) moveY = 0f + scaleH
+// if (moveX + scaleW > parentViewW - mTextureView.width) {
+// moveX = parentViewW - mTextureView.width - scaleW
+// }
+// if (moveY + scaleH > parentViewH - mTextureView.height) {
+// moveY = parentViewH - mTextureView.height - scaleH
+// }
+// Comment removed (contained Chinese characters)
+ binding.cameraTexture.x = moveX
+ binding.cameraTexture.y = moveY
+ }
+ MotionEvent.ACTION_UP -> {
+ isScale = false // End
+ val startX = viewX
+ val startY = viewY
+// Comment removed (contained Chinese characters)
+ if ((viewX < 0 && startX < -binding.cameraTexture.width * scale + SizeUtils.dp2px(10f)) ||
+ (startX > 0 && startX > parentViewW - SizeUtils.dp2px(10f)) ||
+ (startY < 0 && startY < -binding.cameraTexture.height * scale + SizeUtils.dp2px(10f)) ||
+ (startY > 0 && startY > parentViewH - SizeUtils.dp2px(10f))
+ ) {
+ cameraPreViewCloseListener?.invoke()
+ }
+ }
+ }
+ return lis.onTouchEvent(event)
+ }
 
-    /**
-     * saved图片
-     */
-    public fun getBitmap(): Bitmap? {
-        return binding.cameraTexture.bitmap
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ public fun getBitmap(): Bitmap? {
+ return binding.cameraTexture.bitmap
+ }
 
-    override fun onScale(detector: ScaleGestureDetector): Boolean {
-        // 缩放
-        isScale = true
-        detector?.let {
-            val scaleFactor = it.scaleFactor - 1
-            if (scaleFactor < 0) {
-                if (scale > 0.1) {
-                    scale += scaleFactor
-                    binding.cameraTexture.scaleX = scale
-                    binding.cameraTexture.scaleY = scale
-                }
-            } else {
-                scale += scaleFactor
-                binding.cameraTexture.scaleX = scale
-                binding.cameraTexture.scaleY = scale
-            }
-        }
-        return true
-    }
+ override fun onScale(detector: ScaleGestureDetector): Boolean {
+ // Comment removed (contained Chinese characters)
+ isScale = true
+ detector?.let {
+ val scaleFactor = it.scaleFactor - 1
+ if (scaleFactor < 0) {
+ if (scale > 0.1) {
+ scale += scaleFactor
+ binding.cameraTexture.scaleX = scale
+ binding.cameraTexture.scaleY = scale
+ }
+ } else {
+ scale += scaleFactor
+ binding.cameraTexture.scaleX = scale
+ binding.cameraTexture.scaleY = scale
+ }
+ }
+ return true
+ }
 
-    override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
-        isScale = true
-        return true
-    }
+ override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+ isScale = true
+ return true
+ }
 
-    override fun onScaleEnd(detector: ScaleGestureDetector) {
-    }
+ override fun onScaleEnd(detector: ScaleGestureDetector) {
+ }
 
-    fun onResume() {
-        // 处理switch后台，打开系统相机后，回到app导致预览不update画面的问题
-        if (mCameraDevice != null) {
-            mCameraDevice?.close()
-            openCamera()
-        }
-    }
+ fun onResume() {
+ // Comment removed (contained Chinese characters)
+ if (mCameraDevice != null) {
+ mCameraDevice?.close()
+ openCamera()
+ }
+ }
 
 // ////////////////
 
-    /**相机权限请求标识 */
-    private val REQUEST_CAMERA_CODE = 0x100
+ /* Comment removed (contained Chinese characters) */
+ private val REQUEST_CAMERA_CODE = 0x100
 
-    /**图片 */
-    private var mImageView: ImageView? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mImageView: ImageView? = null
 
-    /**照相机ID，标识前置后置 */
-    private lateinit var mCameraId: String
+ /* Comment removed (contained Chinese characters) */
+ private lateinit var mCameraId: String
 
-    /**相机尺寸 */
-    private var mCaptureSize: Size? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCaptureSize: Size? = null
 
-    /**图像读取者 */
-    private var mImageReader: ImageReader? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mImageReader: ImageReader? = null
 
-    /**图像主线程Handler */
-    private var mCameraHandler: Handler? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCameraHandler: Handler? = null
 
-    /**相机设备 */
-    private var mCameraDevice: CameraDevice? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCameraDevice: CameraDevice? = null
 
-    /**预览大小 */
-    private var mPreviewSize: Size? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mPreviewSize: Size? = null
 
-    /**相机请求 */
-    private lateinit var mCaptureBuilder: CaptureRequest.Builder
+ /* Comment removed (contained Chinese characters) */
+ private lateinit var mCaptureBuilder: CaptureRequest.Builder
 
-    /**相机capture捕获会话 */
-    private var mCameraCaptureSession: CameraCaptureSession? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCameraCaptureSession: CameraCaptureSession? = null
 
-    /**相机管理者 */
-    private var mCameraManager: CameraManager? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCameraManager: CameraManager? = null
 
-    /**相机设备state回调 */
-    private val mStateCallback: CameraDevice.StateCallback =
-        object : CameraDevice.StateCallback() {
-            override fun onOpened(
-                @NonNull camera: CameraDevice,
-            ) {
-                // 打开
-                XLog.i("开启预览")
-                mCameraDevice = camera
-                takePreview()
-            }
+ /* Comment removed (contained Chinese characters) */
+ private val mStateCallback: CameraDevice.StateCallback =
+ object : CameraDevice.StateCallback() {
+ override fun onOpened(
+ @NonNull camera: CameraDevice,
+ ) {
+ // Comment removed (contained Chinese characters)
+ XLog.i("")
+ mCameraDevice = camera
+ takePreview()
+ }
 
-            override fun onDisconnected(
-                @NonNull camera: CameraDevice,
-            ) {
-                // 断开连接
-                XLog.i("close预览")
-                isPreviewing = false
-//                camera.close()
-//                mCameraDevice = null
-            }
+ override fun onDisconnected(
+ @NonNull camera: CameraDevice,
+ ) {
+ // DisconnectConnection
+ XLog.i("close")
+ isPreviewing = false
+// camera.close()
+// mCameraDevice = null
+ }
 
-            override fun onError(
-                @NonNull camera: CameraDevice,
-                error: Int,
-            ) {
-                // 异常
-                isPreviewing = false
-                camera.close()
-                mCameraDevice = null
-                XLog.e("预览异常 error: $error")
-            }
-        }
+ override fun onError(
+ @NonNull camera: CameraDevice,
+ error: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ isPreviewing = false
+ camera.close()
+ mCameraDevice = null
+ XLog.e(" error: $error")
+ }
+ }
 
-    fun setRotation(isReverse: Boolean) {
-        this.isReverse = isReverse
-        updateRotation()
-    }
+ fun setRotation(isReverse: Boolean) {
+ this.isReverse = isReverse
+ updateRotation()
+ }
 
-    private fun updateRotation() {
-        if (isReverse) {
-            binding.cameraTexture.rotation = 180f
-        } else {
-            binding.cameraTexture.rotation = 0f
-        }
-    }
+ private fun updateRotation() {
+ if (isReverse) {
+ binding.cameraTexture.rotation = 180f
+ } else {
+ binding.cameraTexture.rotation = 0f
+ }
+ }
 
-    /**
-     * 预览
-     * click开启相机后触发
-     */
-    private fun takePreview() {
-//        mTextureView.rotation = 270f
-//        mTextureView.rotation = 0f
-        updateRotation()
-//        val layoutParams = mTextureView.layoutParams
-//        layoutParams.width = cameraWidth / 2
-//        mTextureView.layoutParams = layoutParams
-        val surfaceTexture = binding.cameraTexture.surfaceTexture
-        // settings默认的缓冲大小
-        surfaceTexture?.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        // 创建Surface
-        val previewSurface = Surface(surfaceTexture)
-        try {
-            // 创建预览请求
-            mCaptureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            // 将previewSurface添加到预览请求中
-            mCaptureBuilder.addTarget(previewSurface)
-            // 创建会话
-            @Suppress("DEPRECATION")
-            mCameraDevice!!.createCaptureSession(
-                listOf(previewSurface),
-                object : CameraCaptureSession.StateCallback() {
-                    override fun onConfigured(
-                        @NonNull session: CameraCaptureSession,
-                    ) {
-                        try {
-                            // configuration
-                            val captureRequest = mCaptureBuilder.build()
-                            // 設置session
-                            mCameraCaptureSession = session
-                            // settings重复预览请求
-                            mCameraCaptureSession?.setRepeatingRequest(
-                                captureRequest,
-                                null,
-                                mCameraHandler,
-                            )
-                        } catch (e: CameraAccessException) {
-                            XLog.e("相机异常：${e.printStackTrace()}")
-                        }
-                    }
+ /**
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ private fun takePreview() {
+// mTextureView.rotation = 270f
+// mTextureView.rotation = 0f
+ updateRotation()
+// val layoutParams = mTextureView.layoutParams
+// layoutParams.width = cameraWidth / 2
+// mTextureView.layoutParams = layoutParams
+ val surfaceTexture = binding.cameraTexture.surfaceTexture
+ // Comment removed (contained Chinese characters)
+ surfaceTexture?.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
+ // Comment removed (contained Chinese characters)
+ val previewSurface = Surface(surfaceTexture)
+ try {
+ // Comment removed (contained Chinese characters)
+ mCaptureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+ // Comment removed (contained Chinese characters)
+ mCaptureBuilder.addTarget(previewSurface)
+ // Comment removed (contained Chinese characters)
+ @Suppress("DEPRECATION")
+ mCameraDevice!!.createCaptureSession(
+ listOf(previewSurface),
+ object : CameraCaptureSession.StateCallback() {
+ override fun onConfigured(
+ @NonNull session: CameraCaptureSession,
+ ) {
+ try {
+ // configuration
+ val captureRequest = mCaptureBuilder.build()
+ // Comment removed (contained Chinese characters)
+ mCameraCaptureSession = session
+ // Comment removed (contained Chinese characters)
+ mCameraCaptureSession?.setRepeatingRequest(
+ captureRequest,
+ null,
+ mCameraHandler,
+ )
+ } catch (e: CameraAccessException) {
+ XLog.e("：${e.printStackTrace()}")
+ }
+ }
 
-                    override fun onConfigureFailed(
-                        @NonNull session: CameraCaptureSession,
-                    ) {
-                        // configuration失败
-                        XLog.e("configuration失败")
-                    }
-                },
-                mCameraHandler,
-            )
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
-    }
+ override fun onConfigureFailed(
+ @NonNull session: CameraCaptureSession,
+ ) {
+ // configurationFailed
+ XLog.e("configurationFailed")
+ }
+ },
+ mCameraHandler,
+ )
+ } catch (e: CameraAccessException) {
+ e.printStackTrace()
+ }
+ }
 
-    private fun onResumeView() {
-        binding.cameraTexture.surfaceTextureListener =
-            object : TextureView.SurfaceTextureListener {
-                override fun onSurfaceTextureAvailable(
-                    surface: SurfaceTexture,
-                    width: Int,
-                    height: Int,
-                ) {
-                    // SurfaceTexture可用
-                    XLog.w("width:$width, height:$height")
-                    setUpCamera(width, height)
-                }
+ private fun onResumeView() {
+ binding.cameraTexture.surfaceTextureListener =
+ object : TextureView.SurfaceTextureListener {
+ override fun onSurfaceTextureAvailable(
+ surface: SurfaceTexture,
+ width: Int,
+ height: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ XLog.w("width:$width, height:$height")
+ setUpCamera(width, height)
+ }
 
-                override fun onSurfaceTextureSizeChanged(
-                    surface: SurfaceTexture,
-                    width: Int,
-                    height: Int,
-                ) {
-                    // SurfaceTexture大小改变
-                }
+ override fun onSurfaceTextureSizeChanged(
+ surface: SurfaceTexture,
+ width: Int,
+ height: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ }
 
-                override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-                    // SurfaceTexture 销毁
-                    return false
-                }
+ override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
+ // Comment removed (contained Chinese characters)
+ return false
+ }
 
-                override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                    // SurfaceTexture update
-                }
-            }
-    }
+ override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
+ // SurfaceTexture update
+ }
+ }
+ }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-    }
+ override fun onAttachedToWindow() {
+ super.onAttachedToWindow()
+ }
 
-    /**
-     * settings相机参数
-     * @param width 宽度
-     * @param height 高度
-     */
-    private fun setUpCamera(
-        width: Int,
-        height: Int,
-    ) {
-        // 创建Handler
-        mCameraHandler = Handler(Looper.getMainLooper())
-        // 获取摄像头的管理者
-        mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        try {
-            // 遍历所有摄像头,找到一个取消遍历
-            for (cameraId in mCameraManager!!.cameraIdList) {
-                XLog.i("camera id: $cameraId")
-                cameraCharacteristics = mCameraManager!!.getCameraCharacteristics(cameraId)
-                // 获取摄像头是前置还是后置
-                val facing = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING)
-                // 前置摄像头跳过
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) continue
-                // 获取StreamConfigurationMap，管理摄像头支持的所有输出格式和尺寸
-                val map = cameraCharacteristics?.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
-                // 根据TextureView的尺寸settings预览尺寸
-                val mapList = map.getOutputSizes(SurfaceTexture::class.java)
+ /**
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ private fun setUpCamera(
+ width: Int,
+ height: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ mCameraHandler = Handler(Looper.getMainLooper())
+ // Comment removed (contained Chinese characters)
+ mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+ try {
+ // Comment removed (contained Chinese characters)
+ for (cameraId in mCameraManager!!.cameraIdList) {
+ XLog.i("camera id: $cameraId")
+ cameraCharacteristics = mCameraManager!!.getCameraCharacteristics(cameraId)
+ // Comment removed (contained Chinese characters)
+ val facing = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING)
+ // Comment removed (contained Chinese characters)
+ if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) continue
+ // Comment removed (contained Chinese characters)
+ val map = cameraCharacteristics?.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
+ // Comment removed (contained Chinese characters)
+ val mapList = map.getOutputSizes(SurfaceTexture::class.java)
 
-                mPreviewSize = getOptimalSize(mapList, width, height)
-                val constraintSet = ConstraintSet()
-                constraintSet.clone(binding.cameraLayRoot)
-                constraintSet.constrainHeight(binding.cameraTexture.id, width * mPreviewSize!!.width / mPreviewSize!!.height)
-                constraintSet.applyTo(binding.cameraLayRoot)
-                XLog.w("mPreviewSize:$mPreviewSize")
-                // 获取相机支持的最大capture尺寸
-                val sizes = map.getOutputSizes(ImageFormat.JPEG)
-                XLog.w("size:${sizes.toList()}")
-                val w = 1000
-                val h = w * sizes[0].height / sizes[0].width
-//                mCaptureSize = Size(w, h)//影响capture尺寸
-                XLog.w("选取比例 w:${sizes[0].width}, h:${sizes[0].height}")
-                XLog.w("调整后 w: $w, h:$h")
-                // 此处ImageReader用于capture所需
-//                setupImageReader()
-                // 为摄像头赋值
-                mCameraId = cameraId
-                break
-            }
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-            Log.e("123", "settings相机参数:${e.message}")
-        }
-    }
+ mPreviewSize = getOptimalSize(mapList, width, height)
+ val constraintSet = ConstraintSet()
+ constraintSet.clone(binding.cameraLayRoot)
+ constraintSet.constrainHeight(binding.cameraTexture.id, width * mPreviewSize!!.width / mPreviewSize!!.height)
+ constraintSet.applyTo(binding.cameraLayRoot)
+ XLog.w("mPreviewSize:$mPreviewSize")
+ // Comment removed (contained Chinese characters)
+ val sizes = map.getOutputSizes(ImageFormat.JPEG)
+ XLog.w("size:${sizes.toList()}")
+ val w = 1000
+ val h = w * sizes[0].height / sizes[0].width
+// Comment removed (contained Chinese characters)
+ XLog.w(" w:${sizes[0].width}, h:${sizes[0].height}")
+ XLog.w(" w: $w, h:$h")
+ // Comment removed (contained Chinese characters)
+// setupImageReader()
+ // Comment removed (contained Chinese characters)
+ mCameraId = cameraId
+ break
+ }
+ } catch (e: CameraAccessException) {
+ e.printStackTrace()
+ Log.e("123", "settings:${e.message}")
+ }
+ }
 
-    /**
-     * 选择SizeMap中大于并且最接近width和height的size
-     * @param sizeMap 可选的尺寸
-     * @param width 宽
-     * @param height 高
-     * @return 最接近width和height的size
-     */
-    private fun getOptimalSize(
-        sizeMap: Array<Size>,
-        width: Int,
-        height: Int,
-    ): Size {
-        // 创建list
-        val sizeList: MutableList<Size> = ArrayList()
-        // 遍历
-        for (option in sizeMap) {
-            // 判断宽度是否大于高度
-            if (width > height) {
-                if (option.width > width && option.height > height) {
-                    sizeList.add(option)
-                }
-            } else {
-                if (option.width > height && option.height > width) {
-                    sizeList.add(option)
-                }
-            }
-        }
-        // 判断存储Size的list是否有数据
-        return if (sizeList.size > 0) {
-            Collections.min(sizeList) { lhs, rhs ->
-                java.lang.Long.signum((lhs.width * lhs.height - rhs.width * rhs.height).toLong())
-            }
-        } else {
-            sizeMap[0]
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ private fun getOptimalSize(
+ sizeMap: Array<Size>,
+ width: Int,
+ height: Int,
+ ): Size {
+ // Comment removed (contained Chinese characters)
+ val sizeList: MutableList<Size> = ArrayList()
+ // Comment removed (contained Chinese characters)
+ for (option in sizeMap) {
+ // Comment removed (contained Chinese characters)
+ if (width > height) {
+ if (option.width > width && option.height > height) {
+ sizeList.add(option)
+ }
+ } else {
+ if (option.width > height && option.height > width) {
+ sizeList.add(option)
+ }
+ }
+ }
+ // Comment removed (contained Chinese characters)
+ return if (sizeList.size > 0) {
+ Collections.min(sizeList) { lhs, rhs ->
+ java.lang.Long.signum((lhs.width * lhs.height - rhs.width * rhs.height).toLong())
+ }
+ } else {
+ sizeMap[0]
+ }
+ }
 
-    /**
-     * 打开相机
-     */
-    @SuppressLint("MissingPermission")
-    fun openCamera() {
-        isPreviewing = true
-        try {
-            mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
-        } catch (e: Exception) {
-            isPreviewing = false
-            XLog.e("打开相机失败:${e.message}")
-            ToastUtils.showShort("打开相机失败")
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @SuppressLint("MissingPermission")
+ fun openCamera() {
+ isPreviewing = true
+ try {
+ mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+ mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
+ } catch (e: Exception) {
+ isPreviewing = false
+ XLog.e("Failed:${e.message}")
+ ToastUtils.showShort("Failed")
+ }
+ }
 
-    /**
-     * close相机
-     */
-    @SuppressLint("MissingPermission")
-    fun closeCamera() {
-        isPreviewing = false
-        try {
-            mCameraDevice?.close()
-            // restore原始state
-            binding.cameraTexture.x = 0f
-            binding.cameraTexture.y = 0f
-            binding.cameraTexture.scaleX = 1f
-            binding.cameraTexture.scaleY = 1f
-            scale = 1f
-//            isReverse = false
-        } catch (e: Exception) {
-            XLog.e("close相机失败:${e.message}")
-            ToastUtils.showShort("close相机失败")
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @SuppressLint("MissingPermission")
+ fun closeCamera() {
+ isPreviewing = false
+ try {
+ mCameraDevice?.close()
+ // Comment removed (contained Chinese characters)
+ binding.cameraTexture.x = 0f
+ binding.cameraTexture.y = 0f
+ binding.cameraTexture.scaleX = 1f
+ binding.cameraTexture.scaleY = 1f
+ scale = 1f
+// isReverse = false
+ } catch (e: Exception) {
+ XLog.e("closeFailed:${e.message}")
+ ToastUtils.showShort("closeFailed")
+ }
+ }
 
-    override val viewX: Float
-        get() = binding.cameraTexture.x - (viewWidth - binding.cameraTexture.width) / 2
-    override val viewY: Float
-        get() = binding.cameraTexture.y - (viewHeight - binding.cameraTexture.height) / 2
-    override val viewAlpha: Float
-        get() = binding.cameraTexture.alpha
-    override val viewWidth: Float
-        get() = binding.cameraTexture.width * scale
-    override val viewHeight: Float
-        get() = binding.cameraTexture.height * scale
-    override val viewScale: Float
-        get() = scale
+ override val viewX: Float
+ get() = binding.cameraTexture.x - (viewWidth - binding.cameraTexture.width) / 2
+ override val viewY: Float
+ get() = binding.cameraTexture.y - (viewHeight - binding.cameraTexture.height) / 2
+ override val viewAlpha: Float
+ get() = binding.cameraTexture.alpha
+ override val viewWidth: Float
+ get() = binding.cameraTexture.width * scale
+ override val viewHeight: Float
+ get() = binding.cameraTexture.height * scale
+ override val viewScale: Float
+ get() = scale
 
-    fun setCameraAlpha(alpha: Float) {
-        binding.cameraTexture.alpha = 1 - alpha
-    }
+ fun setCameraAlpha(alpha: Float) {
+ binding.cameraTexture.alpha = 1 - alpha
+ }
 
-    fun setZoom(zoomLeve: Int) {
-        scale = zoomLeve * 0.5f
-        binding.cameraTexture.scaleX = scale
-        binding.cameraTexture.scaleY = scale
-        invalidate()
-    }
+ fun setZoom(zoomLeve: Int) {
+ scale = zoomLeve * 0.5f
+ binding.cameraTexture.scaleX = scale
+ binding.cameraTexture.scaleY = scale
+ invalidate()
+ }
 }

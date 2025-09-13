@@ -18,198 +18,193 @@ import com.infisense.usbdual.Const;
 import com.infisense.usbir.utils.OpencvTools;
 
 /**
- * infrared图像展示控件，可以为TextureView或SurfaceView
+ * Comment removed (contained Chinese characters)
  */
 public class CameraView extends TextureView {
-    private String TAG = "CameraView";
-    private Bitmap bitmap;
-    private SynchronizedBitmap syncimage;
-    private Runnable runnable;
-    private Thread cameraThread;
-    private Canvas canvas = null;
-    /**
-     * 画面中心的十字交叉线绘制
-     */
-    private Paint paint;
-    private int cross_len = 20;
-    /**
-     * 帧率展示
-     */
-    private Paint greenPaint;
-    private boolean drawLine = true;//是否画中心十字架
-    public int productType = Const.TYPE_IR;
-    private int irWidth = 192;
-    private int irHeight = 256;
+ private String TAG = "CameraView";
+ private Bitmap bitmap;
+ private SynchronizedBitmap syncimage;
+ private Runnable runnable;
+ private Thread cameraThread;
+ private Canvas canvas = null;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private Paint paint;
+ private int cross_len = 20;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private Paint greenPaint;
+ private boolean drawLine = true;//Whether
+ public int productType = Const.TYPE_IR;
+ private int irWidth = 192;
+ private int irHeight = 256;
 
-    private boolean isOpenAmplify = false;
+ private boolean isOpenAmplify = false;
 
+ public boolean isOpenAmplify() {
+ return isOpenAmplify;
+ }
 
-    public boolean isOpenAmplify() {
-        return isOpenAmplify;
-    }
+ public void setOpenAmplify(boolean openAmplify) {
+ isOpenAmplify = openAmplify;
+ }
 
-    public void setOpenAmplify(boolean openAmplify) {
-        isOpenAmplify = openAmplify;
-    }
+ public void setImageSize(int irWidth, int irHeight){
+ this.irWidth = irWidth;
+ this.irHeight = irHeight;
+ }
 
-    public void setImageSize(int irWidth, int irHeight){
-        this.irWidth = irWidth;
-        this.irHeight = irHeight;
-    }
+ public CameraView(Context context) {
+ this(context, null, 0);
+ }
 
-    public CameraView(Context context) {
-        this(context, null, 0);
-    }
+ public CameraView(Context context, AttributeSet attrs) {
+ this(context, attrs, 0);
+ }
 
-    public CameraView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+ /**
+ * @param context
+ * @param attrs
+ * @param defStyleAttr
+ */
+ public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
+ super(context, attrs, defStyleAttr);
+ //
+ paint = new Paint(); //
+ paint = new Paint(Paint.FILTER_BITMAP_FLAG);
+// Comment removed (contained Chinese characters)
+ paint.setStrokeWidth(2); //settings。Unit
+ paint.setAntiAlias(true); //
+ paint.setDither(true); //
+ paint.setColor(Color.WHITE); //color
+ //
+ greenPaint = new Paint();
+ greenPaint.setStrokeWidth(6);
+ greenPaint.setTextSize(56);
+ greenPaint.setColor(Color.GREEN);
+ // Comment removed (contained Chinese characters)
+ runnable = new Runnable() {
+ @Override
+ public void run() {
+ while (!cameraThread.isInterrupted()) {
+ synchronized (syncimage.viewLock) {
+ //
+ if (syncimage.valid == false) {
+ try {
+ syncimage.viewLock.wait();
+ } catch (InterruptedException e) {
+ cameraThread.interrupt();
+ Log.e(TAG, "lock.wait(): catch an interrupted exception");
+ }
+ }
+ //
+ if (syncimage.valid == true) {
+ canvas = lockCanvas();
+ if (canvas == null) {
+ continue;
+ }
+ // Comment removed (contained Chinese characters)
+ paint.setStrokeWidth(2); //settings。Unit
+ paint.setAntiAlias(true); //
+ paint.setDither(true); //
+ paint.setColor(Color.WHITE); //color
+ /**
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ Bitmap mScaledBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
+ canvas.drawBitmap(mScaledBitmap, 0, 0, null);
 
-    /**
-     * @param context
-     * @param attrs
-     * @param defStyleAttr
-     */
-    public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        //
-        paint = new Paint();  //画笔
-        paint = new Paint(Paint.FILTER_BITMAP_FLAG);
-//        paint = new Paint();  //画笔
-        paint.setStrokeWidth(2);  //settings线宽。单位为像素
-        paint.setAntiAlias(true); //抗锯齿
-        paint.setDither(true);    //防抖动
-        paint.setColor(Color.WHITE);  //画笔color
-        //
-        greenPaint = new Paint();
-        greenPaint.setStrokeWidth(6);
-        greenPaint.setTextSize(56);
-        greenPaint.setColor(Color.GREEN);
-        // 线程中绘制画面
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                while (!cameraThread.isInterrupted()) {
-                    synchronized (syncimage.viewLock) {
-                        //
-                        if (syncimage.valid == false) {
-                            try {
-                                syncimage.viewLock.wait();
-                            } catch (InterruptedException e) {
-                                cameraThread.interrupt();
-                                Log.e(TAG, "lock.wait(): catch an interrupted exception");
-                            }
-                        }
-                        //
-                        if (syncimage.valid == true) {
-                            canvas = lockCanvas();
-                            if (canvas == null) {
-                                continue;
-                            }
-                            // 画面中心的十字交叉线绘制
-                            paint.setStrokeWidth(2);  //settings线宽。单位为像素
-                            paint.setAntiAlias(true); //抗锯齿
-                            paint.setDither(true);    //防抖动
-                            paint.setColor(Color.WHITE);  //画笔color
-                            /**
-                             * 图片缩放，这里简单的使用getWidth()作为宽，getHeight()作为高，可能会出现画面拉伸情况，
-                             * 实际使用的时候请参考设备的宽高按照设备的图像尺寸做等比例缩放
-                             */
-                            Bitmap mScaledBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
-                            canvas.drawBitmap(mScaledBitmap, 0, 0, null);
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ if (drawLine){
+ canvas.drawLine(getWidth() / 2 - cross_len, getHeight() / 2,
+ getWidth() / 2 + cross_len, getHeight() / 2, paint);
+ canvas.drawLine(getWidth() / 2, getHeight() / 2 - cross_len,
+ getWidth() / 2, getHeight() / 2 + cross_len, paint);
+ }
+ //
+ unlockCanvasAndPost(canvas);
+ syncimage.valid = false;
+ }
+ }
+ SystemClock.sleep(1);
+ }
+ Log.w(TAG, "DisplayThread exit:");
+ }
+ };
+ }
 
-                            /**
-                             * 画面中心的十字交叉线绘制
-                             */
-                            if (drawLine){
-                                canvas.drawLine(getWidth() / 2 - cross_len, getHeight() / 2,
-                                        getWidth() / 2 + cross_len, getHeight() / 2, paint);
-                                canvas.drawLine(getWidth() / 2, getHeight() / 2 - cross_len,
-                                        getWidth() / 2, getHeight() / 2 + cross_len, paint);
-                            }
-                            //
-                            unlockCanvasAndPost(canvas);
-                            syncimage.valid = false;
-                        }
-                    }
-                    SystemClock.sleep(1);
-                }
-                Log.w(TAG, "DisplayThread exit:");
-            }
-        };
-    }
+ public boolean isDrawLine() {
+ return drawLine;
+ }
 
-    public boolean isDrawLine() {
-        return drawLine;
-    }
+ public void setDrawLine(boolean drawLine) {
+ this.drawLine = drawLine;
+ }
 
-    public void setDrawLine(boolean drawLine) {
-        this.drawLine = drawLine;
-    }
+ /**
+ * @param bitmap
+ */
+ public void setBitmap(Bitmap bitmap) {
+ this.bitmap = bitmap;
+ }
 
-    /**
-     * @param bitmap
-     */
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
+ @Nullable
+ @Override
+ public Bitmap getBitmap() {
+ return bitmap;
+ }
 
-    @Nullable
-    @Override
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
+ /**
+ * @param syncimage
+ */
+ public void setSyncimage(SynchronizedBitmap syncimage) {
+ this.syncimage = syncimage;
+ }
 
-    /**
-     * @param syncimage
-     */
-    public void setSyncimage(SynchronizedBitmap syncimage) {
-        this.syncimage = syncimage;
-    }
+ @NonNull
+ public Bitmap getScaledBitmap() {
+ synchronized (syncimage.viewLock) {
+ Bitmap sBitmap = null;
+ sBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
+ return sBitmap;
+ }
+ }
+ /**
+ *
+ */
+ public void start() {
+ cameraThread = new Thread(runnable);
+ cameraThread.start();
+ }
+ public void setShowCross(boolean isShow){
+ try {
+ cross_len = isShow ? 20 : 0;
+ canvas.drawLine(getWidth() / 2f - cross_len, getHeight() / 2f,
+ getWidth() / 2f + cross_len, getHeight() / 2f, paint);
+ canvas.drawLine(getWidth() / 2f, getHeight() / 2f - cross_len,
+ getWidth() / 2f, getHeight() / 2f + cross_len, paint);
+ }catch (Exception e){
+ Log.e(TAG,":"+e.getMessage());
+ }
+ }
 
-    @NonNull
-    public Bitmap getScaledBitmap() {
-        synchronized (syncimage.viewLock) {
-            Bitmap sBitmap = null;
-            sBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
-            return sBitmap;
-        }
-    }
-    /**
-     *
-     */
-    public void start() {
-        cameraThread = new Thread(runnable);
-        cameraThread.start();
-    }
-    public void setShowCross(boolean isShow){
-        try {
-            cross_len = isShow ? 20 : 0;
-            canvas.drawLine(getWidth() / 2f - cross_len, getHeight() / 2f,
-                    getWidth() / 2f + cross_len, getHeight() / 2f, paint);
-            canvas.drawLine(getWidth() / 2f, getHeight() / 2f - cross_len,
-                    getWidth() / 2f, getHeight() / 2f + cross_len, paint);
-        }catch (Exception e){
-            Log.e(TAG,"点异常:"+e.getMessage());
-        }
-    }
-
-
-    /**
-     *
-     */
-    public void stop() {
-        try {
-            if (cameraThread != null){
-                cameraThread.interrupt();
-                cameraThread.join();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+ /**
+ *
+ */
+ public void stop() {
+ try {
+ if (cameraThread != null){
+ cameraThread.interrupt();
+ cameraThread.join();
+ }
+ } catch (InterruptedException e) {
+ e.printStackTrace();
+ }
+ }
 }
-
-
-
 

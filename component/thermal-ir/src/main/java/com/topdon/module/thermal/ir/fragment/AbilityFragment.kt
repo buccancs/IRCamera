@@ -27,95 +27,95 @@ import org.greenrobot.eventbus.EventBus
  * Handles specific UI sections and user interactions.
  */
 class AbilityFragment : BaseFragment(), View.OnClickListener {
-    private var mIsTC007 = false
+ private var mIsTC007 = false
 
-    // View references
-    private lateinit var ivWinter: ImageView
-    private lateinit var viewMonitory: View
-    private lateinit var viewHouse: View
-    private lateinit var viewCar: View
+ // View references
+ private lateinit var ivWinter: ImageView
+ private lateinit var viewMonitory: View
+ private lateinit var viewHouse: View
+ private lateinit var viewCar: View
 
-    override fun initContentView() = R.layout.fragment_ability
+ override fun initContentView() = R.layout.fragment_ability
 
-    override fun initView() {
-        mIsTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
+ override fun initView() {
+ mIsTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
 
-        // Initialize views with findViewById
-        ivWinter = requireView().findViewById(R.id.iv_winter)
-        viewMonitory = requireView().findViewById(R.id.view_monitory)
-        viewHouse = requireView().findViewById(R.id.view_house)
-        viewCar = requireView().findViewById(R.id.view_car)
+ // Initialize views with findViewById
+ ivWinter = requireView().findViewById(R.id.iv_winter)
+ viewMonitory = requireView().findViewById(R.id.view_monitory)
+ viewHouse = requireView().findViewById(R.id.view_house)
+ viewCar = requireView().findViewById(R.id.view_car)
 
-        ivWinter.setOnClickListener(this)
-        viewMonitory.setOnClickListener(this)
-        viewHouse.setOnClickListener(this)
-        viewCar.setOnClickListener(this)
-    }
+ ivWinter.setOnClickListener(this)
+ viewMonitory.setOnClickListener(this)
+ viewHouse.setOnClickListener(this)
+ viewCar.setOnClickListener(this)
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    override fun onClick(v: View?) {
-        when (v) {
-            ivWinter -> { // 冬季特辑入口
-                SharedManager.hasClickWinter = true
-                EventBus.getDefault().post(WinterClickEvent())
-                val url =
-                    if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
-                        "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
-                            "languageId=1" // Fixed to English (languageId=1)
-                    } else {
-                        "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
-                    }
-                NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
-                    .withString(ExtraKeyConfig.URL, url)
-                    .navigation(requireContext())
-            }
-            viewMonitory -> { // 温度监控
-                val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
-                startActivity(intent)
-            }
+ override fun onClick(v: View?) {
+ when (v) {
+ ivWinter -> { // 
+ SharedManager.hasClickWinter = true
+ EventBus.getDefault().post(WinterClickEvent())
+ val url =
+ if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
+ "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
+ "languageId=1" // Fixed to English (languageId=1)
+ } else {
+ "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
+ }
+ NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
+ .withString(ExtraKeyConfig.URL, url)
+ .navigation(requireContext())
+ }
+ viewMonitory -> { // Temperature
+ val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
+ intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
+ startActivity(intent)
+ }
 
-            viewHouse -> { // 房屋检测
-                // Disabled - HouseHomeActivity from removed house module
-                // val intent = Intent(requireContext(), HouseHomeActivity::class.java)
-                // intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
-                // startActivity(intent)
-            }
+ viewHouse -> { // 
+ // Disabled - HouseHomeActivity from removed house module
+ // val intent = Intent(requireContext(), HouseHomeActivity::class.java)
+ // intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
+ // startActivity(intent)
+ }
 
-            viewCar -> { // 汽车检测
-                if (mIsTC007) {
-                    if (WebSocketProxy.getInstance().isConnected()) {
-                        NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(requireContext())
-                    }
-                } else {
-                    if (DeviceTools.isTC001PlusConnect()) {
-                        var intent = Intent(requireContext(), IRThermalPlusActivity::class.java)
-                        intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                        startActivity(intent)
-                    } else if (DeviceTools.isTC001LiteConnect()) {
-                        NavigationManager.getInstance().build(RouterConfig.IR_TCLITE)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(requireActivity())
-                    } else if (DeviceTools.isHikConnect()) {
-                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_MAIN)
-                            .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                            .navigation(requireActivity())
-                    } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {
-                        var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
-                        intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
-                        startActivity(intent)
-                    } else {
-                        TipDialog.Builder(requireContext())
-                            .setMessage(R.string.device_connect_tip)
-                            .setPositiveListener(R.string.app_confirm)
-                            .create().show()
-                    }
-                }
-            }
-        }
-    }
+ viewCar -> { // 
+ if (mIsTC007) {
+ if (WebSocketProxy.getInstance().isConnected()) {
+ NavigationManager.getInstance().build(RouterConfig.IR_THERMAL_07)
+ .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+ .navigation(requireContext())
+ }
+ } else {
+ if (DeviceTools.isTC001PlusConnect()) {
+ var intent = Intent(requireContext(), IRThermalPlusActivity::class.java)
+ intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+ startActivity(intent)
+ } else if (DeviceTools.isTC001LiteConnect()) {
+ NavigationManager.getInstance().build(RouterConfig.IR_TCLITE)
+ .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+ .navigation(requireActivity())
+ } else if (DeviceTools.isHikConnect()) {
+ NavigationManager.getInstance().build(RouterConfig.IR_HIK_MAIN)
+ .withBoolean(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+ .navigation(requireActivity())
+ } else if (DeviceTools.isConnect(isSendConnectEvent = false, true)) {
+ var intent = Intent(requireContext(), IRThermalNightActivity::class.java)
+ intent.putExtra(ExtraKeyConfig.IS_CAR_DETECT_ENTER, true)
+ startActivity(intent)
+ } else {
+ TipDialog.Builder(requireContext())
+ .setMessage(R.string.device_connect_tip)
+ .setPositiveListener(R.string.app_confirm)
+ .create().show()
+ }
+ }
+ }
+ }
+ }
 }

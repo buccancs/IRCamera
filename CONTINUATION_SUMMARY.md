@@ -9,12 +9,12 @@ This continuation phase has applied comprehensive cleanup and standardization ac
 - **Additional Files Processed**: 50+ Kotlin, Java, and XML files with remaining Chinese content
 - **Advanced Translation System**: Applied comprehensive mapping of 100+ thermal imaging technical terms
 - **Specialized Terminology**: Accurate translation of complex phrases like:
-  - `测温模式-菜单` → `Temperature measurement mode - Menu`
-  - `观测模式-菜单` → `Observation mode - Menu`  
-  - `点线面` → `Point/Line/Area`
-  - `双光` → `Dual Light`
-  - `伪彩` → `Pseudo Color`
-  - `高低温档` → `High/Low Temperature Level`
+ - `TempMode-` → `Temperature measurement mode - Menu`
+ - `Mode-` → `Observation mode - Menu` 
+ - `` → `Point/Line/Area`
+ - `` → `Dual Light`
+ - `` → `Pseudo Color`
+ - `Temp` → `High/Low Temperature Level`
 - **Pattern-Based Replacements**: Applied regex patterns for consistent translation of numbered schemes
 
 ### 2. Python Code Quality Enhancement
@@ -27,16 +27,16 @@ This continuation phase has applied comprehensive cleanup and standardization ac
 ### 3. Advanced Translation Mappings Applied
 
 #### Technical Terms (50+ mappings):
-- Thermal imaging: `红外` → `infrared`, `可见光` → `visible light`, `融合` → `fusion`
-- UI elements: `按钮` → `button`, `切换` → `switch`, `菜单` → `menu`
-- States: `选中` → `selected`, `未选中` → `unselected`, `状态` → `state`
-- Colors: `白热` → `white hot`, `黑热` → `black hot`, `铁红` → `iron red`
+- Thermal imaging: `` → `infrared`, `` → `visible light`, `` → `fusion`
+- UI elements: `` → `button`, `` → `switch`, `` → `menu`
+- States: `` → `selected`, `` → `unselected`, `Status` → `state`
+- Colors: `` → `white hot`, `` → `black hot`, `` → `iron red`
 
 #### Complex Phrases (30+ mappings):
-- `由于历史遗留` → `Due to legacy constraints`
-- `这里先保持旧代码逻辑` → `Maintain original code logic here`
-- `后面有空再考虑更改` → `consider changes later when time permits`
-- `什么都未选中` → `nothing selected`
+- `` → `Due to legacy constraints`
+- `` → `Maintain original code logic here`
+- `` → `consider changes later when time permits`
+- `` → `nothing selected`
 
 ### 4. Files Updated in This Phase
 

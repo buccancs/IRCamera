@@ -6,8 +6,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
-\1temperature监控 第1步 第2步 之间传递的要监控的信息.
-\1@param type 1-点 2-线 3-面
+\1temperature 1 2 .
+\1@param type 1- 2- 3-
  */
 /**
  * Select position data model for thermal imaging information.
@@ -15,11 +15,11 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class SelectPositionBean(
-    val type: Int = 0, // 1-点 2-线 3-面
-    val startPosition: Point = Point(),
-    val endPosition: Point = Point(),
+ val type: Int = 0, // 1- 2- 3-
+ val startPosition: Point = Point(),
+ val endPosition: Point = Point(),
 ) : Parcelable {
-    constructor(rect: Rect) : this(3, Point(rect.left, rect.top), Point(rect.right, rect.bottom))
+ constructor(rect: Rect) : this(3, Point(rect.left, rect.top), Point(rect.right, rect.bottom))
 
-    fun getRect(): Rect = Rect(startPosition.x, startPosition.y, endPosition.x, endPosition.y)
+ fun getRect(): Rect = Rect(startPosition.x, startPosition.y, endPosition.x, endPosition.y)
 }

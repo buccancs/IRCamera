@@ -54,656 +54,656 @@ import java.math.BigDecimal
  * Handles specific UI sections and user interactions.
  */
 class ThermalFragment : BaseThermalFragment(), IYapVideoProvider<Bitmap> {
-    private val viewModel: ThermalViewModel by viewModels()
+ private val viewModel: ThermalViewModel by viewModels()
 
-    protected var mIrSurfaceViewLayout: FrameLayout? = null
-    protected var mIrSurfaceView: IrSurfaceView? = null
+ protected var mIrSurfaceViewLayout: FrameLayout? = null
+ protected var mIrSurfaceView: IrSurfaceView? = null
 
-    private val msgLiveData by lazy { MutableLiveData<Int>() }
+ private val msgLiveData by lazy { MutableLiveData<Int>() }
 
-    override fun initContentView() = R.layout.fragment_thermal
+ override fun initContentView() = R.layout.fragment_thermal
 
-\1settemperature展示的位置
-    private fun setViewPosition(
-        imageView: ImageView,
-        index: Int,
-    ) {
-        if (rawWidth == 0 || rawHeight == 0) {
-            return
-        }
-        val vg = imageView.parent as ViewGroup
-        val pw = vg.width
-        val ph = vg.height
-        val y = index / rawWidth
-        val x = index - y * rawWidth
-        val x1 = x * pw / rawWidth
-        val y1 = y * ph / rawHeight
-        val maxX = x1 - imageView.width / 2
-        val maxY = y1 - imageView.height / 2
-\1Log.w("123", "真实位置 maxX:$maxX, maxY:$maxY")
-        imageView.x = maxX.toFloat()
-        imageView.y = maxY.toFloat()
-    }
+\1settemperature
+ private fun setViewPosition(
+ imageView: ImageView,
+ index: Int,
+ ) {
+ if (rawWidth == 0 || rawHeight == 0) {
+ return
+ }
+ val vg = imageView.parent as ViewGroup
+ val pw = vg.width
+ val ph = vg.height
+ val y = index / rawWidth
+ val x = index - y * rawWidth
+ val x1 = x * pw / rawWidth
+ val y1 = y * ph / rawHeight
+ val maxX = x1 - imageView.width / 2
+ val maxY = y1 - imageView.height / 2
+\1Log.w("123", " maxX:$maxX, maxY:$maxY")
+ imageView.x = maxX.toFloat()
+ imageView.y = maxY.toFloat()
+ }
 
-    private var mGuideInterface: GuideInterface? = null
+ private var mGuideInterface: GuideInterface? = null
 
-    override fun initView() {
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        rotateType = 3 // 默认旋转270度
-        mCenterTextView = requireView().findViewById(R.id.temp_display)
-        mMaxTextView = requireView().findViewById(R.id.max_temp_display)
-        mMinTextView = requireView().findViewById(R.id.min_temp_display)
-        maxImg = requireView().findViewById(R.id.max_img)
-        minImg = requireView().findViewById(R.id.min_img)
-        mDisplayFrameLayout = requireView().findViewById(R.id.temp_display_layout)
-        mFenceLayout = requireView().findViewById(R.id.fence_lay)
-        mCameraLayout = requireView().findViewById(R.id.temp_camera_layout)
-        mDisplayFrameLayout!!.visibility = View.GONE
-        mFenceLayout!!.visibility = View.GONE
-        mIrSurfaceViewLayout = requireView().findViewById(R.id.final_ir_layout)
-        mIrSurfaceView = IrSurfaceView(requireContext())
-        val ifrSurfaceViewLayoutParams =
-            FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                Gravity.CENTER,
-            )
-        mIrSurfaceView!!.layoutParams = ifrSurfaceViewLayoutParams
-        mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
-        mIrSurfaceViewLayout!!.addView(mIrSurfaceView)
-        val screenWidth = ScreenUtils.getScreenWidth()
-        val screenHeight = screenWidth * 192 / 256
-        width = screenWidth
-        height = screenHeight
-        highCrossWidth = resources.getDimension(R.dimen.high_cross_width).toInt()
-        highCrossHeight = resources.getDimension(R.dimen.high_cross_height).toInt()
-        mIrSurfaceViewLayout!!.viewTreeObserver.addOnGlobalLayoutListener {
-            irSurfaceViewLayoutParams =
-                mIrSurfaceViewLayout!!.layoutParams as ConstraintLayout.LayoutParams?
-            displayViewLayoutParams = mDisplayFrameLayout!!.layoutParams as FrameLayout.LayoutParams
-            fenceLayoutParams = mFenceLayout!!.layoutParams as FrameLayout.LayoutParams
-            cameraLayoutParams = mCameraLayout!!.layoutParams as FrameLayout.LayoutParams
-            when (rotateType) {
-                1, 3 -> {
-                    irSurfaceViewWidth = height
-                    irSurfaceViewHeight = width
-                    if (irSurfaceViewWidth < width) {
-                        irSurfaceViewWidth = width
-                        irSurfaceViewHeight = screenWidth * 256 / 192
-                    }
-                }
-                0, 2 -> {
-                    irSurfaceViewWidth = width
-                    irSurfaceViewHeight = height
-                }
-            }
-            irSurfaceViewLayoutParams!!.width = irSurfaceViewWidth
-            irSurfaceViewLayoutParams!!.height = irSurfaceViewHeight
-            mIrSurfaceViewLayout!!.layoutParams = irSurfaceViewLayoutParams
+ override fun initView() {
+ requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+ rotateType = 3 // Default270
+ mCenterTextView = requireView().findViewById(R.id.temp_display)
+ mMaxTextView = requireView().findViewById(R.id.max_temp_display)
+ mMinTextView = requireView().findViewById(R.id.min_temp_display)
+ maxImg = requireView().findViewById(R.id.max_img)
+ minImg = requireView().findViewById(R.id.min_img)
+ mDisplayFrameLayout = requireView().findViewById(R.id.temp_display_layout)
+ mFenceLayout = requireView().findViewById(R.id.fence_lay)
+ mCameraLayout = requireView().findViewById(R.id.temp_camera_layout)
+ mDisplayFrameLayout!!.visibility = View.GONE
+ mFenceLayout!!.visibility = View.GONE
+ mIrSurfaceViewLayout = requireView().findViewById(R.id.final_ir_layout)
+ mIrSurfaceView = IrSurfaceView(requireContext())
+ val ifrSurfaceViewLayoutParams =
+ FrameLayout.LayoutParams(
+ FrameLayout.LayoutParams.MATCH_PARENT,
+ FrameLayout.LayoutParams.MATCH_PARENT,
+ Gravity.CENTER,
+ )
+ mIrSurfaceView!!.layoutParams = ifrSurfaceViewLayoutParams
+ mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
+ mIrSurfaceViewLayout!!.addView(mIrSurfaceView)
+ val screenWidth = ScreenUtils.getScreenWidth()
+ val screenHeight = screenWidth * 192 / 256
+ width = screenWidth
+ height = screenHeight
+ highCrossWidth = resources.getDimension(R.dimen.high_cross_width).toInt()
+ highCrossHeight = resources.getDimension(R.dimen.high_cross_height).toInt()
+ mIrSurfaceViewLayout!!.viewTreeObserver.addOnGlobalLayoutListener {
+ irSurfaceViewLayoutParams =
+ mIrSurfaceViewLayout!!.layoutParams as ConstraintLayout.LayoutParams?
+ displayViewLayoutParams = mDisplayFrameLayout!!.layoutParams as FrameLayout.LayoutParams
+ fenceLayoutParams = mFenceLayout!!.layoutParams as FrameLayout.LayoutParams
+ cameraLayoutParams = mCameraLayout!!.layoutParams as FrameLayout.LayoutParams
+ when (rotateType) {
+ 1, 3 -> {
+ irSurfaceViewWidth = height
+ irSurfaceViewHeight = width
+ if (irSurfaceViewWidth < width) {
+ irSurfaceViewWidth = width
+ irSurfaceViewHeight = screenWidth * 256 / 192
+ }
+ }
+ 0, 2 -> {
+ irSurfaceViewWidth = width
+ irSurfaceViewHeight = height
+ }
+ }
+ irSurfaceViewLayoutParams!!.width = irSurfaceViewWidth
+ irSurfaceViewLayoutParams!!.height = irSurfaceViewHeight
+ mIrSurfaceViewLayout!!.layoutParams = irSurfaceViewLayoutParams
 
-            displayViewLayoutParams!!.width = irSurfaceViewWidth
-            displayViewLayoutParams!!.height = irSurfaceViewHeight
-            mDisplayFrameLayout!!.layoutParams = displayViewLayoutParams
+ displayViewLayoutParams!!.width = irSurfaceViewWidth
+ displayViewLayoutParams!!.height = irSurfaceViewHeight
+ mDisplayFrameLayout!!.layoutParams = displayViewLayoutParams
 
-            fenceLayoutParams!!.width = irSurfaceViewWidth
-            fenceLayoutParams!!.height = irSurfaceViewHeight
-            mFenceLayout!!.layoutParams = fenceLayoutParams
+ fenceLayoutParams!!.width = irSurfaceViewWidth
+ fenceLayoutParams!!.height = irSurfaceViewHeight
+ mFenceLayout!!.layoutParams = fenceLayoutParams
 
-            cameraLayoutParams!!.width = irSurfaceViewWidth
-            cameraLayoutParams!!.height = irSurfaceViewHeight
-            mFenceLayout!!.layoutParams = cameraLayoutParams
-        }
-\1初始选取范围
-        initFence()
-\1初始image
-        onIrVideoStart()
-        mIrSurfaceView!!.post {
-            Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
-        }
+ cameraLayoutParams!!.width = irSurfaceViewWidth
+ cameraLayoutParams!!.height = irSurfaceViewHeight
+ mFenceLayout!!.layoutParams = cameraLayoutParams
+ }
+\1
+ initFence()
+\1image
+ onIrVideoStart()
+ mIrSurfaceView!!.post {
+ Log.w("123", "w:${mIrSurfaceView!!.width}, h:${mIrSurfaceView!!.height}")
+ }
 
-        msgLiveData.observe(this) { msg ->
-            if (msg == 0) {
-                when (selectType) {
-                    0 -> {
-                        mCenterTextView!!.visibility = View.VISIBLE
-                        mMaxTextView!!.visibility = View.VISIBLE
-                        mMinTextView!!.visibility = View.VISIBLE
-                        mCenterTextView!!.text = "中心温 $mCenter"
-                        mMaxTextView!!.text = "最高温 $mMaxTemp"
-                        mMinTextView!!.text = "最低温 $mMinTemp"
-                        maxImg!!.visibility = View.GONE
-                        minImg!!.visibility = View.GONE
-                    }
-                    1 -> {
-                        mCenterTextView!!.visibility = View.VISIBLE
-                        mMaxTextView!!.visibility = View.GONE
-                        mMinTextView!!.visibility = View.GONE
-                        mCenterTextView!!.text = "温度 $mMaxTemp"
-                        maxImg!!.visibility = View.GONE
-                        minImg!!.visibility = View.GONE
-                    }
-                    else -> {
-                        mCenterTextView!!.visibility = View.VISIBLE
-                        mMaxTextView!!.visibility = View.VISIBLE
-                        mMinTextView!!.visibility = View.VISIBLE
-                        mCenterTextView!!.text = "中心温 $mCenter"
-                        mMaxTextView!!.text = "最高温 $mMaxTemp"
-                        mMinTextView!!.text = "最低温 $mMinTemp"
-                        maxImg!!.visibility = View.VISIBLE
-                        minImg!!.visibility = View.VISIBLE
-                        maxImg?.let { setViewPosition(it, maxIndex) }
-                        minImg?.let { setViewPosition(it, minIndex) }
-                    }
-                }
-            }
-        }
-        onTempBtnClick()
-    }
+ msgLiveData.observe(this) { msg ->
+ if (msg == 0) {
+ when (selectType) {
+ 0 -> {
+ mCenterTextView!!.visibility = View.VISIBLE
+ mMaxTextView!!.visibility = View.VISIBLE
+ mMinTextView!!.visibility = View.VISIBLE
+ mCenterTextView!!.text = "Temp $mCenter"
+ mMaxTextView!!.text = "Temp $mMaxTemp"
+ mMinTextView!!.text = "Temp $mMinTemp"
+ maxImg!!.visibility = View.GONE
+ minImg!!.visibility = View.GONE
+ }
+ 1 -> {
+ mCenterTextView!!.visibility = View.VISIBLE
+ mMaxTextView!!.visibility = View.GONE
+ mMinTextView!!.visibility = View.GONE
+ mCenterTextView!!.text = "Temperature $mMaxTemp"
+ maxImg!!.visibility = View.GONE
+ minImg!!.visibility = View.GONE
+ }
+ else -> {
+ mCenterTextView!!.visibility = View.VISIBLE
+ mMaxTextView!!.visibility = View.VISIBLE
+ mMinTextView!!.visibility = View.VISIBLE
+ mCenterTextView!!.text = "Temp $mCenter"
+ mMaxTextView!!.text = "Temp $mMaxTemp"
+ mMinTextView!!.text = "Temp $mMinTemp"
+ maxImg!!.visibility = View.VISIBLE
+ minImg!!.visibility = View.VISIBLE
+ maxImg?.let { setViewPosition(it, maxIndex) }
+ minImg?.let { setViewPosition(it, minIndex) }
+ }
+ }
+ }
+ }
+ onTempBtnClick()
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        onIrVideoStop()
-    }
+ override fun onDestroyView() {
+ super.onDestroyView()
+ onIrVideoStop()
+ }
 
-    /**
-\1enabled视频流
-     */
-    fun onIrVideoStart() {
-        mIsIrVideoStart =
-            if (mIsIrVideoStart) {
-                ToastTools.showShort("视频流已开启")
-                return
-            } else {
-                true
-            }
-        mGuideInterface = GuideInterface()
-        val ret =
-            mGuideInterface!!.init(
-                requireContext(),
-                object : GuideInterface.IrDataCallback {
-                    override fun processIrData(
-                        yuv: ByteArray,
-                        temp: FloatArray,
-                    ) {
-\1刷新image
-                        if (mIrBitmap == null) {
-                            mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
-                        }
-                        if (upValue > downValue) {
-                            viewModel.yuvArea(yuv, temp, upValue, downValue)
-                        }
-                        mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // 视频转码yuv
-//                mIrBitmap = mIrBitmap?.let { rotateBitmap(it, 90f) }
-                        try {
-                            mIrSurfaceView!!.doDraw(mIrBitmap, mGuideInterface!!.getImageStatus())
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                        if (rotateType == 1 || rotateType == 3) {
-                            rawWidth = SRC_WIDTH
-                            rawHeight = SRC_HEIGHT
-                        } else {
-                            rawWidth = SRC_HEIGHT
-                            rawHeight = SRC_WIDTH
-                        }
-                        val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
-                        try {
-\1选取区域
-\1calculation选取指定点
-                            val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
-                            val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
-                            maxIndex = maxTempIndex
-                            minIndex = minTempIndex
-\1rotation后的temperaturearray
-                            val rotateData = ArrayUtils.matrixRotate(srcData = temp, rotateType)
-\1calculation出temperature
-                            val bigDecimal = BigDecimal.valueOf(rotateData[centerIndex].toDouble())
-                            val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
-                            val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
-                            mCenter = bigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
-                            mMaxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
-                            mMinTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            Log.e(TAG, "提取温度异常:${e.message}")
-                        }
-                    }
-                },
-            )
+ /**
+\1enabled
+ */
+ fun onIrVideoStart() {
+ mIsIrVideoStart =
+ if (mIsIrVideoStart) {
+ ToastTools.showShort("")
+ return
+ } else {
+ true
+ }
+ mGuideInterface = GuideInterface()
+ val ret =
+ mGuideInterface!!.init(
+ requireContext(),
+ object : GuideInterface.IrDataCallback {
+ override fun processIrData(
+ yuv: ByteArray,
+ temp: FloatArray,
+ ) {
+\1image
+ if (mIrBitmap == null) {
+ mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
+ }
+ if (upValue > downValue) {
+ viewModel.yuvArea(yuv, temp, upValue, downValue)
+ }
+ mGuideInterface!!.yuv2Bitmap(mIrBitmap, yuv) // yuv
+// mIrBitmap = mIrBitmap?.let { rotateBitmap(it, 90f) }
+ try {
+ mIrSurfaceView!!.doDraw(mIrBitmap, mGuideInterface!!.getImageStatus())
+ } catch (e: Exception) {
+ e.printStackTrace()
+ }
+ if (rotateType == 1 || rotateType == 3) {
+ rawWidth = SRC_WIDTH
+ rawHeight = SRC_HEIGHT
+ } else {
+ rawWidth = SRC_HEIGHT
+ rawHeight = SRC_WIDTH
+ }
+ val centerIndex = rawWidth * (rawHeight / 2) + rawWidth / 2
+ try {
+\1
+\1calculation
+ val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
+ val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
+ maxIndex = maxTempIndex
+ minIndex = minTempIndex
+\1rotationtemperaturearray
+ val rotateData = ArrayUtils.matrixRotate(srcData = temp, rotateType)
+\1calculationtemperature
+ val bigDecimal = BigDecimal.valueOf(rotateData[centerIndex].toDouble())
+ val maxBigDecimal = BigDecimal.valueOf(rotateData[maxTempIndex].toDouble())
+ val minBigDecimal = BigDecimal.valueOf(rotateData[minTempIndex].toDouble())
+ mCenter = bigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+ mMaxTemp = maxBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+ mMinTemp = minBigDecimal.setScale(1, RoundingMode.HALF_UP).toFloat()
+ } catch (e: Exception) {
+ e.printStackTrace()
+ Log.e(TAG, "Temperature:${e.message}")
+ }
+ }
+ },
+ )
 
-        if (ret == 5) {
-            Log.w("123", "视频流开启完成")
-        } else {
-            ToastTools.showShort("视频流开启失败")
-        }
-    }
+ if (ret == 5) {
+ Log.w("123", "")
+ } else {
+ ToastTools.showShort("Failed")
+ }
+ }
 
-    private fun rotateBitmap(
-        origin: Bitmap,
-        rotate: Float,
-    ): Bitmap? {
-        try {
-            if (origin == null) {
-                return null
-            }
-            val width = origin.width
-            val height = origin.height
-            val matrix = Matrix()
-            matrix.setRotate(rotate)
-            val newBitmap = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false)
-            if (newBitmap.equals(origin)) {
-                return newBitmap
-            }
-            origin.recycle()
-            return newBitmap
-        } catch (e: Exception) {
-            Log.e("123", "error:${e.message}")
-            return origin
-        }
-    }
+ private fun rotateBitmap(
+ origin: Bitmap,
+ rotate: Float,
+ ): Bitmap? {
+ try {
+ if (origin == null) {
+ return null
+ }
+ val width = origin.width
+ val height = origin.height
+ val matrix = Matrix()
+ matrix.setRotate(rotate)
+ val newBitmap = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false)
+ if (newBitmap.equals(origin)) {
+ return newBitmap
+ }
+ origin.recycle()
+ return newBitmap
+ } catch (e: Exception) {
+ Log.e("123", "error:${e.message}")
+ return origin
+ }
+ }
 
-    /**
-\1停止视频流
-     */
-    fun onIrVideoStop() {
-        mIsIrVideoStart =
-            if (!mIsIrVideoStart) {
-                ToastTools.showShort("视频流已停止")
-                return
-            } else {
-                false
-            }
-        mGuideInterface!!.exit()
-        mGuideInterface = null
-        ToastTools.showShort("视频流停止完成")
-    }
+ /**
+\1
+ */
+ fun onIrVideoStop() {
+ mIsIrVideoStart =
+ if (!mIsIrVideoStart) {
+ ToastTools.showShort("")
+ return
+ } else {
+ false
+ }
+ mGuideInterface!!.exit()
+ mGuideInterface = null
+ ToastTools.showShort("")
+ }
 
-    fun onLowRangeBtnClick(view: View?) {
-        if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
-            return
-        }
-        mGuideInterface!!.setRange(1)
-        ToastTools.showShort("切换到常温档成功")
-    }
+ fun onLowRangeBtnClick(view: View?) {
+ if (mGuideInterface == null) {
+ ToastTools.showShort("")
+ return
+ }
+ mGuideInterface!!.setRange(1)
+ ToastTools.showShort("TempSuccess")
+ }
 
-    fun onHighRangeBtnClick(view: View?) {
-        if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
-            return
-        }
-        mGuideInterface!!.setRange(2)
-        ToastTools.showShort("切换到高温档成功")
-    }
+ fun onHighRangeBtnClick(view: View?) {
+ if (mGuideInterface == null) {
+ ToastTools.showShort("")
+ return
+ }
+ mGuideInterface!!.setRange(2)
+ ToastTools.showShort("TempSuccess")
+ }
 
-    /**
+ /**
 \1temperaturedisplay
-     */
-    fun onTempBtnClick() {
-        if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
-            return
-        }
-        isDispLayTemp = !isDispLayTemp
-        if (isDispLayTemp) {
-            mDisplayFrameLayout!!.visibility = View.VISIBLE
-            timerJob =
-                lifecycleScope.launch {
-                    repeat(Int.MAX_VALUE) {
-                        msgLiveData.postValue(0)
-                        delay(1000)
-                    }
-                }
-        } else {
-            mDisplayFrameLayout!!.visibility = View.GONE
-            if (timerJob != null && timerJob!!.isActive) {
-                timerJob!!.cancel()
-                timerJob = null
-            }
-        }
-    }
+ */
+ fun onTempBtnClick() {
+ if (mGuideInterface == null) {
+ ToastTools.showShort("")
+ return
+ }
+ isDispLayTemp = !isDispLayTemp
+ if (isDispLayTemp) {
+ mDisplayFrameLayout!!.visibility = View.VISIBLE
+ timerJob =
+ lifecycleScope.launch {
+ repeat(Int.MAX_VALUE) {
+ msgLiveData.postValue(0)
+ delay(1000)
+ }
+ }
+ } else {
+ mDisplayFrameLayout!!.visibility = View.GONE
+ if (timerJob != null && timerJob!!.isActive) {
+ timerJob!!.cancel()
+ timerJob = null
+ }
+ }
+ }
 
-    private var upValue = 0f
-    private var downValue = 0f
+ private var upValue = 0f
+ private var downValue = 0f
 
-    private fun addLimit() {
-        ThermalInputDialog.Builder(requireContext())
-            .setMessage("请设置温度限值")
-            .setPositiveListener(LibUiR.string.app_confirm) { up, down, _, _ ->
-                ToastTools.showShort("设置上限:$up, 下限:$down")
-                upValue = up
-                downValue = down
-            }
-            .setCancelListener(LibUiR.string.app_cancel)
-            .create().show()
-    }
+ private fun addLimit() {
+ ThermalInputDialog.Builder(requireContext())
+ .setMessage("SettingsTemperatureValue")
+ .setPositiveListener(LibUiR.string.app_confirm) { up, down, _, _ ->
+ ToastTools.showShort("Settings:$up, :$down")
+ upValue = up
+ downValue = down
+ }
+ .setCancelListener(LibUiR.string.app_cancel)
+ .create().show()
+ }
 
-\1***************************************专家模式**********************************************
+\1***************************************Mode**********************************************
 
-    /**
-\1专家模式
-     */
-    fun onExpertModeClick(view: View?) {
-        System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
-        EXPERT_HITS[EXPERT_HITS.size - 1] = System.currentTimeMillis()
-        if (EXPERT_HITS[0] >= System.currentTimeMillis() - EXPERT_MODE_HIT_DURATION) {
-            if (mExpertLayout!!.visibility == View.GONE) {
-                mExpertLayout!!.visibility = View.VISIBLE
-            } else {
-                mExpertLayout!!.visibility = View.GONE
-            }
-            EXPERT_HITS = LongArray(EXPERT_MODE_HIT_COUNT)
-        }
-    }
+ /**
+\1Mode
+ */
+ fun onExpertModeClick(view: View?) {
+ System.arraycopy(EXPERT_HITS, 1, EXPERT_HITS, 0, EXPERT_HITS.size - 1)
+ EXPERT_HITS[EXPERT_HITS.size - 1] = System.currentTimeMillis()
+ if (EXPERT_HITS[0] >= System.currentTimeMillis() - EXPERT_MODE_HIT_DURATION) {
+ if (mExpertLayout!!.visibility == View.GONE) {
+ mExpertLayout!!.visibility = View.VISIBLE
+ } else {
+ mExpertLayout!!.visibility = View.GONE
+ }
+ EXPERT_HITS = LongArray(EXPERT_MODE_HIT_COUNT)
+ }
+ }
 
-    fun onNucShutterClick(view: View?) {
-        if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
-            return
-        }
-        mGuideInterface!!.nuc()
-    }
+ fun onNucShutterClick(view: View?) {
+ if (mGuideInterface == null) {
+ ToastTools.showShort("")
+ return
+ }
+ mGuideInterface!!.nuc()
+ }
 
-//    private fun showTipDialog(tip: String, type: Int) {
-//        val tipDialog = TipDialog.Builder(requireContext())
-//            .setIconType(type)
-//            .setTipWord(tip)
-//            .create()
-//        tipDialog.show()
-//        mHandler.postDelayed({
-//            try {
-//                tipDialog.dismiss()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }, 1500)
-//    }
+// private fun showTipDialog(tip: String, type: Int) {
+// val tipDialog = TipDialog.Builder(requireContext())
+// .setIconType(type)
+// .setTipWord(tip)
+// .create()
+// tipDialog.show()
+// mHandler.postDelayed({
+// try {
+// tipDialog.dismiss()
+// } catch (e: Exception) {
+// e.printStackTrace()
+// }
+// }, 1500)
+// }
 
-    fun onLut(view: View) {
-        mIrSurfaceView!!.setOpenLut()
-    }
+ fun onLut(view: View) {
+ mIrSurfaceView!!.setOpenLut()
+ }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun action(event: ThermalActionEvent) {
-        Log.w("123", "event:${event.action}")
-        when (event.action) {
-            1001 -> {
-\1拍照
-                ToastTools.showShort("拍照")
-                picture()
-            }
-            1002 -> {
-\1录制
-                ToastTools.showShort("录制")
-                video()
-            }
-            2001 -> {
-\1添加点
-                clearFenceUI()
-                addPoint()
-            }
-            2002 -> {
-\1添加线
-                clearFenceUI()
-                addLine()
-            }
-            2003 -> {
-\1添加围栏
-                clearFenceUI()
-                addFence()
-            }
-            2004 -> {
-\1添加temperature
-//                onTempBtnClick()
-                addLimit()
-            }
-            2006 -> {
-\1清除还原
-                clearFence()
-            }
-            in 3000..3010 -> {
+ @Subscribe(threadMode = ThreadMode.MAIN)
+ fun action(event: ThermalActionEvent) {
+ Log.w("123", "event:${event.action}")
+ when (event.action) {
+ 1001 -> {
+\1
+ ToastTools.showShort("")
+ picture()
+ }
+ 1002 -> {
+\1
+ ToastTools.showShort("")
+ video()
+ }
+ 2001 -> {
+\1
+ clearFenceUI()
+ addPoint()
+ }
+ 2002 -> {
+\1
+ clearFenceUI()
+ addLine()
+ }
+ 2003 -> {
+\1
+ clearFenceUI()
+ addFence()
+ }
+ 2004 -> {
+\1temperature
+// onTempBtnClick()
+ addLimit()
+ }
+ 2006 -> {
+\1
+ clearFence()
+ }
+ in 3000..3010 -> {
 \1setpseudo-color
-                setColor(event.action)
-            }
-            4001 -> {
+ setColor(event.action)
+ }
+ 4001 -> {
 \1rotation
-                rotate()
-                clearFence()
-            }
-            4002 -> {
-\1image增强
-                enhance()
-            }
-            4003 -> {
-\1image增强
-                camera()
-            }
-            in 5000..5010 -> {
-\1全屏
-                ToastTools.showShort("全屏")
-            }
-        }
-    }
+ rotate()
+ clearFence()
+ }
+ 4002 -> {
+\1image
+ enhance()
+ }
+ 4003 -> {
+\1image
+ camera()
+ }
+ in 5000..5010 -> {
+\1
+ ToastTools.showShort("")
+ }
+ }
+ }
 
-\1复位
-    private fun clearFence() {
-        clearFenceUI()
-\1temperature限值
-        upValue = 0f
-        downValue = 0f
-        selectType = 0
-    }
+\1
+ private fun clearFence() {
+ clearFenceUI()
+\1temperatureValue
+ upValue = 0f
+ downValue = 0f
+ selectType = 0
+ }
 
-    private fun clearFenceUI() {
-        mFenceLayout!!.visibility = View.GONE
-        fenceFlag = 0x000
-        selectIndex.clear()
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).clear()
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).clear()
-        requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).clear()
-    }
+ private fun clearFenceUI() {
+ mFenceLayout!!.visibility = View.GONE
+ fenceFlag = 0x000
+ selectIndex.clear()
+ requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).clear()
+ requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).clear()
+ requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).clear()
+ }
 
-    /**
+ /**
 \1setpseudo-color
-     */
-    private fun setColor(action: Int) {
-        var type: Int = action % 3000 - 1
-        if (type < 0 || type > 10) {
-            type = 0
-        }
-        updatePalette(type) // 默认2
-    }
+ */
+ private fun setColor(action: Int) {
+ var type: Int = action % 3000 - 1
+ if (type < 0 || type > 10) {
+ type = 0
+ }
+ updatePalette(type) // Default2
+ }
 
-    /**
-\1色带
-     */
-    private fun updatePalette(index: Int) {
-        if (mGuideInterface == null) {
-            ToastTools.showShort("请先开启视频流")
-            return
-        }
-        mGuideInterface!!.changePalette(index)
-    }
+ /**
+\1
+ */
+ private fun updatePalette(index: Int) {
+ if (mGuideInterface == null) {
+ ToastTools.showShort("")
+ return
+ }
+ mGuideInterface!!.changePalette(index)
+ }
 
-    var fenceFlag = 0x000
+ var fenceFlag = 0x000
 
-    private fun addPoint() {
-        showFence(1)
-    }
+ private fun addPoint() {
+ showFence(1)
+ }
 
-    private fun addLine() {
-        showFence(2)
-    }
+ private fun addLine() {
+ showFence(2)
+ }
 
-    private fun addFence() {
-        showFence(3)
-    }
+ private fun addFence() {
+ showFence(3)
+ }
 
-\1display点线面布局
-    private fun showFence(index: Int) {
-        if (fenceFlag.getIndex(index) == 0) {
-            fenceFlag = 1.shl(4 * (index - 1)) // 设置001 or 010 or 100
-            mFenceLayout!!.visibility = View.VISIBLE
-            requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
-            requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
-            requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
-        } else {
-            fenceFlag = 0x000
-            mFenceLayout!!.visibility = View.GONE
-        }
-    }
+\1display
+ private fun showFence(index: Int) {
+ if (fenceFlag.getIndex(index) == 0) {
+ fenceFlag = 1.shl(4 * (index - 1)) // Settings001 or 010 or 100
+ mFenceLayout!!.visibility = View.VISIBLE
+ requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).visibility = if (fenceFlag.getIndex(1) > 0) View.VISIBLE else View.GONE
+ requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).visibility = if (fenceFlag.getIndex(2) > 0) View.VISIBLE else View.GONE
+ requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).visibility = if (fenceFlag.getIndex(3) > 0) View.VISIBLE else View.GONE
+ } else {
+ fenceFlag = 0x000
+ mFenceLayout!!.visibility = View.GONE
+ }
+ }
 
-    private var selectType = 0
-    private var selectIndex: ArrayList<Int> = arrayListOf()
+ private var selectType = 0
+ private var selectIndex: ArrayList<Int> = arrayListOf()
 
-    private fun initFence() {
-        requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).listener =
-            object : FencePointView.CallBack {
-                override fun callback(
-                    startPoint: IntArray,
-                    srcRect: IntArray,
-                ) {
-\1get点
-                    selectType = 1
-                    selectIndex =
-                        Fence(srcRect = srcRect, rotateType = rotateType).getPointIndex(startPoint)
-                }
-            }
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).listener =
-            object : FenceLineView.CallBack {
-                override fun callback(
-                    startPoint: IntArray,
-                    endPoint: IntArray,
-                    srcRect: IntArray,
-                ) {
-\1get线
-                    selectType = 2
-                    selectIndex =
-                        Fence(srcRect = srcRect, rotateType = rotateType)
-                            .getLineIndex(startPoint, endPoint)
-                }
-            }
-        requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).listener =
-            object : FenceView.CallBack {
-                override fun callback(
-                    startPoint: IntArray,
-                    endPoint: IntArray,
-                    srcRect: IntArray,
-                ) {
-\1get面
-                    selectType = 3
-                    selectIndex =
-                        Fence(srcRect = srcRect, rotateType = rotateType)
-                            .getAreaIndex(startPoint, endPoint)
-                }
-            }
-    }
+ private fun initFence() {
+ requireView().findViewById<com.topdon.lib.ui.fence.FencePointView>(R.id.fence_point_view).listener =
+ object : FencePointView.CallBack {
+ override fun callback(
+ startPoint: IntArray,
+ srcRect: IntArray,
+ ) {
+\1get
+ selectType = 1
+ selectIndex =
+ Fence(srcRect = srcRect, rotateType = rotateType).getPointIndex(startPoint)
+ }
+ }
+ requireView().findViewById<com.topdon.lib.ui.fence.FenceLineView>(R.id.fence_line_view).listener =
+ object : FenceLineView.CallBack {
+ override fun callback(
+ startPoint: IntArray,
+ endPoint: IntArray,
+ srcRect: IntArray,
+ ) {
+\1get
+ selectType = 2
+ selectIndex =
+ Fence(srcRect = srcRect, rotateType = rotateType)
+ .getLineIndex(startPoint, endPoint)
+ }
+ }
+ requireView().findViewById<com.topdon.lib.ui.fence.FenceView>(R.id.fence_view).listener =
+ object : FenceView.CallBack {
+ override fun callback(
+ startPoint: IntArray,
+ endPoint: IntArray,
+ srcRect: IntArray,
+ ) {
+\1get
+ selectType = 3
+ selectIndex =
+ Fence(srcRect = srcRect, rotateType = rotateType)
+ .getAreaIndex(startPoint, endPoint)
+ }
+ }
+ }
 
-    private fun picture() {
-//        ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
-        // Note: ScreenShotUtils functionality requires integration with screenshot utility module
-        // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
-    }
+ private fun picture() {
+// ScreenShotUtils.shotScreen(requireContext(), temp_display_lay, 1, ScreenBean())
+ // Note: ScreenShotUtils functionality requires integration with screenshot utility module
+ // ScreenShotUtils.shotScreenBitmap(requireContext(), mIrBitmap, 1, ScreenBean())
+ }
 
-    var isVideoRunning = false
+ var isVideoRunning = false
 
-    private fun video() {
-        if (isVideoRunning) {
-            Log.w("123", "正在录制")
-            return
-        }
-        // Note: FileConfig.galleryPath requires integration with file configuration module
-        // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
-        val latestResultPath = "/tmp/YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // Temporary fallback
-        Log.w("123", "latestResultPath:$latestResultPath")
-        YapVideoEncoder(this, File(latestResultPath)).start()
-    }
+ private fun video() {
+ if (isVideoRunning) {
+ Log.w("123", "")
+ return
+ }
+ // Note: FileConfig.galleryPath requires integration with file configuration module
+ // val latestResultPath = "${FileConfig.galleryPath}YapBitmapToMp4_${System.currentTimeMillis()}.mp4"
+ val latestResultPath = "/tmp/YapBitmapToMp4_${System.currentTimeMillis()}.mp4" // Temporary fallback
+ Log.w("123", "latestResultPath:$latestResultPath")
+ YapVideoEncoder(this, File(latestResultPath)).start()
+ }
 
 \1rotation
-    private fun rotate() {
-        rotateType = if (rotateType >= 3) 0 else rotateType + 1
-        mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
-        ToastTools.showShort("旋转:${ThermalTool.getRotate(rotateType)}度")
-    }
+ private fun rotate() {
+ rotateType = if (rotateType >= 3) 0 else rotateType + 1
+ mIrSurfaceView!!.setMatrix(ThermalTool.getRotate(rotateType), 256f, 192f)
+ ToastTools.showShort(":${ThermalTool.getRotate(rotateType)}")
+ }
 
-\1image增强
-    private fun enhance() {
-        mIrSurfaceView!!.setOpenLut()
-        val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
-        // Note: SeekDialog functionality requires integration with dialog utility module
-        /*
-        SeekDialog.Builder(requireContext())
-            .setMessage(LibUiR.string.thermal_enhance)
-            .setSaturation(saturation)
-            .setPositiveListener(LibUiR.string.app_confirm) { value: Int ->
-                mIrSurfaceView?.setSaturationValue(value)//设置对比度
-            }
-            .setListener { value: Int ->
-\1实时监听
-\1mIrSurfaceView?.setSaturationValue(value)//set对比度
-            }.create().show()
-         */
-    }
+\1image
+ private fun enhance() {
+ mIrSurfaceView!!.setOpenLut()
+ val saturation = mIrSurfaceView?.getSaturationValue() ?: 0
+ // Note: SeekDialog functionality requires integration with dialog utility module
+ /*
+ SeekDialog.Builder(requireContext())
+ .setMessage(LibUiR.string.thermal_enhance)
+ .setSaturation(saturation)
+ .setPositiveListener(LibUiR.string.app_confirm) { value: Int ->
+ mIrSurfaceView?.setSaturationValue(value)//Settings
+ }
+ .setListener { value: Int ->
+\1
+\1mIrSurfaceView?.setSaturationValue(value)//set
+ }.create().show()
+ */
+ }
 
-    var isRunCamera = false
+ var isRunCamera = false
 
-    private fun checkCameraPermission() {
-        // Check camera permission using modern Android APIs
-        if (requireContext().checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            camera()
-        } else {
-            // Request camera permission
-            requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 100)
-        }
-    }
+ private fun checkCameraPermission() {
+ // Check camera permission using modern Android APIs
+ if (requireContext().checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+ camera()
+ } else {
+ // Request camera permission
+ requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 100)
+ }
+ }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            camera()
-        }
-    }
+ override fun onRequestPermissionsResult(
+ requestCode: Int,
+ permissions: Array<out String>,
+ grantResults: IntArray,
+ ) {
+ super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+ if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+ camera()
+ }
+ }
 
-    @SuppressLint("CheckResult")
-    private fun camera() {
-        // Note: RxPermissions dependency requires integration with reactive permissions module
-        // RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
-        //     .subscribe { granted: Boolean ->
-        if (isRunCamera) {
+ @SuppressLint("CheckResult")
+ private fun camera() {
+ // Note: RxPermissions dependency requires integration with reactive permissions module
+ // RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
+ // .subscribe { granted: Boolean ->
+ if (isRunCamera) {
 \1disabled
-            requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.GONE
-            isRunCamera = false
-        } else {
-\1打开
-            requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.VISIBLE
-            val tempCameraView = requireView().findViewById<com.topdon.lib.ui.camera.CameraView>(R.id.temp_camera_view)
-            tempCameraView.post {
-                tempCameraView.openCamera()
-                isRunCamera = true
-            }
-        }
-        //     }
-    }
+ requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.GONE
+ isRunCamera = false
+ } else {
+\1
+ requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.VISIBLE
+ val tempCameraView = requireView().findViewById<com.topdon.lib.ui.camera.CameraView>(R.id.temp_camera_view)
+ tempCameraView.post {
+ tempCameraView.openCamera()
+ isRunCamera = true
+ }
+ }
+ // }
+ }
 
-    override fun size(): Int = 5 * 60
+ override fun size(): Int = 5 * 60
 
-    override fun next(): Bitmap {
-        return if (mIrBitmap == null) {
-            Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
-        } else {
-            mIrBitmap!!
-        }
-    }
+ override fun next(): Bitmap {
+ return if (mIrBitmap == null) {
+ Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
+ } else {
+ mIrBitmap!!
+ }
+ }
 
-    override fun progress(progress: Float) {
-        Log.w("123", "progress:$progress")
-        isVideoRunning = progress > 0 || progress < 100
-    }
+ override fun progress(progress: Float) {
+ Log.w("123", "progress:$progress")
+ isVideoRunning = progress > 0 || progress < 100
+ }
 }

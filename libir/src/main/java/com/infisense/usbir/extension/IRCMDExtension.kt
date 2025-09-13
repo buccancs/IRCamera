@@ -9,45 +9,45 @@ import com.energy.iruvc.utils.CommonParams.PropImageParamsValue.DDEType
 import com.energy.iruvc.utils.CommonParams.PropImageParamsValue.MirrorFlipType
 
 /**
- * settings自动快门开启或close
- * @param isAutoShutter true-开启自动快门 false-close自动快门
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setAutoShutter(isAutoShutter: Boolean) {
-    setPropAutoShutterParameter(
-        PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
-        if (isAutoShutter) StatusSwith.ON else StatusSwith.OFF,
-    )
+ setPropAutoShutterParameter(
+ PropAutoShutterParameter.SHUTTER_PROP_SWITCH,
+ if (isAutoShutter) StatusSwith.ON else StatusSwith.OFF,
+ )
 }
 
 /**
- * settings镜像开启或close
- * @param isMirror true-开启 false-close
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setMirror(isMirror: Boolean) {
-    setPropImageParams(
-        PropImageParams.IMAGE_PROP_SEL_MIRROR_FLIP,
-        if (isMirror) MirrorFlipType.ONLY_FLIP else MirrorFlipType.NO_MIRROR_FLIP,
-    )
+ setPropImageParams(
+ PropImageParams.IMAGE_PROP_SEL_MIRROR_FLIP,
+ if (isMirror) MirrorFlipType.ONLY_FLIP else MirrorFlipType.NO_MIRROR_FLIP,
+ )
 }
 
 /**
- * settings对比度
- * @param value 取值range `[0, 255]`
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setContrast(value: Int) {
-    setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_CONTRAST, PropImageParamsValue.NumberType(value.toString()))
+ setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_CONTRAST, PropImageParamsValue.NumberType(value.toString()))
 }
 
 /**
- * settings锐度（细节）
- * @param level 取值range `[0,4]`
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setPropDdeLevel(level: Int) {
-    when (level) {
-        0 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_0)
-        1 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_1)
-        2 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_2)
-        3 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_3)
-        4 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_4)
-    }
+ when (level) {
+ 0 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_0)
+ 1 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_1)
+ 2 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_2)
+ 3 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_3)
+ 4 -> setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_DDE, DDEType.DDE_4)
+ }
 }

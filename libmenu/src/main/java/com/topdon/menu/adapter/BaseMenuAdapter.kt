@@ -11,53 +11,53 @@ import com.topdon.menu.databinding.ItemMenuBinding
  * Created by LCG on 2024/11/29.
  */
 internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.ViewHolder>() {
-    companion object {
-        private const val VIEW_TYPE_DEFAULT = 0
-        private const val VIEW_TYPE_FIRST = 1
-        private const val VIEW_TYPE_LAST = 2
-    }
+ companion object {
+ private const val VIEW_TYPE_DEFAULT = 0
+ private const val VIEW_TYPE_FIRST = 1
+ private const val VIEW_TYPE_LAST = 2
+ }
 
-    override fun getItemViewType(position: Int): Int =
-        when (position) {
-            0 -> VIEW_TYPE_FIRST
-            itemCount - 1 -> VIEW_TYPE_LAST
-            else -> VIEW_TYPE_DEFAULT
-        }
+ override fun getItemViewType(position: Int): Int =
+ when (position) {
+ 0 -> VIEW_TYPE_FIRST
+ itemCount - 1 -> VIEW_TYPE_LAST
+ else -> VIEW_TYPE_DEFAULT
+ }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): ViewHolder {
-        val binding = ItemMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val widthPixels: Int = parent.context.resources.displayMetrics.widthPixels
+ override fun onCreateViewHolder(
+ parent: ViewGroup,
+ viewType: Int,
+ ): ViewHolder {
+ val binding = ItemMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+ val widthPixels: Int = parent.context.resources.displayMetrics.widthPixels
 
-        // 计算及settings图标尺寸
-        val iconSize: Int = (widthPixels * 62 / 375f).toInt() // 62、375 是按 UI 图比例
-        val iconParams: ViewGroup.LayoutParams = binding.ivIcon.layoutParams
-        iconParams.width = iconSize
-        iconParams.height = iconSize
+ // Comment removed (contained Chinese characters)
+ val iconSize: Int = (widthPixels * 62 / 375f).toInt() // 62、375 UI 
+ val iconParams: ViewGroup.LayoutParams = binding.ivIcon.layoutParams
+ iconParams.width = iconSize
+ iconParams.height = iconSize
 
-        // 计算及settings整体尺寸
-        if (itemCount <= 4) {
-            binding.root.layoutParams.width = (widthPixels / itemCount.toFloat()).toInt()
-        } else {
-            val bigMargin: Int = (widthPixels * 24 / 375f).toInt() // 按 UI 图最左最右间距为 24
-            val smallMargin: Int = (widthPixels * 8 / 375f).toInt() // 按 UI 图每个 item 间距为 16
-            when (viewType) {
-                VIEW_TYPE_FIRST -> binding.root.setPadding(bigMargin, 0, smallMargin, 0)
-                VIEW_TYPE_LAST -> binding.root.setPadding(smallMargin, 0, bigMargin, 0)
-                else -> binding.root.setPadding(smallMargin, 0, smallMargin, 0)
-            }
-        }
-        return ViewHolder(binding)
-    }
+ // Comment removed (contained Chinese characters)
+ if (itemCount <= 4) {
+ binding.root.layoutParams.width = (widthPixels / itemCount.toFloat()).toInt()
+ } else {
+ val bigMargin: Int = (widthPixels * 24 / 375f).toInt() // UI 24
+ val smallMargin: Int = (widthPixels * 8 / 375f).toInt() // UI item 16
+ when (viewType) {
+ VIEW_TYPE_FIRST -> binding.root.setPadding(bigMargin, 0, smallMargin, 0)
+ VIEW_TYPE_LAST -> binding.root.setPadding(smallMargin, 0, bigMargin, 0)
+ else -> binding.root.setPadding(smallMargin, 0, smallMargin, 0)
+ }
+ }
+ return ViewHolder(binding)
+ }
 
-    /**
-     * ViewHolder(val class
-     */
+ /**
+ * ViewHolder(val class
+ */
 /**
  * Custom View holder view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-    class ViewHolder(val binding: ItemMenuBinding) : RecyclerView.ViewHolder(binding.root)
+ class ViewHolder(val binding: ItemMenuBinding) : RecyclerView.ViewHolder(binding.root)
 }

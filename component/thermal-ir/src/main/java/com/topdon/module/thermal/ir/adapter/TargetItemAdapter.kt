@@ -18,75 +18,75 @@ import com.topdon.lib.ui.R as UiR
  * Provides specialized rendering and interaction capabilities.
  */
 class TargetItemAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var listener: ((index: Int, code: Int) -> Unit)? = null
-    private var type = 0
-    private var selected = -1
+ var listener: ((index: Int, code: Int) -> Unit)? = null
+ private var type = 0
+ private var selected = -1
 
-    fun selected(index: Int) {
-        selected = index
-        notifyDataSetChanged()
-    }
+ fun selected(index: Int) {
+ selected = index
+ notifyDataSetChanged()
+ }
 
-    fun getSelected(): Int {
-        return selected
-    }
+ fun getSelected(): Int {
+ return selected
+ }
 
-    private val secondBean =
-        arrayListOf(
-            ColorBean(UiR.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
-            ColorBean(UiR.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
-            ColorBean(UiR.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
-        )
+ private val secondBean =
+ arrayListOf(
+ ColorBean(UiR.drawable.ic_menu_thermal6002, "", ObserveBean.TYPE_TARGET_HORIZONTAL),
+ ColorBean(UiR.drawable.ic_menu_thermal6001, "", ObserveBean.TYPE_TARGET_VERTICAL),
+ ColorBean(UiR.drawable.ic_menu_thermal6003, "", ObserveBean.TYPE_TARGET_CIRCLE),
+ )
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.itme_target_mode, parent, false)
-        return ItemView(view)
-    }
+ override fun onCreateViewHolder(
+ parent: ViewGroup,
+ viewType: Int,
+ ): RecyclerView.ViewHolder {
+ val view = LayoutInflater.from(parent.context).inflate(R.layout.itme_target_mode, parent, false)
+ return ItemView(view)
+ }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-    ) {
-        if (holder is ItemView) {
-            val bean = secondBean[position]
-            holder.img.setImageResource(bean.res)
-            holder.lay.setOnClickListener {
-                listener?.invoke(position, bean.code)
-                selected(bean.code)
-            }
-            holder.img.isSelected = bean.code == selected
-            holder.name.text = bean.name
-            holder.name.isSelected = bean.code == selected
-            holder.name.setTextColor(
-                if (position == selected) {
-                    ContextCompat.getColor(context, R.color.white)
-                } else {
-                    ContextCompat.getColor(context, R.color.font_third_color)
-                },
-            )
-        }
-    }
+ override fun onBindViewHolder(
+ holder: RecyclerView.ViewHolder,
+ position: Int,
+ ) {
+ if (holder is ItemView) {
+ val bean = secondBean[position]
+ holder.img.setImageResource(bean.res)
+ holder.lay.setOnClickListener {
+ listener?.invoke(position, bean.code)
+ selected(bean.code)
+ }
+ holder.img.isSelected = bean.code == selected
+ holder.name.text = bean.name
+ holder.name.isSelected = bean.code == selected
+ holder.name.setTextColor(
+ if (position == selected) {
+ ContextCompat.getColor(context, R.color.white)
+ } else {
+ ContextCompat.getColor(context, R.color.font_third_color)
+ },
+ )
+ }
+ }
 
-    override fun getItemCount(): Int {
-        return secondBean.size
-    }
+ override fun getItemCount(): Int {
+ return secondBean.size
+ }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
-        val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
-        val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
-//        init {
-\1val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都display完
-//            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
-//            itemView.layoutParams = ViewGroup.LayoutParams((with * 0.95).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
-//            val imageSize = (ScreenUtils.getScreenWidth() * 29 / 375f).toInt()
-//            val layoutParams = itemView.item_menu_tab_img.layoutParams
-//            layoutParams.width = imageSize
-//            layoutParams.height = imageSize
-//            itemView.item_menu_tab_img.layoutParams = layoutParams
-//        }
-    }
+ inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+ val lay: View = itemView.findViewById(R.id.item_menu_tab_lay)
+ val img: ImageView = itemView.findViewById(R.id.item_menu_tab_img)
+ val name: TextView = itemView.findViewById(R.id.item_menu_tab_text)
+// init {
+\1val canSeeCount = itemCount.toFloat() // item ，display
+// val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
+// itemView.layoutParams = ViewGroup.LayoutParams((with * 0.95).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+// val imageSize = (ScreenUtils.getScreenWidth() * 29 / 375f).toInt()
+// val layoutParams = itemView.item_menu_tab_img.layoutParams
+// layoutParams.width = imageSize
+// layoutParams.height = imageSize
+// itemView.item_menu_tab_img.layoutParams = layoutParams
+// }
+ }
 }

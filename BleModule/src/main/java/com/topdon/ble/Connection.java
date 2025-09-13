@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -14,149 +13,149 @@ import java.util.UUID;
 
 /**
  * date: 2021/8/12 13:45
- * author: bichuanfeng
+* author: bichuanfeng
  */
 public interface Connection {
-    UUID clientCharacteristicConfig = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
+ UUID clientCharacteristicConfig = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
-    /**
-     * 普通请求失败
-     */
-    int REQUEST_FAIL_TYPE_REQUEST_FAILED = 0;
-    int REQUEST_FAIL_TYPE_CHARACTERISTIC_NOT_EXIST = 1;
-    int REQUEST_FAIL_TYPE_DESCRIPTOR_NOT_EXIST = 2;
-    int REQUEST_FAIL_TYPE_SERVICE_NOT_EXIST = 3;
-    /**
-     * 请求结果不是[BluetoothGatt.GATT_SUCCESS]
-     */
-    int REQUEST_FAIL_TYPE_GATT_STATUS_FAILED = 4;
-    int REQUEST_FAIL_TYPE_GATT_IS_NULL = 5;
-    int REQUEST_FAIL_TYPE_BLUETOOTH_ADAPTER_DISABLED = 6;
-    int REQUEST_FAIL_TYPE_REQUEST_TIMEOUT = 7;
-    int REQUEST_FAIL_TYPE_CONNECTION_DISCONNECTED = 8;
-    int REQUEST_FAIL_TYPE_CONNECTION_RELEASED = 9;
-    int REQUEST_FAIL_TYPE_NO_PERMISSION = 10;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int REQUEST_FAIL_TYPE_REQUEST_FAILED = 0;
+ int REQUEST_FAIL_TYPE_CHARACTERISTIC_NOT_EXIST = 1;
+ int REQUEST_FAIL_TYPE_DESCRIPTOR_NOT_EXIST = 2;
+ int REQUEST_FAIL_TYPE_SERVICE_NOT_EXIST = 3;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int REQUEST_FAIL_TYPE_GATT_STATUS_FAILED = 4;
+ int REQUEST_FAIL_TYPE_GATT_IS_NULL = 5;
+ int REQUEST_FAIL_TYPE_BLUETOOTH_ADAPTER_DISABLED = 6;
+ int REQUEST_FAIL_TYPE_REQUEST_TIMEOUT = 7;
+ int REQUEST_FAIL_TYPE_CONNECTION_DISCONNECTED = 8;
+ int REQUEST_FAIL_TYPE_CONNECTION_RELEASED = 9;
+ int REQUEST_FAIL_TYPE_NO_PERMISSION = 10;
 
-    //----------连接超时类型---------
-    int TIMEOUT_TYPE_CANNOT_DISCOVER_DEVICE = 0;
-    /**
-     * 搜索到设备，但是无法连接成功
-     */
-    int TIMEOUT_TYPE_CANNOT_CONNECT = 1;
-    /**
-     * 连接成功，但是无法发现蓝牙服务，即[BluetoothGattCallback.onServicesDiscovered]不回调
-     */
-    int TIMEOUT_TYPE_CANNOT_DISCOVER_SERVICES = 2;
+ // Comment removed (contained Chinese characters)
+ int TIMEOUT_TYPE_CANNOT_DISCOVER_DEVICE = 0;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int TIMEOUT_TYPE_CANNOT_CONNECT = 1;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int TIMEOUT_TYPE_CANNOT_DISCOVER_SERVICES = 2;
 
-    //-------------连接失败类型-------------------
-    /**
-     * 达到最大重连次数限制
-     */
-    int CONNECT_FAIL_TYPE_MAXIMUM_RECONNECTION = 1;
-    /**
-     * 不支持连接
-     */
-    int CONNECT_FAIL_TYPE_CONNECTION_IS_UNSUPPORTED = 2;
-    /**
-     * 缺少蓝牙权限
-     */
-    int CONNECT_FAIL_TYPE_NO_PERMISSION = 3;
+ //-------------ConnectionFailedType-------------------
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int CONNECT_FAIL_TYPE_MAXIMUM_RECONNECTION = 1;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int CONNECT_FAIL_TYPE_CONNECTION_IS_UNSUPPORTED = 2;
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int CONNECT_FAIL_TYPE_NO_PERMISSION = 3;
 
-    @NonNull
-    Device getDevice();
+ @NonNull
+ Device getDevice();
 
-    /**
-     * 获取当前设置的最大传输单元
-     */
-    int getMtu();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ int getMtu();
 
-    /**
-     * 重连
-     */
-    void reconnect();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void reconnect();
 
-    /**
-     * 断开连接
-     */
-    void disconnect();
+ /**
+ * DisconnectConnection
+ */
+ void disconnect();
 
-    /**
-     * 清理内部缓存并强制刷新蓝牙设备的服务
-     */
-    void refresh();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void refresh();
 
-    /**
-     * 销毁连接
-     */
-    void release();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void release();
 
-    /**
-     * 销毁连接，不通知观察者
-     */
-    void releaseNoEvent();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void releaseNoEvent();
 
-    /**
-     * 获取连接状态
-     */
-    @NonNull
-    ConnectionState getConnectionState();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @NonNull
+ ConnectionState getConnectionState();
 
-    /**
-     * 是否开启了自动连接
-     */
-    boolean isAutoReconnectEnabled();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ boolean isAutoReconnectEnabled();
 
-    @Nullable
-    BluetoothGatt getGatt();
+ @Nullable
+ BluetoothGatt getGatt();
 
-    /**
-     * 清除请求队列，不触发事件
-     */
-    void clearRequestQueue();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void clearRequestQueue();
 
-    /**
-     * 将指定的请求类型从队列中移除，如果传null，则清除请求队列，不触发事件
-     */
-    void clearRequestQueueByType(RequestType type);
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void clearRequestQueueByType(RequestType type);
 
-    @NonNull
-    ConnectionConfiguration getConnectionConfiguration();
+ @NonNull
+ ConnectionConfiguration getConnectionConfiguration();
 
-    @Nullable
-    BluetoothGattService getService(UUID service);
+ @Nullable
+ BluetoothGattService getService(UUID service);
 
-    @Nullable
-    BluetoothGattCharacteristic getCharacteristic(UUID service, UUID characteristic);
+ @Nullable
+ BluetoothGattCharacteristic getCharacteristic(UUID service, UUID characteristic);
 
-    @Nullable
-    BluetoothGattDescriptor getDescriptor(UUID service, UUID characteristic, UUID descriptor);
+ @Nullable
+ BluetoothGattDescriptor getDescriptor(UUID service, UUID characteristic, UUID descriptor);
 
-    /**
-     * 执行请求
-     */
-    void execute(Request request);
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void execute(Request request);
 
-    /**
-     * 通知或Indication是否开启
-     */
-    boolean isNotificationOrIndicationEnabled(BluetoothGattCharacteristic characteristic);
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ boolean isNotificationOrIndicationEnabled(BluetoothGattCharacteristic characteristic);
 
-    /**
-     * 通知或Indication是否开启
-     */
-    boolean isNotificationOrIndicationEnabled(UUID service, UUID characteristic);
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ boolean isNotificationOrIndicationEnabled(UUID service, UUID characteristic);
 
-    /**
-     * 设置原生回调
-     */
-    void setBluetoothGattCallback(BluetoothGattCallback callback);
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ void setBluetoothGattCallback(BluetoothGattCallback callback);
 
-    /**
-     * 判断特征是否具有某属性
-     *
-     * @param service        特征所在服务的UUID
-     * @param characteristic 特征的UUID
-     * @param property       需要判断是否存在的属性。{@link BluetoothGattCharacteristic#PROPERTY_WRITE}等
-     */
-    boolean hasProperty(UUID service, UUID characteristic, int property);
+ /**
+ * Comment removed (contained Chinese characters)
+ *
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ boolean hasProperty(UUID service, UUID characteristic, int property);
 }

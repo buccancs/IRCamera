@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
-\1双光校正 - 第1步.
+\1 - 1.
  * Created by LCG on 2023/12/29.
  */
 // Legacy ARouter route annotation - now using NavigationManager
@@ -18,30 +18,30 @@ import org.greenrobot.eventbus.ThreadMode
  * Manages UI interactions and thermal data display.
  */
 class ManualStep1Activity : BaseActivity() {
-    // View declarations
-    private lateinit var tvManual: TextView
+ // View declarations
+ private lateinit var tvManual: TextView
 
-    override fun initContentView(): Int = R.layout.activity_manual_step1
+ override fun initContentView(): Int = R.layout.activity_manual_step1
 
-    override fun initView() {
-        // Initialize views
-        tvManual = findViewById(R.id.tv_manual)
+ override fun initView() {
+ // Initialize views
+ tvManual = findViewById(R.id.tv_manual)
 
-        tvManual.setOnClickListener {
-            startActivity(Intent(this, ManualStep2Activity::class.java))
-        }
-    }
+ tvManual.setOnClickListener {
+ startActivity(Intent(this, ManualStep2Activity::class.java))
+ }
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    override fun disConnected() {
-        super.disConnected()
-        finish()
-    }
+ override fun disConnected() {
+ super.disConnected()
+ finish()
+ }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onManualFinishBean(manualFinishBean: ManualFinishBean) {
-        finish()
-    }
+ @Subscribe(threadMode = ThreadMode.MAIN)
+ fun onManualFinishBean(manualFinishBean: ManualFinishBean) {
+ finish()
+ }
 }

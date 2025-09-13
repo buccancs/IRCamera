@@ -4,14 +4,14 @@ import com.topdon.ble.Request;
 
 /**
  * date: 2021/8/12 17:40
- * author: bichuanfeng
+* author: bichuanfeng
  */
 public interface WriteCharacteristicCallback extends RequestFailedCallback {
-    /**
-     * 成功写入特征值
-     *
-     * @param request 请求
-     * @param value   写入的数据
-     */
-    void onCharacteristicWrite(Request request, byte[] value);
+ /**
+ * Comment removed (contained Chinese characters)
+ *
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ void onCharacteristicWrite(Request request, byte[] value);
 }

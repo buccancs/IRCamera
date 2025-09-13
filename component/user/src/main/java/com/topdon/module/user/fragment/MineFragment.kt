@@ -45,7 +45,7 @@ import com.topdon.lms.sdk.bean.FeedBackBean
 import com.topdon.lms.sdk.feedback.activity.FeedbackActivity
 import com.topdon.module.user.R
 import com.topdon.module.user.activity.MoreActivity
-// import com.zoho.salesiqembed.ZohoSalesIQ  // ZohoSalesIQ dependency not available
+// import com.zoho.salesiqembed.ZohoSalesIQ // ZohoSalesIQ dependency not available
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -55,296 +55,296 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
-\1公共set页，即公共 “我的”
-\1[MoreActivity] - TS004 “我的”
-\1[MoreFragment] - 插件式 “我的”
+\1set， “”
+\1[MoreActivity] - TS004 “”
+\1[MoreFragment] - “”
  *
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
-    /**
-\1onResume() 阶段是否需要刷新登录状态相关 UI.
-     */
-    private var isNeedRefreshLogin = false
+ /**
+\1onResume() WhetherStatus UI.
+ */
+ private var isNeedRefreshLogin = false
 
-    // View references
-    private lateinit var ivWinter: ImageView
-    private lateinit var settingItemVersion: View
-    private lateinit var settingItemClear: View
-    private lateinit var settingUserLay: View
-    private lateinit var settingUserImgNight: ImageView
-    private lateinit var settingUserText: TextView
-    private lateinit var settingElectronicManual: View
-    private lateinit var settingFaq: View
-    private lateinit var settingFeedback: View
-    private lateinit var settingItemUnit: View
-    private lateinit var dragCustomerView: View
-    private lateinit var viewWinterPoint: View
+ // View references
+ private lateinit var ivWinter: ImageView
+ private lateinit var settingItemVersion: View
+ private lateinit var settingItemClear: View
+ private lateinit var settingUserLay: View
+ private lateinit var settingUserImgNight: ImageView
+ private lateinit var settingUserText: TextView
+ private lateinit var settingElectronicManual: View
+ private lateinit var settingFaq: View
+ private lateinit var settingFeedback: View
+ private lateinit var settingItemUnit: View
+ private lateinit var dragCustomerView: View
+ private lateinit var viewWinterPoint: View
 
-    override fun initContentView(): Int = R.layout.fragment_mine
+ override fun initContentView(): Int = R.layout.fragment_mine
 
-    override fun initView() {
-        // Initialize views
-        ivWinter = requireView().findViewById(R.id.iv_winter)
-        settingItemVersion = requireView().findViewById(R.id.setting_item_version)
-        settingItemClear = requireView().findViewById(R.id.setting_item_clear)
-        settingUserLay = requireView().findViewById(R.id.setting_user_lay)
-        settingUserImgNight = requireView().findViewById(R.id.setting_user_img_night)
-        settingUserText = requireView().findViewById(R.id.setting_user_text)
-        settingElectronicManual = requireView().findViewById(R.id.setting_electronic_manual)
-        settingFaq = requireView().findViewById(R.id.setting_faq)
-        settingFeedback = requireView().findViewById(R.id.setting_feedback)
-        settingItemUnit = requireView().findViewById(R.id.setting_item_unit)
-        dragCustomerView = requireView().findViewById(R.id.drag_customer_view)
-        viewWinterPoint = requireView().findViewById(R.id.view_winter_point)
+ override fun initView() {
+ // Initialize views
+ ivWinter = requireView().findViewById(R.id.iv_winter)
+ settingItemVersion = requireView().findViewById(R.id.setting_item_version)
+ settingItemClear = requireView().findViewById(R.id.setting_item_clear)
+ settingUserLay = requireView().findViewById(R.id.setting_user_lay)
+ settingUserImgNight = requireView().findViewById(R.id.setting_user_img_night)
+ settingUserText = requireView().findViewById(R.id.setting_user_text)
+ settingElectronicManual = requireView().findViewById(R.id.setting_electronic_manual)
+ settingFaq = requireView().findViewById(R.id.setting_faq)
+ settingFeedback = requireView().findViewById(R.id.setting_feedback)
+ settingItemUnit = requireView().findViewById(R.id.setting_item_unit)
+ dragCustomerView = requireView().findViewById(R.id.drag_customer_view)
+ viewWinterPoint = requireView().findViewById(R.id.view_winter_point)
 
-        ivWinter.setOnClickListener(this)
-        settingItemVersion.setOnClickListener(this)
-        settingItemClear.setOnClickListener(this)
-        settingUserLay.setOnClickListener(this)
-        settingUserImgNight.setOnClickListener(this)
-        settingUserText.setOnClickListener(this)
-        settingElectronicManual.setOnClickListener(this)
-        settingFaq.setOnClickListener(this)
-        settingFeedback.setOnClickListener(this)
-        settingItemUnit.setOnClickListener(this) // 温度单温
-        dragCustomerView.setOnClickListener(this)
+ ivWinter.setOnClickListener(this)
+ settingItemVersion.setOnClickListener(this)
+ settingItemClear.setOnClickListener(this)
+ settingUserLay.setOnClickListener(this)
+ settingUserImgNight.setOnClickListener(this)
+ settingUserText.setOnClickListener(this)
+ settingElectronicManual.setOnClickListener(this)
+ settingFaq.setOnClickListener(this)
+ settingFeedback.setOnClickListener(this)
+ settingItemUnit.setOnClickListener(this) // TemperatureTemp
+ dragCustomerView.setOnClickListener(this)
 
-        viewWinterPoint.isVisible = !SharedManager.hasClickWinter
+ viewWinterPoint.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) { // 国内版
-            // Language selection removed - English only
-        }
+ if (BaseApplication.instance.isDomestic()) { // 
+ // Language selection removed - English only
+ }
 
-        viewLifecycleOwner.lifecycle.addObserver(
-            object : DefaultLifecycleObserver {
-                override fun onResume(owner: LifecycleOwner) {
-\1要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
-                    if (WebSocketProxy.getInstance().isConnected()) {
-                        NetWorkUtils.switchNetwork(false)
-                    }
-                }
-            },
-        )
-    }
+ viewLifecycleOwner.lifecycle.addObserver(
+ object : DefaultLifecycleObserver {
+ override fun onResume(owner: LifecycleOwner) {
+\1CurrentConnection TS004、TC007，，
+ if (WebSocketProxy.getInstance().isConnected()) {
+ NetWorkUtils.switchNetwork(false)
+ }
+ }
+ },
+ )
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun updatePDF(event: PDFEvent) {
-        isNeedRefreshLogin = true
-    }
+ @Subscribe(threadMode = ThreadMode.MAIN)
+ fun updatePDF(event: PDFEvent) {
+ isNeedRefreshLogin = true
+ }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onWinterClick(event: WinterClickEvent) {
-        viewWinterPoint.isVisible = false
-    }
+ @Subscribe(threadMode = ThreadMode.MAIN)
+ fun onWinterClick(event: WinterClickEvent) {
+ viewWinterPoint.isVisible = false
+ }
 
-    override fun onResume() {
-        super.onResume()
-        changeLoginStyle()
-        if (isNeedRefreshLogin) {
-            isNeedRefreshLogin = false
-            checkLoginResult()
-        }
-    }
+ override fun onResume() {
+ super.onResume()
+ changeLoginStyle()
+ if (isNeedRefreshLogin) {
+ isNeedRefreshLogin = false
+ checkLoginResult()
+ }
+ }
 
-    // Language picker removed - English only app
+ // Language picker removed - English only app
 
-    override fun onClick(v: View?) {
-        when (v) {
-            ivWinter -> { // 冬季特辑入口
-                viewWinterPoint.isVisible = false
-                SharedManager.hasClickWinter = true
-                EventBus.getDefault().post(WinterClickEvent())
+ override fun onClick(v: View?) {
+ when (v) {
+ ivWinter -> { // 
+ viewWinterPoint.isVisible = false
+ SharedManager.hasClickWinter = true
+ EventBus.getDefault().post(WinterClickEvent())
 
-                val url =
-                    if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
-                        "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
-                            "languageId=1" // Fixed to English (languageId=1)
-                    } else {
-                        "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
-                    }
+ val url =
+ if (UrlConstant.BASE_URL == "https://api.topdon.com/") {
+ "https://app.topdon.com/h5/share/#/detectionGuidanceIndex?showHeader=1&" +
+ "languageId=1" // Fixed to English (languageId=1)
+ } else {
+ "http://172.16.66.77:8081/#/detectionGuidanceIndex?languageId=1&showHeader=1"
+ }
 
-                NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
-                    .withString(ExtraKeyConfig.URL, url)
-                    .navigation(requireContext())
-            }
-            settingUserLay, settingUserImgNight -> {
-                if (UserInfoManager.getInstance().isLogin()) {
-                    isNeedRefreshLogin = true
-                    LMS.getInstance().activityUserInfo()
-                } else {
-                    loginAction()
-                }
-            }
-            settingUserText -> {
-                if (!LMS.getInstance().isLogin) {
-                    loginAction()
-                }
-            }
-            settingElectronicManual -> { // 电子说明书
-                NavigationManager.getInstance().build(
-                    RouterConfig.ELECTRONIC_MANUAL,
-                ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
-            }
-            settingFaq -> { // FAQ
-                NavigationManager.getInstance().build(
-                    RouterConfig.ELECTRONIC_MANUAL,
-                ).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
-            }
-            settingFeedback -> { // 意见反馈
-                if (LMS.getInstance().isLogin) {
-                    val devSn = SharedManager.getDeviceSn()
-                    FeedBackBean().apply {
-                        logPath = logPath
-                        sn = devSn
-                        lastConnectSn = devSn
-                        XLog.e("bcf", "sn $sn  logPath $logPath")
-                    }.let { feedBackBean ->
-                        val intent = Intent(requireContext(), FeedbackActivity::class.java)
-                        intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
-                        startActivity(intent)
-                    }
-                } else {
-                    loginAction()
-                }
-            }
-            settingItemUnit -> { // 温度单位
-                NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
-            }
-            settingItemVersion -> { // 版本
-                NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
-            }
-            settingItemClear -> { // 清除缓存，实际已隐藏
-                clearCache()
-            }
-            dragCustomerView -> { // 客服
-//                ActivityUtil.goSystemCustomer(requireContext())
-                val sn = SharedManager.getDeviceSn()
-                // ZohoSalesIQ functionality disabled - dependency not available
-                if (!TextUtils.isEmpty(sn)) {
-                    // ZohoSalesIQ.Visitor.addInfo("SN", sn)
-                }
-                // ZohoSalesIQ.Visitor.addInfo("Model", "Topinfrared")
-                // ZohoSalesIQ.Chat.show()
-            }
-        }
-    }
+ NavigationManager.getInstance().build(RouterConfig.WEB_VIEW)
+ .withString(ExtraKeyConfig.URL, url)
+ .navigation(requireContext())
+ }
+ settingUserLay, settingUserImgNight -> {
+ if (UserInfoManager.getInstance().isLogin()) {
+ isNeedRefreshLogin = true
+ LMS.getInstance().activityUserInfo()
+ } else {
+ loginAction()
+ }
+ }
+ settingUserText -> {
+ if (!LMS.getInstance().isLogin) {
+ loginAction()
+ }
+ }
+ settingElectronicManual -> { // 
+ NavigationManager.getInstance().build(
+ RouterConfig.ELECTRONIC_MANUAL,
+ ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
+ }
+ settingFaq -> { // FAQ
+ NavigationManager.getInstance().build(
+ RouterConfig.ELECTRONIC_MANUAL,
+ ).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
+ }
+ settingFeedback -> { // 
+ if (LMS.getInstance().isLogin) {
+ val devSn = SharedManager.getDeviceSn()
+ FeedBackBean().apply {
+ logPath = logPath
+ sn = devSn
+ lastConnectSn = devSn
+ XLog.e("bcf", "sn $sn logPath $logPath")
+ }.let { feedBackBean ->
+ val intent = Intent(requireContext(), FeedbackActivity::class.java)
+ intent.putExtra(FeedbackActivity.FEEDBACKBEAN, feedBackBean)
+ startActivity(intent)
+ }
+ } else {
+ loginAction()
+ }
+ }
+ settingItemUnit -> { // TemperatureUnit
+ NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
+ }
+ settingItemVersion -> { // 
+ NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
+ }
+ settingItemClear -> { // ，
+ clearCache()
+ }
+ dragCustomerView -> { // 
+// ActivityUtil.goSystemCustomer(requireContext())
+ val sn = SharedManager.getDeviceSn()
+ // ZohoSalesIQ functionality disabled - dependency not available
+ if (!TextUtils.isEmpty(sn)) {
+ // ZohoSalesIQ.Visitor.addInfo("SN", sn)
+ }
+ // ZohoSalesIQ.Visitor.addInfo("Model", "Topinfrared")
+ // ZohoSalesIQ.Chat.show()
+ }
+ }
+ }
 
-    private fun loginAction() {
-        isNeedRefreshLogin = true
-\1activityLogin()回调不可靠，但必然触发onResume()
-        val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
-        LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
-    }
+ private fun loginAction() {
+ isNeedRefreshLogin = true
+\1activityLogin()，onResume()
+ val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
+ LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
+ }
 
-    private fun checkLoginResult() {
-        if (LMS.getInstance().isLogin) {
-\1登录successful
-            LMS.getInstance().getUserInfo { userinfo: CommonBean ->
-                try {
-                    val json = userinfo.data
-                    val infoData = Gson().fromJson(json, ResponseUserInfo::class.java)
-                    UserInfoManager.getInstance().login(
-                        token = LMS.getInstance().token,
-                        userId = infoData.topdonId,
-                        phone = infoData.phone,
-                        email = infoData.email,
-                        nickname = infoData.userName,
-                        headUrl = infoData.avatar,
-                    )
+ private fun checkLoginResult() {
+ if (LMS.getInstance().isLogin) {
+\1successful
+ LMS.getInstance().getUserInfo { userinfo: CommonBean ->
+ try {
+ val json = userinfo.data
+ val infoData = Gson().fromJson(json, ResponseUserInfo::class.java)
+ UserInfoManager.getInstance().login(
+ token = LMS.getInstance().token,
+ userId = infoData.topdonId,
+ phone = infoData.phone,
+ email = infoData.email,
+ nickname = infoData.userName,
+ headUrl = infoData.avatar,
+ )
 
 \1updateui
-                    changeLoginStyle()
-                } catch (e: Exception) {
-                    XLog.e(" 登录异常: ${e.message}")
-                }
-            }
-        } else {
-\1登录failed
-            XLog.e(" 登录失败")
-            changeLoginStyle()
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
-        }
-    }
+ changeLoginStyle()
+ } catch (e: Exception) {
+ XLog.e(" : ${e.message}")
+ }
+ }
+ } else {
+\1failed
+ XLog.e(" Failed")
+ changeLoginStyle()
+ settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Default
+ }
+ }
 
-    private fun changeLoginStyle() {
-        if (LMS.getInstance().isLogin) {
-            val layoutParams = ConstraintLayout.LayoutParams(0, ConstraintLayout.LayoutParams.WRAP_CONTENT)
-            layoutParams.startToEnd = R.id.setting_user_img_night
-            layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-            layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-            layoutParams.marginStart = SizeUtils.dp2px(16f)
-            layoutParams.marginEnd = SizeUtils.dp2px(16f)
-            settingUserText.setPadding(0, 0, 0, 0)
-            settingUserText.gravity = Gravity.LEFT
-            settingUserText.layoutParams = layoutParams
-            val drawable = ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
-            drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            settingUserText.setCompoundDrawables(null, null, drawable, null)
-            settingUserText.text = SharedManager.getNickname()
-            val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
-            tvEmail.text = SharedManager.getUsername()
-            settingUserLay.visibility = View.VISIBLE
+ private fun changeLoginStyle() {
+ if (LMS.getInstance().isLogin) {
+ val layoutParams = ConstraintLayout.LayoutParams(0, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+ layoutParams.startToEnd = R.id.setting_user_img_night
+ layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+ layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+ layoutParams.marginStart = SizeUtils.dp2px(16f)
+ layoutParams.marginEnd = SizeUtils.dp2px(16f)
+ settingUserText.setPadding(0, 0, 0, 0)
+ settingUserText.gravity = Gravity.LEFT
+ settingUserText.layoutParams = layoutParams
+ val drawable = ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
+ drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+ settingUserText.setCompoundDrawables(null, null, drawable, null)
+ settingUserText.text = SharedManager.getNickname()
+ val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
+ tvEmail.text = SharedManager.getUsername()
+ settingUserLay.visibility = View.VISIBLE
 
-            if (settingUserImgNight != null) {
-                GlideLoader.loadCircle(
-                    settingUserImgNight,
-                    SharedManager.getHeadIcon(),
-                    LibAppR.mipmap.ic_default_user_head,
-                    RequestOptions().optionalCircleCrop(),
-                )
-            }
-        } else {
-            val layoutParams =
-                ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                )
-            layoutParams.startToEnd = R.id.setting_user_img_night
-            layoutParams.topToTop = R.id.setting_user_img_night
-            layoutParams.bottomToBottom = R.id.setting_user_img_night
-            settingUserText.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
-            settingUserText.gravity = Gravity.CENTER
-            settingUserText.layoutParams = layoutParams
-            settingUserText.setText(
-                // AppLanguageUtils.attachBaseContext(
-                // context, ConstantLanguages.ENGLISH).getString(RCore.string.app_sign_in))
-                context?.getString(RCore.string.app_sign_in) ?: "Sign In",
-            )
-            val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
-            drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
-            settingUserText.setCompoundDrawables(null, null, drawable, null)
-            settingUserLay.visibility = View.GONE
-            val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
-            tvEmail.text = ""
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
-        }
-    }
+ if (settingUserImgNight != null) {
+ GlideLoader.loadCircle(
+ settingUserImgNight,
+ SharedManager.getHeadIcon(),
+ LibAppR.mipmap.ic_default_user_head,
+ RequestOptions().optionalCircleCrop(),
+ )
+ }
+ } else {
+ val layoutParams =
+ ConstraintLayout.LayoutParams(
+ ConstraintLayout.LayoutParams.WRAP_CONTENT,
+ ConstraintLayout.LayoutParams.WRAP_CONTENT,
+ )
+ layoutParams.startToEnd = R.id.setting_user_img_night
+ layoutParams.topToTop = R.id.setting_user_img_night
+ layoutParams.bottomToBottom = R.id.setting_user_img_night
+ settingUserText.setPadding(SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f), SizeUtils.dp2px(16f))
+ settingUserText.gravity = Gravity.CENTER
+ settingUserText.layoutParams = layoutParams
+ settingUserText.setText(
+ // AppLanguageUtils.attachBaseContext(
+ // context, ConstantLanguages.ENGLISH).getString(RCore.string.app_sign_in))
+ context?.getString(RCore.string.app_sign_in) ?: "Sign In",
+ )
+ val drawable = ContextCompat.getDrawable(requireContext(), R.mipmap.ic_arrow_login)
+ drawable!!.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+ settingUserText.setCompoundDrawables(null, null, drawable, null)
+ settingUserLay.visibility = View.GONE
+ val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
+ tvEmail.text = ""
+ settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Default
+ }
+ }
 
-    /**
-\1清除buffer
-     */
-    private fun clearCache() {
-        lifecycleScope.launch {
-            showLoadingDialog()
-            withContext(Dispatchers.IO) {
-                try {
-                    AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
-                    CleanUtils.cleanExternalCache()
-                } catch (e: Exception) {
-                    XLog.w("清除缓存异常: ${e.message}")
-                }
-                delay(1000)
-            }
-            dismissLoadingDialog()
-            delay(50)
-            TipDialog.Builder(requireContext())
-                .setMessage(RCore.string.clear_finish)
-                .setCanceled(true)
-                .create().show()
-        }
-    }
+ /**
+\1buffer
+ */
+ private fun clearCache() {
+ lifecycleScope.launch {
+ showLoadingDialog()
+ withContext(Dispatchers.IO) {
+ try {
+ AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
+ CleanUtils.cleanExternalCache()
+ } catch (e: Exception) {
+ XLog.w(": ${e.message}")
+ }
+ delay(1000)
+ }
+ dismissLoadingDialog()
+ delay(50)
+ TipDialog.Builder(requireContext())
+ .setMessage(RCore.string.clear_finish)
+ .setCanceled(true)
+ .create().show()
+ }
+ }
 }

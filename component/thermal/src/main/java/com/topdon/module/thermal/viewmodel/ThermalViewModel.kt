@@ -7,26 +7,26 @@ import com.topdon.lib.core.ktbase.BaseViewModel
  * Provides specialized rendering and interaction capabilities.
  */
 class ThermalViewModel : BaseViewModel() {
-    /**
-\1修改yuvtemperature上下限的data
-     * white:82 FF
-     * black:82 00
-     */
-    fun yuvArea(
-        yuv: ByteArray,
-        temp: FloatArray,
-        max: Float,
-        min: Float,
-    ) {
-        for (i in temp.indices) {
-            if (temp[i] < min) {
-                yuv[i * 2] = 0x82.toByte()
-                yuv[i * 2 + 1] = 0x00.toByte()
-            }
-            if (temp[i] > max) {
-                yuv[i * 2] = 0x82.toByte()
-                yuv[i * 2 + 1] = 0xFF.toByte()
-            }
-        }
-    }
+ /**
+\1yuvtemperaturedata
+ * white:82 FF
+ * black:82 00
+ */
+ fun yuvArea(
+ yuv: ByteArray,
+ temp: FloatArray,
+ max: Float,
+ min: Float,
+ ) {
+ for (i in temp.indices) {
+ if (temp[i] < min) {
+ yuv[i * 2] = 0x82.toByte()
+ yuv[i * 2 + 1] = 0x00.toByte()
+ }
+ if (temp[i] > max) {
+ yuv[i * 2] = 0x82.toByte()
+ yuv[i * 2 + 1] = 0xFF.toByte()
+ }
+ }
+ }
 }

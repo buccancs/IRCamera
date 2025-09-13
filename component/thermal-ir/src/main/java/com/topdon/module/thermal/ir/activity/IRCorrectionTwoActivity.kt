@@ -16,87 +16,87 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
-\1锅盖矫正
- * @author: CaiSongL
+\1
+* @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
-\1需要传递parameter：
-\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+\1parameter：
+\1- [ExtraKeyConfig.IS_TC007] - CurrentdeviceWhether TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionTwoActivity : BaseActivity() {
-    /**
-\1From上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
-     */
-    private var isTC007 = false
+ /**
+\1Frominterface，CurrentWhether TC007 deviceType.
+\1true-TC007 false-device
+ */
+ private var isTC007 = false
 
-    // Modern findViewById references
-    private lateinit var tvCorrection: TextView
+ // Modern findViewById references
+ private lateinit var tvCorrection: TextView
 
-    override fun initContentView(): Int = R.layout.activity_ir_correction_two
+ override fun initContentView(): Int = R.layout.activity_ir_correction_two
 
-    override fun initView() {
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+ override fun initView() {
+ isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        val ivSketchMap = findViewById<ImageView>(R.id.iv_sketch_map)
-        tvCorrection = findViewById(R.id.tv_correction)
+ val ivSketchMap = findViewById<ImageView>(R.id.iv_sketch_map)
+ tvCorrection = findViewById(R.id.tv_correction)
 
-        ivSketchMap.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
+ ivSketchMap.setImageResource(if (isTC007) R.drawable.ic_corrected_tc007 else R.drawable.ic_corrected_line)
 
-        if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
-        } else {
-            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
-        }
+ if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
+ tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
+ } else {
+ tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
+ }
 
-        tvCorrection.setOnClickListener {
-            if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
-                if (isTC007) {
-                    NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
-                } else {
-                    if (DeviceTools.isTC001LiteConnect())
-                        {
-                            NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
-                        } else if (DeviceTools.isHikConnect()) {
-                        NavigationManager.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
-                    } else
-                        {
-                            startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
-                        }
-                }
-            }
-        }
-    }
+ tvCorrection.setOnClickListener {
+ if (if (isTC007) WebSocketProxy.getInstance().isTC007Connect() else DeviceTools.isConnect()) {
+ if (isTC007) {
+ NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_07).navigation(this)
+ } else {
+ if (DeviceTools.isTC001LiteConnect())
+ {
+ NavigationManager.getInstance().build(RouterConfig.IR_CORRECTION_THREE_LITE).navigation(this)
+ } else if (DeviceTools.isHikConnect()) {
+ NavigationManager.getInstance().build(RouterConfig.IR_HIK_CORRECT_THREE).navigation(this)
+ } else
+ {
+ startActivity(Intent(this, IRCorrectionThreeActivity::class.java))
+ }
+ }
+ }
+ }
+ }
 
-    override fun connected() {
-        if (!isTC007) {
-            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
-        }
-    }
+ override fun connected() {
+ if (!isTC007) {
+ tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
+ }
+ }
 
-    override fun disConnected() {
-        if (!isTC007) {
-            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
-        }
-    }
+ override fun disConnected() {
+ if (!isTC007) {
+ tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
+ }
+ }
 
-    override fun onSocketConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
-        }
-    }
+ override fun onSocketConnected(isTS004: Boolean) {
+ if (isTC007 && !isTS004) {
+ tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_theme)
+ }
+ }
 
-    override fun onSocketDisConnected(isTS004: Boolean) {
-        if (isTC007 && !isTS004) {
-            tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
-        }
-    }
+ override fun onSocketDisConnected(isTS004: Boolean) {
+ if (isTC007 && !isTS004) {
+ tvCorrection.setBackgroundResource(com.topdon.lib.core.R.drawable.bg_corners05_solid_50_theme)
+ }
+ }
 
-    override fun initData() {}
+ override fun initData() {}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun finishCorrection(event: CorrectionFinishEvent) {
-        finish()
-    }
+ @Subscribe(threadMode = ThreadMode.MAIN)
+ fun finishCorrection(event: CorrectionFinishEvent) {
+ finish()
+ }
 }

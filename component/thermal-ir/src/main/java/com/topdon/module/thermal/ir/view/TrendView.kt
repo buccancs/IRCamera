@@ -12,7 +12,7 @@ import com.topdon.module.thermal.ir.databinding.ViewTrendBinding
 import kotlin.math.min
 
 /**
-\1趋势图折线图及对应箭头等的封装.
+\1.
  *
  * Created by LCG on 2024/12/31.
  */
@@ -21,95 +21,95 @@ import kotlin.math.min
  * Provides specialized rendering and interaction capabilities.
  */
 class TrendView : FrameLayout {
-    /**
-\1展开趋势图
-     */
-    fun expand() {
-        binding.clOpen.isVisible = true
-        binding.llClose.isVisible = false
-    }
+ /**
+\1
+ */
+ fun expand() {
+ binding.clOpen.isVisible = true
+ binding.llClose.isVisible = false
+ }
 
-    /**
-\1收起趋势图
-     */
-    fun close() {
-        binding.clOpen.isVisible = false
-        binding.llClose.isVisible = true
-    }
+ /**
+\1
+ */
+ fun close() {
+ binding.clOpen.isVisible = false
+ binding.llClose.isVisible = true
+ }
 
-    /**
-\1根据指定的data刷新折线图data
-\1@param tempList temperature值列表，单位摄氏度
-     */
-    fun refreshChart(tempList: List<Float>) {
-        if (isVisible && binding.clOpen.isVisible) {
-            binding.viewChartTrend.refresh(tempList)
-        }
-    }
+ /**
+\1datadata
+\1@param tempList temperatureValue，Unit
+ */
+ fun refreshChart(tempList: List<Float>) {
+ if (isVisible && binding.clOpen.isVisible) {
+ binding.viewChartTrend.refresh(tempList)
+ }
+ }
 
-    /**
-\1将折线图清空
-     */
-    fun setToEmpty() {
-        binding.viewChartTrend.setToEmpty()
-    }
+ /**
+\1
+ */
+ fun setToEmpty() {
+ binding.viewChartTrend.setToEmpty()
+ }
 
-    private lateinit var binding: ViewTrendBinding
+ private lateinit var binding: ViewTrendBinding
 
-    constructor(context: Context) : this(context, null)
+ constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+ constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-        defStyleRes,
-    ) {
-        if (isInEditMode) {
-            LayoutInflater.from(context).inflate(R.layout.view_trend, this, true)
-        } else {
-            binding = ViewTrendBinding.inflate(LayoutInflater.from(context), this, true)
+ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+ context,
+ attrs,
+ defStyleAttr,
+ defStyleRes,
+ ) {
+ if (isInEditMode) {
+ LayoutInflater.from(context).inflate(R.layout.view_trend, this, true)
+ } else {
+ binding = ViewTrendBinding.inflate(LayoutInflater.from(context), this, true)
 
-            binding.ivClose.setOnClickListener {
-                binding.clOpen.isVisible = false
-                binding.llClose.isVisible = true
-            }
-            binding.ivOpen.setOnClickListener {
-                binding.clOpen.isVisible = true
-                binding.llClose.isVisible = false
-            }
-        }
-    }
+ binding.ivClose.setOnClickListener {
+ binding.clOpen.isVisible = false
+ binding.llClose.isVisible = true
+ }
+ binding.ivOpen.setOnClickListener {
+ binding.clOpen.isVisible = true
+ binding.llClose.isVisible = false
+ }
+ }
+ }
 
-    override fun setVisibility(visibility: Int) {
-        super.setVisibility(visibility)
-        if (visibility == View.GONE) {
-            binding.viewChartTrend.setToEmpty()
-        }
-    }
+ override fun setVisibility(visibility: Int) {
+ super.setVisibility(visibility)
+ if (visibility == View.GONE) {
+ binding.viewChartTrend.setToEmpty()
+ }
+ }
 
-    override fun onMeasure(
-        widthMeasureSpec: Int,
-        heightMeasureSpec: Int,
-    ) {
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
-        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+ override fun onMeasure(
+ widthMeasureSpec: Int,
+ heightMeasureSpec: Int,
+ ) {
+ val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+ val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+ val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-\1宽度为 UNSPECIFIED 的情况目前不存在，不考虑
-        val wantHeight: Int = SizeUtils.dp2px(34f) + (widthSize * 158 / 264f).toInt()
-        val height =
-            when (heightMode) {
-                MeasureSpec.EXACTLY -> heightSize
-                MeasureSpec.AT_MOST -> min(wantHeight, heightSize)
-                else -> wantHeight
-            }
+\1 UNSPECIFIED ，
+ val wantHeight: Int = SizeUtils.dp2px(34f) + (widthSize * 158 / 264f).toInt()
+ val height =
+ when (heightMode) {
+ MeasureSpec.EXACTLY -> heightSize
+ MeasureSpec.AT_MOST -> min(wantHeight, heightSize)
+ else -> wantHeight
+ }
 
-        val newWidthSpec = MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY)
-        val newHeightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
-        super.onMeasure(newWidthSpec, newHeightSpec)
-    }
+ val newWidthSpec = MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY)
+ val newHeightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+ super.onMeasure(newWidthSpec, newHeightSpec)
+ }
 }

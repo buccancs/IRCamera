@@ -11,87 +11,87 @@ import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 
 /**
-\1有一根 SeekBar 用于拾取值的 PopupWindow.
+\1 SeekBar Value PopupWindow.
  *
-\1用于 fusion度(带title)、对比度(无title)、锐度(无title) set
+\1 fusion(title)、(title)、(title) set
  *
  * Created by LCG on 2024/12/3.
  *
-\1@param hasTitle 是否有title文字
+\1@param hasTitle Whethertitle
  */
 @SuppressLint("SetTextI18n")
 class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() {
-    var progress: Int
-        get() = binding.seekBar.progress
-        set(value) {
-            binding.seekBar.progress = value
-        }
+ var progress: Int
+ get() = binding.seekBar.progress
+ set(value) {
+ binding.seekBar.progress = value
+ }
 
-    var max: Int
-        get() = binding.seekBar.max
-        set(value) {
-            binding.seekBar.max = value
-        }
+ var max: Int
+ get() = binding.seekBar.max
+ set(value) {
+ binding.seekBar.max = value
+ }
 
-    /**
-\1是否在滑动过程中实时触发回调.
-     *
-\1true-实时触发  false-滑动停止(stop)时才触发
-     */
-    var isRealTimeTrigger = false
+ /**
+\1Whether.
+ *
+\1true- false-(stop)
+ */
+ var isRealTimeTrigger = false
 
-    /**
-\1进度值拾取事件监听.
-     */
-    var onValuePickListener: ((progress: Int) -> Unit)? = null
+ /**
+\1Value.
+ */
+ var onValuePickListener: ((progress: Int) -> Unit)? = null
 
-    private val binding: PopSeekBarBinding = PopSeekBarBinding.inflate(LayoutInflater.from(context))
+ private val binding: PopSeekBarBinding = PopSeekBarBinding.inflate(LayoutInflater.from(context))
 
-    init {
-        val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.widthPixels, View.MeasureSpec.EXACTLY)
-        val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.heightPixels, View.MeasureSpec.AT_MOST)
-        binding.tvTitle.isVisible = hasTitle
-        binding.root.measure(widthMeasureSpec, heightMeasureSpec)
-        binding.tvValue.text = "$progress%"
-        binding.seekBar.setOnSeekBarChangeListener(
-            object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(
-                    seekBar: SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean,
-                ) {
-                    binding.tvValue.text = "$progress%"
-                    if (isRealTimeTrigger) {
-                        onValuePickListener?.invoke(progress)
-                    }
-                }
+ init {
+ val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.widthPixels, View.MeasureSpec.EXACTLY)
+ val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(context.resources.displayMetrics.heightPixels, View.MeasureSpec.AT_MOST)
+ binding.tvTitle.isVisible = hasTitle
+ binding.root.measure(widthMeasureSpec, heightMeasureSpec)
+ binding.tvValue.text = "$progress%"
+ binding.seekBar.setOnSeekBarChangeListener(
+ object : SeekBar.OnSeekBarChangeListener {
+ override fun onProgressChanged(
+ seekBar: SeekBar?,
+ progress: Int,
+ fromUser: Boolean,
+ ) {
+ binding.tvValue.text = "$progress%"
+ if (isRealTimeTrigger) {
+ onValuePickListener?.invoke(progress)
+ }
+ }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
+ override fun onStartTrackingTouch(seekBar: SeekBar?) {
+ }
 
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    onValuePickListener?.invoke(seekBar.progress)
-                }
-            },
-        )
+ override fun onStopTrackingTouch(seekBar: SeekBar) {
+ onValuePickListener?.invoke(seekBar.progress)
+ }
+ },
+ )
 
-        contentView = binding.root
-        width = contentView.measuredWidth
-        height = contentView.measuredHeight
-        isOutsideTouchable = false
-    }
+ contentView = binding.root
+ width = contentView.measuredWidth
+ height = contentView.measuredHeight
+ isOutsideTouchable = false
+ }
 
-    /**
-\1@param isDropDown true-放置于anchor下方 false-底边缘与anchor对齐
-     */
-    fun show(
-        anchor: View,
-        isDropDown: Boolean,
-    ) {
-        if (isDropDown) {
-            showAsDropDown(anchor)
-        } else {
-            showAsDropDown(anchor, 0, -height, Gravity.NO_GRAVITY)
-        }
-    }
+ /**
+\1@param isDropDown true-anchor false-anchor
+ */
+ fun show(
+ anchor: View,
+ isDropDown: Boolean,
+ ) {
+ if (isDropDown) {
+ showAsDropDown(anchor)
+ } else {
+ showAsDropDown(anchor, 0, -height, Gravity.NO_GRAVITY)
+ }
+ }
 }

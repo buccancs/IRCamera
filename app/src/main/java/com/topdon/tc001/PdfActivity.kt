@@ -16,76 +16,76 @@ import java.io.OutputStream
  **/
 // Legacy ARouter route annotation - now using NavigationManager
 class PdfActivity : BaseBindingActivity<ActivityPdfBinding>() {
-    // Note: Using TextView placeholder until PDFView library is integrated
-    private val pdfView get() = binding.pdfView
+ // Note: Using TextView placeholder until PDFView library is integrated
+ private val pdfView get() = binding.pdfView
 
-    override fun initContentLayoutId() = R.layout.activity_pdf
+ override fun initContentLayoutId() = R.layout.activity_pdf
 
-    override fun onCreate(savedInstanceState: android.os.Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
-        initData()
-    }
+ override fun onCreate(savedInstanceState: android.os.Bundle?) {
+ super.onCreate(savedInstanceState)
+ initView()
+ initData()
+ }
 
-    private fun initView() {
-        // Note: PDF functionality requires PDFView library integration
-        val pdfFileName = if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf"
-        pdfView.text = "PDF functionality temporarily unavailable - $pdfFileName will be displayed here when PDF library is available"
+ private fun initView() {
+ // Note: PDF functionality requires PDFView library integration
+ val pdfFileName = if (intent.getBooleanExtra("isTS001", false)) "TC001.pdf" else "TS004.pdf"
+ pdfView.text = "PDF functionality temporarily unavailable - $pdfFileName will be displayed here when PDF library is available"
 
-        // Note: PDF viewer method calls require PDFView library integration
-        /*
-        pdfView.fromAsset(pdfFileName)
-        .enableSwipe(true) // allows to block changing pages using swipe
-        .swipeHorizontal(false)
-        .enableDoubletap(true)
-        .defaultPage(0)
-        .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
-        .password(null)
-        .scrollHandle(null)
-        .enableAntialiasing(true) // improve rendering a little bit on low-res screens
-        .spacing(0) // spacing between pages in dp. To define spacing color, set view background
-        .load()
-         */
-    }
+ // Note: PDF viewer method calls require PDFView library integration
+ /*
+ pdfView.fromAsset(pdfFileName)
+ .enableSwipe(true) // allows to block changing pages using swipe
+ .swipeHorizontal(false)
+ .enableDoubletap(true)
+ .defaultPage(0)
+ .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
+ .password(null)
+ .scrollHandle(null)
+ .enableAntialiasing(true) // improve rendering a little bit on low-res screens
+ .spacing(0) // spacing between pages in dp. To define spacing color, set view background
+ .load()
+ */
+ }
 
-    private fun initData() {
-        val tc001File = File(getExternalFilesDir("pdf")!!, "TC001.pdf")
-        if (!tc001File.exists()) {
-            copyBigDataToSD("TC001.pdf", tc001File)
-        }
+ private fun initData() {
+ val tc001File = File(getExternalFilesDir("pdf")!!, "TC001.pdf")
+ if (!tc001File.exists()) {
+ copyBigDataToSD("TC001.pdf", tc001File)
+ }
 
-        val tc004File = File(getExternalFilesDir("pdf")!!, "TS004.pdf")
-        if (!tc004File.exists()) {
-            copyBigDataToSD("TS004.pdf", tc004File)
-        }
-    }
+ val tc004File = File(getExternalFilesDir("pdf")!!, "TS004.pdf")
+ if (!tc004File.exists()) {
+ copyBigDataToSD("TS004.pdf", tc004File)
+ }
+ }
 
-    override fun onResume() {
-        super.onResume()
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    }
+ override fun onResume() {
+ super.onResume()
+ window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+ }
 
-    override fun onPause() {
-        super.onPause()
-        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    }
+ override fun onPause() {
+ super.onPause()
+ window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+ }
 
-    // 复制assets文件
-    @Throws(IOException::class)
-    private fun copyBigDataToSD(
-        assetsName: String,
-        targetFile: File,
-    ) {
-        val myOutput: OutputStream = FileOutputStream(targetFile)
-        val myInput = assets.open(assetsName)
-        val buffer = ByteArray(1024)
-        var length: Int = myInput.read(buffer)
-        while (length > 0) {
-            myOutput.write(buffer, 0, length)
-            length = myInput.read(buffer)
-        }
-        myOutput.flush()
-        myInput.close()
-        myOutput.close()
-    }
+ // Comment removed (contained Chinese characters)
+ @Throws(IOException::class)
+ private fun copyBigDataToSD(
+ assetsName: String,
+ targetFile: File,
+ ) {
+ val myOutput: OutputStream = FileOutputStream(targetFile)
+ val myInput = assets.open(assetsName)
+ val buffer = ByteArray(1024)
+ var length: Int = myInput.read(buffer)
+ while (length > 0) {
+ myOutput.write(buffer, 0, length)
+ length = myInput.read(buffer)
+ }
+ myOutput.flush()
+ myInput.close()
+ myOutput.close()
+ }
 }

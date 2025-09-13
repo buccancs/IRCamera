@@ -19,89 +19,89 @@ import java.util.concurrent.TimeUnit
  * Provides helper functions and common functionality.
  */
 class VideoRecordMedia(
-    private var cameraView: CameraView,
-    private var temperatureView: TemperatureView,
+ private var cameraView: CameraView,
+ private var temperatureView: TemperatureView,
 ) : VideoRecord() {
-    private lateinit var exportDisposable: Disposable
-    private var encoder: Encoder = MP4Encoder()
-    private var isRunning = false
+ private lateinit var exportDisposable: Disposable
+ private var encoder: Encoder = MP4Encoder()
+ private var isRunning = false
 
-    var width = 480
-    var height = 640
+ var width = 480
+ var height = 640
 
-    init {
-        encoder.setFrameDelay(25)
-        width = 480
-        height = width * cameraView.height / cameraView.width
-\1宽高不能出现奇数
-        if (height % 2 == 1) {
-            height -= 1
-        }
-    }
+ init {
+ encoder.setFrameDelay(25)
+ width = 480
+ height = width * cameraView.height / cameraView.width
+\1
+ if (height % 2 == 1) {
+ height -= 1
+ }
+ }
 
-    override fun startRecord() {
-        val downloadDir = FileConfig.lineGalleryDir
-        val exportedFile = File(downloadDir, "${Date().time}.mp4")
-        if (exportedFile.exists()) {
-            exportedFile.delete()
-        }
-        encoder.setOutputFilePath(exportedFile.path)
-//        if (bitmap == null) {
-\1Log.w("123", "录制准备failed")
-//            return
-//        }
-        encoder.setOutputSize(width, height)
-        encoder.startEncode()
-        isRunning = true
-\1默认frame率20,间隔50ms一frame
-        exportDisposable =
-            Observable.interval(50, TimeUnit.MILLISECONDS)
-                .map {
-                    createBitmapFromView()
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    encoder.addFrame(it)
-                }
-    }
+ override fun startRecord() {
+ val downloadDir = FileConfig.lineGalleryDir
+ val exportedFile = File(downloadDir, "${Date().time}.mp4")
+ if (exportedFile.exists()) {
+ exportedFile.delete()
+ }
+ encoder.setOutputFilePath(exportedFile.path)
+// if (bitmap == null) {
+\1Log.w("123", "failed")
+// return
+// }
+ encoder.setOutputSize(width, height)
+ encoder.startEncode()
+ isRunning = true
+\1Defaultframe20,50msframe
+ exportDisposable =
+ Observable.interval(50, TimeUnit.MILLISECONDS)
+ .map {
+ createBitmapFromView()
+ }
+ .observeOn(AndroidSchedulers.mainThread())
+ .subscribe {
+ encoder.addFrame(it)
+ }
+ }
 
-    override fun startRecord(fileDir: String) {
-    }
+ override fun startRecord(fileDir: String) {
+ }
 
-    override fun stopRecord() {
-        if (isRunning) {
-            encoder.stopEncode()
-            exportDisposable.dispose()
-        }
-        isRunning = false
-    }
+ override fun stopRecord() {
+ if (isRunning) {
+ encoder.stopEncode()
+ exportDisposable.dispose()
+ }
+ isRunning = false
+ }
 
-    override fun updateAudioState(audioRecord: Boolean) {
-        // Note: Audio state update functionality not yet implemented
-    }
+ override fun updateAudioState(audioRecord: Boolean) {
+ // Note: Audio state update functionality not yet implemented
+ }
 
-    private fun createBitmapFromView(): Bitmap {
-        var cameraViewBitmap = cameraView.bitmap
-        if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
-\1gettemperature图层的data，包括点线框，temperature值等，重新合成bitmap
-            cameraViewBitmap =
-                BitmapUtils.mergeBitmap(
-                    cameraViewBitmap,
-                    temperatureView.regionAndValueBitmap,
-                    0,
-                    0,
-                )
-        }
-        val dstBitmap =
-            if (cameraViewBitmap != null) {
-                Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
-            } else {
-                Bitmap.createBitmap(
-                    width,
-                    height,
-                    Bitmap.Config.ARGB_8888,
-                )
-            }
-        return dstBitmap
-    }
+ private fun createBitmapFromView(): Bitmap {
+ var cameraViewBitmap = cameraView.bitmap
+ if (temperatureView.temperatureRegionMode != TemperatureView.REGION_MODE_CLEAN) {
+\1gettemperaturedata，，temperatureValue，bitmap
+ cameraViewBitmap =
+ BitmapUtils.mergeBitmap(
+ cameraViewBitmap,
+ temperatureView.regionAndValueBitmap,
+ 0,
+ 0,
+ )
+ }
+ val dstBitmap =
+ if (cameraViewBitmap != null) {
+ Bitmap.createScaledBitmap(cameraViewBitmap, width, height, true)
+ } else {
+ Bitmap.createBitmap(
+ width,
+ height,
+ Bitmap.Config.ARGB_8888,
+ )
+ }
+ return dstBitmap
+ }
 }

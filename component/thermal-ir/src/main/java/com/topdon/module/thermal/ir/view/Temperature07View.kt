@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 
 /**
-\1TC007 使用，不带temperature，仅用来操作点线面的 View.
+\1TC007 ，temperature， View.
  *
  * Created by LCG on 2024/5/7.
  */
@@ -16,51 +16,51 @@ import android.view.MotionEvent
  * Provides specialized rendering and interaction capabilities.
  */
 class Temperature07View : TemperatureBaseView {
-    constructor(context: Context) : this(context, null)
+ constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+ constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-        defStyleRes,
-    )
+ constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(
+ context,
+ attrs,
+ defStyleAttr,
+ defStyleRes,
+ )
 
-    override fun onDraw(canvas: Canvas) {
-        if (!isTouching) {
-            return
-        }
-        when (mode) {
-            Mode.POINT -> operatePoint?.let { drawPoint(canvas, it) }
-            Mode.LINE -> operateLine?.let { drawLine(canvas, it) }
-            Mode.RECT -> operateRect?.let { drawRect(canvas, it) }
-            Mode.TREND -> {
-\1趋势图需求是在 TC007 项目暂停后加的，故而 TC007 没做
-            }
-            else -> {
-            }
-        }
-    }
+ override fun onDraw(canvas: Canvas) {
+ if (!isTouching) {
+ return
+ }
+ when (mode) {
+ Mode.POINT -> operatePoint?.let { drawPoint(canvas, it) }
+ Mode.LINE -> operateLine?.let { drawLine(canvas, it) }
+ Mode.RECT -> operateRect?.let { drawRect(canvas, it) }
+ Mode.TREND -> {
+\1 TC007 ， TC007 
+ }
+ else -> {
+ }
+ }
+ }
 
-    // **************************************** Touch ****************************************
+ // **************************************** Touch ****************************************
 
-    /**
-\1当前是否处于触摸状态，TC007 触摸时才进行drawing.
-     */
-    private var isTouching = false
+ /**
+\1CurrentWhetherStatus，TC007 drawing.
+ */
+ private var isTouching = false
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (!isEnabled) {
-            return false
-        }
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> isTouching = true
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> isTouching = false
-        }
-        return super.onTouchEvent(event)
-    }
+ @SuppressLint("ClickableViewAccessibility")
+ override fun onTouchEvent(event: MotionEvent): Boolean {
+ if (!isEnabled) {
+ return false
+ }
+ when (event.action) {
+ MotionEvent.ACTION_DOWN -> isTouching = true
+ MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> isTouching = false
+ }
+ return super.onTouchEvent(event)
+ }
 }

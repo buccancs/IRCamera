@@ -6,7 +6,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 
 /**
- * 自定义FooterView
+ * Comment removed (contained Chinese characters)
  */
 /**
  * Custom Loading view for thermal imaging display.
@@ -15,13 +15,13 @@ import com.topdon.lib.ui.R as UiR
 /**
  * LoadingView implements custom user interface component functionality.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
 class LoadingView : LinearLayout {
-    constructor(context: Context) : this(context, null)
+ constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs, 0) {
-        inflate(context, UiR.layout.ui_footer_view, this)
-    }
+ constructor(context: Context, attrs: AttributeSet?) : super(context, attrs, 0) {
+ inflate(context, UiR.layout.ui_footer_view, this)
+ }
 }

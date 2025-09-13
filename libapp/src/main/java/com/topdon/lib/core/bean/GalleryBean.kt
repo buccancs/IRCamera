@@ -12,57 +12,57 @@ import java.util.TimeZone
 
 @Parcelize
 open class GalleryBean(
-    val id: Int, // 仅TS004远端时，id
-    val path: String,
-    val thumb: String,
-    val name: String,
-    val duration: Long, // 仅当为视频时，持续毫秒数
-    val timeMillis: Long,
-    var hasDownload: Boolean,
+ val id: Int, // TS004，id
+ val path: String,
+ val thumb: String,
+ val name: String,
+ val duration: Long, // ，
+ val timeMillis: Long,
+ var hasDownload: Boolean,
 ) : Parcelable {
-    constructor(file: File) : this(
-        id = 0,
-        path = file.absolutePath,
-        thumb = file.absolutePath,
-        name = file.name,
-        duration = VideoTools.getLocalVideoDuration(file.absolutePath),
-        timeMillis = TimeTool.updateDateTime(file),
-        hasDownload = true,
-    )
+ constructor(file: File) : this(
+ id = 0,
+ path = file.absolutePath,
+ thumb = file.absolutePath,
+ name = file.name,
+ duration = VideoTools.getLocalVideoDuration(file.absolutePath),
+ timeMillis = TimeTool.updateDateTime(file),
+ hasDownload = true,
+ )
 
-    constructor(isVideo: Boolean, fileBean: FileBean) : this(
-        id = fileBean.id,
-        path = "http://192.168.40.1:8080/DCIM/${fileBean.name}",
-        thumb = if (isVideo) "http://192.168.40.1:8080/DCIM/${fileBean.thumb}" else "http://192.168.40.1:8080/DCIM/${fileBean.name}",
-        name = fileBean.name,
-        duration = fileBean.duration * 1000L,
-        timeMillis = fileBean.time * 1000 - TimeZone.getDefault().getOffset(fileBean.time * 1000),
-        hasDownload = File(FileConfig.ts004GalleryDir, fileBean.name).exists(),
-    )
+ constructor(isVideo: Boolean, fileBean: FileBean) : this(
+ id = fileBean.id,
+ path = "http://192.168.40.1:8080/DCIM/${fileBean.name}",
+ thumb = if (isVideo) "http://192.168.40.1:8080/DCIM/${fileBean.thumb}" else "http://192.168.40.1:8080/DCIM/${fileBean.name}",
+ name = fileBean.name,
+ duration = fileBean.duration * 1000L,
+ timeMillis = fileBean.time * 1000 - TimeZone.getDefault().getOffset(fileBean.time * 1000),
+ hasDownload = File(FileConfig.ts004GalleryDir, fileBean.name).exists(),
+ )
 }
 
 /**
  * GalleryTitle manages camera operations and image capture functionality.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
 class GalleryTitle(timeMillis: Long) : GalleryBean(
-    id = 0,
-    path = "",
-    thumb = "",
-    name = "",
-    duration = 0L,
-    timeMillis = timeMillis,
-    hasDownload = true,
+ id = 0,
+ path = "",
+ thumb = "",
+ name = "",
+ duration = 0L,
+ timeMillis = timeMillis,
+ hasDownload = true,
 ) {
-    companion object CREATOR : Parcelable.Creator<GalleryTitle> {
-        override fun createFromParcel(parcel: Parcel): GalleryTitle {
-            return GalleryTitle(parcel.readLong())
-        }
+ companion object CREATOR : Parcelable.Creator<GalleryTitle> {
+ override fun createFromParcel(parcel: Parcel): GalleryTitle {
+ return GalleryTitle(parcel.readLong())
+ }
 
-        override fun newArray(size: Int): Array<GalleryTitle?> {
-            return arrayOfNulls(size)
-        }
-    }
+ override fun newArray(size: Int): Array<GalleryTitle?> {
+ return arrayOfNulls(size)
+ }
+ }
 }

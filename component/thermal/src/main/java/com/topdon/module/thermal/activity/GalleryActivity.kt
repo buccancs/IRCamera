@@ -19,71 +19,71 @@ import com.topdon.module.thermal.fragment.GalleryVideoFragment
  * Manages UI interactions and thermal data display.
  */
 class GalleryActivity : BaseActivity() {
-    //    override fun providerVMClass() = GalleryViewModel::class.java
+ // override fun providerVMClass() = GalleryViewModel::class.java
 
-    private val permissionList by lazy {
-        if (this.applicationInfo.targetSdkVersion >= 34) {
-            listOf(
-                Manifest.permission.READ_MEDIA_VIDEO,
-                Manifest.permission.READ_MEDIA_IMAGES,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            )
-        } else if (this.applicationInfo.targetSdkVersion >= 33) {
-            mutableListOf(
-                Manifest.permission.READ_MEDIA_VIDEO,
-                Manifest.permission.READ_MEDIA_IMAGES,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            )
-        } else {
-            mutableListOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            )
-        }
-    }
+ private val permissionList by lazy {
+ if (this.applicationInfo.targetSdkVersion >= 34) {
+ listOf(
+ Manifest.permission.READ_MEDIA_VIDEO,
+ Manifest.permission.READ_MEDIA_IMAGES,
+ Manifest.permission.WRITE_EXTERNAL_STORAGE,
+ )
+ } else if (this.applicationInfo.targetSdkVersion >= 33) {
+ mutableListOf(
+ Manifest.permission.READ_MEDIA_VIDEO,
+ Manifest.permission.READ_MEDIA_IMAGES,
+ Manifest.permission.WRITE_EXTERNAL_STORAGE,
+ )
+ } else {
+ mutableListOf(
+ Manifest.permission.READ_EXTERNAL_STORAGE,
+ Manifest.permission.WRITE_EXTERNAL_STORAGE,
+ )
+ }
+ }
 
-    override fun initContentView() = R.layout.activity_gallery
+ override fun initContentView() = R.layout.activity_gallery
 
-    override fun initView() {
-        // Use findViewById instead of synthetic views for Kotlin 2.1.0 compatibility
-        val galleryViewPager = findViewById<ViewPager>(R.id.gallery_viewpager)
-        val galleryTab = findViewById<TabLayout>(R.id.gallery_tab)
+ override fun initView() {
+ // Use findViewById instead of synthetic views for Kotlin 2.1.0 compatibility
+ val galleryViewPager = findViewById<ViewPager>(R.id.gallery_viewpager)
+ val galleryTab = findViewById<TabLayout>(R.id.gallery_tab)
 
-        galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
-        galleryTab.setupWithViewPager(galleryViewPager)
+ galleryViewPager.adapter = ViewAdapter(this, supportFragmentManager)
+ galleryTab.setupWithViewPager(galleryViewPager)
 
-        // Request media permissions using modern PermissionTool
-        PermissionTool.requestFile(this) {
-            // Permission granted, gallery can now access media files
-        }
-    }
+ // Request media permissions using modern PermissionTool
+ PermissionTool.requestFile(this) {
+ // Permission granted, gallery can now access media files
+ }
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    inner class ViewAdapter : FragmentStatePagerAdapter {
-        private var titles: Array<String> = arrayOf()
+ inner class ViewAdapter : FragmentStatePagerAdapter {
+ private var titles: Array<String> = arrayOf()
 
-        constructor (context: Context, fm: FragmentManager) : super(
-            fm,
-            BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
-        ) {
-            titles = arrayOf("图片", "视频")
-        }
+ constructor (context: Context, fm: FragmentManager) : super(
+ fm,
+ BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+ ) {
+ titles = arrayOf("", "")
+ }
 
-        override fun getCount(): Int {
-            return titles.size
-        }
+ override fun getCount(): Int {
+ return titles.size
+ }
 
-        override fun getPageTitle(position: Int): CharSequence? {
-            return titles[position]
-        }
+ override fun getPageTitle(position: Int): CharSequence? {
+ return titles[position]
+ }
 
-        override fun getItem(position: Int): Fragment {
-            return when (position) {
-                0 -> GalleryPictureFragment()
-                else -> GalleryVideoFragment()
-            }
-        }
-    }
+ override fun getItem(position: Int): Fragment {
+ return when (position) {
+ 0 -> GalleryPictureFragment()
+ else -> GalleryVideoFragment()
+ }
+ }
+ }
 }

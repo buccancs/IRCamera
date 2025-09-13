@@ -35,238 +35,238 @@ import com.topdon.lib.core.R as LibR
 import com.topdon.lib.ui.R as UiR
 
 /**
-\1生成报告图片拾取.
+\1.
  *
-\1需要传递parameter：
-\1- 是否 TC007: [ExtraKeyConfig.IS_TC007] 进入目录不同
-\1- [ExtraKeyConfig.REPORT_INFO] - 报告信息
-\1- [ExtraKeyConfig.REPORT_CONDITION] - 检测条件
-\1- [ExtraKeyConfig.REPORT_IR_LIST] - 当前已添加的图片对应data列表
+\1parameter：
+\1- Whether TC007: [ExtraKeyConfig.IS_TC007] 
+\1- [ExtraKeyConfig.REPORT_INFO] - 
+\1- [ExtraKeyConfig.REPORT_CONDITION] - 
+\1- [ExtraKeyConfig.REPORT_IR_LIST] - Currentdata
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ReportPickImgActivity : BaseActivity(), View.OnClickListener {
-    /**
-\1从上一interface传递过来的，当前是否为 TC007 device类型.
-\1true-TC007 false-其他插件式device
-     */
-    private var isTC007 = false
+ /**
+\1interface，CurrentWhether TC007 deviceType.
+\1true-TC007 false-device
+ */
+ private var isTC007 = false
 
-    private val viewModel: IRGalleryViewModel by viewModels()
+ private val viewModel: IRGalleryViewModel by viewModels()
 
-    private val adapter = GalleryAdapter()
+ private val adapter = GalleryAdapter()
 
-    // View declarations
-    private lateinit var titleView: com.topdon.lib.core.view.TitleView
-    private lateinit var clShare: androidx.constraintlayout.widget.ConstraintLayout
-    private lateinit var clDelete: androidx.constraintlayout.widget.ConstraintLayout
-    private lateinit var groupBottom: androidx.constraintlayout.widget.Group
-    private lateinit var irGalleryRecycler: androidx.recyclerview.widget.RecyclerView
+ // View declarations
+ private lateinit var titleView: com.topdon.lib.core.view.TitleView
+ private lateinit var clShare: androidx.constraintlayout.widget.ConstraintLayout
+ private lateinit var clDelete: androidx.constraintlayout.widget.ConstraintLayout
+ private lateinit var groupBottom: androidx.constraintlayout.widget.Group
+ private lateinit var irGalleryRecycler: androidx.recyclerview.widget.RecyclerView
 
-    override fun initContentView() = R.layout.activity_report_pick_img
+ override fun initContentView() = R.layout.activity_report_pick_img
 
-    override fun initView() {
-        // Initialize views
-        titleView = findViewById(R.id.title_view)
-        clShare = findViewById(R.id.cl_share)
-        clDelete = findViewById(R.id.cl_delete)
-        groupBottom = findViewById(R.id.group_bottom)
-        irGalleryRecycler = findViewById(R.id.ir_gallery_recycler)
+ override fun initView() {
+ // Initialize views
+ titleView = findViewById(R.id.title_view)
+ clShare = findViewById(R.id.cl_share)
+ clDelete = findViewById(R.id.cl_delete)
+ groupBottom = findViewById(R.id.group_bottom)
+ irGalleryRecycler = findViewById(R.id.ir_gallery_recycler)
 
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+ isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
-        titleView.setRightClickListener { setEditMode(true) }
+ titleView.setRightDrawable(UiR.drawable.ic_toolbar_check_svg)
+ titleView.setRightClickListener { setEditMode(true) }
 
-        initRecycler()
+ initRecycler()
 
-        clShare.setOnClickListener(this)
-        clDelete.setOnClickListener(this)
+ clShare.setOnClickListener(this)
+ clDelete.setOnClickListener(this)
 
-        showLoadingDialog()
+ showLoadingDialog()
 
-        viewModel.showListLD.observe(this) {
-            adapter.refreshList(it)
-            dismissLoadingDialog()
-        }
-        viewModel.deleteResultLD.observe(this) {
-            if (it) {
-                TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_success)
-                adapter.isEditMode = false
-                EventBus.getDefault().post(GalleryDelEvent())
-                MediaScannerConnection.scanFile(
-                    this,
-                    arrayOf(if (isTC007) FileConfig.tc007GalleryDir else FileConfig.lineGalleryDir),
-                    null,
-                    null,
-                )
-                viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
-            } else {
-                TToast.shortToast(this@ReportPickImgActivity, LibR.string.test_results_delete_failed)
-            }
-        }
-        viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
-    }
+ viewModel.showListLD.observe(this) {
+ adapter.refreshList(it)
+ dismissLoadingDialog()
+ }
+ viewModel.deleteResultLD.observe(this) {
+ if (it) {
+ TToast.shortToast(this@ReportPickImgActivity, R.string.test_results_delete_success)
+ adapter.isEditMode = false
+ EventBus.getDefault().post(GalleryDelEvent())
+ MediaScannerConnection.scanFile(
+ this,
+ arrayOf(if (isTC007) FileConfig.tc007GalleryDir else FileConfig.lineGalleryDir),
+ null,
+ null,
+ )
+ viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
+ } else {
+ TToast.shortToast(this@ReportPickImgActivity, LibR.string.test_results_delete_failed)
+ }
+ }
+ viewModel.queryAllReportImg(if (isTC007) DirType.TC007 else DirType.LINE)
+ }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onReportCreate(event: ReportCreateEvent) {
-        finish()
-    }
+ @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+ fun onReportCreate(event: ReportCreateEvent) {
+ finish()
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    override fun onBackPressed() {
-        if (adapter.isEditMode) {
-            setEditMode(false)
-        } else {
-            super.onBackPressed()
-        }
-    }
+ override fun onBackPressed() {
+ if (adapter.isEditMode) {
+ setEditMode(false)
+ } else {
+ super.onBackPressed()
+ }
+ }
 
-    private fun setEditMode(isEditMode: Boolean) {
-        adapter.isEditMode = isEditMode
-        groupBottom.isVisible = isEditMode
-        titleView.setTitleText(
-            if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery),
-        )
-        titleView.setLeftDrawable(if (isEditMode) 0 else 0) // Note: Add appropriate drawables for edit mode states
-        titleView.setLeftClickListener {
-            if (isEditMode) {
-                setEditMode(false)
-            } else {
-                finish()
-            }
-        }
-        titleView.setRightDrawable(if (isEditMode) 0 else UiR.drawable.ic_toolbar_check_svg)
-        titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
-        titleView.setRightClickListener {
-            if (isEditMode) {
-                adapter.selectAll()
-            } else {
-                setEditMode(true)
-            }
-        }
-    }
+ private fun setEditMode(isEditMode: Boolean) {
+ adapter.isEditMode = isEditMode
+ groupBottom.isVisible = isEditMode
+ titleView.setTitleText(
+ if (isEditMode) getString(R.string.chosen_item, adapter.selectList.size) else getString(R.string.app_gallery),
+ )
+ titleView.setLeftDrawable(if (isEditMode) 0 else 0) // Note: Add appropriate drawables for edit mode states
+ titleView.setLeftClickListener {
+ if (isEditMode) {
+ setEditMode(false)
+ } else {
+ finish()
+ }
+ }
+ titleView.setRightDrawable(if (isEditMode) 0 else UiR.drawable.ic_toolbar_check_svg)
+ titleView.setRightText(if (isEditMode) getString(R.string.report_select_all) else "")
+ titleView.setRightClickListener {
+ if (isEditMode) {
+ adapter.selectAll()
+ } else {
+ setEditMode(true)
+ }
+ }
+ }
 
-    override fun onClick(v: View?) {
-        when (v) {
-            clShare -> {
-                shareImage()
-            }
-            clDelete -> {
-                deleteImage()
-            }
-        }
-    }
+ override fun onClick(v: View?) {
+ when (v) {
+ clShare -> {
+ shareImage()
+ }
+ clDelete -> {
+ deleteImage()
+ }
+ }
+ }
 
-    private fun initRecycler() {
-        val spanCount = 3
-        val gridLayoutManager = GridLayoutManager(this, spanCount)
-\1动态setspan
-        gridLayoutManager.spanSizeLookup =
-            object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
-                }
-            }
-        irGalleryRecycler.adapter = adapter
-        irGalleryRecycler.layoutManager = gridLayoutManager
+ private fun initRecycler() {
+ val spanCount = 3
+ val gridLayoutManager = GridLayoutManager(this, spanCount)
+\1setspan
+ gridLayoutManager.spanSizeLookup =
+ object : GridLayoutManager.SpanSizeLookup() {
+ override fun getSpanSize(position: Int): Int {
+ return if (adapter.dataList[position] is GalleryTitle) spanCount else 1
+ }
+ }
+ irGalleryRecycler.adapter = adapter
+ irGalleryRecycler.layoutManager = gridLayoutManager
 
-        adapter.onLongEditListener = {
-\1adapter 里面的切换编辑太乱了，先这么顶着
-            groupBottom.isVisible = true
-            titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
-            titleView.setLeftDrawable(0) // Note: Add appropriate drawable for cancel/back action
-            titleView.setLeftClickListener {
-                setEditMode(false)
-            }
-            titleView.setRightDrawable(0)
-            titleView.setRightText(getString(R.string.report_select_all))
-            titleView.setRightClickListener {
-                adapter.selectAll()
-            }
-        }
+ adapter.onLongEditListener = {
+\1adapter ，
+ groupBottom.isVisible = true
+ titleView.setTitleText(getString(R.string.chosen_item, adapter.selectList.size))
+ titleView.setLeftDrawable(0) // Note: Add appropriate drawable for cancel/back action
+ titleView.setLeftClickListener {
+ setEditMode(false)
+ }
+ titleView.setRightDrawable(0)
+ titleView.setRightText(getString(R.string.report_select_all))
+ titleView.setRightClickListener {
+ adapter.selectAll()
+ }
+ }
 
-        adapter.selectCallback = {
-            titleView.setTitleText(getString(R.string.chosen_item, it.size))
-        }
-        adapter.itemClickCallback = {
-            val data = adapter.dataList[it]
-            val fileName = data.name.substringBeforeLast(".")
-            val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"
-            if (File(irPath).exists()) {
-                val navigation =
-                    NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
-                        .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                        .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
-                        .withBoolean(IS_REPORT_FIRST, false)
-                        .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
+ adapter.selectCallback = {
+ titleView.setTitleText(getString(R.string.chosen_item, it.size))
+ }
+ adapter.itemClickCallback = {
+ val data = adapter.dataList[it]
+ val fileName = data.name.substringBeforeLast(".")
+ val irPath = "${FileConfig.lineIrGalleryDir}/$fileName.ir"
+ if (File(irPath).exists()) {
+ val navigation =
+ NavigationManager.getInstance().build(RouterConfig.IR_GALLERY_EDIT)
+ .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+ .withBoolean(ExtraKeyConfig.IS_PICK_REPORT_IMG, true)
+ .withBoolean(IS_REPORT_FIRST, false)
+ .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, irPath)
 
-                intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO)?.let {
-                    navigation.withParcelable(ExtraKeyConfig.REPORT_INFO, it)
-                }
-                intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION)?.let {
-                    navigation.withParcelable(ExtraKeyConfig.REPORT_CONDITION, it)
-                }
-                intent.getParcelableArrayListExtra<ReportIRBean>(ExtraKeyConfig.REPORT_IR_LIST)?.let {
-                    navigation.withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, it)
-                }
+ intent.getParcelableExtra<ReportInfoBean>(ExtraKeyConfig.REPORT_INFO)?.let {
+ navigation.withParcelable(ExtraKeyConfig.REPORT_INFO, it)
+ }
+ intent.getParcelableExtra<ReportConditionBean>(ExtraKeyConfig.REPORT_CONDITION)?.let {
+ navigation.withParcelable(ExtraKeyConfig.REPORT_CONDITION, it)
+ }
+ intent.getParcelableArrayListExtra<ReportIRBean>(ExtraKeyConfig.REPORT_IR_LIST)?.let {
+ navigation.withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, it)
+ }
 
-                navigation.navigation(this)
-            } else {
-                ToastTools.showShort(R.string.album_report_on_edit)
-            }
-        }
-    }
+ navigation.navigation(this)
+ } else {
+ ToastTools.showShort(R.string.album_report_on_edit)
+ }
+ }
+ }
 
-    private fun deleteImage() {
-        val deleteList = adapter.buildSelectList()
-        if (deleteList.size > 0) {
-            TipDialog.Builder(this)
-                .setMessage(
-                    getString(
-                        R.string.tip_delete_chosen,
-                        deleteList.size,
-                    ),
-                )
-                .setPositiveListener(R.string.app_confirm) {
-                    viewModel.delete(deleteList, if (isTC007) DirType.TC007 else DirType.LINE, true)
-                }.setCancelListener(R.string.app_cancel)
-                .create().show()
-        } else {
-            ToastTools.showShort(getString(R.string.tip_least_select))
-        }
-    }
+ private fun deleteImage() {
+ val deleteList = adapter.buildSelectList()
+ if (deleteList.size > 0) {
+ TipDialog.Builder(this)
+ .setMessage(
+ getString(
+ R.string.tip_delete_chosen,
+ deleteList.size,
+ ),
+ )
+ .setPositiveListener(R.string.app_confirm) {
+ viewModel.delete(deleteList, if (isTC007) DirType.TC007 else DirType.LINE, true)
+ }.setCancelListener(R.string.app_cancel)
+ .create().show()
+ } else {
+ ToastTools.showShort(getString(R.string.tip_least_select))
+ }
+ }
 
-    private fun shareImage() {
-        val data = adapter.buildSelectList()
-        if (data.size == 0) {
-            ToastTools.showShort(getString(R.string.tip_least_select))
-            return
-        }
-        if (data.size > 9) {
-            ToastTools.showShort(getString(R.string.Limite_di_9carte))
-            return
-        }
-        val imageUris = ArrayList<Uri>()
-        val shareIntent = Intent()
-        if (data.size == 1) {
-            if (data[0].name.uppercase().endsWith(".MP4")) {
-                shareIntent.type = "video/*"
-            } else {
-                shareIntent.type = "image/*"
-            }
-            shareIntent.action = Intent.ACTION_SEND
-            val uri = getUri(File(data[0].path))
-            shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
-        } else {
-            shareIntent.type = "video/*"
-            for (bean in data) {
-                imageUris.add(getUri(File(bean.path)))
-            }
-            shareIntent.action = Intent.ACTION_SEND_MULTIPLE
-            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUris)
-        }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
-    }
+ private fun shareImage() {
+ val data = adapter.buildSelectList()
+ if (data.size == 0) {
+ ToastTools.showShort(getString(R.string.tip_least_select))
+ return
+ }
+ if (data.size > 9) {
+ ToastTools.showShort(getString(R.string.Limite_di_9carte))
+ return
+ }
+ val imageUris = ArrayList<Uri>()
+ val shareIntent = Intent()
+ if (data.size == 1) {
+ if (data[0].name.uppercase().endsWith(".MP4")) {
+ shareIntent.type = "video/*"
+ } else {
+ shareIntent.type = "image/*"
+ }
+ shareIntent.action = Intent.ACTION_SEND
+ val uri = getUri(File(data[0].path))
+ shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+ } else {
+ shareIntent.type = "video/*"
+ for (bean in data) {
+ imageUris.add(getUri(File(bean.path)))
+ }
+ shareIntent.action = Intent.ACTION_SEND_MULTIPLE
+ shareIntent.putExtra(Intent.EXTRA_STREAM, imageUris)
+ }
+ startActivity(Intent.createChooser(shareIntent, getString(R.string.battery_share)))
+ }
 }

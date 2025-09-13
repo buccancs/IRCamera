@@ -2,14 +2,12 @@ package com.topdon.ble;
 
 import android.bluetooth.BluetoothDevice;
 
-
-
 /**
- * 清空已配对设备时的过滤器
+ * Comment removed (contained Chinese characters)
  * <p>
  * date: 2021/8/12 21:11
- * author: bichuanfeng
+* author: bichuanfeng
  */
 public interface RemoveBondFilter {
-    boolean accept(BluetoothDevice device);
+ boolean accept(BluetoothDevice device);
 }

@@ -12,75 +12,75 @@ import com.topdon.module.thermal.ir.event.ThermalActionEvent
 import org.greenrobot.eventbus.EventBus
 
 /**
-\1选取区域监听
+\1
  */
 /**
  * I r monitor activity for thermal imaging interface.
  * Manages UI interactions and thermal data display.
  */
 class IRMonitorActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var binding: ActivityIrMonitorBinding
-    private var selectIndex: SelectPositionBean? = null // 选取点
+ private lateinit var binding: ActivityIrMonitorBinding
+ private var selectIndex: SelectPositionBean? = null // 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityIrMonitorBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        initView()
-    }
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ binding = ActivityIrMonitorBinding.inflate(layoutInflater)
+ setContentView(binding.root)
+ initView()
+ }
 
-    private fun initView() {
-        binding.motionBtn.setOnClickListener(this)
-        binding.motionStartBtn.setOnClickListener(this)
-    }
+ private fun initView() {
+ binding.motionBtn.setOnClickListener(this)
+ binding.motionStartBtn.setOnClickListener(this)
+ }
 
-    override fun onClick(v: View?) {
-        when (v) {
-            binding.motionBtn -> {
-                MonitorSelectDialog.Builder(this)
-                    .setPositiveListener {
-                        updateUI()
-                        when (it) {
-                            1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
-                            2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
-                            else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
-                        }
-                    }
-                    .create().show()
-            }
-            binding.motionStartBtn -> {
-                if (selectIndex == null) {
-                    MonitorSelectDialog.Builder(this)
-                        .setPositiveListener {
-                            updateUI()
-                            when (it) {
-                                1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
-                                2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
-                                else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
-                            }
-                        }
-                        .create().show()
-                    return
-                }
-\1开始temperature监听
-                NavigationManager.getInstance().build(RouterConfig.IR_MONITOR_CHART)
-                    .withParcelable("select", selectIndex as android.os.Parcelable)
-                    .navigation(this)
-                finish()
-            }
-        }
-    }
+ override fun onClick(v: View?) {
+ when (v) {
+ binding.motionBtn -> {
+ MonitorSelectDialog.Builder(this)
+ .setPositiveListener {
+ updateUI()
+ when (it) {
+ 1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+ 2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+ else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
+ }
+ }
+ .create().show()
+ }
+ binding.motionStartBtn -> {
+ if (selectIndex == null) {
+ MonitorSelectDialog.Builder(this)
+ .setPositiveListener {
+ updateUI()
+ when (it) {
+ 1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+ 2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+ else -> EventBus.getDefault().post(ThermalActionEvent(action = 2003))
+ }
+ }
+ .create().show()
+ return
+ }
+\1Starttemperature
+ NavigationManager.getInstance().build(RouterConfig.IR_MONITOR_CHART)
+ .withParcelable("select", selectIndex as android.os.Parcelable)
+ .navigation(this)
+ finish()
+ }
+ }
+ }
 
-    fun select(selectIndex: SelectPositionBean?) {
-        this.selectIndex = selectIndex
-    }
+ fun select(selectIndex: SelectPositionBean?) {
+ this.selectIndex = selectIndex
+ }
 
-    private fun updateUI() {
-        binding.motionStartBtn.visibility = View.VISIBLE
-        binding.motionBtn.visibility = View.GONE
-    }
+ private fun updateUI() {
+ binding.motionStartBtn.visibility = View.VISIBLE
+ binding.motionBtn.visibility = View.GONE
+ }
 
-    private fun disConnected() {
-        finish()
-    }
+ private fun disConnected() {
+ finish()
+ }
 }

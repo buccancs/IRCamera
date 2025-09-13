@@ -22,153 +22,153 @@ import com.topdon.module.thermal.R as ThermalR
  * Provides specialized rendering and interaction capabilities.
  */
 class ChartTrendView : LineChart {
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-        val textColor: Int = ContextCompat.getColor(context, LibR.color.chart_text)
-        val axisChartColors: Int = ContextCompat.getColor(context, LibR.color.chart_axis)
+ constructor(context: Context) : this(context, null)
+ constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+ constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
+ val textColor: Int = ContextCompat.getColor(context, LibR.color.chart_text)
+ val axisChartColors: Int = ContextCompat.getColor(context, LibR.color.chart_axis)
 
-        this.isDragEnabled = false
-        this.isScaleYEnabled = false // 禁止Y轴缩放
-        this.isScaleXEnabled = false // 禁止X轴缩放
-        this.isDoubleTapToZoomEnabled = false // 双击不可缩放
-        this.setScaleEnabled(false) // 缩放
-        this.setPinchZoom(false) // 禁用后，可以分别在x轴和y轴上进行缩放
-        this.setTouchEnabled(true)
-        this.setDrawGridBackground(false)
-        this.description = null // 图标描述文本
-        this.axisRight.isEnabled = false // 不绘制右侧Y轴
-        this.setExtraOffsets(
-            0f,
-            0f,
-            SizeUtils.dp2px(8f).toFloat(),
-            SizeUtils.dp2px(4f).toFloat(),
-        ) // 图表区域偏移
+ this.isDragEnabled = false
+ this.isScaleYEnabled = false // Y
+ this.isScaleXEnabled = false // X
+ this.isDoubleTapToZoomEnabled = false // 
+ this.setScaleEnabled(false) // 
+ this.setPinchZoom(false) // ，xy
+ this.setTouchEnabled(true)
+ this.setDrawGridBackground(false)
+ this.description = null // 
+ this.axisRight.isEnabled = false // Y
+ this.setExtraOffsets(
+ 0f,
+ 0f,
+ SizeUtils.dp2px(8f).toFloat(),
+ SizeUtils.dp2px(4f).toFloat(),
+ ) // 
 
-        setNoDataText(context.getString(ThermalR.string.lms_http_code998))
-        setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
+ setNoDataText(context.getString(ThermalR.string.lms_http_code998))
+ setNoDataTextColor(ContextCompat.getColor(context, LibR.color.chart_text))
 
-        val mv = MyMarkerView(context, R.layout.marker_lay)
-        mv.chartView = this
-        marker = mv // 设置点击坐标显示提示框
+ val mv = MyMarkerView(context, R.layout.marker_lay)
+ mv.chartView = this
+ marker = mv // Settings
 
-        legend.form = Legend.LegendForm.CIRCLE
-        legend.textColor = textColor
-        legend.isEnabled = false // 隐藏曲线标签
+ legend.form = Legend.LegendForm.CIRCLE
+ legend.textColor = textColor
+ legend.isEnabled = false // 
 
-\1x轴
-        val xAxis = this.xAxis
-        xAxis.textColor = textColor
-        xAxis.setDrawGridLines(false) // 竖向格线
-        xAxis.axisLineColor = 0x00000000 // x轴颜色
-        xAxis.setAvoidFirstLastClipping(true)
-        xAxis.isEnabled = true
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true // 重复值不显示
-        xAxis.textSize = 11f
-        xAxis.isJumpFirstLabel = false
-        xAxis.axisMinimum = 0f
-        xAxis.axisMaximum = 10f
-        xAxis.setLabelCount(3, true)
-        xAxis.valueFormatter =
-            object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String {
-                    if (value < 5) {
-                        return "A"
-                    }
-                    if (value > 5) {
-                        return "B"
-                    }
-                    return ""
-                }
-            }
+\1x
+ val xAxis = this.xAxis
+ xAxis.textColor = textColor
+ xAxis.setDrawGridLines(false) // 
+ xAxis.axisLineColor = 0x00000000 // x
+ xAxis.setAvoidFirstLastClipping(true)
+ xAxis.isEnabled = true
+ xAxis.position = XAxis.XAxisPosition.BOTTOM
+ xAxis.granularity = 1f
+ xAxis.isGranularityEnabled = true // Value
+ xAxis.textSize = 11f
+ xAxis.isJumpFirstLabel = false
+ xAxis.axisMinimum = 0f
+ xAxis.axisMaximum = 10f
+ xAxis.setLabelCount(3, true)
+ xAxis.valueFormatter =
+ object : ValueFormatter() {
+ override fun getFormattedValue(value: Float): String {
+ if (value < 5) {
+ return "A"
+ }
+ if (value > 5) {
+ return "B"
+ }
+ return ""
+ }
+ }
 
-\1y轴
-        val leftAxis = this.axisLeft
-        leftAxis.textColor = textColor // y轴文本颜色
-        leftAxis.axisLineColor = 0x00000000 // y轴颜色
-        leftAxis.setDrawGridLines(true) // 横向格线
-        leftAxis.gridColor = axisChartColors // y轴网格颜色
-        leftAxis.gridLineWidth = 1.5f
-        leftAxis.setLabelCount(6, true)
-        leftAxis.valueFormatter =
-            object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String = ""
-            }
-        leftAxis.textSize = 11f
-        leftAxis.axisMinimum = 0f
-        leftAxis.axisMaximum = 50f
+\1y
+ val leftAxis = this.axisLeft
+ leftAxis.textColor = textColor // y
+ leftAxis.axisLineColor = 0x00000000 // y
+ leftAxis.setDrawGridLines(true) // 
+ leftAxis.gridColor = axisChartColors // y
+ leftAxis.gridLineWidth = 1.5f
+ leftAxis.setLabelCount(6, true)
+ leftAxis.valueFormatter =
+ object : ValueFormatter() {
+ override fun getFormattedValue(value: Float): String = ""
+ }
+ leftAxis.textSize = 11f
+ leftAxis.axisMinimum = 0f
+ leftAxis.axisMaximum = 50f
 
-        data = LineData()
-    }
+ data = LineData()
+ }
 
-    fun setToEmpty() {
-        axisLeft.valueFormatter =
-            object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String = ""
-            }
-        data = LineData()
-        invalidate()
-    }
+ fun setToEmpty() {
+ axisLeft.valueFormatter =
+ object : ValueFormatter() {
+ override fun getFormattedValue(value: Float): String = ""
+ }
+ data = LineData()
+ invalidate()
+ }
 
-    /**
-\1根据指定的data刷新折线图data
-\1@param tempList temperature值列表，单位摄氏度
-     */
-    fun refresh(tempList: List<Float>) {
-        if (tempList.isEmpty()) {
-            setToEmpty()
-            return
-        }
+ /**
+\1datadata
+\1@param tempList temperatureValue，Unit
+ */
+ fun refresh(tempList: List<Float>) {
+ if (tempList.isEmpty()) {
+ setToEmpty()
+ return
+ }
 
-        xAxis.axisMinimum = 0f
-        xAxis.axisMaximum = (tempList.size - 1).toFloat()
-        xAxis.setLabelCount(3, true)
-        xAxis.valueFormatter =
-            object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String {
-                    if (value < tempList.size / 3) {
-                        return "A"
-                    }
-                    if (value > tempList.size * 2 / 3) {
-                        return "B"
-                    }
-                    return ""
-                }
-            }
+ xAxis.axisMinimum = 0f
+ xAxis.axisMaximum = (tempList.size - 1).toFloat()
+ xAxis.setLabelCount(3, true)
+ xAxis.valueFormatter =
+ object : ValueFormatter() {
+ override fun getFormattedValue(value: Float): String {
+ if (value < tempList.size / 3) {
+ return "A"
+ }
+ if (value > tempList.size * 2 / 3) {
+ return "B"
+ }
+ return ""
+ }
+ }
 
-        var max = tempList.first()
-        var min = tempList.first()
-        val entryList: ArrayList<Entry> = ArrayList(tempList.size)
-        for (i in tempList.indices) {
-            val tempValue = tempList[i]
-            max = max.coerceAtLeast(tempValue)
-            min = min.coerceAtMost(tempValue)
-            entryList.add(Entry(i.toFloat(), UnitTools.showUnitValue(tempValue)))
-        }
-        val maxUnit = UnitTools.showUnitValue(max)
-        val minUnit = UnitTools.showUnitValue(min)
-        axisLeft.axisMaximum = (maxUnit + (maxUnit - minUnit) / 3).coerceAtLeast(maxUnit + 0.3f)
-        axisLeft.axisMinimum = (minUnit - (maxUnit - minUnit) / 3).coerceAtMost(minUnit - 0.3f)
-        axisLeft.valueFormatter =
-            object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String = "${String.format("%.1f", value)}${UnitTools.showUnit()}"
-            }
+ var max = tempList.first()
+ var min = tempList.first()
+ val entryList: ArrayList<Entry> = ArrayList(tempList.size)
+ for (i in tempList.indices) {
+ val tempValue = tempList[i]
+ max = max.coerceAtLeast(tempValue)
+ min = min.coerceAtMost(tempValue)
+ entryList.add(Entry(i.toFloat(), UnitTools.showUnitValue(tempValue)))
+ }
+ val maxUnit = UnitTools.showUnitValue(max)
+ val minUnit = UnitTools.showUnitValue(min)
+ axisLeft.axisMaximum = (maxUnit + (maxUnit - minUnit) / 3).coerceAtLeast(maxUnit + 0.3f)
+ axisLeft.axisMinimum = (minUnit - (maxUnit - minUnit) / 3).coerceAtMost(minUnit - 0.3f)
+ axisLeft.valueFormatter =
+ object : ValueFormatter() {
+ override fun getFormattedValue(value: Float): String = "${String.format("%.1f", value)}${UnitTools.showUnit()}"
+ }
 
-        val lineDataSet = LineDataSet(entryList, "point temp")
-        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        lineDataSet.color = 0xffffffff.toInt() // 曲线颜色
-        lineDataSet.circleHoleColor = 0xffffffff.toInt() // 坐标圆心颜色
-        lineDataSet.setCircleColor(0xffffffff.toInt()) // 坐标颜色
-        lineDataSet.valueTextColor = Color.WHITE
-        lineDataSet.lineWidth = 2f
-        lineDataSet.circleRadius = 1f // 坐标点半径
-        lineDataSet.fillAlpha = 200
-        lineDataSet.valueTextSize = 10f
-        lineDataSet.setDrawValues(false) // 设置是否显示坐标值文本
+ val lineDataSet = LineDataSet(entryList, "point temp")
+ lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+ lineDataSet.color = 0xffffffff.toInt() // 
+ lineDataSet.circleHoleColor = 0xffffffff.toInt() // 
+ lineDataSet.setCircleColor(0xffffffff.toInt()) // 
+ lineDataSet.valueTextColor = Color.WHITE
+ lineDataSet.lineWidth = 2f
+ lineDataSet.circleRadius = 1f // 
+ lineDataSet.fillAlpha = 200
+ lineDataSet.valueTextSize = 10f
+ lineDataSet.setDrawValues(false) // SettingsWhetherValue
 
-        data = LineData(lineDataSet)
-        invalidate()
-    }
+ data = LineData(lineDataSet)
+ invalidate()
+ }
 }

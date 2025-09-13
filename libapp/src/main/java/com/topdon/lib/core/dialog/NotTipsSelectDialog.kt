@@ -10,54 +10,54 @@ import com.topdon.lib.core.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 与 TipDialog 类似，不过多了个 “不再提示” 选中效果的提示弹窗.
+ * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/10/26.
  */
 class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
-    @StringRes
-    private var tipsResId: Int = 0
-    private var onConfirmListener: ((isSelect: Boolean) -> Unit)? = null
+ @StringRes
+ private var tipsResId: Int = 0
+ private var onConfirmListener: ((isSelect: Boolean) -> Unit)? = null
 
-    private val binding: DialogNotTipsSelectBinding = DialogNotTipsSelectBinding.inflate(layoutInflater)
+ private val binding: DialogNotTipsSelectBinding = DialogNotTipsSelectBinding.inflate(layoutInflater)
 
-    fun setTipsResId(
-        @StringRes tipsResId: Int,
-    ): NotTipsSelectDialog {
-        this.tipsResId = tipsResId
-        return this
-    }
+ fun setTipsResId(
+ @StringRes tipsResId: Int,
+ ): NotTipsSelectDialog {
+ this.tipsResId = tipsResId
+ return this
+ }
 
-    /**
-     * 点击 “我知道了” 事件监听.
-     */
-    fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
-        onConfirmListener = l
-        return this
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
+ onConfirmListener = l
+ return this
+ }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setCancelable(false)
-        setCanceledOnTouchOutside(false)
-        setContentView(binding.root)
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ setCancelable(false)
+ setCanceledOnTouchOutside(false)
+ setContentView(binding.root)
 
-        if (tipsResId != 0) {
-            binding.tvMessage.setText(tipsResId)
-        }
-        binding.tvSelect.setOnClickListener {
-            it.isSelected = !it.isSelected
-        }
-        binding.tvIKnow.setOnClickListener {
-            onConfirmListener?.invoke(binding.tvSelect.isSelected)
-            dismiss()
-        }
+ if (tipsResId != 0) {
+ binding.tvMessage.setText(tipsResId)
+ }
+ binding.tvSelect.setOnClickListener {
+ it.isSelected = !it.isSelected
+ }
+ binding.tvIKnow.setOnClickListener {
+ onConfirmListener?.invoke(binding.tvSelect.isSelected)
+ dismiss()
+ }
 
-        window?.let {
-            val layoutParams = it.attributes
-            layoutParams.width = (ScreenUtil.getScreenWidth(context) * 0.73f).toInt()
-            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            it.attributes = layoutParams
-        }
-    }
+ window?.let {
+ val layoutParams = it.attributes
+ layoutParams.width = (ScreenUtil.getScreenWidth(context) * 0.73f).toInt()
+ layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+ it.attributes = layoutParams
+ }
+ }
 }

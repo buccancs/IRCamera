@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
+* Copyright (c) 2016-present Original Author <1032694760@qq.com>
  *
- * The software is licensed under the Mulan PSL v2.
+* The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *     http://license.coscl.org.cn/MulanPSL2
+* http://license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
  * PURPOSE.
@@ -33,119 +33,119 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 单项滚轮控件
+ * Comment removed (contained Chinese characters)
  *
- * @author 贵州山野羡民（1032694760@qq.com）
+* @author （1032694760@qq.com）
  * @since 2021/6/6 23:13
  */
 @SuppressWarnings("unused")
 public class OptionWheelLayout extends BaseWheelLayout {
-    private WheelView wheelView;
-    private TextView labelView;
-    private OnOptionSelectedListener onOptionSelectedListener;
+ private WheelView wheelView;
+ private TextView labelView;
+ private OnOptionSelectedListener onOptionSelectedListener;
 
-    public OptionWheelLayout(Context context) {
-        super(context);
-    }
+ public OptionWheelLayout(Context context) {
+ super(context);
+ }
 
-    public OptionWheelLayout(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
+ public OptionWheelLayout(Context context, @Nullable AttributeSet attrs) {
+ super(context, attrs);
+ }
 
-    public OptionWheelLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
+ public OptionWheelLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+ super(context, attrs, defStyleAttr);
+ }
 
-    public OptionWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
+ public OptionWheelLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+ super(context, attrs, defStyleAttr, defStyleRes);
+ }
 
-    @Override
-    protected int provideLayoutRes() {
-        return R.layout.wheel_picker_option;
-    }
+ @Override
+ protected int provideLayoutRes() {
+ return R.layout.wheel_picker_option;
+ }
 
-    @Override
-    protected int[] provideStyleableRes() {
-        return R.styleable.OptionWheelLayout;
-    }
+ @Override
+ protected int[] provideStyleableRes() {
+ return R.styleable.OptionWheelLayout;
+ }
 
-    @Override
-    protected List<WheelView> provideWheelViews() {
-        return Collections.singletonList(wheelView);
-    }
+ @Override
+ protected List<WheelView> provideWheelViews() {
+ return Collections.singletonList(wheelView);
+ }
 
-    @Override
-    protected void onInit(@NonNull Context context) {
-        wheelView = findViewById(R.id.wheel_picker_option_wheel);
-        labelView = findViewById(R.id.wheel_picker_option_label);
+ @Override
+ protected void onInit(@NonNull Context context) {
+ wheelView = findViewById(R.id.wheel_picker_option_wheel);
+ labelView = findViewById(R.id.wheel_picker_option_label);
 
-        post(() -> {
-            View view_select_bg = findViewById(R.id.view_select_bg);
-            ViewGroup.LayoutParams params = view_select_bg.getLayoutParams();
-            params.height = wheelView.itemHeight;
-            view_select_bg.setLayoutParams(params);
-        });
-    }
+ post(() -> {
+ View view_select_bg = findViewById(R.id.view_select_bg);
+ ViewGroup.LayoutParams params = view_select_bg.getLayoutParams();
+ params.height = wheelView.itemHeight;
+ view_select_bg.setLayoutParams(params);
+ });
+ }
 
-    @Override
-    protected void onAttributeSet(@NonNull Context context, @NonNull TypedArray typedArray) {
-        float density = context.getResources().getDisplayMetrics().density;
-        float scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
-        setVisibleItemCount(typedArray.getInt(R.styleable.OptionWheelLayout_wheel_visibleItemCount, 5));
-        setSameWidthEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_sameWidthEnabled, false));
-        setMaxWidthText(typedArray.getString(R.styleable.OptionWheelLayout_wheel_maxWidthText));
-        setTextColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_itemTextColor, 0xFF888888));
-        setSelectedTextColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_itemTextColorSelected, 0xFF000000));
-        setTextSize(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_itemTextSize, 15 * scaledDensity));
-        setSelectedTextSize(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_itemTextSizeSelected, 15 * scaledDensity));
-        setSelectedTextBold(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_itemTextBoldSelected, false));
-        setTextAlign(typedArray.getInt(R.styleable.OptionWheelLayout_wheel_itemTextAlign, ItemTextAlign.CENTER));
-        setItemSpace(typedArray.getDimensionPixelSize(R.styleable.OptionWheelLayout_wheel_itemSpace, (int) (20 * density)));
-        setCyclicEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_cyclicEnabled, false));
-        setIndicatorEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_indicatorEnabled, false));
-        setIndicatorColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_indicatorColor, 0xFFC9C9C9));
-        setIndicatorSize(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_indicatorSize, 1 * density));
-        setCurvedIndicatorSpace(typedArray.getDimensionPixelSize(R.styleable.OptionWheelLayout_wheel_curvedIndicatorSpace, (int) (1 * density)));
-        setCurtainEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_curtainEnabled, false));
-        setCurtainColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_curtainColor, 0x88FFFFFF));
-        setCurtainCorner(typedArray.getInt(R.styleable.OptionWheelLayout_wheel_curtainCorner, CurtainCorner.NONE));
-        setCurtainRadius(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_curtainRadius, 0));
-        setAtmosphericEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_atmosphericEnabled, false));
-        setCurvedEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_curvedEnabled, false));
-        setCurvedMaxAngle(typedArray.getInteger(R.styleable.OptionWheelLayout_wheel_curvedMaxAngle, 90));
-        labelView.setText(typedArray.getString(R.styleable.OptionWheelLayout_wheel_label));
-    }
+ @Override
+ protected void onAttributeSet(@NonNull Context context, @NonNull TypedArray typedArray) {
+ float density = context.getResources().getDisplayMetrics().density;
+ float scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
+ setVisibleItemCount(typedArray.getInt(R.styleable.OptionWheelLayout_wheel_visibleItemCount, 5));
+ setSameWidthEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_sameWidthEnabled, false));
+ setMaxWidthText(typedArray.getString(R.styleable.OptionWheelLayout_wheel_maxWidthText));
+ setTextColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_itemTextColor, 0xFF888888));
+ setSelectedTextColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_itemTextColorSelected, 0xFF000000));
+ setTextSize(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_itemTextSize, 15 * scaledDensity));
+ setSelectedTextSize(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_itemTextSizeSelected, 15 * scaledDensity));
+ setSelectedTextBold(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_itemTextBoldSelected, false));
+ setTextAlign(typedArray.getInt(R.styleable.OptionWheelLayout_wheel_itemTextAlign, ItemTextAlign.CENTER));
+ setItemSpace(typedArray.getDimensionPixelSize(R.styleable.OptionWheelLayout_wheel_itemSpace, (int) (20 * density)));
+ setCyclicEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_cyclicEnabled, false));
+ setIndicatorEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_indicatorEnabled, false));
+ setIndicatorColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_indicatorColor, 0xFFC9C9C9));
+ setIndicatorSize(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_indicatorSize, 1 * density));
+ setCurvedIndicatorSpace(typedArray.getDimensionPixelSize(R.styleable.OptionWheelLayout_wheel_curvedIndicatorSpace, (int) (1 * density)));
+ setCurtainEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_curtainEnabled, false));
+ setCurtainColor(typedArray.getColor(R.styleable.OptionWheelLayout_wheel_curtainColor, 0x88FFFFFF));
+ setCurtainCorner(typedArray.getInt(R.styleable.OptionWheelLayout_wheel_curtainCorner, CurtainCorner.NONE));
+ setCurtainRadius(typedArray.getDimension(R.styleable.OptionWheelLayout_wheel_curtainRadius, 0));
+ setAtmosphericEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_atmosphericEnabled, false));
+ setCurvedEnabled(typedArray.getBoolean(R.styleable.OptionWheelLayout_wheel_curvedEnabled, false));
+ setCurvedMaxAngle(typedArray.getInteger(R.styleable.OptionWheelLayout_wheel_curvedMaxAngle, 90));
+ labelView.setText(typedArray.getString(R.styleable.OptionWheelLayout_wheel_label));
+ }
 
-    @Override
-    public void onWheelSelected(WheelView view, int position) {
-        if (onOptionSelectedListener != null) {
-            onOptionSelectedListener.onOptionSelected(position, wheelView.getItem(position));
-        }
-    }
+ @Override
+ public void onWheelSelected(WheelView view, int position) {
+ if (onOptionSelectedListener != null) {
+ onOptionSelectedListener.onOptionSelected(position, wheelView.getItem(position));
+ }
+ }
 
-    public void setData(List<?> data) {
-        wheelView.setData(data);
-    }
+ public void setData(List<?> data) {
+ wheelView.setData(data);
+ }
 
-    public void setDefaultValue(Object value) {
-        wheelView.setDefaultValue(value);
-    }
+ public void setDefaultValue(Object value) {
+ wheelView.setDefaultValue(value);
+ }
 
-    public void setDefaultPosition(int position) {
-        wheelView.setDefaultPosition(position);
-    }
+ public void setDefaultPosition(int position) {
+ wheelView.setDefaultPosition(position);
+ }
 
-    public void setOnOptionSelectedListener(OnOptionSelectedListener onOptionSelectedListener) {
-        this.onOptionSelectedListener = onOptionSelectedListener;
-    }
+ public void setOnOptionSelectedListener(OnOptionSelectedListener onOptionSelectedListener) {
+ this.onOptionSelectedListener = onOptionSelectedListener;
+ }
 
-    public final WheelView getWheelView() {
-        return wheelView;
-    }
+ public final WheelView getWheelView() {
+ return wheelView;
+ }
 
-    public final TextView getLabelView() {
-        return labelView;
-    }
+ public final TextView getLabelView() {
+ return labelView;
+ }
 
 }

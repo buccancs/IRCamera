@@ -9,8 +9,8 @@ import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
 
 /**
  *
-\1锅盖矫正
- * @author: CaiSongL
+\1
+* @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
 // Legacy ARouter route annotation - now using NavigationManager
@@ -19,35 +19,35 @@ import com.topdon.module.thermal.ir.fragment.IRCorrectionFragment
  * Manages UI interactions and thermal data display.
  */
 class IRCorrectionThreeActivity : BaseActivity() {
-    override fun initContentView(): Int = R.layout.activity_ir_correction_three
+ override fun initContentView(): Int = R.layout.activity_ir_correction_three
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val fragment: IRCorrectionFragment =
-            if (savedInstanceState == null) {
-                IRCorrectionFragment()
-            } else {
-                supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRCorrectionFragment
-            }
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ val fragment: IRCorrectionFragment =
+ if (savedInstanceState == null) {
+ IRCorrectionFragment()
+ } else {
+ supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRCorrectionFragment
+ }
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, fragment)
-                .commit()
-        }
+ if (savedInstanceState == null) {
+ supportFragmentManager.beginTransaction()
+ .setReorderingAllowed(true)
+ .add(R.id.fragment_container_view, fragment)
+ .commit()
+ }
 
-        findViewById<TextView>(R.id.tv_correction).setOnClickListener {
-            if (fragment.frameReady) {
-                val intent = Intent(this, IRCorrectionFourActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-    }
+ findViewById<TextView>(R.id.tv_correction).setOnClickListener {
+ if (fragment.frameReady) {
+ val intent = Intent(this, IRCorrectionFourActivity::class.java)
+ startActivity(intent)
+ finish()
+ }
+ }
+ }
 
-    override fun initView() {
-    }
+ override fun initView() {
+ }
 
-    override fun initData() {}
+ override fun initData() {}
 }

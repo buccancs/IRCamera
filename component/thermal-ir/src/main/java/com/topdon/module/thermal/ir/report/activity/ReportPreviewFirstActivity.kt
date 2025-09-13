@@ -10,11 +10,11 @@ import com.topdon.module.thermal.ir.report.view.WatermarkView
 import com.topdon.lib.ui.R as UiR
 
 /**
-\1生成报告第1步的预览interface.
+\11interface.
  *
-\1需要传递
-\1- 必选：报告信息 [ExtraKeyConfig.REPORT_INFO]
-\1- 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
+\1
+\1- ： [ExtraKeyConfig.REPORT_INFO]
+\1- ： [ExtraKeyConfig.REPORT_CONDITION]
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -22,33 +22,33 @@ import com.topdon.lib.ui.R as UiR
  * Manages UI interactions and thermal data display.
  */
 class ReportPreviewFirstActivity : BaseActivity() {
-    // View declarations
-    private lateinit var titleView: TitleView
-    private lateinit var reportInfoView: ReportInfoView
-    private lateinit var watermarkView: WatermarkView
+ // View declarations
+ private lateinit var titleView: TitleView
+ private lateinit var reportInfoView: ReportInfoView
+ private lateinit var watermarkView: WatermarkView
 
-    override fun initContentView() = R.layout.activity_report_preview_first
+ override fun initContentView() = R.layout.activity_report_preview_first
 
-    override fun initView() {
-        // Initialize views
-        titleView = findViewById(R.id.title_view)
-        reportInfoView = findViewById(R.id.report_info_view)
-        watermarkView = findViewById(R.id.watermark_view)
+ override fun initView() {
+ // Initialize views
+ titleView = findViewById(R.id.title_view)
+ reportInfoView = findViewById(R.id.report_info_view)
+ watermarkView = findViewById(R.id.watermark_view)
 
-        titleView.setLeftDrawable(UiR.drawable.svg_arrow_left_e8)
-        titleView.setLeftClickListener {
-            finish()
-        }
+ titleView.setLeftDrawable(UiR.drawable.svg_arrow_left_e8)
+ titleView.setLeftClickListener {
+ finish()
+ }
 
-        val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
-        reportInfoView.refreshInfo(reportInfoBean)
-        reportInfoView.refreshCondition(intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
+ val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
+ reportInfoView.refreshInfo(reportInfoBean)
+ reportInfoView.refreshCondition(intent.getParcelableExtra(ExtraKeyConfig.REPORT_CONDITION))
 
-        if (reportInfoBean?.is_report_watermark == 1) {
-            watermarkView.watermarkText = reportInfoBean.report_watermark
-        }
-    }
+ if (reportInfoBean?.is_report_watermark == 1) {
+ watermarkView.watermarkText = reportInfoBean.report_watermark
+ }
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 }

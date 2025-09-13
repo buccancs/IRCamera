@@ -15,7 +15,7 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 
 /**
-\1照片或视频
+\1
  */
 /**
  * Custom Gallery view for thermal imaging display.
@@ -23,181 +23,181 @@ import com.topdon.module.thermal.ir.R
  */
 @SuppressLint("NotifyDataSetChanged")
 class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        private const val TYPE_HEAD = 0
-        private const val TYPE_DATA = 1
-    }
+ companion object {
+ private const val TYPE_HEAD = 0
+ private const val TYPE_DATA = 1
+ }
 
-    /**
-\1当前display的data列表，包含有title item.
-     */
-    val dataList: ArrayList<GalleryBean> = ArrayList()
+ /**
+\1Currentdisplaydata，title item.
+ */
+ val dataList: ArrayList<GalleryBean> = ArrayList()
 
-    /**
-\1编辑模式下，当前选中的 position 列表.
-     */
-    val selectList: ArrayList<Int> = ArrayList()
+ /**
+\1Mode，Current position .
+ */
+ val selectList: ArrayList<Int> = ArrayList()
 
-    /**
-\1是否为 TS004 远端模式，处于该模式会有下载图标.
-     */
-    var isTS004Remote = false
-        set(value) {
-            if (field != value) {
-                field = value
-                notifyDataSetChanged()
-            }
-        }
+ /**
+\1Whether TS004 Mode，Mode.
+ */
+ var isTS004Remote = false
+ set(value) {
+ if (field != value) {
+ field = value
+ notifyDataSetChanged()
+ }
+ }
 
-    /**
-\1当前是否处于编辑模式.
-     */
-    var isEditMode = false
-        set(value) {
-            if (field != value) {
-                field = value
-                if (!value) {
-                    selectList.clear()
-                    selectCallback?.invoke(selectList)
-                }
-                notifyDataSetChanged()
-            }
-        }
+ /**
+\1CurrentWhetherMode.
+ */
+ var isEditMode = false
+ set(value) {
+ if (field != value) {
+ field = value
+ if (!value) {
+ selectList.clear()
+ selectCallback?.invoke(selectList)
+ }
+ notifyDataSetChanged()
+ }
+ }
 
-    /**
-\1非编辑模式下 item 长按进入编辑模式事件监听.
-     */
-    var onLongEditListener: (() -> Unit)? = null
+ /**
+\1Mode item Mode.
+ */
+ var onLongEditListener: (() -> Unit)? = null
 
-    /**
-\1选中数量变更回调.
-\1data 当前选中的 item position 列表
-     */
-    var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
+ /**
+\1.
+\1data Current item position 
+ */
+ var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
 
-    /**
-\1非编辑模式时，item 点击事件监听.
-     */
-    var itemClickCallback: ((position: Int) -> Unit)? = null
+ /**
+\1Mode，item .
+ */
+ var itemClickCallback: ((position: Int) -> Unit)? = null
 
-    fun refreshList(newList: List<GalleryBean>) {
-        dataList.clear()
-        dataList.addAll(newList)
-        notifyDataSetChanged()
-    }
+ fun refreshList(newList: List<GalleryBean>) {
+ dataList.clear()
+ dataList.addAll(newList)
+ notifyDataSetChanged()
+ }
 
-    fun buildSelectList(): ArrayList<GalleryBean> {
-        val resultList: ArrayList<GalleryBean> = ArrayList()
-        selectList.forEach {
-            resultList.add(dataList[it])
-        }
-        return resultList
-    }
+ fun buildSelectList(): ArrayList<GalleryBean> {
+ val resultList: ArrayList<GalleryBean> = ArrayList()
+ selectList.forEach {
+ resultList.add(dataList[it])
+ }
+ return resultList
+ }
 
-    fun selectAll() {
-        var dataCount = 0
-        dataList.forEach {
-            if (it !is GalleryTitle) {
-                dataCount++
-            }
-        }
-        if (selectList.size >= dataCount) {
-            selectList.clear()
-        } else {
-            selectList.clear()
-            for (i in 0 until dataList.size) {
-                if (dataList[i] !is GalleryTitle) {
-                    selectList.add(i)
-                }
-            }
-        }
-        selectCallback?.invoke(selectList)
-        notifyDataSetChanged()
-    }
+ fun selectAll() {
+ var dataCount = 0
+ dataList.forEach {
+ if (it !is GalleryTitle) {
+ dataCount++
+ }
+ }
+ if (selectList.size >= dataCount) {
+ selectList.clear()
+ } else {
+ selectList.clear()
+ for (i in 0 until dataList.size) {
+ if (dataList[i] !is GalleryTitle) {
+ selectList.add(i)
+ }
+ }
+ }
+ selectCallback?.invoke(selectList)
+ notifyDataSetChanged()
+ }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (dataList[position] is GalleryTitle) {
-            TYPE_HEAD
-        } else {
-            TYPE_DATA
-        }
-    }
+ override fun getItemViewType(position: Int): Int {
+ return if (dataList[position] is GalleryTitle) {
+ TYPE_HEAD
+ } else {
+ TYPE_DATA
+ }
+ }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): RecyclerView.ViewHolder {
-        return if (viewType == TYPE_HEAD) {
-            ItemHeadView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_head_lay, parent, false))
-        } else {
-            ItemView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_lay, parent, false))
-        }
-    }
+ override fun onCreateViewHolder(
+ parent: ViewGroup,
+ viewType: Int,
+ ): RecyclerView.ViewHolder {
+ return if (viewType == TYPE_HEAD) {
+ ItemHeadView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_head_lay, parent, false))
+ } else {
+ ItemView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_lay, parent, false))
+ }
+ }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-    ) {
-        val data = dataList[position]
-        if (holder is ItemView) {
-            GlideLoader.load(holder.img, data.thumb)
-            if (data.name.uppercase().endsWith(".MP4")) {
-                holder.info.text = TimeTool.showVideoTime(data.duration)
-                holder.ivVideoTime.isVisible = true
-            } else {
-                holder.info.text = ""
-                holder.ivVideoTime.isVisible = false
-            }
+ override fun onBindViewHolder(
+ holder: RecyclerView.ViewHolder,
+ position: Int,
+ ) {
+ val data = dataList[position]
+ if (holder is ItemView) {
+ GlideLoader.load(holder.img, data.thumb)
+ if (data.name.uppercase().endsWith(".MP4")) {
+ holder.info.text = TimeTool.showVideoTime(data.duration)
+ holder.ivVideoTime.isVisible = true
+ } else {
+ holder.info.text = ""
+ holder.ivVideoTime.isVisible = false
+ }
 
-            holder.ivHasDownload.isVisible = isTS004Remote && data.hasDownload
+ holder.ivHasDownload.isVisible = isTS004Remote && data.hasDownload
 
-            holder.ivCheck.isVisible = isEditMode
-            holder.ivCheck.isSelected = selectList.contains(position)
+ holder.ivCheck.isVisible = isEditMode
+ holder.ivCheck.isSelected = selectList.contains(position)
 
-            holder.img.setOnClickListener {
-                if (isEditMode) {
-                    if (selectList.contains(position)) {
-                        selectList.remove(position)
-                    } else {
-                        selectList.add(position)
-                    }
-                    selectCallback?.invoke(selectList)
+ holder.img.setOnClickListener {
+ if (isEditMode) {
+ if (selectList.contains(position)) {
+ selectList.remove(position)
+ } else {
+ selectList.add(position)
+ }
+ selectCallback?.invoke(selectList)
 
-                    holder.ivCheck.isSelected = selectList.contains(position)
-                } else {
-                    itemClickCallback?.invoke(position)
-                }
-            }
-            holder.img.setOnLongClickListener {
-                if (!isEditMode) {
-                    selectList.add(position)
-                    selectCallback?.invoke(selectList)
-                    holder.ivCheck.isVisible = true
-                    holder.ivCheck.isSelected = true
-                    isEditMode = true
-                    onLongEditListener?.invoke()
-                }
-                return@setOnLongClickListener true
-            }
-        } else if (holder is ItemHeadView) {
-            holder.name.text = TimeTool.showDateType(data.timeMillis, 4)
-            holder.name.setTextColor(0x80ffffff.toInt())
-        }
-    }
+ holder.ivCheck.isSelected = selectList.contains(position)
+ } else {
+ itemClickCallback?.invoke(position)
+ }
+ }
+ holder.img.setOnLongClickListener {
+ if (!isEditMode) {
+ selectList.add(position)
+ selectCallback?.invoke(selectList)
+ holder.ivCheck.isVisible = true
+ holder.ivCheck.isSelected = true
+ isEditMode = true
+ onLongEditListener?.invoke()
+ }
+ return@setOnLongClickListener true
+ }
+ } else if (holder is ItemHeadView) {
+ holder.name.text = TimeTool.showDateType(data.timeMillis, 4)
+ holder.name.setTextColor(0x80ffffff.toInt())
+ }
+ }
 
-    override fun getItemCount(): Int {
-        return dataList.size
-    }
+ override fun getItemCount(): Int {
+ return dataList.size
+ }
 
-    inner class ItemHeadView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.item_gallery_head_text)
-    }
+ inner class ItemHeadView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+ val name: TextView = itemView.findViewById(R.id.item_gallery_head_text)
+ }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img: ImageView = itemView.findViewById(R.id.item_gallery_img)
-        val info: TextView = itemView.findViewById(R.id.item_gallery_text)
-        val ivVideoTime: ImageView = itemView.findViewById(R.id.iv_video_time)
-        val ivHasDownload: ImageView = itemView.findViewById(R.id.iv_has_download)
-        val ivCheck: ImageView = itemView.findViewById(R.id.iv_check)
-    }
+ inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+ val img: ImageView = itemView.findViewById(R.id.item_gallery_img)
+ val info: TextView = itemView.findViewById(R.id.item_gallery_text)
+ val ivVideoTime: ImageView = itemView.findViewById(R.id.iv_video_time)
+ val ivHasDownload: ImageView = itemView.findViewById(R.id.iv_has_download)
+ val ivCheck: ImageView = itemView.findViewById(R.id.iv_check)
+ }
 }

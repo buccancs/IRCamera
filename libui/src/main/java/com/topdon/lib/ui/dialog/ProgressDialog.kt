@@ -10,7 +10,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.databinding.DialogProgressBinding
 
 /**
- * 带进度条的提示弹框.
+ * Comment removed (contained Chinese characters)
  */
 /**
  * ProgressDialog(context: class
@@ -22,45 +22,45 @@ import com.topdon.lib.ui.databinding.DialogProgressBinding
 /**
  * ProgressDialog displays modal dialog interface for user interaction.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
 class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
-    private val binding: DialogProgressBinding = DialogProgressBinding.inflate(LayoutInflater.from(context))
+ private val binding: DialogProgressBinding = DialogProgressBinding.inflate(LayoutInflater.from(context))
 
-    var max: Int = 100
-        set(value) {
-            binding.progressBar.max = value
-            field = value
-        }
+ var max: Int = 100
+ set(value) {
+ binding.progressBar.max = value
+ field = value
+ }
 
-    var progress: Int = 0
-        set(value) {
-            binding.progressBar.progress = value
-            field = value
-        }
+ var progress: Int = 0
+ set(value) {
+ binding.progressBar.progress = value
+ field = value
+ }
 
-    init {
-        // Binding is initialized in constructor
-    }
+ init {
+ // Binding is initialized in constructor
+ }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setCancelable(false)
-        setCanceledOnTouchOutside(false)
-        setContentView(binding.root)
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ setCancelable(false)
+ setCanceledOnTouchOutside(false)
+ setContentView(binding.root)
 
-        window?.let {
-            val layoutParams = it.attributes
-            layoutParams.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.8 else 0.45).toInt()
-            layoutParams.height = LayoutParams.WRAP_CONTENT
-            it.attributes = layoutParams
-        }
-    }
+ window?.let {
+ val layoutParams = it.attributes
+ layoutParams.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.8 else 0.45).toInt()
+ layoutParams.height = LayoutParams.WRAP_CONTENT
+ it.attributes = layoutParams
+ }
+ }
 
-    override fun show() {
-        super.show()
-        binding.progressBar.max = max
-        binding.progressBar.progress = progress
-    }
+ override fun show() {
+ super.show()
+ binding.progressBar.max = max
+ binding.progressBar.progress = progress
+ }
 }

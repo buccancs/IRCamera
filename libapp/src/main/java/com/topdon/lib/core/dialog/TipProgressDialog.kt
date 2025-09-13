@@ -14,92 +14,92 @@ import com.topdon.lib.core.databinding.DialogTipProgressBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 提示窗
+ * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 class TipProgressDialog : Dialog {
-    constructor(context: Context) : super(context)
+ constructor(context: Context) : super(context)
 
-    constructor(context: Context, themeResId: Int) : super(context, themeResId)
+ constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-    class Builder {
-        var dialog: TipProgressDialog? = null
+ class Builder {
+ var dialog: TipProgressDialog? = null
 
-        private var context: Context? = null
+ private var context: Context? = null
 
-        private var message: String? = null
-        private var canceleable = true
+ private var message: String? = null
+ private var canceleable = true
 
-        private var messageText: TextView? = null
+ private var messageText: TextView? = null
 
-        constructor(context: Context) {
-            this.context = context
-        }
+ constructor(context: Context) {
+ this.context = context
+ }
 
-        fun setMessage(message: String): Builder {
-            this.message = message
-            return this
-        }
+ fun setMessage(message: String): Builder {
+ this.message = message
+ return this
+ }
 
-        fun setMessage(
-            @StringRes message: Int,
-        ): Builder {
-            this.message = context!!.getString(message)
-            return this
-        }
+ fun setMessage(
+ @StringRes message: Int,
+ ): Builder {
+ this.message = context!!.getString(message)
+ return this
+ }
 
-        fun setCanceleable(cancal: Boolean): Builder {
-            this.canceleable = cancal
-            return this
-        }
+ fun setCanceleable(cancal: Boolean): Builder {
+ this.canceleable = cancal
+ return this
+ }
 
-        fun dismiss() {
-            this.dialog!!.dismiss()
-        }
+ fun dismiss() {
+ this.dialog!!.dismiss()
+ }
 
-        fun create(): TipProgressDialog {
-            if (dialog == null) {
-                dialog = TipProgressDialog(context!!, R.style.InfoDialog)
-            }
-            val inflater =
-                context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val binding = DialogTipProgressBinding.inflate(LayoutInflater.from(context!!))
-            messageText = binding.dialogTipLoadMsg
+ fun create(): TipProgressDialog {
+ if (dialog == null) {
+ dialog = TipProgressDialog(context!!, R.style.InfoDialog)
+ }
+ val inflater =
+ context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+ val binding = DialogTipProgressBinding.inflate(LayoutInflater.from(context!!))
+ messageText = binding.dialogTipLoadMsg
 
-            dialog!!.addContentView(
-                binding.root,
-                LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT),
-            )
-            val lp = dialog!!.window!!.attributes
-            val wRatio =
-                if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
-                    0.52
-                } else {
-                    // 横屏
-                    0.35
-                }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
-            dialog!!.window!!.attributes = lp
+ dialog!!.addContentView(
+ binding.root,
+ LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT),
+ )
+ val lp = dialog!!.window!!.attributes
+ val wRatio =
+ if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+ // Comment removed (contained Chinese characters)
+ 0.52
+ } else {
+ // Comment removed (contained Chinese characters)
+ 0.35
+ }
+ lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings
+ dialog!!.window!!.attributes = lp
 
-            dialog!!.setCanceledOnTouchOutside(canceleable)
-            // msg
-            if (message != null) {
-                messageText?.visibility = View.VISIBLE
-                messageText?.setText(message, TextView.BufferType.NORMAL)
-            } else {
-                messageText?.visibility = View.GONE
-            }
+ dialog!!.setCanceledOnTouchOutside(canceleable)
+ // msg
+ if (message != null) {
+ messageText?.visibility = View.VISIBLE
+ messageText?.setText(message, TextView.BufferType.NORMAL)
+ } else {
+ messageText?.visibility = View.GONE
+ }
 
-            dialog!!.setContentView(binding.root)
-            return dialog as TipProgressDialog
-        }
-    }
+ dialog!!.setContentView(binding.root)
+ return dialog as TipProgressDialog
+ }
+ }
 
-    /**
-     * 提交回调
-     */
-    interface OnClickListener {
-        fun onClick(dialog: DialogInterface)
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ interface OnClickListener {
+ fun onClick(dialog: DialogInterface)
+ }
 }

@@ -4,14 +4,14 @@ import com.topdon.ble.Request;
 
 /**
  * date: 2021/8/12 17:44
- * author: bichuanfeng
+* author: bichuanfeng
  */
 public interface ReadRssiCallback extends RequestFailedCallback {
-    /**
-     * 读取到设备的信号强度
-     *
-     * @param request 请求
-     * @param rssi    信号强度
-     */
-    void onRssiRead(Request request, int rssi);
+ /**
+ * Comment removed (contained Chinese characters)
+ *
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ void onRssiRead(Request request, int rssi);
 }

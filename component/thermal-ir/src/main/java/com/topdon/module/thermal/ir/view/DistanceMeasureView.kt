@@ -10,7 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 
 /**
- * @author: CaiSongL
+* @author: CaiSongL
  * @date: 2023/9/28 13:49
  */
 /**
@@ -18,90 +18,90 @@ import android.view.View
  * Provides specialized rendering and interaction capabilities.
  */
 class DistanceMeasureView : View {
-    private var margin: Float = 0f
-    private var linePaint: Paint? = null
-    private var line1Y = 0f
-    private var line2Y = 0f
-    var distance = 0f
-        private set
+ private var margin: Float = 0f
+ private var linePaint: Paint? = null
+ private var line1Y = 0f
+ private var line2Y = 0f
+ var distance = 0f
+ private set
 
-    var moveListener: ((distance: Float) -> Unit)? = null
+ var moveListener: ((distance: Float) -> Unit)? = null
 
-    constructor(context: Context?) : super(context) {
-        init()
-    }
+ constructor(context: Context?) : super(context) {
+ init()
+ }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init()
-    }
+ constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+ init()
+ }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-    ) {
-        init()
-    }
+ constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+ context,
+ attrs,
+ defStyleAttr,
+ ) {
+ init()
+ }
 
-    private fun init() {
-        linePaint = Paint()
-        linePaint!!.color = Color.GREEN
-        linePaint!!.strokeWidth = 4f
-        linePaint!!.style = Paint.Style.STROKE
-\1set虚线的间隔长度和线条长度
-        val intervals = floatArrayOf(10f, 10f)
-        linePaint!!.pathEffect = DashPathEffect(intervals, 0f)
-    }
+ private fun init() {
+ linePaint = Paint()
+ linePaint!!.color = Color.GREEN
+ linePaint!!.strokeWidth = 4f
+ linePaint!!.style = Paint.Style.STROKE
+\1set
+ val intervals = floatArrayOf(10f, 10f)
+ linePaint!!.pathEffect = DashPathEffect(intervals, 0f)
+ }
 
-    override fun onMeasure(
-        widthMeasureSpec: Int,
-        heightMeasureSpec: Int,
-    ) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-\1calculation初始位置，使得两条线居中，间隔20dp
-        val screenHeight = measuredHeight
-        val lineHeight = 50 // 在dimens.xml中定义line_height
-        margin = ((screenHeight - lineHeight) / 2).toFloat()
-        line1Y = margin
-        line2Y = margin + lineHeight
-        distance = lineHeight.toFloat()
-    }
+ override fun onMeasure(
+ widthMeasureSpec: Int,
+ heightMeasureSpec: Int,
+ ) {
+ super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+\1calculation，，20dp
+ val screenHeight = measuredHeight
+ val lineHeight = 50 // dimens.xmlline_height
+ margin = ((screenHeight - lineHeight) / 2).toFloat()
+ line1Y = margin
+ line2Y = margin + lineHeight
+ distance = lineHeight.toFloat()
+ }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-\1drawing两条水平线
-        canvas.drawLine(50f, line1Y, (width - 50).toFloat(), line1Y, linePaint!!)
-        canvas.drawLine(50f, line2Y, (width - 50).toFloat(), line2Y, linePaint!!)
-    }
+ override fun onDraw(canvas: Canvas) {
+ super.onDraw(canvas)
+\1drawing
+ canvas.drawLine(50f, line1Y, (width - 50).toFloat(), line1Y, linePaint!!)
+ canvas.drawLine(50f, line2Y, (width - 50).toFloat(), line2Y, linePaint!!)
+ }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-                var newY = event.y
+ override fun onTouchEvent(event: MotionEvent): Boolean {
+ when (event.action) {
+ MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
+ var newY = event.y
 
-\1限制线的范围，防止线移出视图范围
-                if (newY < 0) {
-                    newY = 0f
-                } else if (newY > height) {
-                    newY = height.toFloat()
-                }
+\1，
+ if (newY < 0) {
+ newY = 0f
+ } else if (newY > height) {
+ newY = height.toFloat()
+ }
 
-\1根据触摸位置update线的位置
-                if (Math.abs(newY - line1Y) < Math.abs(newY - line2Y)) {
-                    val abs = line1Y - newY
-                    line1Y = newY
-                    line2Y += abs
-                } else {
-                    val abs = newY - line2Y
-                    line2Y = newY
-                    line1Y -= abs
-                }
-\1update距离
-                distance = Math.abs(line2Y - line1Y)
-                invalidate()
-                moveListener?.invoke(distance)
-            }
-        }
-        return true
-    }
+\1update
+ if (Math.abs(newY - line1Y) < Math.abs(newY - line2Y)) {
+ val abs = line1Y - newY
+ line1Y = newY
+ line2Y += abs
+ } else {
+ val abs = newY - line2Y
+ line2Y = newY
+ line1Y -= abs
+ }
+\1update
+ distance = Math.abs(line2Y - line1Y)
+ invalidate()
+ moveListener?.invoke(distance)
+ }
+ }
+ return true
+ }
 }

@@ -40,9 +40,9 @@ This report documents the comprehensive professional comment standardization app
 
 ### Translation Quality
 Applied 200+ thermal imaging technical terms with specialized accuracy:
-- **Hardware terminology**: `机芯` → `core`, `增益` → `gain`, `配准` → `registration`
-- **UI interaction terms**: `点击事件监听` → `click event listener`, `切换` → `switch`
-- **Color schemes**: `白热` → `white hot`, `铁红` → `iron red`, `彩虹` → `rainbow`
+- **Hardware terminology**: `` → `core`, `` → `gain`, `` → `registration`
+- **UI interaction terms**: `` → `click event listener`, `` → `switch`
+- **Color schemes**: `` → `white hot`, `` → `iron red`, `` → `rainbow`
 - **Complex phrases**: Full contextual translation maintaining technical accuracy
 
 ### Documentation Standards Applied
@@ -52,31 +52,31 @@ Applied 200+ thermal imaging technical terms with specialized accuracy:
 /**
  * ThermalCameraManager handles thermal imaging functionality and processing.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
 class ThermalCameraManager {
-    /**
-     * Initializes the thermal camera with default configuration.
-     */
-    fun initializeCamera() {
-        // Implementation
-    }
+ /**
+ * Initializes the thermal camera with default configuration.
+ */
+ fun initializeCamera() {
+ // Implementation
+ }
 }
 ```
 
 #### Python Functions
 ```python
 def process_thermal_data(data: List[float]) -> Dict[str, Any]:
-    """Process thermal imaging data according to business rules.
-    
-    Args:
-        data: Raw thermal sensor readings
-        
-    Returns:
-        Processed thermal data with metadata
-    """
-    # Implementation
+ """Process thermal imaging data according to business rules.
+ 
+ Args:
+ data: Raw thermal sensor readings
+ 
+ Returns:
+ Processed thermal data with metadata
+ """
+ # Implementation
 ```
 
 ### Quality Improvements
@@ -86,10 +86,10 @@ def process_thermal_data(data: List[float]) -> Dict[str, Any]:
 /**
  * class class
  */
-// 为解决闪缩白屏问题，延时打开webView
+// Comment removed (contained Chinese characters)
 class MenuType {
-    // 初始化
-    fun init() { }
+ // Comment removed (contained Chinese characters)
+ fun init() { }
 }
 ```
 
@@ -98,13 +98,13 @@ class MenuType {
 /**
  * Type definition for menu classification.
  *
- * @author IRCamera Development Team
+* @author IRCamera Development Team
  * @since 1.0
  */
 enum class MenuType {
-    SINGLE_LIGHT,
-    DOUBLE_LIGHT,
-    // ...
+ SINGLE_LIGHT,
+ DOUBLE_LIGHT,
+ // ...
 }
 ```
 
@@ -173,7 +173,7 @@ enum class MenuType {
 The Professional Comment Standardization initiative successfully established enterprise-grade documentation and commenting standards across the entire IRCamera thermal imaging repository. With 1,005+ improvements applied to 1,328 files, the codebase now maintains:
 
 - **100% ASCII compliance** with professional English documentation
-- **Zero compilation errors** while enhancing international accessibility  
+- **Zero compilation errors** while enhancing international accessibility 
 - **Enterprise-grade quality standards** with comprehensive linting and formatting
 - **Thermal domain expertise** applied to 200+ technical terms
 - **Consistent professional presentation** enabling global collaboration

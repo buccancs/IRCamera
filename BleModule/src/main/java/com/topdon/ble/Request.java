@@ -7,49 +7,49 @@ import java.util.UUID;
 
 /**
  * date: 2019/8/11 15:34
- * author: bichuanfeng
+* author: bichuanfeng
  */
 public interface Request {
-    /**
-     * 设备
-     */
-    @NonNull
-    Device getDevice();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @NonNull
+ Device getDevice();
 
-    /**
-     * 请求类型
-     */
-    @NonNull
-    RequestType getType();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @NonNull
+ RequestType getType();
 
-    /**
-     * 请求标识
-     */
-    @Nullable
-    String getTag();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @Nullable
+ String getTag();
 
-    /**
-     * 服务UUID
-     */
-    @Nullable
-    UUID getService();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @Nullable
+ UUID getService();
 
-    /**
-     * 特征UUID
-     */
-    @Nullable
-    UUID getCharacteristic();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @Nullable
+ UUID getCharacteristic();
 
-    /**
-     * 描述符UUID
-     */
-    @Nullable
-    UUID getDescriptor();
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @Nullable
+ UUID getDescriptor();
 
-    /**
-     * 执行请求
-     *
-     * @param connection 请求执行的连接
-     */
-    void execute(Connection connection);
+ /**
+ * Comment removed (contained Chinese characters)
+ *
+ * Comment removed (contained Chinese characters)
+ */
+ void execute(Connection connection);
 }

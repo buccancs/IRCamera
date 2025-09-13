@@ -6,8 +6,8 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.fragment.IRPlushFragment
 
 /**
-\1des:双光的infrared拍照
- * author: CaiSongL
+\1des:infrared
+* author: CaiSongL
  * date: 2024/8/24 18:10
  **/
 // Legacy ARouter route annotation - now using NavigationManager
@@ -16,27 +16,27 @@ import com.topdon.module.thermal.ir.fragment.IRPlushFragment
  * Manages UI interactions and thermal data display.
  */
 class ImagePickIRPlushActivity : BasePickImgActivity() {
-    var irFragment: IRPlushFragment? = null
+ var irFragment: IRPlushFragment? = null
 
-    override fun initView() {
-        irFragment =
-            if (savedInstanceState == null) {
-                IRPlushFragment()
-            } else {
-                supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRPlushFragment
-            }
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, irFragment!!)
-                .commit()
-        }
-    }
+ override fun initView() {
+ irFragment =
+ if (savedInstanceState == null) {
+ IRPlushFragment()
+ } else {
+ supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRPlushFragment
+ }
+ if (savedInstanceState == null) {
+ supportFragmentManager.beginTransaction()
+ .setReorderingAllowed(true)
+ .add(R.id.fragment_container_view, irFragment!!)
+ .commit()
+ }
+ }
 
-    override suspend fun getPickBitmap(): Bitmap? {
-        return irFragment?.getBitmap()
-    }
+ override suspend fun getPickBitmap(): Bitmap? {
+ return irFragment?.getBitmap()
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 }

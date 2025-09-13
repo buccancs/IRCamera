@@ -7,10 +7,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 是否开启观察（接收通知）
+ * Comment removed (contained Chinese characters)
  * 
  * date: 2019/8/9 12:46
- * author: chuanfeng.bi
+* author: chuanfeng.bi
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

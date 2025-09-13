@@ -3,44 +3,44 @@ package com.topdon.libcom.view;
 import android.animation.TimeInterpolator;
 
 /**
- * @author: CaiSongL
+* @author: CaiSongL
  * @date: 2023/4/28 16:09
  */
 class BreatheInterpolator implements TimeInterpolator {
 
-    @Override
+ @Override
 
-    public float getInterpolation(float input) {
+ public float getInterpolation(float input) {
 
-        float x = 6 * input;
+ float x = 6 * input;
 
-        float k = 1.0f / 3;
+ float k = 1.0f / 3;
 
-        int t = 6;
+ int t = 6;
 
-        int n = 1;//控制函数周期，这里取此函数的第一个周期
+ int n = 1;//，
 
-        float PI = 3.1416f;
+ float PI = 3.1416f;
 
-        float output = 0;
+ float output = 0;
 
-        if (x >= ((n - 1) * t) && x < ((n - (1 - k)) * t)) {
+ if (x >= ((n - 1) * t) && x < ((n - (1 - k)) * t)) {
 
-            output = (float) (0.5 * Math.sin((PI / (k * t)) * ((x - k * t / 2) - (n - 1) * t)) + 0.5);
+ output = (float) (0.5 * Math.sin((PI / (k * t)) * ((x - k * t / 2) - (n - 1) * t)) + 0.5);
 
-        } else if (x >= (n - (1 - k)) * t && x < n * t) {
+ } else if (x >= (n - (1 - k)) * t && x < n * t) {
 
-            output = (float) Math.pow((0.5 * Math.sin((PI / ((1 - k) * t)) * ((x - (3 - k) * t / 2) - (n - 1) * t)) + 0.5), 2);
+ output = (float) Math.pow((0.5 * Math.sin((PI / ((1 - k) * t)) * ((x - (3 - k) * t / 2) - (n - 1) * t)) + 0.5), 2);
 
-        }
+ }
 
-        return output;
+ return output;
 
-    }
+ }
 
-    public void updateTime(){
-        String a = "";
-        String[] as = a.split("");
-    }
+ public void updateTime(){
+ String a = "";
+ String[] as = a.split("");
+ }
 
 }

@@ -4,28 +4,27 @@ import android.content.Context;
 
 import com.topdon.ble.callback.ScanListener;
 
-
 /**
- * 蓝牙设备搜索器
+ * Comment removed (contained Chinese characters)
  * 
  * date: 2019/10/1 14:41
- * author: bichuanfeng
+* author: bichuanfeng
  */
 interface Scanner {
-    
-    void addScanListener(ScanListener listener);
+ 
+ void addScanListener(ScanListener listener);
 
-    void removeScanListener(ScanListener listener);
+ void removeScanListener(ScanListener listener);
 
-    void startScan(Context context);
+ void startScan(Context context);
 
-    void stopScan(boolean quietly);
+ void stopScan(boolean quietly);
 
-    boolean isScanning();
+ boolean isScanning();
 
-    void onBluetoothOff();
+ void onBluetoothOff();
 
-    void release();
+ void release();
 
-    ScannerType getType();
+ ScannerType getType();
 }

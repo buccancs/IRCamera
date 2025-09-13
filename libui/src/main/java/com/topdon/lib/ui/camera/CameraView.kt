@@ -41,438 +41,438 @@ import kotlin.concurrent.thread
  * Provides specialized rendering and interaction capabilities.
  */
 class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
-    /**预览 */
-    lateinit var mTextureView: TextureView
-    private lateinit var binding: CameraLayBinding
+ /* Comment removed (contained Chinese characters) */
+ lateinit var mTextureView: TextureView
+ private lateinit var binding: CameraLayBinding
 
-    constructor(context: Context) : this(context, null)
+ constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        initView()
-    }
+ constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+ initView()
+ }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-    )
+ constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+ context,
+ attrs,
+ defStyleAttr,
+ )
 
-    private fun initView() {
-        binding = CameraLayBinding.inflate(LayoutInflater.from(context), this, true)
-        mTextureView = binding.cameraTexture
-        mTextureView.alpha = 0.4f
-        lis = ScaleGestureDetector(context, this)
+ private fun initView() {
+ binding = CameraLayBinding.inflate(LayoutInflater.from(context), this, true)
+ mTextureView = binding.cameraTexture
+ mTextureView.alpha = 0.4f
+ lis = ScaleGestureDetector(context, this)
 
-        onResumeView()
-    }
+ onResumeView()
+ }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        mCameraDevice?.close()
-    }
+ override fun onDetachedFromWindow() {
+ super.onDetachedFromWindow()
+ mCameraDevice?.close()
+ }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (isScale && event.action != MotionEvent.ACTION_UP) {
-            return lis.onTouchEvent(event)
-        }
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                scaleW = mTextureView.width * (scale - 1) / 2f
-                scaleH = mTextureView.height * (scale - 1) / 2f
-                startX = event.x - mTextureView.x
-                startY = event.y - mTextureView.y
-                val view: View = mTextureView.parent as View
-                parentViewW = view.width.toFloat()
-                parentViewH = view.height.toFloat()
-            }
-            MotionEvent.ACTION_MOVE -> {
-                // 滑动
-                moveX = event.x - startX
-                moveY = event.y - startY
-                if (moveX - scaleW < 0f) moveX = 0f + scaleW
-                if (moveY - scaleH < 0f) moveY = 0f + scaleH
-                if (moveX + scaleW > parentViewW - mTextureView.width) {
-                    moveX = parentViewW - mTextureView.width - scaleW
-                }
-                if (moveY + scaleH > parentViewH - mTextureView.height) {
-                    moveY = parentViewH - mTextureView.height - scaleH
-                }
-                mTextureView.x = moveX
-                mTextureView.y = moveY
-            }
-            MotionEvent.ACTION_UP -> {
-                isScale = false // 实际以手指抬起设定缩放结束
-            }
-        }
-        return lis.onTouchEvent(event)
-    }
+ override fun onTouchEvent(event: MotionEvent): Boolean {
+ if (isScale && event.action != MotionEvent.ACTION_UP) {
+ return lis.onTouchEvent(event)
+ }
+ when (event.action) {
+ MotionEvent.ACTION_DOWN -> {
+ scaleW = mTextureView.width * (scale - 1) / 2f
+ scaleH = mTextureView.height * (scale - 1) / 2f
+ startX = event.x - mTextureView.x
+ startY = event.y - mTextureView.y
+ val view: View = mTextureView.parent as View
+ parentViewW = view.width.toFloat()
+ parentViewH = view.height.toFloat()
+ }
+ MotionEvent.ACTION_MOVE -> {
+ // Comment removed (contained Chinese characters)
+ moveX = event.x - startX
+ moveY = event.y - startY
+ if (moveX - scaleW < 0f) moveX = 0f + scaleW
+ if (moveY - scaleH < 0f) moveY = 0f + scaleH
+ if (moveX + scaleW > parentViewW - mTextureView.width) {
+ moveX = parentViewW - mTextureView.width - scaleW
+ }
+ if (moveY + scaleH > parentViewH - mTextureView.height) {
+ moveY = parentViewH - mTextureView.height - scaleH
+ }
+ mTextureView.x = moveX
+ mTextureView.y = moveY
+ }
+ MotionEvent.ACTION_UP -> {
+ isScale = false // End
+ }
+ }
+ return lis.onTouchEvent(event)
+ }
 
-    override fun onScale(detector: ScaleGestureDetector): Boolean {
-        // 缩放
-        isScale = true
-        detector?.let {
-            val scaleFactor = it.scaleFactor - 1
-            scale += scaleFactor
-            mTextureView.scaleX = scale
-            mTextureView.scaleY = scale
-        }
-        return true
-    }
+ override fun onScale(detector: ScaleGestureDetector): Boolean {
+ // Comment removed (contained Chinese characters)
+ isScale = true
+ detector?.let {
+ val scaleFactor = it.scaleFactor - 1
+ scale += scaleFactor
+ mTextureView.scaleX = scale
+ mTextureView.scaleY = scale
+ }
+ return true
+ }
 
-    override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
-        isScale = true
-        return true
-    }
+ override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+ isScale = true
+ return true
+ }
 
-    override fun onScaleEnd(detector: ScaleGestureDetector) {
-    }
+ override fun onScaleEnd(detector: ScaleGestureDetector) {
+ }
 
-    private var startX = 0f // 记录落点到控件的距离
-    private var startY = 0f
-    private var moveX = 0f
-    private var moveY = 0f
-    private var parentViewW = 0f
-    private var parentViewH = 0f
-    private var isScale = false
-    private var scale = 1f
-    private var scaleW = 0f // 单边缩放长度
-    private var scaleH = 0f
+ private var startX = 0f // 
+ private var startY = 0f
+ private var moveX = 0f
+ private var moveY = 0f
+ private var parentViewW = 0f
+ private var parentViewH = 0f
+ private var isScale = false
+ private var scale = 1f
+ private var scaleW = 0f // 
+ private var scaleH = 0f
 
-    private lateinit var lis: ScaleGestureDetector
+ private lateinit var lis: ScaleGestureDetector
 
 // ////////////////
-    /**相机权限请求标识 */
-    private val REQUEST_CAMERA_CODE = 0x100
+ /* Comment removed (contained Chinese characters) */
+ private val REQUEST_CAMERA_CODE = 0x100
 
-    /**capturebutton */
-    private var mBtnTake: Button? = null
+ /**capturebutton */
+ private var mBtnTake: Button? = null
 
-    /**图片 */
-    private var mImageView: ImageView? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mImageView: ImageView? = null
 
-    /**照相机ID，标识前置后置 */
-    private lateinit var mCameraId: String
+ /* Comment removed (contained Chinese characters) */
+ private lateinit var mCameraId: String
 
-    /**相机尺寸 */
-    private var mCaptureSize: Size? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCaptureSize: Size? = null
 
-    /**图像读取者 */
-    private lateinit var mImageReader: ImageReader
+ /* Comment removed (contained Chinese characters) */
+ private lateinit var mImageReader: ImageReader
 
-    /**图像主线程Handler */
-    private lateinit var mCameraHandler: Handler
+ /* Comment removed (contained Chinese characters) */
+ private lateinit var mCameraHandler: Handler
 
-    /**相机设备 */
-    private var mCameraDevice: CameraDevice? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCameraDevice: CameraDevice? = null
 
-    /**预览大小 */
-    private var mPreviewSize: Size? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mPreviewSize: Size? = null
 
-    /**相机请求 */
-    private lateinit var mCameraCaptureBuilder: CaptureRequest.Builder
+ /* Comment removed (contained Chinese characters) */
+ private lateinit var mCameraCaptureBuilder: CaptureRequest.Builder
 
-    /**相机capture捕获会话 */
-    private var mCameraCaptureSession: CameraCaptureSession? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCameraCaptureSession: CameraCaptureSession? = null
 
-    /**相机管理者 */
-    private var mCameraManager: CameraManager? = null
+ /* Comment removed (contained Chinese characters) */
+ private var mCameraManager: CameraManager? = null
 
-    /**相机设备state回调 */
-    private val mStateCallback: CameraDevice.StateCallback =
-        object : CameraDevice.StateCallback() {
-            override fun onOpened(
-                @NonNull camera: CameraDevice,
-            ) {
-                // 打开
-                mCameraDevice = camera
-                // 开始预览
-                takePreview()
-            }
+ /* Comment removed (contained Chinese characters) */
+ private val mStateCallback: CameraDevice.StateCallback =
+ object : CameraDevice.StateCallback() {
+ override fun onOpened(
+ @NonNull camera: CameraDevice,
+ ) {
+ // Comment removed (contained Chinese characters)
+ mCameraDevice = camera
+ // Comment removed (contained Chinese characters)
+ takePreview()
+ }
 
-            override fun onDisconnected(
-                @NonNull camera: CameraDevice,
-            ) {
-                // 断开连接
-                camera.close()
-                mCameraDevice = null
-            }
+ override fun onDisconnected(
+ @NonNull camera: CameraDevice,
+ ) {
+ // DisconnectConnection
+ camera.close()
+ mCameraDevice = null
+ }
 
-            override fun onError(
-                @NonNull camera: CameraDevice,
-                error: Int,
-            ) {
-                // 异常
-                camera.close()
-                mCameraDevice = null
-            }
-        }
+ override fun onError(
+ @NonNull camera: CameraDevice,
+ error: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ camera.close()
+ mCameraDevice = null
+ }
+ }
 
-    /**
-     * 预览
-     */
-    private fun takePreview() {
-//        mTextureView.rotation = 270f
-        mTextureView.rotation = 0f
-        // 获取SurfaceTexture
-        val surfaceTexture = mTextureView.surfaceTexture
-        // settings默认的缓冲大小
-        surfaceTexture!!.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        // 创建Surface
-        val previewSurface = Surface(surfaceTexture)
-        try {
-            // 创建预览请求
-            mCameraCaptureBuilder =
-                mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            // 将previewSurface添加到预览请求中
-            mCameraCaptureBuilder.addTarget(previewSurface)
-            // 创建会话
-            @Suppress("DEPRECATION")
-            mCameraDevice!!.createCaptureSession(
-                listOf(
-                    previewSurface,
-                    mImageReader.surface,
-                ),
-                object : CameraCaptureSession.StateCallback() {
-                    override fun onConfigured(
-                        @NonNull session: CameraCaptureSession,
-                    ) {
-                        try {
-                            // configuration
-                            val captureRequest = mCameraCaptureBuilder.build()
-                            // 設置session
-                            mCameraCaptureSession = session
-                            // settings重复预览请求
-                            mCameraCaptureSession!!.setRepeatingRequest(
-                                captureRequest,
-                                null,
-                                mCameraHandler,
-                            )
-                        } catch (e: CameraAccessException) {
-                            e.printStackTrace()
-                        }
-                    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private fun takePreview() {
+// mTextureView.rotation = 270f
+ mTextureView.rotation = 0f
+ // Comment removed (contained Chinese characters)
+ val surfaceTexture = mTextureView.surfaceTexture
+ // Comment removed (contained Chinese characters)
+ surfaceTexture!!.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
+ // Comment removed (contained Chinese characters)
+ val previewSurface = Surface(surfaceTexture)
+ try {
+ // Comment removed (contained Chinese characters)
+ mCameraCaptureBuilder =
+ mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+ // Comment removed (contained Chinese characters)
+ mCameraCaptureBuilder.addTarget(previewSurface)
+ // Comment removed (contained Chinese characters)
+ @Suppress("DEPRECATION")
+ mCameraDevice!!.createCaptureSession(
+ listOf(
+ previewSurface,
+ mImageReader.surface,
+ ),
+ object : CameraCaptureSession.StateCallback() {
+ override fun onConfigured(
+ @NonNull session: CameraCaptureSession,
+ ) {
+ try {
+ // configuration
+ val captureRequest = mCameraCaptureBuilder.build()
+ // Comment removed (contained Chinese characters)
+ mCameraCaptureSession = session
+ // Comment removed (contained Chinese characters)
+ mCameraCaptureSession!!.setRepeatingRequest(
+ captureRequest,
+ null,
+ mCameraHandler,
+ )
+ } catch (e: CameraAccessException) {
+ e.printStackTrace()
+ }
+ }
 
-                    override fun onConfigureFailed(
-                        @NonNull session: CameraCaptureSession,
-                    ) {
-                        // configuration失败
-                    }
-                },
-                mCameraHandler,
-            )
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
-    }
+ override fun onConfigureFailed(
+ @NonNull session: CameraCaptureSession,
+ ) {
+ // configurationFailed
+ }
+ },
+ mCameraHandler,
+ )
+ } catch (e: CameraAccessException) {
+ e.printStackTrace()
+ }
+ }
 
-    private fun onResumeView() {
-        mTextureView.surfaceTextureListener =
-            object : TextureView.SurfaceTextureListener {
-                override fun onSurfaceTextureAvailable(
-                    surface: SurfaceTexture,
-                    width: Int,
-                    height: Int,
-                ) {
-                    // SurfaceTexture可用
-                    // settings相机参数并打开相机
-                    Log.w("123", "width:$width, height:$height")
-                    // w:h = 1 / 1.33
-                    setUpCamera(width, height)
-//                openCamera()
-                }
+ private fun onResumeView() {
+ mTextureView.surfaceTextureListener =
+ object : TextureView.SurfaceTextureListener {
+ override fun onSurfaceTextureAvailable(
+ surface: SurfaceTexture,
+ width: Int,
+ height: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ // Comment removed (contained Chinese characters)
+ Log.w("123", "width:$width, height:$height")
+ // w:h = 1 / 1.33
+ setUpCamera(width, height)
+// openCamera()
+ }
 
-                override fun onSurfaceTextureSizeChanged(
-                    surface: SurfaceTexture,
-                    width: Int,
-                    height: Int,
-                ) {
-                    // SurfaceTexture大小改变
-                }
+ override fun onSurfaceTextureSizeChanged(
+ surface: SurfaceTexture,
+ width: Int,
+ height: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ }
 
-                override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-                    // SurfaceTexture 销毁
-                    return false
-                }
+ override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
+ // Comment removed (contained Chinese characters)
+ return false
+ }
 
-                override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                    // SurfaceTexture update
-                }
-            }
-    }
+ override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
+ // SurfaceTexture update
+ }
+ }
+ }
 
-    /**
-     * 打开相机
-     */
-    @SuppressLint("MissingPermission")
-    fun openCamera() {
-        // 获取照相机管理者
-        try {
-            mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
-            mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
-        } catch (e: Exception) {
-            Log.e("123", "打开相机失败:${e.message}")
-            ToastUtils.showShort("打开相机失败")
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ @SuppressLint("MissingPermission")
+ fun openCamera() {
+ // Comment removed (contained Chinese characters)
+ try {
+ mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
+ mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
+ } catch (e: Exception) {
+ Log.e("123", "Failed:${e.message}")
+ ToastUtils.showShort("Failed")
+ }
+ }
 
-    /**
-     * settings相机参数
-     * @param width 宽度
-     * @param height 高度
-     */
-    private fun setUpCamera(
-        width: Int,
-        height: Int,
-    ) {
-        // 创建Handler
-        mCameraHandler = Handler(Looper.getMainLooper())
-        // 获取摄像头的管理者
-        val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        try {
-            // 遍历所有摄像头
-            for (cameraId in cameraManager.cameraIdList) {
-                // 相机特性
-                val cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId)
-                // 获取摄像头是前置还是后置
-                val facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING)
-                // 此处默认打开后置摄像头
-                if (null != facing && CameraCharacteristics.LENS_FACING_FRONT == facing) continue
-                // 获取StreamConfigurationMap，管理摄像头支持的所有输出格式和尺寸
-                val map =
-                    cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
-                // 根据TextureView的尺寸settings预览尺寸
-                mPreviewSize =
-                    getOptimalSize(
-                        map.getOutputSizes(SurfaceTexture::class.java),
-                        width,
-                        height,
-                    )
-                // 获取相机支持的最大capture尺寸
-                val sizes = map.getOutputSizes(ImageFormat.JPEG)
-                val w = 1000
-                val h = w * sizes[0].height / sizes[0].width
-                mCaptureSize = Size(w, h)
-                Log.w("123", "w:${sizes[0].width}, h:${sizes[0].height}")
-                Log.w("123", "调整后w:$w, h:$h")
-//                mCaptureSize = Size(1000, 1000)
-//                mCaptureSize =
-//                    Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG))) { lhs, rhs ->
-//                        java.lang.Long.signum(lhs.getWidth() * lhs.getHeight() - rhs.getHeight() * rhs.getWidth())
-//                    }
-                // 此处ImageReader用于capture所需
-                setupImageReader()
-                // 为摄像头赋值
-                mCameraId = cameraId
-                break
-            }
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ private fun setUpCamera(
+ width: Int,
+ height: Int,
+ ) {
+ // Comment removed (contained Chinese characters)
+ mCameraHandler = Handler(Looper.getMainLooper())
+ // Comment removed (contained Chinese characters)
+ val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+ try {
+ // Comment removed (contained Chinese characters)
+ for (cameraId in cameraManager.cameraIdList) {
+ // Comment removed (contained Chinese characters)
+ val cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId)
+ // Comment removed (contained Chinese characters)
+ val facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING)
+ // Comment removed (contained Chinese characters)
+ if (null != facing && CameraCharacteristics.LENS_FACING_FRONT == facing) continue
+ // Comment removed (contained Chinese characters)
+ val map =
+ cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
+ // Comment removed (contained Chinese characters)
+ mPreviewSize =
+ getOptimalSize(
+ map.getOutputSizes(SurfaceTexture::class.java),
+ width,
+ height,
+ )
+ // Comment removed (contained Chinese characters)
+ val sizes = map.getOutputSizes(ImageFormat.JPEG)
+ val w = 1000
+ val h = w * sizes[0].height / sizes[0].width
+ mCaptureSize = Size(w, h)
+ Log.w("123", "w:${sizes[0].width}, h:${sizes[0].height}")
+ Log.w("123", "w:$w, h:$h")
+// mCaptureSize = Size(1000, 1000)
+// mCaptureSize =
+// Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG))) { lhs, rhs ->
+// java.lang.Long.signum(lhs.getWidth() * lhs.getHeight() - rhs.getHeight() * rhs.getWidth())
+// }
+ // Comment removed (contained Chinese characters)
+ setupImageReader()
+ // Comment removed (contained Chinese characters)
+ mCameraId = cameraId
+ break
+ }
+ } catch (e: CameraAccessException) {
+ e.printStackTrace()
+ }
+ }
 
-    /**
-     * 选择SizeMap中大于并且最接近width和height的size
-     * @param sizeMap 可选的尺寸
-     * @param width 宽
-     * @param height 高
-     * @return 最接近width和height的size
-     */
-    private fun getOptimalSize(
-        sizeMap: Array<Size>,
-        width: Int,
-        height: Int,
-    ): Size {
-        // 创建list
-        val sizeList: MutableList<Size> = ArrayList()
-        // 遍历
-        for (option in sizeMap) {
-            // 判断宽度是否大于高度
-            if (width > height) {
-                if (option.width > width && option.height > height) {
-                    sizeList.add(option)
-                }
-            } else {
-                if (option.width > height && option.height > width) {
-                    sizeList.add(option)
-                }
-            }
-        }
-        // 判断存储Size的list是否有数据
-        return if (sizeList.size > 0) {
-            Collections.min(
-                sizeList,
-            ) { lhs, rhs -> java.lang.Long.signum((lhs.width * lhs.height - rhs.width * rhs.height).toLong()) }
-        } else {
-            sizeMap[0]
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ private fun getOptimalSize(
+ sizeMap: Array<Size>,
+ width: Int,
+ height: Int,
+ ): Size {
+ // Comment removed (contained Chinese characters)
+ val sizeList: MutableList<Size> = ArrayList()
+ // Comment removed (contained Chinese characters)
+ for (option in sizeMap) {
+ // Comment removed (contained Chinese characters)
+ if (width > height) {
+ if (option.width > width && option.height > height) {
+ sizeList.add(option)
+ }
+ } else {
+ if (option.width > height && option.height > width) {
+ sizeList.add(option)
+ }
+ }
+ }
+ // Comment removed (contained Chinese characters)
+ return if (sizeList.size > 0) {
+ Collections.min(
+ sizeList,
+ ) { lhs, rhs -> java.lang.Long.signum((lhs.width * lhs.height - rhs.width * rhs.height).toLong()) }
+ } else {
+ sizeMap[0]
+ }
+ }
 
-    private var flag = 0
+ private var flag = 0
 
-    /**
-     * settingsImageReader
-     */
-    private fun setupImageReader() {
-        // 2代表ImageReader中最多可以获取两帧图像流
-        mImageReader =
-            ImageReader.newInstance(
-                mCaptureSize!!.width,
-                mCaptureSize!!.height,
-                ImageFormat.JPEG,
-                1,
-            )
-        // settings图像可用监听
-        mImageReader.setOnImageAvailableListener({ reader ->
-            flag = 1
-            // 获取图片
-            val image: Image = reader.acquireLatestImage()
-            // 提交任务，saved图片
-            mCameraHandler.post(ImageSaver(image))
-            // updateUI
-            runOnUiThread { // 获取字节缓冲区
-                val buffer: ByteBuffer = image.planes[0].buffer
-                // 创建array之前调用此方法，restore默认settings
-                buffer.rewind()
-                // 创建与缓冲区内容大小相同的array
-                val bytes = ByteArray(buffer.remaining())
-                // 从缓冲区存入字节array,读取完成之后position在末尾
-                buffer[bytes]
-                // 获取Bitmap图像
-                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                // 显示
-                if (null != bitmap) {
-                    val h = bitmap.height
-                    val w = bitmap.width
-                    mImageView?.let {
-                        val sw = ScreenUtil.getScreenWidth(context)
-                        it.layoutParams.height = sw / 2 * w / h
-                        it.layoutParams.width = sw / 2
-                        it.setImageBitmap(bitmap)
-                    }
-                }
-                flag++
-                thread {
-                    while (flag < 3) {
-//                        delay(100)
-                        Thread.sleep(100)
-                    }
-                    flag = 0
-                    image.close()
-                }
-            }
-        }, mCameraHandler)
-    }
+ /**
+ * settingsImageReader
+ */
+ private fun setupImageReader() {
+ // Comment removed (contained Chinese characters)
+ mImageReader =
+ ImageReader.newInstance(
+ mCaptureSize!!.width,
+ mCaptureSize!!.height,
+ ImageFormat.JPEG,
+ 1,
+ )
+ // Comment removed (contained Chinese characters)
+ mImageReader.setOnImageAvailableListener({ reader ->
+ flag = 1
+ // Comment removed (contained Chinese characters)
+ val image: Image = reader.acquireLatestImage()
+ // Comment removed (contained Chinese characters)
+ mCameraHandler.post(ImageSaver(image))
+ // updateUI
+ runOnUiThread { // 
+ val buffer: ByteBuffer = image.planes[0].buffer
+ // Comment removed (contained Chinese characters)
+ buffer.rewind()
+ // Comment removed (contained Chinese characters)
+ val bytes = ByteArray(buffer.remaining())
+ // Comment removed (contained Chinese characters)
+ buffer[bytes]
+ // Comment removed (contained Chinese characters)
+ val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+ // Comment removed (contained Chinese characters)
+ if (null != bitmap) {
+ val h = bitmap.height
+ val w = bitmap.width
+ mImageView?.let {
+ val sw = ScreenUtil.getScreenWidth(context)
+ it.layoutParams.height = sw / 2 * w / h
+ it.layoutParams.width = sw / 2
+ it.setImageBitmap(bitmap)
+ }
+ }
+ flag++
+ thread {
+ while (flag < 3) {
+// delay(100)
+ Thread.sleep(100)
+ }
+ flag = 0
+ image.close()
+ }
+ }
+ }, mCameraHandler)
+ }
 
-    /**
-     * saved图片任务
-     */
-    private inner class ImageSaver(image: Image) : Runnable {
-        /**图像 */
-        private val mImage: Image = image
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private inner class ImageSaver(image: Image) : Runnable {
+ /* Comment removed (contained Chinese characters) */
+ private val mImage: Image = image
 
-        override fun run() {
-//            ImageSaverTool().save(mImage)
-            flag++
-        }
-    }
+ override fun run() {
+// ImageSaverTool().save(mImage)
+ flag++
+ }
+ }
 }

@@ -5,31 +5,31 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.R
 
-\1连接device
+\1Connectiondevice
 // Legacy ARouter route annotation - now using NavigationManager
 /**
  * Connect activity for thermal imaging interface.
  * Manages UI interactions and thermal data display.
  */
 class ConnectActivity : BaseActivity() {
-    override fun initContentView() = R.layout.activity_connect
+ override fun initContentView() = R.layout.activity_connect
 
-    override fun initView() {
-        // Set toolbar title
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(com.topdon.lib.core.R.id.toolbar_lay)
-        toolbar?.title = getString(R.string.app_name)
+ override fun initView() {
+ // Set toolbar title
+ val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(com.topdon.lib.core.R.id.toolbar_lay)
+ toolbar?.title = getString(R.string.app_name)
 
-        val bluetoothBtn = findViewById<TextView>(R.id.bluetooth_btn)
-        val isDeviceConnected = DeviceTools.isConnect()
-        if (!isDeviceConnected) {
-\1未连接
-            bluetoothBtn.text = getString(R.string.app_no_connect)
-        } else {
-\1已连接
-            bluetoothBtn.text = getString(R.string.app_connect)
-        }
-    }
+ val bluetoothBtn = findViewById<TextView>(R.id.bluetooth_btn)
+ val isDeviceConnected = DeviceTools.isConnect()
+ if (!isDeviceConnected) {
+\1Connection
+ bluetoothBtn.text = getString(R.string.app_no_connect)
+ } else {
+\1Connection
+ bluetoothBtn.text = getString(R.string.app_connect)
+ }
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 }

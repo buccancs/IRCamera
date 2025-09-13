@@ -16,66 +16,66 @@ import com.topdon.module.thermal.R
  * Provides specialized rendering and interaction capabilities.
  */
 class GalleryAdapter(val context: Context) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var listener: OnItemClickListener? = null
+ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+ var listener: OnItemClickListener? = null
 
-    var datas = arrayListOf<String>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+ var datas = arrayListOf<String>()
+ set(value) {
+ field = value
+ notifyDataSetChanged()
+ }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): RecyclerView.ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_gallery, parent, false)
-        return ItemView(view)
-    }
+ override fun onCreateViewHolder(
+ parent: ViewGroup,
+ viewType: Int,
+ ): RecyclerView.ViewHolder {
+ val view =
+ LayoutInflater.from(parent.context).inflate(R.layout.item_gallery, parent, false)
+ return ItemView(view)
+ }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-    ) {
-        if (holder is ItemView) {
-            GlideLoader.load(holder.img, datas[position])
-            holder.lay.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
-                listener?.onClick(position, datas[position])
-            }
-            holder.lay.setOnLongClickListener(
-                View.OnLongClickListener {
-                    Log.w("123", "文件: ${datas[position]}")
-                    listener?.onLongClick(position, datas[position])
-                    return@OnLongClickListener true
-                },
-            )
-        }
-    }
+ override fun onBindViewHolder(
+ holder: RecyclerView.ViewHolder,
+ position: Int,
+ ) {
+ if (holder is ItemView) {
+ GlideLoader.load(holder.img, datas[position])
+ holder.lay.setOnClickListener {
+ Log.w("123", ": ${datas[position]}")
+ listener?.onClick(position, datas[position])
+ }
+ holder.lay.setOnLongClickListener(
+ View.OnLongClickListener {
+ Log.w("123", ": ${datas[position]}")
+ listener?.onLongClick(position, datas[position])
+ return@OnLongClickListener true
+ },
+ )
+ }
+ }
 
-    override fun getItemCount(): Int {
-        return datas.size
-    }
+ override fun getItemCount(): Int {
+ return datas.size
+ }
 
-    inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val lay = itemView.findViewById<ConstraintLayout>(R.id.item_gallery_lay)
-        val img = itemView.findViewById<ImageView>(R.id.item_gallery_img)
-    }
+ inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+ val lay = itemView.findViewById<ConstraintLayout>(R.id.item_gallery_lay)
+ val img = itemView.findViewById<ImageView>(R.id.item_gallery_img)
+ }
 
 /**
  * Custom On item click listener view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-    interface OnItemClickListener {
-        fun onClick(
-            index: Int,
-            path: String,
-        )
+ interface OnItemClickListener {
+ fun onClick(
+ index: Int,
+ path: String,
+ )
 
-        fun onLongClick(
-            index: Int,
-            path: String,
-        )
-    }
+ fun onLongClick(
+ index: Int,
+ path: String,
+ )
+ }
 }

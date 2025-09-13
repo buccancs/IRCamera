@@ -12,95 +12,95 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipChangeDeviceBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
-@Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
+@Deprecated("3.80，")
 class TipChangeDeviceDialog : Dialog {
-    constructor(context: Context, themeResId: Int) : super(context, themeResId)
+ constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-    class Builder {
-        var dialog: TipChangeDeviceDialog? = null
-        private var context: Context? = null
-        private var message: String? = null
-        private var closeEvent: ((check: Boolean) -> Unit)? = null
-        private var canceled = false
-        private var hasCheck = false
+ class Builder {
+ var dialog: TipChangeDeviceDialog? = null
+ private var context: Context? = null
+ private var message: String? = null
+ private var closeEvent: ((check: Boolean) -> Unit)? = null
+ private var canceled = false
+ private var hasCheck = false
 
-        private lateinit var checkBox: CheckBox
-        private lateinit var imgClose: ImageView
+ private lateinit var checkBox: CheckBox
+ private lateinit var imgClose: ImageView
 
-        constructor(context: Context) {
-            this.context = context
-        }
+ constructor(context: Context) {
+ this.context = context
+ }
 
-        fun setMessage(message: String): Builder {
-            this.message = message
-            return this
-        }
+ fun setMessage(message: String): Builder {
+ this.message = message
+ return this
+ }
 
-        fun setMessage(
-            @StringRes message: Int,
-        ): Builder {
-            this.message = context!!.getString(message)
-            return this
-        }
+ fun setMessage(
+ @StringRes message: Int,
+ ): Builder {
+ this.message = context!!.getString(message)
+ return this
+ }
 
-        fun setCancelListener(event: ((check: Boolean) -> Unit)? = null): Builder {
-            this.closeEvent = event
-            return this
-        }
+ fun setCancelListener(event: ((check: Boolean) -> Unit)? = null): Builder {
+ this.closeEvent = event
+ return this
+ }
 
-        fun setCanceled(canceled: Boolean): Builder {
-            this.canceled = canceled
-            return this
-        }
+ fun setCanceled(canceled: Boolean): Builder {
+ this.canceled = canceled
+ return this
+ }
 
-        fun dismiss() {
-            this.dialog!!.dismiss()
-        }
+ fun dismiss() {
+ this.dialog!!.dismiss()
+ }
 
-        fun create(): TipChangeDeviceDialog {
-            if (dialog == null) {
-                dialog = TipChangeDeviceDialog(context!!, R.style.InfoDialog)
-            }
-            val binding = DialogTipChangeDeviceBinding.inflate(LayoutInflater.from(context!!))
+ fun create(): TipChangeDeviceDialog {
+ if (dialog == null) {
+ dialog = TipChangeDeviceDialog(context!!, R.style.InfoDialog)
+ }
+ val binding = DialogTipChangeDeviceBinding.inflate(LayoutInflater.from(context!!))
 
-            binding.tvIKnow.setOnClickListener {
-                dismiss()
-                closeEvent?.invoke(hasCheck)
-            }
+ binding.tvIKnow.setOnClickListener {
+ dismiss()
+ closeEvent?.invoke(hasCheck)
+ }
 
-            checkBox = binding.dialogTipCheck
-            imgClose = binding.imgClose
-            dialog!!.addContentView(
-                binding.root,
-                ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                ),
-            )
-            val lp = dialog!!.window!!.attributes
-            val wRatio =
-                if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
-                    0.85
-                } else {
-                    // 横屏
-                    0.35
-                }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
-            dialog!!.window!!.attributes = lp
+ checkBox = binding.dialogTipCheck
+ imgClose = binding.imgClose
+ dialog!!.addContentView(
+ binding.root,
+ ViewGroup.LayoutParams(
+ ViewGroup.LayoutParams.MATCH_PARENT,
+ ViewGroup.LayoutParams.WRAP_CONTENT,
+ ),
+ )
+ val lp = dialog!!.window!!.attributes
+ val wRatio =
+ if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+ // Comment removed (contained Chinese characters)
+ 0.85
+ } else {
+ // Comment removed (contained Chinese characters)
+ 0.35
+ }
+ lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings
+ dialog!!.window!!.attributes = lp
 
-            dialog!!.setCanceledOnTouchOutside(canceled)
-            checkBox.isChecked = false
-            hasCheck = false
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
-                hasCheck = isChecked
-            }
-            imgClose.setOnClickListener {
-                dismiss()
-                closeEvent?.invoke(hasCheck)
-            }
-            dialog!!.setContentView(binding.root)
-            return dialog as TipChangeDeviceDialog
-        }
-    }
+ dialog!!.setCanceledOnTouchOutside(canceled)
+ checkBox.isChecked = false
+ hasCheck = false
+ checkBox.setOnCheckedChangeListener { _, isChecked ->
+ hasCheck = isChecked
+ }
+ imgClose.setOnClickListener {
+ dismiss()
+ closeEvent?.invoke(hasCheck)
+ }
+ dialog!!.setContentView(binding.root)
+ return dialog as TipChangeDeviceDialog
+ }
+ }
 }

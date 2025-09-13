@@ -11,57 +11,57 @@ import com.topdon.module.thermal.ir.fragment.IRGalleryTabFragment
 import com.topdon.module.thermal.ir.viewmodel.IRGalleryTabViewModel
 
 /**
-\1图库.
+\1.
  *
-\1需要传递parameter：
-\1- [ExtraKeyConfig.DIR_TYPE] - 要查看的目录类型 具体取值由 [DirType] 定义
+\1parameter：
+\1- [ExtraKeyConfig.DIR_TYPE] - Type Value [DirType] 
  *
  * Created by LCG on 2024/2/22.
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryHomeActivity : BaseActivity() {
-    private var isTS004Remote = false
+ private var isTS004Remote = false
 
-    private val viewModel: IRGalleryTabViewModel by viewModels()
+ private val viewModel: IRGalleryTabViewModel by viewModels()
 
-    override fun initContentView(): Int = R.layout.activity_ir_gallery_home
+ override fun initContentView(): Int = R.layout.activity_ir_gallery_home
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isTS004Remote = intent.getIntExtra(ExtraKeyConfig.DIR_TYPE, 0) == DirType.TS004_REMOTE.ordinal
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ isTS004Remote = intent.getIntExtra(ExtraKeyConfig.DIR_TYPE, 0) == DirType.TS004_REMOTE.ordinal
 
-        if (savedInstanceState == null) {
-            val bundle = Bundle()
-            bundle.putBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false)
-            bundle.putBoolean(ExtraKeyConfig.HAS_BACK_ICON, true)
-            bundle.putInt(ExtraKeyConfig.DIR_TYPE, intent.getIntExtra(ExtraKeyConfig.DIR_TYPE, 0))
+ if (savedInstanceState == null) {
+ val bundle = Bundle()
+ bundle.putBoolean(ExtraKeyConfig.CAN_SWITCH_DIR, false)
+ bundle.putBoolean(ExtraKeyConfig.HAS_BACK_ICON, true)
+ bundle.putInt(ExtraKeyConfig.DIR_TYPE, intent.getIntExtra(ExtraKeyConfig.DIR_TYPE, 0))
 
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, IRGalleryTabFragment::class.java, bundle)
-                .commit()
-        }
+ supportFragmentManager.beginTransaction()
+ .setReorderingAllowed(true)
+ .add(R.id.fragment_container_view, IRGalleryTabFragment::class.java, bundle)
+ .commit()
+ }
 
-        val callback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    viewModel.isEditModeLD.value = false
-                }
-            }
-        onBackPressedDispatcher.addCallback(this, callback)
+ val callback =
+ object : OnBackPressedCallback(true) {
+ override fun handleOnBackPressed() {
+ viewModel.isEditModeLD.value = false
+ }
+ }
+ onBackPressedDispatcher.addCallback(this, callback)
 
-        viewModel.isEditModeLD.observe(this) {
-            callback.isEnabled = it
-        }
-    }
+ viewModel.isEditModeLD.observe(this) {
+ callback.isEnabled = it
+ }
+ }
 
-    override fun initView() {
-    }
+ override fun initView() {
+ }
 
-    override fun initData() {
-    }
+ override fun initData() {
+ }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+ override fun onDestroy() {
+ super.onDestroy()
+ }
 }

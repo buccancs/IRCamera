@@ -11,29 +11,29 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
-\1锅盖矫正
- * @author: CaiSongL
+\1
+* @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
-\1需要传递parameter：
-\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+\1parameter：
+\1- [ExtraKeyConfig.IS_TC007] - CurrentdeviceWhether TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionActivity : BaseActivity() {
-    override fun initContentView(): Int = R.layout.activity_ir_correction
+ override fun initContentView(): Int = R.layout.activity_ir_correction
 
-    override fun initView() {
-        findViewById<TextView>(R.id.tv_correction).setOnClickListener {
-            val jumpIntent = Intent(this, IRCorrectionTwoActivity::class.java)
-            jumpIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
-            startActivity(jumpIntent)
-        }
-    }
+ override fun initView() {
+ findViewById<TextView>(R.id.tv_correction).setOnClickListener {
+ val jumpIntent = Intent(this, IRCorrectionTwoActivity::class.java)
+ jumpIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
+ startActivity(jumpIntent)
+ }
+ }
 
-    override fun initData() {}
+ override fun initData() {}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun finishCorrection(event: CorrectionFinishEvent) {
-        finish()
-    }
+ @Subscribe(threadMode = ThreadMode.MAIN)
+ fun finishCorrection(event: CorrectionFinishEvent) {
+ finish()
+ }
 }

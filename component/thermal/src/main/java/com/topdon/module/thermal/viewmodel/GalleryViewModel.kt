@@ -18,73 +18,73 @@ import java.io.File
  * Provides specialized rendering and interaction capabilities.
  */
 class GalleryViewModel : BaseViewModel() {
-    val galleryLiveData = SingleLiveEvent<ArrayList<String>>()
+ val galleryLiveData = SingleLiveEvent<ArrayList<String>>()
 
-    fun getData() {
-        viewModelScope.launch {
-            getGalleryList().collect { it ->
-                if (it.size == 0) {
-                    Log.w("123", "文件不存在")
-                } else {
-//                    it.forEach { Log.w("123", "it:$it") }
-                    galleryLiveData.postValue(it)
-                }
-            }
-        }
-    }
+ fun getData() {
+ viewModelScope.launch {
+ getGalleryList().collect { it ->
+ if (it.size == 0) {
+ Log.w("123", "")
+ } else {
+// it.forEach { Log.w("123", "it:$it") }
+ galleryLiveData.postValue(it)
+ }
+ }
+ }
+ }
 
-    fun getVideoData() {
-        viewModelScope.launch {
-            getVideoList().collect { it ->
-                if (it.size == 0) {
-                    Log.w("123", "文件不存在")
-                } else {
-//                    it.forEach { Log.w("123", "it:$it") }
-                    galleryLiveData.postValue(it)
-                }
-            }
-        }
-    }
+ fun getVideoData() {
+ viewModelScope.launch {
+ getVideoList().collect { it ->
+ if (it.size == 0) {
+ Log.w("123", "")
+ } else {
+// it.forEach { Log.w("123", "it:$it") }
+ galleryLiveData.postValue(it)
+ }
+ }
+ }
+ }
 
-    private fun getGalleryList(): Flow<ArrayList<String>> {
-        val flow =
-            flow {
-                val path =
-                    Utils.getApp()
-                        .getExternalFilesDir("Pictures")!!.absolutePath + File.separator + "thermal"
-                val file = File(path)
-                if (file.isDirectory) {
-                    val list = arrayListOf<String>()
-                    file.list()?.forEach { fileName ->
-                        list.add("$path/$fileName")
-                    }
-                    emit(list)
-                } else {
-                    emit(arrayListOf<String>())
-                }
-            }.map {
-                return@map it
-            }
-        return flow
-    }
+ private fun getGalleryList(): Flow<ArrayList<String>> {
+ val flow =
+ flow {
+ val path =
+ Utils.getApp()
+ .getExternalFilesDir("Pictures")!!.absolutePath + File.separator + "thermal"
+ val file = File(path)
+ if (file.isDirectory) {
+ val list = arrayListOf<String>()
+ file.list()?.forEach { fileName ->
+ list.add("$path/$fileName")
+ }
+ emit(list)
+ } else {
+ emit(arrayListOf<String>())
+ }
+ }.map {
+ return@map it
+ }
+ return flow
+ }
 
-    private fun getVideoList(): Flow<ArrayList<String>> {
-        val flow =
-            flow {
-                val path = FileConfig.lineGalleryDir
-                val file = File(path)
-                if (file.isDirectory) {
-                    val list = arrayListOf<String>()
-                    file.list()?.forEach { fileName ->
-                        list.add("$path/$fileName")
-                    }
-                    emit(list)
-                } else {
-                    emit(arrayListOf<String>())
-                }
-            }.map {
-                return@map it
-            }
-        return flow
-    }
+ private fun getVideoList(): Flow<ArrayList<String>> {
+ val flow =
+ flow {
+ val path = FileConfig.lineGalleryDir
+ val file = File(path)
+ if (file.isDirectory) {
+ val list = arrayListOf<String>()
+ file.list()?.forEach { fileName ->
+ list.add("$path/$fileName")
+ }
+ emit(list)
+ } else {
+ emit(arrayListOf<String>())
+ }
+ }.map {
+ return@map it
+ }
+ return flow
+ }
 }

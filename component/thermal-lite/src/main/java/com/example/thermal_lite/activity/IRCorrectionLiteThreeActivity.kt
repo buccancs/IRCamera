@@ -12,56 +12,56 @@ import kotlinx.coroutines.launch
 
 /**
  *
-\1锅盖矫正
- * @author: CaiSongL
+\1
+* @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionLiteThreeActivity : BaseActivity() {
-    private lateinit var binding: ActivityIrCorrectionLiteThreeBinding
+ private lateinit var binding: ActivityIrCorrectionLiteThreeBinding
 
-    override fun initContentView(): Int = R.layout.activity_ir_correction_lite_three
+ override fun initContentView(): Int = R.layout.activity_ir_correction_lite_three
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
 
-        val fragment: IRMonitorLiteFragment =
-            if (savedInstanceState == null) {
-                IRMonitorLiteFragment()
-            } else {
-                supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRMonitorLiteFragment
-            }
+ val fragment: IRMonitorLiteFragment =
+ if (savedInstanceState == null) {
+ IRMonitorLiteFragment()
+ } else {
+ supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRMonitorLiteFragment
+ }
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, fragment)
-                .commit()
-        }
+ if (savedInstanceState == null) {
+ supportFragmentManager.beginTransaction()
+ .setReorderingAllowed(true)
+ .add(R.id.fragment_container_view, fragment)
+ .commit()
+ }
 
-        binding.tvCorrection.setOnClickListener {
-            lifecycleScope.launch {
-                if (fragment.frameReady) {
-                    fragment.closeFragment()
-                    showCameraLoading()
-                    delay(1000)
-                    dismissCameraLoading()
-                    val intent =
-                        Intent(
-                            this@IRCorrectionLiteThreeActivity,
-                            IRCorrectionLiteFourActivity::class.java,
-                        )
-                    startActivity(intent)
-                    finish()
-                }
-            }
-        }
-    }
+ binding.tvCorrection.setOnClickListener {
+ lifecycleScope.launch {
+ if (fragment.frameReady) {
+ fragment.closeFragment()
+ showCameraLoading()
+ delay(1000)
+ dismissCameraLoading()
+ val intent =
+ Intent(
+ this@IRCorrectionLiteThreeActivity,
+ IRCorrectionLiteFourActivity::class.java,
+ )
+ startActivity(intent)
+ finish()
+ }
+ }
+ }
+ }
 
-    override fun initView() {
-        binding = ActivityIrCorrectionLiteThreeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
+ override fun initView() {
+ binding = ActivityIrCorrectionLiteThreeBinding.inflate(layoutInflater)
+ setContentView(binding.root)
+ }
 
-    override fun initData() {}
+ override fun initData() {}
 }

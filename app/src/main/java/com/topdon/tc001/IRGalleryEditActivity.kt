@@ -75,790 +75,790 @@ import com.example.thermal_lite.R as ThermalLiteR
 import com.topdon.module.thermal.ir.R as ThermalIrR
 
 /**
- * 图片二次编辑
+ * Comment removed (contained Chinese characters)
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(), View.OnClickListener, ITsTempListener {
-    private val TAG = "IRGalleryEditActivity"
+ private val TAG = "IRGalleryEditActivity"
 
-    private var isShowC: Boolean = false
+ private var isShowC: Boolean = false
 
-    /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
-     */
-    private var isTC007 = false
+ /**
+ * Comment removed (contained Chinese characters)
+ * Comment removed (contained Chinese characters)
+ */
+ private var isTC007 = false
 
-    private val imageWidth = 256
-    private val imageHeight = 192
-    private val viewModel: IRGalleryEditViewModel by viewModels()
-    private var filePath = ""
+ private val imageWidth = 256
+ private val imageHeight = 192
+ private val viewModel: IRGalleryEditViewModel by viewModels()
+ private var filePath = ""
 
-    //    private var mCapital = ByteArray(1024)
-    private var mFrame = ByteArray(192 * 256 * 4)
-    private val frameTool by lazy { FrameTool() }
+ // private var mCapital = ByteArray(1024)
+ private var mFrame = ByteArray(192 * 256 * 4)
+ private val frameTool by lazy { FrameTool() }
 
-    // 图像参数
-    private var pseudocodeMode = 3
-    private var leftValue = 0f
-    private var rightValue = 10000f
-    private var max = 10000f
-    private var min = 0f
-    private var rotate = ImageParams.ROTATE_270
-    private var struct: FrameStruct = FrameStruct() // 首部信息
-    private var ts_data_H: ByteArray? = null
-    private var ts_data_L: ByteArray? = null
+ // Comment removed (contained Chinese characters)
+ private var pseudocodeMode = 3
+ private var leftValue = 0f
+ private var rightValue = 10000f
+ private var max = 10000f
+ private var min = 0f
+ private var rotate = ImageParams.ROTATE_270
+ private var struct: FrameStruct = FrameStruct() // 
+ private var ts_data_H: ByteArray? = null
+ private var ts_data_L: ByteArray? = null
 
-    // findViewById declarations - replaced with binding
-    private val titleView get() = binding.titleView
-    private val editRecyclerSecond get() = binding.editRecyclerSecond
-    private val editRecyclerFirst get() = binding.editRecyclerFirst
-    private val irImageView get() = binding.irImageView
-    private val temperatureView get() = binding.temperatureView
-    private val temperatureSeekbar get() = binding.temperatureSeekbar
-    private val temperatureIvLock get() = binding.temperatureIvLock
-    private val temperatureIvInput get() = binding.temperatureIvInput
-    private val tvTempContent get() = binding.tvTempContent
-    private val colorBarView get() = binding.colorBarView
-    private val llBottom get() = binding.llBottom
+ // findViewById declarations - replaced with binding
+ private val titleView get() = binding.titleView
+ private val editRecyclerSecond get() = binding.editRecyclerSecond
+ private val editRecyclerFirst get() = binding.editRecyclerFirst
+ private val irImageView get() = binding.irImageView
+ private val temperatureView get() = binding.temperatureView
+ private val temperatureSeekbar get() = binding.temperatureSeekbar
+ private val temperatureIvLock get() = binding.temperatureIvLock
+ private val temperatureIvInput get() = binding.temperatureIvInput
+ private val tvTempContent get() = binding.tvTempContent
+ private val colorBarView get() = binding.colorBarView
+ private val llBottom get() = binding.llBottom
 
-    override fun initContentLayoutId() = R.layout.activity_ir_gallery_edit
+ override fun initContentLayoutId() = R.layout.activity_ir_gallery_edit
 
-    override fun onCreate(savedInstanceState: android.os.Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
-        initData()
-    }
+ override fun onCreate(savedInstanceState: android.os.Bundle?) {
+ super.onCreate(savedInstanceState)
+ initView()
+ initData()
+ }
 
-    private fun initView() {
-        initIntent()
-        initUI()
-        initListener()
-        initRecycler()
-        initObserve()
-    }
+ private fun initView() {
+ initIntent()
+ initUI()
+ initListener()
+ initRecycler()
+ initObserve()
+ }
 
-    private fun initIntent() {
-        lifecycleScope.launch {
-            ts_data_H = CommonUtil.getAssetData(this@IRGalleryEditActivity, "ts/TS001_H.bin")
-            ts_data_L = CommonUtil.getAssetData(this@IRGalleryEditActivity, "ts/TS001_L.bin")
+ private fun initIntent() {
+ lifecycleScope.launch {
+ ts_data_H = CommonUtil.getAssetData(this@IRGalleryEditActivity, "ts/TS001_H.bin")
+ ts_data_L = CommonUtil.getAssetData(this@IRGalleryEditActivity, "ts/TS001_L.bin")
 
-            if (BaseApplication.instance.tau_data_H == null) {
-                BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
-            }
-            if (BaseApplication.instance.tau_data_L == null) {
-                BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
-            }
-        }
-        if (intent.hasExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)) {
-            filePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
-        }
-        isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
-        isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
+ if (BaseApplication.instance.tau_data_H == null) {
+ BaseApplication.instance.tau_data_H = CommonUtil.getAssetData(mContext, IrConst.TAU_HIGH_GAIN_ASSET_PATH)
+ }
+ if (BaseApplication.instance.tau_data_L == null) {
+ BaseApplication.instance.tau_data_L = CommonUtil.getAssetData(mContext, IrConst.TAU_LOW_GAIN_ASSET_PATH)
+ }
+ }
+ if (intent.hasExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)) {
+ filePath = intent.getStringExtra(ExtraKeyConfig.FILE_ABSOLUTE_PATH)!!
+ }
+ isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
+ isTC007 = intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false)
 
-        // Note: Using direct view references - findViewById patterns can be refactored if needed
-        editRecyclerSecond.fenceSelectType = FenceType.DEL
-        temperatureView.isShowName = isReportPick
-        temperatureView.mode = Mode.CLEAR
-        temperatureView.setITsTempListener(this)
-        if (isTC007) {
-            temperatureSeekbar.progressHeight = SizeUtils.dp2px(10f)
-        }
-    }
+ // Note: Using direct view references - findViewById patterns can be refactored if needed
+ editRecyclerSecond.fenceSelectType = FenceType.DEL
+ temperatureView.isShowName = isReportPick
+ temperatureView.mode = Mode.CLEAR
+ temperatureView.setITsTempListener(this)
+ if (isTC007) {
+ temperatureSeekbar.progressHeight = SizeUtils.dp2px(10f)
+ }
+ }
 
-    private fun initObserve() {
-        viewModel.resultLiveData.observe(this) {
-//            System.arraycopy(it.capital, 0, mCapital, 0, it.capital.size)
-            System.arraycopy(it.frame, 0, mFrame, 0, it.frame.size)
-            showImage(it.capital, it.frame)
-        }
-    }
+ private fun initObserve() {
+ viewModel.resultLiveData.observe(this) {
+// System.arraycopy(it.capital, 0, mCapital, 0, it.capital.size)
+ System.arraycopy(it.frame, 0, mFrame, 0, it.frame.size)
+ showImage(it.capital, it.frame)
+ }
+ }
 
-    private fun initData() {
-        viewModel.initData(filePath)
+ private fun initData() {
+ viewModel.initData(filePath)
 
-        editRecyclerFirst.isBarSelect = true
-        colorBarView.isVisible = true
-    }
+ editRecyclerFirst.isBarSelect = true
+ colorBarView.isVisible = true
+ }
 
-    private fun initListener() {
-        temperatureIvLock.setOnClickListener(this)
-        temperatureIvInput.setOnClickListener(this)
-    }
+ private fun initListener() {
+ temperatureIvLock.setOnClickListener(this)
+ temperatureIvInput.setOnClickListener(this)
+ }
 
-    private fun setRotate(rotate: ImageParams) {
-        if (rotate == ImageParams.ROTATE_270 || rotate == ImageParams.ROTATE_90) {
-            temperatureView.setImageSize(imageHeight, imageWidth)
-        } else {
-            temperatureView.setImageSize(imageWidth, imageHeight)
-        }
-    }
+ private fun setRotate(rotate: ImageParams) {
+ if (rotate == ImageParams.ROTATE_270 || rotate == ImageParams.ROTATE_90) {
+ temperatureView.setImageSize(imageHeight, imageWidth)
+ } else {
+ temperatureView.setImageSize(imageWidth, imageHeight)
+ }
+ }
 
-    @SuppressLint("SetTextI18n")
-    private fun showImage(
-        capital: ByteArray,
-        frame: ByteArray,
-    ) {
-        lifecycleScope.launch {
-            frameTool.read(frame)
-            struct = FrameStruct(capital)
-            frameTool.initStruct(struct)
-            isShowC = SharedManager.getTemperature() == 1
-            rotate = frameTool.initRotate()
-            pseudocodeMode = struct.pseudo
-            setRotate(rotate)
-            delay(200)
-            updateImage(
-                frameTool.getScrPseudoColorScaledBitmap(
-                    changePseudocodeModeByOld(pseudocodeMode),
-                    rotate = rotate,
-                    customPseudoBean = struct.customPseudoBean,
-                    maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                    minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                    isAmplify = struct.isAmplify,
-                ),
-            )
+ @SuppressLint("SetTextI18n")
+ private fun showImage(
+ capital: ByteArray,
+ frame: ByteArray,
+ ) {
+ lifecycleScope.launch {
+ frameTool.read(frame)
+ struct = FrameStruct(capital)
+ frameTool.initStruct(struct)
+ isShowC = SharedManager.getTemperature() == 1
+ rotate = frameTool.initRotate()
+ pseudocodeMode = struct.pseudo
+ setRotate(rotate)
+ delay(200)
+ updateImage(
+ frameTool.getScrPseudoColorScaledBitmap(
+ changePseudocodeModeByOld(pseudocodeMode),
+ rotate = rotate,
+ customPseudoBean = struct.customPseudoBean,
+ maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+ minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+ isAmplify = struct.isAmplify,
+ ),
+ )
 
-            val tempResult = frameTool.getSrcTemp()
-            if (!struct.customPseudoBean.isUseCustomPseudo) {
-                struct.customPseudoBean.maxTemp = tempCorrect(tempResult.maxTemperature)
-                struct.customPseudoBean.minTemp = tempCorrect(tempResult.minTemperature)
-                editRecyclerSecond.setPseudoColor(pseudocodeMode)
-            }
-//        伪彩条默认处于打开状态
-//        colorBarView.isVisible = struct.isShowPseudoBar
-//        adapter.enPseudoColorBar(struct.isShowPseudoBar)
+ val tempResult = frameTool.getSrcTemp()
+ if (!struct.customPseudoBean.isUseCustomPseudo) {
+ struct.customPseudoBean.maxTemp = tempCorrect(tempResult.maxTemperature)
+ struct.customPseudoBean.minTemp = tempCorrect(tempResult.minTemperature)
+ editRecyclerSecond.setPseudoColor(pseudocodeMode)
+ }
+// Comment removed (contained Chinese characters)
+// colorBarView.isVisible = struct.isShowPseudoBar
+// adapter.enPseudoColorBar(struct.isShowPseudoBar)
 
-            editRecyclerSecond.setSettingSelected(SettingType.ALARM, struct.alarmBean.isHighOpen || struct.alarmBean.isLowOpen)
-            editRecyclerSecond.setSettingSelected(SettingType.WATERMARK, struct.watermarkBean.isOpen)
-            editRecyclerSecond.setSettingSelected(
-                SettingType.FONT,
-                struct.textColor != 0xffffffff.toInt() || struct.textSize != SizeUtils.sp2px(14f),
-            )
-            temperatureView.textColor = struct.textColor
-            temperatureView.tempTextSize = struct.textSize
-            temperatureView.setData(frameTool.getTempBytes(rotate = rotate))
-            updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 加锁
-            temperatureSeekbar.setPseudocode(pseudocodeMode)
-            temperatureSeekbar.setOnRangeChangedListener(
-                object : OnRangeChangedListener {
-                    override fun onRangeChanged(
-                        view: RangeSeekBar?,
-                        leftValue: Float,
-                        rightValue: Float,
-                        isFromUser: Boolean,
-                        tempMode: Int,
-                    ) {
-                        if (leftValue < rightValue) {
-                            max = rightValue
-                            min = leftValue
-                        } else {
-                            max = leftValue
-                            min = rightValue
-                        }
-                        if (!struct.customPseudoBean.isUseCustomPseudo) {
-                            updateImage(
-                                frameTool.getScrPseudoColorScaledBitmap(
-                                    changePseudocodeModeByOld(pseudocodeMode),
-                                    showToCValue(max),
-                                    showToCValue(min),
-                                    rotate,
-                                    struct.customPseudoBean,
-                                    maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                                    minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                                    struct.isAmplify,
-                                ),
-                            )
-                        }
-                    }
+ editRecyclerSecond.setSettingSelected(SettingType.ALARM, struct.alarmBean.isHighOpen || struct.alarmBean.isLowOpen)
+ editRecyclerSecond.setSettingSelected(SettingType.WATERMARK, struct.watermarkBean.isOpen)
+ editRecyclerSecond.setSettingSelected(
+ SettingType.FONT,
+ struct.textColor != 0xffffffff.toInt() || struct.textSize != SizeUtils.sp2px(14f),
+ )
+ temperatureView.textColor = struct.textColor
+ temperatureView.tempTextSize = struct.textSize
+ temperatureView.setData(frameTool.getTempBytes(rotate = rotate))
+ updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 
+ temperatureSeekbar.setPseudocode(pseudocodeMode)
+ temperatureSeekbar.setOnRangeChangedListener(
+ object : OnRangeChangedListener {
+ override fun onRangeChanged(
+ view: RangeSeekBar?,
+ leftValue: Float,
+ rightValue: Float,
+ isFromUser: Boolean,
+ tempMode: Int,
+ ) {
+ if (leftValue < rightValue) {
+ max = rightValue
+ min = leftValue
+ } else {
+ max = leftValue
+ min = rightValue
+ }
+ if (!struct.customPseudoBean.isUseCustomPseudo) {
+ updateImage(
+ frameTool.getScrPseudoColorScaledBitmap(
+ changePseudocodeModeByOld(pseudocodeMode),
+ showToCValue(max),
+ showToCValue(min),
+ rotate,
+ struct.customPseudoBean,
+ maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+ minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+ struct.isAmplify,
+ ),
+ )
+ }
+ }
 
-                    override fun onStartTrackingTouch(
-                        view: RangeSeekBar?,
-                        isLeft: Boolean,
-                    ) {
-                        // 调整开始
-                    }
+ override fun onStartTrackingTouch(
+ view: RangeSeekBar?,
+ isLeft: Boolean,
+ ) {
+ // Comment removed (contained Chinese characters)
+ }
 
-                    override fun onStopTrackingTouch(
-                        view: RangeSeekBar?,
-                        isLeft: Boolean,
-                    ) {
-                        // 调整结束
-                    }
-                },
-            )
-            temperatureSeekbar.setIndicatorTextStringFormat("%.1f")
-            if (struct.customPseudoBean.isUseCustomPseudo) {
-                tvTempContent.visibility = View.VISIBLE
-                tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
-                rightValue = showUnitValue(struct.customPseudoBean.maxTemp, isShowC)
-                leftValue = showUnitValue(struct.customPseudoBean.minTemp, isShowC)
-                temperatureIvInput.setImageResource(ThermalIrR.drawable.ir_model)
-                temperatureIvLock.visibility = View.INVISIBLE
-                temperatureSeekbar.setColorList(struct.customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
-                temperatureSeekbar.setPlaces(struct.customPseudoBean.getPlaceList())
-            } else {
-                tvTempContent.visibility = View.GONE
-                tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
-                rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature), isShowC)
-                leftValue = showUnitValue(tempCorrect(tempResult.minTemperature), isShowC)
-                temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
-                temperatureIvLock.visibility = View.VISIBLE
-            }
-            temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // 初始温度范围
-            temperatureSeekbar.setProgress(leftValue, rightValue) // 初始位置
-            if (ScreenTool.isIPad(this@IRGalleryEditActivity)) {
-                colorBarView.setPadding(0, SizeUtils.dp2px(40f), 0, SizeUtils.dp2px(40f))
-            }
-        }
-    }
+ override fun onStopTrackingTouch(
+ view: RangeSeekBar?,
+ isLeft: Boolean,
+ ) {
+ // Comment removed (contained Chinese characters)
+ }
+ },
+ )
+ temperatureSeekbar.setIndicatorTextStringFormat("%.1f")
+ if (struct.customPseudoBean.isUseCustomPseudo) {
+ tvTempContent.visibility = View.VISIBLE
+ tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
+ rightValue = showUnitValue(struct.customPseudoBean.maxTemp, isShowC)
+ leftValue = showUnitValue(struct.customPseudoBean.minTemp, isShowC)
+ temperatureIvInput.setImageResource(ThermalIrR.drawable.ir_model)
+ temperatureIvLock.visibility = View.INVISIBLE
+ temperatureSeekbar.setColorList(struct.customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
+ temperatureSeekbar.setPlaces(struct.customPseudoBean.getPlaceList())
+ } else {
+ tvTempContent.visibility = View.GONE
+ tvTempContent.text = "Max:${UnitTools.showC(tempCorrect(tempResult.maxTemperature),isShowC)}\nMin:${UnitTools.showC(tempCorrect(tempResult.minTemperature),isShowC)}"
+ rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature), isShowC)
+ leftValue = showUnitValue(tempCorrect(tempResult.minTemperature), isShowC)
+ temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
+ temperatureIvLock.visibility = View.VISIBLE
+ }
+ temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // Temperature
+ temperatureSeekbar.setProgress(leftValue, rightValue) // 
+ if (ScreenTool.isIPad(this@IRGalleryEditActivity)) {
+ colorBarView.setPadding(0, SizeUtils.dp2px(40f), 0, SizeUtils.dp2px(40f))
+ }
+ }
+ }
 
-    /**
-     * 更新图像
-     */
-    private fun updateImage(bitmap: Bitmap?) {
-        bitmap?.let {
-            val params = irImageView.layoutParams as ConstraintLayout.LayoutParams
-            params.dimensionRatio = "${bitmap.width}:${bitmap.height}"
-            runOnUiThread {
-                irImageView.layoutParams = params
-            }
-            if (struct.watermarkBean.isOpen) {
-                val width = ScreenUtil.getScreenWidth(this)
-                val height = (width * bitmap.height / bitmap.width.toFloat()).toInt()
-                irImageView.setImageBitmap(
-                    BitmapUtils.drawCenterLable(
-                        Bitmap.createScaledBitmap(it, width, height, true),
-                        struct.watermarkBean.title,
-                        struct.watermarkBean.address,
-                        if (struct.watermarkBean.isAddTime) TimeTool.getNowTime() else "",
-                        if (temperatureSeekbar.isVisible) {
-                            temperatureSeekbar.measuredWidth
-                        } else {
-                            0
-                        },
-                    ),
-                )
-            } else {
-                irImageView.setImageBitmap(it)
-            }
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private fun updateImage(bitmap: Bitmap?) {
+ bitmap?.let {
+ val params = irImageView.layoutParams as ConstraintLayout.LayoutParams
+ params.dimensionRatio = "${bitmap.width}:${bitmap.height}"
+ runOnUiThread {
+ irImageView.layoutParams = params
+ }
+ if (struct.watermarkBean.isOpen) {
+ val width = ScreenUtil.getScreenWidth(this)
+ val height = (width * bitmap.height / bitmap.width.toFloat()).toInt()
+ irImageView.setImageBitmap(
+ BitmapUtils.drawCenterLable(
+ Bitmap.createScaledBitmap(it, width, height, true),
+ struct.watermarkBean.title,
+ struct.watermarkBean.address,
+ if (struct.watermarkBean.isAddTime) TimeTool.getNowTime() else "",
+ if (temperatureSeekbar.isVisible) {
+ temperatureSeekbar.measuredWidth
+ } else {
+ 0
+ },
+ ),
+ )
+ } else {
+ irImageView.setImageBitmap(it)
+ }
+ }
+ }
 
-    /**
-     * 一级菜单
-     */
-    private fun initRecycler() {
-        editRecyclerFirst.onTabClickListener = {
-            when (it) {
-                0 -> editRecyclerSecond.selectPosition(1) // 点线面
-                1 -> editRecyclerSecond.selectPosition(3) // 伪彩颜色
-                2 -> editRecyclerSecond.selectPosition(4) // 设置
-            }
-        }
-        editRecyclerFirst.onBarClickListener = {
-            colorBarView.isVisible = it
-        }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private fun initRecycler() {
+ editRecyclerFirst.onTabClickListener = {
+ when (it) {
+ 0 -> editRecyclerSecond.selectPosition(1) // 
+ 1 -> editRecyclerSecond.selectPosition(3) // 
+ 2 -> editRecyclerSecond.selectPosition(4) // Settings
+ }
+ }
+ editRecyclerFirst.onBarClickListener = {
+ colorBarView.isVisible = it
+ }
 
-        editRecyclerSecond.onFenceListener = { fenceType, isSelected ->
-            when (fenceType) {
-                FenceType.POINT -> temperatureView.mode = Mode.POINT
-                FenceType.LINE -> temperatureView.mode = Mode.LINE
-                FenceType.RECT -> temperatureView.mode = Mode.RECT
-                FenceType.DEL -> temperatureView.mode = Mode.CLEAR
-                FenceType.FULL -> temperatureView.isShowFull = isSelected
-                FenceType.TREND -> {
-                    // 2D编辑没有趋势图
-                }
-            }
-        }
-        editRecyclerSecond.onColorListener = { _, it, _ ->
-            if (struct.customPseudoBean.isUseCustomPseudo) {
-                TipDialog.Builder(this)
-                    .setTitleMessage(getString(R.string.app_tip))
-                    .setMessage(R.string.tip_change_pseudo_mode)
-                    .setPositiveListener(R.string.app_yes) {
-                        struct.customPseudoBean.isUseCustomPseudo = false
-                        setDefLimit()
-                        setPColor(it)
-                        updateImageAndSeekbarColorList(struct.customPseudoBean)
-                    }.setCancelListener(R.string.app_no) {
-                    }
-                    .create().show()
-            } else {
-                setPColor(it)
-            }
-        }
-        editRecyclerSecond.onSettingListener = { type, _ ->
-            setSettingValue(type)
-        }
-    }
+ editRecyclerSecond.onFenceListener = { fenceType, isSelected ->
+ when (fenceType) {
+ FenceType.POINT -> temperatureView.mode = Mode.POINT
+ FenceType.LINE -> temperatureView.mode = Mode.LINE
+ FenceType.RECT -> temperatureView.mode = Mode.RECT
+ FenceType.DEL -> temperatureView.mode = Mode.CLEAR
+ FenceType.FULL -> temperatureView.isShowFull = isSelected
+ FenceType.TREND -> {
+ // Comment removed (contained Chinese characters)
+ }
+ }
+ }
+ editRecyclerSecond.onColorListener = { _, it, _ ->
+ if (struct.customPseudoBean.isUseCustomPseudo) {
+ TipDialog.Builder(this)
+ .setTitleMessage(getString(R.string.app_tip))
+ .setMessage(R.string.tip_change_pseudo_mode)
+ .setPositiveListener(R.string.app_yes) {
+ struct.customPseudoBean.isUseCustomPseudo = false
+ setDefLimit()
+ setPColor(it)
+ updateImageAndSeekbarColorList(struct.customPseudoBean)
+ }.setCancelListener(R.string.app_no) {
+ }
+ .create().show()
+ } else {
+ setPColor(it)
+ }
+ }
+ editRecyclerSecond.onSettingListener = { type, _ ->
+ setSettingValue(type)
+ }
+ }
 
-    /**
-     * 最高最低温复原
-     */
-    private fun setDefLimit() {
-        val tempResult = frameTool.getSrcTemp()
-        rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature), isShowC)
-        leftValue = showUnitValue(tempCorrect(tempResult.minTemperature), isShowC)
-        temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // 初始温度范围
-        temperatureSeekbar.setProgress(leftValue, rightValue) // 初始位置
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private fun setDefLimit() {
+ val tempResult = frameTool.getSrcTemp()
+ rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature), isShowC)
+ leftValue = showUnitValue(tempCorrect(tempResult.minTemperature), isShowC)
+ temperatureSeekbar.setRange(leftValue, rightValue, 0.1f) // Temperature
+ temperatureSeekbar.setProgress(leftValue, rightValue) // 
+ }
 
-    // 设置伪彩
-    private fun setPColor(code: Int) {
-        pseudocodeMode = code
-        temperatureSeekbar.setPseudocode(pseudocodeMode)
-        updateImage(
-            frameTool.getScrPseudoColorScaledBitmap(
-                changePseudocodeModeByOld(pseudocodeMode),
-                showToCValue(max),
-                showToCValue(min),
-                rotate,
-                struct.customPseudoBean,
-                maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                struct.isAmplify,
-            ),
-        )
-        temperatureSeekbar.setColorList(struct.customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
-        temperatureSeekbar.setPlaces(struct.customPseudoBean.getPlaceList())
-        editRecyclerSecond.setPseudoColor(code)
-    }
+ // Comment removed (contained Chinese characters)
+ private fun setPColor(code: Int) {
+ pseudocodeMode = code
+ temperatureSeekbar.setPseudocode(pseudocodeMode)
+ updateImage(
+ frameTool.getScrPseudoColorScaledBitmap(
+ changePseudocodeModeByOld(pseudocodeMode),
+ showToCValue(max),
+ showToCValue(min),
+ rotate,
+ struct.customPseudoBean,
+ maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+ minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+ struct.isAmplify,
+ ),
+ )
+ temperatureSeekbar.setColorList(struct.customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
+ temperatureSeekbar.setPlaces(struct.customPseudoBean.getPlaceList())
+ editRecyclerSecond.setPseudoColor(code)
+ }
 
-    private var tempAlarmSetDialog: TempAlarmSetDialog? = null
+ private var tempAlarmSetDialog: TempAlarmSetDialog? = null
 
-    private fun setSettingValue(type: SettingType) {
-        when (type) {
-            SettingType.ALARM -> {
-                // 预警
-                if (tempAlarmSetDialog == null) {
-                    tempAlarmSetDialog = TempAlarmSetDialog(this, true)
-                    tempAlarmSetDialog?.onSaveListener = {
-                        editRecyclerSecond.setSettingSelected(SettingType.ALARM, it.isHighOpen || it.isLowOpen)
-                        struct.alarmBean = it
-                        frameTool.initStruct(struct)
-                        updateImage(
-                            frameTool.getScrPseudoColorScaledBitmap(
-                                changePseudocodeModeByOld(pseudocodeMode),
-                                showToCValue(max),
-                                showToCValue(min),
-                                rotate,
-                                struct.customPseudoBean,
-                                maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                                minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                                struct.isAmplify,
-                            ),
-                        )
-                    }
-                }
-                tempAlarmSetDialog?.alarmBean = struct.alarmBean
-                tempAlarmSetDialog?.show()
-            }
-            SettingType.FONT -> { // 字体颜色
-                val colorPickDialog = ColorPickDialog(this, temperatureView.textColor, temperatureView.tempTextSize)
-                colorPickDialog.onPickListener = { it: Int, textSize: Int ->
-                    temperatureView?.textColor = it
-                    struct.textSize = SizeUtils.sp2px(textSize.toFloat())
-                    temperatureView?.tempTextSize = SizeUtils.sp2px(textSize.toFloat())
-                    editRecyclerSecond.setSettingSelected(
-                        SettingType.FONT,
-                        it != 0xffffffff.toInt() || textSize != SizeUtils.sp2px(14f),
-                    )
-                }
-                colorPickDialog.show()
-            }
-            SettingType.WATERMARK -> { // 水印
-                TipWaterMarkDialog.Builder(this, struct.watermarkBean)
-                    .setCancelListener {
-                        struct.watermarkBean = it
-                        frameTool.initStruct(struct)
-                        editRecyclerSecond.setSettingSelected(SettingType.WATERMARK, it.isOpen)
-                        updateImage(
-                            frameTool.getScrPseudoColorScaledBitmap(
-                                changePseudocodeModeByOld(pseudocodeMode),
-                                showToCValue(max),
-                                showToCValue(min),
-                                rotate,
-                                struct.customPseudoBean,
-                                maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                                minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                                struct.isAmplify,
-                            ),
-                        )
-                    }
-                    .create().show()
-            }
-            else -> {
-                // 其他设置选项 2D 编辑没有
-            }
-        }
-    }
+ private fun setSettingValue(type: SettingType) {
+ when (type) {
+ SettingType.ALARM -> {
+ // Comment removed (contained Chinese characters)
+ if (tempAlarmSetDialog == null) {
+ tempAlarmSetDialog = TempAlarmSetDialog(this, true)
+ tempAlarmSetDialog?.onSaveListener = {
+ editRecyclerSecond.setSettingSelected(SettingType.ALARM, it.isHighOpen || it.isLowOpen)
+ struct.alarmBean = it
+ frameTool.initStruct(struct)
+ updateImage(
+ frameTool.getScrPseudoColorScaledBitmap(
+ changePseudocodeModeByOld(pseudocodeMode),
+ showToCValue(max),
+ showToCValue(min),
+ rotate,
+ struct.customPseudoBean,
+ maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+ minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+ struct.isAmplify,
+ ),
+ )
+ }
+ }
+ tempAlarmSetDialog?.alarmBean = struct.alarmBean
+ tempAlarmSetDialog?.show()
+ }
+ SettingType.FONT -> { // 
+ val colorPickDialog = ColorPickDialog(this, temperatureView.textColor, temperatureView.tempTextSize)
+ colorPickDialog.onPickListener = { it: Int, textSize: Int ->
+ temperatureView?.textColor = it
+ struct.textSize = SizeUtils.sp2px(textSize.toFloat())
+ temperatureView?.tempTextSize = SizeUtils.sp2px(textSize.toFloat())
+ editRecyclerSecond.setSettingSelected(
+ SettingType.FONT,
+ it != 0xffffffff.toInt() || textSize != SizeUtils.sp2px(14f),
+ )
+ }
+ colorPickDialog.show()
+ }
+ SettingType.WATERMARK -> { // 
+ TipWaterMarkDialog.Builder(this, struct.watermarkBean)
+ .setCancelListener {
+ struct.watermarkBean = it
+ frameTool.initStruct(struct)
+ editRecyclerSecond.setSettingSelected(SettingType.WATERMARK, it.isOpen)
+ updateImage(
+ frameTool.getScrPseudoColorScaledBitmap(
+ changePseudocodeModeByOld(pseudocodeMode),
+ showToCValue(max),
+ showToCValue(min),
+ rotate,
+ struct.customPseudoBean,
+ maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+ minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+ struct.isAmplify,
+ ),
+ )
+ }
+ .create().show()
+ }
+ else -> {
+ // Comment removed (contained Chinese characters)
+ }
+ }
+ }
 
-    private fun updateTemperatureSeekBar(
-        isEnabled: Boolean,
-        resource: Int,
-        content: String,
-    ) {
-        temperatureSeekbar.isEnabled = isEnabled
-        temperatureIvLock.setImageResource(resource)
-        temperatureIvLock.contentDescription = content
-        if (isEnabled) {
-            temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
-            temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
-        } else {
-            temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0
-            temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0
-        }
-    }
+ private fun updateTemperatureSeekBar(
+ isEnabled: Boolean,
+ resource: Int,
+ content: String,
+ ) {
+ temperatureSeekbar.isEnabled = isEnabled
+ temperatureIvLock.setImageResource(resource)
+ temperatureIvLock.contentDescription = content
+ if (isEnabled) {
+ temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
+ temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0xffe17606.toInt()
+ } else {
+ temperatureSeekbar.leftSeekBar.indicatorBackgroundColor = 0
+ temperatureSeekbar.rightSeekBar.indicatorBackgroundColor = 0
+ }
+ }
 
-    override fun onClick(v: View?) {
-        when (v) {
-            temperatureIvLock -> {
-                if (temperatureIvLock.contentDescription == "lock") {
-                    updateTemperatureSeekBar(
-                        true,
-                        ThermalLiteR.drawable.svg_pseudo_bar_unlock,
-                        "unlock",
-                    ) // 解锁
-                } else {
-                    setDefLimit()
-                    updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 加锁
-                }
-            }
-            temperatureIvInput -> {
-                val intent = Intent(this, PseudoSetActivity::class.java)
-                intent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
-                intent.putExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, struct.customPseudoBean)
-                pseudoSetResult.launch(intent)
-            }
-        }
-    }
+ override fun onClick(v: View?) {
+ when (v) {
+ temperatureIvLock -> {
+ if (temperatureIvLock.contentDescription == "lock") {
+ updateTemperatureSeekBar(
+ true,
+ ThermalLiteR.drawable.svg_pseudo_bar_unlock,
+ "unlock",
+ ) // 
+ } else {
+ setDefLimit()
+ updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 
+ }
+ }
+ temperatureIvInput -> {
+ val intent = Intent(this, PseudoSetActivity::class.java)
+ intent.putExtra(ExtraKeyConfig.IS_TC007, isTC007)
+ intent.putExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN, struct.customPseudoBean)
+ pseudoSetResult.launch(intent)
+ }
+ }
+ }
 
-    private val pseudoSetResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
-                val tmp =
-                    it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN)
-                        ?: CustomPseudoBean()
-                updateImageAndSeekbarColorList(tmp)
-                temperatureSeekbar.setColorList(tmp.getColorList(struct.isTC007())?.reversedArray())
-                temperatureSeekbar.setPlaces(tmp.getPlaceList())
-//            customPseudoBean.saveToShared()
-            }
-        }
+ private val pseudoSetResult =
+ registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+ if (it.resultCode == RESULT_OK) {
+ val tmp =
+ it.data?.getParcelableExtra(ExtraKeyConfig.CUSTOM_PSEUDO_BEAN)
+ ?: CustomPseudoBean()
+ updateImageAndSeekbarColorList(tmp)
+ temperatureSeekbar.setColorList(tmp.getColorList(struct.isTC007())?.reversedArray())
+ temperatureSeekbar.setPlaces(tmp.getPlaceList())
+// customPseudoBean.saveToShared()
+ }
+ }
 
-    // 更新自定义伪彩的颜色的属性值
-    private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
-        customPseudoBean?.let {
-            updateImage(
-                frameTool.getScrPseudoColorScaledBitmap(
-                    changePseudocodeModeByOld(
-                        pseudocodeMode,
-                    ),
-                    rotate = rotate,
-                    customPseudoBean = customPseudoBean,
-                    maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
-                    minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
-                    isAmplify = struct.isAmplify,
-                ),
-            )
-            if (it.isUseCustomPseudo) {
-                temperatureIvLock.visibility = View.INVISIBLE
-                tvTempContent.visibility = View.VISIBLE
-                updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 加锁
-                temperatureSeekbar.setRangeAndPro(
-                    UnitTools.showUnitValue(it.minTemp, isShowC),
-                    UnitTools.showUnitValue(it.maxTemp, isShowC),
-                    UnitTools.showUnitValue(it.minTemp, isShowC),
-                    UnitTools.showUnitValue(it.maxTemp, isShowC),
-                )
-                editRecyclerSecond.setPseudoColor(-1)
-                temperatureIvInput.setImageResource(ThermalIrR.drawable.ir_model)
-            } else {
-                temperatureIvLock.visibility = View.VISIBLE
-                if (struct.customPseudoBean.isUseCustomPseudo) {
-                    setDefLimit()
-                }
-                tvTempContent.visibility = View.GONE
-                editRecyclerSecond.setPseudoColor(pseudocodeMode)
-                temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
-            }
-            struct.customPseudoBean = customPseudoBean
-            temperatureSeekbar.setColorList(customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
-            temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
-        }
-//        tvTempContent.visibility = View.VISIBLE
-    }
+ // Comment removed (contained Chinese characters)
+ private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
+ customPseudoBean?.let {
+ updateImage(
+ frameTool.getScrPseudoColorScaledBitmap(
+ changePseudocodeModeByOld(
+ pseudocodeMode,
+ ),
+ rotate = rotate,
+ customPseudoBean = customPseudoBean,
+ maxTemperature = tempCorrect(frameTool.getSrcTemp().maxTemperature),
+ minTemperature = tempCorrect(frameTool.getSrcTemp().minTemperature),
+ isAmplify = struct.isAmplify,
+ ),
+ )
+ if (it.isUseCustomPseudo) {
+ temperatureIvLock.visibility = View.INVISIBLE
+ tvTempContent.visibility = View.VISIBLE
+ updateTemperatureSeekBar(false, ThermalLiteR.drawable.svg_pseudo_bar_lock, "lock") // 
+ temperatureSeekbar.setRangeAndPro(
+ UnitTools.showUnitValue(it.minTemp, isShowC),
+ UnitTools.showUnitValue(it.maxTemp, isShowC),
+ UnitTools.showUnitValue(it.minTemp, isShowC),
+ UnitTools.showUnitValue(it.maxTemp, isShowC),
+ )
+ editRecyclerSecond.setPseudoColor(-1)
+ temperatureIvInput.setImageResource(ThermalIrR.drawable.ir_model)
+ } else {
+ temperatureIvLock.visibility = View.VISIBLE
+ if (struct.customPseudoBean.isUseCustomPseudo) {
+ setDefLimit()
+ }
+ tvTempContent.visibility = View.GONE
+ editRecyclerSecond.setPseudoColor(pseudocodeMode)
+ temperatureIvInput.setImageResource(ThermalIrR.drawable.ic_color_edit)
+ }
+ struct.customPseudoBean = customPseudoBean
+ temperatureSeekbar.setColorList(customPseudoBean.getColorList(struct.isTC007())?.reversedArray())
+ temperatureSeekbar.setPlaces(customPseudoBean.getPlaceList())
+ }
+// tvTempContent.visibility = View.VISIBLE
+ }
 
-    /**
-     * 从上一界面传递过来的，是否从生成报告拾取图片中跳转过来.
-     */
-    private var isReportPick = false
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private var isReportPick = false
 
-    private fun initUI() {
-        isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
-        titleView.setLeftClickListener {
-            if (isReportPick) {
-                finish()
-            } else {
-                saveImage()
-            }
-        }
-        titleView.setRightText(if (isReportPick) R.string.app_next else R.string.person_save)
-        titleView.setRightClickListener {
-            if (!isReportPick) {
-                updateIconSave()
-            } else {
-                showLoadingDialog()
-                lifecycleScope.launch(Dispatchers.IO) {
-                    // 获取展示图像信息的图层数据
-                    var irBitmap =
-                        if (struct.isAmplify) {
-                            // 超分四倍使用原始图像继续超分一次
-                            OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
-                        } else {
-                            irImageView.drawToBitmap()
-                        }
-                    if (temperatureView.mode != Mode.CLEAR) {
-                        // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
-                        irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
-                    }
-                    // 合并伪彩条
-                    if (colorBarView.visibility == View.VISIBLE) {
-                        irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
-                    }
-                    // 保存图片
-                    val fileAbsolutePath = ImageUtils.saveToCache(this@IRGalleryEditActivity, irBitmap)
-                    launch(Dispatchers.Main) {
-                        dismissLoadingDialog()
-                        if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
-                            NavigationManager.build(RouterConfig.REPORT_CREATE_FIRST)
-                                .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
-                                .navigation(this@IRGalleryEditActivity)
-                        } else {
-                            val navigationBuilder =
-                                NavigationManager.build(RouterConfig.REPORT_CREATE_SECOND)
-                                    .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
-                                    .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
-                                    .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+ private fun initUI() {
+ isReportPick = intent.getBooleanExtra(ExtraKeyConfig.IS_PICK_REPORT_IMG, false)
+ titleView.setLeftClickListener {
+ if (isReportPick) {
+ finish()
+ } else {
+ saveImage()
+ }
+ }
+ titleView.setRightText(if (isReportPick) R.string.app_next else R.string.person_save)
+ titleView.setRightClickListener {
+ if (!isReportPick) {
+ updateIconSave()
+ } else {
+ showLoadingDialog()
+ lifecycleScope.launch(Dispatchers.IO) {
+ // Comment removed (contained Chinese characters)
+ var irBitmap =
+ if (struct.isAmplify) {
+ // Comment removed (contained Chinese characters)
+ OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
+ } else {
+ irImageView.drawToBitmap()
+ }
+ if (temperatureView.mode != Mode.CLEAR) {
+ // Comment removed (contained Chinese characters)
+ irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
+ }
+ // Comment removed (contained Chinese characters)
+ if (colorBarView.visibility == View.VISIBLE) {
+ irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
+ }
+ // Comment removed (contained Chinese characters)
+ val fileAbsolutePath = ImageUtils.saveToCache(this@IRGalleryEditActivity, irBitmap)
+ launch(Dispatchers.Main) {
+ dismissLoadingDialog()
+ if (intent.getBooleanExtra(IS_REPORT_FIRST, true)) {
+ NavigationManager.build(RouterConfig.REPORT_CREATE_FIRST)
+ .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+ .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+ .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
+ .navigation(this@IRGalleryEditActivity)
+ } else {
+ val navigationBuilder =
+ NavigationManager.build(RouterConfig.REPORT_CREATE_SECOND)
+ .withBoolean(ExtraKeyConfig.IS_TC007, isTC007)
+ .withString(ExtraKeyConfig.FILE_ABSOLUTE_PATH, fileAbsolutePath)
+ .withParcelable(ExtraKeyConfig.IMAGE_TEMP_BEAN, buildImageTempBean())
 
-                            intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_INFO)?.let {
-                                navigationBuilder.withParcelable(ExtraKeyConfig.REPORT_INFO, it)
-                            }
-                            intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_CONDITION)?.let {
-                                navigationBuilder.withParcelable(ExtraKeyConfig.REPORT_CONDITION, it)
-                            }
-                            intent.getParcelableArrayListExtra<Parcelable>(ExtraKeyConfig.REPORT_IR_LIST)?.let {
-                                navigationBuilder.withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, it)
-                            }
-                            navigationBuilder.navigation(this@IRGalleryEditActivity)
-                        }
-                    }
-                }
-            }
-        }
-        editRecyclerSecond.selectPosition(-1)
-    }
+ intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_INFO)?.let {
+ navigationBuilder.withParcelable(ExtraKeyConfig.REPORT_INFO, it)
+ }
+ intent.getParcelableExtra<Parcelable>(ExtraKeyConfig.REPORT_CONDITION)?.let {
+ navigationBuilder.withParcelable(ExtraKeyConfig.REPORT_CONDITION, it)
+ }
+ intent.getParcelableArrayListExtra<Parcelable>(ExtraKeyConfig.REPORT_IR_LIST)?.let {
+ navigationBuilder.withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, it)
+ }
+ navigationBuilder.navigation(this@IRGalleryEditActivity)
+ }
+ }
+ }
+ }
+ }
+ editRecyclerSecond.selectPosition(-1)
+ }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onReportCreate(event: ReportCreateEvent) {
-        if (isReportPick) {
-            finish()
-        }
-    }
+ @Subscribe(threadMode = ThreadMode.MAIN)
+ fun onReportCreate(event: ReportCreateEvent) {
+ if (isReportPick) {
+ finish()
+ }
+ }
 
-    private fun keepOneDigit(float: Float) = String.format(Locale.ENGLISH, "%.1f", float)
+ private fun keepOneDigit(float: Float) = String.format(Locale.ENGLISH, "%.1f", float)
 
-    private fun buildImageTempBean(): ImageTempBean {
-        var full: ImageTempBean.TempBean? = null
-        if (temperatureView.isShowFull) {
-            temperatureView.fullInfo?.let {
-                val max = keepOneDigit(tempCorrect(it.maxTemperature))
-                val min = keepOneDigit(tempCorrect(it.minTemperature))
-                full = ImageTempBean.TempBean(max, min)
-            }
-        }
+ private fun buildImageTempBean(): ImageTempBean {
+ var full: ImageTempBean.TempBean? = null
+ if (temperatureView.isShowFull) {
+ temperatureView.fullInfo?.let {
+ val max = keepOneDigit(tempCorrect(it.maxTemperature))
+ val min = keepOneDigit(tempCorrect(it.minTemperature))
+ full = ImageTempBean.TempBean(max, min)
+ }
+ }
 
-        val pointList = arrayListOf<ImageTempBean.TempBean>()
-        for (temp in temperatureView.tempListData.pointTemps) {
-            if (temp.type != -99) {
-                pointList.add(ImageTempBean.TempBean(keepOneDigit(tempCorrect(temp.maxTemperature))))
-            }
-        }
+ val pointList = arrayListOf<ImageTempBean.TempBean>()
+ for (temp in temperatureView.tempListData.pointTemps) {
+ if (temp.type != -99) {
+ pointList.add(ImageTempBean.TempBean(keepOneDigit(tempCorrect(temp.maxTemperature))))
+ }
+ }
 
-        val lineList = arrayListOf<ImageTempBean.TempBean>()
-        for (temp in temperatureView.tempListData.lineTemps) {
-            if (temp.type != -99) {
-                val max = keepOneDigit(tempCorrect(temp.maxTemperature))
-                val min = keepOneDigit(tempCorrect(temp.minTemperature))
-                val average = keepOneDigit(temp.averageTemperature)
-                lineList.add(ImageTempBean.TempBean(max, min, average))
-            }
-        }
+ val lineList = arrayListOf<ImageTempBean.TempBean>()
+ for (temp in temperatureView.tempListData.lineTemps) {
+ if (temp.type != -99) {
+ val max = keepOneDigit(tempCorrect(temp.maxTemperature))
+ val min = keepOneDigit(tempCorrect(temp.minTemperature))
+ val average = keepOneDigit(temp.averageTemperature)
+ lineList.add(ImageTempBean.TempBean(max, min, average))
+ }
+ }
 
-        val rectList = arrayListOf<ImageTempBean.TempBean>()
-        for (temp in temperatureView.tempListData.rectangleTemps) {
-            if (temp.type != -99) {
-                val max = keepOneDigit(tempCorrect(temp.maxTemperature))
-                val min = keepOneDigit(tempCorrect(temp.minTemperature))
-                val average = keepOneDigit(temp.averageTemperature)
-                rectList.add(ImageTempBean.TempBean(max, min, average))
-            }
-        }
+ val rectList = arrayListOf<ImageTempBean.TempBean>()
+ for (temp in temperatureView.tempListData.rectangleTemps) {
+ if (temp.type != -99) {
+ val max = keepOneDigit(tempCorrect(temp.maxTemperature))
+ val min = keepOneDigit(tempCorrect(temp.minTemperature))
+ val average = keepOneDigit(temp.averageTemperature)
+ rectList.add(ImageTempBean.TempBean(max, min, average))
+ }
+ }
 
-        return ImageTempBean(full, pointList, lineList, rectList)
-    }
+ return ImageTempBean(full, pointList, lineList, rectList)
+ }
 
-    private fun saveImage() {
-        TipDialog.Builder(this)
-            .setTitleMessage(getString(R.string.app_tip))
-            .setMessage(R.string.app_save_image)
-            .setPositiveListener(R.string.app_yes) {
-                updateIconSave()
-            }.setCancelListener(R.string.app_no) {
-                finish()
-            }
-            .create().show()
-    }
+ private fun saveImage() {
+ TipDialog.Builder(this)
+ .setTitleMessage(getString(R.string.app_tip))
+ .setMessage(R.string.app_save_image)
+ .setPositiveListener(R.string.app_yes) {
+ updateIconSave()
+ }.setCancelListener(R.string.app_no) {
+ finish()
+ }
+ .create().show()
+ }
 
-    private fun updateIconSave() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            // 获取展示图像信息的图层数据
-            var irBitmap =
-                if (struct.isAmplify) {
-                    // 超分四倍使用原始图像继续超分一次
-                    OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
-                } else {
-                    irImageView.drawToBitmap()
-                }
-            if (temperatureView.mode != Mode.CLEAR) {
-                // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
-                irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
-            }
-            // 合并伪彩条
-            if (colorBarView.visibility == View.VISIBLE) {
-                irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
-            }
-            // 保存图片
-            var name: String
-            irBitmap.let {
-                name = ImageUtils.save(bitmap = it, isTC007)
-            }
-            ImageUtils.saveFrame(bs = mFrame, capital = getCapital(), name = name)
-            ToastTools.showShort(R.string.tip_photo_saved)
-            EventBus.getDefault().post(GalleryAddEvent())
-            MediaScannerConnection.scanFile(
-                this@IRGalleryEditActivity,
-                arrayOf(FileConfig.lineGalleryDir),
-                null,
-                null,
-            )
-            EventBus.getDefault().post(ImageGalleryEvent())
-            finish()
-        }
-    }
+ private fun updateIconSave() {
+ lifecycleScope.launch(Dispatchers.IO) {
+ // Comment removed (contained Chinese characters)
+ var irBitmap =
+ if (struct.isAmplify) {
+ // Comment removed (contained Chinese characters)
+ OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
+ } else {
+ irImageView.drawToBitmap()
+ }
+ if (temperatureView.mode != Mode.CLEAR) {
+ // Comment removed (contained Chinese characters)
+ irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
+ }
+ // Comment removed (contained Chinese characters)
+ if (colorBarView.visibility == View.VISIBLE) {
+ irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
+ }
+ // Comment removed (contained Chinese characters)
+ var name: String
+ irBitmap.let {
+ name = ImageUtils.save(bitmap = it, isTC007)
+ }
+ ImageUtils.saveFrame(bs = mFrame, capital = getCapital(), name = name)
+ ToastTools.showShort(R.string.tip_photo_saved)
+ EventBus.getDefault().post(GalleryAddEvent())
+ MediaScannerConnection.scanFile(
+ this@IRGalleryEditActivity,
+ arrayOf(FileConfig.lineGalleryDir),
+ null,
+ null,
+ )
+ EventBus.getDefault().post(ImageGalleryEvent())
+ finish()
+ }
+ }
 
-    private fun getCapital(): ByteArray {
-        val capital: ByteArray? // 首部
-        capital =
-            FrameStruct.toCode(
-                name = struct.name,
-                width = struct.width,
-                height = struct.height,
-                rotate = struct.rotate,
-                pseudo = pseudocodeMode,
-                initRotate = struct.initRotate,
-                correctRotate = struct.correctRotate,
-                customPseudoBean = struct.customPseudoBean,
-                isShowPseudoBar = colorBarView.isVisible,
-                textColor = temperatureView.textColor,
-                watermarkBean = struct.watermarkBean,
-                alarmBean = struct.alarmBean,
-                gainStatus = struct.gainStatus,
-                textSize = struct.textSize,
-                struct.environment,
-                struct.distance,
-                struct.radiation,
-                false,
-            )
-        return capital
-    }
+ private fun getCapital(): ByteArray {
+ val capital: ByteArray? // 
+ capital =
+ FrameStruct.toCode(
+ name = struct.name,
+ width = struct.width,
+ height = struct.height,
+ rotate = struct.rotate,
+ pseudo = pseudocodeMode,
+ initRotate = struct.initRotate,
+ correctRotate = struct.correctRotate,
+ customPseudoBean = struct.customPseudoBean,
+ isShowPseudoBar = colorBarView.isVisible,
+ textColor = temperatureView.textColor,
+ watermarkBean = struct.watermarkBean,
+ alarmBean = struct.alarmBean,
+ gainStatus = struct.gainStatus,
+ textSize = struct.textSize,
+ struct.environment,
+ struct.distance,
+ struct.radiation,
+ false,
+ )
+ return capital
+ }
 
-    override fun onBackPressed() {
-        lifecycleScope.launch {
-            if (isReportPick) {
-                finish()
-            } else {
-                saveImage()
-            }
-        }
-    }
+ override fun onBackPressed() {
+ lifecycleScope.launch {
+ if (isReportPick) {
+ finish()
+ } else {
+ saveImage()
+ }
+ }
+ }
 
-    override fun tempCorrectByTs(temp: Float?): Float {
-        var tmp = temp
-        try {
-            tmp = tempCorrect(temp!!)
-        } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
-        }
-        return tmp!!
-    }
+ override fun tempCorrectByTs(temp: Float?): Float {
+ var tmp = temp
+ try {
+ tmp = tempCorrect(temp!!)
+ } catch (e: Exception) {
+ XLog.i("TemperatureFailed: ${e.message}")
+ }
+ return tmp!!
+ }
 
-    /**
-     * 单点修正过程
-     */
-    private fun tempCorrect(temp: Float): Float {
-        var newTemp = temp
-        try {
-            if (struct == null || struct.distance <= 0 || struct.radiation <= 0) {
-                return temp
-            }
-            val paramsArray =
-                floatArrayOf(
-                    temp,
-                    struct.radiation,
-                    struct.environment,
-                    struct.environment,
-                    struct.distance,
-                    0.8f,
-                )
-            if (struct.name.startsWith(PRODUCT_NAME_TS)) {
-                if (ts_data_H == null || ts_data_L == null) return temp
-                newTemp =
-                    IRUtils.temperatureCorrection(
-                        IRCMDType.USB_IR_256_384,
-                        CommonParams.ProductType.WN256_ADVANCED,
-                        paramsArray[0],
-                        ts_data_H,
-                        ts_data_L,
-                        paramsArray[1],
-                        paramsArray[2],
-                        paramsArray[3],
-                        paramsArray[4],
-                        paramsArray[5],
-                        0,
-                        if (struct.gainStatus == 1) {
-                            CommonParams.GainStatus.HIGH_GAIN
-                        } else {
-                            CommonParams.GainStatus.LOW_GAIN
-                        },
-                    )
-            } else if (struct.name.startsWith(PRODUCT_NAME_TC001LITE)) {
-                // lite的模组
-                if (BaseApplication.instance.tau_data_H == null || BaseApplication.instance.tau_data_L == null) return temp
-                newTemp =
-                    IRTool.temperatureCorrection(
-                        temp, paramsArray, BaseApplication.instance.tau_data_H!!,
-                        BaseApplication.instance.tau_data_L!!, struct.gainStatus,
-                    )
-            }
-        } catch (e: Exception) {
-            XLog.e("$TAG:tempCorrect-${e.message}")
-        } finally {
-            return newTemp
-        }
-    }
+ /**
+ * Comment removed (contained Chinese characters)
+ */
+ private fun tempCorrect(temp: Float): Float {
+ var newTemp = temp
+ try {
+ if (struct == null || struct.distance <= 0 || struct.radiation <= 0) {
+ return temp
+ }
+ val paramsArray =
+ floatArrayOf(
+ temp,
+ struct.radiation,
+ struct.environment,
+ struct.environment,
+ struct.distance,
+ 0.8f,
+ )
+ if (struct.name.startsWith(PRODUCT_NAME_TS)) {
+ if (ts_data_H == null || ts_data_L == null) return temp
+ newTemp =
+ IRUtils.temperatureCorrection(
+ IRCMDType.USB_IR_256_384,
+ CommonParams.ProductType.WN256_ADVANCED,
+ paramsArray[0],
+ ts_data_H,
+ ts_data_L,
+ paramsArray[1],
+ paramsArray[2],
+ paramsArray[3],
+ paramsArray[4],
+ paramsArray[5],
+ 0,
+ if (struct.gainStatus == 1) {
+ CommonParams.GainStatus.HIGH_GAIN
+ } else {
+ CommonParams.GainStatus.LOW_GAIN
+ },
+ )
+ } else if (struct.name.startsWith(PRODUCT_NAME_TC001LITE)) {
+ // Comment removed (contained Chinese characters)
+ if (BaseApplication.instance.tau_data_H == null || BaseApplication.instance.tau_data_L == null) return temp
+ newTemp =
+ IRTool.temperatureCorrection(
+ temp, paramsArray, BaseApplication.instance.tau_data_H!!,
+ BaseApplication.instance.tau_data_L!!, struct.gainStatus,
+ )
+ }
+ } catch (e: Exception) {
+ XLog.e("$TAG:tempCorrect-${e.message}")
+ } finally {
+ return newTemp
+ }
+ }
 }

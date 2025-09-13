@@ -30,7 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
-\1temperature correction操作指引.
+\1temperature correction.
  *
  * Created by LCG on 2024/11/13.
  */
@@ -39,96 +39,96 @@ import kotlinx.coroutines.launch
  * Provides specialized rendering and interaction capabilities.
  */
 class ConfigGuideDialog(context: Context, val isTC007: Boolean, val dataBean: DataBean) : Dialog(context, R.style.TransparentDialog) {
-    // Initialize views with findViewById
-    private lateinit var tvDefaultTempTitle: TextView
-    private lateinit var tvDefaultDisTitle: TextView
-    private lateinit var tvSpaceEmTitle: TextView
-    private lateinit var tvDefaultEmTitle: TextView
-    private lateinit var tvDefaultEmValue: TextView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var clStep1: ConstraintLayout
-    private lateinit var clStep2Top: ConstraintLayout
-    private lateinit var clStep2Bottom: ConstraintLayout
-    private lateinit var tvNext: TextView
-    private lateinit var tvIKnow: TextView
-    private lateinit var ivBlurBg: ImageView
+ // Initialize views with findViewById
+ private lateinit var tvDefaultTempTitle: TextView
+ private lateinit var tvDefaultDisTitle: TextView
+ private lateinit var tvSpaceEmTitle: TextView
+ private lateinit var tvDefaultEmTitle: TextView
+ private lateinit var tvDefaultEmValue: TextView
+ private lateinit var recyclerView: RecyclerView
+ private lateinit var clStep1: ConstraintLayout
+ private lateinit var clStep2Top: ConstraintLayout
+ private lateinit var clStep2Bottom: ConstraintLayout
+ private lateinit var tvNext: TextView
+ private lateinit var tvIKnow: TextView
+ private lateinit var ivBlurBg: ImageView
 
-    @SuppressLint("SetTextI18n")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setCancelable(false)
-        setCanceledOnTouchOutside(false)
-        setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_config_guide, null))
+ @SuppressLint("SetTextI18n")
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ setCancelable(false)
+ setCanceledOnTouchOutside(false)
+ setContentView(LayoutInflater.from(context).inflate(R.layout.dialog_config_guide, null))
 
-        // Initialize views
-        tvDefaultTempTitle = findViewById(R.id.tv_default_temp_title)
-        tvDefaultDisTitle = findViewById(R.id.tv_default_dis_title)
-        tvSpaceEmTitle = findViewById(R.id.tv_space_em_title)
-        tvDefaultEmTitle = findViewById(R.id.tv_default_em_title)
-        tvDefaultEmValue = findViewById(R.id.tv_default_em_value)
-        recyclerView = findViewById(R.id.recycler_view)
-        clStep1 = findViewById(R.id.cl_step1)
-        clStep2Top = findViewById(R.id.cl_step2_top)
-        clStep2Bottom = findViewById(R.id.cl_step2_bottom)
-        tvNext = findViewById(R.id.tv_next)
-        tvIKnow = findViewById(R.id.tv_i_know)
-        ivBlurBg = findViewById(R.id.iv_blur_bg)
+ // Initialize views
+ tvDefaultTempTitle = findViewById(R.id.tv_default_temp_title)
+ tvDefaultDisTitle = findViewById(R.id.tv_default_dis_title)
+ tvSpaceEmTitle = findViewById(R.id.tv_space_em_title)
+ tvDefaultEmTitle = findViewById(R.id.tv_default_em_title)
+ tvDefaultEmValue = findViewById(R.id.tv_default_em_value)
+ recyclerView = findViewById(R.id.recycler_view)
+ clStep1 = findViewById(R.id.cl_step1)
+ clStep2Top = findViewById(R.id.cl_step2_top)
+ clStep2Bottom = findViewById(R.id.cl_step2_bottom)
+ tvNext = findViewById(R.id.tv_next)
+ tvIKnow = findViewById(R.id.tv_i_know)
+ ivBlurBg = findViewById(R.id.iv_blur_bg)
 
-        tvDefaultTempTitle.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
-        tvDefaultDisTitle.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
-        tvSpaceEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+ tvDefaultTempTitle.text = "${context.getString(R.string.thermal_config_environment)} ${UnitTools.showConfigC(-10, if (isTC007) 50 else 55)}"
+ tvDefaultDisTitle.text = "${context.getString(R.string.thermal_config_distance)} (0.2~${if (isTC007) 4 else 5}m)"
+ tvSpaceEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
 
-        tvDefaultEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
-        tvDefaultEmValue.text = NumberTools.to02(dataBean.radiation)
+ tvDefaultEmTitle.text = "${context.getString(R.string.thermal_config_radiation)} (${if (isTC007) "0.1" else "0.01"}~1.00)"
+ tvDefaultEmValue.text = NumberTools.to02(dataBean.radiation)
 
-        val itemDecoration = MyItemDecoration(context)
-        itemDecoration.wholeBottom = 20f
+ val itemDecoration = MyItemDecoration(context)
+ itemDecoration.wholeBottom = 20f
 
-        recyclerView.addItemDecoration(itemDecoration)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = ConfigEmAdapter(context)
+ recyclerView.addItemDecoration(itemDecoration)
+ recyclerView.layoutManager = LinearLayoutManager(context)
+ recyclerView.adapter = ConfigEmAdapter(context)
 
-        clStep1.isVisible = SharedManager.configGuideStep == 1
-        clStep2Top.isVisible = SharedManager.configGuideStep == 2
-        clStep2Bottom.isVisible = SharedManager.configGuideStep == 2
+ clStep1.isVisible = SharedManager.configGuideStep == 1
+ clStep2Top.isVisible = SharedManager.configGuideStep == 2
+ clStep2Bottom.isVisible = SharedManager.configGuideStep == 2
 
-        tvNext.setOnClickListener {
-            clStep1.isVisible = false
-            clStep2Top.isVisible = true
-            clStep2Bottom.isVisible = true
-            SharedManager.configGuideStep = 2
-        }
-        tvIKnow.setOnClickListener {
-            dismiss()
-            SharedManager.configGuideStep = 0
-        }
-    }
+ tvNext.setOnClickListener {
+ clStep1.isVisible = false
+ clStep2Top.isVisible = true
+ clStep2Bottom.isVisible = true
+ SharedManager.configGuideStep = 2
+ }
+ tvIKnow.setOnClickListener {
+ dismiss()
+ SharedManager.configGuideStep = 0
+ }
+ }
 
-    fun blurBg(rootView: View) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val sourceBitmap = Bitmap.createBitmap(rootView.width, rootView.height, Bitmap.Config.ARGB_8888)
-                val outputBitmap = Bitmap.createBitmap(rootView.width, rootView.height, Bitmap.Config.ARGB_8888)
-                val canvas = Canvas(sourceBitmap)
-                rootView.draw(canvas)
+ fun blurBg(rootView: View) {
+ CoroutineScope(Dispatchers.IO).launch {
+ try {
+ val sourceBitmap = Bitmap.createBitmap(rootView.width, rootView.height, Bitmap.Config.ARGB_8888)
+ val outputBitmap = Bitmap.createBitmap(rootView.width, rootView.height, Bitmap.Config.ARGB_8888)
+ val canvas = Canvas(sourceBitmap)
+ rootView.draw(canvas)
 
-                val renderScript = RenderScript.create(context)
-                val inputAllocation = Allocation.createFromBitmap(renderScript, sourceBitmap)
-                val outputAllocation = Allocation.createTyped(renderScript, inputAllocation.type)
+ val renderScript = RenderScript.create(context)
+ val inputAllocation = Allocation.createFromBitmap(renderScript, sourceBitmap)
+ val outputAllocation = Allocation.createTyped(renderScript, inputAllocation.type)
 
-                val blurScript = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
-                blurScript.setRadius(20f)
-                blurScript.setInput(inputAllocation)
-                blurScript.forEach(outputAllocation)
-                outputAllocation.copyTo(outputBitmap)
-                renderScript.destroy()
+ val blurScript = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
+ blurScript.setRadius(20f)
+ blurScript.setInput(inputAllocation)
+ blurScript.forEach(outputAllocation)
+ outputAllocation.copyTo(outputBitmap)
+ renderScript.destroy()
 
-                launch(Dispatchers.Main) {
-                    ivBlurBg.isVisible = true
-                    ivBlurBg.setImageBitmap(outputBitmap)
-                }
-            } catch (_: Exception) {
-            }
-        }
-    }
+ launch(Dispatchers.Main) {
+ ivBlurBg.isVisible = true
+ ivBlurBg.setImageBitmap(outputBitmap)
+ }
+ } catch (_: Exception) {
+ }
+ }
+ }
 }

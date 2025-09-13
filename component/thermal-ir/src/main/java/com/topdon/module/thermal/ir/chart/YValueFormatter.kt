@@ -4,19 +4,19 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.topdon.lib.core.tools.UnitTools
 
 /**
-\1Y轴文本格式
+\1Y
  */
 /**
  * Y value formatter utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
  */
 class YValueFormatter : IndexAxisValueFormatter() {
-    override fun getFormattedValue(value: Float): String {
-        return try {
-            String.format("%.1f", value) // 检测value是不是数字
-            UnitTools.showC(value)
-        } catch (e: Exception) {
-            UnitTools.showC(value)
-        }
-    }
+ override fun getFormattedValue(value: Float): String {
+ return try {
+ String.format("%.1f", value) // value
+ UnitTools.showC(value)
+ } catch (e: Exception) {
+ UnitTools.showC(value)
+ }
+ }
 }
