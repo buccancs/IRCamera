@@ -184,7 +184,7 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
                     loginAction()
                 }
             }
-            // settingElectronicManual -> { // 电子description书 // TODO: Review this comment
+            settingElectronicManual -> { // 电子description书
                 NavigationManager.getInstance().build(
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
@@ -235,14 +235,14 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-activityLogin()Callback不可靠，但必然触发onResume()
+        // activityLogin() Callback不可靠，但必然触发onResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-Loginsuccessful
+            // Login successful
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -256,14 +256,14 @@ Loginsuccessful
                         headUrl = infoData.avatar,
                     )
 
-updateui
+                    // Update UI
                     changeLoginStyle()
                 } catch (e: Exception) {
                     XLog.e(" Loginexception: ${e.message}")
                 }
             }
         } else {
-Loginfailed
+            // Login failed
             XLog.e(" Loginfailed")
             changeLoginStyle()
             settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Restore默认头像

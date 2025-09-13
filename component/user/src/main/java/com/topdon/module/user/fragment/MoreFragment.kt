@@ -97,7 +97,7 @@ TC007 firmwareUpgrade ViewModel.
         settingDeviceInformation.setOnClickListener(this) // TC007deviceinfo
         settingReset.setOnClickListener(this) // TC007Restore出厂settings
 
-根据 2024/5/23 评审会结论，TC007没有多少需要Restore出厂的configuration，产品决定砍掉
+        // 根据 2024/5/23 评审会结论，TC007没有多少需要Restore出厂的configuration，产品决定砍掉
         settingReset.isVisible = false
 
         settingVersion.isVisible = isTC007 && Build.VERSION.SDK_INT >= 29
@@ -208,7 +208,7 @@ TC007 firmwareUpgrade ViewModel.
                 ).withBoolean(ExtraKeyConfig.IS_TC007, isTC007).navigation(requireContext())
             }
             settingVersion -> { // TC007firmwareUpgrade
-由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处comment强制Login逻辑
+                // 由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处comment强制Login逻辑
 //               if (LMS.getInstance().isLogin) {
                 val firmwareData = firmwareViewModel.firmwareDataLD.value
                 if (firmwareData != null) {
@@ -272,7 +272,7 @@ displayfirmwareUpgradetip弹框.
         dialog.contentStr = firmwareData.updateStr
         dialog.isShowRestartTips = true
         dialog.onConfirmClickListener = {
-由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处commentDownload逻辑
+            // 由于双通道方案存在问题，V3.30临时使用 apk 内置firmwareUpgrade包，此处commentDownload逻辑
             // downloadFirmware(firmwareData)
             installFirmware(FileConfig.getFirmwareFile(firmwareData.downUrl))
         }
