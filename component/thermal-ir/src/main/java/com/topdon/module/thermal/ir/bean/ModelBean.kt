@@ -19,6 +19,5 @@ data class DataBean(
     var environment: Float = 30.0f, // 环境temperature，单位摄氏度
     var distance: Float = 0.25f, // 距离，单位米
     var radiation: Float = 0.95f, // 发射率
-    var use: Boolean = false,
-    var name: String = ""
+    var use: Boolean = false
 )
