@@ -72,7 +72,7 @@ data class DeviceCaps(
             
             // Concurrent streams capability
             val maxConcurrentStreams = characteristics.get(CameraCharacteristics.REQUEST_MAX_NUM_OUTPUT_STREAMS)
-                ?.let { it[2] } ?: 1 // High resolution stream count
+                ?.let { it[0] } ?: 1 // Index 0 is for processed streams
             
             Log.i(TAG, "Device capabilities detected:")
             Log.i(TAG, "  Device: $manufacturer $deviceModel")
