@@ -17,13 +17,13 @@ import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.tools.DeviceTools
 
 /**
- * 设备类型选择.
+ * devicetypeselection.
  *
  * Created by LCG on 2024/4/22.
  */
 class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
     /**
-     * 当前点击的设备类型.
+     * 当前click的devicetype.
      */
     private var clientType: IRDeviceType? = null
 
@@ -241,7 +241,7 @@ class DeviceTypeActivity : BaseBindingActivity<ActivityDeviceTypeBinding>() {
     }
 
     /**
-     * 支持的设备类型 (热成像设备和GSR传感器).
+     * 支持的devicetype (thermal imagingdevice和GSRsensor).
      */
     enum class IRDeviceType {
         TC001 {

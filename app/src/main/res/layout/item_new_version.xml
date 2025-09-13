@@ -43,7 +43,7 @@
 
             app:layout_constraintTop_toTopOf="parent"
             android:drawableRight="@drawable/ic_right_arrow"
-            tools:text="版本2.00.003" />
+            tools:text="version2.00.003" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

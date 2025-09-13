@@ -190,7 +190,6 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                         android.graphics.Shader.TileMode.MIRROR));
             }
 
-
             c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
                     buffer.buffer[j + 3], mRenderPaint);
 

@@ -11,12 +11,11 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 双光校正 - 第1步.
+ * dual light校正 - 第1步.
  * Created by LCG on 2023/12/29.
  */
 @Route(path = RouterConfig.MANUAL_START)
 class ManualStep1Activity : BaseActivity() {
-
     override fun initContentView(): Int = R.layout.activity_manual_step1
 
     override fun initView() {

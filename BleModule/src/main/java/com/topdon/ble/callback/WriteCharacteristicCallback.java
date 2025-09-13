@@ -1,7 +1,5 @@
 package com.topdon.ble.callback;
 
-
-
 import com.topdon.ble.Request;
 
 /**
@@ -10,10 +8,10 @@ import com.topdon.ble.Request;
  */
 public interface WriteCharacteristicCallback extends RequestFailedCallback {
     /**
-     * 成功写入特征值
+     * success写入特征值
      *
      * @param request 请求
-     * @param value   写入的数据
+     * @param value   写入的data
      */
     void onCharacteristicWrite(Request request, byte[] value);
 }

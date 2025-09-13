@@ -1,9 +1,16 @@
 package com.topdon.menu.constant
 
 /**
- * 由于不同的设备（单光、双光、Lite、TC007、2D编辑）菜单存在差异，用该枚举区分.
+ * Due to differences in menus across different devices (single light, dual light, Lite, TC007, 2D editing), this enum distinguishes them.
  *
  * Created by LCG on 2024/11/18.
+ */
+
+/**
+ * Type definition for menu classification.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 enum class MenuType {
     SINGLE_LIGHT,

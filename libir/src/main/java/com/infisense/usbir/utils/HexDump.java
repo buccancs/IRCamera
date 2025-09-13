@@ -174,10 +174,10 @@ public class HexDump {
     }
 
     /**
-     * 将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。 和bytesToInt（）配套使用
+     * 将int数值conversion为占四个字节的bytearray，本method适用于(低位在前，高位在后)的顺序。 和bytesToInt（）配套使用
      *
-     * @param value 要转换的int值
-     * @return byte数组
+     * @param value 要conversion的int值
+     * @return bytearray
      */
     public static byte[] intToBytes(int value) {
         byte[] src = new byte[4];
@@ -189,7 +189,7 @@ public class HexDump {
     }
 
     /**
-     * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用
+     * 将int数值conversion为占四个字节的bytearray，本method适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用
      */
     public static byte[] intToBytes2(int value) {
         byte[] src = new byte[4];

@@ -118,7 +118,7 @@ object TimeTool {
     }
 
     /**
-     * 视频时长
+     * video时长
      */
     @SuppressLint("SimpleDateFormat")
     fun showVideoTime(time: Long): String {
@@ -134,7 +134,7 @@ object TimeTool {
     }
 
     /**
-     * 视频时长
+     * video时长
      */
     @SuppressLint("SimpleDateFormat")
     fun showVideoLongTime(time: Long): String {
@@ -157,7 +157,7 @@ object TimeTool {
                     file.lastModified()
                 }
         } catch (e: Exception) {
-            Log.e("视频文件名称解析异常", "${e.message}")
+            Log.e("videofilenameparsingexception", "${e.message}")
         }
         return currentTime
     }

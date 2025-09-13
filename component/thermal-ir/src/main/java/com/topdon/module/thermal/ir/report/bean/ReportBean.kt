@@ -4,12 +4,16 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * 一份报告.
+一份report.
+ */
+/**
+ * Report data model for thermal imaging information.
+ * Encapsulates thermal measurement and configuration data.
  */
 @Parcelize
 data class ReportBean(
     val software_info: SoftwareInfo,
     val report_info: ReportInfoBean,
     val detection_condition: ReportConditionBean,
-    val infrared_data: List<ReportIRBean>
+    val infrared_data: List<ReportIRBean>,
 ) : Parcelable

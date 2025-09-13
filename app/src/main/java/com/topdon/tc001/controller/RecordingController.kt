@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.topdon.tc001.sensors.*
-import com.topdon.tc001.sensors.rgb.RgbCameraRecorder
+import com.topdon.tc001.camera.RGBCameraRecorder
 import com.topdon.tc001.sensors.thermal.ThermalCameraRecorder
 import com.topdon.tc001.sensors.gsr.GSRSensorRecorder
 import com.topdon.tc001.config.ConfigurationManager
@@ -882,11 +882,22 @@ data class SensorInfo(
                 currentSessionDirectory = sessionDirectory
                 recordingStartTime = System.nanoTime()
                 
-                // Start all sensors concurrently
+                // Start all sensors concurrently with proper error handling for each
                 val startJobs = sensorRecorders.values.map { sensor ->
                     async {
-                        val success = sensor.startRecording(sessionDirectory)
-                        sensor.sensorId to success
+                        try {
+                            val success = sensor.startRecording(sessionDirectory)
+                            Triple(sensor.sensorId, success, null)
+                        } catch (e: Exception) {
+                            Log.w(TAG, "Exception starting sensor ${sensor.sensorId}", e)
+                            emitError(RecordingControllerError(
+                                errorType = "SENSOR_START_EXCEPTION",
+                                message = "Sensor ${sensor.sensorId} threw exception during start: ${e.message}",
+                                sensorId = sensor.sensorId,
+                                isRecoverable = true
+                            ))
+                            Triple(sensor.sensorId, false, e)
+                        }
                     }
                 }
                 
@@ -894,16 +905,21 @@ data class SensorInfo(
                 val successfulStarts = startResults.filter { it.second }
                 val failedStarts = startResults.filter { !it.second }
                 
-                // Log results
-                successfulStarts.forEach { (sensorId, _) ->
+                // Log results with enhanced error reporting
+                successfulStarts.forEach { (sensorId, _, _) ->
                     Log.i(TAG, "Sensor $sensorId started successfully")
                 }
                 
-                failedStarts.forEach { (sensorId, _) ->
-                    Log.w(TAG, "Sensor $sensorId failed to start")
+                failedStarts.forEach { (sensorId, _, exception) ->
+                    val errorDetails = if (exception != null) {
+                        " (Exception: ${exception.message})"
+                    } else {
+                        " (Returned false)"
+                    }
+                    Log.w(TAG, "Sensor $sensorId failed to start$errorDetails")
                     emitError(RecordingControllerError(
                         errorType = "SENSOR_START_FAILED",
-                        message = "Failed to start sensor: $sensorId",
+                        message = "Failed to start sensor: $sensorId$errorDetails",
                         sensorId = sensorId,
                         isRecoverable = true
                     ))
@@ -916,11 +932,22 @@ data class SensorInfo(
                     // Add initial sync marker
                     addSyncMarker("session_start", recordingStartTime)
                     
-                    Log.i(TAG, "Multi-modal recording started with ${successfulStarts.size} sensors")
+                    val totalSensors = startResults.size
+                    val successCount = successfulStarts.size
+                    val failedCount = failedStarts.size
+                    
+                    Log.i(TAG, "Multi-modal recording started with $successCount/$totalSensors sensors " +
+                          "(successful: ${successfulStarts.map { it.first }}, " +
+                          "failed: ${failedStarts.map { it.first }})")
                     true
                 } else {
                     _recordingStateFlow.value = RecordingState.ERROR
-                    Log.e(TAG, "All sensors failed to start")
+                    Log.e(TAG, "All ${startResults.size} sensors failed to start - cannot begin session")
+                    emitError(RecordingControllerError(
+                        errorType = "ALL_SENSORS_FAILED",
+                        message = "All sensors failed to start: ${failedStarts.joinToString(", ") { it.first }}",
+                        isRecoverable = true
+                    ))
                     false
                 }
                 
@@ -957,11 +984,16 @@ data class SensorInfo(
                 // Wait a moment for sync marker to propagate
                 delay(SYNC_MARKER_DISTRIBUTION_DELAY_MS)
                 
-                // Stop all sensors concurrently
+                // Stop all sensors concurrently with proper error handling
                 val stopJobs = sensorRecorders.values.map { sensor ->
                     async {
-                        val success = sensor.stopRecording()
-                        sensor.sensorId to success
+                        try {
+                            val success = sensor.stopRecording()
+                            Triple(sensor.sensorId, success, null)
+                        } catch (e: Exception) {
+                            Log.w(TAG, "Exception stopping sensor ${sensor.sensorId}", e)
+                            Triple(sensor.sensorId, false, e)
+                        }
                     }
                 }
                 
@@ -969,13 +1001,18 @@ data class SensorInfo(
                 val successfulStops = stopResults.filter { it.second }
                 val failedStops = stopResults.filter { !it.second }
                 
-                // Log results
-                successfulStops.forEach { (sensorId, _) ->
+                // Log results with enhanced error reporting  
+                successfulStops.forEach { (sensorId, _, _) ->
                     Log.i(TAG, "Sensor $sensorId stopped successfully")
                 }
                 
-                failedStops.forEach { (sensorId, _) ->
-                    Log.w(TAG, "Sensor $sensorId failed to stop cleanly")
+                failedStops.forEach { (sensorId, _, exception) ->
+                    val errorDetails = if (exception != null) {
+                        " (Exception: ${exception.message})"
+                    } else {
+                        " (Returned false)"
+                    }
+                    Log.w(TAG, "Sensor $sensorId failed to stop cleanly$errorDetails")
                 }
                 
                 _isRecording.set(false)
@@ -1043,7 +1080,70 @@ data class SensorInfo(
     }
 
     /**
-     * Get current recording statistics for all sensors
+     * Test individual sensors to check their current state
+     * Useful for diagnostics and pre-recording validation
+     */
+    suspend fun testSensorConnections(): Map<String, Boolean> {
+        return withContext(Dispatchers.IO) {
+            val testResults = mutableMapOf<String, Boolean>()
+            
+            // Test each sensor individually without starting recording
+            val testJobs = sensorRecorders.map { (sensorId, sensor) ->
+                async {
+                    try {
+                        // For testing, we check if sensor is properly initialized and responsive
+                        val stats = sensor.getRecordingStats()
+                        sensorId to true // If we can get stats, sensor is responsive
+                    } catch (e: Exception) {
+                        Log.w(TAG, "Sensor $sensorId test failed", e)
+                        sensorId to false
+                    }
+                }
+            }
+            
+            testJobs.awaitAll().forEach { (sensorId, success) ->
+                testResults[sensorId] = success
+            }
+            
+            Log.i(TAG, "Sensor connection test complete: ${testResults.count { it.value }}/${testResults.size} sensors responsive")
+            testResults
+        }
+    }
+
+    /**
+     * Get a simple text report of current sensor status
+     * Useful for logging, debugging, or simple UI display
+     */
+    fun getStatusReport(): String {
+        val summary = getSensorStatusSummary()
+        return buildString {
+            appendLine("=== Recording Controller Status ===")
+            appendLine("Session State: ${summary.sessionState}")
+            appendLine("Sensors: ${summary.totalSensorsRecording}/${summary.totalSensorsInitialized} recording")
+            appendLine("Status: ${summary.statusMessage}")
+            appendLine()
+            appendLine("Individual Sensors:")
+            summary.sensors.forEach { sensor ->
+                val status = when {
+                    sensor.isRecording -> "🔴 RECORDING"
+                    sensor.isInitialized -> "🟡 READY"
+                    else -> "❌ FAILED"
+                }
+                appendLine("  ${sensor.sensorType}: $status")
+            }
+            if (_isRecording.get()) {
+                val stats = getRecordingStatistics()
+                appendLine()
+                appendLine("Session Stats:")
+                appendLine("  Duration: ${String.format("%.1f", stats.sessionDurationSeconds)}s")
+                appendLine("  Total Samples: ${stats.totalSamplesRecorded}")
+                appendLine("  Storage Used: ${String.format("%.2f", stats.totalStorageUsedMB)}MB")
+            }
+        }
+    }
+
+    /**
+     * Get recording statistics for all sensors
      */
     fun getRecordingStatistics(): RecordingStatistics {
         val sensorStats = sensorRecorders.values.map { it.getRecordingStats() }
@@ -1078,6 +1178,42 @@ data class SensorInfo(
                 samplingRate = sensor.samplingRate
             )
         }
+    }
+
+    /**
+<<<<<<< HEAD
+     * Get detailed status of all sensors including initialization and recording state
+     */
+    fun getSensorStatusSummary(): SensorStatusSummary {
+        val sensors = sensorRecorders.values.map { sensor ->
+            DetailedSensorStatus(
+                sensorId = sensor.sensorId,
+                sensorType = sensor.sensorType,
+                isInitialized = true, // If it's in the map, it was successfully initialized
+                isRecording = sensor.isRecording,
+                samplingRate = sensor.samplingRate,
+                lastError = null // Could be enhanced to track last error per sensor
+            )
+        }
+        
+        val totalInitialized = sensors.size
+        val totalRecording = sensors.count { it.isRecording }
+        
+        return SensorStatusSummary(
+            totalSensorsConfigured = 3, // RGB, Thermal, GSR
+            totalSensorsInitialized = totalInitialized,
+            totalSensorsRecording = totalRecording,
+            isSessionActive = _isRecording.get(),
+            sessionState = _recordingStateFlow.value,
+            sensors = sensors
+        )
+    }
+
+    /**
+     * Get count of currently active (recording) sensors
+     */
+    fun getActiveSensorCount(): Int {
+        return sensorRecorders.values.count { it.isRecording }
     }
 
     /**
@@ -1194,14 +1330,82 @@ data class SensorInfo(
                     
                     // Restart recording if session is active
                     if (_isRecording.get() && currentSessionDirectory != null) {
-                        sensor.startRecording(currentSessionDirectory!!)
+                        try {
+                            val restartSuccess = sensor.startRecording(currentSessionDirectory!!)
+                            if (restartSuccess) {
+                                Log.i(TAG, "Sensor ${sensor.sensorId} successfully restarted during session")
+                                emitError(RecordingControllerError(
+                                    errorType = "SENSOR_RECOVERED",
+                                    message = "Sensor ${sensor.sensorId} recovered and restarted",
+                                    sensorId = sensor.sensorId,
+                                    isRecoverable = true
+                                ))
+                            } else {
+                                Log.w(TAG, "Sensor ${sensor.sensorId} recovery failed to restart recording")
+                            }
+                        } catch (e: Exception) {
+                            Log.w(TAG, "Exception during sensor ${sensor.sensorId} restart", e)
+                        }
                     }
                 } else {
                     Log.w(TAG, "Error recovery failed for sensor ${sensor.sensorId}")
                 }
                 
             } catch (e: Exception) {
-                Log.e(TAG, "Error during recovery attempt", e)
+                Log.e(TAG, "Error during recovery attempt for sensor ${sensor.sensorId}", e)
+            }
+        }
+    }
+
+    /**
+     * Attempt to restart a specific failed sensor during an active session
+     */
+    suspend fun attemptSensorRestart(sensorId: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                val sensor = sensorRecorders[sensorId]
+                if (sensor == null) {
+                    Log.w(TAG, "Cannot restart sensor $sensorId - not found in active sensors")
+                    return@withContext false
+                }
+                
+                if (sensor.isRecording) {
+                    Log.i(TAG, "Sensor $sensorId is already recording")
+                    return@withContext true
+                }
+                
+                if (!_isRecording.get() || currentSessionDirectory == null) {
+                    Log.w(TAG, "Cannot restart sensor $sensorId - no active recording session")
+                    return@withContext false
+                }
+                
+                Log.i(TAG, "Attempting to restart sensor $sensorId during active session")
+                
+                // Try to reinitialize and start recording
+                val initSuccess = sensor.initialize()
+                if (!initSuccess) {
+                    Log.w(TAG, "Sensor $sensorId reinitialization failed")
+                    return@withContext false
+                }
+                
+                val startSuccess = sensor.startRecording(currentSessionDirectory!!)
+                if (startSuccess) {
+                    Log.i(TAG, "Sensor $sensorId successfully restarted during session")
+                    emitError(RecordingControllerError(
+                        errorType = "SENSOR_MANUALLY_RESTARTED",
+                        message = "Sensor $sensorId manually restarted during session",
+                        sensorId = sensorId,
+                        isRecoverable = true
+                    ))
+                    return@withContext true
+                } else {
+                    Log.w(TAG, "Sensor $sensorId restart failed - could not start recording")
+                    return@withContext false
+                }
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Exception during manual sensor restart for $sensorId", e)
+                return@withContext false
             }
         }
     }

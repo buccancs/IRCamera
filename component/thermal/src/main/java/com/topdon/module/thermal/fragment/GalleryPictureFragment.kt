@@ -16,7 +16,11 @@ import com.topdon.module.thermal.viewmodel.GalleryViewModel
 import java.io.File
 
 /**
- * 图片
+image
+ */
+/**
+ * Gallery picture fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
  */
 class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -47,7 +51,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                     index: Int,
                     path: String,
                 ) {
-                    TipDialog.Builder(requireContext()).setMessage("导出图片")
+                    TipDialog.Builder(requireContext()).setMessage("exportimage")
                         .setPositiveListener("分享") {
                             share(path)
                         }
@@ -65,13 +69,13 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
     }
 
     /**
-     * 分享图片
+分享image
      */
     fun share(path: String) {
         val file = File(path)
         var intent = Intent()
-        intent.action = Intent.ACTION_SEND // 设置分享行为
-        intent.type = "image/*" // 设置分享内容的类型
+        intent.action = Intent.ACTION_SEND // settings分享行为
+        intent.type = "image/*" // settings分享内容的type
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "${requireContext().packageName}.fileprovider"
@@ -80,7 +84,7 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
                 Uri.fromFile(file)
             }
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent = Intent.createChooser(intent, "分享图片")
+        intent = Intent.createChooser(intent, "分享image")
         startActivity(intent)
     }
 
@@ -89,8 +93,8 @@ class GalleryPictureFragment : BaseViewModelFragment<GalleryViewModel>() {
         // Note: MNImageBrowser API requires proper library configuration and integration
         /*
         MNImageBrowser.with(requireContext()) //当前位置
-            .setCurrentPosition(0) //图片引擎
-            .setImageEngine(imageEngine) //图片集合
+            .setCurrentPosition(0) //image引擎
+            .setImageEngine(imageEngine) //image集合
             .setImageUrl(path)
             .show()
          */

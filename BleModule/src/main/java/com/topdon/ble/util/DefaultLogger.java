@@ -2,7 +2,6 @@ package com.topdon.ble.util;
 
 import android.util.Log;
 
-
 /**
  * date: 2021/8/12 16:24
  * author: bichuanfeng

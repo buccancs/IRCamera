@@ -8,8 +8,11 @@ import com.topdon.lib.core.db.entity.ThermalEntity
 import com.topdon.lib.core.ktbase.BaseViewModel
 import kotlinx.coroutines.*
 
+/**
+ * Custom I r monitor view model view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class IRMonitorViewModel : BaseViewModel() {
-
     val recordListLD = MutableLiveData<List<ThermalDao.Record>>()
 
     fun queryRecordList() {
@@ -18,10 +21,6 @@ class IRMonitorViewModel : BaseViewModel() {
             recordListLD.postValue(recordList)
         }
     }
-
-
-
-
 
     val detailListLD = MutableLiveData<List<ThermalEntity>>()
 

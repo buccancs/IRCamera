@@ -14,25 +14,27 @@ import com.topdon.module.thermal.fragment.GalleryPictureFragment
 import com.topdon.module.thermal.fragment.GalleryVideoFragment
 
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * Gallery activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class GalleryActivity : BaseActivity() {
     //    override fun providerVMClass() = GalleryViewModel::class.java
 
     private val permissionList by lazy {
-        if (this.applicationInfo.targetSdkVersion >= 34)
-            {
-                listOf(
-                    Manifest.permission.READ_MEDIA_VIDEO,
-                    Manifest.permission.READ_MEDIA_IMAGES,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else if (this.applicationInfo.targetSdkVersion >= 33)
-            {
-                mutableListOf(
-                    Manifest.permission.READ_MEDIA_VIDEO,
-                    Manifest.permission.READ_MEDIA_IMAGES,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                )
-            } else {
+        if (this.applicationInfo.targetSdkVersion >= 34) {
+            listOf(
+                Manifest.permission.READ_MEDIA_VIDEO,
+                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            )
+        } else if (this.applicationInfo.targetSdkVersion >= 33) {
+            mutableListOf(
+                Manifest.permission.READ_MEDIA_VIDEO,
+                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            )
+        } else {
             mutableListOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -66,7 +68,7 @@ class GalleryActivity : BaseActivity() {
             fm,
             BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
         ) {
-            titles = arrayOf("图片", "视频")
+            titles = arrayOf("image", "video")
         }
 
         override fun getCount(): Int {

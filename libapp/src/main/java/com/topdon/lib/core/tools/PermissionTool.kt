@@ -15,7 +15,7 @@ import com.topdon.lms.sdk.weiget.TToast
 
 object PermissionTool {
     /**
-     * 请求 RECORD_AUDIO 权限.
+     * 请求 RECORD_AUDIO Permission.
      */
     fun requestRecordAudio(
         context: Context,
@@ -23,7 +23,7 @@ object PermissionTool {
     ) = request(context, Type.RECORD_AUDIO, callback)
 
     /**
-     * 请求 CAMERA 权限.
+     * 请求 CAMERA Permission.
      */
     fun requestCamera(
         context: Context,
@@ -31,7 +31,7 @@ object PermissionTool {
     ) = request(context, Type.CAMERA, callback)
 
     /**
-     * 请求 ACCESS_FINE_LOCATION 权限.
+     * 请求 ACCESS_FINE_LOCATION Permission.
      */
     fun requestLocation(
         context: Context,
@@ -39,7 +39,7 @@ object PermissionTool {
     ) = request(context, Type.LOCATION, callback)
 
     /**
-     * 请求 图片读取 权限.
+     * 请求 image读取 Permission.
      */
     fun requestImageRead(
         context: Context,
@@ -47,11 +47,11 @@ object PermissionTool {
     ) = request(context, Type.IMAGE, callback)
 
     /**
-     * Android 10 及以下：请求外部存储文件读、写权限
+     * Android 10 及以下：请求外部storagefile读、写Permission
      *
-     * Android 11、Android 12、Android 12L：请求外部存储读权限
+     * Android 11、Android 12、Android 12L：请求外部storage读Permission
      *
-     * Android 13 及以上：请求媒体-视频、媒体-图片权限
+     * Android 13 及以上：请求媒体-video、媒体-imagePermission
      */
     fun requestFile(
         context: Context,
@@ -136,8 +136,8 @@ object PermissionTool {
     }
 
     /**
-     * 仅当 Android12 及以上版本时，请求 BLUETOOTH_SCAN、BLUETOOTH_CONNECT 权限
-     * @param isBtFirst true-永久拒绝时优先提示蓝牙 false-永久拒绝时优先提示定位
+     * 仅当 Android12 及以上version时，请求 BLUETOOTH_SCAN、BLUETOOTH_CONNECT Permission
+     * @param isBtFirst true-永久拒绝时优先tipbluetooth false-永久拒绝时优先tip定位
      */
     fun requestBluetooth(
         context: Context,
@@ -174,7 +174,7 @@ object PermissionTool {
                                     isLocationNever = true
                                 }
                             }
-                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            // 如果是被永久拒绝就跳转到应用Permission系统settings页area
                             TipDialog.Builder(context)
                                 .setTitleMessage(context.getString(R.string.app_tip))
                                 .setMessage(
@@ -199,12 +199,12 @@ object PermissionTool {
 
     interface Callback {
         /**
-         * 未被永久拒绝时，全部授予 或 有部分未授予 回调.
+         * 未被永久拒绝时，全部授予 或 有部分未授予 Callback.
          */
         fun onResult(allGranted: Boolean)
 
         /**
-         * 永久拒绝时，跳转弹框 去打开 或 取消 回调.
+         * 永久拒绝时，跳转弹框 去Open 或 Cancel Callback.
          */
         fun onNever(isJump: Boolean)
     }

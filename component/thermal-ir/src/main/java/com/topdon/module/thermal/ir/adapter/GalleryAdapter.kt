@@ -15,28 +15,31 @@ import com.topdon.lib.core.tools.TimeTool
 import com.topdon.module.thermal.ir.R
 
 /**
- * 照片或视频
+photo或video
+ */
+/**
+ * Custom Gallery view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 @SuppressLint("NotifyDataSetChanged")
 class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     companion object {
         private const val TYPE_HEAD = 0
         private const val TYPE_DATA = 1
     }
 
     /**
-     * 当前显示的数据列表，包含有标题 item.
+当前display的data列表，包含有title item.
      */
     val dataList: ArrayList<GalleryBean> = ArrayList()
 
     /**
-     * 编辑模式下，当前选中的 position 列表.
+编辑mode下，当前selected的 position 列表.
      */
     val selectList: ArrayList<Int> = ArrayList()
 
     /**
-     * 是否为 TS004 远端模式，处于该模式会有下载图标.
+是否为 TS004 远端mode，处于该mode会有Download图标.
      */
     var isTS004Remote = false
         set(value) {
@@ -47,7 +50,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-     * 当前是否处于编辑模式.
+当前是否处于编辑mode.
      */
     var isEditMode = false
         set(value) {
@@ -61,21 +64,21 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
-
     /**
-     * 非编辑模式下 item 长按进入编辑模式事件监听.
+非编辑mode下 item 长按进入编辑modeEventListener.
      */
     var onLongEditListener: (() -> Unit)? = null
+
     /**
-     * 选中数量变更回调.
-     * data 当前选中的 item position 列表
+selected数量变更Callback.
+data 当前selected的 item position 列表
      */
     var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
+
     /**
-     * 非编辑模式时，item 点击事件监听.
+非编辑mode时，item clickEventListener.
      */
     var itemClickCallback: ((position: Int) -> Unit)? = null
-
 
     fun refreshList(newList: List<GalleryBean>) {
         dataList.clear()
@@ -120,7 +123,10 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         return if (viewType == TYPE_HEAD) {
             ItemHeadView(LayoutInflater.from(parent.context).inflate(R.layout.item_gallery_head_lay, parent, false))
         } else {
@@ -128,7 +134,10 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         val data = dataList[position]
         if (holder is ItemView) {
             GlideLoader.load(holder.img, data.thumb)
@@ -191,6 +200,4 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val ivHasDownload: ImageView = itemView.findViewById(R.id.iv_has_download)
         val ivCheck: ImageView = itemView.findViewById(R.id.iv_check)
     }
-
-
 }

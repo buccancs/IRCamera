@@ -19,25 +19,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * 首页操作指引弹框.
+首页操作指引弹框.
  *
  * Created by LCG on 2024/4/8.
  */
+/**
+ * Custom Home guide view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(context, R.style.TransparentDialog) {
-
     /**
-     * 下一步点击事件监听，step：当前处于第`[1,3]`，在该步骤点击的下一步
+下一步clickEventListener，step：当前处于第`[1,3]`，在该步骤click的下一步
      */
     var onNextClickListener: ((step: Int) -> Unit)? = null
 
     /**
-     * 跳过点击事件监听.
+跳过clickEventListener.
      */
     var onSkinClickListener: (() -> Unit)? = null
 
     // Initialize view as class property for coroutine access
     private lateinit var ivBlurBg: ImageView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +91,6 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
             dismiss()
         }
 
-
         tvSkin1.setOnClickListener {
             onSkinClickListener?.invoke()
             dismiss()
@@ -129,7 +130,6 @@ class HomeGuideDialog(context: Context, private val currentStep: Int) : Dialog(c
                     ivBlurBg.setImageBitmap(outputBitmap)
                 }
             } catch (_: Exception) {
-
             }
         }
     }

@@ -26,7 +26,6 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
     private T modelObject;
     private float replenishPercentage;
 
-
     /**
      * Returns the id of the given pool instance.
      *
@@ -205,7 +204,6 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
     public int getPoolCount(){
         return this.objectsPointer + 1;
     }
-
 
     public static abstract class Poolable{
 

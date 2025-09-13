@@ -11,7 +11,7 @@ import com.elvishew.xlog.XLog
  * date: 2024/2/22 17:06S
  **/
 object CommUtils {
-    fun getAppName(): String  {
+    fun getAppName(): String {
         var msg = ""
         var appInfo: ApplicationInfo? = null
         appInfo =
@@ -23,7 +23,7 @@ object CommUtils {
         try {
             msg = appInfo.metaData.getString("app_name")?.toString() ?: ""
         } catch (e: Exception) {
-            XLog.w("获取app名称异常： ${e.message}")
+            XLog.w("Get/Retrieveappnameexception： ${e.message}")
         }
         return msg
     }

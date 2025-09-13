@@ -10,7 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
 
 /**
- * 设置时间
+set时间
+ */
+/**
+ * Custom Setting time view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 class SettingTimeAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -62,6 +66,10 @@ class SettingTimeAdapter(val context: Context) :
         val btn: Button = itemView.findViewById(R.id.item_setting_time_btn)
     }
 
+/**
+ * Custom On item click listener view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     interface OnItemClickListener {
         fun onClick(
             index: Int,

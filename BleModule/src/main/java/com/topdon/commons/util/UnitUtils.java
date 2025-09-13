@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @Desc 单位工具类
+ * @Desc 单位工具class
  * @ClassName UnitUtils
  * @Email 616862466@qq.com
  * @Author 子墨
@@ -24,9 +24,8 @@ import java.util.List;
 
 public class UnitUtils {
 
-
     /**
-     * 根据类型获取单位数据
+     * 根据typeGet/Retrieve单位data
      *
      * @param unitType 0公制  1 英制
      */
@@ -51,9 +50,8 @@ public class UnitUtils {
         }
     }
 
-
     /**
-     * 根据类型获取单位数据
+     * 根据typeGet/Retrieve单位data
      */
     public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap() {
         String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
@@ -62,7 +60,7 @@ public class UnitUtils {
     }
 
     /**
-     * 根据类型获取单位数据
+     * 根据typeGet/Retrieve单位data
      *
      * @param unitType 0公制  1 英制
      */
@@ -79,12 +77,11 @@ public class UnitUtils {
         return hashMap;
     }
 
-
     /**
-     * 计算结果
+     * calculation结果
      *
-     * @param preUnit        转换前单位
-     * @param numericalValue 需要转换得值
+     * @param preUnit        conversion前单位
+     * @param numericalValue 需要conversion得值
      * @return String[] 第一个值 第二个单位
      */
     public static String[] getCalcResult(HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
@@ -93,13 +90,12 @@ public class UnitUtils {
         return getCalcResult(unitType, hashMap, preUnit, numericalValue);
     }
 
-
     /**
-     * 计算结果
+     * calculation结果
      *
-     * @param unitType       当前是选中哪个单位   0 公制  1 英制
-     * @param preUnit        转换前单位
-     * @param numericalValue 需要转换得值
+     * @param unitType       当前是selected哪个单位   0 公制  1 英制
+     * @param preUnit        conversion前单位
+     * @param numericalValue 需要conversion得值
      * @return String[] 第一个值 第二个单位
      */
     public static String[] getCalcResult(int unitType, HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {

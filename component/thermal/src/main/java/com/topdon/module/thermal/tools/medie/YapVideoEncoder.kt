@@ -18,6 +18,10 @@ import kotlin.concurrent.thread
  * @data 2020-07-30
  * @wechat yaphetzhao92
  */
+/**
+ * Yap video encoder utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 class YapVideoEncoder(
     private val IProvider: IYapVideoProvider<Bitmap>,
     private val out: File,
@@ -245,7 +249,7 @@ class YapVideoEncoder(
             try {
                 mediaCodec!!.signalEndOfInputStream()
             } catch (e: Exception) {
-                Log.e("123", "录制错误:${e.message}")
+                Log.e("123", "recordingerror:${e.message}")
                 e.printStackTrace()
             }
         }

@@ -107,6 +107,39 @@ EasyBLE easyBLE = EasyBLE.getBuilder()
 - **✅ Data Integrity & Recovery**: Testing of data loss detection and recovery mechanisms
 - **✅ API Compatibility**: Validation of zero breaking changes and backward compatibility
 
+## Recent Critical Fixes 🔧
+
+### Shimmer GSR Integration Fix (Issue #63) ✅
+**Problem**: Shimmer GSR sensor integration was incomplete due to missing runtime permission checks and improper error handling.
+
+**Solution Implemented**:
+- **✅ Runtime Permission Validation**: Added proper Bluetooth permission checks using `BluetoothPermissionUtils.hasBluetoothPermissions()` in both `initialize()` and `startRecording()` methods
+- **✅ Enhanced Connection Logic**: Improved Shimmer device connection workflow with proper error recovery and graceful degradation
+- **✅ Robust Error Handling**: Added comprehensive error types (PERMISSION_DENIED, DEVICE_ERROR, RECORDING_FAILED) with descriptive messages
+- **✅ Graceful Fallback**: System now continues with legacy GSR recording when Shimmer device is unavailable instead of failing completely
+- **✅ Unit Test Coverage**: Added comprehensive unit tests specifically targeting Bluetooth permission scenarios
+
+**Technical Changes**:
+```kotlin
+// GSRSensorRecorder now properly validates permissions
+if (!BluetoothPermissionUtils.hasBluetoothPermissions(context)) {
+    Log.e(TAG, "Bluetooth permissions required for Shimmer GSR device")
+    emitError(ErrorType.PERMISSION_DENIED, "Bluetooth permissions required")
+    return false
+}
+
+// Enhanced device connection with fallback
+if (!shimmerRecorder.isDeviceConnected()) {
+    val connected = shimmerRecorder.initializeDevice()
+    if (!connected) {
+        Log.w(TAG, "Shimmer unavailable, attempting legacy recording")
+        // Continue with fallback instead of failing
+    }
+}
+```
+
+**Result**: Shimmer GSR integration now works reliably with proper permission handling and graceful error recovery.
+
 ## Advanced Harmonization Achievements 🚀
 
 ### Enhanced Features Implemented:

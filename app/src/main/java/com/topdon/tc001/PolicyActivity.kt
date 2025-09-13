@@ -18,9 +18,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * 条款 1: 用户条款  2: 隐私条款  3: 第三方
+ * Terms and Conditions Activity
+ * 
+ * Displays different types of terms:
+ * 1: User terms  2: Privacy terms  3: Third-party terms
  *
- * 服务返回有错误时,加载默认条款
+ * When service returns an error, loads default terms
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
@@ -28,7 +31,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
 
     companion object {
         const val KEY_THEME_TYPE = "key_theme_type"
-        const val KEY_USE_TYPE = "key_use_type" // 使用类型 用本地和用网络
+        const val KEY_USE_TYPE = "key_use_type" // Usage type: local or network
     }
 
     private var themeType = 1
@@ -63,16 +66,16 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
             // Note: Title text setting is handled by the parent view implementation
             // title_view.setTitleText(themeStr)
         }
-        
+
         // Create a simple ViewModel-like observer pattern since we're using BaseBindingActivity
         observeHtmlData()
-        
+
         if (keyUseType != 0) {
             loadHttpWhenNotInit(binding.policyWeb)
             delayShowWebView()
         }
     }
-    
+
     private fun observeHtmlData() {
         // Since we're not using ViewModel anymore, we'll directly load the data
         // This is a simplified version - in a real scenario you'd want proper MVVM
@@ -84,7 +87,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     }
 
     /**
-     * 为解决闪缩白屏问题，延时打开webView
+     * Delayed WebView display to resolve white screen flashing issue
      */
     private fun delayShowWebView() {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -102,7 +105,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
             loadDefaultContent()
         }
     }
-    
+
     private fun loadDefaultContent() {
         // Load the appropriate content based on theme type
         loadHttp(binding.policyWeb)
@@ -113,7 +116,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     private fun initWeb(url: String) {
         binding.policyWeb.visibility = android.view.View.INVISIBLE
         val webSettings: android.webkit.WebSettings = binding.policyWeb.settings
-        webSettings.javaScriptEnabled = true // 设置支持javascript
+        webSettings.javaScriptEnabled = true // settings支持javascript
 
         binding.policyWeb.webViewClient =
             object : android.webkit.WebViewClient() {
@@ -164,11 +167,11 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
     }
 
     /**
-     * 处理富文本
+     * processing富文本
      *
      * @param bodyHTML body
      * @param fontColor 需要改变的字体颜色
-     * @param backgroundColor 修改字体颜色
+     * @param backgroundColor modify字体颜色
      * @return String
      */
     fun getHtmlData(
@@ -187,7 +190,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
         text: String,
         requestUrl: String,
     ) {
-        XLog.w("声明接口异常,打开默认链接")
+        XLog.w("声明interfaceexception,Open默认链接")
         loadHttp(binding.policyWeb)
         delayShowWebView()
     }
@@ -196,7 +199,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
         reloadCount--
         when (themeType) {
             1 -> {
-                // 用户服务协议
+                // Userserviceprotocol
                 view.loadUrl(
                     "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=21",
                 )
@@ -210,14 +213,14 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
             }
 
             3 -> {
-                // 第三方组件
+                // 第三方component
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }
     }
 
     /**
-     * 加载默认协议网址(英文版)
+     * load默认protocol网址(英文版)
      */
     fun loadHttp(view: android.webkit.WebView) {
         reloadCount--
@@ -226,7 +229,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
                 if (BaseApplication.instance.isDomestic()) {
                     view.loadUrl("file:///android_asset/web/services_agreement_default_inside_china.html")
                 } else {
-                    // 用户服务协议
+                    // Userserviceprotocol
                     view.loadUrl("file:///android_asset/web/services_agreement_default.html")
                 }
             }
@@ -241,7 +244,7 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
             }
 
             3 -> {
-                // 第三方组件
+                // 第三方component
                 view.loadUrl("file:///android_asset/web/third_statement.html")
             }
         }

@@ -18,7 +18,7 @@ import com.topdon.lib.core.db.entity.ItemDetect
 @Dao
 abstract class HouseDetectDao {
     /**
-     * 按指定的信息新建一个检测数据，目录及项目使用默认值.
+     * 按指定的info新建一个检测data，目录及项目使用默认值.
      */
     @Transaction
     open fun insert(houseDetect: HouseDetect): Long {
@@ -69,7 +69,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 查询指定 id 的目录信息，注意目录对应的检测信息未加载.
+     * 查询指定 id 的目录info，注意目录对应的检测info未load.
      */
     open fun queryDir(dirId: Long): DirDetect? {
         val dir: DirDetect = queryDirById(dirId) ?: return null
@@ -82,14 +82,14 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 根据指定的房屋检测信息，刷新对应的目录信息.
+     * 根据指定的房屋检测info，refresh对应的目录info.
      */
     open fun refreshDetect(houseDetect: HouseDetect) {
         val oldDirList: ArrayList<DirDetect> = ArrayList(queryDirList(houseDetect.id))
         for (i in houseDetect.dirList.indices) {
             val dir = houseDetect.dirList[i]
             dir.position = i
-            if (dir.id == 0L) { // 复制的目录
+            if (dir.id == 0L) { // copy的目录
                 dir.id = insertDir(dir)
                 for (item in dir.itemList) {
                     item.parentId = dir.id
@@ -107,18 +107,18 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 根据指定的目录信息，更新目录及对应的项目列表.
+     * 根据指定的目录info，update目录及对应的项目列表.
      */
     open fun refreshDir(dirDetect: DirDetect) {
         if (dirDetect.itemList.isEmpty()) { // 所有子项目都没了，这个目录也干掉
             deleteDir(dirDetect)
         } else {
-            updateDir(dirDetect) // 更新目录名称及数量
+            updateDir(dirDetect) // update目录name及数量
             val oldItemList: ArrayList<ItemDetect> = ArrayList(queryItemList(dirDetect.id))
             for (i in dirDetect.itemList.indices) {
                 val item = dirDetect.itemList[i]
                 item.position = i
-                if (item.id == 0L) { // 复制的项目
+                if (item.id == 0L) { // copy的项目
                     item.id = insertItem(item)
                 } else {
                     updateItem(item)
@@ -132,7 +132,7 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 复制一个检测，注意由于在列表中触发，列表不需要目录及项目，故而返回值中的目录及项目未加载
+     * copy一个检测，注意由于在列表中触发，列表不需要目录及项目，故而Return值中的目录及项目未load
      */
     @Transaction
     open fun copyDetect(oldDetect: HouseDetect): HouseDetect {
@@ -154,26 +154,26 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 将指定 position 位置的目录复制一份
+     * 将指定 position 位置的目录copy一份
      */
     @Transaction
     open fun copyDir(
         dirList: ArrayList<DirDetect>,
         position: Int,
     ): DirDetect {
-        // 复制位置后面所有目录 position 需偏移一位
+        // copy位置后area所有目录 position 需偏移一位
         for (i in position + 1 until dirList.size) {
             val dir: DirDetect = dirList[i]
             dir.position += 1
             updateDir(dir)
         }
 
-        // 添加复制的目录
+        // addcopy的目录
         val oldDir = dirList[position]
         val newDir = oldDir.copyOne()
         newDir.id = insertDir(newDir)
 
-        // 添加复制的目录下的项目列表
+        // addcopy的目录下的项目列表
         for (item in newDir.itemList) {
             item.parentId = newDir.id
             item.id = insertItem(item)
@@ -183,26 +183,26 @@ abstract class HouseDetectDao {
     }
 
     /**
-     * 将指定 position 位置的项目复制一份
+     * 将指定 position 位置的项目copy一份
      */
     @Transaction
     open fun copyItem(
         itemList: ArrayList<ItemDetect>,
         position: Int,
     ): ItemDetect {
-        // 复制位置后面所有项目 position 需偏移一位
+        // copy位置后area所有项目 position 需偏移一位
         for (i in position + 1 until itemList.size) {
             val item: ItemDetect = itemList[i]
             item.position += 1
             updateItem(item)
         }
 
-        // 添加复制的项目
+        // addcopy的项目
         val oldItem = itemList[position]
         val newItem = oldItem.copyOne(position = oldItem.position + 1, itemName = oldItem.copyName())
         newItem.id = insertItem(newItem)
 
-        // 复制后目录里的3个数量可能需要刷新
+        // copy后目录里的3个数量可能需要refresh
         if (newItem.state > 0) {
             val dir = newItem.dirDetect
             when (newItem.state) {
@@ -243,7 +243,7 @@ abstract class HouseDetectDao {
     abstract fun updateItem(vararg itemDetect: ItemDetect)
 
     /**
-     * 仅查询所有检测列表信息，注意每个检测下的目录均未加载.
+     * 仅查询所有检测列表info，注意每个检测下的目录均未load.
      */
     @Query("SELECT * FROM HouseDetect ORDER BY createTime DESC")
     abstract fun queryAll(): List<HouseDetect>

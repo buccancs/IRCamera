@@ -25,7 +25,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class AppHolder implements Application.ActivityLifecycleCallbacks {
     //正在运行的Activity
     private final List<RunningActivity> runningActivities = new CopyOnWriteArrayList<>();
-    //是否完全退出
+    //是否完全Exit
     private boolean isCompleteExit = false;
     private Application application;
     private Looper mainLooper;
@@ -33,7 +33,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
     private AppHolder() {
         mainLooper = Looper.getMainLooper();
-        //尝试获取application
+        //尝试Get/Retrieveapplication
         application = tryGetApplication();
         if (application != null) {
             application.registerActivityLifecycleCallbacks(this);
@@ -143,7 +143,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     
     public static void initialize(@NonNull Application application) {
         Objects.requireNonNull(application, "application is null");
-        //如果自动获取的和传入的不是同一个Application，重新注册生命周期监听
+        //如果自动Get/Retrieve的和传入的不是同一个Application，重新Register生命周期Listener
         if (Holder.INSTANCE.application != null && Holder.INSTANCE.application != application) {
             Holder.INSTANCE.application.unregisterActivityLifecycleCallbacks(Holder.INSTANCE);
             application.registerActivityLifecycleCallbacks(Holder.INSTANCE);
@@ -228,9 +228,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * finish掉除参数外的所有Activity
+     * finish掉除parameter外的所有Activity
      *
-     * @param classNames 此Activity的类名，如果是null将finish所有Activity
+     * @param classNames 此Activity的class名，如果是null将finish所有Activity
      */
     public void finishAllWithout(@Nullable String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -256,7 +256,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     /**
      * 退回到指定Activity
      *
-     * @param className 完整类名
+     * @param className 完整class名
      */
     public void backTo(String className) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -299,7 +299,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * finish所有Activity后杀死进程
+     * finish所有Activity后杀死process
      */
     public void completeExit() {
         isCompleteExit = true;

@@ -10,6 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.topdon.module.thermal.R
 
+/**
+ * Custom Setting check view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 class SettingCheckAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var datas = arrayOf("1s", "5s", "10s", "30s", "1min", "5min")
@@ -46,7 +50,7 @@ class SettingCheckAdapter(val context: Context) :
                 holder.btn.setTextColor(ContextCompat.getColor(context, com.topdon.lib.core.R.color.font_third_color))
             }
             holder.btn.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
+                Log.w("123", "file: ${datas[position]}")
                 listener?.onClick(position, dataTimes[position])
             }
         }
@@ -60,6 +64,10 @@ class SettingCheckAdapter(val context: Context) :
         val btn: Button = itemView.findViewById(R.id.item_setting_check_btn)
     }
 
+/**
+ * Custom On item click listener view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
     interface OnItemClickListener {
         fun onClick(
             index: Int,

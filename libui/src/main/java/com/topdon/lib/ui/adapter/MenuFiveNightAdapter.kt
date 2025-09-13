@@ -17,12 +17,25 @@ import com.topdon.lib.ui.bean.TemperatureBean
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("旧的温度档位菜单，已重构过了")
+/**
+ * Custom Menu five night view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+@Deprecated("旧的temperature levelmenu，已重构过了")
+/**
+ * MenuFiveNightAdapter provides data binding between data source and UI components.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onTempLevelListener: ((index: Int) -> Unit)? = null
 
     private var selectedCode = SaveSettingUtil.temperatureMode
 
+    /**
+     * Executes selected functionality.
+     */
     fun selected(code: Int) {
         selectedCode = code
         notifyDataSetChanged()
@@ -115,7 +128,7 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏可见的 item 数量，目前都是全都显示完
+//            val canSeeCount = itemCount.toFloat() //一屏Visible的 item quantity，目前都是全都Show/Display完
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

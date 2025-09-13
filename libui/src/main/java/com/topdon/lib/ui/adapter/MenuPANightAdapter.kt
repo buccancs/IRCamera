@@ -9,7 +9,17 @@ import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 
-@Deprecated("旧的双光菜单，已重构过了")
+/**
+ * Menu p a night adapter for thermal imaging data presentation.
+ * Manages data binding and view recycling for efficient display.
+ */
+@Deprecated("旧的dual lightmenu，已重构过了")
+/**
+ * MenuPANightAdapter provides data binding between data source and UI components.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class MenuPANightAdapter(
     data: MutableList<ColorBean>,
     layoutId: Int,
@@ -21,31 +31,27 @@ class MenuPANightAdapter(
         holder: BaseViewHolder,
         item: ColorBean,
     ) {
-        if (!isDual)
-            {
-                val with = (ScreenUtils.getScreenWidth() / 2)
-                holder.itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
-                val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-                val layoutParams = holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams
-                layoutParams.width = imageSize
-                layoutParams.height = imageSize
-                holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams = layoutParams
-            } else
-            {
-                holder.itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
-                val layoutParams = holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams
-                layoutParams.width = imageSize
-                layoutParams.height = imageSize
-                holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams = layoutParams
-            }
-        if (item.isSelect)
-            {
-                holder.setImageResource(UiR.id.item_menu_tab_img, item.res)
-            } else
-            {
-                holder.setImageResource(UiR.id.item_menu_tab_img, item.n_res)
-            }
+        if (!isDual) {
+            val with = (ScreenUtils.getScreenWidth() / 2)
+            holder.itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
+            val layoutParams = holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams
+            layoutParams.width = imageSize
+            layoutParams.height = imageSize
+            holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams = layoutParams
+        } else {
+            holder.itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()
+            val layoutParams = holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams
+            layoutParams.width = imageSize
+            layoutParams.height = imageSize
+            holder.itemView.findViewById<android.widget.ImageView>(UiR.id.item_menu_tab_img).layoutParams = layoutParams
+        }
+        if (item.isSelect) {
+            holder.setImageResource(UiR.id.item_menu_tab_img, item.res)
+        } else {
+            holder.setImageResource(UiR.id.item_menu_tab_img, item.n_res)
+        }
         holder.setText(UiR.id.item_menu_tab_text, item.name)
         holder.itemView.setOnClickListener(
             object : SingleClickListener() {

@@ -9,32 +9,34 @@ import android.widget.ScrollView
 import androidx.lifecycle.lifecycleScope
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.FileConfig
-import com.topdon.lib.core.config.RouterConfig
+import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.FileTools
 import com.topdon.lib.core.tools.GlideLoader
-import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.view.TitleView
 import com.topdon.libcom.PDFHelp
+import com.topdon.module.thermal.ir.R
+import com.topdon.module.thermal.ir.report.bean.ReportBean
 import com.topdon.module.thermal.ir.report.view.ReportIRShowView
 import com.topdon.module.thermal.ir.report.view.ReportInfoView
 import com.topdon.module.thermal.ir.report.view.WatermarkView
-import com.topdon.module.thermal.ir.R
-import com.topdon.module.thermal.ir.report.bean.ReportBean
-import com.topdon.lib.core.R as LibCoreR
-import com.topdon.lib.ui.R as UiR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import com.topdon.lib.core.R as LibCoreR
+import com.topdon.lib.ui.R as UiR
 
 /**
- * 报告详情界面.
+report详情interface.
  *
- * 需要传递
- * - 一份报告所有信息 [ExtraKeyConfig.REPORT_BEAN]
+需要传递
+- 一份report所有info [ExtraKeyConfig.REPORT_BEAN]
  */
 // Legacy ARouter route annotation - now using NavigationManager
-class ReportDetailActivity: BaseActivity() {
-
+/**
+ * Report detail activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
+class ReportDetailActivity : BaseActivity() {
     // View declarations
     private lateinit var titleView: TitleView
     private lateinit var scrollView: ScrollView
@@ -43,15 +45,14 @@ class ReportDetailActivity: BaseActivity() {
     private lateinit var watermarkView: WatermarkView
 
     /**
-     * 从上一界面传递过来的，报告所有信息.
+从上一interface传递过来的，report所有info.
      */
     private var reportBean: ReportBean? = null
 
     /**
-     * 当前预览页面已生成的 PDF 文件绝对路径
+当前预览页area已生成的 PDF file绝对path
      */
     private var pdfFilePath: String? = null
-
 
     override fun initContentView() = R.layout.activity_report_detail
 
@@ -106,7 +107,8 @@ class ReportDetailActivity: BaseActivity() {
                 val name = reportBean?.report_info?.report_number
                 if (name != null) {
                     if (File(FileConfig.getPdfDir() + "/$name.pdf").exists() &&
-                        !TextUtils.isEmpty(pdfFilePath)) {
+                        !TextUtils.isEmpty(pdfFilePath)
+                    ) {
                         lifecycleScope.launch {
                             dismissCameraLoading()
                             actionShare()
@@ -114,8 +116,11 @@ class ReportDetailActivity: BaseActivity() {
                         return@launch
                     }
                 }
-                pdfFilePath = PDFHelp.savePdfFileByListView(name?:System.currentTimeMillis().toString(),
-                    scrollView, getPrintViewList(),watermarkView)
+                pdfFilePath =
+                    PDFHelp.savePdfFileByListView(
+                        name ?: System.currentTimeMillis().toString(),
+                        scrollView, getPrintViewList(), watermarkView,
+                    )
                 lifecycleScope.launch {
                     dismissCameraLoading()
                     actionShare()
@@ -136,14 +141,14 @@ class ReportDetailActivity: BaseActivity() {
     }
 
     /**
-     * 获取需要转为 PDF 的所有 View 列表.
-     * 注意：水印 View 不在列表内，需要自行处理.
+get需要转为 PDF 的所有 View 列表.
+注意：watermark View 不在列表内，需要自行processing.
      */
     private fun getPrintViewList(): ArrayList<View> {
         val result = ArrayList<View>()
         result.add(reportInfoView)
         val childCount = llContent.childCount
-        for (i in 0 until  childCount) {
+        for (i in 0 until childCount) {
             val childView = llContent.getChildAt(i)
             if (childView is ReportIRShowView) {
                 result.addAll(childView.getPrintViewList())

@@ -8,6 +8,16 @@ import com.topdon.lib.ui.R as UiR
 /**
  * 自定义HeaderView
  */
+/**
+ * Custom Header view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * HeaderView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class HeaderView : LinearLayout {
     constructor(context: Context) : this(context, null)
 

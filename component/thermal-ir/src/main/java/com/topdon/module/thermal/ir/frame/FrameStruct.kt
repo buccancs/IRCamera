@@ -10,25 +10,25 @@ import com.topdon.lib.core.utils.ByteUtils.toBytes
 import com.topdon.pseudo.bean.CustomPseudoBean
 
 /**
- * 首部结构，数值均为大端
+ * Header structure, all values in big-endian format
  * ```
- * len                 [ 0,  2)    2 byte   首部长度，目前固定为 1024
- * name                [ 2, 18)   16 byte   名称(老数据有叫 TopInfrared 的，现已更名为MPDC4GSR，新的只有TC001、TS001 或 TC007)
- * ver                 [18, 26)    6 byte   APP版本名称(versionName)
- * width               [26, 28)    2 byte   宽 256 或 192(未使用)
- * height              [28, 30)    2 byte   高 256 或 192(未使用)
- * rotate              [30, 32)    2 byte   旋转角度
- * pseudo              [32, 34)    2 byte   伪彩代号
- * initRotate          [34, 36)    2 byte   初始角度(未使用)
- * correctRotate       [36, 38)    2 byte   矫正角度(未使用)
- *                     [38, 81)   44 byte   点线面(未使用，实际全为0的没卵用数据)
+ * len                 [ 0,  2)    2 byte   Header length, currently fixed at 1024
+ * name                [ 2, 18)   16 byte   Device name (legacy data includes TopInfrared, renamed to MPDC4GSR, new devices use TC001, TS001 or TC007)
+ * ver                 [18, 26)    6 byte   APP version name (versionName)
+ * width               [26, 28)    2 byte   Width 256 or 192 (unused)
+ * height              [28, 30)    2 byte   Height 256 or 192 (unused)
+ * rotate              [30, 32)    2 byte   Rotation angle
+ * pseudo              [32, 34)    2 byte   Pseudo-color code
+ * initRotate          [34, 36)    2 byte   Initial rotation angle (unused)
+ * correctRotate       [36, 38)    2 byte   Correction rotation angle (unused)
+ *                     [38, 81)   44 byte   Point/line/area data (unused, actually all zero padding)
  *
  * customPseudoBean    [81,173)  92 byte
- *   colorSize                   81     1 byte   色块数量
- *   selectIndex                 82     1 byte   当前选中色块在列表中 index
- *   colors                [ 83,111)   28 byte   7 个色块颜色值
- *   zAltitudes            [111,118)    7 byte   7 个色块海拔
- *   places                [118,146)   28 byte   7 个色块占比值
+ *   colorSize                   81     1 byte   Number of color blocks
+ *   selectIndex                 82     1 byte   Currently selected color block index in list
+ *   colors                [ 83,111)   28 byte   7 color block color values
+ *   zAltitudes            [111,118)    7 byte   7 color block altitude values
+ *   places                [118,146)   28 byte   7 color block ratio values
  *   isUseCustomPseudo          146     1 byte
  *   maxTemp               [147,151)    4 byte
  *   minTemp               [151,155)    4 byte
@@ -39,48 +39,52 @@ import com.topdon.pseudo.bean.CustomPseudoBean
  *   customRecommendIndex  [168,172)    4 byte
  *   isUseGray                  172     1 byte
  *
- * isShowPseudoBar          173     1 byte   是否显示伪彩条
- * textColor           [174,178)    4 byte   字体颜色值
+ * isShowPseudoBar          173     1 byte   Whether to display pseudo-color bar
+ * textColor           [174,178)    4 byte   Font color value
  *
- * watermarkBean       [178,628)  450 byte   水印信息
- *   isOpen                 178     1 byte   水印是否开启
- *   titleLen          [179,183)    4 byte   水印标题字节数
- *   title             [183,303)  120 byte   水印标题
- *   addressLen        [303,307)    4 byte   水印地址字节数
- *   address           [307,627)  320 byte   水印地址
- *   isAddTime              627     1 byte   水印是否添加时间
+ * watermarkBean       [178,628)  450 byte   Watermark information
+ *   isOpen                 178     1 byte   Whether watermark is enabled
+ *   titleLen          [179,183)    4 byte   Watermark title byte count
+ *   title             [183,303)  120 byte   Watermark title
+ *   addressLen        [303,307)    4 byte   Watermark address byte count
+ *   address           [307,627)  320 byte   Watermark address
+ *   isAddTime              627     1 byte   Whether watermark includes timestamp
  *
- * alarmBean           [628,656)   28 byte   报警信息
- *   isHighOpen             628     1 byte   高温报警是否开启
- *   isLowOpen              629     1 byte   低温报警是否开启
- *   highTemp          [630,634)    4 byte   高温报警温度值，单位摄氏度
- *   lowTemp           [634,638)    4 byte   低温报警温度值，单位摄氏度
- *   isMarkOpen             638     1 byte   区域标记是否开启
- *   highColor         [639,643)    4 byte   高温报警颜色值
- *   lowColor          [643,647)    4 byte   低温报警颜色值
- *   markType          [647,651)    4 byte   区域标记类型 1-描边 2-矩阵
- *   isRingtoneOpen         651     1 byte   报警铃声是否开启
- *   ringtoneType      [652,656)    4 byte   报警铃声类型
- *   gainStatus       [657)    1 byte   //高低增益 1:（低温）高增益 0: 高温（低增益）
- *   textSize         [658,659） 2byte //字号大小
- *   environment      [660,663) 4byte //温度修正参数 ： 环境温度，单位摄氏度
- *   distance      [664,667) 4byte //温度修正参数 ：距离，
- *   radiation      [668,671) 4byte //温度修正参数 ：发射率 环境温度，单位摄氏度
- *   amplify        672     1 byte   //是否开启放大
+ * alarmBean           [628,656)   28 byte   Alarm information
+ *   isHighOpen             628     1 byte   Whether high temperature alarm is enabled
+ *   isLowOpen              629     1 byte   Whether low temperature alarm is enabled
+ *   highTemp          [630,634)    4 byte   High temperature alarm threshold, in Celsius
+ *   lowTemp           [634,638)    4 byte   Low temperature alarm threshold, in Celsius
+ *   isMarkOpen             638     1 byte   Whether area marking is enabled
+ *   highColor         [639,643)    4 byte   High temperature alarm color value
+ *   lowColor          [643,647)    4 byte   Low temperature alarm color value
+ *   markType          [647,651)    4 byte   Area marking type: 1-outline, 2-matrix
+ *   isRingtoneOpen         651     1 byte   Whether alarm ringtone is enabled
+ *   ringtoneType      [652,656)    4 byte   Alarm ringtone type
+ *   gainStatus       [657)    1 byte   High/low gain: 1-(low temp) high gain, 0-high temp (low gain)
+ *   textSize         [658,659) 2 byte   Font size
+ *   environment      [660,663) 4 byte   Temperature correction parameter: ambient temperature, in Celsius
+ *   distance         [664,667) 4 byte   Temperature correction parameter: distance
+ *   radiation        [668,671) 4 byte   Temperature correction parameter: emissivity, in Celsius
+ *   amplify          672     1 byte   Whether amplification is enabled
  * ```
+ */
+/**
+ * Frame struct utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
  */
 class FrameStruct() {
     companion object {
         /**
-         * 数据长度.
+         * Data length.
          */
         private const val SIZE = 1024
 
         /**
-         * 将指定参数的数据转换为数组.
+         * Convert specified parameter data to array format.
          */
         fun toCode(
-            name : String,
+            name: String,
             width: Int,
             height: Int,
             rotate: Int,
@@ -92,12 +96,12 @@ class FrameStruct() {
             textColor: Int,
             watermarkBean: WatermarkBean,
             alarmBean: AlarmBean,
-            gainStatus:Int,
-            textSize:Int,
-            environment:Float,
-            distance : Float,
-            radiation : Float,
-            isAmplify : Boolean
+            gainStatus: Int,
+            textSize: Int,
+            environment: Float,
+            distance: Float,
+            radiation: Float,
+            isAmplify: Boolean,
         ): ByteArray {
             val resultArray = ByteArray(SIZE)
 
@@ -130,7 +134,7 @@ class FrameStruct() {
             resultArray[36] = (correctRotate ushr 8).toByte()
             resultArray[37] = correctRotate.toByte()
 
-            //[81,173)
+            // [81,173)
             val customPseudoArray = customPseudoBean.toByteArray()
             System.arraycopy(customPseudoArray, 0, resultArray, 81, customPseudoArray.size)
 
@@ -151,12 +155,12 @@ class FrameStruct() {
             resultArray[658] = (textSize ushr 8).toByte()
             resultArray[659] = textSize.toByte()
 
-            // 将 Float 转换为 4 字节
+将 Float conversion为 4 字节
             val envBytes = java.nio.ByteBuffer.allocate(4).putFloat(environment).array()
             val distanceBytes = java.nio.ByteBuffer.allocate(4).putFloat(distance).array()
             val radiationBytes = java.nio.ByteBuffer.allocate(4).putFloat(radiation).array()
 
-            // 存储在 resultArray 中，[660, 663)是环境温度，[664, 667)是距离，[668, 671)是发射率
+storage在 resultArray 中，[660, 663)是ambient temperature，[664, 667)是距离，[668, 671)是emissivity
             System.arraycopy(envBytes, 0, resultArray, 660, 4)
             System.arraycopy(distanceBytes, 0, resultArray, 664, 4)
             System.arraycopy(radiationBytes, 0, resultArray, 668, 4)
@@ -180,16 +184,14 @@ class FrameStruct() {
     var textColor = 0xffffffff.toInt()
     var watermarkBean = WatermarkBean()
     var alarmBean = AlarmBean()
-    var gainStatus : Int = 1 // 高低增益 1:低增益 0: 高增益
-    var textSize : Int = SizeUtils.sp2px(14f)
-    var environment : Float = 0f
-    var distance : Float = 0f
-    var radiation : Float = 0f
-    var isAmplify : Boolean = false
+    var gainStatus: Int = 1 // 高低gain 1:低gain 0: 高gain
+    var textSize: Int = SizeUtils.sp2px(14f)
+    var environment: Float = 0f
+    var distance: Float = 0f
+    var radiation: Float = 0f
+    var isAmplify: Boolean = false
 
-
-
-    constructor(data: ByteArray): this() {
+    constructor(data: ByteArray) : this() {
         len = (data[0].toInt() and 0xff shl 8) or (data[1].toInt() and 0xff)
 
         // [2,18)
@@ -237,9 +239,10 @@ class FrameStruct() {
         alarmBean = AlarmBean.loadFromArray(alarmArray)
         gainStatus = data[657].toInt()
         val tmpTextSize = (data[658].toInt() and 0xff shl 8) or (data[659].toInt() and 0xff)
-        if (tmpTextSize >= SizeUtils.sp2px(14f)){
-            textSize = tmpTextSize
-        }
+        if (tmpTextSize >= SizeUtils.sp2px(14f))
+            {
+                textSize = tmpTextSize
+            }
 
         val envBytes = data.copyOfRange(660, 664)
         val distanceBytes = data.copyOfRange(664, 668)
@@ -249,9 +252,7 @@ class FrameStruct() {
         distance = java.nio.ByteBuffer.wrap(distanceBytes).float
         radiation = java.nio.ByteBuffer.wrap(radiationBytes).float
         isAmplify = data[672].toInt() == 1
-
     }
 
     fun isTC007(): Boolean = name == PRODUCT_NAME_TC007
-
 }

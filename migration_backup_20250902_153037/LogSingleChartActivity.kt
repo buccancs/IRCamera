@@ -1,34 +1,34 @@
-//package com.topdon.module.thermal.activity.temp
+// package com.topdon.module.thermal.activity.temp
 //
-//import android.util.Log
-//import androidx.lifecycle.lifecycleScope
-//import androidx.recyclerview.widget.GridLayoutManager
-//import com.alibaba.android.arouter.facade.annotation.Route
-//import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
-//import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
-//import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
-//import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
-//import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
-//import com.github.aachartmodel.aainfographics.aatools.AAGradientColor
-//import com.github.aachartmodel.aainfographics.aatools.AALinearGradientDirection
-//import com.topdon.lib.core.common.SharedManager
-//import com.topdon.lib.core.config.RouterConfig
-//import com.topdon.lib.core.db.AppDatabase
-//import com.topdon.lib.core.db.entity.ThermalEntity
-//import com.topdon.lib.core.ktbase.BaseActivity
-//import com.topdon.module.thermal.R
-//import com.topdon.module.thermal.adapter.SettingTimeAdapter
-//import kotlinx.android.synthetic.main.activity_chart.aa_chart_view
-//import kotlinx.android.synthetic.main.activity_log_chart.*
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.delay
-//import kotlinx.coroutines.launch
+// import android.util.Log
+// import androidx.lifecycle.lifecycleScope
+// import androidx.recyclerview.widget.GridLayoutManager
+// import com.alibaba.android.arouter.facade.annotation.Route
+// import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+// import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
+// import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+// import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
+// import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
+// import com.github.aachartmodel.aainfographics.aatools.AAGradientColor
+// import com.github.aachartmodel.aainfographics.aatools.AALinearGradientDirection
+// import com.topdon.lib.core.common.SharedManager
+// import com.topdon.lib.core.config.RouterConfig
+// import com.topdon.lib.core.db.AppDatabase
+// import com.topdon.lib.core.db.entity.ThermalEntity
+// import com.topdon.lib.core.ktbase.BaseActivity
+// import com.topdon.module.thermal.R
+// import com.topdon.module.thermal.adapter.SettingTimeAdapter
+// import kotlinx.android.synthetic.main.activity_chart.aa_chart_view
+// import kotlinx.android.synthetic.main.activity_log_chart.*
+// import kotlinx.coroutines.Dispatchers
+// import kotlinx.coroutines.delay
+// import kotlinx.coroutines.launch
 //
-///**
-// * 针对单个thermalId显示(用不到)
+// /**
+// * 针对单个thermalIdShow/Display(用不到)
 // */
-//@Route(path = RouterConfig.THERMAL_LOG_SINGLE_CHART)
-//class LogSingleChartActivity : BaseActivity() {
+// @Route(path = RouterConfig.THERMAL_LOG_SINGLE_CHART)
+// class LogSingleChartActivity : BaseActivity() {
 //
 //    val adapter: SettingTimeAdapter by lazy { SettingTimeAdapter(this) }
 //
@@ -89,12 +89,12 @@
 //            .backgroundColor("#3598E8")
 //            .yAxisTitle("")
 //            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)//坐标点是否显示值
+//            .dataLabelsEnabled(false)//坐标point是否Show/Display值
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
-////            .gradientColorEnable(true)
-////            .colorsTheme(arrayOf("#FFFFFF", "#000000"))
-////            .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))
+// //            .gradientColorEnable(true)
+// //            .colorsTheme(arrayOf("#FFFFFF", "#000000"))
+// //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(10).minHeight(10))
 //            .xAxisVisible(true)
 //            .yAxisVisible(true)
 //            .series(
@@ -103,12 +103,12 @@
 //                        .name("vol")
 //                        .lineWidth(2f)
 //                        .data(arrayOf(0))
-//                        .color("#FFFFFF")//曲线颜色
+//                        .color("#FFFFFF")//曲line颜色
 //                )
 //            )
 //    }
 //
-//    val defaultCount = 20//默认显示10个数
+//    val defaultCount = 20//默认Show/Display10个数
 //    val startIndex = 0f
 //    var pointIndex = startIndex - defaultCount
 //
@@ -122,7 +122,7 @@
 //        val series = initSeries()
 //        val chart = AAChart()
 //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(20)).backgroundColor("#383d45")
-//            .type(AAChartType.Area)//曲线类型
+//            .type(AAChartType.Area)//曲linetype
 //
 //        val xAxis = AAXAxis()
 //            .lineWidth(1f)
@@ -130,28 +130,28 @@
 //            .gridLineColor("#717a8f")
 //            .lineColor("#717a8f")
 //            .tickColor("#717a8f")//刻度颜色
-//            .minRange(9)//设置滚动时，最小宽度
+//            .minRange(9)//settings滚动时，最小宽度
 //            .minorTickColor("#000000")
-//            .labels(AALabels().style(AAStyle.style("#717a8f")))//标尺文字
+//            .labels(AALabels().style(AAStyle.style("#717a8f")))//标尺text
 //
 //        val yAxis = AAYAxis()
 //            .lineWidth(1f)
 //            .gridLineWidth(1f)
 //            .gridLineColor("#454b56")
 //            .lineColor("#383d45")
-////            .max(100f)//设置最大y值
-//            .min(0f)//设置最小y值
+// //            .max(100f)//settings最大y值
+//            .min(0f)//settings最小y值
 //            .labels(AALabels().style(AAStyle.style("#717a8f")))
-//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))//不显示
+//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))//不Show/Display
 //
 //        //初始图表样式
 //        options.series(series).chart(chart).xAxis(xAxis).yAxis(yAxis)
-//        //初始数据
+//        //初始data
 //        aa_chart_view.aa_drawChartWithChartOptions(options)
 //    }
 //
 //    /**
-//     * 初始化曲线三种类型曲线
+//     * initialization曲line三种type曲line
 //     */
 //    private fun initSeries(): Array<AASeriesElement> {
 //        val maxTempListData = Array<Any>(dataList.size) { dataList[it].thermalMax }
@@ -223,4 +223,4 @@
 //
 //    }
 //
-//}
+// }

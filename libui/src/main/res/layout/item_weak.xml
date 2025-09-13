@@ -21,7 +21,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         android:visibility="visible"
-        tools:text="拍照" />
+        tools:text="capture" />
 
 
 </LinearLayout>

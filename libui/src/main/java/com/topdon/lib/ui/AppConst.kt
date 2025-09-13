@@ -1,9 +1,13 @@
 package com.topdon.lib.ui
 
 /**
- * app全局公共参数
+ * app全局公共parameter
  * @author: CaiSongL
  * @date: 2023/12/22 11:08
+ */
+/**
+ * App const utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
  */
 object AppConst {
     /**

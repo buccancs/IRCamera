@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -28,7 +28,7 @@ import com.github.gzuliyujiang.wheelpicker.widget.LinkageWheelLayout;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
 
 /**
- * 二三级联动选择器
+ * 二三级联动selection器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @see com.github.gzuliyujiang.wheelview.contract.TextProvider

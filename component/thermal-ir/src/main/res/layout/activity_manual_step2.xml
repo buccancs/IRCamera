@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!-- 提示文字 -->
+    <!-- tiptext -->
     <TextView
         android:id="@+id/tv_tips"
         android:layout_width="0dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_view" />
 
-    <!-- 提示图片 -->
+    <!-- tipimage -->
     <ImageView
         android:id="@+id/iv_tips"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tips" />
 
-    <!-- 拍照或确认 -->
+    <!-- 拍照或Confirm -->
     <TextView
         android:id="@+id/tv_photo_or_confirm"
         android:layout_width="0dp"
@@ -121,7 +121,7 @@
         app:layout_constraintBottom_toTopOf="@id/ll_seek_bar">
 
 
-        <!-- 双光融合图层 -->
+        <!-- dual lightfusion图层 -->
         <SurfaceView
             android:id="@+id/dualTextureView"
             android:layout_width="match_parent"

@@ -33,7 +33,6 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      */
     private boolean mDrawValueAboveBar = true;
 
-
     /**
      * flag that indicates whether the highlight should be full-bar oriented, or single-value?
      */
@@ -177,7 +176,6 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     public void setDrawValueAboveBar(boolean enabled) {
         mDrawValueAboveBar = enabled;
     }
-
 
     /**
      * If set to true, a grey area is drawn behind each bar that indicates the

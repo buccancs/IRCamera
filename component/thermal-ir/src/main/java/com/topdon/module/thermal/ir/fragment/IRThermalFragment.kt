@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.view.View
-import androidx.core.os.postDelayed
 import androidx.core.view.isVisible
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -12,26 +11,29 @@ import com.blankj.utilcode.util.AppUtils
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.BaseApplication
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.config.RouterConfig
-import com.topdon.lib.core.ktbase.BaseFragment
-import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.lib.core.dialog.TipDialog
-import com.topdon.lib.core.utils.CommUtils
+import com.topdon.lib.core.ktbase.BaseFragment
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.lib.core.socket.WebSocketProxy
+import com.topdon.lib.core.tools.DeviceTools
+import com.topdon.lib.core.utils.CommUtils
 import com.topdon.lib.core.utils.NetWorkUtils
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.activity.IRThermalNightActivity
 import com.topdon.module.thermal.ir.activity.IRThermalPlusActivity
 
+/**
+ * I r thermal fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
+ */
 class IRThermalFragment : BaseFragment(), View.OnClickListener {
-
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+从上一interface传递过来的，当前是否为 TC007 devicetype.
+true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -57,7 +59,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
         animationView = requireView().findViewById(R.id.animation_view)
         clNotConnect = requireView().findViewById(R.id.cl_not_connect)
         clConnect = requireView().findViewById(R.id.cl_connect)
-        
+
         isTC007 = arguments?.getBoolean(ExtraKeyConfig.IS_TC007, false) ?: false
         titleView.setTitleText(if (isTC007) "TC007" else getString(R.string.tc_has_line_device))
 
@@ -78,20 +80,22 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             animationView.setAnimation("TDAnimationJSON.json")
             checkConnect()
         }
-        viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onResume(owner: LifecycleOwner) {
-                // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
-                if (WebSocketProxy.getInstance().isConnected()) {
-                    NetWorkUtils.switchNetwork(true)
-                }else{
-                    NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
+        viewLifecycleOwner.lifecycle.addObserver(
+            object : DefaultLifecycleObserver {
+                override fun onResume(owner: LifecycleOwner) {
+要是当前已connection TS004、TC007，切到流量上，不然LoginRegister意见反馈那些没网
+                    if (WebSocketProxy.getInstance().isConnected()) {
+                        NetWorkUtils.switchNetwork(true)
+                    } else
+                        {
+                            NetWorkUtils.connectivityManager.bindProcessToNetwork(null)
+                        }
                 }
-            }
-        })
+            },
+        )
     }
 
     override fun initData() {
-
     }
 
     override fun onResume() {
@@ -131,14 +135,14 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * 主动检测连接设备
+主动检测connectiondevice
      */
     private fun checkConnect() {
         if (DeviceTools.isConnect(isAutoRequest = false)) {
             connected()
         } else {
             disConnected()
-            if (DeviceTools.findUsbDevice() != null) {//找到设备,但不能连接
+            if (DeviceTools.findUsbDevice() != null) { // 找到device,但不能connection
                 showConnectTip()
             }
         }
@@ -152,9 +156,10 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                 } else {
                     if (DeviceTools.isTC001PlusConnect()) {
                         startActivityForResult(Intent(requireContext(), IRThermalPlusActivity::class.java), 101)
-                    }else if(DeviceTools.isTC001LiteConnect()){
-                        NavigationManager.getInstance().build(RouterConfig.IR_TCLITE).navigation(requireActivity(),101)
-                    } else if (DeviceTools.isHikConnect()) {
+                    } else if (DeviceTools.isTC001LiteConnect())
+                        {
+                            NavigationManager.getInstance().build(RouterConfig.IR_TCLITE).navigation(requireActivity(), 101)
+                        } else if (DeviceTools.isHikConnect()) {
                         NavigationManager.getInstance().build(RouterConfig.IR_HIK_MAIN).navigation(requireActivity())
                     } else {
                         startActivityForResult(Intent(requireContext(), IRThermalNightActivity::class.java), 101)
@@ -163,7 +168,7 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             }
             tvMainEnter -> {
                 if (!DeviceTools.isConnect()) {
-                    //没有接入设备不需要提示，有系统授权提示框
+没有接入device不需要tip，有系统Authorizationtip框
                     if (DeviceTools.findUsbDevice() == null) {
                         activity?.let {
                             TipDialog.Builder(it)
@@ -173,43 +178,53 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
                         }
                     } else {
                         XXPermissions.with(this)
-                            .permission(listOf(
-                                Permission.CAMERA
-                            ))
-                            .request(object : OnPermissionCallback {
-                                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
-                                    if (allGranted) {
-                                        showConnectTip()
-                                    }
-                                }
-
-                                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
-                                    if (doNotAskAgain) {
-                                        //拒绝授权并且不再提醒
-                                        context?.let {
-                                            TipDialog.Builder(it)
-                                                .setTitleMessage(getString(R.string.app_tip))
-                                                .setMessage(getString(R.string.app_camera_content))
-                                                .setPositiveListener(R.string.app_open) {
-                                                    AppUtils.launchAppDetailsSettings()
-                                                }
-                                                .setCancelListener(R.string.app_cancel) {
-                                                }
-                                                .setCanceled(true)
-                                                .create().show()
+                            .permission(
+                                listOf(
+                                    Permission.CAMERA,
+                                ),
+                            )
+                            .request(
+                                object : OnPermissionCallback {
+                                    override fun onGranted(
+                                        permissions: MutableList<String>,
+                                        allGranted: Boolean,
+                                    ) {
+                                        if (allGranted) {
+                                            showConnectTip()
                                         }
                                     }
-                                }
-                            })
+
+                                    override fun onDenied(
+                                        permissions: MutableList<String>,
+                                        doNotAskAgain: Boolean,
+                                    ) {
+                                        if (doNotAskAgain) {
+拒绝Authorization并且不再提醒
+                                            context?.let {
+                                                TipDialog.Builder(it)
+                                                    .setTitleMessage(getString(R.string.app_tip))
+                                                    .setMessage(getString(R.string.app_camera_content))
+                                                    .setPositiveListener(R.string.app_open) {
+                                                        AppUtils.launchAppDetailsSettings()
+                                                    }
+                                                    .setCancelListener(R.string.app_cancel) {
+                                                    }
+                                                    .setCanceled(true)
+                                                    .create().show()
+                                            }
+                                        }
+                                    }
+                                },
+                            )
                     }
                 }
             }
-            cl07ConnectTips -> {//TC007 连接提示
+            cl07ConnectTips -> { // TC007 connectiontip
                 NavigationManager.getInstance().build(RouterConfig.IR_CONNECT_TIPS)
                     .withBoolean(ExtraKeyConfig.IS_TC007, true)
                     .navigation(requireContext())
             }
-            tv07Connect -> {//TC007 连接设备
+            tv07Connect -> { // TC007 connectiondevice
                 NavigationManager.getInstance()
                     .build(RouterConfig.IR_DEVICE_ADD)
                     .withBoolean("isTS004", false)
@@ -221,9 +236,10 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     private var tipConnectDialog: TipDialog? = null
 
     private var isCancelUpdateVersion = false
-    // 针对android10 usb连接问题,提供android 27版本
+
+针对android10 usbconnection问题,提供android 27version
     private fun showConnectTip() {
-        // targetSdk高于27且android os为10
+targetSdk高于27且android os为10
         if (requireContext().applicationInfo.targetSdkVersion >= Build.VERSION_CODES.P &&
             Build.VERSION.SDK_INT == Build.VERSION_CODES.Q
         ) {
@@ -233,38 +249,41 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
             if (tipConnectDialog != null && tipConnectDialog!!.isShowing) {
                 return
             }
-            tipConnectDialog = TipDialog.Builder(requireContext())
-                .setMessage(getString(R.string.tip_target_sdk))
-                .setPositiveListener(R.string.app_confirm) {
-                    val url = "https://www.topdon.com/pages/pro-down?fuzzy=TS001"
-                    val intent = Intent()
-                    intent.action = "android.intent.action.VIEW"
-                    intent.data = Uri.parse(url)
-                    startActivity(intent)
-                }.setCancelListener(R.string.app_cancel, {
-                    isCancelUpdateVersion = true
-                })
-                .create()
+            tipConnectDialog =
+                TipDialog.Builder(requireContext())
+                    .setMessage(getString(R.string.tip_target_sdk))
+                    .setPositiveListener(R.string.app_confirm) {
+                        val url = "https://www.topdon.com/pages/pro-down?fuzzy=TS001"
+                        val intent = Intent()
+                        intent.action = "android.intent.action.VIEW"
+                        intent.data = Uri.parse(url)
+                        startActivity(intent)
+                    }.setCancelListener(R.string.app_cancel, {
+                        isCancelUpdateVersion = true
+                    })
+                    .create()
             tipConnectDialog?.show()
         }
     }
 
     private fun checkStoragePermission() {
-        val permissionList: List<String> = if (activity?.applicationInfo?.targetSdkVersion!! >= 34){
-            listOf(
-                Permission.READ_MEDIA_VIDEO,
-                Permission.READ_MEDIA_IMAGES,
-                Permission.WRITE_EXTERNAL_STORAGE
-            )
-        } else if (activity?.applicationInfo?.targetSdkVersion!! >= 33) {
-            listOf(
-                Permission.READ_MEDIA_VIDEO,
-                Permission.READ_MEDIA_IMAGES,
-                Permission.WRITE_EXTERNAL_STORAGE
-            )
-        } else {
-            listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
-        }
+        val permissionList: List<String> =
+            if (activity?.applicationInfo?.targetSdkVersion!! >= 34)
+                {
+                    listOf(
+                        Permission.READ_MEDIA_VIDEO,
+                        Permission.READ_MEDIA_IMAGES,
+                        Permission.WRITE_EXTERNAL_STORAGE,
+                    )
+                } else if (activity?.applicationInfo?.targetSdkVersion!! >= 33) {
+                listOf(
+                    Permission.READ_MEDIA_VIDEO,
+                    Permission.READ_MEDIA_IMAGES,
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                )
+            } else {
+                listOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
+            }
 
         if (!XXPermissions.isGranted(requireContext(), permissionList)) {
             if (BaseApplication.instance.isDomestic()) {
@@ -286,12 +305,8 @@ class IRThermalFragment : BaseFragment(), View.OnClickListener {
     }
 
     /**
-     * 动态申请权限
+动态申请Permission
      */
     private fun initStoragePermission(permissionList: List<String>) {
-
     }
-
-
-
 }

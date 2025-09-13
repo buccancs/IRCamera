@@ -72,7 +72,6 @@ public class LegendRenderer extends Renderer {
         return mLegendFormPaint;
     }
 
-
     protected List<LegendEntry> computedEntries = new ArrayList<>(16);
 
     /**

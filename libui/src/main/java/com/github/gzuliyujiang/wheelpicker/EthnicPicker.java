@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 民族选择器
+ * 民族selection器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2021/6/12 13:50
@@ -166,7 +166,7 @@ public class EthnicPicker extends OptionPicker {
             case EthnicSpec.SEVENTH_NATIONAL_CENSUS:
                 EthnicEntity unrecognized = new EthnicEntity();
                 unrecognized.setCode("97");
-                unrecognized.setName("未定族称人口");
+                unrecognized.setName("未定族称human口");
                 unrecognized.setSpelling("Unrecognized");
                 data.add(unrecognized);
                 EthnicEntity naturalization = new EthnicEntity();

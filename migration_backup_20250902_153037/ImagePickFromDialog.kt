@@ -12,15 +12,14 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_image_pick_from.view.*
 
 /**
- * 房屋检测 - 房屋图片拾取来源选择弹框.
+ * 房屋检测 - 房屋image拾取来源selection弹框.
  *
  * Created by LCG on 2024/1/23.
  */
 class ImagePickFromDialog(private val context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
-
     /**
-     * 拾取事件监听.
-     * 0-相册 1-可见光相机 2-热成像相机
+     * 拾取EventListener.
+     * 0-相册 1-visible lightcamera 2-thermal imagingcamera
      */
     private var onSelectListener: ((type: Int) -> Unit)? = null
 
@@ -46,8 +45,8 @@ class ImagePickFromDialog(private val context: Context) : Dialog(context, R.styl
     }
 
     /**
-     * 设置拾取事件监听.
-     * 0-相册 1-可见光相机 2-热成像相机
+     * settings拾取EventListener.
+     * 0-相册 1-visible lightcamera 2-thermal imagingcamera
      */
     fun setSelectListener(l: ((type: Int) -> Unit)): ImagePickFromDialog {
         this.onSelectListener = l
@@ -56,11 +55,11 @@ class ImagePickFromDialog(private val context: Context) : Dialog(context, R.styl
 
     override fun onClick(v: View?) {
         when (v) {
-            contentView.tv_gallery -> {//从相册获取
+            contentView.tv_gallery -> { // 从相册Get/Retrieve
                 dismiss()
                 onSelectListener?.invoke(0)
             }
-            contentView.tv_light_camera -> {//相机拍照
+            contentView.tv_light_camera -> { // camera拍照
                 dismiss()
                 onSelectListener?.invoke(1)
             }

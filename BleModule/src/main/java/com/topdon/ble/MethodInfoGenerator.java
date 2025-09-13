@@ -1,10 +1,8 @@
 package com.topdon.ble;
 
-
 import com.topdon.commons.poster.MethodInfo;
 
 import java.util.UUID;
-
 
 /**
  * date: 2019/8/4 08:14

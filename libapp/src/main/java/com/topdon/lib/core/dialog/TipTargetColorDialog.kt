@@ -17,11 +17,23 @@ import com.topdon.lib.core.utils.ScreenUtil
 /**
  * 观测-标靶颜色
  */
+/**
+ * TipTargetColorDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class TipTargetColorDialog : Dialog {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
+/**
+ * Builder manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     class Builder {
         var dialog: TipTargetColorDialog? = null
         private var context: Context? = null
@@ -52,10 +64,16 @@ class TipTargetColorDialog : Dialog {
             return this
         }
 
+    /**
+     * Executes dismiss functionality.
+     */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
+    /**
+     * Creates and configures a new  instance.
+     */
         fun create(): TipTargetColorDialog {
             if (dialog == null) {
                 dialog = TipTargetColorDialog(context!!, R.style.InfoDialog)
@@ -84,13 +102,13 @@ class TipTargetColorDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    
                     0.90
                 } else {
-                    // 横屏
+                    
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() 
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

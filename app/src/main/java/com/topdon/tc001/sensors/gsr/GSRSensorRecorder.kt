@@ -1,6 +1,7 @@
 package com.topdon.tc001.sensors.gsr
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.util.Log
 import com.topdon.tc001.sensors.*
 import kotlinx.coroutines.*
@@ -46,9 +47,8 @@ import com.shimmerresearch.android.manager.ShimmerBluetoothManagerAndroid
 class GSRSensorRecorder(
     private val context: Context,
     override val sensorId: String = "gsr_shimmer_1",
-    private val samplingRateHz: Int = 128
+    private val samplingRateHz: Int = 128,
 ) : SensorRecorder {
-
     companion object {
         private const val TAG = "GSRSensorRecorder"
         private const val GSR_DATA_FILENAME = "gsr_data.csv"
@@ -66,7 +66,7 @@ class GSRSensorRecorder(
 
     override val sensorType: String = "GSR Shimmer3"
     override val samplingRate: Double = samplingRateHz.toDouble()
-    
+
     private var _isRecording = AtomicBoolean(false)
     override val isRecording: Boolean get() = _isRecording.get()
 
@@ -230,7 +230,11 @@ class GSRSensorRecorder(
         }
     }
 
-    override suspend fun addSyncMarker(markerType: String, timestampNs: Long, metadata: Map<String, String>) {
+    override suspend fun addSyncMarker(
+        markerType: String,
+        timestampNs: Long,
+        metadata: Map<String, String>,
+    ) {
         try {
             val timestampMs = timestampNs / 1_000_000
             val metadataString = metadata.entries.joinToString(", ") { "${it.key}=${it.value}" }
@@ -248,6 +252,111 @@ class GSRSensorRecorder(
         } catch (e: Exception) {
             Log.w(TAG, "Failed to add GSR sync marker", e)
             emitError(ErrorType.SYNC_FAILED, "GSR sync marker failed: ${e.message}")
+        }
+    }
+
+    /**
+     * Callback for processing GSR samples and streaming to PC hub
+     * This method is called whenever a new GSR sample is available
+     * Enhanced with comprehensive data persistence and cross-sensor timestamp alignment
+     */
+    private fun onGSRSampleReceived(sample: GSRSample) {
+        try {
+            // Update sample count and sequence
+            val currentCount = sampleCount.incrementAndGet()
+            val currentSequence = sampleSequence.incrementAndGet()
+
+            // Update last sample timestamp for monitoring
+            lastSampleTimestamp = TimestampManager.getCurrentTimestampNanos()
+
+            // Convert GSR sample to enhanced persistence format
+            val gsrSampleData =
+                GSRSampleData(
+                    rawValue = sample.rawValue,
+                    microsiemens = sample.gsrValue,
+                    resistanceKohm = calculateResistanceFromGSR(sample.gsrValue),
+                    ppgRawValue = sample.ppgRawValue ?: 0,
+                    ppgFiltered = sample.ppgFiltered ?: 0.0,
+                    heartRateBpm = sample.heartRateBpm ?: 0,
+                    deviceId = sample.deviceId ?: sensorId,
+                    batteryLevel = sample.batteryLevel ?: 100,
+                    signalQuality = sample.signalQuality ?: 100,
+                    samplingRateHz = samplingRateHz,
+                    packetSequence = currentSequence,
+                    participantId = "participant_$currentSessionId",
+                    recordingMode = determineRecordingMode(),
+                )
+
+            // Persist data with enhanced timestamp alignment
+            gsrDataPersistence?.queueDataRecord(gsrSampleData)
+
+            // Stream to PC hub if network streaming is enabled
+            gsrNetworkStreamer?.let { streamer ->
+                if (streamer.isStreaming) {
+                    streamer.addSample(sample)
+                }
+            }
+
+            // Log sample for debugging (reduce frequency for performance)
+            if (currentCount % 100 == 0L) {
+                Log.d(
+                    TAG,
+                    "GSR sample processed: ${sample.gsrValue} µS, Resistance: ${gsrSampleData.resistanceKohm} kΩ ($currentCount total)",
+                )
+
+                // Log persistence statistics periodically
+                gsrDataPersistence?.getStatistics()?.let { stats ->
+                    Log.d(TAG, "Persistence stats - Written: ${stats.samplesWritten}, Pending: ${stats.pendingSamples}")
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Error processing GSR sample", e)
+        }
+    }
+
+    /**
+     * Calculate resistance in kΩ from GSR conductance in µS
+     * Formula: R = 1 / G (where G is in Siemens, R is in Ohms)
+     */
+    private fun calculateResistanceFromGSR(gsrMicrosiemens: Double): Double {
+        return if (gsrMicrosiemens > 0) {
+            1000000.0 / gsrMicrosiemens // Convert µS to kΩ
+        } else {
+            Double.MAX_VALUE // Infinite resistance for zero conductance
+        }
+    }
+
+    /**
+     * Determine current recording mode based on active components
+     */
+    private fun determineRecordingMode(): String {
+        return when {
+            realShimmerGSRRecorder != null && unifiedBleManager != null -> "shimmer_unified_ble"
+            realShimmerGSRRecorder != null -> "shimmer_ble"
+            legacyGSRRecorder != null -> "legacy_gsr"
+            else -> "unknown"
+        }
+    }
+
+    /**
+     * Configure GSR sample callback for real-time streaming
+     * This integrates with the existing GSR recording modules
+     */
+    private fun setupGSRSampleCallback() {
+        try {
+            // Setup callback for Enhanced Shimmer recorder
+            realShimmerGSRRecorder?.setDataCallback { sample ->
+                onGSRSampleReceived(sample)
+            }
+
+            // Setup callback for legacy recorder
+            legacyGSRRecorder?.setDataCallback { sample ->
+                onGSRSampleReceived(sample)
+            }
+
+            Log.i(TAG, "GSR sample callbacks configured for real-time streaming")
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to setup GSR sample callbacks", e)
         }
     }
 
@@ -269,12 +378,13 @@ class GSRSensorRecorder(
     }
 
     override fun getStatusFlow(): Flow<RecordingStatus> = _statusFlow.asSharedFlow()
+
     override fun getErrorFlow(): Flow<SensorError> = _errorFlow.asSharedFlow()
 
     override fun getRecordingStats(): RecordingStats {
         val currentTime = System.nanoTime()
         val sessionDuration = if (recordingStartTime > 0) (currentTime - recordingStartTime) / 1_000_000 else 0L
-        
+
         return RecordingStats(
             sensorId = sensorId,
             isRecording = _isRecording.get(),

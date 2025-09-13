@@ -11,7 +11,7 @@ import com.topdon.lib.ui.R
 import kotlinx.android.synthetic.main.dialog_progress.view.*
 
 /**
- * 带进度条的提示弹框.
+ * 带进度条的tip弹框.
  */
 class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     var max: Int = 100
@@ -26,9 +26,8 @@ class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
             field = value
         }
 
-
-
     private val rootView: View
+
     init {
         rootView = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null)
     }

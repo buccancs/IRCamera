@@ -14,6 +14,10 @@ import java.io.File
 import com.topdon.lib.core.R as LibR
 
 // Legacy ARouter route annotation - now using NavigationManager
+/**
+ * Video activity for thermal imaging interface.
+ * Manages UI interactions and thermal data display.
+ */
 class VideoActivity : BaseActivity() {
     companion object {
         const val KEY_PATH = "video_path"
@@ -39,9 +43,9 @@ class VideoActivity : BaseActivity() {
     }
 
     private fun previewVideo(path: String) {
-        Log.w("123", "打开文件:$path")
+        Log.w("123", "Openfile:$path")
         val file = File(path.replace("//", "/"))
-        Log.i("123", "打开文件file:$file")
+        Log.i("123", "Openfilefile:$file")
         val uri: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val authority = "$packageName.fileprovider"
@@ -49,7 +53,7 @@ class VideoActivity : BaseActivity() {
             } else {
                 Uri.fromFile(file)
             }
-        Log.w("123", "打开文件uri:$uri")
+        Log.w("123", "Openfileuri:$uri")
         val videoView = findViewById<VideoView>(R.id.video_play)
         videoView.setVideoURI(uri)
         videoView.setMediaController(MediaController(this))

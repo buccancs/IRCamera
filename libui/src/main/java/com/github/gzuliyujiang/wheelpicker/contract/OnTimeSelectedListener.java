@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -14,7 +14,7 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 时间选择接口
+ * 时间selectioninterface
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/14 19:58
@@ -22,7 +22,7 @@ package com.github.gzuliyujiang.wheelpicker.contract;
 public interface OnTimeSelectedListener {
 
     /**
-     * 时间选择回调
+     * 时间selectionCallback
      *
      * @param hour   时
      * @param minute 分

@@ -16,14 +16,26 @@ import com.topdon.lib.core.databinding.DialogTipOtgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 提示窗
+ * tip窗
  * create by fylder on 2018/6/15
  **/
+/**
+ * TipOtgDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class TipOtgDialog : Dialog {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
+/**
+ * Builder manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     class Builder {
         var dialog: TipOtgDialog? = null
         private var context: Context? = null
@@ -93,10 +105,16 @@ class TipOtgDialog : Dialog {
             return this
         }
 
+    /**
+     * Executes dismiss functionality.
+     */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
+    /**
+     * Creates and configures a new  instance.
+     */
         fun create(): TipOtgDialog {
             if (dialog == null) {
                 dialog = TipOtgDialog(context!!, R.style.InfoDialog)
@@ -115,13 +133,13 @@ class TipOtgDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    
                     0.85
                 } else {
-                    // 横屏
+                    
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() 
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)
@@ -149,7 +167,7 @@ class TipOtgDialog : Dialog {
                 cancelBtn.visibility = View.GONE
                 cancelBtn.text = ""
             }
-            // msg
+            
             if (message != null) {
                 messageText.visibility = View.VISIBLE
                 messageText.setText(message, TextView.BufferType.NORMAL)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-present 贵州纳雍穿青人李裕江<1032694760@qq.com>
+ * Copyright (c) 2016-present 贵州纳雍穿青human李裕江<1032694760@qq.com>
  *
  * The software is licensed under the Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -234,11 +234,11 @@ public class WheelView extends View implements Runnable {
 
     protected List<?> generatePreviewData() {
         List<String> data = new ArrayList<>();
-        data.add("贵州穿青人");
+        data.add("贵州穿青human");
         data.add("大定府羡民");
         data.add("不在五十六个民族之内");
         data.add("已识别待定民族");
-        data.add("穿青山魈人马");
+        data.add("穿青山魈human马");
         data.add("李裕江");
         return data;
     }
@@ -248,7 +248,7 @@ public class WheelView extends View implements Runnable {
         if (visibleItemCount < minCount) {
             throw new ArithmeticException("Visible item count can not be less than " + minCount);
         }
-        //可见条目只能是奇数个，设置可见条目时偶数个将自动矫正为奇数个
+        //Visible条目只能是奇数个，settingsVisible条目时偶数个将自动矫正为奇数个
         int evenNumberFlag = 2;
         if (visibleItemCount % evenNumberFlag == 0) {
             visibleItemCount += 1;
@@ -264,7 +264,7 @@ public class WheelView extends View implements Runnable {
         } else if (!TextUtils.isEmpty(maxWidthText)) {
             textMaxWidth = (int) paint.measureText(maxWidthText);
         } else {
-            // 未指定最宽的文本，须遍历测量查找最宽的作为基准
+            // 未指定最宽的文本，须遍历measurement查找最宽的作为基准
             int itemCount = getItemCount();
             for (int i = 0; i < itemCount; ++i) {
                 int width = (int) paint.measureText(formatItem(i));
@@ -879,7 +879,7 @@ public class WheelView extends View implements Runnable {
         float ellipsisWidth = paint.measureText(ellipsis);
         String data = obtainItemText(dataPosition);
         while (paint.measureText(data) + ellipsisWidth - measuredWidth > 0) {
-            // 超出控件宽度则省略部分文字
+            // 超出控件宽度则省略部分text
             int length = data.length();
             if (length > 1) {
                 data = data.substring(0, length - 1);

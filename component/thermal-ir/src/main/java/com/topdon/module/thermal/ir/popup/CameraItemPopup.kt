@@ -6,35 +6,39 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupWindow
-import com.topdon.lib.core.navigation.NavigationManager
 import com.blankj.utilcode.util.ToastUtils
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.topdon.lib.core.common.SharedManager
 import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.dialog.TipShutterDialog
+import com.topdon.lib.core.navigation.NavigationManager
 import com.topdon.libcom.bean.SaveSettingBean
 import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
 /**
- * 热成像 拍照/录像 菜单.
+thermal imaging 拍照/录像 menu.
  *
  * Created by LCG on 2025/1/3.
  */
+/**
+ * Custom Camera item popup view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
 @SuppressLint("SetTextI18n")
 class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
-
     /**
-     * 手动快门是否处于选中状态
+手动快门是否处于selectedstate
      */
     var isShutterSelect: Boolean
         get() = binding.ivShutter.isSelected
         set(value) {
             binding.ivShutter.isSelected = value
         }
+
     /**
-     * 录音开关是否处于选中状态
+录音开关是否处于selectedstate
      */
     var isAudioSelect: Boolean
         get() = binding.ivAudio.isSelected
@@ -42,25 +46,25 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
             binding.ivAudio.isSelected = value
         }
 
-
-
     /**
-     * 延时秒数点击事件监听，返回值为是否响应该次点击事件
+延时秒数clickEventListener，Return值为是否响应该次clickEvent
      */
     var onDelayClickListener: (() -> Boolean)? = null
+
     /**
-     * 自动快门开启关闭事件监听.
+自动快门enableddisabledEventListener.
      */
     var onAutoCLickListener: ((isOpen: Boolean) -> Unit)? = null
+
     /**
-     * 手动快门点击事件监听.
+手动快门clickEventListener.
      */
     var onShutterClickListener: (() -> Unit)? = null
+
     /**
-     * 录音开启关闭事件监听.
+录音enableddisabledEventListener.
      */
     var onAudioCLickListener: (() -> Unit)? = null
-
 
     private val binding: PopCameraItemBinding = PopCameraItemBinding.inflate(LayoutInflater.from(context))
 
@@ -87,24 +91,25 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.clDelay -> if (onDelayClickListener?.invoke() == true) {
-                when (saveSetBean.delayCaptureSecond) {
-                    0 -> {
-                        saveSetBean.delayCaptureSecond = 3
-                        ToastUtils.showShort(R.string.seconds_dalay_3)
+            binding.clDelay ->
+                if (onDelayClickListener?.invoke() == true) {
+                    when (saveSetBean.delayCaptureSecond) {
+                        0 -> {
+                            saveSetBean.delayCaptureSecond = 3
+                            ToastUtils.showShort(R.string.seconds_dalay_3)
+                        }
+                        3 -> {
+                            saveSetBean.delayCaptureSecond = 6
+                            ToastUtils.showShort(R.string.seconds_dalay_6)
+                        }
+                        6 -> {
+                            saveSetBean.delayCaptureSecond = 0
+                            ToastUtils.showShort(R.string.off_photography)
+                        }
                     }
-                    3 -> {
-                        saveSetBean.delayCaptureSecond = 6
-                        ToastUtils.showShort(R.string.seconds_dalay_6)
-                    }
-                    6 -> {
-                        saveSetBean.delayCaptureSecond = 0
-                        ToastUtils.showShort(R.string.off_photography)
-                    }
+                    binding.ivDelay.setImageLevel(saveSetBean.delayCaptureSecond)
                 }
-                binding.ivDelay.setImageLevel(saveSetBean.delayCaptureSecond)
-            }
-            binding.clAuto -> {//自动快门
+            binding.clAuto -> { // 自动快门
                 saveSetBean.isAutoShutter = !saveSetBean.isAutoShutter
                 binding.ivAuto.isSelected = saveSetBean.isAutoShutter
                 if (SharedManager.isTipShutter && !saveSetBean.isAutoShutter) {
@@ -117,9 +122,10 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
                 }
                 onAutoCLickListener?.invoke(saveSetBean.isAutoShutter)
             }
-            binding.clShutter -> if (!binding.ivShutter.isSelected) {
-                onShutterClickListener?.invoke()
-            }
+            binding.clShutter ->
+                if (!binding.ivShutter.isSelected) {
+                    onShutterClickListener?.invoke()
+                }
             binding.clAudio -> onAudioCLickListener?.invoke()
             binding.clSetting -> NavigationManager.getInstance().build(RouterConfig.IR_CAMERA_SETTING).navigation(context)
         }

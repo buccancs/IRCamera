@@ -1,6 +1,5 @@
 package com.topdon.commons.base.entity;
 
-
 import com.topdon.commons.base.interfaces.Checkable;
 
 /**

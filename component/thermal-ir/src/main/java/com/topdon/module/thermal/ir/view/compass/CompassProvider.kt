@@ -2,12 +2,15 @@ package com.topdon.module.thermal.ir.view.compass
 
 import android.content.Context
 import android.hardware.Sensor
-import android.hardware.SensorManager
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 
+/**
+ * Compass provider utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 class CompassProvider(private val context: Context) {
 
     fun get(): ICompass {
@@ -22,9 +25,10 @@ class CompassProvider(private val context: Context) {
         val allSources = getAvailableSources(context)
 
         // There were no compass sensors found
-        if (allSources.isEmpty()){
-            return NullCompass()
-        }
+        if (allSources.isEmpty())
+            {
+                return NullCompass()
+            }
 
         if (!allSources.contains(source)) {
             source = allSources.firstOrNull() ?: CompassSource.Orientation
@@ -52,7 +56,6 @@ class CompassProvider(private val context: Context) {
                 android.util.Log.d("CompassProvider", "Creating LegacyCompass for Orientation")
                 LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
             }
-        }
 
         // Return a wrapped compass with quality monitoring
         android.util.Log.d("CompassProvider", "Wrapping compass with MagQualityCompassWrapper: ${compass.javaClass.simpleName}")
@@ -89,5 +92,4 @@ class CompassProvider(private val context: Context) {
             return sources
         }
     }
-
 }

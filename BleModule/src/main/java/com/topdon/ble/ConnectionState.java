@@ -1,38 +1,38 @@
 package com.topdon.ble;
 
 /**
- * 连接状态
+ * connectionstate
  * <p>
  * date: 2019/8/12 14:26
  * author: bichuanfeng
  */
 public enum ConnectionState {
     /**
-     * 已断开连接
+     * 已disconnectconnection
      */
     DISCONNECTED,
     /**
-     * 正在连接
+     * 正在connection
      */
     CONNECTING,
     /**
-     * 正在搜索重连
+     * 正在Search重连
      */
     SCANNING_FOR_RECONNECTION,
     /**
-     * 已连接，还未执行发现服务
+     * 已connection，还未执行发现service
      */
     CONNECTED,
     /**
-     * 已连接，正在发现服务
+     * 已connection，正在发现service
      */
     SERVICE_DISCOVERING,
     /**
-     * 已连接，成功发现服务
+     * 已connection，success发现service
      */
     SERVICE_DISCOVERED,
     /**
-     * 连接已释放
+     * connection已release
      */
     RELEASED,
     /**
@@ -40,7 +40,7 @@ public enum ConnectionState {
      */
     TIMEOUT,
     /**
-     * MTUs设置成功
+     * MTUssettingssuccess
      */
     MTU_SUCCESS
     }

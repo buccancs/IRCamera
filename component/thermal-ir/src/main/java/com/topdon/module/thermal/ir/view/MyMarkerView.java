@@ -20,7 +20,6 @@ import com.topdon.module.thermal.ir.R;
 
 import java.util.Locale;
 
-
 /**
  * Custom implementation of the MarkerView.
  *
@@ -50,7 +49,7 @@ public class MyMarkerView extends MarkerView {
             } else {
                 if (e.getData() instanceof ThermalEntity) {
                     ThermalEntity data = (ThermalEntity) e.getData();
-                    int index = highlight.getDataIndex();//曲线序号
+                    int index = highlight.getDataIndex();//曲line序号
                     StringBuilder str = new StringBuilder();
                     if (index == 0) {
                         str.append(com.blankj.utilcode.util.Utils.getApp().getString(R.string.chart_temperature) + ": ").append(UnitTools.showC(data.getThermal()));

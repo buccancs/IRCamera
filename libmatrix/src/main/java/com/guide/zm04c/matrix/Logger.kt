@@ -9,20 +9,25 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object Logger {
-
     /**
      * ERROR
      */
 
     @JvmStatic
-    fun e(clazz: Class<*>, msg: String) {
+    fun e(
+        clazz: Class<*>,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.e(clazz.simpleName, msg + "")
         }
     }
 
     @JvmStatic
-    fun e(tag: String?, msg: String) {
+    fun e(
+        tag: String?,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, msg + "")
         }
@@ -32,14 +37,20 @@ object Logger {
      * WARN
      */
     @JvmStatic
-    fun w(clazz: Class<*>, msg: String) {
+    fun w(
+        clazz: Class<*>,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.w(clazz.simpleName, msg + "")
         }
     }
 
     @JvmStatic
-    fun w(tag: String?, msg: String) {
+    fun w(
+        tag: String?,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, msg + "")
         }
@@ -50,14 +61,20 @@ object Logger {
      */
 
     @JvmStatic
-    fun i(clazz: Class<*>, msg: String) {
+    fun i(
+        clazz: Class<*>,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.i(clazz.simpleName, msg + "")
         }
     }
 
     @JvmStatic
-    fun i(tag: String?, msg: String) {
+    fun i(
+        tag: String?,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, msg + "")
         }
@@ -68,14 +85,20 @@ object Logger {
      */
 
     @JvmStatic
-    fun d(clazz: Class<*>, msg: String) {
+    fun d(
+        clazz: Class<*>,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.d(clazz.simpleName, msg + "")
         }
     }
 
     @JvmStatic
-    fun d(tag: String?, msg: String) {
+    fun d(
+        tag: String?,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.d(tag, msg + "")
         }
@@ -86,34 +109,42 @@ object Logger {
      */
 
     @JvmStatic
-    fun v(clazz: Class<*>, msg: String) {
+    fun v(
+        clazz: Class<*>,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.v(clazz.simpleName, msg + "")
         }
     }
 
-    fun v(tag: String?, msg: String) {
+    fun v(
+        tag: String?,
+        msg: String,
+    ) {
         if (BuildConfig.DEBUG) {
             Log.v(tag, msg + "")
         }
     }
 
+    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // Logfile在sdcard中的path
 
-    private val MYLOG_PATH_SDCARD_DIR = "/sdcard/Guide/log" // 日志文件在sdcard中的路径
+    private val MYLOGFILEName = "Log.txt" // 本class输出的Logfilename
 
-    private val MYLOGFILEName = "Log.txt" // 本类输出的日志文件名称
+    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // Log的输出format
 
-    private val myLogSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // 日志的输出格式
-
-    private val logfile = SimpleDateFormat("yyyy-MM-dd") // 日志文件格式
+    private val logfile = SimpleDateFormat("yyyy-MM-dd") // Logfileformat
 
     /**
-     * 打开日志文件并写入日志
+     * OpenLogfile并写入Log
      * @param mylogtype
      * @param tag
      * @param text
      */
-    fun f(tag: String, text: String) { // 新建或打开日志文件
+    fun f(
+        tag: String,
+        text: String,
+    ) { // 新建或OpenLogfile
         val nowtime = Date()
         val needWriteFiel = logfile.format(nowtime)
         val needWriteMessage = myLogSdf.format(nowtime) + "    " + "    " + tag + "    " + text
@@ -129,7 +160,7 @@ object Logger {
             }
         }
         try {
-            val filerWriter = FileWriter(file, true) // 后面这个参数代表是不是要接上文件中原来的数据，不进行覆盖
+            val filerWriter = FileWriter(file, true) // 后area这个parameter代表是不是要接上file中原来的data，不进行覆盖
             val bufWriter = BufferedWriter(filerWriter)
             bufWriter.write(needWriteMessage)
             bufWriter.newLine()

@@ -6,6 +6,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.topdon.lib.core.ktbase.BaseFragment
 import kotlinx.coroutines.Job
 
+/**
+ * Base thermal fragment for thermal imaging components.
+ * Handles specific UI sections and user interactions.
+ */
 open class BaseThermalFragment : BaseFragment() {
     var mIrBitmap: Bitmap? = null
     val REQUEST_CODE_FROM_UPGRADE = 1001
@@ -24,8 +28,8 @@ open class BaseThermalFragment : BaseFragment() {
     var mMinTemp = 0f
     var maxImg: ImageView? = null
     var minImg: ImageView? = null
-    var maxIndex = 0 // 最高温度点
-    var minIndex = 0 // 最低温度点
+    var maxIndex = 0 // maximumtemperaturepoint
+    var minIndex = 0 // minimumtemperaturepoint
 
     var mCenterTextView: TextView? = null
     var mMaxTextView: TextView? = null

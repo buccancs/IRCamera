@@ -72,7 +72,7 @@ object PermissionUtils {
     }
 
     /**
-     * android 14是否授权了部分读取权限
+     * Check if Android 14 has granted partial read permissions
      * @return Boolean
      */
     fun isVisualUser(): Boolean {

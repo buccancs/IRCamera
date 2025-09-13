@@ -39,7 +39,6 @@ public class AnimatedMoveViewJob extends AnimatedViewPortJob {
         pool.recycle(instance);
     }
 
-
     public AnimatedMoveViewJob(ViewPortHandler viewPortHandler, float xValue, float yValue, Transformer trans, View v, float xOrigin, float yOrigin, long duration) {
         super(viewPortHandler, xValue, yValue, trans, v, xOrigin, yOrigin, duration);
     }

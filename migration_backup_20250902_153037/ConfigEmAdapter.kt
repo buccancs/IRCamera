@@ -16,17 +16,23 @@ import com.topdon.module.thermal.ir.utils.IRConfigData
 import kotlinx.android.synthetic.main.item_ir_config_emissivity.view.*
 
 /**
- * 温度修正（环境温度、测温距离、发射率修改那个页面）常用发射率表 Adapter.
+ * temperature修正（环境temperature、temperature measurement距离、发射率modify那个页area）常用发射率表 Adapter.
  * Created by LCG on 2024/11/13.
  */
 class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapter.ViewHolder>() {
     private val dataList: ArrayList<IRConfigData> = IRConfigData.irConfigData(context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_emissivity, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         holder.itemView.tv_em_name.text = dataList[position].name
         holder.itemView.tv_em_num.text = dataList[position].value
         holder.itemView.tv_em_name.background = EmBgDrawable(false, position == dataList.size - 1)

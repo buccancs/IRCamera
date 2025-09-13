@@ -11,6 +11,16 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 
+/**
+ * Custom Tips seek bar view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * TipsSeekBar manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
     private val tipsPercent: Float
     private val seekPercent: Float
@@ -32,7 +42,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * 指示 View 当前显示的文字.
+     * 指示 View currentShow/Display的text.
      */
     var valueText: String
         get() {
@@ -43,17 +53,17 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         }
 
     /**
-     * seekBar 的 onProgressChange 事件监听.
+     * seekBar 的 onProgressChange event listener.
      */
     var onProgressChangeListener: ((progress: Int, fromUser: Boolean) -> Unit)? = null
 
     /**
-     * seekBar 的 onStopTrackingTouch 事件监听.
+     * seekBar 的 onStopTrackingTouch event listener.
      */
     var onStopTrackingTouch: ((progress: Int) -> Unit)? = null
 
     /**
-     * 根据进度格式化指示 View 文字.
+     * 根据进度format化指示 View text.
      */
     var valueFormatListener: ((progress: Int) -> CharSequence?)? = null
         set(value) {
@@ -73,7 +83,7 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
         defStyleAttr,
         defStyleRes,
     ) {
-        // seekBar 的 maxHeight 在 29 以下只能通过 xml 设置实在太蛋疼了，这里只好给当前 View 设置 maxHeight,在 attr 中传递给 seekBar
+        // seekBar 的 maxHeight 在 29 以下只能通过 xml settings实在太蛋疼了，这里只好给current View settings maxHeight,在 attr 中传递给 seekBar
         val thumb = ContextCompat.getDrawable(context, UiR.drawable.ic_tips_seek_bar_thumb)
         val thumbWidth = thumb?.intrinsicWidth ?: 0
         seekBar = SeekBar(context, attrs)

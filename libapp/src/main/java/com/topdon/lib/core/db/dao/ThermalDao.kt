@@ -17,11 +17,11 @@ interface ThermalDao {
     @Query("DELETE FROM thermal where start_time = :startTime")
     fun delDetail(startTime: Long)
 
-    // 删除用户数据
+    // deleteUserdata
     @Query("delete from thermal where user_id = :userId")
     fun deleteByUserId(userId: String)
 
-    // 删除无用0数据
+    // delete无用0data
     @Query(
         "delete from thermal where user_id = :userId and thermal=0 and thermal_max=0 and thermal_min=0 and create_time<(select max(create_time) from thermal where thermal=0 and thermal_max=0 and thermal_min=0)",
     )
@@ -74,8 +74,8 @@ interface ThermalDao {
     ): Float
 
     data class Record(
-        var type: String? = "point", // point-点 line-线 fence-面
-        var startTime: Long = 0, // 开始时刻时间戳，单位毫秒
+        var type: String? = "point", // point-point line-line fence-area
+        var startTime: Long = 0, // start时刻时间戳，单位毫秒
         var duration: Int = 0,
         @Ignore
         var showTitle: Boolean = false,

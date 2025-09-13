@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * 检测 或 报告的一项目录.
+ * 检测 或 report的一项目录.
  *
  * Created by LCG on 2024/8/19.
  */
@@ -18,13 +18,13 @@ open class DirBase {
     var id: Long = 0
 
     /**
-     * 所对应的检测或报告目录 Id
+     * 所对应的检测或report目录 Id
      */
     @ColumnInfo(index = true)
     open var parentId: Long = 0
 
     /**
-     * 该目录在检测或报告目录列表中的 index.
+     * 该目录在检测或report目录列表中的 index.
      */
     @ColumnInfo
     var position: Int = 0
@@ -93,13 +93,13 @@ class DirDetect() : DirBase() {
     override var parentId: Long = 0
 
     /**
-     * 该目录是否已选中，仅用于目录编辑界面.
+     * 该目录是否已selected，仅用于目录编辑界area.
      */
     @Ignore
     var hasSelect = false
 
     /**
-     * 该目录是否处于展开状态
+     * 该目录是否处于展开state
      */
     @Ignore
     var isExpand: Boolean = false
@@ -117,7 +117,7 @@ class DirDetect() : DirBase() {
     var itemList: ArrayList<ItemDetect> = ArrayList()
 
     /**
-     * 返回一个 id 为 0，名称添加 (1)，position + 1，itemList 复制，其余属性完全一致的新对象.
+     * Return一个 id 为 0，nameadd (1)，position + 1，itemList copy，其余property完全一致的新对象.
      */
     fun copyOne(): DirDetect {
         val newDirDetect = DirDetect()
@@ -140,7 +140,7 @@ class DirDetect() : DirBase() {
     }
 
     /**
-     * 将当前检测目录转换为报告目录，注意 id、parent 重置为 0，无效目录剔除.
+     * 将当前检测目录conversion为report目录，注意 id、parent reset为 0，无效目录剔除.
      */
     fun toDirReport(): DirReport {
         val dirReport = DirReport()
@@ -164,7 +164,7 @@ class DirDetect() : DirBase() {
 
     companion object {
         /**
-         * 构建默认的检测目录列表.
+         * Build默认的检测目录列表.
          */
         fun buildDefaultDirList(parentId: Long): ArrayList<DirDetect> =
             arrayListOf(
@@ -184,7 +184,7 @@ class DirDetect() : DirBase() {
 }
 
 /**
- * 报告所属的一项目录.
+ * report所属的一项目录.
  */
 @Entity(
     foreignKeys = [
@@ -199,7 +199,7 @@ class DirDetect() : DirBase() {
 )
 class DirReport : DirBase() {
     /**
-     * 所对应的报告 Id
+     * 所对应的report Id
      */
     @ColumnInfo(index = true)
     override var parentId: Long = 0

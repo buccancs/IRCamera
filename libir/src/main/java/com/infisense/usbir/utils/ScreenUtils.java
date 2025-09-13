@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-
 import com.energy.iruvc.utils.CommonParams;
 
 import java.lang.reflect.Method;
@@ -54,7 +53,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获得状态栏的高度
+     * 获得state栏的高度
      *
      * @param context
      * @return
@@ -75,7 +74,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取当前屏幕截图，包含状态栏
+     * Get/Retrievecurrent屏幕截图，包含state栏
      *
      * @param activity
      * @return
@@ -95,14 +94,14 @@ public class ScreenUtils {
     }
 
     /**
-     * 得到设备的dpi
+     * 得到device的dpi
      */
     public static int getScreenDensityDpi(Context context) {
         return context.getResources().getDisplayMetrics().densityDpi;
     }
 
     /**
-     * 获取当前屏幕截图，不包含状态栏
+     * Get/Retrievecurrent屏幕截图，不包含state栏
      *
      * @param activity
      * @return
@@ -127,7 +126,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取 虚拟按键的高度
+     * Get/Retrieve 虚拟按键的高度
      *
      * @param context
      * @return
@@ -140,7 +139,7 @@ public class ScreenUtils {
         return totalHeight - contentHeight;
     }
 
-    //获取屏幕原始尺寸高度，包括虚拟功能键高度
+    //Get/Retrieve屏幕原始尺寸高度，包括虚拟功能键高度
     public static int getDpi(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -179,10 +178,10 @@ public class ScreenUtils {
 
     /**
      * @param info
-     * @setIcon 设置对话框图标
-     * @setTitle 设置对话框标题
-     * @setMessage 设置对话框消息提示
-     * setXXX方法返回Dialog对象，因此可以链式设置属性
+     * @setIcon settings对话框图标
+     * @setTitle settings对话框title
+     * @setMessage settings对话框messagetip
+     * setXXXmethodReturnDialog对象，因此可以链式settingsproperty
      */
     public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
         final AlertDialog.Builder normalDialog =
@@ -198,12 +197,12 @@ public class ScreenUtils {
                         dismissListener.onDismiss();
                     }
                 });
-        // 显示
+        // Show/Display
         return normalDialog.show();
     }
 
     /**
-     * 获取出图的帧率
+     * Get/Retrieve出图的帧率
      *
      * @return
      */

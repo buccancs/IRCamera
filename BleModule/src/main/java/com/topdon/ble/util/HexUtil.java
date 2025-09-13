@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * HexUtil
- * HEX转字符串工具类
+ * HEX转字符串工具class
  *
  * @author chuanfeng.bi
  * @date 2021/8/27 10:33
@@ -46,7 +46,7 @@ public class HexUtil {
     }
 
     /**
-     * 进16进制字符串转换成字节数组
+     * 进16进制字符串conversion成字节数组
      *
      * @param hexStr 16进制的字符串
      */
@@ -150,8 +150,8 @@ public class HexUtil {
                 return null;
             }
 
-            byte[] buffer = new byte[in.available()];//in.available() 表示要读取的文件中的数据长度
-            in.read(buffer);  //将文件中的数据读到buffer中
+            byte[] buffer = new byte[in.available()];//in.available() 表示要读取的file中的data长度
+            in.read(buffer);  //将file中的data读到buffer中
             return buffer;
         } catch (FileNotFoundException e) {
             e.printStackTrace();

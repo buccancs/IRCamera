@@ -3,15 +3,19 @@ package com.topdon.tc001
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.ComponentName
+import android.content.ServiceConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
@@ -26,9 +30,12 @@ import com.blankj.utilcode.util.AppUtils
 import com.elvishew.xlog.XLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 // Note: SupHelp library integration is not included in this build configuration
 import com.example.thermal_lite.activity.IRThermalLiteActivity
 import com.csl.irCamera.R
+import com.topdon.tc001.gsr.GSRQuickRecordingActivity
+import com.topdon.tc001.sensors.gsr.GSRSensorRecorder
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
@@ -62,6 +69,16 @@ import com.topdon.tc001.fragment.MainFragment
 import com.topdon.tc001.utils.AppVersionUtil
 import com.csl.irCamera.BuildConfig
 import com.csl.irCamera.databinding.ActivityMainBinding
+// Network integration imports - Phase 1 WebSocket client
+import com.topdon.tc001.network.WebSocketClient
+import com.topdon.tc001.service.RecordingService
+import com.topdon.tc001.controller.RecordingController
+import com.topdon.gsr.model.SessionInfo
+// Phase 0 baseline imports
+import com.topdon.tc001.config.FeatureFlags
+import com.topdon.tc001.config.ProtocolVersion
+import com.topdon.tc001.logging.StructuredLogger
+import com.topdon.tc001.supervisor.CrashSafeSupervisor
 // Zoho dependencies commented out - not available in build
 // import com.zoho.commons.LauncherModes
 // import com.zoho.commons.LauncherProperties
@@ -77,11 +94,85 @@ import java.io.OutputStream
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickListener {
     private val versionViewModel: VersionViewModel by viewModels()
 
-    private var checkPermissionType: Int = -1 // 0 initData数据 1 图库  2 connect方法
+    private var checkPermissionType: Int = -1 // 0 initDatadata 1 图库  2 connectmethod
+    
+    // PC-to-phone control networking - Phase 1 WebSocket implementation
+    private var webSocketClient: WebSocketClient? = null
+    private var recordingService: RecordingService? = null
+    private var isServiceBound = false
+    private var connectionStatus: ConnectionStatus = ConnectionStatus.DISCONNECTED
+    
+    // UI elements for network status
+    private var networkStatusIndicator: ImageView? = null
+    private var networkStatusText: TextView? = null
+    
+    // Phase 0 baseline components
+    private lateinit var structuredLogger: StructuredLogger
+    private lateinit var crashSafeSupervisor: CrashSafeSupervisor
+    
+    enum class ConnectionStatus {
+        DISCONNECTED,
+        DISCOVERING,
+        CONNECTING,
+        CONNECTED,
+        ERROR
+    }
+    
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as RecordingService.RecordingServiceBinder
+            recordingService = binder.getService()
+            isServiceBound = true
+            Log.i(TAG, "Recording service connected")
+            
+            // Now that we have the service, we can set up remote control
+            setupRemoteControl()
+        }
+        
+        override fun onServiceDisconnected(name: ComponentName?) {
+            recordingService = null
+            isServiceBound = false
+            Log.i(TAG, "Recording service disconnected")
+        }
+    }
+    
+    /**
+     * Set up remote control with enhanced features
+     */
+    private fun setupRemoteControl() {
+        Log.i(TAG, "Setting up enhanced remote control capabilities")
+        
+        if (!isServiceBound || recordingService == null) {
+            Log.w(TAG, "Recording service not available for remote control setup")
+            return
+        }
+        
+        try {
+            // Enable automatic reconnection with exponential backoff
+            enableAutoReconnection()
+            
+            // Start connection health monitoring
+            startHeartbeat()
+            
+            // Set up UI click handlers for network status
+            networkStatusIndicator?.setOnClickListener { handleNetworkStatusClick() }
+            networkStatusText?.setOnClickListener { handleNetworkStatusClick() }
+            
+            Log.i(TAG, "Enhanced remote control setup completed")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error setting up remote control", e)
+            showNetworkError("Failed to setup remote control: ${e.message}")
+        }
+    }
     
     override fun initContentLayoutId(): Int = R.layout.activity_main
+    
+    companion object {
+        private const val TAG = "MainActivity"
+    }
 
-    // 记录设备信息
+    // Recorddeviceinfo
     private fun logInfo() {
         try {
             val str = StringBuilder()
@@ -108,8 +199,15 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Phase 0 - Initialize baseline components first
+        initializePhase0Baseline()
+        
         initView()
         initData()
+        
+        // Initialize PC-to-phone control networking
+        initNetworking()
     }
 
     private fun initView() {
@@ -121,6 +219,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         }
 
         logInfo()
+        
+        // Initialize network status UI elements
+        networkStatusIndicator = binding.networkStatusIndicator
+        networkStatusText = binding.networkStatusText
+        
         lifecycleScope.launch(Dispatchers.IO) {
             // Note: SupHelp AI upscaler integration is not included in this build
             // SupHelp.getInstance().initAiUpScaler(Utils.getApp())
@@ -142,6 +245,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         binding.clIconGallery.setOnClickListener(this)
         binding.viewMain.setOnClickListener(this)
         binding.clIconMine.setOnClickListener(this)
+        
+        // Add click listener for network status (for manual connection)
+        binding.networkStatusBar.setOnClickListener {
+            handleNetworkStatusClick()
+        }
+        
         App.instance.initWebSocket()
         copyFile("SR.pb", File(filesDir, "SR.pb"))
         BaseApplication.instance.clearDb()
@@ -152,7 +261,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         }
 
         if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
-            // 仅当设备列表为空时，才执行自动跳转
+            // 仅当device列表为空时，才执行自动跳转
             if (DeviceTools.isConnect()) {
                 if (!WebSocketProxy.getInstance().isConnected()) {
                     NavigationManager.build(RouterConfig.IR_MAIN)
@@ -185,7 +294,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     override fun onStart() {
         super.onStart()
 
-        // 版本下载
+        // versionDownload
         versionViewModel.updateLiveData.observe(this) {
             FirmwareUpDialog(this).apply {
                 titleStr = getString(com.topdon.lib.core.R.string.update_new_version)
@@ -196,7 +305,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                     updateApk(it.downPageUrl)
                 }
                 onCancelClickListener = {
-                    SharedManager.setVersionCheckDate(System.currentTimeMillis()) // 刷新版本提示时间
+                    SharedManager.setVersionCheckDate(System.currentTimeMillis()) // refreshversiontip时间
                 }
             }.show()
         }
@@ -204,7 +313,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
     private fun updateApk(url: String) {
         if (applicationInfo.targetSdkVersion < Build.VERSION_CODES.P) {
-            // 目标版本27默认跳到官网下载
+            // 目标version27默认跳到官网Download
             val intent = Intent()
             intent.action = "android.intent.action.VIEW"
             intent.data = Uri.parse(url)
@@ -288,6 +397,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     private fun initData() {
         checkPermissionType = 0
         checkCameraPermission()
+        
+        // Log that PC-to-Phone communication support is available
+        Log.i("MainActivity", "✅ PC-to-Phone communication integration available - RecordingService supports network control")
     }
 
     override fun onResume() {
@@ -344,8 +456,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * 刷新 3 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 2]`
+     * refresh 3 个 tab 的selectedstate
+     * @param index 当前selected哪个 tab，`[0, 2]`
      */
     private fun refreshTabSelect(index: Int) {
         binding.ivIconGallery.isSelected = false
@@ -382,7 +494,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         if (WebSocketProxy.getInstance().isTS004Connect()) {
             NavigationManager.build(RouterConfig.IR_MONOCULAR).navigation(this)
         }
-        // 无连接OTG提示
+        // 无connectionOTGtip
         if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
             return
         }
@@ -450,7 +562,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
         if (!PermissionUtils.hasCameraPermission()) {
             if (BaseApplication.instance.isDomestic()) {
                 if (SharedManager.getMainPermissionsState()) {
-                    // 国内版拒绝授权之后就别再授权了华为上架不通过
+                    // 国内版拒绝Authorization之后就别再Authorization了华为上架不通过
                     return
                 }
                 TipDialog.Builder(this)
@@ -469,7 +581,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     }
 
     /**
-     * 动态申请权限
+     * 动态申请Permission
      */
     private fun initCameraPermission() {
         XXPermissions.with(this)
@@ -493,7 +605,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                             SharedManager.setMainPermissionsState(true)
                         }
                         if (doNotAskAgain) {
-                            // 拒绝授权并且不再提醒
+                            // 拒绝Authorization并且不再提醒
                             TipDialog.Builder(this@MainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(
@@ -563,7 +675,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-                            // 拒绝授权并且不再提醒
+                            // 拒绝Authorization并且不再提醒
                             TipDialog.Builder(this@MainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_album_content))
@@ -625,5 +737,1097 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 )
         }
         appVersionUtil?.checkVersion(isShow)
+    }
+    
+<<<<<<< HEAD
+    // ==================== PHASE 0 BASELINE & GUARDRAILS ====================
+    
+    /**
+     * Initialize Phase 0 baseline components: feature flags, structured logging, 
+     * protocol versioning, and crash-safe supervision
+     */
+    private fun initializePhase0Baseline() {
+        Log.i(TAG, "Initializing Phase 0 baseline components")
+        
+        try {
+            // 1. Initialize feature flags with defaults
+            FeatureFlags.initialize(this)
+            
+            // 2. Initialize structured logging system
+            structuredLogger = StructuredLogger.getInstance(this)
+            
+            // 3. Initialize crash-safe supervisor
+            crashSafeSupervisor = CrashSafeSupervisor.getInstance(this)
+            crashSafeSupervisor.initialize()
+            
+            // 4. Validate configuration
+            val configWarnings = FeatureFlags.validateConfiguration()
+            if (configWarnings.isNotEmpty()) {
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.WARNING,
+                    "MainActivity",
+                    "configuration_warnings",
+                    mapOf("warnings" to configWarnings.joinToString("; "))
+                )
+            }
+            
+            // 5. Log protocol information
+            val protocolInfo = ProtocolVersion.getProtocolInfo()
+            structuredLogger.log(
+                StructuredLogger.LogLevel.INFO,
+                "MainActivity",
+                "protocol_version_info",
+                protocolInfo
+            )
+            
+            // 6. Log feature flags
+            val featureFlags = FeatureFlags.getAllFlags()
+            structuredLogger.log(
+                StructuredLogger.LogLevel.INFO,
+                "MainActivity",
+                "feature_flags_initialized",
+                featureFlags
+            )
+            
+            Log.i(TAG, "Phase 0 baseline initialization completed successfully")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to initialize Phase 0 baseline components", e)
+            // Continue with app startup even if Phase 0 fails
+        }
+    }
+    
+    // ==================== PC-to-Phone Control Networking ====================
+    
+    /**
+     * Initialize the PC-to-phone control networking system with Phase 0 supervision
+     */
+    private fun initNetworking() {
+        Log.i(TAG, "Initializing PC-to-phone control networking with Phase 0 baseline")
+        
+        structuredLogger.log(
+            StructuredLogger.LogLevel.INFO,
+            "MainActivity",
+            "networking_initialization_started",
+            mapOf(
+                "feature_flags" to FeatureFlags.getAllFlags(),
+                "protocol_version" to ProtocolVersion.CURRENT_VERSION
+            )
+        )
+        
+        try {
+            // Initialize WebSocket client with supervision - Phase 1
+            crashSafeSupervisor.registerJob(
+                id = "websocket_client",
+                name = "WebSocketClient",
+                critical = false,
+                restartable = true,
+                healthCheck = object : CrashSafeSupervisor.HealthCheck {
+                    override suspend fun checkHealth(): CrashSafeSupervisor.HealthStatus {
+                        val client = webSocketClient
+                        return if (client != null && client.isConnected()) {
+                            CrashSafeSupervisor.HealthStatus(
+                                isHealthy = true,
+                                message = "WebSocketClient connected and operational",
+                                details = mapOf(
+                                    "connection_status" to connectionStatus.name,
+                                    "authenticated" to client.isAuthenticated(),
+                                    "current_server" to (client.getCurrentServer()?.name ?: "none")
+                                )
+                            )
+                        } else {
+                            CrashSafeSupervisor.HealthStatus(
+                                isHealthy = false,
+                                message = "WebSocketClient not connected",
+                                details = mapOf("connection_status" to connectionStatus.name)
+                            )
+                        }
+                    }
+                }
+            ) { stopToken ->
+                initializeWebSocketClientSupervised(stopToken)
+            }
+            
+            // Bind to recording service for remote control capability
+            bindRecordingService()
+            
+            // Start recording service with server socket automatically
+            RecordingService.startServer(this)
+            
+            structuredLogger.log(
+                StructuredLogger.LogLevel.INFO,
+                "MainActivity",
+                "networking_initialization_completed"
+            )
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to initialize networking", e)
+            structuredLogger.log(
+                StructuredLogger.LogLevel.ERROR,
+                "MainActivity",
+                "networking_initialization_failed",
+                mapOf("error" to e.message)
+            )
+            updateConnectionStatus(ConnectionStatus.ERROR)
+            showNetworkError("Network initialization failed: ${e.message}")
+        }
+    }
+    
+    /**
+     * Initialize WebSocket client under supervision - Phase 1 implementation
+     */
+    private suspend fun initializeWebSocketClientSupervised(stopToken: CrashSafeSupervisor.StopToken) {
+        while (!stopToken.isStopRequested()) {
+            try {
+                // Initialize WebSocket client
+                webSocketClient = WebSocketClient(this@MainActivity).apply {
+                    // Set up event listener for WebSocket events
+                    setEventListener(createWebSocketEventListener())
+                    
+                    // Start connection (includes discovery and auto-connect)
+                    start()
+                }
+                
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.INFO,
+                    "WebSocketClient",
+                    "initialized_successfully"
+                )
+                
+                // Wait for connection or stop signal
+                while (!stopToken.isStopRequested() && webSocketClient?.isConnected() != true) {
+                    kotlinx.coroutines.delay(1000)
+                }
+                
+                if (webSocketClient?.isConnected() == true) {
+                    updateConnectionStatus(ConnectionStatus.CONNECTED)
+                }
+                
+                // Keep running while connected
+                while (!stopToken.isStopRequested() && webSocketClient?.isConnected() == true) {
+                    kotlinx.coroutines.delay(1000)
+                }
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Error in WebSocket client supervision", e)
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.ERROR,
+                    "WebSocketClient",
+                    "supervision_error",
+                    mapOf("error" to e.message)
+                )
+                
+                updateConnectionStatus(ConnectionStatus.ERROR)
+                
+                // Wait before retry
+                kotlinx.coroutines.delay(5000)
+            }
+        }
+        
+        // Clean up on stop
+        webSocketClient?.stop()
+    }
+                
+                // Start automatic discovery and connection if enabled
+                if (FeatureFlags.MDNS_ENABLE) {
+                    startNetworkDiscovery()
+                } else {
+                    structuredLogger.log(
+                        StructuredLogger.LogLevel.INFO,
+                        "NetworkClient",
+                        "mdns_discovery_disabled"
+                    )
+                }
+                
+                // Wait for stop signal or connection status changes
+                while (!stopToken.isStopRequested() && connectionStatus != ConnectionStatus.ERROR) {
+                    kotlinx.coroutines.delay(1000)
+                }
+                
+            } catch (e: Exception) {
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.ERROR,
+                    "NetworkClient",
+                    "supervised_execution_error",
+                    mapOf("error" to e.message)
+                )
+                
+                if (!stopToken.isStopRequested()) {
+                    kotlinx.coroutines.delay(10000) // Wait before retry
+                }
+            }
+        }
+        
+        // Cleanup WebSocket client
+        webSocketClient?.stop()
+        webSocketClient = null
+    }
+    
+    /**
+     * Create network event listener to handle PC controller events with structured logging
+     */
+    /**
+     * Create WebSocket event listener - Phase 1 implementation
+     */
+    private fun createWebSocketEventListener(): WebSocketClient.WebSocketEventListener {
+        return object : WebSocketClient.WebSocketEventListener {
+            override fun onServerDiscovered(serverInfo: WebSocketClient.ServerInfo) {
+                structuredLogger.logConnection(
+                    "server_discovered",
+                    serverInfo.host,
+                    mapOf(
+                        "server_name" to serverInfo.name,
+                        "host" to serverInfo.host,
+                        "port" to serverInfo.port,
+                        "uses_tls" to serverInfo.usesTLS,
+                        "protocol_version" to serverInfo.protocolVersion
+                    )
+                )
+                
+                runOnUiThread {
+                    updateConnectionStatus(ConnectionStatus.CONNECTING)
+                    Toast.makeText(this@MainActivity, 
+                        "Found PC Server: ${serverInfo.name}", 
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+            
+            override fun onConnecting(serverInfo: WebSocketClient.ServerInfo) {
+                structuredLogger.logConnection(
+                    "connecting",
+                    serverInfo.host,
+                    mapOf(
+                        "server_name" to serverInfo.name,
+                        "host" to serverInfo.host,
+                        "port" to serverInfo.port
+                    )
+                )
+                
+                runOnUiThread {
+                    updateConnectionStatus(ConnectionStatus.CONNECTING)
+                }
+            }
+            
+            override fun onConnected(serverInfo: WebSocketClient.ServerInfo) {
+                structuredLogger.logConnection(
+                    "websocket_connected",
+                    serverInfo.host,
+                    mapOf(
+                        "server_name" to serverInfo.name,
+                        "uses_tls" to serverInfo.usesTLS,
+                        "protocol_version" to serverInfo.protocolVersion
+                    )
+                )
+                
+                runOnUiThread {
+                    updateConnectionStatus(ConnectionStatus.CONNECTED)
+                    Toast.makeText(this@MainActivity, 
+                        "Connected to PC: ${serverInfo.name}", 
+                        Toast.LENGTH_LONG).show()
+                }
+            }
+            
+            override fun onAuthenticated() {
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.INFO,
+                    "WebSocketClient",
+                    "authenticated_successfully",
+                    emptyMap()
+                )
+                
+                runOnUiThread {
+                    Toast.makeText(this@MainActivity, 
+                        "Authenticated with PC controller", 
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+            
+            override fun onDisconnected(reason: String) {
+                structuredLogger.logConnection(
+                    "websocket_disconnected",
+                    "",
+                    mapOf("reason" to reason)
+                )
+                
+                runOnUiThread {
+                    updateConnectionStatus(ConnectionStatus.DISCONNECTED)
+                    Toast.makeText(this@MainActivity, 
+                        "Disconnected from PC: $reason", 
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+            
+            override fun onMessage(messageType: String, message: org.json.JSONObject) {
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.DEBUG,
+                    "WebSocketClient",
+                    "message_received",
+                    mapOf("message_type" to messageType)
+                )
+                
+                when (messageType) {
+                    "session_start_response" -> {
+                        val success = message.optBoolean("success", false)
+                        val sessionId = message.optString("session_id", "")
+                        
+                        if (success) {
+                            runOnUiThread {
+                                handleRemoteSessionStart(sessionId)
+                            }
+                        }
+                    }
+                    "session_stop_response" -> {
+                        val success = message.optBoolean("success", false)
+                        
+                        if (success) {
+                            runOnUiThread {
+                                handleRemoteSessionStop()
+                            }
+                        }
+                    }
+                    "sync_flash" -> {
+                        val durationMs = message.optInt("duration_ms", 500)
+                        runOnUiThread {
+                            performSyncFlash(durationMs)
+                        }
+                    }
+                    else -> {
+                        // Handle other message types as needed
+                        Log.d(TAG, "Received message type: $messageType")
+                    }
+                }
+            }
+            
+            override fun onError(error: String, exception: Throwable?) {
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.ERROR,
+                    "WebSocketClient",
+                    "websocket_error",
+                    mapOf("error" to error)
+                )
+                
+                runOnUiThread {
+                    updateConnectionStatus(ConnectionStatus.ERROR)
+                    showNetworkError("WebSocket error: $error")
+                }
+            }
+            
+            override fun onHeartbeatReceived() {
+                // Update last heartbeat time for connection health monitoring
+                structuredLogger.log(
+                    StructuredLogger.LogLevel.DEBUG,
+                    "WebSocketClient",
+                    "heartbeat_received",
+                    emptyMap()
+                )
+            }
+        }
+    }
+    
+    /**
+     * Handle remote session start request - Phase 1
+     */
+    private fun handleRemoteSessionStart(sessionId: String) {
+        try {
+            structuredLogger.logSessionEvent(
+                "remote_session_start",
+                sessionId,
+                emptyMap()
+            )
+            
+            // Start recording through the service
+            recordingService?.getRecordingController()?.startRecording()
+            
+            Toast.makeText(this, "Remote recording started: $sessionId", Toast.LENGTH_LONG).show()
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error handling remote session start", e)
+            structuredLogger.log(
+                StructuredLogger.LogLevel.ERROR,
+                "RemoteControl",
+                "session_start_error",
+                mapOf("error" to e.message)
+            )
+        }
+    }
+    
+    /**
+     * Handle remote session stop request - Phase 1
+     */
+    private fun handleRemoteSessionStop() {
+        try {
+            structuredLogger.log(
+                StructuredLogger.LogLevel.INFO,
+                "RemoteControl",
+                "remote_session_stop",
+                emptyMap()
+            )
+            
+            // Stop recording through the service
+            recordingService?.getRecordingController()?.stopRecording()
+            
+            Toast.makeText(this, "Remote recording stopped", Toast.LENGTH_LONG).show()
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error handling remote session stop", e)
+            structuredLogger.log(
+                StructuredLogger.LogLevel.ERROR,
+                "RemoteControl",
+                "session_stop_error",
+                mapOf("error" to e.message)
+            )
+        }
+    }
+    
+    /**
+     * Bind to the recording service for remote control capability
+     */
+    private fun bindRecordingService() {
+        val intent = Intent(this, RecordingService::class.java)
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+    
+    /**
+     * Start network discovery to find PC controllers
+     */
+    /**
+     * Start network discovery to find PC controllers - Phase 1 WebSocket implementation
+     */
+    private fun startNetworkDiscovery() {
+        Log.i(TAG, "Starting WebSocket discovery for PC servers")
+        updateConnectionStatus(ConnectionStatus.DISCOVERING)
+        
+        // WebSocket client handles discovery automatically when started
+        // Discovery is handled in the initialization process
+        structuredLogger.log(
+            StructuredLogger.LogLevel.INFO,
+            "WebSocketClient",
+            "discovery_started",
+            emptyMap()
+        )
+        
+        // The WebSocket client will automatically discover and connect
+        // Event callbacks handle the UI updates
+    }
+    
+    /**
+     * Handle remote recording request from PC controller
+     */
+    private fun handleRemoteRecordingRequest(sessionInfo: SessionInfo) {
+        Log.i(TAG, "Processing remote recording request for session: ${sessionInfo.sessionId}")
+        
+        if (!isServiceBound || recordingService == null) {
+            Log.e(TAG, "Recording service not available for remote request")
+            showNetworkError("Recording service not ready")
+            return
+        }
+        
+        try {
+            // Create session directory
+            val baseDir = File(getExternalFilesDir(null), "recordings")
+            val sessionDir = File(baseDir, sessionInfo.sessionId)
+            
+            if (!sessionDir.exists()) {
+                sessionDir.mkdirs()
+            }
+            
+            // Start recording via service
+            RecordingService.startRecording(this, sessionDir.absolutePath)
+            
+            Toast.makeText(this, 
+                "Remote recording started: ${sessionInfo.studyName}", 
+                Toast.LENGTH_LONG).show()
+                
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to start remote recording", e)
+            showNetworkError("Failed to start recording: ${e.message}")
+        }
+    }
+    
+    /**
+     * Perform screen flash for synchronization
+     */
+    private fun performSyncFlash(durationMs: Int) {
+        Log.i(TAG, "Performing sync flash for ${durationMs}ms")
+        
+        // Flash the screen white for synchronization
+        val originalBackground = window.decorView.background
+        
+        try {
+            // Set screen to white
+            window.decorView.setBackgroundColor(android.graphics.Color.WHITE)
+            
+            // Add sync marker to recording if active
+            lifecycleScope.launch {
+                recordingService?.getRecordingController()?.addSyncMarker("pc_sync_flash", System.nanoTime())
+            }
+            
+            // Restore original background after duration
+            window.decorView.postDelayed({
+                window.decorView.background = originalBackground
+            }, durationMs.toLong())
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to perform sync flash", e)
+            // Ensure we restore the background even if there's an error
+            window.decorView.background = originalBackground
+        }
+    }
+    
+    /**
+     * Update connection status and UI
+     */
+    private fun updateConnectionStatus(status: ConnectionStatus) {
+        connectionStatus = status
+        
+        // Update UI elements if they exist
+        networkStatusIndicator?.let { indicator ->
+            networkStatusText?.let { text ->
+                when (status) {
+                    ConnectionStatus.DISCONNECTED -> {
+                        indicator.setColorFilter(android.graphics.Color.GRAY)
+                        text.text = "PC: Disconnected"
+                    }
+                    ConnectionStatus.DISCOVERING -> {
+                        indicator.setColorFilter(android.graphics.Color.YELLOW)
+                        text.text = "PC: Discovering..."
+                    }
+                    ConnectionStatus.CONNECTING -> {
+                        indicator.setColorFilter(android.graphics.Color.YELLOW)
+                        text.text = "PC: Connecting..."
+                    }
+                    ConnectionStatus.CONNECTED -> {
+                        indicator.setColorFilter(android.graphics.Color.GREEN)
+                        text.text = "PC: Connected"
+                    }
+                    ConnectionStatus.ERROR -> {
+                        indicator.setColorFilter(android.graphics.Color.RED)
+                        text.text = "PC: Error"
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Show network error to user with actionable options
+     */
+    private fun showNetworkError(message: String) {
+        Log.e(TAG, "Network error: $message")
+        
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Network Error")
+        builder.setMessage("$message\n\nWhat would you like to do?")
+        
+        builder.setPositiveButton("Retry Discovery") { _, _ ->
+            startNetworkDiscovery()
+        }
+        
+        builder.setNegativeButton("Manual Connect") { _, _ ->
+            showManualConnectionDialog()
+        }
+        
+        builder.setNeutralButton("Ignore") { _, _ ->
+            // Just dismiss - user can try again later
+        }
+        
+        builder.show()
+    }
+    
+    /**
+     * Enhanced PC connection with better error handling
+     */
+    fun connectToPC(ipAddress: String, port: Int = 8080) {
+        if (networkClient == null) {
+            showNetworkError("Network client not initialized")
+            return
+        }
+        
+        Log.i(TAG, "Attempting connection to PC at $ipAddress:$port")
+        updateConnectionStatus(ConnectionStatus.CONNECTING)
+        
+        lifecycleScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    // Try both secure and non-secure connections
+                    var success = networkClient?.connectToController(ipAddress, port, true) ?: false
+                    
+                    if (!success) {
+                        Log.i(TAG, "Secure connection failed, trying non-secure...")
+                        success = networkClient?.connectToController(ipAddress, port, false) ?: false
+                    }
+                    
+                    withContext(Dispatchers.Main) {
+                        if (success) {
+                            Log.i(TAG, "Connection successful to $ipAddress:$port")
+                            Toast.makeText(this@MainActivity, 
+                                "Connected to PC at $ipAddress", 
+                                Toast.LENGTH_LONG).show()
+                        } else {
+                            Log.w(TAG, "Connection failed to $ipAddress:$port")
+                            updateConnectionStatus(ConnectionStatus.ERROR)
+                            showNetworkError("Failed to connect to PC at $ipAddress:$port")
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Connection error to $ipAddress:$port", e)
+                updateConnectionStatus(ConnectionStatus.ERROR)
+                showNetworkError("Connection error: ${e.message}")
+            }
+        }
+    }
+    
+    /**
+     * Get current connection status
+     */
+    fun getConnectionStatus(): ConnectionStatus = connectionStatus
+    
+    /**
+     * Get network performance metrics
+     */
+    /**
+     * Get network metrics for WebSocket connection - Phase 1
+     */
+    fun getNetworkMetrics(): String {
+        val client = webSocketClient ?: return "WebSocket client not available"
+        
+        return "Status: ${if (client.isConnected()) "Connected" else "Disconnected"}, " +
+               "Authenticated: ${client.isAuthenticated()}, " +
+               "Reconnecting: ${client.isReconnecting()}"
+    }
+    
+    /**
+     * Enable automatic reconnection with exponential backoff
+     */
+    private fun enableAutoReconnection() {
+        lifecycleScope.launch {
+            var reconnectDelay = 5000L // Start with 5 seconds
+            val maxDelay = 60000L // Max 60 seconds
+            
+            while (!isFinishing) {
+                if (connectionStatus == ConnectionStatus.ERROR || 
+                    connectionStatus == ConnectionStatus.DISCONNECTED) {
+                    
+                    Log.i(TAG, "Attempting auto-reconnection...")
+                    updateConnectionStatus(ConnectionStatus.CONNECTING)
+                    
+                    val success = tryReconnection()
+                    if (success) {
+                        Log.i(TAG, "Auto-reconnection successful")
+                        reconnectDelay = 5000L // Reset delay on success
+                    } else {
+                        Log.w(TAG, "Auto-reconnection failed, retrying in ${reconnectDelay}ms")
+                        kotlinx.coroutines.delay(reconnectDelay)
+                        reconnectDelay = minOf(reconnectDelay * 2, maxDelay) // Exponential backoff
+                    }
+                } else {
+                    kotlinx.coroutines.delay(10000L) // Check every 10 seconds when connected
+                }
+            }
+        }
+    }
+    
+    /**
+     * Try reconnection using various strategies
+     */
+    private suspend fun tryReconnection(): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                // Strategy 1: Try last known controllers
+                val controllers = networkClient?.getDiscoveredControllers()
+                if (!controllers.isNullOrEmpty()) {
+                    for (controller in controllers) {
+                        Log.i(TAG, "Reconnection attempt to ${controller.ipAddress}")
+                        val success = networkClient?.connectToController(
+                            controller.ipAddress, 
+                            controller.port
+                        ) ?: false
+                        
+                        if (success) {
+                            return@withContext true
+                        }
+                    }
+                }
+                
+                // Strategy 2: Start fresh discovery
+                networkClient?.startDiscovery { discoverySuccess ->
+                    if (discoverySuccess) {
+                        val newControllers = networkClient?.getDiscoveredControllers()
+                        if (!newControllers.isNullOrEmpty()) {
+                            // Try connecting to first discovered controller
+                            lifecycleScope.launch {
+                                val controller = newControllers.first()
+                                networkClient?.connectToController(
+                                    controller.ipAddress, 
+                                    controller.port
+                                ) { connectSuccess ->
+                                    if (!connectSuccess) {
+                                        updateConnectionStatus(ConnectionStatus.ERROR)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                return@withContext false
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Error during reconnection attempt", e)
+                return@withContext false
+            }
+        }
+    }
+    
+    /**
+     * Send keep-alive heartbeat to maintain connection
+     */
+    private fun startHeartbeat() {
+        lifecycleScope.launch {
+            while (!isFinishing) {
+                if (connectionStatus == ConnectionStatus.CONNECTED) {
+                    try {
+                        // WebSocket client handles heartbeat automatically
+                        // Just send a status request periodically to test connection
+                        webSocketClient?.sendStatusRequest()
+                        
+                    } catch (e: Exception) {
+                        Log.w(TAG, "Status request exception", e)
+                        updateConnectionStatus(ConnectionStatus.ERROR)
+                    }
+                }
+                
+                kotlinx.coroutines.delay(30000L) // Send status request every 30 seconds
+            }
+        }
+    }
+    
+    /**
+     * Get comprehensive status report for debugging
+     */
+    fun getConnectionStatusReport(): String {
+        val sb = StringBuilder()
+        sb.append("=== PC-to-Phone Control Status ===\n")
+        sb.append("Connection Status: ${connectionStatus.name}\n")
+        sb.append("Network Metrics: ${getNetworkMetrics()}\n")
+        
+        val servers = webSocketClient?.getDiscoveredServers()
+        sb.append("Discovered Servers: ${servers?.size ?: 0}\n")
+        servers?.forEach { (name, server) ->
+            sb.append("  - $name (${server.host}:${server.port}) TLS:${server.usesTLS}\n")
+        }
+        
+        val currentServer = webSocketClient?.getCurrentServer()
+        if (currentServer != null) {
+            sb.append("Current Server: ${currentServer.name} (${currentServer.host}:${currentServer.port})\n")
+        }
+        
+        sb.append("Service Bound: $isServiceBound\n")
+        if (isServiceBound && recordingService != null) {
+            try {
+                val recordingController = recordingService?.getRecordingController()
+                val summary = recordingController?.getSensorStatusSummary()
+                sb.append("Recording Status: $summary\n")
+                
+                // Add server socket status
+                val serverStatus = recordingService?.getServerStatus()
+                sb.append("Server Socket: $serverStatus\n")
+                
+                val connectedClients = recordingService?.getConnectedClients()
+                sb.append("Connected PC Clients: ${connectedClients?.size ?: 0}\n")
+                connectedClients?.forEach { client ->
+                    sb.append("  - $client\n")
+                }
+                
+            } catch (e: Exception) {
+                sb.append("Recording Status: Error - ${e.message}\n")
+            }
+        } else {
+            sb.append("Recording Status: Service not available\n")
+        }
+        
+        return sb.toString()
+    }
+    
+    /**
+     * Handle network status bar click for manual connection
+     */
+    private fun handleNetworkStatusClick() {
+        when (connectionStatus) {
+            ConnectionStatus.DISCONNECTED, ConnectionStatus.ERROR -> {
+                // Show dialog for manual IP connection or status report
+                showConnectionOptionsDialog()
+            }
+            ConnectionStatus.DISCOVERING, ConnectionStatus.CONNECTING -> {
+                // Show discovery progress
+                Toast.makeText(this, "Connection in progress...", Toast.LENGTH_SHORT).show()
+            }
+            ConnectionStatus.CONNECTED -> {
+                // Show connection info and metrics
+                showConnectionInfoDialog()
+            }
+        }
+    }
+    
+    /**
+     * Show comprehensive connection options dialog
+     */
+    private fun showConnectionOptionsDialog() {
+        val options = arrayOf(
+            "Retry Discovery",
+            "Manual IP Connection", 
+            "Connection Status Report",
+            "Cancel"
+        )
+        
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("PC Connection Options")
+        builder.setItems(options) { _, which ->
+            when (which) {
+                0 -> {
+                    // Retry Discovery
+                    Log.i(TAG, "Retrying network discovery")
+                    startNetworkDiscovery()
+                }
+                1 -> {
+                    // Manual IP Connection
+                    showManualConnectionDialog()
+                }
+                2 -> {
+                    // Status Report
+                    showStatusReportDialog()
+                }
+                3 -> {
+                    // Cancel - do nothing
+                }
+            }
+        }
+        builder.show()
+    }
+    
+    /**
+     * Show connection information dialog
+     */
+    private fun showConnectionInfoDialog() {
+        val metrics = getNetworkMetrics()
+        val servers = webSocketClient?.getDiscoveredServers()
+        val currentServer = webSocketClient?.getCurrentServer()
+        
+        val message = StringBuilder()
+        message.append("Connection Status: Connected\n\n")
+        message.append("Performance Metrics:\n$metrics\n\n")
+        
+        if (currentServer != null) {
+            message.append("Connected to:\n")
+            message.append("Server: ${currentServer.name}\n")
+            message.append("Address: ${currentServer.host}:${currentServer.port}\n")
+            message.append("TLS: ${currentServer.usesTLS}\n")
+            message.append("Protocol: ${currentServer.protocolVersion}\n\n")
+        }
+        
+        message.append("Recording Service: ${if (isServiceBound) "Available" else "Not Available"}\n")
+        
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("PC Connection Info")
+        builder.setMessage(message.toString())
+        builder.setPositiveButton("Test Recording") { _, _ ->
+            testRemoteRecordingCapability()
+        }
+        builder.setNegativeButton("Close", null)
+        builder.show()
+    }
+    
+    /**
+     * Show detailed status report dialog
+     */
+    private fun showStatusReportDialog() {
+        val statusReport = getConnectionStatusReport()
+        
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Detailed Status Report")
+        builder.setMessage(statusReport)
+        builder.setPositiveButton("Copy to Clipboard") { _, _ ->
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            val clip = android.content.ClipData.newPlainText("Status Report", statusReport)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Status report copied to clipboard", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("Close", null)
+        builder.show()
+    }
+    
+    /**
+     * Test remote recording capability
+     */
+    private fun testRemoteRecordingCapability() {
+        if (!isServiceBound || recordingService == null) {
+            Toast.makeText(this, "Recording service not available", Toast.LENGTH_SHORT).show()
+            return
+        }
+        
+        try {
+            val testSessionInfo = SessionInfo(
+                sessionId = "test_${System.currentTimeMillis()}",
+                startTime = System.currentTimeMillis(),
+                studyName = "Connection Test",
+                participantId = "test_participant"
+            )
+            
+            Toast.makeText(this, "Testing remote recording capability...", Toast.LENGTH_SHORT).show()
+            
+            // Simulate remote recording request
+            handleRemoteRecordingRequest(testSessionInfo)
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error testing remote recording", e)
+            Toast.makeText(this, "Test failed: ${e.message}", Toast.LENGTH_LONG).show()
+        }
+    }
+    
+    /**
+     * Show dialog for manual PC connection
+     */
+    private fun showManualConnectionDialog() {
+        val input = android.widget.EditText(this)
+        input.hint = "Enter PC IP address (e.g., 192.168.1.100)"
+        input.inputType = android.text.InputType.TYPE_CLASS_TEXT
+        
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Manual PC Connection")
+        builder.setMessage("Enter the IP address of your PC Controller:")
+        builder.setView(input)
+        
+        builder.setPositiveButton("Connect") { _, _ ->
+            val ipAddress = input.text.toString().trim()
+            if (ipAddress.isNotEmpty()) {
+                connectToPC(ipAddress)
+            } else {
+                // Try common default IP addresses
+                tryCommonIPAddresses()
+            }
+        }
+        
+        builder.setNegativeButton("Try Defaults") { _, _ ->
+            tryCommonIPAddresses()
+        }
+        
+        builder.setNeutralButton("Cancel", null)
+        builder.show()
+    }
+    
+    /**
+     * Try connecting to common IP addresses
+     */
+    private fun tryCommonIPAddresses() {
+        val commonIPs = listOf(
+            "192.168.1.100", "192.168.1.101", "192.168.1.102",
+            "192.168.0.100", "192.168.0.101", "192.168.0.102", 
+            "10.0.0.100", "10.0.0.101", "10.0.0.102",
+            "127.0.0.1" // localhost for testing
+        )
+        
+        Toast.makeText(this, "Trying common IP addresses...", Toast.LENGTH_SHORT).show()
+        
+        lifecycleScope.launch {
+            var connected = false
+            
+            for (ip in commonIPs) {
+                if (connected) break // Stop if we've already connected
+                
+                Log.i(TAG, "Trying to connect to $ip")
+                updateConnectionStatus(ConnectionStatus.CONNECTING)
+                
+                try {
+                    val success = withContext(Dispatchers.IO) {
+                        // Try secure first, then non-secure
+                        networkClient?.connectToController(ip, 8080, true) ?: false ||
+                        networkClient?.connectToController(ip, 8080, false) ?: false
+                    }
+                    
+                    if (success) {
+                        Log.i(TAG, "Successfully connected to $ip")
+                        Toast.makeText(this@MainActivity, "Connected to PC at $ip", Toast.LENGTH_LONG).show()
+                        connected = true
+                        break
+                    } else {
+                        Log.w(TAG, "Failed to connect to $ip")
+                    }
+                } catch (e: Exception) {
+                    Log.w(TAG, "Connection error to $ip: ${e.message}")
+                }
+            }
+            
+            // If all failed, restart discovery
+            if (!connected) {
+                updateConnectionStatus(ConnectionStatus.DISCONNECTED)
+                Toast.makeText(this@MainActivity, 
+                    "No PC found at common addresses. Restarting discovery...", 
+                    Toast.LENGTH_LONG).show()
+                startNetworkDiscovery()
+            }
+        }
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        
+        structuredLogger.log(
+            StructuredLogger.LogLevel.INFO,
+            "MainActivity",
+            "activity_destroying"
+        )
+        
+        // Cleanup networking - Phase 1 WebSocket client
+        try {
+            webSocketClient?.stop()
+            webSocketClient = null
+            
+            // Stop server socket
+            RecordingService.stopServer(this)
+            
+            if (isServiceBound) {
+                unbindService(serviceConnection)
+                isServiceBound = false
+            }
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error during networking cleanup", e)
+            structuredLogger.log(
+                StructuredLogger.LogLevel.ERROR,
+                "MainActivity",
+                "networking_cleanup_error",
+                mapOf("error" to e.message)
+            )
+        }
+        
+        // Cleanup Phase 0 components
+        try {
+            crashSafeSupervisor.shutdown()
+            structuredLogger.cleanup()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error during Phase 0 cleanup", e)
+        }
+    }
+
+    /**
+     * Launch GSR Quick Recording Activity
+     * This provides direct access to the GSR recording functionality from the main app
+     */
+    fun launchGSRRecording() {
+        // Check GSR permissions first
+        if (GSRSensorRecorder.hasRequiredPermissions(this)) {
+            GSRQuickRecordingActivity.start(this)
+        } else {
+            // Show permission explanation and launch settings if needed
+            TipDialog.Builder(this)
+                .setTitleMessage("GSR Recording Permissions")
+                .setMessage("GSR recording requires Bluetooth and location permissions. Enable them in settings?")
+                .setPositiveListener("Settings") {
+                    GSRQuickRecordingActivity.start(this)
+                }
+                .setCancelListener("Cancel") { }
+                .create().show()
+        }
     }
 }

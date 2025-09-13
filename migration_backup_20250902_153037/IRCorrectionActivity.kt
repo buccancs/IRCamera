@@ -17,17 +17,16 @@ import org.greenrobot.eventbus.ThreadMode
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * 需要传递parameter：
+ * - [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
  */
 @Route(path = RouterConfig.IR_CORRECTION)
 class IRCorrectionActivity : BaseActivity() {
-
     override fun initContentView(): Int = R.layout.activity_ir_correction
 
     override fun initView() {
         tv_correction.setOnClickListener {
-            val jumpIntent = Intent(this,IRCorrectionTwoActivity::class.java)
+            val jumpIntent = Intent(this, IRCorrectionTwoActivity::class.java)
             jumpIntent.putExtra(ExtraKeyConfig.IS_TC007, intent.getBooleanExtra(ExtraKeyConfig.IS_TC007, false))
             startActivity(jumpIntent)
         }

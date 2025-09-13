@@ -12,9 +12,19 @@ import androidx.appcompat.widget.AppCompatImageView
  *
  * Created by LCG on 2024/5/22.
  */
+/**
+ * Custom Battery view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * BatteryView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class BatteryView : AppCompatImageView {
     /**
-     * 当前电量
+     * current电量
      */
     var battery = -1
         set(value) {
@@ -23,7 +33,7 @@ class BatteryView : AppCompatImageView {
         }
 
     /**
-     * 当前是否充电中
+     * current是否充电中
      */
     var isCharging = false
         set(value) {
@@ -122,7 +132,7 @@ class BatteryView : AppCompatImageView {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // 绘制电池外壳
+        
         val lineSize = drawWidth * 2 / 58f
         val roundSize = drawWidth * 6 / 58f
         val batteryWidth = drawWidth * 50 / 58f
@@ -139,7 +149,7 @@ class BatteryView : AppCompatImageView {
             paint,
         )
 
-        // 绘制电池正极
+        
         val anodeWidth = drawWidth * 3 / 58f
         val anodeHeight = drawHeight * 8 / 30f - lineSize
         val anodeX = drawWidth - anodeWidth / 2
@@ -149,7 +159,7 @@ class BatteryView : AppCompatImageView {
         paint.strokeWidth = anodeWidth
         canvas.drawLine(anodeX, anodeStartY, anodeX, anodeStartY + anodeHeight, paint)
 
-        // 绘制电量
+        
         if (battery <= 0) {
             return
         }

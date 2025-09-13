@@ -1,8 +1,5 @@
 package com.topdon.ble;
 
-
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -14,13 +11,13 @@ import java.util.UUID;
  */
 public interface Request {
     /**
-     * 设备
+     * device
      */
     @NonNull
     Device getDevice();
 
     /**
-     * 请求类型
+     * 请求type
      */
     @NonNull
     RequestType getType();
@@ -32,7 +29,7 @@ public interface Request {
     String getTag();
 
     /**
-     * 服务UUID
+     * serviceUUID
      */
     @Nullable
     UUID getService();
@@ -52,7 +49,7 @@ public interface Request {
     /**
      * 执行请求
      *
-     * @param connection 请求执行的连接
+     * @param connection 请求执行的connection
      */
     void execute(Connection connection);
 }

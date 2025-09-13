@@ -5,25 +5,28 @@ import com.topdon.lib.core.utils.CommUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
- * 报告信息.
+reportinfo.
  *
- * 报告由 3 部分组成：报告信息、检测条件、红外数据.
+report由 3 部Group成：reportinfo、检测条件、infrareddata.
+ */
+/**
+ * Report info data model for thermal imaging information.
+ * Encapsulates thermal measurement and configuration data.
  */
 @Parcelize
 data class ReportInfoBean(
-    val report_name: String?,    //报告名称
-    val report_author: String?, //作者名称
-    val is_report_author: Int,  //是否显示作者名称，0、不显示 1、显示
-    val report_date: String?,   //报告日期
-    val is_report_date: Int,    //是否显示报告日期，0、不显示 1、显示
-    val report_place: String?,  //报告地点
-    val is_report_place: Int,   //是否显示报告地点，0、不显示 1、显示
-    val report_watermark: String?,//报告水印
-    val is_report_watermark: Int, //是否显示报告水印，0、不显示 1、显示
+    val report_name: String?, // reportname
+    val report_author: String?, // 作者name
+    val is_report_author: Int, // 是否Show/Display作者name，0、不Show/Display 1、Show/Display
+    val report_date: String?, // report日期
+    val is_report_date: Int, // 是否Show/Displayreport日期，0、不Show/Display 1、Show/Display
+    val report_place: String?, // report地point
+    val is_report_place: Int, // 是否Show/Displayreport地point，0、不Show/Display 1、Show/Display
+    val report_watermark: String?, // reportwatermark
+    val is_report_watermark: Int, // 是否Show/Displayreportwatermark，0、不Show/Display 1、Show/Display
 ) : Parcelable {
-
-    val is_report_name: Int = 1//是否显示报告名称，0、不显示 1、显示
-    val report_type: Int = 1     //报告类型，1、点线面报告
-    val report_version: String = "V1.00"//报告版本，当前为 V1.00
-    val report_number: String = "${CommUtils.getAppName()}${System.currentTimeMillis()}"//报告编号，APP名称 + 时间戳秒级
+    val is_report_name: Int = 1 // 是否Show/Displayreportname，0、不Show/Display 1、Show/Display
+    val report_type: Int = 1 // reporttype，1、pointlineareareport
+    val report_version: String = "V1.00" // reportversion，当前为 V1.00
+    val report_number: String = "${CommUtils.getAppName()}${System.currentTimeMillis()}" // report编号，APPname + 时间戳秒级
 }

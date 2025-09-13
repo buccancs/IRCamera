@@ -6,32 +6,31 @@ import androidx.lifecycle.lifecycleScope
 import com.example.thermal_lite.R
 import com.example.thermal_lite.databinding.ActivityIrCorrectionLiteThreeBinding
 import com.example.thermal_lite.fragment.IRMonitorLiteFragment
-import com.topdon.lib.core.config.RouterConfig
 import com.topdon.lib.core.ktbase.BaseActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
  *
- * 锅盖矫正
+锅盖矫正
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionLiteThreeActivity : BaseActivity() {
-
     private lateinit var binding: ActivityIrCorrectionLiteThreeBinding
 
     override fun initContentView(): Int = R.layout.activity_ir_correction_lite_three
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        val fragment: IRMonitorLiteFragment = if (savedInstanceState == null) {
-            IRMonitorLiteFragment()
-        } else {
-            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRMonitorLiteFragment
-        }
+
+        val fragment: IRMonitorLiteFragment =
+            if (savedInstanceState == null) {
+                IRMonitorLiteFragment()
+            } else {
+                supportFragmentManager.findFragmentById(R.id.fragment_container_view) as IRMonitorLiteFragment
+            }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -47,8 +46,11 @@ class IRCorrectionLiteThreeActivity : BaseActivity() {
                     showCameraLoading()
                     delay(1000)
                     dismissCameraLoading()
-                    val intent = Intent(this@IRCorrectionLiteThreeActivity,
-                        IRCorrectionLiteFourActivity::class.java)
+                    val intent =
+                        Intent(
+                            this@IRCorrectionLiteThreeActivity,
+                            IRCorrectionLiteFourActivity::class.java,
+                        )
                     startActivity(intent)
                     finish()
                 }

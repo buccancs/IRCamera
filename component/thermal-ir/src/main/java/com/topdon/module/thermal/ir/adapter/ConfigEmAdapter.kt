@@ -16,17 +16,27 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.utils.IRConfigData
 
 /**
- * 温度修正（环境温度、测温距离、发射率修改那个页面）常用发射率表 Adapter.
+temperature correction（ambient temperature、temperature measurement距离、emissivitymodify那个页area）常用emissivity表 Adapter.
  * Created by LCG on 2024/11/13.
+ */
+/**
+ * Custom Config em view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
  */
 class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapter.ViewHolder>() {
     private val dataList: ArrayList<IRConfigData> = IRConfigData.irConfigData(context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ir_config_emissivity, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         holder.tvEmName.text = dataList[position].name
         holder.tvEmNum.text = dataList[position].value
         holder.tvEmName.background = EmBgDrawable(false, position == dataList.size - 1)
@@ -35,7 +45,11 @@ class ConfigEmAdapter(val context: Context) : RecyclerView.Adapter<ConfigEmAdapt
 
     override fun getItemCount(): Int = dataList.size
 
-    class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+/**
+ * Custom View holder view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
         val tvEmName: TextView = rootView.findViewById(R.id.tv_em_name)
         val tvEmNum: TextView = rootView.findViewById(R.id.tv_em_num)
     }

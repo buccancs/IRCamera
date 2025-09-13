@@ -1,9 +1,12 @@
 package com.topdon.module.thermal.ir.event
 
 /**
- * 双光校正完成事件.
+dual light校正completeEvent.
  *
  * Created by LCG on 2023/12/27.
  */
-class ManualFinishBean {
-}
+/**
+ * Manual finish data model for thermal imaging information.
+ * Encapsulates thermal measurement and configuration data.
+ */
+class ManualFinishBean

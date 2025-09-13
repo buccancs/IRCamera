@@ -40,7 +40,7 @@ rootProject.name = "MPDC4GSR"
 // Core application modules
 include(":app")
 
-// Active sensor and recording modules 
+// Active sensor and recording modules
 include(":component:thermal")
 // include(":component:thermal-ir")        // Re-disabled due to compilation issues, resources copied to app instead
 // include(":component:thermal-lite")      // Temporarily disabled due to dependency on thermal-ir

@@ -4,20 +4,30 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.widget.ProgressBar
 import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.databinding.DialogProgressBinding
-import com.topdon.lib.ui.R as UiR
 
 /**
- * 带进度条的提示弹框.
+ * 带进度条的tip弹框.
+ */
+/**
+ * ProgressDialog(context: class
+ */
+/**
+ * Progress dialog for thermal imaging user interaction.
+ * Provides specialized input and configuration interfaces.
+ */
+/**
+ * ProgressDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
  */
 class ProgressDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
     private val binding: DialogProgressBinding = DialogProgressBinding.inflate(LayoutInflater.from(context))
-    
+
     var max: Int = 100
         set(value) {
             binding.progressBar.max = value

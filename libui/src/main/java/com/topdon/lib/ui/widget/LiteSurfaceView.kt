@@ -11,6 +11,16 @@ import java.nio.ByteBuffer
  * author: CaiSongL
  * date: 2024/8/1 13:52
  **/
+/**
+ * Custom Lite surface view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * LiteSurfaceView implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class LiteSurfaceView
     @JvmOverloads
     constructor(
@@ -26,7 +36,10 @@ class LiteSurfaceView
 
         var imageBitmap: Bitmap? = null
 
-        fun scaleBitmap(): Bitmap  {
+    /**
+     * Executes scalebitmap functionality.
+     */
+        fun scaleBitmap(): Bitmap {
             try {
                 if (tmpData == null) {
                     tmpData = ByteArray(mIrRotateData!!.size)

@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -17,7 +16,7 @@ import com.topdon.ble.util.BluetoothPermissionUtils;
 import java.util.Objects;
 
 /**
- * BLE设备实体类
+ * BLEdevice实体class
  * <p>
  * date: 2021/8/12 00:08
  * author: bichuanfeng
@@ -98,14 +97,14 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     /**
-     * 是否已连接并成功发现服务
+     * 是否已connection并success发现service
      */
     public boolean isConnected() {
         return getConnectionState() == ConnectionState.SERVICE_DISCOVERED;
     }
 
     /**
-     * 是否已断开连接
+     * 是否已disconnectconnection
      */
     public boolean isDisconnected() {
         ConnectionState state = getConnectionState();
@@ -113,7 +112,7 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
     }
 
     /**
-     * 是否正在连接
+     * 是否正在connection
      */
     public boolean isConnecting() {
         ConnectionState state = getConnectionState();

@@ -12,6 +12,16 @@ import com.topdon.lib.ui.R as UiR
  * 支持竖向的 SeekBar。
  * 暂不支持 thumbOffset.
  */
+/**
+ * Comm seek bar utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
+/**
+ * CommSeekBar manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class CommSeekBar : AppCompatSeekBar {
     /**
      * 0-横向 1-竖向
@@ -112,6 +122,9 @@ class CommSeekBar : AppCompatSeekBar {
         }
     }
 
+    /**
+     * Calculates drawable based on input parameters.
+     */
     private fun calculateDrawable(
         w: Int,
         h: Int,
@@ -194,16 +207,18 @@ class CommSeekBar : AppCompatSeekBar {
     }
 
     /**
-     * 通过级别分层进行粘性处理
+     * 通过级别分层进行粘性processing
      */
-    fun stopTrackTouchLevel()  {
-        if (level > 0)
-            {
-                val newLevel = (progress.toFloat() / 100 * 4).roundToInt()
-                setProgress((newLevel.toFloat() / level * 100).toInt())
-            }
+    fun stopTrackTouchLevel() {
+        if (level > 0) {
+            val newLevel = (progress.toFloat() / 100 * 4).roundToInt()
+            setProgress((newLevel.toFloat() / level * 100).toInt())
+        }
     }
 
+    /**
+     * Handles touch gesture events.
+     */
     private fun trackTouchEvent(event: MotionEvent) {
         val y = event.y.roundToInt()
         progress =

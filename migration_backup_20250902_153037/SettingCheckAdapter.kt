@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.item_setting_check.view.*
 
 class SettingCheckAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     private var datas = arrayOf("1s", "5s", "10s", "30s", "1min", "5min")
     private var dataTimes = arrayOf(1, 5, 10, 30, 60, 300)
 
@@ -25,14 +24,19 @@ class SettingCheckAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_setting_check, parent, false)
         return ItemView(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         if (holder is ItemView) {
             holder.btn.text = datas[position]
             if (position == selectTime) {
@@ -43,10 +47,9 @@ class SettingCheckAdapter(val context: Context) :
                 holder.btn.setTextColor(ContextCompat.getColor(context, R.color.font_gray))
             }
             holder.btn.setOnClickListener {
-                Log.w("123", "文件: ${datas[position]}")
+                Log.w("123", "file: ${datas[position]}")
                 listener?.onClick(position, dataTimes[position])
             }
-
         }
     }
 
@@ -58,10 +61,10 @@ class SettingCheckAdapter(val context: Context) :
         val btn: Button = itemView.item_setting_check_btn
     }
 
-
     interface OnItemClickListener {
-        fun onClick(index: Int, time: Int)
+        fun onClick(
+            index: Int,
+            time: Int,
+        )
     }
-
-
 }

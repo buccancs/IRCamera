@@ -1,9 +1,13 @@
 package com.topdon.module.thermal.utils
 
+/**
+ * Array utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 object ArrayUtils {
     /**
-     * 获取矩阵数据里的最大值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
+getmatrixdata里的最大值的序列(在选取region内)-rotationmatrix
+@param rotateType 1:rotation90 2:rotation180  3:rotation270
      */
     fun getMaxIndex(
         data: FloatArray,
@@ -19,8 +23,8 @@ object ArrayUtils {
     }
 
     /**
-     * 获取矩阵数据里的最小值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
+getmatrixdata里的最小值的序列(在选取region内)-rotationmatrix
+@param rotateType 1:rotation90 2:rotation180  3:rotation270
      */
     fun getMinIndex(
         data: FloatArray,
@@ -36,8 +40,8 @@ object ArrayUtils {
     }
 
     /**
-     * 旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
+rotationmatrix
+@param rotateType 1:rotation90 2:rotation180  3:rotation270
      */
     fun matrixRotate(
         srcData: FloatArray,
@@ -52,14 +56,14 @@ object ArrayUtils {
     }
 
     /**
-     * 获取矩阵数据里的最大值的序列(在选取区域内)-原矩阵
+getmatrixdata里的最大值的序列(在选取region内)-原matrix
      */
     private fun getMaxIndex(
         data: FloatArray,
         selectIndexList: ArrayList<Int> = arrayListOf(),
     ): Int {
         if (selectIndexList.size == 0) {
-            // 无指定区域
+无指定region
             var maxIndex = 0
             for (i in 1 until data.size - 1) {
                 if (data[i] > data[maxIndex]) {
@@ -83,7 +87,7 @@ object ArrayUtils {
     }
 
     /**
-     * 获取矩阵数据里的最小值的序列(在选取区域内)-原矩阵
+getmatrixdata里的最小值的序列(在选取region内)-原matrix
      */
     private fun getMinIndex(
         data: FloatArray,
@@ -119,8 +123,8 @@ object ArrayUtils {
     }
 
     /**
-     * 获取矩阵数据里的最大值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
+getmatrixdata里的最大值的序列(在选取region内)-rotationmatrix
+@param rotateType 1:rotation90 2:rotation180  3:rotation270
      */
     private fun getRotateMaxIndex(
         data: FloatArray,
@@ -153,8 +157,8 @@ object ArrayUtils {
     }
 
     /**
-     * 获取矩阵数据里的最小值的序列(在选取区域内)-旋转矩阵
-     * @param rotateType 1:旋转90 2:旋转180  3:旋转270
+getmatrixdata里的最小值的序列(在选取region内)-rotationmatrix
+@param rotateType 1:rotation90 2:rotation180  3:rotation270
      */
     private fun getRotateMinIndex(
         data: FloatArray,
@@ -193,7 +197,7 @@ object ArrayUtils {
     }
 
     /**
-     * 矩阵顺时针旋转90°
+matrix顺时针rotation90°
      */
     private fun matrixRotate90(srcData: FloatArray): FloatArray {
         val row = 192
@@ -220,7 +224,7 @@ object ArrayUtils {
     }
 
     /**
-     * 矩阵顺时针旋转180°
+matrix顺时针rotation180°
      */
     private fun matrixRotate180(srcData: FloatArray): FloatArray {
         val row = 192
@@ -247,8 +251,8 @@ object ArrayUtils {
     }
 
     /**
-     * 矩阵顺时针旋转270°
-     * 获取旋转后的数组数据
+matrix顺时针rotation270°
+getrotation后的arraydata
      */
     private fun matrixRotate270(srcData: FloatArray): FloatArray {
         val row = 192

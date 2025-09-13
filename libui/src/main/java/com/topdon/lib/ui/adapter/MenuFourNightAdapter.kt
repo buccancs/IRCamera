@@ -24,62 +24,97 @@ import com.topdon.lib.ui.listener.SingleClickListener
 import com.topdon.lib.ui.R as UiR
 import com.topdon.menu.R as MenuR
 
-@Deprecated("旧的设置菜单，已重构过了")
+/**
+ * Custom Menu four night view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+@Deprecated("旧的settingsmenu，已重构过了")
 @SuppressLint("NotifyDataSetChanged")
+/**
+ * MenuFourNightAdapter provides data binding between data source and UI components.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((index: Int, code: Int) -> Unit)? = null
 
-    private var colorEnable = false // 伪彩条
-    private var contrastEnable = false // 对比度
-    private var ddeEnable = false // 细节
-    private var alarmEnable = false // 预警
-    private var textColorEnable = false // 字体
-    private var mirrorEnable = false // 镜像
-    private var waterMarkEnable = false // 水印
-    private var compassEnable = false // 指南针
-
-    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE // 校对默认角度0
-
+    private var colorEnable = false // pseudo color条
+    private var contrastEnable = false 
+    private var ddeEnable = false 
+    private var alarmEnable = false 
+    private var textColorEnable = false 
+    private var mirrorEnable = false 
+    private var waterMarkEnable = false 
+    private var compassEnable = false 
+    private var rotateAngle = DeviceConfig.S_ROTATE_ANGLE 
+    /**
+     * Executes selectrotate functionality.
+     */
     fun selectRotate(rotateAngle: Int) {
         this.rotateAngle = rotateAngle
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes encolor functionality.
+     */
     fun enColor(colorEnable: Boolean) {
         this.colorEnable = colorEnable
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes encontrast functionality.
+     */
     fun enContrast(param: Boolean) {
         this.contrastEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes endde functionality.
+     */
     fun enDde(param: Boolean) {
         this.ddeEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes enalarm functionality.
+     */
     fun enAlarm(param: Boolean) {
         this.alarmEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes entextcolor functionality.
+     */
     fun enTextColor(param: Boolean) {
         this.textColorEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes enmirror functionality.
+     */
     fun enMirror(param: Boolean) {
         this.mirrorEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes encompass functionality.
+     */
     fun enCompass(param: Boolean) {
         this.compassEnable = param
         notifyDataSetChanged()
     }
 
+    /**
+     * Executes enwatermark functionality.
+     */
     fun enWaterMark(param: Boolean) {
         this.waterMarkEnable = param
         notifyDataSetChanged()
@@ -87,14 +122,14 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
     /**
      * 不知道干嘛的
-     * 参数 [Constants.IR_TEMPERATURE_MODE] = 1 测温模式   伪彩条、对比度、锐度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TCPLUS_MODE] = 5 双光设备        伪彩条、对比度、锐度、警示、旋转、字体、
-     * 参数 [Constants.IR_TEMPERATURE_LITE] = 7 Lite设备  伪彩条、对比度、警示、旋转、字体、镜像
-     * 参数 [Constants.IR_TC007_MODE] = 6 TC007          伪彩条、对比度、锐度、警示、字体、镜像
-     * else - 2D编辑菜单                                  警示、字体、水印
-     * 参数 [Constants.IR_OBSERVE_MODE] = 2 观测模式  指南针、旋转、镜像、对比度
+     * parameter [Constants.IR_TEMPERATURE_MODE] = 1 temperature measurementmode   pseudo color条、contrast、锐度、warning、旋转、font、镜像
+     * parameter [Constants.IR_TCPLUS_MODE] = 5 dual lightdevice        pseudo color条、contrast、锐度、warning、旋转、font、
+     * parameter [Constants.IR_TEMPERATURE_LITE] = 7 Litedevice  pseudo color条、contrast、warning、旋转、font、镜像
+     * parameter [Constants.IR_TC007_MODE] = 6 TC007          pseudo color条、contrast、锐度、warning、font、镜像
+     * else - 2D编辑menu                                  warning、font、watermark
+     * parameter [Constants.IR_OBSERVE_MODE] = 2 observationmode  指南针、旋转、镜像、contrast
      */
-    fun setShowMenuFour(modeType: Int)  {
+    fun setShowMenuFour(modeType: Int) {
         fourBean.clear()
         when (modeType) {
             IR_TEMPERATURE_MODE -> {
@@ -354,30 +389,28 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         @SuppressLint("RecyclerView") position: Int,
     ) {
         if (holder is ItemView) {
-            // 更新切换Tab的item宽度
+            
             updateViewWidth(holder.itemView, holder.img)
             val bean = fourBean[position]
             holder.name.text = bean.name
-            if (bean.code == CameraHelp.TYPE_SET_ROTATE)
-                {
-                    when (rotateAngle) {
-                        0 -> {
-                            holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate270)
-                        }
-                        90 -> {
-                            holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate180)
-                        }
-                        180 -> {
-                            holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate90)
-                        }
-                        270 -> {
-                            holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate0)
-                        }
+            if (bean.code == CameraHelp.TYPE_SET_ROTATE) {
+                when (rotateAngle) {
+                    0 -> {
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate270)
                     }
-                } else
-                {
-                    holder.img.setImageResource(bean.res)
+                    90 -> {
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate180)
+                    }
+                    180 -> {
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate90)
+                    }
+                    270 -> {
+                        holder.img.setImageResource(MenuR.drawable.svg_menu2_setting_4_rotate0)
+                    }
                 }
+            } else {
+                holder.img.setImageResource(bean.res)
+            }
             holder.lay.setOnClickListener(
                 object : SingleClickListener() {
                     override fun onSingleClick() {
@@ -430,7 +463,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         }
     }
 
-    // 状态变化
+    
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,
@@ -448,21 +481,22 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
         return fourBean.size
     }
 
+    /**
+     * Updates the viewwidth with new data.
+     */
     private fun updateViewWidth(
         itemView: View,
         itemMenu: ImageView,
-    )  {
-        if (fourBean.size <= 4)
-            {
-                itemView.layoutParams =
-                    ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            } else
-            {
-                itemView.layoutParams =
-                    ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            }
+    ) {
+        if (fourBean.size <= 4) {
+            itemView.layoutParams =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        } else {
+            itemView.layoutParams =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
 //        if (fourBean.size <= 4) {  //item少于4个，每个占1/4
-//            val canSeeCount = fourBean.size //一屏占4个
+//            val canSeeCount = fourBean.size 
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount)
 //            itemView.layoutParams =
 //                ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -472,7 +506,7 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 //            layoutParams.height = imageSize
 //            itemMenu.layoutParams = layoutParams
 //        } else {    //item大于4个，每屏4.5个item
-//            val canSeeCount = 4.5 //一屏占4个
+//            val canSeeCount = 4.5 
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams =
 //                ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)

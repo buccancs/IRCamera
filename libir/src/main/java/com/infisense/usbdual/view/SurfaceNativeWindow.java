@@ -1,7 +1,7 @@
 package com.infisense.usbdual.view;
 
 /*
- * @Description: 使用GPU绘制，减少CPU和内存占用，可以自定义
+ * @Description: 使用GPU绘制，减少CPU和memory占用，可以自定义
  * @Author:         brilliantzhao
  * @CreateDate:     2022.9.8 10:26
  * @UpdateUser:

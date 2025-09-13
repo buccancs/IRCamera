@@ -16,7 +16,7 @@ open class GalleryBean(
     val path: String,
     val thumb: String,
     val name: String,
-    val duration: Long, // 仅当为视频时，持续毫秒数
+    val duration: Long, // 仅当为video时，持续毫秒数
     val timeMillis: Long,
     var hasDownload: Boolean,
 ) : Parcelable {
@@ -41,6 +41,12 @@ open class GalleryBean(
     )
 }
 
+/**
+ * GalleryTitle manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class GalleryTitle(timeMillis: Long) : GalleryBean(
     id = 0,
     path = "",

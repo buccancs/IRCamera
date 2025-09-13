@@ -8,15 +8,37 @@ import androidx.recyclerview.widget.RecyclerView
  * @author: CaiSongL
  * @date: 2023/4/1 14:44
  */
+/**
+ * RecyclerViewProxy(val class
+ */
+/**
+ * Custom Recycler view proxy view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * RecyclerViewProxy implements custom user interface component functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class RecyclerViewProxy(val layoutManager: RecyclerView.LayoutManager) {
+    /**
+     * Executes attachview functionality.
+     */
     fun attachView(view: View?) {
         layoutManager.attachView(view!!)
     }
 
+    /**
+     * Executes detachview functionality.
+     */
     fun detachView(view: View?) {
         layoutManager.detachView(view!!)
     }
 
+    /**
+     * Executes detachandscrapview functionality.
+     */
     fun detachAndScrapView(
         view: View?,
         recycler: RecyclerView.Recycler?,
@@ -24,10 +46,16 @@ class RecyclerViewProxy(val layoutManager: RecyclerView.LayoutManager) {
         layoutManager.detachAndScrapView(view!!, recycler!!)
     }
 
+    /**
+     * Executes detachandscrapattachedviews functionality.
+     */
     fun detachAndScrapAttachedViews(recycler: RecyclerView.Recycler?) {
         layoutManager.detachAndScrapAttachedViews(recycler!!)
     }
 
+    /**
+     * Executes recycleview functionality.
+     */
     fun recycleView(
         view: View?,
         recycler: RecyclerView.Recycler,
@@ -35,6 +63,9 @@ class RecyclerViewProxy(val layoutManager: RecyclerView.LayoutManager) {
         recycler.recycleView(view!!)
     }
 
+    /**
+     * Removes the specified andrecycleallviews from the system.
+     */
     fun removeAndRecycleAllViews(recycler: RecyclerView.Recycler?) {
         layoutManager.removeAndRecycleAllViews(recycler!!)
     }
@@ -54,6 +85,9 @@ class RecyclerViewProxy(val layoutManager: RecyclerView.LayoutManager) {
         return view
     }
 
+    /**
+     * Executes layoutdecoratedwithmargins functionality.
+     */
     fun layoutDecoratedWithMargins(
         v: View?,
         left: Int,
@@ -87,22 +121,37 @@ class RecyclerViewProxy(val layoutManager: RecyclerView.LayoutManager) {
     val height: Int
         get() = layoutManager.height
 
+    /**
+     * Executes offsetchildrenhorizontal functionality.
+     */
     fun offsetChildrenHorizontal(amount: Int) {
         layoutManager.offsetChildrenHorizontal(amount)
     }
 
+    /**
+     * Executes offsetchildrenvertical functionality.
+     */
     fun offsetChildrenVertical(amount: Int) {
         layoutManager.offsetChildrenVertical(amount)
     }
 
+    /**
+     * Executes requestlayout functionality.
+     */
     fun requestLayout() {
         layoutManager.requestLayout()
     }
 
+    /**
+     * Initiates the operation or service.
+     */
     fun startSmoothScroll(smoothScroller: RecyclerView.SmoothScroller?) {
         layoutManager.startSmoothScroll(smoothScroller)
     }
 
+    /**
+     * Removes the specified allviews from the system.
+     */
     fun removeAllViews() {
         layoutManager.removeAllViews()
     }

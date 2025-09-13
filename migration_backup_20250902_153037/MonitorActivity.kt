@@ -15,7 +15,6 @@ import java.util.*
 
 @Route(path = RouterConfig.THERMAL_MONITOR)
 class MonitorActivity : BaseActivity(), View.OnClickListener {
-
     companion object {
         const val STATS_START = 101
         const val STATS_MONITOR = 102
@@ -24,8 +23,8 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
 
     var MONITOR_ACTION = STATS_START
 
-    private var selectType = 1//选取点类型(点 线 面)
-    private var selectIndex: ArrayList<Int> = arrayListOf()//选取点
+    private var selectType = 1 // 选取pointtype(point line area)
+    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取point
 
     override fun initContentView() = R.layout.activity_monitor
 
@@ -45,7 +44,6 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
-
     }
 
     override fun onClick(v: View?) {
@@ -55,19 +53,21 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
             }
             motion_btn -> {
                 MonitorSelectDialog.Builder(this)
-                    .setTitle("请选择监控类型")
-                    .setPositiveListener(object : MonitorSelectDialog.OnClickListener {
-                        override fun onClick(select: Int) {
-                            updateUI()
-                            when (select) {
-                                1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
-                                2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
-                                else -> EventBus.getDefault()
-                                    .post(ThermalActionEvent(action = 2003))
+                    .setTitle("请selection监控type")
+                    .setPositiveListener(
+                        object : MonitorSelectDialog.OnClickListener {
+                            override fun onClick(select: Int) {
+                                updateUI()
+                                when (select) {
+                                    1 -> EventBus.getDefault().post(ThermalActionEvent(action = 2001))
+                                    2 -> EventBus.getDefault().post(ThermalActionEvent(action = 2002))
+                                    else ->
+                                        EventBus.getDefault()
+                                            .post(ThermalActionEvent(action = 2003))
+                                }
                             }
-                        }
-
-                    })
+                        },
+                    )
                     .setCancelListener(R.string.app_cancel)
                     .create().show()
             }
@@ -81,7 +81,10 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun select(selectType: Int, selectIndex: ArrayList<Int>) {
+    fun select(
+        selectType: Int,
+        selectIndex: ArrayList<Int>,
+    ) {
         motion_start_btn.isEnabled = true
         this.selectType = selectType
         this.selectIndex = selectIndex
@@ -94,14 +97,12 @@ class MonitorActivity : BaseActivity(), View.OnClickListener {
         motion_btn.visibility = View.GONE
     }
 
-    //秒
+    // 秒
     fun updateTime(time: Long) {
         val ss = time % 60
         val mm = time / 60 % 60
         val ssStr = String.format("%02d", ss)
         val mmStr = String.format("%02d", mm)
-        motion_start_btn.text = "${mmStr}:${ssStr}"
+        motion_start_btn.text = "$mmStr:$ssStr"
     }
-
-
 }

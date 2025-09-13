@@ -6,6 +6,10 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * My value formatter utility class for thermal imaging operations.
+ * Provides helper functions and common functionality.
+ */
 class MyValueFormatter(private val startTime: Long, private val type: Int = 1) :
     IndexAxisValueFormatter() {
     companion object {

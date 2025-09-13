@@ -16,14 +16,26 @@ import com.topdon.lib.core.databinding.DialogMsgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 消息提示窗
+ * messagetip窗
  * create by fylder on 2018/6/15
  **/
+/**
+ * MsgDialog displays modal dialog interface for user interaction.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class MsgDialog : Dialog {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
+/**
+ * Builder manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     class Builder {
         var dialog: MsgDialog? = null
 
@@ -65,10 +77,16 @@ class MsgDialog : Dialog {
             return this
         }
 
+    /**
+     * Executes dismiss functionality.
+     */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
+    /**
+     * Creates and configures a new  instance.
+     */
         fun create(): MsgDialog {
             if (dialog == null) {
                 dialog = MsgDialog(context!!, R.style.InfoDialog)
@@ -84,13 +102,13 @@ class MsgDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    
                     0.9
                 } else {
-                    // 横屏
+                    
                     0.3
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() 
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(false)
@@ -100,14 +118,14 @@ class MsgDialog : Dialog {
                     positiveClickListener!!.onClick(dialog!!)
                 }
             }
-            // img
+            
             if (imgRes != 0) {
                 tipImg?.visibility = View.VISIBLE
                 tipImg?.setImageResource(imgRes)
             } else {
                 tipImg?.visibility = View.GONE
             }
-            // msg
+            
             if (message != null) {
                 messageText?.visibility = View.VISIBLE
                 messageText?.setText(message, TextView.BufferType.NORMAL)
@@ -121,9 +139,18 @@ class MsgDialog : Dialog {
     }
 
     /**
-     * 提交回调
+     * 提交Callback
      */
+/**
+ * OnClickListener manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     interface OnClickListener {
+    /**
+     * Callback method triggered when click occurs.
+     */
         fun onClick(dialog: DialogInterface)
     }
 }

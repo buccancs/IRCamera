@@ -7,6 +7,16 @@ import androidx.annotation.IntDef
  * @author: CaiSongL
  * @date: 2023/4/1 14:18
  */
+/**
+ * Custom Pivot view for thermal imaging display.
+ * Provides specialized rendering and interaction capabilities.
+ */
+/**
+ * Pivot manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
 class Pivot(
     @get:Axis
     @param:Axis val axis: Int,
@@ -30,6 +40,12 @@ class Pivot(
         }
     }
 
+/**
+ * X manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     enum class X {
         LEFT {
             override fun create(): Pivot {
@@ -50,6 +66,12 @@ class Pivot(
         abstract fun create(): Pivot
     }
 
+/**
+ * Y manages camera operations and image capture functionality.
+ *
+ * @author IRCamera Development Team
+ * @since 1.0
+ */
     enum class Y {
         TOP {
             override fun create(): Pivot {
