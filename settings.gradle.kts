@@ -1,17 +1,18 @@
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        // Priority order: Most commonly used repositories first for faster resolution
         google()
         mavenCentral()
-        maven { url = uri("https://www.jitpack.io") }
-        maven { url = uri("https://developer.huawei.com/repo/") }
-        // Aliyun repositories as fallback
-        maven { url = uri("https://maven.aliyun.com/repository/central") }
-        maven { url = uri("https://maven.aliyun.com/repository/google") }
         // Consolidated local AAR files directories
         flatDir {
             dirs("libir/libs", "libapp/libs", "app/libs", "libmatrix/libs", "BleModule/libs")
         }
+        maven { url = uri("https://www.jitpack.io") }
+        maven { url = uri("https://developer.huawei.com/repo/") }
+        // Aliyun repositories as fallback (less frequently used)
+        maven { url = uri("https://maven.aliyun.com/repository/central") }
+        maven { url = uri("https://maven.aliyun.com/repository/google") }
     }
 }
 

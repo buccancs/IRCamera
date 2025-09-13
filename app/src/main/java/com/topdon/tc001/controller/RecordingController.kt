@@ -476,7 +476,6 @@ class RecordingController(
     }
 
     /**
-<<<<<<< HEAD
      * Get detailed status of all sensors including initialization and recording state
      */
     fun getSensorStatusSummary(): SensorStatusSummary {
