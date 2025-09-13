@@ -989,7 +989,9 @@ class ThermalCameraRecorder(
                             startSimulatedThermalRecording()
                         }
                         
-                        emitError(ErrorType.DEVICE_ERROR, "Thermal camera disconnected - switched to simulation mode")
+                        recordingScope.launch {
+                            emitError(ErrorType.DEVICE_ERROR, "Thermal camera disconnected - switched to simulation mode")
+                        }
                         emitStatus()
                     }
                 }

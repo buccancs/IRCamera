@@ -83,14 +83,15 @@ class RecordingController(
                 
                 // Initialize each sensor with proper exception handling
                 val initJobs = listOf(
-                    async { 
-                        try {
-                            "rgb_camera_1" to rgbCamera.initialize()
-                        } catch (e: Exception) {
-                            Log.w(TAG, "Exception initializing RGB camera", e)
-                            "rgb_camera_1" to false
-                        }
-                    },
+                    // RGB Camera initialization commented out - requires TextureView
+                    // async { 
+                    //     try {
+                    //         "rgb_camera_1" to rgbCamera.initialize()
+                    //     } catch (e: Exception) {
+                    //         Log.w(TAG, "Exception initializing RGB camera", e)
+                    //         "rgb_camera_1" to false
+                    //     }
+                    // },
                     async { 
                         try {
                             "thermal_camera_1" to thermalCamera.initialize()

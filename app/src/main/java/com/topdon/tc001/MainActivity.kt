@@ -1159,7 +1159,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             )
             
             // Stop recording through the service
-            serviceBinder?.getRecordingController()?.stopRecording()
+            lifecycleScope.launch {
+                serviceBinder?.getRecordingController()?.stopRecording()
+            }
             
             Toast.makeText(this, "Remote recording stopped", Toast.LENGTH_LONG).show()
             

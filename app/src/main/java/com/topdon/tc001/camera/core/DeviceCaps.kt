@@ -70,9 +70,14 @@ data class DeviceCaps(
             val optimalVideoSettings = determineOptimalVideoSettings(isSamsungS22, supports4k60, processorType)
             val optimalRawSettings = determineOptimalRawSettings(isSamsungS22, rawSize, processorType)
             
-            // Concurrent streams capability
-            val maxConcurrentStreams = characteristics.get(CameraCharacteristics.REQUEST_MAX_NUM_OUTPUT_STREAMS)
-                ?.let { it[0] } ?: 1 // Index 0 is for processed streams
+            // Concurrent streams capability (fallback to safe default)
+            val maxConcurrentStreams = try {
+                characteristics.get(CameraCharacteristics.REQUEST_MAX_NUM_OUTPUT_STREAMS)
+                    ?.get(0) ?: 3 // Default to 3 streams for modern devices
+            } catch (e: Exception) {
+                Log.d(TAG, "Cannot get max concurrent streams, defaulting to 3")
+                3 // Safe default
+            }
             
             Log.i(TAG, "Device capabilities detected:")
             Log.i(TAG, "  Device: $manufacturer $deviceModel")

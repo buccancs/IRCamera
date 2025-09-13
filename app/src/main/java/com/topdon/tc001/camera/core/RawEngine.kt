@@ -169,7 +169,10 @@ class RawEngine(private val context: Context) {
             if (captureResult != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 try {
                     // Create DNG file with proper metadata
-                    val dngCreator = DngCreator(captureResult.first, captureResult.second)
+                    // DngCreator constructor needs (characteristics, captureResult)
+                    val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+                    val characteristics = cameraManager.getCameraCharacteristics("0") // Default camera
+                    val dngCreator = DngCreator(characteristics, captureResult)
                     FileOutputStream(dngFile).use { outputStream ->
                         dngCreator.writeImage(outputStream, image)
                     }

@@ -57,7 +57,7 @@ class CameraController(private val context: Context) {
             val characteristics = manager.getCameraCharacteristics(cameraId)
 
             // Detect capabilities once at camera open (as specified)
-            deviceCaps = detectCapabilities(characteristics)
+            deviceCaps = detectCapabilities(characteristics, cameraId)
             Log.i(TAG, "Device capabilities: $deviceCaps")
 
             if (!cameraOpenCloseLock.tryAcquire(CAMERA_OPEN_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
@@ -157,7 +157,7 @@ class CameraController(private val context: Context) {
     /**
      * Capabilities detection (once, at camera open)
      */
-    private fun detectCapabilities(characteristics: CameraCharacteristics): DeviceCaps {
+    private fun detectCapabilities(characteristics: CameraCharacteristics, cameraId: String): DeviceCaps {
         val capabilities = characteristics.get(CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES) ?: IntArray(0)
         val supportsRaw = capabilities.contains(CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES_RAW)
 
