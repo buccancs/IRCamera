@@ -5,7 +5,7 @@ import com.topdon.lib.core.ktbase.BaseActivity
 import com.topdon.lib.core.tools.DeviceTools
 import com.topdon.module.thermal.R
 
-connectiondevice
+// connectiondevice
 // Legacy ARouter route annotation - now using NavigationManager
 /**
  * Connect activity for thermal imaging interface.

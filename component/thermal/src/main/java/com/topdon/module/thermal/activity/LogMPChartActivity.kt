@@ -60,7 +60,7 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     index: Int,
                     time: Int,
                 ) {
-switchtype
+                    // switch type
                     chart.highlightValue(null) // Close高亮pointMarker
                     selectType = index + 1
                     queryLog()
@@ -94,13 +94,13 @@ switchtype
 
     private fun queryLog() {
         showLoadingDialog()
-//        viewModel.queryLogByType(selectType)
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.queryLogVolsByStartTime(
-                type = 1, // Default fence type since getSelectFenceType() is not available
-                selectTimeType = selectType,
-            )
-        }
+        viewModel.queryLogByType(selectType)
+        // lifecycleScope.launch(Dispatchers.IO) {
+        //     viewModel.queryLogVolsByStartTime(
+        //         type = 1, // Default fence type since getSelectFenceType() is not available
+        //         selectTimeType = selectType,
+        //     )
+        // }
     }
 
     private fun initChart() {
@@ -188,7 +188,7 @@ switchtype
         set.lineWidth = 2f
         set.circleRadius = 1f // 不Show/Display坐标point
         set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // 坐标颜色(Hideprocessing)
-set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hideprocessing)
+        // set.setCircleColor(ContextCompat.getColor(this, com.topdon.lib.core.R.color.white))//坐标颜色(hideprocessing)
         set.fillAlpha = 200
         set.valueTextSize = 10f
         set.setDrawValues(false) // settings是否Show/Display坐标值文本
@@ -331,7 +331,7 @@ set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hi
         return min
     }
 
-getdisplay最大区间，以最小区间的50倍
+    // get display最大区间，以最小区间的50倍
     private fun getMaximum(): Float {
         return getMinimum() * 50f
     }

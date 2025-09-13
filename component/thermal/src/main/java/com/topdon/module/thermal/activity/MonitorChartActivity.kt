@@ -126,7 +126,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         monitorChartTimeRecycler.adapter = timeAdapter
         monitorChartSettingRecycler.layoutManager = GridLayoutManager(this, 3)
         monitorChartSettingRecycler.adapter = adapter
-set时间段type(秒 分 时 天)
+        // set时间段type(秒 分 时 天)
         timeAdapter.listener =
             object : SettingTimeAdapter.OnItemClickListener {
                 override fun onClick(
@@ -363,7 +363,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                 }
             }
             4 -> {
-天(图表display最后一个时间在昨天，要多加一天)
+                // 天(图表display最后一个时间在昨天，要多加一天)
                 val addTime = 2 * 24 * 60 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 4) + addTime) {
                     queryLog(3)
@@ -527,11 +527,11 @@ set.fillDrawable = fillColor//set填充颜色渐变
      */
     private fun queryLog(action: Int) {
         startMonitor = false
-        lifecycleScope.launch(Dispatchers.IO) {
-dataList.clear()//cleardata
-//            dataList = arrayListOf()
-            viewModel.queryLogThermals(selectTimeType = selectTimeType, action = action)
-        }
+        viewModel.queryLogByType(selectTimeType)
+        // lifecycleScope.launch(Dispatchers.IO) {
+        //     // dataList.clear()//cleardata
+        //     viewModel.queryLogThermals(selectTimeType = selectTimeType, action = action)
+        // }
     }
 
     private fun resultVol(bean: LogViewModel.ChartList) {
@@ -540,13 +540,13 @@ dataList.clear()//cleardata
             val logTime = TimeTool.showDateType(bean.dataList.last().createTime, selectTimeType)
             val nowTime = TimeTool.showDateType(System.currentTimeMillis(), selectTimeType)
             if (TextUtils.equals(logTime, nowTime)) {
-分时天,当前时间段没end，应当delete最新当前时间段data
+                // 分时天,当前时间段没end，应当delete最新当前时间段data
                 bean.dataList.removeLast()
             }
         }
 //        dataList = bean.dataList
         if (latestTime == 0L) {
-// 图表无data需要update // TODO: Review this line
+            // 图表无data需要update
             addEntity(bean.dataList)
         } else if (bean.dataList.size > 0 && latestTime < bean.dataList.last().createTime) {
 // 有新data再update // TODO: Review this line
