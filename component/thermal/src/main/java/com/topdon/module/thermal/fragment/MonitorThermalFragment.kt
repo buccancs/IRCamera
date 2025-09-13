@@ -419,11 +419,11 @@ temperaturedisplay
                 full()
             }
             10001 -> {
-startRecord
+// startRecord - method call converted to comment
                 recordThermal()
             }
             10003 -> {
-stopRecord
+// stopRecord - method call converted to comment
                 isRecord = false
             }
         }
@@ -436,7 +436,7 @@ stopRecord
     }
 
     /**
-setpseudo-color
+// setpseudo-color - method call converted to comment
      */
     private fun setColor(action: Int) {
         var type: Int = action % 3000 - 1
@@ -497,7 +497,7 @@ setpseudo-color
                     startPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getpoint
+// getpoint - method call converted to comment
                     val activity: MonitorActivity = requireActivity() as MonitorActivity
                     selectIndex.clear()
                     selectIndex =
@@ -512,7 +512,7 @@ getpoint
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getline
+// getline - method call converted to comment
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
                             .getLineIndex(startPoint, endPoint)
@@ -527,7 +527,7 @@ getline
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getarea
+// getarea - method call converted to comment
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
                             .getAreaIndex(startPoint, endPoint)

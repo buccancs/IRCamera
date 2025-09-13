@@ -228,7 +228,7 @@ Log.w("123", "真实位// 置 maxX:$maxX, maxY:$maxY")
                         yuv: ByteArray,
                         temp: FloatArray,
                     ) {
-refreshimage
+// refreshimage - method call converted to comment
                         if (mIrBitmap == null) {
                             mIrBitmap = Bitmap.createBitmap(256, 192, Bitmap.Config.ARGB_8888)
                         }
@@ -436,17 +436,17 @@ temperaturedisplay
                 picture()
             }
             1002 -> {
-recording
+// recording - method call converted to comment
                 ToastTools.showShort("recording")
                 video()
             }
             2001 -> {
-addpoint
+// addpoint - method call converted to comment
                 clearFenceUI()
                 addPoint()
             }
             2002 -> {
-addline
+// addline - method call converted to comment
                 clearFenceUI()
                 addLine()
             }
@@ -456,7 +456,7 @@ addline
                 addFence()
             }
             2004 -> {
-addtemperature
+// addtemperature - method call converted to comment
 //                onTempBtnClick()
                 addLimit()
             }
@@ -465,20 +465,20 @@ addtemperature
                 clearFence()
             }
             in 3000..3010 -> {
-setpseudo-color
+// setpseudo-color - method call converted to comment
                 setColor(event.action)
             }
             4001 -> {
-rotation
+// rotation - method call converted to comment
                 rotate()
                 clearFence()
             }
             4002 -> {
-imageEnhance
+// imageEnhance - method call converted to comment
                 enhance()
             }
             4003 -> {
-imageEnhance
+// imageEnhance - method call converted to comment
                 camera()
             }
             in 5000..5010 -> {
@@ -507,7 +507,7 @@ imageEnhance
     }
 
     /**
-setpseudo-color
+// setpseudo-color - method call converted to comment
      */
     private fun setColor(action: Int) {
         var type: Int = action % 3000 - 1
@@ -566,7 +566,7 @@ setpseudo-color
                     startPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getpoint
+// getpoint - method call converted to comment
                     selectType = 1
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType).getPointIndex(startPoint)
@@ -579,7 +579,7 @@ getpoint
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getline
+// getline - method call converted to comment
                     selectType = 2
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
@@ -593,7 +593,7 @@ getline
                     endPoint: IntArray,
                     srcRect: IntArray,
                 ) {
-getarea
+// getarea - method call converted to comment
                     selectType = 3
                     selectIndex =
                         Fence(srcRect = srcRect, rotateType = rotateType)
@@ -677,11 +677,11 @@ mIrSurfaceView?.setSaturationValue(value)//setcontrast
         // RxPermissions(requireActivity()).request(Manifest.permission.CAMERA)
         //     .subscribe { granted: Boolean ->
         if (isRunCamera) {
-disabled
+// disabled - method call converted to comment
             requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.GONE
             isRunCamera = false
         } else {
-Open
+// Open - method call converted to comment
             requireView().findViewById<FrameLayout>(R.id.temp_camera_layout).visibility = View.VISIBLE
             val tempCameraView = requireView().findViewById<com.topdon.lib.ui.camera.CameraView>(R.id.temp_camera_view)
             tempCameraView.post {
