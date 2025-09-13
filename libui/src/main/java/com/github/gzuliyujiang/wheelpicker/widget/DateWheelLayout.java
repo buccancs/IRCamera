@@ -38,7 +38,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2021/6/5 16:12
@@ -103,7 +102,6 @@ public class DateWheelLayout extends BaseWheelLayout {
  spaceStartView = findViewById(R.id.wheel_picker_date_start_view);
  spaceEndView = findViewById(R.id.wheel_picker_date_end_view);
 
- // Comment removed (contained Chinese characters)
  post(new Runnable() {
  @Override
  public void run() {
@@ -252,14 +250,12 @@ public class DateWheelLayout extends BaseWheelLayout {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setRange(DateEntity startValue, DateEntity endValue) {
  setRange(startValue, endValue, null);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setRange(DateEntity startValue, DateEntity endValue, DateEntity defaultValue) {
  if (startValue == null) {
@@ -399,22 +395,18 @@ public class DateWheelLayout extends BaseWheelLayout {
 
  private void changeMonth(int year) {
  final int min, max;
- // Comment removed (contained Chinese characters)
  if (startValue.getYear() == endValue.getYear()) {
  min = Math.min(startValue.getMonth(), endValue.getMonth());
  max = Math.max(startValue.getMonth(), endValue.getMonth());
  }
- // Comment removed (contained Chinese characters)
  else if (year == startValue.getYear()) {
  min = startValue.getMonth();
  max = 12;
  }
- // Comment removed (contained Chinese characters)
  else if (year == endValue.getYear()) {
  min = 1;
  max = endValue.getMonth();
  }
- // Comment removed (contained Chinese characters)
  else {
  min = 1;
  max = 12;
@@ -432,18 +424,15 @@ public class DateWheelLayout extends BaseWheelLayout {
 
  private void changeDay(int year, int month) {
  final int min, max;
- // Comment removed (contained Chinese characters)
  if (year == startValue.getYear() && month == startValue.getMonth()
  && year == endValue.getYear() && month == endValue.getMonth()) {
  min = startValue.getDay();
  max = endValue.getDay();
  }
- // Comment removed (contained Chinese characters)
  else if (year == startValue.getYear() && month == startValue.getMonth()) {
  min = startValue.getDay();
  max = getTotalDaysInMonth(year, month);
  }
- // Comment removed (contained Chinese characters)
  else if (year == endValue.getYear() && month == endValue.getMonth()) {
  min = 1;
  max = endValue.getDay();
@@ -462,7 +451,6 @@ public class DateWheelLayout extends BaseWheelLayout {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private int getTotalDaysInMonth(int year, int month) {
  switch (month) {
@@ -473,20 +461,16 @@ public class DateWheelLayout extends BaseWheelLayout {
  case 8:
  case 10:
  case 12:
- // Comment removed (contained Chinese characters)
  return 31;
  case 4:
  case 6:
  case 9:
  case 11:
- // Comment removed (contained Chinese characters)
  return 30;
  case 2:
- // Comment removed (contained Chinese characters)
  if (year <= 0) {
  return 29;
  }
- // Comment removed (contained Chinese characters)
  boolean isLeap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
  if (isLeap) {
  return 29;

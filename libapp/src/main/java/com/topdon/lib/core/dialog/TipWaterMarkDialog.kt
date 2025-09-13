@@ -30,7 +30,6 @@ import com.topdon.lib.core.utils.ScreenUtil
 import java.util.*
 
 /**
- * Comment removed (contained Chinese characters)
  */
 class TipWaterMarkDialog : Dialog {
  constructor(context: Context) : super(context)
@@ -109,10 +108,8 @@ class TipWaterMarkDialog : Dialog {
  val lp = dialog!!.window!!.attributes
  val wRatio =
  if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
- // Comment removed (contained Chinese characters)
  0.85
  } else {
- // Comment removed (contained Chinese characters)
  0.35
  }
  lp.width = (ScreenUtil.getScreenWidth(context) * wRatio).toInt() // Settings
@@ -165,7 +162,6 @@ class TipWaterMarkDialog : Dialog {
  }
 
  private fun initLocationPermission() {
- // Comment removed (contained Chinese characters)
  XXPermissions.with(context)
  .permission(
  Manifest.permission.ACCESS_FINE_LOCATION,
@@ -193,7 +189,6 @@ ToastUtils.showShort(R.string.scan_ble_tip_authorize)
  never: Boolean,
  ) {
  if (never) {
- // Comment removed (contained Chinese characters)
  if (BaseApplication.instance.isDomestic()) {
  ToastUtils.showShort(R.string.app_location_content)
  return
@@ -237,17 +232,13 @@ ToastUtils.showShort(R.string.scan_ble_tip_authorize)
 
  @SuppressLint("MissingPermission")
  private fun getLocation(): String? {
- // Comment removed (contained Chinese characters)
  locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
- // Comment removed (contained Chinese characters)
  val providers = locationManager?.getProviders(true)
  locationProvider =
  if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
- // Comment removed (contained Chinese characters)
  LocationManager.GPS_PROVIDER
  } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
- // Comment removed (contained Chinese characters)
  LocationManager.NETWORK_PROVIDER
  } else {
  return null
@@ -263,7 +254,6 @@ ToastUtils.showShort(R.string.scan_ble_tip_authorize)
  }
  }
 
- // Comment removed (contained Chinese characters)
  private fun getAddress(location: Location?): String {
  var result: List<Address?>? = null
  try {

@@ -9,8 +9,6 @@ import com.energy.iruvc.utils.CommonParams.PropImageParamsValue.DDEType
 import com.energy.iruvc.utils.CommonParams.PropImageParamsValue.MirrorFlipType
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setAutoShutter(isAutoShutter: Boolean) {
  setPropAutoShutterParameter(
@@ -20,8 +18,6 @@ fun IRCMD.setAutoShutter(isAutoShutter: Boolean) {
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setMirror(isMirror: Boolean) {
  setPropImageParams(
@@ -31,16 +27,12 @@ fun IRCMD.setMirror(isMirror: Boolean) {
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setContrast(value: Int) {
  setPropImageParams(PropImageParams.IMAGE_PROP_LEVEL_CONTRAST, PropImageParamsValue.NumberType(value.toString()))
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 fun IRCMD.setPropDdeLevel(level: Int) {
  when (level) {

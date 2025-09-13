@@ -6,10 +6,6 @@ import android.view.View;
 
 /**
  * ================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * ================================================
  */
 public class SavedState extends View.BaseSavedState {

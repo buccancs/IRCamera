@@ -76,7 +76,6 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
  }
 
  private fun multipleChoice(position: Int) {
- // Comment removed (contained Chinese characters)
  if (position == secondBean.size - 1) {
  curMultipleArray.clear()
  curMultipleArray[position] = secondBean[position].code
@@ -90,9 +89,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
  curMultipleArray.remove(secondBean.size - 1)
  }
  }
- // Comment removed (contained Chinese characters)
  multipleListener?.invoke(secondBean[position].code, curMultipleArray.contains(position))
- // Comment removed (contained Chinese characters)
  notifyDataSetChanged()
  }
 

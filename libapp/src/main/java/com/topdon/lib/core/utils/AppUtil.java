@@ -20,7 +20,6 @@ import java.util.List;
 public class AppUtil {
  public static boolean isAppInstalled(Context context, String packageName) {
  PackageManager packageManager = context.getPackageManager();
- // Comment removed (contained Chinese characters)
  List<PackageInfo> listPackageInfo = packageManager.getInstalledPackages(0);
  for (int i = 0; i < listPackageInfo.size(); i++) {
  if (listPackageInfo.get(i).packageName.equalsIgnoreCase(packageName)) {
@@ -37,7 +36,6 @@ public class AppUtil {
  resolveIntent.setPackage(pi.packageName);
  List<ResolveInfo> apps = context.getPackageManager().queryIntentActivities(resolveIntent, 0);
  if (apps == null || apps.size() <= 0) {
-// Comment removed (contained Chinese characters)
  return;
  }
  ResolveInfo ri = apps.iterator().next();
@@ -53,7 +51,6 @@ public class AppUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @param
@@ -62,9 +59,7 @@ public class AppUtil {
  public static void installApp(Context context, File apkPath) {
  Intent intent = new Intent(Intent.ACTION_VIEW);
  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
- // Comment removed (contained Chinese characters)
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
- // Comment removed (contained Chinese characters)
  intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
  Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", apkPath);
  intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
@@ -75,10 +70,6 @@ public class AppUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static boolean isProcessRunning(Context context, String serviceName) {
  ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -96,10 +87,6 @@ public class AppUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static boolean isServiceRunning(Context context, String serviceName) {
  ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

@@ -12,7 +12,6 @@ import com.topdon.libcom.R
 
 /**
  *
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/4/28 15:52
  */
@@ -46,7 +45,6 @@ class TempLayout : LinearLayout {
  BreatheInterpolator() // Value
  alphaAnimator?.addUpdateListener {
  animatorAlpha = it.getAnimatedValue("alpha") as Float
-// Comment removed (contained Chinese characters)
  }
  alphaAnimator?.repeatCount = ValueAnimator.INFINITE
  }

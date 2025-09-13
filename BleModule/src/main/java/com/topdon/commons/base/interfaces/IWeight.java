@@ -6,7 +6,6 @@ package com.topdon.commons.base.interfaces;
  */
 public interface IWeight {
  /**
- * Comment removed (contained Chinese characters)
  */
  Integer getWeight();
 }

@@ -56,7 +56,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @see TextProvider
@@ -248,7 +247,6 @@ data.add("Original Author");
  if (visibleItemCount < minCount) {
  throw new ArithmeticException("Visible item count can not be less than " + minCount);
  }
- // Comment removed (contained Chinese characters)
  int evenNumberFlag = 2;
  if (visibleItemCount % evenNumberFlag == 0) {
  visibleItemCount += 1;
@@ -264,7 +262,6 @@ data.add("Original Author");
  } else if (!TextUtils.isEmpty(maxWidthText)) {
  textMaxWidth = (int) paint.measureText(maxWidthText);
  } else {
- // Comment removed (contained Chinese characters)
  int itemCount = getItemCount();
  for (int i = 0; i < itemCount; ++i) {
  int width = (int) paint.measureText(formatItem(i));
@@ -879,7 +876,6 @@ data.add("Original Author");
  float ellipsisWidth = paint.measureText(ellipsis);
  String data = obtainItemText(dataPosition);
  while (paint.measureText(data) + ellipsisWidth - measuredWidth > 0) {
- // Comment removed (contained Chinese characters)
  int length = data.length();
  if (length > 1) {
  data = data.substring(0, length - 1);

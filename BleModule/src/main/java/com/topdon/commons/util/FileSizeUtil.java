@@ -10,7 +10,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * Comment removed (contained Chinese characters)
  * @ClassName FileSizeUtil
  * @Email 616862466@qq.com
 * @Author
@@ -40,9 +39,7 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @return String
  */
  public static String getUnit(int sizeType) {
@@ -60,10 +57,7 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static long getFilesSize(String filePath) {
  File file = new File(filePath);
@@ -77,16 +71,12 @@ public class FileSizeUtil {
  } catch (Exception e) {
  e.printStackTrace();
  System.out.println("bcf--getFilesSize-2-Failed!");
-// Comment removed (contained Chinese characters)
  }
  return blockSize;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static String getAutoFileOrFilesSize(String filePath, int sizeType) {
  File file = new File(filePath);
@@ -105,10 +95,7 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static String getAutoFileOrFilesSize(String filePath) {
  File file = new File(filePath);
@@ -127,7 +114,6 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return
  * @throws Exception
@@ -144,7 +130,6 @@ public class FileSizeUtil {
  }
  } catch (Exception e) {
  System.out.println("bcf--getFilesSize-5-Failed!");
-// Comment removed (contained Chinese characters)
  e.printStackTrace();
  } finally {
  if (fc != null) {
@@ -155,7 +140,6 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param f
  * @return
@@ -175,7 +159,6 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param fileS
  * @return
@@ -200,7 +183,6 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param fileS
  * @param sizeType
@@ -231,10 +213,7 @@ public class FileSizeUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @return long
  */
  public static long getFileSizeByWriteLog(String filename) {

@@ -45,10 +45,8 @@ class FenceView : View {
 
  override fun onDraw(canvas: Canvas) {
  super.onDraw(canvas)
-// Comment removed (contained Chinese characters)
 // canvas.drawARGB(50, 255, 227, 0)
 // mPaint.color = Color.GREEN
-// Comment removed (contained Chinese characters)
 // canvas.drawRect(100f, 200f, 400f, 200f + 400, mPaint)
 // mPaint.color = Color.RED
  canvas.drawRect(rect, mPaint)
@@ -127,7 +125,6 @@ class FenceView : View {
  private fun result() {
  val point1 = intArrayOf(startPoint[0], startPoint[1])
  val point2 = intArrayOf(endPoint[0], endPoint[1])
- // Comment removed (contained Chinese characters)
  for (i in 0..1) {
  if (startPoint[i] > endPoint[i]) {
  point1[i] = endPoint[i]
@@ -164,8 +161,6 @@ class FenceView : View {
  */
  interface CallBack {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun callback(
  startPoint: IntArray,

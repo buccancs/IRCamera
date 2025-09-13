@@ -12,7 +12,6 @@ import com.topdon.lib.core.databinding.DialogFirmwareUpBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
  * Created by LCG on 2024/3/4.
  */
 class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
@@ -20,7 +19,6 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
  private val binding get() = _binding!!
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var titleStr: CharSequence?
  get() = binding.tvTitle.text
@@ -29,7 +27,6 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var sizeStr: CharSequence?
  get() = binding.tvSize.text
@@ -38,7 +35,6 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var contentStr: CharSequence?
  get() = binding.tvContent.text
@@ -47,7 +43,6 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isShowRestartTips: Boolean
  get() = binding.tvRestartTips.isVisible
@@ -56,7 +51,6 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isShowCancel: Boolean
  get() = binding.tvCancel.isVisible
@@ -65,12 +59,10 @@ class FirmwareUpDialog(context: Context) : Dialog(context, R.style.InfoDialog), 
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onCancelClickListener: (() -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onConfirmClickListener: (() -> Unit)? = null
 

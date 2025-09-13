@@ -18,8 +18,6 @@ public class DatabaseContext extends ContextWrapper {
  private File dbDir;
  
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public DatabaseContext(Context base, @NonNull File dbDir) {
  super(base);

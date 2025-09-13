@@ -10,7 +10,6 @@
  android:background="@drawable/bg_corners04_stroke_5b5961"
  tools:background="#16131e">
 
- <!-- Comment removed (contained Chinese characters) -->
  <ImageView
  android:id="@+id/iv_selector"
  android:layout_width="44dp"
@@ -56,7 +55,6 @@
  app:barrierDirection="bottom"
  app:constraint_referenced_ids="tv_name,iv_selector" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_temp_title"
  android:layout_width="0dp"
@@ -111,7 +109,6 @@
  app:layout_constraintTop_toTopOf="@id/view_temp_bg"
  app:layout_constraintBottom_toBottomOf="@id/view_temp_bg" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_dis_title"
  android:layout_width="0dp"
@@ -167,7 +164,6 @@
  app:layout_constraintTop_toTopOf="@id/view_dis_bg"
  app:layout_constraintBottom_toBottomOf="@id/view_dis_bg" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_em_title"
  android:layout_width="0dp"

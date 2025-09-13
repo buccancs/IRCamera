@@ -10,22 +10,11 @@ import android.view.animation.ScaleAnimation
  */
 public object AnimaUtils {
  /**
- * Comment removed (contained Chinese characters)
  */
  const val DEFAULT_ANIMATION_DURATION: Long = 400
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getRotateAnimation(
  fromDegrees: Float,
@@ -54,11 +43,7 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getRotateAnimationByCenter(
  durationMillis: Long,
@@ -77,20 +62,14 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getRotateAnimationByCenter(duration: Long): RotateAnimation {
  return getRotateAnimationByCenter(duration, null)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getRotateAnimationByCenter(animationListener: Animation.AnimationListener?): RotateAnimation {
  return getRotateAnimationByCenter(
@@ -100,21 +79,13 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  val rotateAnimationByCenter: RotateAnimation
  get() = getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION, null)
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getAlphaAnimation(
  fromAlpha: Float,
@@ -131,12 +102,7 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getAlphaAnimation(
  fromAlpha: Float,
@@ -147,12 +113,7 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getAlphaAnimation(
  fromAlpha: Float,
@@ -168,11 +129,7 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getAlphaAnimation(
  fromAlpha: Float,
@@ -187,11 +144,7 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getHiddenAlphaAnimation(
  durationMillis: Long,
@@ -201,20 +154,14 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getHiddenAlphaAnimation(durationMillis: Long): AlphaAnimation {
  return getHiddenAlphaAnimation(durationMillis, null)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getHiddenAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
  return getHiddenAlphaAnimation(
@@ -224,19 +171,13 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  val hiddenAlphaAnimation: AlphaAnimation
  get() = getHiddenAlphaAnimation(DEFAULT_ANIMATION_DURATION, null)
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getShowAlphaAnimation(
  durationMillis: Long,
@@ -246,20 +187,14 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getShowAlphaAnimation(durationMillis: Long): AlphaAnimation {
  return getAlphaAnimation(0.0f, 1.0f, durationMillis, null)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getShowAlphaAnimation(animationListener: Animation.AnimationListener?): AlphaAnimation {
  return getAlphaAnimation(
@@ -271,19 +206,13 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  val showAlphaAnimation: AlphaAnimation
  get() = getAlphaAnimation(0.0f, 1.0f, DEFAULT_ANIMATION_DURATION, null)
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getLessenScaleAnimation(
  durationMillis: Long,
@@ -304,20 +233,14 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getLessenScaleAnimation(durationMillis: Long): ScaleAnimation {
  return getLessenScaleAnimation(durationMillis, null)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getLessenScaleAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
  return getLessenScaleAnimation(
@@ -327,11 +250,7 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun getAmplificationAnimation(
  durationMillis: Long,
@@ -352,21 +271,15 @@ public object AnimaUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun getAmplificationAnimation(durationMillis: Long): ScaleAnimation {
  return getAmplificationAnimation(durationMillis, null)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getAmplificationAnimation(animationListener: Animation.AnimationListener?): ScaleAnimation {
  return getAmplificationAnimation(

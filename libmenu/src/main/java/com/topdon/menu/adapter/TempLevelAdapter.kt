@@ -8,16 +8,13 @@ import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.MenuType
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
  /**
- * Comment removed (contained Chinese characters)
  *
  * true-Fahrenheit false-Celsius
  */
@@ -30,7 +27,6 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * Due to legacy constraints (saved in SharedPreferences), the code values are:
  * - Auto switch: -1
@@ -89,7 +85,6 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun c2f(cValue: Int): Int = (cValue * 1.8f + 32).toInt()
 

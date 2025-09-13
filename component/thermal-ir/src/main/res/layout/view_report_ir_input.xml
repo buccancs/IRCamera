@@ -30,7 +30,6 @@
  app:layout_constraintTop_toTopOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <View
  android:id="@+id/view_line"
  android:layout_width="match_parent"
@@ -40,24 +39,20 @@
  android:background="@drawable/shape_stroke_1_5b5961_dash_5"
  android:visibility="gone" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <include
  layout="@layout/item_report_ir_input"
  android:id="@+id/cl_max" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <include
  layout="@layout/item_report_ir_input"
  android:id="@+id/cl_min"
  android:visibility="gone" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <include
  layout="@layout/item_report_ir_input"
  android:id="@+id/cl_average"
  android:visibility="gone" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <include
  layout="@layout/item_report_ir_input"
  android:id="@+id/cl_explain" />

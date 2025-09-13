@@ -24,13 +24,10 @@ class UserInfoManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun isLogin(): Boolean {
  val token = SharedManager.getToken()
  return if (TextUtils.equals("-1", token)) {
- // Comment removed (contained Chinese characters)
  false
  } else {
  !TextUtils.isEmpty(token)
@@ -38,7 +35,6 @@ class UserInfoManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun login(
  token: String,
@@ -56,7 +52,6 @@ class UserInfoManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun logout() {
  SharedManager.setToken("")

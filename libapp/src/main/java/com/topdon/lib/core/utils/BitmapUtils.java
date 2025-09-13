@@ -40,11 +40,9 @@ public class BitmapUtils {
  public static Bitmap rotateBitmap(Bitmap bm, int degree) {
  Bitmap returnBm = null;
 
- // Comment removed (contained Chinese characters)
  Matrix matrix = new Matrix();
  matrix.postRotate(degree);
  try {
- // Comment removed (contained Chinese characters)
  returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
  } catch (OutOfMemoryError e) {
  }
@@ -58,7 +56,6 @@ public class BitmapUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static byte[] bitmapToBytes(Bitmap bitmap, int quality) {
  if (bitmap == null) {
@@ -77,11 +74,8 @@ public class BitmapUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param bitmap
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return
  */
  public static boolean saveBitmap(Bitmap bitmap, File file, File path) {
@@ -111,28 +105,18 @@ public class BitmapUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static Bitmap imageZoom(Bitmap bitmap, double width) {
- // Comment removed (contained Chinese characters)
  ByteArrayOutputStream baos = new ByteArrayOutputStream();
- // Comment removed (contained Chinese characters)
  bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
  byte[] b = baos.toByteArray();
  Bitmap newBitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
- // Comment removed (contained Chinese characters)
  return scaleWithWH(newBitmap, width,
  width * newBitmap.getHeight() / newBitmap.getWidth());
  }
 
  /***
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return Bitmap
  */
  public static Bitmap scaleWithWH(Bitmap bitmap, double w, double h) {
@@ -153,10 +137,7 @@ public class BitmapUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return bitmap
  */
  public static boolean saveFile(String file, Bitmap bmp) {
@@ -184,10 +165,7 @@ public class BitmapUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return
  */
  public static Bitmap mergeBitmap(Bitmap backBitmap, Bitmap frontBitmap, int leftFront, int topFront) {
@@ -275,9 +253,6 @@ public class BitmapUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static void savaRawFile(byte[] bytes, byte[] bytes2) {
  try {
@@ -298,18 +273,14 @@ public class BitmapUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param bmp
  * @param title
  * @param address
  * @param time
- * Comment removed (contained Chinese characters)
  * @return
  */
  public static Bitmap drawCenterLable(Bitmap bmp, String title,String address,String time,int seekBarWidth) {
- // Comment removed (contained Chinese characters)
  Bitmap newBmp = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
- // Comment removed (contained Chinese characters)
  Canvas canvas = new Canvas(newBmp);
  canvas.drawBitmap(bmp, 0, 0, null); //
  canvas.save();
@@ -332,7 +303,6 @@ public class BitmapUtils {
  int textHeight = (rectText.bottom - rectText.top);
  paint.getTextBounds(address, 0,address.length(), rectText);
  if (rectText.width() > lineWidth){
- // Comment removed (contained Chinese characters)
  StaticLayout staticLayout = new StaticLayout(address,
  paint, lineWidth,
  Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
@@ -351,7 +321,6 @@ public class BitmapUtils {
  int textHeight = (rectText.bottom - rectText.top);
  paint.getTextBounds(title, 0,title.length(), rectText);
  if (rectText.width() > lineWidth){
- // Comment removed (contained Chinese characters)
  StaticLayout staticLayout = new StaticLayout(title,
  paint, lineWidth,
  Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);

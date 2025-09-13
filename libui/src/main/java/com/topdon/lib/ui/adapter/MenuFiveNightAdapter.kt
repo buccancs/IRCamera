@@ -128,7 +128,6 @@ class MenuFiveNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 
  inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
  // init {
-// Comment removed (contained Chinese characters)
 // val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 // itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 // val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

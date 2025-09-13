@@ -8,10 +8,7 @@ import com.topdon.ble.Request;
  */
 public interface ReadDescriptorCallback extends RequestFailedCallback {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onDescriptorRead(Request request, byte[] value);
 }

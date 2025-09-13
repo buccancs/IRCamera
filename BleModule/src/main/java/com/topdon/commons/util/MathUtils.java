@@ -13,19 +13,14 @@ import java.util.Random;
  */
 public class MathUtils {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static double setDoubleAccuracy(double num, int scale) {
  return ((int) (num * Math.pow(10, scale))) / Math.pow(10, scale);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static float[] getPercents(int scale, @NonNull float... values) {
  float total = 0;
@@ -49,7 +44,6 @@ public class MathUtils {
  if (i == list.size() - 1) {
  fs[index] = 1 - sum;
  } else {
- // Comment removed (contained Chinese characters)
  fs[index] = (int) (values[index] / total * sc) / (float) sc;
  sum += fs[index];
  }
@@ -58,11 +52,7 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public static byte[] numberToBytes(boolean bigEndian, long value, int len) {
@@ -79,11 +69,7 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @SuppressWarnings("unchecked")
  public static <T> T bytesToNumber(boolean bigEndian, Class<T> cls, @NonNull byte... src) {
@@ -91,7 +77,6 @@ public class MathUtils {
  byte[] bs = new byte[8];
  System.arraycopy(src, 0, bs, bigEndian ? 8 - len : 0, len);
  long value = 0;
- // Comment removed (contained Chinese characters)
  for (int i = 0; i < 8; i++) {
  int shift = (bigEndian ? 7 - i : i) << 3;
  value = value | ((long) 0xff << shift & ((long) bs[i] << shift));
@@ -114,16 +99,13 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static byte[] reverseBitAndByte(byte[] src) {
  if (src == null || src.length == 0) {
  return null;
  }
  byte[] target = new byte[src.length];
- // Comment removed (contained Chinese characters)
  for (int i = 0; i < src.length; i++) {
- // Comment removed (contained Chinese characters)
  int value = 0;
  int tmp = src[src.length - 1 - i];
  for (int j = 7; j >= 0; j--) {
@@ -136,11 +118,7 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public static List<byte[]> splitPackage(@NonNull byte[] src, int size) {
@@ -155,10 +133,7 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public static byte[] joinPackage(@NonNull byte[]... src) {
@@ -194,7 +169,6 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static int calcCRC16_Modbus(byte[] data) {
  int crc = 0xffff;//16
@@ -217,7 +191,6 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static int calcCRC_CCITT_XModem(byte[] bytes) {
  int crc = 0; // initial value
@@ -234,7 +207,6 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static int calcCRC_CCITT_XModem(byte[] bytes, int offset, int len) {
  int crc = 0; // initial value
@@ -252,7 +224,6 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static int calcCRC_CCITT_0xFFFF(byte[] bytes) {
  int crc = 0xffff; // initial value
@@ -269,7 +240,6 @@ public class MathUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static int calcCRC_CCITT_0xFFFF(byte[] bytes, int offset, int len) {
  int crc = 0xffff; // initial value

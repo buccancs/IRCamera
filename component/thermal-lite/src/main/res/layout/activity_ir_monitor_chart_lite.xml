@@ -125,7 +125,6 @@
 
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <FrameLayout
  android:id="@+id/thermal_lay"
  android:layout_width="0dp"

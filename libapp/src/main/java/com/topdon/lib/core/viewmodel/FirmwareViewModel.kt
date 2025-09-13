@@ -33,37 +33,30 @@ import java.util.TimeZone
 import java.util.concurrent.CountDownLatch
 
 /**
- * Comment removed (contained Chinese characters)
  */
 class FirmwareViewModel(application: Application) : AndroidViewModel(application) {
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val TS004_SOFT_CODE = "TS004_FirmwareSW_Scope"
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val TC007_SOFT_CODE = "TC007_FirmwareSW_Wireless"
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val TS004_FIRMWARE_VERSION = "V1.70"
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val TS004_FIRMWARE_NAME = "TS004V1.70.zip"
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val TC007_FIRMWARE_VERSION = "V4.06"
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val TC007_FIRMWARE_NAME = "TC007V4.06.zip"
 
@@ -75,29 +68,19 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Volatile
  private var isRequest = false
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  val firmwareDataLD: MutableLiveData<FirmwareData?> = MutableLiveData()
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  val failLD: MutableLiveData<Boolean> = MutableLiveData()
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  data class FirmwareData(
  val version: String,
@@ -107,7 +90,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  )
 
  /**
- * Comment removed (contained Chinese characters)
  * - [firmwareDataLD] (Success)
  * - [failLD] (Failed)
  * @param isTS004 true-TS004 false-TC007
@@ -119,9 +101,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  isRequest = true
 
  viewModelScope.launch(Dispatchers.IO) {
- // Comment removed (contained Chinese characters)
  /*if (isTS004) {
- // Comment removed (contained Chinese characters)
  val deviceInfo: DeviceInfo? = TS004Repository.getDeviceInfo()?.data
  if (deviceInfo == null) {
  XLog.w("TS004 - SN、 Failed!")
@@ -130,7 +110,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  return@launch
  }
 
- // Comment removed (contained Chinese characters)
  val firmware: String? = TS004Repository.getVersion()?.data?.firmware
  if (firmware == null) {
  XLog.w("TS004 - Failed!")
@@ -143,7 +122,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  val randomNum: String = if (USE_DEBUG_SN) TS004_DEBUG_RANDOM_NUM else deviceInfo.code
  getInfoFromNetwork(true, sn, randomNum, firmware)
  } else {
- // Comment removed (contained Chinese characters)
  val productInfo: ProductBean? = TC007Repository.getProductInfo()
  if (productInfo == null) {
  XLog.w("TC007 - SN、 Failed!")
@@ -158,9 +136,7 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  getInfoFromNetwork(false, sn, randomNum, firmware)
  }*/
 
- // Comment removed (contained Chinese characters)
  if (isTS004) {
- // Comment removed (contained Chinese characters)
  val firmware: String? = TS004Repository.getVersion()?.data?.firmware
  if (firmware == null) {
  XLog.w("TS004 - Failed!")
@@ -171,7 +147,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
 
  getInfoFromAssets(true, firmware)
  } else {
- // Comment removed (contained Chinese characters)
  val productInfo: ProductBean? = TC007Repository.getProductInfo()
  if (productInfo == null) {
  XLog.w("TC007 - SN、 Failed!")
@@ -186,7 +161,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun getInfoFromAssets(
  isTS004: Boolean,
@@ -224,7 +198,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  return
  }
 
- // Comment removed (contained Chinese characters)
  val tipsStr = getApplication<Application>().getString(R.string.fireware_update_tips)
 
  firmwareDataLD.postValue(FirmwareData(apkVersionStr, tipsStr, apkFirmwareName, firmwareFile.length()))
@@ -232,7 +205,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private suspend fun getInfoFromNetwork(
  isTS004: Boolean,
@@ -240,7 +212,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  randomNum: String,
  firmware: String,
  ) {
- // Comment removed (contained Chinese characters)
  val bindCode = bindDevice(sn, randomNum)
  if (bindCode != LMS.SUCCESS && bindCode != 15109) {
  XLog.w("${if (isTS004) "TS004" else "TC007"} - Failed! sn: $sn")
@@ -249,7 +220,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  return
  }
 
- // Comment removed (contained Chinese characters)
  val packageData: PackageData? = querySoftPackage(sn, if (isTS004) TS004_SOFT_CODE else TC007_SOFT_CODE)
  if (packageData == null) {
  XLog.w("${if (isTS004) "TS004" else "TC007"} - Failed!")
@@ -276,7 +246,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  return
  }
 
- // Comment removed (contained Chinese characters)
  val downloadData = queryDownloadUrl(sn, record.maxUpdateVersionSoftId)
  if (downloadData?.responseCode == LMS.SUCCESS) {
  firmwareDataLD.postValue(
@@ -295,7 +264,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private suspend fun bindDevice(
  sn: String,
@@ -314,7 +282,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private suspend fun querySoftPackage(
  sn: String,
@@ -358,7 +325,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private suspend fun queryDownloadUrl(
  sn: String,
@@ -413,7 +379,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private class PackageData {
  var records: List<Record>? = null
@@ -449,7 +414,6 @@ class FirmwareViewModel(application: Application) : AndroidViewModel(application
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private data class DownloadData(
  val downUrl: String?,

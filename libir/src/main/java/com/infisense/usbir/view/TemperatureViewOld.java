@@ -36,11 +36,6 @@
 //public class TemperatureViewOld extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 //
 // private final String TAG = "TemperatureView";
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 //
 // // private final int TOUCH_TOLERANCE = 48;
 // private final int TOUCH_TOLERANCE = SizeUtils.sp2px(7f);
@@ -60,14 +55,10 @@
 // private Libirtemp irtemp;
 // private float minTemperature;
 // private float maxTemperature;
-// Comment removed (contained Chinese characters)
 // private String RectMinTemp, RectMaxTemp;
 //
 // //private float scale = 0;
-// Comment removed (contained Chinese characters)
 // private float yscale = 0;
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 // private Bitmap regionBitmap;
 // private Bitmap regionAndValueBitmap;
 // private Object regionLock = new Object();
@@ -122,7 +113,6 @@
 // private int imageWidth;
 // private int imageHeight;
 // private SynchronizedBitmap syncimage;
-// Comment removed (contained Chinese characters)
 // private boolean runflag = true;
 // private boolean isShow = false;
 //
@@ -281,12 +271,10 @@
 // if (syncimage.type == 1) irtemp.setScale(16);
 // }
 //
-// Comment removed (contained Chinese characters)
 // TemperatureSampleResult temperatureSampleResult = irtemp.getTemperatureOfRect(new Rect(0, 0, imageWidth / 2, imageHeight - 1));
 // maxTemperature = temperatureSampleResult.maxTemperature;
 // minTemperature = temperatureSampleResult.minTemperature;
 //
-// Comment removed (contained Chinese characters)
 // if (rectangles.size() != 0 || lines.size() != 0 || points.size() != 0 || temperatureRegionMode == REGION_MODE_CENTER) {
 // synchronized (regionLock) {
 // int moveX = SizeUtils.dp2px(8);
@@ -297,7 +285,6 @@
 // }
 // regionAndValueCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 // regionAndValueCanvas.drawBitmap(regionBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
-// Comment removed (contained Chinese characters)
 // if(tempRect == null){
 // tempRect = new Rect(0, 0, imageWidth - 1, imageHeight - 1);
 // }else{
@@ -322,11 +309,9 @@
 // if (listener != null && hasChange) {
 // listener.getTemp(newMaxTemperatureTem, newMinTemperatureTem);
 // }
-// Comment removed (contained Chinese characters)
 // float minX0 = temperatureSampleEasyResult.minTemperaturePixel.x * xscale;
 // float minY0 = temperatureSampleEasyResult.minTemperaturePixel.y * yscale;
 // String minTem = showCText(minTemperatureTem);
-// Comment removed (contained Chinese characters)
 // if (minX0 <= 0 && minY0 <= 0) {
 // minX0 = PIXCOUNT;
 // minY0 = PIXCOUNT;
@@ -350,7 +335,6 @@
 // float minTemTextX = minX0;
 // float minTemTextY = minY0;
 // float minTemTextTolerate = 30;
-// Comment removed (contained Chinese characters)
 // if (minX0 <= minTemTextTolerate && minY0 <= minTemTextTolerate) {
 // minTemTextX = minTemTextTolerate;
 // minTemTextY = minTemTextTolerate;
@@ -375,16 +359,13 @@
 // minTemTextX = minX0;
 // minTemTextY = minY0;
 // }
-// Comment removed (contained Chinese characters)
 // if (temperatureRegionMode == REGION_MODE_CENTER) {
 // regionAndValueCanvas.drawText(minTem, 0, minTem.length(), minTemTextX + moveX, minTemTextY, maxPaint);
 // drawDot(regionAndValueCanvas, bluePaint, minX0, minY0);
 // }
-// Comment removed (contained Chinese characters)
 // String maxTem = showCText(maxTemperatureTem);
 // float maxTemX = temperatureSampleEasyResult.maxTemperaturePixel.x * xscale;
 // float maxTemY = temperatureSampleEasyResult.maxTemperaturePixel.y * yscale;
-// Comment removed (contained Chinese characters)
 // if (maxTemX <= 0 && maxTemY <= 0) {
 // maxTemX = PIXCOUNT;
 // maxTemY = PIXCOUNT;
@@ -407,7 +388,6 @@
 // }
 // float maxTemTextX = maxTemX;
 // float maxTemTextY = maxTemY;
-// Comment removed (contained Chinese characters)
 // if (maxTemX <= minTemTextTolerate && maxTemY <= minTemTextTolerate) {
 // maxTemTextX = minTemTextTolerate;
 // maxTemTextY = minTemTextTolerate;
@@ -433,14 +413,12 @@
 // maxTemTextY = maxTemY;
 // }
 //
-// Comment removed (contained Chinese characters)
 // if (temperatureRegionMode == REGION_MODE_CENTER) {
 // regionAndValueCanvas.rotate(0, maxTemTextX, maxTemTextY);
 // regionAndValueCanvas.drawText(maxTem, 0, maxTem.length(), maxTemTextX + moveX, maxTemTextY, maxPaint);
 // drawDot(regionAndValueCanvas, redPaint, maxTemTextX, maxTemTextY);
 // }
 //
-// Comment removed (contained Chinese characters)
 // for (int index = 0; index < rectangles.size(); index++) {
 // Rect tempRectangle = rectangles.get(index);
 // int left = (int) (tempRectangle.left / xscale);
@@ -467,7 +445,6 @@
 // for (int i = rectangles.size(); i < drawCount; i++) {
 // rectangleResultList.get(i).index = 0;
 // }
-// Comment removed (contained Chinese characters)
 // for (int index = 0; index < lines.size(); index++) {
 // Line tempLine = lines.get(index);
 // int startX = (int) (tempLine.start.x / xscale);
@@ -483,7 +460,6 @@
 // temperatureSampleResult = irtemp.getTemperatureOfLine(new Line(new Point(startX, startY), new Point(endX, endY)));
 // lineResultList.set(index, temperatureSampleResult);
 // lineResultList.get(index).index = index + 1;
-// Comment removed (contained Chinese characters)
 // Log.d(TAG, "minTemperaturePixel x: " + temperatureSampleResult.minTemperaturePixel.x);
 // String min = showCText(temperatureSampleResult.minTemperature);
 // String max = showCText(temperatureSampleResult.maxTemperature);
@@ -494,13 +470,10 @@
 // }
 // }
 // for (int i = lines.size(); i < drawCount; i++) {
-// Comment removed (contained Chinese characters)
 // lineResultList.get(i).index = 0;
 // }
-// Comment removed (contained Chinese characters)
 // for (int index = 0; index < points.size(); index++) {
 // Point tempPoint = points.get(index);
-// Comment removed (contained Chinese characters)
 // int y = (int) (tempPoint.y / yscale);
 // if (x < imageWidth && x > 0 && y < imageHeight && y > 0) {
 // temperatureSampleResult = irtemp.getTemperatureOfPoint(new Point(x, y));
@@ -514,7 +487,6 @@
 // for (int i = points.size(); i < drawCount; i++) {
 // pointResultList.get(i).index = 0;
 // }
-// Comment removed (contained Chinese characters)
 // if (temperatureRegionMode == REGION_MODE_CENTER ||
 // temperatureRegionMode == REGION_MODE_POINT ||
 // temperatureRegionMode == REGION_MODE_LINE ||
@@ -535,7 +507,6 @@
 // surfaceViewCanvas.drawBitmap(regionAndValueBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
 // getHolder().unlockCanvasAndPost(surfaceViewCanvas);
 // }catch (Exception e){
-// Comment removed (contained Chinese characters)
 // }
 // }else {
 // TemperatureSampleResult temperatureSampleEasyResult = null;
@@ -563,11 +534,9 @@
 //
 //// SystemClock.sleep(333);
 // try {
-// Comment removed (contained Chinese characters)
 //// int[] value = new int[1];
 //// Libircmd.set_prop_tpd_params(Libircmd.TPD_PROP_GAIN_SEL, (char) 0, 1);
 // } catch (Exception e) {
-// Comment removed (contained Chinese characters)
 // }
 // }
 // Log.d(TAG, "temperatureThread exit");
@@ -628,7 +597,6 @@
 // }
 //
 // /**
-// Comment removed (contained Chinese characters)
 // */
 // @Override
 // public boolean onTouch(View v, MotionEvent event) {
@@ -1204,7 +1172,6 @@
 // }
 //
 // /**
-// Comment removed (contained Chinese characters)
 // */
 // public Line getLine(Point point) {
 // Line line = new Line();
@@ -1272,10 +1239,7 @@
 //// }
 //
 // private void drawPoint(Canvas canvas, Paint paint, float x1, float y1) {
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 // float y = (int) (y1 / yscale) * yscale;
-// Comment removed (contained Chinese characters)
 // float[] points = new float[]{
 // x - POINT_SIZE, y, x - DOT_RADIUS, y,
 // x, y - POINT_SIZE, x, y - DOT_RADIUS,

@@ -16,37 +16,29 @@ import androidx.fragment.app.FragmentActivity
 import com.topdon.lib.core.R
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/10/14.
  */
 abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment() {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private var _binding: B? = null
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  protected val binding: B get() = _binding!!
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @LayoutRes
  protected abstract fun initContentLayoutId(): Int
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected abstract fun initView(savedInstanceState: Bundle?)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isCanceledOnTouchOutSide: Boolean = true
  set(value) {
@@ -55,13 +47,11 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected open fun afterDialogCreate(layoutParams: WindowManager.LayoutParams) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @StyleRes
  protected open fun getDialogThemeResId(): Int = R.style.base_dialog

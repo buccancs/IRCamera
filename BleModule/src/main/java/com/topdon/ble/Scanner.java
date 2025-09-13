@@ -5,7 +5,6 @@ import android.content.Context;
 import com.topdon.ble.callback.ScanListener;
 
 /**
- * Comment removed (contained Chinese characters)
  * 
  * date: 2019/10/1 14:41
 * author: bichuanfeng

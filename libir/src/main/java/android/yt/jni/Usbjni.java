@@ -3,7 +3,6 @@ package android.yt.jni;
 import android.util.Log;
 
 /**
- * Comment removed (contained Chinese characters)
  */
 public class Usbjni {
 

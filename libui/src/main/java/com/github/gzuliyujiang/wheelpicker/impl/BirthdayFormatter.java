@@ -14,7 +14,6 @@
 package com.github.gzuliyujiang.wheelpicker.impl;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/14 14:31

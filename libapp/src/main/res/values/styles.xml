@@ -10,12 +10,10 @@
  <item name="android:backgroundDimEnabled">true</item> <!-- Whether -->
  </style>
 
- <!-- Comment removed (contained Chinese characters) -->
  <style name="transparent_dialog" parent="base_dialog">
  <item name="android:backgroundDimEnabled">false</item><!-- Whether -->
  </style>
 
- <!-- Comment removed (contained Chinese characters) -->
  <style name="input_dialog" parent="base_dialog">
  <item name="android:windowSoftInputMode">stateAlwaysVisible|adjustPan</item>
  </style>
@@ -52,7 +50,6 @@
  <item name="android:backgroundDimEnabled">true</item><!-- Whether -->
  </style>
 
- <!-- Comment removed (contained Chinese characters) -->
  <style name="TransparentDialog" parent="AppTheme">
  <item name="android:windowFrame">@null</item> <!-- -->
  <item name="android:windowIsFloating">false</item> <!-- Whetheractivity -->

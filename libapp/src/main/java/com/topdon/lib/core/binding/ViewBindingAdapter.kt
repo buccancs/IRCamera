@@ -11,13 +11,11 @@ import androidx.databinding.BindingAdapter
 import com.blankj.utilcode.util.SizeUtils
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/11/5.
  */
 object ViewBindingAdapter {
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  @BindingAdapter("bgEffect")
@@ -83,9 +81,7 @@ object ViewBindingAdapter {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  @BindingAdapter("bgColor")
@@ -99,14 +95,7 @@ object ViewBindingAdapter {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  @BindingAdapter(value = ["bgCorners", "bgCornersLT", "bgCornersRT", "bgCornersLB", "bgCornersRB"], requireAll = false)
@@ -131,9 +120,6 @@ object ViewBindingAdapter {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  @BindingAdapter(value = ["bgStrokeWidth", "bgStrokeColor"], requireAll = false)
@@ -148,7 +134,6 @@ object ViewBindingAdapter {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  @BindingAdapter(value = ["bgStartColor", "bgCenterColor", "bgEndColor"], requireAll = false)
@@ -164,11 +149,6 @@ object ViewBindingAdapter {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  @BindingAdapter(value = ["bgAngle", "bgRadius", "bgCenterX", "bgCenterY"], requireAll = false)
@@ -213,15 +193,10 @@ object ViewBindingAdapter {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  /**
@@ -247,8 +222,6 @@ object ViewBindingAdapter {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  /**

@@ -9,15 +9,8 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/11/28.
  */
@@ -25,17 +18,11 @@ import com.topdon.menu.constant.SettingType
 internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObserver: Boolean = false) : BaseMenuAdapter() {
  /**
  * settingsmenuclickevent listener。
- * Comment removed (contained Chinese characters)
  */
  var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var rotateAngle: Int = 270
  set(value) {
@@ -46,7 +33,6 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setSelected(
  settingType: SettingType,
@@ -111,8 +97,6 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
  }
  holder.binding.tvText.isSelected = data.isSelected
  holder.binding.clRoot.setOnClickListener {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
 // data.isSelected = !data.isSelected
 // holder.binding.ivIcon.isSelected = data.isSelected
 // holder.binding.tvText.isSelected = data.isSelected

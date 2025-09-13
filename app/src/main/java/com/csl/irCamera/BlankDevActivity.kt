@@ -13,7 +13,6 @@ import com.topdon.module.thermal.ir.activity.IRMainActivity
 import com.topdon.tc001.app.App
 
 /**
- * Comment removed (contained Chinese characters)
 * author: CaiSongL
  * date: 2024/3/25 16:50
  **/

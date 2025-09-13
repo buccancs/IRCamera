@@ -16,7 +16,6 @@ package com.github.gzuliyujiang.wheelview.contract;
 import androidx.annotation.NonNull;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/14 20:02
@@ -24,10 +23,7 @@ import androidx.annotation.NonNull;
 public interface WheelFormatter {
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  String formatItem(@NonNull Object item);
 

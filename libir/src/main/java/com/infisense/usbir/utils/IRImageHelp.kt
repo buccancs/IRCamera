@@ -9,12 +9,10 @@ import org.opencv.imgproc.Imgproc
 import java.io.IOException
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2024/1/17 9:54
  */
 class IRImageHelp {
- // Comment removed (contained Chinese characters)
  @Volatile
  private var colorList: IntArray? = null
 
@@ -32,7 +30,6 @@ class IRImageHelp {
  }
 
  /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2024/1/17 10:07
  */
@@ -65,12 +62,8 @@ class IRImageHelp {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @param imageWidth Int ：
  * @param imageHeight Int
- * Comment removed (contained Chinese characters)
  */
  fun customPseudoColor(
  imageDst: ByteArray,
@@ -82,10 +75,8 @@ class IRImageHelp {
  if (colorList != null && temperatureSrc != null) {
  var j = 0
  val imageDstLength: Int = imageWidth * imageHeight * 4
- // Comment removed (contained Chinese characters)
  var index = 0
  while (index < imageDstLength) {
- // Comment removed (contained Chinese characters)
  var temperature0: Float =
  (
  (temperatureSrc.get(j).toInt() and 0xff) + (
@@ -135,7 +126,6 @@ class IRImageHelp {
  index += 4
  j += 2
  }
-// Comment removed (contained Chinese characters)
  }
  } catch (exception: Exception) {
  Log.e("", exception.message!!)
@@ -145,7 +135,6 @@ class IRImageHelp {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setPseudoColorMaxMin(
  imageDst: ByteArray?,
@@ -161,10 +150,8 @@ class IRImageHelp {
  val biaochiMax: Float = max
  val biaochiMin: Float = min // TemperatureValue
  val startTimeAll = System.currentTimeMillis()
- // Comment removed (contained Chinese characters)
  var index = 0
  while (index < imageDstLength) {
- // Comment removed (contained Chinese characters)
  var temperature0: Float =
  (
  (temperatureSrc[j].toInt() and 0xff) + (
@@ -178,7 +165,6 @@ class IRImageHelp {
  val r: Int = imageDst!![index].toInt() and 0xff
  val g: Int = imageDst!![index + 1].toInt() and 0xff
  val b: Int = imageDst!![index + 2].toInt() and 0xff
- // Comment removed (contained Chinese characters)
  val grey = (r * 0.3f + g * 0.59f + b * 0.11f).toInt()
  imageDst!![index] = grey.toByte()
  imageDst!![index + 1] = grey.toByte()
@@ -192,7 +178,6 @@ class IRImageHelp {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun contourDetection(
  alarmBean: AlarmBean?,

@@ -31,7 +31,6 @@ abstract class BaseWifiActivity : BaseActivity() {
 
  override fun onCreate(savedInstanceState: Bundle?) {
  if (Build.VERSION.SDK_INT >= 29) {
- // Comment removed (contained Chinese characters)
  NetWorkUtils.switchNetwork(true)
  }
  super.onCreate(savedInstanceState)

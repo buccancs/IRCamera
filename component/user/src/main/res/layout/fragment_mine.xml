@@ -84,7 +84,6 @@
  app:layout_constraintEnd_toEndOf="parent"
  app:layout_constraintTop_toTopOf="@id/setting_user_img_night" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <ImageView
  android:id="@+id/iv_winter"
  android:layout_width="0dp"
@@ -98,7 +97,6 @@
  app:layout_constraintStart_toStartOf="parent"
  app:layout_constraintEnd_toEndOf="parent"
  app:layout_constraintTop_toBottomOf="@id/setting_user_img_night" />
- <!-- Comment removed (contained Chinese characters) -->
  <View
  android:id="@+id/space_winter_right"
  android:layout_width="0dp"
@@ -150,7 +148,6 @@
  app:layout_constraintStart_toEndOf="@id/tv_winter_title"
  app:layout_constraintEnd_toEndOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_winter_sub_title"
  android:layout_width="0dp"
@@ -229,7 +226,6 @@
  app:setting_text_night="@string/setting_unit"
  />
 
- <!-- Comment removed (contained Chinese characters) -->
  <com.topdon.lib.ui.SettingNightView
  android:id="@+id/setting_item_clear"
  android:layout_width="match_parent"

@@ -9,7 +9,6 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.databinding.DialogMonitorSelectBinding
 
 /**
- * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 /**
@@ -29,12 +28,10 @@ class MonitorSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
  */
  class Builder(private val context: Context) {
  /**
- * Comment removed (contained Chinese characters)
  */
  private var isFirstStep = true
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var monitorType = 0
 

@@ -90,7 +90,6 @@
  app:layout_constraintBottom_toBottomOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <androidx.constraintlayout.widget.ConstraintLayout
  android:id="@+id/cl_icon_gallery"
  android:layout_width="0dp"
@@ -170,7 +169,6 @@
  app:layout_constraintBottom_toBottomOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <androidx.constraintlayout.widget.ConstraintLayout
  android:id="@+id/cl_icon_mine"
  android:layout_width="0dp"

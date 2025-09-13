@@ -17,7 +17,6 @@ import com.github.gzuliyujiang.wheelpicker.contract.TimeFormatter;
 import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/15 18:13

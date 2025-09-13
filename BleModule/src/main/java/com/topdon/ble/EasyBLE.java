@@ -67,7 +67,6 @@ public class EasyBLE {
  private BluetoothAdapter bluetoothAdapter;
  private BroadcastReceiver broadcastReceiver;
  private final Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
- // Comment removed (contained Chinese characters)
  private final List<String> addressList = new CopyOnWriteArrayList<>();
  private final boolean useNordicBleBackend;
  private final boolean internalObservable;
@@ -103,7 +102,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static EasyBLE getInstance() {
  if (instance == null) {
@@ -176,7 +174,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isBluetoothOn() {
  return bluetoothAdapter != null && bluetoothAdapter.isEnabled();
@@ -213,19 +210,15 @@ public class EasyBLE {
  switch (action) {
  case BluetoothAdapter.ACTION_STATE_CHANGED: //Status 
  if (bluetoothAdapter != null) {
- // Comment removed (contained Chinese characters)
  observable.notifyObservers(MethodInfoGenerator.onBluetoothAdapterStateChanged(bluetoothAdapter.getState()));
  if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) { //
  logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "");
- // Comment removed (contained Chinese characters)
  if (scanner != null) {
  scanner.onBluetoothOff();
  }
- // Comment removed (contained Chinese characters)
  disconnectAllConnections();
  } else if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
  logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "");
- // Comment removed (contained Chinese characters)
  for (Connection connection : connectionMap.values()) {
  if (connection.isAutoReconnectEnabled()) {
  connection.reconnect();
@@ -261,19 +254,15 @@ public class EasyBLE {
  }
  if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(intent.getAction())) { //Status 
  if (bluetoothAdapter != null) {
- // Comment removed (contained Chinese characters)
  observable.notifyObservers(MethodInfoGenerator.onBluetoothAdapterStateChanged(bluetoothAdapter.getState()));
  if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_OFF) { //
  logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "");
- // Comment removed (contained Chinese characters)
  if (scanner != null) {
  scanner.onBluetoothOff();
  }
- // Comment removed (contained Chinese characters)
  disconnectAllConnections();
  } else if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
  logger.log(Log.DEBUG, Logger.TYPE_GENERAL, "");
- // Comment removed (contained Chinese characters)
  for (Connection connection : connectionMap.values()) {
  if (connection.isAutoReconnectEnabled()) {
  connection.reconnect();
@@ -291,17 +280,14 @@ public class EasyBLE {
  }
  Inspector.requireNonNull(application, "application can't be");
  this.application = application;
- // Comment removed (contained Chinese characters)
  if (!application.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
  return;
  }
- // Comment removed (contained Chinese characters)
  BluetoothManager bluetoothManager = (BluetoothManager) application.getSystemService(Context.BLUETOOTH_SERVICE);
  if (bluetoothManager == null || bluetoothManager.getAdapter() == null) {
  return;
  }
  bluetoothAdapter = bluetoothManager.getAdapter();
- // Comment removed (contained Chinese characters)
  if (broadcastReceiver == null) {
  broadcastReceiver = new InnerBroadcastReceiver();
  IntentFilter filter = new IntentFilter();
@@ -337,14 +323,12 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setLogEnabled(boolean isEnabled) {
  logger.setEnabled(isEnabled);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public synchronized void release() {
  if (broadcastReceiver != null) {
@@ -363,7 +347,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void destroy() {
  release();
@@ -373,7 +356,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void registerObserver(EventObserver observer) {
  if (checkStatus()) {
@@ -382,23 +364,19 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isObserverRegistered(EventObserver observer) {
  return observable.isRegistered(observer);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void unregisterObserver(EventObserver observer) {
  observable.unregisterObserver(observer);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public void notifyObservers(MethodInfo info) {
  if (checkStatus()) {
@@ -406,7 +384,6 @@ public class EasyBLE {
  }
  }
  
- // Comment removed (contained Chinese characters)
  private void checkAndInstanceScanner() {
  if (scanner == null) {
  synchronized (this) {
@@ -430,7 +407,6 @@ public class EasyBLE {
  }
  
  /**
- * Comment removed (contained Chinese characters)
  */
  public void addScanListener(ScanListener listener) {
  checkAndInstanceScanner();
@@ -440,7 +416,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void removeScanListener(ScanListener listener) {
  if (scanner != null) {
@@ -449,14 +424,12 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isScanning() {
  return scanner != null && scanner.isScanning();
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void startScan() {
  checkAndInstanceScanner();
@@ -466,7 +439,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void stopScan() {
  if (checkStatus() && scanner != null) {
@@ -475,7 +447,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void stopScanQuietly() {
  if (checkStatus() && scanner != null) {
@@ -484,10 +455,7 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection connect(String address) {
@@ -495,11 +463,8 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @param configuration ConnectionConfiguration
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection connect(String address, ConnectionConfiguration configuration) {
@@ -507,11 +472,7 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection connect(String address, EventObserver observer) {
@@ -519,12 +480,8 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @param configuration ConnectionConfiguration
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection connect(String address, ConnectionConfiguration configuration,
@@ -540,10 +497,7 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection connect(Device device) {
@@ -551,11 +505,8 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @param configuration ConnectionConfiguration
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection connect(Device device, ConnectionConfiguration configuration) {
@@ -563,11 +514,7 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection connect(Device device, EventObserver observer) {
@@ -575,12 +522,8 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @param configuration ConnectionConfiguration
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public synchronized Connection connect(final Device device, ConnectionConfiguration configuration,
@@ -588,7 +531,6 @@ public class EasyBLE {
  if (checkStatus()) {
  Inspector.requireNonNull(device, "device can't be null");
  Connection connection = connectionMap.remove(device.getAddress());
- // Comment removed (contained Chinese characters)
  if (connection != null) {
  connection.releaseNoEvent();
  }
@@ -638,7 +580,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public Collection<Connection> getConnections() {
@@ -646,7 +587,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public List<Connection> getOrderedConnections() {
@@ -661,7 +601,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection getFirstConnection() {
@@ -669,7 +608,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public Connection getLastConnection() {
@@ -711,7 +649,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void disconnectAllConnections() {
  if (checkStatus()) {
@@ -722,7 +659,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void releaseAllConnections() {
  if (checkStatus()) {
@@ -735,7 +671,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void releaseConnection(String address) {
  if (checkStatus() && address != null) {
@@ -748,7 +683,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void releaseConnection(Device device) {
  if (checkStatus() && device != null) {
@@ -761,7 +695,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void reconnectAll() {
  if (checkStatus()) {
@@ -774,7 +707,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void reconnect(Device device) {
  if (checkStatus() && device != null) {
@@ -786,7 +718,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return {@link BluetoothDevice#BOND_NONE}，{@link BluetoothDevice#BOND_BONDED}，{@link BluetoothDevice#BOND_BONDING}
  */
@@ -810,9 +741,7 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public boolean createBond(String address) {
  checkStatus();
@@ -835,7 +764,6 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @SuppressWarnings("all")
  public void clearBondDevices(RemoveBondFilter filter) {
@@ -854,9 +782,7 @@ public class EasyBLE {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @SuppressWarnings("all")
  public void removeBond(String address) {

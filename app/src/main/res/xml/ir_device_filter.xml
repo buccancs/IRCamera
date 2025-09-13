@@ -26,7 +26,6 @@
  <usb-device
  class="39"
  subclass="0" />
- <!-- Comment removed (contained Chinese characters) -->
  <usb-device
  product-id="9730"
  vendor-id="2570" />
@@ -43,6 +42,5 @@
  product-id="258"
  vendor-id="9228" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <usb-device product-id="258" vendor-id="11231" />
 </resources>

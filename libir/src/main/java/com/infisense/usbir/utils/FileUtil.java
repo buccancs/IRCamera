@@ -177,7 +177,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param dataFlowMode
  * @return
@@ -222,7 +221,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param dirFile
  * @return
@@ -234,7 +232,6 @@ public class FileUtil {
  }
  File parentFile = dirFile.getParentFile();
  if (parentFile != null && !parentFile.exists()) {
- // Comment removed (contained Chinese characters)
  return createFileDir(parentFile) && createFileDir(dirFile);
  } else {
  boolean mkdirs = dirFile.mkdirs();
@@ -284,10 +281,7 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static void savaRawFile(byte[] bytes, byte[] bytes2) {
  try {
@@ -307,7 +301,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param bytes
  */
@@ -330,7 +323,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param bytes
  */
@@ -409,7 +401,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param src
  * @return
@@ -425,7 +416,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param src
  * @return
@@ -444,7 +434,6 @@ public class FileUtil {
  * @param fileTitle
  */
  public static void saveShortFile(String fileDir, short[] bytes, String fileTitle) {
- // Comment removed (contained Chinese characters)
  createOrExistsDir(fileDir);
  try {
  File file = new File(fileDir, fileTitle + ".bin");
@@ -462,7 +451,6 @@ public class FileUtil {
  * @param file
  */
  private static void createOrExistsDir(File file) {
- // Comment removed (contained Chinese characters)
  if (!file.exists()) {
  try {
  file.createNewFile();
@@ -473,18 +461,14 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param fileDir
  */
  private static void createOrExistsDir(String fileDir) {
  File file = new File(fileDir);
- // Comment removed (contained Chinese characters)
  if (!file.exists() && !file.isDirectory()) {
- // Comment removed (contained Chinese characters)
  file.mkdir();
  } else {
- // Comment removed (contained Chinese characters)
  }
  }
 
@@ -534,7 +518,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @param srcFileName
@@ -546,7 +529,6 @@ public class FileUtil {
  File file = new File(strOutFileName);
  Log.i(TAG, "file.exists->getAbsolutePath = " + file.getAbsolutePath());
  if (file.exists()) {
- // Comment removed (contained Chinese characters)
  file.delete();
  }
  //
@@ -573,7 +555,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param gainStatus
  * @return
@@ -589,7 +570,6 @@ public class FileUtil {
 
  /**
  * @param gainStatus
- * Comment removed (contained Chinese characters)
  */
  public static String getISPConfigWithEncryptHexByGainStatus(CommonParams.GainStatus gainStatus) {
  if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -602,14 +582,12 @@ public class FileUtil {
  static String INFISENSE_SAVE_DIR(){
  return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
  }
- // Comment removed (contained Chinese characters)
  static String DEVICE_DATA_SAVE_DIR (){
  return Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
  }
 
  /**
  * @param gainStatus
- * Comment removed (contained Chinese characters)
  */
  public static String getISPConfigWithEncryptBase64ByGainStatus(CommonParams.GainStatus gainStatus) {
  if (CommonParams.GainStatus.HIGH_GAIN == gainStatus) {
@@ -620,7 +598,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @return
@@ -757,7 +734,6 @@ public class FileUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param str
  * @param path

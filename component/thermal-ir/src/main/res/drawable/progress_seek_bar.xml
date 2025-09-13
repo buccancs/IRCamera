@@ -6,7 +6,6 @@
  <solid android:color="#dddddd" />
  </shape>
  </item>
- <!-- Comment removed (contained Chinese characters) -->
  <item android:id="@android:id/progress">
  <clip>
  <shape>

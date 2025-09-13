@@ -7,39 +7,25 @@ import androidx.annotation.Nullable;
 
 public class IFrameData {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static int FUSION_LEN = Const.DUAL_WIDTH * Const.DUAL_HEIGHT * 4;
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static int ORIGINAL_LEN = Const.IR_WIDTH * Const.IR_HEIGHT * 2;
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static int REMAP_TEMP_LEN = Const.DUAL_WIDTH * Const.DUAL_HEIGHT * 2;
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static int LIGHT_LEN = Const.VL_WIDTH * Const.VL_HEIGHT * 3;
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static int P_IN_P_LEN = Const.DUAL_WIDTH * Const.DUAL_HEIGHT * 4;
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static int FRAME_LEN = FUSION_LEN + ORIGINAL_LEN + ORIGINAL_LEN + REMAP_TEMP_LEN + LIGHT_LEN + P_IN_P_LEN;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static byte[] readFusionData(@NonNull byte[] frame, @Nullable byte[] fusionData) {
  if (fusionData == null) {
@@ -50,7 +36,6 @@ public class IFrameData {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static byte[] readNorIRData(@NonNull byte[] frame, @Nullable byte[] irData) {
  if (irData == null) {
@@ -61,7 +46,6 @@ public class IFrameData {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static byte[] readNorTempData(@NonNull byte[] frame, @Nullable byte[] norTempData) {
  if (norTempData == null) {
@@ -72,7 +56,6 @@ public class IFrameData {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static byte[] readRemapTempData(@NonNull byte[] frame, @Nullable byte[] remapTempData) {
  if (remapTempData == null) {

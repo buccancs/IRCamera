@@ -20,7 +20,6 @@ import com.topdon.lib.core.tools.PermissionTool
 
 object BluetoothUtil {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun addBtStateListener(
  activity: ComponentActivity,
@@ -57,7 +56,6 @@ object BluetoothUtil {
  private val scanCallback = MyScanCallback()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setLeScanListener(
  isTS004: Boolean,
@@ -68,8 +66,6 @@ object BluetoothUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("MissingPermission")
  fun startLeScan(context: Context): Boolean {
@@ -98,8 +94,6 @@ object BluetoothUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("MissingPermission")
  fun stopLeScan(context: Context): Boolean {

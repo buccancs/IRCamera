@@ -1,7 +1,6 @@
 package com.topdon.lib.core.listener
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/4/10 19:08
  */

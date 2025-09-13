@@ -15,11 +15,9 @@ import androidx.lifecycle.LifecycleOwner
 import com.hjq.permissions.XXPermissions
 
 /**
- * Comment removed (contained Chinese characters)
  */
 object WifiUtil {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun ScanResult.getWifiName(): String =
  if (Build.VERSION.SDK_INT < 33) {
@@ -32,7 +30,6 @@ object WifiUtil {
  fun WifiInfo.getWifiName(): String = removeQuotation(ssid)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun removeQuotation(source: String): String {
  return if (source.length > 1 && source[0] == '\"' && source[source.length - 1] == '\"') {
@@ -43,8 +40,6 @@ object WifiUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getCurrentWifiSSID(context: Context): String? {
  if (!XXPermissions.isGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -56,7 +51,6 @@ object WifiUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun addWifiStateListener(
  activity: ComponentActivity,
@@ -66,7 +60,6 @@ object WifiUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun addWifiScanListener(
  activity: ComponentActivity,
@@ -98,7 +91,6 @@ object WifiUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private class WifiStateReceiver(val listener: ((isEnable: Boolean) -> Unit)) : BroadcastReceiver() {
  override fun onReceive(
@@ -113,7 +105,6 @@ object WifiUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private class WifiScanReceiver(val listener: ((isSuccess: Boolean) -> Unit)) : BroadcastReceiver() {
  override fun onReceive(

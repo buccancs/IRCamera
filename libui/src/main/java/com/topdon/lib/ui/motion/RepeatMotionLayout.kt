@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 /**
- * Comment removed (contained Chinese characters)
  */
 
 /**
@@ -37,10 +36,8 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
  )
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun startTransition() {
-// Comment removed (contained Chinese characters)
  if (!isAdd) {
  addTransitionListener(this)
  isAdd = true

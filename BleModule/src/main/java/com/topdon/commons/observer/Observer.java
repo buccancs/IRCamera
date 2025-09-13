@@ -8,7 +8,6 @@ package com.topdon.commons.observer;
  */
 public interface Observer {
  /**
- * Comment removed (contained Chinese characters)
  */
  @Observe
  default void onChanged(Object o) {}

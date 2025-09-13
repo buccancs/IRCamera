@@ -28,8 +28,6 @@ fun View.invisible() {
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 fun View?.goneAlphaAnimation(duration: Long = 500L) {
  this?.visibility = View.GONE
@@ -42,8 +40,6 @@ fun View?.goneAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
  this?.visibility = View.INVISIBLE
@@ -56,9 +52,7 @@ fun View?.invisibleAlphaAnimation(duration: Long = 500L) {
 }
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
 fun View?.visibleAlphaAnimation(duration: Long = 500L) {
  this?.visibility = View.VISIBLE

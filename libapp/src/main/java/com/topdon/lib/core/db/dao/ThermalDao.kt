@@ -17,11 +17,9 @@ interface ThermalDao {
  @Query("DELETE FROM thermal where start_time = :startTime")
  fun delDetail(startTime: Long)
 
- // Comment removed (contained Chinese characters)
  @Query("delete from thermal where user_id = :userId")
  fun deleteByUserId(userId: String)
 
- // Comment removed (contained Chinese characters)
  @Query(
  "delete from thermal where user_id = :userId and thermal=0 and thermal_max=0 and thermal_min=0 and create_time<(select max(create_time) from thermal where thermal=0 and thermal_max=0 and thermal_min=0)",
  )

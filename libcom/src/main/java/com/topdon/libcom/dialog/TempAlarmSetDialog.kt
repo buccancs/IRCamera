@@ -31,12 +31,10 @@ class TempAlarmSetDialog(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onSaveListener: ((alarmBean: AlarmBean) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var mediaPlayer: MediaPlayer? = null
 
@@ -312,7 +310,6 @@ class TempAlarmSetDialog(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun selectRingtone(position: Int?) {
  try {

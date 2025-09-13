@@ -28,7 +28,6 @@ import com.github.gzuliyujiang.wheelpicker.widget.LinkageWheelLayout;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @see com.github.gzuliyujiang.wheelview.contract.TextProvider

@@ -33,11 +33,7 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRE
  * // `=---='
  * //
  * // .............................................
- * Comment removed (contained Chinese characters)
  * =====================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * =====================================================
  */
 public class DefVerticalSeekBar extends SeekBar {

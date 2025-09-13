@@ -98,7 +98,6 @@ class MenuSixAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.V
  }
  }
 
- // Comment removed (contained Chinese characters)
  private fun iconUI(
  isActive: Boolean,
  img: ImageView,

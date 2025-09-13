@@ -90,13 +90,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun setShowMenuFour(modeType: Int) {
  fourBean.clear()
@@ -358,7 +351,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
  @SuppressLint("RecyclerView") position: Int,
  ) {
  if (holder is ItemView) {
- // Comment removed (contained Chinese characters)
  updateViewWidth(holder.itemView, holder.img)
  val bean = fourBean[position]
  holder.name.text = bean.name
@@ -432,7 +424,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
  }
  }
 
- // Comment removed (contained Chinese characters)
  private fun iconUI(
  isActive: Boolean,
  img: ImageView,
@@ -461,8 +452,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
  itemView.layoutParams =
  ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
  }
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 // val with = (ScreenUtils.getScreenWidth() / canSeeCount)
 // itemView.layoutParams =
 // ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -471,8 +460,6 @@ class MenuFourNightAdapter(val context: Context) : RecyclerView.Adapter<Recycler
 // layoutParams.width = imageSize
 // layoutParams.height = imageSize
 // itemMenu.layoutParams = layoutParams
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 // val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 // itemView.layoutParams =
 // ConstraintLayout.LayoutParams(with, ConstraintLayout.LayoutParams.WRAP_CONTENT)

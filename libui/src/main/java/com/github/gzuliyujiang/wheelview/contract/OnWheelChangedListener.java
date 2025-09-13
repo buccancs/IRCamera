@@ -17,7 +17,6 @@ import com.github.gzuliyujiang.wheelview.annotation.ScrollState;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author Florent Champigny
 * @author （1032694760@qq.com）

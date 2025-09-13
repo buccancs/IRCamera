@@ -1,7 +1,6 @@
 package com.topdon.lib.ui
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/12/22 11:08
  */

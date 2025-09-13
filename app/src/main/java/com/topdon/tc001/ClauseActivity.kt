@@ -25,7 +25,6 @@ import java.util.*
 import com.topdon.lib.core.R as LibCoreR
 
 /**
- * Comment removed (contained Chinese characters)
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
@@ -52,7 +51,6 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
  confirmInitApp()
  }
  binding.clauseDisagreeBtn.setOnClickListener {
- // Comment removed (contained Chinese characters)
  TipDialog.Builder(this)
  .setMessage(getString(R.string.privacy_tips))
  .setPositiveListener(R.string.privacy_confirm) {
@@ -69,7 +67,6 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
  if (!NetworkUtil.isConnected(this)) {
  TToast.shortToast(this, R.string.lms_setting_http_error)
  } else {
- // Comment removed (contained Chinese characters)
  NavigationManager.getInstance()
  .build(RouterConfig.POLICY)
  .withInt(PolicyActivity.KEY_THEME_TYPE, 1)
@@ -81,7 +78,6 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
  if (!NetworkUtil.isConnected(this)) {
  TToast.shortToast(this, R.string.lms_setting_http_error)
  } else {
- // Comment removed (contained Chinese characters)
  NavigationManager.getInstance()
  .build(RouterConfig.POLICY)
  .withInt(PolicyActivity.KEY_THEME_TYPE, 2)
@@ -90,7 +86,6 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
  }
  }
  binding.clauseItem3.setOnClickListener {
- // Comment removed (contained Chinese characters)
  if (!NetworkUtil.isConnected(this)) {
  TToast.shortToast(this, R.string.lms_setting_http_error)
  } else {
@@ -115,10 +110,8 @@ class ClauseActivity : BaseBindingActivity<ActivityClauseBinding>() {
  private fun confirmInitApp() {
  lifecycleScope.launch {
  showLoading()
- // Comment removed (contained Chinese characters)
  App.delayInit()
  async(Dispatchers.IO) {
- // Comment removed (contained Chinese characters)
  delay(1000)
  return@async
  }.await().let {

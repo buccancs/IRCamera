@@ -16,7 +16,6 @@ import com.topdon.ble.util.BluetoothPermissionUtils;
 import java.util.Objects;
 
 /**
- * Comment removed (contained Chinese characters)
  * <p>
  * date: 2021/8/12 00:08
 * author: bichuanfeng
@@ -97,14 +96,12 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isConnected() {
  return getConnectionState() == ConnectionState.SERVICE_DISCOVERED;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isDisconnected() {
  ConnectionState state = getConnectionState();
@@ -112,7 +109,6 @@ public class Device implements Comparable<Device>, Cloneable, Parcelable {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isConnecting() {
  ConnectionState state = getConnectionState();

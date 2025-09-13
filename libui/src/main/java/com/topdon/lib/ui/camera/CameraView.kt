@@ -41,7 +41,6 @@ import kotlin.concurrent.thread
  * Provides specialized rendering and interaction capabilities.
  */
 class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
- /* Comment removed (contained Chinese characters) */
  lateinit var mTextureView: TextureView
  private lateinit var binding: CameraLayBinding
 
@@ -86,7 +85,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  parentViewH = view.height.toFloat()
  }
  MotionEvent.ACTION_MOVE -> {
- // Comment removed (contained Chinese characters)
  moveX = event.x - startX
  moveY = event.y - startY
  if (moveX - scaleW < 0f) moveX = 0f + scaleW
@@ -108,7 +106,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  }
 
  override fun onScale(detector: ScaleGestureDetector): Boolean {
- // Comment removed (contained Chinese characters)
  isScale = true
  detector?.let {
  val scaleFactor = it.scaleFactor - 1
@@ -141,51 +138,37 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  private lateinit var lis: ScaleGestureDetector
 
 // ////////////////
- /* Comment removed (contained Chinese characters) */
  private val REQUEST_CAMERA_CODE = 0x100
 
  /**capturebutton */
  private var mBtnTake: Button? = null
 
- /* Comment removed (contained Chinese characters) */
  private var mImageView: ImageView? = null
 
- /* Comment removed (contained Chinese characters) */
  private lateinit var mCameraId: String
 
- /* Comment removed (contained Chinese characters) */
  private var mCaptureSize: Size? = null
 
- /* Comment removed (contained Chinese characters) */
  private lateinit var mImageReader: ImageReader
 
- /* Comment removed (contained Chinese characters) */
  private lateinit var mCameraHandler: Handler
 
- /* Comment removed (contained Chinese characters) */
  private var mCameraDevice: CameraDevice? = null
 
- /* Comment removed (contained Chinese characters) */
  private var mPreviewSize: Size? = null
 
- /* Comment removed (contained Chinese characters) */
  private lateinit var mCameraCaptureBuilder: CaptureRequest.Builder
 
- /* Comment removed (contained Chinese characters) */
  private var mCameraCaptureSession: CameraCaptureSession? = null
 
- /* Comment removed (contained Chinese characters) */
  private var mCameraManager: CameraManager? = null
 
- /* Comment removed (contained Chinese characters) */
  private val mStateCallback: CameraDevice.StateCallback =
  object : CameraDevice.StateCallback() {
  override fun onOpened(
  @NonNull camera: CameraDevice,
  ) {
- // Comment removed (contained Chinese characters)
  mCameraDevice = camera
- // Comment removed (contained Chinese characters)
  takePreview()
  }
 
@@ -201,31 +184,23 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  @NonNull camera: CameraDevice,
  error: Int,
  ) {
- // Comment removed (contained Chinese characters)
  camera.close()
  mCameraDevice = null
  }
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun takePreview() {
 // mTextureView.rotation = 270f
  mTextureView.rotation = 0f
- // Comment removed (contained Chinese characters)
  val surfaceTexture = mTextureView.surfaceTexture
- // Comment removed (contained Chinese characters)
  surfaceTexture!!.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
- // Comment removed (contained Chinese characters)
  val previewSurface = Surface(surfaceTexture)
  try {
- // Comment removed (contained Chinese characters)
  mCameraCaptureBuilder =
  mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
- // Comment removed (contained Chinese characters)
  mCameraCaptureBuilder.addTarget(previewSurface)
- // Comment removed (contained Chinese characters)
  @Suppress("DEPRECATION")
  mCameraDevice!!.createCaptureSession(
  listOf(
@@ -239,9 +214,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  try {
  // configuration
  val captureRequest = mCameraCaptureBuilder.build()
- // Comment removed (contained Chinese characters)
  mCameraCaptureSession = session
- // Comment removed (contained Chinese characters)
  mCameraCaptureSession!!.setRepeatingRequest(
  captureRequest,
  null,
@@ -273,8 +246,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  width: Int,
  height: Int,
  ) {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  Log.w("123", "width:$width, height:$height")
  // w:h = 1 / 1.33
  setUpCamera(width, height)
@@ -286,11 +257,9 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  width: Int,
  height: Int,
  ) {
- // Comment removed (contained Chinese characters)
  }
 
  override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
- // Comment removed (contained Chinese characters)
  return false
  }
 
@@ -301,11 +270,9 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("MissingPermission")
  fun openCamera() {
- // Comment removed (contained Chinese characters)
  try {
  mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
  mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
@@ -316,38 +283,26 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun setUpCamera(
  width: Int,
  height: Int,
  ) {
- // Comment removed (contained Chinese characters)
  mCameraHandler = Handler(Looper.getMainLooper())
- // Comment removed (contained Chinese characters)
  val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
  try {
- // Comment removed (contained Chinese characters)
  for (cameraId in cameraManager.cameraIdList) {
- // Comment removed (contained Chinese characters)
  val cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId)
- // Comment removed (contained Chinese characters)
  val facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING)
- // Comment removed (contained Chinese characters)
  if (null != facing && CameraCharacteristics.LENS_FACING_FRONT == facing) continue
- // Comment removed (contained Chinese characters)
  val map =
  cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
- // Comment removed (contained Chinese characters)
  mPreviewSize =
  getOptimalSize(
  map.getOutputSizes(SurfaceTexture::class.java),
  width,
  height,
  )
- // Comment removed (contained Chinese characters)
  val sizes = map.getOutputSizes(ImageFormat.JPEG)
  val w = 1000
  val h = w * sizes[0].height / sizes[0].width
@@ -359,9 +314,7 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
 // Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG))) { lhs, rhs ->
 // java.lang.Long.signum(lhs.getWidth() * lhs.getHeight() - rhs.getHeight() * rhs.getWidth())
 // }
- // Comment removed (contained Chinese characters)
  setupImageReader()
- // Comment removed (contained Chinese characters)
  mCameraId = cameraId
  break
  }
@@ -371,22 +324,14 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun getOptimalSize(
  sizeMap: Array<Size>,
  width: Int,
  height: Int,
  ): Size {
- // Comment removed (contained Chinese characters)
  val sizeList: MutableList<Size> = ArrayList()
- // Comment removed (contained Chinese characters)
  for (option in sizeMap) {
- // Comment removed (contained Chinese characters)
  if (width > height) {
  if (option.width > width && option.height > height) {
  sizeList.add(option)
@@ -397,7 +342,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  }
  }
  }
- // Comment removed (contained Chinese characters)
  return if (sizeList.size > 0) {
  Collections.min(
  sizeList,
@@ -413,7 +357,6 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  * settingsImageReader
  */
  private fun setupImageReader() {
- // Comment removed (contained Chinese characters)
  mImageReader =
  ImageReader.newInstance(
  mCaptureSize!!.width,
@@ -421,25 +364,17 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  ImageFormat.JPEG,
  1,
  )
- // Comment removed (contained Chinese characters)
  mImageReader.setOnImageAvailableListener({ reader ->
  flag = 1
- // Comment removed (contained Chinese characters)
  val image: Image = reader.acquireLatestImage()
- // Comment removed (contained Chinese characters)
  mCameraHandler.post(ImageSaver(image))
  // updateUI
  runOnUiThread { // 
  val buffer: ByteBuffer = image.planes[0].buffer
- // Comment removed (contained Chinese characters)
  buffer.rewind()
- // Comment removed (contained Chinese characters)
  val bytes = ByteArray(buffer.remaining())
- // Comment removed (contained Chinese characters)
  buffer[bytes]
- // Comment removed (contained Chinese characters)
  val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
- // Comment removed (contained Chinese characters)
  if (null != bitmap) {
  val h = bitmap.height
  val w = bitmap.width
@@ -464,10 +399,8 @@ class CameraView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private inner class ImageSaver(image: Image) : Runnable {
- /* Comment removed (contained Chinese characters) */
  private val mImage: Image = image
 
  override fun run() {

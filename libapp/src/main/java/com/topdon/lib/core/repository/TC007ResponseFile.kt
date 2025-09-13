@@ -4,12 +4,8 @@ import android.graphics.Point
 import android.graphics.Rect
 import java.lang.NumberFormatException
 
-// Comment removed (contained Chinese characters)
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class TC007Response<T>(
  val Code: Int,
@@ -19,17 +15,13 @@ data class TC007Response<T>(
  val Data: T?,
 ) {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isSuccess(): Boolean = Code == 200
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @param ProductPN PN
  * @param ProductSN SN
- * Comment removed (contained Chinese characters)
  */
 data class ProductBean(
  val ProductName: String,
@@ -48,9 +40,6 @@ data class Version07Bean(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class BatteryInfo(
  val Status: String?,
@@ -67,10 +56,6 @@ data class BatteryInfo(
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class TC07UpgradeStatus(
  val Status: Int,
@@ -79,12 +64,6 @@ data class TC07UpgradeStatus(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class EnvAttr(
  val Fps: Int,
@@ -188,8 +167,6 @@ internal data class TempRectParam(
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class PhotoBean(
  val DCFile: String?,
@@ -204,7 +181,6 @@ data class AttributeBean(
 )
 
 /**
- * Comment removed (contained Chinese characters)
  */
 data class WifiAttributeBean(
  var Ratio: Int? = null,

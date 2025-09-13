@@ -10,7 +10,6 @@ import java.io.File;
 
 /**
  * Created by fengjibo on 2022/7/6.
- * Comment removed (contained Chinese characters)
  */
 public class Const {
 
@@ -25,12 +24,9 @@ public class Const {
  public static int SHOW_RESTART_MESSAGE = 1005;
  public static int HIDE_LOADING_FINISH = 1006;
 
- // Comment removed (contained Chinese characters)
  public static boolean isReadFlashData = false;
- // Comment removed (contained Chinese characters)
  public static boolean isDeviceConnected = false;
 
- // Comment removed (contained Chinese characters)
  public static final String TAU_HIGH_GAIN_ASSET_PATH = "tau/V262_mini256_H.bin";
  public static final String TAU_HIGH_LOW_ASSET_PATH = "tau/V262_mini256_L.bin";
 
@@ -44,19 +40,15 @@ public class Const {
  public static int CAMERA_HEIGHT = 480;
  public static final int CAMERA_LOW_FPS = 15;
  public static final int CAMERA_HIGH_FPS = 30;
- // Comment removed (contained Chinese characters)
 // public static final int CAMERA_ID = CameraController.CAMERA_BEHIND;
 
  public static int IR_WIDTH = 192;
  public static int IR_HEIGHT = 256;
  public static int VL_WIDTH = 480;
  public static int VL_HEIGHT = 640;
- // Comment removed (contained Chinese characters)
  public static final DualCameraParams.TypeLoadParameters IR_ROTATE = DualCameraParams.TypeLoadParameters.ROTATE_0;
- // Comment removed (contained Chinese characters)
  public static final CommonParams.PropImageParamsValue.MirrorFlipType IR_MIRROR_FLIP_TYPE = CommonParams.PropImageParamsValue.MirrorFlipType.NO_MIRROR_FLIP;
 
- // Comment removed (contained Chinese characters)
  public static int DUAL_WIDTH = 480;
  public static int DUAL_HEIGHT = 640;
 

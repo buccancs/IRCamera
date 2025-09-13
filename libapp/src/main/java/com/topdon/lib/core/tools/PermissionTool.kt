@@ -14,7 +14,6 @@ import com.topdon.lms.sdk.weiget.TToast
 
 object PermissionTool {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun requestRecordAudio(
  context: Context,
@@ -22,7 +21,6 @@ object PermissionTool {
  ) = request(context, Type.RECORD_AUDIO, callback)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun requestCamera(
  context: Context,
@@ -30,7 +28,6 @@ object PermissionTool {
  ) = request(context, Type.CAMERA, callback)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun requestLocation(
  context: Context,
@@ -38,7 +35,6 @@ object PermissionTool {
  ) = request(context, Type.LOCATION, callback)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun requestImageRead(
  context: Context,
@@ -46,11 +42,8 @@ object PermissionTool {
  ) = request(context, Type.IMAGE, callback)
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun requestFile(
  context: Context,
@@ -134,8 +127,6 @@ TToast.shortToast(context, R.string.scan_ble_tip_authorize)
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun hasBtPermission(context: Context): Boolean {
  return if (Build.VERSION.SDK_INT < 31) { // Android12
@@ -146,8 +137,6 @@ TToast.shortToast(context, R.string.scan_ble_tip_authorize)
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun requestBluetooth(
  context: Context,
@@ -194,7 +183,6 @@ TToast.shortToast(context, R.string.scan_ble_tip_authorize)
  isLocationNever = true
  }
  }
- // Comment removed (contained Chinese characters)
  TipDialog.Builder(context)
  .setTitleMessage(context.getString(R.string.app_tip))
  .setMessage(
@@ -219,12 +207,10 @@ TToast.shortToast(context, R.string.scan_ble_tip_authorize)
 
  interface Callback {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun onResult(allGranted: Boolean)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun onNever(isJump: Boolean)
  }

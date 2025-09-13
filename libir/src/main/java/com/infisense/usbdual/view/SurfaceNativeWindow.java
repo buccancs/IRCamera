@@ -1,7 +1,6 @@
 package com.infisense.usbdual.view;
 
 /*
- * Comment removed (contained Chinese characters)
 * @Author: brilliantzhao
  * @CreateDate: 2022.9.8 10:26
  * @UpdateUser:

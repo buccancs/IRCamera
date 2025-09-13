@@ -12,7 +12,6 @@ import com.topdon.lib.core.databinding.DialogColorSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/2/2.
  */
@@ -27,7 +26,6 @@ class ColorSelectDialog(
  @ColorInt private var color: Int,
 ) : Dialog(context, R.style.InfoDialog) {
  /**
- * Comment removed (contained Chinese characters)
  */
  var onPickListener: ((color: Int) -> Unit)? = null
 

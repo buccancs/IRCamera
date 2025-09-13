@@ -29,7 +29,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
  private static CrashHandler crashHandler = new CrashHandler();
 
  private Context mContext;
- /* Comment removed (contained Chinese characters) */
  private File logFile ;
 
  private CrashHandler() {
@@ -51,17 +50,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
  mContext = context;
  logFile = new File(mContext.getCacheDir(),"crashLog.trace");
  mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
- // Comment removed (contained Chinese characters)
  Thread.setDefaultUncaughtExceptionHandler(this);
  }
 
  @Override
  public void uncaughtException(Thread thread, Throwable ex) {
- // Comment removed (contained Chinese characters)
  ex.printStackTrace();
- // Comment removed (contained Chinese characters)
  if (!handlelException(ex) && mDefaultHandler != null) {
- // Comment removed (contained Chinese characters)
  mDefaultHandler.uncaughtException(thread, ex);
  } else {
  try {
@@ -70,16 +65,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
  e.printStackTrace();
  }
  try {
- // Comment removed (contained Chinese characters)
  upLoadErrorFileToServer(logFile);
  } catch (Exception e) {
  e.printStackTrace();
  }
 // Intent intent = new Intent(mContext, SplashActivity.class);
-// Comment removed (contained Chinese characters)
 // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 // mContext.startActivity(intent);
-// Comment removed (contained Chinese characters)
 // Timer timer = new Timer();
 // timer.schedule(new TimerTask() {
 //
@@ -97,12 +89,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
  return false;
  }
 
- // Comment removed (contained Chinese characters)
  new Thread() {
  @Override
  public void run() {
  Looper.prepare();
-// Comment removed (contained Chinese characters)
  Toast.makeText(mContext, "，", Toast.LENGTH_LONG)
  .show();
  Looper.loop();
@@ -115,7 +105,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
  logFile.createNewFile();
  }
  pw = new PrintWriter(logFile);
- // Comment removed (contained Chinese characters)
  logFile = collectInfoToSDCard(pw, ex);
  pw.close();
  } catch (Exception e) {
@@ -126,14 +115,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private void upLoadErrorFileToServer(File errorFile) {
 
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  */
  private File collectInfoToSDCard(PrintWriter pw, Throwable ex)
@@ -141,18 +128,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
  PackageManager pm = mContext.getPackageManager();
  PackageInfo pi = pm.getPackageInfo(mContext.getPackageName(),PackageManager.GET_ACTIVITIES);
- // Comment removed (contained Chinese characters)
  String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
  pw.print("time : ");
  pw.println(time);
- // Comment removed (contained Chinese characters)
  pw.print("versionCode : ");
  pw.println(pi.versionCode);
- // Comment removed (contained Chinese characters)
  pw.print("versionName : ");
  pw.println(pi.versionName);
  try {
- /* Comment removed (contained Chinese characters) */
  Field[] Fields = Build.class.getDeclaredFields();
  for (Field field : Fields) {
  field.setAccessible(true);
@@ -163,7 +146,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
  Log.i(TAG, "an error occured when collect crash info" + e);
  }
 
- // Comment removed (contained Chinese characters)
  ex.printStackTrace(pw);
  return logFile;
  }

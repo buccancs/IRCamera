@@ -9,15 +9,12 @@ import android.bluetooth.le.BluetoothLeScanner;
  */
 public enum ScannerType {
  /**
- * Comment removed (contained Chinese characters)
  */
  LE,
  /**
- * Comment removed (contained Chinese characters)
  */
  LEGACY,
  /**
- * Comment removed (contained Chinese characters)
  */
  CLASSIC
 }

@@ -8,42 +8,33 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.topdon.lib.core.R
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * Created by chenggeng.lin on 2023/11/21.
  */
 class MyTextView : AppCompatTextView {
  /**
- * Comment removed (contained Chinese characters)
  */
  private var topHeight = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var bottomHeight = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var startHeight = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var endHeight = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var leftHeight = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var rightHeight = 0
 
@@ -62,7 +53,6 @@ class MyTextView : AppCompatTextView {
  rightHeight = typedArray.getDimensionPixelSize(R.styleable.MyTextView_right_height, drawableHeight)
  typedArray.recycle()
 
- // Comment removed (contained Chinese characters)
  val drawables = compoundDrawables
  val relativeDrawables = compoundDrawablesRelative
  val left = drawables[0]
@@ -124,7 +114,6 @@ class MyTextView : AppCompatTextView {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setDrawableHeightPx(pxHeight: Int) {
  topHeight = pxHeight
@@ -137,14 +126,12 @@ class MyTextView : AppCompatTextView {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setOnlyDrawableStart(drawable: Drawable?) {
  setCompoundDrawablesRelative(drawable, null, null, null)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setOnlyDrawableStart(
  @DrawableRes start: Int,
@@ -153,8 +140,6 @@ class MyTextView : AppCompatTextView {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun hasAnyDrawable(): Boolean {
  for (drawable in compoundDrawables) {
@@ -171,7 +156,6 @@ class MyTextView : AppCompatTextView {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun setDrawableBounds(
  drawable: Drawable?,

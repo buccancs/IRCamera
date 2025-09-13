@@ -28,8 +28,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setScannerType(ScannerType scannerType) {
  Inspector.requireNonNull(scannerType, "scannerType can't be null");
@@ -38,7 +36,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setExecutorService(ExecutorService executorService) {
  Inspector.requireNonNull(executorService, "executorService can't be null");
@@ -47,7 +44,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setDeviceCreator(DeviceCreator deviceCreator) {
  Inspector.requireNonNull(deviceCreator, "deviceCreator can't be null");
@@ -56,7 +52,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setBondController(BondController bondController) {
  Inspector.requireNonNull(bondController, "bondController can't be null");
@@ -65,7 +60,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setMethodDefaultThreadMode(ThreadMode mode) {
  Inspector.requireNonNull(mode, "mode can't be null");
@@ -74,7 +68,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setScanConfiguration(ScanConfiguration scanConfiguration) {
  Inspector.requireNonNull(scanConfiguration, "scanConfiguration can't be null");
@@ -83,7 +76,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setLogger(Logger logger) {
  Inspector.requireNonNull(logger, "logger can't be null");
@@ -92,9 +84,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setObservable(Observable observable) {
  Inspector.requireNonNull(observable, "observable can't be null");
@@ -103,9 +92,7 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * 
- * Comment removed (contained Chinese characters)
  */
  public EasyBLEBuilder setObserveAnnotationRequired(boolean observeAnnotationRequired) {
  isObserveAnnotationRequired = observeAnnotationRequired;
@@ -125,7 +112,6 @@ public class EasyBLEBuilder {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public EasyBLE build() {
  synchronized (EasyBLE.class) {

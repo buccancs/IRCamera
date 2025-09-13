@@ -1,7 +1,6 @@
 package com.infisense.usbir.inf
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2024/1/10 11:40
  */

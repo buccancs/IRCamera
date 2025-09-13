@@ -13,7 +13,6 @@ import com.csl.irCamera.R
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/4/24.
  */

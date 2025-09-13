@@ -29,7 +29,6 @@
 //
 ///**
 // * device -> bytes
-// Comment removed (contained Chinese characters)
 // */
 //public class IRUVCTC {
 //
@@ -44,18 +43,15 @@
 // private byte[] image;
 // private byte[] temperature;
 // private SynchronizedBitmap syncimage;
-// Comment removed (contained Chinese characters)
 // private int pids[] = {0x5840, 0x3901, 0x5830, 0x5838};
 // public boolean auto_gain_switch = false;
 // private boolean auto_over_portect = false;
 // /**
-// Comment removed (contained Chinese characters)
 // */
 // private LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
 // private LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
 // private int count = 0;
 // private int rotate = 0;
-// Comment removed (contained Chinese characters)
 //
 // private byte[] imageTemp = null;
 // private byte[] temperatureTemp = null;
@@ -81,7 +77,6 @@
 // init(cameraHeight, cameraWidth, context);
 //
 //
-// Comment removed (contained Chinese characters)
 // mUSBMonitor = new USBMonitor(context, new USBMonitor.OnDeviceConnectListener() {
 //
 // // called by checking usb device
@@ -136,28 +131,19 @@
 //
 // @Override
 // public void onCancel(UsbDevice device) {
-// Comment removed (contained Chinese characters)
 // XLog.tag(TAG).w("onCancel");
 //
 // }
 // });
 // // auto gain switch parameter
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 // //over_portect parameter
 // int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4);
 // int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4);
 // float pixel_above_prop = 0.02f; //0-1
 //
-// Comment removed (contained Chinese characters)
 // iFrameCallback = frame -> {
 // Log.d(TAG, "frame: " + "refresh："+(System.currentTimeMillis()-updateTime));
 // updateTime = System.currentTimeMillis();
-// Comment removed (contained Chinese characters)
 // if (count++ >= 25) {
 // count = 1;
 // Log.d(TAG, "frame: " + frame.length);
@@ -165,7 +151,6 @@
 // if (syncimage == null) return;
 // syncimage.start = true;
 // synchronized (syncimage.dataLock) {
-// Comment removed (contained Chinese characters)
 // int length = frame.length - 1;
 // if (frame[length] == 1) {
 // EventBus.getDefault().post(new IRMsgEvent(MsgCode.RESTART_USB));
@@ -173,13 +158,8 @@
 // return;
 // }
 // /**
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 // */
 // if (imageEditTemp != null && imageEditTemp.length >= length) {
-// Comment removed (contained Chinese characters)
 // System.arraycopy(frame, 0, imageEditTemp, 0, length);
 // }
 // System.arraycopy(frame, 0, image, 0, length / 2);
@@ -187,10 +167,8 @@
 // imageRes.height = (char) (cameraHeight / 2);
 // imageRes.width = (char) cameraWidth;
 //// Libirprocess.rotate_right_90(frame, imageRes, Libirprocess.IRPROC_SRC_FMT_Y14, imageEditTemp);
-// Comment removed (contained Chinese characters)
 //// System.arraycopy(frame, length / 2, temperatureSrc, 0, length / 2);
 //
-// Comment removed (contained Chinese characters)
 //// countTemp++;
 //// if (countTemp == 100) {
 //// imageTemp = new byte[length / 2];
@@ -222,11 +200,9 @@
 // // 0
 // System.arraycopy(frame, length / 2, temperature, 0, length / 2);
 // }
-// Comment removed (contained Chinese characters)
 // if (auto_gain_switch) {
 // Libircmd.auto_gain_switch(temperature, imageRes, auto_gain_switch_info, gain_switch_param, uvcCamera.nativePtr);
 // }
-// Comment removed (contained Chinese characters)
 // if (auto_over_portect) {
 // Libircmd.avoid_overexposure(temperature, imageRes, low_gain_over_temp_data,
 // high_gain_over_temp_data, pixel_above_prop, 15 * 25, uvcCamera.nativePtr);
@@ -261,7 +237,6 @@
 // }
 //
 // /**
-// Comment removed (contained Chinese characters)
 // *
 // * @param devpid
 // * @return
@@ -354,11 +329,9 @@
 // try {
 // XLog.tag(TAG).w("start");
 // uvcCamera.setOpenStatus(true);
-// Comment removed (contained Chinese characters)
 // //uvcCamera.setgetframemode(uvcCamera.GET_FRAME_ASYNC);
 // //default sync mode for some devices Lost-Packet
 // //uvcCamera.DEFAULT_BANDWIDTH=0.3f;//hub
-// Comment removed (contained Chinese characters)
 // new Thread(() -> {
 // try {
 // Thread.sleep(100);
@@ -366,18 +339,15 @@
 // e.printStackTrace();
 // }
 // EventBus.getDefault().post(new DeviceCameraEvent(101));
-// Comment removed (contained Chinese characters)
 // if (uvcCamera != null) {
 // if (syncimage.type == 1) {
 // Libircmd.tiny1b_shutter_manual(uvcCamera.nativePtr);
 // } else {
-// Comment removed (contained Chinese characters)
 // Libircmd.ooc_b_update(Libircmd.B_UPDATE, uvcCamera.nativePtr);
 // }
 // }
 // }).start();
 // }catch (Exception e){
-// Comment removed (contained Chinese characters)
 // }
 //
 // }
@@ -413,10 +383,7 @@
 //// Log.w("123", "aLong" + aLong);
 ////// if (isRun) {
 ////// if (timeLog != 0 && System.currentTimeMillis() - timeLog > 1000) {
-// Comment removed (contained Chinese characters)
 ////// EventBus.getDefault().post(new DeviceConnectEvent(false, null));
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 ////// }
 ////// timeLog = System.currentTimeMillis();
 ////// }

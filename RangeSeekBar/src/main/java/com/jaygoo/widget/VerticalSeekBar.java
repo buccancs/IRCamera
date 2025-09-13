@@ -31,11 +31,7 @@ import static com.jaygoo.widget.VerticalRangeSeekBar.TEXT_DIRECTION_VERTICAL;
  * // `=---='
  * //
  * // .............................................
- * Comment removed (contained Chinese characters)
  * =====================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * =====================================================
  */
 public class VerticalSeekBar extends SeekBar {

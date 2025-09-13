@@ -9,7 +9,6 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/8/19.
  */
@@ -18,37 +17,31 @@ open class DirBase {
  var id: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo(index = true)
  open var parentId: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var position: Int = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var dirName: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var goodCount: Int = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var warnCount: Int = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var dangerCount: Int = 0
@@ -65,7 +58,6 @@ open class DirBase {
 }
 
 /**
- * Comment removed (contained Chinese characters)
  */
 @Entity(
  foreignKeys = [
@@ -87,37 +79,31 @@ class DirDetect() : DirBase() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo(index = true)
  override var parentId: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var hasSelect = false
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var isExpand: Boolean = false
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var houseDetect = HouseDetect()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var itemList: ArrayList<ItemDetect> = ArrayList()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun copyOne(): DirDetect {
  val newDirDetect = DirDetect()
@@ -140,7 +126,6 @@ class DirDetect() : DirBase() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun toDirReport(): DirReport {
  val dirReport = DirReport()
@@ -164,7 +149,6 @@ class DirDetect() : DirBase() {
 
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun buildDefaultDirList(parentId: Long): ArrayList<DirDetect> =
  arrayListOf(
@@ -184,7 +168,6 @@ class DirDetect() : DirBase() {
 }
 
 /**
- * Comment removed (contained Chinese characters)
  */
 @Entity(
  foreignKeys = [
@@ -199,13 +182,11 @@ class DirDetect() : DirBase() {
 )
 class DirReport : DirBase() {
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo(index = true)
  override var parentId: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var itemList: ArrayList<ItemReport> = ArrayList()

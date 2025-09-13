@@ -21,9 +21,7 @@ import java.util.UUID;
  */
 public class RequestBuilderFactory {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
  public RequestBuilder<MtuChangeCallback> getChangeMtuBuilder(@IntRange(from = 23, to = 517) int mtu) {
@@ -38,10 +36,7 @@ public class RequestBuilderFactory {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<ReadCharacteristicCallback> getReadCharacteristicBuilder(UUID service, UUID characteristic) {
  RequestBuilder<ReadCharacteristicCallback> builder = new RequestBuilder<>(RequestType.READ_CHARACTERISTIC);
@@ -51,11 +46,7 @@ public class RequestBuilderFactory {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<NotificationChangeCallback> getSetNotificationBuilder(UUID service, UUID characteristic,
  boolean enable) {
@@ -67,11 +58,7 @@ public class RequestBuilderFactory {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<NotificationChangeCallback> getSetIndicationBuilder(UUID service, UUID characteristic,
  boolean enable) {
@@ -83,11 +70,7 @@ public class RequestBuilderFactory {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<NotificationChangeCallback> getReadDescriptorBuilder(UUID service, UUID characteristic,
  UUID descriptor) {
@@ -99,11 +82,7 @@ public class RequestBuilderFactory {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public WriteCharacteristicBuilder getWriteCharacteristicBuilder(UUID service, UUID characteristic,
  byte[] value) {
@@ -116,14 +95,12 @@ public class RequestBuilderFactory {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<ReadRssiCallback> getReadRssiBuilder() {
  return new RequestBuilder<>(RequestType.READ_RSSI);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(Build.VERSION_CODES.O)
  public RequestBuilder<PhyChangeCallback> getReadPhyBuilder() {
@@ -131,11 +108,7 @@ public class RequestBuilderFactory {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(Build.VERSION_CODES.O)
  public RequestBuilder<PhyChangeCallback> getSetPreferredPhyBuilder(int txPhy, int rxPhy, int phyOptions) {

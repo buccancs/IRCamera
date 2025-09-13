@@ -8,10 +8,7 @@ import com.topdon.ble.Request;
  */
 public interface MtuChangeCallback extends RequestFailedCallback {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onMtuChanged(Request request, int mtu);
 }

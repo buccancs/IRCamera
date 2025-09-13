@@ -15,7 +15,6 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.ui.R as UiR
 
 /**
- * Comment removed (contained Chinese characters)
  */
 
 /**
@@ -31,24 +30,20 @@ import com.topdon.lib.ui.R as UiR
 class BarPickView : View {
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColorInt
  private const val DEFAULT_BG_COLOR = 0xff787878.toInt()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColorInt
  private const val DEFAULT_PROGRESS_COLOR = 0xffffffff.toInt()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val THUMB_CORNERS = 11f
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val THUMB_STROKE_WIDTH = 1.5f
  }
@@ -60,14 +55,12 @@ class BarPickView : View {
  var onStopTrackingTouch: ((progress: Int, max: Int) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var valueFormatListener: ((progress: Int) -> String) = {
  it.toString()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var max: Int = 100
  set(value) {
@@ -86,7 +79,6 @@ class BarPickView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var progress: Int = 0
  set(value) {
@@ -102,17 +94,14 @@ class BarPickView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val barSize: Int
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val rotate: Int
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val labelText: String
 
@@ -177,7 +166,6 @@ class BarPickView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun computeThumbWidth(): Int {
  val minTextWidth = paint.measureText(valueFormatListener.invoke(min)).toInt()

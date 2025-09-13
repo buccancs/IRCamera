@@ -16,7 +16,6 @@ class DeviceBroadcastReceiver : BroadcastReceiver() {
 
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  const val ACTION_USB_PERMISSION = "com.topdon.topInfrared.USB_PERMISSION"
  }

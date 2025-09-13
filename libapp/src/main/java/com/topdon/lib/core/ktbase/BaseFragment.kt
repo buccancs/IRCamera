@@ -46,9 +46,7 @@ abstract class BaseFragment : Fragment() {
  override fun onHiddenChanged(hidden: Boolean) {
  super.onHiddenChanged(hidden)
  if (hidden) {
- // Comment removed (contained Chinese characters)
  } else { // onResume();
- // Comment removed (contained Chinese characters)
  initData()
  }
  }
@@ -59,12 +57,10 @@ abstract class BaseFragment : Fragment() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var loadingDialog: LoadingDialog? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showLoadingDialog(
  @StringRes resId: Int = 0,
@@ -77,7 +73,6 @@ abstract class BaseFragment : Fragment() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showLoadingDialog(text: CharSequence) {
  if (loadingDialog == null) {
@@ -88,7 +83,6 @@ abstract class BaseFragment : Fragment() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun dismissLoadingDialog() {
  loadingDialog?.dismiss()

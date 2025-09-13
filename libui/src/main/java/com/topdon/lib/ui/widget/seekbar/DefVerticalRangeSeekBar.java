@@ -19,10 +19,6 @@ import androidx.annotation.IntDef;
 
 /**
  * ================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * ================================================
  */
 public class DefVerticalRangeSeekBar extends RangeSeekBar {
@@ -95,10 +91,6 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
  int widthSize = MeasureSpec.getSize(widthMeasureSpec);
  int widthMode = MeasureSpec.getMode(widthMeasureSpec);
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 
  if (widthMode == MeasureSpec.EXACTLY) {
@@ -140,7 +132,6 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
  if (TextUtils.isEmpty(text2Draw)) continue;
  paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
  paint.setColor(getTickMarkTextColor());
- // Comment removed (contained Chinese characters)
  float x;
  if (getTickMarkMode() == TRICK_MARK_MODE_OTHER) {
  if (getTickMarkGravity() == TICK_MARK_GRAVITY_RIGHT) {
@@ -156,7 +147,6 @@ public class DefVerticalRangeSeekBar extends RangeSeekBar {
  if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (getSeekBarMode() == SEEKBAR_MODE_RANGE)) {
  paint.setColor(getTickMarkInRangeTextColor());
  }
- // Comment removed (contained Chinese characters)
  x = getProgressLeft() + getProgressWidth() * (num - getMinProgress()) / (getMaxProgress() - getMinProgress())
  - tickMarkTextRect.width() / 2f;
  }

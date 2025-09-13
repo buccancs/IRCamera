@@ -34,11 +34,7 @@ import com.topdon.lib.ui.R;
  * // `=---='
  * //
  * // .............................................
- * Comment removed (contained Chinese characters)
  * =====================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * =====================================================
  */
 public class VerticalSeekBar extends SeekBar {
@@ -80,13 +76,11 @@ public class VerticalSeekBar extends SeekBar {
  }
  private boolean noNegativeNumber = false;
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setNoNegativeNumber(Boolean noNegativeNumber){
  this.noNegativeNumber = noNegativeNumber;
  }
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param canvas
  * @param paint
@@ -118,7 +112,6 @@ public class VerticalSeekBar extends SeekBar {
  indicatorRect.right = indicatorRect.left + realIndicatorWidth;
  indicatorRect.bottom = indicatorRect.top + realIndicatorHeight;
 
- // Comment removed (contained Chinese characters)
  //draw default indicator arrow
  if (indicatorBitmap == null && drawIndPathBg) {
  //arrow three point
@@ -151,7 +144,6 @@ public class VerticalSeekBar extends SeekBar {
  indicatorRect.right -= rightOffset;
  }
 
- // Comment removed (contained Chinese characters)
  //draw indicator background
  if (drawIndPathBg){
  if (indicatorBitmap != null) {
@@ -184,7 +176,6 @@ public class VerticalSeekBar extends SeekBar {
  if (degrees != 0) {
  canvas.rotate(degrees, rotateX, rotateY);
  }
- // Comment removed (contained Chinese characters)
  canvas.drawText(text2Draw, tx, ty, paint);
  if (degrees != 0) {
  canvas.rotate(-degrees, rotateX, rotateY);

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  * 
  * date: 2019/8/6 15:33
 * author: chuanfeng.bi
@@ -47,8 +46,6 @@ public class PermissionsRequester {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void checkAndRequest(@NonNull List<String> permissions) {
  if (checking) {
@@ -116,7 +113,6 @@ public class PermissionsRequester {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private List<String> findDeniedPermissions(List<String> permissions) {
  List<String> needRequestPermissionList = new ArrayList<>();
  Activity activity = this.activity != null ? this.activity : fragment.getActivity();
@@ -165,8 +161,6 @@ public class PermissionsRequester {
  
  public interface Callback {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onRequestResult(List<String> refusedPermissions);
  }

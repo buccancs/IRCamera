@@ -20,7 +20,6 @@ import java.util.UUID;
  */
 public class ConnectionConfiguration {
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int TRY_RECONNECT_TIMES_INFINITE = -1;
  int discoverServicesDelayMillis = 600;
@@ -47,7 +46,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ConnectionConfiguration setDiscoverServicesDelayMillis(int discoverServicesDelayMillis) {
  this.discoverServicesDelayMillis = discoverServicesDelayMillis;
@@ -55,7 +53,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ConnectionConfiguration setConnectTimeoutMillis(int connectTimeoutMillis) {
  if (requestTimeoutMillis >= 1000) {
@@ -65,7 +62,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ConnectionConfiguration setRequestTimeoutMillis(int requestTimeoutMillis) {
  if (requestTimeoutMillis >= 1000) {
@@ -75,7 +71,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ConnectionConfiguration setTryReconnectMaxTimes(int tryReconnectMaxTimes) {
  this.tryReconnectMaxTimes = tryReconnectMaxTimes;
@@ -83,7 +78,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ConnectionConfiguration setReconnectImmediatelyMaxTimes(int reconnectImmediatelyMaxTimes) {
  this.reconnectImmediatelyMaxTimes = reconnectImmediatelyMaxTimes;
@@ -91,7 +85,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ConnectionConfiguration setAutoReconnect(boolean autoReconnect) {
  isAutoReconnect = autoReconnect;
@@ -99,9 +92,7 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(Build.VERSION_CODES.M)
  public ConnectionConfiguration setTransport(int transport) {
@@ -110,7 +101,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(Build.VERSION_CODES.O)
  public ConnectionConfiguration setPhy(int phy) {
@@ -119,7 +109,6 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ConnectionConfiguration setScanIntervalPairsInAutoReconnection(List<Pair<Integer, Integer>> parameters) {
  Inspector.requireNonNull(parameters, "parameters can't be null");
@@ -129,10 +118,7 @@ public class ConnectionConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @param options Configuration
  */
  public ConnectionConfiguration setDefaultWriteOptions(UUID service, UUID characteristic, WriteOptions options) {

@@ -103,7 +103,6 @@ public class AppVersionUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return float
  */
@@ -112,9 +111,7 @@ public class AppVersionUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  private void showNewVersionDialog(AppInfoBean bean) {
  String information = "";
@@ -126,7 +123,6 @@ public class AppVersionUtil {
  }
  }
  if (Integer.parseInt(bean.forcedUpgradeFlag) == 1) {
- // Comment removed (contained Chinese characters)
  new TipDialog.Builder(mContext)
  .setMessage(information)
  .setTitleMessage(mContext.getString(R.string.updata_new_version_update))
@@ -178,10 +174,8 @@ public class AppVersionUtil {
  void version(String version);
  }
 
- // Comment removed (contained Chinese characters)
  private void startDownload(String url) {
  completeReceiver = new DownloadCompleteReceiver();
- // Comment removed (contained Chinese characters)
 
  IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
  if (Build.VERSION.SDK_INT < 33) {
@@ -194,33 +188,26 @@ public class AppVersionUtil {
  DownloadManager.Request down = new DownloadManager.Request(uri); // ，
  down.setTitle(mContext.getString(R.string.tips_download_information)); // Settings
  down.setDescription(mContext.getString(R.string.installation_package_download_progress)); // Settings
- // Comment removed (contained Chinese characters)
  down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
- // Comment removed (contained Chinese characters)
  down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
- // Comment removed (contained Chinese characters)
  fileName = "topinfrared" + System.currentTimeMillis() + ".zip";
  down.setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOWNLOADS, fileName);
  DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(DOWNLOAD_SERVICE);
- // Comment removed (contained Chinese characters)
  mDownloadId = downloadManager.enqueue(down); // 
  VersionTools.INSTANCE.setMDownloadId(mDownloadId);
  }
 
- // Comment removed (contained Chinese characters)
  private class DownloadCompleteReceiver extends BroadcastReceiver {
  @Override
  public void onReceive(Context context, Intent intent) {
 
  if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) // 
  {
- // Comment removed (contained Chinese characters)
  installApk();
  }
  }
  }
 
- // Comment removed (contained Chinese characters)
  public void installApk() {
  mDownloadId = 0l;
  VersionTools.INSTANCE.setMDownloadId(0l);
@@ -255,7 +242,6 @@ public class AppVersionUtil {
  public void download(String url) {
  RequestParams params = new RequestParams();
  try {
- // Comment removed (contained Chinese characters)
  String[] splitUrl = url.split("\\?");
  String[] urlParams = splitUrl[1].split("&");
  String[] params1 = urlParams[0].split("=");
@@ -321,7 +307,6 @@ public class AppVersionUtil {
  });
  }
 
- // Comment removed (contained Chinese characters)
  public void installApkNew() {
  try {
  File file = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), fileName);

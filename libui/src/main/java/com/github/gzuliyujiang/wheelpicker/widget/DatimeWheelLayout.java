@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/14 15:26
@@ -93,7 +92,6 @@ public class DatimeWheelLayout extends BaseWheelLayout {
  dateWheelLayout = findViewById(R.id.wheel_picker_date_wheel);
  timeWheelLayout = findViewById(R.id.wheel_picker_time_wheel);
 
- // Comment removed (contained Chinese characters)
  setCurtainEnabled(true);
  getMonthLabelView().setTextColor(0xffffffff);
  getYearLabelView().setTextColor(0xffffffff);
@@ -204,14 +202,12 @@ public class DatimeWheelLayout extends BaseWheelLayout {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setRange(DatimeEntity startValue, DatimeEntity endValue) {
  setRange(startValue, endValue, null);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setRange(DatimeEntity startValue, DatimeEntity endValue, DatimeEntity defaultValue) {
  if (startValue == null) {

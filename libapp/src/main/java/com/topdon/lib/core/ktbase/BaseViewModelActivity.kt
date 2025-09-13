@@ -23,12 +23,9 @@ abstract class BaseViewModelActivity<VM : BaseViewModel> : BaseActivity() {
  }
  }
 
- // Comment removed (contained Chinese characters)
  abstract fun providerVMClass(): Class<VM>
 
- // Comment removed (contained Chinese characters)
  protected fun requestError(it: Exception?) {
- // Comment removed (contained Chinese characters)
  it?.run {
  when (it) {
  is TimeoutCancellationException -> httpErrorTip(getString(R.string.http_time_out), "")

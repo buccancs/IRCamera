@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Comment removed (contained Chinese characters)
  * Created by jzh on 2020-12-28.
  */
 /**

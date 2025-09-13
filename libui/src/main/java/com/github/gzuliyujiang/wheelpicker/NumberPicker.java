@@ -27,7 +27,6 @@ import com.github.gzuliyujiang.wheelview.contract.WheelFormatter;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author [QQ:1032694760]
  * @since 2015/10/24

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2023/9/20.
  */
@@ -28,51 +27,38 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  */
 class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var wholeLeft: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var wholeRight: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var wholeTop: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var wholeBottom: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var itemLeft: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var itemRight: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var itemTop: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var itemBottom: Float? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val density: Float = context.resources.displayMetrics.density
 
@@ -116,8 +102,6 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun setVerticalOne(
  outRect: Rect,
@@ -132,8 +116,6 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun setHorizontalOne(
  outRect: Rect,
@@ -148,9 +130,6 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun setVerticalMulti(
  outRect: Rect,
@@ -170,10 +149,6 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun setVerticalMultiStaggered(
  outRect: Rect,
@@ -193,9 +168,6 @@ class MyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun setHorizontalMulti(
  outRect: Rect,

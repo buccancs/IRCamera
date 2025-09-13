@@ -10,15 +10,11 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
 object SaveSettingUtil {
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val SP_NAME = "SaveSettingUtil"
 
@@ -33,12 +29,10 @@ object SaveSettingUtil {
  const val FusionTypeMeanFusion = 2
 
  /**
- * Comment removed (contained Chinese characters)
  */
  const val FusionTypeIROnly = 1 // infrared
 
  /**
- * Comment removed (contained Chinese characters)
  */
  const val FusionTypeVLOnly = 0 // visible light
 
@@ -52,10 +46,8 @@ object SaveSettingUtil {
  const val FusionTypeIROnlyNoFusion = 6
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun reset() {
- // Comment removed (contained Chinese characters)
  isMeasureTempMode = true
  isVideoMode = false
  isAutoShutter = true
@@ -66,7 +58,6 @@ object SaveSettingUtil {
  pseudoColorMode = 3
  rotateAngle = DeviceConfig.S_ROTATE_ANGLE
 
- // Comment removed (contained Chinese characters)
  isOpenPseudoBar = true
  isOpenTwoLight = false
  twoLightAlpha = 50
@@ -75,7 +66,6 @@ object SaveSettingUtil {
  temperatureMode = CameraItemBean.TYPE_TMP_C
  alarmBean = AlarmBean()
 
- // Comment removed (contained Chinese characters)
  isOpenCompass = false
  isOpenHighPoint = false
  isOpenLowPoint = false
@@ -93,7 +83,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isSaveSetting: Boolean
  get() = SPUtils.getInstance(SP_NAME).getBoolean("isSaveSetting", true)
@@ -102,7 +91,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isMeasureTempMode: Boolean
  get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isMeasureTempMode", true) else true
@@ -113,7 +101,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenAmplify: Boolean
  get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenAmplify", false) else false
@@ -122,7 +109,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isVideoMode: Boolean
  get() =
@@ -139,7 +125,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isAutoShutter: Boolean
  get() =
@@ -156,7 +141,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isRecordAudio: Boolean
  get() =
@@ -173,7 +157,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var delayCaptureSecond: Int
  get() =
@@ -196,7 +179,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenTwoLight: Boolean
  get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getBoolean("isOpenTwoLight", false) else false
@@ -207,7 +189,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var twoLightAlpha: Int
  get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("twoLightAlpha", 50) else 50
@@ -218,7 +199,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var pseudoColorMode: Int
  get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("pseudoColorMode", 3) else 3
@@ -229,7 +209,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenPseudoBar: Boolean
  get() =
@@ -246,7 +225,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var contrastValue: Int
  get() =
@@ -263,7 +241,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var ddeConfig: Int
  get() = if (isSaveSetting) SPUtils.getInstance(SP_NAME).getInt("ddeConfig", 2) else 2
@@ -274,7 +251,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var alarmBean: AlarmBean
  get() =
@@ -291,7 +267,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var rotateAngle: Int
  get() =
@@ -308,7 +283,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenMirror: Boolean
  get() =
@@ -325,7 +299,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenCompass: Boolean
  get() =
@@ -342,7 +315,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var tempTextColor: Int
  get() =
@@ -359,7 +331,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var tempTextSize: Int
  get() =
@@ -376,13 +347,10 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * normal temperature ([CameraItemBean.TYPE_TMP_C] = 1）
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var temperatureMode: Int
  get() =
@@ -399,7 +367,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenHighPoint: Boolean
  get() =
@@ -416,7 +383,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenLowPoint: Boolean
  get() =
@@ -433,9 +399,7 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * dynamic recognition ([ObserveBean.TYPE_DYN_R] = 0)
  *
@@ -458,7 +422,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenTarget: Boolean
  get() =
@@ -475,7 +438,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * human ([ObserveBean.TYPE_MEASURE_PERSON] = 10)
  *
@@ -502,13 +464,9 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var targetType: Int
  get() =
@@ -527,17 +485,11 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var targetColorType: Int
  get() =
@@ -556,7 +508,6 @@ reportAuthorName = CommUtils.getAppName()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
 var reportAuthorName: String
  get() =
@@ -573,7 +524,6 @@ SPUtils.getInstance(SP_NAME).put("reportAuthorName", value)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var reportWatermarkText: String
  get() =
@@ -590,7 +540,6 @@ SPUtils.getInstance(SP_NAME).put("reportAuthorName", value)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var reportHumidity: Int
  get() =

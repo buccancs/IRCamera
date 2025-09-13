@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.databinding.UiWifiSteeringWheelViewBinding
 
 /**
- * Comment removed (contained Chinese characters)
  */
 /**
  * Custom Wifi steering wheel view for thermal imaging display.

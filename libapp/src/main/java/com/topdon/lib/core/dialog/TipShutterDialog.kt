@@ -12,7 +12,6 @@ import com.topdon.lib.core.databinding.DialogTipShutterBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/4/13 10:57
  */

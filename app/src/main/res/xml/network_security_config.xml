@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Comment removed (contained Chinese characters) -->
-<!-- Comment removed (contained Chinese characters) -->
 <network-security-config>
  <base-config cleartextTrafficPermitted="true">
  <trust-anchors>

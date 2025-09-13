@@ -11,8 +11,6 @@ package com.topdon.commons.util;
 public class PDFUtils {
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
  * @param name pdfname
  * @return String

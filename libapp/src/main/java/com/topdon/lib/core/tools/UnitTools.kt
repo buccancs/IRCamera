@@ -5,7 +5,6 @@ import java.util.*
 
 object UnitTools {
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param float Temperature
  */
@@ -16,14 +15,12 @@ object UnitTools {
  // Temperature
  "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
  } else {
- // Comment removed (contained Chinese characters)
  "${String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))}°F"
  }
  return str
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param float Temperature
  */
@@ -37,14 +34,12 @@ object UnitTools {
  // Temperature
  "${String.format(Locale.ENGLISH, "%.1f", float)}°C"
  } else {
- // Comment removed (contained Chinese characters)
  "${String.format(Locale.ENGLISH, "%.1f", (float * 1.8000 + 32.00))}°F"
  }
  return str
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  fun showIntervalC(
@@ -56,7 +51,6 @@ object UnitTools {
  // Temperature
  "$min~$max°C"
  } else {
- // Comment removed (contained Chinese characters)
  val maxT: Int = (max * 1.8000 + 32.00).toInt()
  val minT: Int = (min * 1.8000 + 32.00).toInt()
  "$minT~$maxT°F"
@@ -65,7 +59,6 @@ object UnitTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  fun showConfigC(
@@ -77,7 +70,6 @@ object UnitTools {
  // Temperature
  "($min~$max°C)"
  } else {
- // Comment removed (contained Chinese characters)
  val maxT: Int = (max * 1.8000 + 32.00).toInt()
  val minT: Int = (min * 1.8000 + 32.00).toInt()
  "($minT~$maxT°F)"
@@ -86,7 +78,6 @@ object UnitTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param float Temperature
  */
@@ -97,14 +88,12 @@ object UnitTools {
  // Temperature
  "°C"
  } else {
- // Comment removed (contained Chinese characters)
  "°F"
  }
  return str
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param float Temperature
  */
@@ -115,14 +104,12 @@ object UnitTools {
  // Temperature
  value
  } else {
- // Comment removed (contained Chinese characters)
  toF(value)
  }
  return str.toFloat()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param float Temperature
  */
@@ -139,14 +126,12 @@ object UnitTools {
  // Temperature
  value
  } else {
- // Comment removed (contained Chinese characters)
  toF(value)
  }
  return str.toFloat()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param float Temperature
  */
@@ -160,14 +145,12 @@ object UnitTools {
  // Temperature
  value
  } else {
- // Comment removed (contained Chinese characters)
  toC(value)
  }
  return str.toFloat()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param float Temperature
  */
@@ -178,31 +161,25 @@ object UnitTools {
  // Temperature
  value
  } else {
- // Comment removed (contained Chinese characters)
  toC(value)
  }
  return str.toFloat()
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun toF(value: Float): Float {
  return value * 1.8000f + 32.00f
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun toC(value: Float): Float {
  return (value - 32.0f) / 1.8000f
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  fun showNoUnit(float: Float): String {
@@ -216,9 +193,7 @@ object UnitTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  fun showWithUnit(float: Float): String {

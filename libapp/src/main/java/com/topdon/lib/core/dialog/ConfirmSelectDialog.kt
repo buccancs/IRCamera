@@ -13,7 +13,6 @@ import com.topdon.lib.core.databinding.DialogConfirmSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/2/29.
  */
@@ -22,7 +21,6 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
  private lateinit var binding: DialogConfirmSelectBinding
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setShowIcon(isShowIcon: Boolean) {
  binding.ivIcon.isVisible = isShowIcon
@@ -39,7 +37,6 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setShowMessage(isShowMessage: Boolean) {
  binding.rlMessage.isVisible = isShowMessage
@@ -52,14 +49,12 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setShowCancel(isShowCancel: Boolean) {
  binding.tvCancel.isVisible = isShowCancel
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setCancelText(
  @StringRes cancelRes: Int,
@@ -68,7 +63,6 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setConfirmText(
  @StringRes confirmRes: Int,

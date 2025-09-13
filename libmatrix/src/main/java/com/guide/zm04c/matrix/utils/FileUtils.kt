@@ -9,7 +9,6 @@ import com.guide.zm04c.matrix.Logger
 import java.io.*
 
 /**
- * Comment removed (contained Chinese characters)
  */
 class FileUtils {
  companion object {
@@ -25,14 +24,10 @@ class FileUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun deleteDirectory(filePath: String): Boolean {
  var filePath = filePath
  var flag = false
- // Comment removed (contained Chinese characters)
  if (!filePath.endsWith(File.separator)) {
  filePath = filePath + File.separator
  }
@@ -42,20 +37,16 @@ class FileUtils {
  }
  flag = true
  val files = dirFile.listFiles()
- // Comment removed (contained Chinese characters)
  for (i in files.indices) {
  if (files[i].isFile) {
- // Comment removed (contained Chinese characters)
  flag = deleteFile(files[i].absolutePath)
  if (!flag) break
  } else {
- // Comment removed (contained Chinese characters)
  flag = deleteDirectory(files[i].absolutePath)
  if (!flag) break
  }
  }
  return if (!flag) false else dirFile.delete()
- // Comment removed (contained Chinese characters)
  }
 
  fun deleteFile(path: String): Boolean {
@@ -87,11 +78,8 @@ class FileUtils {
  data: ByteArray,
  filePath: String,
  ) {
- // Comment removed (contained Chinese characters)
  var randomFile = RandomAccessFile(filePath, "rw")
- // Comment removed (contained Chinese characters)
  var fileLength = randomFile.length()
- // Comment removed (contained Chinese characters)
  randomFile.seek(fileLength)
  randomFile.write(data)
 
@@ -134,7 +122,6 @@ class FileUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param bmp
  * @param filePath
@@ -173,10 +160,7 @@ class FileUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return
  */
  fun rotateBitmap(
@@ -247,7 +231,6 @@ class FileUtils {
  if (imagePath.contains(".jpg")) {
  var rotate = 0
  val exif = ExifInterface(imagePath)
- // Comment removed (contained Chinese characters)
  val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
 
  when (orientation) {
@@ -282,7 +265,6 @@ class FileUtils {
  fileNotFoundErrAction: () -> Unit,
  ioErrAction: () -> Unit,
  ): ByteArray? {
- // Comment removed (contained Chinese characters)
  var fis: FileInputStream? = null
  val inFile = File(filePath)
  val buffer: ByteArray?
@@ -321,7 +303,6 @@ class FileUtils {
  }
  } catch (e1: Exception) {
  e1.printStackTrace()
- // Comment removed (contained Chinese characters)
  try {
  if (null != inputStream) {
  byteArr = ByteArray(inputStream.available())

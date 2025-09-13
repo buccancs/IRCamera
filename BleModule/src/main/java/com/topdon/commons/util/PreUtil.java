@@ -23,7 +23,6 @@ public class PreUtil {
  private static PreUtil instance;
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  */
@@ -32,7 +31,6 @@ public class PreUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @param shareName
@@ -43,9 +41,7 @@ public class PreUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @return
  */
  public static PreUtil getInstance(Context context) {
@@ -53,10 +49,7 @@ public class PreUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return
  */
  public static PreUtil getInstance(Context context,
@@ -138,7 +131,6 @@ public class PreUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param t
  */
@@ -258,7 +250,6 @@ public class PreUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param cls
  * @return

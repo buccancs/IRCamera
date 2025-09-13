@@ -15,57 +15,47 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/1/27.
  */
 class ImageEditView : View {
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val PAINT_WIDTH = 6
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val HALF_PAINT_WIDTH = 3
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val ARROW_WIDTH = 30
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val PAINT_COLOR = 0xffe22400.toInt()
  }
 
  enum class Type {
  /**
- * Comment removed (contained Chinese characters)
  */
  CIRCLE,
 
  /**
- * Comment removed (contained Chinese characters)
  */
  RECT,
 
  /**
- * Comment removed (contained Chinese characters)
  */
  ARROW,
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var type: Type = Type.CIRCLE
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var color: Int
  get() = paint.color
@@ -75,7 +65,6 @@ class ImageEditView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var sourceBitmap: Bitmap? = null
  set(value) {
@@ -92,17 +81,14 @@ class ImageEditView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var hasEditData = false
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var bgBitmap: Bitmap? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var editBitmap: Bitmap? = null
 
@@ -111,7 +97,6 @@ class ImageEditView : View {
  private val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val path = Path()
 
@@ -221,7 +206,6 @@ class ImageEditView : View {
  path.reset()
 
  if (downX == currentX) { // X
- // Comment removed (contained Chinese characters)
  val endY = if (downY > currentY) currentY + PAINT_WIDTH else (currentY - PAINT_WIDTH)
  canvas?.drawLine(downX.toFloat(), downY.toFloat(), currentX.toFloat(), endY.toFloat(), paint)
 
@@ -237,7 +221,6 @@ class ImageEditView : View {
  path.close()
  canvas?.drawPath(path, paint)
  } else if (downY == currentY) { // Y
- // Comment removed (contained Chinese characters)
  val endX = if (downX > currentX) currentX + PAINT_WIDTH else (currentX - PAINT_WIDTH)
  canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX.toFloat(), currentY.toFloat(), paint)
 
@@ -253,14 +236,10 @@ class ImageEditView : View {
  path.close()
  canvas?.drawPath(path, paint)
  } else {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  val k1: Float = (downY - currentY).toFloat() / (downX - currentX).toFloat()
  val b1: Float = downY - k1 * downX
  val a1: Float = -b1 / k1
 
- // Comment removed (contained Chinese characters)
  val backWidth = PAINT_WIDTH
  val endY: Float =
  if (k1 > 0) {
@@ -281,7 +260,6 @@ class ImageEditView : View {
  val endX = (endY - b1) / k1
  canvas?.drawLine(downX.toFloat(), downY.toFloat(), endX, endY, paint)
 
- // Comment removed (contained Chinese characters)
  val triangleH: Float = (ARROW_WIDTH / 2) * sqrt(3f)
  val y: Float =
  if (k1 > 0) {

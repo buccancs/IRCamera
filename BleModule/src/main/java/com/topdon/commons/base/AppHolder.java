@@ -23,9 +23,7 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AppHolder implements Application.ActivityLifecycleCallbacks {
- // Comment removed (contained Chinese characters)
  private final List<RunningActivity> runningActivities = new CopyOnWriteArrayList<>();
- // Comment removed (contained Chinese characters)
  private boolean isCompleteExit = false;
  private Application application;
  private Looper mainLooper;
@@ -33,7 +31,6 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
  private AppHolder() {
  mainLooper = Looper.getMainLooper();
- // Comment removed (contained Chinese characters)
  application = tryGetApplication();
  if (application != null) {
  application.registerActivityLifecycleCallbacks(this);
@@ -143,7 +140,6 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
  
  public static void initialize(@NonNull Application application) {
  Objects.requireNonNull(application, "application is null");
- // Comment removed (contained Chinese characters)
  if (Holder.INSTANCE.application != null && Holder.INSTANCE.application != application) {
  Holder.INSTANCE.application.unregisterActivityLifecycleCallbacks(Holder.INSTANCE);
  application.registerActivityLifecycleCallbacks(Holder.INSTANCE);
@@ -180,7 +176,6 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isAppOnForeground() {
  ActivityManager am = (ActivityManager) application.getSystemService(Context.ACTIVITY_SERVICE);
@@ -198,7 +193,6 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
  return false;
  }
  
- // Comment removed (contained Chinese characters)
  private boolean contains(Object[] array, Object obj) {
  if (array != null && array.length > 0) {
  for (Object o : array) {
@@ -211,7 +205,6 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
  }
  
  /**
- * Comment removed (contained Chinese characters)
  */
  public void finish(String className, String... classNames) {
  List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -228,9 +221,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public void finishAllWithout(@Nullable String className, String... classNames) {
  List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -247,16 +238,13 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void finishAll() {
  finishAllWithout(null);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public void backTo(String className) {
  List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -299,7 +287,6 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void completeExit() {
  isCompleteExit = true;

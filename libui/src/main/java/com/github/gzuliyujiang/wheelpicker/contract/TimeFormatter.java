@@ -14,7 +14,6 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/14 19:55
@@ -22,26 +21,17 @@ package com.github.gzuliyujiang.wheelpicker.contract;
 public interface TimeFormatter {
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  String formatHour(int hour);
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  String formatMinute(int minute);
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  String formatSecond(int second);
 

@@ -8,11 +8,7 @@ import com.topdon.ble.Request;
  */
 public interface RequestFailedCallback extends RequestCallback {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onRequestFailed(Request request, int failType, Object value);
 }

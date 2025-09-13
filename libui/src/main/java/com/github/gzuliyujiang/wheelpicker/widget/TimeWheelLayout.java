@@ -39,7 +39,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2021/6/5 16:20
@@ -110,7 +109,6 @@ public class TimeWheelLayout extends BaseWheelLayout {
  meridiemWheelView = findViewById(R.id.wheel_picker_time_meridiem_wheel);
  spaceEndView = findViewById(R.id.wheel_picker_time_end_view);
 
- // Comment removed (contained Chinese characters)
  post(new Runnable() {
  @Override
  public void run() {
@@ -268,14 +266,12 @@ public class TimeWheelLayout extends BaseWheelLayout {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setRange(TimeEntity startValue, TimeEntity endValue) {
  setRange(startValue, endValue, null);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setRange(TimeEntity startValue, TimeEntity endValue, TimeEntity defaultValue) {
  if (startValue == null) {
@@ -452,17 +448,14 @@ public class TimeWheelLayout extends BaseWheelLayout {
 
  private void changeMinute(int hour) {
  final int min, max;
- // Comment removed (contained Chinese characters)
  if (hour == startValue.getHour() && hour == endValue.getHour()) {
  min = startValue.getMinute();
  max = endValue.getMinute();
  }
- // Comment removed (contained Chinese characters)
  else if (hour == startValue.getHour()) {
  min = startValue.getMinute();
  max = 59;
  }
- // Comment removed (contained Chinese characters)
  else if (hour == endValue.getHour()) {
  min = 0;
  max = endValue.getMinute();

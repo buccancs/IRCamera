@@ -31,7 +31,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @see com.github.gzuliyujiang.wheelview.contract.TextProvider

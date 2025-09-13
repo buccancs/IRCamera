@@ -11,7 +11,6 @@ import androidx.annotation.RequiresApi;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  * 
  * date: 2021/8/12 15:31
 * author: bichuanfeng
@@ -49,12 +48,9 @@ public class ScanConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public ScanConfiguration setScanPeriodMillis(int scanPeriodMillis) {
- // Comment removed (contained Chinese characters)
  if (scanPeriodMillis >= 1000) {
  this.scanPeriodMillis = scanPeriodMillis;
  }
@@ -62,7 +58,6 @@ public class ScanConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ScanConfiguration setAcceptSysConnectedDevice(boolean acceptSysConnectedDevice) {
  this.acceptSysConnectedDevice = acceptSysConnectedDevice;
@@ -70,7 +65,6 @@ public class ScanConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
  public ScanConfiguration setScanSettings(ScanSettings scanSettings) {
@@ -80,7 +74,6 @@ public class ScanConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ScanConfiguration setOnlyAcceptBleDevice(boolean onlyAcceptBleDevice) {
  this.onlyAcceptBleDevice = onlyAcceptBleDevice;
@@ -88,7 +81,6 @@ public class ScanConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ScanConfiguration setRssiLowLimit(int rssiLowLimit) {
  this.rssiLowLimit = rssiLowLimit;
@@ -96,7 +88,6 @@ public class ScanConfiguration {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
  public ScanConfiguration setFilters(List<ScanFilter> filters) {

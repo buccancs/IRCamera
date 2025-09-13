@@ -25,7 +25,6 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnLinkagePickedListener;
 import com.github.gzuliyujiang.wheelpicker.widget.CarPlateWheelLayout;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2016/12/18 10:47

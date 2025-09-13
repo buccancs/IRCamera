@@ -31,7 +31,6 @@
 //import java.util.concurrent.ConcurrentHashMap;
 //
 ///**
-// Comment removed (contained Chinese characters)
 // */
 //public class USBMonitor {
 // private static final boolean DEBUG = false;

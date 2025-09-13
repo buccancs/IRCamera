@@ -2,10 +2,6 @@ package com.topdon.lib.ui.widget.seekbar;
 
 /**
  * ================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * ================================================
  */
 public interface OnRangeChangedListener {

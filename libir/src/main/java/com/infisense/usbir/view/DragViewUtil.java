@@ -4,7 +4,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/10/25 11:42
  */
@@ -14,7 +13,6 @@ public class DragViewUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v view
  * @param delay delayed

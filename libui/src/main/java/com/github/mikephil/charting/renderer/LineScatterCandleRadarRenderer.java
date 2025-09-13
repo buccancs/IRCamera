@@ -63,13 +63,10 @@ public abstract class LineScatterCandleRadarRenderer extends BarLineScatterCandl
  c.drawPath(mHighlightLinePath, mHighlightPaint);
  }
 
- // Comment removed (contained Chinese characters)
 
- // Comment removed (contained Chinese characters)
  mHighlightDotPaint.setColor(Color.rgb(243, 129, 47));
  mHighlightDotPaint.setStyle(Paint.Style.FILL);
  c.drawCircle(x, y, SizeUtils.dp2px(4f), mHighlightDotPaint);
- // Comment removed (contained Chinese characters)
  mHighlightDotPaint.setColor(Color.argb(80, 255, 255, 255));
  mHighlightDotPaint.setStyle(Paint.Style.STROKE);
  c.drawCircle(x, y, SizeUtils.dp2px(5f), mHighlightDotPaint);

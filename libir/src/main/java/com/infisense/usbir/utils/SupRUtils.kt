@@ -7,14 +7,12 @@ import java.io.ByteArrayOutputStream
 
 object SupRUtils {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun canOpenSupR(): Boolean {
  return true
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showOpenSupRTipsDialog(activity: Activity) {
  }

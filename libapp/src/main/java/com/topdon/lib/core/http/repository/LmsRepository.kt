@@ -17,7 +17,6 @@ import java.util.concurrent.CountDownLatch
 
 object LmsRepository {
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getVersionInfo(): CheckVersionJson? {
  var result: CheckVersionJson? = null
@@ -39,7 +38,6 @@ object LmsRepository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getStatementUrl(type: String): StatementJson? {
  var result: StatementJson? = null

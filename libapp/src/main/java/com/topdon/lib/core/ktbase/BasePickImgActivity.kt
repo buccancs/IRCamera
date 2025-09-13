@@ -26,12 +26,10 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
  protected lateinit var binding: ActivityImagePickIrPlushBinding
 
  /**
- * Comment removed (contained Chinese characters)
  */
  val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var hasTakePhoto = false
 
@@ -50,7 +48,6 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
  binding = ActivityImagePickIrPlushBinding.inflate(layoutInflater)
  setContentView(binding.root)
 
- // Comment removed (contained Chinese characters)
  binding.ivEditCircle.isSelected = true
  binding.imageEditView.type = ImageEditView.Type.CIRCLE
  binding.viewColor.setBackgroundColor(binding.imageEditView.color)
@@ -177,7 +174,6 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun switchPhotoState(hasTakePhoto: Boolean) {
  this.hasTakePhoto = hasTakePhoto
@@ -189,8 +185,6 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun showExitTipsDialog(listener: (() -> Unit)) {
  TipDialog.Builder(this)

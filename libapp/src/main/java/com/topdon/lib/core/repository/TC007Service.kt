@@ -16,19 +16,16 @@ import retrofit2.http.Query
  */
 interface TC007Service {
  /**
- * Comment removed (contained Chinese characters)
  */
  @GET("/v1/system/product/info/dj")
  suspend fun getProductInfo(): TC007Response<ProductBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @GET("/v1/system/local/battery")
  suspend fun getBatteryInfo(): TC007Response<BatteryInfo>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @PUT("/v1/system/local/time")
  suspend fun syncTime(
@@ -36,7 +33,6 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Multipart
  @POST("/v1/system/upgrade/package?reset=true")
@@ -49,31 +45,26 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @GET("/v1/system/upgrade/status")
  suspend fun getUpgradeStatus(): TC007Response<TC07UpgradeStatus>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @PUT("/v1/system/magic/factory")
  suspend fun resetToFactory(): TC007Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @PUT("/v1/camera/videoin/thermal/lid")
  suspend fun correction(): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @GET("/v1/thermal/env/attribute?default=false")
  suspend fun getEnvAttr(): TC007Response<EnvAttr>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @PUT("/v1/thermal/env/attribute?default=false")
  suspend fun setEnvAttr(
@@ -81,7 +72,6 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @PUT("/v1/thermal/env/target")
  suspend fun setIRConfig(
@@ -92,7 +82,6 @@ interface TC007Service {
  suspend fun getTempFrame(): TC007Response<TempFrameParam>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/v1/thermal/temp/frame")
  suspend fun setTempFrame(
@@ -100,7 +89,6 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/v1/thermal/temp/point")
  suspend fun setTempPoint(
@@ -108,7 +96,6 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/v1/thermal/temp/line")
  suspend fun setTempLine(
@@ -116,7 +103,6 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/v1/thermal/temp/rectangle")
  suspend fun setTempRect(
@@ -124,14 +110,11 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @PUT("/v1/storage/picture/snap/manual")
  suspend fun getPhoto(): TC007Response<PhotoBean>
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @PUT("/v1/camera/videoin/mode")
  suspend fun setMode(
@@ -158,7 +141,6 @@ interface TC007Service {
  @Body requestBody: RequestBody,
  ): TC007Response<Any?>
 
- // Comment removed (contained Chinese characters)
  @GET("/v1/camera/videoin/registration")
  suspend fun getRegistration(
  @Query("chn") mode: Int,
@@ -171,18 +153,12 @@ interface TC007Service {
  ): TC007Response<Any?>
 
  /**
- * Comment removed (contained Chinese characters)
  * chn
  * integer
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * 1
  * default
  * string
- * Comment removed (contained Chinese characters)
  * true：DefaultConfiguration；false：CurrentConfiguration
- * Comment removed (contained Chinese characters)
  * false
  */
  @GET("/v1/thermal/env/attribute")

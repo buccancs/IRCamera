@@ -10,7 +10,6 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.R as UiR
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by chenggeng.lin on 2023/11/13.
  */

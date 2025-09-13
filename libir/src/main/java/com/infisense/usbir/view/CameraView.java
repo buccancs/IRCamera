@@ -18,7 +18,6 @@ import com.infisense.usbdual.Const;
 import com.infisense.usbir.utils.OpencvTools;
 
 /**
- * Comment removed (contained Chinese characters)
  */
 public class CameraView extends TextureView {
  private String TAG = "CameraView";
@@ -28,12 +27,10 @@ public class CameraView extends TextureView {
  private Thread cameraThread;
  private Canvas canvas = null;
  /**
- * Comment removed (contained Chinese characters)
  */
  private Paint paint;
  private int cross_len = 20;
  /**
- * Comment removed (contained Chinese characters)
  */
  private Paint greenPaint;
  private boolean drawLine = true;//Whether
@@ -74,7 +71,6 @@ public class CameraView extends TextureView {
  //
  paint = new Paint(); //
  paint = new Paint(Paint.FILTER_BITMAP_FLAG);
-// Comment removed (contained Chinese characters)
  paint.setStrokeWidth(2); //settings。Unit
  paint.setAntiAlias(true); //
  paint.setDither(true); //
@@ -84,7 +80,6 @@ public class CameraView extends TextureView {
  greenPaint.setStrokeWidth(6);
  greenPaint.setTextSize(56);
  greenPaint.setColor(Color.GREEN);
- // Comment removed (contained Chinese characters)
  runnable = new Runnable() {
  @Override
  public void run() {
@@ -105,20 +100,16 @@ public class CameraView extends TextureView {
  if (canvas == null) {
  continue;
  }
- // Comment removed (contained Chinese characters)
  paint.setStrokeWidth(2); //settings。Unit
  paint.setAntiAlias(true); //
  paint.setDither(true); //
  paint.setColor(Color.WHITE); //color
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  Bitmap mScaledBitmap = Bitmap.createScaledBitmap(bitmap, getWidth(), getHeight(), true);
  canvas.drawBitmap(mScaledBitmap, 0, 0, null);
 
  /**
- * Comment removed (contained Chinese characters)
  */
  if (drawLine){
  canvas.drawLine(getWidth() / 2 - cross_len, getHeight() / 2,

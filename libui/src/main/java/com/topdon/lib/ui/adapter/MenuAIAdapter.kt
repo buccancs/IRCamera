@@ -25,7 +25,6 @@ import com.topdon.menu.R as MenuR
  */
 class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<MenuAIAdapter.ItemView>() {
  /**
- * Comment removed (contained Chinese characters)
  *
  * Due to legacy constraints (saved in SharedPreferences), the code values are:
  * - Nothing selected: -1

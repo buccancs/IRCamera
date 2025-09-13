@@ -35,7 +35,6 @@ class UsbBuffer {
  private var findHeadFramePos = -1
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun getMark(
  buf: ByteArray,
@@ -53,7 +52,6 @@ class UsbBuffer {
  var i = 0
  while (i < frame.size - 1) {
  if (getMark(frame, i) == mark1) {
- // Comment removed (contained Chinese characters)
  return true
  }
  i += 2
@@ -65,7 +63,6 @@ class UsbBuffer {
  var i = 0
  while (i < frame.size - 1) {
  if (getMark(frame, i) == mark1) {
-// Comment removed (contained Chinese characters)
  return i
  }
  i += 2
@@ -77,7 +74,6 @@ class UsbBuffer {
  if (mRingBuffer == null) {
  return false
  }
- // Comment removed (contained Chinese characters)
  if (mRingBuffer.getUnReadLength() < mFrameSize * 4) {
 // Logger.d(TAG, "RingBuffer <4");
  return false
@@ -96,9 +92,7 @@ class UsbBuffer {
 // Log.d(TAG, "1 findHeadFrame=" + findHeadFrame);
  if (findHeadFramePos != -1) {
  // Log.d(TAG, "1: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));
- // Comment removed (contained Chinese characters)
  mRingBuffer.moveBack(mPacketSize - findHeadFramePos)
- // Comment removed (contained Chinese characters)
  mRingBuffer.moveForward(mFrameSize)
  mRingBuffer.read(mPakagebuffer, 0, mPacketSize)
  // Log.d(TAG, "2: " + BaseDataTypeConvertUtils.Companion.byteArr2HexString(mPakagebuffer));

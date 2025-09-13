@@ -15,7 +15,6 @@ import com.topdon.lib.core.databinding.DialogTipTargetColorBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
  */
 class TipTargetColorDialog : Dialog {
  constructor(context: Context) : super(context)
@@ -84,10 +83,8 @@ class TipTargetColorDialog : Dialog {
  val lp = dialog!!.window!!.attributes
  val wRatio =
  if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
- // Comment removed (contained Chinese characters)
  0.90
  } else {
- // Comment removed (contained Chinese characters)
  0.35
  }
  lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings

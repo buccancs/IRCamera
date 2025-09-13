@@ -23,8 +23,6 @@ import java.util.Locale
  */
 object LocationUtil {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @RequiresPermission(Permission.ACCESS_FINE_LOCATION)
  suspend fun getLastLocationStr(context: Context): String? =
@@ -52,7 +50,6 @@ object LocationUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun addBtStateListener(
  activity: ComponentActivity,

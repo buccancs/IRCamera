@@ -99,7 +99,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param inBitmap
  * @return
  */
@@ -110,9 +109,7 @@ public class OpencvTools {
  dataIn.put(rawData);
  ByteBuffer dataOut = ByteBuffer.allocateDirect(rawData.array().length * 4);
  SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance,dataIn,dataOut);
- // Comment removed (contained Chinese characters)
  byte[] byteArray = new byte[dataOut.capacity()];
- // Comment removed (contained Chinese characters)
  dataOut.get(byteArray);
  Log.e("4：", String.valueOf((System.currentTimeMillis() - startTime)));
  return SupRUtils.INSTANCE.byteArrayToBitmap(byteArray);
@@ -121,12 +118,9 @@ public class OpencvTools {
  public static byte[] supImageFourExToByte(byte[] imgByte) {
  long startTime = System.currentTimeMillis();
  ByteBuffer dataIn = ByteBuffer.wrap(imgByte);// ByteBuffer
- // Comment removed (contained Chinese characters)
  ByteBuffer dataOut = ByteBuffer.allocateDirect(imgByte.length * 4); // 4 
- // Comment removed (contained Chinese characters)
  SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
  Log.e("AI_UPSCALE 42：", String.valueOf((System.currentTimeMillis() - startTime)));
- // Comment removed (contained Chinese characters)
  byte[] outputData = new byte[dataOut.capacity()];
  dataOut.get(outputData);
  Log.e("4：", String.valueOf((System.currentTimeMillis() - startTime)));
@@ -136,38 +130,29 @@ public class OpencvTools {
  public static Bitmap supImageFourExToBitmap(byte[] dstArgbBytes, int width, int height) {
  long startTime = System.currentTimeMillis();
 
- // Comment removed (contained Chinese characters)
  ByteBuffer dataIn = ByteBuffer.allocateDirect(dstArgbBytes.length);
  dataIn.put(dstArgbBytes);
 
- // Comment removed (contained Chinese characters)
  ByteBuffer dataOut = ByteBuffer.allocateDirect(dstArgbBytes.length * 4); // 4 
 
- // Comment removed (contained Chinese characters)
  SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
  Log.e("AI_UPSCALE 42：", String.valueOf((System.currentTimeMillis() - startTime)) + "////" + dstArgbBytes.length);
 
- // Comment removed (contained Chinese characters)
  byte[] outputData = new byte[dataOut.capacity()];
  dataOut.get(outputData);
 
- // Comment removed (contained Chinese characters)
  Bitmap outputBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
  outputBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(outputData));
 
- // Comment removed (contained Chinese characters)
  Mat srcMat = new Mat();
  Utils.bitmapToMat(outputBitmap, srcMat);
 
- // Comment removed (contained Chinese characters)
  Mat dstMat = new Mat();
  Imgproc.resize(srcMat, dstMat, new org.opencv.core.Size(srcMat.cols() * 4, srcMat.rows() * 4));
 
- // Comment removed (contained Chinese characters)
  Bitmap finalBitmap = Bitmap.createBitmap(dstMat.cols(), dstMat.rows(), Bitmap.Config.ARGB_8888);
  Utils.matToBitmap(dstMat, finalBitmap);
 
- // Comment removed (contained Chinese characters)
  srcMat.release();
  dstMat.release();
  Log.e("4：", String.valueOf((System.currentTimeMillis() - startTime)));
@@ -177,31 +162,21 @@ public class OpencvTools {
 
  public static Bitmap supImageFourExToBitmap(Bitmap inBitmap) {
  long startTime = System.currentTimeMillis();
- // Comment removed (contained Chinese characters)
  byte[] rawData = SupRUtils.INSTANCE.bitmapToByteArray(inBitmap);
- // Comment removed (contained Chinese characters)
  ByteBuffer dataIn = ByteBuffer.allocateDirect(rawData.length);
  dataIn.put(rawData);
- // Comment removed (contained Chinese characters)
  ByteBuffer dataOut = ByteBuffer.allocateDirect(256 * 192 * 4 * 4); // 4 
- // Comment removed (contained Chinese characters)
  SupHelp.getInstance().imgUpScalerFour(BaseApplication.instance, dataIn, dataOut);
  Log.e("AI_UPSCALE 42：", String.valueOf((System.currentTimeMillis() - startTime))+"////"+rawData.length);
- // Comment removed (contained Chinese characters)
  byte[] outputData = new byte[dataOut.capacity()];
  dataOut.get(outputData);
- // Comment removed (contained Chinese characters)
  Bitmap outputBitmap = SupRUtils.INSTANCE.byteArrayToBitmap(outputData);
- // Comment removed (contained Chinese characters)
  Mat srcMat = new Mat();
  Utils.bitmapToMat(outputBitmap, srcMat);
- // Comment removed (contained Chinese characters)
  Mat dstMat = new Mat();
  Imgproc.resize(srcMat, dstMat, new org.opencv.core.Size(srcMat.cols() * 4, srcMat.rows() * 4));
- // Comment removed (contained Chinese characters)
  Bitmap finalBitmap = Bitmap.createBitmap(dstMat.cols(), dstMat.rows(), Bitmap.Config.ARGB_8888);
  Utils.matToBitmap(dstMat, finalBitmap);
- // Comment removed (contained Chinese characters)
  srcMat.release();
  dstMat.release();
  Log.e("4：", String.valueOf((System.currentTimeMillis() - startTime)));
@@ -209,10 +184,8 @@ public class OpencvTools {
  }
 
  public static byte[] supImage(byte[] imageARGB, int width, int height, byte[] resulARGB){
- // Comment removed (contained Chinese characters)
  Mat argbMat = new Mat(width, height, CvType.CV_8UC4); // CV_8UC4 4 （ARGB ）
  argbMat.put(0, 0, imageARGB);
- // Comment removed (contained Chinese characters)
  Mat bgrMat = new Mat();
  Imgproc.cvtColor(argbMat, bgrMat, Imgproc.COLOR_RGBA2BGR); // RGBA2BGR， Alpha 
  try {
@@ -222,7 +195,6 @@ public class OpencvTools {
  }
  Mat resulArgbMat = new Mat();
  Imgproc.cvtColor(resultMat, resulArgbMat, Imgproc.COLOR_BGR2RGBA); // BGR RGBA
- // Comment removed (contained Chinese characters)
  Bitmap dstBitmap = Bitmap.createBitmap(resulArgbMat.width(), resulArgbMat.height(), Bitmap.Config.ARGB_8888);
  Utils.matToBitmap(resulArgbMat, dstBitmap);
  ByteBuffer byteBuffer = ByteBuffer.wrap(resulARGB);
@@ -235,23 +207,17 @@ public class OpencvTools {
  throw new IllegalArgumentException("bytearraynull");
  }
  int singleLength = singleByteImage.length;
- // Comment removed (contained Chinese characters)
  int doubleLength = singleLength * 2;
  byte[] doubleByteImage = new byte[doubleLength];
 
  for (int i = 0; i < singleLength; i++) {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  doubleByteImage[2 * i] = singleByteImage[i];
- // Comment removed (contained Chinese characters)
  // doubleByteImage[2 * i + 1] = <some value>;
  }
  return doubleByteImage;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param temp
  * @return
  */
@@ -260,21 +226,16 @@ public class OpencvTools {
  return new byte[0];
  }
  float maxValue = 0f;
- // Comment removed (contained Chinese characters)
  byte[] temperature = new byte[temp.length * 2];
  for (int i = 0, j = 0; i < temp.length; i++, j += 2) {
  if (maxValue < temp[i]){
  maxValue = temp[i];
  }
- // Comment removed (contained Chinese characters)
  float tempInKelvin = temp[i] + 273.15f;
  float originalValue = tempInKelvin * 64;
- // Comment removed (contained Chinese characters)
  int intValue = (int) originalValue;
- // Comment removed (contained Chinese characters)
  byte low = (byte) (intValue & 0xFF);
  byte high = (byte) ((intValue >> 8) & 0xFF);
- // Comment removed (contained Chinese characters)
  temperature[j] = low;
  temperature[j + 1] = high;
  }
@@ -308,7 +269,6 @@ public class OpencvTools {
  r = interpolateR(lastColor(colorList,colorIndex), colorList[colorIndex], ratio);
  g = interpolateG(lastColor(colorList,colorIndex), colorList[colorIndex], ratio);
  b = interpolateB(lastColor(colorList,colorIndex), colorList[colorIndex], ratio);
-// Comment removed (contained Chinese characters)
  int intKey = (int) (i * 10);
  int[] rgb = new int[]{r,g,b};
  map.put(intKey, rgb);
@@ -349,8 +309,6 @@ public class OpencvTools {
  normalize(im, im, 0, 255, NORM_MINMAX);
 // cvtColor(im, im, CV_8UC1);
  Mat colorMat = generateColorBar(colorList, maxTemp,minTemp,customMaxTemp,customMinTemp,isGrayUse);
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
  if (colorMat!=null){
  applyColorMap(im, im, colorMat);
  Imgproc.cvtColor(im, im, Imgproc.COLOR_BGR2RGBA);
@@ -359,12 +317,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private static Mat draw_high_temp_edge_argb_pse(byte[] image, byte[] temperature, Bitmap lut, int cols, int rows, double high_t, int color_h, int type) throws IOException {
  double[] temp = new double[cols * rows];
@@ -391,7 +343,6 @@ public class OpencvTools {
  Size colorSize = new Size(1.0, 256.0);
  Imgproc.resize(colorMat, colorMat, colorSize);
 // if (colorMat.size() != colorSize) {
-// Comment removed (contained Chinese characters)
 // return null;
 // }
  applyColorMap(im, im, colorMat);
@@ -469,15 +420,12 @@ public class OpencvTools {
 // Size colorSize = new Size(1.0, 256.0);
 // Imgproc.resize(colorMat, colorMat, colorSize);
 // if (colorMat.size() != colorSize) {
-// Comment removed (contained Chinese characters)
 // return null;
 // }
  Mat tem;
  tem = new Mat(rows, cols, CV_64FC1);
  tem.put(0, 0, temp);
-// Comment removed (contained Chinese characters)
  //tem.convertTo(tem, CV_8UC1);
-// Comment removed (contained Chinese characters)
  //Mat kernal = Mat.ones(5, 5, CV_8UC1);
  //Mat es = getStructuringElement(MORPH_ELLIPSE,new Size(9, 4));
  Mat thres_gray = new Mat();
@@ -535,10 +483,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private static Mat draw_high_temp_edge_argb(byte[] image, byte[] temperature, int cols, int rows, double high_t, int color_h, int type) throws IOException {
  double[] temp = new double[cols * rows];
@@ -609,10 +553,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private static Mat draw_high_temp_edge(byte[] image, byte[] temperature, int cols, int rows, double high_t, int color_h, int type) throws IOException {
  double[] temp = new double[cols * rows];
@@ -755,9 +695,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static Bitmap draw_edge_from_temp_reigon_bitmap(byte[] image, byte[] temperature, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
  Mat src = draw_high_temp_edge(image, temperature, image_h, image_w, high_t, color_h, type);
@@ -769,9 +706,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static Bitmap draw_edge_from_temp_reigon_bitmap_argb(byte[] image, byte[] temperature, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
  Mat src = draw_high_temp_edge_argb(image, temperature, image_h, image_w, high_t, color_h, type);
@@ -782,10 +716,6 @@ public class OpencvTools {
  return dstBitmap;
  }
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static Bitmap draw_edge_from_temp_reigon_bitmap_argb_psd(byte[] image, byte[] temperature, Bitmap lut, int image_h, int image_w, double high_t, double low_t, int color_h, int color_l, int type) throws IOException {
  Mat src = draw_high_temp_edge_argb_pse(image, temperature, image_h, image_w, high_t, color_h, type);
@@ -796,9 +726,6 @@ public class OpencvTools {
  return dstBitmap;
  }
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static Bitmap draw_edge_from_temp_reigon_bitmap_argb_psd(byte[] image, byte[] temperature,
  int image_h, int image_w, float high_t,
@@ -940,13 +867,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return
  */
  public static Mat generateColorBar(int[] colorList, float maxTemp,float minTemp,float customMaxTemp,
@@ -966,7 +886,6 @@ public class OpencvTools {
  if (minGrey != -1 && minGrey > 0 && ratio < minGrey){
  if (isGrayUse){
  ratio = ratio / minGrey;
- // Comment removed (contained Chinese characters)
  r = interpolateR(0x858585, 0x000000, ratio);
  g = interpolateR(0x858585, 0x000000, ratio);
  b = interpolateR(0x858585, 0x000000, ratio);
@@ -982,13 +901,11 @@ public class OpencvTools {
  Log.w("","Value");
  }else if (maxGrey != -1 && ratio > maxGrey){
  if (isGrayUse){
- // Comment removed (contained Chinese characters)
  ratio = (1 - ratio) / (1 - maxGrey);
  r = interpolateR(0xFFFFFF, 0x858585, ratio);
  g = interpolateR(0xFFFFFF, 0x858585, ratio);
  b = interpolateR(0xFFFFFF, 0x858585, ratio);
  }else {
- // Comment removed (contained Chinese characters)
  r = (colorList[colorList.length-1] >> 16) & 0xFF;
  g = (colorList[colorList.length-1] >> 8) & 0xFF;
  b = colorList[colorList.length-1] & 0xFF;
@@ -1000,16 +917,13 @@ public class OpencvTools {
  Log.w("","Value");
  }else if (maxTemp >= customMaxTemp && minTemp <= customMinTemp){
  Log.w("","Temperaturehigh/low temperature");
- // Comment removed (contained Chinese characters)
  colors = capColor(colorList,maxTemp,minTemp,customMaxTemp,customMinTemp,isGrayUse,ratio);
  }else if (customMinTemp > maxTemp){
  if (isGrayUse){
- // Comment removed (contained Chinese characters)
  r = interpolateR(0xFFFFFF, 0x000000, ratio);
  g = interpolateR(0xFFFFFF, 0x000000, ratio);
  b = interpolateR(0xFFFFFF, 0x000000, ratio);
  }else {
- // Comment removed (contained Chinese characters)
  r = (colorList[0] >> 16) & 0xFF;
  g = (colorList[0] >> 8) & 0xFF;
  b = colorList[0] & 0xFF;
@@ -1019,13 +933,9 @@ public class OpencvTools {
  colors[1] = grey;
  colors[2] = grey;
  }else if (maxTemp < customMaxTemp && minTemp < customMinTemp){
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  colors = capColor(getStartColor(colorList,customMaxTemp,customMinTemp,maxTemp),
  maxTemp,minTemp,maxTemp,customMinTemp,isGrayUse,ratio);
  }else if (maxTemp > customMaxTemp && minTemp > customMinTemp){
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  colors = capColor(getEndColor(colorList,customMaxTemp,customMinTemp,minTemp),
  maxTemp,minTemp,customMaxTemp,minTemp,isGrayUse,ratio);
  }else if (maxTemp < customMaxTemp && minTemp > customMinTemp){
@@ -1040,7 +950,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param colorList
  * @param customMaxTemp
  * @param customMinTemp
@@ -1074,7 +983,6 @@ public class OpencvTools {
  return nowColorList;
  }
  /**
- * Comment removed (contained Chinese characters)
  * @param colorList
  * @param customMaxTemp
  * @param customMinTemp
@@ -1186,7 +1094,6 @@ public class OpencvTools {
  if (minGrayRatio > 0 && ratio < minGrayRatio){
  if (isGrayUse){
  ratio = ratio / minGrayRatio;
- // Comment removed (contained Chinese characters)
  r = interpolateR(0x858585, 0x000000, ratio);
  g = interpolateR(0x858585, 0x000000, ratio);
  b = interpolateR(0x858585, 0x000000, ratio);
@@ -1197,13 +1104,11 @@ public class OpencvTools {
  }
  }else if (ratio > maxGrayRatio){
  if (isGrayUse){
- // Comment removed (contained Chinese characters)
  ratio = (1 - ratio) / (1 - maxGrayRatio);
  r = interpolateR(0xFFFFFF, 0x858585, ratio);
  g = interpolateR(0xFFFFFF, 0x858585, ratio);
  b = interpolateR(0xFFFFFF, 0x858585, ratio);
  }else {
- // Comment removed (contained Chinese characters)
  r = (colorList[colorList.length-1] >> 16) & 0xFF;
  g = (colorList[colorList.length-1] >> 8) & 0xFF;
  b = colorList[colorList.length-1] & 0xFF;
@@ -1234,7 +1139,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param colorList
  * @param index
  * @return
@@ -1247,7 +1151,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param customMinColor
  * @param customMiddleColor
  * @param customMaxColor
@@ -1257,7 +1160,6 @@ public class OpencvTools {
  float maxTemp,float minTemp,float customMaxTemp,float customMinTemp,
  boolean isGrayUse) {
  Mat colorBar = new Mat(256, 1, CvType.CV_8UC3);
- // Comment removed (contained Chinese characters)
  float tempValue = (maxTemp - minTemp);
  float maxGrayRatio = (maxTemp - customMaxTemp) / tempValue;
  float minGrayRatio = (maxTemp - customMinTemp) / tempValue;
@@ -1269,7 +1171,6 @@ public class OpencvTools {
  if (maxGrayRatio > 0 && ratio < maxGrayRatio){
  if (isGrayUse){
  ratio = ratio / maxGrayRatio;
- // Comment removed (contained Chinese characters)
  r = interpolateR(0xC2C2C2, 0xADADAD, ratio);
  g = interpolateR(0xC2C2C2, 0xADADAD, ratio);
  b = interpolateR(0xC2C2C2, 0xADADAD, ratio);
@@ -1280,13 +1181,11 @@ public class OpencvTools {
  }
  }else if (ratio > minGrayRatio){
  if (isGrayUse){
- // Comment removed (contained Chinese characters)
  ratio = (1 - ratio) / (1 - minGrayRatio);
  r = interpolateR(0xADADAD, 0x707070, ratio);
  g = interpolateR(0xADADAD, 0x707070, ratio);
  b = interpolateR(0xADADAD, 0x707070, ratio);
  }else {
- // Comment removed (contained Chinese characters)
  r = (customMinColor >> 16) & 0xFF;
  g = (customMinColor >> 8) & 0xFF;
  b = customMinColor & 0xFF;
@@ -1343,12 +1242,10 @@ public class OpencvTools {
  }else {
  colorIndex = 0;
  }
-// Comment removed (contained Chinese characters)
  ratio = (ratio - (avg * (colorIndex - 1))) / avg;
  result[0] = interpolateR(lastColor(colorList,colorIndex), colorList[colorIndex], ratio);
  result[1] = interpolateG(lastColor(colorList,colorIndex), colorList[colorIndex], ratio);
  result[2] = interpolateB(lastColor(colorList,colorIndex), colorList[colorIndex], ratio);
-// Comment removed (contained Chinese characters)
  return result;
  }
  private static int interpolateR(int startColor, int endColor, double ratio) {
@@ -1371,7 +1268,6 @@ public class OpencvTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static int[] getOneColorByTempUnif(float customMaxTemp, float customMinTemp, float nowTemp,
  int[] colorList, float[] positionList){
@@ -1384,7 +1280,6 @@ public class OpencvTools {
  positionList
  );
  }else{
- // Comment removed (contained Chinese characters)
  return getOneColorByTemp(
  customMaxTemp,
  customMinTemp,
@@ -1437,7 +1332,6 @@ public class OpencvTools {
  if (Math.abs((positionList[lowerColorIndex+1] - positionList[lowerColorIndex])) > 0){
  regionRatio = (ratio - positionList[lowerColorIndex]) / Math.abs((positionList[lowerColorIndex] - positionList[lowerColorIndex+1]));
  }
- // Comment removed (contained Chinese characters)
  int startColor = colorList[lowerColorIndex];
  int endColor = colorList[lowerColorIndex + 1];
 
@@ -1448,11 +1342,9 @@ public class OpencvTools {
  return result;
  }
 
- // Comment removed (contained Chinese characters)
  static class CustomComparator implements Comparator<Float> {
  @Override
  public int compare(Float key1, Float key2) {
- // Comment removed (contained Chinese characters)
  if ((key1 - key2) <= 0.01) {
  return 0;
  } else if (key1 < key2) {
@@ -1546,7 +1438,6 @@ public class OpencvTools {
  cvtColor(mat1, mat1, Imgproc.COLOR_BGR2GRAY);
  cvtColor(mat2, mat2, Imgproc.COLOR_BGR2GRAY);
  boolean isSame = getStatus(mat1,mat2);
-// Comment removed (contained Chinese characters)
  return isSame;
  }
 
@@ -1639,19 +1530,12 @@ public class OpencvTools {
  public static boolean getStatus(Mat image1, Mat image2){
 // Mat image1 = imread("E:/sharp/1696821350963.jpg");
 // Mat image2 = imread("E:/sharp/1696821354162.jpg");
- // Comment removed (contained Chinese characters)
 // double mse = calculateMSE(image1, image2);
- // Comment removed (contained Chinese characters)
 
- // Comment removed (contained Chinese characters)
 // double ssim = calculateSSIM(image1, image2);
- // Comment removed (contained Chinese characters)
 
- // Comment removed (contained Chinese characters)
 // double psnr = calculatePSNR(image1, image2);
- // Comment removed (contained Chinese characters)
 
- // Comment removed (contained Chinese characters)
  final double similarity = calculateHistogram(image1, image2);
  return similarity > 0.9;
  }

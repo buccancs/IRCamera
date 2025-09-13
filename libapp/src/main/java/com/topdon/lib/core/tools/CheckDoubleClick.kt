@@ -8,7 +8,6 @@ object CheckDoubleClick {
  records.clear()
  }
 
- // Comment removed (contained Chinese characters)
  val ste = Throwable().stackTrace[1]
  val key = ste.fileName + ste.lineNumber
  var lastClickTime = records[key]

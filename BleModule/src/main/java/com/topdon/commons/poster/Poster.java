@@ -8,14 +8,11 @@ import androidx.annotation.NonNull;
  */
 interface Poster {
  /**
- * Comment removed (contained Chinese characters)
  * 
- * Comment removed (contained Chinese characters)
  */
  void enqueue(@NonNull Runnable runnable);
 
  /**
- * Comment removed (contained Chinese characters)
  */
  void clear();
 }

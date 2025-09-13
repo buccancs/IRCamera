@@ -18,7 +18,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author (1032694760@qq.com)
  * @since 2021/3/26 21:34
@@ -32,16 +31,13 @@ public final class DialogLog {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static void enable() {
  enable = true;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static void print(@NonNull Object log) {
  if (!enable) {

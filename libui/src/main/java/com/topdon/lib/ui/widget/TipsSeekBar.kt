@@ -39,7 +39,6 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var valueText: String
  get() {
@@ -50,17 +49,14 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onProgressChangeListener: ((progress: Int, fromUser: Boolean) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onStopTrackingTouch: ((progress: Int) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var valueFormatListener: ((progress: Int) -> CharSequence?)? = null
  set(value) {
@@ -80,7 +76,6 @@ class TipsSeekBar : ViewGroup, SeekBar.OnSeekBarChangeListener {
  defStyleAttr,
  defStyleRes,
  ) {
- // Comment removed (contained Chinese characters)
  val thumb = ContextCompat.getDrawable(context, UiR.drawable.ic_tips_seek_bar_thumb)
  val thumbWidth = thumb?.intrinsicWidth ?: 0
  seekBar = SeekBar(context, attrs)

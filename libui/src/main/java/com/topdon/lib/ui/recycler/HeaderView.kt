@@ -6,7 +6,6 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.R as UiR
 
 /**
- * Comment removed (contained Chinese characters)
  */
 /**
  * Custom Header view for thermal imaging display.

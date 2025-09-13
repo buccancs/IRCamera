@@ -93,7 +93,6 @@ abstract class BaseActivity : AppCompatActivity() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Subscribe(threadMode = ThreadMode.MAIN)
  fun getConnectState(event: DeviceConnectEvent) {
@@ -127,12 +126,10 @@ abstract class BaseActivity : AppCompatActivity() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var loadingDialog: LoadingDialog? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showLoadingDialog(
  @StringRes resId: Int = R.string.tip_loading,
@@ -149,7 +146,6 @@ abstract class BaseActivity : AppCompatActivity() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun dismissLoadingDialog() {
  loadingDialog?.dismiss()
@@ -172,7 +168,6 @@ abstract class BaseActivity : AppCompatActivity() {
  cameraDialog?.show()
  }
  } catch (e: Exception) {
- // Comment removed (contained Chinese characters)
  Log.e("", e.message.toString())
  }
  }
@@ -183,7 +178,6 @@ abstract class BaseActivity : AppCompatActivity() {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private fun synLogin() {
  if (this::class.java.simpleName == "MainActivity") {
  LMS.getInstance().syncUserInfo()
@@ -206,7 +200,6 @@ abstract class BaseActivity : AppCompatActivity() {
  }
  } else {
  if (UserInfoManager.getInstance().isLogin()) {
- // Comment removed (contained Chinese characters)
  UserInfoManager.getInstance().logout()
  }
  }

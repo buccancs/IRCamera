@@ -50,7 +50,6 @@
  app:layout_constraintBottom_toBottomOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <androidx.constraintlayout.widget.ConstraintLayout
  android:id="@+id/cl_share"
  android:layout_width="0dp"

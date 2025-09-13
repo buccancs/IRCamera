@@ -48,7 +48,6 @@
  app:layout_constraintEnd_toEndOf="parent"
  app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
- <!-- Comment removed (contained Chinese characters) -->
  <com.topdon.tc001.view.ConnectionGuideView
  android:id="@+id/main_guide_tip1"
  android:layout_width="match_parent"

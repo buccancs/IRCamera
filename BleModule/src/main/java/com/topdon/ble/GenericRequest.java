@@ -24,7 +24,6 @@ class GenericRequest implements Request, Comparable<GenericRequest> {
  RequestCallback callback;
  WriteOptions writeOptions;
  byte[] descriptorTemp;//SaveValue
- // Comment removed (contained Chinese characters)
  Queue<byte[]> remainQueue;
  byte[] sendingBytes;
  //--------------------------------
@@ -47,7 +46,6 @@ class GenericRequest implements Request, Comparable<GenericRequest> {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public Device getDevice() {
@@ -55,7 +53,6 @@ class GenericRequest implements Request, Comparable<GenericRequest> {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public RequestType getType() {
@@ -63,7 +60,6 @@ class GenericRequest implements Request, Comparable<GenericRequest> {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  public String getTag() {

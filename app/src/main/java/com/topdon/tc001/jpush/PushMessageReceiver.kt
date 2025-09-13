@@ -25,39 +25,30 @@
 // Log.e(TAG, "[onNotifyMessageOpened] $message")
 // setZeroBadgeNumber()
 // try {
-// Comment removed (contained Chinese characters)
 // } catch (throwable: Throwable) {
 // }
 // }
 //
 // override fun onInAppMessageClick(context: Context?, notificationMessage: NotificationMessage?) {
 // super.onInAppMessageClick(context, notificationMessage)
-// Comment removed (contained Chinese characters)
 // }
 //
 // override fun onMultiActionClicked(context: Context?, intent: Intent) {
-// Comment removed (contained Chinese characters)
 // setZeroBadgeNumber()
 // val nActionExtra = intent.extras!!.getString(JPushInterface.EXTRA_NOTIFICATION_ACTION_EXTRA)
 //
-// Comment removed (contained Chinese characters)
 // if (nActionExtra == null) {
 // Log.d(TAG, "ACTION_NOTIFICATION_CLICK_ACTION nActionExtra is null")
 // return
 // }
 // if (nActionExtra == "my_extra1") {
-// Comment removed (contained Chinese characters)
 // } else if (nActionExtra == "my_extra2") {
-// Comment removed (contained Chinese characters)
 // } else if (nActionExtra == "my_extra3") {
-// Comment removed (contained Chinese characters)
 // } else {
-// Comment removed (contained Chinese characters)
 // }
 // }
 //
 // private fun setZeroBadgeNumber() {
-// Comment removed (contained Chinese characters)
 // JPushInterface.setBadgeNumber(BaseApplication.instance, 0)
 // }
 //

@@ -11,7 +11,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.infisense.usbir.R
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/10/25 13:31
  */

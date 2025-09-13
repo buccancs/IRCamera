@@ -13,8 +13,6 @@ import com.topdon.lib.ui.R as UiR
 import kotlin.math.roundToInt
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 /**
  * Comm3DSeekBar class
@@ -27,7 +25,6 @@ class Comm3DSeekBar : AppCompatSeekBar {
  private lateinit var mPaint: TextPaint
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val orientation: Int
 
@@ -37,13 +34,10 @@ class Comm3DSeekBar : AppCompatSeekBar {
  private var mMinHeight = 24
  var level = 0
 
- // Comment removed (contained Chinese characters)
  private val mProgressTextRect: Rect = Rect()
 
- // Comment removed (contained Chinese characters)
  private val mThumbWidth: Int = SizeUtils.dp2px(50f)
 
- // Comment removed (contained Chinese characters)
  private val mIndicatorWidth: Int = SizeUtils.dp2px(50f)
  private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
 
@@ -177,9 +171,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
  super.onDraw(canvas)
 // val progressText = "$progress%"
 // mPaint.getTextBounds(progressText, 0, progressText.length, mProgressTextRect)
-// Comment removed (contained Chinese characters)
 // val progressRatio = progress.toFloat() / max
-// Comment removed (contained Chinese characters)
 // val thumbOffset: Float =
 // (mThumbWidth - mProgressTextRect.width()) / 2 - mThumbWidth * progressRatio
 // val thumbX = width * progressRatio + thumbOffset
@@ -228,7 +220,6 @@ class Comm3DSeekBar : AppCompatSeekBar {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun stopTrackTouchLevel() {
  if (level > 0) {

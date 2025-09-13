@@ -19,7 +19,6 @@
  app:layout_constraintTop_toTopOf="parent"
  app:layout_constraintStart_toStartOf="parent" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <ImageView
  android:id="@+id/iv_winter"
  android:layout_width="0dp"
@@ -31,7 +30,6 @@
  app:layout_constraintStart_toStartOf="parent"
  app:layout_constraintEnd_toEndOf="parent"
  app:layout_constraintTop_toBottomOf="@id/tv_title" />
- <!-- Comment removed (contained Chinese characters) -->
  <View
  android:id="@+id/space_winter_right"
  android:layout_width="0dp"
@@ -58,7 +56,6 @@
  app:layout_constraintEnd_toStartOf="@+id/space_winter_right"
  app:layout_constraintTop_toTopOf="@id/iv_winter"
  app:layout_constraintBottom_toTopOf="@+id/tv_winter_sub_title" />
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_winter_sub_title"
  android:layout_width="0dp"
@@ -134,7 +131,6 @@
  app:layout_constraintStart_toStartOf="@id/tv_monitory_title"
  app:layout_constraintEnd_toEndOf="parent" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <ImageView
  android:id="@+id/iv_house"
  android:layout_width="0dp"
@@ -194,7 +190,6 @@
  app:layout_constraintStart_toStartOf="@id/tv_house_title"
  app:layout_constraintEnd_toEndOf="parent" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <ImageView
  android:id="@+id/iv_car"
  android:layout_width="0dp"

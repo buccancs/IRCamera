@@ -58,8 +58,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  private static final String TAG = "TemperatureView";
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private static final int TOUCH_TOLERANCE = SizeUtils.sp2px(7f);
 
@@ -70,64 +68,50 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  private final int RECTANGLE_MAX_COUNT;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  private LibIRTemp irtemp;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private float xScale = 0;
  /**
- * Comment removed (contained Chinese characters)
  */
  private float yScale = 0;
  /**
- * Comment removed (contained Chinese characters)
  */
  private int viewWidth = 0;
  /**
- * Comment removed (contained Chinese characters)
  */
  private int viewHeight = 0;
  /**
- * Comment removed (contained Chinese characters)
  */
  private int temperatureWidth;
  /**
- * Comment removed (contained Chinese characters)
  */
  private int temperatureHeight;
 
  private final TempDrawHelper helper = new TempDrawHelper();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int REGION_MODE_RESET = -1;
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int REGION_MODE_POINT = 0;
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int REGION_MODE_LINE = 1;
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int REGION_MODE_RECTANGLE = 2;
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int REGION_MODE_CENTER = 3;
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int REGION_NODE_TREND = 4;
  /**
- * Comment removed (contained Chinese characters)
  */
  public static final int REGION_MODE_CLEAN = 5;
 
@@ -137,7 +121,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @RegionMode
  private int temperatureRegionMode = REGION_MODE_CLEAN;
@@ -155,7 +138,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private boolean isShowFull;
  public boolean isShowFull() {
@@ -191,7 +173,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  @Nullable
  private OnTrendChangeListener onTrendChangeListener = null;
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setOnTrendChangeListener(@Nullable OnTrendChangeListener onTrendChangeListener) {
  this.onTrendChangeListener = onTrendChangeListener;
@@ -200,7 +181,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  @Nullable
  private Runnable onTrendAddListener = null;
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setOnTrendAddListener(@Nullable Runnable onTrendAddListener) {
  this.onTrendAddListener = onTrendAddListener;
@@ -209,7 +189,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  @Nullable
  private Runnable onTrendRemoveListener = null;
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setOnTrendRemoveListener(@Nullable Runnable onTrendRemoveListener) {
  this.onTrendRemoveListener = onTrendRemoveListener;
@@ -237,7 +216,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private boolean isUserHighTemp = false;
  public boolean isUserHighTemp() {
@@ -248,7 +226,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private boolean isUserLowTemp = false;
  public boolean isUserLowTemp() {
@@ -322,20 +299,16 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  public int productType = Const.TYPE_IR;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  private Line trendLine;
  /**
- * Comment removed (contained Chinese characters)
  */
  private final ArrayList<Point> pointList = new ArrayList<>();
  /**
- * Comment removed (contained Chinese characters)
  */
  private final ArrayList<Line> lineList = new ArrayList<>();
  /**
- * Comment removed (contained Chinese characters)
  */
  private final ArrayList<Rect> rectList = new ArrayList<>();
 
@@ -361,7 +334,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  private volatile boolean runflag = false;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private final boolean isShowC = SharedManager.INSTANCE.getTemperature() == 1;
 
@@ -547,7 +519,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
  public TemperatureView(final Context context, final AttributeSet attrs, final int defStyle) {
  super(context, attrs, defStyle);
- // Comment removed (contained Chinese characters)
  setZOrderOnTop(true);
 
  getHolder().addCallback(this);
@@ -575,7 +546,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  Log.d(TAG, "remapTempData == NULL");
  if (dualUVCCamera != null && llTempData != null
  && dualUVCCamera.getTempData(llTempData) != 0) {
- // Comment removed (contained Chinese characters)
  Log.d(TAG, "--------error----------");
  SystemClock.sleep(1000);
  continue;
@@ -598,7 +568,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }else {
  try {
  synchronized (syncimage.dataLock) {
- // Comment removed (contained Chinese characters)
  irtemp.setTempData(temperature);
  if (syncimage.type == 1) irtemp.setScale(16);
  }
@@ -618,13 +587,11 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  yScale = (float) viewHeight / (float) temperatureHeight;
  }
  LibIRTemp.TemperatureSampleResult temperatureSampleResult = irtemp.getTemperatureOfRect(new Rect(0, 0, temperatureWidth / 2, temperatureHeight - 1));
- // Comment removed (contained Chinese characters)
  if (regionAndValueBitmap != null) {
  synchronized (regionLock) {
  Canvas canvas = new Canvas(regionAndValueBitmap);
  canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
  canvas.drawBitmap(regionBitmap, new Rect(0, 0, viewWidth, viewHeight), new Rect(0, 0, viewWidth, viewHeight), null);
- // Comment removed (contained Chinese characters)
  float fullMaxTemp;
  float fullMinTemp;
  LibIRTemp.TemperatureSampleResult fullResult = irtemp.getTemperatureOfRect(new Rect(0, 0, temperatureWidth - 1, temperatureHeight - 1));
@@ -634,7 +601,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  listener.getTemp((int) (fullMaxTemp * 100) / 100f, (int) (fullMinTemp * 100) / 100f, temperature);
  }
 
- // Comment removed (contained Chinese characters)
  if (isShowFull) {
  String minTem = UnitTools.showC(fullMinTemp, isShowC);
  int x = TempDrawHelper.Companion.correct(fullResult.minTemperaturePixel.x * xScale, getWidth());
@@ -649,7 +615,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  drawCircle(canvas, x, y, false);
  }
 
- // Comment removed (contained Chinese characters)
  if (isShowFull) {
  String maxTem = UnitTools.showC(fullMaxTemp, isShowC);
  int x = TempDrawHelper.Companion.correct(fullResult.maxTemperaturePixel.x * xScale, getWidth());
@@ -664,7 +629,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  drawCircle(canvas, x, y, true);
  }
 
- // Comment removed (contained Chinese characters)
  Line trendLine = this.trendLine;
  if (trendLine != null) {
  int startX = (int) (trendLine.start.x / xScale);
@@ -738,7 +702,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  drawTempText(canvas, max, point.x, point.y);
  }
  }
- // Comment removed (contained Chinese characters)
  if (isShowFull || (!lineList.isEmpty() || !pointList.isEmpty() || !rectList.isEmpty())) {
  drawPoint(canvas, getWidth() / 2, getHeight() / 2);
  temperatureSampleResult = irtemp.getTemperatureOfPoint(new Point(temperatureWidth / 2, temperatureHeight / 2));
@@ -799,8 +762,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
 
  /* **************************************** Touch **************************************** */
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private boolean isAddAction = true;
 
@@ -823,7 +784,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
  }
 
- /* Comment removed (contained Chinese characters) */
 
  private boolean handleTouchPoint(MotionEvent event) {
  switch (event.getAction()) {
@@ -911,13 +871,11 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  return null;
  }
 
- /* Comment removed (contained Chinese characters) */
 
  private Line movingLine;
 
  private enum LineMoveType { ALL, START, END }
  /**
- * Comment removed (contained Chinese characters)
  */
  private LineMoveType lineMoveType = LineMoveType.ALL;
 
@@ -948,7 +906,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
  } else {
  synchronized (regionLock) {
- // Comment removed (contained Chinese characters)
  lineList.remove(line);
  }
  }
@@ -1034,7 +991,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  surfaceViewCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
  Canvas bitmapCanvas = new Canvas(regionBitmap);
 
- // Comment removed (contained Chinese characters)
  if (Math.abs(x - downX) > TOUCH_TOLERANCE || Math.abs(y - downY) > TOUCH_TOLERANCE) {
  Point start = new Point();
  Point end = new Point();
@@ -1088,7 +1044,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private static boolean isLineConcat(@NonNull Line line, int x, int y) {
  int tempDistance = ((line.end.y - line.start.y) * x - (line.end.x - line.start.x) * y + line.end.x * line.start.y - line.start.x * line.end.y);
@@ -1113,24 +1068,20 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  return null;
  }
 
- /* Comment removed (contained Chinese characters) */
  private Rect movingRect;
 
  private enum RectMoveType { ALL, EDGE, CORNER }
  /**
- * Comment removed (contained Chinese characters)
  */
  private RectMoveType rectMoveType = RectMoveType.ALL;
 
  private enum RectMoveEdge { LEFT, TOP, RIGHT, BOTTOM }
  /**
- * Comment removed (contained Chinese characters)
  */
  private RectMoveEdge rectMoveEdge = RectMoveEdge.LEFT;
 
  private enum RectMoveCorner { LT, RT, RB, LB }
  /**
- * Comment removed (contained Chinese characters)
  */
  private RectMoveCorner rectMoveCorner = RectMoveCorner.LT;
 
@@ -1267,7 +1218,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  Canvas surfaceViewCanvas = getHolder().lockCanvas();
  surfaceViewCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
  Canvas bitmapCanvas = new Canvas(regionBitmap);
- // Comment removed (contained Chinese characters)
  if (Math.abs(x - downX) > TOUCH_TOLERANCE || Math.abs(y - downY) > TOUCH_TOLERANCE) {
  switch (rectMoveType) {
  case ALL:
@@ -1363,19 +1313,14 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  /* **************************************** Draw **************************************** */
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private void drawPoint(Canvas canvas, int x, int y) {
  helper.drawPoint(canvas, x, y);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private void drawLine(Canvas canvas, int x1, int y1, int x2, int y2, boolean isTrend) {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  int startX = (int) ((int) (x1 / xScale) * xScale);
  int startY = (int) ((int) (y1 / yScale) * yScale);
  int stopX = (int) ((int) (x2 / xScale) * xScale);
@@ -1388,7 +1333,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private void drawRect(Canvas canvas, float x1, float y1, float x2, float y2) {
  int left = (int) ((int) (x1 / xScale) * xScale);
@@ -1399,34 +1343,25 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private void drawCircle(Canvas canvas, int x, int y, boolean isMax) {
  helper.drawCircle(canvas, x, y, isMax);
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private void drawDot(Canvas canvas, Point point, boolean isMax) {
- // Comment removed (contained Chinese characters)
  int x = TempDrawHelper.Companion.correct(point.x * xScale, getWidth());
  int y = TempDrawHelper.Companion.correct(point.y * yScale, getHeight());
  helper.drawCircle(canvas, x, y, isMax);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private void drawTempText(Canvas canvas, String text, int x, int y) {
  helper.drawTempText(canvas, text, getWidth(), x, y);
  }
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private void drawTempText(Canvas canvas, String text, Point point) {
  int x = TempDrawHelper.Companion.correct(point.x * xScale, getWidth());
@@ -1452,8 +1387,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public interface OnTrendChangeListener {
  void onChange(List<Float> temps);
@@ -1480,7 +1413,6 @@ public class TemperatureView extends SurfaceView implements SurfaceHolder.Callba
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
 
  public void setUseIRISP(boolean useIRISP) {

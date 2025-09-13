@@ -11,14 +11,12 @@ import com.topdon.lib.core.db.entity.HouseReport
 import com.topdon.lib.core.db.entity.ItemReport
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/8/19.
  */
 @Dao
 abstract class HouseReportDao {
  /**
- * Comment removed (contained Chinese characters)
  */
  @Transaction
  open fun insert(houseReport: HouseReport): Long {

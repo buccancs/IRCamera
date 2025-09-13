@@ -10,7 +10,6 @@ import com.topdon.libcom.navigation.NavigationManager
  **/
 object ARouterUtil {
  /**
- * Comment removed (contained Chinese characters)
  * @param activity Activity
  * @param isTC007 Boolean
  */

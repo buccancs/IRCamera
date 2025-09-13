@@ -27,7 +27,6 @@ public class ZoomableDraggableView extends View {
  private float focusX, focusY;
  private float lastX, lastY;
 
- // Comment removed (contained Chinese characters)
  private Bitmap originalBitmap;
  private int imageWidth;
  private int imageHeight;
@@ -90,7 +89,6 @@ public class ZoomableDraggableView extends View {
  if (showBitmap!=null){
  canvas.drawBitmap(showBitmap,matrix,paint);
  }
- // Comment removed (contained Chinese characters)
  super.onDraw(canvas);
  canvas.restore();
  }
@@ -135,7 +133,6 @@ public class ZoomableDraggableView extends View {
  lastX = e2.getX();
  lastY = e2.getY();
 
- // Comment removed (contained Chinese characters)
  deltaX /= scaleFactor;
  deltaY /= scaleFactor;
 

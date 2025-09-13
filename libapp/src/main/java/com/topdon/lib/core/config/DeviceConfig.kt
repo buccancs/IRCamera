@@ -23,7 +23,6 @@ object DeviceConfig {
  const val HIK_PRODUCT_ID = 258
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun UsbDevice.isTcTsDevice(): Boolean {
  return (productId == TOPDON_PRODUCT_ID && vendorId == TOPDON_VENDOR_ID) ||
@@ -51,7 +50,6 @@ object DeviceConfig {
 // const val SKU = "TDBT006A11"
 // const val SN = "BT006AAG100001"
 
- // Comment removed (contained Chinese characters)
  const val ROTATE_ANGLE = 0
  const val IS_PORTRAIT = false
 

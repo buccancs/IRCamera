@@ -18,8 +18,6 @@ object Constants {
  const val IR_TEMPERATURE_LITE = 7 // lite
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  const val IS_REPORT_FIRST = "IS_REPORT_FIRST"
 }

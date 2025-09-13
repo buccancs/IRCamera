@@ -3,7 +3,6 @@ package com.topdon.lib.core.tools
 import android.media.MediaMetadataRetriever
 
 object VideoTools {
- // Comment removed (contained Chinese characters)
  fun getLocalVideoDuration(videoPath: String): Long {
  return if (videoPath.uppercase().endsWith(".MP4") || videoPath.uppercase().endsWith(".AVI")) {
  try {

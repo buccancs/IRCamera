@@ -32,7 +32,6 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
  mWebSocket = webSocket
  status = State.CONNECTED
 
- // Comment removed (contained Chinese characters)
  heartBeatTimer?.cancel()
  heartBeatTimer = HeartBeatTimer(this@WsManager)
  heartBeatTimer?.timeoutListener = {
@@ -233,12 +232,10 @@ class WsManager(private val wsUrl: String, private val okHttpClient: OkHttpClien
 
  abstract class IWebSocketListener : WebSocketListener() {
  /**
- * Comment removed (contained Chinese characters)
  */
  abstract fun onHeartBeat(): String?
 
  /**
- * Comment removed (contained Chinese characters)
  */
  abstract fun onHeartBeatTimeout()
  }

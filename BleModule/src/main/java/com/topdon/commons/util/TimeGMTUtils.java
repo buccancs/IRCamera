@@ -12,7 +12,6 @@ import java.util.TimeZone;
 
 /**
  * @Desc
- * Comment removed (contained Chinese characters)
  * @Email 616862466@qq.com
 * @Author
  * @Date 2022/12/13 21:57
@@ -21,10 +20,7 @@ import java.util.TimeZone;
 public class TimeGMTUtils {
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return boolean
  */
  private static boolean isDaylight(TimeZone zone, String time) {
@@ -40,9 +36,7 @@ public class TimeGMTUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @return String
  */
  public static String getGMTConvertTime(String time, String format) {
@@ -71,8 +65,6 @@ public class TimeGMTUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
  * @param dateString 2022-07-13 09:58:09
  * @param pattern yyyy-MM-dd HH:mm:ss

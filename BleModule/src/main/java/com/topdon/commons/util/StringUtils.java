@@ -13,18 +13,13 @@ import java.util.UUID;
  */
 public class StringUtils {
  /**
- * Comment removed (contained Chinese characters)
  */
  public static String randomUuid() {
  return UUID.randomUUID().toString().replace("-", "");
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static String fillZero(String src, int targetLen, boolean head) {
  if (src == null) return null;
@@ -40,47 +35,38 @@ public class StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static String toHex(int num) {
  return fillZero(Integer.toHexString(num), 2, true);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static String toHex(long num) {
  return fillZero(Long.toHexString(num), 2, true);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static String toBinary(int num) {
  return fillZero(Integer.toBinaryString(num), 8, true);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static String toBinary(long num) {
  return fillZero(Long.toBinaryString(num), 8, true);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static String toHex(byte[] bytes) {
  return toHex(bytes, " ");
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static String toHex(byte[] bytes, String separator) {
  if (bytes == null) {
@@ -108,19 +94,14 @@ public class StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static String toBinary(byte[] bytes) {
  return toBinary(bytes, " ");
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static String toBinary(byte[] bytes, String separator) {
  if (bytes == null) {
@@ -149,7 +130,6 @@ public class StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static String subZeroAndDot(String number) {
  if (TextUtils.isEmpty(number)) return number;
@@ -161,9 +141,7 @@ public class StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public static String toDuration(int duration) {
@@ -171,9 +149,7 @@ public class StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  public static String toDuration(int duration, String format) {
@@ -185,10 +161,7 @@ public class StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static byte[] toByteArray(String hexStr, String separator) {
  String s = hexStr.replaceAll(separator, "");

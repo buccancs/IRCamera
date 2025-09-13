@@ -14,7 +14,6 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/14 20:00
@@ -22,10 +21,7 @@ package com.github.gzuliyujiang.wheelpicker.contract;
 public interface OnOptionSelectedListener {
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onOptionSelected(int position, Object item);
 

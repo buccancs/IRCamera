@@ -1,7 +1,6 @@
 package com.topdon.commons.util;
 
 /**
- * Comment removed (contained Chinese characters)
  * @ClassName DiagnoseLanguageBean
  * @Email 616862466@qq.com
 * @Author

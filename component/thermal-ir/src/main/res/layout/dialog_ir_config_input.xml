@@ -76,7 +76,6 @@
  app:layout_constraintStart_toStartOf="parent"
  app:layout_constraintEnd_toStartOf="@+id/tv_confirm" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_confirm"
  android:layout_width="0dp"

@@ -35,10 +35,6 @@ import java.util.Locale;
 
 /**
  * ================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * ================================================
  */
 
@@ -60,11 +56,9 @@ public class SeekBar {
 
  private int indicatorShowMode;
 
- // Comment removed (contained Chinese characters)
  //Progress prompted the background height, width,
  private int indicatorHeight;
  private int indicatorWidth;
- // Comment removed (contained Chinese characters)
  //The progress indicates the distance between the background and the button
  private int indicatorMargin;
  private int indicatorDrawableId;
@@ -161,7 +155,6 @@ public class SeekBar {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private void initBitmap() {
  setIndicatorDrawableId(indicatorDrawableId);
@@ -170,7 +163,6 @@ public class SeekBar {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * Calculates the position and size of each button
  *
  * @param x position x
@@ -208,13 +200,11 @@ public class SeekBar {
  }
  private boolean noNegativeNumber = false;
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setNoNegativeNumber(Boolean noNegativeNumber){
  this.noNegativeNumber = noNegativeNumber;
  }
  /**
- * Comment removed (contained Chinese characters)
  * Draw buttons and tips for background and text
  *
  * @param canvas Canvas
@@ -232,10 +222,8 @@ public class SeekBar {
  onDrawIndicator(canvas, paint, formatCurrentIndicatorText(userText2Draw)); //
  }
 // if (isLeft) {
-// Comment removed (contained Chinese characters)
 // setThumbDrawableId(R.drawable.ic_seekbar_high_svg, thumbWidth, thumbHeight);
 // } else {
-// Comment removed (contained Chinese characters)
 // setThumbDrawableId(R.drawable.ic_seekbar_low_svg, thumbWidth, thumbHeight);
 // }
  if (thumbShow){
@@ -247,8 +235,6 @@ public class SeekBar {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * <p>
  * draw the thumb button
  * If there is no image resource, draw the default button
@@ -259,26 +245,21 @@ public class SeekBar {
  if (thumbInactivatedBitmap != null && !isActivate) {
  canvas.drawBitmap(thumbInactivatedBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
  } else if (thumbBitmap != null) {
- // Comment removed (contained Chinese characters)
  canvas.drawBitmap(thumbBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
  }
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * <p>
  * draw the thumb button
  * If there is no image resource, draw the default button
  *
  * @param canvas canvas
- * Comment removed (contained Chinese characters)
  */
  protected void onDrawThumb(Canvas canvas, Boolean isLeft) {
  if (thumbInactivatedBitmap != null && !isActivate) {
 // canvas.drawBitmap(thumbInactivatedBitmap, 0, rangeSeekBar.getProgressTop() + (rangeSeekBar.getProgressHeight() - scaleThumbHeight) / 2f, null);
  } else if (thumbBitmap != null) {
- // Comment removed (contained Chinese characters)
  Matrix matrix = new Matrix();
  int offX = thumbBitmap.getWidth() / 2;
  int offY = thumbBitmap.getHeight() / 2;
@@ -296,7 +277,6 @@ public class SeekBar {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * format the indicator text
  *
  * @param text2Draw
@@ -430,7 +410,6 @@ public class SeekBar {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return is collide
  */

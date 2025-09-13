@@ -16,64 +16,45 @@ import com.blankj.utilcode.util.SizeUtils
 import com.topdon.lib.core.R
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2023/10/19.
  */
 open class TitleView : ViewGroup {
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val ICON_SIZE = 48f
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  private val isTitleCenter: Boolean
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val actionBarSize: Int
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected var tvLeft: MyTextView? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected var tvRight1: MyTextView? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected var tvRight2: MyTextView? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected var tvRight3: MyTextView? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected var tvTitle: MyTextView? = null
 
@@ -127,7 +108,6 @@ open class TitleView : ViewGroup {
  tvRight1?.setTextColor(rightColor)
  }
 
- // Comment removed (contained Chinese characters)
  tvRight2?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right2Drawable))
  tvRight2?.isVisible = tvRight2!!.hasAnyDrawable()
  tvRight3?.setOnlyDrawableStart(a.getDrawable(R.styleable.TitleView_right3Drawable))
@@ -148,7 +128,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun addTextView(
  context: Context,
@@ -174,7 +153,6 @@ open class TitleView : ViewGroup {
  widthMeasureSpec: Int,
  heightMeasureSpec: Int,
  ) {
- // Comment removed (contained Chinese characters)
  var maxHeight = actionBarSize.coerceAtLeast(SizeUtils.dp2px(ICON_SIZE))
  for (i in 0 until childCount) {
  val childView: View = getChildAt(i)
@@ -184,10 +162,8 @@ open class TitleView : ViewGroup {
  }
  }
 
- // Comment removed (contained Chinese characters)
  setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), maxHeight)
 
- // Comment removed (contained Chinese characters)
  for (i in 0 until childCount) {
  val childView: View = getChildAt(i)
  if (childView != tvTitle && childView.visibility != View.GONE) {
@@ -196,7 +172,6 @@ open class TitleView : ViewGroup {
  }
  }
 
- // Comment removed (contained Chinese characters)
  if (isTitleCenter) { // 
  val leftSize = if (tvLeft!!.isVisible) tvLeft?.measuredWidth else SizeUtils.dp2px(ICON_SIZE)
  var rightSize = 0
@@ -268,7 +243,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setTitleText(
  @StringRes resId: Int,
@@ -278,7 +252,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setTitleText(title: CharSequence?) {
  tvTitle?.text = title
@@ -286,8 +259,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isLeftVisible: Boolean
  get() = tvLeft!!.isVisible
@@ -299,7 +270,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setLeftDrawable(
  @DrawableRes resId: Int,
@@ -310,7 +280,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setLeftText(
  @StringRes resId: Int,
@@ -321,7 +290,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setLeftText(text: CharSequence?) {
  tvLeft?.text = text
@@ -330,15 +298,12 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setLeftClickListener(leftClickListener: OnClickListener?) {
  tvLeft?.setOnClickListener(leftClickListener)
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isRightVisible: Boolean
  get() = tvRight1!!.isVisible
@@ -350,7 +315,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRightDrawable(
  @DrawableRes resId: Int,
@@ -361,7 +325,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRightText(
  @StringRes resId: Int,
@@ -372,7 +335,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRightText(text: CharSequence?) {
  tvRight1?.text = text
@@ -381,14 +343,12 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRightClickListener(rightClickListener: OnClickListener?) {
  tvRight1?.setOnClickListener(rightClickListener)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRight2Drawable(
  @DrawableRes resId: Int,
@@ -399,14 +359,12 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRight2ClickListener(right2ClickListener: OnClickListener?) {
  tvRight2?.setOnClickListener(right2ClickListener)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRight3Drawable(
  @DrawableRes resId: Int,
@@ -417,7 +375,6 @@ open class TitleView : ViewGroup {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRight3ClickListener(right3ClickListener: OnClickListener?) {
  tvRight3?.setOnClickListener(right3ClickListener)

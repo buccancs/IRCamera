@@ -31,21 +31,15 @@ public class MethodInfo {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public MethodInfo(@NonNull String name, @Nullable Class<?>[] parameterTypes) {
  this(name, name, parameterTypes);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @param tag {@link Tag#value()}
- * Comment removed (contained Chinese characters)
  */
  public MethodInfo(@NonNull String name, @NonNull String tag, @Nullable Class<?>[] parameterTypes) {
  this(name, tag, toParameters(parameterTypes));

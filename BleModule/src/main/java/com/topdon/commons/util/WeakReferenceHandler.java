@@ -6,7 +6,6 @@ import android.os.Looper;
 import java.lang.ref.WeakReference;
 
 /**
- * Comment removed (contained Chinese characters)
  * @ClassName WeakReferenceHandler
  * @Email 616862466@qq.com
 * @Author

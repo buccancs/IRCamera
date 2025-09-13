@@ -17,7 +17,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/14 17:10
@@ -25,23 +24,18 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.SOURCE)
 public @interface DateMode {
  /**
- * Comment removed (contained Chinese characters)
  */
  int NONE = -1;
  /**
- * Comment removed (contained Chinese characters)
  */
  int YEAR_MONTH_DAY = 0;
  /**
- * Comment removed (contained Chinese characters)
  */
  int YEAR_MONTH = 1;
  /**
- * Comment removed (contained Chinese characters)
  */
  int MONTH_DAY = 2;
  /**
- * Comment removed (contained Chinese characters)
  */
  int YEAR = 3;
 }

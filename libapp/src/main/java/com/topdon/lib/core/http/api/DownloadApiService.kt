@@ -11,7 +11,6 @@ import retrofit2.http.Url
  */
 interface DownloadApiService {
  /**
- * Comment removed (contained Chinese characters)
  */
  @GET
  @Streaming

@@ -29,7 +29,6 @@ class ObserverMethodHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  Runnable generateRunnable(Observer observer, Method method, MethodInfo info) {
  MethodInfo.Parameter[] parameters = info.getParameters();
@@ -58,7 +57,6 @@ class ObserverMethodHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  String generateKey(String tag, String name, Class<?>[] paramTypes) {
  StringBuilder sb = new StringBuilder();
@@ -74,7 +72,6 @@ class ObserverMethodHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  Map<String, Method> findObserverMethod(Observer observer) {
  Map<String, Method> map = METHOD_CACHE.get(observer.getClass());

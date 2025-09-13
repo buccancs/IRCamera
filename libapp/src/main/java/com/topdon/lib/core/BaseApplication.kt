@@ -55,16 +55,11 @@ abstract class BaseApplication : Application() {
  var hasOtgShow = false // otg
 
  /**
- * Comment removed (contained Chinese characters)
  */
  abstract fun getSoftWareCode(): String
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  abstract fun isDomestic(): Boolean
 
@@ -83,7 +78,6 @@ abstract class BaseApplication : Application() {
 
  open fun initWebSocket() {
  connectWebSocket()
- // Comment removed (contained Chinese characters)
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
  val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
  val networkRequest =
@@ -141,7 +135,6 @@ abstract class BaseApplication : Application() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param msgJson
  */
  private fun parserSocketMessage(msgJson: String) {
@@ -214,7 +207,6 @@ abstract class BaseApplication : Application() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @RequiresApi(api = 28)
  open fun webviewSetPath(context: Context?) {
@@ -237,7 +229,6 @@ abstract class BaseApplication : Application() {
  return null
  }
 
- // Comment removed (contained Chinese characters)
  fun clearDb() {
  GlobalScope.launch(Dispatchers.Default) {
  try {
@@ -261,7 +252,6 @@ abstract class BaseApplication : Application() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun exitAll() {
  hasOtgShow = false

@@ -8,10 +8,7 @@ import com.topdon.ble.Request;
  */
 public interface NotificationChangeCallback extends RequestFailedCallback {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onNotificationChanged(Request request, boolean isEnabled);
 }

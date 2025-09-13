@@ -10,9 +10,6 @@ import com.topdon.ble.Request;
  */
 public interface PhyChangeCallback extends RequestFailedCallback {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onPhyChange(Request request, int txPhy, int rxPhy);
 }

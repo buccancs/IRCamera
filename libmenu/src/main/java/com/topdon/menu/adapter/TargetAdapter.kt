@@ -10,12 +10,7 @@ import com.topdon.menu.constant.TargetType
 /**
  * observationMode-menu4-target menuAdapter used for.
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/11/28.
  */
@@ -27,8 +22,6 @@ internal class TargetAdapter : BaseMenuAdapter() {
  var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun setSelected(
  targetType: TargetType,
@@ -87,8 +80,6 @@ internal class TargetAdapter : BaseMenuAdapter() {
  holder.binding.ivIcon.isSelected = data.isSelected
  holder.binding.tvText.isSelected = data.isSelected
  holder.binding.clRoot.setOnClickListener {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
 // data.isSelected = !data.isSelected
 // holder.binding.ivIcon.isSelected = data.isSelected
 // holder.binding.tvText.isSelected = data.isSelected

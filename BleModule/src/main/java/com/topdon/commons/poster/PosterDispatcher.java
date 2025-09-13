@@ -8,7 +8,6 @@ import java.lang.reflect.Method;
 import java.util.concurrent.ExecutorService;
 
 /**
- * Comment removed (contained Chinese characters)
  * <p>
  * date: 2019/8/7 10:18
 * author: chuanfeng.bi
@@ -29,21 +28,18 @@ public class PosterDispatcher {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ThreadMode getDefaultMode() {
  return defaultMode;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public ExecutorService getExecutorService() {
  return executorService;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void clearTasks() {
  backgroundPoster.clear();
@@ -52,10 +48,7 @@ public class PosterDispatcher {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void post(@Nullable Method method, @NonNull Runnable runnable) {
  if (method != null) {
@@ -69,10 +62,7 @@ public class PosterDispatcher {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void post(@NonNull ThreadMode mode, @NonNull Runnable runnable) {
  if (mode == ThreadMode.UNSPECIFIED) {
@@ -95,12 +85,8 @@ public class PosterDispatcher {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @param tag {@link Tag#value()}
- * Comment removed (contained Chinese characters)
  */
  public void post(@NonNull Object owner, @NonNull String methodName, @NonNull String tag,
  @Nullable MethodInfo.Parameter... parameters) {
@@ -161,21 +147,14 @@ public class PosterDispatcher {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void post(@NonNull final Object owner, @NonNull String methodName, @Nullable MethodInfo.Parameter... parameters) {
  post(owner, methodName, "", parameters);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void post(@NonNull Object owner, @NonNull MethodInfo methodInfo) {
  post(owner, methodInfo.getName(), methodInfo.getTag(), methodInfo.getParameters());

@@ -8,10 +8,7 @@ import com.topdon.ble.Request;
  */
 public interface ReadRssiCallback extends RequestFailedCallback {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onRssiRead(Request request, int rssi);
 }

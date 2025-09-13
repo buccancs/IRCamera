@@ -45,12 +45,10 @@ object BitmapTools {
  r = imageBytes[i * 4].toInt() and 0xff
  g = imageBytes[i * 4 + 1].toInt() and 0xff
  b = imageBytes[i * 4 + 2].toInt() and 0xff
- // Comment removed (contained Chinese characters)
  grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
  imageBytes[i * 4] = grey.toByte()
  imageBytes[i * 4 + 1] = grey.toByte()
  imageBytes[i * 4 + 2] = grey.toByte()
-// Comment removed (contained Chinese characters)
  }
  }
  } else {

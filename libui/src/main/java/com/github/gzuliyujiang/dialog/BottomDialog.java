@@ -31,7 +31,6 @@ import androidx.annotation.StyleRes;
 import com.topdon.lib.ui.R;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2021/4/15 20:54
@@ -69,11 +68,8 @@ public abstract class BottomDialog extends BaseDialog {
  }
 
  protected void addMaskView() {
- // Comment removed (contained Chinese characters)
  try {
- // Comment removed (contained Chinese characters)
  getWindow().setDimAmount(0);
- // Comment removed (contained Chinese characters)
  WindowManager.LayoutParams params = new WindowManager.LayoutParams();
  params.width = WindowManager.LayoutParams.MATCH_PARENT;
  Point screenRealSize = new Point();
@@ -82,7 +78,6 @@ public abstract class BottomDialog extends BaseDialog {
  params.height = screenRealSize.y - activity.getResources().getDimensionPixelSize(navBarIdentifier);
  params.gravity = Gravity.TOP;
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
- // Comment removed (contained Chinese characters)
  params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
  }
  params.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;

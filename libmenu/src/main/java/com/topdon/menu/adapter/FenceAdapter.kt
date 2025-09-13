@@ -9,24 +9,15 @@ import com.topdon.menu.constant.FenceType
 import com.topdon.menu.constant.MenuType
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/11/18.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
  /**
- * Comment removed (contained Chinese characters)
  */
  var selectType: FenceType? = null
  set(value) {
@@ -41,12 +32,10 @@ internal class FenceAdapter(menuType: MenuType) : BaseMenuAdapter() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var isFullSelect: Boolean = false
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onFenceListener: ((fenceType: FenceType, isSelected: Boolean) -> Unit)? = null
 

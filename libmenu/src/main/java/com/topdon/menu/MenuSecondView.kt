@@ -434,7 +434,6 @@ class MenuSecondView : FrameLayout {
  settingObAdapter.rotateAngle = rotateAngle
  }
 
- // Comment removed (contained Chinese characters)
 
  /**
  * Whether temperature level uses Fahrenheit as unit
@@ -459,7 +458,6 @@ class MenuSecondView : FrameLayout {
  tempLevelAdapter.selectCode = code
  }
 
- // Comment removed (contained Chinese characters)
 
  /**
  * Set Observation mode - Menu 2 - High/Low temperature source selection.
@@ -499,7 +497,6 @@ class MenuSecondView : FrameLayout {
  targetAdapter.setTargetMode(modeCode)
  }
 
- // Comment removed (contained Chinese characters)
 
  /**
  * Set selection state of high temperature point or low temperature point in Observation mode - Menu 5 - High/Low temperature points menu。

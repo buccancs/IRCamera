@@ -2,15 +2,12 @@ package com.topdon.lib.core.bean
 
 /**
  * continuouscaptureconfiguration.
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @param count continuouscapturequantity
  */
 data class ContinuousBean(var isOpen: Boolean = false, var continuaTime: Long = 1000, var count: Int = 3)
 
 class ObserveBean {
  companion object {
- // Comment removed (contained Chinese characters)
  const val TYPE_NONE = -1 // dynamic recognition
  const val TYPE_DYN_R = 0 // dynamic recognition
  const val TYPE_TMP_H_S = 1 // high temperature source

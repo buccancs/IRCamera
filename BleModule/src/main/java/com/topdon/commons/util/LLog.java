@@ -43,15 +43,11 @@ public class LLog {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public final static int MAX_LENGTH = 2000;
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static void LogMaxPrint(String tag, String msg) {
  if (msg.length() > MAX_LENGTH) {

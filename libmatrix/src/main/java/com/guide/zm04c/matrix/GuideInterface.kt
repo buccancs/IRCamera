@@ -33,13 +33,10 @@ class GuideInterface {
  private val mUsbReadbuffer = ByteArray(MAX_BULK_TRANSFER_SIZE)
  private val mFrame = ByteArray(FRAME_SIZE)
 
- // Comment removed (contained Chinese characters)
  private val mYuv = ByteArray(YUV_SIZE)
 
- // Comment removed (contained Chinese characters)
  private val mParam = ByteArray(PARAM_SIZE)
 
- // Comment removed (contained Chinese characters)
  private val mTempMatrixByte = ByteArray(TEMP_MATRIX_SIZE)
  private val mTempMatrixFloat = FloatArray(IR_SIZE)
  private var mIrDataCallback: IrDataCallback? = null
@@ -61,7 +58,6 @@ class GuideInterface {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun startUsbBufferWriteThread() {
  mWriteThreadFlag = true
@@ -89,7 +85,6 @@ class GuideInterface {
  var startTime = 0L
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun startUsbBufferReadThread() {
  mReadThreadFlag = true
@@ -257,7 +252,6 @@ class GuideInterface {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setBright(bright: Int) {
  if (mGuideUsbManager == null) {
@@ -278,7 +272,6 @@ class GuideInterface {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setContrast(contrast: Int) {
  if (mGuideUsbManager == null) {

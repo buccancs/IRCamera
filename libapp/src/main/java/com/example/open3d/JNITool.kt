@@ -1,7 +1,6 @@
 package com.example.open3d
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/10/23 17:57
  */
@@ -62,7 +61,6 @@ object JNITool {
  ): ByteArray
 
  /**
- * Comment removed (contained Chinese characters)
  * @param image ByteArray
  * @param temperature ByteArray
  * @param image_h Int
@@ -71,7 +69,6 @@ object JNITool {
  * @param low_t Float
  * @param color_h Int
  * @param color_l Int
- * Comment removed (contained Chinese characters)
  * @return ByteArray
  */
  external fun draw_edge_from_temp_reigon_bitmap_argb_psd(

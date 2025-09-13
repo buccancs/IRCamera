@@ -11,23 +11,17 @@ import com.topdon.lib.core.config.DeviceConfig
 import com.topdon.lib.core.utils.CommUtils
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/12/24.
  */
 class SaveSettingBean(private val isWifi: Boolean = false) {
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun getSPUtils(): SPUtils = SPUtils.getInstance(if (isWifi) "WifiSaveSettingUtil" else "SaveSettingUtil")
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isSaveSetting: Boolean = getSPUtils().getBoolean("isSaveSetting", true)
  set(value) {
@@ -36,7 +30,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isMeasureTempMode: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isMeasureTempMode", true) else true
  set(value) {
@@ -47,7 +40,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenAmplify: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenAmplify", false) else false
  set(value) {
@@ -58,7 +50,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isVideoMode: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isVideoMode", false) else false
  set(value) {
@@ -69,7 +60,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isAutoShutter: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isAutoShutter", true) else true
  set(value) {
@@ -80,7 +70,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isRecordAudio: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isRecordAudio", false) else false
  set(value) {
@@ -91,7 +80,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var delayCaptureSecond: Int = if (isSaveSetting) getSPUtils().getInt("delayCaptureSecond", 0) else 0
  set(value) {
@@ -118,7 +106,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenTwoLight: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenTwoLight", false) else false
  set(value) {
@@ -129,7 +116,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var twoLightAlpha: Int = if (isSaveSetting) getSPUtils().getInt("twoLightAlpha", 50) else 50
  set(value) {
@@ -140,7 +126,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var pseudoColorMode: Int = if (isSaveSetting) getSPUtils().getInt("pseudoColorMode", 3) else 3
  set(value) {
@@ -151,7 +136,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenPseudoBar: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenPseudoBar", true) else true
  set(value) {
@@ -162,7 +146,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var contrastValue: Int = if (isSaveSetting) getSPUtils().getInt("contrastValue", 128) else 128
  set(value) {
@@ -173,7 +156,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var ddeConfig: Int = if (isSaveSetting) getSPUtils().getInt("ddeConfig", 2) else 2
  set(value) {
@@ -184,7 +166,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var alarmBean: AlarmBean =
  if (isSaveSetting) {
@@ -201,7 +182,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var rotateAngle: Int =
  if (isSaveSetting) {
@@ -220,12 +200,10 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isRotatePortrait(): Boolean = rotateAngle == 90 || rotateAngle == 270
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenMirror: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenMirror", false) else false
  set(value) {
@@ -236,7 +214,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenCompass: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenCompass", false) else false
  set(value) {
@@ -247,7 +224,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var tempTextColor: Int = if (isSaveSetting) getSPUtils().getInt("tempTextColor", 0xffffffff.toInt()) else 0xffffffff.toInt()
  set(value) {
@@ -258,7 +234,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var tempTextSize: Int = if (isSaveSetting) getSPUtils().getInt("tempTextSize", SizeUtils.sp2px(14f)) else SizeUtils.sp2px(14f)
  set(value) {
@@ -269,18 +244,13 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isTempTextDefault(): Boolean = tempTextColor == 0xffffffff.toInt() && tempTextSize == SizeUtils.sp2px(14f)
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var temperatureMode: Int =
  if (isSaveSetting) {
@@ -299,7 +269,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenHighPoint: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenHighPoint", false) else false
  set(value) {
@@ -310,7 +279,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenLowPoint: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenLowPoint", false) else false
  set(value) {
@@ -321,15 +289,10 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var aiTraceType: Int = if (isSaveSetting) getSPUtils().getInt("aiTraceType", ObserveBean.TYPE_NONE) else ObserveBean.TYPE_NONE
  set(value) {
@@ -340,7 +303,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isOpenTarget: Boolean = if (isSaveSetting) getSPUtils().getBoolean("isOpenTarget", false) else false
  set(value) {
@@ -351,15 +313,10 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var targetMeasureMode: Int =
  if (isSaveSetting) {
@@ -378,13 +335,9 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var targetType: Int =
  if (isSaveSetting) {
@@ -403,17 +356,11 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  var targetColorType: Int =
  if (isSaveSetting) {
@@ -432,7 +379,6 @@ class SaveSettingBean(private val isWifi: Boolean = false) {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
 var reportAuthorName: String =
  if (isSaveSetting) {
@@ -451,7 +397,6 @@ getSPUtils().put("reportAuthorName", value)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var reportWatermarkText: String =
  if (isSaveSetting) {
@@ -470,7 +415,6 @@ getSPUtils().put("reportAuthorName", value)
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var reportHumidity: Int = if (isSaveSetting) getSPUtils().getInt("reportHumidity", 500) else 500
  set(value) {

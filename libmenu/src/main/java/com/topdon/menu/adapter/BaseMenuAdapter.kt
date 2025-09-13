@@ -31,13 +31,11 @@ internal abstract class BaseMenuAdapter : RecyclerView.Adapter<BaseMenuAdapter.V
  val binding = ItemMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
  val widthPixels: Int = parent.context.resources.displayMetrics.widthPixels
 
- // Comment removed (contained Chinese characters)
  val iconSize: Int = (widthPixels * 62 / 375f).toInt() // 62、375 UI 
  val iconParams: ViewGroup.LayoutParams = binding.ivIcon.layoutParams
  iconParams.width = iconSize
  iconParams.height = iconSize
 
- // Comment removed (contained Chinese characters)
  if (itemCount <= 4) {
  binding.root.layoutParams.width = (widthPixels / itemCount.toFloat()).toInt()
  } else {

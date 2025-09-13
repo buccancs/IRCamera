@@ -15,7 +15,6 @@ import retrofit2.http.Url
  */
 interface TS004Service {
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setPseudoColor")
  suspend fun setPseudoColor(
@@ -23,13 +22,11 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getPseudoColor")
  suspend fun getPseudoColor(): TS004Response<PseudoColorBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setRangeFind")
  suspend fun setRangeFind(
@@ -37,13 +34,11 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getRangeFind")
  suspend fun getRangeFind(): TS004Response<RangeBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setPanelParam")
  suspend fun setPanelParam(
@@ -51,13 +46,11 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getPanelParam")
  suspend fun getPanelParam(): TS004Response<BrightnessBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setPip")
  suspend fun setPip(
@@ -65,13 +58,11 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getPip")
  suspend fun getPip(): TS004Response<PipBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setZoom")
  suspend fun setZoom(
@@ -79,19 +70,16 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getZoom")
  suspend fun getZoom(): TS004Response<ZoomBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/snapshot")
  suspend fun setSnapshot(): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/vrecord")
  suspend fun setVRecord(
@@ -99,13 +87,11 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getRecordStatus")
  suspend fun getVRecord(): TS004Response<RecordStatusBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @GET
  @Streaming
@@ -114,7 +100,6 @@ interface TS004Service {
  ): ResponseBody
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setDateTime")
  suspend fun syncTime(
@@ -122,7 +107,6 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setTimeZone")
  suspend fun syncTimeZone(
@@ -130,19 +114,16 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getVersion")
  suspend fun getVersion(): TS004Response<VersionBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getDeviceInfo")
  suspend fun getDeviceInfo(): TS004Response<DeviceInfo>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getFileCount")
  suspend fun getFileCount(
@@ -150,7 +131,6 @@ interface TS004Service {
  ): TS004Response<FileCountBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getFileList")
  suspend fun getFileList(
@@ -158,7 +138,6 @@ interface TS004Service {
  ): TS004Response<FilePageBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/deleteFile")
  suspend fun deleteFile(
@@ -166,13 +145,11 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/remoteUpgrade")
  suspend fun firmwareUpdateStart(): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/sendUpgradeFileStart")
  suspend fun sendUpgradeFileStart(
@@ -180,7 +157,6 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Headers("Content-type: application/octet-stream")
  @POST("/api/v1/system/sendUpgradeFileData")
@@ -189,7 +165,6 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/sendUpgradeFileEnd")
  suspend fun sendUpgradeFileEnd(
@@ -197,31 +172,26 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getUpgradeStatus")
  suspend fun getUpgradeStatus(): TS004Response<UpgradeStatus>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getFreeSpace")
  suspend fun freeSpace(): TS004Response<FreeSpaceBean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/formatStorage")
  suspend fun formatStorage(): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/resetAll")
  suspend fun resetAll(): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/setTISR")
  suspend fun setTISR(
@@ -229,7 +199,6 @@ interface TS004Service {
  ): TS004Response<Boolean>
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @POST("/api/v1/system/getTISR")
  suspend fun getTISR(): TS004Response<TISRBean>

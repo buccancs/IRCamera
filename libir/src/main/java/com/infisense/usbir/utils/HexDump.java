@@ -174,9 +174,7 @@ public class HexDump {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @return bytearray
  */
  public static byte[] intToBytes(int value) {
@@ -189,7 +187,6 @@ public class HexDump {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static byte[] intToBytes2(int value) {
  byte[] src = new byte[4];

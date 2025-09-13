@@ -23,27 +23,20 @@ import com.topdon.lib.ui.R as UiR
  * Provides specialized rendering and interaction capabilities.
  */
 class CountDownView : View {
- // Comment removed (contained Chinese characters)
  private var mRingColor = 0
 
- // Comment removed (contained Chinese characters)
  private var mRingWidth = 0
 
- // Comment removed (contained Chinese characters)
  private var mRingProgressTextSize = 0
 
- // Comment removed (contained Chinese characters)
  private var mWidth = 0
 
- // Comment removed (contained Chinese characters)
  private var mHeight = 0
 
- // Comment removed (contained Chinese characters)
  private var mRingText: String? = null
  private lateinit var mPaint: Paint
  private lateinit var mTextPaint: Paint
 
- // Comment removed (contained Chinese characters)
  private var mRectF: RectF? = null
 
  //
@@ -54,7 +47,6 @@ class CountDownView : View {
  private var valueAnimator: ValueAnimator? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var mListener: OnCountDownListener? = null
 
@@ -133,7 +125,6 @@ class CountDownView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setCountdownTime(mCountdownTime: Int) {
  this.mCountdownTime = mCountdownTime
@@ -142,7 +133,6 @@ class CountDownView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun getValueAnimator(countdownTime: Long): ValueAnimator? {
  val valueAnimator = ValueAnimator.ofFloat(0f, 100f)
@@ -154,23 +144,19 @@ class CountDownView : View {
 
  override fun onDraw(canvas: Canvas) {
  super.onDraw(canvas)
- // Comment removed (contained Chinese characters)
  mPaint.color = mRingColor
  mPaint.style = Paint.Style.FILL
  mPaint.strokeWidth = mRingWidth.toFloat()
  canvas.drawArc(mRectF!!, -90f, mCurrentProgress - 360, false, mPaint)
  val font = Typeface.DEFAULT_BOLD
- // Comment removed (contained Chinese characters)
  mTextPaint.isAntiAlias = true
  mTextPaint.textAlign = Paint.Align.CENTER
  mTextPaint.typeface = font
- // Comment removed (contained Chinese characters)
  // val text: String = (mCountdownTime - (mCurrentProgress / 360f * mCountdownTime)).toInt().toString()
 
  mTextPaint.textSize = mRingProgressTextSize.toFloat()
  mTextPaint.color = mProgressTextColor
 
- // Comment removed (contained Chinese characters)
  val fontMetrics = mTextPaint.fontMetricsInt
  val baseline =
  ((mRectF!!.bottom + mRectF!!.top - fontMetrics.bottom - fontMetrics.top) / 2).toInt()
@@ -178,7 +164,6 @@ class CountDownView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun startCountDown() {
  valueAnimator = getValueAnimator((mCountdownTime * 1000).toLong())
@@ -192,7 +177,6 @@ class CountDownView : View {
  object : AnimatorListenerAdapter() {
  override fun onAnimationEnd(animation: Animator) {
  super.onAnimationEnd(animation)
- // Comment removed (contained Chinese characters)
  if (mListener != null) {
  mListener!!.countDownFinished()
  }
@@ -202,7 +186,6 @@ class CountDownView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun stopCountDown() {
  if (valueAnimator!!.isRunning) {

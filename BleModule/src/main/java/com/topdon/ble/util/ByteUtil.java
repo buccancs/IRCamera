@@ -4,7 +4,6 @@ import android.util.Log;
 
 /**
  * ByteUtil
- * Comment removed (contained Chinese characters)
  *
 * @author chuanfeng.bi
  * @date 2021/12/8 10:49
@@ -62,10 +61,7 @@ public class ByteUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static byte[] intToByteArray(int i) {
  byte[] result = new byte[1];
@@ -108,7 +104,6 @@ public class ByteUtil {
  }
 
  public static int byteToInt(byte b) {
- // Comment removed (contained Chinese characters)
  return b & 0xFF;
  }
 
@@ -122,8 +117,6 @@ public class ByteUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return intValue
  */
  public static int byteArrayToInt(byte[] bytes) {

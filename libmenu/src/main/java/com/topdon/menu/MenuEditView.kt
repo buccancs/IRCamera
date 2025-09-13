@@ -8,9 +8,7 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuEditBinding
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
 /**
  * MenuEditView class
@@ -21,7 +19,6 @@ import com.topdon.menu.databinding.ViewMenuEditBinding
  */
 class MenuEditView : FrameLayout, View.OnClickListener {
  /**
- * Comment removed (contained Chinese characters)
  */
  var isBarSelect: Boolean
  get() = binding.ivMenu4.isSelected
@@ -36,7 +33,6 @@ class MenuEditView : FrameLayout, View.OnClickListener {
  var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
 
@@ -66,7 +62,6 @@ class MenuEditView : FrameLayout, View.OnClickListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var selectPosition = -1
  set(value) {

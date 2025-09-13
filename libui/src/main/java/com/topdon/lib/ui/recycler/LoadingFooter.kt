@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import com.topdon.lib.ui.databinding.UiFooterViewBinding
 
 /**
- * Comment removed (contained Chinese characters)
  */
 /**
  * Custom Loading footer view for thermal imaging display.

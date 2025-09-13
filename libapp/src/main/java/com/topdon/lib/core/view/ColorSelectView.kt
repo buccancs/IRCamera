@@ -10,13 +10,10 @@ import android.view.View
 import androidx.annotation.ColorInt
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 class ColorSelectView : View {
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val DEFAULT_STROKE_WIDTH = 3
 
@@ -82,7 +79,6 @@ class ColorSelectView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isNeedStroke: Boolean = false
  set(value) {
@@ -91,7 +87,6 @@ class ColorSelectView : View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var onSelectListener: ((color: Int) -> Unit)? = null
 
@@ -180,7 +175,6 @@ class ColorSelectView : View {
  val connerSize = itemSize * 8f / 26f
  val margin = strokeWidth / 2f
 
- // Comment removed (contained Chinese characters)
  if (isNeedStroke) {
  path.rewind()
  path.moveTo(margin, margin + connerSize)

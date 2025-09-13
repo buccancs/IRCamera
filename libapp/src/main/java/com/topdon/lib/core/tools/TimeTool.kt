@@ -21,8 +21,6 @@ object TimeTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("SimpleDateFormat")
  fun reportTime(time: Long): String {
@@ -34,7 +32,6 @@ object TimeTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * 2021-01-01 00:00:00 => 1609430400000
  */
  @SuppressLint("SimpleDateFormat")
@@ -51,7 +48,6 @@ object TimeTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("SimpleDateFormat")
  fun showDateType(
@@ -75,7 +71,6 @@ object TimeTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("SimpleDateFormat")
  fun timeToMinute(
@@ -96,8 +91,6 @@ object TimeTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("SimpleDateFormat")
  fun showTimeSecond(time: Long): String {
@@ -118,7 +111,6 @@ object TimeTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("SimpleDateFormat")
  fun showVideoTime(time: Long): String {
@@ -134,7 +126,6 @@ object TimeTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @SuppressLint("SimpleDateFormat")
  fun showVideoLongTime(time: Long): String {

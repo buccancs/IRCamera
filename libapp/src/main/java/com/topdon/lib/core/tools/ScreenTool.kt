@@ -9,7 +9,6 @@ import kotlin.math.sqrt
 
 object ScreenTool {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isLandPhone(): Boolean {
  val displayMetrics: DisplayMetrics = Utils.getApp().resources.displayMetrics

@@ -22,7 +22,6 @@ import com.topdon.lib.core.databinding.ItemCarDetectChildLayoutBinding
 import com.topdon.lib.core.databinding.ItemCarDetectLayoutBinding
 
 /**
- * Comment removed (contained Chinese characters)
  */
 /**
  * CarDetectDialog displays modal dialog interface for user interaction.

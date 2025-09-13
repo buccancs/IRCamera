@@ -31,7 +31,6 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
  var listener: ((code: Int) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setSelected(
  targetType: TargetType,
@@ -74,7 +73,6 @@ class MenuTargetAdapter(val context: Context) : RecyclerView.Adapter<RecyclerVie
  )
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun upCurrentMeasureMode(measureMode: Int) {
  secondBean.clear()

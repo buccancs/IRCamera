@@ -35,7 +35,6 @@
  app:layout_constraintEnd_toEndOf="parent"
  app:layout_constraintBottom_toBottomOf="parent">
 
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_to_pdf"
  android:layout_width="0dp"
@@ -52,7 +51,6 @@
  app:layout_constraintStart_toStartOf="parent"
  app:layout_constraintEnd_toStartOf="@+id/tv_complete" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_complete"
  android:layout_width="0dp"

@@ -70,7 +70,6 @@ class PdfActivity : BaseBindingActivity<ActivityPdfBinding>() {
  window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
  }
 
- // Comment removed (contained Chinese characters)
  @Throws(IOException::class)
  private fun copyBigDataToSD(
  assetsName: String,

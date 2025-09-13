@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/5/22.
  */
@@ -24,7 +23,6 @@ import androidx.appcompat.widget.AppCompatImageView
  */
 class BatteryView : AppCompatImageView {
  /**
- * Comment removed (contained Chinese characters)
  */
  var battery = -1
  set(value) {
@@ -33,7 +31,6 @@ class BatteryView : AppCompatImageView {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isCharging = false
  set(value) {

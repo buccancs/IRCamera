@@ -18,10 +18,6 @@ import androidx.core.content.ContextCompat;
 
 /**
  * ================================================
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * ================================================
  */
 public class Utils {

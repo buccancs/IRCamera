@@ -10,7 +10,6 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.databinding.DialogProgressBinding
 
 /**
- * Comment removed (contained Chinese characters)
  */
 /**
  * ProgressDialog(context: class

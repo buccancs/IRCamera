@@ -9,8 +9,6 @@ import kotlin.math.roundToInt
 import com.topdon.lib.ui.R as UiR
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 /**
  * Comm seek bar utility class for thermal imaging operations.
@@ -24,7 +22,6 @@ import com.topdon.lib.ui.R as UiR
  */
 class CommSeekBar : AppCompatSeekBar {
  /**
- * Comment removed (contained Chinese characters)
  */
  private val orientation: Int
 
@@ -207,7 +204,6 @@ class CommSeekBar : AppCompatSeekBar {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun stopTrackTouchLevel() {
  if (level > 0) {

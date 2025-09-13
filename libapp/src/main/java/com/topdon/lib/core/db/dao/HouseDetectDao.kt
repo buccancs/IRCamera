@@ -11,14 +11,12 @@ import com.topdon.lib.core.db.entity.HouseDetect
 import com.topdon.lib.core.db.entity.ItemDetect
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/8/19.
  */
 @Dao
 abstract class HouseDetectDao {
  /**
- * Comment removed (contained Chinese characters)
  */
  @Transaction
  open fun insert(houseDetect: HouseDetect): Long {
@@ -35,7 +33,6 @@ abstract class HouseDetectDao {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Transaction
  open fun insertDefaultDirs(houseDetect: HouseDetect) {
@@ -69,7 +66,6 @@ abstract class HouseDetectDao {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  open fun queryDir(dirId: Long): DirDetect? {
  val dir: DirDetect = queryDirById(dirId) ?: return null
@@ -82,7 +78,6 @@ abstract class HouseDetectDao {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  open fun refreshDetect(houseDetect: HouseDetect) {
  val oldDirList: ArrayList<DirDetect> = ArrayList(queryDirList(houseDetect.id))
@@ -107,7 +102,6 @@ abstract class HouseDetectDao {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  open fun refreshDir(dirDetect: DirDetect) {
  if (dirDetect.itemList.isEmpty()) { // ，
@@ -132,7 +126,6 @@ abstract class HouseDetectDao {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Transaction
  open fun copyDetect(oldDetect: HouseDetect): HouseDetect {
@@ -154,26 +147,22 @@ abstract class HouseDetectDao {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Transaction
  open fun copyDir(
  dirList: ArrayList<DirDetect>,
  position: Int,
  ): DirDetect {
- // Comment removed (contained Chinese characters)
  for (i in position + 1 until dirList.size) {
  val dir: DirDetect = dirList[i]
  dir.position += 1
  updateDir(dir)
  }
 
- // Comment removed (contained Chinese characters)
  val oldDir = dirList[position]
  val newDir = oldDir.copyOne()
  newDir.id = insertDir(newDir)
 
- // Comment removed (contained Chinese characters)
  for (item in newDir.itemList) {
  item.parentId = newDir.id
  item.id = insertItem(item)
@@ -183,26 +172,22 @@ abstract class HouseDetectDao {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Transaction
  open fun copyItem(
  itemList: ArrayList<ItemDetect>,
  position: Int,
  ): ItemDetect {
- // Comment removed (contained Chinese characters)
  for (i in position + 1 until itemList.size) {
  val item: ItemDetect = itemList[i]
  item.position += 1
  updateItem(item)
  }
 
- // Comment removed (contained Chinese characters)
  val oldItem = itemList[position]
  val newItem = oldItem.copyOne(position = oldItem.position + 1, itemName = oldItem.copyName())
  newItem.id = insertItem(newItem)
 
- // Comment removed (contained Chinese characters)
  if (newItem.state > 0) {
  val dir = newItem.dirDetect
  when (newItem.state) {
@@ -243,7 +228,6 @@ abstract class HouseDetectDao {
  abstract fun updateItem(vararg itemDetect: ItemDetect)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Query("SELECT * FROM HouseDetect ORDER BY createTime DESC")
  abstract fun queryAll(): List<HouseDetect>

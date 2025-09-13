@@ -12,29 +12,24 @@ import com.topdon.lib.core.bean.WatermarkBean
 import com.topdon.lib.core.dialog.CarDetectDialog
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * create by fylder on 2018/6/14
  **/
 object SharedManager {
  /**
- * Comment removed (contained Chinese characters)
  */
  var hasClickWinter: Boolean
  get() = SPUtils.getInstance().getBoolean("hasClickWinter", false)
  set(value) = SPUtils.getInstance().put("hasClickWinter", value)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isNeedShowTrendTips: Boolean
  get() = SPUtils.getInstance().getBoolean("isNeedShowTrendTips", true)
  set(value) = SPUtils.getInstance().put("isNeedShowTrendTips", value)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var houseSpaceUnit: Int
  get() = SPUtils.getInstance().getInt("houseSpaceUnit", 0)
@@ -43,7 +38,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var costUnit: Int
  get() = SPUtils.getInstance().getInt("costUnit", 0)
@@ -52,7 +46,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var hasTcLine: Boolean
  get() = SPUtils.getInstance().getBoolean("hasConnectTcLine", false)
@@ -61,7 +54,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var hasTS004: Boolean
  get() = SPUtils.getInstance().getBoolean("hasConnectTS004", false)
@@ -70,7 +62,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var hasTC007: Boolean
  get() = SPUtils.getInstance().getBoolean("hasConnectTC007", false)
@@ -79,7 +70,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var irConfigJsonTC007: String
  get() = SPUtils.getInstance().getString("irConfigJsonTC007")
@@ -88,7 +78,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var homeGuideStep: Int
  get() {
@@ -100,14 +89,12 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var configGuideStep: Int
  get() = SPUtils.getInstance().getInt("configGuideStep", 1)
  set(value) = SPUtils.getInstance().put("configGuideStep", value)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isHideEmissivityTips: Boolean
  get() = SPUtils.getInstance().getBoolean("isHideEmissivityTips", false)
@@ -116,7 +103,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var is07HideEmissivityTips: Boolean
  get() = SPUtils.getInstance().getBoolean("is07HideEmissivityTips", false)
@@ -125,7 +111,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var is04TISR: Boolean
  get() = SPUtils.getInstance().getBoolean("is04TISR", false)
@@ -134,7 +119,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var is04AutoSync: Boolean
  get() = SPUtils.getInstance().getBoolean("is04AutoSync", false)
@@ -143,7 +127,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getManualAngle(sId: String): Int {
  return SPUtils.getInstance().getInt("manualAngle_$sId", 1000)
@@ -157,12 +140,10 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getManualData(sId: String): ByteArray {
  val strValue = SPUtils.getInstance().getString("manualData_$sId")
  return if (strValue.isNullOrEmpty()) {
- // Comment removed (contained Chinese characters)
  byteArrayOf(
  0,
  0,
@@ -205,7 +186,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isConnectAutoOpen: Boolean
  get() = SPUtils.getInstance().getBoolean("isConnectAutoOpen", false)
@@ -214,7 +194,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var isConnect07AutoOpen: Boolean
  get() = SPUtils.getInstance().getBoolean("isConnect07AutoOpen", false)
@@ -223,8 +202,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipOTG: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipOTG", true)
@@ -233,8 +210,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipShutter: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipShutter", true)
@@ -243,8 +218,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipHighTemp: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipHighTemp", true)
@@ -253,8 +226,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipPinP: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipPinP", true)
@@ -263,8 +234,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipCoordinate: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipCoordinate", true)
@@ -273,8 +242,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipAIRecognition: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipAIRecognition", true)
@@ -283,8 +250,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipObservePhoto: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipObservePhoto", true)
@@ -293,7 +258,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var continuousBean: ContinuousBean
  get() {
@@ -312,8 +276,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var wifiWatermarkBean: WatermarkBean
  get() {
@@ -332,7 +294,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var watermarkBean: WatermarkBean
  get() {
@@ -351,8 +312,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isTipChangeDevice: Boolean
  get() = SPUtils.getInstance().getBoolean("isTipChangeDevice", true)
@@ -361,8 +320,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isChangeDevice: Boolean
  get() = SPUtils.getInstance().getBoolean("isChangeDevice", false)
@@ -456,7 +413,6 @@ object SharedManager {
  .edit().putString(LANGUAGE, language).apply()
  }
 
- // Comment removed (contained Chinese characters)
  fun getLanguage(context: Context): String {
  return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGE, "")!!
  }
@@ -527,7 +483,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getTargetPop(): Boolean {
  return SPUtils.getInstance().getBoolean(SP_TARGET_POP, false)
@@ -557,7 +512,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getMainPermissionsState(): Boolean {
  return SPUtils.getInstance().getBoolean("main_permissions_state", false)
@@ -577,7 +531,6 @@ object SharedManager {
  /************************TS004************************************/
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getHotMode(): Int {
  return SPUtils.getInstance().getInt(SP_HOT_MODE, 1)
@@ -588,7 +541,6 @@ object SharedManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getChangeDevice(): Int {
  return SPUtils.getInstance().getInt(SP_CHANGE_DEVICE, 0)

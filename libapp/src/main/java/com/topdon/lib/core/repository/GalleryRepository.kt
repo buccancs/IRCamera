@@ -43,7 +43,6 @@ object GalleryRepository {
  if (!targetDir.exists()) {
  targetDir.mkdirs()
  }
- // Comment removed (contained Chinese characters)
  fileList?.forEach {
  val path = sourceDir.absolutePath + File.separator + it.name
  copyPictureFile(path, targetDir.absolutePath + File.separator + it.name)
@@ -75,7 +74,6 @@ object GalleryRepository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun readLatest(dirType: DirType): String {
  var firstPath = ""
@@ -84,7 +82,6 @@ object GalleryRepository {
  val dirFile = File(path)
  if (dirFile.isDirectory) {
  val files = dirFile.listFiles()!!
- // Comment removed (contained Chinese characters)
  files.sortByDescending {
  it.lastModified()
  }
@@ -101,9 +98,6 @@ object GalleryRepository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun loadByPage(
  isVideo: Boolean,
@@ -144,7 +138,6 @@ object GalleryRepository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun loadAllReportImg(dirType: DirType): ArrayList<GalleryBean> =
  withContext(Dispatchers.IO) {
@@ -166,7 +159,6 @@ object GalleryRepository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun loadAllLocale(
  isVideo: Boolean,
@@ -199,7 +191,6 @@ object GalleryRepository {
  resultList.add(it)
  }
  }
- // Comment removed (contained Chinese characters)
  resultList.sortByDescending {
  it.lastModified()
  }
@@ -207,16 +198,13 @@ object GalleryRepository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun loadAllLocaleByMediaStore(dirType: DirType): Array<out File> {
  val tc001Files: MutableList<File> = ArrayList()
- // Comment removed (contained Chinese characters)
  val projection =
  arrayOf(
  MediaStore.Images.Media.DATA,
  )
- // Comment removed (contained Chinese characters)
  val selection = MediaStore.Images.Media.DATA + " LIKE ?"
  val path =
  when (dirType) {
@@ -225,9 +213,7 @@ object GalleryRepository {
  else -> "%DCIM/TS004%"
  }
  val selectionArgs = arrayOf(path)
- // Comment removed (contained Chinese characters)
  val contentResolver: ContentResolver = Utils.getApp().contentResolver
- // Comment removed (contained Chinese characters)
  val queryUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
  val cursor =
  contentResolver.query(

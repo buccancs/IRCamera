@@ -14,7 +14,6 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipBinding
 
 /**
- * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 class TipDialog : Dialog {

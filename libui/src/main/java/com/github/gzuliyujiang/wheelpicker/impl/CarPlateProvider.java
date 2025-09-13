@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2021/6/9 11:31
@@ -213,7 +212,6 @@ public class CarPlateProvider implements LinkageProvider {
  letters.remove("I");
  break;
  case "":
- // Comment removed (contained Chinese characters)
  letters.add("A-V");
  for (char i = 'A'; i <= 'S'; i++) {
  letters.add(String.valueOf(i));

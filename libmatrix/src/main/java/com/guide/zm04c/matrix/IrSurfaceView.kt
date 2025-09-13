@@ -84,7 +84,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  mMatrix.postScale(sca, sca)
  }
  270f -> {
- // Comment removed (contained Chinese characters)
  val sca = ScreenUtils.getScreenWidth() / h
  mMatrix.setRotate(rotate, 0f, 0f)
  mMatrix.postTranslate(0f, w)
@@ -98,7 +97,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun doDraw(
  bitmap: Bitmap?,
@@ -136,7 +134,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private var mColorMatrix =
  ColorMatrix(
  floatArrayOf(
@@ -147,7 +144,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  ),
  )
 
- // Comment removed (contained Chinese characters)
  private var mColorMatrixLut =
  ColorMatrix(
  floatArrayOf(
@@ -159,7 +155,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  )
  private val n = 1f
 
- // Comment removed (contained Chinese characters)
  private var mColorMatrixEnhance =
  ColorMatrix(
 // floatArrayOf(
@@ -184,7 +179,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param saturation 0 ~ 100
  */
  fun setSaturationValue(saturation: Int) {
@@ -202,7 +196,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  override fun surfaceCreated(holder: SurfaceHolder) {
  isPrepare = true
@@ -213,7 +206,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  override fun surfaceChanged(
  holder: SurfaceHolder,
@@ -225,7 +217,6 @@ class IrSurfaceView : SurfaceView, SurfaceHolder.Callback {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  override fun surfaceDestroyed(holder: SurfaceHolder) {
  synchronized(this) {

@@ -10,7 +10,6 @@ import java.io.IOException;
 
 /**
  * HexUtil
- * Comment removed (contained Chinese characters)
  *
 * @author chuanfeng.bi
  * @date 2021/8/27 10:33
@@ -46,9 +45,7 @@ public class HexUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static byte[] toByteArray(String hexStr) {
  String s = hexStr.replaceAll("", "");
@@ -108,7 +105,6 @@ public class HexUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param hex
  * @return
@@ -130,7 +126,6 @@ public class HexUtil {
  bytes = bytes.toUpperCase();
  String hexString = "0123456789ABCDEFabcdef";
  ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length() / 2);
- // Comment removed (contained Chinese characters)
  for (int i = 0; i < bytes.length(); i += 2)
  baos.write((hexString.indexOf(bytes.charAt(i)) << 4 | hexString.indexOf(bytes.charAt(i + 1))));
  return new String(baos.toByteArray());

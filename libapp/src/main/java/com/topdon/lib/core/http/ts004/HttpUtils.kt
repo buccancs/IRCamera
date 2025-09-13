@@ -5,9 +5,6 @@ import com.topdon.lms.sdk.xutils.x
 
 object HttpUtils {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @ void
  */
  fun setPseudoColor(
@@ -23,7 +20,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getPseudoColor(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()
@@ -33,9 +29,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @ void
  */
  fun setBrightness(
@@ -50,7 +43,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getBrightness(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()
@@ -61,7 +53,6 @@ object HttpUtils {
 
  /**
  * settingspicture-in-picture
- * Comment removed (contained Chinese characters)
  * @ void
  */
  fun setPip(
@@ -76,7 +67,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getPip(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()
@@ -86,9 +76,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @ void
  */
  fun setZoom(
@@ -104,7 +91,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getZoom(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()
@@ -115,7 +101,6 @@ object HttpUtils {
 
  /**
  * settingscapture
- * Comment removed (contained Chinese characters)
  * @void
  */
  fun setCamera(iResponseCallback: Callback.CommonCallback<String>?) {
@@ -127,8 +112,6 @@ object HttpUtils {
 
  /**
  * settingsrecording
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @void
  */
  fun setVideo(
@@ -143,8 +126,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @void
  */
  fun getVideoStatus(iResponseCallback: Callback.CommonCallback<String>?) {
@@ -155,7 +136,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getVersion(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()
@@ -165,7 +145,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getDeviceDetails(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()
@@ -175,7 +154,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getFreeSpace(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()
@@ -185,7 +163,6 @@ object HttpUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getResetAll(iResponseCallback: Callback.CommonCallback<String>?) {
  val params = RequestParams()

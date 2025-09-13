@@ -8,10 +8,7 @@ import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.TempPointType
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/11/28.
  */
@@ -23,7 +20,6 @@ internal class TempPointAdapter : BaseMenuAdapter() {
  var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setSelected(
  tempPointType: TempPointType,
@@ -39,7 +35,6 @@ internal class TempPointAdapter : BaseMenuAdapter() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * Maintain original logic here, consider whether to directly delete selected items later。
  */
  fun clearAllSelect() {

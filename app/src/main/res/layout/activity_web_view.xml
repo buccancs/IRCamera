@@ -19,7 +19,6 @@
  android:layout_height="match_parent"
  android:background="#16131e" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <androidx.constraintlayout.widget.ConstraintLayout
  android:id="@+id/cl_error"
  android:layout_width="match_parent"

@@ -1,7 +1,6 @@
 package com.topdon.lib.ui.config
 
 /**
- * Comment removed (contained Chinese characters)
 * @author: CaiSongL
  * @date: 2023/4/4 9:57
  */
@@ -14,17 +13,14 @@ package com.topdon.lib.ui.config
  */
 object CameraHelp {
  /**
- * Comment removed (contained Chinese characters)
  */
  val TYPE_SET_PSEUDOCOLOR = 4
 
  /**
- * Comment removed (contained Chinese characters)
  */
  val TYPE_SET_ParamLevelContrast = 3
 
  /**
- * Comment removed (contained Chinese characters)
  */
  val TYPE_SET_ParamLevelDde = 2
 
@@ -34,7 +30,6 @@ object CameraHelp {
  val TYPE_SET_ALARM = 12 // 
 
  /**
- * Comment removed (contained Chinese characters)
  */
  val TYPE_SET_ROTATE = 1
 
@@ -44,21 +39,17 @@ object CameraHelp {
  val TYPE_SET_COLOR = 13 // colorValue
 
  /**
- * Comment removed (contained Chinese characters)
  */
  val TYPE_SET_MIRROR = 14 // 
 
  /**
- * Comment removed (contained Chinese characters)
  */
  val TYPE_SET_WATERMARK = 15 // watermark
 
  /**
- * Comment removed (contained Chinese characters)
  */
  val TYPE_SET_COMPASS = 23 // 
 
- // Comment removed (contained Chinese characters)
  val TYPE_SET_HIGHTEMP = 20 // Temp
  val TYPE_SET_LOWTEMP = 21 // Temp
  val TYPE_SET_DETELE = 22 // Delete

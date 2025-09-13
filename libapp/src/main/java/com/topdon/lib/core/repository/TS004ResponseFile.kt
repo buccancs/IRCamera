@@ -1,14 +1,7 @@
 package com.topdon.lib.core.repository
 
-// Comment removed (contained Chinese characters)
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class TS004Response<T>(
  val command: Int,
@@ -18,15 +11,12 @@ data class TS004Response<T>(
  val transmit_cast: Int,
 ) {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isSuccess(): Boolean = status == 0
 }
 
 /**
- * Comment removed (contained Chinese characters)
  * @param enable
- * Comment removed (contained Chinese characters)
  */
 data class PseudoColorBean(
  val enable: Boolean?,
@@ -34,23 +24,18 @@ data class PseudoColorBean(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class RangeBean(
  val state: Int?,
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class PipBean(
  val enable: Boolean?,
 )
 
 /**
- * Comment removed (contained Chinese characters)
  * brightness: Int
  */
 data class BrightnessBean(
@@ -58,35 +43,25 @@ data class BrightnessBean(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class ZoomBean(
  val factor: Int?,
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class TISRBean(
  val enable: Int?,
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class VersionBean(
  val firmware: String?,
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @param sn sn
- * Comment removed (contained Chinese characters)
  */
 data class DeviceInfo(
  val code: String,
@@ -96,18 +71,12 @@ data class DeviceInfo(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class FileCountBean(
  val fileCount: Int,
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class FilePageBean(
  val current: Int,
@@ -116,14 +85,6 @@ data class FilePageBean(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class FileBean(
  val id: Int,
@@ -137,9 +98,6 @@ data class FileBean(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class UpgradeStatus(
  val status: Int,
@@ -147,12 +105,6 @@ data class UpgradeStatus(
 )
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class FreeSpaceBean(
  val total: Long,
@@ -165,11 +117,6 @@ data class FreeSpaceBean(
 }
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class RecordStatusBean(
  val errCode: Int,

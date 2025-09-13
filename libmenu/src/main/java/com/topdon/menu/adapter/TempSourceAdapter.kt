@@ -7,7 +7,6 @@ import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * dynamic recognition、high temperature source、low temperature source
  *
@@ -16,7 +15,6 @@ import com.topdon.menu.R as MenuR
 @SuppressLint("NotifyDataSetChanged")
 internal class TempSourceAdapter : BaseMenuAdapter() {
  /**
- * Comment removed (contained Chinese characters)
  *
  * Due to legacy constraints (saved in SharedPreferences), the code values are:
  * - Nothing selected: -1

@@ -18,7 +18,6 @@ import com.infisense.usbir.utils.TargetUtils
 import com.topdon.lib.core.bean.ObserveBean
 
 /**
- * Comment removed (contained Chinese characters)
  */
 class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListener {
  private var centerX: Float = Float.MAX_VALUE
@@ -97,7 +96,6 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
  val layoutParams = mTextureView.layoutParams
  layoutParams.width = showBitmapHeightWidth.toInt()
  layoutParams.height = showBitmapHeight.toInt()
-// Comment removed (contained Chinese characters)
  mTextureView.layoutParams = layoutParams
  (mTextureView as ImageView).setImageBitmap(originalBitmap)
  }
@@ -117,7 +115,6 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
  private var scaleW = 0f // 
  private var scaleH = 0f
 
- // Comment removed (contained Chinese characters)
  private lateinit var originalBitmap: Bitmap
  private var imageWidth = 0
  private var imageHeight = 0
@@ -156,10 +153,8 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
  MotionEvent.ACTION_MOVE -> {
  if (isCheckChildView)
  {
- // Comment removed (contained Chinese characters)
  moveX = event.x - startX
  moveY = event.y - startY
- // Comment removed (contained Chinese characters)
  if (m < 100f && m >= 50f)
  {
  contentWith = (mTextureView.measuredWidth / 2).toInt()
@@ -270,7 +265,6 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
  }
 
  override fun onScale(detector: ScaleGestureDetector): Boolean {
- // Comment removed (contained Chinese characters)
  isScale = true
  detector?.let {
  val scaleFactor = it.scaleFactor - 1
@@ -289,7 +283,6 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
  override fun onScaleEnd(detector: ScaleGestureDetector) {
  }
 
- /* Comment removed (contained Chinese characters) */
  private var mPreviewSize: Size? = null
 
  fun setRotation(isReverse: Boolean) {
@@ -363,7 +356,6 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
  val targetIcon = TargetUtils.getSelectTargetDraw(targetMeasureMode, targetType, targetColorType)
  originalBitmap = (androidx.core.content.ContextCompat.getDrawable(context, targetIcon) as? BitmapDrawable)?.bitmap ?: return
  (mTextureView as ImageView).setImageBitmap(originalBitmap)
-// Comment removed (contained Chinese characters)
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
  magnifier?.dismiss()
  if (m >= 100f)
@@ -444,7 +436,6 @@ class ZoomCaliperView : LinearLayout, ScaleGestureDetector.OnScaleGestureListene
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun del(reductionXY: Boolean) {
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

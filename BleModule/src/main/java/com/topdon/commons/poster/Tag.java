@@ -7,7 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Comment removed (contained Chinese characters)
  * <p>
  * date: 2019/8/2 23:53
 * author: chuanfeng.bi

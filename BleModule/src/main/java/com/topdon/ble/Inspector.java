@@ -6,10 +6,7 @@ package com.topdon.ble;
  */
 final class Inspector {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  static <T> T requireNonNull(T obj, String message) {
  if (obj == null)

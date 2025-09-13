@@ -19,13 +19,9 @@ import com.topdon.lib.core.utils.ByteUtils.toHexString
 import org.greenrobot.eventbus.EventBus
 
 /**
- * Comment removed (contained Chinese characters)
  */
 object DeviceTools {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun isConnect(
  isSendConnectEvent: Boolean = false,
@@ -69,7 +65,6 @@ object DeviceTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isTC001PlusConnect(): Boolean {
  val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -88,7 +83,6 @@ object DeviceTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isTC001LiteConnect(): Boolean {
  val usbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -102,7 +96,6 @@ object DeviceTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isHikConnect(): Boolean {
  val usbManager: UsbManager = Utils.getApp().getSystemService(Context.USB_SERVICE) as UsbManager
@@ -115,10 +108,8 @@ object DeviceTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * UsbManager.requestPermission
- * Comment removed (contained Chinese characters)
  * targetSdk 27
  */
  fun requestUsb(

@@ -43,7 +43,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  protected Paint paint = new Paint();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected void initScreenW_H() {
  screenHeight = ScreenUtil.getScreenHeight(getContext()) - 40;
@@ -91,14 +90,12 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  dragDirection = getDirection(v, (int) event.getX(),
  (int) event.getY());
  }
- // Comment removed (contained Chinese characters)
  delDrag(v, event, action);
  invalidate();
  return false;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v
  * @param event
@@ -155,7 +152,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v
  * @param dx
@@ -186,7 +182,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v
  * @param dy
@@ -202,7 +197,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v
  * @param dy
@@ -218,7 +212,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v
  * @param dx
@@ -234,7 +227,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v
  * @param dx
@@ -250,7 +242,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param v
  * @param x
@@ -290,7 +281,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return
  */
@@ -299,7 +289,6 @@ public class DragScaleView extends FrameLayout implements View.OnTouchListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return
  */

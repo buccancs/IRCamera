@@ -172,7 +172,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  private const val TAG = "MainActivity"
  }
 
- // Comment removed (contained Chinese characters)
  private fun logInfo() {
  try {
  val str = StringBuilder()
@@ -261,7 +260,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  }
 
  if (!SharedManager.hasTcLine && !SharedManager.hasTS004 && !SharedManager.hasTC007) {
- // Comment removed (contained Chinese characters)
  if (DeviceTools.isConnect()) {
  if (!WebSocketProxy.getInstance().isConnected()) {
  NavigationManager.build(RouterConfig.IR_MAIN)
@@ -294,7 +292,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  override fun onStart() {
  super.onStart()
 
- // Comment removed (contained Chinese characters)
  versionViewModel.updateLiveData.observe(this) {
  FirmwareUpDialog(this).apply {
  titleStr = getString(com.topdon.lib.core.R.string.update_new_version)
@@ -313,7 +310,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
  private fun updateApk(url: String) {
  if (applicationInfo.targetSdkVersion < Build.VERSION_CODES.P) {
- // Comment removed (contained Chinese characters)
  val intent = Intent()
  intent.action = "android.intent.action.VIEW"
  intent.data = Uri.parse(url)
@@ -456,8 +452,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun refreshTabSelect(index: Int) {
  binding.ivIconGallery.isSelected = false
@@ -494,7 +488,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  if (WebSocketProxy.getInstance().isTS004Connect()) {
  NavigationManager.build(RouterConfig.IR_MONOCULAR).navigation(this)
  }
- // Comment removed (contained Chinese characters)
  if (tipOtgDialog != null && tipOtgDialog!!.isShowing) {
  return
  }
@@ -548,9 +541,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private fun getNeedPermissionList(): SparseArray<List<String>> {
  val sparseArray = SparseArray<List<String>>()
@@ -586,7 +576,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  ) {
  if (BaseApplication.instance.isDomestic()) {
  if (SharedManager.getMainPermissionsState()) {
- // Comment removed (contained Chinese characters)
  return
  }
  TipDialog.Builder(this)
@@ -605,7 +594,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun initCameraPermission() {
  XXPermissions.with(this)
@@ -629,7 +617,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  SharedManager.setMainPermissionsState(true)
  }
  if (doNotAskAgain) {
- // Comment removed (contained Chinese characters)
  TipDialog.Builder(this@MainActivity)
  .setTitleMessage(getString(R.string.app_tip))
  .setMessage(
@@ -671,7 +658,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun initStoragePermission() {
  if (PermissionUtils.isVisualUser()) {
@@ -698,7 +684,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
  doNotAskAgain: Boolean,
  ) {
  if (doNotAskAgain) {
- // Comment removed (contained Chinese characters)
  TipDialog.Builder(this@MainActivity)
  .setTitleMessage(getString(R.string.app_tip))
  .setMessage(getString(R.string.app_album_content))

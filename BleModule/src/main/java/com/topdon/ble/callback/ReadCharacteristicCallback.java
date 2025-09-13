@@ -8,10 +8,7 @@ import com.topdon.ble.Request;
  */
 public interface ReadCharacteristicCallback extends RequestFailedCallback {
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  void onCharacteristicRead(Request request, byte[] value);
 }

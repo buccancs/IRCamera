@@ -14,10 +14,7 @@ import com.topdon.lib.core.config.ExtraKeyConfig
 import com.topdon.lib.core.ktbase.BaseBindingActivity
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/12/18.
  */

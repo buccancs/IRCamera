@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Comment removed (contained Chinese characters)
  * <p>
  * date: 2019/8/3 13:14
 * author: chuanfeng.bi
@@ -27,8 +26,6 @@ public final class Observable {
  private final ObserverMethodHelper helper;
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public Observable(@NonNull PosterDispatcher posterDispatcher, boolean isObserveAnnotationRequired) {
  this.posterDispatcher = posterDispatcher;
@@ -36,16 +33,13 @@ public final class Observable {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public PosterDispatcher getPosterDispatcher() {
  return posterDispatcher;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public void registerObserver(@NonNull Observer observer) {
  Objects.requireNonNull(observer, "observer can't be null");
@@ -70,9 +64,7 @@ public final class Observable {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public boolean isRegistered(@NonNull Observer observer) {
  synchronized (observerInfos) {
@@ -86,9 +78,7 @@ public final class Observable {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public void unregisterObserver(@NonNull Observer observer) {
  synchronized (observerInfos) {
@@ -103,7 +93,6 @@ public final class Observable {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void unregisterAll() {
  synchronized (observerInfos) {
@@ -126,19 +115,14 @@ public final class Observable {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void notifyObservers(@NonNull String methodName, @Nullable MethodInfo.Parameter... parameters) {
  notifyObservers(new MethodInfo(methodName, parameters));
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public void notifyObservers(@NonNull MethodInfo info) {
  List<ObserverInfo> infos = getObserverInfos();

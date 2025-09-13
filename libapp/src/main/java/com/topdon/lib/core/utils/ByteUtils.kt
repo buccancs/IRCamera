@@ -112,7 +112,6 @@ object ByteUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun ByteArray.descBytes() =
  run {
@@ -124,7 +123,6 @@ object ByteUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun bigBytesToInt(vararg bytes: Byte): Int {
  val byteCount = bytes.size.coerceAtMost(4)
@@ -136,7 +134,6 @@ object ByteUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun Float.toLittleBytes(): ByteArray {
  val result = ByteArray(4)

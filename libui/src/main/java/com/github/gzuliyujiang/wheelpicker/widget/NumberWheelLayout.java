@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2021/6/5 18:35
@@ -107,7 +106,6 @@ public class NumberWheelLayout extends OptionWheelLayout {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Deprecated
  @Override
@@ -116,7 +114,6 @@ public class NumberWheelLayout extends OptionWheelLayout {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Deprecated
  @Override
@@ -131,7 +128,6 @@ public class NumberWheelLayout extends OptionWheelLayout {
  public void setRange(int min, int max, int step) {
  int minValue = Math.min(min, max);
  int maxValue = Math.max(min, max);
- // Comment removed (contained Chinese characters)
  int capacity = (maxValue - minValue) / step;
  List<Integer> data = new ArrayList<>(capacity);
  for (int i = minValue; i <= maxValue; i = i + step) {
@@ -143,7 +139,6 @@ public class NumberWheelLayout extends OptionWheelLayout {
  public void setRange(float min, float max, float step) {
  float minValue = Math.min(min, max);
  float maxValue = Math.max(min, max);
- // Comment removed (contained Chinese characters)
  int capacity = (int) ((maxValue - minValue) / step);
  List<Float> data = new ArrayList<>(capacity);
  for (float i = minValue; i <= maxValue; i = i + step) {

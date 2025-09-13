@@ -52,9 +52,6 @@ object TS004Repository {
  .create(TS004Service::class.java)
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun downloadList(
  dataMap: Map<String, File>,
@@ -110,7 +107,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun syncTime(): Boolean =
  withContext(Dispatchers.IO) {
@@ -131,7 +127,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun syncTimeZone(): Boolean =
  withContext(Dispatchers.IO) {
@@ -145,7 +140,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getVersion(): TS004Response<VersionBean>? =
  withContext(Dispatchers.IO) {
@@ -157,7 +151,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getDeviceInfo(): TS004Response<DeviceInfo>? =
  withContext(Dispatchers.IO) {
@@ -169,8 +162,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun getFileCount(fileType: Int): Int? =
  withContext(Dispatchers.IO) {
@@ -184,8 +175,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun getNewestFile(fileType: Int): List<FileBean>? =
  withContext(Dispatchers.IO) {
@@ -201,8 +190,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun getAllFileList(fileType: Int): List<FileBean> =
  withContext(Dispatchers.IO) {
@@ -223,9 +210,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun getFileByPage(
  fileType: Int,
@@ -247,7 +231,6 @@ object TS004Repository {
  data class IdData(val id: Int)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun deleteFiles(ids: Array<Int>): Boolean =
  withContext(Dispatchers.IO) {
@@ -266,7 +249,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun updateFirmware(file: File): Boolean =
  withContext(Dispatchers.IO) {
@@ -362,8 +344,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setPseudoColor(mode: Int): Boolean =
  withContext(Dispatchers.IO) {
@@ -378,7 +358,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getPseudoColor(): TS004Response<PseudoColorBean>? =
  withContext(Dispatchers.IO) {
@@ -390,8 +369,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setRangeFind(state: Int): Boolean =
  withContext(Dispatchers.IO) {
@@ -405,7 +382,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getRangeFind(): TS004Response<RangeBean>? =
  withContext(Dispatchers.IO) {
@@ -417,8 +393,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setPanelParam(brightness: Int): Boolean =
  withContext(Dispatchers.IO) {
@@ -432,7 +406,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getPanelParam(): TS004Response<BrightnessBean>? =
  withContext(Dispatchers.IO) {
@@ -444,8 +417,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setPip(enable: Boolean): Boolean =
  withContext(Dispatchers.IO) {
@@ -459,7 +430,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getPip(): TS004Response<PipBean>? =
  withContext(Dispatchers.IO) {
@@ -471,8 +441,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setZoom(factor: Int): Boolean =
  withContext(Dispatchers.IO) {
@@ -487,7 +455,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getZoom(): TS004Response<ZoomBean>? =
  withContext(Dispatchers.IO) {
@@ -499,8 +466,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setSnapshot(): Boolean =
  withContext(Dispatchers.IO) {
@@ -512,8 +477,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setVideo(enable: Boolean): Boolean =
  withContext(Dispatchers.IO) {
@@ -527,7 +490,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getRecordStatus(): TS004Response<RecordStatusBean>? =
  withContext(Dispatchers.IO) {
@@ -539,7 +501,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getFreeSpace(): FreeSpaceBean? =
  withContext(Dispatchers.IO) {
@@ -551,7 +512,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getFormatStorage(): Boolean =
  withContext(Dispatchers.IO) {
@@ -563,12 +523,10 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getResetAll(): Boolean =
  withContext(Dispatchers.IO) {
  try {
- // Comment removed (contained Chinese characters)
  getTS004Service().resetAll().status == 100
  } catch (_: Exception) {
  false
@@ -576,8 +534,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setTISR(state: Int): Boolean =
  withContext(Dispatchers.IO) {
@@ -591,7 +547,6 @@ object TS004Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getTISR(): TS004Response<TISRBean>? =
  withContext(Dispatchers.IO) {

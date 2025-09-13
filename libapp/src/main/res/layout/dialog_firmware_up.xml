@@ -58,7 +58,6 @@
  app:layout_constraintTop_toTopOf="parent"
  app:layout_constraintBottom_toTopOf="@+id/tv_size" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <TextView
  android:id="@+id/tv_size"
  android:layout_width="0dp"

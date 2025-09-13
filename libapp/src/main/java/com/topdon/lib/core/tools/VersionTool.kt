@@ -18,7 +18,6 @@ object VersionTool {
  str.toFloat()
  versionStr = str
  } catch (e: Exception) {
- // Comment removed (contained Chinese characters)
  }
  }
 
@@ -26,7 +25,6 @@ object VersionTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun checkNewVersion(
  serverVersionStr: String,
@@ -44,7 +42,6 @@ object VersionTool {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun checkVersion(
  remoteStr: String,

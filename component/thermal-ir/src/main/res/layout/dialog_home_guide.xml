@@ -5,7 +5,6 @@
  android:layout_width="match_parent"
  android:layout_height="match_parent">
 
- <!-- Comment removed (contained Chinese characters) -->
  <ImageView
  android:id="@+id/iv_blur_bg"
  android:layout_width="0dp"

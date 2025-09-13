@@ -10,7 +10,6 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 class TipCameraProgressDialog : Dialog {
@@ -51,10 +50,8 @@ class TipCameraProgressDialog : Dialog {
  val lp = dialog!!.window!!.attributes
  val wRatio =
  if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
- // Comment removed (contained Chinese characters)
  0.52
  } else {
- // Comment removed (contained Chinese characters)
  0.35
  }
  lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings
@@ -67,7 +64,6 @@ class TipCameraProgressDialog : Dialog {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  interface OnClickListener {
  fun onClick(dialog: DialogInterface)

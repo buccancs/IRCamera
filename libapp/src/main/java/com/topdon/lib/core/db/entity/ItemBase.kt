@@ -10,7 +10,6 @@ import com.blankj.utilcode.util.Utils
 import com.topdon.lib.core.R
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/8/19.
  */
@@ -19,55 +18,46 @@ open class ItemBase {
  var id: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo(index = true)
  open var parentId: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var position: Int = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var itemName: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var state: Int = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var inputText: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var image1: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var image2: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var image3: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var image4: String = ""
@@ -77,7 +67,6 @@ open class ItemBase {
  override fun hashCode(): Int = id.toInt()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getStateStr(context: Context): String =
  when (state) {
@@ -137,7 +126,6 @@ open class ItemBase {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param imageNum `[1,4]`
  */
  fun delOneImage(imageNum: Int) {
@@ -189,7 +177,6 @@ open class ItemBase {
 }
 
 /**
- * Comment removed (contained Chinese characters)
  */
 @Entity(
  foreignKeys = [
@@ -211,30 +198,25 @@ class ItemDetect() : ItemBase() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo(index = true)
  override var parentId: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var hasSelect = false
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var dirDetect = DirDetect()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun copyName(): String = "$itemName(1)"
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun copyOne(
  parentId: Long = this.parentId,
@@ -258,7 +240,6 @@ class ItemDetect() : ItemBase() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun toItemReport(): ItemReport {
  val itemReport = ItemReport()
@@ -277,7 +258,6 @@ class ItemDetect() : ItemBase() {
 
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun buildDefaultItemList(
  parentId: Long,
@@ -378,7 +358,6 @@ class ItemDetect() : ItemBase() {
 }
 
 /**
- * Comment removed (contained Chinese characters)
  */
 @Entity(
  foreignKeys = [
@@ -393,7 +372,6 @@ class ItemDetect() : ItemBase() {
 )
 class ItemReport : ItemBase() {
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo(index = true)
  override var parentId: Long = 0

@@ -173,11 +173,8 @@ public class USBMonitorDualManager {
  .build();
  mIrUvcCamera.setDefaultBandwidth(irBandWidth);
  mIrUvcCamera.setDefaultPreviewMaxFps(irFps);
- // Comment removed (contained Chinese characters)
  mIrUvcCamera.openUVCCamera(controlBlock);
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 
  initIRCMD();
@@ -224,11 +221,8 @@ public class USBMonitorDualManager {
  mVlUvcCamera.setDefaultPreviewMode(CommonParams.FRAMEFORMATType.FRAME_FORMAT_MJPEG);
  mVlUvcCamera.setDefaultBandwidth(vlBandWidth);
  mVlUvcCamera.setDefaultPreviewMaxFps(vlFps);
- // Comment removed (contained Chinese characters)
  mVlUvcCamera.openUVCCamera(controlBlock);
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 
  mVlUvcCamera.setUSBPreviewSize(vlWidth, vlHeight);

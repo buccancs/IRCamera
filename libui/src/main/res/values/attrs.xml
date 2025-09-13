@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
- <!-- Comment removed (contained Chinese characters) -->
  <declare-styleable name="BarPickView">
  <attr name="android:max" />
  <attr name="android:progress" />
@@ -17,7 +16,6 @@
  </attr>
  </declare-styleable>
 
- <!-- Comment removed (contained Chinese characters) -->
  <declare-styleable name="RoundImageView">
  <attr name="round_radius" format="dimension"/>
  <attr name="round_position">
@@ -36,19 +34,15 @@
  <attr name="guide_icon_show" format="boolean" />
  </declare-styleable>
 
- <!-- Comment removed (contained Chinese characters) -->
  <declare-styleable name="CountDownView">
  <!-- color -->
  <attr name="ringColor" format="color" />
- <!-- Comment removed (contained Chinese characters) -->
  <attr name="progressTextSize" format="dimension" />
- <!-- Comment removed (contained Chinese characters) -->
  <attr name="ringWidth" format="dimension" />
  <!-- ProgressTextcolor -->
  <attr name="progressTextColor" format="color" />
  <!-- Text -->
  <attr name="progressText" format="string" />
- <!-- Comment removed (contained Chinese characters) -->
  <attr name="countdownTime" format="integer" />
  </declare-styleable>
 

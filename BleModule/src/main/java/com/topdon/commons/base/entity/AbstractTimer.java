@@ -7,7 +7,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Comment removed (contained Chinese characters)
  * 
  * date: 2019/8/6 13:31
 * author: chuanfeng.bi

@@ -23,10 +23,7 @@ import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/10/14.
  */
@@ -34,7 +31,6 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
  protected lateinit var binding: B
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @LayoutRes
  protected abstract fun initContentLayoutId(): Int
@@ -88,12 +84,10 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var loadingDialog: LoadingDialog? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showLoadingDialog(
  @StringRes resId: Int = R.string.tip_loading,
@@ -102,7 +96,6 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showLoadingDialog(text: CharSequence?) {
  if (loadingDialog == null) {
@@ -113,7 +106,6 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun dismissLoadingDialog() {
  loadingDialog?.dismiss()

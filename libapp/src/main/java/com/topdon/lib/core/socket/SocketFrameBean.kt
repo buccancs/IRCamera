@@ -1,49 +1,10 @@
 package com.topdon.lib.core.socket
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 data class SocketFrameBean(
- // Comment removed (contained Chinese characters)
  val isMaxShow: Boolean,
  val isMinShow: Boolean,
  val isCenterShow: Boolean,
@@ -59,7 +20,6 @@ data class SocketFrameBean(
  val isMaxWarn: Boolean,
  val isMinWarn: Boolean,
  val isCenterWarn: Boolean,
- // Comment removed (contained Chinese characters)
  val isP1Show: Boolean,
  val p1X: Int,
  val p1Y: Int,
@@ -81,7 +41,6 @@ data class SocketFrameBean(
  val isP3MaxWarn: Boolean,
  val isP3MinWarn: Boolean,
  val isP3CenterWarn: Boolean,
- // Comment removed (contained Chinese characters)
  val isL1Show: Boolean,
  val l1StartX: Int,
  val l1StartY: Int,
@@ -127,7 +86,6 @@ data class SocketFrameBean(
  val isL3MaxWarn: Boolean,
  val isL3MinWarn: Boolean,
  val isL3CenterWarn: Boolean,
- // Comment removed (contained Chinese characters)
  val isR1Show: Boolean,
  val r1StartX: Int,
  val r1StartY: Int,

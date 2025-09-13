@@ -7,11 +7,9 @@
  <!-- <dimen name="ir_width">360dp</dimen>-->
  <!-- <dimen name="ir_height">480dp</dimen>-->
 
- <!-- Comment removed (contained Chinese characters) -->
  <dimen name="cross_width">36dp</dimen>
  <dimen name="cross_height">36dp</dimen>
 
- <!-- Comment removed (contained Chinese characters) -->
  <dimen name="high_cross_width">36dp</dimen>
  <dimen name="high_cross_height">36dp</dimen>
 </resources>

@@ -25,7 +25,6 @@ import com.github.gzuliyujiang.wheelpicker.contract.OnTimePickedListener;
 import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2021/6/5 18:19

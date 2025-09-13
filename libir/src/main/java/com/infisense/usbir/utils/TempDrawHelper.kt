@@ -10,30 +10,24 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/12/6.
  */
 class TempDrawHelper {
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  private val POINT_SIZE: Int = SizeUtils.dp2px(16f)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val CIRCLE_RADIUS: Int = SizeUtils.dp2px(3f)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val TEMP_TEXT_OFFSET = SizeUtils.dp2px(6f)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun Float.correctPoint(max: Int): Int =
  this.toInt()
@@ -41,7 +35,6 @@ class TempDrawHelper {
  .coerceAtMost(max - POINT_SIZE / 2)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun Float.correct(max: Int): Int =
  this.toInt()
@@ -49,7 +42,6 @@ class TempDrawHelper {
  .coerceAtMost(max - CIRCLE_RADIUS)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getRect(
  width: Int,
@@ -58,7 +50,6 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var textSize: Int
  get() = textPaint.textSize.toInt()
@@ -67,7 +58,6 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var textColor: Int
  @ColorInt get() = textPaint.color
@@ -78,24 +68,18 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val bluePaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private val redPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -114,9 +98,7 @@ class TempDrawHelper {
  // ******************************************** Draw ********************************************
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun drawPoint(
  canvas: Canvas,
@@ -132,9 +114,7 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun drawLine(
  canvas: Canvas,
@@ -147,9 +127,7 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun drawRect(
  canvas: Canvas,
@@ -168,10 +146,7 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun drawCircle(
  canvas: Canvas,
@@ -183,11 +158,7 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun drawTempText(
  canvas: Canvas,
@@ -213,10 +184,7 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun drawTrendText(
  canvas: Canvas,
@@ -247,11 +215,7 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun drawPointName(
  canvas: Canvas,
@@ -280,10 +244,7 @@ class TempDrawHelper {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  fun drawPointRectName(
  canvas: Canvas,

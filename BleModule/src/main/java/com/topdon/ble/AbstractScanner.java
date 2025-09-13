@@ -64,7 +64,6 @@ abstract class AbstractScanner implements Scanner {
  scanListeners.remove(listener);
  }
 
- // Comment removed (contained Chinese characters)
  private boolean isLocationEnabled(Context context) {
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
  LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -79,7 +78,6 @@ abstract class AbstractScanner implements Scanner {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private boolean noLocationPermission(Context context) {
  int sdkVersion = context.getApplicationInfo().targetSdkVersion;
  if (sdkVersion >= 29) {//target sdk29
@@ -90,33 +88,26 @@ abstract class AbstractScanner implements Scanner {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private boolean noBluetoothPermission(Context context) {
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
- // Comment removed (contained Chinese characters)
  return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
  ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED;
  } else {
- // Comment removed (contained Chinese characters)
  return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED ||
  ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED;
  }
  }
 
- // Comment removed (contained Chinese characters)
  private boolean hasBluetoothConnectPermission(Context context) {
  if (context == null) return false;
  
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
- // Comment removed (contained Chinese characters)
  return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
  } else {
- // Comment removed (contained Chinese characters)
  return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED;
  }
  }
 
- // Comment removed (contained Chinese characters)
  void handleScanCallback(final boolean start, final Device device, final boolean isConnectedBySys,
  final int errorCode, final String errorMsg) {
  mainHandler.post(() -> {
@@ -134,7 +125,6 @@ abstract class AbstractScanner implements Scanner {
  });
  }
 
- // Comment removed (contained Chinese characters)
  @SuppressWarnings("all")
  private void getSystemConnectedDevices(Context context) {
  try {
@@ -154,7 +144,6 @@ abstract class AbstractScanner implements Scanner {
  }
  } catch (Exception ignore) {
  }
- // Comment removed (contained Chinese characters)
  for (int i = 1; i <= 21; i++) {
  try {
  getSystemConnectedDevices(context, i);
@@ -232,7 +221,6 @@ abstract class AbstractScanner implements Scanner {
  }
  String name = deviceName == null ? "" : deviceName;
  if (configuration.rssiLowLimit <= rssi) {
- // Comment removed (contained Chinese characters)
  Device dev = deviceCreator.create(device, result);
  if (dev != null) {
  dev.name = TextUtils.isEmpty(dev.getName()) ? name : dev.getName();
@@ -330,7 +318,6 @@ abstract class AbstractScanner implements Scanner {
 
  private final Runnable stopScanRunnable = () -> stopScan(false);
 
- // Comment removed (contained Chinese characters)
  private boolean isBtEnabled() {
  if (bluetoothAdapter.isEnabled()) {
  try {
@@ -360,17 +347,14 @@ abstract class AbstractScanner implements Scanner {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected abstract boolean isReady();
  
  /**
- * Comment removed (contained Chinese characters)
  */
  protected abstract void performStartScan();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected abstract void performStopScan();
 }

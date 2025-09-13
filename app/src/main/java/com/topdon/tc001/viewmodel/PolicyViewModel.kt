@@ -11,7 +11,6 @@ class PolicyViewModel : BaseViewModel() {
  val htmlViewData = SingleLiveEvent<HtmlBean>()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getUrl(type: Int) {
  viewModelScope.launch(Dispatchers.IO) {

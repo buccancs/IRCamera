@@ -41,7 +41,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/4/18.
  */
@@ -139,7 +138,6 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
  viewLifecycleOwner.lifecycle.addObserver(
  object : DefaultLifecycleObserver {
  override fun onResume(owner: LifecycleOwner) {
- // Comment removed (contained Chinese characters)
  if (WebSocketProxy.getInstance().isConnected()) {
  NetWorkUtils.switchNetwork(true)
  }
@@ -225,7 +223,6 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
 
  private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
  /**
- * Comment removed (contained Chinese characters)
  */
  var hasConnectLine: Boolean = false
  set(value) {
@@ -234,7 +231,6 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var hasConnectTS004: Boolean = false
  set(value) {
@@ -243,7 +239,6 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var hasConnectTC007: Boolean = false
  set(value) {
@@ -252,7 +247,6 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  var tc007Battery: BatteryInfo? = null
  set(value) {
@@ -329,7 +323,6 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>(), View.OnClickLis
  ivBg.setOnLongClickListener {
  val position = bindingAdapterPosition
  if (position != RecyclerView.NO_POSITION) {
- // Comment removed (contained Chinese characters)
  val deviceType = getConnectType(position)
  when (deviceType) {
  ConnectType.LINE -> {

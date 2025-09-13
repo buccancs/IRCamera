@@ -6,7 +6,6 @@ package com.infisense.usbir.utils;
 public class HexUtils {
 
  /**
- * Comment removed (contained Chinese characters)
  * @return
  */
  public static String binaryToHexString(byte[] bytes) {

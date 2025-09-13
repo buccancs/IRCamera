@@ -3,10 +3,8 @@ package com.guide.zm04c.matrix
 class RingBuffer {
  private lateinit var byteArray: ByteArray
 
- // Comment removed (contained Chinese characters)
  private var mReadPositon = 0
 
- // Comment removed (contained Chinese characters)
  private var mUnReadLength = 0
 
  /**
@@ -120,7 +118,6 @@ class RingBuffer {
  return toRead
  }
 
- // Comment removed (contained Chinese characters)
  fun moveForward(length: Int): Int {
  synchronized(this) {
  mReadPositon = (mReadPositon + length) % byteArray.size
@@ -129,7 +126,6 @@ class RingBuffer {
  return length
  }
 
- // Comment removed (contained Chinese characters)
  fun moveBack(length: Int): Int {
  synchronized(this) {
  if (mReadPositon > length) {

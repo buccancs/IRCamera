@@ -16,22 +16,16 @@ import com.topdon.lib.ui.R as UiR
  */
 class RoundImageView : AppCompatImageView {
  companion object {
- /* Comment removed (contained Chinese characters) */
  const val LEFT_TOP = 1
 
- /* Comment removed (contained Chinese characters) */
  const val RIGHT_TOP = 2
 
- /* Comment removed (contained Chinese characters) */
  const val LEFT_BOTTOM = 4
 
- /* Comment removed (contained Chinese characters) */
  const val RIGHT_BOTTOM = 8
 
- /* Comment removed (contained Chinese characters) */
  private const val DEFAULT_RADIUS = 10f
 
- /* Comment removed (contained Chinese characters) */
  private const val DEFAULT_POSITION = 15
  }
 
@@ -100,7 +94,6 @@ class RoundImageView : AppCompatImageView {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setRadius(radius: Float) {
  if (this.radius != dp2px(radius)) {

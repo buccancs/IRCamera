@@ -179,8 +179,6 @@ class FencePointView : View {
  */
  interface CallBack {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun callback(
  startPoint: IntArray,

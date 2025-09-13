@@ -20,7 +20,6 @@ object RouterConfig {
  const val IR_GALLERY_EDIT = "/$GROUP_APP/gallery/edit"
  const val WEB_VIEW = "/$GROUP_APP/WebViewActivity"
 
- // Comment removed (contained Chinese characters)
  const val IR_HIK_MAIN = "/$GROUP_HIK_IR/irHikMain"
  const val IR_HIK_CORRECT_THREE = "/$GROUP_HIK_IR/correction3"
  const val IR_HIK_MONITOR_CAPTURE1 = "/$GROUP_HIK_IR/monitorCap1"
@@ -55,7 +54,6 @@ object RouterConfig {
  const val IR_CORRECTION_07 = "/$GROUP_THERMAL07/IR07CorrectionThreeActivity"
  const val IR_IMG_PICK_07 = "/$GROUP_THERMAL07/ImagePickTC007Activity"
 
- // Comment removed (contained Chinese characters)
  const val REPORT_CREATE_FIRST = "/$GROUP_REPORT/create/first"
  const val REPORT_CREATE_SECOND = "/$GROUP_REPORT/create/second"
  const val REPORT_PREVIEW_FIRST = "/$GROUP_REPORT/preview/first"
@@ -76,7 +74,6 @@ object RouterConfig {
  const val STORAGE_SPACE = "/$GROUP_USER/storage_space"
  const val AUTO_SAVE = "/$GROUP_USER/auto_save"
 
- // Comment removed (contained Chinese characters)
  const val MANUAL_START = "/$GROUP_CALIBRATE/manual/first"
  const val IR_FRAME_PLUSH = "/$GROUP_IR/frame/plush"
 

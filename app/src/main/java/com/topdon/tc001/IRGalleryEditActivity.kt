@@ -75,7 +75,6 @@ import com.example.thermal_lite.R as ThermalLiteR
 import com.topdon.module.thermal.ir.R as ThermalIrR
 
 /**
- * Comment removed (contained Chinese characters)
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(), View.OnClickListener, ITsTempListener {
@@ -84,8 +83,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  private var isShowC: Boolean = false
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private var isTC007 = false
 
@@ -98,7 +95,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  private var mFrame = ByteArray(192 * 256 * 4)
  private val frameTool by lazy { FrameTool() }
 
- // Comment removed (contained Chinese characters)
  private var pseudocodeMode = 3
  private var leftValue = 0f
  private var rightValue = 10000f
@@ -225,7 +221,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  struct.customPseudoBean.minTemp = tempCorrect(tempResult.minTemperature)
  editRecyclerSecond.setPseudoColor(pseudocodeMode)
  }
-// Comment removed (contained Chinese characters)
 // colorBarView.isVisible = struct.isShowPseudoBar
 // adapter.enPseudoColorBar(struct.isShowPseudoBar)
 
@@ -276,14 +271,12 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  view: RangeSeekBar?,
  isLeft: Boolean,
  ) {
- // Comment removed (contained Chinese characters)
  }
 
  override fun onStopTrackingTouch(
  view: RangeSeekBar?,
  isLeft: Boolean,
  ) {
- // Comment removed (contained Chinese characters)
  }
  },
  )
@@ -314,7 +307,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun updateImage(bitmap: Bitmap?) {
  bitmap?.let {
@@ -346,7 +338,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun initRecycler() {
  editRecyclerFirst.onTabClickListener = {
@@ -368,7 +359,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  FenceType.DEL -> temperatureView.mode = Mode.CLEAR
  FenceType.FULL -> temperatureView.isShowFull = isSelected
  FenceType.TREND -> {
- // Comment removed (contained Chinese characters)
  }
  }
  }
@@ -395,7 +385,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun setDefLimit() {
  val tempResult = frameTool.getSrcTemp()
@@ -405,7 +394,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  temperatureSeekbar.setProgress(leftValue, rightValue) // 
  }
 
- // Comment removed (contained Chinese characters)
  private fun setPColor(code: Int) {
  pseudocodeMode = code
  temperatureSeekbar.setPseudocode(pseudocodeMode)
@@ -431,7 +419,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  private fun setSettingValue(type: SettingType) {
  when (type) {
  SettingType.ALARM -> {
- // Comment removed (contained Chinese characters)
  if (tempAlarmSetDialog == null) {
  tempAlarmSetDialog = TempAlarmSetDialog(this, true)
  tempAlarmSetDialog?.onSaveListener = {
@@ -490,7 +477,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  .create().show()
  }
  else -> {
- // Comment removed (contained Chinese characters)
  }
  }
  }
@@ -548,7 +534,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  }
  }
 
- // Comment removed (contained Chinese characters)
  private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
  customPseudoBean?.let {
  updateImage(
@@ -592,7 +577,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var isReportPick = false
 
@@ -612,23 +596,18 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  } else {
  showLoadingDialog()
  lifecycleScope.launch(Dispatchers.IO) {
- // Comment removed (contained Chinese characters)
  var irBitmap =
  if (struct.isAmplify) {
- // Comment removed (contained Chinese characters)
  OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
  } else {
  irImageView.drawToBitmap()
  }
  if (temperatureView.mode != Mode.CLEAR) {
- // Comment removed (contained Chinese characters)
  irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
  }
- // Comment removed (contained Chinese characters)
  if (colorBarView.visibility == View.VISIBLE) {
  irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
  }
- // Comment removed (contained Chinese characters)
  val fileAbsolutePath = ImageUtils.saveToCache(this@IRGalleryEditActivity, irBitmap)
  launch(Dispatchers.Main) {
  dismissLoadingDialog()
@@ -726,23 +705,18 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
 
  private fun updateIconSave() {
  lifecycleScope.launch(Dispatchers.IO) {
- // Comment removed (contained Chinese characters)
  var irBitmap =
  if (struct.isAmplify) {
- // Comment removed (contained Chinese characters)
  OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
  } else {
  irImageView.drawToBitmap()
  }
  if (temperatureView.mode != Mode.CLEAR) {
- // Comment removed (contained Chinese characters)
  irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperatureView.drawToBitmap(), 0, 0)
  }
- // Comment removed (contained Chinese characters)
  if (colorBarView.visibility == View.VISIBLE) {
  irBitmap = BitmapUtils.mergeBitmap(irBitmap, colorBarView.drawToBitmap(), 0, 0)
  }
- // Comment removed (contained Chinese characters)
  var name: String
  irBitmap.let {
  name = ImageUtils.save(bitmap = it, isTC007)
@@ -808,7 +782,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun tempCorrect(temp: Float): Float {
  var newTemp = temp
@@ -847,7 +820,6 @@ class IRGalleryEditActivity : BaseBindingActivity<ActivityIrGalleryEditBinding>(
  },
  )
  } else if (struct.name.startsWith(PRODUCT_NAME_TC001LITE)) {
- // Comment removed (contained Chinese characters)
  if (BaseApplication.instance.tau_data_H == null || BaseApplication.instance.tau_data_L == null) return temp
  newTemp =
  IRTool.temperatureCorrection(

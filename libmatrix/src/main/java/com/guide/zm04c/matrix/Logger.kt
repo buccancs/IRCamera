@@ -136,7 +136,6 @@ object Logger {
  private val logfile = SimpleDateFormat("yyyy-MM-dd") // 
 
  /**
- * Comment removed (contained Chinese characters)
  * @param mylogtype
  * @param tag
  * @param text

@@ -125,7 +125,6 @@ class GuideUsbManager {
  } else {
  for (int i = 0; i < count; i++) {
  UsbInterface usbInterface = mUsbDevice.getInterface(i);
- // Comment removed (contained Chinese characters)
  if (usbInterface.getEndpointCount() == 2 && usbInterface.getAlternateSetting() == 1) {
  mUsbInterface = usbInterface;
  mConnectCode = ResultCode.SUCC_FIND_DEVICE_INTERFACE;
@@ -152,7 +151,6 @@ class GuideUsbManager {
  } else {
  for (int i = 0; i < count; i++) {
  UsbInterface usbInterface = mUsbDevice.getInterface(i);
- // Comment removed (contained Chinese characters)
  if (usbInterface.getEndpointCount() == 2 && usbInterface.getAlternateSetting() == 1) {
  mUsbInterface = usbInterface;
  mConnectCode = ResultCode.SUCC_FIND_DEVICE_INTERFACE;
@@ -176,7 +174,6 @@ class GuideUsbManager {
  } else {
  for (i in 0 until count) {
  val usbInterface = mUsbDevice!!.getInterface(i)
- // Comment removed (contained Chinese characters)
  if (usbInterface.endpointCount == 3 && usbInterface.alternateSetting == 0) {
  mUsbInterface = usbInterface
  mConnectCode = ResultCode.SUCC_FIND_DEVICE_INTERFACE
@@ -266,7 +263,6 @@ class GuideUsbManager {
  fun upgrade(data: ByteArray): Boolean {
  val PAGE_SIZE = 3000
 
- // Comment removed (contained Chinese characters)
  val header = byteArrayOf(0x02)
  val cmd = byteArrayOf(0x07, 0x00)
  val reserve = byteArrayOf(0x00)
@@ -287,7 +283,6 @@ class GuideUsbManager {
  return false
  }
 
- // Comment removed (contained Chinese characters)
  if (data.size <= PAGE_SIZE) {
  if (!send(data)) {
  return false
@@ -310,13 +305,11 @@ class GuideUsbManager {
  }
  }
  }
- // Comment removed (contained Chinese characters)
  val tail = byteArrayOf(0x03)
  if (!send(tail)) {
  return false
  }
 
- // Comment removed (contained Chinese characters)
  val upgradeResultCmd = byteArrayOf(0x08, 0x00)
  return receive(upgradeResultCmd)
  }

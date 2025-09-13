@@ -23,23 +23,17 @@ public class MyGLSurfaceView extends GLSurfaceView {
  private class MyRenderer implements GLSurfaceView.Renderer {
  @Override
  public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
- // Comment removed (contained Chinese characters)
  GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
- // Comment removed (contained Chinese characters)
  }
 
  @Override
  public void onSurfaceChanged(GL10 gl10, int width, int height) {
- // Comment removed (contained Chinese characters)
  GLES20.glViewport(0, 0, width, height);
- // Comment removed (contained Chinese characters)
  }
 
  @Override
  public void onDrawFrame(GL10 gl10) {
- // Comment removed (contained Chinese characters)
  GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
- // Comment removed (contained Chinese characters)
  }
  }
 }

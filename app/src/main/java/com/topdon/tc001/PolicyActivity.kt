@@ -87,7 +87,6 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun delayShowWebView() {
  lifecycleScope.launch(Dispatchers.IO) {
@@ -167,11 +166,8 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param bodyHTML body
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @return String
  */
  fun getHtmlData(
@@ -199,28 +195,24 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
  reloadCount--
  when (themeType) {
  1 -> {
- // Comment removed (contained Chinese characters)
  view.loadUrl(
  "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=21",
  )
  }
 
  2 -> {
- // Comment removed (contained Chinese characters)
  view.loadUrl(
  "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?softCode=${BaseApplication.instance.getSoftWareCode()}&language=1&type=22",
  )
  }
 
  3 -> {
- // Comment removed (contained Chinese characters)
  view.loadUrl("file:///android_asset/web/third_statement.html")
  }
  }
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadHttp(view: android.webkit.WebView) {
  reloadCount--
@@ -229,7 +221,6 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
  if (BaseApplication.instance.isDomestic()) {
  view.loadUrl("file:///android_asset/web/services_agreement_default_inside_china.html")
  } else {
- // Comment removed (contained Chinese characters)
  view.loadUrl("file:///android_asset/web/services_agreement_default.html")
  }
  }
@@ -238,13 +229,11 @@ class PolicyActivity : BaseBindingActivity<ActivityPolicyBinding>() {
  if (BaseApplication.instance.isDomestic()) {
  view.loadUrl("file:///android_asset/web/privacy_default_inside_china.html")
  } else {
- // Comment removed (contained Chinese characters)
  view.loadUrl("file:///android_asset/web/privacy_default.html")
  }
  }
 
  3 -> {
- // Comment removed (contained Chinese characters)
  view.loadUrl("file:///android_asset/web/third_statement.html")
  }
  }

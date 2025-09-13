@@ -25,7 +25,6 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @return
@@ -39,7 +38,6 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @return
@@ -53,7 +51,6 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @return
@@ -74,7 +71,6 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param activity
  * @return
@@ -94,14 +90,12 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static int getScreenDensityDpi(Context context) {
  return context.getResources().getDisplayMetrics().densityDpi;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param activity
  * @return
@@ -126,7 +120,6 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @return
@@ -139,7 +132,6 @@ public class ScreenUtils {
  return totalHeight - contentHeight;
  }
 
- // Comment removed (contained Chinese characters)
  public static int getDpi(Context context) {
  int dpi = 0;
  WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -160,7 +152,6 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * 16dp - 48px
  * 17dp - 51px
  */
@@ -170,7 +161,6 @@ public class ScreenUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static float getScreenDendity(Context context) {
  return context.getResources().getDisplayMetrics().density;//3
@@ -178,10 +168,6 @@ public class ScreenUtils {
 
  /**
  * @param info
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static Dialog showNormalDialog(Context context, String info, PopupWindow.OnDismissListener dismissListener) {
  final AlertDialog.Builder normalDialog =
@@ -197,12 +183,10 @@ public class ScreenUtils {
  dismissListener.onDismiss();
  }
  });
- // Comment removed (contained Chinese characters)
  return normalDialog.show();
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return
  */

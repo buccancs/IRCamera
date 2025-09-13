@@ -55,7 +55,6 @@ object TC007Repository {
  .create(TC007Service::class.java)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getProductInfo(): ProductBean? =
  withContext(Dispatchers.IO) {
@@ -67,7 +66,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getBatteryInfo(): BatteryInfo? =
  withContext(Dispatchers.IO) {
@@ -79,7 +77,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun syncTime(): Boolean =
  withContext(Dispatchers.IO) {
@@ -99,7 +96,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun updateFirmware(file: File): Boolean =
  withContext(Dispatchers.IO) {
@@ -179,7 +175,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun resetToFactory(): Boolean =
  withContext(Dispatchers.IO) {
@@ -191,7 +186,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun correction(): Boolean =
  withContext(Dispatchers.IO) {
@@ -203,7 +197,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getEnvAttr(): EnvAttr? =
  withContext(Dispatchers.IO) {
@@ -215,9 +208,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setEnvAttr(
  isCelsius: Boolean,
@@ -238,10 +228,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  suspend fun setIRConfig(
  environment: Float,
@@ -263,7 +249,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun clearAllTemp(): Boolean =
  withContext(Dispatchers.IO) {
@@ -279,7 +264,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getTempFrame(): Boolean =
  withContext(Dispatchers.IO) {
@@ -295,7 +279,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun setTempFrame(boolean: Boolean): Boolean =
  withContext(Dispatchers.IO) {
@@ -314,7 +297,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun setTempPointList(pointList: List<Point>): Boolean =
  withContext(Dispatchers.IO) {
@@ -330,7 +312,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun setTempLineList(lineList: List<Point>): Boolean =
  withContext(Dispatchers.IO) {
@@ -348,7 +329,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun setTempRectList(rectList: List<Rect>): Boolean =
  withContext(Dispatchers.IO) {
@@ -364,7 +344,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun getPhoto(): TC007Response<PhotoBean>? =
  withContext(Dispatchers.IO) {
@@ -377,7 +356,6 @@ object TC007Repository {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  suspend fun setMode(mode: Int): TC007Response<Any?>? =
  withContext(Dispatchers.IO) {

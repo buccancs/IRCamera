@@ -27,7 +27,6 @@ public class RequestBuilder<T extends RequestCallback> {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<T> setTag(String tag) {
  this.tag = tag;
@@ -35,7 +34,6 @@ public class RequestBuilder<T extends RequestCallback> {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<T> setPriority(int priority) {
  this.priority = priority;
@@ -43,8 +41,6 @@ public class RequestBuilder<T extends RequestCallback> {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public RequestBuilder<T> setCallback(T callback) {
  this.callback = callback;

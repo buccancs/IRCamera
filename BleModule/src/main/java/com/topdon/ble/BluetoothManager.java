@@ -30,7 +30,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * BluetoothManager
- * Comment removed (contained Chinese characters)
  *
 * @author chuanfeng.bi
  * @date 2021/11/19 11:10
@@ -90,18 +89,15 @@ public class BluetoothManager implements EventObserver {
  private void setReadCallback() {
  if (mDevice.isConnected()) {
  isSending = false;
- // Comment removed (contained Chinese characters)
  boolean isEnabled = connection.isNotificationOrIndicationEnabled(UUID.fromString(UUIDManager.SERVICE_UUID), UUID.fromString(UUIDManager.NOTIFY_UUID));
  LLog.w("bcf_ble", "WhetherNotifycation: " + isEnabled);
  RequestBuilder<NotificationChangeCallback> builder = new RequestBuilderFactory().getSetNotificationBuilder(UUID.fromString(UUIDManager.SERVICE_UUID), UUID.fromString(UUIDManager.NOTIFY_UUID), true);
  RequestBuilder<ReadCharacteristicCallback> builder1 = new RequestBuilderFactory().getReadCharacteristicBuilder(UUID.fromString(UUIDManager.SERVICE_UUID), UUID.fromString(UUIDManager.READ_UUID));
- // Comment removed (contained Chinese characters)
  builder.build().execute(connection);
  builder1.build().execute(connection);
  }
  }
 
- // Comment removed (contained Chinese characters)
  public void setCancelListening() {
  Observable observable = EasyBLE.getInstance().getObservable();
  if (observable != null) {
@@ -153,7 +149,6 @@ public class BluetoothManager implements EventObserver {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Tag("onConnectionStateChanged")
  @Observe
@@ -200,7 +195,6 @@ public class BluetoothManager implements EventObserver {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Observe
  @Override
@@ -216,7 +210,6 @@ public class BluetoothManager implements EventObserver {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param data
  */
@@ -234,10 +227,8 @@ public class BluetoothManager implements EventObserver {
  try {
  writeCharact = connection.getCharacteristic(UUID.fromString(UUIDManager.SERVICE_UUID), UUID.fromString(UUIDManager.WRITE_UUID));
  connection.getGatt().setCharacteristicNotification(writeCharact, true); // Settings
- // Comment removed (contained Chinese characters)
  writeCharact.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
  writeCharact.setValue(data);
-// Comment removed (contained Chinese characters)
  return connection.getGatt().writeCharacteristic(writeCharact);
  } catch (SecurityException e) {
  Log.e(TAG, "SecurityException during GATT write operation: " + e.getMessage());
@@ -248,18 +239,12 @@ public class BluetoothManager implements EventObserver {
  @Observe
  @Override
  public void onCharacteristicRead(Request request, byte[] value) {
- // Comment removed (contained Chinese characters)
  String data = StringUtils.toHex(value); // String
 // Log.d("ble_bcf_data", "onCharacteristicRead: " + data);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Observe
  @Override
@@ -271,11 +256,9 @@ public class BluetoothManager implements EventObserver {
  public static void setBleData(String message) {
 // String savePath = ActivityUtils.getTopActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
-// Comment removed (contained Chinese characters)
 // Date date = new Date(System.currentTimeMillis());
 //
 // SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
-// Comment removed (contained Chinese characters)
 // Date date1 = new Date(System.currentTimeMillis());
 //
 // FileIOUtils.writeFileFromString(savePath + "/log/" + simpleDateFormat.format(date) + ".txt", simpleDateFormat1.format(date1) + ":" + message + "\n", true);

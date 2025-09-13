@@ -86,9 +86,7 @@ def process_thermal_data(data: List[float]) -> Dict[str, Any]:
 /**
  * class class
  */
-// Comment removed (contained Chinese characters)
 class MenuType {
- // Comment removed (contained Chinese characters)
  fun init() { }
 }
 ```

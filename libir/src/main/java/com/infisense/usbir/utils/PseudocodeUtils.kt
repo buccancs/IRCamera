@@ -49,7 +49,6 @@ object PseudocodeUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun changePseudocodeModeByOld(oldPseudocodeMode: Int): CommonParams.PseudoColorType {
  return when (oldPseudocodeMode) {

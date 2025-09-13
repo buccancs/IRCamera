@@ -16,12 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Comment removed (contained Chinese characters)
  * Created by fylder on 2018/6/23.
  */
 object GlideLoader {
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun getPhotoOptions(): RequestOptions {
  val multi = MultiTransformation(CenterCrop(), RoundedCorners(SizeUtils.dp2px(6f)))
@@ -31,7 +29,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadCircle(
  img: ImageView,
@@ -45,7 +42,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadCircle(
  img: ImageView,
@@ -59,7 +55,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadCircle(
  img: ImageView,
@@ -73,7 +68,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadCircle(
  img: ImageView,
@@ -87,7 +81,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadCircle(
  img: ImageView,
@@ -104,7 +97,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadRounded(
  img: ImageView,
@@ -117,7 +109,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadRounded(
  img: ImageView,
@@ -130,7 +121,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadRounded(
  img: ImageView,
@@ -143,7 +133,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadRounded(
  img: ImageView,
@@ -156,7 +145,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun load(
  img: ImageView,
@@ -178,7 +166,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadGallery(
  img: ImageView,
@@ -200,7 +187,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun loadFit(
  img: ImageView,
@@ -222,7 +208,6 @@ object GlideLoader {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun load(
  img: ImageView,

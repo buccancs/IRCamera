@@ -110,7 +110,6 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
  dismiss()
  }
  }
- // Comment removed (contained Chinese characters)
  return popupWindow!!
  }
 

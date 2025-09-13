@@ -123,7 +123,6 @@ requestBuilder.addHeader("Authorization", "Bearer $authToken")
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var onFrameListener: ((frame: SocketFrameBean) -> Unit)? = null
 
@@ -233,10 +232,6 @@ requestBuilder.addHeader("Authorization", "Bearer $authToken")
  val onFrameListener: (frame: SocketFrameBean) -> Unit,
  ) : WsManager.IWebSocketListener() {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  var isNeedReconnect = true
 
@@ -263,7 +258,6 @@ requestBuilder.addHeader("Authorization", "Bearer $authToken")
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var needPrint = false
 
@@ -336,7 +330,6 @@ requestBuilder.addHeader("Authorization", "Bearer $authToken")
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun checkNeedReconnect(): Boolean {
  if (!isNeedReconnect) {
@@ -354,12 +347,10 @@ requestBuilder.addHeader("Authorization", "Bearer $authToken")
  private class ReconnectHandler : Handler(Looper.getMainLooper()) {
  companion object {
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val MAX_RECONNECT_COUNT = 3
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private const val RECONNECT_MILLIS = 3000L
  }

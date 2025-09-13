@@ -14,7 +14,6 @@
 //
 ///**
 // * bytes -> bitmap
-// Comment removed (contained Chinese characters)
 // */
 //public class ImageThreadTCOld extends Thread {
 //
@@ -26,7 +25,6 @@
 // private int imageWidth;
 // private int imageHeight;
 // private byte[] imageSrc;
-// Comment removed (contained Chinese characters)
 // private int rotate = 0;
 // private float max = Float.MAX_VALUE;
 // private float min = Float.MIN_VALUE;
@@ -126,7 +124,6 @@
 // Libirparse.yuv422_to_argb(imagerTemp1, imageHeight * imageWidth, imagerTemp2);
 // }
 //
-// Comment removed (contained Chinese characters)
 //// if (max != 0 && min != 0) {
 //// ImageTools.INSTANCE.readFrame(imagerTemp2, temperatureSrc, max, min);
 //// }
@@ -154,27 +151,18 @@
 //
 // //jpegBytes = PixelFormatConverter.yuv422ToJpeg(pseudoImage, imageWidth, imageHeight);
 //
-// Comment removed (contained Chinese characters)
 // if (max != Float.MAX_VALUE || min != Float.MIN_VALUE ) {
-// Comment removed (contained Chinese characters)
 // if (max == -273) {
-// Comment removed (contained Chinese characters)
 // max = 1000000;
 // }
-// Comment removed (contained Chinese characters)
 // if (maxColor == Color.parseColor("#FF808080") && minColor == Color.parseColor("#FF808080")) {
-// Comment removed (contained Chinese characters)
 // } else {
 // Log.w("123", "max:" + max + ", min: " + min);
-// Comment removed (contained Chinese characters)
-// Comment removed (contained Chinese characters)
 // }
-// Comment removed (contained Chinese characters)
 // }
 // synchronized (syncImage.viewLock) {
 // if (!syncImage.valid) {
 // if (bitmap != null) {
-// Comment removed (contained Chinese characters)
 // } else {
 // XLog.e("ImageThreadTC copyPixelsFromBuffer(): bitmap is null");
 // }
@@ -186,7 +174,6 @@
 // try {
 // SystemClock.sleep(20);
 // } catch (Exception e) {
-// Comment removed (contained Chinese characters)
 // }
 // }
 // Log.w(TAG, "ImageThread exit:");

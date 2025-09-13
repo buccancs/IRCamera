@@ -43,7 +43,6 @@ object ImageTools {
  ) // color
  }
 
- // Comment removed (contained Chinese characters)
  private fun bitmapFromRgba(
  bytes: ByteArray,
  bean: SelectIndexBean,
@@ -88,7 +87,6 @@ object ImageTools {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private fun bitmapFromRgbaGrey(
  bytes: ByteArray,
  bean: SelectIndexBean,
@@ -109,7 +107,6 @@ object ImageTools {
  r = bytes[i * 4].toInt() and 0xff
  g = bytes[i * 4 + 1].toInt() and 0xff
  b = bytes[i * 4 + 2].toInt() and 0xff
- // Comment removed (contained Chinese characters)
  grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
  bytes[i * 4] = grey.toByte()
  bytes[i * 4 + 1] = grey.toByte()
@@ -120,9 +117,7 @@ object ImageTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  private fun getTempIndex(
  bytes: ByteArray,
@@ -154,13 +149,11 @@ object ImageTools {
  return (tempInt.toDouble() / scale.toDouble() - 273.15).toFloat()
  }
 
-// Comment removed (contained Chinese characters)
 // fun bitmapFromRgba(bytes: ByteArray, width: Int, height: Int): Bitmap {
 // val len = bytes.size / 4
 // val pixels = IntArray(len)
 // for (i in pixels.indices) {
 // if (i > len / 4 * 3 && i < len) {
-// Comment removed (contained Chinese characters)
 // val r = 255
 // val g = 215
 // val b = 0
@@ -173,7 +166,6 @@ object ImageTools {
 // val b: Int = (bytes[i * 4 + 2] and 0xff.toByte()).toUByte().toInt()
 // val a: Int = (bytes[i * 4 + 3] and 0xff.toByte()).toUByte().toInt()
 //
-// Comment removed (contained Chinese characters)
 // val grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
 // val pixel = (a shl 24) or (grey shl 16) or (grey shl 8) or grey
 // pixels[i] = pixel
@@ -192,10 +184,6 @@ object ImageTools {
 // }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun dualReadFrame(
  imageBytes: ByteArray,
@@ -212,7 +200,6 @@ object ImageTools {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  private fun dualReplaceColor(
@@ -240,7 +227,6 @@ object ImageTools {
  r = imageBytes[i * 4].toInt() and 0xff
  g = imageBytes[i * 4 + 1].toInt() and 0xff
  b = imageBytes[i * 4 + 2].toInt() and 0xff
- // Comment removed (contained Chinese characters)
  grey = (r * 0.3f).toInt() + (g * 0.59f).toInt() + (b * 0.11f).toInt()
  imageBytes[i * 4] = grey.toByte()
  imageBytes[i * 4 + 1] = grey.toByte()

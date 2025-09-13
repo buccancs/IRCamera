@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.databinding.UiSteeringWheelViewBinding
 
 /**
- * Comment removed (contained Chinese characters)
  */
 /**
  * Custom Steering wheel view for thermal imaging display.

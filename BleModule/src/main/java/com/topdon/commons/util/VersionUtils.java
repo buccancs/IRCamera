@@ -3,7 +3,6 @@ package com.topdon.commons.util;
 import android.text.TextUtils;
 
 /**
- * Comment removed (contained Chinese characters)
  * @ClassName VersionUtils
  * @Email 616862466@qq.com
 * @Author
@@ -13,15 +12,9 @@ import android.text.TextUtils;
 public class VersionUtils {
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static boolean compareVersions(String v1, String v2) {
- // Comment removed (contained Chinese characters)
  if (TextUtils.equals(v1, "") || TextUtils.equals(v2, "")) {
  return false;
  }

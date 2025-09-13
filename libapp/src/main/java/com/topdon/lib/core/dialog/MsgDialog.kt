@@ -16,7 +16,6 @@ import com.topdon.lib.core.databinding.DialogMsgBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 class MsgDialog : Dialog {
@@ -84,10 +83,8 @@ class MsgDialog : Dialog {
  val lp = dialog!!.window!!.attributes
  val wRatio =
  if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
- // Comment removed (contained Chinese characters)
  0.9
  } else {
- // Comment removed (contained Chinese characters)
  0.3
  }
  lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // Settings
@@ -121,7 +118,6 @@ class MsgDialog : Dialog {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  interface OnClickListener {
  fun onClick(dialog: DialogInterface)

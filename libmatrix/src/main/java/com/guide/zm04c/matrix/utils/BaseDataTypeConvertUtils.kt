@@ -7,7 +7,6 @@ import java.util.*
 import kotlin.experimental.and
 
 /**
- * Comment removed (contained Chinese characters)
  */
 class BaseDataTypeConvertUtils private constructor() {
  companion object {
@@ -67,7 +66,6 @@ class BaseDataTypeConvertUtils private constructor() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param number
  * @return
@@ -90,7 +88,6 @@ class BaseDataTypeConvertUtils private constructor() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param number
  * @return
@@ -113,9 +110,7 @@ class BaseDataTypeConvertUtils private constructor() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @param df DecimalFormat
  * @return
  */

@@ -18,7 +18,6 @@ import com.topdon.libcom.R
 import com.topdon.libcom.util.ColorUtils
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by chenggeng.lin on 2023/12/18.
  */
@@ -29,7 +28,6 @@ class ColorPickDialog(
  var textSizeIsDP: Boolean = false,
 ) : Dialog(context, com.topdon.lib.core.R.style.InfoDialog), View.OnClickListener {
  /**
- * Comment removed (contained Chinese characters)
  */
  var onPickListener: ((color: Int, textSize: Int) -> Unit)? = null
 
@@ -196,7 +194,6 @@ class ColorPickDialog(
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun unSelect6Color() {
  rootView.findViewById<View>(R.id.view_color1).isSelected = false

@@ -6,7 +6,6 @@
  android:layout_height="wrap_content"
  android:orientation="vertical">
 
- <!-- Comment removed (contained Chinese characters) -->
  <androidx.constraintlayout.widget.ConstraintLayout
  android:id="@+id/cl_range"
  android:layout_width="match_parent"
@@ -65,7 +64,6 @@
  app:layout_constraintBottom_toBottomOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <androidx.constraintlayout.widget.ConstraintLayout
  android:id="@+id/cl_average"
  android:layout_width="match_parent"
@@ -114,7 +112,6 @@
  app:layout_constraintBottom_toBottomOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <androidx.constraintlayout.widget.ConstraintLayout
  android:id="@+id/cl_explain"
  android:layout_width="match_parent"

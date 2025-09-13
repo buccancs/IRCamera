@@ -44,7 +44,6 @@ import androidx.annotation.StyleRes;
 import com.topdon.lib.ui.R;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2017/4/12
@@ -72,9 +71,7 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
  private void init(Activity activity) {
  this.activity = activity;
  setOwnerActivity(activity);
- // Comment removed (contained Chinese characters)
  setCanceledOnTouchOutside(false);
- // Comment removed (contained Chinese characters)
  setCancelable(false);
  super.setOnShowListener(this);
  super.setOnDismissListener(this);
@@ -88,7 +85,6 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
  window.getDecorView().setPadding(0, 0, 0, 0);
  }
  onInit(null);
- // Comment removed (contained Chinese characters)
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
  super.create();
  } else {
@@ -97,7 +93,6 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Deprecated
  @CallSuper
@@ -132,7 +127,6 @@ public abstract class BaseDialog extends Dialog implements DialogInterface.OnSho
  protected abstract View createContentView();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @SuppressWarnings("DeprecatedIsStillUsed")
  @Deprecated

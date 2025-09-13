@@ -139,28 +139,21 @@ public class RangeSeekBar extends View {
 
  private int progressTop, progressBottom, progressLeft, progressRight;
  private int seekBarMode;
- // Comment removed (contained Chinese characters)
  private int tickMarkMode;
- // Comment removed (contained Chinese characters)
  //The spacing between the tick mark and the progress bar
  private int tickMarkTextMargin;
- // Comment removed (contained Chinese characters)
  //tick mark text and prompt text size
  private int tickMarkTextSize;
  private int tickMarkGravity;
  private int tickMarkLayoutGravity;
  private int tickMarkTextColor;
  private int tickMarkInRangeTextColor;
- // Comment removed (contained Chinese characters)
  //The texts displayed on the scale
  private CharSequence[] tickMarkTextArray;
- // Comment removed (contained Chinese characters)
  //radius of progress bar
  private float progressRadius;
- // Comment removed (contained Chinese characters)
  //the color of seekBar in progress
  private int progressColor;
- // Comment removed (contained Chinese characters)
  //the default color of the progress bar
  private int progressDefaultColor;
 
@@ -199,7 +192,6 @@ public class RangeSeekBar extends View {
 
  private boolean isEnable = true;
  float touchDownX, touchDownY;
- // Comment removed (contained Chinese characters)
  float reservePercent;
  boolean isScaleThumb = false;
  Paint paint = new Paint();
@@ -218,13 +210,11 @@ public class RangeSeekBar extends View {
  private OnRangeChangedListener callback;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  private int[] colorList;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  private float[] places;
@@ -357,18 +347,11 @@ public class RangeSeekBar extends View {
  initProgressBitmap();
  }
 
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  @Override
  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
  int heightSize = MeasureSpec.getSize(heightMeasureSpec);
  int heightMode = MeasureSpec.getMode(heightMeasureSpec);
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 
  if (heightMode == MeasureSpec.EXACTLY) {
@@ -441,7 +424,6 @@ public class RangeSeekBar extends View {
  onDrawSeekBar(canvas); //
  }
 
- // Comment removed (contained Chinese characters)
  // Draw the scales, and according to the current position is set within
  // the scale range of different color display
  protected void onDrawTickMark(Canvas canvas, Paint paint) {
@@ -452,7 +434,6 @@ public class RangeSeekBar extends View {
  if (TextUtils.isEmpty(text2Draw)) continue;
  paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
  paint.setColor(tickMarkTextColor);
- // Comment removed (contained Chinese characters)
  float x;
  if (tickMarkMode == TRICK_MARK_MODE_OTHER) {
  if (tickMarkGravity == TICK_MARK_GRAVITY_RIGHT) {
@@ -468,7 +449,6 @@ public class RangeSeekBar extends View {
  if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (seekBarMode == SEEKBAR_MODE_RANGE)) {
  paint.setColor(tickMarkInRangeTextColor);
  }
- // Comment removed (contained Chinese characters)
  x = getProgressLeft() + progressWidth * (num - minProgress) / (maxProgress - minProgress)
  - tickMarkTextRect.width() / 2f;
  }
@@ -483,11 +463,9 @@ public class RangeSeekBar extends View {
  }
  }
 
- // Comment removed (contained Chinese characters)
  // draw the progress bar
  protected void onDrawProgressBar(Canvas canvas, Paint paint) {
 
- // Comment removed (contained Chinese characters)
  //draw default progress
  paint.setShader(null);
  if (Utils.verifyBitmap(progressDefaultBitmap)) {
@@ -503,10 +481,8 @@ public class RangeSeekBar extends View {
  canvas.drawRoundRect(progressDefaultDstRect, progressRadius, progressRadius, paint);
  }
 
- // Comment removed (contained Chinese characters)
  //draw progress
  if (seekBarMode == SEEKBAR_MODE_RANGE) {
-// Comment removed (contained Chinese characters)
  progressDstRect.top = getProgressTop();
  progressDstRect.left = leftSB.left + leftSB.getThumbScaleWidth() / 2f + progressWidth * leftSB.currPercent;
  progressDstRect.right = rightSB.left + rightSB.getThumbScaleWidth() / 2f + progressWidth * rightSB.currPercent;
@@ -563,7 +539,6 @@ public class RangeSeekBar extends View {
  }
  }
 
- // Comment removed (contained Chinese characters)
  protected void onDrawSeekBar(Canvas canvas) {
  //draw left SeekBar
  if (leftSB.getIndicatorShowMode() == INDICATOR_ALWAYS_SHOW) {
@@ -579,7 +554,6 @@ public class RangeSeekBar extends View {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private void initPaint() {
  paint.setStyle(Paint.Style.FILL);
 
@@ -662,7 +636,6 @@ public class RangeSeekBar extends View {
  @Override
  public boolean onTouchEvent(MotionEvent event) {
  if (!isEnable) return false;
-// Comment removed (contained Chinese characters)
  switch (event.getAction()) {
  case MotionEvent.ACTION_DOWN:
  touchDownX = getEventX(event);
@@ -831,7 +804,6 @@ public class RangeSeekBar extends View {
  //******************* Attributes getter and setter *******************//
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void setNoNegativeNumber(Boolean noNegativeNumber){
  this.noNegativeNumber = noNegativeNumber;
@@ -919,8 +891,6 @@ public class RangeSeekBar extends View {
  /**
  * settingsrange
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void setRange(float min, float max) {
  setRange(min, max, minInterval);
@@ -929,10 +899,6 @@ public class RangeSeekBar extends View {
 
  /**
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void setRangeAndPro(float editMin,float editMax,float realLeftValue,float realRightValue){
  if (editMin == Float.MIN_VALUE && editMax == Float.MAX_VALUE){
@@ -942,31 +908,22 @@ public class RangeSeekBar extends View {
  }
  setRangeNoInvalidate(realLeftValue,realRightValue,0.1f);
  if (editMax <= realRightValue && editMin >= realLeftValue){
- // Comment removed (contained Chinese characters)
  setProgressNoCallBack(editMin,editMax);
  }else if (editMax > realRightValue && editMin < realLeftValue){
- // Comment removed (contained Chinese characters)
  setProgressNoCallBack(realLeftValue,realRightValue);
  }else if (editMax > realRightValue && editMin > realRightValue){
- // Comment removed (contained Chinese characters)
  setProgressNoCallBack(realRightValue,realRightValue);
  } else if (editMax < realLeftValue && editMin < realLeftValue){
- // Comment removed (contained Chinese characters)
  setProgressNoCallBack(realLeftValue,realLeftValue);
  }else if (editMax <= realRightValue && editMin < realLeftValue){
- // Comment removed (contained Chinese characters)
  setProgressNoCallBack(realLeftValue,editMax);
  }else if (editMax > realRightValue && editMin >= realLeftValue){
- // Comment removed (contained Chinese characters)
  setProgressNoCallBack(editMin,realRightValue);
  }
  }
 
  /**
  * settingsrange
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void setRange(float min, float max, float minInterval) {
 // if (max <= min) {
@@ -979,7 +936,6 @@ public class RangeSeekBar extends View {
 // throw new IllegalArgumentException("setRange() interval must be less than (max - min) ! #minInterval:" + minInterval + " #max - min:" + (max - min));
 // }
  if (maxProgress == max && min == minProgress){
-// Comment removed (contained Chinese characters)
  return;
  }
  maxProgress = max;
@@ -1008,7 +964,6 @@ public class RangeSeekBar extends View {
 // throw new IllegalArgumentException("setRange() interval must be less than (max - min) ! #minInterval:" + minInterval + " #max - min:" + (max - min));
 // }
  if (maxProgress == max && min == minProgress){
-// Comment removed (contained Chinese characters)
  return;
  }
  maxProgress = max;

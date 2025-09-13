@@ -7,7 +7,6 @@ import com.topdon.lms.sdk.LMS;
 import java.io.File;
 
 /**
- * Comment removed (contained Chinese characters)
  * @ClassName FolderUtil
  * @Email 616862466@qq.com
 * @Author
@@ -21,7 +20,6 @@ public class FolderUtil {
  public static String tdartsSn;
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return String
  */
@@ -30,9 +28,7 @@ public class FolderUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static void setFileName(String mfileName) {
  fileName = mfileName;
@@ -65,7 +61,6 @@ public class FolderUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static void initFilePath() {
  String basePath = Topdon.getApp().getExternalFilesDir("").getAbsolutePath() + fileName;
@@ -227,13 +222,11 @@ public class FolderUtil {
 // log9File.mkdirs();
  }
 
- // Comment removed (contained Chinese characters)
  File feedbackLog = new File(mPath + fileName + mUserId + "/FeedbackLog/");
  if (!feedbackLog.exists()) {
  feedbackLog.mkdirs();
  }
 
- // Comment removed (contained Chinese characters)
  File autovinLog = new File(mPath + fileName + mUserId + "/autovinLog/");
  if (!autovinLog.exists()) {
  autovinLog.mkdirs();
@@ -251,7 +244,6 @@ public class FolderUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return str
  */
@@ -272,7 +264,6 @@ public class FolderUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return str
  */
@@ -365,7 +356,6 @@ public class FolderUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return string
  */
@@ -390,7 +380,6 @@ public class FolderUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return str
  */

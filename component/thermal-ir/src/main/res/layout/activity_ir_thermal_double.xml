@@ -101,7 +101,6 @@
  app:layout_constraintBottom_toTopOf="@id/view_menu_first" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <FrameLayout
  android:id="@+id/thermal_lay"
  android:layout_width="0dp"
@@ -112,12 +111,10 @@
  app:layout_constraintTop_toBottomOf="@id/title_view"
  app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay">
 
- <!-- Comment removed (contained Chinese characters) -->
  <com.infisense.usbir.view.CameraView
  android:id="@+id/cameraView"
  android:layout_width="match_parent"
  android:layout_height="match_parent" />
- <!-- Comment removed (contained Chinese characters) -->
  <SurfaceView
  android:id="@+id/dualTextureViewNativeCamera"
  android:layout_width="match_parent"
@@ -129,7 +126,6 @@
  android:layout_width="match_parent"
  android:layout_height="match_parent"
  android:visibility="gone" />
- <!-- Comment removed (contained Chinese characters) -->
  <com.infisense.usbir.view.TemperatureView
  android:id="@+id/temperatureView"
  android:layout_width="match_parent"
@@ -180,7 +176,6 @@
  android:visibility="gone" />
  </FrameLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <Space
  android:id="@+id/space_chart"
  android:layout_width="0dp"
@@ -247,7 +242,6 @@
  app:layout_constraintEnd_toEndOf="parent" />
  </LinearLayout>
 
- <!-- Comment removed (contained Chinese characters) -->
  <com.topdon.lib.ui.widget.BitmapConstraintLayout
  android:id="@+id/cl_seek_bar"
  android:layout_width="wrap_content"
@@ -356,7 +350,6 @@
  app:layout_constraintEnd_toEndOf="parent"
  app:layout_constraintBottom_toTopOf="@id/thermal_menu_lay" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <ViewStub
  android:id="@+id/view_stub_camera"
  android:layout_width="0dp"

@@ -48,7 +48,6 @@ class App : BaseApplication() {
  lateinit var instance: App
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun delayInit() {
  initReceiver()
@@ -68,7 +67,6 @@ class App : BaseApplication() {
  override fun onCreate() {
  super.onCreate()
  instance = this
- // Comment removed (contained Chinese characters)
  SPUtils.getInstance(this).put(Config.KEY_PRIVACY_AGREEMENT, true)
 
  if (SharedManager.getHasShowClause() || !isDomestic()) {
@@ -130,7 +128,6 @@ class App : BaseApplication() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private fun initZoho() {
  // ZohoSalesIQ initialization commented out - dependency not available in build

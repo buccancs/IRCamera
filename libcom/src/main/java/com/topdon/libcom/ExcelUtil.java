@@ -70,7 +70,6 @@ public class ExcelUtil {
  cell.setCellStyle(cellStyle);
  cell.setCellValue(getTemperature(index, norTempData,isShowC));
  if (index % 100 == 0 && callback != null) {
- // Comment removed (contained Chinese characters)
  callback.onOneCell(index / 100, width * height / 100);
  }
  }
@@ -120,17 +119,13 @@ public class ExcelUtil {
  public static String exportExcel(ArrayList<ThermalEntity> listData,boolean isPoint) {
  boolean isShowC = SharedManager.INSTANCE.getTemperature() == 1;
  try {
- // Comment removed (contained Chinese characters)
  Workbook wb = new XSSFWorkbook();
- // Comment removed (contained Chinese characters)
  Sheet sheet = wb.createSheet();
  String[] title = {Utils.getApp().getString(R.string.detail_date), Utils.getApp().getString(R.string.chart_temperature_low), Utils.getApp().getString(R.string.chart_temperature_high)};
  if (isPoint){
  title = new String[]{Utils.getApp().getString(R.string.detail_date), Utils.getApp().getString(R.string.chart_temperature)};
  }
- // Comment removed (contained Chinese characters)
  Row row = sheet.createRow(0);
- // Comment removed (contained Chinese characters)
  int colNum = title.length;
  CellStyle titleStyle = wb.createCellStyle();
  titleStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
@@ -148,26 +143,20 @@ public class ExcelUtil {
  sheet.setColumnWidth(i, 20 * 256); // 20
  Cell cell1 = row.createCell(i);
  cell1.setCellStyle(titleStyle);
- // Comment removed (contained Chinese characters)
  cell1.setCellValue(title[i]);
  }
- // Comment removed (contained Chinese characters)
  for (int rowNum = 0; rowNum < listData.size(); rowNum++) {
 
- // Comment removed (contained Chinese characters)
  row = sheet.createRow(rowNum + 1);
- // Comment removed (contained Chinese characters)
  row.setHeightInPoints(28f);
 
  ThermalEntity bean = listData.get(rowNum);
 
  for (int j = 0; j < title.length; j++) {
  Cell cell = row.createCell(j);
- // Comment removed (contained Chinese characters)
  if (isPoint){
  switch (j) {
  case 0:
- // Comment removed (contained Chinese characters)
  cell.setCellValue(bean.getTime());
  break;
  case 1:
@@ -179,16 +168,13 @@ public class ExcelUtil {
  }else {
  switch (j) {
  case 0:
- // Comment removed (contained Chinese characters)
  cell.setCellValue(bean.getTime());
  break;
  case 1:
- // Comment removed (contained Chinese characters)
  cell.setCellStyle(contentStyle);
  cell.setCellValue(UnitTools.showC(bean.getMinTemp()));
  break;
  case 2:
- // Comment removed (contained Chinese characters)
  cell.setCellStyle(contentStyle);
  cell.setCellValue(UnitTools.showC(bean.getMaxTemp(),isShowC));
  break;

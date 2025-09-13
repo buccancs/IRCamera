@@ -10,11 +10,8 @@ import java.io.Reader;
 public class UTF8StringUtils {
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @throws
  * @Title readByUtf8WithBom
- * Comment removed (contained Chinese characters)
  */
  public static String readByUtf8WithBom(String path) {
  File file = new File(path);
@@ -27,7 +24,6 @@ public class UTF8StringUtils {
  BufferedReader bf = new BufferedReader(read);
  String txt;
  while ((txt = bf.readLine()) != null) { // 
- /* Comment removed (contained Chinese characters) */
  txt = txt.trim();// 
  String flag = txt.substring(txt.lastIndexOf("|") + 1);
  if (flag.equals("1")) {
@@ -44,11 +40,8 @@ public class UTF8StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * @throws
  * @Title readByUtf8WithOutBom
- * Comment removed (contained Chinese characters)
  */
  public static String readByUtf8WithOutBom(String path) {
  File file = new File(path);
@@ -59,7 +52,6 @@ public class UTF8StringUtils {
  BufferedReader bf = new BufferedReader(new UnicodeReader(in, "utf-8"));
  String txt = "";
  while ((txt = bf.readLine()) != null) { // 
- /* Comment removed (contained Chinese characters) */
  txt = txt.trim();// 
  String flag = txt.substring(txt.lastIndexOf("|") + 1);
  if (flag.equals("1")) {

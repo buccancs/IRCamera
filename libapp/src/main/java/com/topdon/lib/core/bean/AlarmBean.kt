@@ -73,7 +73,6 @@ data class AlarmBean(
  .array()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun isOpen(): Boolean = isHighOpen || isLowOpen
 }

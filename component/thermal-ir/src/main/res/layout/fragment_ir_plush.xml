@@ -9,13 +9,11 @@
  android:layout_height="match_parent"
  android:layout_centerVertical="true"
  >
- <!-- Comment removed (contained Chinese characters) -->
  <com.infisense.usbir.view.TemperatureView
  android:id="@+id/temperature_view"
  android:layout_width="match_parent"
  android:layout_gravity="center"
  android:layout_height="match_parent" />
- <!-- Comment removed (contained Chinese characters) -->
  <SurfaceView
  android:id="@+id/dualTextureViewNativeCamera"
  android:layout_width="match_parent"

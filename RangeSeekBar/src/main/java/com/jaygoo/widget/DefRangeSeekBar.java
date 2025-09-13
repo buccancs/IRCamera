@@ -98,28 +98,21 @@ public class DefRangeSeekBar extends View {
 
  private int progressTop, progressBottom, progressLeft, progressRight;
  private int seekBarMode;
- // Comment removed (contained Chinese characters)
  private int tickMarkMode;
- // Comment removed (contained Chinese characters)
  //The spacing between the tick mark and the progress bar
  private int tickMarkTextMargin;
- // Comment removed (contained Chinese characters)
  //tick mark text and prompt text size
  private int tickMarkTextSize;
  private int tickMarkGravity;
  private int tickMarkLayoutGravity;
  private int tickMarkTextColor;
  private int tickMarkInRangeTextColor;
- // Comment removed (contained Chinese characters)
  //The texts displayed on the scale
  private CharSequence[] tickMarkTextArray;
- // Comment removed (contained Chinese characters)
  //radius of progress bar
  private float progressRadius;
- // Comment removed (contained Chinese characters)
  //the color of seekBar in progress
  private int progressColor;
- // Comment removed (contained Chinese characters)
  //the default color of the progress bar
  private int progressDefaultColor;
 
@@ -158,7 +151,6 @@ public class DefRangeSeekBar extends View {
 
  private boolean isEnable = true;
  float touchDownX,touchDownY;
- // Comment removed (contained Chinese characters)
  float reservePercent;
  boolean isScaleThumb = false;
  Paint paint = new Paint();
@@ -306,18 +298,11 @@ public class DefRangeSeekBar extends View {
  initProgressBitmap();
  }
 
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  @Override
  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
  int heightSize = MeasureSpec.getSize(heightMeasureSpec);
  int heightMode = MeasureSpec.getMode(heightMeasureSpec);
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 
  if (heightMode == MeasureSpec.EXACTLY) {
@@ -390,7 +375,6 @@ public class DefRangeSeekBar extends View {
  onDrawSeekBar(canvas);
  }
 
- // Comment removed (contained Chinese characters)
  // Draw the scales, and according to the current position is set within
  // the scale range of different color display
  protected void onDrawTickMark(Canvas canvas, Paint paint) {
@@ -401,7 +385,6 @@ public class DefRangeSeekBar extends View {
  if (TextUtils.isEmpty(text2Draw)) continue;
  paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
  paint.setColor(tickMarkTextColor);
- // Comment removed (contained Chinese characters)
  float x;
  if (tickMarkMode == TRICK_MARK_MODE_OTHER) {
  if (tickMarkGravity == TICK_MARK_GRAVITY_RIGHT) {
@@ -417,7 +400,6 @@ public class DefRangeSeekBar extends View {
  if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (seekBarMode == SEEKBAR_MODE_RANGE)) {
  paint.setColor(tickMarkInRangeTextColor);
  }
- // Comment removed (contained Chinese characters)
  x = getProgressLeft() + progressWidth * (num - minProgress) / (maxProgress - minProgress)
  - tickMarkTextRect.width() / 2f;
  }
@@ -432,7 +414,6 @@ public class DefRangeSeekBar extends View {
  }
  }
 
- // Comment removed (contained Chinese characters)
  // draw the progress bar
  protected void onDrawProgressBar(Canvas canvas, Paint paint) {
 
@@ -502,7 +483,6 @@ public class DefRangeSeekBar extends View {
  }
  }
 
- // Comment removed (contained Chinese characters)
  protected void onDrawSeekBar(Canvas canvas) {
  //draw left SeekBar
  if (leftSB.getIndicatorShowMode() == INDICATOR_ALWAYS_SHOW) {
@@ -518,7 +498,6 @@ public class DefRangeSeekBar extends View {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private void initPaint() {
  paint.setStyle(Paint.Style.FILL);
  paint.setColor(progressDefaultColor);
@@ -797,21 +776,14 @@ public class DefRangeSeekBar extends View {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void setRange(float min, float max) {
  setRange(min, max, minInterval);
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public void setRange(float min, float max, float minInterval) {
  if (max <= min) {

@@ -50,9 +50,7 @@ public class IniUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  * @return String
  */
  public static String getVehicleName(String path) {
@@ -65,14 +63,11 @@ public class IniUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  private static String readFileInfo(String path) {
  String name = "";
  File file = new File(path);
- // Comment removed (contained Chinese characters)
  if (file.isDirectory()) {
  LLog.d("TestFile", "The File doesn't not exist.");
  } else {
@@ -81,7 +76,6 @@ public class IniUtil {
  InputStreamReader inputreader = new InputStreamReader(instream);
  BufferedReader buffreader = new BufferedReader(inputreader);
  String line;
- // Comment removed (contained Chinese characters)
  while ((line = buffreader.readLine()) != null) {
  LLog.e("TestFile", "ReadTxtFile: " + line);
  name = line;
@@ -146,7 +140,6 @@ public class IniUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param path
  * @param name
@@ -305,7 +298,6 @@ public class IniUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param path
  * @param name

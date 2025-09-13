@@ -13,8 +13,6 @@ import com.topdon.lms.sdk.xutils.http.RequestParams
  */
 object HttpHelp {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getFirstReportData(
  isTC007: Boolean,

@@ -41,11 +41,9 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  private final IIRFrameCallback irFrameCallback;
  public SurfaceView cameraview;
  public boolean isRun = true;
- // Comment removed (contained Chinese characters)
  public int count = 0;
  private long timestart = 0;
  private double fps = 0;
- // Comment removed (contained Chinese characters)
  public boolean auto_gain_switch = false;
  public boolean auto_gain_switch_running = true;
  public boolean auto_over_protect = false;
@@ -61,7 +59,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  private Bitmap mScaledBitmap;
  private Handler handler;
 
- // Comment removed (contained Chinese characters)
  private boolean isUseIRISP = false;
 
  private SurfaceNativeWindow mSurfaceNativeWindow;
@@ -153,7 +150,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  ConcreateDualBuilder concreateDualBuilder = new ConcreateDualBuilder();
  dualUVCCamera = concreateDualBuilder
  .setDualType(DualType.USB_DUAL)
- // Comment removed (contained Chinese characters)
  .setIRSize(Const.IR_WIDTH, Const.IR_HEIGHT)
  .setVLSize(Const.VL_WIDTH, Const.VL_HEIGHT)
  .setDualSize(Const.DUAL_HEIGHT, Const.DUAL_WIDTH)
@@ -162,9 +158,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  .setDeviceStyle(CommonParams.DeviceStyle.ALL_IN_ONE)
  .setUseDualGPU(false)
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  .setMultiThreadHandleDualEnable(false)
  .build();
@@ -183,16 +176,13 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  mSurfaceNativeWindow = new SurfaceNativeWindow();
 
  /**
- * Comment removed (contained Chinese characters)
  */
- // Comment removed (contained Chinese characters)
  gain_switch_param.above_pixel_prop = 0.1f; //high -> low gain,
  gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //high -> low gain,gaingainswitchTemperature
  gain_switch_param.below_pixel_prop = 0.95f; //low -> high gain,
  gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//low -> high gain,gaingainswitchTemperature
  auto_gain_switch_info.switch_frame_cnt = 5 * 15; //continuousValuegainswitch(15，5 * 155)
  auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//gainswitch，Valuegainswitch(15，7 * 157)
- // Comment removed (contained Chinese characters)
  int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); //gainTemperature
  int high_gain_over_temp_data = (int) ((110 + 273.15) * 16 * 4); //gainTemperature
  float pixel_above_prop = 0.02f;//
@@ -209,31 +199,10 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  preIrARGBData = new byte[irSize * 2 * 2];;//infraredARGB 192 * 256 * 4
  iFrameCallback = new IFrameCallback() {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * dualHeight * 2 + vlWidth * vlHeight * 3 + dualwidth * dualHeight * 4
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  * dualHeight * 2 + vlWidth * vlHeight * 4
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  @Override
  public void onFrame(byte[] frame) {
@@ -244,7 +213,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  Log.d(TAG, "RESTART_USB");
  return;
  }
- // Comment removed (contained Chinese characters)
  count++;
  if (count == 100) {
  count = 0;
@@ -267,16 +235,13 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  System.arraycopy(frame, fusionLength + irSize * 4 + Const.DUAL_WIDTH * Const.DUAL_HEIGHT * 2, vlData,
  0, vlSize);
  System.arraycopy(frame, 0, frameData, 0, FRAME_LEN); //
- // Comment removed (contained Chinese characters)
  System.arraycopy(frame, dualCameraWidth*dualCameraHeight*4, frameIrAndTempData, 0, frameIrAndTempData.length);
 
- // Comment removed (contained Chinese characters)
 // if (mCurrentFusionType == DualCameraParams.FusionType.ScreenFusion) {
 // System.arraycopy(frame, fusionLength + irSize * 4 + remapTempSize + vlSize, vlARGBData, 0,
 // fusionLength);
 // }
 
- // Comment removed (contained Chinese characters)
  if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion) {
  for (OnFrameCallback onFrameCallback : onFrameCallbacks) {
  onFrameCallback.onFame(mixData, normalTempData, fps);
@@ -347,8 +312,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
 // }).start();
 //
 // }
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  if (dataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
  System.arraycopy(frame, fusionLength + irSize * 2, normalTempData, 0, irSize * 2);
  if (auto_gain_switch && auto_gain_switch_running) {
@@ -369,7 +332,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  }
  });
  }
- // Comment removed (contained Chinese characters)
  if (auto_over_protect) {
  USBMonitorManager.getInstance().getIrcmd().avoidOverexposure(false, gainStatus,
  normalTempData, imageRes, low_gain_over_temp_data, high_gain_over_temp_data,
@@ -398,9 +360,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  */
  public void startPreview() {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  switchIrPreDataHandleEnable(true);
  dualUVCCamera.setFrameCallback(iFrameCallback);
@@ -437,7 +396,6 @@ public class DualViewWithExternalCameraCommonApi extends BaseDualView {
  public Bitmap getScaledBitmap() {
  if (isOpenAmplify){
  if (mCurrentFusionType == DualCameraParams.FusionType.IROnlyNoFusion){
- // Comment removed (contained Chinese characters)
  supIROlyNoFusionBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(amplifyIRRotateArray, 0,
  supIROlyNoFusionBitmap.getWidth() * supIROlyNoFusionBitmap.getHeight() * 4));
  mScaledBitmap = Bitmap.createScaledBitmap(supIROlyNoFusionBitmap,

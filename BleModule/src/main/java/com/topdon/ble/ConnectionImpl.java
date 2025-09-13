@@ -92,7 +92,6 @@ class ConnectionImpl implements Connection, ScanListener {
  this.easyBle = easyBle;
  this.bluetoothAdapter = bluetoothAdapter;
  this.device = device;
- // Comment removed (contained Chinese characters)
  if (configuration == null) {
  this.configuration = new ConnectionConfiguration();
  } else {
@@ -352,7 +351,6 @@ class ConnectionImpl implements Connection, ScanListener {
  logD(Logger.TYPE_CONNECTION_STATE, "connected! [name: %s, addr: %s]", device.name, device.address);
  device.connectionState = ConnectionState.CONNECTED;
  sendConnectionCallback();
- // Comment removed (contained Chinese characters)
  connHandler.sendEmptyMessageDelayed(MSG_DISCOVER_SERVICES, configuration.discoverServicesDelayMillis);
  } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
  logD(Logger.TYPE_CONNECTION_STATE, "disconnected! [name: %s, addr: %s, autoReconnEnable: %s]",
@@ -422,10 +420,8 @@ class ConnectionImpl implements Connection, ScanListener {
 
  private void doTimer() {
  if (!isReleased) {
- // Comment removed (contained Chinese characters)
  if (device.connectionState != ConnectionState.SERVICE_DISCOVERED && !refreshing && !isActiveDisconnect) {
  if (device.connectionState != ConnectionState.DISCONNECTED) {
- // Comment removed (contained Chinese characters)
  if (System.currentTimeMillis() - connStartTime > configuration.connectTimeoutMillis) {
  connStartTime = System.currentTimeMillis();
  logE(Logger.TYPE_CONNECTION_STATE, "connect timeout! [name: %s, addr: %s]", device.name, device.address);
@@ -470,7 +466,6 @@ class ConnectionImpl implements Connection, ScanListener {
  @Override
  public void run() {
  if (!isReleased && hasBluetoothPermission()) {
- // Comment removed (contained Chinese characters)
  easyBle.stopScan();
  
  try {
@@ -511,9 +506,7 @@ class ConnectionImpl implements Connection, ScanListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  private void doDisconnect(boolean reconnect) {
  clearRequestQueueAndNotify();
@@ -543,7 +536,6 @@ class ConnectionImpl implements Connection, ScanListener {
  doRefresh(true);
  }
 
- // Comment removed (contained Chinese characters)
  private void doRefresh(boolean isAuto) {
  logD(Logger.TYPE_CONNECTION_STATE, "refresh GATT! [name: %s, addr: %s]", device.name, device.address);
  connStartTime = System.currentTimeMillis();
@@ -592,7 +584,6 @@ class ConnectionImpl implements Connection, ScanListener {
  if (!isReleased) {
  connStartTime = System.currentTimeMillis();
  easyBle.stopScan();
- // Comment removed (contained Chinese characters)
  device.connectionState = ConnectionState.SCANNING_FOR_RECONNECTION;
  logD(Logger.TYPE_CONNECTION_STATE, "scanning for reconnection [name: %s, addr: %s]", device.name, device.address);
  easyBle.startScan();
@@ -618,10 +609,8 @@ class ConnectionImpl implements Connection, ScanListener {
  private boolean hasBluetoothPermission() {
  Context context = easyBle.getContext();
  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
- // Comment removed (contained Chinese characters)
  return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
  } else {
- // Comment removed (contained Chinese characters)
  return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED;
  }
  }
@@ -742,7 +731,6 @@ class ConnectionImpl implements Connection, ScanListener {
  try {
  boolean result = bluetoothGatt.writeDescriptor(descriptor);
  if (!enable) {
- // Comment removed (contained Chinese characters)
  descriptor.setValue(originValue);
  }
  characteristic.setWriteType(writeType);
@@ -816,7 +804,6 @@ class ConnectionImpl implements Connection, ScanListener {
  if (currentRequest == null) {
  executeRequest(request);
  } else {
- // Comment removed (contained Chinese characters)
  int index = -1;
  for (int i = 0; i < requestQueue.size(); i++) {
  GenericRequest req = requestQueue.get(i);
@@ -1217,7 +1204,6 @@ class ConnectionImpl implements Connection, ScanListener {
  }
  }
 
- // Comment removed (contained Chinese characters)
  @SuppressWarnings("all")
  private boolean doRefresh() {
  try {
@@ -1305,7 +1291,6 @@ class ConnectionImpl implements Connection, ScanListener {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private void clearRequestQueueAndNotify() {
  synchronized (this) {
@@ -1361,7 +1346,6 @@ class ConnectionImpl implements Connection, ScanListener {
  return null;
  }
 
- // Comment removed (contained Chinese characters)
  private void checkUuidExistsAndEnqueue(GenericRequest request, int uuidNum) {
  boolean exists = false;
  if (uuidNum > 2) {
@@ -1376,7 +1360,6 @@ class ConnectionImpl implements Connection, ScanListener {
  }
  }
 
- // Comment removed (contained Chinese characters)
  private boolean checkServiceExists(GenericRequest request, UUID uuid) {
  if (getService(uuid) == null) {
  handleFailedCallback(request, REQUEST_FAIL_TYPE_SERVICE_NOT_EXIST, false);
@@ -1385,7 +1368,6 @@ class ConnectionImpl implements Connection, ScanListener {
  return true;
  }
 
- // Comment removed (contained Chinese characters)
  private boolean checkCharacteristicExists(GenericRequest request, UUID service, UUID characteristic) {
  if (checkServiceExists(request, service)) {
  if (getCharacteristic(service, characteristic) == null) {
@@ -1397,7 +1379,6 @@ class ConnectionImpl implements Connection, ScanListener {
  return false;
  }
 
- // Comment removed (contained Chinese characters)
  private boolean checkDescriptorExists(GenericRequest request, UUID service, UUID characteristic, UUID descriptor) {
  if (checkServiceExists(request, service) && checkCharacteristicExists(request, service, characteristic)) {
  if (getDescriptor(service, characteristic, descriptor) == null) {
@@ -1420,10 +1401,8 @@ class ConnectionImpl implements Connection, ScanListener {
  case READ_CHARACTERISTIC:
  case WRITE_CHARACTERISTIC:
  if (req.type == RequestType.WRITE_CHARACTERISTIC && req.writeOptions == null) {
- // Comment removed (contained Chinese characters)
  req.writeOptions = configuration.getDefaultWriteOptions(req.service, req.characteristic);
  if (req.writeOptions == null) {
- // Comment removed (contained Chinese characters)
  req.writeOptions = new WriteOptions.Builder().build();
  }
  }

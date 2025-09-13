@@ -11,7 +11,6 @@ import java.io.*
 
 object ImageUtils {
  /**
- * Comment removed (contained Chinese characters)
  */
  fun saveToCache(
  context: Context,
@@ -24,14 +23,11 @@ object ImageUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun save(
  bitmap: Bitmap,
  isTC007: Boolean = false,
  ): String {
- // Comment removed (contained Chinese characters)
  val dicName = if (isTC007) "TC007" else CommUtils.getAppName()
  val fileName = "${dicName}_${System.currentTimeMillis()}.jpg"
  val saveFile = ImageUtils.save2Album(bitmap, dicName, Bitmap.CompressFormat.JPEG)
@@ -44,7 +40,6 @@ object ImageUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun saveImageToApp(bitmap: Bitmap): String {
  val saveFile = File(Utils.getApp().cacheDir, "PinP_${System.currentTimeMillis()}.jpg")
@@ -52,7 +47,6 @@ object ImageUtils {
  return saveFile.absolutePath
  }
 
- // Comment removed (contained Chinese characters)
  fun saveLiteFrame(
  bs: ByteArray,
  capital: ByteArray,
@@ -71,7 +65,6 @@ object ImageUtils {
  }
  }
 
- // Comment removed (contained Chinese characters)
  fun saveFrame(
  bs: ByteArray,
  capital: ByteArray,
@@ -90,7 +83,6 @@ object ImageUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun saveOneFrameAGRB(
  bs: ByteArray,

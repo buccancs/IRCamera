@@ -11,45 +11,37 @@ import java.util.UUID;
  */
 public interface Request {
  /**
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  Device getDevice();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @NonNull
  RequestType getType();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  String getTag();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  UUID getService();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  UUID getCharacteristic();
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Nullable
  UUID getDescriptor();
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  void execute(Connection connection);
 }

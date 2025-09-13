@@ -26,7 +26,6 @@ import com.topdon.lms.sdk.utils.LanguageUtil
 import java.util.Date
 
 /**
- * Comment removed (contained Chinese characters)
  */
 object InitUtil {
  fun initLog() {
@@ -53,18 +52,15 @@ object InitUtil {
  if (BuildConfig.DEBUG) {
  XLog.init(config, androidPrinter, filePrinter)
  } else {
- // Comment removed (contained Chinese characters)
  XLog.init(config, filePrinter)
  }
  }
 
  fun initLms() {
- // Comment removed (contained Chinese characters)
  val privacyPolicyUrl =
  "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
  "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
  "language=${LanguageUtil.getLanguageId(Utils.getApp())}&type=22"
- // Comment removed (contained Chinese characters)
  val servicesAgreementUrl =
  "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
  "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
@@ -81,10 +77,8 @@ object InitUtil {
  if (!BaseApplication.instance.isDomestic()) {
  initXutils()
  } else {
- // Comment removed (contained Chinese characters)
  setWxAppId("wx588cb319449b72dd")
  setBuglyAppId("0b375add84")
- // Comment removed (contained Chinese characters)
 // setUMengAppKey("65780ed9a7208a5af184643c", channel, "")
  }
  setAppKey(BuildConfig.APP_KEY)
@@ -95,11 +89,8 @@ object InitUtil {
 
  fun initUM() {
 // if (BaseApplication.instance.isDomestic()){
- // Comment removed (contained Chinese characters)
 // UMConfigure.setLogEnabled(BuildConfig.DEBUG)
-// Comment removed (contained Chinese characters)
 // UMConfigure.preInit(BaseApplication.instance, "659384b895b14f599d0d9247", "Um-eng")
-// Comment removed (contained Chinese characters)
 // UMConfigure.init(
 // BaseApplication.instance,
 // "659384b895b14f599d0d9247",
@@ -114,7 +105,6 @@ object InitUtil {
  fun initJPush() {
  var registrationID = ""
 // if (BaseApplication.instance.isDomestic()){
-// Comment removed (contained Chinese characters)
 // JPushInterface.setDebugMode(BuildConfig.DEBUG)
 // JPushInterface.init(BaseApplication.instance)
 // registrationID = JPushInterface.getRegistrationID(BaseApplication.instance)
@@ -129,7 +119,6 @@ object InitUtil {
  BaseApplication.instance.unregisterReceiver(BaseApplication.usbObserver)
  } catch (e: Exception) {
  }
- // Comment removed (contained Chinese characters)
  val filter = IntentFilter()
  filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
  filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)

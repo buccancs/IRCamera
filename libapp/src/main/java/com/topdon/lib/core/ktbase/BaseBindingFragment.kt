@@ -17,34 +17,26 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/11/5.
  */
 abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  private var _binding: B? = null
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  protected val binding: B get() = _binding!!
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @LayoutRes
  protected abstract fun initContentLayoutId(): Int
 
  /**
- * Comment removed (contained Chinese characters)
  */
  protected abstract fun initView(savedInstanceState: Bundle?)
 
@@ -104,12 +96,10 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private var loadingDialog: LoadingDialog? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showLoadingDialog(
  @StringRes resId: Int,
@@ -118,7 +108,6 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun showLoadingDialog(text: CharSequence?) {
  if (loadingDialog == null) {
@@ -129,7 +118,6 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun dismissLoadingDialog() {
  loadingDialog?.dismiss()

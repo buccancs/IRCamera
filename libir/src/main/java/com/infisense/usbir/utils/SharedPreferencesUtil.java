@@ -12,7 +12,6 @@ public class SharedPreferencesUtil {
  private static final String FILE_NAME = "usb_ir";
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @param key
@@ -39,7 +38,6 @@ public class SharedPreferencesUtil {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param context
  * @param key

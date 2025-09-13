@@ -42,8 +42,6 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
 
  private IFrameCallback iFrameCallback = new IFrameCallback() {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
 
  @Override
@@ -120,7 +118,6 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public void stopPreview() {
  dualUVCCamera.setFrameCallback(null);

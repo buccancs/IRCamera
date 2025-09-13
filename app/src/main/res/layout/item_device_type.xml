@@ -22,7 +22,6 @@
  app:layout_constraintEnd_toEndOf="parent"
  app:layout_constraintTop_toTopOf="parent" />
 
- <!-- Comment removed (contained Chinese characters) -->
  <View
  android:id="@+id/view_space"
  android:layout_width="15dp"

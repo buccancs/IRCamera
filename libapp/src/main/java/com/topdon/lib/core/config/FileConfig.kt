@@ -10,8 +10,6 @@ import java.io.File
 
 object FileConfig {
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getDetectImageDir(
  context: Context,
@@ -30,8 +28,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  fun getSignImageDir(
  context: Context,
@@ -50,12 +46,10 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getFirmwareFile(filename: String): File = File(Utils.getApp().getExternalFilesDir("firmware"), filename)
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  fun getPdfDir(): String {
@@ -73,7 +67,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val excelDir: String
@@ -92,7 +85,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val gallerySourDir: String
@@ -106,7 +98,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val oldTc001GalleryDir: String
@@ -128,7 +119,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val lineGalleryDir: String
@@ -143,7 +133,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val ts004GalleryDir: String
@@ -158,7 +147,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val tc007GalleryDir: String
@@ -173,7 +161,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val lineIrGalleryDir: String
@@ -188,7 +175,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val tc007IrGalleryDir: String
@@ -203,7 +189,6 @@ object FileConfig {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @JvmStatic
  val documentsDir: String

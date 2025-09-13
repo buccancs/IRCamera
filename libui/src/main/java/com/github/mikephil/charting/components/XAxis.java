@@ -117,7 +117,6 @@ public class XAxis extends AxisBase {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private boolean isJumpFirstLabel = true;
 

@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  */
 public class IRUVCTC {
  private static final String TAG = "IRUVC_DATA";
@@ -49,18 +48,14 @@ public class IRUVCTC {
  private final int imageOrTempDataLength = 256 * 192 * 2; // infraredTemperature
  private final SynchronizedBitmap syncimage;
  /**
- * Comment removed (contained Chinese characters)
  */
  private final LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
  private final LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
  private int rotateInt = 0;
 
- // Comment removed (contained Chinese characters)
  private boolean isFrameReady = true;
- // Comment removed (contained Chinese characters)
  private final CommonParams.GainStatus gainStatus = CommonParams.GainStatus.HIGH_GAIN;
  private final byte[] temperatureTemp = new byte[imageOrTempDataLength];
- // Comment removed (contained Chinese characters)
  private boolean isTempReplacedWithTNREnabled;
  private final CommonParams.DataFlowMode defaultDataFlowMode;
  private boolean isRestart;
@@ -90,10 +85,6 @@ public class IRUVCTC {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public IRUVCTC(int cameraWidth, int cameraHeight, Context context, SynchronizedBitmap syncimage,
  CommonParams.DataFlowMode dataFlowMode,
@@ -105,7 +96,6 @@ public class IRUVCTC {
 
  //
  initUVCCamera();
- // Comment removed (contained Chinese characters)
  mUSBMonitor = new USBMonitor(context, new USBMonitor.OnDeviceConnectListener() {
 
  // called by checking usb device
@@ -138,27 +128,21 @@ public class IRUVCTC {
  if (createNew) {
  openUVCCamera(ctrlBlock);
 
- // Comment removed (contained Chinese characters)
  List<CameraSize> previewList = getAllSupportedSize();
  for (CameraSize size : previewList) {
  Log.i(TAG, "SupportedSize : " + size.width + " * " + size.height);
  }
 
- // Comment removed (contained Chinese characters)
  initIRCMD();
 
  if (ircmd != null) {
  Log.d(TAG, "startPreview");
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  isTempReplacedWithTNREnabled = ircmd.isTempReplacedWithTNREnabled(DeviceType.P2);
  if (isTempReplacedWithTNREnabled) {
- // Comment removed (contained Chinese characters)
  if (uvcCamera != null) {
  uvcCamera.setUSBPreviewSize(cameraWidth, cameraHeight * 2);
  }
  } else {
- // Comment removed (contained Chinese characters)
  if (uvcCamera != null) {
  uvcCamera.setUSBPreviewSize(cameraWidth, cameraHeight);
  }
@@ -204,16 +188,13 @@ public class IRUVCTC {
  }
  });
  /*
- * Comment removed (contained Chinese characters)
  */
- // Comment removed (contained Chinese characters)
  gain_switch_param.above_pixel_prop = 0.1f; //high -> low gain,
  gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //high -> low gain,gaingainswitchTemperature
  gain_switch_param.below_pixel_prop = 0.95f; //low -> high gain,
  gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//low -> high gain,gaingainswitchTemperature
  auto_gain_switch_info.switch_frame_cnt = 5 * 15; //continuousValuegainswitch(15，5 * 155)
  auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//gainswitch，Valuegainswitch(15，7 * 157)
- // Comment removed (contained Chinese characters)
  int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); //gainTemperature
  int high_gain_over_temp_data = (int) ((150 + 273.15) * 16 * 4); //gainTemperature
  float pixel_above_prop = 0.02f;//
@@ -225,7 +206,6 @@ public class IRUVCTC {
  : cameraHeight);
  imageRes.width = (char) cameraWidth;
 
- // Comment removed (contained Chinese characters)
  iFrameCallback = new IFrameCallback() {
  @Override
  public void onFrame(byte[] frame) {
@@ -238,7 +218,6 @@ public class IRUVCTC {
  syncimage.start = true;
  //
  synchronized (syncimage.dataLock) {
- // Comment removed (contained Chinese characters)
  int length = frame.length - 1;
  if (frame[length] == 1) {
  // bad frame
@@ -246,7 +225,6 @@ public class IRUVCTC {
  return;
  }
  if (imageEditTemp != null && imageEditTemp.length >= length) {
- // Comment removed (contained Chinese characters)
  System.arraycopy(frame, 0, imageEditTemp, 0, length);
  }
 // try {
@@ -262,16 +240,9 @@ public class IRUVCTC {
 // }
  if (dataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  System.arraycopy(frame, 0, imageSrc, 0, imageOrTempDataLength);
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  if (length >= imageOrTempDataLength * 2) {
 
@@ -300,7 +271,6 @@ public class IRUVCTC {
 // System.arraycopy(frame, length / 2, temperatureSrc, 0, length / 2);
  }
  if (ircmd != null) {
- // Comment removed (contained Chinese characters)
  if (auto_gain_switch) {
  ircmd.autoGainSwitch(temperatureSrc, imageRes, auto_gain_switch_info,
  gain_switch_param, new AutoGainSwitchCallback() {
@@ -317,7 +287,6 @@ public class IRUVCTC {
  }
  });
  }
- // Comment removed (contained Chinese characters)
  if (auto_over_portect) {
  ircmd.avoidOverexposure(false, gainStatus, temperatureSrc, imageRes,
  low_gain_over_temp_data,
@@ -335,9 +304,6 @@ public class IRUVCTC {
  }
  } else {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  System.arraycopy(frame, 0, imageSrc, 0, imageOrTempDataLength);
  }
@@ -387,15 +353,12 @@ public class IRUVCTC {
  .setUVCType(UVCType.USB_UVC)
  .build();
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  uvcCamera.setDefaultBandwidth(0.5F);
  }
 
  /**
  * init IRCMD
- * Comment removed (contained Chinese characters)
  */
  private void initIRCMD() {
  if (uvcCamera != null) {
@@ -403,8 +366,6 @@ public class IRUVCTC {
  .setIrcmdType(IRCMDType.USB_IR_256_384)
  .setIdCamera(uvcCamera.getNativePtr())
  .build();
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  if (ircmd == null) {
  EventBus.getDefault().post(new PreviewComplete());
  return;
@@ -443,9 +404,7 @@ public class IRUVCTC {
  if (uvcCamera == null) {
  initUVCCamera();
  }
- // Comment removed (contained Chinese characters)
  if (uvcCamera.openUVCCamera(ctrlBlock) == 0) {
- // Comment removed (contained Chinese characters)
  if (mConnectCallback != null && uvcCamera != null) {
  mConnectCallback.onCameraOpened(uvcCamera);
  }
@@ -453,7 +412,6 @@ public class IRUVCTC {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private List<CameraSize> getAllSupportedSize() {
  List<CameraSize> previewList = new ArrayList<>();
@@ -469,7 +427,6 @@ public class IRUVCTC {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param devpid
  * @return
@@ -482,7 +439,6 @@ public class IRUVCTC {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  private void startPreview() {
  if (ircmd == null) {
@@ -496,17 +452,12 @@ public class IRUVCTC {
  if (CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT == defaultDataFlowMode ||
  CommonParams.DataFlowMode.IMAGE_OUTPUT == defaultDataFlowMode) {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  Log.i(TAG, "defaultDataFlowMode = IMAGE_AND_TEMP_OUTPUT or IMAGE_OUTPUT");
- // Comment removed (contained Chinese characters)
  setFrameReady(false);
  if (isRestart) {
- // Comment removed (contained Chinese characters)
  if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
  Log.i(TAG, "stopPreview complete");
- // Comment removed (contained Chinese characters)
  if (ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
  CommonParams.StartPreviewSource.SOURCE_SENSOR,
  ScreenUtils.getPreviewFPSByDataFlowMode(defaultDataFlowMode),
@@ -523,9 +474,7 @@ public class IRUVCTC {
  }
  } else {
  /*
- * Comment removed (contained Chinese characters)
  */
- // Comment removed (contained Chinese characters)
  setFrameReady(false);
  if (isRestart) {
  if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
@@ -537,8 +486,6 @@ public class IRUVCTC {
  Log.i(TAG, "startPreview complete restart");
  try {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  Thread.sleep(1500);
  } catch (InterruptedException e) {
@@ -558,24 +505,19 @@ public class IRUVCTC {
  }
  } else {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  boolean isTempReplacedWithTNREnabled = ircmd.isTempReplacedWithTNREnabled(DeviceType.P2);
  Log.i(TAG,
  "defaultDataFlowMode = others isTempReplacedWithTNREnabled = " + isTempReplacedWithTNREnabled);
  if (isTempReplacedWithTNREnabled) {
  /*
- * Comment removed (contained Chinese characters)
  */
- // Comment removed (contained Chinese characters)
 // if (ircmd.startY16ModePreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
 // FileUtil.getY16SrcTypeByDataFlowMode(defaultDataFlowMode)) == 0) {
 // handleStartPreviewComplete();
 // } else {
 // Log.e(TAG, "startY16ModePreview error");
 // }
- // Comment removed (contained Chinese characters)
  if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
  Log.i(TAG, "stopPreview complete infrared+TNR");
  if (ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -586,8 +528,6 @@ public class IRUVCTC {
  Log.i(TAG, "startPreview complete infrared+TNR");
  try {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  Thread.sleep(1500);
  } catch (InterruptedException e) {
@@ -607,11 +547,7 @@ public class IRUVCTC {
  }
  } else {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
- // Comment removed (contained Chinese characters)
  if (ircmd.stopPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0) == 0) {
  Log.i(TAG, "stopPreview complete TNR");
  if (ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
@@ -621,8 +557,6 @@ public class IRUVCTC {
  Log.i(TAG, "startPreview complete TNR");
  try {
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  Thread.sleep(1500);
  } catch (InterruptedException e) {
@@ -658,7 +592,6 @@ public class IRUVCTC {
  final UVCCamera camera;
  camera = uvcCamera;
  uvcCamera = null;
- // Comment removed (contained Chinese characters)
  if (ircmd != null) {
  ircmd.onDestroy();
  ircmd = null;
@@ -666,7 +599,6 @@ public class IRUVCTC {
 
  SystemClock.sleep(200);
 
- // Comment removed (contained Chinese characters)
  camera.onDestroyPreview();
 
  }
@@ -676,7 +608,6 @@ public class IRUVCTC {
  *
  */
  private void handleStartPreviewComplete() {
- // Comment removed (contained Chinese characters)
  new Thread(() -> EventBus.getDefault().post(new PreviewComplete())).start();
  }
 

@@ -58,13 +58,9 @@ public class IRUVCDual {
  private boolean auto_over_protect = false;
  private LibIRProcess.AutoGainSwitchInfo_t auto_gain_switch_info = new LibIRProcess.AutoGainSwitchInfo_t();
  private LibIRProcess.GainSwitchParam_t gain_switch_param = new LibIRProcess.GainSwitchParam_t();
- // Comment removed (contained Chinese characters)
  private boolean isUseIRISP;
- // Comment removed (contained Chinese characters)
  private boolean isUseGPU = false;
- // Comment removed (contained Chinese characters)
  private CommonParams.GainStatus gainStatus = CommonParams.GainStatus.HIGH_GAIN;
- // Comment removed (contained Chinese characters)
  private CommonParams.GainMode gainMode = CommonParams.GainMode.GAIN_MODE_HIGH_LOW;
  private short[] nuc_table_high = new short[8192];
  private short[] nuc_table_low = new short[8192];
@@ -203,16 +199,13 @@ public class IRUVCDual {
  }
  });
  /**
- * Comment removed (contained Chinese characters)
  */
- // Comment removed (contained Chinese characters)
  gain_switch_param.above_pixel_prop = 0.1f; //high -> low gain,
  gain_switch_param.above_temp_data = (int) ((130 + 273.15) * 16 * 4); //high -> low gain,gaingainswitchTemperature
  gain_switch_param.below_pixel_prop = 0.95f; //low -> high gain,
  gain_switch_param.below_temp_data = (int) ((110 + 273.15) * 16 * 4);//low -> high gain,gaingainswitchTemperature
  auto_gain_switch_info.switch_frame_cnt = 5 * 15; //continuousValuegainswitch(15，5 * 155)
  auto_gain_switch_info.waiting_frame_cnt = 7 * 15;//gainswitch，Valuegainswitch(15，7 * 157)
- // Comment removed (contained Chinese characters)
  int low_gain_over_temp_data = (int) ((550 + 273.15) * 16 * 4); //gainTemperature
  int high_gain_over_temp_data = (int) ((100 + 273.15) * 16 * 4); //gainTemperature
  float pixel_above_prop = 0.02f;//
@@ -248,8 +241,6 @@ public class IRUVCDual {
  public void onAttach(UsbDevice device) {
  Log.w(TAG, "USBMonitor-onAttach mPid = " + pid + " getProductId = " + device.getProductId());
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  if (device.getProductId() != mPid) {
  return;
@@ -336,8 +327,6 @@ public class IRUVCDual {
  public void onAttach(UsbDevice device) {
  Log.w(TAG, "USBMonitor-onAttach mPid = " + pid + " getProductId = " + device.getProductId());
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  if (device.getProductId() != mPid) {
  return;
@@ -589,7 +578,6 @@ public class IRUVCDual {
  if (uvcCamera == null) {
  initUVCCamera(cameraWidth, cameraHeight);
  }
- // Comment removed (contained Chinese characters)
  uvcCamera.openUVCCamera(ctrlBlock);
  }
 
@@ -605,7 +593,6 @@ public class IRUVCDual {
  }
  uvcCamera.onStartPreview();
  if (mPid == 0x5830 || mPid == 0x5840) {
- // Comment removed (contained Chinese characters)
  ircmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
  CommonParams.StartPreviewSource.SOURCE_SENSOR,
  25, CommonParams.StartPreviewMode.VOC_DVP_MODE,
@@ -616,7 +603,6 @@ public class IRUVCDual {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return
  */
@@ -633,7 +619,6 @@ public class IRUVCDual {
 
  /**
  * init IRCMD
- * Comment removed (contained Chinese characters)
  *
  * @param previewList
  */
@@ -657,7 +642,6 @@ public class IRUVCDual {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param cameraWidth
  * @param cameraHeight
@@ -697,14 +681,10 @@ public class IRUVCDual {
  private void handleUSBConnect(USBMonitor.UsbControlBlock ctrlBlock) {
  Log.d(TAG, "handleUSBConnect mPid = " + mPid);
  openUVCCamera(ctrlBlock);
- // Comment removed (contained Chinese characters)
  List<CameraSize> previewList = getAllSupportedSize();
- // Comment removed (contained Chinese characters)
  if (mPid == 0x5830 || mPid == 0x5840) {
  initIRCMD(previewList);
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  uvcCamera.setDefaultBandwidth(1.0f); //
  uvcCamera.setDefaultPreviewMinFps(1);
@@ -712,21 +692,17 @@ public class IRUVCDual {
  } else {
  Log.d(TAG, "startVLCamera handleUSBConnect mPid = " + mPid + " setDefaultPreviewMode");
  /**
- * Comment removed (contained Chinese characters)
  * DEFAULT 0 YUV
  * Mjpeg 1 RGB
  */
  uvcCamera.setDefaultPreviewMode(CommonParams.FRAMEFORMATType.FRAME_FORMAT_MJPEG);
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  uvcCamera.setDefaultBandwidth(0.6f); //
  uvcCamera.setDefaultPreviewMinFps(1);
  uvcCamera.setDefaultPreviewMaxFps(mFps);
  }
 
- // Comment removed (contained Chinese characters)
  int result = setPreviewSize(cameraWidth, cameraHeight);
  if (result == 0) {
  //

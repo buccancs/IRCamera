@@ -30,7 +30,6 @@ public final class WriteCharacteristicBuilder extends RequestBuilder<WriteCharac
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public WriteCharacteristicBuilder setWriteOptions(WriteOptions writeOptions) {
  this.writeOptions = writeOptions;

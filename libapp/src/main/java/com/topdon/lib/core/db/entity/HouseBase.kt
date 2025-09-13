@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 import com.blankj.utilcode.util.TimeUtils
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/1/15.
  */
@@ -16,73 +15,61 @@ open class HouseBase {
  var id: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var name: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var inspectorName: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var address: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var imagePath: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var year: Int? = null
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var houseSpace: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var houseSpaceUnit: Int = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var cost: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var costUnit: Int = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var detectTime: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var createTime: Long = 0
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var updateTime: Long = 0
@@ -92,7 +79,6 @@ open class HouseBase {
  override fun hashCode(): Int = id.toInt()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getSpaceUnitStr(): String =
  when (houseSpaceUnit) {
@@ -102,7 +88,6 @@ open class HouseBase {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getCostUnitStr(): String =
  when (costUnit) {
@@ -118,24 +103,20 @@ open class HouseBase {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun getPdfFileName(): String = "TC_${TimeUtils.millis2String(createTime, "yyyyMMdd_HHmmss")}.pdf"
 }
 
 /**
- * Comment removed (contained Chinese characters)
  */
 @Entity
 class HouseDetect : HouseBase() {
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var dirList: ArrayList<DirDetect> = ArrayList()
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun copyOne(): HouseDetect {
  val newDetect = HouseDetect()
@@ -186,36 +167,30 @@ class HouseDetect : HouseBase() {
 }
 
 /**
- * Comment removed (contained Chinese characters)
  */
 @Entity
 class HouseReport : HouseBase() {
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var inspectorWhitePath: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var inspectorBlackPath: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var houseOwnerWhitePath: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @ColumnInfo
  var houseOwnerBlackPath: String = ""
 
  /**
- * Comment removed (contained Chinese characters)
  */
  @Ignore
  var dirList: ArrayList<DirReport> = ArrayList()

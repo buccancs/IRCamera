@@ -10,7 +10,6 @@ import com.topdon.lib.core.databinding.DialogNotTipsSelectBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * Comment removed (contained Chinese characters)
  *
  * Created by LCG on 2024/10/26.
  */
@@ -29,7 +28,6 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
  onConfirmListener = l

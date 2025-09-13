@@ -48,11 +48,9 @@ class StringUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param str
  * @param textSizePxVal
- * Comment removed (contained Chinese characters)
  */
  public fun getStringSize(
  str: String,

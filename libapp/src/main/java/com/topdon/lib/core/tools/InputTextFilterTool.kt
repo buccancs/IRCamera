@@ -8,7 +8,6 @@ import java.util.regex.Pattern
 
 class InputTextFilterTool {
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param editText
  */
@@ -19,12 +18,10 @@ class InputTextFilterTool {
  if (oldFiltersLength > 0) {
  System.arraycopy(oldFilters, 0, newFilters, 0, oldFiltersLength)
  }
- // Comment removed (contained Chinese characters)
  newFilters[oldFiltersLength] = mInputFilter
  editText.filters = newFilters
  }
 
- // Comment removed (contained Chinese characters)
  private var mInputFilter: InputFilter =
  object : InputFilter {
  // Pattern emoji = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);

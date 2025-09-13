@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
- <!-- Comment removed (contained Chinese characters) -->
  <declare-styleable name="MyTextView">
  <attr name="drawable_height" format="dimension">
  <enum name="wrap_content" value="-2" />
@@ -26,7 +25,6 @@
  </attr>
  </declare-styleable>
 
- <!-- Comment removed (contained Chinese characters) -->
  <declare-styleable name="TitleView">
  <attr name="titleText" format="string"/>
  <attr name="leftText" format="string"/>

@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Comment removed (contained Chinese characters)
  * @ClassName UnitUtils
  * @Email 616862466@qq.com
 * @Author
@@ -25,9 +24,7 @@ import java.util.List;
 public class UnitUtils {
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static List<UnitDBBean> getUnitDBBeanList(int unitType) {
  try {
@@ -51,7 +48,6 @@ public class UnitUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap() {
  String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
@@ -60,9 +56,7 @@ public class UnitUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  public static HashMap<String, UnitDBBean> getUnitDBBeanHashMap(int unitType) {
  HashMap<String, UnitDBBean> hashMap = new HashMap<>();
@@ -78,11 +72,7 @@ public class UnitUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static String[] getCalcResult(HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
  String unit = (String) SPUtils.getInstance(Topdon.getApp()).get("unit", "0");
@@ -91,12 +81,7 @@ public class UnitUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public static String[] getCalcResult(int unitType, HashMap<String, UnitDBBean> hashMap, String preUnit, String numericalValue) {
  UnitDBBean unitDBBean = null;
@@ -161,7 +146,6 @@ public class UnitUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param dou dou
  * @return double
@@ -173,13 +157,11 @@ public class UnitUtils {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param score double
  * @return String
  */
  public static String getDecimalFormatByDouble(double score) {
- // Comment removed (contained Chinese characters)
  DecimalFormat decimalFormat = new DecimalFormat("0.00#");
  return decimalFormat.format(score);
  }

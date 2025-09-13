@@ -219,11 +219,8 @@ public class XAxisRenderer extends AxisRenderer {
  x += width / 2;
  }
  }
- // Comment removed (contained Chinese characters)
 
  if (i == 0 && mXAxis.isJumpFirstLabel()) {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  continue;
  }
 
@@ -265,7 +262,6 @@ public class XAxisRenderer extends AxisRenderer {
  gridLinePath.reset();
 
  for (int i = 0; i < positions.length; i += 2) {
- // Comment removed (contained Chinese characters)
 
  if (i == 0) {
  continue;

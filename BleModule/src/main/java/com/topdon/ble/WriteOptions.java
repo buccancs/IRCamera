@@ -3,7 +3,6 @@ package com.topdon.ble;
 import android.bluetooth.BluetoothGattCharacteristic;
 
 /**
- * Comment removed (contained Chinese characters)
  * 
  * date: 2019/8/9 18:06
 * author: bichuanfeng
@@ -26,36 +25,30 @@ public class WriteOptions {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public int getPackageWriteDelayMillis() {
  return packageWriteDelayMillis;
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public int getRequestWriteDelayMillis() {
  return requestWriteDelayMillis;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public int getPackageSize() {
  return packageSize;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public boolean isWaitWriteResult() {
  return isWaitWriteResult;
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public int getWriteType() {
  return writeType;
@@ -70,7 +63,6 @@ public class WriteOptions {
  private boolean useMtuAsPackageSize = false;
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public Builder setPackageWriteDelayMillis(int packageWriteDelayMillis) {
  this.packageWriteDelayMillis = packageWriteDelayMillis;
@@ -78,8 +70,6 @@ public class WriteOptions {
  }
 
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  public Builder setRequestWriteDelayMillis(int requestWriteDelayMillis) {
  this.requestWriteDelayMillis = requestWriteDelayMillis;
@@ -87,7 +77,6 @@ public class WriteOptions {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public Builder setPackageSize(int packageSize) {
  if (packageSize > 0) {
@@ -97,7 +86,6 @@ public class WriteOptions {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public Builder setWaitWriteResult(boolean waitWriteResult) {
  isWaitWriteResult = waitWriteResult;
@@ -105,7 +93,6 @@ public class WriteOptions {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param writeType {@link BluetoothGattCharacteristic#WRITE_TYPE_DEFAULT}
  * <br>{@link BluetoothGattCharacteristic#WRITE_TYPE_NO_RESPONSE}
@@ -121,7 +108,6 @@ public class WriteOptions {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  */
  public Builder setMtuAsPackageSize() {
  useMtuAsPackageSize = true;

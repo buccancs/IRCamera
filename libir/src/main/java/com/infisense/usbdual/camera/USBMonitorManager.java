@@ -27,10 +27,8 @@ public class USBMonitorManager {
  private UVCCamera mUvcCamera;
  private IRCMD mIrcmd;
  private CommonParams.DataFlowMode mDefaultDataFlowMode = CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT;
- // Comment removed (contained Chinese characters)
  private CommonParams.GainMode gainMode = CommonParams.GainMode.GAIN_MODE_HIGH_LOW;
  private boolean isUseIRISP;
- // Comment removed (contained Chinese characters)
  private boolean isUseGPU = true;
  private int cameraWidth;
  private int cameraHeight;
@@ -47,7 +45,6 @@ public class USBMonitorManager {
  private short[] bt_high = new short[1201];
  private short[] bt_low = new short[1201];
  private boolean isGetNucFromFlash; // WhethercoreFlashnuc，temperature measurement
- // Comment removed (contained Chinese characters)
  private CommonParams.GainStatus gainStatus = CommonParams.GainStatus.HIGH_GAIN;
  // coreTemperature
  private int[] curVtemp = new int[1];
@@ -88,7 +85,6 @@ public class USBMonitorManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  * @param isUseIRISP
  * @param defaultDataFlowMode
  */
@@ -98,13 +94,11 @@ public class USBMonitorManager {
  this.mDefaultDataFlowMode = defaultDataFlowMode;
  if (defaultDataFlowMode == CommonParams.DataFlowMode.IMAGE_AND_TEMP_OUTPUT) {
  /**
- * Comment removed (contained Chinese characters)
  */
  cameraWidth = 256; // 
  cameraHeight = 384; // 
  } else {
  /**
- * Comment removed (contained Chinese characters)
  */
  cameraWidth = 256;// 
  cameraHeight = 192;// 
@@ -119,8 +113,6 @@ public class USBMonitorManager {
  Log.w(TAG, "USBMonitorManager-onAttach-getProductId = " + device.getProductId());
  Log.w(TAG, "USBMonitorManager-onAttach-mPid = " + mPid);
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  if (device.getProductId() != mPid) {
  return;
@@ -210,8 +202,6 @@ public class USBMonitorManager {
  .setUVCType(UVCType.USB_UVC)
  .build();
  /**
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  mUvcCamera.setDefaultBandwidth(1f);
  }
@@ -223,7 +213,6 @@ public class USBMonitorManager {
  if (mUvcCamera == null) {
  initUVCCamera();
  }
- // Comment removed (contained Chinese characters)
  mUvcCamera.openUVCCamera(ctrlBlock);
  }
 
@@ -243,15 +232,11 @@ public class USBMonitorManager {
 
  public void handleUSBConnect(USBMonitor.UsbControlBlock ctrlBlock) {
  openUVCCamera(ctrlBlock);
- // Comment removed (contained Chinese characters)
  List<CameraSize> previewList = getAllSupportedSize();
- // Comment removed (contained Chinese characters)
  initIRCMD(previewList);
- // Comment removed (contained Chinese characters)
  if (mDefaultDataFlowMode == CommonParams.DataFlowMode.TNR_OUTPUT) {
  isTempReplacedWithTNREnabled = mIrcmd.isTempReplacedWithTNREnabled(DeviceType.P2);
  Log.i(TAG, "startPreview->isTempReplacedWithTNREnabled = " + isTempReplacedWithTNREnabled);
- // Comment removed (contained Chinese characters)
  if (isTempReplacedWithTNREnabled) {
  cameraWidth = 256;
  cameraHeight = 384;
@@ -268,7 +253,6 @@ public class USBMonitorManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @return
  */
@@ -286,7 +270,6 @@ public class USBMonitorManager {
 
  /**
  * init IRCMD
- * Comment removed (contained Chinese characters)
  *
  * @param previewList
  */
@@ -308,14 +291,12 @@ public class USBMonitorManager {
  }
 
  /**
- * Comment removed (contained Chinese characters)
  *
  * @param cameraWidth
  * @param cameraHeight
  */
  private int setPreviewSize(int cameraWidth, int cameraHeight) {
  int result = -1;
- // Comment removed (contained Chinese characters)
  try {
  if (mUvcCamera != null) {
  result = mUvcCamera.setUSBPreviewSize(cameraWidth, cameraHeight);
@@ -342,7 +323,6 @@ public class USBMonitorManager {
  mUvcCamera.setOpenStatus(true);
  mUvcCamera.onStartPreview();
  if (isTempReplacedWithTNREnabled) {
- // Comment removed (contained Chinese characters)
  if (mIrcmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
  CommonParams.StartPreviewSource.SOURCE_SENSOR,
  25, CommonParams.StartPreviewMode.VOC_DVP_MODE,
@@ -354,9 +334,6 @@ public class USBMonitorManager {
  }
  }
  } else {
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
- // Comment removed (contained Chinese characters)
  if (mIrcmd.startPreview(CommonParams.PreviewPathChannel.PREVIEW_PATH0,
  CommonParams.StartPreviewSource.SOURCE_SENSOR,
  25, CommonParams.StartPreviewMode.VOC_DVP_MODE,

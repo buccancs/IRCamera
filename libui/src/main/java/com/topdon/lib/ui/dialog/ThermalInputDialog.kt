@@ -32,7 +32,6 @@ import com.topdon.lib.ui.databinding.DialogThermalInputBinding
 import java.math.BigDecimal
 
 /**
- * Comment removed (contained Chinese characters)
  * create by fylder on 2018/6/15
  **/
 
@@ -291,7 +290,6 @@ class ThermalInputDialog : Dialog {
  dialog!!.setCanceledOnTouchOutside(canceled)
  successBtn.setOnClickListener {
  if (binding.colorPickerViewLay.isVisible) {
- // Comment removed (contained Chinese characters)
  binding.colorPickerViewLay.visibility = View.GONE
  binding.dialogInputLay.visibility = View.VISIBLE
  messageText.text = message
@@ -400,7 +398,6 @@ class ThermalInputDialog : Dialog {
  fromUser: Boolean,
  ) {
  if ("#${envelope.hexCode}" != "#FFFFFFFF") {
- // Comment removed (contained Chinese characters)
  adapter.selected(-1)
  selectColor = 0
  }

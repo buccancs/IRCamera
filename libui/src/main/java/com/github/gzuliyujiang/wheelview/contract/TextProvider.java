@@ -14,7 +14,6 @@
 package com.github.gzuliyujiang.wheelview.contract;
 
 /**
- * Comment removed (contained Chinese characters)
  *
 * @author （1032694760@qq.com）
  * @since 2019/5/14 20:01
@@ -22,9 +21,7 @@ package com.github.gzuliyujiang.wheelview.contract;
 public interface TextProvider {
 
  /**
- * Comment removed (contained Chinese characters)
  *
- * Comment removed (contained Chinese characters)
  */
  String provideText();
 

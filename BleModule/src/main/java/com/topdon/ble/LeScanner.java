@@ -15,7 +15,6 @@ import com.topdon.ble.util.BluetoothPermissionUtils;
 import com.topdon.ble.util.Logger;
 
 /**
- * Comment removed (contained Chinese characters)
  * <p>
  * date: 2021/8/12 12:30
 * author: bichuanfeng
@@ -30,7 +29,6 @@ class LeScanner extends AbstractScanner {
 
  private BluetoothLeScanner getLeScanner() {
  if (bleScanner == null) {
- // Comment removed (contained Chinese characters)
  bleScanner = bluetoothAdapter.getBluetoothLeScanner();
  }
  return bleScanner;

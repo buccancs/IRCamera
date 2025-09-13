@@ -171,8 +171,6 @@ public class ImageThreadTC extends Thread {
  LibIRProcess.convertYuyvMapToARGBPseudocolor(imageSrc, imageHeight * imageWidth, PseudocodeUtils.INSTANCE.changePseudocodeModeByOld(pseudocolorMode), imageARGB);
  }
  /*
- * Comment removed (contained Chinese characters)
- * Comment removed (contained Chinese characters)
  */
  if (rotateInt == 270) {
  LibIRProcess.ImageRes_t imageRes = new LibIRProcess.ImageRes_t();
@@ -197,7 +195,6 @@ public class ImageThreadTC extends Thread {
  }
  irImageHelp.customPseudoColor(imageDst,temperatureSrc,imageWidth,imageHeight);
  /*
- * Comment removed (contained Chinese characters)
  */
  irImageHelp.setPseudoColorMaxMin(imageDst,temperatureSrc,max,min,imageWidth,imageHeight);
  }
@@ -227,7 +224,6 @@ public class ImageThreadTC extends Thread {
  imageDst = grayData;
  }else if (typeAi == TYPE_AI_D) {
  int firstTime = 0;
- // Comment removed (contained Chinese characters)
  if (firstFrame == null || firstTemp == null) {
  firstFrame = new byte[imageDst.length];
  firstTemp = new byte[temperatureSrc.length];
@@ -251,7 +247,6 @@ public class ImageThreadTC extends Thread {
  Log.e("：", e.getMessage());
  }
  } else {
- // Comment removed (contained Chinese characters)
  System.arraycopy(imageDst, 0, firstFrame, 0, imageDst.length);
  System.arraycopy(temperatureSrc, 0, firstTemp, 0, temperatureSrc.length);
  }
@@ -263,7 +258,6 @@ public class ImageThreadTC extends Thread {
  (rotateInt == 270 || rotateInt == 90) ? imageWidth : imageHeight ,
  amplifyRotateArray);
  }
-// Comment removed (contained Chinese characters)
  }
 
  synchronized (syncimage.viewLock) {
