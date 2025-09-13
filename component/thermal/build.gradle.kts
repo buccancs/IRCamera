@@ -111,7 +111,7 @@ dependencies {
     implementation(project(":libir"))
     implementation(project(":libui"))
     implementation(project(":libmenu")) // Required for MenuFirstTabView
-    implementation(project(":libmatrix")) // Required for GuideInterface and IrSurfaceView
+    // libmatrix removed - no longer available
     // Removed CommonComponent dependency - module removed as unused
     implementation(project(":component:pseudo")) // Required for CustomPseudoBean class
     // Note: Cannot add thermal-ir or thermal-lite due to circular dependencies

@@ -1,4 +1,5 @@
-"""GUI widgets for IRCamera PC Controller."""
+"""
+GUI widgets for IRCamera PC Controller.
 
 This module contains all the user interface widgets for the PC Controller
 application, providing device management, network control, and system

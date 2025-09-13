@@ -198,7 +198,7 @@ class FileTransferManager:
                 retry_count=0,
                 error_message=None,
                 device_connection=device_conn,
-                     # Store device connection for real file transfer
+                # Store device connection for real file transfer
             )
 
             # Check for partial file to resume

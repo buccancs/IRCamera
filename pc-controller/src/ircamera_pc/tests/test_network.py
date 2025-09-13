@@ -1,14 +1,13 @@
 """Network layer test suite for IRCamera PC Controller."""
 
-import asyncio
 import json
 import os
 import socket
 import sys
 import time
 import unittest
-from typing import Any, Dict, Optional
-from unittest.mock import MagicMock, Mock, patch
+from typing import Any, Dict
+from unittest.mock import Mock, patch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 

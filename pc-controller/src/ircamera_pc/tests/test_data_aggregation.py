@@ -8,9 +8,7 @@ import os
 import sys
 import tempfile
 import unittest
-from pathlib import Path
-from typing import Any, Dict, List
-from unittest.mock import MagicMock, Mock, patch
+from typing import Any
 
 import h5py
 import numpy as np

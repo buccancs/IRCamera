@@ -9,22 +9,16 @@ Multi-Modal Physiological Sensing Platform.
 import asyncio
 import sys
 from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any
-
-import numpy as np
+from typing import Any, Dict, List, Optional
 
 try:
     # Import PyQtGraph for real-time plotting
-    import pyqtgraph as pg
-    from PyQt6.QtCore import QMutex, Qt, QThread, QTimer, pyqtSignal, pyqtSlot
-    from PyQt6.QtGui import QColor, QFont, QPalette, QPixmap
+    from PyQt6.QtCore import Qt, QTimer
+    from PyQt6.QtGui import QColor, QFont
     from PyQt6.QtWidgets import (
         QCheckBox,
         QComboBox,
-        QDoubleSpinBox,
         QFileDialog,
-        QFrame,
         QGridLayout,
         QGroupBox,
         QHBoxLayout,
@@ -34,7 +28,6 @@ try:
         QProgressBar,
         QPushButton,
         QScrollArea,
-        QSpinBox,
         QSplitter,
         QTableWidget,
         QTableWidgetItem,
@@ -43,7 +36,7 @@ try:
         QVBoxLayout,
         QWidget,
     )
-    from pyqtgraph import PlotDataItem, PlotWidget, mkPen
+    from pyqtgraph import PlotWidget, mkPen
 
 except ImportError as e:
     print(f"Failed to import PyQt6 or pyqtgraph: {e}")
@@ -181,7 +174,6 @@ class GSRDeviceStatusWidget(QWidget):
     def update_display(self) -> None:
         """Update display with latest data"""
         # This will be called by the parent to update with fresh data
-        pass
 
     def refresh_devices(self) -> Any:
         """Refresh device list"""
@@ -714,7 +706,6 @@ class GSRAnalyticsWidget(QWidget):
 
         # Setup plot lines for different devices
         self.stress_curves = {}
-        colors = ["r", "g", "b", "c", "m", "y"]
         self.color_index = 0
 
         chart_layout.addWidget(self.stress_plot)

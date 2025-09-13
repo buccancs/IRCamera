@@ -8,13 +8,11 @@ to match the Android implementation.
 import asyncio
 import hashlib
 import hmac
-import json
 import logging
 import secrets
-import ssl
 import time
-from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
+from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple

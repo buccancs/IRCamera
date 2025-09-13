@@ -5,12 +5,12 @@ Utility functions and classes for GUI components.
 """
 
 import sys
+from typing import Any
 
 from loguru import logger
 from PyQt6.QtCore import QObject, pyqtSignal
 
 from ..core.config import config
-from typing import Any
 
 
 class LogHandler(QObject):

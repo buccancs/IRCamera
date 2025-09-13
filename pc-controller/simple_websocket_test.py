@@ -11,8 +11,6 @@ from datetime import datetime
 
 import websockets
 
-import websockets
-
 
 class SimpleWebSocketServer:
     """Minimal WebSocket server for testing Phase 1 functionality"""

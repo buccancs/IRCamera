@@ -1,4 +1,5 @@
-"""Security utilities for IRCamera PC Controller."""
+"""
+Security utilities for IRCamera PC Controller.
 
 Provides TLS/SSL certificate management, device authentication, and secure
 communication features to match the Android implementation.

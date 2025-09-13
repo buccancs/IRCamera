@@ -27,12 +27,7 @@ from .utils import (
 # Only import GUI components if available
 if GUI_AVAILABLE:
     try:
-        from .main_window import MainWindow
-        from .widgets import (
-            DeviceListWidget,
-            SessionControlWidget,
-            StatusDisplayWidget,
-        )
+        pass
 
         __all__ = [
             "IRCameraApp",

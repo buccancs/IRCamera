@@ -9,7 +9,7 @@ import asyncio
 import os
 import signal
 import sys
-from typing import Optional, Any
+from typing import Any, Optional
 
 from loguru import logger
 

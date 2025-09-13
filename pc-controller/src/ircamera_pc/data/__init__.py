@@ -1,4 +1,5 @@
-"""Data processing and aggregation module."""
+"""
+Data processing and aggregation module.
 
 This module implements the data aggregation engine that handles synchronized
 data streams from multiple sensors according to the Hub-and-Spoke architecture.

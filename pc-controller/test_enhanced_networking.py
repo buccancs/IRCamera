@@ -164,6 +164,7 @@ class EnhancedNetworkingTests:
             # Test discovery listener management
             def test_callback(event, device):
                 return None
+
             discovery_service.add_discovery_listener(test_callback)
             assert (
                 test_callback in discovery_service.discovery_listeners

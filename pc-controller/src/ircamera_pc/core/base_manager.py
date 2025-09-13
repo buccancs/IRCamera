@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
 
@@ -20,6 +19,7 @@ except ImportError:
 
         def decorator(func) -> Any:
             return func
+
 
 class BaseManager(BaseClass, ABC):
     """Base manager class with common functionality."""

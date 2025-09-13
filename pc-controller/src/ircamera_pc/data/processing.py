@@ -5,7 +5,7 @@ import json
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 from loguru import logger
@@ -17,6 +17,7 @@ except ImportError:
     logger.warning(
         "pandas not available - some data processing features will be limited"
     )
+
 
 class DataQuality(Enum):
     """Data quality enumeration."""

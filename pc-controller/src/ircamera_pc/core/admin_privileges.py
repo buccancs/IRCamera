@@ -7,7 +7,7 @@ import logging
 import platform
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional, Any
+from typing import Any, Optional
 
 try:
     from PyQt6.QtCore import pyqtSignal
@@ -191,9 +191,7 @@ class AdminPrivilegeManager:
         return False
 
     def run_as_admin(self, command: str, arguments: Optional[list] = None) -> bool:
-        """
-        Run a command with administrator privileges.
-
+        """Run a command with administrator privileges."""
         if not self.is_elevated:
             logger.error("Cannot run admin command without elevation")
             return False

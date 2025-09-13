@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""""""
+"""
+Icon management module.
 
 This module provides access to generic icons for GUI widgets and utilities,
 sourced from Android drawable resources for cross-platform visual consistency.

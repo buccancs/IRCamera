@@ -17,7 +17,6 @@ import ssl
 import time
 import uuid
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional, Set
 
@@ -28,11 +27,9 @@ try:
 except ImportError:
     from ..utils.simple_logger import logger
 
-from ..core.config import config
-from ..sync import EnhancedTimeSyncServer
 from .discovery import NetworkDiscoveryService
 from .enhanced_security import AuthLevel, EnhancedSecurityManager
-from .protocol import create_message, get_protocol_manager, validate_message
+from .protocol import create_message, get_protocol_manager
 from .security import SecurityManager
 
 
@@ -1381,7 +1378,7 @@ class WebSocketServerPhase4Extension:
         try:
             requested_role = message.get("requested_role", "")
             device_id = message.get("device_id", "")
-            justification = message.get("justification", "")
+            message.get("justification", "")
 
             # Get current authentication context
             async with self.server.client_lock:

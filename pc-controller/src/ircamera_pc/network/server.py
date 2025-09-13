@@ -255,8 +255,7 @@ class NetworkServer:
                 f"Network server started on {addr[0]}:{addr[1]} (plaintext) and {secure_addr[0]}:{secure_addr[1]} (TLS)"
             )
             logger.info(
-                "Enhanced networking features: TLS encryption, mDNS discovery,
-                    reliable messaging"
+                "Enhanced networking features: TLS encryption, mDNS discovery, reliable messaging"
             )
 
             return True

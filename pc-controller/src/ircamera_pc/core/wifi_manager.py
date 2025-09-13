@@ -4,7 +4,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional, Any
+from typing import Any, Dict, List, Optional
 
 try:
     from loguru import logger
@@ -206,13 +206,11 @@ class WiFiScanWorker(BaseThread):
     def _parse_scan_output(self, output: str) -> List[WiFiNetwork]:
         """Parse WiFi scan output."""
         networks: List[WiFiNetwork] = []
-
-            if scan_result.returncode == 0:
-                networks = self._parse_windows_scan(scan_result.stdout)
-
+        try:
+            # Parse the output based on platform
+            networks = self._parse_windows_scan(output)
         except (OSError, ValueError, RuntimeError) as e:
-            logger.error(f"Windows WiFi scan failed: {e}")
-            raise
+            logger.error(f"WiFi scan parsing failed: {e}")
 
         return networks
 

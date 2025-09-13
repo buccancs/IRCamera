@@ -4,7 +4,6 @@ Tests complete system integration, multi-device coordination, and end-to-end wor
 """
 
 import asyncio
-import json
 import os
 import shutil
 import sys
@@ -12,15 +11,13 @@ import tempfile
 import threading
 import time
 import unittest
-from pathlib import Path
-from typing import Any, Dict, List, Optional
-from unittest.mock import AsyncMock, MagicMock, Mock, patch
+from typing import Any
+from unittest.mock import Mock
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from ircamera_pc.core.session_manager import SessionManager
 from ircamera_pc.data.aggregator import DataAggregator
-from ircamera_pc.gui.main_window import MainWindow
 from ircamera_pc.network.server import NetworkServer
 
 

@@ -3,7 +3,7 @@ import socket
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional, Set, Any
+from typing import Any, Dict, List, Optional, Set
 
 try:
     from zeroconf import ServiceInfo, Zeroconf
@@ -54,8 +54,6 @@ except ImportError:
 
     config = FallbackConfig()
 
-            def error(self, msg):
-                print(f"ERROR: {msg}")
 
 class DeviceType(Enum):
     """Device types for discovery."""
