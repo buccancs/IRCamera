@@ -115,39 +115,17 @@ class LogViewModel : BaseViewModel() {
                         3 -> System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000L // 时(30天)
                         4 -> System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000L // 天(1年)
                         else -> System.currentTimeMillis() - 2 * 60 * 60 * 1000L
-                    }
-                when (selectTimeType) {
-                    /**
-7200data
-// 秒:2小时
-// 分:5天
-// 时:300天
-// 天:20年
-                     */
-                    else -> endLogTime - 7200 * 1000L
                 }
+            
+            // Query thermal data based on selectTimeType
             when (selectTimeType) {
-                    bean.dataList =
-                        AppDatabase.getInstance().thermalDao()
-                            .queryByTime(
-                                userId = userId,
-                                startTime = startLogTime,
-                                endTime = endLogTime,
-                            ) as ArrayList<ThermalEntity>
-                    bean.maxVol =
-                        AppDatabase.getInstance().thermalDao()
-                            .queryByTimeMax(
-                                userId = userId,
-                                startTime = startLogTime,
-                                endTime = endLogTime,
-                            )
-                    bean.minVol =
-                        AppDatabase.getInstance().thermalDao()
-                            .queryByTimeMin(
-                                userId = userId,
-                                startTime = startLogTime,
-                                endTime = endLogTime,
-                            )
+                1 -> { // Seconds - main thermal table
+                    bean.dataList = AppDatabase.getInstance().thermalDao()
+                        .queryByTime(userId, startLogTime, endLogTime) as ArrayList<ThermalEntity>
+                    bean.maxVol = AppDatabase.getInstance().thermalDao()
+                        .queryByTimeMax(userId, startLogTime, endLogTime)  
+                    bean.minVol = AppDatabase.getInstance().thermalDao()
+                        .queryByTimeMin(userId, startLogTime, endLogTime)
                     Log.w("chart", "电// 压data:${bean.dataList.size}")
                     Log.w("chart", "电// 压datamax vol:${bean.maxVol},min vol:${bean.minVol}")
                 }
