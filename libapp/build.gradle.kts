@@ -2,21 +2,15 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-parcelize")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 
-kapt {
-    arguments {
-        // Remove unrecognized AROUTER arguments to fix kapt warnings
-        arg("room.schemaLocation", "$projectDir/schemas")
-        arg("room.incremental", "true")
-        arg("room.expandProjection", "true")
-    }
-    // Enable Kotlin 2.1.0 compatibility
-    correctErrorTypes = true
-    useBuildCache = true
-    // Support for Kotlin 2.0+ in kapt
-    includeCompileClasspath = false
+// KSP (Kotlin Symbol Processing) configuration - modern replacement for kapt
+// Full compatibility with Kotlin 2.1.0 and better performance
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true") 
+    arg("room.expandProjection", "true")
 }
 
 android {
@@ -141,7 +135,7 @@ dependencies {
     api(libs.lifecycle.viewmodel.ktx)
     api(libs.lifecycle.livedata.ktx)
 
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     api(libs.room.ktx)
 
     api(libs.work.runtime.ktx)
@@ -153,7 +147,7 @@ dependencies {
     api(libs.eventbus)
 
     api(libs.glide)
-    kapt(libs.glide.compiler)
+    ksp(libs.glide.compiler)
 
     api(libs.rxjava2)
     api(libs.rxandroid)
