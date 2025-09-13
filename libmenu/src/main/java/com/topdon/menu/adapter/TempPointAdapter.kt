@@ -8,10 +8,10 @@ import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.TempPointType
 
 /**
- * observation模式-menu5-high/low temperature点 menuAdapter used for，按旧逻辑存在全部未选择的state。
+ * Observation mode - menu5 - high/low temperature point menu adapter, supports no selection state per legacy logic.
  *
- * - 高温点、低温点 互相独立，可多选
- * - {高温点、低温点} 与 删除 互斥
+ * - High temperature point, low temperature point are independent, multi-selection supported
+ * - {High temperature point, low temperature point} and delete are mutually exclusive
  *
  * Created by LCG on 2024/11/28.
  */
@@ -23,7 +23,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
     var onTempPointListener: ((type: TempPointType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * settings 高温点 或 低稳点 的selectedstate。
+     * Set high temperature point or low temperature point selected state.
      */
     fun setSelected(
         tempPointType: TempPointType,
@@ -39,7 +39,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
     }
 
     /**
-     * clear所有menu的selectedstate。
+     * Clear all menu selected state.
      * Maintain original logic here, consider whether to directly delete selected items later。
      */
     fun clearAllSelect() {
@@ -67,7 +67,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
             if (data.tempPointType == TempPointType.DELETE) {
-                if (!data.isSelected) { // selected时再次删除没卵用，未selected时才处理
+                if (!data.isSelected) { // No effect when selected and deleting again, only process when not selected
                     for (temp in dataArray) {
                         temp.isSelected = temp.tempPointType == TempPointType.DELETE
                     }
@@ -78,7 +78,7 @@ internal class TempPointAdapter : BaseMenuAdapter() {
                 data.isSelected = !data.isSelected
                 holder.binding.ivIcon.isSelected = data.isSelected
                 holder.binding.tvText.isSelected = data.isSelected
-                if (data.isSelected) { // selected高温点、低温点时要把“删除”设为未selected；取消selected时不耦合删除
+                if (data.isSelected) { // When high/low temperature point is selected, set "delete" to not selected; no coupling with delete when deselected
                     for (i in dataArray.indices) {
                         if (dataArray[i].tempPointType == TempPointType.DELETE && dataArray[i].isSelected) {
                             dataArray[i].isSelected = false
