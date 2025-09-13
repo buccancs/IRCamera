@@ -874,7 +874,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             bindRecordingService()
             
             // Start recording service with server socket automatically
-            RecordingService.startServer(this)
+            val serviceIntent = Intent(this, RecordingService::class.java)
+            startForegroundService(serviceIntent)
             
             structuredLogger.log(
                 StructuredLogger.LogLevel.INFO,

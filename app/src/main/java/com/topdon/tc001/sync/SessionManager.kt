@@ -338,7 +338,7 @@ class SessionManager(
         
         sessionHistory[sessionId] = endedSession
         currentSession.set(null)
-        sessionId.set(null)
+        this.sessionId.set(null)
         sessionStartTime.set(0L)
         
         updateSessionState(SessionState.IDLE)

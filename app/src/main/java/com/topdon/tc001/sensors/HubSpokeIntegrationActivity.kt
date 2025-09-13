@@ -521,7 +521,7 @@ class HubSpokeIntegrationActivity : BaseBindingActivity<ActivityHubSpokeIntegrat
         
         // Monitor recording state
         recordingController.recordingStateFlow
-            .onEach { state ->
+            .onEach { state: RecordingState ->
                 runOnUiThread {
                     when (state) {
                         RecordingState.STARTING -> binding.statusTextView.text = "Starting sensors..."

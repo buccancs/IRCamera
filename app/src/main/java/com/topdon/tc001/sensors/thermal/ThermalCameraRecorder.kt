@@ -579,7 +579,7 @@ class ThermalCameraRecorder(
         // Verify simulation mode is enabled and validate setup
         if (!isSimulationMode) {
             Log.w(TAG, "startSimulatedThermalRecording called but simulation mode is disabled")
-            return@withContext
+            return@withContext Unit
         }
         
         // Test frame generation before starting recording loop
@@ -589,7 +589,7 @@ class ThermalCameraRecorder(
             recordingScope.launch {
                 emitError(ErrorType.DEVICE_ERROR, "Simulation mode setup failed - thermal frame generation not working")
             }
-            return@withContext
+            return@withContext Unit
         }
         
         Log.i(TAG, "Simulation mode validated - test frame generated successfully")

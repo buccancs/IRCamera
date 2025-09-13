@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * - NSD service advertisement for discovery
  * - Real-time status notifications
  */
-class RecordingService : LifecycleService(), RecordingController.RecordingListener {
+class RecordingService : LifecycleService() {
     
     companion object {
         private const val TAG = "RecordingService"
@@ -185,7 +185,7 @@ class RecordingService : LifecycleService(), RecordingController.RecordingListen
         }
     }
 
-    override fun onBind(intent: Intent?): IBinder {
+    override fun onBind(intent: Intent?): IBinder? {
         super.onBind(intent)
         return RecordingServiceBinder()
     }
@@ -522,8 +522,8 @@ class RecordingService : LifecycleService(), RecordingController.RecordingListen
         }
     }
 
-    // RecordingController.RecordingListener implementation
-    override fun onRecordingStateChanged(state: RecordingState) {
+    // RecordingController.RecordingListener implementation  
+    fun onRecordingStateChanged(state: RecordingState) {
         Log.i(TAG, "Recording state changed: $state")
         
         when (state) {
@@ -550,7 +550,7 @@ class RecordingService : LifecycleService(), RecordingController.RecordingListen
         }
     }
 
-    override fun onSyncMarkRecorded(syncMark: SyncMark) {
+    fun onSyncMarkRecorded(syncMark: SyncMark) {
         Log.i(TAG, "Sync mark recorded: ${syncMark.id}")
         
         // Notify PC of sync mark
@@ -563,7 +563,7 @@ class RecordingService : LifecycleService(), RecordingController.RecordingListen
         }
     }
 
-    override fun onError(message: String, exception: Throwable?) {
+    fun onError(message: String, exception: Throwable?) {
         Log.e(TAG, "Recording error: $message", exception)
         updateNotification("Error: $message")
         
