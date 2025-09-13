@@ -8,14 +8,14 @@ import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.TargetType
 
 /**
- * observation模式-menu4-target menuAdapter used for.
+ * Observation mode - menu4 - target menu adapter.
  *
- * measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)、删除(DELETE)、帮助(HELP)
+ * measurement mode(MODE), target(STYLE), target color(COLOR), delete(DELETE), help(HELP)
  *
- * - measurement mode(MODE)、target(STYLE) 捆绑，要么都selected，要么都不selected，与 删除(DELETE) 互斥
- * - 删除(DELETE) 与 {measurement mode(MODE)、target(STYLE)、targetcolor(COLOR)} 互斥
- * - targetcolor(COLOR) effective且未处于删除亮，color为默认绿色或处于删除不亮，丢给上层维护这个state
- * - 帮助(HELP) 显示弹框亮，close弹框不亮，丢给上层维护这个state
+ * - measurement mode(MODE), target(STYLE) are bundled, either both selected or both not selected, mutually exclusive with delete(DELETE)
+ * - delete(DELETE) is mutually exclusive with {measurement mode(MODE), target(STYLE), target color(COLOR)}
+ * - target color(COLOR) effective and not in delete state is green by default, or in delete state is not highlighted, upper layer maintains this state
+ * - help(HELP) shows dialog when highlighted, not highlighted when dialog closed, upper layer maintains this state
  *
  * Created by LCG on 2024/11/28.
  */
@@ -27,8 +27,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
     var onTargetListener: ((targetType: TargetType) -> Unit)? = null
 
     /**
-     * settingsspecified option的selectedstate.
-     * 对于一些互斥的selected取消selected操作，由于legacy现在先不改动，丢给上层去维护这个互斥state.
+     * Set the selected state of specified option.
+     * For some mutually exclusive selected cancellation operations, due to legacy considerations, no changes are made for now, upper layer maintains this mutually exclusive state.
      */
     fun setSelected(
         targetType: TargetType,
@@ -87,8 +87,8 @@ internal class TargetAdapter : BaseMenuAdapter() {
         holder.binding.ivIcon.isSelected = data.isSelected
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            // targetcolor以effective才视为highlightselected的，Maintain original code logic here，
-            // menu的selectedrefreshleave to upper-layer listener to handle，consider changes later when time permits
+            // Target color is considered highlight selected only when effective, maintain original code logic here,
+            // menu selected refresh leave to upper-layer listener to handle, consider changes later when time permits
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

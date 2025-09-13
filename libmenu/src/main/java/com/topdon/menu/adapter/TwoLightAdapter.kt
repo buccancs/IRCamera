@@ -9,7 +9,7 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.TwoLightType
 
 /**
- * temperature measurement模式-menu3-dual light menuAdapter used for.
+ * Temperature measurement mode - menu3 - dual light menu adapter.
  *
  * - Single light: Picture-in-picture, Fusion level
  * - Lite: Picture-in-picture, Fusion level
