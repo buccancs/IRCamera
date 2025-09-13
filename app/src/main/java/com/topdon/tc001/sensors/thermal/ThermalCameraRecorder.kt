@@ -502,7 +502,6 @@ class ThermalCameraRecorder(
             }
         }
     }
-    }
     
     private data class ThermalFrameData(
         val temperatureMatrix: Array<FloatArray>,

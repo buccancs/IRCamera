@@ -322,4 +322,14 @@ class NetworkServer(
         serverScope.cancel()
         Log.i(TAG, "Network server cleaned up")
     }
+
+    /**
+     * Alias for start() method - for consistency with test expectations
+     */
+    suspend fun startServer(): Boolean = start()
+
+    /**
+     * Alias for stop() method - for consistency with test expectations  
+     */
+    suspend fun stopServer() = stop()
 }
