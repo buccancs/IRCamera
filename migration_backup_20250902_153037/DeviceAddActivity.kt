@@ -51,25 +51,25 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 添加设备。
+ * 。
  * Created by LCG on 2024/2/19.
  */
 @SuppressLint("NotifyDataSetChanged")
 @Route(path = RouterConfig.IR_DEVICE_ADD)
 class DeviceAddActivity : BaseActivity() {
     /**
-     * 从上一界面传递过来的，当前想要连接的设备是 TS004 还是 TC007.
+     * ， TS004  TC007.
      */
     private var isTS004 = true
 
     /**
-     * 根据产品需求，初次进来需要按流程弹相应弹框申请相关权限及开启开关；
-     * 但若该初次流程未成功走完，后续触发相应流程时不再弹框，用该变量进行区分。
+     * ，；
+     * ，，。
      */
     private var isFirstRequest = true
 
     /**
-     * 申请权限、开启蓝牙、开启 WIFI 时顶部提示文字，太多太乱，抽取封装到这里统一处理
+     * 、、 WIFI ，，
      */
     private lateinit var topTipHolder: TopTipHolder
     private lateinit var locationManager: LocationManager
@@ -110,8 +110,8 @@ class DeviceAddActivity : BaseActivity() {
         requestPermission(2)
 
         LocationUtil.addBtStateListener(this) {
-            // 进入界面时不会收到开启或关闭位置信息广播，要发生实际变化时才有广播
-            XLog.i("【添加设备】 位置信息开关状态：${if (it) "已开启" else "已关闭"}")
+            // ，
+            XLog.i("【】 ：${if (it) "" else ""}")
             refreshStateAndTips()
             if (it) {
                 if (isFirstRequest) {
@@ -134,8 +134,8 @@ class DeviceAddActivity : BaseActivity() {
             adapter.addOne(it)
         }
         BluetoothUtil.addBtStateListener(this) {
-            // 进入界面时不会收到开启或关闭蓝牙广播，要发生实际变化时才有广播
-            XLog.i("【添加设备】 蓝牙开关状态：${if (it) "已开启" else "已关闭"}")
+            // ，
+            XLog.i("【】 ：${if (it) "" else ""}")
             refreshStateAndTips()
             if (it) {
                 if (isFirstRequest) {
@@ -155,8 +155,8 @@ class DeviceAddActivity : BaseActivity() {
         }
 
         WifiUtil.addWifiStateListener(this) {
-            // 进入界面时会收到一次开启或关闭 WIFI 广播，无论 WIFI 状态有无变化
-            XLog.i("【添加设备】 WIFI 开关状态：${if (it) "已开启" else "已关闭或未知"}")
+            //  WIFI ， WIFI 
+            XLog.i("【】 WIFI ：${if (it) "" else ""}")
             refreshStateAndTips()
             if (it) {
                 if (isFirstRequest) {
@@ -177,7 +177,7 @@ class DeviceAddActivity : BaseActivity() {
     }
 
     /**
-     * 刷新中间的状态及提示文字.
+     * .
      */
     private fun refreshStateAndTips() {
         val isBtEnable = btAdapter.isEnabled
@@ -241,7 +241,7 @@ class DeviceAddActivity : BaseActivity() {
     private var openLocationDialog: TipDialog? = null
 
     /**
-     * 显示开启位置信息开关提示弹框.
+     * .
      */
     private fun showOpenLocationDialog() {
         if (openLocationDialog?.isShowing == true) {
@@ -258,10 +258,10 @@ class DeviceAddActivity : BaseActivity() {
                     .setPositiveListener(R.string.app_open) {
                         var intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                         if (intent.resolveActivity(packageManager) == null) {
-                            XLog.e("【添加设备】 位置信息 Intent 没有对应 Activity，尝试跳转系统设置首页")
+                            XLog.e("【】  Intent  Activity，")
                             intent = Intent(Settings.ACTION_SETTINGS)
                             if (intent.resolveActivity(packageManager) == null) {
-                                XLog.e("【添加设备】 不可能！系统设置首页 Intent 没有对应 Activity!")
+                                XLog.e("【】 ！ Intent  Activity!")
                                 return@setPositiveListener
                             }
                         }
@@ -279,7 +279,7 @@ class DeviceAddActivity : BaseActivity() {
     private var openBtDialog: TipDialog? = null
 
     /**
-     * 显示开启 WIFI 开关提示弹框，该方法只在权限申请通过后调用，故而理论上已拥有相应权限.
+     *  WIFI ，，.
      */
     private fun showOpenBtDialog() {
         if (openBtDialog?.isShowing == true) {
@@ -296,10 +296,10 @@ class DeviceAddActivity : BaseActivity() {
                     .setPositiveListener(R.string.app_open) {
                         var intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                         if (intent.resolveActivity(packageManager) == null) {
-                            XLog.e("【添加设备】 不可能！开启蓝牙 Intent 没有对应 Activity! 尝试跳转系统设置首页")
+                            XLog.e("【】 ！ Intent  Activity! ")
                             intent = Intent(Settings.ACTION_SETTINGS)
                             if (intent.resolveActivity(packageManager) == null) {
-                                XLog.e("【添加设备】 不可能！系统设置首页 Intent 没有对应 Activity!")
+                                XLog.e("【】 ！ Intent  Activity!")
                                 return@setPositiveListener
                             }
                         }
@@ -317,7 +317,7 @@ class DeviceAddActivity : BaseActivity() {
     private var openWifiDialog: TipDialog? = null
 
     /**
-     * 显示开启 WIFI 开关提示弹框.
+     *  WIFI .
      */
     private fun showOpenWifiDialog() {
         if (openWifiDialog?.isShowing == true) {
@@ -332,18 +332,18 @@ class DeviceAddActivity : BaseActivity() {
                     .setTitleMessage(getString(R.string.app_tip))
                     .setMessage(R.string.ts004_wlan_tips)
                     .setPositiveListener(R.string.app_open) {
-                        if (Build.VERSION.SDK_INT < 29) { // 低于 Android10
+                        if (Build.VERSION.SDK_INT < 29) { //  Android10
                             wifiManager.isWifiEnabled = true
                         } else {
                             var wifiIntent = Intent(Settings.Panel.ACTION_WIFI)
                             if (wifiIntent.resolveActivity(packageManager) == null) {
-                                XLog.e("【添加设备】 浮窗开启 WIFI Intent 没有对应 Activity! 尝试打开 WIFI 设置 Intent")
+                                XLog.e("【】  WIFI Intent  Activity!  WIFI  Intent")
                                 wifiIntent = Intent(Settings.ACTION_WIFI_SETTINGS)
                                 if (wifiIntent.resolveActivity(packageManager) == null) {
-                                    XLog.e("【添加设备】 不可能！WIFI 设置 Intent 没有对应 Activity! 尝试跳转系统设置首页")
+                                    XLog.e("【】 ！WIFI  Intent  Activity! ")
                                     wifiIntent = Intent(Settings.ACTION_SETTINGS)
                                     if (wifiIntent.resolveActivity(packageManager) == null) {
-                                        XLog.e("【添加设备】 不可能！系统设置首页 Intent 没有对应 Activity!")
+                                        XLog.e("【】 ！ Intent  Activity!")
                                         return@setPositiveListener
                                     }
                                 }
@@ -361,13 +361,13 @@ class DeviceAddActivity : BaseActivity() {
     }
 
     /**
-     * 权限申请可能同时触发多次，用该变量进行控制。
+     * ，。
      */
     private var isRequesting = false
 
     /**
-     * 请求相应权限如定位、蓝牙权限.
-     * @param actionType 所有权限授予后要执行的处理 0-不做任何处理 1-仅检测并弹出蓝牙开关弹框 2-检测并弹出所有需要的开关弹框
+     * 、.
+     * @param actionType  0- 1- 2-
      */
     private fun requestPermission(actionType: Int) {
         if (isRequesting) {
@@ -400,20 +400,20 @@ class DeviceAddActivity : BaseActivity() {
                             return
                         }
                         if (actionType == 1) {
-                            if (!btAdapter.isEnabled) { // 蓝牙未开启
+                            if (!btAdapter.isEnabled) { // 
                                 showOpenBtDialog()
                                 return
                             }
                         } else {
-                            if (Build.VERSION.SDK_INT >= 28 && !locationManager.isLocationEnabled) { // 位置信息未开启
+                            if (Build.VERSION.SDK_INT >= 28 && !locationManager.isLocationEnabled) { // 
                                 showOpenLocationDialog()
                                 return
                             }
-                            if (!wifiManager.isWifiEnabled) { // WIFI 未开启
+                            if (!wifiManager.isWifiEnabled) { // WIFI 
                                 showOpenWifiDialog()
                                 return
                             }
-                            if (!btAdapter.isEnabled) { // 蓝牙未开启
+                            if (!btAdapter.isEnabled) { // 
                                 showOpenBtDialog()
                                 return
                             }
@@ -443,24 +443,24 @@ class DeviceAddActivity : BaseActivity() {
     private var timeoutEmptyJob: Job? = null
 
     /**
-     * 开始蓝牙搜索，若缺少相应权限或开关未开启，则直接 return.
+     * ，， return.
      */
     private fun startBtScan() {
-        if (!PermissionTool.hasBtPermission(this)) { // 没有权限
+        if (!PermissionTool.hasBtPermission(this)) { // 
             return
         }
-        if (Build.VERSION.SDK_INT >= 28 && !locationManager.isLocationEnabled) { // 位置信息未开启
+        if (Build.VERSION.SDK_INT >= 28 && !locationManager.isLocationEnabled) { // 
             return
         }
-        if (!btAdapter.isEnabled) { // 蓝牙未开启
+        if (!btAdapter.isEnabled) { // 
             return
         }
-        if (!wifiManager.isWifiEnabled) { // WIFI 未开启
+        if (!wifiManager.isWifiEnabled) { // WIFI 
             return
         }
         isFirstRequest = false
 
-        // 连接 WIFI 前执行一次扫描似乎可以加快连接速度，实际效果待观望
+        //  WIFI ，
         wifiManager.startScan()
 
         val isSuccess = BluetoothUtil.startLeScan(this)
@@ -489,7 +489,7 @@ class DeviceAddActivity : BaseActivity() {
     }
 
     /**
-     * 停止蓝牙搜索，暂停扫描动画.
+     * ，.
      */
     private fun stopBtScan() {
         iv_scan_gif.pauseAnimation()
@@ -499,7 +499,7 @@ class DeviceAddActivity : BaseActivity() {
     }
 
     private fun connectWIFI(wifiName: String) {
-        if (WifiUtil.getCurrentWifiSSID(this) == wifiName && WebSocketProxy.getInstance().isConnected()) { // 已连接
+        if (WifiUtil.getCurrentWifiSSID(this) == wifiName && WebSocketProxy.getInstance().isConnected()) { // 
             EventBus.getDefault().post(SocketStateEvent(true, isTS004))
             ToastUtils.showLong(R.string.app_connect)
             NetWorkUtils.switchNetwork(true)
@@ -514,10 +514,10 @@ class DeviceAddActivity : BaseActivity() {
             return
         }
 
-        XLog.i("当前连接 ${WifiUtil.getCurrentWifiSSID(this)} 准备连接 $wifiName")
+        XLog.i(" ${WifiUtil.getCurrentWifiSSID(this)}  $wifiName")
         showCameraLoading()
-        // 部分设备部分情况下即没有 onAvailable 也没有 onUnavailable 回调，15秒后把 Loading 弹框 dismiss，避免流程卡死
-        // 没有回调是 connectWifi 方法中的 listener 未刷新，修复那个问题后，理论上不存在没回调情况了，这个逻辑先注释掉
+        //  onAvailable  onUnavailable ，15 Loading  dismiss，
+        //  connectWifi  listener ，，，
         job =
             lifecycleScope.launch {
                 examineConnect()
@@ -550,7 +550,7 @@ class DeviceAddActivity : BaseActivity() {
     }
 
     /**
-     * 递归检查是否链接
+     * 
      */
     suspend fun examineConnect()  {
         delay(10 * 1000)
@@ -578,7 +578,7 @@ class DeviceAddActivity : BaseActivity() {
     }
 
     /**
-     * 申请权限、开启位置信息、开启蓝牙、开启 WIFI 时顶部提示文字，太多太乱，抽取封装到这里统一处理
+     * 、、、 WIFI ，，
      */
     private class TopTipHolder(val textView: TextView) {
         var state = State.NONE
@@ -597,32 +597,32 @@ class DeviceAddActivity : BaseActivity() {
             }
 
         enum class State {
-            NONE, // 不显示
-            LOCATION_PERMISSION, // 显示精确定位权限申请提示文字
-            LOCATION_INFO, // 显示开启位置信息提示文字
-            BLUETOOTH_PERMISSION, // 显示蓝牙权限申请文字
-            BLUETOOTH_SWITCH, // 显示开启蓝牙开关提示文字
-            WIFI_SWITCH, // 显示开启WIFI提示文字
+            NONE, // 
+            LOCATION_PERMISSION, // 
+            LOCATION_INFO, // 
+            BLUETOOTH_PERMISSION, // 
+            BLUETOOTH_SWITCH, // 
+            WIFI_SWITCH, // WIFI
         }
     }
 
     private class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-         * 从上一界面传递过来的，当前想要连接的设备是 TS004 还是 TC007.
+         * ， TS004  TC007.
          */
         var isTS004 = true
 
         val dataList: ArrayList<String> = ArrayList()
 
         /**
-         * “连接”点击事件监听.
-         * ssid - 不带双引号的 SSID
+         * “”.
+         * ssid -  SSID
          */
         var onConnectClickListener: ((ssid: String) -> Unit)? = null
 
         fun addOne(newDevice: String) {
             for (hasAddDevice in dataList) {
-                if (hasAddDevice == newDevice) { // 已扫描出该结果了
+                if (hasAddDevice == newDevice) { // 
                     return
                 }
             }

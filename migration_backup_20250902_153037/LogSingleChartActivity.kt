@@ -25,7 +25,7 @@
 // import kotlinx.coroutines.launch
 //
 // /**
-// * 针对单个thermalId显示(用不到)
+// * thermalId()
 // */
 // @Route(path = RouterConfig.THERMAL_LOG_SINGLE_CHART)
 // class LogSingleChartActivity : BaseActivity() {
@@ -42,7 +42,7 @@
 //    override fun initContentView() = R.layout.activity_log_chart
 //
 //    override fun initView() {
-//        setTitleText("图表")
+//        setTitleText("")
 //        thermalId = intent.getStringExtra(KEY_THERMAL_ID)!!
 //
 //        log_chart_time_recycler.layoutManager = GridLayoutManager(this, 4)
@@ -89,7 +89,7 @@
 //            .backgroundColor("#3598E8")
 //            .yAxisTitle("")
 //            .axesTextColor("#FFFFFF")
-//            .dataLabelsEnabled(false)//坐标点是否显示值
+//            .dataLabelsEnabled(false)//
 //            .tooltipEnabled(true)
 //            .markerRadius(0f)
 // //            .gradientColorEnable(true)
@@ -103,12 +103,12 @@
 //                        .name("vol")
 //                        .lineWidth(2f)
 //                        .data(arrayOf(0))
-//                        .color("#FFFFFF")//曲线颜色
+//                        .color("#FFFFFF")//
 //                )
 //            )
 //    }
 //
-//    val defaultCount = 20//默认显示10个数
+//    val defaultCount = 20//10
 //    val startIndex = 0f
 //    var pointIndex = startIndex - defaultCount
 //
@@ -122,36 +122,36 @@
 //        val series = initSeries()
 //        val chart = AAChart()
 //            .scrollablePlotArea(AAScrollablePlotArea().minWidth(20)).backgroundColor("#383d45")
-//            .type(AAChartType.Area)//曲线类型
+//            .type(AAChartType.Area)//
 //
 //        val xAxis = AAXAxis()
 //            .lineWidth(1f)
 //            .gridLineWidth(0f)
 //            .gridLineColor("#717a8f")
 //            .lineColor("#717a8f")
-//            .tickColor("#717a8f")//刻度颜色
-//            .minRange(9)//设置滚动时，最小宽度
+//            .tickColor("#717a8f")//
+//            .minRange(9)//，
 //            .minorTickColor("#000000")
-//            .labels(AALabels().style(AAStyle.style("#717a8f")))//标尺文字
+//            .labels(AALabels().style(AAStyle.style("#717a8f")))//
 //
 //        val yAxis = AAYAxis()
 //            .lineWidth(1f)
 //            .gridLineWidth(1f)
 //            .gridLineColor("#454b56")
 //            .lineColor("#383d45")
-// //            .max(100f)//设置最大y值
-//            .min(0f)//设置最小y值
+// //            .max(100f)//y
+//            .min(0f)//y
 //            .labels(AALabels().style(AAStyle.style("#717a8f")))
-//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))//不显示
+//            .title(AATitle().text("").style(AAStyle().color("#FFFFFF")))//
 //
-//        //初始图表样式
+//        //
 //        options.series(series).chart(chart).xAxis(xAxis).yAxis(yAxis)
-//        //初始数据
+//        //
 //        aa_chart_view.aa_drawChartWithChartOptions(options)
 //    }
 //
 //    /**
-//     * 初始化曲线三种类型曲线
+//     * 
 //     */
 //    private fun initSeries(): Array<AASeriesElement> {
 //        val maxTempListData = Array<Any>(dataList.size) { dataList[it].thermalMax }
@@ -163,8 +163,8 @@
 //        val thirdColor = "#2bdb1f"
 //        val gradientColorDic: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,
-//            "#3f7ad1AA",  //DodgerBlue, alpha 透明度 1
-//            "#3f7ad100" //DodgerBlue, alpha 透明度 0.1 (透明度与android位置相反)
+//            "#3f7ad1AA",  //DodgerBlue, alpha  1
+//            "#3f7ad100" //DodgerBlue, alpha  0.1 (android)
 //        )
 //        val gradientColorDicSecond: Map<*, *> = AAGradientColor.linearGradient(
 //            AALinearGradientDirection.ToBottom,

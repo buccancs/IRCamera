@@ -59,15 +59,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 公共设置页，即公共 “我的”
- * [MoreActivity] - TS004 “我的”
- * [MoreFragment] - 插件式 “我的”
+ * ， “”
+ * [MoreActivity] - TS004 “”
+ * [MoreFragment] -  “”
  *
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
     /**
-     * onResume() 阶段是否需要刷新登录状态相关 UI.
+     * onResume()  UI.
      */
     private var isNeedRefreshLogin = false
 
@@ -84,19 +84,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         setting_electronic_manual.setOnClickListener(this)
         setting_faq.setOnClickListener(this)
         setting_feedback.setOnClickListener(this)
-        setting_item_unit.setOnClickListener(this) // 温度单温
+        setting_item_unit.setOnClickListener(this) // 
         drag_customer_view.setOnClickListener(this)
 
         view_winter_point.isVisible = !SharedManager.hasClickWinter
 
-        if (BaseApplication.instance.isDomestic()) { // 国内版不给切换语言
+        if (BaseApplication.instance.isDomestic()) { // 
             setting_item_language.visibility = View.GONE
         }
 
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    // 要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
+                    //  TS004、TC007，，
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(false)
                     }
@@ -139,7 +139,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_winter -> { // 冬季特辑入口
+            iv_winter -> { // 
                 view_winter_point.isVisible = false
                 SharedManager.hasClickWinter = true
                 EventBus.getDefault().post(WinterClickEvent())
@@ -169,7 +169,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_electronic_manual -> { // 电子说明书
+            setting_electronic_manual -> { // 
                 ARouter.getInstance().build(
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
@@ -179,7 +179,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_FAQ).navigation(requireContext())
             }
-            setting_feedback -> { // 意见反馈
+            setting_feedback -> { // 
                 if (LMS.getInstance().isLogin) {
                     val devSn = SharedManager.getDeviceSn()
                     FeedBackBean().apply {
@@ -196,19 +196,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     loginAction()
                 }
             }
-            setting_item_unit -> { // 温度单位
+            setting_item_unit -> { // 
                 ARouter.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            setting_item_version -> { // 版本
+            setting_item_version -> { // 
                 ARouter.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            setting_item_language -> { // 语言
+            setting_item_language -> { // 
                 languagePickResult.launch(Intent(requireContext(), LanguageActivity::class.java))
             }
-            setting_item_clear -> { // 清除缓存，实际已隐藏
+            setting_item_clear -> { // ，
                 clearCache()
             }
-            drag_customer_view -> { // 客服
+            drag_customer_view -> { // 
 //                ActivityUtil.goSystemCustomer(requireContext())
                 val sn = SharedManager.getDeviceSn()
                 if (!TextUtils.isEmpty(sn)) {
@@ -222,14 +222,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-        // activityLogin()回调不可靠，但必然触发onResume()
+        // activityLogin()，onResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, R.mipmap.bg_login)
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-            // 登录成功
+            // 
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -243,17 +243,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         headUrl = infoData.avatar,
                     )
 
-                    // 更新ui
+                    // ui
                     changeLoginStyle()
                 } catch (e: Exception) {
-                    XLog.e(" 登录异常: ${e.message}")
+                    XLog.e(" : ${e.message}")
                 }
             }
         } else {
-            // 登录失败
-            XLog.e(" 登录失败")
+            // 
+            XLog.e(" ")
             changeLoginStyle()
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head) // 恢复默认头像
+            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head) // 
         }
     }
 
@@ -306,12 +306,12 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             setting_user_text.setCompoundDrawables(null, null, drawable, null)
             setting_user_lay.visibility = View.GONE
             tv_email.text = ""
-            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head) // 恢复默认头像
+            setting_user_img_night.setImageResource(R.mipmap.ic_default_user_head) // 
         }
     }
 
     /**
-     * 清除缓存
+     * 
      */
     private fun clearCache() {
         lifecycleScope.launch {
@@ -321,7 +321,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("清除缓存异常: ${e.message}")
+                    XLog.w(": ${e.message}")
                 }
                 delay(1000)
             }

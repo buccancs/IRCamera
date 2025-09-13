@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.dialog_color_pick.tv_size_value
 import kotlinx.android.synthetic.main.dialog_color_pick.view.*
 
 /**
- * 颜色拾取弹框.
+ * .
  *
  * Created by chenggeng.lin on 2023/12/18.
  */
@@ -33,7 +33,7 @@ class ColorPickDialog(
     var textSizeIsDP: Boolean = false,
 ) : Dialog(context, R.style.InfoDialog), View.OnClickListener {
     /**
-     * 颜色值拾取EventListener.
+     * EventListener.
      */
     var onPickListener: ((color: Int, textSize: Int) -> Unit)? = null
 
@@ -86,7 +86,7 @@ class ColorPickDialog(
                             rightValue: Float,
                             isFromUser: Boolean,
                         ) {
-                            var text = "标准"
+                            var text = ""
                             text =
                                 if (leftValue <= 0)
                                     {
@@ -155,7 +155,7 @@ class ColorPickDialog(
         when (v) {
             rootView.rl_close -> dismiss()
 
-            rootView.tv_save -> { // 保存
+            rootView.tv_save -> { // 
                 dismiss()
                 onPickListener?.invoke(color, textSize)
             }
@@ -200,7 +200,7 @@ class ColorPickDialog(
     }
 
     /**
-     * 将 6 个固定的颜色按钮重置为未选中状态.
+     *  6 .
      */
     private fun unSelect6Color() {
         rootView.view_color1.isSelected = false

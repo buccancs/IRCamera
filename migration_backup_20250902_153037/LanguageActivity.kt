@@ -18,7 +18,7 @@ class LanguageActivity : BaseActivity() {
     override fun initContentView() = R.layout.activity_language
 
     override fun initView() {
-        title_view.setRightClickListener { // 保存
+        title_view.setRightClickListener { // 
             val localeStr: String =
                 when (selectIndex) {
                     0 -> ConstantLanguages.ENGLISH

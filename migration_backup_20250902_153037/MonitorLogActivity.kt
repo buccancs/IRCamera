@@ -15,7 +15,7 @@
 // import kotlinx.coroutines.Dispatchers
 // import kotlinx.coroutines.launch
 //
-// 监控Record
+// Record
 // @Route(path = RouterConfig.THERMAL_LOG)
 // class MonitorLogActivity : BaseActivity() {
 //

@@ -12,7 +12,7 @@ import com.topdon.module.thermal.viewmodel.GalleryViewModel
 import kotlinx.android.synthetic.main.fragment_gallery_video.*
 
 /**
- * 图片
+ * 
  */
 class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
     private val adapter by lazy { GalleryAdapter(requireContext()) }
@@ -42,8 +42,8 @@ class GalleryVideoFragment : BaseViewModelFragment<GalleryViewModel>() {
                     index: Int,
                     path: String,
                 ) {
-                    TipDialog.Builder(requireContext()).setMessage("导出图片")
-                        .setPositiveListener("分享") {
+                    TipDialog.Builder(requireContext()).setMessage("")
+                        .setPositiveListener("") {
 //                            share(path)
                         }
                         .create().show()

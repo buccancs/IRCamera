@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  *
- * 锅盖矫正
+ * 
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
@@ -63,7 +63,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
         }
 
         time_down_view.postDelayed({
-            // 开始矫正
+            // 
             if (time_down_view.downTimeWatcher == null)
                 {
                     time_down_view.setOnTimeDownListener(
@@ -84,7 +84,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
                                 try {
                                     if (!result)
                                         {
-                                            ToastUtils.showShort("标定保存失败，请重新标定")
+                                            ToastUtils.showShort("，")
                                             return
                                         }
                                     if (!this@IRCorrectionLiteFourActivity.isFinishing)

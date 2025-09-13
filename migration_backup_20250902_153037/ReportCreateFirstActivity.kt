@@ -48,18 +48,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * 生成报告第1步（共2步）.
+ * 1（2）.
  *
- * 需要传递
- * - 是否 TC007: [ExtraKeyConfig.IS_TC007] （环境温度、发射率等不同）
- * - 当前编辑的图片绝对路径: [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （本界面不使用，透传）
- * - 当前编辑的图片点线面全图温度数据: [ExtraKeyConfig.IMAGE_TEMP_BEAN] （本界面不使用，透传）
+ * 
+ * -  TC007: [ExtraKeyConfig.IS_TC007] （、）
+ * - : [ExtraKeyConfig.FILE_ABSOLUTE_PATH] （，）
+ * - : [ExtraKeyConfig.IMAGE_TEMP_BEAN] （，）
  */
 @Route(path = RouterConfig.REPORT_CREATE_FIRST)
 class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * ， TC007 .
+     * true-TC007 false-
      */
     private var isTC007 = false
     private var locationManager: LocationManager? = null
@@ -140,9 +140,9 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun readConfig() {
-        var environment = 30f // 环境温度
-        var distance = 0.25f // 测试距离
-        var radiation = 0.95f // 发射率
+        var environment = 30f // 
+        var distance = 0.25f // 
+        var radiation = 0.95f // 
         val config = ConfigRepository.readConfig(isTC007)
         distance = config.distance
         radiation = config.radiation
@@ -162,10 +162,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_report_date -> { // 报告日期
+            tv_report_date -> { // 
                 selectTime()
             }
-            tv_preview -> { // 预览
+            tv_preview -> { // 
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 ARouter.getInstance().build(RouterConfig.REPORT_PREVIEW_FIRST)
@@ -173,7 +173,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                     .withParcelable(ExtraKeyConfig.REPORT_CONDITION, reportConditionBean)
                     .navigation(this)
             }
-            tv_next -> { // 下一步
+            tv_next -> { // 
                 val reportInfoBean = buildReportInfo()
                 val reportConditionBean = buildReportCondition()
                 val imageTempBean: ImageTempBean? = intent.getParcelableExtra(ExtraKeyConfig.IMAGE_TEMP_BEAN)
@@ -193,17 +193,17 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("MissingPermission")
     private fun getLocation(): String? {
-        // 1.获取位置管理器
+        // 1.
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        // 2.获取位置提供器，GPS或是NetWork
+        // 2.，GPSNetWork
         val providers = locationManager?.getProviders(true)
         locationProvider =
             if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
-                // 如果是GPS
+                // GPS
                 LocationManager.GPS_PROVIDER
             } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-                // 如果是Network
+                // Network
                 LocationManager.NETWORK_PROVIDER
             } else {
                 return null
@@ -222,7 +222,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
             }
     }
 
-    // 获取地址信息:城市、街道等信息
+    // :、
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -233,7 +233,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         location.latitude,
                         location.longitude, 1,
                     )
-                Log.v("TAG", "获取地址信息：$result")
+                Log.v("TAG", "：$result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -303,12 +303,12 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 当前设置的报告日期时间戳.
+     * .
      */
     private var startTime = 0L
 
     /**
-     * 显示时间拾取弹窗
+     * 
      */
     private fun selectTime() {
         val picker = DatimePicker(this)
@@ -327,10 +327,10 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
 
         val endTimeEntity = DatimeEntity.yearOnFuture(10)
         if (startTime == 0L) {
-            // 设置当前时间
+            // 
             picker.wheelLayout.setRange(startTimeEntity, endTimeEntity, DatimeEntity.now())
         } else {
-            // 设置上一次选中时间
+            // 
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = startTime
             val year = calendar.get(Calendar.YEAR)
@@ -366,7 +366,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initLocationPermission() {
-        // 定位
+        // 
         XXPermissions.with(this@ReportCreateFirstActivity)
             .permission(
                 permissionList,
@@ -408,7 +408,7 @@ class ReportCreateFirstActivity : BaseActivity(), View.OnClickListener {
                         never: Boolean,
                     ) {
                         if (never) {
-                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                            // 
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_location_content))

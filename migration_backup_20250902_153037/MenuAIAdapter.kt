@@ -13,13 +13,13 @@ import com.topdon.lib.ui.R
 import com.topdon.lib.ui.bean.ColorBean
 import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
-@Deprecated("旧的高低温源菜单，已重构过了")
+@Deprecated("，")
 /**
  * MenuAIAdapter class for thermal imaging functionality.
  */
 class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     /**
-     * 当前选中的选项 code.
+     *  code.
      *
      * Due to legacy constraints (saved in SharedPreferences), the code values are:
      * - Nothing selected: -1
@@ -36,7 +36,7 @@ class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.Vi
         }
 
     /**
-     * Observation mode - Menu 2 - High/Low temperature source click event listener，单选。
+     * Observation mode - Menu 2 - High/Low temperature source click event listener，。
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 
@@ -96,7 +96,7 @@ class MenuAIAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.Vi
 
     inner class ItemView(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //        init {
-//            val canSeeCount = itemCount.toFloat() //一屏Visible的 item 数量，目前都是全都Show/Display完
+//            val canSeeCount = itemCount.toFloat() //Visible item ，Show/Display
 //            val with = (ScreenUtils.getScreenWidth() / canSeeCount).toInt()
 //            itemView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
 //            val imageSize = (ScreenUtils.getScreenWidth() * 62 / 375f).toInt()

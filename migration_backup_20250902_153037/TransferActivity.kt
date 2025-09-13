@@ -27,7 +27,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 /**
- * 相册迁移，由老 TC001 APP 调起，当前 APP 本身并不使用.
+ * ， TC001 APP ， APP .
  *
  * Created by LCG on 2024/3/28.
  */
@@ -48,7 +48,7 @@ class TransferActivity : BaseActivity() {
     }
 
     /**
-     * 请求文件或图片读取权限.
+     * .
      */
     private fun requestPermission() {
         XXPermissions.with(this)
@@ -70,7 +70,7 @@ class TransferActivity : BaseActivity() {
                         permissions: MutableList<String>,
                         doNotAskAgain: Boolean,
                     ) {
-                        if (doNotAskAgain) { // 拒绝授权并且不再提醒
+                        if (doNotAskAgain) { // 
                             TipDialog.Builder(this@TransferActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_album_content))
@@ -88,7 +88,7 @@ class TransferActivity : BaseActivity() {
     }
 
     /**
-     * 开始执行迁移流程.
+     * .
      */
     private fun startTransfer() {
         val oldGalleryList: Array<File>? = File(FileConfig.oldTc001GalleryDir).listFiles()
@@ -110,7 +110,7 @@ class TransferActivity : BaseActivity() {
     }
 
     /**
-     * 从 Intent 中获取 Uri 并解压缩迁移的 ir 文件.
+     *  Intent  Uri  ir .
      */
     private suspend fun transferIrFiles() {
         withContext(Dispatchers.IO) {
@@ -151,7 +151,7 @@ class TransferActivity : BaseActivity() {
     }
 
     /**
-     * 迁移旧图库图片到新图库.
+     * .
      */
     private suspend fun transferImgFile() {
         withContext(Dispatchers.IO) {

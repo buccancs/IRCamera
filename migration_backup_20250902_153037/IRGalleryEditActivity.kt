@@ -72,15 +72,15 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
- * 图片二次编辑
+ * 
  */
 @Route(path = RouterConfig.IR_GALLERY_EDIT)
 class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListener {
     private var isShowC: Boolean = false
 
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * ， TC007 .
+     * true-TC007 false-
      */
     private var isTC007 = false
 
@@ -93,14 +93,14 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     private var mFrame = ByteArray(192 * 256 * 4)
     private val frameTool by lazy { FrameTool() }
 
-    // 图像参数
+    // 
     private var pseudocodeMode = 3
     private var leftValue = 0f
     private var rightValue = 10000f
     private var max = 10000f
     private var min = 0f
     private var rotate = ImageParams.ROTATE_270
-    private var struct: FrameStruct = FrameStruct() // 首部信息
+    private var struct: FrameStruct = FrameStruct() // 
     private var ts_data_H: ByteArray? = null
     private var ts_data_L: ByteArray? = null
 
@@ -203,7 +203,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 struct.customPseudoBean.minTemp = tempCorrect(tempResult.minTemperature)
                 edit_recycler_second.setPseudoColor(pseudocodeMode)
             }
-//        伪彩条默认处于打开状态
+//        
 //        color_bar_view.isVisible = struct.isShowPseudoBar
 //        adapter.enPseudoColorBar(struct.isShowPseudoBar)
 
@@ -216,7 +216,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             temperature_view.textColor = struct.textColor
             temperature_view.tempTextSize = struct.textSize
             temperature_view.setData(frameTool.getTempBytes(rotate = rotate))
-            updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock") // 加锁
+            updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock") // 
             temperature_seekbar.setPseudocode(pseudocodeMode)
             temperature_seekbar.setOnRangeChangedListener(
                 object : OnRangeChangedListener {
@@ -254,14 +254,14 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                         view: RangeSeekBar?,
                         isLeft: Boolean,
                     ) {
-                        // 调整开始
+                        // 
                     }
 
                     override fun onStopTrackingTouch(
                         view: RangeSeekBar?,
                         isLeft: Boolean,
                     ) {
-                        // 调整结束
+                        // 
                     }
                 },
             )
@@ -283,8 +283,8 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 temperature_iv_input.setImageResource(R.drawable.ic_color_edit)
                 temperature_iv_lock.visibility = View.VISIBLE
             }
-            temperature_seekbar.setRange(leftValue, rightValue, 0.1f) // 初始温度范围
-            temperature_seekbar.setProgress(leftValue, rightValue) // 初始位置
+            temperature_seekbar.setRange(leftValue, rightValue, 0.1f) // 
+            temperature_seekbar.setProgress(leftValue, rightValue) // 
             if (ScreenTool.isIPad(this@IRGalleryEditActivity)) {
                 color_bar_view.setPadding(0, SizeUtils.dp2px(40f), 0, SizeUtils.dp2px(40f))
             }
@@ -292,7 +292,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     }
 
     /**
-     * 更新图像
+     * 
      */
     private fun updateImage(bitmap: Bitmap?) {
         bitmap?.let {
@@ -326,14 +326,14 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     }
 
     /**
-     * 一级菜单
+     * 
      */
     private fun initRecycler() {
         edit_recycler_first.onTabClickListener = {
             when (it) {
-                0 -> edit_recycler_second.selectPosition(1) // 点线面
-                1 -> edit_recycler_second.selectPosition(3) // 伪彩颜色
-                2 -> edit_recycler_second.selectPosition(4) // 设置
+                0 -> edit_recycler_second.selectPosition(1) // 
+                1 -> edit_recycler_second.selectPosition(3) // 
+                2 -> edit_recycler_second.selectPosition(4) // 
             }
         }
         edit_recycler_first.onBarClickListener = {
@@ -348,7 +348,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 FenceType.DEL -> temperature_view.mode = Mode.CLEAR
                 FenceType.FULL -> temperature_view.isShowFull = isSelected
                 FenceType.TREND -> {
-                    // 2D编辑没有趋势图
+                    // 2D
                 }
             }
         }
@@ -375,17 +375,17 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     }
 
     /**
-     * 最高最低温复原
+     * 
      */
     private fun setDefLimit() {
         val tempResult = frameTool.getSrcTemp()
         rightValue = showUnitValue(tempCorrect(tempResult.maxTemperature), isShowC)
         leftValue = showUnitValue(tempCorrect(tempResult.minTemperature), isShowC)
-        temperature_seekbar.setRange(leftValue, rightValue, 0.1f) // 初始温度范围
-        temperature_seekbar.setProgress(leftValue, rightValue) // 初始位置
+        temperature_seekbar.setRange(leftValue, rightValue, 0.1f) // 
+        temperature_seekbar.setProgress(leftValue, rightValue) // 
     }
 
-    // 设置伪彩
+    // 
     private fun setPColor(code: Int) {
         pseudocodeMode = code
         temperature_seekbar.setPseudocode(pseudocodeMode)
@@ -411,7 +411,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     private fun setSettingValue(type: SettingType) {
         when (type) {
             SettingType.ALARM -> {
-                // 预警
+                // 
                 if (tempAlarmSetDialog == null) {
                     tempAlarmSetDialog = TempAlarmSetDialog(this, true)
                     tempAlarmSetDialog?.onSaveListener = {
@@ -435,7 +435,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 tempAlarmSetDialog?.alarmBean = struct.alarmBean
                 tempAlarmSetDialog?.show()
             }
-            SettingType.FONT -> { // 字体颜色
+            SettingType.FONT -> { // 
                 val colorPickDialog = ColorPickDialog(this, temperature_view.textColor, temperature_view.tempTextSize)
                 colorPickDialog.onPickListener = { it: Int, textSize: Int ->
                     temperature_view?.textColor = it
@@ -448,7 +448,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                 }
                 colorPickDialog.show()
             }
-            SettingType.WATERMARK -> { // 水印
+            SettingType.WATERMARK -> { // 
                 TipWaterMarkDialog.Builder(this, struct.watermarkBean)
                     .setCancelListener {
                         struct.watermarkBean = it
@@ -470,7 +470,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     .create().show()
             }
             else -> {
-                // 其他设置选项 2D 编辑没有
+                //  2D 
             }
         }
     }
@@ -500,10 +500,10 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                         true,
                         R.drawable.svg_pseudo_bar_unlock,
                         "unlock",
-                    ) // 解锁
+                    ) // 
                 } else {
                     setDefLimit()
-                    updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock") // 加锁
+                    updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock") // 
                 }
             }
             temperature_iv_input -> {
@@ -528,7 +528,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             }
         }
 
-    // 更新自定义伪彩的颜色的属性值
+    // 
     private fun updateImageAndSeekbarColorList(customPseudoBean: CustomPseudoBean?) {
         customPseudoBean?.let {
             updateImage(
@@ -546,7 +546,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             if (it.isUseCustomPseudo) {
                 temperature_iv_lock.visibility = View.INVISIBLE
                 tv_temp_content.visibility = View.VISIBLE
-                updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock") // 加锁
+                updateTemperatureSeekBar(false, R.drawable.svg_pseudo_bar_lock, "lock") // 
                 temperature_seekbar.setRangeAndPro(
                     UnitTools.showUnitValue(it.minTemp, isShowC),
                     UnitTools.showUnitValue(it.maxTemp, isShowC),
@@ -572,7 +572,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     }
 
     /**
-     * 从上一界面传递过来的，是否从生成报告拾取图片中跳转过来.
+     * ，.
      */
     private var isReportPick = false
 
@@ -592,25 +592,25 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
             } else {
                 showLoadingDialog()
                 lifecycleScope.launch(Dispatchers.IO) {
-                    // 获取展示图像信息的图层数据
+                    // 
                     var irBitmap =
                         if (struct.isAmplify)
                             {
-                                // 超分四倍使用原始图像继续超分一次
+                                // 
                                 OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
                             } else
                             {
                                 ir_image_view.drawToBitmap()
                             }
                     if (temperature_view.mode != Mode.CLEAR) {
-                        // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+                        // ，，，bitmap
                         irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperature_view.drawToBitmap(), 0, 0)
                     }
-                    // 合并伪彩条
+                    // 
                     if (color_bar_view.visibility == View.VISIBLE) {
                         irBitmap = BitmapUtils.mergeBitmap(irBitmap, color_bar_view.drawToBitmap(), 0, 0)
                     }
-                    // 保存图片
+                    // 
                     val fileAbsolutePath = ImageUtils.saveToCache(this@IRGalleryEditActivity, irBitmap)
                     launch(Dispatchers.Main) {
                         dismissLoadingDialog()
@@ -703,25 +703,25 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
 
     private fun updateIconSave() {
         lifecycleScope.launch(Dispatchers.IO) {
-            // 获取展示图像信息的图层数据
+            // 
             var irBitmap =
                 if (struct.isAmplify)
                     {
-                        // 超分四倍使用原始图像继续超分一次
+                        // 
                         OpencvTools.supImageFourExToBitmap(frameTool.getBaseBitmap(rotate))
                     } else
                     {
                         ir_image_view.drawToBitmap()
                     }
             if (temperature_view.mode != Mode.CLEAR) {
-                // 获取温度图层的数据，包括点线框，温度值等，重新合成bitmap
+                // ，，，bitmap
                 irBitmap = BitmapUtils.mergeBitmap(irBitmap, temperature_view.drawToBitmap(), 0, 0)
             }
-            // 合并伪彩条
+            // 
             if (color_bar_view.visibility == View.VISIBLE) {
                 irBitmap = BitmapUtils.mergeBitmap(irBitmap, color_bar_view.drawToBitmap(), 0, 0)
             }
-            // 保存图片
+            // 
             var name: String
             irBitmap.let {
                 name = ImageUtils.save(bitmap = it, isTC007)
@@ -741,7 +741,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
     }
 
     private fun getCapital(): ByteArray {
-        val capital: ByteArray? // 首部
+        val capital: ByteArray? // 
         capital =
             FrameStruct.toCode(
                 name = struct.name,
@@ -781,13 +781,13 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
         try {
             tmp = tempCorrect(temp!!)
         } catch (e: Exception) {
-            XLog.i("温度校正失败: ${e.message}")
+            XLog.i(": ${e.message}")
         }
         return tmp!!
     }
 
     /**
-     * 单点修正过程
+     * 
      */
     private fun tempCorrect(temp: Float): Float {
         var newTemp = temp
@@ -830,7 +830,7 @@ class IRGalleryEditActivity : BaseActivity(), View.OnClickListener, ITsTempListe
                     )
             } else if (struct.name.startsWith(PRODUCT_NAME_TC001LITE))
                 {
-                    // lite的模组
+                    // lite
                     if (BaseApplication.instance.tau_data_H == null || BaseApplication.instance.tau_data_L == null) return temp
                     newTemp =
                         IRTool.temperatureCorrection(

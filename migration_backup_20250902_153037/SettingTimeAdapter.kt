@@ -12,11 +12,11 @@ import kotlinx.android.synthetic.main.item_setting_check.view.*
 import kotlinx.android.synthetic.main.item_setting_time.view.*
 
 /**
- * 设置时间
+ * 
  */
 class SettingTimeAdapter(val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var datas = arrayOf("秒", "分", "时", "天")
+    private var datas = arrayOf("", "", "", "")
     private var dataTimes = arrayOf(1, 2, 3, 4)
 
     var listener: OnItemClickListener? = null

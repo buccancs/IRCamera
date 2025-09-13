@@ -46,8 +46,8 @@ import java.io.File
  */
 class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * ， TC007 .
+     * true-TC007 false-
      */
     private var isTC007 = false
 
@@ -55,7 +55,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     private var reportAdapter = PDFAdapter(R.layout.item_pdf)
 
     /**
-     * LMS Login及ExitLogin广播.
+     * LMS LoginExitLogin.
      */
     private val loginBroadcastReceiver = LoginBroadcastReceiver()
 
@@ -93,7 +93,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                 tvEmpty?.setText(if (page == 1 && data.code != LMS.SUCCESS) R.string.request_fail else R.string.tip_no_more_data)
 
                 if (page == 1) {
-                    // 刷新
+                    // 
                     if (data.code == LMS.SUCCESS)
                         {
                             reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
@@ -140,7 +140,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
     }
 
     /**
-     * 是否已调用过加载初始数据
+     * 
      */
     private var hasLoadData = false
 
@@ -194,7 +194,7 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
                                         if (file.exists()) {
                                             file.delete()
                                         }
-                                        Log.w("删除成功", response.toString())
+                                        Log.w("", response.toString())
                                     }
 
                                     override fun onFail(exception: Exception?) {
@@ -243,14 +243,14 @@ class PDFListFragment : BaseViewModelFragment<PdfViewModel>() {
         }
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-            // 加载更多
+            // 
             viewModel.getReportData(isTC007, ++page)
         }
 
         fragment_pdf_recycler.adapter = reportAdapter
         fragment_pdf_recycler.layoutManager = LinearLayoutManager(requireContext())
         fragment_pdf_recycler_lay.setOnRefreshListener {
-            // 刷新
+            // 
             page = 1
             viewModel.getReportData(isTC007, page)
         }

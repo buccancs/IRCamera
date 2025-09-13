@@ -22,30 +22,30 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 生成报告第2步（共2步）.
+ * 2（2）.
  *
- * 需要传递
- * - 必选：是否 TC007: [ExtraKeyConfig.IS_TC007] 透传，再次拾取图片时进入目录不同，上传报告参数不同
- * - 必选：当前编辑的图片绝对路径 [ExtraKeyConfig.FILE_ABSOLUTE_PATH]
- * - 必选：当前编辑的图片点线面全图温度数据 [ExtraKeyConfig.IMAGE_TEMP_BEAN]
- * - 必选：报告信息 [ExtraKeyConfig.REPORT_INFO]
- * - 可选：检测条件 [ExtraKeyConfig.REPORT_CONDITION]
- * - 可选：当前已确认的图片信息列表 [ExtraKeyConfig.REPORT_IR_LIST]
+ * 
+ * - ： TC007: [ExtraKeyConfig.IS_TC007] ，，
+ * - ： [ExtraKeyConfig.FILE_ABSOLUTE_PATH]
+ * - ： [ExtraKeyConfig.IMAGE_TEMP_BEAN]
+ * - ： [ExtraKeyConfig.REPORT_INFO]
+ * - ： [ExtraKeyConfig.REPORT_CONDITION]
+ * - ： [ExtraKeyConfig.REPORT_IR_LIST]
  */
 @Route(path = RouterConfig.REPORT_CREATE_SECOND)
 class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
     /**
-     * 当前已添加的图片信息列表.
+     * .
      */
     private var reportIRList: ArrayList<ReportIRBean> = ArrayList(0)
 
     /**
-     * 从上一界面传递过来的，添加的图片绝对路径.
+     * ，.
      */
     private var currentFilePath: String = ""
 
     /**
-     * 从上一界面传递过来的，当前编辑的图片点线面全图温度数据
+     * ，
      */
     private var imageTempBean: ImageTempBean? = null
 
@@ -156,7 +156,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_add_image -> { // 添加图片
+            tv_add_image -> { // 
                 if (reportIRList.size >= 9) {
                     ToastUtils.showShort(R.string.album_report_max_image_tips)
                     return
@@ -171,7 +171,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                     .withParcelableArrayList(ExtraKeyConfig.REPORT_IR_LIST, reportIRBeanList)
                     .navigation(this)
             }
-            tv_preview -> { // 预览
+            tv_preview -> { // 
                 val appLanguage = SharedManager.getLanguage(this)
                 val sdkVersion = "1.2.8_23050619"
                 val reportInfoBean: ReportInfoBean? = intent.getParcelableExtra(ExtraKeyConfig.REPORT_INFO)
@@ -209,8 +209,8 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 构建报告点线面数据列表.
-     * @param type 1-点 2-线 3-面
+     * .
+     * @param type 1- 2- 3-
      */
     private fun buildReportTempBeanList(type: Int): ArrayList<ReportTempBean> {
         val size =
@@ -223,7 +223,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
         for (i in 0 until size) {
             val reportTempView =
                 when (type) {
-                    1 -> { // 点
+                    1 -> { // 
                         when (i) {
                             0 -> report_temp_view_point1
                             1 -> report_temp_view_point2
@@ -232,7 +232,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                             else -> report_temp_view_point5
                         }
                     }
-                    2 -> { // 线
+                    2 -> { // 
                         when (i) {
                             0 -> report_temp_view_line1
                             1 -> report_temp_view_line2
@@ -241,7 +241,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                             else -> report_temp_view_line5
                         }
                     }
-                    else -> { // 面
+                    else -> { // 
                         when (i) {
                             0 -> report_temp_view_rect1
                             1 -> report_temp_view_rect2
@@ -250,7 +250,7 @@ class ReportCreateSecondActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             val reportTempBean =
-                if (type == 1) { // 点的数据封装不太一样
+                if (type == 1) { // 
                     ReportTempBean(
                         if (reportTempView.getMaxInput().isNotEmpty()) reportTempView.getMaxInput() + UnitTools.showUnit() else "",
                         if (reportTempView.isSwitchMaxCheck() && reportTempView.getMaxInput().isNotEmpty()) 1 else 0,

@@ -11,7 +11,7 @@ import com.topdon.libcom.R
 import com.topdon.libcom.bean.DColorSelectBean
 import kotlinx.android.synthetic.main.d_ui_item_color_select.view.*
 
-@Deprecated("产品要求所有颜色拾取都更改为 ColorPickDialog 那种样式，这个弹框废弃")
+@Deprecated(" ColorPickDialog ，")
 /**
  * DColorSelectAdapter class for thermal imaging functionality.
  */

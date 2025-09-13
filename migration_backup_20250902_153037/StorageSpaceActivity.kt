@@ -88,7 +88,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_format_storage -> { // 格式化存储
+            tv_format_storage -> { // 
                 TipDialog.Builder(this@StorageSpaceActivity)
                     .setTitleMessage(getString(R.string.more_storage_reset))
                     .setMessage(getString(R.string.more_storage_reset1))
@@ -98,7 +98,7 @@ class StorageSpaceActivity : BaseActivity(), View.OnClickListener {
                         lifecycleScope.launch {
                             val isSuccess = TS004Repository.getFormatStorage()
                             if (isSuccess) {
-                                XLog.d("TS004 格式化存储成功，即将断开连接")
+                                XLog.d("TS004 ，")
                                 (application as BaseApplication).disconnectWebSocket()
                                 ARouter.getInstance().build(RouterConfig.MAIN).navigation(this@StorageSpaceActivity)
                                 finish()

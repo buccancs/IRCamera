@@ -62,7 +62,7 @@ class MoreHelpActivity : BaseActivity() {
     private fun startWifiList()  {
         if (wifiManager.isWifiEnabled)
             {
-                if (Build.VERSION.SDK_INT < 29) { // 低于 Android10
+                if (Build.VERSION.SDK_INT < 29) { //  Android10
                     wifiManager.isWifiEnabled = true
                 } else {
                     var wifiIntent = Intent(Settings.Panel.ACTION_WIFI)
@@ -81,7 +81,7 @@ class MoreHelpActivity : BaseActivity() {
                     .setTitleMessage(getString(R.string.app_tip))
                     .setMessage(R.string.ts004_wlan_tips)
                     .setPositiveListener(R.string.app_open) {
-                        if (Build.VERSION.SDK_INT < 29) { // 低于 Android10
+                        if (Build.VERSION.SDK_INT < 29) { //  Android10
                             wifiManager.isWifiEnabled = true
                         } else {
                             var wifiIntent = Intent(Settings.Panel.ACTION_WIFI)

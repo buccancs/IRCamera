@@ -12,7 +12,7 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_tip_change_device.view.*
 
-@Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
+@Deprecated("3.80，")
 class TipChangeDeviceDialog : Dialog {
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
@@ -82,13 +82,13 @@ class TipChangeDeviceDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    // 竖屏
+                    // 
                     0.85
                 } else {
-                    // 横屏
+                    // 
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

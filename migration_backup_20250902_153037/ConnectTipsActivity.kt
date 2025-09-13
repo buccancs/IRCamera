@@ -14,18 +14,18 @@ import com.topdon.tc004.R
 import kotlinx.android.synthetic.main.activity_connect_tips.*
 
 /**
- * TS004、TC007 连接提示.
+ * TS004、TC007 .
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 提示内容是否为 TC007
+ * ：
+ * - [ExtraKeyConfig.IS_TC007] -  TC007
  *
  * Created by LCG on 2024/6/17.
  */
 @Route(path = RouterConfig.IR_CONNECT_TIPS)
 class ConnectTipsActivity : BaseActivity() {
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * ， TC007 .
+     * true-TC007 false-
      */
     private var isTC007 = false
 

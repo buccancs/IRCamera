@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_gallery_head_lay.view.*
 import kotlinx.android.synthetic.main.item_gallery_lay.view.*
 
 /**
- * 照片或视频
+ * 
  */
 @SuppressLint("NotifyDataSetChanged")
 class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -27,17 +27,17 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     /**
-     * 当前显示的数据列表，包含有标题 item.
+     * ， item.
      */
     val dataList: ArrayList<GalleryBean> = ArrayList()
 
     /**
-     * 编辑模式下，当前选中的 position 列表.
+     * ， position .
      */
     val selectList: ArrayList<Int> = ArrayList()
 
     /**
-     * 是否为 TS004 远端模式，处于该模式会有下载图标.
+     *  TS004 ，.
      */
     var isTS004Remote = false
         set(value) {
@@ -48,7 +48,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-     * 当前是否处于编辑模式.
+     * .
      */
     var isEditMode = false
         set(value) {
@@ -63,18 +63,18 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     /**
-     * 非编辑模式下 item 长按进入编辑模式事件监听.
+     *  item .
      */
     var onLongEditListener: (() -> Unit)? = null
 
     /**
-     * 选中数量变更回调.
-     * data 当前选中的 item position 列表
+     * .
+     * data  item position 
      */
     var selectCallback: ((data: ArrayList<Int>) -> Unit)? = null
 
     /**
-     * 非编辑模式时，item 点击事件监听.
+     * ，item .
      */
     var itemClickCallback: ((position: Int) -> Unit)? = null
 

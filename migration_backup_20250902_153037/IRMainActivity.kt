@@ -44,18 +44,18 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 /**
- * 插件式 或 TC007 首页.
+ *   TC007 .
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * ：
+ * - [ExtraKeyConfig.IS_TC007] -  TC007
  *
  * Created by LCG on 2024/4/18.
  */
 @Route(path = RouterConfig.IR_MAIN)
 class IRMainActivity : BaseActivity(), View.OnClickListener {
     /**
-     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
-     * true-TC007 false-其他插件式设备
+     * ， TC007 .
+     * true-TC007 false-
      */
     private var isTC007 = false
 
@@ -144,16 +144,16 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            cl_icon_monitor -> { // 监控
+            cl_icon_monitor -> { // 
                 view_page.setCurrentItem(0, false)
             }
-            cl_icon_gallery -> { // 图库
+            cl_icon_gallery -> { // 
                 checkStoragePermission()
             }
-            view_main_thermal -> { // 首页
+            view_main_thermal -> { // 
                 view_page.setCurrentItem(2, false)
             }
-            cl_icon_report -> { // 报告
+            cl_icon_report -> { // 
                 if (LMS.getInstance().isLogin) {
                     view_page.setCurrentItem(3, false)
                 } else {
@@ -165,15 +165,15 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-            cl_icon_mine -> { // 我的
+            cl_icon_mine -> { // 
                 view_page.setCurrentItem(4, false)
             }
         }
     }
 
     /**
-     * 刷新 5 个 tab 的选中状态
-     * @param index 当前选中哪个 tab，`[0, 4]`
+     *  5  tab 
+     * @param index  tab，`[0, 4]`
      */
     private fun refreshTabSelect(index: Int) {
         iv_icon_monitor.isSelected = false
@@ -206,10 +206,10 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * Show/Display操作指引弹框.
+     * Show/Display.
      */
     private fun showGuideDialog() {
-        if (SharedManager.homeGuideStep == 0) { // 已看过或不再提示
+        if (SharedManager.homeGuideStep == 0) { // 
             return
         }
 
@@ -261,8 +261,8 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                // 界面切换及温度监控历史列表加载均需要时间，所以需要等待1000毫秒再去刷新背景
-                // 而若等待1000毫秒太过久，界面会非模糊1000毫秒，所以先刷新一次背景占位
+                // ，1000
+                // 1000，1000，
                 delay(100)
                 guideDialog.blurBg(cl_root)
             }
@@ -313,7 +313,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 动态申请Permission
+     * Permission
      */
     private fun initStoragePermission(permissionList: List<String>) {
         if (PermissionUtils.isVisualUser())
@@ -339,7 +339,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
                         doNotAskAgain: Boolean,
                     ) {
                         if (doNotAskAgain) {
-                            // 拒绝Authorization并且不再提醒
+                            // Authorization
                             TipDialog.Builder(this@IRMainActivity)
                                 .setTitleMessage(getString(R.string.app_tip))
                                 .setMessage(getString(R.string.app_album_content))
@@ -360,7 +360,7 @@ class IRMainActivity : BaseActivity(), View.OnClickListener {
         override fun getItemCount() = 5
 
         override fun createFragment(position: Int): Fragment {
-            if (position == 1) { // 图库
+            if (position == 1) { // 
                 return IRGalleryTabFragment().apply {
                     arguments =
                         Bundle().also {

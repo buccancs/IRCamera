@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
- * 热成像的3D界面
+ * 3D
  * @author: CaiSongL
  * @date: 2023/8/26 14:42
  */
@@ -50,16 +50,16 @@ class Image3DActivity : BaseActivity() {
             withContext(Dispatchers.IO) {
                 val file = File(ir_path)
                 if (!file.exists()) {
-                    XLog.w("IR文件不存在: ${file.absolutePath}")
+                    XLog.w("IR: ${file.absolutePath}")
                     return@withContext
                 }
-                XLog.w("IR文件: ${file.absolutePath}")
+                XLog.w("IR: ${file.absolutePath}")
                 val allBytes = file.readBytes()
                 val headLenBytes = ByteArray(2)
                 System.arraycopy(allBytes, 0, headLenBytes, 0, 2)
                 val headLen = headLenBytes.bytesToInt()
                 System.arraycopy(allBytes, headLen, imageBytes, 0, imageBytes.size)
-                System.arraycopy(allBytes, imageBytes.size + headLen, temperatureBytes, 0, temperatureBytes.size) // 温度数据 (192 x 256 x 2)
+                System.arraycopy(allBytes, imageBytes.size + headLen, temperatureBytes, 0, temperatureBytes.size) //  (192 x 256 x 2)
             }
             open3DTools.init(imageBytes!!, 1)
             ir_sf = IRSurfaceView(this@Image3DActivity)
@@ -81,7 +81,7 @@ class Image3DActivity : BaseActivity() {
         menu.onMarkClickListener = {
             when (it) {
                 0 -> {
-                    // 自定义
+                    // 
                     irRender?.updatePointData(tempY, tempX, temp_high, temp_low, IROpen3DTools.TYPE_SEL_TEMP, temperatureBytes)
                     val temp = open3DTools.getRandomPoint(tempY, tempX, temp_high, temp_low, IROpen3DTools.TYPE_SEL_TEMP, temperatureBytes)
                     ir_sf.requestRender()
@@ -93,7 +93,7 @@ class Image3DActivity : BaseActivity() {
 //                    tv_temp.setTextColor(Color.GREEN)
                 }
                 1 -> {
-                    // 高温
+                    // 
                     irRender?.updatePointData(0, 0, temp_high, temp_low, IROpen3DTools.TYPE_HIGHT_TEMP, temperatureBytes)
                     val temp = open3DTools.getRandomPoint(0, 0, temp_high, temp_low, IROpen3DTools.TYPE_HIGHT_TEMP, temperatureBytes)
                     ir_sf.requestRender()

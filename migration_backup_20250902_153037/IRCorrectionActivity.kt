@@ -13,12 +13,12 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
- * 锅盖矫正
+ * 
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
- * 需要传递参数：
- * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
+ * ：
+ * - [ExtraKeyConfig.IS_TC007] -  TC007
  */
 @Route(path = RouterConfig.IR_CORRECTION)
 class IRCorrectionActivity : BaseActivity() {

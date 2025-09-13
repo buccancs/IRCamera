@@ -11,7 +11,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_long_text.view.*
 
 /**
- * 展示很长文字的弹框.
+ * .
  *
  * Created by LCG on 2024/2/2.
  */
