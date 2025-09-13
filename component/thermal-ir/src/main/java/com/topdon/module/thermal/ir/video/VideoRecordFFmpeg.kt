@@ -71,11 +71,11 @@ import java.util.concurrent.atomic.AtomicReference
 import com.topdon.lib.core.R as LibcoreR
 
 /**
-软编吗
+\1软编吗
  * bitmap -> mp4
  *
-avcodec.AV_CODEC_ID_MPEG4 //playback正常
-avcodec.AV_CODEC_ID_H264 //不能拖拽进度条
+\1avcodec.AV_CODEC_ID_MPEG4 //播放正常
+\1avcodec.AV_CODEC_ID_H264 //不能拖拽进度条
  */
 /**
  * Custom Video record f fmpeg view for thermal imaging display.
@@ -90,7 +90,7 @@ class VideoRecordFFmpeg(
     private val thermalPseudoBarView: BitmapConstraintLayout?,
     private val tempBg: TempLayout?,
     private val compassView: LinearCompassView? = null, // 指南针
-    private val dualView: DualViewWithExternalCameraCommonApi? = null, // dual light
+    private val dualView: DualViewWithExternalCameraCommonApi? = null, // 双光
     private val isTC007: Boolean = false,
     private val carView: View? = null,
 ) : VideoRecord() {
@@ -104,7 +104,7 @@ class VideoRecordFFmpeg(
         const val AUDIO_CHANNELS = 1
 
         /**
-memory检测
+\1内存检测
          */
         fun canStartVideoRecord(
             context: Context,
@@ -223,35 +223,35 @@ memory检测
 
     /**
      *
-avcodec.AV_CODEC_ID_MPEG4 playback正常
-avcodec.AV_CODEC_ID_H264 不能拖拽进度条
+\1avcodec.AV_CODEC_ID_MPEG4 播放正常
+\1avcodec.AV_CODEC_ID_H264 不能拖拽进度条
      *
-个别机型使用H264encoding无法Openvideo,优先使用AV_CODEC_ID_MPEG4
+\1个别机型使用H264编码无法打开视频,优先使用AV_CODEC_ID_MPEG4
      */
     private fun getVideoCodec(): Int {
         return if (Build.BRAND == "motorola" && Build.MODEL == "XT2201-2") {
-            XLog.i("使用videoencodingAV_CODEC_ID_H264")
+            XLog.i("使用视频编码AV_CODEC_ID_H264")
             avcodec.AV_CODEC_ID_H264
         } else {
-默认type
-            XLog.i("使用videoencodingAV_CODEC_ID_MPEG4")
+\1默认类型
+            XLog.i("使用视频编码AV_CODEC_ID_MPEG4")
             avcodec.AV_CODEC_ID_MPEG4
         }
     }
 
     init {
         if ((cameraView.parent as ViewGroup).height > (cameraView.parent as ViewGroup).width) {
-竖屏
+\1竖屏
             width = 480
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         } else {
-横屏
+\1横屏
             width = 640
             height =
                 width * (cameraView.parent as ViewGroup).height / (cameraView.parent as ViewGroup).width
         }
-宽高不能出现奇数
+\1宽高不能出现奇数
         if (height % 2 == 1) {
             height -= 1
         }
@@ -335,7 +335,7 @@ avcodec.AV_CODEC_ID_H264 不能拖拽进度条
                             }
                         },
                         Consumer {
-                            Log.e("image对象recordingexception", "${it.message}")
+                            Log.e("图像对象录制异常", "${it.message}")
                         },
                     )
             if (audioRecord == null) {
@@ -363,18 +363,18 @@ avcodec.AV_CODEC_ID_H264 不能拖拽进度条
                                 recorder!!.record(frame)
                                 frame.close()
                                 if (System.currentTimeMillis() - queTime > 60 * 1000) {
-间隔1分钟，校验下剩余空间
+\1间隔1分钟，校验下剩余空间
                                     if (!canStartVideoRecord(cameraView.context, exportedFile)) {
                                         exportDisposable?.dispose()
                                         stopVideoRecordListener?.invoke(false)
-recording的video超出大小容量限制
+\1录制的视频超出大小容量限制
                                         return@Consumer
                                     }
                                     queTime = System.currentTimeMillis()
                                 }
                                 recorder?.timestamp?.let {
                                     if (it / 1000 > 60 * 60 * 1000) {
-thermal imaging录像限制60分钟
+\1thermal imaging录像限制60分钟
                                         exportDisposable?.dispose()
                                         stopVideoRecordListener?.invoke(true)
                                         return@Consumer
@@ -402,7 +402,7 @@ thermal imaging录像限制60分钟
                                     for (i in 0 until tmpAudioData!!.capacity()) {
                                         tmpAudioData!!.put(i, 1.toShort())
                                     }
-使用当前时间戳
+\1使用当前时间戳
                                     if (currentTimestamp > (recorder?.timestamp ?: 0)) {
                                         recorder!!.timestamp = currentTimestamp
                                     }
@@ -412,22 +412,22 @@ thermal imaging录像限制60分钟
                                     )
                                 }
 //                        Log.w(
-"image大小",
+\1"image大小",
 //                            "${System.currentTimeMillis() - time}======${frame.image.size}//${bufferSize}//${(recorder?.timestamp!! / 1000000L)}"
 //                        )
                             } catch (e: Exception) {
-                                Log.e("imagerecording", "Caught an exception: " + e.message)
+                                Log.e("图像录制", "Caught an exception: " + e.message)
                             }
                         },
                         Consumer {
-                            Log.e("image对象recordingexception", "${it.message}")
+                            Log.e("图像对象录制异常", "${it.message}")
                         },
                     )
         } catch (e: Exception) {
 //            stopRecord()
             exportDisposable?.dispose()
             stopVideoRecordListener?.invoke(false)
-            XLog.e("recordingexception")
+            XLog.e("录制异常")
             e.printStackTrace()
         }
     }
@@ -464,7 +464,7 @@ thermal imaging录像限制60分钟
             image: IplImage?,
             image2: IplImage?,
         ): IplImage? {
-未使用
+\1未使用
             return null
         }
     }
@@ -490,12 +490,12 @@ thermal imaging录像限制60分钟
                     )
             }
         } catch (e: Exception) {
-            Log.e("image对象processingexception", "${e.message}")
+            Log.e("图像对象处理异常", "${e.message}")
         }
     }
 
     /**
-memory检测
+\1内存检测
      */
     fun canStartVideoRecord(videoFile: File?): Boolean {
         val canStart =
@@ -505,7 +505,7 @@ memory检测
                         ?: 0
                 )
             ) > (500L * 1000 * 1000)
-Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
+\1Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 1000)
         if (!canStart) {
             ThreadUtils.runOnUiThread {
                 TipDialog.Builder(cameraView.context)
@@ -558,7 +558,7 @@ Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 
                     delay(300)
                     refreshAlbum()
                 } catch (e: Exception) {
-                    XLog.e("捕获stoprecordingvideo" + e.message)
+                    XLog.e("捕获停止录制视频" + e.message)
                 }
             }
             isRunning = false
@@ -596,8 +596,8 @@ Log.w("本地可用空间","" + SDCardUtils.getExternalAvailableSize() / 1000 / 
     }
 
     /**
-cameraViewBitmap是屏幕控件的实际宽高
-dstBitmap转成video输出的
+\1cameraViewBitmap是屏幕控件的实际宽高
+\1dstBitmap转成视频输出的
      */
     private fun createBitmapFromView(): Bitmap {
         var cameraViewBitmap: Bitmap
@@ -630,11 +630,11 @@ dstBitmap转成video输出的
             }
         }
 
-pseudo-color bar
+\1pseudo-color bar
         if (thermalPseudoBarView?.visibility == VISIBLE) {
             try {
                 thermalPseudoBarView?.viewBitmap?.let {
-Log.w("image对象processing耗时-彩条大小",it.byteCount.toString())
+\1Log.w("image对象processing耗时-彩条大小",it.byteCount.toString())
                     cameraViewBitmap =
                         BitmapUtils.mergeBitmap(
                             cameraViewBitmap,
@@ -643,9 +643,9 @@ Log.w("image对象processing耗时-彩条大小",it.byteCount.toString())
                             (cameraViewBitmap!!.height - it.height) / 2,
                         )
                 }
-Log.w("image对象processing耗时-彩条",""+(System.currentTimeMillis() - startTime))
+\1Log.w("image对象processing耗时-彩条",""+(System.currentTimeMillis() - startTime))
             } catch (e: Exception) {
-Log.e("image对象processing耗时-彩条",""+(System.currentTimeMillis() - startTime))
+\1Log.e("image对象processing耗时-彩条",""+(System.currentTimeMillis() - startTime))
             }
         }
         if (true == tempBg?.isVisible) {
@@ -669,7 +669,7 @@ Log.e("image对象processing耗时-彩条",""+(System.currentTimeMillis() - star
                         carView?.drawToBitmap(), 0, 0,
                     )
             }
-指南针
+\1指南针
         compassView?.let {
             if (it.isVisible) {
                 try {
@@ -682,13 +682,13 @@ Log.e("image对象processing耗时-彩条",""+(System.currentTimeMillis() - star
                             SizeUtils.dp2px(20f),
                         )
                 } catch (e: Exception) {
-                    Log.e(TAG, "image对象processingexception exception:${e.message}")
+                    Log.e(TAG, "图像对象处理异常 exception:${e.message}")
                 }
-Log.w("image对象processing耗时-指南针", "${System.currentTimeMillis() - startTime}")
+\1Log.w("image对象processing耗时-指南针", "${System.currentTimeMillis() - startTime}")
             }
         }
 
-画中画
+\1画中画
         cameraPreview?.let {
             if (it.isVisible) {
                 val newBitmap: Bitmap? =
@@ -710,7 +710,7 @@ Log.w("image对象processing耗时-指南针", "${System.currentTimeMillis() - s
                 Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             }
 
-addwatermark
+\1添加watermark
         val watermarkBean =
             if (isTC007)
                 {
@@ -739,11 +739,11 @@ addwatermark
         address: String,
         time: String?,
     ): Bitmap {
-create一样大小的image
+\1create一样大小的图片
         val newBmp = Bitmap.createBitmap(bmp.width, bmp.height, Bitmap.Config.ARGB_8888)
-create画布
+\1create画布
         val canvas = Canvas(newBmp)
-        canvas.drawBitmap(bmp, 0f, 0f, null) // 绘制原始image
+        canvas.drawBitmap(bmp, 0f, 0f, null) // 绘制原始图片
         canvas.save()
         val beginX = pix10.toDouble() // 45度角度值是1.414
         var beginY = (bmp.height - pix10).toDouble()
@@ -757,7 +757,7 @@ create画布
             val textHeight = (rectText.bottom - rectText.top)
             paint.getTextBounds(address, 0, address.length, rectText)
             if (rectText.width() > bmp.width - pix20) {
-字符太长，进行换行processing
+\1字符太长，进行换行processing
                 val staticLayout =
                     StaticLayout(
                         address,
@@ -783,7 +783,7 @@ create画布
             val textHeight = rectText.bottom - rectText.top
             paint.getTextBounds(title, 0, title.length, rectText)
             if (rectText.width() > bmp.width - pix20) {
-字符太长，进行换行processing
+\1字符太长，进行换行processing
                 val staticLayout =
                     StaticLayout(
                         title,

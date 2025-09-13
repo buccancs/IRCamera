@@ -28,7 +28,7 @@ import com.github.gzuliyujiang.wheelpicker.widget.LinkageWheelLayout;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
 
 /**
- * 二三级联动selection器
+ * 二三级联动选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @see com.github.gzuliyujiang.wheelview.contract.TextProvider

@@ -122,7 +122,7 @@ class EmissivityTipPopup(val context: Context, val isTC007: Boolean) {
                 dismiss()
             }
         }
-        // settingsPopupWindow的其他property和Listener器...
+        // 设置PopupWindow的其他属性和监听器...
         return popupWindow!!
     }
 

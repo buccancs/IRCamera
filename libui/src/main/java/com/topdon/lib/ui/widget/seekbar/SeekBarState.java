@@ -4,7 +4,7 @@ package com.topdon.lib.ui.widget.seekbar;
  * ================================================
  * 作    者：JayGoo
  * 版    本：
- * create日期：2018/5/9
+ * 创建日期：2018/5/9
  * 描    述: it works for draw indicator text
  * ================================================
  */

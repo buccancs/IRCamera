@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.view_report_ir_input.view.*
 class ReportIRInputView : LinearLayout {
     companion object {
         private const val TYPE_FULL = 0 // 全图
-        private const val TYPE_POINT = 1 // point
-        private const val TYPE_LINE = 2 // line
-        private const val TYPE_RECT = 3 // area
+        private const val TYPE_POINT = 1 // 点
+        private const val TYPE_LINE = 2 // 线
+        private const val TYPE_RECT = 3 // 面
     }
 
     constructor(context: Context) : this(context, null)

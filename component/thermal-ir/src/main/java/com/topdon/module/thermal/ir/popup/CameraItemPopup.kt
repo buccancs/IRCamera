@@ -18,7 +18,7 @@ import com.topdon.module.thermal.ir.R
 import com.topdon.module.thermal.ir.databinding.PopCameraItemBinding
 
 /**
-thermal imaging 拍照/录像 menu.
+\1thermal imaging 拍照/录像 menu.
  *
  * Created by LCG on 2025/1/3.
  */
@@ -29,7 +29,7 @@ thermal imaging 拍照/录像 menu.
 @SuppressLint("SetTextI18n")
 class CameraItemPopup(val context: Context, private val saveSetBean: SaveSettingBean) : PopupWindow(), View.OnClickListener {
     /**
-手动快门是否处于selectedstate
+\1手动快门是否处于选中状态
      */
     var isShutterSelect: Boolean
         get() = binding.ivShutter.isSelected
@@ -38,7 +38,7 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
         }
 
     /**
-录音开关是否处于selectedstate
+\1录音开关是否处于选中状态
      */
     var isAudioSelect: Boolean
         get() = binding.ivAudio.isSelected
@@ -47,22 +47,22 @@ class CameraItemPopup(val context: Context, private val saveSetBean: SaveSetting
         }
 
     /**
-延时秒数clickEventListener，Return值为是否响应该次clickEvent
+\1延时秒数点击事件监听，返回值为是否响应该次点击事件
      */
     var onDelayClickListener: (() -> Boolean)? = null
 
     /**
-自动快门enableddisabledEventListener.
+\1自动快门enableddisabled事件监听.
      */
     var onAutoCLickListener: ((isOpen: Boolean) -> Unit)? = null
 
     /**
-手动快门clickEventListener.
+\1手动快门点击事件监听.
      */
     var onShutterClickListener: (() -> Unit)? = null
 
     /**
-录音enableddisabledEventListener.
+\1录音enableddisabled事件监听.
      */
     var onAudioCLickListener: (() -> Unit)? = null
 

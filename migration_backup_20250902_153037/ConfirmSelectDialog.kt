@@ -13,7 +13,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_confirm_select.view.*
 
 /**
- * TS004 远端图库deletetip弹框.
+ * TS004 远端图库删除提示弹框.
  *
  * Created by LCG on 2024/2/29.
  */
@@ -21,7 +21,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     var onConfirmClickListener: ((isSelect: Boolean) -> Unit)? = null
 
     /**
-     * 是否Show/Display顶部info图标，默认不Show/Display.
+     * 是否显示顶部信息图标，默认不显示.
      */
     fun setShowIcon(isShowIcon: Boolean) {
         rootView.iv_icon.isVisible = isShowIcon
@@ -44,7 +44,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否Show/Displaytiptext及selected效果，默认不Show/Display.
+     * 是否显示提示文字及选中效果，默认不显示.
      */
     fun setShowMessage(isShowMessage: Boolean) {
         rootView.rl_message.isVisible = isShowMessage
@@ -60,14 +60,14 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * 是否Show/DisplayCancelbutton，默认Show/Display且默认text为“Cancel”.
+     * 是否显示取消按钮，默认显示且默认文字为“取消”.
      */
     fun setShowCancel(isShowCancel: Boolean) {
         rootView.tv_cancel.isVisible = isShowCancel
     }
 
     /**
-     * settingsCancelbuttontext，默认为“Cancel”.
+     * 设置取消按钮文字，默认为“取消”.
      */
     fun setCancelText(
         @StringRes cancelRes: Int,
@@ -76,7 +76,7 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * settingsConfirmbuttontext，默认为“delete"
+     * 设置确认按钮文字，默认为“删除"
      */
     fun setConfirmText(
         @StringRes confirmRes: Int,
@@ -106,13 +106,13 @@ class ConfirmSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
 
     override fun onClick(v: View?) {
         when (v) {
-            rootView.rl_message -> { // selectedstate
+            rootView.rl_message -> { // 选中状态
                 rootView.iv_select.isSelected = !rootView.iv_select.isSelected
             }
-            rootView.tv_cancel -> { // Cancel
+            rootView.tv_cancel -> { // 取消
                 dismiss()
             }
-            rootView.tv_confirm -> { // Confirm
+            rootView.tv_confirm -> { // 确认
                 dismiss()
                 onConfirmClickListener?.invoke(rootView.iv_select.isSelected)
             }

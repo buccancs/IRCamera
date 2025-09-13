@@ -371,6 +371,7 @@ public class DateWheelLayout extends BaseWheelLayout {
         return spaceEndView;
     }
 
+
     public final int getSelectedYear() {
         return yearWheelView.getCurrentItem();
     }
@@ -399,22 +400,22 @@ public class DateWheelLayout extends BaseWheelLayout {
 
     private void changeMonth(int year) {
         final int min, max;
-        //start年份和end年份相同（即只有一个年份，这种情况建议使用月日mode）
+        //开始年份和结束年份相同（即只有一个年份，这种情况建议使用月日模式）
         if (startValue.getYear() == endValue.getYear()) {
             min = Math.min(startValue.getMonth(), endValue.getMonth());
             max = Math.max(startValue.getMonth(), endValue.getMonth());
         }
-        //current所选年份和start年份相同
+        //current所选年份和开始年份相同
         else if (year == startValue.getYear()) {
             min = startValue.getMonth();
             max = 12;
         }
-        //current所选年份和end年份相同
+        //current所选年份和结束年份相同
         else if (year == endValue.getYear()) {
             min = 1;
             max = endValue.getMonth();
         }
-        //current所选年份在start年份和end年份之间
+        //current所选年份在开始年份和结束年份之间
         else {
             min = 1;
             max = 12;
@@ -432,18 +433,18 @@ public class DateWheelLayout extends BaseWheelLayout {
 
     private void changeDay(int year, int month) {
         final int min, max;
-        //start年月及end年月相同情况
+        //开始年月及结束年月相同情况
         if (year == startValue.getYear() && month == startValue.getMonth()
                 && year == endValue.getYear() && month == endValue.getMonth()) {
             min = startValue.getDay();
             max = endValue.getDay();
         }
-        //start年月相同情况
+        //开始年月相同情况
         else if (year == startValue.getYear() && month == startValue.getMonth()) {
             min = startValue.getDay();
             max = getTotalDaysInMonth(year, month);
         }
-        //end年月相同情况
+        //结束年月相同情况
         else if (year == endValue.getYear() && month == endValue.getMonth()) {
             min = 1;
             max = endValue.getDay();
@@ -462,7 +463,7 @@ public class DateWheelLayout extends BaseWheelLayout {
     }
 
     /**
-     * 根据年份及月份Get/Retrieve每月的天数，class似于{@link java.util.Calendar#getActualMaximum(int)}
+     * 根据年份及月份获取每月的天数，类似于{@link java.util.Calendar#getActualMaximum(int)}
      */
     private int getTotalDaysInMonth(int year, int month) {
         switch (month) {

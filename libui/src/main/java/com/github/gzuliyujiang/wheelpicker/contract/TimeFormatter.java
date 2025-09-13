@@ -14,7 +14,7 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 时间Show/Display文本format化interface
+ * 时间显示文本格式化接口
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/14 19:55
@@ -22,26 +22,26 @@ package com.github.gzuliyujiang.wheelpicker.contract;
 public interface TimeFormatter {
 
     /**
-     * format化小时数
+     * 格式化小时数
      *
      * @param hour 小时数
-     * @return format化后最终Show/Display的小时数字符串
+     * @return 格式化后最终显示的小时数字符串
      */
     String formatHour(int hour);
 
     /**
-     * format化分钟数
+     * 格式化分钟数
      *
      * @param minute 分钟数
-     * @return format化后最终Show/Display的分钟数字符串
+     * @return 格式化后最终显示的分钟数字符串
      */
     String formatMinute(int minute);
 
     /**
-     * format化秒数
+     * 格式化秒数
      *
      * @param second 秒数
-     * @return format化后最终Show/Display的秒数字符串
+     * @return 格式化后最终显示的秒数字符串
      */
     String formatSecond(int second);
 

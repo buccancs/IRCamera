@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * 时间data实体
+ * 时间数据实体
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/6/17 15:29

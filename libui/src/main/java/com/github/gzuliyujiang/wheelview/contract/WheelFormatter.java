@@ -16,7 +16,7 @@ package com.github.gzuliyujiang.wheelview.contract;
 import androidx.annotation.NonNull;
 
 /**
- * 滚轮条目Show/Display文本format化interface
+ * 滚轮条目显示文本格式化接口
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/14 20:02
@@ -24,10 +24,10 @@ import androidx.annotation.NonNull;
 public interface WheelFormatter {
 
     /**
-     * format化滚轮条目Show/Display文本
+     * 格式化滚轮条目显示文本
      *
      * @param item 滚轮条目的内容
-     * @return format化后最终Show/Display的文本
+     * @return 格式化后最终显示的文本
      */
     String formatItem(@NonNull Object item);
 

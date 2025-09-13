@@ -51,7 +51,7 @@ public class LLog {
      * 适应最大长度打印
      *
      * @param tag 标志
-     * @param msg info
+     * @param msg 信息
      */
     public static void LogMaxPrint(String tag, String msg) {
         if (msg.length() > MAX_LENGTH) {

@@ -8,16 +8,16 @@ import com.topdon.menu.R as MenuR
 import com.topdon.menu.constant.MenuType
 
 /**
- * Temperature measurement mode - menu 6 - high/low temperature level menu adapter. Single selection with one item required to be selected.
+ * temperature measurement模式-menu6-high/low temperature档 menuAdapter used for，single selection且必须selected其中一个.
  *
- * Low temperature level (high gain), high temperature level (low gain), auto switch
+ * 低温档(高gain)、高温档(低gain)、auto switch
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
     /**
-     * Whether to use Fahrenheit as unit
+     * 是否使用Fahrenheit作为单位
      *
      * true-Fahrenheit false-Celsius
      */
@@ -30,7 +30,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * Currently selected level code.
+     * currentselected的level code.
      *
      * Due to legacy constraints (saved in SharedPreferences), the code values are:
      * - Auto switch: -1
@@ -46,7 +46,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * Menu click event listener. Single selection.
+     * menuclickevent listener，single selection。
      */
     var onTempLevelListener: ((code: Int) -> Unit)? = null
 
@@ -81,9 +81,6 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
     }
 
-    /**
-     * Executes intrange functionality.
-     */
     private fun IntRange.getTempStr(isUnitF: Boolean): String =
         if (isUnitF) {
             "${c2f(start)}\n~\n${c2f(endInclusive)}°F"
@@ -92,7 +89,7 @@ internal class TempLevelAdapter(menuType: MenuType) : BaseMenuAdapter() {
         }
 
     /**
-     * Convert specified Celsius°C to Fahrenheit°F
+     * 将指定 Celsius°C 转换为 Fahrenheit°F
      */
     private fun c2f(cValue: Int): Int = (cValue * 1.8f + 32).toInt()
 

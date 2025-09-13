@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.dialog_download_pro.view.*
 import java.text.DecimalFormat
 
 /**
- * Download进度tip弹框.
+ * 下载进度提示弹框.
  * Created by LCG on 2024/3/5.
  */
 class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) {
@@ -33,7 +33,7 @@ class DownloadProDialog(context: Context) : Dialog(context, R.style.InfoDialog) 
     }
 
     /**
-     * refresh进度值
+     * 刷新进度值
      */
     fun refreshProgress(
         current: Long,

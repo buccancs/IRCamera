@@ -8,21 +8,21 @@ import android.widget.FrameLayout
 import com.topdon.menu.databinding.ViewMenuEditBinding
 
 /**
- * Bottom menu bar for 2D editing interface.
+ * 2D编辑页面所用底部menu栏.
  *
- * Handles point/line/area measurement, pseudo color, settings, and pseudo color bar operations. */
-
+ * point/line/area、pseudo color、settings、pseudo color条
+ */
+/**
+ * MenuEditView class
+ */
 /**
  * Custom Menu edit view for thermal imaging display.
- * Provides specialized rendering and interaction capabilities. */
-/**
- * MenuEditView implements custom user interface component functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0 */
+ * Provides specialized rendering and interaction capabilities.
+ */
 class MenuEditView : FrameLayout, View.OnClickListener {
     /**
- * Whether the pseudo color bar icon is currently in selected state */
+     * pseudo color条图标current是否处于selectedstate
+     */
     var isBarSelect: Boolean
         get() = binding.ivMenu4.isSelected
         set(value) {
@@ -31,11 +31,13 @@ class MenuEditView : FrameLayout, View.OnClickListener {
         }
 
     /**
- * Menu click event listener: 0-point/line/area, 1-pseudo color, 2-settings. */
+     * 0-point/line/area、1-pseudo colorcolor、2-settings menuclickevent listener.
+     */
     var onTabClickListener: ((selectPosition: Int) -> Unit)? = null
 
     /**
- * Pseudo color bar icon click event listener. */
+     * pseudo color条图标clickevent listener.
+     */
     var onBarClickListener: ((isBarSelect: Boolean) -> Unit)? = null
 
     private lateinit var binding: ViewMenuEditBinding
@@ -64,7 +66,8 @@ class MenuEditView : FrameLayout, View.OnClickListener {
     }
 
     /**
- * Currently selected tab index, range `[0,2]` */
+     * currentselected那个 tab，取值 `[0,2]`
+     */
     private var selectPosition = -1
         set(value) {
             if (field != value) {

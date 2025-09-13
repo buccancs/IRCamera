@@ -20,10 +20,10 @@ class IRGalleryEditViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val file = File(path)
             if (!file.exists()) {
-                XLog.w("IRfile不存在: ${file.absolutePath}")
+                XLog.w("IR文件不存在: ${file.absolutePath}")
                 return@launch
             }
-            XLog.w("IRfile: ${file.absolutePath}")
+            XLog.w("IR文件: ${file.absolutePath}")
             val bytes = file.readBytes()
             val headLenBytes = ByteArray(2)
             System.arraycopy(bytes, 0, headLenBytes, 0, 2)
@@ -32,13 +32,13 @@ class IRGalleryEditViewModel : BaseViewModel() {
             val frameDataBytes = ByteArray(bytes.size - headLen)
             System.arraycopy(bytes, 0, headDataBytes, 0, headDataBytes.size)
             System.arraycopy(bytes, headLen, frameDataBytes, 0, frameDataBytes.size)
-            XLog.w("一帧data: ${frameDataBytes.size}")
+            XLog.w("一帧数据: ${frameDataBytes.size}")
             resultLiveData.postValue(FrameBean(headDataBytes, frameDataBytes))
         }
     }
 
     /**
-get尾部info
+\1get尾部信息
      */
 
     fun getTailData(bytes: ByteArray)  {

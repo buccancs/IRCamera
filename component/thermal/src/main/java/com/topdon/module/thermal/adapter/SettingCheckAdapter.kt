@@ -50,7 +50,7 @@ class SettingCheckAdapter(val context: Context) :
                 holder.btn.setTextColor(ContextCompat.getColor(context, com.topdon.lib.core.R.color.font_third_color))
             }
             holder.btn.setOnClickListener {
-                Log.w("123", "file: ${datas[position]}")
+                Log.w("123", "文件: ${datas[position]}")
                 listener?.onClick(position, dataTimes[position])
             }
         }

@@ -23,7 +23,7 @@ import com.topdon.lib.core.R
 abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment() {
     /**
      * 在 [onDestroyView] 要将 binding 置为 null，
-     * 而将 binding 声明为可为 null type使用太过麻烦，使用该variable做一重包装避免该问题.
+     * 而将 binding 声明为可为 null 类型使用太过麻烦，使用该变量做一重包装避免该问题.
      */
     private var _binding: B? = null
 
@@ -35,13 +35,13 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
     protected val binding: B get() = _binding!!
 
     /**
-     * 子classimplementation该method，Return使用 DataBinding 的 layout 资源 Id.
+     * 子类实现该方法，返回使用 DataBinding 的 layout 资源 Id.
      */
     @LayoutRes
     protected abstract fun initContentLayoutId(): Int
 
     /**
-     * 子classimplementation该method，执行 onViewCreated 之后的initialization逻辑.
+     * 子类实现该方法，执行 onViewCreated 之后的初始化逻辑.
      */
     protected abstract fun initView(savedInstanceState: Bundle?)
 
@@ -55,13 +55,13 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
         }
 
     /**
-     * 子class可override该method，执行 onCreateDialog 阶段create Dialog 后的相关settings.
+     * 子类可重写该方法，执行 onCreateDialog 阶段创建 Dialog 后的相关设置.
      */
     protected open fun afterDialogCreate(layoutParams: WindowManager.LayoutParams) {
     }
 
     /**
-     * 子class可override该method，Return Dialog 要使用的 themeResId.
+     * 子类可重写该方法，返回 Dialog 要使用的 themeResId.
      */
     @StyleRes
     protected open fun getDialogThemeResId(): Int = R.style.base_dialog
@@ -100,9 +100,6 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : AppCompatDialogFragment
         _binding = null
     }
 
-    /**
-     * Executes show functionality.
-     */
     fun show(context: Context) {
         if (isAdded) {
             return

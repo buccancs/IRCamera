@@ -13,7 +13,7 @@ import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.config.CameraHelp
 import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
-@Deprecated("旧的高低温pointmenu，已重构过了")
+@Deprecated("旧的高低温点菜单，已重构过了")
 class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val curMultipleArray: HashMap<Int, Int> by lazy { hashMapOf() }
 
@@ -71,7 +71,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
     }
 
     private fun multipleChoice(position: Int) {
-        // 1.calculationcurMultipleArray
+        // 1.计算curMultipleArray
         if (position == secondBean.size - 1) {
             curMultipleArray.clear()
             curMultipleArray[position] = secondBean[position].code
@@ -87,7 +87,7 @@ class MenuSecondNightAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
         // 2.执行listener
         multipleListener?.invoke(secondBean[position].code, curMultipleArray.contains(position))
-        // 3.refreshdata
+        // 3.刷新数据
         notifyDataSetChanged()
     }
 

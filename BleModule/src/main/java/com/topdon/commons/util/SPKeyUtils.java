@@ -1,9 +1,9 @@
 package com.topdon.commons.util;
 
 /**
- * class描述:
- * create人: Eric_Huang
- * create时间: 2017/5/27 11:42
+ * 类描述:
+ * 创建人: Eric_Huang
+ * 创建时间: 2017/5/27 11:42
  */
 public class SPKeyUtils {
 
@@ -18,12 +18,12 @@ public class SPKeyUtils {
     public static final String TS_GUIDE_FRIST = "ts_guide_frist";
 
     /**
-     * vciconnectiontip
+     * vci连接提示
      */
     public static final String TS_VCI_DIALOG = "ts_vci_dialog";
 
     /**
-     * service器时间
+     * 服务器时间
      */
     public static final String SERVER_TIME = "server_time";
 
@@ -33,12 +33,12 @@ public class SPKeyUtils {
     public static final String APP_RUNNING_TIME = "app_running_time";
 
     /**
-     * 最后一次的connection的SN号
+     * 最后一次的连接的SN号
      */
     public static final String LAST_SN = "last_sn";
 
     /**
-     * 最后一次firmwareversion号
+     * 最后一次固件版本号
      */
     public static final String LAST_MFWVERSION = "last_mFwVersion";
 
@@ -48,12 +48,12 @@ public class SPKeyUtils {
     public static final String GUIDE_DIALOG = "guide_dialog";
 
     /**
-     * 最后单位save得version
+     * 最后单位保存得版本
      */
     public static final String LAST_UNIT_VERSION = "last_unit_version";
 
     /**
-     * 最后data库version
+     * 最后数据库版本
      */
     public static final String LAST_SCHEMA_VERSION = "last_schema_version";
 
@@ -88,19 +88,19 @@ public class SPKeyUtils {
 
     /**
      * ad900
-     * loadusb copy
+     * 加载usb copy
      */
     public static final String LOAD_USB_COPY = "load_usb_copy";//
 
     /**
      * ad900
-     * 车型copysuccess
+     * 车型copy成功
      */
-    public static final String COPY_SUCCESS = "copy_success";//车型copysuccess
+    public static final String COPY_SUCCESS = "copy_success";//车型copy成功
 
     /**
      * keynow
-     * 绑定车辆info
+     * 绑定车辆信息
      */
     public static final String BIND_VEHICLE = "bind_vehicle";
 

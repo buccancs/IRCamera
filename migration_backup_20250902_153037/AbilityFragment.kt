@@ -24,8 +24,8 @@ import org.greenrobot.eventbus.EventBus
 /**
  * 功能 Tab 页
  *
- * 需要传递parameter：
- * - [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007（不使用，透传）
+ * 需要传递参数：
+ * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007（不使用，透传）
  */
 class AbilityFragment : BaseFragment(), View.OnClickListener {
     private var mIsTC007 = false
@@ -59,7 +59,7 @@ class AbilityFragment : BaseFragment(), View.OnClickListener {
                     .withString(ExtraKeyConfig.URL, url)
                     .navigation(requireContext())
             }
-            view_monitory -> { // temperature监控
+            view_monitory -> { // 温度监控
                 val intent = Intent(requireContext(), MonitoryHomeActivity::class.java)
                 intent.putExtra(ExtraKeyConfig.IS_TC007, mIsTC007)
                 startActivity(intent)

@@ -12,27 +12,15 @@ import com.topdon.lib.core.databinding.DialogTipShutterBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * 自动快门tip弹窗
+ * 自动快门提示弹窗
  * @author: CaiSongL
  * @date: 2023/4/13 10:57
- */
-/**
- * TipShutterDialog displays modal dialog interface for user interaction.
- *
- * @author IRCamera Development Team
- * @since 1.0
  */
 class TipShutterDialog : Dialog {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-/**
- * Builder manages camera operations and image capture functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
     class Builder(private val context: Context) {
         var dialog: TipShutterDialog? = null
         private var titleRes: Int? = null
@@ -69,16 +57,10 @@ class TipShutterDialog : Dialog {
             return this
         }
 
-    /**
-     * Executes dismiss functionality.
-     */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
-    /**
-     * Creates and configures a new  instance.
-     */
         fun create(): TipShutterDialog {
             if (dialog == null) {
                 dialog = TipShutterDialog(context, R.style.InfoDialog)
@@ -89,7 +71,7 @@ class TipShutterDialog : Dialog {
             dialog!!.setCanceledOnTouchOutside(canceled)
 
             val lp = dialog!!.window!!.attributes
-            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() 
+            lp.width = (ScreenUtil.getScreenWidth(context) * if (ScreenUtil.isPortrait(context)) 0.85 else 0.35).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
 
             binding.tvIKnow.setOnClickListener {

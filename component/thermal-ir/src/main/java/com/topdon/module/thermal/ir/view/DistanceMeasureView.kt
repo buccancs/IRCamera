@@ -48,7 +48,7 @@ class DistanceMeasureView : View {
         linePaint!!.color = Color.GREEN
         linePaint!!.strokeWidth = 4f
         linePaint!!.style = Paint.Style.STROKE
-set虚line的间隔长度和line条长度
+\1set虚线的间隔长度和线条长度
         val intervals = floatArrayOf(10f, 10f)
         linePaint!!.pathEffect = DashPathEffect(intervals, 0f)
     }
@@ -58,7 +58,7 @@ set虚line的间隔长度和line条长度
         heightMeasureSpec: Int,
     ) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-calculation初始位置，使得两条line居中，间隔20dp
+\1calculation初始位置，使得两条线居中，间隔20dp
         val screenHeight = measuredHeight
         val lineHeight = 50 // 在dimens.xml中定义line_height
         margin = ((screenHeight - lineHeight) / 2).toFloat()
@@ -69,7 +69,7 @@ calculation初始位置，使得两条line居中，间隔20dp
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-drawing两条水平line
+\1drawing两条水平线
         canvas.drawLine(50f, line1Y, (width - 50).toFloat(), line1Y, linePaint!!)
         canvas.drawLine(50f, line2Y, (width - 50).toFloat(), line2Y, linePaint!!)
     }
@@ -79,14 +79,14 @@ drawing两条水平line
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
                 var newY = event.y
 
-限制line的range，防止line移出视图range
+\1限制线的范围，防止线移出视图范围
                 if (newY < 0) {
                     newY = 0f
                 } else if (newY > height) {
                     newY = height.toFloat()
                 }
 
-根据Touch位置updateline的位置
+\1根据触摸位置update线的位置
                 if (Math.abs(newY - line1Y) < Math.abs(newY - line2Y)) {
                     val abs = line1Y - newY
                     line1Y = newY
@@ -96,7 +96,7 @@ drawing两条水平line
                     line2Y = newY
                     line1Y -= abs
                 }
-update距离
+\1update距离
                 distance = Math.abs(line2Y - line1Y)
                 invalidate()
                 moveListener?.invoke(distance)

@@ -24,12 +24,12 @@ import java.io.File
  **/
 abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     /**
-     * String type - 拾取的image在本地的绝对path.
+     * String 类型 - 拾取的图片在本地的绝对路径.
      */
     val RESULT_IMAGE_PATH = "RESULT_IMAGE_PATH"
 
     /**
-     * 当前是否已拍了一张照等待complete.
+     * 当前是否已拍了一张照等待完成.
      */
     private var hasTakePhoto = false
 
@@ -45,7 +45,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 默认selected画圆
+        // 默认选中画圆
         iv_edit_circle.isSelected = true
         image_edit_view.type = ImageEditView.Type.CIRCLE
         view_color.setBackgroundColor(image_edit_view.color)
@@ -86,7 +86,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
             MeasureSpec.makeMeasureSpec(heightPixels, MeasureSpec.AT_MOST),
         )
 
-        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // 拍照button高度，60dp+上下各20dp margin
+        val ivPickHeight = SizeUtils.dp2px(60f + 20 + 20) // 拍照按钮高度，60dp+上下各20dp margin
         val menuHeight = (widthPixels * 75f / 384).toInt()
         val bottomHeight = ivPickHeight.coerceAtLeast(menuHeight)
         val canUseHeight = heightPixels - title_view.measuredHeight - bottomHeight
@@ -170,7 +170,7 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * switch 已拍照mode/未拍照mode.
+     * 切换 已拍照模式/未拍照模式.
      */
     private fun switchPhotoState(hasTakePhoto: Boolean) {
         this.hasTakePhoto = hasTakePhoto
@@ -182,8 +182,8 @@ abstract class BasePickImgActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * Show/DisplayExit不savetip弹框
-     * @param listener click弹框上ExitEventListener
+     * 显示退出不保存提示弹框
+     * @param listener 点击弹框上退出事件监听
      */
     private fun showExitTipsDialog(listener: (() -> Unit)) {
         TipDialog.Builder(this)

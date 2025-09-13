@@ -10,7 +10,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.dialog_not_tips_select.*
 
 /**
- * 与 TipDialog class似，不过多了个 “不再tip” selected效果的tip弹窗.
+ * 与 TipDialog 类似，不过多了个 “不再提示” 选中效果的提示弹窗.
  *
  * Created by LCG on 2024/10/26.
  */
@@ -27,7 +27,7 @@ class NotTipsSelectDialog(context: Context) : Dialog(context, R.style.InfoDialog
     }
 
     /**
-     * click “我知道了” EventListener.
+     * 点击 “我知道了” 事件监听.
      */
     fun setOnConfirmListener(l: ((isSelect: Boolean) -> Unit)?): NotTipsSelectDialog {
         onConfirmListener = l

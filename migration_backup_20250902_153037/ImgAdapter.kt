@@ -40,7 +40,7 @@ class ImgAdapter(
     }
 
     /**
-     * Adjustimage大小
+     * 调整图片大小
      *
      * @param bitmap 源
      * @param dst_w  输出宽度

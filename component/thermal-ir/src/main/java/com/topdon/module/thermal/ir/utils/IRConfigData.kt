@@ -28,7 +28,7 @@ data class IRConfigData(val name: String, val value: String) {
             )
 
         /**
-根据指定的emissivity，拼接与该emissivity对应的材料text并Return.
+\1根据指定的emissivity，拼接与该emissivity对应的材料文字并返回.
          */
         fun getTextByEmissivity(
             context: Context,

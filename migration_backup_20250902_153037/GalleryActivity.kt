@@ -59,7 +59,7 @@ class GalleryActivity : BaseActivity() {
             fm,
             BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
         ) {
-            titles = arrayOf("image", "video")
+            titles = arrayOf("图片", "视频")
         }
 
         override fun getCount(): Int {

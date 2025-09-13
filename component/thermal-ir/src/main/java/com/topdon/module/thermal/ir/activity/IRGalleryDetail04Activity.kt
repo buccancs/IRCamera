@@ -41,7 +41,7 @@ import com.topdon.lib.core.R as LibR
 import com.topdon.lib.ui.R as UiR
 
 /**
-TS004 image详情
+\1TS004 图片详情
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -50,18 +50,18 @@ TS004 image详情
  */
 class IRGalleryDetail04Activity : BaseActivity() {
     /**
-是否查看远端data.
-true-远端data false-手机本地data
+\1是否查看远端data.
+\1true-远端data false-手机本地data
      */
     private var isRemote = false
 
     /**
-当前展示image在列表中的 position
+\1当前展示图片在列表中的 position
      */
     private var position = 0
 
     /**
-从上一interface传递过来的，当前展示的image列表.
+\1从上一interface传递过来的，当前展示的图片列表.
      */
     private lateinit var dataList: ArrayList<GalleryBean>
 
@@ -76,7 +76,7 @@ true-远端data false-手机本地data
         val titleView = findViewById<com.topdon.lib.core.view.TitleView>(R.id.title_view)
         titleView.setTitleText("${position + 1}/${dataList.size}")
 
-        findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote // 查看远端时底部才有3个button
+        findViewById<ConstraintLayout>(R.id.cl_bottom).isVisible = isRemote // 查看远端时底部才有3个按钮
 
         if (!isRemote) {
             titleView.setRightDrawable(UiR.drawable.ic_toolbar_info_svg)

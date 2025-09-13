@@ -67,7 +67,7 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * 将floatformat化为只带有一位小数的字符串
+         * 将float格式化为只带有一位小数的字符串
          *
          * @param number
          * @return
@@ -90,7 +90,7 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * 将floatformat化为只带有一位小数的字符串
+         * 将float格式化为只带有一位小数的字符串
          *
          * @param number
          * @return
@@ -113,9 +113,9 @@ class BaseDataTypeConvertUtils private constructor() {
         }
 
         /**
-         * 将floatformat化为字符串
+         * 将float格式化为字符串
          *
-         * @param number 需要format化的float字符串
+         * @param number 需要格式化的float字符串
          * @param df     DecimalFormat
          * @return
          */

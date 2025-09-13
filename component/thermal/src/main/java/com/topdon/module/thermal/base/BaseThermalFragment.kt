@@ -28,8 +28,8 @@ open class BaseThermalFragment : BaseFragment() {
     var mMinTemp = 0f
     var maxImg: ImageView? = null
     var minImg: ImageView? = null
-    var maxIndex = 0 // maximumtemperaturepoint
-    var minIndex = 0 // minimumtemperaturepoint
+    var maxIndex = 0 // 最高温度点
+    var minIndex = 0 // 最低温度点
 
     var mCenterTextView: TextView? = null
     var mMaxTextView: TextView? = null

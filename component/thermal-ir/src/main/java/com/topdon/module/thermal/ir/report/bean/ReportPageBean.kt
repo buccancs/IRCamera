@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
-从service器interfaceReturn的，一页reportinfo.
+\1从服务器接口返回的，一页报告信息.
  */
 /**
  * Report page data model for thermal imaging information.

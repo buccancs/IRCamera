@@ -46,11 +46,11 @@ import java.util.Calendar
 import java.util.Locale
 
 /**
- * create或编辑检测.
+ * 创建或编辑检测.
  *
- * 可选传递parameter：
+ * 可选传递参数：
  * - [ExtraKeyConfig.DETECT_ID] - 仅当编辑检测时，要编辑的房屋检测 Id
- * - [ExtraKeyConfig.IS_TC007] - 仅当新增检测时，当前device是否为 TC007（不使用，透传）
+ * - [ExtraKeyConfig.IS_TC007] - 仅当新增检测时，当前设备是否为 TC007（不使用，透传）
  *
  * Created by LCG on 2024/8/21.
  */
@@ -58,12 +58,12 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
     private val viewModel: DetectViewModel by viewModels()
 
     /**
-     * 仅当编辑mode时，从上一界area传递过来的，要编辑的房屋检测 Id.
+     * 仅当编辑模式时，从上一界面传递过来的，要编辑的房屋检测 Id.
      */
     private var editId: Long = 0
 
     /**
-     * 当前编辑或新增的房屋检测info.
+     * 当前编辑或新增的房屋检测信息.
      */
     private var houseDetect = HouseDetect()
 
@@ -120,7 +120,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
         tv_cost_unit.setOnClickListener(this)
         tv_create_report.setOnClickListener(this)
 
-        // 给各个titleadd红色*号
+        // 给各个标题添加红色*号
         tv_detect_name_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.album_report_name))
         tv_inspector_name_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.inspector_name))
         tv_detect_time_title.text = SpanBuilder().appendColor("*", 0xffff4848.toInt()).append(getString(R.string.detect_time))
@@ -148,7 +148,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
             iv_address_location -> { // 房屋地址定位图标
                 getLocation()
             }
-            iv_house_image -> { // 房屋image
+            iv_house_image -> { // 房屋图片
                 ImagePickFromDialog(this)
                     .setSelectListener {
                         if (it == 0) { // 相册
@@ -174,7 +174,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
                     }
                 }.show()
             }
-            tv_house_space_unit -> { // 建筑area积单位
+            tv_house_space_unit -> { // 建筑面积单位
                 StrArrayPicker(this, resources.getStringArray(R.array.area), SharedManager.houseSpaceUnit).also {
                     it.setTitle(R.string.area)
                     it.setOnOptionPickedListener { position, item ->
@@ -194,7 +194,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
                     }
                 }.show()
             }
-            tv_create_report -> { // createreport or 编辑report
+            tv_create_report -> { // 创建报告 or 编辑报告
                 val reportName = et_detect_name.text.toString()
                 if (reportName.isEmpty()) {
                     TToast.shortToast(this, R.string.album_report_input_name_tips)
@@ -236,7 +236,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
                         houseDetect.createTime = if (editId > 0) houseDetect.createTime else currentTime
                         houseDetect.updateTime = currentTime
 
-                        if (editId > 0) { // 编辑mode
+                        if (editId > 0) { // 编辑模式
                             AppDatabase.getInstance().houseDetectDao().updateDetect(houseDetect)
                             EventBus.getDefault().post(HouseDetectEditEvent(houseDetect.id))
                         } else {
@@ -258,7 +258,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 尝试Get/Retrieve位置info并反向地址infoencoding为 省市区.
+     * 尝试获取位置信息并反向地址信息编码为 省市区.
      */
     @SuppressLint("MissingPermission")
     private fun getLocation() {
@@ -278,7 +278,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 从系统相册拾取image结果
+     * 从系统相册拾取图片结果
      */
     private val galleryPickResult =
         registerForActivityResult(ActivityResultContracts.GetContent()) {
@@ -294,7 +294,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
         }
 
     /**
-     * 从系统camera拍照结果
+     * 从系统相机拍照结果
      */
     private val lightPhotoResult =
         registerForActivityResult(TakePhotoResult()) {
@@ -307,7 +307,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
         }
 
     /**
-     * Show/DisplayExit不savetip弹框
+     * 显示退出不保存提示弹框
      */
     private fun showExitTipsDialog() {
         TipDialog.Builder(this)
@@ -320,7 +320,7 @@ class DetectAddActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * Show/Display检测时间拾取弹窗
+     * 显示检测时间拾取弹窗
      */
     private fun showDetectTimeDialog() {
         val picker = DatimePicker(this)

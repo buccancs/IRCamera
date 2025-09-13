@@ -229,7 +229,7 @@
                     app:setting_text_night="@string/setting_unit"
                     />
 
-                <!-- 由于原有逻辑清除cache也会清除DataLibrary，temperatureMonitorData也没了，经Test与产品沟通后，于 2023/12/12 产品决定砍掉清除cache -->
+                <!-- 由于原有逻辑清除缓存也会清除DataLibrary，温度MonitorData也没了，经Test与产品沟通后，于 2023/12/12 产品决定砍掉清除缓存 -->
                 <com.topdon.lib.ui.SettingNightView
                     android:id="@+id/setting_item_clear"
                     android:layout_width="match_parent"

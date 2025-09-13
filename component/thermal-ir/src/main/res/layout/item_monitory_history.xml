@@ -103,7 +103,7 @@
         android:textColor="#ffffff"
         android:maxLines="1"
         android:ellipsize="end"
-        tools:text="point"
+        tools:text="点"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/view_content_bg"
         app:layout_constraintEnd_toStartOf="@id/tv_duration"

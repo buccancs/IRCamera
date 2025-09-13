@@ -10,7 +10,7 @@ import com.topdon.lib.ui.bean.ColorBean
 import com.topdon.lib.ui.listener.SingleClickListener
 import kotlinx.android.synthetic.main.ui_item_menu_second_view.view.*
 
-@Deprecated("旧的dual lightmenu，已重构过了")
+@Deprecated("旧的双光菜单，已重构过了")
 class MenuPANightAdapter(
     data: MutableList<ColorBean>,
     layoutId: Int,

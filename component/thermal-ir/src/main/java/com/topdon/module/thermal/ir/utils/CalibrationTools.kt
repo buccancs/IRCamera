@@ -20,7 +20,7 @@ object CalibrationTools {
         singlePointTemp: Int,
     ): Boolean {
         var success = false
-calibration前需要resettemperature measurement parameters,否则temperaturecalibration inaccuracy
+\1calibration前需要重置temperature measurement parameters,否则temperaturecalibration inaccuracy
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_1_POINT, singlePointTemp)
@@ -44,57 +44,57 @@ calibration前需要resettemperature measurement parameters,否则temperaturecal
         pointTemp: Int,
     ): Boolean {
         var success = false
-calibration前需要resettemperature measurement parameters,否则temperaturecalibration inaccuracy
+\1calibration前需要重置temperature measurement parameters,否则temperaturecalibration inaccuracy
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_FIRST, pointTemp + 273)
             if (result == 0) {
                 success = true
             } else {
-                XLog.w("低温calibrationfailed")
+                XLog.w("低温标定失败")
             }
         } else {
-            XLog.w("低温calibrationfailed")
+            XLog.w("低温标定失败")
         }
         return success
     }
 
     /**
-temperaturecalibration
-high temperature(20 ~ 100)
+\1temperaturecalibration
+\1high temperature(20 ~ 100)
      *
-提交完low temperature之后才能提交high temperature
+\1提交完low temperature之后才能提交high temperature
      */
     fun pointEnd(
         irCmd: IRCMD,
         pointTemp: Int,
     ): Boolean {
         var success = false
-calibration前需要resettemperature measurement parameters,否则temperaturecalibration inaccuracy
+\1calibration前需要重置temperature measurement parameters,否则temperaturecalibration inaccuracy
         if (irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD) == 0) {
             val result = irCmd.setTPDKtBtRecalPoint(CommonParams.TPDKtBtRecalPointType.RECAL_2_POINT_END, pointTemp + 273)
             if (result == 0) {
                 success = true
             } else {
-                Log.w("123", "failed")
+                Log.w("123", "失败")
             }
         } else {
-            Log.w("123", "failed")
+            Log.w("123", "失败")
         }
         return success
     }
 
     /**
-锅盖calibration - 步骤一准备
+\1锅盖calibration - 步骤一准备
      *
      */
     fun potReady(irCmd: IRCMD): Boolean {
-        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 // Close锅盖校正
+        return irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_DIS) == 0 // 关闭锅盖校正
     }
 
     /**
-锅盖calibration - 步骤二start
+\1锅盖calibration - 步骤二开始
      *
-@param gainType 默认GAIN_1
+\1@param gainType 默认GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
@@ -110,27 +110,27 @@ calibration前需要resettemperature measurement parameters,否则temperaturecal
                 4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
                 else -> CommonParams.RMCoverAutoCalcType.GAIN_1
             }
-        irCmd.rmCoverAutoCalc(gainType) // Send锅盖calibration
-        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) // Open锅盖校正
+        irCmd.rmCoverAutoCalc(gainType) // 发送锅盖标定
+        irCmd.rmCoverStsSwitch(CommonParams.RMCoverStsSwitchStatus.RMCOVER_EN) // 打开锅盖校正
     }
 
     /**
-Cancelcalibration
+\1取消calibration
      */
     fun cancelCalibration(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_TPD)
     }
 
     /**
-Restore出厂calibration
+\1恢复出厂calibration
      */
     fun reset(irCmd: IRCMD) {
         irCmd.restoreDefaultConfig(CommonParams.DefaultConfigType.DEF_CFG_ALL)
     }
 
     /**
-查询gainmode
-@return true: 高gain    false: 低gain
+\1查询gain模式
+\1@return true: 高gain    false: 低gain
      */
     fun queryGain(irCmd: IRCMD): Boolean {
         val value = IntArray(1)
@@ -139,8 +139,8 @@ Restore出厂calibration
     }
 
     /**
-setgainmode
-@param type 1: Open    0: disabled
+\1setgain模式
+\1@param type 1: 打开    0: disabled
      *
      */
     fun setGain(
@@ -158,7 +158,7 @@ setgainmode
     }
 
     /**
-查询Tpd
+\1查询Tpd
      */
     fun queryTpd(
         irCmd: IRCMD,
@@ -170,7 +170,7 @@ setgainmode
     }
 
     /**
-打快门
+\1打快门
      */
     fun shutter(
         irCmd: IRCMD?,
@@ -179,13 +179,13 @@ setgainmode
         if (syncImage.type == 1) {
             irCmd?.tc1bShutterManual()
         } else {
-执行这段
+\1执行这段
             irCmd?.updateOOCOrB(CommonParams.UpdateOOCOrBType.B_UPDATE)
         }
     }
 
     /**
-控制锅盖calibration开关
+\1控制锅盖calibration开关
      */
     fun stsSwitch(
         irCmd: IRCMD?,
@@ -199,9 +199,9 @@ setgainmode
     }
 
     /**
-锅盖calibration - 步骤二start
+\1锅盖calibration - 步骤二开始
      *
-@param gainType 默认GAIN_1
+\1@param gainType 默认GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_1
      * CommonParams.RMCoverAutoCalcType.GAIN_2
      * CommonParams.RMCoverAutoCalcType.GAIN_4
@@ -217,11 +217,11 @@ setgainmode
                 4 -> CommonParams.RMCoverAutoCalcType.GAIN_4
                 else -> CommonParams.RMCoverAutoCalcType.GAIN_1
             }
-        irCmd.rmCoverAutoCalc(gainType) // Send锅盖calibration
+        irCmd.rmCoverAutoCalc(gainType) // 发送锅盖标定
     }
 
     /**
-自动快门
+\1自动快门
      */
     fun autoShutter(
         irCmd: IRCMD?,
@@ -232,8 +232,8 @@ setgainmode
     }
 
     /**
-TPD_PROP_DISTANCE不给set
-set距离 unit:cnt(128cnt=1m)
+\1TPD_PROP_DISTANCE不给set
+\1set距离 unit:cnt(128cnt=1m)
      * @param value 0 ~ 25600
      */
     fun setTpdDis(
@@ -245,7 +245,7 @@ set距离 unit:cnt(128cnt=1m)
     }
 
     /**
-setemissivity unit:cnt(128cnt=1)
+\1setemissivity unit:cnt(128cnt=1)
      * @param value 1 ~ 128
      */
     fun setTpdEms(
@@ -257,7 +257,7 @@ setemissivity unit:cnt(128cnt=1)
     }
 
     /**
-setTpd
+\1setTpd
      */
     private fun setTpdParams(
         irCmd: IRCMD?,
@@ -267,7 +267,7 @@ setTpd
         return try {
             irCmd?.setPropTPDParams(params, value) ?: 0
         } catch (e: Exception) {
-            XLog.w("settingsparameterexception[${params.name}]: ${e.message}")
+            XLog.w("设置参数异常[${params.name}]: ${e.message}")
             0
         }
     }

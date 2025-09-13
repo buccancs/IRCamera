@@ -106,7 +106,7 @@ object PDFHelp {
                     bos.flush()
                     bos.close()
                 }
-                Log.w("export", UriUtils.uri2File(uri).absolutePath)
+                Log.w("导出", UriUtils.uri2File(uri).absolutePath)
                 UriUtils.uri2File(uri).absolutePath
             } else {
                 ""

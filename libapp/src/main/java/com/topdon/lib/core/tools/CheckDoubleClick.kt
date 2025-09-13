@@ -8,7 +8,7 @@ object CheckDoubleClick {
             records.clear()
         }
 
-        // 本method被调用的file名和行号作为marker
+        // 本方法被调用的文件名和行号作为标记
         val ste = Throwable().stackTrace[1]
         val key = ste.fileName + ste.lineNumber
         var lastClickTime = records[key]

@@ -4,7 +4,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.topdon.lib.core.tools.UnitTools
 
 /**
-Y轴文本format
+\1Y轴文本格式
  */
 /**
  * Y value formatter utility class for thermal imaging operations.

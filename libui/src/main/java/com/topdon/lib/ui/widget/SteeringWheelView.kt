@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.databinding.UiSteeringWheelViewBinding
 
 /**
- * calibration方向
+ * 校准方向
  */
 /**
  * Custom Steering wheel view for thermal imaging display.

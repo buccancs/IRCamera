@@ -62,7 +62,7 @@ object JNITool {
     ): ByteArray
 
     /**
-     * 轮廓检测的processing
+     * 轮廓检测的处理
      * @param image ByteArray
      * @param temperature ByteArray
      * @param image_h Int

@@ -14,7 +14,7 @@
 package com.github.gzuliyujiang.wheelpicker.impl;
 
 /**
- * 生日format化
+ * 生日格式化
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/14 14:31

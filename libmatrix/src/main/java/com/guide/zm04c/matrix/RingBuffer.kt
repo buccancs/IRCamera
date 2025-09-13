@@ -6,7 +6,7 @@ class RingBuffer {
     // 读取byte数组的位置
     private var mReadPositon = 0
 
-    // 未被读取data的长度
+    // 未被读取数据的长度
     private var mUnReadLength = 0
 
     /**

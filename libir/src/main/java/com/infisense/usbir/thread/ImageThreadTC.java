@@ -36,6 +36,7 @@ import java.util.LinkedHashMap;
  */
 public class ImageThreadTC extends Thread {
 
+
     public static final int TYPE_AI_C = -1;//不开启
     public static final int TYPE_AI_D = 0;//动态检测
     public static final int TYPE_AI_H = 1;//high temperature source检测
@@ -56,7 +57,7 @@ public class ImageThreadTC extends Thread {
     private byte[] imageYUV422;
     private byte[] imageARGB;
     private byte[] imageDst;
-    public byte[] imageTemp;//艾睿需要的Testdata，processing完可以delete
+    public byte[] imageTemp;//艾睿需要的测试数据，处理完可以删除
 
     private byte[] imageY8;
     private float max = Float.MAX_VALUE;
@@ -68,6 +69,7 @@ public class ImageThreadTC extends Thread {
     private int pseudocolorMode = 3;
     private AlarmBean alarmBean;
 
+
     private byte[] firstFrame = null;
     private byte[] firstTemp = null;
     private int typeAi = TYPE_AI_C;
@@ -77,9 +79,11 @@ public class ImageThreadTC extends Thread {
     private final byte[] amplifyRotateArray;
     public static final int MULTIPLE = 2;
 
+
     public void setOpenAmplify(boolean openAmplify) {
         isOpenAmplify = openAmplify;
     }
+
 
     public int getTypeAi() {
         return typeAi;
@@ -96,6 +100,10 @@ public class ImageThreadTC extends Thread {
     public void setAlarmBean(AlarmBean alarmBean) {
         this.alarmBean = alarmBean;
     }
+
+
+
+
 
     public void setSyncImage(SynchronizedBitmap syncimage) {
         this.syncimage = syncimage;
@@ -171,8 +179,8 @@ public class ImageThreadTC extends Thread {
                         LibIRProcess.convertYuyvMapToARGBPseudocolor(imageSrc, imageHeight * imageWidth, PseudocodeUtils.INSTANCE.changePseudocodeModeByOld(pseudocolorMode), imageARGB);
                     }
                     /*
-                     * 经过conversion之后的infrareddata
-                     * 其中的data是旋转90度的，需要旋转回来,infrared旋转的逻辑放在这里processing。
+                     * 经过转换之后的infrared数据
+                     * 其中的数据是旋转90度的，需要旋转回来,infrared旋转的逻辑放在这里处理。
                      */
                     if (rotateInt == 270) {
                         LibIRProcess.ImageRes_t imageRes = new LibIRProcess.ImageRes_t();
@@ -197,7 +205,7 @@ public class ImageThreadTC extends Thread {
                     }
                     irImageHelp.customPseudoColor(imageDst,temperatureSrc,imageWidth,imageHeight);
                     /*
-                     * 等温尺processing,展示pseudo color的temperaturerange内info
+                     * 等温尺处理,展示pseudo color的温度range内信息
                      */
                     irImageHelp.setPseudoColorMaxMin(imageDst,temperatureSrc,max,min,imageWidth,imageHeight);
                 }
@@ -227,7 +235,7 @@ public class ImageThreadTC extends Thread {
                     imageDst = grayData;
                 }else if (typeAi == TYPE_AI_D) {
                     int firstTime = 0;
-                    //静态闯入algorithm
+                    //静态闯入算法
                     if (firstFrame == null || firstTemp == null) {
                         firstFrame = new byte[imageDst.length];
                         firstTemp = new byte[temperatureSrc.length];
@@ -248,7 +256,7 @@ public class ImageThreadTC extends Thread {
                                 imageDst = grayData;
                                 firstTime++;
                             } catch (Throwable e) {
-                                Log.e("静态闯入exception：", e.getMessage());
+                                Log.e("静态闯入异常：", e.getMessage());
                             }
                         } else {
                             //相似度不同，则代表手机抖动
@@ -263,7 +271,7 @@ public class ImageThreadTC extends Thread {
                             (rotateInt == 270 || rotateInt == 90) ? imageWidth  : imageHeight ,
                             amplifyRotateArray);
                 }
-//                    Log.e("image总processing耗时：", String.valueOf(System.currentTimeMillis() - startImageTime));
+//                    Log.e("图像总处理耗时：", String.valueOf(System.currentTimeMillis() - startImageTime));
             }
 
             synchronized (syncimage.viewLock) {
@@ -288,7 +296,7 @@ public class ImageThreadTC extends Thread {
             try {
                 SystemClock.sleep(20);
             } catch (Exception e) {
-                XLog.e("Image Threadrefreshexception: " + e.getMessage());
+                XLog.e("Image Threadrefresh异常: " + e.getMessage());
             }
         }
         Log.i(TAG, "ImageThread exit");
@@ -304,6 +312,8 @@ public class ImageThreadTC extends Thread {
         baseBitmap.copyPixelsFromBuffer(ByteBuffer.wrap(imageDst));
         return baseBitmap;
     }
+
+
 
     private ColorRGB getColorRGBByMap(LinkedHashMap<Integer, ColorRGB> map, Integer key) {
         return map.get(key);

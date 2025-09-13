@@ -452,17 +452,17 @@ public class TimeWheelLayout extends BaseWheelLayout {
 
     private void changeMinute(int hour) {
         final int min, max;
-        //start时及end时相同情况
+        //开始时及结束时相同情况
         if (hour == startValue.getHour() && hour == endValue.getHour()) {
             min = startValue.getMinute();
             max = endValue.getMinute();
         }
-        //start时相同情况
+        //开始时相同情况
         else if (hour == startValue.getHour()) {
             min = startValue.getMinute();
             max = 59;
         }
-        //end时相同情况
+        //结束时相同情况
         else if (hour == endValue.getHour()) {
             min = 0;
             max = endValue.getMinute();

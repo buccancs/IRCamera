@@ -41,16 +41,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * temperature修正（即settings环境temperature、temperature measurement距离、发射率）
+ * 温度修正（即设置环境温度、测温距离、发射率）
  *
- * 需要传递parameter：
- * - [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+ * 需要传递参数：
+ * - [ExtraKeyConfig.IS_TC007] - 当前设备是否为 TC007
  */
 @Route(path = RouterConfig.IR_SETTING)
 class IRConfigActivity : BaseActivity(), View.OnClickListener {
     /**
-     * 从上一界area传递过来的，当前是否为 TC007 devicetype.
-     * true-TC007 false-其他插件式device
+     * 从上一界面传递过来的，当前是否为 TC007 设备类型.
+     * true-TC007 false-其他插件式设备
      */
     private var isTC007 = false
 
@@ -109,7 +109,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         recycler_view.adapter = ConcatAdapter(adapter, ConfigEmAdapter(this))
 
         viewModel.configLiveData.observe(this) {
-            // 先只refresh默认的configuration，等操作指引Show/Display完再refresh自定义configuration
+            // 先只刷新默认的配置，等操作指引显示完再刷新自定义配置
             tv_default_temp_value.text = NumberTools.to02(UnitTools.showUnitValue(it.defaultModel.environment))
             tv_default_dis_value.text = NumberTools.to02(it.defaultModel.distance)
             tv_default_em_value.text = NumberTools.to02(it.defaultModel.radiation)
@@ -131,10 +131,10 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * Show/Display操作指引弹框.
+     * 显示操作指引弹框.
      */
     private fun showGuideDialog(modelBean: ModelBean) {
-        if (SharedManager.configGuideStep == 0) { // 已看过或不再tip
+        if (SharedManager.configGuideStep == 0) { // 已看过或不再提示
             iv_default_selector.isSelected = modelBean.defaultModel.use
             adapter.refresh(modelBean.myselfModel)
             return
@@ -153,7 +153,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
             window?.decorView?.setRenderEffect(RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.MIRROR))
         } else {
             lifecycleScope.launch {
-                // 界arearefresh需要时间，所以需要等待100毫秒再去refresh背景
+                // 界面刷新需要时间，所以需要等待100毫秒再去刷新背景
                 delay(100)
                 guideDialog.blurBg(ll_root)
             }
@@ -162,10 +162,10 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            iv_default_selector -> { // 默认mode-selected
+            iv_default_selector -> { // 默认模式-选中
                 viewModel.checkConfig(isTC007, 0)
             }
-            view_default_temp_bg -> { // 默认mode-环境temperature
+            view_default_temp_bg -> { // 默认模式-环境温度
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.TEMP, isTC007)
                     .setInput(UnitTools.showUnitValue(viewModel.configLiveData.value?.defaultModel?.environment!!))
                     .setConfirmListener {
@@ -173,7 +173,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            view_default_dis_bg -> { // 默认mode-temperature measurement距离
+            view_default_dis_bg -> { // 默认模式-测温距离
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.DIS, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.distance)
                     .setConfirmListener {
@@ -181,7 +181,7 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
                     }
                     .show()
             }
-            tv_default_em_value -> { // 默认mode-发射率
+            tv_default_em_value -> { // 默认模式-发射率
                 IRConfigInputDialog(this, IRConfigInputDialog.Type.EM, isTC007)
                     .setInput(viewModel.configLiveData.value?.defaultModel?.radiation)
                     .setConfirmListener {
@@ -196,22 +196,22 @@ class IRConfigActivity : BaseActivity(), View.OnClickListener {
         private val dataList: ArrayList<DataBean> = ArrayList()
 
         /**
-         * item（一项自定义configuration）selectedEventListener.
+         * item（一项自定义配置）选中事件监听.
          */
         var onSelectListener: ((id: Int) -> Unit)? = null
 
         /**
-         * item（一项自定义configuration）delete件Listener.
+         * item（一项自定义配置）删除件监听.
          */
         var onDeleteListener: ((bean: DataBean) -> Unit)? = null
 
         /**
-         * item（一项自定义configuration）变更EventListener.
+         * item（一项自定义配置）变更事件监听.
          */
         var onUpdateListener: ((bean: DataBean) -> Unit)? = null
 
         /**
-         * addEventListener.
+         * 添加事件监听.
          */
         var onAddListener: View.OnClickListener? = null
 

@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  *
-锅盖矫正
+\1锅盖矫正
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  */
@@ -61,7 +61,7 @@ class IRCorrectionLiteFourActivity : BaseActivity() {
         }
 
         binding.timeDownView.postDelayed({
-start矫正
+\1开始矫正
             if (binding.timeDownView.downTimeWatcher == null)
                 {
                     binding.timeDownView.setOnTimeDownListener(
@@ -82,7 +82,7 @@ start矫正
                                 try {
                                     if (!result)
                                         {
-                                            ToastUtils.showShort("calibrationsavefailed，请重新calibration")
+                                            ToastUtils.showShort("标定保存失败，请重新标定")
                                             return
                                         }
                                     if (!this@IRCorrectionLiteFourActivity.isFinishing)

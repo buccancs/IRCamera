@@ -34,8 +34,8 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
-需要传递
-- 是否 TC007: [ExtraKeyConfig.IS_TC007]
+\1需要传递
+\1- 是否 TC007: [ExtraKeyConfig.IS_TC007]
  * @author: CaiSongL
  * @date: 2023/5/12 11:34
  */
@@ -51,8 +51,8 @@ class PDFListActivity : BaseViewModelActivity<PdfViewModel>() {
     private val fragmentPdfRecycler: RecyclerView by lazy { findViewById(R.id.fragment_pdf_recycler) }
 
     /**
-从上一interface传递过来的，当前是否为 TC007 devicetype.
-true-TC007 false-其他插件式device
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -84,7 +84,7 @@ true-TC007 false-其他插件式device
             }
             it?.let { data ->
                 if (page == 1) {
-refresh
+\1刷新
                     if (data.code == LMS.SUCCESS)
                         {
                             reportAdapter.loadMoreModule.isEnableLoadMore = !data.data?.records.isNullOrEmpty()
@@ -127,7 +127,7 @@ refresh
     private fun initRecycler() {
         fragmentPdfRecycler.layoutManager = LinearLayoutManager(this)
         fragmentPdfRecyclerLay.setOnRefreshListener {
-refresh
+\1刷新
             page = 1
             viewModel.getReportData(isTC007, page)
         }
@@ -135,7 +135,7 @@ refresh
         reportAdapter.loadMoreModule.loadMoreView = CommLoadMoreView()
         fragmentPdfRecyclerLay.autoRefresh()
         reportAdapter.loadMoreModule.setOnLoadMoreListener {
-load更多
+\1load更多
             viewModel.getReportData(isTC007, ++page)
         }
         reportAdapter.jumpDetailListener = { item, position ->
@@ -171,7 +171,7 @@ load更多
                                         if (file.exists()) {
                                             file.delete()
                                         }
-                                        Log.w("deletesuccess", response.toString())
+                                        Log.w("删除成功", response.toString())
                                     }
 
                                     override fun onFail(exception: Exception?) {

@@ -15,19 +15,19 @@ import java.io.File
 object WriteTools {
     fun delete(file: File): Int {
         val uri: Uri = FileTools.getUri(file)
-        XLog.w("deletefile uri:$uri")
+        XLog.w("删除文件 uri:$uri")
         val mediaId = queryId(uri) // MediaStore.Audio.Media._ID of item to update.
         val resolver = Utils.getApp().applicationContext.contentResolver
         val selection = "${MediaStore.Images.Media._ID} = ?"
         // By using selection + args we protect against improper escaping of // values.
         val selectionArgs = arrayOf(mediaId.toString())
         val result = resolver.delete(uri, selection, selectionArgs)
-        XLog.w("delete结果file: $result")
+        XLog.w("删除结果文件: $result")
         return result
     }
 
     /**
-查询MediaStore.Images.Media._ID
+\1查询MediaStore.Images.Media._ID
      */
     private fun queryId(uri: Uri): Long {
         val fileName = uri.path!!.substring(uri.path!!.lastIndexOf("/") + 1)
@@ -50,7 +50,7 @@ object WriteTools {
                 }
             }
         } catch (e: Exception) {
-            XLog.e("查询exception: ${e.message}")
+            XLog.e("查询异常: ${e.message}")
         } finally {
             cursor?.close()
         }

@@ -13,7 +13,7 @@
 // import com.infisense.usbir.camera.IRUVC
 // import kotlinx.android.synthetic.main.layout_shut.view.*
 //
-// //长按camera弹出
+// //长按相机弹出
 // class PopuMenuShut(context: Context?) {
 //
 //    private val popupWindow: PopupWindow
@@ -95,10 +95,10 @@
 //        popupWindow.height = ViewGroup.LayoutParams.WRAP_CONTENT
 //        popupWindow.isFocusable = true
 //        popupWindow.isOutsideTouchable = false
-//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) // 解决 7.0 手机，click外部不消失
+//        popupWindow.setBackgroundDrawable(ColorDrawable(0x00000000)) // 解决 7.0 手机，点击外部不消失
 //        popupWindow.animationStyle = R.style.contextMenuAnim
 //        layView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-//        //create布局管理
+//        //创建布局管理
 //        val layoutManager = LinearLayoutManager(context)
 //        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
 //    }

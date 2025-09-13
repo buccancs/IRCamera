@@ -9,7 +9,7 @@ import com.topdon.module.user.R
 import kotlinx.android.synthetic.main.activity_unit.*
 
 /**
- * temperature单位switch
+ * 温度单位切换
  */
 @Route(path = RouterConfig.UNIT)
 class UnitActivity : BaseActivity() {

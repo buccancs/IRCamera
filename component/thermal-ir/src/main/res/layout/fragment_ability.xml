@@ -75,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_winter" />
 
 
-    <!-- temperatureMonitor -->
+    <!-- 温度Monitor -->
     <ImageView
         android:id="@+id/iv_monitory"
         android:layout_width="0dp"

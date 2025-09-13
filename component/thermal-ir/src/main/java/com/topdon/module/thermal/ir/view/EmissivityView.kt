@@ -11,7 +11,7 @@ import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 
 /**
-常用材料emissivity 页area所用，一行常用材料emissivity.
+\1常用材料emissivity 页面所用，一行常用材料emissivity.
  *
  * Created by LCG on 2024/10/14.
  */
@@ -22,28 +22,28 @@ import com.blankj.utilcode.util.SizeUtils
 class EmissivityView : View {
     companion object {
         /**
-默认outline尺寸，单位 dp.
+\1默认outline尺寸，单位 dp.
          */
         private const val DEFAULT_STROKE_WIDTH: Float = 0.5f
     }
 
     /**
-是否顶部对齐
+\1是否顶部对齐
      */
     var isAlignTop = false
 
     /**
-是否需要drawing顶部横line
+\1是否需要drawing顶部横线
      */
     var drawTopLine = false
 
     /**
-要display的text列表.
+\1要display的文字列表.
      */
     private val textList: ArrayList<CharSequence> = ArrayList(3)
 
     /**
-执行drawing的 Layout 列表.
+\1执行drawing的 Layout 列表.
      */
     private val layoutList: ArrayList<StaticLayout> = ArrayList(3)
 
@@ -87,7 +87,7 @@ class EmissivityView : View {
         val elseWidth: Int = (widthSize - firstWidth) / 2
         val contentWidth: Int = firstWidth + elseWidth * 2
 
-initialize layoutList
+\1initialize layoutList
         layoutList.clear()
         for (i in textList.indices) {
             val textWidth: Int =
@@ -103,17 +103,17 @@ initialize layoutList
             )
         }
 
-calculation最大高度
+\1calculation最大高度
         var maxHeight = 0
         for (layout in layoutList) {
             maxHeight = maxHeight.coerceAtLeast(layout.height)
         }
-        if (maxHeight == 0) { // 没有settings要Show/Display的字符时，给个占位的高度好了
+        if (maxHeight == 0) { // 没有设置要显示的字符时，给个占位的高度好了
             maxHeight = textPaint.fontMetricsInt.bottom - textPaint.fontMetricsInt.top
         }
         maxHeight += SizeUtils.dp2px(12f) // 上下各 6dp padding
 
-宽度为 UNSPECIFIED 的情况目前不存在，不考虑
+\1宽度为 UNSPECIFIED 的情况目前不存在，不考虑
         setMeasuredDimension(contentWidth + paddingStart + paddingEnd, maxHeight)
     }
 

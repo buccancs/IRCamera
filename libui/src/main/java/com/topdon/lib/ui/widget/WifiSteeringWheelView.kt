@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import com.topdon.lib.ui.databinding.UiWifiSteeringWheelViewBinding
 
 /**
- * calibration方向
+ * 校准方向
  */
 /**
  * Custom Wifi steering wheel view for thermal imaging display.

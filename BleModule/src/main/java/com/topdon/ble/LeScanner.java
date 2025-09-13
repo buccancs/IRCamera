@@ -15,7 +15,7 @@ import com.topdon.ble.util.BluetoothPermissionUtils;
 import com.topdon.ble.util.Logger;
 
 /**
- * bluetoothSearch器
+ * 蓝牙搜索器
  * <p>
  * date: 2021/8/12 12:30
  * author: bichuanfeng
@@ -30,7 +30,7 @@ class LeScanner extends AbstractScanner {
 
     private BluetoothLeScanner getLeScanner() {
         if (bleScanner == null) {
-            //如果bluetooth未开启的时候，Get/Retrieve到是null
+            //如果蓝牙未开启的时候，获取到是null
             bleScanner = bluetoothAdapter.getBluetoothLeScanner();
         }
         return bleScanner;

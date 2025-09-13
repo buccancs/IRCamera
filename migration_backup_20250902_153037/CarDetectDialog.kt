@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.item_car_detect_layout.view.*
 import kotlinx.android.synthetic.main.toolbar_lay.view.*
 
 /**
- * 汽车检测type拾取弹框.
+ * 汽车检测类型拾取弹框.
  */
 class CarDetectDialog(context: Context, val listener: ((bean: CarDetectChildBean) -> Unit)) :
     Dialog(context, R.style.DefaultDialog) {

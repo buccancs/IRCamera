@@ -18,10 +18,10 @@ import kotlinx.coroutines.launch
 import com.topdon.lib.core.R as RCore
 
 /**
-TS004、TC007 deviceinfo
+\1TS004、TC007 device信息
  *
-需要传递parameter：
-- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+\1需要传递parameter：
+\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
@@ -33,8 +33,8 @@ class DeviceDetailsActivity : BaseActivity(), View.OnClickListener {
     private lateinit var tvDeviceModel: TextView
 
     /**
-从上一interface传递过来的，当前是否为 TC007 devicetype.
-true-TC007 false-其他插件式device
+\1从上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 
@@ -81,7 +81,7 @@ true-TC007 false-其他插件式device
 
     override fun onClick(v: View?) {
         when (v) {
-            clLayoutCopy -> { // copyinfo
+            clLayoutCopy -> { // 复制信息
                 val text = "${tvSn.text}:${tvSnValue.text}  ${tvDeviceModel.text}:${tvDeviceModelValue.text}"
                 val cm = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val mClipData = ClipData.newPlainText("text", text)

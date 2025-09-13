@@ -55,7 +55,7 @@ class IRCorrectionFourActivity : BaseActivity() {
         }
 
         time_down_view.postDelayed({
-            // start矫正
+            // 开始矫正
             if (time_down_view.downTimeWatcher == null)
                 {
                     time_down_view.setOnTimeDownListener(

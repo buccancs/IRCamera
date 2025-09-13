@@ -14,7 +14,7 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 联动selectioninterface
+ * 联动选择接口
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/6/17 18:23
@@ -22,7 +22,7 @@ package com.github.gzuliyujiang.wheelpicker.contract;
 public interface OnLinkageSelectedListener {
 
     /**
-     * 联动selectionCallback
+     * 联动选择回调
      *
      * @param first  selected项的第一级条目内容
      * @param second selected项的第二级条目内容

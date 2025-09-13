@@ -60,8 +60,8 @@ class LogMPChartActivity : BaseActivity(), OnChartValueSelectedListener {
                     index: Int,
                     time: Int,
                 ) {
-switchtype
-                    chart.highlightValue(null) // Close高亮pointMarker
+\1切换类型
+                    chart.highlightValue(null) // 关闭高亮点Marker
                     selectType = index + 1
                     queryLog()
                 }
@@ -71,8 +71,8 @@ switchtype
             try {
                 initEntry(it.dataList)
             } catch (e: Exception) {
-                XLog.e("refresh图表exception:${e.message}")
-                ToastTools.showShort("图表exception，请重新load")
+                XLog.e("刷新图表异常:${e.message}")
+                ToastTools.showShort("图表异常，请重新加载")
             }
         }
         clearEntity(true)
@@ -111,28 +111,28 @@ switchtype
         chart.setDrawGridBackground(false)
         chart.description = null // 图标描述文本
         chart.setBackgroundResource(com.topdon.lib.core.R.color.chart_bg)
-        chart.setScaleEnabled(true) // Scale
-        chart.setPinchZoom(false) // Disable后，可以分别在x轴和y轴上进行Scale
-        chart.isDoubleTapToZoomEnabled = false // 双击不可Scale
-        chart.isScaleYEnabled = false // 禁止Y轴Scale
+        chart.setScaleEnabled(true) // 缩放
+        chart.setPinchZoom(false) // 禁用后，可以分别在x轴和y轴上进行缩放
+        chart.isDoubleTapToZoomEnabled = false // 双击不可缩放
+        chart.isScaleYEnabled = false // 禁止Y轴缩放
         chart.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat(),
-        ) // 图表region偏移
+        ) // 图表区域偏移
         chart.setNoDataText(getString(R.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
-        chart.marker = mv // settingsclick坐标Show/Displaytip框
+        chart.marker = mv // 设置点击坐标显示提示框
         val data = LineData()
         data.setValueTextColor(textColor)
         chart.data = data
         val l = chart.legend
         l.form = Legend.LegendForm.CIRCLE
         l.textColor = textColor
-        l.isEnabled = false // Hide曲linetag
+        l.isEnabled = false // 隐藏曲线标签
         val xAxis = chart.xAxis
         xAxis.textColor = textColor
         xAxis.setDrawGridLines(true)
@@ -141,7 +141,7 @@ switchtype
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.axisLineColor = textColor
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true // 重复值不Show/Display
+        xAxis.isGranularityEnabled = true // 重复值不显示
         xAxis.textSize = 9f
         val leftAxis = chart.axisLeft
         leftAxis.textSize = 9f
@@ -168,7 +168,7 @@ switchtype
     private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
 
     /**
-曲line样式
+\1曲线样式
      */
     private fun createSet(
         index: Int,
@@ -178,20 +178,20 @@ switchtype
 //        set.mode = LineDataSet.Mode.CUBIC_BEZIER
         set.mode = LineDataSet.Mode.LINEAR
         set.setDrawFilled(false)
-        set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index]) // settings填充颜色渐变
+        set.fillDrawable = ContextCompat.getDrawable(this, bgChartColors[index]) // 设置填充颜色渐变
         set.axisDependency = YAxis.AxisDependency.LEFT
-        set.color = ContextCompat.getColor(this, lineChartColors[index]) // 曲line颜色
+        set.color = ContextCompat.getColor(this, lineChartColors[index]) // 曲线颜色
         set.setCircleColor(ContextCompat.getColor(this, com.topdon.lib.core.R.color.white)) // 坐标颜色
 //        set.fillColor = ContextCompat.getColor(this, R.color.purple_500)
 //        set.highLightColor = ContextCompat.getColor(this, R.color.white)
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
-        set.circleRadius = 1f // 不Show/Display坐标point
-        set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // 坐标颜色(Hideprocessing)
-set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hideprocessing)
+        set.circleRadius = 1f // 不显示坐标点
+        set.setCircleColor(ContextCompat.getColor(this, lineChartColors[index])) // 坐标颜色(隐藏处理)
+\1set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hideprocessing)
         set.fillAlpha = 200
         set.valueTextSize = 10f
-        set.setDrawValues(false) // settings是否Show/Display坐标值文本
+        set.setDrawValues(false) // 设置是否显示坐标值文本
         return set
     }
 
@@ -210,14 +210,14 @@ set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hi
                         "时间区间:${(data.last().createTime - data.first().createTime) / 1000}",
                     )
                     val startTime = data[0].createTime
-                    Log.w("123", "settings初始时间startTime:$startTime")
+                    Log.w("123", "设置初始时间startTime:$startTime")
                     chart.xAxis.valueFormatter =
                         MyValueFormatter(startTime = startTime, type = selectType)
                     XLog.w("chart init startTime:$startTime")
                     data[0].type = "default"
                     when (data[0].type) {
                         "point" -> {
-                            var set = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
+                            var set = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
                             if (set == null) {
                                 set = createSet(2, "temp")
                                 lineData.addDataSet(set)
@@ -231,18 +231,18 @@ set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hi
                             XLog.w("DataSet:${set.entryCount}")
                         }
                         "line" -> {
-                            var maxDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
+                            var maxDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
                             if (maxDataSet == null) {
                                 maxDataSet = createSet(0, "line maxTemp")
                                 lineData.addDataSet(maxDataSet)
                             }
 
-                            var minDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+                            var minDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                             if (minDataSet == null) {
                                 minDataSet = createSet(1, "line minTemp")
                                 lineData.addDataSet(minDataSet)
                             }
-                            Log.w("123", "两条曲line")
+                            Log.w("123", "两条曲线")
                             data.forEach {
                                 val x = (it.createTime - startTime).toFloat()
                                 // max
@@ -258,13 +258,13 @@ set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hi
                         }
                         else -> {
                             // max
-                            var maxTempDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
+                            var maxTempDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
                             if (maxTempDataSet == null) {
                                 maxTempDataSet = createSet(0, "fence maxTemp")
                                 lineData.addDataSet(maxTempDataSet)
                             }
                             // center
-                            var centerTempDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+                            var centerTempDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                             if (centerTempDataSet == null) {
                                 centerTempDataSet = createSet(1, "fence minTemp")
                                 lineData.addDataSet(centerTempDataSet)
@@ -285,11 +285,11 @@ set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hi
                     }
                     lineData.notifyDataChanged()
                     chart.notifyDataSetChanged()
-                    chart.setVisibleXRangeMinimum(getMinimum()) // settingsShow/DisplayX轴区间大小
-                    chart.setVisibleXRangeMaximum(getMaximum()) // settingsShow/DisplayX轴区间大小
+                    chart.setVisibleXRangeMinimum(getMinimum()) // 设置显示X轴区间大小
+                    chart.setVisibleXRangeMaximum(getMaximum()) // 设置显示X轴区间大小
                     chart.xAxis.setLabelCount(5, false) // true保证有刻度数量不变
                     chart.moveViewToX(chart.xChartMax) // 移动到最右端
-                    chart.zoom(1f, 1f, chart.xChartMax, 0f) // 默认无Scale，全部Show/Display
+                    chart.zoom(1f, 1f, chart.xChartMax, 0f) // 默认无缩放，全部显示
                 }
                 Log.w("chart", "update chart finish")
             }
@@ -306,7 +306,7 @@ set.setCircleColor(ContextCompat.getColor(this, R.color.white))//坐标颜色(hi
     }
 
     /**
-x轴display多少个刻度
+\1x轴display多少个刻度
      */
     private fun getLabCount(count: Int): Int {
         return when (count) {
@@ -318,7 +318,7 @@ x轴display多少个刻度
         }
     }
 
-getdisplay最小区间
+\1getdisplay最小区间
     private fun getMinimum(): Float {
         val min =
             when (selectType) {
@@ -331,7 +331,7 @@ getdisplay最小区间
         return min
     }
 
-getdisplay最大区间，以最小区间的50倍
+\1getdisplay最大区间，以最小区间的50倍
     private fun getMaximum(): Float {
         return getMinimum() * 50f
     }

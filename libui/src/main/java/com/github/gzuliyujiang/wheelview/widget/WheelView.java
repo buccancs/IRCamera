@@ -264,7 +264,7 @@ public class WheelView extends View implements Runnable {
         } else if (!TextUtils.isEmpty(maxWidthText)) {
             textMaxWidth = (int) paint.measureText(maxWidthText);
         } else {
-            // 未指定最宽的文本，须遍历measurement查找最宽的作为基准
+            // 未指定最宽的文本，须遍历测量查找最宽的作为基准
             int itemCount = getItemCount();
             for (int i = 0; i < itemCount; ++i) {
                 int width = (int) paint.measureText(formatItem(i));
@@ -879,7 +879,7 @@ public class WheelView extends View implements Runnable {
         float ellipsisWidth = paint.measureText(ellipsis);
         String data = obtainItemText(dataPosition);
         while (paint.measureText(data) + ellipsisWidth - measuredWidth > 0) {
-            // 超出控件宽度则省略部分text
+            // 超出控件宽度则省略部分文字
             int length = data.length();
             if (length > 1) {
                 data = data.substring(0, length - 1);

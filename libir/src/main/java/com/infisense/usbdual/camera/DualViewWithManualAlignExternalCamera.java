@@ -42,8 +42,8 @@ public class DualViewWithManualAlignExternalCamera extends BaseParamDualView{
 
         private IFrameCallback iFrameCallback = new IFrameCallback() {
             /**
-             * frame里area是有两帧image的，前area是fusion之后的image，是ARGBformat，占4个字节;
-             * 后area是infrared和temperature的image，infrared和temperature的image是YUV422format，占2个字节
+             * frame里面是有两帧图像的，前面是fusion之后的图像，是ARGB格式，占4个字节;
+             * 后面是infrared和温度的图像，infrared和温度的图像是YUV422格式，占2个字节
              */
 
             @Override

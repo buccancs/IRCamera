@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference
 import java.nio.ShortBuffer
 
 /**
-音频采集并且与videoMerge一起
+\1音频采集并且与视频合并一起
  * @author: CaiSongL
  * @date: 2023/3/28
  */
@@ -97,7 +97,7 @@ object AudioUtilHolder {
                 }
             audioRecord!!.startRecording()
             /**
-音频进行循环encoding
+\1音频进行循环编码
              */
             try {
                 while (runAudioThread) {
@@ -111,7 +111,7 @@ object AudioUtilHolder {
                                 VideoRecordFFmpeg.AUDIO_CHANNELS,
                                 audioData,
                             )
-Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
+\1Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
                         }
                     } else
                         {
@@ -126,9 +126,9 @@ Log.w("音频采集中2",""+recorder?.get()?.frameNumber)
                             Thread.sleep(1000L / VideoRecordFFmpeg.RATE)
                         }
                 }
-Log.w("stop采集",""+recorder?.get()?.frameNumber)
+\1Log.w("停止采集",""+recorder?.get()?.frameNumber)
             } catch (e: Exception) {
-                XLog.e("采集容器exception")
+                XLog.e("采集容器异常")
             }
         }
     }

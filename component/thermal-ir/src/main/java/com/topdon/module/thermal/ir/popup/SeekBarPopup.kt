@@ -11,13 +11,13 @@ import androidx.core.view.isVisible
 import com.topdon.module.thermal.ir.databinding.PopSeekBarBinding
 
 /**
-有一根 SeekBar 用于拾取值的 PopupWindow.
+\1有一根 SeekBar 用于拾取值的 PopupWindow.
  *
-用于 fusion度(带title)、contrast(无title)、锐度(无title) set
+\1用于 fusion度(带title)、对比度(无title)、锐度(无title) set
  *
  * Created by LCG on 2024/12/3.
  *
-@param hasTitle 是否有titletext
+\1@param hasTitle 是否有title文字
  */
 @SuppressLint("SetTextI18n")
 class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() {
@@ -34,14 +34,14 @@ class SeekBarPopup(context: Context, hasTitle: Boolean = false) : PopupWindow() 
         }
 
     /**
-是否在Swipe过程中实时触发Callback.
+\1是否在滑动过程中实时触发回调.
      *
-true-实时触发  false-Swipestop(stop)时才触发
+\1true-实时触发  false-滑动停止(stop)时才触发
      */
     var isRealTimeTrigger = false
 
     /**
-进度值拾取EventListener.
+\1进度值拾取事件监听.
      */
     var onValuePickListener: ((progress: Int) -> Unit)? = null
 
@@ -82,7 +82,7 @@ true-实时触发  false-Swipestop(stop)时才触发
     }
 
     /**
-@param isDropDown true-放置于anchor下方 false-底边缘与anchor对齐
+\1@param isDropDown true-放置于anchor下方 false-底边缘与anchor对齐
      */
     fun show(
         anchor: View,

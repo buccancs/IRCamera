@@ -17,7 +17,7 @@ import com.github.gzuliyujiang.wheelpicker.contract.TimeFormatter;
 import com.github.gzuliyujiang.wheelpicker.widget.TimeWheelLayout;
 
 /**
- * 简单的时间format化
+ * 简单的时间格式化
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/15 18:13

@@ -51,7 +51,7 @@
         android:layout_marginEnd="20dp"
         android:textSize="16sp"
         android:textColor="@color/white"
-        tools:text="发现新version V3.50"
+        tools:text="发现新版本 V3.50"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

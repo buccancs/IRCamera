@@ -9,33 +9,33 @@ import com.topdon.menu.constant.MenuType
 import com.topdon.menu.constant.SettingType
 
 /**
- * Settings menu adapter. All options are independent and support multiple selection.
+ * settingsmenuAdapter used for，所有选项互相独立，可多选.
  *
- * - Single light: pseudo color bar, contrast, sharpness, warning, rotation, font, mirror
- * - Dual light: pseudo color bar, contrast, sharpness, warning, rotation, font
- * - Lite: pseudo color bar, contrast, warning, rotation, font, mirror
- * - TC007: pseudo color bar, contrast, sharpness, warning, font, mirror
- * - 2D editing: warning, font, watermark
+ * - 单光：   pseudo color条、对比度、锐度、warning、旋转、font、镜像
+ * - dual light：   pseudo color条、对比度、锐度、warning、旋转、font
+ * - Lite：  pseudo color条、对比度、warning、旋转、font、镜像
+ * - TC007： pseudo color条、对比度、锐度、warning、font、镜像
+ * - 2D 编辑：warning、font、watermark
  *
- * - TS001 observation: compass, rotation, mirror, contrast
+ * - TS001 observation：指南针、旋转、镜像、对比度
  *
  * Created by LCG on 2024/11/28.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObserver: Boolean = false) : BaseMenuAdapter() {
     /**
-     * Settings menu click event listener.
-     * isSelected: Whether in selected state when clicked
+     * settingsmenuclickevent listener。
+     * isSelected：click时是否处于selectedstate
      */
     var onSettingListener: ((settingType: SettingType, isSelected: Boolean) -> Unit)? = null
 
     /**
-     * Several technical considerations here:
-     * - For the core, 256x192 landscape size is the unrotated state with rotation angle 0.
-     * For the APP, 192x256 portrait size (core rotation angle 270) is the unrotated state with rotation angle 0.
-     * - For certain suppliers, rotation angle in core is counterclockwise, not the commonly understood clockwise rotation angle.
+     * 这里有几个坑：
+     * - 对于core而言，256x192 横屏尺寸才是rotation angle为 0 的未旋转state；
+     * 对于APP而言，192x256 竖屏尺寸(corerotation angle270)才是rotation angle为 0 的未旋转state。
+     * - 对某供应商而言，core里的rotation angle是逆时针rotation angle，而非一般理解的顺时针rotation angle。
      *
-     * Considering compatibility with old code, this property is used for **core rotation angle**
+     * 考虑到旧代码兼容，这个属性用来放 **corerotation angle**
      */
     var rotateAngle: Int = 270
         set(value) {
@@ -46,7 +46,7 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
 
     /**
-     * Settings specified option selected state. Do not call this method for rotation as it has 4 states.
+     * settingsspecified option的selectedstate，旋转不要调这个方法，因为旋转有 4 个state
      */
     fun setSelected(
         settingType: SettingType,
@@ -70,22 +70,22 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
             dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
             dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
         } else {
-            if (menuType == MenuType.GALLERY_EDIT) { 
+            if (menuType == MenuType.GALLERY_EDIT) { // 2D编辑
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
                 dataList.add(Data(R.string.app_watemarking, MenuR.drawable.selector_menu2_setting_9, SettingType.WATERMARK))
             } else {
                 dataList.add(Data(R.string.thermal_pseudo, MenuR.drawable.selector_menu2_setting_1, SettingType.PSEUDO_BAR))
                 dataList.add(Data(R.string.thermal_contrast, MenuR.drawable.selector_menu2_setting_2, SettingType.CONTRAST))
-                if (menuType != MenuType.Lite) { // Lite has no detail (sharpness)
+                if (menuType != MenuType.Lite) { // Lite 没有细节(锐度)
                     dataList.add(Data(R.string.thermal_sharpen, MenuR.drawable.selector_menu2_setting_3, SettingType.DETAIL))
                 }
                 dataList.add(Data(R.string.temp_alarm_alarm, MenuR.drawable.selector_menu2_setting_6, SettingType.ALARM))
-                if (menuType != MenuType.TC007) { // TC007 has no rotation
+                if (menuType != MenuType.TC007) { // TC007 没有旋转
                     dataList.add(Data(R.string.thermal_rotate, MenuR.drawable.selector_menu2_setting_4, SettingType.ROTATE))
                 }
                 dataList.add(Data(R.string.menu_thermal_font, MenuR.drawable.selector_menu2_setting_7, SettingType.FONT))
-                if (menuType != MenuType.DOUBLE_LIGHT) { // TC001 Plus has no mirror
+                if (menuType != MenuType.DOUBLE_LIGHT) { // TC001 Plus 没有镜像
                     dataList.add(Data(R.string.mirror, MenuR.drawable.selector_menu2_setting_5, SettingType.MIRROR))
                 }
             }
@@ -111,8 +111,8 @@ internal class SettingAdapter(menuType: MenuType = MenuType.SINGLE_LIGHT, isObse
         }
         holder.binding.tvText.isSelected = data.isSelected
         holder.binding.clRoot.setOnClickListener {
-            // Warning, font, watermark are only considered highlight selected when effective. Maintain original code logic here.
-            // Menu selection refresh left to upper-layer listener to handle. Consider changes later when time permits.
+            // warning、font、watermark是以effective才视为highlightselected的，Maintain original code logic here，
+            // menu的selectedrefreshleave to upper-layer listener to handle，consider changes later when time permits
 //            data.isSelected = !data.isSelected
 //            holder.binding.ivIcon.isSelected = data.isSelected
 //            holder.binding.tvText.isSelected = data.isSelected

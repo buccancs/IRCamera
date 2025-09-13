@@ -39,7 +39,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
-temperature监控
+\1temperature监控
  */
 // Legacy ARouter route annotation - now using NavigationManager
 /**
@@ -54,11 +54,11 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
 
     //    var MONITOR_ACTION = STATS_START
     private var selectDuration = 1
-    private var selectType = 1 // 选取point 1:单point    2:line条    3:region
-    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取point
+    private var selectType = 1 // 选取点 1:单点    2:线条    3:区域
+    private var selectIndex: ArrayList<Int> = arrayListOf() // 选取点
     private val bean = ThermalBean()
     private var selectTimeType = 1
-    private var latestTime = 0L // Record当前图表最新时间戳,用于判断是否refresh(分, 时, 天)电压data
+    private var latestTime = 0L // 记录当前图表最新时间戳,用于判断是否刷新(分, 时, 天)电压数据
     private var startMonitor = false
 
     private lateinit var chart: LineChart
@@ -85,8 +85,8 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         initChart()
         initRecycler()
         viewModel.resultLiveData.observe(this) {
-查询到历史data
-            Log.w("123", "查询到历史data:${it.dataList.size}")
+\1查询到历史data
+            Log.w("123", "查询到历史数据:${it.dataList.size}")
             resultVol(it)
         }
         lifecycleScope.launch {
@@ -126,7 +126,7 @@ class MonitorChartActivity : BaseActivity(), View.OnClickListener, OnChartValueS
         monitorChartTimeRecycler.adapter = timeAdapter
         monitorChartSettingRecycler.layoutManager = GridLayoutManager(this, 3)
         monitorChartSettingRecycler.adapter = adapter
-set时间段type(秒 分 时 天)
+\1set时间段类型(秒 分 时 天)
         timeAdapter.listener =
             object : SettingTimeAdapter.OnItemClickListener {
                 override fun onClick(
@@ -134,7 +134,7 @@ set时间段type(秒 分 时 天)
                     timeType: Int,
                 ) {
                     selectTimeType = timeType
-                    chart.highlightValue(null) // Close高亮pointMarker
+                    chart.highlightValue(null) // 关闭高亮点Marker
                     latestTime = 0L
                     showLoadingDialog()
                     lifecycleScope.launch {
@@ -143,7 +143,7 @@ set时间段type(秒 分 时 天)
                     }
                 }
             }
-时间间隔
+\1时间间隔
         adapter.listener =
             object : SettingCheckAdapter.OnItemClickListener {
                 override fun onClick(
@@ -159,12 +159,12 @@ set时间段type(秒 分 时 天)
                     adapter.setCheck(index)
                     timeMillis = time * 1000L
                     pointIndex = startIndex - defaultCount
-                    recordThermal() // startRecord
+                    recordThermal() // 开始记录
                 }
             }
     }
 
-    val defaultCount = 20 // 默认Show/Display10个数
+    val defaultCount = 20 // 默认显示10个数
     val startIndex = 0f
     var pointIndex = startIndex - defaultCount
 
@@ -175,13 +175,13 @@ set时间段type(秒 分 时 天)
     var rotateType = 3
 
     /**
-enabledvideo流
+\1enabled视频流
      */
     private fun onIrVideoStart() {
         // Temporarily disabled - guide interface not available
         /*
         mIsIrVideoStart = if (mIsIrVideoStart) {
-            ToastUtils.showShort("video流已开启")
+            ToastUtils.showShort("视频流已开启")
             return
         } else {
             true
@@ -190,7 +190,7 @@ enabledvideo流
         val ret = mGuideInterface!!.init(this, object : GuideInterface.IrDataCallback {
             override fun processIrData(yuv: ByteArray, temp: FloatArray) {
                 try {
-选取region
+\1选取区域
                     val centerTempIndex: Int = 256 * (192 / 2) + 256 / 2
                     val maxTempIndex = ArrayUtils.getMaxIndex(temp, rotateType, selectIndex)
                     val minTempIndex = ArrayUtils.getMinIndex(temp, rotateType, selectIndex)
@@ -204,18 +204,18 @@ enabledvideo流
                     bean.createTime = System.currentTimeMillis()
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Log.e(TAG, "提取temperatureexception:${e.message}")
+                    Log.e(TAG, "提取温度异常:${e.message}")
                 }
             }
 
         })
 
         if (ret == 5) {
-            Log.w("123", "video流开启complete")
-            recordThermal()//startRecord
+            Log.w("123", "视频流开启完成")
+            recordThermal()//开始记录
         } else {
-ToastUtils.showShort("video流enabledfailed")
-            Log.w("123", "video流开启failed")
+\1ToastUtils.showShort("视频流enabledfailed")
+            Log.w("123", "视频流开启失败")
             mGuideInterface = null
             mIsIrVideoStart = false
         }
@@ -223,20 +223,20 @@ ToastUtils.showShort("video流enabledfailed")
     }
 
     /**
-stopvideo流
+\1停止视频流
      */
     private fun onIrVideoStop() {
         // Temporarily disabled - guide interface not available
         /*
         mIsIrVideoStart = if (!mIsIrVideoStart) {
-            Log.w("123", "video流已stop")
+            Log.w("123", "视频流已停止")
             return
         } else {
             false
         }
         mGuideInterface!!.exit()
         mGuideInterface = null
-        Log.w("123", "video流stopcomplete")
+        Log.w("123", "视频流停止完成")
          */
     }
 
@@ -249,7 +249,7 @@ stopvideo流
     var startTime = 0L
 
     /**
-循环Listener-datasave
+\1循环监听-datasave
      */
     private fun recordThermal() {
         recordTask =
@@ -275,10 +275,10 @@ stopvideo流
                         }
                         delay(timeMillis)
                     } else {
-                        Log.w("123", "当前不可update")
+                        Log.w("123", "当前不可更新")
                     }
                 }
-                Log.w("123", "stopRecord, data量:$time")
+                Log.w("123", "停止记录, 数据量:$time")
             }
     }
 
@@ -291,28 +291,28 @@ stopvideo流
         chart.setDrawGridBackground(false)
         chart.description = null // 图标描述文本
         chart.setBackgroundResource(com.topdon.lib.core.R.color.chart_bg)
-        chart.setScaleEnabled(true) // Scale
-        chart.setPinchZoom(false) // Disable后，可以分别在x轴和y轴上进行Scale
-        chart.isDoubleTapToZoomEnabled = false // 双击不可Scale
-        chart.isScaleYEnabled = false // 禁止Y轴Scale
+        chart.setScaleEnabled(true) // 缩放
+        chart.setPinchZoom(false) // 禁用后，可以分别在x轴和y轴上进行缩放
+        chart.isDoubleTapToZoomEnabled = false // 双击不可缩放
+        chart.isScaleYEnabled = false // 禁止Y轴缩放
         chart.setExtraOffsets(
             0f,
             0f,
             SizeUtils.dp2px(8f).toFloat(),
             SizeUtils.dp2px(4f).toFloat(),
-        ) // 图表region偏移
+        ) // 图表区域偏移
         chart.setNoDataText(getString(R.string.lms_http_code998))
         chart.setNoDataTextColor(textColor)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
-        chart.marker = mv // settingsclick坐标Show/Displaytip框
+        chart.marker = mv // 设置点击坐标显示提示框
         val data = LineData()
         data.setValueTextColor(textColor)
         chart.data = data
         val l = chart.legend
         l.form = Legend.LegendForm.CIRCLE
         l.textColor = textColor
-        l.isEnabled = false // Hide曲linetag
+        l.isEnabled = false // 隐藏曲线标签
         val xAxis = chart.xAxis
         xAxis.textColor = textColor
         xAxis.setDrawGridLines(true)
@@ -321,9 +321,9 @@ stopvideo流
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.axisLineColor = textColor
         xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true // 重复值不Show/Display
+        xAxis.isGranularityEnabled = true // 重复值不显示
         xAxis.textSize = 9f
-xAxis.setLabelCount(6, true)//true保证有刻度数量不变
+\1xAxis.setLabelCount(6, true)//true保证有刻度数量不变
         xAxis.setLabelCount(6, false) // true保证有刻度数量不变
         val leftAxis = chart.axisLeft
         leftAxis.textSize = 9f
@@ -335,35 +335,35 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
         chart.zoom(100f, 1f, chart.xChartMax, 0f)
         selectDuration = adapter.selectTime
         startTime = System.currentTimeMillis()
-        canUpdate = true // 可以startupdateRecord
+        canUpdate = true // 可以开始更新记录
     }
 
     /**
-分classprocessingupdate图表data
+\1分类processingupdate图表data
      */
     private fun updateChart() {
         ++pointIndex
         when (selectTimeType) {
             1 -> {
-秒
+\1秒
                 addPointToChart(bean)
             }
             2 -> {
-分
+\1分
                 val addTime = 2 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 2) + addTime) {
                     queryLog(3)
                 }
             }
             3 -> {
-时
+\1时
                 val addTime = 2 * 60 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 3) + addTime) {
                     queryLog(3)
                 }
             }
             4 -> {
-天(图表display最后一个时间在昨天，要多加一天)
+\1天(图表display最后一个时间在昨天，要多加一天)
                 val addTime = 2 * 24 * 60 * 60 * 1000L
                 if (bean.createTime > TimeTool.timeToMinute(latestTime, 4) + addTime) {
                     queryLog(3)
@@ -373,7 +373,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
     }
 
     /**
-秒update图表data
+\1秒update图表data
      */
     private fun addPointToChart(bean: ThermalBean) {
         synchronized(chart) {
@@ -388,10 +388,10 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                 data.thermal = bean.centerTemp
                 data.createTime = bean.createTime
                 val lineData: LineData = chart.data
-                var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
+                var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
                 if (volDataSet == null) {
                     startTime = data.createTime
-                    Log.w("123", "settings初始时间startTime:$startTime")
+                    Log.w("123", "设置初始时间startTime:$startTime")
                     chart.xAxis.valueFormatter = MyValueFormatter(startTime = startTime)
                 }
                 val x = (data.createTime - startTime).toFloat()
@@ -405,10 +405,10 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         val entity = Entry(x, data.thermal)
                         entity.data = data
                         volDataSet.addEntry(entity)
-                        Log.w("123", "add一个data:$entity")
+                        Log.w("123", "添加一个数据:$entity")
                     }
                     "line" -> {
-第一条line
+\1第一条线
                         if (volDataSet == null) {
                             volDataSet = createSet("red")
                             lineData.addDataSet(volDataSet)
@@ -418,8 +418,8 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         entity.data = data
                         volDataSet.addEntry(entity)
 
-第二条line
-                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+\1第二条线
+                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                         if (secondDataSet == null) {
                             secondDataSet = createSet("blue")
                             lineData.addDataSet(secondDataSet)
@@ -429,7 +429,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         secondDataSet.addEntry(secondEntity)
                     }
                     else -> {
-第一条line
+\1第一条线
                         if (volDataSet == null) {
                             volDataSet = createSet("red")
                             lineData.addDataSet(volDataSet)
@@ -438,8 +438,8 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                         entity.data = data
                         volDataSet.addEntry(entity)
 
-第二条line
-                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+\1第二条线
+                        var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                         if (secondDataSet == null) {
                             secondDataSet = createSet("blue")
                             lineData.addDataSet(secondDataSet)
@@ -452,8 +452,8 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
 
                 lineData.notifyDataChanged()
                 chart.notifyDataSetChanged()
-                chart.setVisibleXRangeMinimum(getMinimum()) // settingsShow/DisplayX轴区间大小
-                chart.setVisibleXRangeMaximum(getMaximum()) // settingsShow/DisplayX轴区间大小
+                chart.setVisibleXRangeMinimum(getMinimum()) // 设置显示X轴区间大小
+                chart.setVisibleXRangeMaximum(getMaximum()) // 设置显示X轴区间大小
                 chart.xAxis.setLabelCount(getLabCount(volDataSet.entryCount), false) // true保证有刻度数量不变
                 chart.moveViewToX(chart.xChartMax) // 移动到最右端
                 if (volDataSet.entryCount == 20) {
@@ -461,7 +461,7 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
                 }
                 return@synchronized
             } catch (e: Exception) {
-                Log.e("123", "adddata时exception:${e.message}")
+                Log.e("123", "添加数据时异常:${e.message}")
                 return@synchronized
             }
         }
@@ -475,60 +475,60 @@ xAxis.setLabelCount(6, true)//true保证有刻度数量不变
     private val textColor by lazy { ContextCompat.getColor(this, com.topdon.lib.core.R.color.chart_text) }
 
     /**
-曲line样式
+\1曲线样式
      */
     private fun createSet(label: String): LineDataSet {
         val set = LineDataSet(null, label)
 //        set.mode = LineDataSet.Mode.LINEAR
         set.mode = LineDataSet.Mode.CUBIC_BEZIER
         set.setDrawFilled(false)
-set.fillDrawable = fillColor//set填充颜色渐变
+\1set.fillDrawable = fillColor//set填充颜色渐变
         set.axisDependency = YAxis.AxisDependency.LEFT
 
         when (label) {
             "red" -> {
-                set.color = lineRed // 曲line颜色
+                set.color = lineRed // 曲线颜色
                 set.circleHoleColor = lineRed // 坐标内部颜色
             }
             "blue" -> {
-                set.color = lineBlue // 曲line颜色
+                set.color = lineBlue // 曲线颜色
                 set.circleHoleColor = lineBlue // 坐标内部颜色
             }
             else -> {
-                set.color = lineGreen // 曲line颜色
+                set.color = lineGreen // 曲线颜色
                 set.circleHoleColor = lineGreen // 坐标内部颜色
             }
         }
 
         set.setCircleColor(whiteColors) // 坐标颜色
-        set.circleHoleRadius = 4f // 坐标point内部半径
-        set.circleRadius = 5f // 坐标point外部半径
+        set.circleHoleRadius = 4f // 坐标点内部半径
+        set.circleRadius = 5f // 坐标点外部半径
         set.valueTextColor = Color.WHITE
         set.lineWidth = 2f
         set.fillAlpha = 200
         set.valueTextSize = 10f
-        set.setDrawValues(false) // settings是否Show/Display坐标值文本
-        set.isHighlightEnabled = true // 允许辅助line
-        set.setDrawHorizontalHighlightIndicator(false) // 水平辅助lineClose
-        set.enableDashedHighlightLine(8f, 8f, 0f) // 辅助虚line
+        set.setDrawValues(false) // 设置是否显示坐标值文本
+        set.isHighlightEnabled = true // 允许辅助线
+        set.setDrawHorizontalHighlightIndicator(false) // 水平辅助线关闭
+        set.enableDashedHighlightLine(8f, 8f, 0f) // 辅助虚线
         return set
     }
 
     /**
-查询历史电压data(等待bluetooth传输历史Recordend后触发)
-时间区间: 现在时间 => 倒退到startEvent
+\1查询历史电压data(等待蓝牙传输历史记录结束后触发)
+\1时间区间: 现在时间 => 倒退到开始事件
      *
      * @param action
-0: 初始查询
-1: refresh查询
-2: switch查询
-3: Listener查询
-4: load历史data后查询
+\10: 初始查询
+\11: 刷新查询
+\12: 切换查询
+\13: 监听查询
+\14: load历史data后查询
      */
     private fun queryLog(action: Int) {
         startMonitor = false
         lifecycleScope.launch(Dispatchers.IO) {
-dataList.clear()//cleardata
+\1dataList.clear()//清空data
 //            dataList = arrayListOf()
             viewModel.queryLogThermals(selectTimeType = selectTimeType, action = action)
         }
@@ -540,21 +540,21 @@ dataList.clear()//cleardata
             val logTime = TimeTool.showDateType(bean.dataList.last().createTime, selectTimeType)
             val nowTime = TimeTool.showDateType(System.currentTimeMillis(), selectTimeType)
             if (TextUtils.equals(logTime, nowTime)) {
-分时天,当前时间段没end，应当delete最新当前时间段data
+\1分时天,当前时间段没结束，应当删除最新当前时间段data
                 bean.dataList.removeLast()
             }
         }
 //        dataList = bean.dataList
         if (latestTime == 0L) {
-图表无data需要update
+\1图表无data需要update
             addEntity(bean.dataList)
         } else if (bean.dataList.size > 0 && latestTime < bean.dataList.last().createTime) {
-有新data再update
+\1有新data再update
             addEntity(bean.dataList)
         }
     }
 
-整体refresh
+\1整体刷新
     private fun addEntity(data: ArrayList<ThermalEntity>) {
         clearEntity(data.size == 0)
         if (data.size == 0) {
@@ -564,7 +564,7 @@ dataList.clear()//cleardata
         startTime = data[0].createTime
         chart.xAxis.valueFormatter = MyValueFormatter(startTime = startTime)
         val lineData: LineData = chart.data
-        var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标point
+        var volDataSet = lineData.getDataSetByIndex(0) // 读取x为0的坐标点
         if (volDataSet == null) {
             volDataSet = createSet("vol")
             lineData.addDataSet(volDataSet)
@@ -572,7 +572,7 @@ dataList.clear()//cleardata
         chart.xAxis.valueFormatter = MyValueFormatter(startTime = startTime, type = selectTimeType)
         val mv = MyMarkerView(this, R.layout.marker_lay)
         mv.chartView = chart
-        chart.marker = mv // settingsclick坐标Show/Displaytip框
+        chart.marker = mv // 设置点击坐标显示提示框
         data.forEach {
             val x = (it.createTime - startTime).toFloat()
             when (type) {
@@ -585,10 +585,10 @@ dataList.clear()//cleardata
                     val entity = Entry(x, it.thermal)
                     entity.data = it
                     volDataSet.addEntry(entity)
-                    Log.w("123", "add一个data:$entity")
+                    Log.w("123", "添加一个数据:$entity")
                 }
                 "line" -> {
-第一条line
+\1第一条线
                     if (volDataSet == null) {
                         volDataSet = createSet("red")
                         lineData.addDataSet(volDataSet)
@@ -598,8 +598,8 @@ dataList.clear()//cleardata
                     entity.data = it
                     volDataSet.addEntry(entity)
 
-第二条line
-                    var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+\1第二条线
+                    var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                     if (secondDataSet == null) {
                         secondDataSet = createSet("blue")
                         lineData.addDataSet(secondDataSet)
@@ -609,7 +609,7 @@ dataList.clear()//cleardata
                     secondDataSet.addEntry(secondEntity)
                 }
                 else -> {
-第一条line
+\1第一条线
                     if (volDataSet == null) {
                         volDataSet = createSet("red")
                         lineData.addDataSet(volDataSet)
@@ -618,8 +618,8 @@ dataList.clear()//cleardata
                     entity.data = it
                     volDataSet.addEntry(entity)
 
-第二条line
-                    var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标point
+\1第二条线
+                    var secondDataSet = lineData.getDataSetByIndex(1) // 读取x为0的坐标点
                     if (secondDataSet == null) {
                         secondDataSet = createSet("blue")
                         lineData.addDataSet(secondDataSet)
@@ -630,11 +630,11 @@ dataList.clear()//cleardata
                 }
             }
         }
-        Log.w("123", "曲linedata:${volDataSet.entryCount}个")
+        Log.w("123", "曲线数据:${volDataSet.entryCount}个")
         lineData.notifyDataChanged()
         chart.notifyDataSetChanged()
-        chart.setVisibleXRangeMinimum(getMinimum()) // settingsShow/DisplayX轴区间大小
-        chart.setVisibleXRangeMaximum(getMaximum()) // settingsShow/DisplayX轴区间大小
+        chart.setVisibleXRangeMinimum(getMinimum()) // 设置显示X轴区间大小
+        chart.setVisibleXRangeMaximum(getMaximum()) // 设置显示X轴区间大小
         Log.i(
             "123",
             "list moveViewToX:${chart.xChartMax}, chart.highestVisibleX:${chart.highestVisibleX}",
@@ -664,7 +664,7 @@ dataList.clear()//cleardata
     }
 
     /**
-x轴display多少个刻度
+\1x轴display多少个刻度
      */
     private fun getLabCount(count: Int): Int {
         return when (count) {
@@ -676,7 +676,7 @@ x轴display多少个刻度
         }
     }
 
-getdisplay最小区间
+\1getdisplay最小区间
     private fun getMinimum(): Float {
         val min =
             when (selectTimeType) {
@@ -689,7 +689,7 @@ getdisplay最小区间
         return min
     }
 
-getdisplay最大区间，以最小区间的50倍
+\1getdisplay最大区间，以最小区间的50倍
     private fun getMaximum(): Float {
         return getMinimum() * 50f
     }

@@ -15,7 +15,7 @@ import com.topdon.lib.core.view.MyTextView
 import com.topdon.module.thermal.ir.R
 
 /**
-option拾取 PopupWindow.
+\1option拾取 PopupWindow.
  *
  * Created by LCG on 2024/1/5.
  */
@@ -33,18 +33,18 @@ class OptionPickPopup(
 
     companion object {
         /**
-optiontext大小，单位 ***sp***
+\1option文字大小，单位 ***sp***
          */
         private const val TEXT_SIZE_SP: Float = 14f
 
         /**
-optiontext顶部或底部 padding，单位 ***dp***
+\1option文字顶部或底部 padding，单位 ***dp***
          */
         private const val TEXT_PADDING: Float = 7f
     }
 
     /**
-一个option被selectedEventListener.
+\1一个option被选中事件监听.
      */
     var onPickListener: ((position: Int, str: String) -> Unit)? = null
 
@@ -82,14 +82,14 @@ optiontext顶部或底部 padding，单位 ***dp***
 
         if (context.resources.displayMetrics.heightPixels - locationArray[1] - anchor.height > height - SizeUtils.dp2px(5f)) { // 在 anchor 底部放得下
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, locationArray[1] + anchor.height - SizeUtils.dp2px(5f))
-        } else { // 下area放不下就放上area吧
+        } else { // 下面放不下就放上面吧
             showAtLocation(anchor, Gravity.NO_GRAVITY, x, (locationArray[1] - height + SizeUtils.dp2px(5f)).coerceAtLeast(0))
         }
     }
 
     private inner class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         /**
-item clickEventListener.
+\1item 点击事件监听.
          */
         var onItemClickListener: ((position: Int) -> Unit)? = null
 

@@ -20,7 +20,7 @@ import java.util.List;
 public class AppUtil {
     public static boolean isAppInstalled(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
-        //Get/Retrieve系统中Install的应用包的info
+        //获取系统中安装的应用包的信息
         List<PackageInfo> listPackageInfo = packageManager.getInstalledPackages(0);
         for (int i = 0; i < listPackageInfo.size(); i++) {
             if (listPackageInfo.get(i).packageName.equalsIgnoreCase(packageName)) {
@@ -52,8 +52,9 @@ public class AppUtil {
         }
     }
 
+
     /**
-     * 应用Install
+     * 应用安装
      *
      * @param context
      * @param
@@ -62,7 +63,7 @@ public class AppUtil {
     public static void installApp(Context context, File apkPath) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        ///< 判断是否是AndroidN以及更高的version
+        ///< 判断是否是AndroidN以及更高的版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             // 不能再用setFlags了， setflags会reset之前的settings， 要么 setflags 多个|拼接，要么addflag
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -75,9 +76,9 @@ public class AppUtil {
     }
 
     /**
-     * method描述：判断某一Service是否正在运行     *
+     * 方法描述：判断某一Service是否正在运行     *
      * * @param context     上下文
-     * * @param serviceName Service的全path： 包名 + service的class名
+     * * @param serviceName Service的全路径： 包名 + service的类名
      * * @return true 表示正在运行，false 表示没有运行
      */
     public static boolean isProcessRunning(Context context, String serviceName) {
@@ -87,7 +88,7 @@ public class AppUtil {
             return false;
         }
         for (ActivityManager.RunningServiceInfo serviceInfo : runningServiceInfos) {
-            XLog.w("bcf", "process名=" + serviceInfo.service.getClassName());
+            XLog.w("bcf", "进程名=" + serviceInfo.service.getClassName());
             if (serviceInfo.process.equals(serviceName)) {
                 return true;
             }
@@ -96,9 +97,9 @@ public class AppUtil {
     }
 
     /**
-     * method描述：判断某一Service是否正在运行     *
+     * 方法描述：判断某一Service是否正在运行     *
      * * @param context     上下文
-     * * @param serviceName Service的全path： 包名 + service的class名
+     * * @param serviceName Service的全路径： 包名 + service的类名
      * * @return true 表示正在运行，false 表示没有运行
      */
     public static boolean isServiceRunning(Context context, String serviceName) {
@@ -108,7 +109,7 @@ public class AppUtil {
             return false;
         }
         for (ActivityManager.RunningServiceInfo serviceInfo : runningServiceInfos) {
-            XLog.w("bcf", "class名=" + serviceInfo.service.getClassName());
+            XLog.w("bcf", "类名=" + serviceInfo.service.getClassName());
             if (serviceInfo.service.getClassName().equals(serviceName)) {
                 return true;
             }

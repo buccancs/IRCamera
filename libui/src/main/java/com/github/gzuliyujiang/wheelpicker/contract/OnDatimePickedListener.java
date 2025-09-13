@@ -14,7 +14,7 @@
 package com.github.gzuliyujiang.wheelpicker.contract;
 
 /**
- * 日期时间selectioninterface
+ * 日期时间选择接口
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2021/6/5 17:29
@@ -22,7 +22,7 @@ package com.github.gzuliyujiang.wheelpicker.contract;
 public interface OnDatimePickedListener {
 
     /**
-     * 日期时间selectionCallback
+     * 日期时间选择回调
      *
      * @param year   年
      * @param month  月

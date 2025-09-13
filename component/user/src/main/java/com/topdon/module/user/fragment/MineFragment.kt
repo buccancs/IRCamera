@@ -55,15 +55,15 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
-公共set页，即公共 “我的”
-[MoreActivity] - TS004 “我的”
-[MoreFragment] - 插件式 “我的”
+\1公共set页，即公共 “我的”
+\1[MoreActivity] - TS004 “我的”
+\1[MoreFragment] - 插件式 “我的”
  *
  * Created by LCG on 2024/4/19.
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
     /**
-onResume() 阶段是否需要refreshLoginstate相关 UI.
+\1onResume() 阶段是否需要刷新登录状态相关 UI.
      */
     private var isNeedRefreshLogin = false
 
@@ -107,7 +107,7 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
         settingElectronicManual.setOnClickListener(this)
         settingFaq.setOnClickListener(this)
         settingFeedback.setOnClickListener(this)
-        settingItemUnit.setOnClickListener(this) // temperature单温
+        settingItemUnit.setOnClickListener(this) // 温度单温
         dragCustomerView.setOnClickListener(this)
 
         viewWinterPoint.isVisible = !SharedManager.hasClickWinter
@@ -119,7 +119,7 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
         viewLifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-要是当前已connection TS004、TC007，切到流量上，不然LoginRegister意见反馈那些没网
+\1要是当前已连接 TS004、TC007，切到流量上，不然登录注册意见反馈那些没网
                     if (WebSocketProxy.getInstance().isConnected()) {
                         NetWorkUtils.switchNetwork(false)
                     }
@@ -184,7 +184,7 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
                     loginAction()
                 }
             }
-            settingElectronicManual -> { // 电子description书
+            settingElectronicManual -> { // 电子说明书
                 NavigationManager.getInstance().build(
                     RouterConfig.ELECTRONIC_MANUAL,
                 ).withInt(Constants.SETTING_TYPE, Constants.SETTING_BOOK).navigation(requireContext())
@@ -211,13 +211,13 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
                     loginAction()
                 }
             }
-            settingItemUnit -> { // temperature单位
+            settingItemUnit -> { // 温度单位
                 NavigationManager.getInstance().build(RouterConfig.UNIT).navigation(requireContext())
             }
-            settingItemVersion -> { // version
+            settingItemVersion -> { // 版本
                 NavigationManager.getInstance().build(RouterConfig.VERSION).navigation(requireContext())
             }
-            settingItemClear -> { // Clearcache，实际已Hide
+            settingItemClear -> { // 清除缓存，实际已隐藏
                 clearCache()
             }
             dragCustomerView -> { // 客服
@@ -235,14 +235,14 @@ onResume() 阶段是否需要refreshLoginstate相关 UI.
 
     private fun loginAction() {
         isNeedRefreshLogin = true
-activityLogin()Callback不可靠，但必然触发onResume()
+\1activityLogin()回调不可靠，但必然触发onResume()
         val bgBitmap = BitmapFactory.decodeResource(resources, LibAppR.mipmap.ic_default_user_head) // Use available resource from libapp
         LMS.getInstance().activityLogin(null, null, false, null, bgBitmap)
     }
 
     private fun checkLoginResult() {
         if (LMS.getInstance().isLogin) {
-Loginsuccessful
+\1登录successful
             LMS.getInstance().getUserInfo { userinfo: CommonBean ->
                 try {
                     val json = userinfo.data
@@ -256,17 +256,17 @@ Loginsuccessful
                         headUrl = infoData.avatar,
                     )
 
-updateui
+\1updateui
                     changeLoginStyle()
                 } catch (e: Exception) {
-                    XLog.e(" Loginexception: ${e.message}")
+                    XLog.e(" 登录异常: ${e.message}")
                 }
             }
         } else {
-Loginfailed
-            XLog.e(" Loginfailed")
+\1登录failed
+            XLog.e(" 登录失败")
             changeLoginStyle()
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Restore默认头像
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
         }
     }
 
@@ -320,12 +320,12 @@ Loginfailed
             settingUserLay.visibility = View.GONE
             val tvEmail = requireView().findViewById<TextView>(R.id.tv_email)
             tvEmail.text = ""
-            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // Restore默认头像
+            settingUserImgNight.setImageResource(LibAppR.mipmap.ic_default_user_head) // 恢复默认头像
         }
     }
 
     /**
-Clearbuffer
+\1清除buffer
      */
     private fun clearCache() {
         lifecycleScope.launch {
@@ -335,7 +335,7 @@ Clearbuffer
                     AppDatabase.getInstance().thermalDao().deleteByUserId(SharedManager.getUserId())
                     CleanUtils.cleanExternalCache()
                 } catch (e: Exception) {
-                    XLog.w("Clearcacheexception: ${e.message}")
+                    XLog.w("清除缓存异常: ${e.message}")
                 }
                 delay(1000)
             }

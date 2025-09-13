@@ -12,22 +12,10 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.databinding.DialogTipChangeDeviceBinding
 import com.topdon.lib.core.utils.ScreenUtil
 
-@Deprecated("3.80使用新首页device列表逻辑，不需要deviceswitchtip弹框了")
-/**
- * TipChangeDeviceDialog displays modal dialog interface for user interaction.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
+@Deprecated("3.80使用新首页设备列表逻辑，不需要设备切换提示弹框了")
 class TipChangeDeviceDialog : Dialog {
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-/**
- * Builder manages camera operations and image capture functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
     class Builder {
         var dialog: TipChangeDeviceDialog? = null
         private var context: Context? = null
@@ -65,16 +53,10 @@ class TipChangeDeviceDialog : Dialog {
             return this
         }
 
-    /**
-     * Executes dismiss functionality.
-     */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
-    /**
-     * Creates and configures a new  instance.
-     */
         fun create(): TipChangeDeviceDialog {
             if (dialog == null) {
                 dialog = TipChangeDeviceDialog(context!!, R.style.InfoDialog)
@@ -98,13 +80,13 @@ class TipChangeDeviceDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    
+                    // 竖屏
                     0.85
                 } else {
-                    
+                    // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() 
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
 
             dialog!!.setCanceledOnTouchOutside(canceled)

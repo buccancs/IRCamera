@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!-- temperature、minimum温~maximum温 -->
+    <!-- 温度、最低温~最高温 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_range"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_marginStart="16dp"
             android:textSize="16sp"
             android:textColor="#FFBA42"
-            tools:text="point(P)"
+            tools:text="点(P)"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -34,7 +34,7 @@
             android:paddingBottom="8dp"
             android:textSize="14sp"
             android:textColor="#e8e8e8"
-            tools:text="minimum温-maximum温"
+            tools:text="最低温-最高温"
             app:layout_constraintWidth_percent="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -65,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- average温 -->
+    <!-- 平均温 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_average"
         android:layout_width="match_parent"
@@ -83,7 +83,7 @@
             android:paddingBottom="8dp"
             android:textSize="14sp"
             android:textColor="#e8e8e8"
-            tools:text="L1 average温"
+            tools:text="L1 平均温"
             app:layout_constraintWidth_percent="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -114,7 +114,7 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- comment -->
+    <!-- 注释 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_explain"
         android:layout_width="match_parent"
@@ -130,7 +130,7 @@
             android:paddingBottom="8dp"
             android:textSize="14sp"
             android:textColor="#e8e8e8"
-            tools:text="L1 comment"
+            tools:text="L1 注释"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
         <TextView

@@ -37,7 +37,7 @@
         <attr name="guide_icon_show" format="boolean" />
     </declare-styleable>
 
-    <!-- 倒计时控件property -->
+    <!-- 倒计时控件属性 -->
     <declare-styleable name="CountDownView">
         <!-- color -->
         <attr name="ringColor" format="color" />

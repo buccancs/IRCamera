@@ -249,7 +249,7 @@ class YapVideoEncoder(
             try {
                 mediaCodec!!.signalEndOfInputStream()
             } catch (e: Exception) {
-                Log.e("123", "recordingerror:${e.message}")
+                Log.e("123", "录制错误:${e.message}")
                 e.printStackTrace()
             }
         }

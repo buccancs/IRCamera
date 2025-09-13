@@ -25,7 +25,7 @@ object DeviceConfig {
     const val HIK_PRODUCT_ID = 258
 
     /**
-     * 判断该 UsbDevice 是否为TC、TS插件式device.
+     * 判断该 UsbDevice 是否为TC、TS插件式设备.
      */
     fun UsbDevice.isTcTsDevice(): Boolean {
         return (productId == TOPDON_PRODUCT_ID && vendorId == TOPDON_VENDOR_ID) ||

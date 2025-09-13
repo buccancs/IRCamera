@@ -37,10 +37,10 @@ class RepeatMotionLayout : MotionLayout, MotionLayout.TransitionListener {
     )
 
     /**
-     * start闪烁
+     * 开始闪烁
      */
     fun startTransition() {
-//        Log.w("123", "start闪烁")
+//        Log.w("123", "开始闪烁")
         if (!isAdd) {
             addTransitionListener(this)
             isAdd = true

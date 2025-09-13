@@ -17,16 +17,16 @@ import com.topdon.lib.core.utils.ScreenUtil
 import kotlinx.android.synthetic.main.item_menu_3d.view.*
 
 /**
- * 二级menu RecyclerView 所用 Adapter.
+ * 二级菜单 RecyclerView 所用 Adapter.
  */
 class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
     /**
-     * 当前selected item index，用于implementationselected效果.
+     * 当前选中 item index，用于实现选中效果.
      */
     private var selectIndex = 0
 
     /**
-     * item clickEventListener.
+     * item 点击事件监听.
      */
     var onItemClickListener: ((position: Int) -> Unit)? = null
 
@@ -120,7 +120,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
             holder.itemView.iv_pseudo.visibility = if (position == selectIndex) View.VISIBLE else View.GONE
         }
 
-        // 单独settingsdelete文本颜色
+        // 单独设置删除文本颜色
         if (type == Type.MARK && position == MARK_ARRAY.size - 1) {
             holder.itemView.tv_menu.setTextColor(0x66ffffff)
         }
@@ -164,7 +164,7 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
     @SuppressLint("NotifyDataSetChanged")
     inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
         init {
-            val canSeeCount = itemCount.toFloat() // 一屏Visible的 item 数量，目前都是全都Show/Display完
+            val canSeeCount = itemCount.toFloat() // 一屏可见的 item 数量，目前都是全都显示完
             if (ScreenUtil.isPortrait(context)) {
                 val with = (ScreenUtil.getScreenWidth(context) / canSeeCount).toInt()
                 rootView.layoutParams = ViewGroup.LayoutParams(with, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -204,17 +204,17 @@ class MenuAdapter(val context: Context, val type: Type) : RecyclerView.Adapter<M
         VISUAL,
 
         /**
-         * calibration.
+         * 标定.
          */
         MARK,
 
         /**
-         * pseudo color.
+         * 伪彩.
          */
         PSEUDO,
 
         /**
-         * mode.
+         * 模式.
          */
         MODE,
     }

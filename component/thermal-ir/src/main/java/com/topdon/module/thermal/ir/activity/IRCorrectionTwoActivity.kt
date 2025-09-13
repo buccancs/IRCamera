@@ -16,18 +16,18 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  *
-锅盖矫正
+\1锅盖矫正
  * @author: CaiSongL
  * @date: 2023/8/4 9:06
  *
-需要传递parameter：
-- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
+\1需要传递parameter：
+\1- [ExtraKeyConfig.IS_TC007] - 当前device是否为 TC007
  */
 // Legacy ARouter route annotation - now using NavigationManager
 class IRCorrectionTwoActivity : BaseActivity() {
     /**
-From上一interface传递过来的，当前是否为 TC007 devicetype.
-true-TC007 false-其他插件式device
+\1From上一interface传递过来的，当前是否为 TC007 device类型.
+\1true-TC007 false-其他插件式device
      */
     private var isTC007 = false
 

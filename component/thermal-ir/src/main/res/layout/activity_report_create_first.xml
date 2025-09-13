@@ -106,7 +106,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- Reportname -->
+                <!-- Report名称 -->
                 <TextView
                     android:id="@+id/tv_report_name"
                     android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_report_name" />
 
-                <!-- 作者name -->
+                <!-- 作者名称 -->
                 <TextView
                     android:id="@+id/tv_report_author"
                     android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_report_date_title" />
 
-                <!-- Report地point -->
+                <!-- Report地点 -->
                 <TextView
                     android:id="@+id/tv_report_place"
                     android:layout_width="wrap_content"
@@ -273,7 +273,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/et_report_place"
                     app:layout_constraintRight_toRightOf="@id/et_report_place" />
 
-                <!-- watermark -->
+                <!-- 水印 -->
                 <TextView
                     android:id="@+id/tv_report_watermark"
                     android:layout_width="wrap_content"
@@ -385,7 +385,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ambient_humidity" />
 
-                <!-- 环境temperature -->
+                <!-- 环境温度 -->
                 <TextView
                     android:id="@+id/tv_ambient_temperature"
                     android:layout_width="0dp"

@@ -9,7 +9,7 @@ import com.topdon.lib.ui.R
 import kotlinx.android.synthetic.main.ui_steering_wheel_view.view.*
 
 /**
- * calibration方向
+ * 校准方向
  */
 class SteeringWheelView : LinearLayout, OnClickListener {
     var listener: ((action: Int, moveX: Int) -> Unit)? = null

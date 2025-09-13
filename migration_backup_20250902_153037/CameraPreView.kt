@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.camera_lay.view.*
 import java.util.*
 
 /**
- * camera预览
+ * 相机预览
  */
 class CameraPreView :
     LinearLayout,
@@ -68,7 +68,7 @@ class CameraPreView :
         mCameraHandler?.removeCallbacksAndMessages(null)
     }
 
-    private var startX = 0f // Record落point到控件的距离
+    private var startX = 0f // 记录落点到控件的距离
     private var startY = 0f
     private var moveX = 0f
     private var moveY = 0f
@@ -76,7 +76,7 @@ class CameraPreView :
     private var parentViewH = 0f
     private var isScale = false
     private var scale = 1f
-    private var scaleW = 0f // 单边Scale长度
+    private var scaleW = 0f // 单边缩放长度
     private var scaleH = 0f
 
     private lateinit var lis: ScaleGestureDetector
@@ -97,10 +97,10 @@ class CameraPreView :
                 parentViewH = view.height.toFloat()
             }
             MotionEvent.ACTION_MOVE -> {
-                // Swipe
+                // 滑动
                 moveX = event.x - startX
                 moveY = event.y - startY
-                // 根据移动情况，不Visible时候Close
+                // 根据移动情况，不可见时候关闭
 //                if (moveX-scaleW < -mTextureView.width ||
 //                    moveX+scaleW > parentViewW ||
 //                    moveY - scaleH < -mTextureView.height ||
@@ -117,15 +117,15 @@ class CameraPreView :
 //                if (moveY + scaleH > parentViewH - mTextureView.height) {
 //                    moveY = parentViewH - mTextureView.height - scaleH
 //                }
-//                Log.e("Test---","/"+(moveX + scaleW)+"///"+(parentViewW - mTextureView.width))
+//                Log.e("测试---","/"+(moveX + scaleW)+"///"+(parentViewW - mTextureView.width))
                 mTextureView.x = moveX
                 mTextureView.y = moveY
             }
             MotionEvent.ACTION_UP -> {
-                isScale = false // 实际以手指抬起设定Scaleend
+                isScale = false // 实际以手指抬起设定缩放结束
                 val startX = viewX
                 val startY = viewY
-//                Log.e("Test","/"+(startX)+"///"+startY+"///"+(mTextureView.width)+"//"+mTextureView.width * scale)
+//                Log.e("测试","/"+(startX)+"///"+startY+"///"+(mTextureView.width)+"//"+mTextureView.width * scale)
                 if ((viewX < 0 && startX < -mTextureView.width * scale + SizeUtils.dp2px(10f)) ||
                     (startX > 0 && startX > parentViewW - SizeUtils.dp2px(10f)) ||
                     (startY < 0 && startY < -mTextureView.height * scale + SizeUtils.dp2px(10f)) ||
@@ -140,14 +140,14 @@ class CameraPreView :
     }
 
     /**
-     * saveimage
+     * 保存图片
      */
     public fun getBitmap(): Bitmap? {
         return mTextureView.bitmap
     }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
-        // Scale
+        // 缩放
         isScale = true
         detector?.let {
             val scaleFactor = it.scaleFactor - 1
@@ -178,7 +178,7 @@ class CameraPreView :
     }
 
     fun onResume()  {
-        // processingswitch后台，Open系统camera后，回到app导致预览不update画area的问题
+        // 处理切换后台，打开系统相机后，回到app导致预览不更新画面的问题
         if (mCameraDevice != null)
             {
                 mCameraDevice?.close()
@@ -188,46 +188,46 @@ class CameraPreView :
 
 // ////////////////
 
-    /**cameraPermission请求标识 */
+    /**相机权限请求标识 */
     private val REQUEST_CAMERA_CODE = 0x100
 
-    /**image */
+    /**图片 */
     private var mImageView: ImageView? = null
 
-    /**照cameraID，标识前置后置 */
+    /**照相机ID，标识前置后置 */
     private lateinit var mCameraId: String
 
-    /**camera尺寸 */
+    /**相机尺寸 */
     private var mCaptureSize: Size? = null
 
-    /**image读取者 */
+    /**图像读取者 */
     private var mImageReader: ImageReader? = null
 
-    /**image主line程Handler */
+    /**图像主线程Handler */
     private var mCameraHandler: Handler? = null
 
-    /**cameradevice */
+    /**相机设备 */
     private var mCameraDevice: CameraDevice? = null
 
     /**预览大小 */
     private var mPreviewSize: Size? = null
 
-    /**camera请求 */
+    /**相机请求 */
     private lateinit var mCaptureBuilder: CaptureRequest.Builder
 
-    /**camera拍照捕获会话 */
+    /**相机拍照捕获会话 */
     private var mCameraCaptureSession: CameraCaptureSession? = null
 
-    /**camera管理者 */
+    /**相机管理者 */
     private var mCameraManager: CameraManager? = null
 
-    /**cameradevicestateCallback */
+    /**相机设备状态回调 */
     private val mStateCallback: CameraDevice.StateCallback =
         object : CameraDevice.StateCallback() {
             override fun onOpened(
                 @NonNull camera: CameraDevice,
             ) {
-                // Open
+                // 打开
                 XLog.i("开启预览")
                 mCameraDevice = camera
                 takePreview()
@@ -236,8 +236,8 @@ class CameraPreView :
             override fun onDisconnected(
                 @NonNull camera: CameraDevice,
             ) {
-                // disconnectconnection
-                XLog.i("Close预览")
+                // 断开连接
+                XLog.i("关闭预览")
                 isPreviewing = false
 //                camera.close()
 //                mCameraDevice = null
@@ -247,11 +247,11 @@ class CameraPreView :
                 @NonNull camera: CameraDevice,
                 error: Int,
             ) {
-                // exception
+                // 异常
                 isPreviewing = false
                 camera.close()
                 mCameraDevice = null
-                XLog.e("预览exception error: $error")
+                XLog.e("预览异常 error: $error")
             }
         }
 
@@ -272,7 +272,7 @@ class CameraPreView :
 
     /**
      * 预览
-     * click开启camera后触发
+     * 点击开启相机后触发
      */
     private fun takePreview() {
 //        mTextureView.rotation = 270f
@@ -282,16 +282,16 @@ class CameraPreView :
 //        layoutParams.width = cameraWidth / 2
 //        mTextureView.layoutParams = layoutParams
         val surfaceTexture = mTextureView.surfaceTexture
-        // settings默认的buffer大小
+        // 设置默认的缓冲大小
         surfaceTexture!!.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        // createSurface
+        // 创建Surface
         val previewSurface = Surface(surfaceTexture)
         try {
-            // create预览请求
+            // 创建预览请求
             mCaptureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            // 将previewSurfaceadd到预览请求中
+            // 将previewSurface添加到预览请求中
             mCaptureBuilder.addTarget(previewSurface)
-            // create会话
+            // 创建会话
             mCameraDevice!!.createCaptureSession(
                 listOf(previewSurface),
                 object : CameraCaptureSession.StateCallback() {
@@ -299,26 +299,26 @@ class CameraPreView :
                         @NonNull session: CameraCaptureSession,
                     ) {
                         try {
-                            // configuration
+                            // 配置
                             val captureRequest = mCaptureBuilder.build()
                             // 設置session
                             mCameraCaptureSession = session
-                            // settings重复预览请求
+                            // 设置重复预览请求
                             mCameraCaptureSession?.setRepeatingRequest(
                                 captureRequest,
                                 null,
                                 mCameraHandler,
                             )
                         } catch (e: CameraAccessException) {
-                            XLog.e("cameraexception：${e.printStackTrace()}")
+                            XLog.e("相机异常：${e.printStackTrace()}")
                         }
                     }
 
                     override fun onConfigureFailed(
                         @NonNull session: CameraCaptureSession,
                     ) {
-                        // configurationfailed
-                        XLog.e("configurationfailed")
+                        // 配置失败
+                        XLog.e("配置失败")
                     }
                 },
                 mCameraHandler,
@@ -350,12 +350,12 @@ class CameraPreView :
                 }
 
                 override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-                    // SurfaceTexture destroy
+                    // SurfaceTexture 销毁
                     return false
                 }
 
                 override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                    // SurfaceTexture update
+                    // SurfaceTexture 更新
                 }
             }
     }
@@ -365,7 +365,7 @@ class CameraPreView :
     }
 
     /**
-     * settingscameraparameter
+     * 设置相机参数
      * @param width 宽度
      * @param height 高度
      */
@@ -373,22 +373,22 @@ class CameraPreView :
         width: Int,
         height: Int,
     ) {
-        // createHandler
+        // 创建Handler
         mCameraHandler = Handler(Looper.getMainLooper())
-        // Get/Retrieve摄像头的管理者
+        // 获取摄像头的管理者
         mCameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
-            // 遍历所有摄像头,找到一个Cancel遍历
+            // 遍历所有摄像头,找到一个取消遍历
             for (cameraId in mCameraManager!!.cameraIdList) {
                 XLog.i("camera id: $cameraId")
                 cameraCharacteristics = mCameraManager!!.getCameraCharacteristics(cameraId)
-                // Get/Retrieve摄像头是前置还是后置
+                // 获取摄像头是前置还是后置
                 val facing = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING)
                 // 前置摄像头跳过
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) continue
-                // Get/RetrieveStreamConfigurationMap，管理摄像头支持的所有输出format和尺寸
+                // 获取StreamConfigurationMap，管理摄像头支持的所有输出格式和尺寸
                 val map = cameraCharacteristics?.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
-                // 根据TextureView的尺寸settings预览尺寸
+                // 根据TextureView的尺寸设置预览尺寸
                 val mapList = map.getOutputSizes(SurfaceTexture::class.java)
 
                 mPreviewSize = getOptimalSize(mapList, width, height)
@@ -397,14 +397,14 @@ class CameraPreView :
                 constraintSet.constrainHeight(mTextureView.id, width * mPreviewSize!!.width / mPreviewSize!!.height)
                 constraintSet.applyTo(camera_lay_root)
                 XLog.w("mPreviewSize:$mPreviewSize")
-                // Get/Retrievecamera支持的最大拍照尺寸
+                // 获取相机支持的最大拍照尺寸
                 val sizes = map.getOutputSizes(ImageFormat.JPEG)
                 XLog.w("size:${sizes.toList()}")
                 val w = 1000
                 val h = w * sizes[0].height / sizes[0].width
 //                mCaptureSize = Size(w, h)//影响拍照尺寸
                 XLog.w("选取比例 w:${sizes[0].width}, h:${sizes[0].height}")
-                XLog.w("Adjust后 w: $w, h:$h")
+                XLog.w("调整后 w: $w, h:$h")
                 // 此处ImageReader用于拍照所需
 //                setupImageReader()
                 // 为摄像头赋值
@@ -413,12 +413,12 @@ class CameraPreView :
             }
         } catch (e: CameraAccessException) {
             e.printStackTrace()
-            Log.e("123", "settingscameraparameter:${e.message}")
+            Log.e("123", "设置相机参数:${e.message}")
         }
     }
 
     /**
-     * selectionSizeMap中大于并且最接近width和height的size
+     * 选择SizeMap中大于并且最接近width和height的size
      * @param sizeMap 可选的尺寸
      * @param width 宽
      * @param height 高
@@ -429,7 +429,7 @@ class CameraPreView :
         width: Int,
         height: Int,
     ): Size {
-        // create列表
+        // 创建列表
         val sizeList: MutableList<Size> = ArrayList()
         // 遍历
         for (option in sizeMap) {
@@ -444,7 +444,7 @@ class CameraPreView :
                 }
             }
         }
-        // 判断storageSize的列表是否有data
+        // 判断存储Size的列表是否有数据
         return if (sizeList.size > 0) {
             Collections.min(sizeList) { lhs, rhs ->
                 java.lang.Long.signum((lhs.width * lhs.height - rhs.width * rhs.height).toLong())
@@ -455,7 +455,7 @@ class CameraPreView :
     }
 
     /**
-     * Opencamera
+     * 打开相机
      */
     @SuppressLint("MissingPermission")
     fun openCamera() {
@@ -465,20 +465,20 @@ class CameraPreView :
             mCameraManager!!.openCamera(mCameraId, mStateCallback, mCameraHandler)
         } catch (e: Exception) {
             isPreviewing = false
-            XLog.e("Opencamerafailed:${e.message}")
-            ToastUtils.showShort("Opencamerafailed")
+            XLog.e("打开相机失败:${e.message}")
+            ToastUtils.showShort("打开相机失败")
         }
     }
 
     /**
-     * Closecamera
+     * 关闭相机
      */
     @SuppressLint("MissingPermission")
     fun closeCamera() {
         isPreviewing = false
         try {
             mCameraDevice?.close()
-            // Restore原始state
+            // 恢复原始状态
             mTextureView.x = 0f
             mTextureView.y = 0f
             mTextureView.scaleX = 1f
@@ -486,8 +486,8 @@ class CameraPreView :
             scale = 1f
 //            isReverse = false
         } catch (e: Exception) {
-            XLog.e("Closecamerafailed:${e.message}")
-            ToastUtils.showShort("Closecamerafailed")
+            XLog.e("关闭相机失败:${e.message}")
+            ToastUtils.showShort("关闭相机失败")
         }
     }
 

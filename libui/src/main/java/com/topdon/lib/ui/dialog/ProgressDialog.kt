@@ -10,7 +10,7 @@ import com.topdon.lib.core.utils.ScreenUtil
 import com.topdon.lib.ui.databinding.DialogProgressBinding
 
 /**
- * 带进度条的tip弹框.
+ * 带进度条的提示弹框.
  */
 /**
  * ProgressDialog(context: class

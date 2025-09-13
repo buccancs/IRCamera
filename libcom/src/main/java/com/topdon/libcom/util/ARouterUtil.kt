@@ -10,7 +10,7 @@ import com.topdon.libcom.navigation.NavigationManager
  **/
 object ARouterUtil {
     /**
-     * 统一跳转infrared拍照界area
+     * 统一跳转红外拍照界面
      * @param activity Activity
      * @param isTC007 Boolean
      */

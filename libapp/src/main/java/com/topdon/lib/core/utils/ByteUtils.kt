@@ -124,7 +124,7 @@ object ByteUtils {
         }
 
     /**
-     * 将指定 ***大端字节序*** 的arrayconversion为 Int，若传递的parameter超过4个则只取前4个.
+     * 将指定 ***大端字节序*** 的array转换为 Int，若传递的参数超过4个则只取前4个.
      */
     fun bigBytesToInt(vararg bytes: Byte): Int {
         val byteCount = bytes.size.coerceAtMost(4)
@@ -136,7 +136,7 @@ object ByteUtils {
     }
 
     /**
-     * 将 Float 值conversion为 长度为 4 的array，小端字节序.
+     * 将 Float 值转换为 长度为 4 的array，小端字节序.
      */
     fun Float.toLittleBytes(): ByteArray {
         val result = ByteArray(4)

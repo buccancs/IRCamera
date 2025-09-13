@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 手机号前缀selection器
+ * 手机号前缀选择器
  *
  * @author 贵州山野羡民（1032694760@qq.com）
  * @since 2019/5/10 16:44

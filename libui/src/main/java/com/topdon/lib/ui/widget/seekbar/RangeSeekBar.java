@@ -36,6 +36,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class RangeSeekBar extends View {
 
     //pseudo colorcode
@@ -47,6 +48,7 @@ public class RangeSeekBar extends View {
     public final static int SEEKBAR_MODE_SINGLE = 1;
     //RangeSeekBar
     public final static int SEEKBAR_MODE_RANGE = 2;
+
 
     private boolean noNegativeNumber = false;
 
@@ -139,19 +141,19 @@ public class RangeSeekBar extends View {
 
     private int progressTop, progressBottom, progressLeft, progressRight;
     private int seekBarMode;
-    //刻度mode：number根据数字实际比例排列；other 均分排列
+    //刻度模式：number根据数字实际比例排列；other 均分排列
     private int tickMarkMode;
     //刻度与进度条间的间距
     //The spacing between the tick mark and the progress bar
     private int tickMarkTextMargin;
-    //刻度text与tiptext的大小
+    //刻度文字与提示文字的大小
     //tick mark text and prompt text size
     private int tickMarkTextSize;
     private int tickMarkGravity;
     private int tickMarkLayoutGravity;
     private int tickMarkTextColor;
     private int tickMarkInRangeTextColor;
-    //刻度上Show/Display的text
+    //刻度上显示的文字
     //The texts displayed on the scale
     private CharSequence[] tickMarkTextArray;
     //进度条圆角
@@ -271,6 +273,7 @@ public class RangeSeekBar extends View {
         rightSB.setVisible(seekBarMode != SEEKBAR_MODE_SINGLE);
     }
 
+
     private void initAttrs(AttributeSet attrs) {
         try {
             TypedArray t = getContext().obtainStyledAttributes(attrs, R.styleable.RangeSeekBar);
@@ -306,6 +309,7 @@ public class RangeSeekBar extends View {
         }
 
     }
+
 
     /**
      * measure progress bar position
@@ -357,7 +361,7 @@ public class RangeSeekBar extends View {
         initProgressBitmap();
     }
 
-    //Android 7.0以后，Optimize了View的绘制，onMeasure和onSizeChanged调用顺序有所变化
+    //Android 7.0以后，优化了View的绘制，onMeasure和onSizeChanged调用顺序有所变化
     //Android7.0以下：onMeasure--->onSizeChanged--->onMeasure
     //Android7.0以上：onMeasure--->onSizeChanged
     @Override
@@ -365,7 +369,7 @@ public class RangeSeekBar extends View {
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         /*
-         * onMeasure传入的widthMeasureSpec和heightMeasureSpec不是一般的尺寸数值，而是将mode和尺寸组合在一起的数值
+         * onMeasure传入的widthMeasureSpec和heightMeasureSpec不是一般的尺寸数值，而是将模式和尺寸组合在一起的数值
          * MeasureSpec.EXACTLY 是精确尺寸
          * MeasureSpec.AT_MOST 是最大尺寸
          * MeasureSpec.UNSPECIFIED 是未指定尺寸
@@ -432,16 +436,17 @@ public class RangeSeekBar extends View {
         }
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         onDrawTickMark(canvas, paint); //固定刻度
         onDrawProgressBar(canvas, paint); //轴
         onDrawSteps(canvas, paint);
-        onDrawSeekBar(canvas); //Swipetag
+        onDrawSeekBar(canvas); //滑动标签
     }
 
-    //绘制刻度，并且根据current位置是否在刻度range内settings不同的colorShow/Display
+    //绘制刻度，并且根据current位置是否在刻度range内settings不同的color显示
     // Draw the scales, and according to the current position is set within
     // the scale range of different color display
     protected void onDrawTickMark(Canvas canvas, Paint paint) {
@@ -452,7 +457,7 @@ public class RangeSeekBar extends View {
                 if (TextUtils.isEmpty(text2Draw)) continue;
                 paint.getTextBounds(text2Draw, 0, text2Draw.length(), tickMarkTextRect);
                 paint.setColor(tickMarkTextColor);
-                //平分Show/Display
+                //平分显示
                 float x;
                 if (tickMarkMode == TRICK_MARK_MODE_OTHER) {
                     if (tickMarkGravity == TICK_MARK_GRAVITY_RIGHT) {
@@ -468,7 +473,7 @@ public class RangeSeekBar extends View {
                     if (Utils.compareFloat(num, states[0].value) != -1 && Utils.compareFloat(num, states[1].value) != 1 && (seekBarMode == SEEKBAR_MODE_RANGE)) {
                         paint.setColor(tickMarkInRangeTextColor);
                     }
-                    //按实际比例Show/Display
+                    //按实际比例显示
                     x = getProgressLeft() + progressWidth * (num - minProgress) / (maxProgress - minProgress)
                             - tickMarkTextRect.width() / 2f;
                 }
@@ -487,7 +492,7 @@ public class RangeSeekBar extends View {
     // draw the progress bar
     protected void onDrawProgressBar(Canvas canvas, Paint paint) {
 
-        //固定region背景
+        //固定区域背景
         //draw default progress
         paint.setShader(null);
         if (Utils.verifyBitmap(progressDefaultBitmap)) {
@@ -503,10 +508,10 @@ public class RangeSeekBar extends View {
             canvas.drawRoundRect(progressDefaultDstRect, progressRadius, progressRadius, paint);
         }
 
-        //动态region前景
+        //动态区域前景
         //draw progress
         if (seekBarMode == SEEKBAR_MODE_RANGE) {
-//            XLog.w("动态轴region");
+//            XLog.w("动态轴区域");
             progressDstRect.top = getProgressTop();
             progressDstRect.left = leftSB.left + leftSB.getThumbScaleWidth() / 2f + progressWidth * leftSB.currPercent;
             progressDstRect.right = rightSB.left + rightSB.getThumbScaleWidth() / 2f + progressWidth * rightSB.currPercent;
@@ -594,6 +599,7 @@ public class RangeSeekBar extends View {
         paint.setTextSize(tickMarkTextSize);
     }
 
+
     private void changeThumbActivateState(boolean hasActivate) {
         if (hasActivate && currTouchSB != null) {
             boolean state = currTouchSB == leftSB;
@@ -662,7 +668,7 @@ public class RangeSeekBar extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (!isEnable) return false;
-//        Log.e("Test焦point：",event.getAction()+"//");
+//        Log.e("测试焦点：",event.getAction()+"//");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touchDownX = getEventX(event);
@@ -830,8 +836,9 @@ public class RangeSeekBar extends View {
 
     //******************* Attributes getter and setter *******************//
 
+
     /**
-     * 临时processing负数
+     * 临时处理负数
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;
@@ -916,6 +923,7 @@ public class RangeSeekBar extends View {
         invalidate();
     }
 
+
     /**
      * settingsrange
      *
@@ -931,8 +939,8 @@ public class RangeSeekBar extends View {
      *
      * @param editMin ： 手动settings的最小值
      * @param editMax : 手动settings的最小值
-     * @param realLeftValue : 实际minimumtemperature
-     * @param realRightValue ： 实际maximumtemperature
+     * @param realLeftValue : 实际最低温度
+     * @param realRightValue ： 实际最高温度
      */
     public void setRangeAndPro(float editMin,float editMax,float realLeftValue,float realRightValue){
         if (editMin == Float.MIN_VALUE && editMax == Float.MAX_VALUE){
@@ -979,7 +987,7 @@ public class RangeSeekBar extends View {
 //            throw new IllegalArgumentException("setRange() interval must be less than (max - min) ! #minInterval:" + minInterval + " #max - min:" + (max - min));
 //        }
         if (maxProgress == max && min == minProgress){
-//            Log.w("dataupdate拦截",max+"//"+min+"");
+//            Log.w("数据update拦截",max+"//"+min+"");
             return;
         }
         maxProgress = max;
@@ -1008,7 +1016,7 @@ public class RangeSeekBar extends View {
 //            throw new IllegalArgumentException("setRange() interval must be less than (max - min) ! #minInterval:" + minInterval + " #max - min:" + (max - min));
 //        }
         if (maxProgress == max && min == minProgress){
-//            Log.w("dataupdate拦截",max+"//"+min+"");
+//            Log.w("数据update拦截",max+"//"+min+"");
             return;
         }
         maxProgress = max;
@@ -1053,6 +1061,7 @@ public class RangeSeekBar extends View {
 
         return new SeekBarState[]{leftSeekBarState, rightSeekBarState};
     }
+
 
     @Override
     public void setEnabled(boolean enabled) {
@@ -1103,6 +1112,7 @@ public class RangeSeekBar extends View {
     public SeekBar getRightSeekBar() {
         return rightSB;
     }
+
 
     public int getProgressTop() {
         return progressTop;
@@ -1286,6 +1296,7 @@ public class RangeSeekBar extends View {
         this.progressWidth = progressWidth;
     }
 
+
     public void setTypeface(Typeface typeFace) {
         paint.setTypeface(typeFace);
     }
@@ -1430,6 +1441,8 @@ public class RangeSeekBar extends View {
         this.pseudocode = pseudocode;
         invalidate();
     }
+
+
 
     public void setColorList(@Nullable int[] colorList) {
         this.colorList = colorList;

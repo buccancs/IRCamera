@@ -16,14 +16,14 @@ import com.topdon.menu.R as MenuR
  * Custom Gallery edit menu view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("旧的2D编辑一级menu，已重构过了")
+@Deprecated("旧的2D编辑一级菜单，已重构过了")
 class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listener: ((code: Int) -> Unit)? = null
 
-    private var pointColor = false // point
-    private var pseudoColor = false // pseudo color
-    private var pseudoColorBar = false // pseudo color条
-    private var settingColorBar = false // settings
+    private var pointColor = false // 点
+    private var pseudoColor = false // 伪彩
+    private var pseudoColorBar = false // 伪彩条
+    private var settingColorBar = false // 设置
 
     private val bean =
         arrayListOf(
@@ -31,13 +31,13 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
                 name = context.getString(R.string.menu_3d_calibrate),
                 icon = MenuR.drawable.selector_menu_first_2_5,
                 code = 1000,
-            ), // calibration
+            ), // 标定
             IconBean(
                 name = context.getString(R.string.thermal_false_color),
                 icon = MenuR.drawable.selector_menu_first_4_3,
                 code = 2000,
-            ), // pseudo color
-            IconBean(name = context.getString(R.string.app_setting), icon = MenuR.drawable.selector_menu_first_5_6, code = 4000), // settings
+            ), // 伪彩
+            IconBean(name = context.getString(R.string.app_setting), icon = MenuR.drawable.selector_menu_first_5_6, code = 4000), // 设置
             IconBean(
                 name = context.getString(R.string.func_temper_ruler),
                 icon = MenuR.drawable.selector_menu_first_edit_4,
@@ -104,7 +104,7 @@ class GalleryEditMenuAdapter(val context: Context) : RecyclerView.Adapter<Recycl
         }
     }
 
-state变化
+\1状态变化
     private fun iconUI(
         isActive: Boolean,
         img: ImageView,

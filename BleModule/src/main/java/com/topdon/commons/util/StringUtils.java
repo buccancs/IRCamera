@@ -24,7 +24,7 @@ public class StringUtils {
      *
      * @param src       原字符串
      * @param targetLen 目标长度
-     * @param head      补前area还是后area
+     * @param head      补前面还是后面
      */
     public static String fillZero(String src, int targetLen, boolean head) {
         if (src == null) return null;
@@ -68,19 +68,19 @@ public class StringUtils {
     }
 
     /**
-     * byte数组conversion成16进制字符串
+     * byte数组转换成16进制字符串
      *
-     * @return 如果bytes为null则Returnnull，如果bytes长度为0Return""，其他Return正常conversion的字符串
+     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
     public static String toHex(byte[] bytes) {
         return toHex(bytes, " ");
     }
 
     /**
-     * byte数组conversion成16进制字符串
+     * byte数组转换成16进制字符串
      *
      * @param separator 用来分隔的字符串
-     * @return 如果bytes为null则Returnnull，如果bytes长度为0Return""，其他Return正常conversion的字符串
+     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
     public static String toHex(byte[] bytes, String separator) {
         if (bytes == null) {
@@ -108,19 +108,19 @@ public class StringUtils {
     }
 
     /**
-     * byte数组conversion成2进制字符串
+     * byte数组转换成2进制字符串
      *
-     * @return 如果bytes为null则Returnnull，如果bytes长度为0Return""，其他Return正常conversion的字符串
+     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
     public static String toBinary(byte[] bytes) {
         return toBinary(bytes, " ");
     }
 
     /**
-     * byte数组conversion成2进制字符串
+     * byte数组转换成2进制字符串
      *
      * @param separator 用来分隔的字符串
-     * @return 如果bytes为null则Returnnull，如果bytes长度为0Return""，其他Return正常conversion的字符串
+     * @return 如果bytes为null则返回null，如果bytes长度为0返回""，其他返回正常转换的字符串
      */
     public static String toBinary(byte[] bytes, String separator) {
         if (bytes == null) {
@@ -149,7 +149,7 @@ public class StringUtils {
     }
 
     /**
-     * 使用java正则表达式去掉小数point后多余的0，如最后一位是.则去掉
+     * 使用java正则表达式去掉小数点后多余的0，如最后一位是.则去掉
      */
     public static String subZeroAndDot(String number) {
         if (TextUtils.isEmpty(number)) return number;
@@ -161,7 +161,7 @@ public class StringUtils {
     }
 
     /**
-     * format00:00:00
+     * 格式00:00:00
      *
      * @param duration 时长，单位：秒
      */
@@ -171,7 +171,7 @@ public class StringUtils {
     }
 
     /**
-     * 将时长conversion成指定format的字符串
+     * 将时长转换成指定格式的字符串
      *
      * @param duration 时长，单位：秒
      */
@@ -185,7 +185,7 @@ public class StringUtils {
     }
 
     /**
-     * 进16进制字符串conversion成字节数组
+     * 进16进制字符串转换成字节数组
      *
      * @param hexStr    16进制的字符串
      * @param separator 字符串字节间的分隔符

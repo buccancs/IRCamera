@@ -16,16 +16,12 @@ import kotlin.math.roundToInt
  * 支持竖向的 SeekBar。
  * 暂不支持 thumbOffset.
  */
-
+/**
+ * Comm3DSeekBar class
+ */
 /**
  * Comm3 d seek bar utility class for thermal imaging operations.
  * Provides helper functions and common functionality.
- */
-/**
- * Comm3DSeekBar manages camera operations and image capture functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0
  */
 class Comm3DSeekBar : AppCompatSeekBar {
     private lateinit var mPaint: TextPaint
@@ -41,13 +37,13 @@ class Comm3DSeekBar : AppCompatSeekBar {
     private var mMinHeight = 24
     var level = 0
 
-    
+    // 进度文字位置信息
     private val mProgressTextRect: Rect = Rect()
 
-    
+    // 滑块button宽度
     private val mThumbWidth: Int = SizeUtils.dp2px(50f)
 
-    
+    // 进度指示器宽度
     private val mIndicatorWidth: Int = SizeUtils.dp2px(50f)
     private var onSeekBarChangeListener: OnSeekBarChangeListener? = null
 
@@ -140,9 +136,6 @@ class Comm3DSeekBar : AppCompatSeekBar {
         }
     }
 
-    /**
-     * Calculates drawable based on input parameters.
-     */
     private fun calculateDrawable(
         w: Int,
         h: Int,
@@ -184,9 +177,9 @@ class Comm3DSeekBar : AppCompatSeekBar {
             super.onDraw(canvas)
 //            val progressText = "$progress%"
 //            mPaint.getTextBounds(progressText, 0, progressText.length, mProgressTextRect)
-//            
+//            // 进度百分比
 //            val progressRatio = progress.toFloat() / max
-//            
+//            // thumb偏移量
 //            val thumbOffset: Float =
 //                (mThumbWidth - mProgressTextRect.width()) / 2 - mThumbWidth * progressRatio
 //            val thumbX = width * progressRatio + thumbOffset
@@ -235,7 +228,7 @@ class Comm3DSeekBar : AppCompatSeekBar {
     }
 
     /**
-     * 通过级别分层进行粘性processing
+     * 通过级别分层进行粘性处理
      */
     fun stopTrackTouchLevel() {
         if (level > 0) {
@@ -244,9 +237,6 @@ class Comm3DSeekBar : AppCompatSeekBar {
         }
     }
 
-    /**
-     * Handles touch gesture events.
-     */
     private fun trackTouchEvent(event: MotionEvent) {
         val y = event.y.roundToInt()
         progress =

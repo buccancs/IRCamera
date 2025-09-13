@@ -35,7 +35,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 /**
- * 摄像头property值settings
+ * 摄像头属性值设置
  * @author: CaiSongL
  * @date: 2023/4/3 15:00
  */
@@ -64,7 +64,7 @@ class IRCameraSettingActivity : BaseActivity() {
         productName = intent.getStringExtra(KEY_PRODUCT_TYPE) ?: ""
         if (isTC007())
             {
-                watermarkBean = SharedManager.wifiWatermarkBean // TC007只有watermark
+                watermarkBean = SharedManager.wifiWatermarkBean // TC007只有水印
                 continuousBean = SharedManager.continuousBean
             } else
             {
@@ -206,7 +206,7 @@ class IRCameraSettingActivity : BaseActivity() {
                 }
             },
         )
-        // TC007device不需要延迟拍照
+        // TC007设备不需要延迟拍照
         ly_auto.visibility = if (isTC007()) View.GONE else View.VISIBLE
     }
 
@@ -216,10 +216,10 @@ class IRCameraSettingActivity : BaseActivity() {
 
     @SuppressLint("MissingPermission")
     private fun getLocation(): String? {
-        // 1.Get/Retrieve位置管理器
+        // 1.获取位置管理器
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        // 2.Get/Retrieve位置提供器，GPS或是NetWork
+        // 2.获取位置提供器，GPS或是NetWork
         val providers = locationManager?.getProviders(true)
         locationProvider =
             if (providers!!.contains(LocationManager.GPS_PROVIDER)) {
@@ -247,7 +247,7 @@ class IRCameraSettingActivity : BaseActivity() {
 
     var locationListener: LocationListener =
         object : LocationListener {
-            // Provider的state在可用、暂时不可用和无service三个state直接switch时触发此function
+            // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
             override fun onStatusChanged(
                 provider: String,
                 status: Int,
@@ -260,29 +260,29 @@ class IRCameraSettingActivity : BaseActivity() {
                 ).show()
             }
 
-            // Provider被enable时触发此function，比如GPS被Open
+            // Provider被enable时触发此函数，比如GPS被打开
             override fun onProviderEnabled(provider: String) {
                 Toast.makeText(
                     this@IRCameraSettingActivity,
-                    "GPSOpen",
+                    "GPS打开",
                     Toast.LENGTH_SHORT,
                 ).show()
                 getLocation()
             }
 
-            // Provider被disable时触发此function，比如GPS被Close
+            // Provider被disable时触发此函数，比如GPS被关闭
             override fun onProviderDisabled(provider: String) {
                 Toast.makeText(
                     this@IRCameraSettingActivity,
-                    "GPSClose",
+                    "GPS关闭",
                     Toast.LENGTH_SHORT,
                 ).show()
             }
 
-            // 当坐标改变时触发此function，如果Provider传进相同的坐标，它就不会被触发
+            // 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
             override fun onLocationChanged(location: Location) {
                 if (location != null) {
-                    // 如果位置发生变化，重新Show/Display地理位置经纬度
+                    // 如果位置发生变化，重新显示地理位置经纬度
                     Toast.makeText(
                         this@IRCameraSettingActivity,
                         location.longitude.toString() + " " +
@@ -308,7 +308,7 @@ class IRCameraSettingActivity : BaseActivity() {
         return bestLocation
     }
 
-    // Get/Retrieve地址info:城市、街道等info
+    // 获取地址信息:城市、街道等信息
     private fun getAddress(location: Location?): String {
         var result: List<Address?>? = null
         try {
@@ -319,7 +319,7 @@ class IRCameraSettingActivity : BaseActivity() {
                         location.latitude,
                         location.longitude, 1,
                     )
-                Log.v("TAG", "Get/Retrieve地址info：$result")
+                Log.v("TAG", "获取地址信息：$result")
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -415,7 +415,7 @@ class IRCameraSettingActivity : BaseActivity() {
                         never: Boolean,
                     ) {
                         if (never) {
-                            // 如果是被永久拒绝就跳转到应用Permission系统settings页area
+                            // 如果是被永久拒绝就跳转到应用权限系统设置页面
                             if (BaseApplication.instance.isDomestic())
                                 {
                                     ToastUtils.showShort(getString(R.string.app_location_content))

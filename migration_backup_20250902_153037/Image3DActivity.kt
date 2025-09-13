@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
- * thermal imaging的3D界area
+ * 热成像的3D界面
  * @author: CaiSongL
  * @date: 2023/8/26 14:42
  */
@@ -50,16 +50,16 @@ class Image3DActivity : BaseActivity() {
             withContext(Dispatchers.IO) {
                 val file = File(ir_path)
                 if (!file.exists()) {
-                    XLog.w("IRfile不存在: ${file.absolutePath}")
+                    XLog.w("IR文件不存在: ${file.absolutePath}")
                     return@withContext
                 }
-                XLog.w("IRfile: ${file.absolutePath}")
+                XLog.w("IR文件: ${file.absolutePath}")
                 val allBytes = file.readBytes()
                 val headLenBytes = ByteArray(2)
                 System.arraycopy(allBytes, 0, headLenBytes, 0, 2)
                 val headLen = headLenBytes.bytesToInt()
                 System.arraycopy(allBytes, headLen, imageBytes, 0, imageBytes.size)
-                System.arraycopy(allBytes, imageBytes.size + headLen, temperatureBytes, 0, temperatureBytes.size) // temperaturedata (192 x 256 x 2)
+                System.arraycopy(allBytes, imageBytes.size + headLen, temperatureBytes, 0, temperatureBytes.size) // 温度数据 (192 x 256 x 2)
             }
             open3DTools.init(imageBytes!!, 1)
             ir_sf = IRSurfaceView(this@Image3DActivity)

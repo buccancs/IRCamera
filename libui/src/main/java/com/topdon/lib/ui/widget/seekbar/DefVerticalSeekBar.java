@@ -36,7 +36,7 @@ import static com.topdon.lib.ui.widget.seekbar.DefVerticalRangeSeekBar.TEXT_DIRE
  * //             佛祖保佑             永无BUG
  * =====================================================
  * 作    者：JayGoo
- * create日期：2019-06-05
+ * 创建日期：2019-06-05
  * 描    述:
  * =====================================================
  */

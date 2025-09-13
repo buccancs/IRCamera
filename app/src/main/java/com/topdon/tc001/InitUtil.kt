@@ -26,7 +26,7 @@ import com.topdon.lms.sdk.utils.LanguageUtil
 import java.util.Date
 
 /**
- * 国内Permission申请后才能initialization
+ * 国内权限申请后才能初始化
  */
 object InitUtil {
     fun initLog() {
@@ -34,8 +34,8 @@ object InitUtil {
         val fileDir = BaseApplication.instance.getExternalFilesDir("log")!!.absolutePath
         val tag = "MPDC4GSR_LOG"
         val pattern = "{d}, {L}, {t}, {m}"
-        val backupStrategy = FileSizeBackupStrategy2(5 * 1024 * 1024L, 10) // 一份file的大小
-        val cleanStrategy = FileLastModifiedCleanStrategy(30 * 24 * 60 * 60) // settings自动Clear时间
+        val backupStrategy = FileSizeBackupStrategy2(5 * 1024 * 1024L, 10) // 一份文件的大小
+        val cleanStrategy = FileLastModifiedCleanStrategy(30 * 24 * 60 * 60) // 设置自动清除时间
 
         val config =
             LogConfiguration.Builder()
@@ -44,11 +44,11 @@ object InitUtil {
                 .build()
         val androidPrinter = AndroidPrinter(true)
         val filePrinter =
-            FilePrinter.Builder(fileDir) // 指定saveLogfile的path
-                .fileNameGenerator(ChangelessFileNameGenerator(fileName)) // 指定Logfile名生成器
-                .backupStrategy(backupStrategy) // 指定LogfileBackupStrategy
-                .cleanStrategy(cleanStrategy) // 指定LogfileClearStrategy
-                .flattener(PatternFlattener(pattern)) // 自定义Logformat
+            FilePrinter.Builder(fileDir) // 指定保存日志文件的路径
+                .fileNameGenerator(ChangelessFileNameGenerator(fileName)) // 指定日志文件名生成器
+                .backupStrategy(backupStrategy) // 指定日志文件备份策略
+                .cleanStrategy(cleanStrategy) // 指定日志文件清除策略
+                .flattener(PatternFlattener(pattern)) // 自定义日志格式
                 .build()
         if (BuildConfig.DEBUG) {
             XLog.init(config, androidPrinter, filePrinter)
@@ -64,7 +64,7 @@ object InitUtil {
             "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
                 "language=${LanguageUtil.getLanguageId(Utils.getApp())}&type=22"
-        // Userprotocol地址
+        // 用户协议地址
         val servicesAgreementUrl =
             "https://plat.topdon.com/topdon-plat/out-user/baseinfo/template/getHtmlContentById?" +
                 "softCode=${BaseApplication.instance.getSoftWareCode()}&" +
@@ -81,7 +81,7 @@ object InitUtil {
                 if (!BaseApplication.instance.isDomestic()) {
                     initXutils()
                 } else {
-                    // 有data之后需要进行替换
+                    // 有数据之后需要进行替换
                     setWxAppId("wx588cb319449b72dd")
                     setBuglyAppId("0b375add84")
                     // 国内版需要友盟
@@ -97,9 +97,9 @@ object InitUtil {
 //        if (BaseApplication.instance.isDomestic()){
         // 只有国内版才需要接入友盟
 //            UMConfigure.setLogEnabled(BuildConfig.DEBUG)
-//            //友盟预initialization
+//            //友盟预初始化
 //            UMConfigure.preInit(BaseApplication.instance, "659384b895b14f599d0d9247", "Um-eng")
-//            //判断是否同意隐私protocol，uminit为1时为已经同意，直接initializationumsdk
+//            //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
 //            UMConfigure.init(
 //                BaseApplication.instance,
 //                "659384b895b14f599d0d9247",
@@ -129,13 +129,13 @@ object InitUtil {
             BaseApplication.instance.unregisterReceiver(BaseApplication.usbObserver)
         } catch (e: Exception) {
         }
-        // 必须动态Register,否则部分机型无法收到usbstate
+        // 必须动态注册,否则部分机型无法收到usb状态
         val filter = IntentFilter()
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED)
-        filter.addAction(DeviceBroadcastReceiver.ACTION_USB_PERMISSION) // 申请USBPermission
+        filter.addAction(DeviceBroadcastReceiver.ACTION_USB_PERMISSION) // 申请USB权限
         if (Build.VERSION.SDK_INT < 33) {
             BaseApplication.instance.registerReceiver(BaseApplication.usbObserver, filter)
         } else {

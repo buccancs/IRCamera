@@ -31,12 +31,12 @@ class TempAlarmSetDialog(
         }
 
     /**
-     * saveclickEventListener.
+     * 保存点击事件监听.
      */
     var onSaveListener: ((alarmBean: AlarmBean) -> Unit)? = null
 
     /**
-     * 用于playback报警铃声.
+     * 用于播放报警铃声.
      */
     private var mediaPlayer: MediaPlayer? = null
 
@@ -295,7 +295,7 @@ class TempAlarmSetDialog(
                 alarmBean.isLowOpen = isChecked
             }
 
-            R.id.switch_alarm_mark -> { // regionmarker
+            R.id.switch_alarm_mark -> { // 区域标记
                 clAlarmMark.isVisible = isChecked
                 alarmBean.isMarkOpen = isChecked
             }
@@ -312,7 +312,7 @@ class TempAlarmSetDialog(
     }
 
     /**
-     * settings当前selected的铃声，null 表示Close.
+     * 设置当前选中的铃声，null 表示关闭.
      */
     private fun selectRingtone(position: Int?) {
         try {

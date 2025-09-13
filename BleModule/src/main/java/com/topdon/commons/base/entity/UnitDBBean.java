@@ -3,7 +3,7 @@ package com.topdon.commons.base.entity;
 import java.io.Serializable;
 
 /**
- * @Desc 单位conversion
+ * @Desc 单位转换
  * @ClassName UnitDBBean
  * @Email 616862466@qq.com
  * @Author 子墨
@@ -11,26 +11,27 @@ import java.io.Serializable;
  */
 public class UnitDBBean implements Serializable {
 //    {
-//        "conversion关系": "公转英",
-//            "conversion前单位": "m",
-//            "conversion前中文name": "米",
-//            "conversion后单位": "yd.",
-//            "conversion后中文name": "码",
-//            "conversion公式": "1 米 = 1.094码",
-//            "calculation因子": "1.094"
+//        "转换关系": "公转英",
+//            "转换前单位": "m",
+//            "转换前中文名称": "米",
+//            "转换后单位": "yd.",
+//            "转换后中文名称": "码",
+//            "转换公式": "1 米 = 1.094码",
+//            "计算因子": "1.094"
 //    },
 
     private static final long serialVersionUID = -1L;
     public Long dbid;
-    String LoginName;//Login账号
-    int unitType;//0 公制type  1 英制type
-    String conversionRelation;//conversion关系
-    String preUnit;//conversion前单位
-    String preName;//conversion前中文name
-    String afterUnit;//conversion后单位
-    String afterName;//conversion后中文name
-    String conversionFormula;//conversion公式
-    String calcFactor;//calculation因子
+    String LoginName;//登录账号
+    int unitType;//0 公制类型  1 英制类型
+    String conversionRelation;//转换关系
+    String preUnit;//转换前单位
+    String preName;//转换前中文名称
+    String afterUnit;//转换后单位
+    String afterName;//转换后中文名称
+    String conversionFormula;//转换公式
+    String calcFactor;//计算因子
+
 
     public Long getDbid() {
         return dbid;
@@ -111,5 +112,6 @@ public class UnitDBBean implements Serializable {
     public void setCalcFactor(String calcFactor) {
         this.calcFactor = calcFactor;
     }
+
 
 }

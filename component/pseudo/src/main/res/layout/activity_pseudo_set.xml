@@ -200,7 +200,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- maximum温 -->
+                <!-- 最高温 -->
                 <TextView
                     android:id="@+id/tv_max_temp"
                     android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
                     app:layout_constraintTop_toTopOf="@id/et_max_temp"
                     app:layout_constraintBottom_toBottomOf="@id/et_max_temp" />
 
-                <!-- minimum温 -->
+                <!-- 最低温 -->
                 <TextView
                     android:id="@+id/tv_min_temp"
                     android:layout_width="wrap_content"
@@ -502,7 +502,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_color_title">
                     <!-- 目前原型UI为5个预设值，更改的概率不大，此处直接写死，就不用 RecyclerView、自定义View 之Class的去复杂化了 -->
-                    <!-- iron red -->
+                    <!-- 铁红 -->
                     <View
                         android:id="@+id/view_recommend_bg_color1"
                         android:layout_width="0dp"
@@ -719,7 +719,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/barrier_color" />
 
-                <!-- grayscale渐变 -->
+                <!-- 灰度渐变 -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_over_grey"
                     android:layout_width="0dp"

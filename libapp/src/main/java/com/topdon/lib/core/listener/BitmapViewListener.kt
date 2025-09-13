@@ -1,7 +1,7 @@
 package com.topdon.lib.core.listener
 
 /**
- * Get/Retrieve内嵌VIEW的property值
+ * 获取内嵌VIEW的属性值
  * @author: CaiSongL
  * @date: 2023/4/10 19:08
  */

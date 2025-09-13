@@ -18,13 +18,7 @@ import com.topdon.lib.ui.R as UiR
  * Custom Camera item view for thermal imaging display.
  * Provides specialized rendering and interaction capabilities.
  */
-@Deprecated("thermal imaging-menu-capture已重构，不需要这个class了")
-/**
- * CameraItemAdapter provides data binding between data source and UI components.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
+@Deprecated("热成像-menu-capture已重构，不需要这个类了")
 class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapter.ViewHolder>() {
     val data: List<String> =
         listOf(
@@ -69,9 +63,6 @@ class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapt
             itemView.findViewById<View>(UiR.id.container).setOnClickListener(this)
         }
 
-    /**
-     * Executes showtext functionality.
-     */
         fun showText() {
             textView.pivotX = (textView.width / 2).toFloat()
             textView.pivotY = (textView.height / 2).toFloat()
@@ -84,9 +75,6 @@ class CameraItemAdapter(context: Context) : RecyclerView.Adapter<CameraItemAdapt
                 .start()
         }
 
-    /**
-     * Executes hidetext functionality.
-     */
         fun hideText() {
             textView.setTextColor(ContextCompat.getColor(textView.context, UiR.color.ui_main_custom_color))
             //            textView.setColorFilter(ContextCompat.getColor(imageView.getContext(), UiR.color.Grey700));

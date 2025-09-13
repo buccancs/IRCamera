@@ -37,7 +37,7 @@ import com.topdon.lib.ui.R;
  * //             佛祖保佑             永无BUG
  * =====================================================
  * 作    者：JayGoo
- * create日期：2019-06-05
+ * 创建日期：2019-06-05
  * 描    述:
  * =====================================================
  */
@@ -80,13 +80,13 @@ public class VerticalSeekBar extends SeekBar {
     }
     private boolean noNegativeNumber = false;
     /**
-     * 临时processing负数
+     * 临时处理负数
      */
     public void setNoNegativeNumber(Boolean noNegativeNumber){
         this.noNegativeNumber = noNegativeNumber;
     }
     /**
-     * 竖tag绘制
+     * 竖标签绘制
      *
      * @param canvas
      * @param paint
@@ -184,13 +184,13 @@ public class VerticalSeekBar extends SeekBar {
             if (degrees != 0) {
                 canvas.rotate(degrees, rotateX, rotateY);
             }
-            //tag文本
+            //标签文本
             canvas.drawText(text2Draw, tx, ty, paint);
             if (degrees != 0) {
                 canvas.rotate(-degrees, rotateX, rotateY);
             }
         }catch (Exception e){
-            Log.e("pseudo color条渲染failed",e.getMessage());
+            Log.e("pseudo color条渲染失败",e.getMessage());
         }
     }
 

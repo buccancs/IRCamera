@@ -8,10 +8,10 @@ import com.topdon.ble.Request;
  */
 public interface WriteCharacteristicCallback extends RequestFailedCallback {
     /**
-     * success写入特征值
+     * 成功写入特征值
      *
      * @param request 请求
-     * @param value   写入的data
+     * @param value   写入的数据
      */
     void onCharacteristicWrite(Request request, byte[] value);
 }

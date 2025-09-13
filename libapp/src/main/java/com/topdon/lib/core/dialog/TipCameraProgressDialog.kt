@@ -10,26 +10,14 @@ import com.topdon.lib.core.R
 import com.topdon.lib.core.utils.ScreenUtil
 
 /**
- * tip窗
+ * 提示窗
  * create by fylder on 2018/6/15
  **/
-/**
- * TipCameraProgressDialog displays modal dialog interface for user interaction.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
 class TipCameraProgressDialog : Dialog {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-/**
- * Builder manages camera operations and image capture functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
     class Builder {
         var dialog: TipCameraProgressDialog? = null
 
@@ -45,16 +33,10 @@ class TipCameraProgressDialog : Dialog {
             return this
         }
 
-    /**
-     * Executes dismiss functionality.
-     */
         fun dismiss() {
             this.dialog!!.dismiss()
         }
 
-    /**
-     * Creates and configures a new  instance.
-     */
         fun create(): TipCameraProgressDialog {
             if (dialog == null) {
                 dialog = TipCameraProgressDialog(context!!, R.style.InfoDialog)
@@ -69,13 +51,13 @@ class TipCameraProgressDialog : Dialog {
             val lp = dialog!!.window!!.attributes
             val wRatio =
                 if (context!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    
+                    // 竖屏
                     0.52
                 } else {
-                    
+                    // 横屏
                     0.35
                 }
-            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() 
+            lp.width = (ScreenUtil.getScreenWidth(context!!) * wRatio).toInt() // 设置宽度
             dialog!!.window!!.attributes = lp
             dialog!!.setCanceledOnTouchOutside(canceleable)
             dialog!!.setCancelable(canceleable)
@@ -85,18 +67,9 @@ class TipCameraProgressDialog : Dialog {
     }
 
     /**
-     * 提交Callback
+     * 提交回调
      */
-/**
- * OnClickListener manages camera operations and image capture functionality.
- *
- * @author IRCamera Development Team
- * @since 1.0
- */
     interface OnClickListener {
-    /**
-     * Callback method triggered when click occurs.
-     */
         fun onClick(dialog: DialogInterface)
     }
 }

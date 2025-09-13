@@ -7,17 +7,16 @@ import com.topdon.lib.core.R
 import com.topdon.menu.R as MenuR
 
 /**
- * Observation mode - menu 2 - high/low temperature source menu adapter.
- * Single selection with option to have all unselected.
+ * observation模式-menu2-high/low temperature源menu Adapter used for，single selection可全不selected.
  *
- * Options: dynamic recognition, high temperature source, low temperature source
+ * dynamic recognition、high temperature source、low temperature source
  *
  * Created by LCG on 2024/11/29.
  */
 @SuppressLint("NotifyDataSetChanged")
 internal class TempSourceAdapter : BaseMenuAdapter() {
     /**
-     * Currently selected option code.
+     * currentselected的选项 code.
      *
      * Due to legacy constraints (saved in SharedPreferences), the code values are:
      * - Nothing selected: -1
@@ -34,7 +33,7 @@ internal class TempSourceAdapter : BaseMenuAdapter() {
         }
 
     /**
-     * Observation mode - Menu 2 - High/Low temperature source click event listener. Single selection.
+     * Observation mode - Menu 2 - High/Low temperature source click event listener，single selection。
      */
     var onTempSourceListener: ((code: Int) -> Unit)? = null
 

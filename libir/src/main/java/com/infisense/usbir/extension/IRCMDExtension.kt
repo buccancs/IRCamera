@@ -31,7 +31,7 @@ fun IRCMD.setMirror(isMirror: Boolean) {
 }
 
 /**
- * settingscontrast
+ * settings对比度
  * @param value 取值range `[0, 255]`
  */
 fun IRCMD.setContrast(value: Int) {

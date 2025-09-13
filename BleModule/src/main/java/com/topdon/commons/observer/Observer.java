@@ -8,7 +8,7 @@ package com.topdon.commons.observer;
  */
 public interface Observer {
     /**
-     * data变化
+     * 数据变化
      */
     @Observe
     default void onChanged(Object o) {}

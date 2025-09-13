@@ -64,7 +64,7 @@ public class ByteUtil {
     /**
      * int到byte[] 由高位到低位
      *
-     * @param i 需要conversion为byte数组的整行值。
+     * @param i 需要转换为byte数组的整行值。
      * @return byte数组
      */
     public static byte[] intToByteArray(int i) {
@@ -108,22 +108,22 @@ public class ByteUtil {
     }
 
     public static int byteToInt(byte b) {
-        //Java 总是把 byte 当做有符processing；我们可以通过将其和 0xFF 进行二进制与得到它的无符值
+        //Java 总是把 byte 当做有符处理；我们可以通过将其和 0xFF 进行二进制与得到它的无符值
         return b & 0xFF;
     }
 
     public static byte[] short2byte(short s){
         byte[] b = new byte[2];
         for(int i = 0; i < 2; i++){
-            int offset = 16 - (i+1)*8; //因为byte占4个字节，所以要calculation偏移量
-            b[i] = (byte)((s >> offset)&0xff); //把16位分为2个8位进行分别storage
+            int offset = 16 - (i+1)*8; //因为byte占4个字节，所以要计算偏移量
+            b[i] = (byte)((s >> offset)&0xff); //把16位分为2个8位进行分别存储
         }
         return b;
     }
 
     /**
      * byte[]转int
-     * @param bytes 需要conversion成int的数组
+     * @param bytes 需要转换成int的数组
      * @return int值
      */
     public static int byteArrayToInt(byte[] bytes) {
