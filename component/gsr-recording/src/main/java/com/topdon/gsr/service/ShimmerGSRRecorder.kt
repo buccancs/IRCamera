@@ -574,7 +574,7 @@ class ShimmerGSRRecorder(
 
     private fun cleanup() {
         try {
-            // Close only the sync marks writer (signals writer not used in logging mode)
+            // Close sync marks writer
             syncMarksWriter?.close()
             syncMarksWriter = null
         } catch (e: Exception) {
