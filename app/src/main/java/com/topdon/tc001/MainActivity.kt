@@ -676,7 +676,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                         allGranted: Boolean,
                     ) {
                         if (allGranted) {
-                            jumpIRActivity()
+                            checkBluetoothPermission()
                         }
                     }
 
@@ -728,6 +728,83 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 }
             }
         }
+    }
+
+    /**
+     * Check Bluetooth permissions required for GSR sensor recording
+     */
+    private fun checkBluetoothPermission() {
+        val missingPermissions = GSRSensorRecorder.getMissingPermissions(this)
+        
+        if (missingPermissions.isNotEmpty()) {
+            if (BaseApplication.instance.isDomestic()) {
+                TipDialog.Builder(this)
+                    .setMessage("GSR recording requires Bluetooth and location permissions for Shimmer3 device connection")
+                    .setCancelListener(R.string.app_cancel)
+                    .setPositiveListener(R.string.app_confirm) {
+                        initBluetoothPermission()
+                    }
+                    .create().show()
+            } else {
+                initBluetoothPermission()
+            }
+        } else {
+            // All permissions granted, proceed to main activity
+            jumpIRActivity()
+        }
+    }
+
+    /**
+     * Initialize Bluetooth permission request for GSR functionality
+     */
+    private fun initBluetoothPermission() {
+        val missingPermissions = GSRSensorRecorder.getMissingPermissions(this)
+        
+        if (missingPermissions.isEmpty()) {
+            jumpIRActivity()
+            return
+        }
+        
+        XXPermissions.with(this)
+            .permission(missingPermissions)
+            .request(
+                object : OnPermissionCallback {
+                    override fun onGranted(
+                        permissions: MutableList<String>,
+                        allGranted: Boolean,
+                    ) {
+                        if (allGranted) {
+                            Log.i("MainActivity", "All GSR/Bluetooth permissions granted")
+                            jumpIRActivity()
+                        } else {
+                            Log.w("MainActivity", "Some GSR/Bluetooth permissions denied: $permissions")
+                            jumpIRActivity() // Continue anyway, GSR will show error if needed
+                        }
+                    }
+
+                    override fun onDenied(
+                        permissions: MutableList<String>,
+                        doNotAskAgain: Boolean,
+                    ) {
+                        Log.w("MainActivity", "GSR/Bluetooth permissions denied: $permissions")
+                        if (doNotAskAgain) {
+                            TipDialog.Builder(this@MainActivity)
+                                .setTitleMessage(getString(R.string.app_tip))
+                                .setMessage("GSR recording requires Bluetooth permissions. Please enable them in settings for Shimmer3 device support.")
+                                .setPositiveListener(R.string.app_open) {
+                                    AppUtils.launchAppDetailsSettings()
+                                }
+                                .setCancelListener(R.string.app_cancel) {
+                                    jumpIRActivity() // Continue without GSR
+                                }
+                                .setCanceled(true)
+                                .create().show()
+                        } else {
+                            jumpIRActivity() // Continue without GSR
+                        }
+                    }
+                },
+            )
     }
 
     private var appVersionUtil: AppVersionUtil? = null
