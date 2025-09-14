@@ -742,11 +742,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                     .setMessage("GSR recording requires Bluetooth and location permissions for Shimmer3 device connection")
                     .setCancelListener(R.string.app_cancel)
                     .setPositiveListener(R.string.app_confirm) {
-                        initBluetoothPermission()
+                        initBluetoothPermission(missingPermissions)
                     }
                     .create().show()
             } else {
-                initBluetoothPermission()
+                initBluetoothPermission(missingPermissions)
             }
         } else {
             // All permissions granted, proceed to main activity
@@ -757,9 +757,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     /**
      * Initialize Bluetooth permission request for GSR functionality
      */
-    private fun initBluetoothPermission() {
-        val missingPermissions = GSRSensorRecorder.getMissingPermissions(this)
-        
+    private fun initBluetoothPermission(missingPermissions: List<String> = GSRSensorRecorder.getMissingPermissions(this)) {
         if (missingPermissions.isEmpty()) {
             jumpIRActivity()
             return

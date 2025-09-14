@@ -33,13 +33,9 @@ public class ShimmerDevice implements UnifiedDevice {
     private static final UUID SHIMMER_CMD_CHAR_UUID = UUID.fromString("49535343-8841-43F4-A8D4-ECBE34729BB3");
     private static final UUID CLIENT_CHARACTERISTIC_CONFIG = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
     
-    // Shimmer commands
+    // Shimmer commands (logging uses same commands as streaming but in different context)
     private static final byte SHIMMER_START_STREAMING = 0x07;
     private static final byte SHIMMER_STOP_STREAMING = 0x20;
-    
-    // Shimmer logging commands (same as streaming but with different configuration context)
-    private static final byte SHIMMER_START_LOGGING = 0x07;  // Start SD card logging
-    private static final byte SHIMMER_STOP_LOGGING = 0x20;   // Stop SD card logging
     
     // Device state
     private final BluetoothDevice bluetoothDevice;
@@ -275,7 +271,7 @@ public class ShimmerDevice implements UnifiedDevice {
             Log.i(TAG, "Starting Shimmer SD card logging");
             
             // Send start logging command (same as streaming but for SD card storage)
-            byte[] startCommand = {SHIMMER_START_LOGGING};
+            byte[] startCommand = {SHIMMER_START_STREAMING};
             boolean success = sendCommand(startCommand);
             
             if (success) {
@@ -296,11 +292,16 @@ public class ShimmerDevice implements UnifiedDevice {
      * @return true if command was sent successfully, false otherwise
      */
     public boolean stopLogging() {
+        if (!isConnected()) {
+            Log.w(TAG, "Device not connected");
+            return false;
+        }
+        
         try {
             Log.i(TAG, "Stopping Shimmer SD card logging");
             
             // Send stop logging command
-            byte[] stopCommand = {SHIMMER_STOP_LOGGING};
+            byte[] stopCommand = {SHIMMER_STOP_STREAMING};
             boolean success = sendCommand(stopCommand);
             
             if (success) {

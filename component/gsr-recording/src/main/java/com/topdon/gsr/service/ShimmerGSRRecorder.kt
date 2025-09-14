@@ -251,29 +251,25 @@ class ShimmerGSRRecorder(
                 // Start Shimmer SD card logging (not streaming)
                 // This commands the device to log data to its internal SD card
                 shimmerDevice?.let { device ->
-                    // Check if device supports logging (Shimmer3 GSR+ does)
-                    if (device is Shimmer) {
-                        // Use official API logging commands
+                    try {
+                        // Use official Shimmer API to start SD card logging
+                        device.startSDLogging()
+                        Log.i(TAG, "Started SD card logging using official Shimmer API")
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to start SD card logging", e)
+                        // Try alternative logging command via BLE
                         try {
-                            if (device is Shimmer) {
-                                device.startSDLogging()
-                                Log.i(TAG, "Started SD card logging using official API")
-                            } else {
-                                Log.w(TAG, "Device is not a Shimmer instance, cannot start SD logging")
-                            }
-                        } catch (e: Exception) {
-                            Log.w(TAG, "Official startSDLogging not available, using generic logging command")
-                            // Fallback: use BLE logging command directly  
                             val startLoggingCmd = byteArrayOf(0x07)
-                            // Send via BLE if device supports it
+                            device.writeBytes(startLoggingCmd)
+                            Log.i(TAG, "Started logging using direct BLE command")
+                        } catch (bleException: Exception) {
+                            Log.e(TAG, "Failed to send logging command via BLE", bleException)
+                            throw Exception("Could not start Shimmer logging: ${e.message}")
                         }
-                    } else {
-                        // For BLE-based Shimmer devices, use logging methods
-                        Log.i(TAG, "Starting Shimmer SD card logging via BLE")
-                        // Note: Data will be stored on Shimmer's SD card, not streamed to phone
                     }
                 } ?: run {
                     Log.w(TAG, "No Shimmer device available for logging")
+                    throw Exception("No Shimmer device connected")
                 }
 
                 currentSession?.let { session ->
@@ -302,24 +298,19 @@ class ShimmerGSRRecorder(
         // Stop Shimmer SD card logging (not streaming)
         shimmerDevice?.let { device ->
             try {
-                if (device.javaClass.simpleName == "Shimmer") {
-                    // Use official API logging commands
-                    try {
-                        val stopLoggingMethod = device.javaClass.getMethod("stopSDLogging")
-                        stopLoggingMethod.invoke(device)
-                        Log.i(TAG, "Stopped SD card logging using official API")
-                    } catch (e: Exception) {
-                        Log.w(TAG, "Official stopSDLogging not available, using generic logging command")
-                        // Fallback: use BLE logging command directly  
-                        val stopLoggingCmd = byteArrayOf(0x20)
-                        // Send via BLE if device supports it
-                    }
-                } else {
-                    // For BLE-based Shimmer devices, use logging methods
-                    Log.i(TAG, "Stopping Shimmer SD card logging via BLE")
-                }
+                // Use official Shimmer API to stop SD card logging
+                device.stopSDLogging()
+                Log.i(TAG, "Stopped SD card logging using official Shimmer API")
             } catch (e: Exception) {
-                Log.e(TAG, "Error stopping Shimmer logging", e)
+                Log.e(TAG, "Failed to stop SD card logging", e)
+                // Try alternative logging command via BLE
+                try {
+                    val stopLoggingCmd = byteArrayOf(0x20)
+                    device.writeBytes(stopLoggingCmd)
+                    Log.i(TAG, "Stopped logging using direct BLE command")
+                } catch (bleException: Exception) {
+                    Log.e(TAG, "Failed to send stop logging command via BLE", bleException)
+                }
             }
         }
 
