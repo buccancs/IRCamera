@@ -38,6 +38,24 @@ public interface UnifiedDevice {
     
     boolean stopDataStreaming();
     
+    /**
+     * Start SD card logging on the device (for devices that support internal storage)
+     * @return true if logging started successfully, false otherwise
+     */
+    default boolean startLogging() {
+        // Default implementation delegates to streaming for devices that don't support logging
+        return startDataStreaming();
+    }
+    
+    /**
+     * Stop SD card logging on the device (for devices that support internal storage)
+     * @return true if logging stopped successfully, false otherwise
+     */
+    default boolean stopLogging() {
+        // Default implementation delegates to streaming for devices that don't support logging
+        return stopDataStreaming();
+    }
+    
     
     boolean sendCommand(@NonNull byte[] command);
     

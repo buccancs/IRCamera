@@ -37,6 +37,10 @@ public class ShimmerDevice implements UnifiedDevice {
     private static final byte SHIMMER_START_STREAMING = 0x07;
     private static final byte SHIMMER_STOP_STREAMING = 0x20;
     
+    // Shimmer logging commands (same as streaming but with different configuration context)
+    private static final byte SHIMMER_START_LOGGING = 0x07;  // Start SD card logging
+    private static final byte SHIMMER_STOP_LOGGING = 0x20;   // Stop SD card logging
+    
     // Device state
     private final BluetoothDevice bluetoothDevice;
     private final ShimmerDeviceConfig config;
@@ -255,6 +259,64 @@ public class ShimmerDevice implements UnifiedDevice {
             return false;
         }
     }
+    
+    /**
+     * Start SD card logging on the Shimmer device.
+     * This sends the start logging command (0x07) to begin internal data storage.
+     * @return true if command was sent successfully, false otherwise
+     */
+    public boolean startLogging() {
+        if (!isConnected()) {
+            Log.w(TAG, "Device not connected");
+            return false;
+        }
+        
+        try {
+            Log.i(TAG, "Starting Shimmer SD card logging");
+            
+            // Send start logging command (same as streaming but for SD card storage)
+            byte[] startCommand = {SHIMMER_START_LOGGING};
+            boolean success = sendCommand(startCommand);
+            
+            if (success) {
+                Log.i(TAG, "Shimmer SD card logging started");
+            }
+            
+            return success;
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to start Shimmer SD card logging", e);
+            return false;
+        }
+    }
+    
+    /**
+     * Stop SD card logging on the Shimmer device.
+     * This sends the stop logging command (0x20) to end internal data storage.
+     * @return true if command was sent successfully, false otherwise
+     */
+    public boolean stopLogging() {
+        try {
+            Log.i(TAG, "Stopping Shimmer SD card logging");
+            
+            // Send stop logging command
+            byte[] stopCommand = {SHIMMER_STOP_LOGGING};
+            boolean success = sendCommand(stopCommand);
+            
+            if (success) {
+                Log.i(TAG, "Shimmer SD card logging stopped");
+            }
+            
+            return success;
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to stop Shimmer SD card logging", e);
+            return false;
+        }
+    }
+    
+    // The startLogging() and stopLogging() methods above already implement the interface
+    // No need for additional overrides as they provide the concrete implementation
     
     @Override
     public boolean sendCommand(@NonNull byte[] command) {

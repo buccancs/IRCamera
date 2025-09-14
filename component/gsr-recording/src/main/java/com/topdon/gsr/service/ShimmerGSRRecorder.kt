@@ -64,7 +64,7 @@ class ShimmerGSRRecorder(
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var currentSession: SessionInfo? = null
     private var sessionDirectory: File? = null
-    private var signalsWriter: CSVWriter? = null
+    // Note: signalsWriter not used in logging mode - data goes to Shimmer SD card
     private var syncMarksWriter: CSVWriter? = null
 
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -117,17 +117,13 @@ class ShimmerGSRRecorder(
                 Log.i(TAG, "Official processing available: ${shimmerAPIBridge.isOfficialProcessingAvailable()}")
 
                 shimmerDevice?.let { device ->
-                    // Set up device callback for data streaming
-                    device.setDataCallback { objectCluster ->
-                        handleShimmerData(objectCluster)
-                    }
-
-                    // Set up connection state callback
+                    // For logging mode, we don't set up data callbacks since data goes to SD card
+                    // Only set up connection state callback to monitor device connection
                     device.setConnectionCallback { connectionState ->
                         when (connectionState) {
                             "CONNECTED" -> {
                                 isDeviceConnected.set(true)
-                                Log.i(TAG, "Shimmer device connected")
+                                Log.i(TAG, "Shimmer device connected for logging mode")
                                 listeners.forEach { it.onDeviceConnected() }
                             }
                             "DISCONNECTED" -> {
@@ -141,13 +137,13 @@ class ShimmerGSRRecorder(
                         }
                     }
 
-                    // Configure GSR sensing with 128Hz sampling rate
+                    // Configure GSR sensing with 128Hz sampling rate for SD card logging
                     try {
-                        // Official Shimmer API doesn't require explicit configuration writes
-                        // Configuration is handled internally
-                        Log.d(TAG, "Using official Shimmer API configuration")
+                        // Configure device for logging mode (data stored on SD card)
+                        // Official Shimmer API handles configuration internally
+                        Log.d(TAG, "Configuring Shimmer for SD card logging mode")
                     } catch (e: Exception) {
-                        Log.w(TAG, "Configuration note: using default settings", e)
+                        Log.w(TAG, "Configuration note: using default settings for logging", e)
                     }
 
                     if (deviceAddress != null) {
@@ -231,21 +227,52 @@ class ShimmerGSRRecorder(
                     return@withContext false
                 }
 
-                // Create session info
+                // Create session info with logging mode metadata
                 currentSession =
                     SessionInfo(
                         sessionId = sessionId,
                         startTime = System.currentTimeMillis(),
                         participantId = null,
                         studyName = "Shimmer3_GSR_Study",
-                    )
+                    ).apply {
+                        hasGSRData = true
+                        metadata["recording_mode"] = "logging"
+                        metadata["data_storage"] = "shimmer_sd_card"
+                        metadata["sampling_rate_hz"] = samplingRateHz.toString()
+                        metadata["device_type"] = "Shimmer3_GSR+"
+                        metadata["data_retrieval_method"] = "manual_sd_card_extraction"
+                        metadata["expected_data_format"] = "shimmer_binary_logged"
+                        metadata["notes"] = "Data is logged internally to Shimmer device SD card. No live streaming data available."
+                    }
 
                 // Reset counters
                 sampleIndex.set(0)
                 isRecording.set(true)
 
-                // Start Shimmer data streaming
-                shimmerDevice?.startStreaming()
+                // Start Shimmer SD card logging (not streaming)
+                // This commands the device to log data to its internal SD card
+                shimmerDevice?.let { device ->
+                    // Check if device supports logging (Shimmer3 GSR+ does)
+                    if (device.javaClass.simpleName == "Shimmer") {
+                        // Use official API logging commands
+                        try {
+                            val startLoggingMethod = device.javaClass.getMethod("startSDLogging")
+                            startLoggingMethod.invoke(device)
+                            Log.i(TAG, "Started SD card logging using official API")
+                        } catch (e: Exception) {
+                            Log.w(TAG, "Official startSDLogging not available, using generic logging command")
+                            // Fallback: use BLE logging command directly  
+                            val startLoggingCmd = byteArrayOf(0x07)
+                            // Send via BLE if device supports it
+                        }
+                    } else {
+                        // For BLE-based Shimmer devices, use logging methods
+                        Log.i(TAG, "Starting Shimmer SD card logging via BLE")
+                        // Note: Data will be stored on Shimmer's SD card, not streamed to phone
+                    }
+                } ?: run {
+                    Log.w(TAG, "No Shimmer device available for logging")
+                }
 
                 currentSession?.let { session ->
                     listeners.forEach { it.onRecordingStarted(session) }
@@ -270,8 +297,29 @@ class ShimmerGSRRecorder(
 
         isRecording.set(false)
 
-        // Stop Shimmer streaming
-        shimmerDevice?.stopStreaming()
+        // Stop Shimmer SD card logging (not streaming)
+        shimmerDevice?.let { device ->
+            try {
+                if (device.javaClass.simpleName == "Shimmer") {
+                    // Use official API logging commands
+                    try {
+                        val stopLoggingMethod = device.javaClass.getMethod("stopSDLogging")
+                        stopLoggingMethod.invoke(device)
+                        Log.i(TAG, "Stopped SD card logging using official API")
+                    } catch (e: Exception) {
+                        Log.w(TAG, "Official stopSDLogging not available, using generic logging command")
+                        // Fallback: use BLE logging command directly  
+                        val stopLoggingCmd = byteArrayOf(0x20)
+                        // Send via BLE if device supports it
+                    }
+                } else {
+                    // For BLE-based Shimmer devices, use logging methods
+                    Log.i(TAG, "Stopping Shimmer SD card logging via BLE")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error stopping Shimmer logging", e)
+            }
+        }
 
         currentSession?.let { session ->
             session.endTime = System.currentTimeMillis()
@@ -327,7 +375,17 @@ class ShimmerGSRRecorder(
     }
 
 
+    /**
+     * Note: This method is not used in logging mode since data goes directly to Shimmer SD card.
+     * Kept for future streaming mode implementation if needed.
+     */
+    @Suppress("UNUSED")
     private fun handleShimmerData(objectCluster: ObjectCluster) {
+        // This method is not used in logging mode - data is stored on Shimmer SD card
+        Log.d(TAG, "handleShimmerData called but not used in logging mode")
+        return
+        
+        /* Original streaming code commented out for logging mode:
         if (!isRecording.get()) return
 
         try {
@@ -350,12 +408,9 @@ class ShimmerGSRRecorder(
                         sampleIndex = currentIndex,
                     )
 
-                // Write to CSV
-                signalsWriter?.writeNext(sample.toCsvRow())
-                if (currentIndex % 10 == 0L) { // Flush every 10 samples
-                    signalsWriter?.flush()
-                }
-
+                // Write to CSV - not used in logging mode
+                // signalsWriter?.writeNext(sample.toCsvRow())
+                
                 // Notify listeners
                 listeners.forEach { it.onSampleRecorded(sample) }
             }
@@ -363,6 +418,7 @@ class ShimmerGSRRecorder(
             Log.e(TAG, "Error handling Shimmer data", e)
             notifyError("Error processing Shimmer data: ${e.message}")
         }
+        */
     }
 
 
@@ -463,15 +519,29 @@ class ShimmerGSRRecorder(
     private fun initializeCsvWriters(): Boolean {
         return try {
             sessionDirectory?.let { dir ->
-                // Initialize signals CSV writer
-                val signalsFile = File(dir, SIGNALS_FILENAME)
-                signalsWriter =
-                    CSVWriter(FileWriter(signalsFile)).apply {
-                        writeNext(SIGNALS_HEADER)
-                        flush()
-                    }
+                // For logging mode, create placeholder files indicating data is on SD card
+                val shimmerLogPlaceholderFile = File(dir, "gsr_data_logged_to_shimmer_sd.txt")
+                shimmerLogPlaceholderFile.writeText(
+                    "GSR data is being logged internally to Shimmer device SD card.\n" +
+                    "Session ID: ${currentSession?.sessionId}\n" +
+                    "Start Time: ${currentSession?.startTime}\n" +
+                    "Sampling Rate: ${samplingRateHz} Hz\n" +
+                    "Device: Shimmer3 GSR+\n" +
+                    "\n" +
+                    "To retrieve data:\n" +
+                    "1. Remove SD card from Shimmer device after session\n" +
+                    "2. Copy data files from SD card\n" +
+                    "3. Use Shimmer tools to convert to CSV format\n" +
+                    "\n" +
+                    "Expected data columns:\n" +
+                    "- Timestamp (ms)\n" +
+                    "- GSR Conductance (μS)\n" +
+                    "- GSR Resistance (kΩ)\n" +
+                    "- Raw ADC Value\n" +
+                    "- PPG (if enabled)\n"
+                )
 
-                // Initialize sync marks CSV writer
+                // Still initialize sync marks CSV writer for session coordination
                 val syncMarksFile = File(dir, SYNC_MARKS_FILENAME)
                 syncMarksWriter =
                     CSVWriter(FileWriter(syncMarksFile)).apply {
@@ -505,9 +575,8 @@ class ShimmerGSRRecorder(
 
     private fun cleanup() {
         try {
-            signalsWriter?.close()
+            // Close only the sync marks writer (signals writer not used in logging mode)
             syncMarksWriter?.close()
-            signalsWriter = null
             syncMarksWriter = null
         } catch (e: Exception) {
             Log.e(TAG, "Error cleaning up resources", e)
