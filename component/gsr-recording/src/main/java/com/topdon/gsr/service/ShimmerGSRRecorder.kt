@@ -253,7 +253,7 @@ class ShimmerGSRRecorder(
                 // This commands the device to log data to its internal SD card
                 shimmerDevice?.let { device ->
                     // Check if device supports logging (Shimmer3 GSR+ does)
-                    if (device.javaClass.simpleName == "Shimmer") {
+                    if (device is Shimmer) {
                         // Use official API logging commands
                         try {
                             val startLoggingMethod = device.javaClass.getMethod("startSDLogging")
