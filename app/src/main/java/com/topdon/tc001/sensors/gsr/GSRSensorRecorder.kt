@@ -1,8 +1,10 @@
 package com.topdon.tc001.sensors.gsr
 
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.topdon.gsr.service.GSRRecorder as LegacyGSRRecorder
 import com.topdon.gsr.service.ShimmerGSRRecorder
@@ -17,6 +19,7 @@ import java.util.concurrent.atomic.AtomicLong
 import com.topdon.ble.UnifiedBleManager
 import com.topdon.ble.ShimmerDevice
 import com.topdon.ble.ShimmerBleController
+import com.topdon.ble.util.BluetoothPermissionUtils
 
 
 class GSRSensorRecorder(
@@ -65,6 +68,36 @@ class GSRSensorRecorder(
         private fun hasBleScanningPermissions(context: Context): Boolean {
             return getMissingPermissions(context).isEmpty()
         }
+
+        /**
+         * Validate that Bluetooth is enabled and ready for GSR operations
+         */
+        fun validateBluetoothState(context: Context): BluetoothValidationResult {
+            val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?
+                ?: return BluetoothValidationResult(false, "Bluetooth manager not available")
+            
+            val bluetoothAdapter = bluetoothManager.adapter
+                ?: return BluetoothValidationResult(false, "Bluetooth adapter not available")
+            
+            if (!bluetoothAdapter.isEnabled) {
+                return BluetoothValidationResult(false, "Bluetooth is not enabled")
+            }
+            
+            if (!hasRequiredPermissions(context)) {
+                val missing = getMissingPermissions(context)
+                return BluetoothValidationResult(false, "Missing permissions: ${missing.joinToString(", ")}")
+            }
+            
+            return BluetoothValidationResult(true, "Bluetooth ready for GSR operations")
+        }
+
+        /**
+         * Result of Bluetooth validation check
+         */
+        data class BluetoothValidationResult(
+            val isValid: Boolean,
+            val message: String
+        )
     }
 
     override val sensorType: String = "GSR Shimmer3"
@@ -800,6 +833,98 @@ class GSRSensorRecorder(
         )
     }
 
+    /**
+     * Attempt to reconnect to Shimmer device if connection drops during recording
+     */
+    private suspend fun attemptShimmerReconnection(): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                Log.i(TAG, "Attempting Shimmer device reconnection...")
+
+                val validation = validateBluetoothState(context)
+                if (!validation.isValid) {
+                    Log.w(TAG, "Cannot reconnect - Bluetooth validation failed: ${validation.message}")
+                    return@withContext false
+                }
+
+                val shimmerRecorder = realShimmerGSRRecorder
+                if (shimmerRecorder != null) {
+                    // Attempt reconnection up to 3 times with exponential backoff
+                    repeat(3) { attempt ->
+                        Log.i(TAG, "Reconnection attempt ${attempt + 1}/3")
+                        
+                        try {
+                            val success = shimmerRecorder.initializeDevice()
+                            if (success) {
+                                Log.i(TAG, "Shimmer reconnection successful on attempt ${attempt + 1}")
+                                isShimmerConnected = true
+                                
+                                // Resume recording if we were recording before disconnect
+                                if (_isRecording.get() && currentSessionId != null) {
+                                    Log.i(TAG, "Resuming GSR recording after reconnection")
+                                    // The logging would have been interrupted, but device will continue logging to SD card
+                                    // We just need to update our connection status
+                                }
+                                
+                                return@withContext true
+                            } else {
+                                Log.w(TAG, "Reconnection attempt ${attempt + 1} failed")
+                                delay(1000 * (attempt + 1)) // Exponential backoff: 1s, 2s, 3s
+                            }
+                        } catch (e: Exception) {
+                            Log.e(TAG, "Exception during reconnection attempt ${attempt + 1}", e)
+                            delay(1000 * (attempt + 1))
+                        }
+                    }
+                }
+                
+                Log.e(TAG, "All Shimmer reconnection attempts failed")
+                false
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Error during Shimmer reconnection process", e)
+                false
+            }
+        }
+    }
+
+    /**
+     * Handle Shimmer device disconnection with optional automatic reconnection
+     */
+    private suspend fun handleShimmerDisconnection(attemptReconnection: Boolean = true) {
+        withContext(Dispatchers.Main) {
+            try {
+                Log.w(TAG, "Handling Shimmer device disconnection")
+                isShimmerConnected = false
+                
+                emitError(
+                    ErrorType.CONNECTION_LOST,
+                    "Shimmer device disconnected during session",
+                    isRecoverable = true
+                )
+                
+                if (attemptReconnection && _isRecording.get()) {
+                    Log.i(TAG, "Attempting automatic reconnection...")
+                    
+                    val reconnected = attemptShimmerReconnection()
+                    if (reconnected) {
+                        Log.i(TAG, "Shimmer device reconnected successfully")
+                    } else {
+                        Log.e(TAG, "Shimmer device reconnection failed - session may have incomplete data")
+                        emitError(
+                            ErrorType.CONNECTION_LOST,
+                            "Failed to reconnect Shimmer device. Data logging to SD card may have stopped.",
+                            isRecoverable = false
+                        )
+                    }
+                }
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Error handling Shimmer disconnection", e)
+            }
+        }
+    }
+
     private fun calculateStorageUsed(): Double {
         // Estimate storage based on sample count and data structure
         val bytesPerSample = 32 // Approximate size of GSR sample data
@@ -877,17 +1002,47 @@ class GSRSensorRecorder(
                     return@withContext emptyList()
                 }
 
+                val discoveredDevices = mutableListOf<String>()
+
+                // First, get already connected/paired Shimmer devices
                 val unifiedBle = unifiedBleManager
                 if (unifiedBle != null && unifiedBle.isEnabled()) {
-                    // Get connected Shimmer devices
                     val connectedDevices = unifiedBle.getConnectedShimmerDevices()
-                    connectedDevices.map { device ->
-                        "${device.deviceName} (${device.deviceAddress})"
+                    connectedDevices.forEach { device ->
+                        discoveredDevices.add("${device.deviceName} (${device.deviceAddress}) [Connected]")
                     }
-                } else {
-                    Log.w(TAG, "Unified BLE manager not available for device discovery")
-                    emptyList()
                 }
+
+                // Also scan for paired but not connected Shimmer devices
+                val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+                val bluetoothAdapter = bluetoothManager.adapter
+
+                if (bluetoothAdapter?.isEnabled == true) {
+                    try {
+                        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+                            val pairedDevices = bluetoothAdapter.bondedDevices
+                            pairedDevices?.forEach { device ->
+                                val deviceName = device.name
+                                if (deviceName?.contains("Shimmer", ignoreCase = true) == true) {
+                                    val deviceEntry = "$deviceName (${device.address}) [Paired]"
+                                    if (!discoveredDevices.any { it.contains(device.address) }) {
+                                        discoveredDevices.add(deviceEntry)
+                                    }
+                                }
+                            }
+                        }
+                    } catch (e: SecurityException) {
+                        Log.w(TAG, "Security exception accessing bonded devices", e)
+                    }
+
+                    // TODO: For future enhancement, implement BLE scanning for unpaired devices
+                    // This would require proper BLE scanning with ScanCallback and filtering for Shimmer devices
+                    // Currently focusing on paired devices for MVP implementation
+                }
+
+                Log.i(TAG, "Found ${discoveredDevices.size} Shimmer devices: $discoveredDevices")
+                discoveredDevices
+
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to get available Shimmer devices", e)
                 emptyList()
