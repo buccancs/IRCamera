@@ -315,8 +315,6 @@ public class ShimmerDevice implements UnifiedDevice {
         }
     }
     
-    // The startLogging() and stopLogging() methods above already implement the interface
-    // No need for additional overrides as they provide the concrete implementation
     
     @Override
     public boolean sendCommand(@NonNull byte[] command) {
