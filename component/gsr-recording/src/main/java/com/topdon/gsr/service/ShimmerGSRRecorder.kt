@@ -64,7 +64,6 @@ class ShimmerGSRRecorder(
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var currentSession: SessionInfo? = null
     private var sessionDirectory: File? = null
-    // Note: signalsWriter not used in logging mode - data goes to Shimmer SD card
     private var syncMarksWriter: CSVWriter? = null
 
     private val mainHandler = Handler(Looper.getMainLooper())
