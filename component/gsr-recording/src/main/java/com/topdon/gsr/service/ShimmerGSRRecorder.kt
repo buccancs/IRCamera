@@ -255,9 +255,12 @@ class ShimmerGSRRecorder(
                     if (device is Shimmer) {
                         // Use official API logging commands
                         try {
-                            val startLoggingMethod = device.javaClass.getMethod("startSDLogging")
-                            startLoggingMethod.invoke(device)
-                            Log.i(TAG, "Started SD card logging using official API")
+                            if (device is Shimmer) {
+                                device.startSDLogging()
+                                Log.i(TAG, "Started SD card logging using official API")
+                            } else {
+                                Log.w(TAG, "Device is not a Shimmer instance, cannot start SD logging")
+                            }
                         } catch (e: Exception) {
                             Log.w(TAG, "Official startSDLogging not available, using generic logging command")
                             // Fallback: use BLE logging command directly  
