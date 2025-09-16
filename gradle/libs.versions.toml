@@ -89,8 +89,8 @@ nifty = "2.4.0"
 # Image Loading
 glide = "5.0.5"
 mnImageBrowser = "V3.1.2X"
-gsyVideoPlayer = "v11.1.0"
-gsyVideoPlayerThermal = "v11.1.0"
+gsyVideoPlayer = "8.11.0"
+gsyVideoPlayerThermal = "8.11.0"
 
 # Shimmer GSR Sensor SDK
 shimmerAndroidApi = "1.0.0"

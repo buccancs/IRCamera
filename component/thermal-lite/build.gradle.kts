@@ -72,7 +72,7 @@ dependencies {
     implementation(project(":libmenu"))
     implementation(project(":component:CommonComponent"))
     implementation(project(":component:pseudo"))
-    implementation(project(":component:thermal-ir"))
+    // implementation(project(":component:thermal-ir"))  // Temporarily disabled due to GSYVideoPlayer dependency issues
     implementation(project(":BleModule"))
     compileOnly(files("../../libir/libs/libAC020sdk_USB_IR_1.1.1_2408291439.aar")) // AC020 SDK for thermal-lite functionality
     compileOnly(files("../../libir/libs/libirutils_1.2.0_2409241055.aar")) // IR utilities for thermal-lite

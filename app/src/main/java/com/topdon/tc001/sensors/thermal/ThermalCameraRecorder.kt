@@ -71,8 +71,6 @@ class ThermalCameraRecorder(
     private var usbManager: UsbManager? = null
     private var thermalCameraDevice: UsbDevice? = null
     private var hasUsbPermission: Boolean = false
-    private var isSimulationMode: Boolean = false
-
 
     private val recordingScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var csvWriter: CSVWriter? = null
@@ -104,35 +102,12 @@ class ThermalCameraRecorder(
             val deviceFound = scanForThermalCameraDevices()
 
             if (!deviceFound) {
-                Log.w(TAG, "No thermal cameras found, enabling simulation mode")
-                isSimulationMode = true
+                Log.w(TAG, "No thermal cameras found")
                 emitError(
                     ErrorType.DEVICE_ERROR,
-                    "No thermal camera detected - using simulation mode"
+                    "No thermal camera detected. Please connect the Topdon TC001 thermal camera."
                 )
-
-                recordingScope.launch {
-                    Log.i(TAG, "Testing simulation mode with sample thermal frame generation")
-                    try {
-                        val testFrame = generateTestThermalFrame()
-                        if (testFrame != null) {
-                            Log.i(
-                                TAG,
-                                "Simulation mode test successful - thermal frame generated with ${testFrame.temperatureMatrix.size}x${testFrame.temperatureMatrix[0].size} matrix"
-                            )
-                            Log.d(
-                                TAG,
-                                "Test frame temperature range: ${testFrame.minTemperature}°C to ${testFrame.maxTemperature}°C"
-                            )
-                        } else {
-                            Log.w(TAG, "Simulation mode test failed - null frame generated")
-                        }
-                    } catch (e: Exception) {
-                        Log.e(TAG, "Simulation mode test failed", e)
-                    }
-                }
-
-                return@withContext true // Always return true to allow simulation mode
+                return@withContext false
             }
 
             val device = thermalCameraDevice
@@ -161,13 +136,12 @@ class ThermalCameraRecorder(
                 val connectionSuccess = initializeRealThermalCamera(device)
 
                 if (!connectionSuccess) {
-                    Log.w(TAG, "Failed to initialize real thermal camera, enabling simulation mode")
-                    isSimulationMode = true
+                    Log.e(TAG, "Failed to initialize thermal camera")
                     emitError(
                         ErrorType.DEVICE_ERROR,
-                        "Thermal camera initialization failed - using simulation mode"
+                        "Thermal camera initialization failed. Please check the connection and try again."
                     )
-                    return@withContext true // Allow simulation mode
+                    return@withContext false
                 }
 
                 Log.i(TAG, "Real thermal camera initialized successfully")
@@ -178,30 +152,11 @@ class ThermalCameraRecorder(
 
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize thermal camera", e)
-            isSimulationMode = true
-
-            recordingScope.launch {
-                Log.i(TAG, "Testing simulation mode due to initialization failure")
-                try {
-                    val testFrame = generateTestThermalFrame()
-                    if (testFrame != null) {
-                        Log.i(
-                            TAG,
-                            "Simulation mode ready - can generate thermal frames (${testFrame.temperatureMatrix.size}x${testFrame.temperatureMatrix[0].size})"
-                        )
-                    } else {
-                        Log.e(TAG, "Simulation mode test failed - cannot generate thermal frames")
-                    }
-                } catch (simError: Exception) {
-                    Log.e(TAG, "Simulation mode also failed", simError)
-                }
-            }
-
             emitError(
                 ErrorType.INITIALIZATION_FAILED,
-                "Thermal camera initialization failed: ${e.message} - using simulation mode"
+                "Thermal camera initialization failed: ${e.message}"
             )
-            return@withContext true // Allow simulation mode for development
+            return@withContext false
         }
     }
 
@@ -494,47 +449,44 @@ class ThermalCameraRecorder(
 
                 setupOutputFiles()
 
-                if (isSimulationMode) {
-                    Log.i(TAG, "Starting thermal recording in simulation mode")
-                    startSimulatedThermalRecording()
-                } else {
+                val thermalCamera = iruvctc
+                if (thermalCamera != null && isIRCameraConnected && hasUsbPermission) {
+                    Log.i(TAG, "Starting real thermal capture")
 
-                    val thermalCamera = iruvctc
-                    if (thermalCamera != null && isIRCameraConnected && hasUsbPermission) {
-                        Log.i(TAG, "Starting real thermal capture")
-
-                        val startSuccess = try {
-                            startRealIRCameraRecording(thermalCamera)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Failed to start thermal camera recording", e)
-                            false
-                        }
-
-                        if (!startSuccess) {
-                            Log.w(
-                                TAG,
-                                "Failed to start real thermal streaming, switching to simulation mode"
-                            )
-                            isSimulationMode = true
-                            startSimulatedThermalRecording()
-                        } else {
-                            Log.i(TAG, "Real thermal streaming started successfully")
-                        }
-
-                    } else {
-                        Log.w(
-                            TAG,
-                            "Thermal camera not ready (connected: $isIRCameraConnected, permission: $hasUsbPermission), using simulation mode"
-                        )
-                        isSimulationMode = true
-                        startSimulatedThermalRecording()
+                    val startSuccess = try {
+                        startRealIRCameraRecording(thermalCamera)
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to start thermal camera recording", e)
+                        false
                     }
+
+                    if (!startSuccess) {
+                        Log.e(TAG, "Failed to start thermal streaming")
+                        emitError(
+                            ErrorType.RECORDING_FAILED,
+                            "Failed to start thermal camera recording. Please check the hardware connection."
+                        )
+                        return@withContext false
+                    } else {
+                        Log.i(TAG, "Real thermal streaming started successfully")
+                    }
+
+                } else {
+                    Log.e(
+                        TAG,
+                        "Thermal camera not ready (connected: $isIRCameraConnected, permission: $hasUsbPermission)"
+                    )
+                    emitError(
+                        ErrorType.DEVICE_ERROR,
+                        "Thermal camera not ready. Please ensure the camera is connected and permissions are granted."
+                    )
+                    return@withContext false
                 }
 
                 _isRecording.set(true)
                 frameCount.set(0)
 
-                Log.i(TAG, "Thermal camera recording started (simulation: $isSimulationMode)")
+                Log.i(TAG, "Thermal camera recording started")
                 emitStatus()
                 return@withContext true
 
@@ -545,197 +497,6 @@ class ThermalCameraRecorder(
                     "Failed to start thermal recording: ${e.message}"
                 )
                 return@withContext false
-            }
-        }
-
-    private suspend fun startSimulatedThermalRecording() = withContext(Dispatchers.IO) {
-        Log.i(TAG, "Starting simulated thermal data generation")
-
-        if (!isSimulationMode) {
-            Log.w(TAG, "startSimulatedThermalRecording called but simulation mode is disabled")
-            return@withContext
-        }
-
-        val testFrame = generateTestThermalFrame()
-        if (testFrame == null) {
-            Log.e(TAG, "Simulation mode setup failed - cannot generate test frames")
-            recordingScope.launch {
-                emitError(
-                    ErrorType.DEVICE_ERROR,
-                    "Simulation mode setup failed - thermal frame generation not working"
-                )
-            }
-            return@withContext
-        }
-
-        Log.i(TAG, "Simulation mode validated - test frame generated successfully")
-        Log.d(
-            TAG,
-            "Simulation will generate ${thermalResolution.first}x${thermalResolution.second} thermal matrices at ${thermalFrameRate} FPS"
-        )
-
-        recordingScope.launch {
-            Log.i(
-                TAG,
-                "Simulation coroutine started, generating thermal frames at ${thermalFrameRate} FPS"
-            )
-            val frameInterval = (1000.0 / thermalFrameRate).toLong()
-            var consecutiveFailures = 0
-            val maxConsecutiveFailures = 5
-
-            while (_isRecording.get() && isSimulationMode) {
-                try {
-                    generateSimulatedThermalFrame()
-                    consecutiveFailures = 0 // Reset failure counter on success
-
-                    if (frameCount.get() % 30 == 0L) {
-                        Log.d(
-                            TAG,
-                            "Simulation mode: generated ${frameCount.get()} thermal frames (${
-                                String.format(
-                                    "%.1f",
-                                    frameCount.get() / (thermalFrameRate * (System.nanoTime() - recordingStartTime) / 1_000_000_000.0)
-                                )
-                            }s)"
-                        )
-                    }
-
-                    delay(frameInterval) // Maintain proper frame rate
-
-                } catch (e: Exception) {
-                    consecutiveFailures++
-                    Log.e(
-                        TAG,
-                        "Error generating simulated thermal frame (failure #$consecutiveFailures)",
-                        e
-                    )
-
-                    if (consecutiveFailures >= maxConsecutiveFailures) {
-                        Log.e(
-                            TAG,
-                            "Too many consecutive simulation failures ($consecutiveFailures), stopping simulation"
-                        )
-                        emitError(
-                            ErrorType.DEVICE_ERROR,
-                            "Simulation mode failed repeatedly - stopping thermal recording"
-                        )
-                        break
-                    }
-
-                    delay(100)
-                }
-            }
-
-            Log.i(
-                TAG,
-                "Simulated thermal data generation stopped (recording: ${_isRecording.get()}, simulation: $isSimulationMode, frames: ${frameCount.get()})"
-            )
-        }
-    }
-
-    private suspend fun generateSimulatedThermalFrame() = withContext(Dispatchers.IO) {
-        val timestamp = System.nanoTime()
-        val frameNumber = frameCount.incrementAndGet()
-
-        val temperatureMatrix =
-            Array(thermalResolution.second) { FloatArray(thermalResolution.first) }
-        var minTemp = Float.MAX_VALUE
-        var maxTemp = Float.MIN_VALUE
-        var sumTemp = 0f
-
-        val centerX = thermalResolution.first / 2
-        val centerY = thermalResolution.second / 2
-        val baseTemp = 25.0f + (frameNumber % 100) * 0.1f // Slowly varying base temperature
-
-        for (y in 0 until thermalResolution.second) {
-            for (x in 0 until thermalResolution.first) {
-
-                val dx = (x - centerX).toFloat()
-                val dy = (y - centerY).toFloat()
-                val distance = kotlin.math.sqrt(dx * dx + dy * dy)
-                val normalizedDistance =
-                    distance / kotlin.math.sqrt((centerX * centerX + centerY * centerY).toFloat())
-
-                val temp = baseTemp + (1.0f - normalizedDistance) * 10.0f + (Math.random()
-                    .toFloat() - 0.5f) * 2.0f
-
-                temperatureMatrix[y][x] = temp
-                minTemp = minOf(minTemp, temp)
-                maxTemp = maxOf(maxTemp, temp)
-                sumTemp += temp
-            }
-        }
-
-        val avgTemp = sumTemp / (thermalResolution.first * thermalResolution.second)
-        val centerTemp = temperatureMatrix[centerY][centerX]
-
-        val thermalData = ThermalFrameData(
-            temperatureMatrix = temperatureMatrix,
-            minTemperature = minTemp,
-            maxTemperature = maxTemp,
-            avgTemperature = avgTemp,
-            centerTemperature = centerTemp,
-            ambientTemperature = 25.0f,
-            emissivity = 0.95f,
-            reflectedTemperature = 25.0f
-        )
-
-        saveRealIRThermalData(timestamp, frameNumber, thermalData)
-
-        if (frameNumber % 30 == 0L) {
-            Log.d(
-                TAG,
-                "Generated simulated thermal frame #$frameNumber (temp range: ${minTemp.format(2)} - ${
-                    maxTemp.format(2)
-                }°C)"
-            )
-        }
-
-        emitStatus()
-    }
-
-
-    private suspend fun generateTestThermalFrame(): ThermalFrameData? =
-        withContext(Dispatchers.IO) {
-            return@withContext try {
-
-                val temperatureMatrix =
-                    Array(thermalResolution.second) { FloatArray(thermalResolution.first) }
-                var minTemp = Float.MAX_VALUE
-                var maxTemp = Float.MIN_VALUE
-                var sumTemp = 0f
-
-                val baseTemp = 25.0f // Room temperature baseline
-
-                for (y in 0 until thermalResolution.second) {
-                    for (x in 0 until thermalResolution.first) {
-
-                        val temp = baseTemp + (x * 0.05f) + (y * 0.02f)
-                        temperatureMatrix[y][x] = temp
-
-                        minTemp = minOf(minTemp, temp)
-                        maxTemp = maxOf(maxTemp, temp)
-                        sumTemp += temp
-                    }
-                }
-
-                val avgTemp = sumTemp / (thermalResolution.first * thermalResolution.second)
-                val centerTemp =
-                    temperatureMatrix[thermalResolution.second / 2][thermalResolution.first / 2]
-
-                ThermalFrameData(
-                    temperatureMatrix = temperatureMatrix,
-                    minTemperature = minTemp,
-                    maxTemperature = maxTemp,
-                    avgTemperature = avgTemp,
-                    centerTemperature = centerTemp,
-                    ambientTemperature = 25.0f,
-                    emissivity = 0.95f,
-                    reflectedTemperature = 25.0f
-                )
-            } catch (e: Exception) {
-                Log.e(TAG, "Failed to generate test thermal frame", e)
-                null
             }
         }
 

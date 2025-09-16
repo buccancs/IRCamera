@@ -19,7 +19,7 @@ rootProject.name = "MPDC4GSR"
 include(":app")
 include(":component:thermal")
 include(":component:gsr-recording")
-include(":component:thermal-ir")
+// include(":component:thermal-ir")  // Temporarily disabled due to GSYVideoPlayer dependency issues
 include(":component:thermal-lite")
 include(":component:pseudo")
 include(":component:user")
