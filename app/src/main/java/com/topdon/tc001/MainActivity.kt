@@ -6,6 +6,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +20,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -98,6 +100,21 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
     private var networkStatusIndicator: ImageView? = null
     private var networkStatusText: TextView? = null
+    
+    // Sensor status indicators
+    private var cameraStatusIndicator: ImageView? = null
+    private var cameraStatusText: TextView? = null
+    private var thermalStatusIndicator: ImageView? = null
+    private var thermalStatusText: TextView? = null
+    private var gsrStatusIndicator: ImageView? = null
+    private var gsrStatusText: TextView? = null
+    
+    // Recording status indicators
+    private var recordingStatusLayout: View? = null
+    private var recordingIndicator: ImageView? = null
+    private var recordingTimer: TextView? = null
+    private var recordingStartTime: Long = 0
+    private var recordingTimerJob: kotlinx.coroutines.Job? = null
 
     private lateinit var structuredLogger: StructuredLogger
     private lateinit var crashSafeSupervisor: CrashSafeSupervisor
@@ -209,6 +226,22 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
 
         networkStatusIndicator = binding.networkStatusIndicator
         networkStatusText = binding.networkStatusText
+        
+        // Initialize sensor status indicators
+        cameraStatusIndicator = binding.cameraStatusIndicator
+        cameraStatusText = binding.cameraStatusText
+        thermalStatusIndicator = binding.thermalStatusIndicator
+        thermalStatusText = binding.thermalStatusText
+        gsrStatusIndicator = binding.gsrStatusIndicator
+        gsrStatusText = binding.gsrStatusText
+        
+        // Initialize recording status indicators
+        recordingStatusLayout = binding.recordingStatusLayout
+        recordingIndicator = binding.recordingIndicator
+        recordingTimer = binding.recordingTimer
+        
+        // Initialize sensor status
+        updateSensorStatus()
 
         lifecycleScope.launch(Dispatchers.IO) {
 
@@ -1807,5 +1840,177 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
                 .setCancelListener("Cancel") { }
                 .create().show()
         }
+    }
+    
+    /**
+     * Update sensor status indicators in the status bar
+     */
+    private fun updateSensorStatus() {
+        lifecycleScope.launch {
+            // Update camera status (always available on phones)
+            updateCameraStatus(true)
+            
+            // Update thermal status
+            checkThermalStatus()
+            
+            // Update GSR status
+            checkGSRStatus()
+        }
+    }
+    
+    private fun updateCameraStatus(isReady: Boolean) {
+        runOnUiThread {
+            cameraStatusIndicator?.setImageResource(
+                if (isReady) android.R.drawable.presence_online 
+                else android.R.drawable.presence_invisible
+            )
+            cameraStatusText?.text = if (isReady) "Camera: Ready" else "Camera: Not Available"
+            cameraStatusText?.setTextColor(
+                if (isReady) 0xFF00FF00.toInt() else 0xFFFFFFFF.toInt()
+            )
+        }
+    }
+    
+    private fun updateThermalStatus(isConnected: Boolean, statusMessage: String = "") {
+        runOnUiThread {
+            thermalStatusIndicator?.setImageResource(
+                if (isConnected) android.R.drawable.presence_online 
+                else android.R.drawable.presence_invisible
+            )
+            val displayMessage = if (statusMessage.isNotEmpty()) statusMessage else {
+                if (isConnected) "Thermal: Connected" else "Thermal: Disconnected"
+            }
+            thermalStatusText?.text = displayMessage
+            thermalStatusText?.setTextColor(
+                if (isConnected) 0xFF00FF00.toInt() else 0xFFFF6666.toInt()
+            )
+        }
+    }
+    
+    private fun updateGSRStatus(isConnected: Boolean, statusMessage: String = "") {
+        runOnUiThread {
+            gsrStatusIndicator?.setImageResource(
+                if (isConnected) android.R.drawable.presence_online 
+                else android.R.drawable.presence_invisible
+            )
+            val displayMessage = if (statusMessage.isNotEmpty()) statusMessage else {
+                if (isConnected) "GSR: Connected" else "GSR: Disconnected"
+            }
+            gsrStatusText?.text = displayMessage
+            gsrStatusText?.setTextColor(
+                if (isConnected) 0xFF00FF00.toInt() else 0xFFFF6666.toInt()
+            )
+        }
+    }
+    
+    private suspend fun checkThermalStatus() = withContext(Dispatchers.IO) {
+        try {
+            val usbManager = getSystemService(Context.USB_SERVICE) as UsbManager
+            val devices = usbManager.deviceList
+            var thermalFound = false
+            
+            for (device in devices.values) {
+                // Check for Topdon TC001 or similar thermal camera
+                if (device.vendorId == 0x1A08 || device.vendorId == 0x32e4) { // Common thermal camera vendor IDs
+                    thermalFound = true
+                    val hasPermission = usbManager.hasPermission(device)
+                    updateThermalStatus(hasPermission, 
+                        if (hasPermission) "Thermal: Ready" else "Thermal: Grant Permission")
+                    return@withContext
+                }
+            }
+            
+            if (!thermalFound) {
+                updateThermalStatus(false, "Thermal: Not Connected")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking thermal status", e)
+            updateThermalStatus(false, "Thermal: Error")
+        }
+    }
+    
+    private suspend fun checkGSRStatus() = withContext(Dispatchers.IO) {
+        try {
+            val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as? android.bluetooth.BluetoothManager
+            val bluetoothAdapter = bluetoothManager?.adapter
+            
+            if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled) {
+                updateGSRStatus(false, "GSR: Bluetooth Off")
+                return@withContext
+            }
+            
+            // Check for paired Shimmer devices
+            if (ContextCompat.checkSelfPermission(this@MainActivity, 
+                    Manifest.permission.BLUETOOTH_CONNECT) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                val pairedDevices = bluetoothAdapter.bondedDevices
+                val shimmerFound = pairedDevices.any { device ->
+                    device.name?.contains("Shimmer", ignoreCase = true) == true
+                }
+                
+                updateGSRStatus(shimmerFound, 
+                    if (shimmerFound) "GSR: Shimmer Paired" else "GSR: No Shimmer Paired")
+            } else {
+                updateGSRStatus(false, "GSR: Need Bluetooth Permission")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking GSR status", e)
+            updateGSRStatus(false, "GSR: Error")
+        }
+    }
+    
+    /**
+     * Show recording status and start timer
+     */
+    fun showRecordingStatus() {
+        runOnUiThread {
+            recordingStatusLayout?.visibility = View.VISIBLE
+            recordingStartTime = System.currentTimeMillis()
+            startRecordingTimer()
+        }
+    }
+    
+    /**
+     * Hide recording status and stop timer
+     */
+    fun hideRecordingStatus() {
+        runOnUiThread {
+            recordingStatusLayout?.visibility = View.GONE
+            stopRecordingTimer()
+        }
+    }
+    
+    private fun startRecordingTimer() {
+        stopRecordingTimer() // Stop any existing timer
+        
+        recordingTimerJob = lifecycleScope.launch {
+            while (true) {
+                val elapsed = System.currentTimeMillis() - recordingStartTime
+                val minutes = (elapsed / 60000).toInt()
+                val seconds = ((elapsed % 60000) / 1000).toInt()
+                
+                runOnUiThread {
+                    recordingTimer?.text = String.format("REC %02d:%02d", minutes, seconds)
+                    
+                    // Blink the recording indicator
+                    val alpha = if ((elapsed / 500) % 2 == 0L) 1.0f else 0.3f
+                    recordingIndicator?.alpha = alpha
+                }
+                
+                kotlinx.coroutines.delay(500) // Update every 500ms
+            }
+        }
+    }
+    
+    private fun stopRecordingTimer() {
+        recordingTimerJob?.cancel()
+        recordingTimerJob = null
+        runOnUiThread {
+            recordingIndicator?.alpha = 1.0f // Reset alpha
+        }
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        stopRecordingTimer()
     }
 }
