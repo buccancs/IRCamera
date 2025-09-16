@@ -74,6 +74,8 @@ import com.topdon.tc001.network.WebSocketClient
 import com.topdon.tc001.sensors.gsr.GSRSensorRecorder
 import com.topdon.tc001.service.RecordingService
 import com.topdon.tc001.controller.RecordingController
+import com.topdon.tc001.controller.RecordingState
+import com.topdon.tc001.sensors.RecordingStatus
 import com.topdon.tc001.supervisor.CrashSafeSupervisor
 import com.topdon.tc001.utils.AppVersionUtil
 import kotlinx.coroutines.Dispatchers
@@ -137,6 +139,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
             Log.i(TAG, "Recording service connected")
 
             setupRemoteControl()
+            observeRecordingState()
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -2012,5 +2015,99 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(), View.OnClickLis
     override fun onDestroy() {
         super.onDestroy()
         stopRecordingTimer()
+    }
+    
+    /**
+     * Observe recording state changes from the RecordingController
+     */
+    private fun observeRecordingState() {
+        if (!isServiceBound) return
+        
+        val recordingController = serviceBinder?.getRecordingController()
+        recordingController?.let { controller ->
+            
+            // Observe recording state changes
+            lifecycleScope.launch {
+                controller.recordingStateFlow.collect { state ->
+                    when (state) {
+                        RecordingState.STOPPED -> {
+                            hideRecordingStatus()
+                        }
+                        RecordingState.STARTING -> {
+                            // Could show a "Starting..." indicator
+                        }
+                        RecordingState.RECORDING -> {
+                            showRecordingStatus()
+                        }
+                        RecordingState.STOPPING -> {
+                            // Could show a "Stopping..." indicator
+                        }
+                    }
+                }
+            }
+            
+            // Observe sensor status changes
+            lifecycleScope.launch {
+                controller.sensorStatusFlow.collect { statusList ->
+                    updateSensorStatusFromController(statusList)
+                }
+            }
+        }
+    }
+    
+    /**
+     * Update sensor status indicators based on controller data
+     */
+    private fun updateSensorStatusFromController(statusList: List<RecordingStatus>) {
+        for (status in statusList) {
+            when (status.sensorType) {
+                "RGB_Camera" -> {
+                    updateCameraStatus(status.isRecording, "Camera: ${if (status.isRecording) "Recording" else "Ready"}")
+                }
+                "IR Thermal Camera" -> {
+                    updateThermalStatus(status.isRecording, "Thermal: ${if (status.isRecording) "Recording" else "Ready"}")
+                }
+                "GSR_Sensor" -> {
+                    updateGSRStatus(status.isRecording, "GSR: ${if (status.isRecording) "Recording" else "Connected"}")
+                }
+            }
+        }
+    }
+    
+    /**
+     * Public method to start recording (can be called from other components)
+     */
+    fun startRecording(sessionDirectory: String? = null) {
+        if (!isServiceBound) {
+            Toast.makeText(this, "Recording service not available", Toast.LENGTH_SHORT).show()
+            return
+        }
+        
+        val sessionDir = sessionDirectory ?: createSessionDirectory()
+        RecordingService.startRecording(this, sessionDir)
+    }
+    
+    /**
+     * Public method to stop recording (can be called from other components)
+     */
+    fun stopRecording() {
+        if (!isServiceBound) {
+            Toast.makeText(this, "Recording service not available", Toast.LENGTH_SHORT).show()
+            return
+        }
+        
+        RecordingService.stopRecording(this)
+    }
+    
+    /**
+     * Create a session directory with timestamp
+     */
+    private fun createSessionDirectory(): String {
+        val timestamp = java.text.SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.getDefault())
+            .format(java.util.Date())
+        val sessionDir = File(filesDir, "sessions/session_$timestamp")
+        sessionDir.mkdirs()
+        return sessionDir.absolutePath
+    }
     }
 }
