@@ -1,4 +1,4 @@
-package com.topdon.tc001.gsr
+package com.topdon.tc001.sensors.thermal
 
 import android.content.Context
 import android.util.Log
