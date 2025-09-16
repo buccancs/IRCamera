@@ -356,13 +356,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 _statusMessage.value =
                     StatusMessage("Searching for GSR sensor...", StatusMessage.Level.INFO)
 
-                // TODO: Implement actual GSR connection logic
+                // Implement GSR connection logic with proper error handling
                 withContext(Dispatchers.IO) {
-                    gsrSensorRecorder?.let { recorder ->
-                        val success = recorder.initialize()
-                        if (success) {
-                            _gsrConnectionState.postValue(GSRConnectionState.CONNECTED)
-                            _statusMessage.postValue(
+                    try {
+                        gsrSensorRecorder?.let { recorder ->
+                            _gsrConnectionState.postValue(GSRConnectionState.CONNECTING)
+                            val success = recorder.initialize()
+                            if (success) {
+                                _gsrConnectionState.postValue(GSRConnectionState.CONNECTED)
+                                _statusMessage.postValue(
                                 StatusMessage("GSR sensor connected", StatusMessage.Level.INFO)
                             )
                         } else {

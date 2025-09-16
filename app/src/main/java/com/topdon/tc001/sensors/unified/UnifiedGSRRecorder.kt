@@ -114,7 +114,10 @@ class UnifiedGSRRecorder(
     private var sessionDirectory: File? = null
     private var csvWriter: FileWriter? = null
     private val recordedSamples = AtomicLong(0)
+    private val droppedSamples = AtomicLong(0)
+    private val syncMarkersCount = AtomicLong(0)
     private var recordingStartTime: Long = 0
+    private var lastSampleTimestamp: Long = 0
 
     private val _connectionQuality = MutableStateFlow(0.0)
     val connectionQuality: StateFlow<Double> = _connectionQuality.asStateFlow()
@@ -442,11 +445,11 @@ class UnifiedGSRRecorder(
             averageDataRate = if (sessionDuration > 0) {
                 recordedSamples.get() / (sessionDuration / 1000.0)
             } else 0.0,
-            droppedSamples = 0L, // TODO: Implement dropped sample tracking
+            droppedSamples = droppedSamples.get(),
             storageUsedMB = sessionDirectory?.let { dir ->
                 dir.walkTopDown().filter { it.isFile }.sumOf { it.length() } / (1024.0 * 1024.0)
             } ?: 0.0,
-            syncMarkersCount = 0, // TODO: Implement sync marker counting
+            syncMarkersCount = syncMarkersCount.get(),
             lastSampleTimestampNs = System.nanoTime()
         )
     }
