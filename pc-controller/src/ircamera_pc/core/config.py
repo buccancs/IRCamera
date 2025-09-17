@@ -35,18 +35,27 @@ class ConfigManager:
         self._load_config()
 
     def _load_config(self) -> None:
-        """Load configuration from YAML file."""
+        """Load configuration from YAML file with cross-platform path handling."""
         try:
             if not self.config_path.exists():
                 logger.warning(f"Config file not found: {self.config_path}")
                 self._config = self._get_default_config()
                 return
-
+            
             with open(self.config_path, "r", encoding="utf-8") as file:
-                self._config = yaml.safe_load(file) or {}
-
+                raw_config = yaml.safe_load(file) or {}
+            
+            # Apply cross-platform path fixes
+            try:
+                from ..utils.cross_platform import fix_config_paths
+                self._config = fix_config_paths(raw_config)
+                logger.debug("Applied cross-platform path fixes to configuration")
+            except ImportError:
+                logger.debug("Cross-platform utilities not available, using raw config")
+                self._config = raw_config
+            
             logger.info(f"Configuration loaded from {self.config_path}")
-
+            
         except (OSError, ValueError, RuntimeError) as e:
             logger.error(f"Failed to load configuration: {e}")
             self._config = self._get_default_config()

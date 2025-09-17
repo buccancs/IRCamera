@@ -302,8 +302,19 @@ class SessionManager:
         return self._get_session_directory(session_id)
 
     def _get_session_directory(self, session_id: str) -> Path:
-        """Get session directory path by ID."""
-        return self._data_root / session_id
+        """Get session directory path with cross-platform handling."""
+        try:
+            # Import cross-platform utilities
+            from ..utils.cross_platform import normalize_path, safe_join_paths
+            
+            # Create platform-appropriate session path
+            session_dir_str = safe_join_paths(str(self._data_root), session_id)
+            normalized_path = normalize_path(session_dir_str)
+            
+            return Path(normalized_path)
+        except ImportError:
+            # Fallback to original implementation
+            return self._data_root / session_id
 
     def _save_metadata(self) -> None:
         """Save current session metadata to file."""
