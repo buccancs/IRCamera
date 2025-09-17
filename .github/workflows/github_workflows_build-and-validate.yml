@@ -1,0 +1,98 @@
+name: Build and Validate
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  android-build:
+    name: Android Gradle (Best-Effort)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Gradle Clean
+        run: |
+          set -euxo pipefail
+          ./gradlew clean || echo "Clean step failed (continuing to build attempt)."
+
+      - name: Assemble Debug (Allow Failure)
+        continue-on-error: true
+        run: |
+          set -euxo pipefail
+          ./gradlew --stacktrace assembleDebug
+        # We allow failure so we still capture logs/artifacts
+      - name: Capture Gradle Logs
+        if: always()
+        run: |
+          mkdir -p build-logs
+          cp -r **/build/reports build-logs/ 2>/dev/null || true
+          cp -r **/build/outputs build-logs/ 2>/dev/null || true
+
+      - name: Upload Build Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-logs
+          path: build-logs
+          if-no-files-found: warn
+
+  pc-controller-python:
+    name: PC Controller Validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Core Deps
+        run: |
+          set -euxo pipefail
+          if [ -d "pc-controller" ]; then
+            cd pc-controller
+            pip install --upgrade pip
+            # Minimal deps attempt — adjust to your real requirements
+            pip install PyQt6 loguru zeroconf numpy pandas h5py pyqtgraph scipy opencv-python bleak psutil || true
+            echo "Listing installed:"
+            pip freeze | grep -E 'PyQt6|loguru|zeroconf|numpy|pandas' || true
+          else
+            echo "pc-controller directory not found"
+          fi
+
+      - name: Smoke Test (Optional)
+        continue-on-error: true
+        run: |
+          set -euxo pipefail
+          if [ -f "pc-controller/test_mvp_simple.py" ]; then
+            python pc-controller/test_mvp_simple.py || echo "Smoke test failed (allowed)."
+          else
+            echo "No test_mvp_simple.py present."
+          fi
+
+      - name: Archive Python Logs
+        if: always()
+        run: |
+          mkdir -p py-logs
+          cp -r pc-controller/*.log py-logs/ 2>/dev/null || true
+
+      - name: Upload Python Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pc-controller-logs
+          path: py-logs
+          if-no-files-found: ignore
