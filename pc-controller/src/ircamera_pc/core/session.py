@@ -275,6 +275,14 @@ class SessionManager:
     def get_current_session(self) -> Optional[SessionMetadata]:
         """Get current session metadata."""
         return self._current_session
+    
+    def get_session(self, session_id: str) -> Optional[SessionMetadata]:
+        """Get session metadata by ID."""
+        if self._current_session and self._current_session.session_id == session_id:
+            return self._current_session
+        else:
+            # Try to load from file
+            return self.load_session(session_id)
 
     def get_session(self, session_id: str) -> Optional[SessionMetadata]:
         """
@@ -312,8 +320,19 @@ class SessionManager:
         return self._get_session_directory(session_id)
 
     def _get_session_directory(self, session_id: str) -> Path:
-        """Get session directory path by ID."""
-        return self._data_root / session_id
+        """Get session directory path with cross-platform handling."""
+        try:
+            # Import cross-platform utilities
+            from ..utils.cross_platform import normalize_path, safe_join_paths
+            
+            # Create platform-appropriate session path
+            session_dir_str = safe_join_paths(str(self._data_root), session_id)
+            normalized_path = normalize_path(session_dir_str)
+            
+            return Path(normalized_path)
+        except ImportError:
+            # Fallback to original implementation
+            return self._data_root / session_id
 
     def _save_metadata(self) -> None:
         """Save current session metadata to file."""

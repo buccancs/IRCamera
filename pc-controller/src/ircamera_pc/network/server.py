@@ -23,7 +23,7 @@ except ImportError:
 
 from ..core.config import config
 from ..core.gsr_receiver import GSRReceiver
-from ..sync import EnhancedTimeSyncService
+from ..sync import EnhancedTimeSyncServer
 from .discovery import NetworkDiscoveryService
 from .messaging import MessagePriority, ReliableMessageService
 from .protocol import (

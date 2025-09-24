@@ -549,6 +549,10 @@ class EnhancedSessionManager:
     def get_session_by_id(self, session_id: str) -> Optional[SessionMetadata]:
         """Get session by ID."""
         return self.session_history.get(session_id)
+    
+    def get_session(self, session_id: str) -> Optional[SessionMetadata]:
+        """Get session metadata by ID (alias for get_session_by_id for API consistency)."""
+        return self.get_session_by_id(session_id)
 
     def is_session_active(self) -> bool:
         """Check if a session is currently active."""
