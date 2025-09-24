@@ -1,7 +1,3 @@
-"""
-Setup script for IRCamera PC Controller with native backend
-"""
-
 import os
 import platform
 
@@ -9,10 +5,8 @@ import pybind11
 from pybind11.setup_helpers import ParallelCompile, Pybind11Extension, build_ext
 from setuptools import find_packages, setup
 
-# Enable parallel compilation
 ParallelCompile("NPY_NUM_BUILD_JOBS").install()
 
-# Platform-specific configurations
 extra_compile_args = []
 extra_link_args = []
 
@@ -21,7 +15,6 @@ if platform.system() == "Windows":
 elif platform.system() in ["Linux", "Darwin"]:
     extra_compile_args = ["-std=c++17", "-O3", "-ffast-math"]
 
-# OpenCV configuration
 try:
     import cv2
 
@@ -31,7 +24,6 @@ except ImportError:
     opencv_include_dirs = []
     opencv_libs = []
 
-# Define the native backend extension
 ext_modules = [
     Pybind11Extension(
         "native_backend",

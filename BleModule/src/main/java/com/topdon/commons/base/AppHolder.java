@@ -23,9 +23,9 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AppHolder implements Application.ActivityLifecycleCallbacks {
-
+    //正在运行的Activity
     private final List<RunningActivity> runningActivities = new CopyOnWriteArrayList<>();
-
+    //是否完全退出
     private boolean isCompleteExit = false;
     private Application application;
     private Looper mainLooper;
@@ -33,26 +33,43 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
     private AppHolder() {
         mainLooper = Looper.getMainLooper();
-
+        //尝试获取application
         application = tryGetApplication();
         if (application != null) {
             application.registerActivityLifecycleCallbacks(this);
         }
     }
 
+    private static final class Holder {
+        private static final AppHolder INSTANCE = new AppHolder();
+    }
+
+    private static class RunningActivity {
+        String name;
+        WeakReference<Activity> weakActivity;
+
+        RunningActivity(String name, WeakReference<Activity> weakActivity) {
+            this.name = name;
+            this.weakActivity = weakActivity;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof RunningActivity)) return false;
+            RunningActivity runningActivity = (RunningActivity) o;
+            return name.equals(runningActivity.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
+    }
+
     @NonNull
     public static AppHolder getInstance() {
         return Holder.INSTANCE;
-    }
-
-    public static void initialize(@NonNull Application application) {
-        Objects.requireNonNull(application, "application is null");
-
-        if (Holder.INSTANCE.application != null && Holder.INSTANCE.application != application) {
-            Holder.INSTANCE.application.unregisterActivityLifecycleCallbacks(Holder.INSTANCE);
-            application.registerActivityLifecycleCallbacks(Holder.INSTANCE);
-        }
-        Holder.INSTANCE.application = application;
     }
 
     @SuppressLint("PrivateApi")
@@ -124,6 +141,16 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         }
     }
 
+    public static void initialize(@NonNull Application application) {
+        Objects.requireNonNull(application, "application is null");
+        //如果自动获取的和传入的不是同一个Application，重新注册生命周期监听
+        if (Holder.INSTANCE.application != null && Holder.INSTANCE.application != application) {
+            Holder.INSTANCE.application.unregisterActivityLifecycleCallbacks(Holder.INSTANCE);
+            application.registerActivityLifecycleCallbacks(Holder.INSTANCE);
+        }
+        Holder.INSTANCE.application = application;
+    }
+
     public boolean isMainThread() {
         return Looper.myLooper() == mainLooper;
     }
@@ -152,6 +179,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return null;
     }
 
+    /**
+     * 程序是否在前台运行
+     */
     public boolean isAppOnForeground() {
         ActivityManager am = (ActivityManager) application.getSystemService(Context.ACTIVITY_SERVICE);
         if (am != null) {
@@ -168,6 +198,7 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return false;
     }
 
+    //数组是否包含某元素
     private boolean contains(Object[] array, Object obj) {
         if (array != null && array.length > 0) {
             for (Object o : array) {
@@ -179,6 +210,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return false;
     }
 
+    /**
+     * finish掉Activity
+     */
     public void finish(String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
         Collections.reverse(list);//倒序，后开的先finish
@@ -193,6 +227,11 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         }
     }
 
+    /**
+     * finish掉除参数外的所有Activity
+     *
+     * @param classNames 此Activity的类名，如果是null将finish所有Activity
+     */
     public void finishAllWithout(@Nullable String className, String... classNames) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
         Collections.reverse(list);//倒序，后开的先finish
@@ -207,10 +246,18 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         }
     }
 
+    /**
+     * finish掉所有Activity
+     */
     public void finishAll() {
         finishAllWithout(null);
     }
 
+    /**
+     * 退回到指定Activity
+     *
+     * @param className 完整类名
+     */
     public void backTo(String className) {
         List<RunningActivity> list = new ArrayList<>(runningActivities);
         Collections.reverse(list);//倒序，后开的先finish
@@ -251,6 +298,9 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
         return activities;
     }
 
+    /**
+     * finish所有Activity后杀死进程
+     */
     public void completeExit() {
         isCompleteExit = true;
         List<RunningActivity> list = new ArrayList<>(runningActivities);
@@ -265,32 +315,5 @@ public class AppHolder implements Application.ActivityLifecycleCallbacks {
 
     public Activity getTopActivity() {
         return topActivity == null ? null : topActivity.weakActivity.get();
-    }
-
-    private static final class Holder {
-        private static final AppHolder INSTANCE = new AppHolder();
-    }
-
-    private static class RunningActivity {
-        String name;
-        WeakReference<Activity> weakActivity;
-
-        RunningActivity(String name, WeakReference<Activity> weakActivity) {
-            this.name = name;
-            this.weakActivity = weakActivity;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof RunningActivity)) return false;
-            RunningActivity runningActivity = (RunningActivity) o;
-            return name.equals(runningActivity.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name);
-        }
     }
 }
