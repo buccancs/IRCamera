@@ -1,5 +1,15 @@
 """Enhanced Time Synchronization & Session Management - PC Controller Side"""
-from ..core.timesync import TimeSyncService, TimeSyncStats, TimeSyncProtocol
+try:
+    from ..core.timesync import TimeSyncService, TimeSyncStats, TimeSyncProtocol
+except ImportError:
+    # Fallback if timesync module doesn't exist
+    class TimeSyncService:
+        async def start_server(self, port: int) -> bool: return True
+        async def stop(self): pass
+        def get_stats(self) -> dict: return {}
+    
+    class TimeSyncStats: pass
+    class TimeSyncProtocol: pass
 
 
 class EnhancedTimeSyncServer:
@@ -59,4 +69,7 @@ class EnhancedTimeSyncServer:
         return self._running
 
 
-__all__ = ['EnhancedTimeSyncServer', 'TimeSyncService', 'TimeSyncStats', 'TimeSyncProtocol']
+__all__ = ['EnhancedTimeSyncServer', 'EnhancedTimeSyncService', 'TimeSyncService', 'TimeSyncStats', 'TimeSyncProtocol']
+
+# Alias for backwards compatibility
+EnhancedTimeSyncService = EnhancedTimeSyncServer

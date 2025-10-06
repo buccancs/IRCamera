@@ -284,6 +284,10 @@ class SessionManager:
             # Try to load from file
             return self.load_session(session_id)
 
+    def get_session_state(self) -> Optional[SessionMetadata]:
+        """Get current session state (alias for get_current_session for compatibility)."""
+        return self._current_session
+
     def get_session(self, session_id: str) -> Optional[SessionMetadata]:
         """
         Get session by ID. First checks if it's the current session,
